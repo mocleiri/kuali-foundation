@@ -1,5 +1,9 @@
 #!/bin/sh -x
 
+#set -x
+SEND_MAIL=true; typeset -rx SEND_MAIL
+#SEND_MAIL=false; typeset -rx SEND_MAIL
+
 APPLICATION=kfs; typeset -rx APPLICATION
 JAVA_APPLICATION_CODE=kuali; typeset -rx JAVA_APPLICATION_CODE
 DATABASE_APPLICATION_CODE=kul; typeset -rx DATABASE_APPLICATION_CODE

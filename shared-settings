@@ -1,9 +1,5 @@
 #!/bin/sh -x
 
-#set -x
-SEND_MAIL=true; typeset -rx SEND_MAIL
-#SEND_MAIL=false; typeset -rx SEND_MAIL
-
 USER=j2eemgr; typeset -rx USER
 EXEC_TIME=`date +%Y%m%d.%H.%M.%S`; typeset -rx EXEC_TIME
 BASE_DIRECTORY=/home/$USER/kuali; typeset -rx BASE_DIRECTORY

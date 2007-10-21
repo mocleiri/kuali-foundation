@@ -147,7 +147,6 @@ function kupdate {
         klog "deploying web application"
         kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
     fi
-    kmail $APPLICATION_DEV_MAIL_LIST "$environment updated successfully" "deployed version = $tag"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }

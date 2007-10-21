@@ -2,10 +2,10 @@
 <project name="kul-cfg-envs" default="init-database-properties" basedir=".">
 	<target name="init-database-properties">
 		<property file="${java.properties.file}" />
-		<condition property="database" value="oracle">
-			<equals arg1="${ojb.platform}" arg2="Oracle9i" />
+		<condition property="database" value="mysql">
+			<equals arg1="${ojb.platform}" arg2="MySQL" />
 		</condition>
-		<property name="database" value="mysql" />
+		<property name="database" value="oracle" />
 		<copy file="build.properties" tofile="runtime-build.properties" overwrite="true" />
 		<replaceregexp file="runtime-build.properties" match="${database}." replace="" byline="true" />
 		<loadproperties srcfile="runtime-build.properties" />
