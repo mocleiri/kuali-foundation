@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project name="kul-cfg-envs" default="init-database-properties" basedir=".">
+	<target name="init-database-properties">
+		<property file="${java.properties.file}" />
+		<condition property="database" value="oracle">
+			<equals arg1="${ojb.platform}" arg2="Oracle9i" />
+		</condition>
+		<property name="database" value="mysql" />
+		<copy file="build.properties" tofile="runtime-build.properties" overwrite="true" />
+		<replaceregexp file="runtime-build.properties" match="${database}." replace="" byline="true" />
+		<loadproperties srcfile="runtime-build.properties" />
+		<loadproperties srcfile="impex.properties" />
+		<echoproperties />
+	</target>
+
+	<target name="export" depends="init-database-properties">
+		<cvspass cvs.root="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
+		<cvs command="checkout ${database.cvs.module}" dest="${working.directory}" />
+		<cvs command="checkout ${application.database.cvs.module}" dest="${working.directory}" />
+		<delete dir="${working.directory}/${application.database.cvs.module}">
+			<fileset includes="${application.database.xml},${application.database.docs},${application.database.incremental.file}" />
+		</delete>
+		<ant antfile="${database.cvs.module}/impex/build.xml" target="export" />
+		<cvs command="add ${application.database.xml}" />
+		<cvs command="add ${application.database.docs}" />
+		<echo message="" file="${application.database.incremental.file}" />
+		<cvs command="add ${application.database.incremental.file}" />
+		<cvs command="add ${application.database.incremental.file}" />
+		<cvs command="update ${application.database.cvs.module}" />
+		<cvs command="commit ${application.database.cvs.module}" />
+		<delete dir="${working.directory}" includeemptydirs="true">
+			<fileset includes="${database.cvs.module}/**/**,${application.database.cvs.module}/**/**" />
+		</delete>
+	</target>
+
+	<target name="import" depends="init-database-properties">
+		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
+		<cvs command="checkout ${database.cvs.module}" dest="${working.directory}" />
+		<cvs command="checkout ${application.database.cvs.module}" dest="${working.directory}" tag="${tag}"/>
+		<ant antfile="${database.cvs.module}/impex/build.xml" target="empty-schema" />
+		<ant antfile="${database.cvs.module}/impex/build.xml" target="import" />
+		<delete dir="${working.directory}" includeemptydirs="true">
+			<fileset includes="${database.cvs.module}/**/**,${application.database.cvs.module}/**/**" />
+		</delete>
+	</target>
+</project>

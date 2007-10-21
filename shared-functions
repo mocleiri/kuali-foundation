@@ -1,0 +1,154 @@
+#!/bin/sh -x
+
+function klog {
+  {
+    typeset message=$1
+    echo "`date +%Y%m%d.%H.%M.%S`: $message"
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf klog
+
+function kmail {
+  {
+    typeset recipient=$1
+    typeset subject=$2
+    typeset message=$3
+    if [[ "$SEND_MAIL" = "true" ]]
+      then
+        klog "mailing recipent: $recipient"
+        echo "$message" | mail -s "$subject" $recipient
+    else
+      echo "SEND_MAIL is turned off"
+    fi 
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kmail
+
+function kexec {
+  {
+    typeset command=$1
+    klog "executing command: $command"
+    eval $command
+    typeset return_status=$?
+    if [[ "$return_status" != "0" ]]
+      then
+        kend $return_status
+    fi
+    return $return_status
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kexec
+
+function kend {
+  {
+    typeset exit_status=$1
+    klog "ending with exit status: $exit_status"
+    if [[ "$exit_status" != "0" ]]
+      then
+        kmail $APPLICATION_CFG_MAIL_LIST "$SCRIPT_NAME has errors" "`cat $SCRIPT_LOG`"
+    fi
+    exit $exit_status
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kend
+
+function kexport {
+  {
+    typeset environment=$1
+    typeset -u schema=$DATABASE_APPLICATION_CODE$environment
+    typeset java_properties_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_BUILD_FILE
+    typeset ant_arguments=$ANT_ARGS_PREFIX"-Denvironment="$environment" -Dschema="$schema" -Djava.properties.file="$java_properties_file
+    klog "exporting master datasource - environment: $environment"
+    kexec "$ANT_COMMAND $ant_arguments -f $ANT_FILE export"
+    return 0
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kexport
+
+function kimport {
+  {
+    typeset environment=$1
+    typeset tag=$2
+    typeset -u schema=$DATABASE_APPLICATION_CODE$environment
+    typeset java_properties_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_BUILD_FILE
+    klog "importing from tag: $tag into schema: $schema"
+    typeset ant_arguments=$ANT_ARGS_PREFIX"-Denvironment="$environment" -Dschema="$schema" -Djava.properties.file="$java_properties_file" -Dtag="$tag
+    kexec "$ANT_COMMAND $ant_arguments -f $ANT_FILE empty-schema"
+    kexec "$ANT_COMMAND $ant_arguments -f $ANT_FILE import"
+    return 0
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kimport
+
+function kprepdailytag {
+  {
+    old_build_number=`cat $BUILD_NUMBER_FILE`
+    new_build_number=`expr $old_build_number + 1`
+    klog "updating build number sequence with new_build_number: $new_build_number"
+    kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
+    return 0
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kprepdailytag
+
+function kdailytag {
+  {
+    new_build_tag=build-`cat $BUILD_NUMBER_FILE`
+    branch=$1
+    klog "tagging branch: $branch of application java and database modules with new_build_tag: $new_build_tag"
+    kexec "cvs rtag -d $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
+    kexec "cvs rtag -r $branch $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
+    kexec "cvs rtag -d $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
+    kexec "cvs rtag $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
+    return 0
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kdailytag
+
+function kpurge {
+  {
+    directory=$1
+    number_of_days_old=$2
+    klog "purging items from directory: $directory with number_of_days_old: $number_of_days_old"
+    kexec "find $directory -type f -atime +$number_of_days_old -print -exec rm -f {} \;"
+    return 0
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kpurge
+
+function kupdate {
+  {
+    typeset environment=$1
+    typeset use_standard_tag=$2
+    typeset deploy_web_application=$3
+    typeset static_content_node=$4
+    typeset do_database_update=$5
+    typeset tag_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE
+    typeset tag_file_constant=project.cvs.tag=
+    klog "updating environment: $environment with use_standard_tag: $use_standard_tag, deploy_web_application: $deploy_web_application, static_content_node: $static_content_node, and do_database_update: $do_database_update"
+    if [[ "$use_standard_tag" = "true" ]]
+      then
+        klog "overwriting $tag_file"
+        typeset tag=build-`cat $BUILD_NUMBER_FILE`
+        kexec "rm -rf $tag_file"
+        kexec "echo $tag_file_constant$tag > $tag_file"
+    else
+        typeset tag_file_contents=`cat $tag_file`
+        typeset tag=${tag_file_contents#$tag_file_constant}
+    fi
+    klog "tag is $tag"
+    if [[ "$do_database_update" = "true" ]]
+        kimport $environment $tag
+    fi
+    klog "purging attachments"
+    kexec "ssh $USER@$static_content_node\".uits.indiana.edu\" \"sudo $ATTACHMENTS_PURGE_COMMAND $environment\""
+    if [[ "$deploy_web_application" = "true" ]]
+      then
+        klog "deploying web application"
+        kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
+    fi
+    kmail $APPLICATION_DEV_MAIL_LIST "$environment updated successfully" "deployed version = $tag"
+    return 0
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kupdate
