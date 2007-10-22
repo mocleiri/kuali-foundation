@@ -92,7 +92,8 @@ typeset -xf kexport
 
 function ktestcvs {
   {
-    kimpexprops cnv
+  	typeset environment=cnv
+    kimpexprops $environment
     typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
     kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE cvs-test"
     return 0
