@@ -18,6 +18,7 @@
 		<property name="impex.build.file" value="${base.directory}/${database.cvs.module}/impex/build.xml" />
 		<property file="${tag.properties.file}" />
 		<loadfile property="impex-build.properties" srcfile="impex-build.properties"><filterchain><expandproperties /></filterchain></loadfile>
+		<delete file="${user.home}/impex-build.properties" />
 		<echo message="${impex-build.properties}" file="${user.home}/impex-build.properties" />
 	</target>
 		
@@ -28,7 +29,6 @@
 	
 	<target name="delete-database-project" depends="init-database-properties">
 		<delete dir="${working.directory}/${application.database.cvs.module}" />
-		<delete file="${user.home}/impex-build.properties" />
 	</target>
 	
 	<target name="update-database-project" depends="checkout-database-project">
