@@ -90,7 +90,9 @@ function kexport {
     typeset environment=$1
     ksetprops $environment
     typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
+	cd $BASE_DIRECTORY
     kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE export"
+	cd $WORKING_DIRECTORY
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
