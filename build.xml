@@ -35,7 +35,7 @@
 		<delete>
 			<fileset dir="${working.directory}/${torque.working.directory}" includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.incremental.file}" />
 		</delete>
-		<ant antfile="${impex.build.file}" target="export" />
+		<ant antfile="${impex.build.file}" target="export" inheritall="false" />
 		<cvs command="add ${working.directory}/${application.database.xml}" />
 		<cvs command="add ${working.directory}/${application.database.docs}" />
 		<echo message="" file="${working.directory}/${application.database.incremental.file}" />
@@ -45,8 +45,8 @@
 	</target>
 
 	<target name="update-database" depends="checkout-database-project">
-		<ant antfile="${impex.build.file}" target="empty-schema" />
-		<ant antfile="${impex.build.file}" target="import" />
+		<ant antfile="${impex.build.file}" target="empty-schema" inheritall="false" />
+		<ant antfile="${impex.build.file}" target="import" inheritall="false" />
 	</target>
 
 	<target name="export" depends="update-database-project,delete-database-project" />
