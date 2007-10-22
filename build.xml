@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="kul-cfg-envs" default="init-database-properties" basedir=".">
+<project name="kul-cfg-envs" default="init-database-properties">
 	<target name="init-java-properties">
 		<property file="${java.properties.file}" />
 		<condition property="import.into.mysql">
@@ -24,7 +24,7 @@
 		
 	<target name="checkout-database-project" depends="init-database-properties">
 		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
-		<cvs command="checkout ${application.database.cvs.module}" />
+		<cvs command="checkout ${application.database.cvs.module}" dest="${working.directory}" />
 	</target>
 	
 	<target name="delete-database-project" depends="init-database-properties">
