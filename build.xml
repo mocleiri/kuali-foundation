@@ -16,7 +16,7 @@
 	
 	<target name="checkout-database-project" depends="init-database-properties">
 		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
-		<cvs command="checkout ${application.database.cvs.module}" dest="${working.directory}/${application.database.cvs.module}" />
+		<cvs command="checkout ${application.database.cvs.module}" dest="${working.directory}" />
 	</target>
 	
 	<target name="delete-database-project" depends="init-database-properties">
@@ -26,8 +26,8 @@
 	</target>
 	
 	<target name="update-database-project" depends="checkout-database-project">
-		<delete dir="${working.directory}">
-			<fileset includes="${application.database.xml},${application.database.docs},${application.database.incremental.file}" />
+		<delete dir="${working.directory}/${torque.working.directory}">
+			<fileset includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.incremental.file}" />
 		</delete>
 		<ant antfile="${impex.build.file}" target="export" />
 		<cvs command="add ${working.directory}/${application.database.xml}" />
