@@ -69,11 +69,12 @@ function kimpexprops {
     kexec "cat $ANT_PROPERTIES_TEMPLATE >> $ANT_PROPERTIES_FILE" 
   } >> $SCRIPT_LOG 2>&1
 }
+typeset -xf kimpexprops
 
 function kexport {
   {
     typeset environment=$1
-    ksetprops $environment
+    kimpexprops $environment
     klog "exporting from environment: $environment"
 	kexec "cvs checkout $APPLICATION_DATABASE_CVS_MODULE"
     typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
@@ -92,7 +93,7 @@ typeset -xf kexport
 function kimport {
   {
     typeset environment=$1
-    ksetprops $environment
+    kimpexprops $environment
     klog "importing into environment: $environment"
     typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
     kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE import"
