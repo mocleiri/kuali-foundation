@@ -20,6 +20,7 @@
 		<loadfile property="impex-build.properties" srcfile="impex-build.properties"><filterchain><expandproperties /></filterchain></loadfile>
 		<delete file="${user.home}/impex-build.properties" />
 		<echo message="${impex-build.properties}" file="${user.home}/impex-build.properties" />
+		<echo message="${impex-build.properties}" />
 	</target>
 		
 	<target name="export" depends="init-database-properties">
