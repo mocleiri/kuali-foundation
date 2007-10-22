@@ -13,6 +13,7 @@
 
 	<target name="init-database-properties" depends="init-mysql-properties">
 		<property file="${base.directory}/oracle-impex.properties" />
+		<echoproperties />
 		<property file="${database.properties.file}" />
 		<property file="${base.directory}/build.properties" />
 		<property name="impex.build.file" value="${torque.home}/build.xml" />
