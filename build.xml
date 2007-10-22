@@ -34,12 +34,16 @@
 	
 	<target name="update-database-project" depends="checkout-database-project">
 		<delete>
-			<fileset dir="${working.directory}/${torque.working.directory}" includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.incremental.file}" />
+			<fileset dir="${working.directory}/${application.database.cvs.module}" includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.docs}.dtd,${application.database.incremental.file}" />
 		</delete>
 		<ant antfile="${impex.build.file}" target="export" inheritall="false" />
-		<echo message="" file="${working.directory}/${torque.working.directory}/${application.database.incremental.file}" />
-		<cvs command="update ${working.directory}/${torque.working.directory}" />
-		<cvs command="commit -m 'daily export' ${working.directory}/${torque.working.directory}" />
+		<echo message="" file="${working.directory}/${application.database.cvs.module}/${application.database.incremental.file}" />
+		<cvs command="add ${working.directory}/${application.database.cvs.module}/${application.database.xml}" />
+		<cvs command="add ${working.directory}/${application.database.cvs.module}/${application.database.docs}" />
+		<cvs command="update ${working.directory}/${application.database.cvs.module}" />
+		<cvs command="commit -m 'daily export' ${working.directory}/${application.database.cvs.module}" />
+		<cvs command="update ${working.directory}/${application.database.cvs.module}" />
+		<cvs command="commit -m 'daily export' ${working.directory}/${application.database.cvs.module}" />
 	</target>
 
 	<target name="update-database" depends="checkout-database-project">
