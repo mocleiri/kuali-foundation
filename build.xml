@@ -24,7 +24,7 @@
 		
 	<target name="checkout-database-project" depends="init-database-properties">
 		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
-		<cvs command="checkout ${application.database.cvs.module}" dest="${working.directory}" />
+		<cvs command="checkout ${application.database.cvs.module}" />
 	</target>
 	
 	<target name="delete-database-project" depends="init-database-properties">
@@ -38,14 +38,10 @@
 		</delete>
 		<ant antfile="${impex.build.file}" target="export" inheritall="false" />
 		<echo message="" file="${working.directory}/${application.database.cvs.module}/${application.database.incremental.file}" />
-		<cvs command="add ${working.directory}/${application.database.cvs.module}" />
-		<cvs command="add ${working.directory}/${application.database.cvs.module}/doc" />
-		<cvs command="add ${working.directory}/${application.database.cvs.module}/${application.database.xml}" />
-		<cvs command="add ${working.directory}/${application.database.cvs.module}/${application.database.docs}" />
-		<cvs command="update ${working.directory}/${application.database.cvs.module}" />
-		<cvs command="commit -m 'daily export' ${working.directory}/${application.database.cvs.module}" />
-		<cvs command="update ${working.directory}/${application.database.cvs.module}" />
-		<cvs command="commit -m 'daily export' ${working.directory}/${application.database.cvs.module}" />
+		<cvs command="add ${application.database.cvs.module}/${application.database.xml}" />
+		<cvs command="add ${application.database.cvs.module}/${application.database.docs}" />
+		<cvs command="update ${application.database.cvs.module}" />
+		<cvs command="commit -m 'daily export' application.database.cvs.module}" />
 	</target>
 
 	<target name="update-database" depends="checkout-database-project">
