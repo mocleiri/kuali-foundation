@@ -6,16 +6,16 @@
 			<equals arg1="${ojb.platform}" arg2="MySQL" />
 		</condition>
 		<property file="${database.properties.file}" />
-		<property file="${base.directory}/build.properties" />
+		<property file="build.properties" />
 	</target>
 	
 	<target name="init-mysql-properties" depends="init-java-properties" if="import.into.mysql">
-		<property file="${base.directory}/mysql-impex.properties" />
+		<property file="mysql-impex.properties" />
 	</target>
 
 	<target name="init-database-properties" depends="init-mysql-properties">
-		<property file="${base.directory}/oracle-impex.properties" />
-		<property name="impex.build.file" value="${base.directory}/${database.cvs.module}/impex/build.xml" />
+		<property file="oracle-impex.properties" />
+		<property name="impex.build.file" value="${database.cvs.module}/impex/build.xml" />
 		<property file="${tag.properties.file}" />
 		<loadfile property="impex-build.properties" srcfile="impex-build.properties"><filterchain><expandproperties /></filterchain></loadfile>
 		<delete file="${user.home}/impex-build.properties" />
@@ -24,20 +24,20 @@
 		
 	<target name="checkout-database-project" depends="init-database-properties">
 		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
-		<cvs command="checkout ${application.database.cvs.module}" dest="${working.directory}" />
+		<cvs command="checkout ${application.database.cvs.module}" />
 	</target>
 	
 	<target name="delete-database-project" depends="init-database-properties">
-		<delete dir="${working.directory}/${application.database.cvs.module}" />
-		<delete file="${working.directory}/velocity.log" />
+		<delete dir="${application.database.cvs.module}" />
+		<delete file="velocity.log" />
 	</target>
 	
 	<target name="update-database-project" depends="checkout-database-project">
 		<delete>
-			<fileset dir="${working.directory}/${application.database.cvs.module}" includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.docs}.dtd,${application.database.incremental.file}" />
+			<fileset dir="${application.database.cvs.module}" includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.docs}.dtd,${application.database.incremental.file}" />
 		</delete>
 		<ant antfile="${impex.build.file}" target="export" inheritall="false" />
-		<echo message="" file="${working.directory}/${application.database.cvs.module}/${application.database.incremental.file}" />
+		<echo message="" file="${application.database.cvs.module}/${application.database.incremental.file}" />
 		<cvs command="add ${application.database.cvs.module}/${application.database.xml}" />
 		<cvs command="add ${application.database.cvs.module}/${application.database.docs}" />
 		<cvs command="update ${application.database.cvs.module}" />
