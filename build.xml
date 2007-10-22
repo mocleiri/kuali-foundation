@@ -28,6 +28,7 @@
 	
 	<target name="delete-database-project" depends="init-database-properties">
 		<delete dir="${working.directory}/${application.database.cvs.module}" />
+		<delete file="${user.home}/impex-build.properties" />
 	</target>
 	
 	<target name="update-database-project" depends="checkout-database-project">
