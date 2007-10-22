@@ -358,7 +358,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="| Generating Data DTD for YOUR Torque project!  |" />
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
-
+		<echoproperties />
 		<torque-data-model contextProperties="${torque.contextProperties}"
 		                   controlTemplate="${torque.template.dataDtd}"
 		                   outputDirectory="${torque.schema.dir}"
