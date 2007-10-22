@@ -52,7 +52,7 @@ function kend {
 }
 typeset -xf kend
 
-function ksetprops {
+function kimpexprops {
   {
     typeset environment=$1
     typeset user=$DATABASE_APPLICATION_CODE$environment
@@ -70,25 +70,19 @@ function ksetprops {
   } >> $SCRIPT_LOG 2>&1
 }
 
-function ktestprops {
-  {
-    typeset environment=$1
-    ksetprops $environment
-    klog "testing properties"
-    typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
-    kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE checkout-database-project"
-    kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE delete-database-project"
-    return 0
-  } >> $SCRIPT_LOG 2>&1
-}
-typeset -xf kexport
-
 function kexport {
   {
     typeset environment=$1
     ksetprops $environment
+	kexec "checkout $APPLICATION_DATABASE_CVS_MODULE"
     typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
     kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE export"
+    cvs add $APPLICATION_DATABASE_CVS_MODULE/*
+    cvs add $APPLICATION_DATABASE_CVS_MODULE/doc/*
+	cvs remove $APPLICATION_DATABASE_CVS_MODULE
+    kexec "cvs update $APPLICATION_DATABASE_CVS_MODULE"
+    kexec "cvs commit -m \"daily export\" $APPLICATION_DATABASE_CVS_MODULE"
+    kexec "rm -rf $APPLICATION_DATABASE_CVS_MODULE"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
@@ -99,9 +93,11 @@ function kimport {
     typeset environment=$1
     ksetprops $environment
     klog "importing"
+	kexec "checkout $APPLICATION_DATABASE_CVS_MODULE"
     typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
     kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE empty-schema"
     kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE import"
+    kexec "rm -rf $APPLICATION_DATABASE_CVS_MODULE"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
