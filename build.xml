@@ -6,8 +6,8 @@
 		</condition>
 		<property name="database" value="oracle" />
 		<replaceregexp file="${working.directory}/build.properties" match="${database}." replace="" byline="true" />
-		<loadproperties srcfile="runtime-build.properties" />
-		<loadproperties srcfile="impex.properties" />
+		<loadproperties srcfile="${working.directory}/build.properties" />
+		<loadproperties srcfile="${base.directory}/impex.properties" />
 		<property name="impex.build.file" value="${base.directory}/${database.cvs.module}/impex/build.xml" />
 		<echoproperties />
 	</target>

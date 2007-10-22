@@ -13,11 +13,12 @@ SCRIPT_LOG=$LOGS_DIRECTORY/$SCRIPT_NAME+$EXEC_TIME.$$; typeset -rx SCRIPT_LOG
     DEPLOY_BASE_DIRECTORY=/opt/ears; typeset -rx DEPLOY_BASE_DIRECTORY
     DEPLOY_COMMAND=/usr/local/bin/appdeploy; typeset -rx DEPLOY_COMMAND
     DEPLOY_TAG_FILE=cvs-tag.properties; typeset -rx DEPLOY_TAG_FILE
-	DEPLOY_BUILD_FILE=build.properties; typeset -rx DEPLOY_BUILD_FILE
+	DEPLOY_PROPERTIES_FILE=build.properties; typeset -rx DEPLOY_BUILD_FILE
     ATTACHMENTS_PURGE_COMMAND=/usr/local/bin/j2ee_purge_kuali_attachments
     ANT_COMMAND=/usr/local/ant/bin/ant
-    ANT_FILE=$BASE_DIRECTORY/build.xml
-    ANT_ARGS_PREFIX="-Dapplication="$DATABASE_APPLICATION_CODE" -Dworking.directory="$WORKING_DIRECTORY
+    ANT_PROPERTIES_TEMPLATE=$BASE_DIRECTORY/build.properties
+    ANT_PROPERTIES_FILE=$WORKING_DIRECTORY/build.properties
+    ANT_BUILD_FILE=$BASE_DIRECTORY/build.xml
     export JAVA_HOME=/usr/local/java
     BUILD_NUMBER_FILE=$WORKING_DIRECTORY/build_number.txt; typeset -rx BUILD_NUMBER_FILE
 

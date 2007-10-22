@@ -52,14 +52,45 @@ function kend {
 }
 typeset -xf kend
 
-function kexport {
+function ksetprops {
   {
     typeset environment=$1
     typeset -u schema=$DATABASE_APPLICATION_CODE$environment
-    typeset java_properties_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_BUILD_FILE
-    typeset ant_arguments=$ANT_ARGS_PREFIX"-Denvironment="$environment" -Dschema="$schema" -Djava.properties.file="$java_properties_file
-    klog "exporting master datasource - environment: $environment"
-    kexec "$ANT_COMMAND $ant_arguments -f $ANT_FILE export"
+    typeset -l user=$schema
+    typeset -l password=$environment"174"$DATABASE_APPLICATION_CODE
+    kexec "echo \"base.directory=$BASE_DIRECTORY\" > $ANT_PROPERTIES_FILE"
+    kexec "echo \"working.directory=$WORKING_DIRECTORY\" >> $ANT_PROPERTIES_FILE"
+    kexec "echo \"application=$application\" >> $ANT_PROPERTIES_FILE"
+    kexec "echo \"environment=$environment\" >> $ANT_PROPERTIES_FILE"
+    kexec "echo \"schema=$schema\" >> $ANT_PROPERTIES_FILE"
+    kexec "echo \"database.cvs.module=$BASE_DIRECTORY/$DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
+    kexec "echo \"application.database.cvs.module=$WORKING_DIRECTORY/$APPLICATION_DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
+    kexec "echo \"user=$user\" >> $ANT_PROPERTIES_FILE"
+    kexec "echo \"password=$password\" >> $ANT_PROPERTIES_FILE"
+    kexec "cat $DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE >> $ANT_PROPERTIES_FILE"
+	kexec "cat $DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE >> $ANT_PROPERTIES_FILE"
+    kexec "cat $ANT_PROPERTIES_TEMPLATE >> $ANT_PROPERTIES_FILE" 
+    kexec "cat $ANT_PROPERTIES_FILE"
+  } >> $SCRIPT_LOG 2>&1
+}
+
+function ktestprops {
+  {
+    typeset environment=$1
+    ksetprops $environment
+    klog "testing properties"
+    kexec "$ANT_COMMAND -f $ANT_FILE init-database-properties"
+    return 0
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kexport
+
+function kexport {
+  {
+    typeset environment=$1
+    ksetprops $environment
+    klog "exporting"
+    kexec "$ANT_COMMAND -f $ANT_FILE export"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
@@ -68,33 +99,22 @@ typeset -xf kexport
 function kimport {
   {
     typeset environment=$1
-    typeset tag=$2
-    typeset -u schema=$DATABASE_APPLICATION_CODE$environment
-    typeset java_properties_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_BUILD_FILE
-    klog "importing from tag: $tag into schema: $schema"
-    typeset ant_arguments=$ANT_ARGS_PREFIX"-Denvironment="$environment" -Dschema="$schema" -Djava.properties.file="$java_properties_file" -Dtag="$tag
-    kexec "$ANT_COMMAND $ant_arguments -f $ANT_FILE empty-schema"
-    kexec "$ANT_COMMAND $ant_arguments -f $ANT_FILE import"
+    ksetprops $environment
+    klog "importing"
+    kexec "$ANT_COMMAND -f $ANT_FILE empty-schema"
+    kexec "$ANT_COMMAND -f $ANT_FILE import"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kimport
 
-function kprepdailytag {
-  {
-    old_build_number=`cat $BUILD_NUMBER_FILE`
-    new_build_number=`expr $old_build_number + 1`
-    klog "updating build number sequence with new_build_number: $new_build_number"
-    kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
-    return 0
-  } >> $SCRIPT_LOG 2>&1
-}
-typeset -xf kprepdailytag
-
 function kdailytag {
   {
-    new_build_tag=build-`cat $BUILD_NUMBER_FILE`
     branch=$1
+    old_build_number=`cat $BUILD_NUMBER_FILE`
+    new_build_number=`expr $old_build_number + 1`
+    new_build_tag="build-"$new_build_number
+    kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
     klog "tagging branch: $branch of application java and database modules with new_build_tag: $new_build_tag"
     kexec "cvs rtag -d $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
     kexec "cvs rtag -r $branch $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
@@ -138,7 +158,7 @@ function kupdate {
     fi
     klog "tag is $tag"
     if [[ "$do_database_update" = "true" ]]
-        kimport $environment $tag
+        kimport $environment
     fi
     klog "purging attachments"
     kexec "ssh $USER@$static_content_node\".uits.indiana.edu\" \"sudo $ATTACHMENTS_PURGE_COMMAND $environment\""
