@@ -60,13 +60,13 @@ function ksetprops {
     typeset password=$environment"174"$DATABASE_APPLICATION_CODE
     kexec "echo \"base.directory=$BASE_DIRECTORY\" > $ANT_PROPERTIES_FILE"
     kexec "echo \"working.directory=$WORKING_DIRECTORY\" >> $ANT_PROPERTIES_FILE"
-    kexec "echo \"application=$application\" >> $ANT_PROPERTIES_FILE"
+    kexec "echo \"application=$APPLICATION\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"environment=$environment\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"schema=$schema\" >> $ANT_PROPERTIES_FILE"
-    kexec "echo \"database.cvs.module=$BASE_DIRECTORY/$DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
-    kexec "echo \"application.database.cvs.module=$WORKING_DIRECTORY/$APPLICATION_DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"user=$user\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"password=$password\" >> $ANT_PROPERTIES_FILE"
+    kexec "echo \"database.cvs.module=$BASE_DIRECTORY/$DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
+    kexec "echo \"application.database.cvs.module=$WORKING_DIRECTORY/$APPLICATION_DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
     kexec "cat $DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE >> $ANT_PROPERTIES_FILE"
 	kexec "cat $DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE >> $ANT_PROPERTIES_FILE"
     kexec "cat $ANT_PROPERTIES_TEMPLATE >> $ANT_PROPERTIES_FILE" 
@@ -79,7 +79,7 @@ function ktestprops {
     typeset environment=$1
     ksetprops $environment
     klog "testing properties"
-    kexec "$ANT_COMMAND -f $ANT_FILE init-database-properties"
+    kexec "$ANT_COMMAND -f $ANT_BUILD_FILE init-database-properties"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
@@ -90,7 +90,7 @@ function kexport {
     typeset environment=$1
     ksetprops $environment
     klog "exporting"
-    kexec "$ANT_COMMAND -f $ANT_FILE export"
+    kexec "$ANT_COMMAND -f $ANT_BUILD_FILE export"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
@@ -101,8 +101,8 @@ function kimport {
     typeset environment=$1
     ksetprops $environment
     klog "importing"
-    kexec "$ANT_COMMAND -f $ANT_FILE empty-schema"
-    kexec "$ANT_COMMAND -f $ANT_FILE import"
+    kexec "$ANT_COMMAND -f $ANT_BUILD_FILE empty-schema"
+    kexec "$ANT_COMMAND -f $ANT_BUILD_FILE import"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
