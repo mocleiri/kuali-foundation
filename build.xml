@@ -30,18 +30,16 @@
 	<target name="delete-database-project" depends="init-database-properties">
 	</target>
 	
-	<target name="update-database-project" depends="checkout-database-project">
+	<target name="update-database-project" depends="init-databae-properties">
 <!--		<delete>
 			<fileset dir="${application.database.cvs.module}" includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.docs}.dtd,${application.database.incremental.file}" />
 		</delete>
 		<ant antfile="${impex.build.file}" target="export" inheritall="false" />
 		<echo message="" file="${application.database.cvs.module}/${application.database.incremental.file}" />
 -->		<echo message="${basedir}"></echo>
-		<cvs command="add ${application.database.cvs.module}" />
 		<cvs command="add ${application.database.cvs.module}/*" />
-		<cvs command="add ${application.database.cvs.module}/doc" />
 		<cvs command="add ${application.database.cvs.module}/doc/*" />
-		<cvs command="remove ${application.database.cvs.module}/*" />
+		<cvs command="remove ${application.database.cvs.module}" />
 		<cvs command="update ${application.database.cvs.module}" />
 		<cvs command="commit -m 'daily export' ${application.database.cvs.module}" />
 	</target>
