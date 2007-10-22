@@ -80,32 +80,34 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		</echo>
 
 	</target>
+	
+	<target name="init-properties">
+		<property name="torque.contextProperties" value="build.properties" />
+		<property file="${user.home}/impex-build.properties" />
+		<property file="build.properties" />
+		<property name="lib.dir" value="lib" />
+		<property name="torque.lib.dir" value="${lib.dir}" />
 
-	<property name="torque.contextProperties" value="build.properties" />
-	<property file="${user.home}/impex-build.properties" />
-	<property file="build.properties" />
-	<property name="lib.dir" value="lib" />
-	<property name="torque.lib.dir" value="${lib.dir}" />
+		<property name="source.zip" value="${torque.schema.dir}/${torque.project}-data.zip" />
+		<property name="target.zip" value="${torque.schema.dir}/${torque.project}-data.zip" />
 
-	<property name="source.zip" value="${torque.schema.dir}/${torque.project}-data.zip" />
-	<property name="target.zip" value="${torque.schema.dir}/${torque.project}-data.zip" />
-
-	<!--
-    The default.properties file will map old properties to the new ones along
-    with setting the correct defaults.
-    -->
-	<property resource="org/apache/torque/default.properties">
-		<classpath>
-			<path refid="torque-classpath" />
-		</classpath>
-	</property>
+		<!--
+	    The default.properties file will map old properties to the new ones along
+	    with setting the correct defaults.
+	    -->
+		<property resource="org/apache/torque/default.properties">
+			<classpath>
+				<path refid="torque-classpath" />
+			</classpath>
+		</property>
+		<echoproperties />
+	</target>
 
 	<!--
     Do forward declarations of all of our tasks to
     centralize them and clean up the targets.
   -->
-	<target name="inittasks">
-		<echoproperties />
+	<target name="inittasks" depends="init-properties">
 		<mkdir dir="${torque.schema.dir}" />
 		<path id="torque-classpath">
 			<pathelement location="kuali-impextasks.jar" />
@@ -691,7 +693,7 @@ Please place the jar file for this class in the lib directory and try again.
 	<!-- - - - - - - - - - - - - - - - - - 
           target: build-init                      
          - - - - - - - - - - - - - - - - - -->
-	<target name="build-init">
+	<target name="build-init" depends="init-properties">
 		<mkdir dir="build" />
 
 		<path id="compile-classpath">
@@ -702,7 +704,7 @@ Please place the jar file for this class in the lib directory and try again.
 
 	</target>
 
-	<target name="clean">
+	<target name="clean" depends="init-properties">
 		<delete dir="build" failonerror="false" />
 		<delete dir="${torque.schema.dir}" failonerror="false" />
 	</target>
@@ -727,7 +729,7 @@ Please place the jar file for this class in the lib directory and try again.
 	<!-- assumes that this module has been checked out as kuali_database from CVS
 	     is performs an update on the current export user directory and then runs the import process
 	     -->
-	<target name="satellite-update">
+	<target name="satellite-update" depends="init-properties">
 		<!-- update the schema files -->		
 		<cvspass cvsroot="${cvsroot}" password="${cvs.password}" />
 		<echo>Running CVS update in ${torque.schema.dir}</echo>
@@ -738,14 +740,6 @@ Please place the jar file for this class in the lib directory and try again.
 		<antcall target="import" />
 	</target>
 	
-	<target name="init-properties">
-		<copy file="build.properties" tofile="runtime-build.properties" overwrite="true" />
-		<replaceregexp file="runtime-build.properties" match="${database}." replace="" byline="true" />
-		<loadproperties srcfile="runtime-build.properties" />
-		<loadproperties srcfile="impex.properties" />
-		<echoproperties />
-	</target>
-
 	<target name="local-update" depends="init-properties">
 		<cvspass cvsroot="${cvsroot}" password="${cvs.password}" />
 		<echo>Running CVS update in ${torque.schema.dir}</echo>
