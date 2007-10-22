@@ -107,13 +107,13 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<target name="inittasks">
 		<mkdir dir="${torque.schema.dir}" />
 		<path id="torque-classpath">
-			<pathelement location="${torque.home}/kuali-impextasks.jar" />
+			<pathelement location="kuali-impextasks.jar" />
 			<fileset dir="${torque.lib.dir}" includes="*.jar" />
 			<fileset dir="${drivers.directory}" includes="${drivers.file.pattern}" />
 		</path>
 		<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 			<classpath>
-				<pathelement location="${torque.lib.dir}/ant-contrib-1.0b3.jar" />
+				<pathelement location="lib/ant-contrib-1.0b3.jar" />
 			</classpath>
 		</taskdef>
 		<taskdef name="torque-data-model"
@@ -286,7 +286,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		                       outputFile="${torque.schema.absolute.dir}/schema.xml"
 		                       sameJavaName="${torque.sameJavaName}"
 		/>
-		<copy file="${torque.home}/database.dtd" todir="${torque.schema.dir}" />
+		<copy file="database.dtd" todir="${torque.schema.dir}" />
 	</target>
 
 	<!-- ================================================================ -->
@@ -358,7 +358,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="| Generating Data DTD for YOUR Torque project!  |" />
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
-		<echoproperties />
+
 		<torque-data-model contextProperties="${torque.contextProperties}"
 		                   controlTemplate="${torque.template.dataDtd}"
 		                   outputDirectory="${torque.schema.dir}"
@@ -516,13 +516,6 @@ Please place the jar file for this class in the lib directory and try again.
 	</target>
 
 	<target name="check-export-properties" depends="inittasks">
-		<echo message="export.torque.database: ${export.torque.database}"/>
-		<echo message="export.torque.database.driver: ${export.torque.database.driver}"/>
-		<echo message="export.torque.database.url: ${export.torque.database.url}"/>
-		<echo message="export.torque.database.user: ${export.torque.database.user}"/>
-		<echo message="export.torque.database.schema: ${export.torque.database.schema}"/>
-		<echo message="export.torque.database.password: ${export.torque.database.password}"/>
-
 		<condition property="export.properties.set">
 			<and>
 				<isset property="export.torque.database"/>
@@ -655,7 +648,6 @@ Please place the jar file for this class in the lib directory and try again.
 	-->
 
 	<target name="mysql-create-user" depends="inittasks">
-		<echoproperties />
 		<adminsql sql="${mysql.create.user.commands}" />
 	</target>
 
