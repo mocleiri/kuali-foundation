@@ -69,7 +69,7 @@ oracle.empty.schema.commands=DECLARE temp NUMBER; BEGIN temp := ${oracle.usermai
 
 # MySQL commands
 
-mysql.create.user.command=CREATE USER '${import.torque.database.user}'@'localhost' IDENTIFIED BY PASSWORD '${import.torque.database.password}'
+mysql.create.user.command=CREATE USER '${import.torque.database.user}'@'localhost' IDENTIFIED BY '${import.torque.database.password}'
 
 mysql.grant.command=GRANT ALL ON ${import.torque.database.schema}.* TO '${import.torque.database.user}'@'localhost' WITH GRANT OPTION
 
