@@ -79,7 +79,7 @@ function ktestprops {
     ksetprops $environment
     klog "testing properties"
     typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
-    kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE init-database-properties"
+    kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE checkout"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
