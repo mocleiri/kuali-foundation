@@ -67,7 +67,6 @@ function ksetprops {
     kexec "echo \"password=$password\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"database.cvs.module=$BASE_DIRECTORY/$DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"application.database.cvs.module=$WORKING_DIRECTORY/$APPLICATION_DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
-    kexec "cat $DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE >> $ANT_PROPERTIES_FILE"
 	kexec "cat $DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE >> $ANT_PROPERTIES_FILE"
     kexec "cat $ANT_PROPERTIES_TEMPLATE >> $ANT_PROPERTIES_FILE" 
     kexec "cat $ANT_PROPERTIES_FILE"
@@ -79,7 +78,8 @@ function ktestprops {
     typeset environment=$1
     ksetprops $environment
     klog "testing properties"
-    kexec "$ANT_COMMAND -f $ANT_BUILD_FILE init-database-properties"
+    typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
+    kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE init-database-properties"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
@@ -89,8 +89,8 @@ function kexport {
   {
     typeset environment=$1
     ksetprops $environment
-    klog "exporting"
-    kexec "$ANT_COMMAND -f $ANT_BUILD_FILE export"
+    typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
+    kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE export"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
@@ -101,8 +101,9 @@ function kimport {
     typeset environment=$1
     ksetprops $environment
     klog "importing"
-    kexec "$ANT_COMMAND -f $ANT_BUILD_FILE empty-schema"
-    kexec "$ANT_COMMAND -f $ANT_BUILD_FILE import"
+    typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
+    kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE empty-schema"
+    kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE import"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }

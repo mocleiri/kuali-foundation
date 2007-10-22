@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <project name="kul-cfg-envs" default="init-database-properties" basedir=".">
 	<target name="init-database-properties">
+		<loadproperties srcfile="${java.properties.file}" />
 		<condition property="database" value="mysql">
 			<equals arg1="${ojb.platform}" arg2="MySQL" />
 		</condition>
 		<property name="database" value="oracle" />
-		<replaceregexp file="${working.directory}/build.properties" match="${database}." replace="" byline="true" />
-		<loadproperties srcfile="${working.directory}/build.properties" />
+		<replaceregexp file="${database.properties.file}" match="${database}." replace="" byline="true" />
+		<loadproperties srcfile="${database.properties.file}" />
 		<loadproperties srcfile="${base.directory}/impex.properties" />
 		<property name="impex.build.file" value="${base.directory}/${database.cvs.module}/impex/build.xml" />
 		<echoproperties />
