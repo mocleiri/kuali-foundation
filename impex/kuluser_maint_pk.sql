@@ -103,7 +103,7 @@ IS
  	    SELECT COUNT(*)
  	      INTO RemainingSessionCount
  	      FROM v$session
- 	      WHERE username = UserID
+ 	      WHERE username = UPPER( UserID )
             AND status != 'KILLED';
         IF RemainingSessionCount > 0 THEN
             FOR rec IN sess_cur( UPPER( UserID ) ) LOOP
@@ -119,7 +119,7 @@ IS
          	    SELECT COUNT(*)
          	      INTO RemainingSessionCount
          	      FROM v$session
-         	      WHERE username = UserID
+         	      WHERE username = UPPER( UserID )
                     AND status != 'KILLED';
                 TotalWaitTime := TotalWaitTime + WaitIntervalSeconds;
                 EXIT WHEN RemainingSessionCount = 0 OR TotalWaitTime >= MaxWaitSeconds;
