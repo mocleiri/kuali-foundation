@@ -44,11 +44,11 @@
 		<echo message="${project.cvs.root}" />
 		<cvs command="checkout" package="${application.database.cvs.module}" tag="${project.cvs.tag}"/>
 		<echo message="test" file="${application.database.cvs.module}/test.txt" />
-		<exec dir="${basedir}" executable="cvs"><arg line="add ${application.database.cvs.module}/*" /></exec>
-		<exec dir="${basedir}" executable="cvs"><arg line="add ${application.database.cvs.module}/doc/*" /></exec>
-		<exec dir="${basedir}" executable="cvs"><arg line="remove ${application.database.cvs.module}" /></exec>
-		<exec dir="${basedir}" executable="cvs"><arg line="update ${application.database.cvs.module}" /></exec>
-		<exec dir="${basedir}" executable="cvs"><arg line="commit -m 'daily export' ${application.database.cvs.module}" /></exec>
+		<exec executable="cvs"><arg value="add" /><arg value="${application.database.cvs.module}/*" /></exec>
+		<exec executable="cvs"><arg value="add" /><arg value="${application.database.cvs.module}/doc/*" /></exec>
+		<exec executable="cvs"><arg value="remove" /><arg value="${application.database.cvs.module}" /></exec>
+		<exec executable="cvs"><arg value="update" /><arg value="${application.database.cvs.module}" /></exec>
+		<exec executable="cvs"><arg value="commit" /><arg value="-m" /><arg value="daily export" /><arg value="${application.database.cvs.module}" /></exec>
 		<delete dir="${application.database.cvs.module}" />
 	</target>
 
