@@ -2,11 +2,18 @@
 <project name="kul-cfg-envs" default="init-database-properties" basedir=".">
 	<target name="init-database-properties">
 		<property file="${java.properties.file}" />
-		<condition property="database" value="mysql">
+		<condition property="database" value="${mysql.database}">
 			<equals arg1="${ojb.platform}" arg2="MySQL" />
 		</condition>
-		<property name="database" value="oracle" />
-		<replaceregexp file="${database.properties.file}" match="${database}." replace="" byline="true" />
+		<condition property="driver" value="${mysql.driver}">
+			<equals arg1="${database}" arg2="${mysql.database}" />
+		</condition>
+		<condition property="url" value="${mysql.url}">
+			<equals arg1="${database}" arg2="${mysql.database}" />
+		</condition>
+		<property name="database" value="${oracle.database}" />
+		<property name="driver" value="${oracle.driver}" />
+		<property name="url" value="${oracle.url}" />
 		<property file="${database.properties.file}" />
 		<property file="${base.directory}/impex.properties" />
 		<property name="impex.build.file" value="${base.directory}/${database.cvs.module}/impex/build.xml" />
