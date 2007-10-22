@@ -30,7 +30,7 @@
 	<target name="delete-database-project" depends="init-database-properties">
 	</target>
 	
-	<target name="update-database-project" depends="init-databae-properties">
+	<target name="update-database-project" depends="init-database-properties">
 <!--		<delete>
 			<fileset dir="${application.database.cvs.module}" includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.docs}.dtd,${application.database.incremental.file}" />
 		</delete>
