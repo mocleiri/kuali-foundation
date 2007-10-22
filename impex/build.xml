@@ -286,7 +286,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		                       outputFile="${torque.schema.absolute.dir}/schema.xml"
 		                       sameJavaName="${torque.sameJavaName}"
 		/>
-		<copy file="database.dtd" todir="${torque.schema.dir}" />
+		<copy file="{torque.home}/database.dtd" todir="${torque.schema.dir}" />
 	</target>
 
 	<!-- ================================================================ -->
