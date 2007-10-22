@@ -10,6 +10,7 @@
 		<loadproperties srcfile="${database.properties.file}" />
 		<loadproperties srcfile="${base.directory}/impex.properties" />
 		<property name="impex.build.file" value="${base.directory}/${database.cvs.module}/impex/build.xml" />
+		<loadproperties srcfile="${tag.properties.file}" />
 		<echoproperties />
 	</target>
 	
