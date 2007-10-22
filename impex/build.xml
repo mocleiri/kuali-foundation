@@ -107,7 +107,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<target name="inittasks">
 		<mkdir dir="${torque.schema.dir}" />
 		<path id="torque-classpath">
-			<pathelement location="kuali-impextasks.jar" />
+			<pathelement location="${torque.home}/kuali-impextasks.jar" />
 			<fileset dir="${torque.lib.dir}" includes="*.jar" />
 			<fileset dir="${drivers.directory}" includes="${drivers.file.pattern}" />
 		</path>
