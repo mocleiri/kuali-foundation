@@ -36,6 +36,7 @@
 		</delete>
 		<ant antfile="${impex.build.file}" target="export" inheritall="false" />
 		<echo message="" file="${application.database.cvs.module}/${application.database.incremental.file}" />
+		<echo message="${basedir}"></echo>
 		<cvs command="add ${application.database.cvs.module}" />
 		<cvs command="add ${application.database.cvs.module}/${application.database.xml}" />
 		<cvs command="add ${application.database.cvs.module}/doc" />
