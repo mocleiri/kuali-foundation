@@ -44,9 +44,12 @@
 		<echo message="${project.cvs.root}" />
 		<cvs command="checkout" package="${application.database.cvs.module}" tag="${project.cvs.tag}"/>
 		<echo message="test" file="${application.database.cvs.module}/test.txt" />
-		<cvs command="add"><commandline><argument value="${application.database.cvs.module}/*" /></commandline></cvs>
-		<cvs command="remove"><commandline><argument value="${application.database.cvs.module}" /></commandline></cvs>
-		<cvs command="commit"><commandline><argument value="-m 'daily export'"/><argument value="${application.database.cvs.module}" /></commandline></cvs>
+		<exec executable="cvs"><arg line="add $APPLICATION_DATABASE_CVS_MODULE/*" /></exec>
+		<exec executable="cvs"><arg line="add $APPLICATION_DATABASE_CVS_MODULE/doc/*" /></exec>
+		<exec executable="cvs"><arg line="remove $APPLICATION_DATABASE_CVS_MODULE" /></exec>
+		<exec executable="cvs"><arg line="update $APPLICATION_DATABASE_CVS_MODULE" /></exec>
+		<exec executable="cvs"><arg line="commit -m 'daily export' $APPLICATION_DATABASE_CVS_MODULE" /></exec>
+		<delete dir="$APPLICATION_DATABASE_CVS_MODULE" />
 	</target>
 
 	<target name="import" depends="update-database">
