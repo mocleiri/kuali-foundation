@@ -105,6 +105,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
     centralize them and clean up the targets.
   -->
 	<target name="inittasks">
+		<echoproperties />
 		<mkdir dir="${torque.schema.dir}" />
 		<path id="torque-classpath">
 			<pathelement location="kuali-impextasks.jar" />
