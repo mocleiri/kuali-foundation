@@ -28,7 +28,7 @@
 	</target>
 	
 	<target name="delete-database-project" depends="init-database-properties">
-		<delete dir="${working.directory}/${application.database.cvs.module}" />
+		<!--<delete dir="${working.directory}/${application.database.cvs.module}" />-->
 	</target>
 	
 	<target name="update-database-project" depends="checkout-database-project">
