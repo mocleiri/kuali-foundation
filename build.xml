@@ -17,6 +17,8 @@
 		<property file="${base.directory}/oracle-impex.properties" />
 		<property name="impex.build.file" value="${base.directory}/${database.cvs.module}/impex/build.xml" />
 		<property file="${tag.properties.file}" />
+		<loadfile property="impex-build.properties" srcfile="impex-build.properties"><filterchain><expandproperties /></filterchain></loadfile>
+		<echo message="${impex-build.properties}" file="${user.home}/impex-build.properties" />
 	</target>
 		
 	<target name="checkout-database-project" depends="init-database-properties">
@@ -32,7 +34,7 @@
 		<delete>
 			<fileset dir="${working.directory}/${torque.working.directory}" includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.incremental.file}" />
 		</delete>
-		<ant antfile="${impex.build.file}" target="export" inheritall="true" inheritrefs="true" />
+		<ant antfile="${impex.build.file}" target="export" />
 		<cvs command="add ${working.directory}/${application.database.xml}" />
 		<cvs command="add ${working.directory}/${application.database.docs}" />
 		<echo message="" file="${working.directory}/${application.database.incremental.file}" />
