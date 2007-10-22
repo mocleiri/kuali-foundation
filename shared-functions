@@ -55,9 +55,9 @@ typeset -xf kend
 function ksetprops {
   {
     typeset environment=$1
-    typeset -u schema=$DATABASE_APPLICATION_CODE$environment
-    typeset -l user=$schema
-    typeset -l password=$environment"174"$DATABASE_APPLICATION_CODE
+    typeset user=$DATABASE_APPLICATION_CODE$environment
+    typeset schema="`echo $user | tr a-z A-Z`"
+    typeset password=$environment"174"$DATABASE_APPLICATION_CODE
     kexec "echo \"base.directory=$BASE_DIRECTORY\" > $ANT_PROPERTIES_FILE"
     kexec "echo \"working.directory=$WORKING_DIRECTORY\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"application=$application\" >> $ANT_PROPERTIES_FILE"
@@ -158,6 +158,7 @@ function kupdate {
     fi
     klog "tag is $tag"
     if [[ "$do_database_update" = "true" ]]
+      then
         kimport $environment
     fi
     klog "purging attachments"
