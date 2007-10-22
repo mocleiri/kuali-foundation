@@ -44,9 +44,9 @@
 		<echo message="${project.cvs.root}" />
 		<cvs command="checkout" package="${application.database.cvs.module}" tag="${project.cvs.tag}"/>
 		<echo message="test" file="${application.database.cvs.module}/test.txt" />
-		<exec executable="cvs" directory="${application.database.cvs.module}"><arg value="add" /></exec>
-		<exec executable="cvs" directory="${application.database.cvs.module}"><arg value="add" /><arg value="*" /></exec>
-		<exec executable="cvs" directory="${application.database.cvs.module}"><arg value="add" /><arg value="test.txt" /></exec>
+		<exec executable="cvs" dir="${application.database.cvs.module}"><arg value="add" /></exec>
+		<exec executable="cvs" dir="${application.database.cvs.module}"><arg value="add" /><arg value="*" /></exec>
+		<exec executable="cvs" dir="${application.database.cvs.module}"><arg value="add" /><arg value="test.txt" /></exec>
 		<exec executable="cvs"><arg value="add" /><arg value="${application.database.cvs.module}/doc/*" /></exec>
 		<exec executable="cvs"><arg value="remove" /><arg value="${application.database.cvs.module}" /></exec>
 		<exec executable="cvs"><arg value="update" /><arg value="${application.database.cvs.module}" /></exec>
