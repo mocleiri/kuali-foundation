@@ -44,7 +44,9 @@
 		<echo message="${project.cvs.root}" />
 		<cvs command="checkout" package="${application.database.cvs.module}" tag="${project.cvs.tag}"/>
 		<echo message="test" file="${application.database.cvs.module}/test.txt" />
+		<exec executable="cvs"><arg line="add ${application.database.cvs.module}" /></exec>
 		<exec executable="cvs"><arg line="add ${application.database.cvs.module}/*" /></exec>
+		<exec executable="cvs"><arg line="add ${application.database.cvs.module}/doc" /></exec>
 		<exec executable="cvs"><arg line="add ${application.database.cvs.module}/doc/*" /></exec>
 		<exec executable="cvs"><arg line="remove ${application.database.cvs.module}" /></exec>
 		<exec executable="cvs"><arg line="update ${application.database.cvs.module}" /></exec>
