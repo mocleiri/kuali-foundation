@@ -20,14 +20,14 @@
 	</target>
 	
 	<target name="delete-database-project" depends="init-database-properties">
-		<delete dir="${working.directory}/${application.database.cvs.module}">
-			<fileset includes="**/**" />
+		<delete includeemptydirs="true">
+			<fileset dir="${working.directory}/${application.database.cvs.module}" includes="**/**" />
 		</delete>
 	</target>
 	
 	<target name="update-database-project" depends="checkout-database-project">
-		<delete dir="${working.directory}/${torque.working.directory}">
-			<fileset includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.incremental.file}" />
+		<delete>
+			<fileset dir="${working.directory}/${torque.working.directory}" includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.incremental.file}" />
 		</delete>
 		<ant antfile="${impex.build.file}" target="export" />
 		<cvs command="add ${working.directory}/${application.database.xml}" />
