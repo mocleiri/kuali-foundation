@@ -15,7 +15,7 @@
 	</target>
 	
 	<target name="checkout-database-project" depends="init-database-properties">
-		<cvspass cvs.root="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
+		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
 		<cvs command="checkout ${application.database.cvs.module}" dest="${working.directory}" />
 	</target>
 	
