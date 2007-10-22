@@ -113,7 +113,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		</path>
 		<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 			<classpath>
-				<pathelement location="lib/ant-contrib-1.0b3.jar" />
+				<pathelement location="${torque.lib.dir}/ant-contrib-1.0b3.jar" />
 			</classpath>
 		</taskdef>
 		<taskdef name="torque-data-model"
