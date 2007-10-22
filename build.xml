@@ -17,7 +17,6 @@
 		<property file="${base.directory}/oracle-impex.properties" />
 		<property name="impex.build.file" value="${torque.home}/build.xml" />
 		<property file="${tag.properties.file}" />
-		<echoproperties></echoproperties>
 	</target>
 		
 	<target name="checkout-database-project" depends="init-database-properties">

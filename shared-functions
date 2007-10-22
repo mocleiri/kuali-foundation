@@ -69,7 +69,6 @@ function ksetprops {
     kexec "echo \"application.database.cvs.module=$APPLICATION_DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"tag.properties.file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE\" >> $ANT_PROPERTIES_FILE"
     kexec "cat $ANT_PROPERTIES_TEMPLATE >> $ANT_PROPERTIES_FILE" 
-    kexec "cat $ANT_PROPERTIES_FILE"
   } >> $SCRIPT_LOG 2>&1
 }
 
