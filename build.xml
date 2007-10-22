@@ -5,6 +5,8 @@
 		<condition property="import.into.mysql">
 			<equals arg1="${ojb.platform}" arg2="MySQL" />
 		</condition>
+		<property file="${database.properties.file}" />
+		<property file="${base.directory}/build.properties" />
 	</target>
 	
 	<target name="init-mysql-properties" depends="init-java-properties" if="import.into.mysql">
@@ -13,9 +15,6 @@
 
 	<target name="init-database-properties" depends="init-mysql-properties">
 		<property file="${base.directory}/oracle-impex.properties" />
-		<echoproperties />
-		<property file="${database.properties.file}" />
-		<property file="${base.directory}/build.properties" />
 		<property name="impex.build.file" value="${torque.home}/build.xml" />
 		<property file="${tag.properties.file}" />
 	</target>
