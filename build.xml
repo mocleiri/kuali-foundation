@@ -38,10 +38,12 @@
 		</delete>
 		<ant antfile="${impex.build.file}" target="export" inheritall="false" />
 		<echo message="" file="${application.database.cvs.module}/${application.database.incremental.file}" />
+		<cvs command="add ${application.database.cvs.module}" />
 		<cvs command="add ${application.database.cvs.module}/${application.database.xml}" />
+		<cvs command="add ${application.database.cvs.module}/doc" />
 		<cvs command="add ${application.database.cvs.module}/${application.database.docs}" />
 		<cvs command="update ${application.database.cvs.module}" />
-		<cvs command="commit -m 'daily export' application.database.cvs.module}" />
+		<cvs command="commit -m 'daily export' ${application.database.cvs.module}" />
 	</target>
 
 	<target name="update-database" depends="checkout-database-project">
