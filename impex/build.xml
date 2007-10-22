@@ -516,6 +516,13 @@ Please place the jar file for this class in the lib directory and try again.
 	</target>
 
 	<target name="check-export-properties" depends="inittasks">
+		<echo message="export.torque.database: ${export.torque.database}"/>
+		<echo message="export.torque.database.driver: ${export.torque.database.driver}"/>
+		<echo message="export.torque.database.url: ${export.torque.database.url}"/>
+		<echo message="export.torque.database.user: ${export.torque.database.user}"/>
+		<echo message="export.torque.database.schema: ${export.torque.database.schema}"/>
+		<echo message="export.torque.database.password: ${export.torque.database.password}"/>
+
 		<condition property="export.properties.set">
 			<and>
 				<isset property="export.torque.database"/>
