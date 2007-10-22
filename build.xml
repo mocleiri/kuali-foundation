@@ -15,7 +15,7 @@
 
 	<target name="init-database-properties" depends="init-mysql-properties">
 		<property file="${base.directory}/oracle-impex.properties" />
-		<property name="impex.build.file" value="${torque.home}/build.xml" />
+		<property name="impex.build.file" value="${base.directory}/${database.cvs.module}/impex/build.xml" />
 		<property file="${tag.properties.file}" />
 	</target>
 		
