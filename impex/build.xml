@@ -655,6 +655,7 @@ Please place the jar file for this class in the lib directory and try again.
 	-->
 
 	<target name="mysql-create-user" depends="inittasks">
+		<echoproperties />
 		<adminsql sql="${mysql.create.user.commands}" />
 	</target>
 
