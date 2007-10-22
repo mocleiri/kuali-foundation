@@ -38,6 +38,8 @@
 		</delete>
 		<ant antfile="${impex.build.file}" target="export" inheritall="false" />
 		<echo message="" file="${working.directory}/${application.database.cvs.module}/${application.database.incremental.file}" />
+		<cvs command="add ${working.directory}/${application.database.cvs.module}" />
+		<cvs command="add ${working.directory}/${application.database.cvs.module}/doc" />
 		<cvs command="add ${working.directory}/${application.database.cvs.module}/${application.database.xml}" />
 		<cvs command="add ${working.directory}/${application.database.cvs.module}/${application.database.docs}" />
 		<cvs command="update ${working.directory}/${application.database.cvs.module}" />
