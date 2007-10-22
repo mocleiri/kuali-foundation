@@ -27,6 +27,7 @@
 			<fileset dir="${application.database.cvs.module}" includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.docs}.dtd,${application.database.incremental.file}" />
 		</delete>
 		<ant antfile="${impex.build.file}" target="export" inheritall="false" />
+		<delete file="velocity.log" />
 	</target>
 	
 	<target name="update-database" depends="init-database-properties">
@@ -38,5 +39,6 @@
 
 	<target name="import" depends="update-database">
 		<delete dir="${application.database.cvs.module}" />
+		<delete file="velocity.log" />
 	</target>
 </project>
