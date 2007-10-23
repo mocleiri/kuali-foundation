@@ -41,7 +41,8 @@
 	
 	<target name="cvs-test" depends="init-database-properties">
 		<cvs package="${application.database.cvs.module}" dest="${basedir}" />
-		<echo message="test" file="${application.database.cvs.module}/test.txt" />
+		<echo message="test" file="${application.database.cvs.module}/test2.txt" />
+		<echo message="test" file="${application.database.cvs.module}/test3.txt" />
 		<delete file="${application.database.cvs.module}/test-delete.txt" />
 		<cvs dest="${application.database.cvs.module}" command="remove"/>
 		<cvs dest="${application.database.cvs.module}" command="update"/>
