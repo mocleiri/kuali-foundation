@@ -14,13 +14,18 @@
 # -------------------------------------------------------------------
 
 torque.project = kfs
+torque.schema.dir=../../kfs-cfg-dbs
+torque.sql.dir=${torque.schema.dir}/sql
 
-drivers.directory = lib
+drivers.directory = /java/drivers
 drivers.file.pattern=ojdbc*.jar,mysql*.jar
 
 target.zip=../kuldemo.zip
 source.zip=../kuldemo.zip
 
+#
+# You only need to edit these if you are exporting the database to XML
+#
 export.torque.database = oracle
 export.torque.database.driver = oracle.jdbc.OracleDriver
 export.torque.database.url = jdbc:oracle:oci:@
@@ -28,6 +33,9 @@ export.torque.database.user=kuldba
 export.torque.database.schema=KULDBA
 export.torque.database.password=kuldba
 
+#
+# Modify these to match the database into which you are going to import
+#
 import.torque.database = mysql
 import.torque.database.driver = com.mysql.jdbc.Driver
 import.torque.database.url = jdbc:mysql://localhost:3306/kuldba
@@ -42,22 +50,29 @@ import.torque.database.password=kuldba
 # set if you want to use the ant script to set up the users and schemas for the import
 # see build.properties for the commands that will be executed
 
-import.admin.user=
-import.admin.password=
+# sample for oracle:
+import.admin.user=kuluser_admin
+import.admin.password=kuluser_admin
+
+# sample for mysql:
+#import.admin.user=
+#import.admin.password=
 
 # this may need to be different if (like in the case of MySQL) there is a schema name on the URL
 # admin commands will not run with that URL if the schema has not yet been created
 import.admin.url = ${import.torque.database.url}
 
 # these are used by the bootstrapping mechanism
-oracle.usermaint.user=SYSTEM
-oracle.usermaint.password=
+oracle.usermaint.user=kulusermaint
+oracle.usermaint.password=kulusermaint
 
 # these are to be used by a Satellite DBA for automating the refresh of the database 
 cvsroot=
 cvs.password=
 
-# SQL statements used for creating and dropping users 
+# SQL statements used for creating and dropping users
+# 
+# THESE SHOULD NOT NEED TO BE MODIFIED 
 
 # Oracle commands
 
