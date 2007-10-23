@@ -21,7 +21,6 @@
 		<delete file="${user.home}/impex-build.properties" />
 		<echo message="${impex-build.properties}" file="${user.home}/impex-build.properties" />
 		<echo message="${impex-build.properties}" />
-		<echoproperties />
 	</target>
 		
 	<target name="export" depends="init-database-properties">
