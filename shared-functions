@@ -76,13 +76,13 @@ function kexport {
     typeset environment=$1
     ksetprops $environment
     klog "exporting from environment: $environment"
-	kexec "cvs checkout $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "cvs -q checkout $APPLICATION_DATABASE_CVS_MODULE"
     typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
     kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE export"
-    cvs add $APPLICATION_DATABASE_CVS_MODULE/*
-    cvs add $APPLICATION_DATABASE_CVS_MODULE/doc/*
+    cvs -q add $APPLICATION_DATABASE_CVS_MODULE/*
+    cvs -q add $APPLICATION_DATABASE_CVS_MODULE/doc/*
 	cvs remove $APPLICATION_DATABASE_CVS_MODULE
-    kexec "cvs update $APPLICATION_DATABASE_CVS_MODULE"
+    kexec "cvs -q update $APPLICATION_DATABASE_CVS_MODULE"
     kexec "cvs commit -m \"daily export\" $APPLICATION_DATABASE_CVS_MODULE"
     kexec "rm -rf $APPLICATION_DATABASE_CVS_MODULE"
     return 0
@@ -109,13 +109,13 @@ function kdailytag {
     new_build_tag="build-"$new_build_number
     kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
     klog "tagging branch: $branch of application java and database modules with new_build_tag: $new_build_tag"
-    kexec "cvs rtag -d $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
-    kexec "cvs rtag -r $branch $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
-    kexec "cvs rtag -d $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
-    kexec "cvs rtag $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
+    kexec "cvs -q rtag -d $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
+    kexec "cvs -q rtag -r $branch $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
+    kexec "cvs -q rtag -d $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
+    kexec "cvs -q rtag $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
 	# remove when ditch old db process
-    kexec "cvs rtag -d $new_build_tag kuali_database"
-    kexec "cvs rtag $new_build_tag kuali_database"
+    kexec "cvs -q rtag -d $new_build_tag kuali_database"
+    kexec "cvs -q rtag $new_build_tag kuali_database"
 	# remove when ditch old db process
     return 0
   } >> $SCRIPT_LOG 2>&1
@@ -184,17 +184,17 @@ function koldexport {
     typeset DBA_IMPORT_COMMAND=dba_import_kul.sh
     typeset BRTE_USER=kuldevb
 
-    kexec "cvs checkout kuali_database"
+    kexec "cvs -q checkout kuali_database"
     typeset old_zip_name=`find kuali_database/ -name $schema-*.tgz -print`
     kexec "rm -f $old_zip_name"
-    kexec "cvs delete $old_zip_name"
+    kexec "cvs -q delete $old_zip_name"
     kexec "cvs commit -m \"automated daily export\" kuali_database"
     typeset new_zip_name=kuali_database/$schema-`date +%Y%m%d%H%M%S`.tgz
     klog "replacing old_zip_name: $old_zip_name with new_zip_name:  $new_zip_name"
     kexec "ssh $BRTE_USER@$DATA_SERVER \"sudo -H -u $DBA_USER $DBA_PROGRAM_DIRECTORY/$DBA_EXPORT_COMMAND $schema\""
     kexec "scp $BRTE_USER@$DATA_SERVER:$DBA_WORKING_DIRECTORY/$schema\"_exp.dmp\" $dump_file"
     kexec "tar -zcf $new_zip_name $dump_file"
-    kexec "cvs add -kb $new_zip_name"
+    kexec "cvs -q add -kb $new_zip_name"
     kexec "cvs commit -m \"automated daily export\" kuali_database"
     kexec "rm -rf kuali_database"
     kexec "rm -f $dump_file"
