@@ -44,9 +44,8 @@
 		<echo message="test" file="temp/${application.database.cvs.module}/test2.txt" />
 		<echo message="test" file="temp/${application.database.cvs.module}/test3.txt" />
 		<delete file="temp/${application.database.cvs.module}/test-delete.txt" />
-		<cvs dest="temp" command="remove"/>
-		<cvs dest="temp" command="update"/>
-		<cvs command="-q diff -u -N" output="patch.txt"/>
+		<cvs dest="temp" command="remove" />
+		<cvs dest="temp" command="update" output="patch.txt" />
 		<loadfile srcfile="patch.txt" property="add.file.list">
 			<filterchain><replaceregex pattern="(\n\? )*" replace="" /></filterchain>
 		</loadfile>
