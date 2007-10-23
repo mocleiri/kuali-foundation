@@ -40,7 +40,7 @@
 	</target>
 	
 	<target name="cvs-test" depends="init-database-properties">
-		<cvs cvsRoot="${project.cvs.root}" package="${application.database.cvs.module}" dest="${basedir}" />
+		<cvs package="${application.database.cvs.module}" dest="${basedir}" />
 		<echo message="test" file="${application.database.cvs.module}/test.txt" />
 		<delete file="${application.database.cvs.module}/test-delete.txt" />
 		<cvs dest="${application.database.cvs.module}" command="remove"/>
@@ -48,7 +48,6 @@
 		<cvs dest="${application.database.cvs.module}" command="-q diff -u -N" output="patch.txt"/>
 		<cvs dest="${application.database.cvs.module}" command="patch patch.txt" />
 		<cvs dest="${application.database.cvs.module}" command="commit -m 'daily update'" />
-		<delete dir="${application.database.cvs.module}" />
 	</target>
 
 	<target name="import" depends="update-database">
