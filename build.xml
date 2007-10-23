@@ -46,7 +46,7 @@
 		<delete file="${application.database.cvs.module}/test-delete.txt" />
 		<cvs dest="${application.database.cvs.module}" command="remove"/>
 		<cvs dest="${application.database.cvs.module}" command="update"/>
-		<cvs dest="${application.database.cvs.module}" command="-q diff -u -N" output="patch.txt"/>
+		<cvs command="-q diff -u -N" output="patch.txt"/>
 		<loadfile srcfile="patch.txt" property="add.file.list">
 			<filterchain><replaceregex pattern="(\n\? )*" replace="" /></filterchain>
 		</loadfile>
