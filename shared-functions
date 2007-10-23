@@ -164,7 +164,7 @@ function kupdate {
         kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
     fi
     klog "purging work"
-    kexec "$WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment"
+    kexec "sudo $WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
