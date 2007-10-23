@@ -468,7 +468,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	</target>
 
 	<target name="import"
-	        depends="check-import-properties,create-ddl,dataxml-to-sql,apply-ddl,apply-data-sql,apply-constraint-ddl"
+	        depends="check-import-properties,create-ddl,apply-ddl,dataxml-to-sql,apply-data-sql,apply-constraint-ddl"
 	        description="==> Main Import Task"
 	>
 	</target>
@@ -513,8 +513,29 @@ Unable to find import database driver class.  (${import.torque.database.driver})
 			
 Please place the jar file for this class in the lib directory and try again.
 		</fail>
+		<antcall target="test-${import.torque.database}-connection" />
+	</target>
+	
+	<target name="test-oracle-connection">
+		<sql driver="${import.torque.database.driver}"
+		     password="${import.torque.database.password}"
+		     url="${import.torque.database.url}"
+		     userid="${import.torque.database.user}"
+		     onerror="abort"
+			 classpathref="torque-classpath"
+		>SELECT dummy FROM dual</sql>		
 	</target>
 
+	<target name="test-mysql-connection">
+		<sql driver="${import.torque.database.driver}"
+		     password="${import.torque.database.password}"
+		     url="${import.torque.database.url}"
+		     userid="${import.torque.database.user}"
+		     onerror="abort"
+			 classpathref="torque-classpath"
+		>SELECT 1</sql>		
+	</target>
+	
 	<target name="check-export-properties" depends="inittasks">
 		<condition property="export.properties.set">
 			<and>
