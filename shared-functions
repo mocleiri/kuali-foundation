@@ -137,7 +137,6 @@ function kupdate {
   {
     typeset environment=$1
     typeset use_standard_tag=$2
-    typeset deploy_web_application=$3
     typeset do_database_update=$4
     typeset tag_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE
     typeset tag_file_constant=project.cvs.tag=
@@ -158,11 +157,8 @@ function kupdate {
       then
         kimport $environment
     fi
-    if [[ "$deploy_web_application" = "true" ]]
-      then
-        klog "deploying web application"
-        kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
-    fi
+    klog "deploying project (settings, security, work, and potentially webapp)"
+    kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
     klog "purging work"
     kexec "sudo $WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment"
     return 0

@@ -7,8 +7,8 @@
 kexport dba
 koldexport
 kdailytag HEAD
-kupdate unt true false true
-kupdate cnv true true true
+kupdate unt true true
+kupdate cnv true true
 kpurge $LOGS_DIRECTORY 7
 
 kend 0
