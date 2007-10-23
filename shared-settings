@@ -14,13 +14,13 @@ SCRIPT_LOG=$LOGS_DIRECTORY/$SCRIPT_NAME+$EXEC_TIME.$$; typeset -rx SCRIPT_LOG
     DEPLOY_COMMAND=/usr/local/bin/appdeploy; typeset -rx DEPLOY_COMMAND
     DEPLOY_TAG_FILE=cvs-tag.properties; typeset -rx DEPLOY_TAG_FILE
 	DEPLOY_PROPERTIES_FILE=build.properties; typeset -rx DEPLOY_BUILD_FILE
-    ATTACHMENTS_PURGE_COMMAND=/usr/local/bin/j2ee_purge_kuali_attachments
+    WORK_PURGE_COMMAND=/usr/local/bin/j2ee_deploy_work
     ANT_COMMAND=/usr/local/ant/bin/ant
     ANT_PROPERTIES_TEMPLATE=$BASE_DIRECTORY/build.properties
     ANT_PROPERTIES_FILE=$APPLICATION_DIRECTORY/build.properties
     ANT_BUILD_FILE=$BASE_DIRECTORY/build.xml
     export JAVA_HOME=/usr/local/java
-    BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/build_number.txt; typeset -rx BUILD_NUMBER_FILE
+    BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/build-number.txt; typeset -rx BUILD_NUMBER_FILE
 
     cd $BASE_DIRECTORY
 } >> $SCRIPT_LOG 2>&1
