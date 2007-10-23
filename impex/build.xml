@@ -736,20 +736,4 @@ Please place the jar file for this class in the lib directory and try again.
 		<antcall target="empty-schema" />
 		<antcall target="import" />
 	</target>
-	
-	<target name="init-properties">
-		<copy file="build.properties" tofile="runtime-build.properties" overwrite="true" />
-		<replaceregexp file="runtime-build.properties" match="${database}." replace="" byline="true" />
-		<loadproperties srcfile="runtime-build.properties" />
-		<loadproperties srcfile="impex.properties" />
-		<echoproperties />
-	</target>
-
-	<target name="local-update" depends="init-properties">
-		<cvspass cvsroot="${cvsroot}" password="${cvs.password}" />
-		<echo>Running CVS update in ${torque.schema.dir}</echo>
-		<cvs command="update -C -l"  cvsRoot="${cvsroot}" compression="true" compressionlevel="6" dest="${torque.schema.dir}" failonerror="true" />
-		<antcall target="empty-schema" />
-		<antcall target="import" />
-	</target>
 </project>
