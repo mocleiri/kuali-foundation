@@ -46,8 +46,12 @@
 		<cvs dest="${application.database.cvs.module}" command="remove"/>
 		<cvs dest="${application.database.cvs.module}" command="update"/>
 		<cvs dest="${application.database.cvs.module}" command="-q diff -u -N" output="patch.txt"/>
-		<cvs dest="${application.database.cvs.module}" command="patch patch.txt" />
-		<cvs dest="${application.database.cvs.module}" command="commit -m 'daily update'" />
+		<loadfile srcfile="patch.txt" property="add.file.list">
+			<filterchain><replaceregex pattern="(\n\? )*" replace="" /></filterchain>
+		</loadfile>
+		<echo message="${add.file.list}" />
+<!--		<cvs dest="${application.database.cvs.module}" command="patch patch.txt" />
+		<cvs dest="${application.database.cvs.module}" command="commit -m 'daily update'" />-->
 	</target>
 
 	<target name="import" depends="update-database">
