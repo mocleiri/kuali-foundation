@@ -40,13 +40,13 @@
 	</target>
 	
 	<target name="cvs-test" depends="init-database-properties">
-		<cvs package="${application.database.cvs.module}" dest="${basedir}" />
-		<echo message="test" file="${application.database.cvs.module}/test2.txt" />
-		<echo message="test" file="${application.database.cvs.module}/test3.txt" />
-		<delete file="${application.database.cvs.module}/test-delete.txt" />
-		<cvs dest="${application.database.cvs.module}" command="remove"/>
-		<cvs dest="${application.database.cvs.module}" command="update"/>
-		<cvs command="-q diff -u -N" output="patch.txt"/>
+		<cvs package="${application.database.cvs.module}" dest="temp" />
+		<echo message="test" file="temp/${application.database.cvs.module}/test2.txt" />
+		<echo message="test" file="temp/${application.database.cvs.module}/test3.txt" />
+		<delete file="temp/${application.database.cvs.module}/test-delete.txt" />
+		<cvs dest="temp" command="remove"/>
+		<cvs dest="temp" command="update"/>
+		<cvs dest="temp" command="-q diff -u -N" output="patch.txt"/>
 		<loadfile srcfile="patch.txt" property="add.file.list">
 			<filterchain><replaceregex pattern="(\n\? )*" replace="" /></filterchain>
 		</loadfile>
