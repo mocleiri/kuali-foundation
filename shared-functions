@@ -200,4 +200,5 @@ function koldexport {
     kexec "rm -f $dump_file"
     return 0
   } >> $SCRIPT_LOG 2>&1
-} typeset -xf koldexport
+}
+typeset -xf koldexport
