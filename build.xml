@@ -44,6 +44,7 @@
 		<cvs cvsRoot="${project.cvs.root}" package="${application.database.cvs.module}" dest="${basedir}" />
 		<echo message="test" file="${application.database.cvs.module}/test.txt" />
 		<delete file="${application.database.cvs.module}/test-delete.txt" />
+		<cvs dest="${basedir}" command="remove"/>
 		<cvs dest="${basedir}" command="update"/>
 		<cvs command="-q diff -u -N" output="patch.txt"/>
 		<delete dir="${application.database.cvs.module}" />
