@@ -44,6 +44,7 @@
 		<echo message="${project.cvs.root}" />
 		<cvs command="checkout" package="${application.database.cvs.module}" />
 		<echo message="test" file="${application.database.cvs.module}/test.txt" />
+		<cvs command="-q diff -u -N" output="patch.txt"/>
 		<echo message="1" />
 		<exec executable="cvs"><arg value="add" /><arg path="${application.database.cvs.module}/*" /></exec>
 		<echo message="2" />
