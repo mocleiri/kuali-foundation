@@ -38,21 +38,6 @@
 		<ant antfile="${impex.build.file}" target="empty-schema" inheritall="false" />
 		<ant antfile="${impex.build.file}" target="import" inheritall="false" />
 	</target>
-	
-	<target name="cvs-test" depends="init-database-properties">
-		<cvs package="${application.database.cvs.module}" dest="temp" />
-		<echo message="test" file="temp/${application.database.cvs.module}/test2.txt" />
-		<echo message="test" file="temp/${application.database.cvs.module}/test3.txt" />
-		<delete file="temp/${application.database.cvs.module}/test-delete.txt" />
-		<cvs dest="temp" command="remove" />
-		<cvs dest="temp" command="update" output="patch.txt" />
-		<loadfile srcfile="patch.txt" property="add.file.list">
-			<filterchain><replaceregex pattern="(\n\? )*" replace="" /></filterchain>
-		</loadfile>
-		<echo message="${add.file.list}" />
-<!--		<cvs dest="${application.database.cvs.module}" command="patch patch.txt" />
-		<cvs dest="${application.database.cvs.module}" command="commit -m 'daily update'" />-->
-	</target>
 
 	<target name="import" depends="update-database">
 		<delete dir="${application.database.cvs.module}" />
