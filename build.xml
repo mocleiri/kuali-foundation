@@ -45,12 +45,10 @@
 		<cvs command="checkout" package="${application.database.cvs.module}" />
 		<echo message="test" file="${application.database.cvs.module}/test.txt" />
 		<echo message="1" />
-		<echo message="${dump.files}" />
-		<path id="dump.files"><fileset dir="${application.database.cvs.module}" /></path>
-		<echo message="${doc.files}" />
-		<path id="doc.files"><fileset dir="${application.database.cvs.module}/doc" /></path>		
-		<exec executable="cvs" dir="${application.database.cvs.module}"><arg value="add" /><arg pathref="dump.files" /></exec>
-		<exec executable="cvs" dir="${application.database.cvs.module}"><arg value="add" /><arg pathref="doc.files" /></exec>
+		<exec executable="cvs"><arg value="add" /><arg path="${application.database.cvs.module}/*" /></exec>
+		<echo message="2" />
+		<exec command="cvs add ${application.database.cvs.module}/*" />
+		<exec command="cvs add ${application.database.cvs.module}/doc/*" />
 		<exec executable="cvs"><arg value="remove" /><arg value="${application.database.cvs.module}" /></exec>
 		<exec executable="cvs"><arg value="update" /><arg value="${application.database.cvs.module}" /></exec>
 		<exec executable="cvs"><arg value="commit" /><arg value="-m" /><arg value="daily export" /><arg value="${application.database.cvs.module}" /></exec>
