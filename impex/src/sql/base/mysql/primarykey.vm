@@ -17,5 +17,5 @@
 #if ($table.hasPrimaryKey())
 #set ($length = $table.Name.length())
 #if ($length > 27)#set ($length=27)#end
-    CONSTRAINT ${table.Name.substring(0,$length)}P1 PRIMARY KEY($table.printPrimaryKey()),
+    , CONSTRAINT ${table.Name.substring(0,$length)}P1 PRIMARY KEY($table.printPrimaryKey())
 #end

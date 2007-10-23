@@ -15,5 +15,5 @@
 ## specific language governing permissions and limitations
 ## under the License.
 #foreach ($unique in $table.Unices)
-    CONSTRAINT $unique.name UNIQUE ($unique.ColumnList),
+    , CONSTRAINT $unique.name UNIQUE ($unique.ColumnList)
 #end
