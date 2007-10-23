@@ -47,8 +47,8 @@
 		<cvs dest="${application.database.cvs.module}" command="remove"/>
 		<cvs dest="${application.database.cvs.module}" command="update"/>
 		<cvs dest="${application.database.cvs.module}" command="-q diff -u -N" output="patch.txt"/>
-		<cvs dest="${basedir}" command="patch patch.txt" />
-		<cvs dest="${basedir}" command="commit -m 'daily update'" />
+		<cvs dest="${application.database.cvs.module}" command="patch patch.txt" />
+		<cvs dest="${application.database.cvs.module}" command="commit -m 'daily update'" />
 		<delete dir="${application.database.cvs.module}" />
 	</target>
 
