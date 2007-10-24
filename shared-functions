@@ -159,6 +159,9 @@ function kupdate {
       then
         klog "deploying web application"
         kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
+      else
+        kexec "$DEPLOY_COMMAND -t deploy-settings $JAVA_APPLICATION_CODE $environment"
+        kexec "$DEPLOY_COMMAND -t deploy-security $JAVA_APPLICATION_CODE $environment"
     fi
     klog "deploying external work resources"
     kexec "sudo $WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment"
