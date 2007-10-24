@@ -59,7 +59,7 @@ function ksetprops {
     typeset schema="`echo $user | tr a-z A-Z`"
     typeset password=$environment"174"$DATABASE_APPLICATION_CODE
     kexec "echo \"application=$APPLICATION\" > $ANT_PROPERTIES_FILE"
-    kexec "echo \"environment=$environment\" >> $ANT_PROPERTIES_FILE"
+    kexec "echo \"build.environment=$environment\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"schema=$schema\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"datasource.username=$user\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"datasource.password=$password\" >> $ANT_PROPERTIES_FILE"
