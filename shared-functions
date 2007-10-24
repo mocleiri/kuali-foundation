@@ -65,7 +65,7 @@ function ksetprops {
     kexec "echo \"datasource.password=$password\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"database.cvs.module=$DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
     kexec "echo \"application.database.cvs.module=$APPLICATION_DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
-	kexec "echo \"tag.properties.file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE\" >> $ANT_PROPERTIES_FILE"
+	kexec "echo \"deployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE\" >> $ANT_PROPERTIES_FILE"
     kexec "cat $ANT_PROPERTIES_TEMPLATE >> $ANT_PROPERTIES_FILE" 
   } >> $SCRIPT_LOG 2>&1
 }
@@ -77,8 +77,7 @@ function kexport {
     ksetprops $environment
     klog "exporting from environment: $environment"
 	kexec "cvs -q checkout $APPLICATION_DATABASE_CVS_MODULE"
-    typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
-    kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE export"
+    kant export
     cvs -q add $APPLICATION_DATABASE_CVS_MODULE/*
     cvs -q add $APPLICATION_DATABASE_CVS_MODULE/doc/*
 	cvs remove $APPLICATION_DATABASE_CVS_MODULE
@@ -90,16 +89,14 @@ function kexport {
 }
 typeset -xf kexport
 
-function kimport {
+function kant {
   {
-    typeset environment=$1
-    klog "importing into environment: $environment"
-    typeset ant_arguments="-Djava.properties.file="$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_PROPERTIES_FILE" -Ddatabase.properties.file="$ANT_PROPERTIES_FILE
-    kexec "$ANT_COMMAND $ant_arguments -f $ANT_BUILD_FILE import"
+    klog "executing target: $1"
+    kexec "$ANT_COMMAND -f $ANT_BUILD_FILE $1"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
-typeset -xf kimport
+typeset -xf kant
 
 function kdailytag {
   {
@@ -137,7 +134,8 @@ function kupdate {
   {
     typeset environment=$1
     typeset use_standard_tag=$2
-    typeset do_database_update=$4
+    typeset do_database_update=$3
+    typeset deploy_web_application=$4
     typeset tag_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE
     typeset tag_file_constant=project.cvs.tag=
     klog "updating environment: $environment with use_standard_tag: $use_standard_tag, deploy_web_application: $deploy_web_application, static_content_node: $static_content_node, and do_database_update: $do_database_update"
@@ -155,11 +153,15 @@ function kupdate {
     ksetprops $environment
     if [[ "$do_database_update" = "true" ]]
       then
-        kimport $environment
+        kant import
     fi
-    klog "deploying project (settings, security, work, and potentially webapp)"
-    kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
-    klog "purging work"
+    if [[ "$deploy_web_application" = "true" ]]
+      then
+        klog "deploying web application"
+        kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
+    fi
+    klog "deploying external work resources"
+    kant dist-external
     kexec "sudo $WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment"
     return 0
   } >> $SCRIPT_LOG 2>&1

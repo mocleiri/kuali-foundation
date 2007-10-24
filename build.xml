@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <project name="kul-cfg-envs" default="init-database-properties" basedir=".">
 	<target name="init-java-properties">
-		<property file="${java.properties.file}" />
+		<property file="${deployment.directory}/build.properties" />
 		<condition property="import.into.mysql">
 			<equals arg1="${ojb.platform}" arg2="MySQL" />
 		</condition>
-		<property file="${database.properties.file}" />
+		<property file="${shared.external.build.properties}" />
 		<property file="build.properties" />
 	</target>
 	
@@ -16,11 +16,15 @@
 	<target name="init-database-properties" depends="init-mysql-properties">
 		<property file="oracle-impex.properties" />
 		<property name="impex.build.file" value="${database.cvs.module}/impex/build.xml" />
-		<property file="${tag.properties.file}" />
+		<property file="${deployment.directory}/cvs-tag.properties" />
 		<loadfile property="impex-build.properties" srcfile="impex-build.properties"><filterchain><expandproperties /></filterchain></loadfile>
 		<delete file="${user.home}/impex-build.properties" />
 		<echo message="${impex-build.properties}" file="${user.home}/impex-build.properties" />
 		<echo message="${impex-build.properties}" />
+	</target>
+	
+	<target name="dist-external" depends="init-database-properties">
+		<ant antfile="${deployment.directory}/${project.cvs.package}/build.xml" target="dist-external" />
 	</target>
 		
 	<target name="export" depends="init-database-properties">
