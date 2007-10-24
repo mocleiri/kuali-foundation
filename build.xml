@@ -3,7 +3,7 @@
 	<target name="init-java-properties">
 		<property file="${deployment.directory}/build.properties" />
 		<condition property="import.into.mysql">
-			<equals arg1="${ojb.platform}" arg2="MySQL" />
+			<equals arg1="${datasource.ojb.platform}" arg2="MySQL" />
 		</condition>
 		<property file="${shared.external.build.properties}" />
 		<property file="build.properties" />
