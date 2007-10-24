@@ -26,7 +26,7 @@
 	<target name="dist-external" depends="init-database-properties">
 		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
 		<cvs command="checkout" cvsroot="${project.cvs.root}" package="${project.cvs.package}" tag="${project.cvs.tag}" quiet="true" />
-		<ant antfile="${project.cvs.package}/build.xml" target="dist-external" dir="${project.cvs.package}" />
+		<ant dir="${project.cvs.package}" target="dist-external" />
 		<delete dir="${project.cvs.package}" />
 	</target>
 		
