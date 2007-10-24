@@ -91,8 +91,8 @@ function kant {
   {
     target=$1
     environment=$2
-    klog "executing target: target against environment: $environment"
-    kexec "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -f $ANT_BUILD_FILE $1"
+    klog "executing target: $target against environment: $environment"
+    kexec "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
