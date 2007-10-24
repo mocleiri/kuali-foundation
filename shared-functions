@@ -154,13 +154,13 @@ function kupdate {
       then
         kant import
     fi
+    kant dist-external
     if [[ "$deploy_web_application" = "true" ]]
       then
         klog "deploying web application"
         kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
     fi
     klog "deploying external work resources"
-    kant dist-external
     kexec "sudo $WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment"
     return 0
   } >> $SCRIPT_LOG 2>&1
