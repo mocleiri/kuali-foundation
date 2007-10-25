@@ -764,6 +764,5 @@ Please place the jar file for this class in the lib directory and try again.
 		<echo>Running CVS checkout to ${torque.schema..dir}</echo>
 		<cvs command="checkout -d ${torque.schema.dir}"  cvsRoot="${cvsroot}" compressionlevel="6" package="${database.cvs.module}"
 		    failonerror="true" tag="${database.cvs.tag}" />
-		<antcall target="create-schema" />
 	</target>
 </project>
