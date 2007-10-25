@@ -16,7 +16,10 @@
 torque.project = kfs
 #
 # the module and tag to check out from CVS for satellite updates
-#
+# these are to be used by a Satellite DBA for automating the refresh of the database
+# 
+cvsroot=:pserver:guest@wsa123.uits.indiana.edu:/opt/cvs
+cvs.password=
 database.cvs.module=kfs-cfg-dbs
 database.cvs.tag=
 #
@@ -77,10 +80,6 @@ import.admin.url = ${import.torque.database.url}
 # these are used by the bootstrapping mechanism
 oracle.usermaint.user=kulusermaint
 oracle.usermaint.password=kulusermaint
-
-# these are to be used by a Satellite DBA for automating the refresh of the database 
-cvsroot=
-cvs.password=
 
 # SQL statements used for creating and dropping users
 # 
