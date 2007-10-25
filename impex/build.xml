@@ -761,7 +761,7 @@ Please place the jar file for this class in the lib directory and try again.
 	<target name="satellite-init">
 		<cvspass cvsroot="${cvsroot}" password="${cvs.password}" />
 		<delete dir="${torque.schema.dir}" />
-		<echo>Running CVS checkout to ${torque.schema..dir}</echo>
+		<echo>Running CVS checkout to ${torque.schema.dir}</echo>
 		<cvs command="checkout -d ${torque.schema.dir}"  cvsRoot="${cvsroot}" compressionlevel="6" package="${database.cvs.module}"
 		    failonerror="true" tag="${database.cvs.tag}" />
 	</target>
