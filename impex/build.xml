@@ -590,6 +590,7 @@ Please place the jar file for this class in the lib directory and try again.
 
 	<macrodef name="adminsql">
 		<attribute name="sql" />
+		<attribute name="onerror" default="abort" />
 		<sequential>
 			<echo>@{sql}</echo>
 			<sql driver="${import.torque.database.driver}"
@@ -597,6 +598,7 @@ Please place the jar file for this class in the lib directory and try again.
 			     url="${import.admin.url}"
 			     userid="${import.admin.user}"
 			     password="${import.admin.password}"
+				 onerror="@{onerror}"
 			     keepformat="true"
 			     delimitertype="row"
 			     delimiter="/">
@@ -648,7 +650,7 @@ Please place the jar file for this class in the lib directory and try again.
 	</target>
 	
 	<target name="oracle-create-schema" depends="inittasks">
-		<adminsql sql="${oracle.create.user.commands}" />
+		<adminsql sql="${oracle.create.user.commands}" onerror="continue" />
 	</target>
 
 	<target name="oracle-drop-schema" depends="inittasks">
@@ -669,22 +671,20 @@ Please place the jar file for this class in the lib directory and try again.
 	-->
 
 	<target name="mysql-create-user" depends="inittasks">
-		<adminsql sql="${mysql.create.user.commands}" />
+		<adminsql sql="${mysql.create.user.commands}" onerror="continue" />
 	</target>
 
 	<target name="mysql-create-schema" depends="inittasks">
-		<adminsql sql="${mysql.create.schema.commands}" />
+		<adminsql sql="${mysql.create.schema.commands}" onerror="continue" />
 	</target>
 	
 	<target name="mysql-drop-schema" depends="inittasks">
 		<adminsql sql="${mysql.drop.schema.commands}" />
 	</target>
 	
-	<target name="mysql-empty-schema" depends="inittasks,mysql-drop-schema,mysql-create-schema">
-	</target>
+	<target name="mysql-empty-schema" depends="inittasks,mysql-drop-schema,mysql-create-schema" />
 	
-	<target name="mysql-bootstrap" depends="inittasks">
-	</target>
+	<target name="mysql-bootstrap" depends="inittasks" />
 	
 	<!-- ================================= 
           target: build              
@@ -751,10 +751,19 @@ Please place the jar file for this class in the lib directory and try again.
 		<!-- update the schema files -->		
 		<cvspass cvsroot="${cvsroot}" password="${cvs.password}" />
 		<echo>Running CVS update in ${torque.schema.dir}</echo>
-		<cvs command="update -C -l"  cvsRoot="${cvsroot}" compression="true" compressionlevel="6"
+		<cvs command="update -C -P -d"  cvsRoot="${cvsroot}" compressionlevel="6"
 		    dest="${torque.schema.dir}" failonerror="true" />
 		<!-- clear the schema -->
 		<antcall target="empty-schema" />
 		<antcall target="import" />
+	</target>
+	
+	<target name="satellite-init">
+		<cvspass cvsroot="${cvsroot}" password="${cvs.password}" />
+		<delete dir="${torque.schema.dir}" />
+		<echo>Running CVS checkout to ${torque.schema..dir}</echo>
+		<cvs command="checkout -d ${torque.schema.dir}"  cvsRoot="${cvsroot}" compressionlevel="6" package="${database.cvs.module}"
+		    failonerror="true" tag="${database.cvs.tag}" />
+		<antcall target="create-schema" />
 	</target>
 </project>

@@ -14,12 +14,24 @@
 # -------------------------------------------------------------------
 
 torque.project = kfs
-torque.schema.dir=../../kfs-cfg-dbs
+#
+# the module and tag to check out from CVS for satellite updates
+#
+database.cvs.module=kfs-cfg-dbs
+database.cvs.tag=
+#
+# the directory from which to read/write database XML files
+#
+torque.schema.dir=../../${database.cvs.module}
 torque.sql.dir=${torque.schema.dir}/sql
-
+#
+# where to find JDBC drivers
+#
 drivers.directory = /java/drivers
 drivers.file.pattern=ojdbc*.jar,mysql*.jar
-
+#
+# used for packaging exports as necessary
+#
 target.zip=../kuldemo.zip
 source.zip=../kuldemo.zip
 
