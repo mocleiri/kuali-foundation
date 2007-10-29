@@ -99,12 +99,11 @@ mysql.create.user.command=CREATE USER '${import.torque.database.user}'@'localhos
 
 mysql.grant.command=GRANT ALL ON ${import.torque.database.schema}.* TO '${import.torque.database.user}'@'localhost' WITH GRANT OPTION
 
-mysql.create.user.commands=${mysql.create.user.command}\n\
+mysql.create.user.commands=${mysql.create.user.command}    
+    
+mysql.create.schema.commands=CREATE DATABASE IF NOT EXISTS ${import.torque.database.schema} DEFAULT CHARACTER SET 'utf8' DEFAULT COLLATE 'utf8_bin'\n\
 /\n\
 ${mysql.grant.command}
-    
-    
-mysql.create.schema.commands=CREATE DATABASE IF NOT EXISTS ${import.torque.database.schema} DEFAULT CHARACTER SET 'utf8' DEFAULT COLLATE 'utf8_bin'
 
 mysql.drop.schema.commands=DROP DATABASE IF EXISTS ${import.torque.database.schema}
 
