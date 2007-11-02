@@ -15,17 +15,9 @@
 
 torque.project = kfs
 #
-# the module and tag to check out from CVS for satellite updates
-# these are to be used by a Satellite DBA for automating the refresh of the database
-# 
-cvsroot=:pserver:guest@wsa123.uits.indiana.edu:/opt/cvs
-cvs.password=
-database.cvs.module=kfs-cfg-dbs
-database.cvs.tag=
-#
 # the directory from which to read/write database XML files
 #
-torque.schema.dir=../../${database.cvs.module}
+torque.schema.dir=../demo-data-set
 torque.sql.dir=${torque.schema.dir}/sql
 #
 # where to find JDBC drivers
@@ -51,12 +43,23 @@ export.torque.database.password=kuldba
 #
 # Modify these to match the database into which you are going to import
 #
-import.torque.database = mysql
-import.torque.database.driver = com.mysql.jdbc.Driver
-import.torque.database.url = jdbc:mysql://localhost:3306/kuldba
-import.torque.database.user=kuldba
-import.torque.database.schema=KULDBA
-import.torque.database.password=kuldba
+
+import.torque.database = oracle
+import.torque.database.driver = oracle.jdbc.OracleDriver
+import.torque.database.url = jdbc:oracle:thin:@localhost:1521:KUALI
+import.torque.database.user=kuldemo
+import.torque.database.schema=KULDEMO
+import.torque.database.password=kuldemo
+
+#
+# Uncomment these for a local MySQL database
+#
+#import.torque.database = mysql
+#import.torque.database.driver = com.mysql.jdbc.Driver
+#import.torque.database.url = jdbc:mysql://localhost:3306/kuldemo
+#import.torque.database.user=kuldemo
+#import.torque.database.schema=kuldemo
+#import.torque.database.password=kuldemo
 
 # uncomment this to skip some of the larger (and mostly unnecessary) tables in the system
 # import.exclude.data.pattern=LD_LDGR_ENTR_T.xml,GL_BALANCE_T.xml,GL_ENTRY_T.xml,LD_LDGR_BAL_T.xml,GL_ACCT_BALANCES_T.xml
@@ -70,8 +73,8 @@ import.admin.user=kuluser_admin
 import.admin.password=kuluser_admin
 
 # sample for mysql:
-#import.admin.user=
-#import.admin.password=
+#import.admin.user=root
+#import.admin.password=????
 
 # this may need to be different if (like in the case of MySQL) there is a schema name on the URL
 # admin commands will not run with that URL if the schema has not yet been created
