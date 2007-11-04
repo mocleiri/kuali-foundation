@@ -45,7 +45,7 @@ function kend {
     klog "ending with exit status: $exit_status"
     if [[ "$exit_status" != "0" ]]
       then
-        kmail $APPLICATION_CFG_MAIL_LIST "$SCRIPT_NAME has errors" "`cat $SCRIPT_LOG`"
+        kmail $APPLICATION_CFG_MAIL_LIST "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
     fi
     exit $exit_status
   } >> $SCRIPT_LOG 2>&1
