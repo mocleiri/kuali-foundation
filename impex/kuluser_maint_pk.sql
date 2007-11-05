@@ -87,7 +87,7 @@ IS
     END;
     
 
-    FUNCTION KILL_USER_SESSIONS( UserID IN VARCHAR ) RETURN INTEGER
+    FUNCTION kill_user_sessions( UserID IN VARCHAR ) RETURN INTEGER
     IS
         CURSOR sess_cur( UserID VARCHAR ) IS 
               select sid, serial# AS serial
@@ -105,6 +105,7 @@ IS
  	      FROM v$session
  	      WHERE username = UPPER( UserID )
             AND status != 'KILLED';
+        dbms_output.put_line('Initial Session Count:'||RemainingSessionCount);            
         IF RemainingSessionCount > 0 THEN
             FOR rec IN sess_cur( UPPER( UserID ) ) LOOP
                 dbms_output.put_line ('Killing session --> ' || rec.sid || ',' || rec.serial);
@@ -127,6 +128,12 @@ IS
          	-- Wait one more interval for good measure
             dbms_lock.sleep(WaitIntervalSeconds);        
         END IF;
+ 	    SELECT COUNT(*)
+ 	      INTO RemainingSessionCount
+ 	      FROM v$session
+ 	      WHERE username = UPPER( UserID )
+            AND status != 'KILLED';
+        dbms_output.put_line('Final Session Count:'||RemainingSessionCount);            
         IF RemainingSessionCount = 0 THEN
             RETURN 0;
         ELSE
@@ -134,6 +141,7 @@ IS
         END IF;
     EXCEPTION
         WHEN OTHERS THEN
+            dbms_output.put_line('kill sessions - Exception:'||SUBSTR(SQLERRM,1,200));
             IF DebugMode THEN
                 RAISE;
             ELSE
@@ -142,13 +150,14 @@ IS
     END;    
     
     
-    FUNCTION CREATE_USER( UserID IN VARCHAR, UserPassword IN VARCHAR DEFAULT NULL ) RETURN INTEGER
+    FUNCTION create_user( UserID IN VARCHAR, UserPassword IN VARCHAR DEFAULT NULL ) RETURN INTEGER
     IS
         UserPW VARCHAR2(30) := UserPassword;
         PasswordHash BOOLEAN := FALSE;
         CreateUserDDL VARCHAR2(4000);
     BEGIN
         IF UserPW IS NULL THEN
+            dbms_output.put_line('Creating new User with stored password: '||UserID);            
             BEGIN
                 SELECT password_text
                     INTO UserPW
@@ -159,6 +168,8 @@ IS
                 WHEN no_data_found THEN
                     raise_application_error( -20000, 'No Password Provided and password not stored in support table.' );
             END;
+        ELSE
+            dbms_output.put_line('Creating new User with given password: '||UserID);                    
         END IF;
         -- create user
         CreateUserDDL := 'CREATE USER '||UserID||' IDENTIFIED BY ';
@@ -191,6 +202,7 @@ IS
         RETURN 0;
     EXCEPTION
         WHEN OTHERS THEN
+            dbms_output.put_line('create User - Exception:'||SUBSTR(SQLERRM,1,200));
             IF DebugMode THEN
                 RAISE;
             ELSE
@@ -227,19 +239,25 @@ IS
             FROM dba_users
             WHERE username = UPPER(UserID);
         IF Temp > 0 THEN
-            -- ensure all sessions are gone
-            Result := KILL_USER_SESSIONS(UserID);
+            dbms_output.put_line('Dropping User:'||UserID);            
+            -- get the user's hashed password and store to the support table
+            -- change password to prevent additional logins
+            Result := use_temp_password(UserID);
             IF Result != 0 THEN
                 RETURN Result;
             END IF;
-            -- get the user's hashed password and store to the support table
-            save_user_password(UserID);
+            -- ensure all sessions are gone
+            Result := kill_user_sessions(UserID);
+            IF Result != 0 THEN
+                RETURN Result;
+            END IF;
             -- drop the user
             EXECUTE IMMEDIATE 'DROP USER '||UserID||' CASCADE';
         END IF;
         RETURN 0;
     EXCEPTION
         WHEN OTHERS THEN
+            dbms_output.put_line('drop User - Exception:'||SUBSTR(SQLERRM,1,200));
             IF DebugMode THEN
                 RAISE;
             ELSE
@@ -262,6 +280,7 @@ IS
         RETURN 0;
     EXCEPTION
         WHEN OTHERS THEN
+            dbms_output.put_line('Recreate User - Exception:'||SUBSTR(SQLERRM,1,200));
             IF DebugMode THEN
                 RAISE;
             ELSE
@@ -270,10 +289,11 @@ IS
     END;
 
 
-    FUNCTION USE_TEMP_PASSWORD( UserID IN VARCHAR ) RETURN INTEGER
+    FUNCTION use_temp_password( UserID IN VARCHAR ) RETURN INTEGER
     IS
         TempPassword VARCHAR(30);
     BEGIN
+        dbms_output.put_line('Switching to Temp password:'||UserID);            
         -- save password
         save_user_password(UserID);
         -- get temp password
@@ -286,6 +306,7 @@ IS
         RETURN 0;
     EXCEPTION
         WHEN OTHERS THEN
+            dbms_output.put_line('use temp password - Exception:'||SUBSTR(SQLERRM,1,200));
             IF DebugMode THEN
                 RAISE;
             ELSE
@@ -294,10 +315,11 @@ IS
     END;
     
     
-    FUNCTION RESTORE_NORMAL_PASSWORD( UserID IN VARCHAR ) RETURN INTEGER
+    FUNCTION restore_normal_password( UserID IN VARCHAR ) RETURN INTEGER
     IS
         TempPassword VARCHAR(30);
     BEGIN
+        dbms_output.put_line('Restoring Normal password:'||UserID);            
         -- get password
         SELECT password_text
             INTO TempPassword
@@ -311,6 +333,7 @@ IS
         RETURN 0;
     EXCEPTION
         WHEN OTHERS THEN
+            dbms_output.put_line('restore password - Exception:'||SUBSTR(SQLERRM,1,200));
             IF DebugMode THEN
                 RAISE;
             ELSE
