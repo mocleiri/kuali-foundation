@@ -10,6 +10,7 @@ kdailytag kfs-release-2-br
 kupdate unt true true false
 kupdate cnv true true true
 kupdate stg true true true
+kupdate tst2 true true false
 kpurge $LOGS_DIRECTORY 7
 
 kend 0
