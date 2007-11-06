@@ -7,8 +7,8 @@
 kexport dba
 koldexport
 kdailytag kfs-release-2-br
-kupdate unt true false false
-kupdate cnv true false true
+kupdate unt true true false
+kupdate cnv true true true
 kpurge $LOGS_DIRECTORY 7
 
 kend 0
