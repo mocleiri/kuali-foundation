@@ -309,7 +309,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		                  databaseUser="${export.torque.database.user}"
 		                  databaseSchema="${export.torque.database.schema}"
 		                  databasePassword="${export.torque.database.password}"
-		                  outputDirectory="${torque.output.absolute.dir}"
+		                  outputDirectory="${torque.schema.dir}"
 		/>
 
 		<!-- remove files for empty tables -->
