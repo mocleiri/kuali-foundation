@@ -200,7 +200,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 
 		<torque-doc contextProperties="${torque.contextProperties}"
 		            controlTemplate="${torque.template.doc}"
-		            outputDirectory="${torque.doc.dir}"
+		            outputDirectory="${torque.schema.dir}/doc"
 		            outputFile="report.doc.generation"
 		            outputFormat="${torque.doc.format}"
 		            sqldbmap="${torque.sql.dir}/sqldb.map"
