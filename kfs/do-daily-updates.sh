@@ -5,6 +5,7 @@
 . ~j2eemgr/kuali/shared-functions
 
 kexport dba
+koldexport
 kdailytag kfs-release-2-1-br
 kupdate unt true true false
 kupdate cnv true true true
