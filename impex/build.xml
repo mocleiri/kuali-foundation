@@ -200,7 +200,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 
 		<torque-doc contextProperties="${torque.contextProperties}"
 		            controlTemplate="${torque.template.doc}"
-		            outputDirectory="${torque.doc.dir}"
+		            outputDirectory="${torque.schema.dir}/doc"
 		            outputFile="report.doc.generation"
 		            outputFormat="${torque.doc.format}"
 		            sqldbmap="${torque.sql.dir}/sqldb.map"
@@ -301,8 +301,14 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
 
-		<property name="torque.output.absolute.dir" location="${torque.output.dir}" />
+		<property name="torque.output.absolute.dir" location="${torque.schema.dir}" />
 		<!-- above works around a problem with torque-data-dump getting passed a relative directory, and not working right if tbe process was started from a directory other than ant's basedir -->
+		<delete>
+			<fileset dir="${torque.schema.dir}">
+				<include name="*.xml" />
+				<exclude name="schema.xml" />
+			</fileset>
+		</delete>
 
 		<torque-data-dump databaseDriver="${export.torque.database.driver}"
 		                  databaseUrl="${export.torque.database.url}"
