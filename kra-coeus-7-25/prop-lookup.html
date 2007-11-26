@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Kuali</title>
+<LINK REL="SHORTCUT ICON" HREF="../images/icon.ico">
+<meta http-equiv=Content-Type content="text/html; charset=ISO-8859-1">
+<link href="../css/kuali_application.css" rel=stylesheet type="text/css">
+<link href="../css/kuali.css" rel=stylesheet type="text/css">
+<script language=javascript src="../scripts/my_bm_inc.js"></script>
+<script language=javascript1.2 src="../scripts/my_explorer.js"></script>
+<script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js"></script>
+<script language=JavaScript src="../scripts/CalendarPopup.js"></script>
+<script language=JavaScript type="text/JavaScript">
+<!--
+
+function MM_showHideLayers() { //v9.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) 
+  with (document) if (getElementByid && ((obj=getElementByid(args[i]))!=null)) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+#workarea .neutral {
+	background-color: #FFFFFF;
+	border: 1px none #FFFFFF;
+	width: 50%;
+}
+-->
+</style>
+</head>
+<body>
+<!--webbot BOT="GeneratedScript" PREVIEW=" " startspan -->
+<script type="text/javascript"><!--
+function Validator(theForm)
+{
+	var numberRegExp= /\d+/; //matches any string containing one or more digits (NB only gets first number it sees).
+	var matches, inputNameNumber, message="";
+	for(i=0; i<theForm.elements.length; i++){//loop round all elements in the form.
+		if ( (theForm.elements[i].name.indexOf("firstname")>=0) || (theForm.elements[i].name.indexOf("surname")>=0) )//check name contains either the string "firstname" or "surname".
+		{
+			matches = numberRegExp.exec(theForm.elements[i].name);//extract number from name using regular expression.
+			if (matches != null) {
+				inputNameNumber = "";
+				for (j = 0; j < matches.length; j++) {
+					inputNameNumber = inputNameNumber + matches[j];//get the number we've found.
+				}
+				inputNameNumber = parseInt(inputNameNumber);
+
+				if(inputNameNumber!="NaN"){//check it's not an empty string
+					if(theForm.elements[i].value=="" && inputNameNumber<=divNum){//check value is empty and input number is less than number of divs on display.
+						message+="Please enter a value for the \""+ theForm.elements[i].name +"\" field." + "\n";
+					}
+				}
+			}// if no matches, ignore.
+		}//if input name doesn't contain "firstname" or "surname" ignore
+	}
+
+	if(message!=""){
+		alert(message);
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+var divNum=0;
+function showDivs(obj){
+	var i, num;
+	divNum = parseInt(obj.options[obj.selectedIndex].value);
+	
+	for(i=1; i<=10; i++){
+		num = (i<10) ? "0"+i : i;
+		
+		if(document.getElementByid('registration'+num)){ // if the div exists.
+			if(i<=divNum){// display.
+				document.getElementByid('registration'+num).style.display="block";
+			}
+			else{ // hide.
+				document.getElementByid('registration'+num).style.display="none";
+			}
+		}
+	}
+}
+
+function hideAllDivsOnLoad(){
+	showDivs(document.getElementByid("numberofreg"));
+}
+
+addLoadEvent(hideAllDivsOnLoad);
+
+// add an onload event without destroying any previously set onload functions.
+function addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof window.onload != 'function') {
+		window.onload = func;
+	} else {
+		window.onload = function() {
+			if (oldonload) {
+				oldonload();
+			}
+			func();
+		}
+	}
+}
+//--></script>
+<form method=post action="regformhandler.php" onSubmit="return Validator(this)" name="regform">
+  <div class="headerarea-kra" id="headerarea">
+    <h1>Activity Type Lookup <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
+  </div>
+  <!--TABBED TOP NAVIGATION-->
+  <div align="right"><span class="headerarea-kra"><span class="msg-excol"><a href="prop-maintain.html"><img src="../images/tinybutton-createnew.gif" width="70" height="15" border="0"></a></span></span> </div>
+  <div class="msg-excol">
+    <div align="center"></div>
+    <div class="left-errmsg">
+      <div class="error"><span class="excol"> </span></div>
+    </div>
+  </div><table cellpadding="0" cellspacing="0">
+<tr>
+
+		<th class="grid" width="Infinity%" align="right">
+    	
+		  <div align="center">Activity Type Code:
+            	
+      </div></th>
+    
+        <td class="grid" width="Infinity%">
+							
+						<input type="text" name='accountTypeCode'
+									id='accountTypeCode'
+									value=''
+									size='2'
+									maxlength='100'
+									style=""  
+									class=""/>
+						    
+	  </td>
+				    
+	</tr>
+	
+<tr>
+
+		<th class="grid" width="Infinity%" align="right">
+    	
+		  <div align="center">Activity Type Name:
+            	
+      </div></th>
+    
+        <td class="grid" width="Infinity%">
+							
+						<input type="text" name='accountTypeName'
+									id='accountTypeName'
+									value=''
+									size='50'
+									maxlength='100'
+									style=""  
+									class=""/>
+						    
+	  </td>
+				    
+	</tr>
+	</table>
+  <div align="center"></div>
+  <p align="center"><img src="../images/buttonsmall_search.gif" width="66" height="18"><img src="../images/buttonsmall_clear.gif" width="51" height="18" hspace="10"><img src="../images/buttonsmall_cancel.gif" width="66" height="18"></p>
+</form>
+</body>
+</html>
