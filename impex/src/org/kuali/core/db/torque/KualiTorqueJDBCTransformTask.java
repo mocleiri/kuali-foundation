@@ -290,8 +290,12 @@ public class KualiTorqueJDBCTransformTask extends Task {
 							defValue = defValue.substring( 1,
 									defValue.length() - 1 );
 						}
-
-						column.setAttribute( "default", defValue );
+						if ( defValue.equals( "NULL" ) ) {
+							defValue = "";
+						}
+						if ( StringUtils.isNotEmpty( defValue ) ) {
+							column.setAttribute( "default", defValue );
+						}
 					}
 					table.appendChild( column );
 				}
