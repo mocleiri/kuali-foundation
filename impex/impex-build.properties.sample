@@ -46,7 +46,7 @@ export.torque.database.password=kuldba
 
 import.torque.database = oracle
 import.torque.database.driver = oracle.jdbc.OracleDriver
-import.torque.database.url = jdbc:oracle:thin:@localhost:1521:KUALI
+import.torque.database.url = jdbc:oracle:thin:@localhost:1521:XE
 import.torque.database.user=kuldemo
 import.torque.database.schema=KULDEMO
 import.torque.database.password=kuldemo
