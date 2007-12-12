@@ -110,10 +110,6 @@ function kdailytag {
     kexec "cvs -q rtag -r $branch $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
     kexec "cvs -q rtag -d $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
     kexec "cvs -q rtag $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
-	# remove when ditch old db process
-    kexec "cvs -q rtag -d $new_build_tag kuali_database"
-    kexec "cvs -q rtag $new_build_tag kuali_database"
-	# remove when ditch old db process
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
@@ -170,36 +166,3 @@ function kupdate {
   } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kupdate
-
-function koldexport {
-  {
-    typeset schema=kuldba
-    typeset dump_file=$schema".dmp"
-    typeset DATA_SERVER=esdb12-k.uits.indiana.edu
-    typeset DBA_USER=ora1010
-    typeset DBA_BASE_DIRECTORY=/opt/oracle
-    typeset DBA_LOGS_DIRECTORY=/var/brte/DBA
-    typeset DBA_PROGRAM_DIRECTORY=$DBA_BASE_DIRECTORY/admin
-    typeset DBA_WORKING_DIRECTORY=$DBA_BASE_DIRECTORY/exp/KUALI
-    typeset DBA_EXPORT_COMMAND=dba_export_kul.sh
-    typeset DBA_IMPORT_COMMAND=dba_import_kul.sh
-    typeset BRTE_USER=kuldevb
-
-    kexec "cvs -q checkout kuali_database"
-    typeset old_zip_name=`find kuali_database/ -name $schema-*.tgz -print`
-    kexec "rm -f $old_zip_name"
-    kexec "cvs -q delete $old_zip_name"
-    kexec "cvs commit -m \"automated daily export\" kuali_database"
-    typeset new_zip_name=kuali_database/$schema-`date +%Y%m%d%H%M%S`.tgz
-    klog "replacing old_zip_name: $old_zip_name with new_zip_name:  $new_zip_name"
-    kexec "ssh $BRTE_USER@$DATA_SERVER \"sudo -H -u $DBA_USER $DBA_PROGRAM_DIRECTORY/$DBA_EXPORT_COMMAND $schema\""
-    kexec "scp $BRTE_USER@$DATA_SERVER:$DBA_WORKING_DIRECTORY/$schema\"_exp.dmp\" $dump_file"
-    kexec "tar -zcf $new_zip_name $dump_file"
-    kexec "cvs -q add -kb $new_zip_name"
-    kexec "cvs commit -m \"automated daily export\" kuali_database"
-    kexec "rm -rf kuali_database"
-    kexec "rm -f $dump_file"
-    return 0
-  } >> $SCRIPT_LOG 2>&1
-}
-typeset -xf koldexport
