@@ -9,6 +9,7 @@ kdailytag HEAD
 kupdate dev true true false
 kupdate unt true true false
 kupdate cnv true true true
+kupdate reg true true true
 kupdate stg false true true
 kpurge $LOGS_DIRECTORY 7
 
