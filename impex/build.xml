@@ -629,6 +629,12 @@ Please place the jar file for this class in the lib directory and try again.
 		</sequential>
 	</macrodef>
 
+	<target name="create-user" depends="inittasks">
+		<antcall>
+			<target name="${import.torque.database}-create-user" />
+		</antcall>
+	</target>
+
 	<target name="create-schema" depends="inittasks">
 		<antcall>
 			<target name="${import.torque.database}-create-user" />
