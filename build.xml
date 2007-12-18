@@ -38,10 +38,13 @@
 		<delete file="velocity.log" />
 	</target>
 	
-	<target name="update-database" depends="init-database-properties">
+	<target name="create-mysql-user" depends="init-database-properties" if="import.into.mysql">
+		<ant antfile="${impex.build.file}" target="create-user" inheritall="false" />
+	</target>
+
+	<target name="update-database" depends="create-mysql-user">
 		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
 		<cvs command="checkout" cvsroot="${project.cvs.root}" package="${application.database.cvs.module}" tag="${project.cvs.tag}" reallyquiet="true" />
-		<ant antfile="${impex.build.file}" target="create-user" inheritall="false" />
 		<ant antfile="${impex.build.file}" target="empty-schema" inheritall="false" />
 		<ant antfile="${impex.build.file}" target="import" inheritall="false" />
 	</target>
