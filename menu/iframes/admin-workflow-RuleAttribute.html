@@ -1,0 +1,746 @@
+<html><head><title>Rule Attribute Lookup</title>
+
+<link href="admin-workflow-RuleAttribute_files/screen.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="admin-workflow-RuleAttribute_files/en-common.js"></script>
+<script language="javascript" src="admin-workflow-RuleAttribute_files/lookupable-common.js"></script></head><body>
+
+  <form name="LookupForm" method="get" action="/kuali-cnv/en/Lookup.do"><input name="returnLocation" type="hidden">
+  <input name="quickFinderLookupable" type="hidden">
+  <input name="customFieldConversions" type="hidden">
+  <input name="backLocation" value="" type="hidden"><input name="formKey" value="" type="hidden"><input name="methodToCall" value="" type="hidden"><input name="lookupableImplServiceName" value="RuleAttributeLookupableImplService" type="hidden"><input name="conversionFields" value="" type="hidden"><table class="headercell1" border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody><tr>
+    <td><img src="admin-workflow-RuleAttribute_files/wf-logo.gif" alt="OneStart Workflow" height="21" hspace="5" vspace="5" width="150">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td width="90%">
+      </td>
+  </tr>
+</tbody></table>
+
+<br>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody><tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td height="30">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tbody><tr>
+          <td height="30"><strong>Rule Attribute Lookup</strong></td>
+        </tr>
+        <tr>
+          <td>Enter criteria to search for a rule attribute.</td>
+        </tr>
+      </tbody></table>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+      <table class="bord-r-t" align="center" border="0" cellpadding="0" cellspacing="0" height="40">
+		
+		<tbody><tr>
+										<td class="thnormal" colspan="2" align="right" height="40">&nbsp;&nbsp;Name:</td>																			          
+														<td class="datacell">&nbsp;<input name="name" value="" style="background: rgb(255, 255, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; font-family: verdana,arial,helvetica,sans-serif; font-size: 10px; color: rgb(51, 51, 153);" type="text">
+										
+												&nbsp;
+										</td>
+     </tr>
+<tr>
+										<td class="thnormal" colspan="2" align="right" height="40">&nbsp;&nbsp;Class Name:</td>																			          
+														<td class="datacell">&nbsp;<input name="className" value="" style="background: rgb(255, 255, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; font-family: verdana,arial,helvetica,sans-serif; font-size: 10px; color: rgb(51, 51, 153);" type="text">
+										
+												&nbsp;
+										</td>
+     </tr>
+<tr>
+										<td class="thnormal" colspan="2" align="right" height="40">&nbsp;&nbsp;Attribute Type:</td>																			          
+														<td class="datacell">&nbsp;<select name="type" style="background: rgb(255, 255, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; font-family: verdana,arial,helvetica,sans-serif; font-size: 10px; color: rgb(51, 51, 153);">
+													<option value="" selected="selected">All</option>
+															<option value="RuleAttribute">Rule Attribute</option>
+															<option value="SearchableAttribute">Searchable Attribute</option>
+															<option value="RuleXmlAttribute">Rule Xml Attribute</option>
+															<option value="SearchableXmlAttribute">Searchable Xml Attribute</option>
+															<option value="ExtensionAttribute">Extension Attribute</option>
+															<option value="EmailAttribute">Email Attribute</option>
+															<option value="NoteAttribute">Note Attribute</option>
+															<option value="ActionListAttribute">Action List Attribute</option>
+															<option value="RuleValidationAttribute">Rule Validation Attribute</option>
+															<option value="DocumentSearchCriteriaProcessorAttribute">Document Search Criteria Processor Attribute</option>
+															<option value="DocumentSearchGeneratorAttribute">Document Search Generator Attribute</option>
+															<option value="DocumentSearchResultProcessorAttribute">Document Search Result Processor Attribute</option>
+															<option value="DocumentSearchXMLResultProcessorAttribute">Document Search Result Processor XML Attribute</option>
+															<option value="DocumentSearchSecurityFilterAttribute">Document Search Security Filter Attribute</option>
+															</select>
+										
+												&nbsp;
+										</td>
+     </tr>
+<tr align="center">
+          <td colspan="3" class="thnormal" height="30">
+			<input name="methodToCall.search" src="admin-workflow-RuleAttribute_files/buttonsmall_search.gif" value="search" class="tinybutton" title="search" alt="search" border="0" type="image">&nbsp;&nbsp;<input name="methodToCall.clearValues" src="admin-workflow-RuleAttribute_files/buttonsmall_clear.gif" value="clearValues" class="tinybutton" title="clear" alt="clear" border="0" type="image"></td>
+        </tr>
+      </tbody></table>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  
+  
+  <tr>
+      <td>&nbsp;</td>
+<td align="right">
+&nbsp;
+</td>
+      <td>&nbsp;</td>
+</tr>
+
+<tr>
+      <td>&nbsp;</td>
+      <td>
+        <div width="100%" align="right">Export results to: 
+          <a href="javascript:export_results('LookupForm', 'Lookup.do', 'XML')">
+            XML</a></div>	
+      </td>
+      <td>&nbsp;</td>
+</tr><tr>
+      <td>&nbsp;</td>
+<td>
+  <input name="listKey" value="2" type="hidden"><p><span class="pagebanner">157 items retrieved, displaying 1 to 100.</span><span class="pagelinks">[First/Prev] <strong>1</strong>, <a href="https://test.kuali.org/kuali-cnv/en/Lookup.do?backLocation=&amp;returnLocation=&amp;formKey=&amp;lookupableImplServiceName=RuleAttributeLookupableImplService&amp;type=&amp;customFieldConversions=&amp;conversionFields=&amp;methodToCall.search=search&amp;className=&amp;methodToCall.search.x=28&amp;quickFinderLookupable=&amp;methodToCall.search.y=11&amp;d-447263-p=2&amp;methodToCall=&amp;methodToCall=viewResults&amp;name=&amp;listKey=&amp;listKey=2" title="Go to page 2">2</a> [<a href="https://test.kuali.org/kuali-cnv/en/Lookup.do?backLocation=&amp;returnLocation=&amp;formKey=&amp;lookupableImplServiceName=RuleAttributeLookupableImplService&amp;type=&amp;customFieldConversions=&amp;conversionFields=&amp;methodToCall.search=search&amp;className=&amp;methodToCall.search.x=28&amp;quickFinderLookupable=&amp;methodToCall.search.y=11&amp;d-447263-p=2&amp;methodToCall=&amp;methodToCall=viewResults&amp;name=&amp;listKey=&amp;listKey=2">Next</a>/<a href="https://test.kuali.org/kuali-cnv/en/Lookup.do?backLocation=&amp;returnLocation=&amp;formKey=&amp;lookupableImplServiceName=RuleAttributeLookupableImplService&amp;type=&amp;customFieldConversions=&amp;conversionFields=&amp;methodToCall.search=search&amp;className=&amp;methodToCall.search.x=28&amp;quickFinderLookupable=&amp;methodToCall.search.y=11&amp;d-447263-p=2&amp;methodToCall=&amp;methodToCall=viewResults&amp;name=&amp;listKey=&amp;listKey=2">Last</a>]</span></p>
+<table class="bord-r-t" style="width: 100%;" id="result" cellpadding="0" cellspacing="0">
+<thead>
+<tr>
+<th class="sortable sorted order1">
+<a href="https://test.kuali.org/kuali-cnv/en/Lookup.do?backLocation=&amp;formKey=&amp;returnLocation=&amp;type=&amp;lookupableImplServiceName=RuleAttributeLookupableImplService&amp;d-447263-o=1&amp;customFieldConversions=&amp;conversionFields=&amp;methodToCall.search=search&amp;className=&amp;d-447263-s=ruleAttributeId&amp;methodToCall.search.x=28&amp;d-447263-n=1&amp;quickFinderLookupable=&amp;methodToCall.search.y=11&amp;d-447263-p=1&amp;name=&amp;methodToCall=&amp;methodToCall=viewResults&amp;listKey=&amp;listKey=2">Rule Attribute Id</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kuali-cnv/en/Lookup.do?backLocation=&amp;formKey=&amp;returnLocation=&amp;type=&amp;lookupableImplServiceName=RuleAttributeLookupableImplService&amp;d-447263-o=2&amp;customFieldConversions=&amp;conversionFields=&amp;methodToCall.search=search&amp;className=&amp;d-447263-s=name&amp;methodToCall.search.x=28&amp;d-447263-n=1&amp;quickFinderLookupable=&amp;methodToCall.search.y=11&amp;d-447263-p=1&amp;name=&amp;methodToCall=&amp;methodToCall=viewResults&amp;listKey=&amp;listKey=2">Rule Attribute Name</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kuali-cnv/en/Lookup.do?backLocation=&amp;formKey=&amp;returnLocation=&amp;type=&amp;lookupableImplServiceName=RuleAttributeLookupableImplService&amp;d-447263-o=2&amp;customFieldConversions=&amp;conversionFields=&amp;methodToCall.search=search&amp;className=&amp;d-447263-s=type&amp;methodToCall.search.x=28&amp;d-447263-n=1&amp;quickFinderLookupable=&amp;methodToCall.search.y=11&amp;d-447263-p=1&amp;name=&amp;methodToCall=&amp;methodToCall=viewResults&amp;listKey=&amp;listKey=2">Attribute Type</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kuali-cnv/en/Lookup.do?backLocation=&amp;formKey=&amp;returnLocation=&amp;type=&amp;lookupableImplServiceName=RuleAttributeLookupableImplService&amp;d-447263-o=2&amp;customFieldConversions=&amp;conversionFields=&amp;methodToCall.search=search&amp;className=&amp;d-447263-s=className&amp;methodToCall.search.x=28&amp;d-447263-n=1&amp;quickFinderLookupable=&amp;methodToCall.search.y=11&amp;d-447263-p=1&amp;name=&amp;methodToCall=&amp;methodToCall=viewResults&amp;listKey=&amp;listKey=2">Rule Attribute Class</a></th>
+<th>Rule Attribute Actions</th></tr></thead>
+<tbody></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1001</td>
+<td class="datacell">KualiAccountAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiAccountAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1001">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1002</td>
+<td class="datacell">KualiOrgReviewAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiOrgReviewAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1002">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1003</td>
+<td class="datacell">KualiChartAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiChartAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1003">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1030</td>
+<td class="datacell">RuleRoutingAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">edu.iu.uis.eden.routetemplate.RuleRoutingAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1030">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1128</td>
+<td class="datacell">KualiFundGroupAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1128">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1129</td>
+<td class="datacell">KualiSubFundGroupAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1129">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1130</td>
+<td class="datacell">KualiObjectCodeTypeAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1130">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1131</td>
+<td class="datacell">KualiObjectCodeSubTypeAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1131">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1132</td>
+<td class="datacell">KualiSubAccountNumberAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1132">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1133</td>
+<td class="datacell">KualiProjectCodeAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1133">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1174</td>
+<td class="datacell">KualiFundGroupSourceAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1174">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1175</td>
+<td class="datacell">KualiFundGroupTargetAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1175">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1176</td>
+<td class="datacell">KualiSubFundGroupSourceAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1176">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1177</td>
+<td class="datacell">KualiSubFundGroupTargetAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1177">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1178</td>
+<td class="datacell">KualiObjectCodeTypeSourceAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1178">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1179</td>
+<td class="datacell">KualiObjectCodeTypeTargetAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1179">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1180</td>
+<td class="datacell">KualiObjectCodeSubTypeSourceAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1180">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1181</td>
+<td class="datacell">KualiObjectCodeSubTypeTargetAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1181">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1182</td>
+<td class="datacell">KualiSubAccountSourceAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1182">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1183</td>
+<td class="datacell">KualiSubAccountTargetAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1183">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1184</td>
+<td class="datacell">KualiProjectCodeSourceAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1184">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1185</td>
+<td class="datacell">KualiProjectCodeTargetAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1185">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1186</td>
+<td class="datacell">KualiAmountSourceAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1186">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1187</td>
+<td class="datacell">KualiAmountTargetAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1187">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1188</td>
+<td class="datacell">KualiDocumentInitiatorContentRoutingAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1188">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1189</td>
+<td class="datacell">KualiHigherEdSourceAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1189">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1190</td>
+<td class="datacell">KualiHigherEdTargetAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1190">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1191</td>
+<td class="datacell">KualiHigherEdAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1191">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1192</td>
+<td class="datacell">KualiOverrideCodeSourceAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1192">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1193</td>
+<td class="datacell">KualiOverrideCodeTargetAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1193">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1194</td>
+<td class="datacell">KualiOverrideCodeAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1194">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1240</td>
+<td class="datacell">KualiPaymentMethodAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1240">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1241</td>
+<td class="datacell">KualiPaymentReasonAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1241">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1242</td>
+<td class="datacell">KualiEmployeeIndicatorAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1242">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1243</td>
+<td class="datacell">KualiTaxControlCodeAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1243">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1244</td>
+<td class="datacell">KualiPayeeTypeAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1244">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">1245</td>
+<td class="datacell">KualiAlienIndicatorAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1245">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">1246</td>
+<td class="datacell">KualiCampusCodeAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=1246">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">3694</td>
+<td class="datacell">KualiInitiatorCampusAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=3694">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">3934</td>
+<td class="datacell">KualiAccountFundGroupAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=3934">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">3935</td>
+<td class="datacell">KualiAccountSubFundGroupAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=3935">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">8371</td>
+<td class="datacell">KualiAccountSearchAttribute</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountNumberSearchAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=8371">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">8431</td>
+<td class="datacell">KualiPayeeTaxIdAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiPayeeTaxIdAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=8431">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">8451</td>
+<td class="datacell">KualiBudgetDocumentAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.module.kra.attribute.KualiBudgetDocumentAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=8451">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">8651</td>
+<td class="datacell">KualiPayeeNameSearchableAttribute</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=8651">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">8652</td>
+<td class="datacell">KualiPayeeIdSearchableAttribute</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=8652">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">8653</td>
+<td class="datacell">KualiPaymentReasonSearchableAttribute</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=8653">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">8951</td>
+<td class="datacell">KualiReportingSubFundGroupAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.AccountLineReplacingXmlRuleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=8951">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">8973</td>
+<td class="datacell">KualiReportingAccountAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiReportingAccountAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=8973">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">8976</td>
+<td class="datacell">KualiReportingChartAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiReportingChartAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=8976">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">8979</td>
+<td class="datacell">KualiReportingOrgAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiReportingOrgReviewAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=8979">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">9374</td>
+<td class="datacell">KualiVendorDocumentTypeAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=9374">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">9574</td>
+<td class="datacell">KualiRequisitionContentAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=9574">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">9754</td>
+<td class="datacell">KualiResearchProjectDirectorRoleAttribute</td>
+<td class="datacell">RoleAttribute</td>
+<td class="datacell">org.kuali.workflow.module.kra.attribute.ResearchProjectDirectorRoleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=9754">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">9834</td>
+<td class="datacell">KualiResearchRiskAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=9834">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">9854</td>
+<td class="datacell">KualiSubAccountAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiSubAccountAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=9854">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">9942</td>
+<td class="datacell">KualiPurchaseOrderTransmissionMethodAttribute</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=9942">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10014</td>
+<td class="datacell">KualiPurchaseOrderBudgetAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.module.purap.attribute.KualiPurchaseOrderBudgetAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10014">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10015</td>
+<td class="datacell">KualiPurchaseOrderContractAndGrantsAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.module.purap.attribute.KualiPurchaseOrderContractAndGrantsAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10015">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10054</td>
+<td class="datacell">KualiInternalPurchasingRoleAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.module.purap.attribute.KualiInternalPurchasingRoleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10054">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10055</td>
+<td class="datacell">KualiSeparationOfDutiesRoleAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.module.purap.attribute.KualiSeparationOfDutiesRoleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10055">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10056</td>
+<td class="datacell">KualiPurApDocumentTaxReviewAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.module.purap.attribute.KualiPurApDocumentTaxReviewAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10056">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10057</td>
+<td class="datacell">KualiAccountsPayableReviewAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.module.purap.attribute.KualiAccountsPayableReviewAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10057">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10058</td>
+<td class="datacell">KualiWorkflowInitiatorRoleAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">edu.iu.uis.eden.routetemplate.InitiatorRoleAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10058">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10334</td>
+<td class="datacell">KualiCGAttribute</td>
+<td class="datacell">RuleAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiCGAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10334">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10354</td>
+<td class="datacell">KualiDocumentHeaderTotalAmountRange</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10354">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10374</td>
+<td class="datacell">KualiDocumentHeaderDescription</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10374">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10375</td>
+<td class="datacell">KualiDocumentHeaderOrganizationDocumentNumber</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10375">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10376</td>
+<td class="datacell">KualiRequisitionDocumentId</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10376">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10377</td>
+<td class="datacell">KualiRequisitionDocumentRequestorName</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10377">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10378</td>
+<td class="datacell">KualiRequisitionDocumentDeliveryCampus</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10378">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10379</td>
+<td class="datacell">KualiRequisitionDocumentVendorName</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10379">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10380</td>
+<td class="datacell">KualiPurApDocumentOrganization</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10380">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10381</td>
+<td class="datacell">KualiRequisitionDocumentReferenceText1</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10381">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10382</td>
+<td class="datacell">KualiRequisitionDocumentReferenceText2</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10382">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10383</td>
+<td class="datacell">KualiRequisitionDocumentReferenceText3</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10383">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10385</td>
+<td class="datacell">KualiRequisitionDocumentStatusDescription</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10385">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10414</td>
+<td class="datacell">KualiRequisitionDocumentSearchResultProcessorAttribute</td>
+<td class="datacell">DocumentSearchResultProcessorAttribute</td>
+<td class="datacell">org.kuali.workflow.module.purap.docsearch.RequisitionDocumentSearchResultProcessor</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10414">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10454</td>
+<td class="datacell">KualiRequisitionDocumentDeliverToName</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10454">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10455</td>
+<td class="datacell">KualiRequisitionDocumentStatusCode</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10455">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10494</td>
+<td class="datacell">KualiPurchaseOrderRemoveHoldNotification</td>
+<td class="datacell">RuleXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlRuleAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10494">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10498</td>
+<td class="datacell">KualiPurchaseOrderDocumentIncompleteStatuses</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.module.purap.docsearch.attribute.KualiPurchaseOrderIncompleteStatusesAttribute</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10498">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10499</td>
+<td class="datacell">KualiPurchaseOrderDocumentCurrentIndicator</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXMLBooleanTranslatorSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10499">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10514</td>
+<td class="datacell">KualiPurchaseOrderDocumentId</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10514">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10515</td>
+<td class="datacell">KualiPurchaseOrderDocumentPreviousPurchaseOrderId</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10515">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10516</td>
+<td class="datacell">KualiPurchaseOrderDocumentRequestorName</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10516">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10517</td>
+<td class="datacell">KualiPurchaseOrderDocumentDeliveryCampus</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10517">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10518</td>
+<td class="datacell">KualiPurchaseOrderDocumentVendorName</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10518">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10519</td>
+<td class="datacell">KualiPurchaseOrderDocumentContractManagerCode</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10519">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10520</td>
+<td class="datacell">KualiPurchaseOrderDocumentVendorId</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10520">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10521</td>
+<td class="datacell">KualiPurchaseOrderDocumentContractName</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10521">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10522</td>
+<td class="datacell">KualiPurchaseOrderDocumentTransmitDateRange</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10522">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10523</td>
+<td class="datacell">KualiPurchaseOrderDocumentDateRequiredRange</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10523">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10524</td>
+<td class="datacell">KualiPurchaseOrderDocumentStatusCode</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10524">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10525</td>
+<td class="datacell">KualiPurchaseOrderDocumentContractManagerName</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10525">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10526</td>
+<td class="datacell">KualiPurchaseOrderDocumentStatusDescription</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10526">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10527</td>
+<td class="datacell">KualiPurchaseOrderDocumentFiscalPostingYear</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10527">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10574</td>
+<td class="datacell">KualiContractsAndGrantsDocSearchGenerator</td>
+<td class="datacell">DocumentSearchGeneratorAttribute</td>
+<td class="datacell">org.kuali.workflow.module.cg.docsearch.KualiContractsAndGrantsDocSearchGenerator</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10574">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="odd">
+<td class="datacell">10575</td>
+<td class="datacell">KualiContractsAndGrantsProposalNumber</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10575">report</a></td></tr></tbody><tbody onmouseover="this.className = 'over';" onmouseout="this.className = this.className.replace('over', '');">
+<tr class="even">
+<td class="datacell">10576</td>
+<td class="datacell">KualiContractsAndGrantsAgencyNumber</td>
+<td class="datacell">SearchableXmlAttribute</td>
+<td class="datacell">org.kuali.workflow.attribute.KualiXmlSearchableAttributeImpl</td>
+<td class="datacell"><a href="https://test.kuali.org/kuali-cnv/en/RuleAttributeReport.do?ruleAttributeId=10576">report</a></td></tr></tbody></table></td>
+    <td>&nbsp;</td>
+</tr>
+   
+  <tr>
+    <td width="20"><img src="admin-workflow-RuleAttribute_files/pixel_clear.gif" alt="" height="20" width="20"></td>
+    <td>&nbsp;</td>
+    <td width="20"><img src="admin-workflow-RuleAttribute_files/pixel_clear.gif" alt="" height="20" width="20"></td>
+  </tr>
+</tbody></table>
+<p>&nbsp;</p> 
+  </form></body></html>
