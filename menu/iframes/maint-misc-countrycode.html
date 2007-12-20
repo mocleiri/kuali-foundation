@@ -1,0 +1,1619 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>var jsContextPath = "/kra-reg";</script><title>Kuali :: Lookup</title>
+	
+
+
+	<link href="maint-misc-countrycode_files/kuali.css" rel="stylesheet" type="text/css">
+
+
+
+	<link href="maint-misc-countrycode_files/calendar-win2k-1.css" rel="stylesheet" type="text/css">
+
+
+
+	<link href="maint-misc-countrycode_files/kuali_application.css" rel="stylesheet" type="text/css">
+
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-misc-countrycode_files/kuali_application.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-misc-countrycode_files/core.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-misc-countrycode_files/dhtml.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-misc-countrycode_files/my_common.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-misc-countrycode_files/calendar.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-misc-countrycode_files/calendar-en.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-misc-countrycode_files/calendar-setup.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-misc-countrycode_files/engine.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-misc-countrycode_files/util.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-misc-countrycode_files/UserService.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-misc-countrycode_files/objectInfo.js"></script><!-- Set the focus to first text box on form -->
+
+
+	
+		
+			  
+
+			  
+			  <script type="text/javascript">
+			  function placeFocus() {
+				if (document.forms.length > 0) {
+				  var field = document.forms[0];
+				  for (i = 0; i < field.length; i++) {
+					if ((field.elements[i].type == "text") || (field.elements[i].type == "textarea")) {
+					  document.forms[0].elements[i].focus();
+					  break;
+					}
+				  }
+			   }
+			  }
+
+			  var formHasAlreadyBeenSubmitted = false;
+			  var excludeSubmitRestriction = false;
+			  function hasFormAlreadyBeenSubmitted()
+			  {
+				  if (formHasAlreadyBeenSubmitted && !excludeSubmitRestriction) {
+					 alert("Page already being processed by the server.");
+					 return false;
+				  } else {
+					 formHasAlreadyBeenSubmitted = true;
+					 return true;
+				  }
+				  excludeSubmitRestriction = false;
+			  }
+			  </script></head><body onload="placeFocus();">
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+		
+			<div class="lookupcreatenew" title="Create a new record">   <a href="https://test.kuali.org/kra-reg/kr/index.jsp">Main</a></div>
+		
+
+		
+    
+	
+
+
+
+
+
+<form name="KualiForm" id="kualiForm" method="post" action="/kra-reg/kr/lookup.do" enctype="" onsubmit="return hasFormAlreadyBeenSubmitted();">
+
+	
+	
+	
+
+
+    
+    
+
+<!-- DOCUMENT INFO HEADER BOX -->
+
+
+
+
+
+	
+		
+	
+	
+
+					
+
+	<script type="text/javascript">
+    var kualiForm = document.forms['KualiForm'];
+    var kualiElements = kualiForm.elements;
+  </script>
+
+	<div class="headerarea-small" id="headerarea-small">
+	<h1>Country Code Lookup
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <a href="https://test.kuali.org/kra-reg/kr/help.do?methodToCall=getResourceHelpText&amp;resourceKey=lookupHelpText" tabindex="32767" target="helpWindow" title="[Help]lookup help">
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+ 
+
+  <img src="maint-misc-countrycode_files/my_cp_inf.gif" alt="[Help]lookup help" align="middle" border="0" hspace="5"></a></h1>
+	</div>
+	
+
+
+<input class="tinybutton" name="methodToCall.search" src="maint-misc-countrycode_files/pixel_clear.gif" border="0" height="0" type="image" width="0">
+
+	<input name="backLocation" value="https://test.kuali.org/kra-reg/portal.do" type="hidden">
+	<input name="formKey" value="88888888" type="hidden">
+	<input name="lookupableImplServiceName" value="kualiLookupable" type="hidden">
+	<input name="businessObjectClassName" value="org.kuali.kra.bo.Country" type="hidden">
+	<input name="conversionFields" value="" type="hidden">
+	<input name="hideReturnLink" value="Yes" type="hidden">
+	<input name="suppressActions" value="No" type="hidden">
+	<input name="multipleValues" value="No" type="hidden">
+	<input name="lookupAnchor" value="" type="hidden">
+	<input name="readOnlyFields" value="" type="hidden">
+	<input name="referencesToRefresh" value="" type="hidden">
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	<table width="100%">
+		<tbody><tr>
+			<td width="1%"><img src="maint-misc-countrycode_files/pixel_clear.gif" alt="" height="20" width="20"></td>
+			<td>
+
+			<div id="lookup" align="center"><br>
+			<br>
+			<table class="datatable-100" align="center" cellpadding="0" cellspacing="0">
+				
+				
+				
+				
+				
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+<!-- maintenanceViewMode = lookup, KualiForm.methodToCall = search -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+	
+	<tbody><tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Country Code:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+							
+						
+				
+							
+									
+							
+									
+								<input name="countryCode" id="countryCode" value="" size="4" maxlength="100" style="" class="" type="text">
+						    
+								
+						    
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    <a href="https://test.kuali.org/kra-reg/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;attributeName=countryCode" tabindex="32767" target="helpWindow" title="[Help]Country Code">
+  
+  
+  
+  
+  
+
+  
+  
+  
+ 
+
+  <img src="maint-misc-countrycode_files/my_cp_inf.gif" alt="[Help]Country Code" align="middle" border="0" hspace="5"></a>
+        
+	
+    
+
+
+
+
+
+							
+							
+					
+						
+					
+					</td>
+				    
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+    
+	
+	<tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Description:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+							
+						
+				
+							
+									
+							
+									
+								<input name="countryName" id="countryName" value="" size="10" maxlength="100" style="" class="" type="text">
+						    
+								
+						    
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    <a href="https://test.kuali.org/kra-reg/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;attributeName=countryName" tabindex="32767" target="helpWindow" title="[Help]Description">
+  
+  
+  
+  
+  
+
+  
+  
+  
+ 
+
+  <img src="maint-misc-countrycode_files/my_cp_inf.gif" alt="[Help]Description" align="middle" border="0" hspace="5"></a>
+        
+	
+    
+
+
+
+
+
+							
+							
+					
+						
+					
+					</td>
+				    
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+
+
+
+				<tr align="center">
+					<td colspan="2" class="infoline" height="30"><input name="methodToCall.search" src="maint-misc-countrycode_files/buttonsmall_search.gif" value="search" class="tinybutton" title="search" alt="search" border="0" type="image"> <input name="methodToCall.clearValues" src="maint-misc-countrycode_files/buttonsmall_clear.gif" value="clearValues" class="tinybutton" title="clear" alt="clear" border="0" type="image"> 
+						<a href="https://test.kuali.org/kra-reg/portal.do?methodToCall=refresh&amp;docFormKey=88888888&amp;anchor=" title="cancel">
+						<img src="maint-misc-countrycode_files/buttonsmall_cancel.gif" class="tinybutton" alt="cancel" title="cancel" border="0"></a>
+					
+					<!-- Optional extra buttons --> 					
+					
+											
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+
+			<br>
+			<br>
+			<div class="right">
+				
+			</div>
+			
+				221 items found.  Please refine your search criteria to narrow down your search.
+           
+			
+			    
+				<span class="pagebanner">70 items found, displaying all items.</span><span class="pagelinks"><strong>1</strong></span>
+<table class="datatable-100" id="row" cellpadding="0" cellspacing="0">
+<thead>
+<tr>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;d-16544-s=0&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=21&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;referencesToRefresh=&amp;countryName=&amp;methodToCall.search.y=10&amp;reqSearchResultsActualSize=221&amp;searchResultKey=searchResults23&amp;methodToCall=viewResults&amp;suppressActions=No">Country Code</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;d-16544-s=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=21&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;referencesToRefresh=&amp;countryName=&amp;methodToCall.search.y=10&amp;reqSearchResultsActualSize=221&amp;searchResultKey=searchResults23&amp;methodToCall=viewResults&amp;suppressActions=No">Description</a></th></tr></thead>
+<tbody>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ABW&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ABW">ABW</a> &nbsp;
+                            </td>
+<td class="infocell">Aruba&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=AFG&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="AFG">AFG</a> &nbsp;
+                            </td>
+<td class="infocell">Afghanistan&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=AGO&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="AGO">AGO</a> &nbsp;
+                            </td>
+<td class="infocell">Angola&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=AIA&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="AIA">AIA</a> &nbsp;
+                            </td>
+<td class="infocell">Anguilla&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ALB&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ALB">ALB</a> &nbsp;
+                            </td>
+<td class="infocell">Albania&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=AND&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="AND">AND</a> &nbsp;
+                            </td>
+<td class="infocell">Andorra&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ANT&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ANT">ANT</a> &nbsp;
+                            </td>
+<td class="infocell">Netherlands Antilles&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ARE&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ARE">ARE</a> &nbsp;
+                            </td>
+<td class="infocell">United Arab Emirates&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ARG&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ARG">ARG</a> &nbsp;
+                            </td>
+<td class="infocell">Argentina&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ASM&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ASM">ASM</a> &nbsp;
+                            </td>
+<td class="infocell">American Samoa&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ATA&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ATA">ATA</a> &nbsp;
+                            </td>
+<td class="infocell">Antarctica&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ATF&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ATF">ATF</a> &nbsp;
+                            </td>
+<td class="infocell">French Southern Territories&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ATG&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ATG">ATG</a> &nbsp;
+                            </td>
+<td class="infocell">Antigua and Barbuda&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=AUS&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="AUS">AUS</a> &nbsp;
+                            </td>
+<td class="infocell">Australia&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=AUT&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="AUT">AUT</a> &nbsp;
+                            </td>
+<td class="infocell">Austria&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BDI&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BDI">BDI</a> &nbsp;
+                            </td>
+<td class="infocell">Burundi&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BEL&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BEL">BEL</a> &nbsp;
+                            </td>
+<td class="infocell">Belgium&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BEN&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BEN">BEN</a> &nbsp;
+                            </td>
+<td class="infocell">Benin&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BFA&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BFA">BFA</a> &nbsp;
+                            </td>
+<td class="infocell">Burkina Faso&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BGD&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BGD">BGD</a> &nbsp;
+                            </td>
+<td class="infocell">Bangladesh&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BGR&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BGR">BGR</a> &nbsp;
+                            </td>
+<td class="infocell">Bulgaria&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BHR&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BHR">BHR</a> &nbsp;
+                            </td>
+<td class="infocell">Bahrain&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BHS&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BHS">BHS</a> &nbsp;
+                            </td>
+<td class="infocell">Bahamas&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BLZ&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BLZ">BLZ</a> &nbsp;
+                            </td>
+<td class="infocell">Belize&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BMU&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BMU">BMU</a> &nbsp;
+                            </td>
+<td class="infocell">Bermuda&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BOL&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BOL">BOL</a> &nbsp;
+                            </td>
+<td class="infocell">Bolivia&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BRA&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BRA">BRA</a> &nbsp;
+                            </td>
+<td class="infocell">Brazil&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BRB&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BRB">BRB</a> &nbsp;
+                            </td>
+<td class="infocell">Barbados&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BRN&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BRN">BRN</a> &nbsp;
+                            </td>
+<td class="infocell">Brunei Darussalam&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BTN&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BTN">BTN</a> &nbsp;
+                            </td>
+<td class="infocell">Bhutan&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BUR&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BUR">BUR</a> &nbsp;
+                            </td>
+<td class="infocell">Burma&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BVT&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BVT">BVT</a> &nbsp;
+                            </td>
+<td class="infocell">Bouvet Island&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BWA&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BWA">BWA</a> &nbsp;
+                            </td>
+<td class="infocell">Botswana&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=BYS&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="BYS">BYS</a> &nbsp;
+                            </td>
+<td class="infocell">Byelorussian SSR&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CAF&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CAF">CAF</a> &nbsp;
+                            </td>
+<td class="infocell">Central African Republic&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CAN&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CAN">CAN</a> &nbsp;
+                            </td>
+<td class="infocell">Canada&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CCK&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CCK">CCK</a> &nbsp;
+                            </td>
+<td class="infocell">Cocos (Keeling) Islands&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CHE&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CHE">CHE</a> &nbsp;
+                            </td>
+<td class="infocell">Switzerland&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CHL&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CHL">CHL</a> &nbsp;
+                            </td>
+<td class="infocell">Chile&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CHN&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CHN">CHN</a> &nbsp;
+                            </td>
+<td class="infocell">China&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CIV&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CIV">CIV</a> &nbsp;
+                            </td>
+<td class="infocell">Cote D'Ivoire&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CMR&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CMR">CMR</a> &nbsp;
+                            </td>
+<td class="infocell">Cameroon&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=COG&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="COG">COG</a> &nbsp;
+                            </td>
+<td class="infocell">Congo&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=COK&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="COK">COK</a> &nbsp;
+                            </td>
+<td class="infocell">Cook Islands&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=COL&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="COL">COL</a> &nbsp;
+                            </td>
+<td class="infocell">Colombia&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=COM&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="COM">COM</a> &nbsp;
+                            </td>
+<td class="infocell">Comoros&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CPV&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CPV">CPV</a> &nbsp;
+                            </td>
+<td class="infocell">Cape Verde&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CRI&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CRI">CRI</a> &nbsp;
+                            </td>
+<td class="infocell">Costa Rica&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CSK&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CSK">CSK</a> &nbsp;
+                            </td>
+<td class="infocell">Czechoslovakia&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CUB&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CUB">CUB</a> &nbsp;
+                            </td>
+<td class="infocell">Cuba&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CXR&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CXR">CXR</a> &nbsp;
+                            </td>
+<td class="infocell">Christmas Island&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CYM&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CYM">CYM</a> &nbsp;
+                            </td>
+<td class="infocell">Cayman Islands&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=CYP&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="CYP">CYP</a> &nbsp;
+                            </td>
+<td class="infocell">Cyprus&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=DDR&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="DDR">DDR</a> &nbsp;
+                            </td>
+<td class="infocell">German Democratic Republic&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=DEU&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="DEU">DEU</a> &nbsp;
+                            </td>
+<td class="infocell">Germany, Federal Republic of&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=DJI&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="DJI">DJI</a> &nbsp;
+                            </td>
+<td class="infocell">Djibouti&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=DMA&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="DMA">DMA</a> &nbsp;
+                            </td>
+<td class="infocell">Dominica&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=DNK&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="DNK">DNK</a> &nbsp;
+                            </td>
+<td class="infocell">Denmark&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=DOM&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="DOM">DOM</a> &nbsp;
+                            </td>
+<td class="infocell">Dominican Republic&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=DZA&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="DZA">DZA</a> &nbsp;
+                            </td>
+<td class="infocell">Algeria&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ECU&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ECU">ECU</a> &nbsp;
+                            </td>
+<td class="infocell">Ecuador&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=EGY&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="EGY">EGY</a> &nbsp;
+                            </td>
+<td class="infocell">Egypt&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ESH&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ESH">ESH</a> &nbsp;
+                            </td>
+<td class="infocell">Western Sahara&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ESP&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ESP">ESP</a> &nbsp;
+                            </td>
+<td class="infocell">Spain&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=ETH&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="ETH">ETH</a> &nbsp;
+                            </td>
+<td class="infocell">Ethiopia&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=FIN&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="FIN">FIN</a> &nbsp;
+                            </td>
+<td class="infocell">Finland&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=FJI&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="FJI">FJI</a> &nbsp;
+                            </td>
+<td class="infocell">Fiji&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=FLK&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="FLK">FLK</a> &nbsp;
+                            </td>
+<td class="infocell">Falkland Islands (Malvinas)&nbsp;&nbsp;</td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=FRA&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="FRA">FRA</a> &nbsp;
+                            </td>
+<td class="infocell">France&nbsp;&nbsp;</td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-reg/kr/inquiry.do?countryCode=FRO&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;methodToCall=start" target="blank" title="FRO">FRO</a> &nbsp;
+                            </td>
+<td class="infocell">Faroe Islands&nbsp;&nbsp;</td></tr></tbody></table><div class="exportlinks">Export options: 
+<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;d-16544-e=1&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=21&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;referencesToRefresh=&amp;countryName=&amp;methodToCall.search.y=10&amp;reqSearchResultsActualSize=221&amp;searchResultKey=searchResults23&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export csv">CSV </span></a>|
+<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;d-16544-e=2&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=21&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;referencesToRefresh=&amp;countryName=&amp;methodToCall.search.y=10&amp;reqSearchResultsActualSize=221&amp;searchResultKey=searchResults23&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export excel">Excel </span></a>|
+<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;d-16544-e=3&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=21&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.Country&amp;referencesToRefresh=&amp;countryName=&amp;methodToCall.search.y=10&amp;reqSearchResultsActualSize=221&amp;searchResultKey=searchResults23&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export xml">XML </span></a></div>
+			</td>
+			<td width="1%"><img src="maint-misc-countrycode_files/pixel_clear.gif" alt="" height="20" width="20"></td>
+		</tr>
+	</tbody></table>
+
+
+
+	
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+        <!-- lookup/inquiry footer -->
+    
+	
+
+
+
+	
+	
+
+
+
+</form>
+</body></html>
