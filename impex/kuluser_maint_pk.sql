@@ -192,6 +192,7 @@ IS
         EXECUTE IMMEDIATE CreateUserDDL;
         -- assign roles
         EXECUTE IMMEDIATE 'GRANT kul_developer TO '||UserID;
+        EXECUTE IMMEDIATE 'GRANT mt_ort TO '||UserID;
         -- set default roles
         EXECUTE IMMEDIATE 'ALTER USER '||UserID||' DEFAULT ROLE ALL';
         IF PasswordHash THEN
