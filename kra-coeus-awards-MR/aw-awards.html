@@ -113,93 +113,34 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </tr>
           </table>
           <!-- TAB -->
-          <div class="tab-container" align="center" id="G02" style="display: nonee;">
+          <div class="tab-container" align="center" id="G02" style="display: none;">
             <div class="h2-container"><span class="subhead-left">
-              <h2>Required Fields for Saving Document</h2>
+              <h2>Document Overview</h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-awards-MR-Backup/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-            <table cellpadding=0 cellspacing=0 summary="">
-              <tr>
-                <th><div align=right>*Award #:</div></th>
-                <td>12351253</td>
-                <th><div align=right><label for="sponsor id">*Sponsor ID:</label></div></th>
-                <td align=left valign=middle><input id="sponsor id" name="startDate2" type=text onchange="dataChanged()" value="" size=12 />
-                  <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup"> <input type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
-              </tr>
-              <tr>
-                <th><div align=right><label for="award status">*Award Status:</label></div></th>
-                <td><select size=1 name="numberofreg2" onChange="showDivs(this)" id="award status">
-                    <option value=0 selected>select</option>
-                    <option>active</option>
-                    <option value="pending">inactive</option>
-                    <option>pending</option>
-                    <option>terminated</option>
-                    <option>closed</option>
-                    <option>hold</option>
-                  </select></td>
-                <th><div align=right><label for="basis of payment">*Basis of Payment:</label></div></th>
-                <td><select size=1 name="numberofreg2" id="numberofreg2" onChange="showDivs(this)">
-                    <option selected>select</option>
-                    <option>cost reimbursement</option>
-                    <option>firm fixed price</option>
-                    <option>no payment</option>
-                  </select></td>
-              </tr>
-              <tr>
-                <th><div align=right><label for="award type">*Award Type:</label></div></th>
-                <td><select size=1 name="numberofreg2" id="award type" onChange="showDivs(this)">
-                    <option selected>select</option>
-                    <option>grant</option>
-                    <option>fellowship</option>
-                    <option>gift</option>
-                    <option>facilities agreement</option>
-                    <option>consortium expenditures</option>
-                    <option>consortium membership</option>
-                    <option>student financial aid</option>
-                    <option>indefinite delivery contract</option>
-                    <option>contract</option>
-                    <option>NIH training grant</option>
-                    <option>other transaction agreement</option>
-                  </select></td>
-                <th><div align=right><label for="method of payment">*Method of Payment:</label></div></th>
-                <td><select size=1 name="numberofreg2" id="method of payment" onChange="showDivs(this)">
-                    <option selected>select</option>
-                    <option>advanced payment invoice</option>
-                    <option>automatic payments/no dunning</option>
-                    <option>cost invoice</option>
-                    <option>federal letter of credit</option>
-                    <option>fixed price invoice</option>
-                  </select></td>
-              </tr>
-              <tr>
-                <th><div align=right>
-                    <label for="lead unit">*Lead Unit:</label>
-                  </div></th>
-                <td align=left valign=middle><select name="leadunit2" id="lead unit">
-                    <option selected>select</option>
-                    <option>IN-PEDS</option>
-                    <option>BL-IidC</option>
-                  </select></td>
-                <th><div align=right><label for="activity type">*Activity Type:</label></div></th>
-                <td><select onchange="dataChanged()" name="activityType2" id="activity type">
-                    <option selected>select</option>
-                    <option value=1>Organized Research</option>
-                    <option value=2>Instruction</option>
-                    <option value=3>Fellowship - Pre-Doctoral</option>
-                    <option value=4>Public Service</option>
-                    <option value=5>Student Services</option>
-                    <option value=6>Other</option>
-                    <option value=7>Fellowship - Post-Doctoral</option>
-                    <option value=8>Clinical Trial</option>
-                    <option value=9>Construction</option>
-                  </select></td>
-              </tr>
-              <tr>
-                <th><div align=right>*Project Title:</div></th>
-                <td colspan=3 align=left valign=middle><textarea name="newPurchasingItemLine.itemDescription2" tabindex=0 cols=80 rows=3 id="newPurchasingItemLine.itemDescription2"></textarea><input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
-              </tr>
+            <br>
+            <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <th colspan="1" rowspan="2" align="right"> <label for="document.documentHeader.financialDocumentDescription">*<a href="https://test.kuali.org/kuali-reg/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.core.document.DocumentHeader&amp;attributeName=financialDocumentDescription" tabindex="32767" target="helpWindow">Description: </a> </label>
+                  </th>
+                  <td rowspan="2" align="left"><input name="document.documentHeader.financialDocumentDescription" maxlength="40" size="45" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.financialDocumentDescription" type="text">
+                  </td>
+                  <th colspan="1" align="right">&nbsp;
+                      <label for="document.explanation"><a href="https://test.kuali.org/kuali-reg/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.module.financial.document.InternalBillingDocument&amp;attributeName=explanation" tabindex="32767" target="helpWindow">Explanation: </a> </label>
+                  </th>
+                  <td align="left" valign="middle"><textarea name="document.explanation" tabindex="0" cols="40" rows="3" style="" id="document.explanation"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <th rowspan="1" colspan="1" align="right">&nbsp;
+                      <label for="document.documentHeader.organizationDocumentNumber"><a href="https://test.kuali.org/kuali-reg/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.core.document.DocumentHeader&amp;attributeName=organizationDocumentNumber" tabindex="32767" target="helpWindow">Org. Doc. #: </a> </label>
+                  </th>
+                  <td align="left" valign="middle"><input name="document.documentHeader.organizationDocumentNumber" maxlength="10" size="12" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.organizationDocumentNumber" type="text">
+                  </td>
+                </tr>
+              </tbody>
             </table>
             <br>
-            <img src="images/aw-details.jpg" alt="Premium" width="652" height="347"><br>
             <br>
           </div>
           <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
@@ -215,79 +156,71 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <div class="left-errmsg-tab"></div>
             </div>
             <div class="h2-container"><span class="subhead-left">
-              <h2><span class="tabtable1-left">Sponsor &amp; Program Information</span></h2>
+              <h2><span class="tabtable1-left">Proposal Information</span></h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-awards-MR-Backup/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
-                <th><div align=right>Sponsor Name:</div></th>
-                <td>&lt;value&gt;</td>
-                <th><div align=right><label for="notice of oppurtunity">Notice of Opportunity:</label></div></th>
-                <td align=left valign=middle><select style="width:200px;" name="select5" onchange="dataChanged()">
+                <th><div align=right>*Proposal #:</div></th>
+                <td>12351253</td>
+                <th><div align=right>*Sponsor ID:</div></th>
+                <td align=left valign=middle><input name="startDate3" type=text onchange="dataChanged()" value="" size=12 />
+                    <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                    <input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
+                    <br></td>
+              </tr>
+              <tr>
+                <th><div align=right>*Proposal Type:</div></th>
+                <td><select size=1 name="numberofreg" id="numberofreg" onChange="showDivs(this)">
+                    <option value=0 selected>select</option>
+                    <option value=01>Continuation</option>
+                    <option value=02>New</option>
+                    <option value=03>Renewal</option>
+                    <option value=04>Resubmission</option>
+                    <option value=05>Revision</option>
+                    <option value=06>Task Orde</option>
+                </select></td>
+                <th><div align=right>*Project Start Date:</div></th>
+                <td><span>
+                  <input name="date2" type=text size=12>
+                </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+              </tr>
+              <tr>
+                <th><div align=right>
+                    <label for=leadunit>*Lead Unit:</label>
+                </div></th>
+                <td align=left valign=middle><select name="leadunit" id="leadunit">
                     <option selected>select</option>
-                    <option value=1>Federal Solicitation</option>
-                    <option value=2>Unsolicited</option>
-                    <option value=3>Verbal Request for Proposal</option>
-                    <option value=4>SBIR Solicitation</option>
-                    <option value=5>STTR Solicitation</option>
-                    <option value=6>Non-Federal Solicitation</option>
-                    <option value=7>MIT Alliance/Internal</option>
-                  </select></td>
+                    <option>IN-PEDS</option>
+                    <option>BL-IidC</option>
+                </select></td>
+                <th><div align=right>*Project End Date:</div></th>
+                <td align=left valign=middle><span>
+                  <input name="date2" type=text size=12>
+                </span><span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
               </tr>
               <tr>
-                <th><div align=right><label for="federal funding id">Federal Funding ID:</label></div></th>
-                <td align=left valign=middle><input name="startDate64" maxlength=10 value="" onchange="dataChanged()" type=text id="federal funding id"/></td>
-                <th><div align=right><label for="cdfa number">CFDA Number:</label></div></th>
-                <td align=left valign=middle><input name="startDate42" maxlength=10 value="" onchange="dataChanged()" type=text id="cdfa number"/></td>
-              </tr>
-              <tr>
-                <th><div align=right><label for="nsf science code">NSF Science Code:</label></div></th>
-                <td align=left valign=middle><select style="width:200px;" name="select4" onchange="dataChanged()" id="nsf science code">
+                <th><div align=right>*Activity Type:</div></th>
+                <td><select onchange="dataChanged()" name="activityType">
                     <option selected>select</option>
-                    <option value=J.02>Law - Non-Science and Engineering Fields: J.02</option>
-                    <option value=A.01>Aeronautical and Astronautical - Engineering: A.01</option>
-                    <option value=F.01>Agricultural - Life Sciences: F.01</option>
-                    <option value=B.01>Astronomy - Physical Sciences: B.01</option>
-                    <option value=C.01>Atmospheric - Environmental Sciences: C.01</option>
-                    <option value=A.02>Bioengineering/Biomedical - Engineering: A.02</option>
-                    <option value=F.02>Biological - Life Sciences: F.02</option>
-                    <option value=J.05>Business and Management - Non-Science and Engineering Fields: J.05</option>
-                    <option value=A.03>Chemical - Engineering: A.03</option>
-                    <option value=B.02>Chemistry - Physical Sciences: B.02</option>
-                    <option value=A.04>Civil - Engineering: A.04</option>
-                    <option value=J.06>Communications, Journalism and Library Sciences - Non-Science and Engineering Fields: J.06</option>
-                    <option value=E.01>Computer Sciences: E.01</option>
-                    <option value=Z.99>Costs not included in NSF report - used for reconciliation purposes: Z.99</option>
-                    <option value=J.98>Costs to be allocated: J.98</option>
-                    <option value=C.02>Earth Sciences - Environmental Sciences: C.02</option>
-                    <option value=H.01>Economics - Social Sciences: H.01</option>
-                    <option value=J.01>Education - Non-Science and Engineering Fields: J.01</option>
-                    <option value=A.05>Electrical - Engineering: A.05</option>
-                    <option value=J.03>Humanities - Non-Science and Engineering Fields: J.03</option>
-                    <option value=D.01>Mathematical Science: D.01</option>
-                    <option value=A.06>Mechanical - Engineering: A.06</option>
-                    <option value=F.03>Medical - Life Sciences: F.03</option>
-                    <option value=A.07>Metallurgical and Materials - Engineering: A.07</option>
-                    <option value=C.03>Oceanography - Environmental Sciences: C.03</option>
-                    <option value=A.99>Other - Engineering: A.99</option>
-                    <option value=C.99>Other - Environmental Sciences: C.99</option>
-                    <option value=F.99>Other - Life Sciences: F.99</option>
-                    <option value=J.99>Other - Non-Science and Engineering Fields: J.99</option>
-                    <option value=B.99>Other - Physical Sciences: B.99</option>
-                    <option value=H.99>Other - Social Sciences: H.99</option>
-                    <option value=I.01>Other Sciences, n.e.c.: I.01</option>
-                    <option value=B.03>Physics - Physical Sciences: B.03</option>
-                    <option value=H.02>Political Science - Social Sciences: H.02</option>
-                    <option value=G.01>Psychology: G.01</option>
-                    <option value=J.07>Social Work - Non-Science and Engineering Fields: J.07</option>
-                    <option value=H.03>Sociology - Social Sciences: H.03</option>
-                    <option value=J.04>Visual and Performing Arts - Non-Science and Engineering Fields: J.04</option>
-                  </select></td>
-                <th><div align=right><label for="oppurtunity id">Opportunity ID:</label></div></th>
-                <td align=left valign=middle><input name="startDate63" maxlength=10 value="" onchange="dataChanged()" type=text id="oppurtunity id"/></td>
+                    <option value=1>Organized Research</option>
+                    <option value=2>Instruction</option>
+                    <option value=3>Fellowship - Pre-Doctoral</option>
+                    <option value=4>Public Service</option>
+                    <option value=5>Student Services</option>
+                    <option value=6>Other</option>
+                    <option value=7>Fellowship - Post-Doctoral</option>
+                    <option value=8>Clinical Trial</option>
+                    <option value=9>Construction</option>
+                </select></td>
+                <th>&nbsp;</th>
+                <td align=left valign=middle>&nbsp;</td>
               </tr>
               <tr>
-                <th><div align=right>Opportunity Title:</div></th>
-                <td colspan=3 align=left valign=middle><textarea name="newPurchasingItemLine.itemDescription" tabindex=0 cols=80 rows=3 id="newPurchasingItemLine.itemDescription"></textarea><input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
+                <th><div align=right>*Project Title:</div></th>
+                <td colspan=3 align=left valign=middle><p>
+                    <textarea name="newPurchasingItemLine.itemDescription" tabindex=0 cols=80 rows=3 id="newPurchasingItemLine.itemDescription"></textarea>
+                    <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea">
+                </p></td>
               </tr>
             </table>
           </div>
@@ -299,12 +232,116 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
             </tr>
           </table>
+          
           <div class="tab-container" align=center id="G823" style="display: none;">
             <div class="tab-container-error">
               <div class="left-errmsg-tab"></div>
             </div>
+            <div class="tab-container" align="center" id="G" style="display: nonee;">
+              <div class="h2-container"><span class="subhead-left">
+                <h2>Details</h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-awards-MR-Backup/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+              <table cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                  <th><div align=right>*Award #:</div></th>
+                  <td>12351253</td>
+                  <th><div align=right>
+                    <label for="label">*Sponsor ID:</label>
+                  </div></th>
+                  <td align=left valign=middle><input id="label" name="sponsor id" type=text onchange="dataChanged()" value="" size=12 />
+                      <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                      <input type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                </tr>
+                <tr>
+                  <th><div align=right>
+                    <label for="label2">*Award Status:</label>
+                  </div></th>
+                  <td><select size=1 name="numberofreg3" onChange="showDivs(this)" id="label2">
+                      <option value=0 selected>select</option>
+                      <option>active</option>
+                      <option value="pending">inactive</option>
+                      <option>pending</option>
+                      <option>terminated</option>
+                      <option>closed</option>
+                      <option>hold</option>
+                  </select></td>
+                  <th><div align=right>
+                    <label for="basis of payment">*Basis of Payment:</label>
+                  </div></th>
+                  <td><select size=1 name="numberofreg3" id="numberofreg3" onChange="showDivs(this)">
+                      <option selected>select</option>
+                      <option>cost reimbursement</option>
+                      <option>firm fixed price</option>
+                      <option>no payment</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <th><div align=right>
+                    <label for="label3">*Award Type:</label>
+                  </div></th>
+                  <td><select size=1 name="numberofreg3" id="label3" onChange="showDivs(this)">
+                      <option selected>select</option>
+                      <option>grant</option>
+                      <option>fellowship</option>
+                      <option>gift</option>
+                      <option>facilities agreement</option>
+                      <option>consortium expenditures</option>
+                      <option>consortium membership</option>
+                      <option>student financial aid</option>
+                      <option>indefinite delivery contract</option>
+                      <option>contract</option>
+                      <option>NIH training grant</option>
+                      <option>other transaction agreement</option>
+                  </select></td>
+                  <th><div align=right>
+                    <label for="label4">*Method of Payment:</label>
+                  </div></th>
+                  <td><select size=1 name="numberofreg3" id="label4" onChange="showDivs(this)">
+                      <option selected>select</option>
+                      <option>advanced payment invoice</option>
+                      <option>automatic payments/no dunning</option>
+                      <option>cost invoice</option>
+                      <option>federal letter of credit</option>
+                      <option>fixed price invoice</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <th><div align=right>
+                      <label for="label5">*Lead Unit:</label>
+                  </div></th>
+                  <td align=left valign=middle><select name="leadunit3" id="label5">
+                      <option selected>select</option>
+                      <option>IN-PEDS</option>
+                      <option>BL-IidC</option>
+                  </select></td>
+                  <th><div align=right>
+                    <label for="label6">*Activity Type:</label>
+                  </div></th>
+                  <td><select onchange="dataChanged()" name="activityType3" id="label6">
+                      <option selected>select</option>
+                      <option value=1>Organized Research</option>
+                      <option value=2>Instruction</option>
+                      <option value=3>Fellowship - Pre-Doctoral</option>
+                      <option value=4>Public Service</option>
+                      <option value=5>Student Services</option>
+                      <option value=6>Other</option>
+                      <option value=7>Fellowship - Post-Doctoral</option>
+                      <option value=8>Clinical Trial</option>
+                      <option value=9>Construction</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <th><div align=right>*Project Title:</div></th>
+                  <td colspan=3 align=left valign=middle><textarea name="newPurchasingItemLine.itemDescription3" tabindex=0 cols=80 rows=3 id="newPurchasingItemLine.itemDescription3"></textarea>
+                      <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
+                </tr>
+              </table>
+              <br>
+              <img src="images/aw-details.jpg" alt="Premium" width="652" height="347"><br>
+              <br>
+            </div>
             <div class="h2-container"><span class="subhead-left">
-              <h2>Details &amp; Dates</h2>
+              <h2>Dates</h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-awards-MR-Backup/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
@@ -353,21 +390,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </table>
             <br>
             <br>
-            <div class="h2-container"><span class="subhead-left">
-              <h2><span class="tabtable1-left">Pre-Award</span></h2>
-              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-awards-MR-Backup/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-            <table cellpadding=0 cellspacing=0 summary="">
-              <tr>
-                <th><div align="right"><label for="authorized amount">Authorized Amount:</label></div></th>
-                <td align=left valign=middle><input name="startDate5" maxlength=10 value="" onchange="dataChanged()" type=text /></td>
-                <th><div align=right><label for="effective date">Effective Date:</label></div></th>
-                <td><span>
-                  <input name="date1" type=text size=12 id="effective date">
-                  </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor2"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
-              </tr>
-            </table>
           </div>
-          
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Sub-Contracts</td>
