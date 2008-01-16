@@ -1,896 +1,1 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html><head>
-
-	<script>var jsContextPath = "/kuali-cnv";</script><title>Kuali :: Lookup</title>
-	
-<link href="admin-batch-schedule_files/kuali.css" rel="stylesheet" type="text/css">
-<link href="admin-batch-schedule_files/calendar-win2k-1.css" rel="stylesheet" type="text/css">
-<script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/core.js"></script>
-<script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/dhtml.js"></script>
-<script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/my_common.js"></script>
-<script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/calendar.js"></script>
-<script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/calendar-en.js"></script>
-<script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/calendar-setup.js"></script>
-<script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/engine.js"></script>
-<script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/util.js"></script>
-<script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/UserService.js"></script>
-<script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/objectInfo.js"></script><!-- Set the focus to first text box on form -->
-
-			  <script type="text/javascript">
-			  function placeFocus() {
-				if (document.forms.length > 0) {
-				  var field = document.forms[0];
-				  for (i = 0; i < field.length; i++) {
-					if ((field.elements[i].type == "text") || (field.elements[i].type == "textarea")) {
-					  document.forms[0].elements[i].focus();
-					  break;
-					}
-				  }
-			   }
-			  }
-
-			  var formHasAlreadyBeenSubmitted = false;
-			  var excludeSubmitRestriction = false;
-			  function hasFormAlreadyBeenSubmitted()
-			  {
-			  
-				if ( document.getElementById( "formComplete" ) ) { 
-		  		
-				  if (formHasAlreadyBeenSubmitted && !excludeSubmitRestriction) {
-					 alert("Page already being processed by the server.");
-					 return false;
-				  } else {
-					 formHasAlreadyBeenSubmitted = true;
-					 return true;
-				  }
-				  excludeSubmitRestriction = false;
-				} else {
-	       		  alert("Page has not finished loading.");
-	       		  return false;
-				}
-				 				
-			  }
-			  </script></head><body onload="placeFocus();">
-		<div class="lookupcreatenew" title="Create a new record">   </div>
-		<form name="KualiForm" id="kualiForm" method="post" action="/kuali-cnv/kr/lookup.do" enctype="" onsubmit="return hasFormAlreadyBeenSubmitted();"><!-- DOCUMENT INFO HEADER BOX -->
-<script type="text/javascript">
-    var kualiForm = document.forms['KualiForm'];
-    var kualiElements = kualiForm.elements;
-  </script>
-
-	<div class="headerarea-small" id="headerarea-small">
-	<h1>Batch Job Lookup<a href="https://test.kuali.org/kuali-cnv/kr/help.do?methodToCall=getResourceHelpText&amp;resourceKey=lookupHelpText" tabindex="32767" target="helpWindow" title="[Help]lookup help"><img src="admin-batch-schedule_files/my_cp_inf.gif" alt="[Help]lookup help" align="middle" border="0" hspace="5"></a></h1>
-	</div>
-	<input class="tinybutton" name="methodToCall.search" src="admin-batch-schedule_files/pixel_clear.gif" border="0" height="0" type="image" width="0"><input name="backLocation" value="https://test.kuali.org/kuali-cnv/portal.do" type="hidden"><input name="formKey" value="88888888" type="hidden"><input name="lookupableImplServiceName" value="batchJobStatusLookupable" type="hidden"><input name="businessObjectClassName" value="org.kuali.kfs.batch.BatchJobStatus" type="hidden"><input name="conversionFields" value="name:name,group:group" type="hidden"><input name="hideReturnLink" value="Yes" type="hidden"><input name="suppressActions" value="No" type="hidden"><input name="multipleValues" value="No" type="hidden"><input name="lookupAnchor" value="" type="hidden"><input name="readOnlyFields" value="" type="hidden"><input name="referencesToRefresh" value="" type="hidden"><table width="100%">
-		<tbody><tr>
-			<td width="1%"><img src="admin-batch-schedule_files/pixel_clear.gif" alt="" height="20" width="20"></td>
-			<td>
-
-			<div id="lookup" align="center"><br>
-			<br>
-			<table class="datatable-100" align="center" cellpadding="0" cellspacing="0">
-				<!-- maintenanceViewMode = lookup, KualiForm.methodToCall = search -->
-
-<tbody><tr>
-
-		<th class="grid" align="right" width="Infinity%">
-    	
-		Job Name:
-            	
-			</th>
-    
-<td class="grid" width="Infinity%">
-							
-						<input name="name" id="name" value="" size="20" maxlength="100" style="" class="" type="text">
-						    
-								</td>
-				    
-				</tr>
-	
-<tr>
-
-		<th class="grid" align="right" width="Infinity%">
-    	
-		Job Group:
-            	
-			</th>
-    
-<td class="grid" width="Infinity%">
-						
-						<select name="group" style="">
-									<option value=""></option>
-									<option value="scheduled">scheduled</option>
-<option value="unscheduled">unscheduled</option>
-</select>
-							</td>
-						 
-				</tr>
-	
-<tr>
-
-		<th class="grid" align="right" width="Infinity%">
-    	
-		Job Status:
-            	
-			</th>
-    
-<td class="grid" width="Infinity%">
-						
-						<select name="status" style="">
-									<option value=""></option>
-									<option value="Scheduled">Scheduled</option>
-<option value="Succeeded">Succeeded</option>
-<option value="Cancelled">Cancelled</option>
-<option value="Running">Running</option>
-<option value="Failed">Failed</option>
-</select>
-							</td>
-						 
-				</tr>
-	
-<tr align="center">
-					<td colspan="2" class="infoline" height="30"><input name="methodToCall.search" src="admin-batch-schedule_files/buttonsmall_search.gif" value="search" class="tinybutton" title="search" alt="search" border="0" type="image"><input name="methodToCall.clearValues" src="admin-batch-schedule_files/buttonsmall_clear.gif" value="clearValues" class="tinybutton" title="clear" alt="clear" border="0" type="image"><a href="https://test.kuali.org/kuali-cnv/portal.do?methodToCall=refresh&amp;docFormKey=88888888&amp;anchor=" title="cancel"><img src="admin-batch-schedule_files/buttonsmall_cancel.gif" class="tinybutton" alt="cancel" title="cancel" border="0"></a>
-					<!-- Optional extra buttons --> 					
-					</td>
-				</tr>
-			</tbody></table>
-			</div>
-
-			<br>
-			<br>
-			<div class="right"></div>
-			71 items found.  Please refine your search criteria to narrow down your search.
-          <p><span class="pagebanner">71 items retrieved, displaying all items.</span><span class="pagelinks"></span></p>
-<table class="datatable-100" id="row" cellpadding="0" cellspacing="0">
-<thead>
-<tr>
-<th class="sortable">
-<a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=0&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Job Name</a></th>
-<th class="sortable">
-<a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=1&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Job Group</a></th>
-<th class="sortable">
-<a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=2&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Job Status</a></th>
-<th class="sortable">
-<a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=3&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Next Run Time</a></th>
-<th class="sortable">
-<a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=4&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Steps</a></th>
-<th class="sortable">
-<a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=5&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Dependencies</a></th>
-<th>Actions</th></tr></thead>
-<tbody>
-<tr class="odd">
-<td class="infocell">scheduleJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Scheduled&nbsp;&nbsp;</td>
-<td class="infocell">12/19/2007 11:00 PM&nbsp;&nbsp;</td>
-<td class="infocell">scheduleStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=scheduleJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">purgeJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td title="purgeDocumentContentsStep 
-purgePendingAttachmentsStep 
-purgeOldLookupResultsStep 
-purgeTempFilesStep 
-&nbsp;&nbsp;" class="infocell">purgeDocumentContentsStep 
-purgePendingAttachmentsStep 
-purgeOldLookup...</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purgeJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">closeJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">closeBatchStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=closeJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">cfdaJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Scheduled&nbsp;&nbsp;</td>
-<td class="infocell">01/01/2008 12:00 AM&nbsp;&nbsp;</td>
-<td class="infocell">cfdaBatchStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=cfdaJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">procurementCardDocumentJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td title="procurementCardLoadStep 
-procurementCardCreateDocumentsStep 
-procurementCardRouteDocumentsStep 
-procurementCardAutoApproveDocumentsStep 
-&nbsp;&nbsp;" class="infocell">procurementCardLoadStep 
-procurementCardCreateDocumentsStep 
-procureme...</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=procurementCardDocumentJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">disbursementVoucherPreDisbursementProcessorExtractJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">disbursementVoucherPreDisbursementProcessorExtractStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=disbursementVoucherPreDisbursementProcessorExtractJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">enterpriseFeedJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">enterpriseFeedStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=enterpriseFeedJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">collectorJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">collectorStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=collectorJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">nightlyOutJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">nightlyOutStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=nightlyOutJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">scrubberJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">createBackupGroupStep 
-scrubberStep 
-&nbsp;&nbsp;</td>
-<td title="enterpriseFeedJob (hardDependency) 
-collectorJob (softDependency) 
-nightlyOutJob (hardDependency) 
-clearLaborPendingEntriesJob (hardDependency) 
-&nbsp;&nbsp;" class="infocell">enterpriseFeedJob (hardDependency) 
-collectorJob (softDependency) 
-nig...</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=scrubberJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">posterJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td title="posterEntriesStep 
-posterReversalStep 
-posterIndirectCostRecoveryGenerationStep 
-posterIndirectCostRecoveryEntriesStep 
-&nbsp;&nbsp;" class="infocell">posterEntriesStep 
-posterReversalStep 
-posterIndirectCostRecoveryGener...</td>
-<td class="infocell">scrubberJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=posterJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">sufficientFundsJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">sufficientFundsRebuilderStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">posterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=sufficientFundsJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">posterSummaryReportJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">posterSummaryReportStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">posterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=posterSummaryReportJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">clearPendingEntriesJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">clearPendingEntriesStep 
-&nbsp;&nbsp;</td>
-<td title="sufficientFundsJob (hardDependency) 
-posterSummaryReportJob (hardDependency) 
-&nbsp;&nbsp;" class="infocell">sufficientFundsJob (hardDependency) 
-posterSummaryReportJob (hardDepen...</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=clearPendingEntriesJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">purgeCorrectionProcessFilesJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">purgeCorrectionProcessFilesStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purgeCorrectionProcessFilesJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">laborNightlyOutJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">laborNightlyOutStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborNightlyOutJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">laborScrubberJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">createLaborBackupGroupStep 
-laborScrubberStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">laborNightlyOutJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborScrubberJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">laborPosterJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">laborPosterStep 
-laborBalanceSummaryStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">laborScrubberJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborPosterJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">laborFeedJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">laborFeedStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">laborPosterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborFeedJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">clearLaborPendingEntriesJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">laborClearGLEntryStep 
-clearLaborPendingStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">laborFeedJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=clearLaborPendingEntriesJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">pdpExtractGlTransactionsStepJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpExtractGlTransactionsStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractGlTransactionsStepJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">pdpExtractAchPaymentsJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpExtractAchPaymentsStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractAchPaymentsJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">pdpExtractCanceledChecksJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpExtractCanceledChecksStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractCanceledChecksJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">pdpDailyReportJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpDailyReportStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpDailyReportJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">pdpLoadPaymentsJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpLoadPaymentsStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpLoadPaymentsJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">autoApprovePaymentRequestsJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">autoApprovePaymentRequestsStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=autoApprovePaymentRequestsJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">processPdpCancelsAndPaidJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">processPdpCancelsAndPaidStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=processPdpCancelsAndPaidJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">purchasingPreDisbursementImmediatesExtractJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">purchasingPreDisbursementImmediatesExtractStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purchasingPreDisbursementImmediatesExtractJob&amp;group=scheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">purchasingPreDisbursementExtractJob&nbsp;&nbsp;</td>
-<td class="infocell">scheduled&nbsp;&nbsp;</td>
-<td class="infocell">Pending&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td title="purchasingPreDisbursementImmediatesExtractStep 
-purchasingPreDisbursementExtractStep 
-&nbsp;&nbsp;" class="infocell">purchasingPreDisbursementImmediatesExtractStep 
-purchasingPreDisbursem...</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purchasingPreDisbursementExtractJob&amp;group=scheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">scheduleJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">scheduleStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=scheduleJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">purgeJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td title="purgeDocumentContentsStep 
-purgePendingAttachmentsStep 
-purgeOldLookupResultsStep 
-purgeTempFilesStep 
-&nbsp;&nbsp;" class="infocell">purgeDocumentContentsStep 
-purgePendingAttachmentsStep 
-purgeOldLookup...</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purgeJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">closeJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">closeBatchStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=closeJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">cfdaJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">cfdaBatchStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=cfdaJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">fiscalYearMakerJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">fiscalYearMakerStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=fiscalYearMakerJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">populatePriorYearDataJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">updatePriorYearDataStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=populatePriorYearDataJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">procurementCardDocumentJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td title="procurementCardLoadStep 
-procurementCardCreateDocumentsStep 
-procurementCardRouteDocumentsStep 
-procurementCardAutoApproveDocumentsStep 
-&nbsp;&nbsp;" class="infocell">procurementCardLoadStep 
-procurementCardCreateDocumentsStep 
-procureme...</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=procurementCardDocumentJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">disbursementVoucherPreDisbursementProcessorExtractJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">disbursementVoucherPreDisbursementProcessorExtractStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=disbursementVoucherPreDisbursementProcessorExtractJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">enterpriseFeedJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">enterpriseFeedStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=enterpriseFeedJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">collectorJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">collectorStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=collectorJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">nightlyOutJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">nightlyOutStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=nightlyOutJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">scrubberJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">createBackupGroupStep 
-scrubberStep 
-&nbsp;&nbsp;</td>
-<td title="enterpriseFeedJob (hardDependency) 
-collectorJob (softDependency) 
-nightlyOutJob (hardDependency) 
-clearLaborPendingEntriesJob (hardDependency) 
-&nbsp;&nbsp;" class="infocell">enterpriseFeedJob (hardDependency) 
-collectorJob (softDependency) 
-nig...</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=scrubberJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">posterJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td title="posterEntriesStep 
-posterReversalStep 
-posterIndirectCostRecoveryGenerationStep 
-posterIndirectCostRecoveryEntriesStep 
-&nbsp;&nbsp;" class="infocell">posterEntriesStep 
-posterReversalStep 
-posterIndirectCostRecoveryGener...</td>
-<td class="infocell">scrubberJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=posterJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">sufficientFundsJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">sufficientFundsRebuilderStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">posterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=sufficientFundsJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">posterSummaryReportJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">posterSummaryReportStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">posterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=posterSummaryReportJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">clearPendingEntriesJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">clearPendingEntriesStep 
-&nbsp;&nbsp;</td>
-<td title="sufficientFundsJob (hardDependency) 
-posterSummaryReportJob (hardDependency) 
-&nbsp;&nbsp;" class="infocell">sufficientFundsJob (hardDependency) 
-posterSummaryReportJob (hardDepen...</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=clearPendingEntriesJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">encumbranceForwardJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">encumbranceForwardStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">posterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=encumbranceForwardJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">balanceForwardJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">balanceForwardStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">posterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=balanceForwardJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">nominalActivityClosingJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">nominalActivityClosingStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">posterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=nominalActivityClosingJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">organizationReversionClosingJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">organizationReversionClosingStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">posterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=organizationReversionClosingJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">organizationReversionOpeningJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">organizationReversionOpeningStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">posterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=organizationReversionOpeningJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">sufficientFundsSyncJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">sufficientFundsSyncStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">posterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=sufficientFundsSyncJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">manualPurgeJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td title="purgeEntryStep 
-purgeBalanceStep 
-purgeSufficientFundBalancesStep 
-purgeEncumbranceStep 
-purgeAccountBalancesStep 
-purgeCollectorDetailStep 
-&nbsp;&nbsp;" class="infocell">purgeEntryStep 
-purgeBalanceStep 
-purgeSufficientFundBalancesStep 
-pur...</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=manualPurgeJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">clearOldOriginEntriesJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">clearOldOriginEntryStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=clearOldOriginEntriesJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">purgeCorrectionProcessFilesJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">purgeCorrectionProcessFilesStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purgeCorrectionProcessFilesJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">laborNightlyOutJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">laborNightlyOutStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborNightlyOutJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">laborScrubberJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">createLaborBackupGroupStep 
-laborScrubberStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">laborNightlyOutJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborScrubberJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">laborPosterJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">laborPosterStep 
-laborBalanceSummaryStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">laborScrubberJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborPosterJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">laborFeedJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">laborFeedStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">laborPosterJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborFeedJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">clearLaborPendingEntriesJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">laborClearGLEntryStep 
-clearLaborPendingStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">laborFeedJob (hardDependency) 
-&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=clearLaborPendingEntriesJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">laborBalanceForwardJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">laborYearEndBalanceForwardStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborBalanceForwardJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">pdpLoadFederalReserveBankDataJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpLoadFederalReserveBankDataStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpLoadFederalReserveBankDataJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">pdpExtractGlTransactionsStepJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpExtractGlTransactionsStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractGlTransactionsStepJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">pdpExtractAchPaymentsJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpExtractAchPaymentsStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractAchPaymentsJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">pdpExtractCanceledChecksJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpExtractCanceledChecksStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractCanceledChecksJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">pdpExtractChecksJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpExtractChecksStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractChecksJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">pdpDailyReportJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpDailyReportStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpDailyReportJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">pdpLoadPaymentsJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">pdpLoadPaymentsStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpLoadPaymentsJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">autoApprovePaymentRequestsJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">autoApprovePaymentRequestsStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=autoApprovePaymentRequestsJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">processPdpCancelsAndPaidJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">processPdpCancelsAndPaidStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=processPdpCancelsAndPaidJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="even">
-<td class="infocell">purchasingPreDisbursementImmediatesExtractJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">purchasingPreDisbursementImmediatesExtractStep 
-&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purchasingPreDisbursementImmediatesExtractJob&amp;group=unscheduled">View</a></td></tr>
-<tr class="odd">
-<td class="infocell">purchasingPreDisbursementExtractJob&nbsp;&nbsp;</td>
-<td class="infocell">unscheduled&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td title="purchasingPreDisbursementImmediatesExtractStep 
-purchasingPreDisbursementExtractStep 
-&nbsp;&nbsp;" class="infocell">purchasingPreDisbursementImmediatesExtractStep 
-purchasingPreDisbursem...</td>
-<td class="infocell">&nbsp;&nbsp;</td>
-<td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purchasingPreDisbursementExtractJob&amp;group=unscheduled">View</a></td></tr></tbody></table><br><div class="exportlinks">Export options: 
-<a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;d-16544-e=1&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export csv">CSV </span></a>| 
-<a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;d-16544-e=2&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export excel">spreadsheet </span></a>| 
-<a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;d-16544-e=3&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export xml">XML </span> </a></div></td>
-			<td width="1%"><img src="admin-batch-schedule_files/pixel_clear.gif" alt="" height="20" width="20"></td>
-		</tr>
-	</tbody></table>
-<!-- lookup/inquiry footer -->
-    </form><div id="formComplete"></div> 
-</body></html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html><head>	<script>var jsContextPath = "/kuali-cnv";</script><title>Kuali :: Lookup</title>	<link href="https://test.kuali.org/kuali-reg/kr/css/kuali.css" rel="stylesheet" type="text/css"><link href="admin-batch-schedule_files/calendar-win2k-1.css" rel="stylesheet" type="text/css"><script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/core.js"></script><script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/dhtml.js"></script><script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/my_common.js"></script><script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/calendar.js"></script><script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/calendar-en.js"></script><script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/calendar-setup.js"></script><script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/engine.js"></script><script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/util.js"></script><script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/UserService.js"></script><script language="JavaScript" type="text/javascript" src="admin-batch-schedule_files/objectInfo.js"></script><!-- Set the focus to first text box on form -->			  <script type="text/javascript">			  function placeFocus() {				if (document.forms.length > 0) {				  var field = document.forms[0];				  for (i = 0; i < field.length; i++) {					if ((field.elements[i].type == "text") || (field.elements[i].type == "textarea")) {					  document.forms[0].elements[i].focus();					  break;					}				  }			   }			  }			  var formHasAlreadyBeenSubmitted = false;			  var excludeSubmitRestriction = false;			  function hasFormAlreadyBeenSubmitted()			  {			  				if ( document.getElementById( "formComplete" ) ) { 		  						  if (formHasAlreadyBeenSubmitted && !excludeSubmitRestriction) {					 alert("Page already being processed by the server.");					 return false;				  } else {					 formHasAlreadyBeenSubmitted = true;					 return true;				  }				  excludeSubmitRestriction = false;				} else {	       		  alert("Page has not finished loading.");	       		  return false;				}				 							  }			  </script></head><body onLoad="placeFocus();">		<div class="lookupcreatenew" title="Create a new record">   </div>		<form name="KualiForm" id="kualiForm" method="post" action="/kuali-cnv/kr/lookup.do" enctype="" onSubmit="return hasFormAlreadyBeenSubmitted();"><!-- DOCUMENT INFO HEADER BOX --><script type="text/javascript">    var kualiForm = document.forms['KualiForm'];    var kualiElements = kualiForm.elements;  </script>	<div class="headerarea-small" id="headerarea-small">	<h1>Batch Job Lookup<a href="https://test.kuali.org/kuali-cnv/kr/help.do?methodToCall=getResourceHelpText&amp;resourceKey=lookupHelpText" tabindex="32767" target="helpWindow" title="[Help]lookup help"><img src="admin-batch-schedule_files/my_cp_inf.gif" alt="[Help]lookup help" align="middle" border="0" hspace="5"></a></h1>	</div>	<input class="tinybutton" name="methodToCall.search" src="admin-batch-schedule_files/pixel_clear.gif" border="0" height="0" type="image" width="0"><input name="backLocation" value="https://test.kuali.org/kuali-cnv/portal.do" type="hidden"><input name="formKey" value="88888888" type="hidden"><input name="lookupableImplServiceName" value="batchJobStatusLookupable" type="hidden"><input name="businessObjectClassName" value="org.kuali.kfs.batch.BatchJobStatus" type="hidden"><input name="conversionFields" value="name:name,group:group" type="hidden"><input name="hideReturnLink" value="Yes" type="hidden"><input name="suppressActions" value="No" type="hidden"><input name="multipleValues" value="No" type="hidden"><input name="lookupAnchor" value="" type="hidden"><input name="readOnlyFields" value="" type="hidden"><input name="referencesToRefresh" value="" type="hidden"><table width="100%">		<tbody><tr>			<td width="1%"><img src="admin-batch-schedule_files/pixel_clear.gif" alt="" height="20" width="20"></td>			<td>			<div id="lookup" align="center"><br>			<br>			<table class="datatable-100" align="center" cellpadding="0" cellspacing="0">				<!-- maintenanceViewMode = lookup, KualiForm.methodToCall = search --><tbody><tr>		<th class="grid" align="right" width="Infinity%">    			Job Name:            				</th>    <td class="grid" width="Infinity%">													<input name="name" id="name" value="" size="20" maxlength="100" style="" class="" type="text">						    								</td>				    				</tr>	<tr>		<th class="grid" align="right" width="Infinity%">    			Job Group:            				</th>    <td class="grid" width="Infinity%">												<select name="group" style="">									<option value=""></option>									<option value="scheduled">scheduled</option><option value="unscheduled">unscheduled</option></select>							</td>						 				</tr>	<tr>		<th class="grid" align="right" width="Infinity%">    			Job Status:            				</th>    <td class="grid" width="Infinity%">												<select name="status" style="">									<option value=""></option>									<option value="Scheduled">Scheduled</option><option value="Succeeded">Succeeded</option><option value="Cancelled">Cancelled</option><option value="Running">Running</option><option value="Failed">Failed</option></select>							</td>						 				</tr>	<tr align="center">					<td colspan="2" class="infoline" height="30"><input name="methodToCall.search" src="admin-batch-schedule_files/buttonsmall_search.gif" value="search" class="tinybutton" title="search" alt="search" border="0" type="image"><input name="methodToCall.clearValues" src="admin-batch-schedule_files/buttonsmall_clear.gif" value="clearValues" class="tinybutton" title="clear" alt="clear" border="0" type="image"><a href="https://test.kuali.org/kuali-cnv/portal.do?methodToCall=refresh&amp;docFormKey=88888888&amp;anchor=" title="cancel"><img src="admin-batch-schedule_files/buttonsmall_cancel.gif" class="tinybutton" alt="cancel" title="cancel" border="0"></a>					<!-- Optional extra buttons --> 										</td>				</tr>			</tbody></table>			</div>			<br>			<br>			<div class="right"></div>			71 items found.  Please refine your search criteria to narrow down your search.          <p><span class="pagebanner">71 items retrieved, displaying all items.</span><span class="pagelinks"></span></p><table class="datatable-100" id="row" cellpadding="0" cellspacing="0"><thead><tr><th class="sortable"><a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=0&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Job Name</a></th><th class="sortable"><a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=1&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Job Group</a></th><th class="sortable"><a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=2&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Job Status</a></th><th class="sortable"><a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=3&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Next Run Time</a></th><th class="sortable"><a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=4&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Steps</a></th><th class="sortable"><a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=5&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;d-16544-p=1&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No">Dependencies</a></th><th>Actions</th></tr></thead><tbody><tr class="odd"><td class="infocell">scheduleJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Scheduled&nbsp;&nbsp;</td><td class="infocell">12/19/2007 11:00 PM&nbsp;&nbsp;</td><td class="infocell">scheduleStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=scheduleJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">purgeJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td title="purgeDocumentContentsStep purgePendingAttachmentsStep purgeOldLookupResultsStep purgeTempFilesStep &nbsp;&nbsp;" class="infocell">purgeDocumentContentsStep purgePendingAttachmentsStep purgeOldLookup...</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purgeJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">closeJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">closeBatchStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=closeJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">cfdaJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Scheduled&nbsp;&nbsp;</td><td class="infocell">01/01/2008 12:00 AM&nbsp;&nbsp;</td><td class="infocell">cfdaBatchStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=cfdaJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">procurementCardDocumentJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td title="procurementCardLoadStep procurementCardCreateDocumentsStep procurementCardRouteDocumentsStep procurementCardAutoApproveDocumentsStep &nbsp;&nbsp;" class="infocell">procurementCardLoadStep procurementCardCreateDocumentsStep procureme...</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=procurementCardDocumentJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">disbursementVoucherPreDisbursementProcessorExtractJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">disbursementVoucherPreDisbursementProcessorExtractStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=disbursementVoucherPreDisbursementProcessorExtractJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">enterpriseFeedJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">enterpriseFeedStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=enterpriseFeedJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">collectorJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">collectorStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=collectorJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">nightlyOutJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">nightlyOutStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=nightlyOutJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">scrubberJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">createBackupGroupStep scrubberStep &nbsp;&nbsp;</td><td title="enterpriseFeedJob (hardDependency) collectorJob (softDependency) nightlyOutJob (hardDependency) clearLaborPendingEntriesJob (hardDependency) &nbsp;&nbsp;" class="infocell">enterpriseFeedJob (hardDependency) collectorJob (softDependency) nig...</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=scrubberJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">posterJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td title="posterEntriesStep posterReversalStep posterIndirectCostRecoveryGenerationStep posterIndirectCostRecoveryEntriesStep &nbsp;&nbsp;" class="infocell">posterEntriesStep posterReversalStep posterIndirectCostRecoveryGener...</td><td class="infocell">scrubberJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=posterJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">sufficientFundsJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">sufficientFundsRebuilderStep &nbsp;&nbsp;</td><td class="infocell">posterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=sufficientFundsJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">posterSummaryReportJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">posterSummaryReportStep &nbsp;&nbsp;</td><td class="infocell">posterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=posterSummaryReportJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">clearPendingEntriesJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">clearPendingEntriesStep &nbsp;&nbsp;</td><td title="sufficientFundsJob (hardDependency) posterSummaryReportJob (hardDependency) &nbsp;&nbsp;" class="infocell">sufficientFundsJob (hardDependency) posterSummaryReportJob (hardDepen...</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=clearPendingEntriesJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">purgeCorrectionProcessFilesJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">purgeCorrectionProcessFilesStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purgeCorrectionProcessFilesJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">laborNightlyOutJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">laborNightlyOutStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborNightlyOutJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">laborScrubberJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">createLaborBackupGroupStep laborScrubberStep &nbsp;&nbsp;</td><td class="infocell">laborNightlyOutJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborScrubberJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">laborPosterJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">laborPosterStep laborBalanceSummaryStep &nbsp;&nbsp;</td><td class="infocell">laborScrubberJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborPosterJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">laborFeedJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">laborFeedStep &nbsp;&nbsp;</td><td class="infocell">laborPosterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborFeedJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">clearLaborPendingEntriesJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">laborClearGLEntryStep clearLaborPendingStep &nbsp;&nbsp;</td><td class="infocell">laborFeedJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=clearLaborPendingEntriesJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">pdpExtractGlTransactionsStepJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpExtractGlTransactionsStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractGlTransactionsStepJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">pdpExtractAchPaymentsJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpExtractAchPaymentsStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractAchPaymentsJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">pdpExtractCanceledChecksJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpExtractCanceledChecksStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractCanceledChecksJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">pdpDailyReportJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpDailyReportStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpDailyReportJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">pdpLoadPaymentsJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpLoadPaymentsStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpLoadPaymentsJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">autoApprovePaymentRequestsJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">autoApprovePaymentRequestsStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=autoApprovePaymentRequestsJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">processPdpCancelsAndPaidJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">processPdpCancelsAndPaidStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=processPdpCancelsAndPaidJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">purchasingPreDisbursementImmediatesExtractJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">purchasingPreDisbursementImmediatesExtractStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purchasingPreDisbursementImmediatesExtractJob&amp;group=scheduled">View</a></td></tr><tr class="odd"><td class="infocell">purchasingPreDisbursementExtractJob&nbsp;&nbsp;</td><td class="infocell">scheduled&nbsp;&nbsp;</td><td class="infocell">Pending&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td title="purchasingPreDisbursementImmediatesExtractStep purchasingPreDisbursementExtractStep &nbsp;&nbsp;" class="infocell">purchasingPreDisbursementImmediatesExtractStep purchasingPreDisbursem...</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purchasingPreDisbursementExtractJob&amp;group=scheduled">View</a></td></tr><tr class="even"><td class="infocell">scheduleJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">scheduleStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=scheduleJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">purgeJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td title="purgeDocumentContentsStep purgePendingAttachmentsStep purgeOldLookupResultsStep purgeTempFilesStep &nbsp;&nbsp;" class="infocell">purgeDocumentContentsStep purgePendingAttachmentsStep purgeOldLookup...</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purgeJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">closeJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">closeBatchStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=closeJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">cfdaJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">cfdaBatchStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=cfdaJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">fiscalYearMakerJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">fiscalYearMakerStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=fiscalYearMakerJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">populatePriorYearDataJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">updatePriorYearDataStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=populatePriorYearDataJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">procurementCardDocumentJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td title="procurementCardLoadStep procurementCardCreateDocumentsStep procurementCardRouteDocumentsStep procurementCardAutoApproveDocumentsStep &nbsp;&nbsp;" class="infocell">procurementCardLoadStep procurementCardCreateDocumentsStep procureme...</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=procurementCardDocumentJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">disbursementVoucherPreDisbursementProcessorExtractJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">disbursementVoucherPreDisbursementProcessorExtractStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=disbursementVoucherPreDisbursementProcessorExtractJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">enterpriseFeedJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">enterpriseFeedStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=enterpriseFeedJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">collectorJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">collectorStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=collectorJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">nightlyOutJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">nightlyOutStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=nightlyOutJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">scrubberJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">createBackupGroupStep scrubberStep &nbsp;&nbsp;</td><td title="enterpriseFeedJob (hardDependency) collectorJob (softDependency) nightlyOutJob (hardDependency) clearLaborPendingEntriesJob (hardDependency) &nbsp;&nbsp;" class="infocell">enterpriseFeedJob (hardDependency) collectorJob (softDependency) nig...</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=scrubberJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">posterJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td title="posterEntriesStep posterReversalStep posterIndirectCostRecoveryGenerationStep posterIndirectCostRecoveryEntriesStep &nbsp;&nbsp;" class="infocell">posterEntriesStep posterReversalStep posterIndirectCostRecoveryGener...</td><td class="infocell">scrubberJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=posterJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">sufficientFundsJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">sufficientFundsRebuilderStep &nbsp;&nbsp;</td><td class="infocell">posterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=sufficientFundsJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">posterSummaryReportJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">posterSummaryReportStep &nbsp;&nbsp;</td><td class="infocell">posterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=posterSummaryReportJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">clearPendingEntriesJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">clearPendingEntriesStep &nbsp;&nbsp;</td><td title="sufficientFundsJob (hardDependency) posterSummaryReportJob (hardDependency) &nbsp;&nbsp;" class="infocell">sufficientFundsJob (hardDependency) posterSummaryReportJob (hardDepen...</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=clearPendingEntriesJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">encumbranceForwardJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">encumbranceForwardStep &nbsp;&nbsp;</td><td class="infocell">posterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=encumbranceForwardJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">balanceForwardJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">balanceForwardStep &nbsp;&nbsp;</td><td class="infocell">posterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=balanceForwardJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">nominalActivityClosingJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">nominalActivityClosingStep &nbsp;&nbsp;</td><td class="infocell">posterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=nominalActivityClosingJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">organizationReversionClosingJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">organizationReversionClosingStep &nbsp;&nbsp;</td><td class="infocell">posterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=organizationReversionClosingJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">organizationReversionOpeningJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">organizationReversionOpeningStep &nbsp;&nbsp;</td><td class="infocell">posterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=organizationReversionOpeningJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">sufficientFundsSyncJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">sufficientFundsSyncStep &nbsp;&nbsp;</td><td class="infocell">posterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=sufficientFundsSyncJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">manualPurgeJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td title="purgeEntryStep purgeBalanceStep purgeSufficientFundBalancesStep purgeEncumbranceStep purgeAccountBalancesStep purgeCollectorDetailStep &nbsp;&nbsp;" class="infocell">purgeEntryStep purgeBalanceStep purgeSufficientFundBalancesStep pur...</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=manualPurgeJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">clearOldOriginEntriesJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">clearOldOriginEntryStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=clearOldOriginEntriesJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">purgeCorrectionProcessFilesJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">purgeCorrectionProcessFilesStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purgeCorrectionProcessFilesJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">laborNightlyOutJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">laborNightlyOutStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborNightlyOutJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">laborScrubberJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">createLaborBackupGroupStep laborScrubberStep &nbsp;&nbsp;</td><td class="infocell">laborNightlyOutJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborScrubberJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">laborPosterJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">laborPosterStep laborBalanceSummaryStep &nbsp;&nbsp;</td><td class="infocell">laborScrubberJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborPosterJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">laborFeedJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">laborFeedStep &nbsp;&nbsp;</td><td class="infocell">laborPosterJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborFeedJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">clearLaborPendingEntriesJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">laborClearGLEntryStep clearLaborPendingStep &nbsp;&nbsp;</td><td class="infocell">laborFeedJob (hardDependency) &nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=clearLaborPendingEntriesJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">laborBalanceForwardJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">laborYearEndBalanceForwardStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=laborBalanceForwardJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">pdpLoadFederalReserveBankDataJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpLoadFederalReserveBankDataStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpLoadFederalReserveBankDataJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">pdpExtractGlTransactionsStepJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpExtractGlTransactionsStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractGlTransactionsStepJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">pdpExtractAchPaymentsJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpExtractAchPaymentsStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractAchPaymentsJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">pdpExtractCanceledChecksJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpExtractCanceledChecksStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractCanceledChecksJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">pdpExtractChecksJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpExtractChecksStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpExtractChecksJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">pdpDailyReportJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpDailyReportStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpDailyReportJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">pdpLoadPaymentsJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">pdpLoadPaymentsStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=pdpLoadPaymentsJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">autoApprovePaymentRequestsJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">autoApprovePaymentRequestsStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=autoApprovePaymentRequestsJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">processPdpCancelsAndPaidJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">processPdpCancelsAndPaidStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=processPdpCancelsAndPaidJob&amp;group=unscheduled">View</a></td></tr><tr class="even"><td class="infocell">purchasingPreDisbursementImmediatesExtractJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">purchasingPreDisbursementImmediatesExtractStep &nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purchasingPreDisbursementImmediatesExtractJob&amp;group=unscheduled">View</a></td></tr><tr class="odd"><td class="infocell">purchasingPreDisbursementExtractJob&nbsp;&nbsp;</td><td class="infocell">unscheduled&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell">&nbsp;&nbsp;</td><td title="purchasingPreDisbursementImmediatesExtractStep purchasingPreDisbursementExtractStep &nbsp;&nbsp;" class="infocell">purchasingPreDisbursementImmediatesExtractStep purchasingPreDisbursem...</td><td class="infocell">&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kuali-cnv/batchModify.do?methodToCall=start&amp;name=purchasingPreDisbursementExtractJob&amp;group=unscheduled">View</a></td></tr></tbody></table><br><div class="exportlinks">Export options: <a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;d-16544-e=1&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export csv">CSV </span></a>| <a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;d-16544-e=2&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export excel">spreadsheet </span></a>| <a href="https://test.kuali.org/kuali-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkuali-cnv%2Fportal.do&amp;d-16544-e=3&amp;formKey=88888888&amp;group=&amp;lookupableImplServiceName=batchJobStatusLookupable&amp;conversionFields=name%3Aname%2Cgroup%3Agroup&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;status=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;readOnlyFields=&amp;methodToCall.search.x=30&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kfs.batch.BatchJobStatus&amp;referencesToRefresh=&amp;methodToCall.search.y=12&amp;reqSearchResultsActualSize=71&amp;searchResultKey=searchResults0&amp;name=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export xml">XML </span> </a></div></td>			<td width="1%"><img src="admin-batch-schedule_files/pixel_clear.gif" alt="" height="20" width="20"></td>		</tr>	</tbody></table><!-- lookup/inquiry footer -->    </form><div id="formComplete"></div> </body></html>
