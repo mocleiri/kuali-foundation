@@ -1,1 +1,2150 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html><head>    	<title>Kuali :: Lookup</title>		<link href="../../css/kuali.css" rel="stylesheet" type="text/css"><link href="maint-misc-statecode_files/calendar-win2k-1.css" rel="stylesheet" type="text/css">	<link href="maint-misc-statecode_files/kuali_application.css" rel="stylesheet" type="text/css">											<!-- Set the focus to first text box on form -->						  			  			  </head><body onLoad="placeFocus();">		    					<div class="lookupcreatenew" title="Create a new record"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=start"><img src="maint-misc-statecode_files/tinybutton-createnew.gif" alt="create new" height="15" width="70"></a></div>				    	<form name="KualiForm" id="kualiForm" method="post" action="/kra-reg/kr/lookup.do" enctype="" onSubmit="return hasFormAlreadyBeenSubmitted();">			        <!-- DOCUMENT INFO HEADER BOX -->												<div class="headerarea-small" id="headerarea-small">	<h1>State Code Lookup      <a href="https://test.kuali.org/kra-reg/kr/help.do?methodToCall=getResourceHelpText&amp;resourceKey=lookupHelpText" tabindex="32767" target="helpWindow" title="[Help]lookup help">                       <img src="maint-misc-statecode_files/my_cp_inf.gif" alt="[Help]lookup help" align="middle" border="0" hspace="5"></a></h1>  </div>	<input class="tinybutton" name="methodToCall.search" src="maint-misc-statecode_files/pixel_clear.gif" border="0" height="0" type="image" width="0">																<table width="100%">		<tbody><tr>			<td width="1%"><img src="maint-misc-statecode_files/pixel_clear.gif" alt="" height="20" width="20"></td>			<td>			<div id="lookup" align="center"><br>			<br>			<table class="datatable-100" align="center" cellpadding="0" cellspacing="0">																				                	<!-- maintenanceViewMode = lookup, KualiForm.methodToCall = search -->    		<tbody><tr>																																                																						                																									                																                																														            																																																																																						                            	<th class="grid" align="right" width="Infinity%">    					    				        					        					Country Code:            				            			            		    		</th>    													<td class="grid" width="Infinity%">																																																									<input name="countryCode" id="countryCode" value="" size="4" maxlength="100" style="" class="" type="text">						    														    								                          	                              <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.kra.bo.Country!!).(((countryCode:countryCode))).((#countryCode:countryCode#)).((&lt;&gt;)).(([])).((**)).((^^)).((&amp;&amp;)).((//)).((~~)).anchor" src="maint-misc-statecode_files/searchicon.gif" class="tinybutton" valign="middle" alt="Search Country Code" title="Search Country Code" border="0" type="image">                                  	                         <input name="methodToCall.performInquiry.(!!org.kuali.kra.bo.Country!!).((#countryCode:countryCode#)).anchor" src="maint-misc-statecode_files/book_open.png" onClick="javascript: inquiryPop('org.kuali.kra.bo.Country','countryCode:countryCode'); return false" class="tinybutton" title="Direct Inquiry" alt="Direct Inquiry" type="image">                    	                      <a href="https://test.kuali.org/kra-reg/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;attributeName=countryCode" tabindex="32767" target="helpWindow" title="[Help]Country Code">                   <img src="maint-misc-statecode_files/my_cp_inf.gif" alt="[Help]Country Code" align="middle" border="0" hspace="5"></a>        	    																																			</td>				    																																																						                												</tr>	    		<tr>																																                																						                																									                																                																														            																																																																																						                            	<th class="grid" align="right" width="Infinity%">    					    				        					        					State Code:            				            			            		    		</th>    													<td class="grid" width="Infinity%">																																																									<input name="stateCode" id="stateCode" value="" size="17" maxlength="100" style="" class="" type="text">						    														    								                          	                  	    	                      <a href="https://test.kuali.org/kra-reg/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;attributeName=stateCode" tabindex="32767" target="helpWindow" title="[Help]State Code">                   <img src="maint-misc-statecode_files/my_cp_inf.gif" alt="[Help]State Code" align="middle" border="0" hspace="5"></a>        	    																																			</td>				    																																																						                												</tr>	    		<tr>																																                																						                																									                																                																														            																																																																																						                            	<th class="grid" align="right" width="Infinity%">    					    				        					        					Description:            				            			            		    		</th>    													<td class="grid" width="Infinity%">																																																									<input name="description" id="description" value="" size="10" maxlength="100" style="" class="" type="text">						    														    								                          	                  	    	                      <a href="https://test.kuali.org/kra-reg/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;attributeName=description" tabindex="32767" target="helpWindow" title="[Help]Description">                   <img src="maint-misc-statecode_files/my_cp_inf.gif" alt="[Help]Description" align="middle" border="0" hspace="5"></a>        	    																																			</td>				    																																																						                												</tr>					<tr align="center">					<td colspan="2" class="infoline" height="30"><input name="methodToCall.search" src="maint-misc-statecode_files/buttonsmall_search.gif" value="search" class="tinybutton" title="search" alt="search" border="0" type="image"> <input name="methodToCall.clearValues" src="maint-misc-statecode_files/buttonsmall_clear.gif" value="clearValues" class="tinybutton" title="clear" alt="clear" border="0" type="image"> 						<a href="https://test.kuali.org/kra-reg/portal.do?methodToCall=refresh&amp;docFormKey=88888888&amp;anchor=" title="cancel">						<img src="maint-misc-statecode_files/buttonsmall_cancel.gif" class="tinybutton" alt="cancel" title="cancel" border="0"></a>										<!-- Optional extra buttons --> 																										</td>				</tr>			</tbody></table>			</div>			<br>			<br>			<div class="right">							</div>			 						    				<span class="pagebanner">51 items found, displaying all items.</span><span class="pagelinks"><strong>1</strong></span><table class="datatable-100" id="row" cellpadding="0" cellspacing="0"><thead><tr><th class="sortable"><a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;d-16544-s=0&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No">Country Code</a></th><th class="sortable"><a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;d-16544-s=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No">State Code</a></th><th class="sortable"><a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;d-16544-s=2&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No">Description</a></th><th>Actions</th></tr></thead><tbody><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="AK">AK</a> &nbsp;                            </td><td class="infocell">Alaska&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=AK">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=AK">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="AL">AL</a> &nbsp;                            </td><td class="infocell">Alabama&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=AL">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=AL">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="AR">AR</a> &nbsp;                            </td><td class="infocell">Arkansas&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=AR">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=AR">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="AZ">AZ</a> &nbsp;                            </td><td class="infocell">Arizona&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=AZ">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=AZ">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="CA">CA</a> &nbsp;                            </td><td class="infocell">California&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=CA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=CA">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="CO">CO</a> &nbsp;                            </td><td class="infocell">Colorado&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=CO">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=CO">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="CT">CT</a> &nbsp;                            </td><td class="infocell">Connecticut&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=CT">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=CT">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="DC">DC</a> &nbsp;                            </td><td class="infocell">District of Columbia&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=DC">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=DC">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="DE">DE</a> &nbsp;                            </td><td class="infocell">Delaware&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=DE">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=DE">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="FL">FL</a> &nbsp;                            </td><td class="infocell">Florida&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=FL">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=FL">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="GA">GA</a> &nbsp;                            </td><td class="infocell">Georgia&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=GA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=GA">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="HI">HI</a> &nbsp;                            </td><td class="infocell">Hawaii&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=HI">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=HI">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="IA">IA</a> &nbsp;                            </td><td class="infocell">Iowa&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=IA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=IA">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="ID">ID</a> &nbsp;                            </td><td class="infocell">Idaho&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=ID">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=ID">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="IL">IL</a> &nbsp;                            </td><td class="infocell">Illinois&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=IL">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=IL">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="IN">IN</a> &nbsp;                            </td><td class="infocell">Indiana&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=IN">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=IN">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="KS">KS</a> &nbsp;                            </td><td class="infocell">Kansas&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=KS">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=KS">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="KY">KY</a> &nbsp;                            </td><td class="infocell">Kentucky&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=KY">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=KY">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="LA">LA</a> &nbsp;                            </td><td class="infocell">Louisiana&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=LA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=LA">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="MA">MA</a> &nbsp;                            </td><td class="infocell">Massachusetts&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MA">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="MD">MD</a> &nbsp;                            </td><td class="infocell">Maryland&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MD">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MD">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="ME">ME</a> &nbsp;                            </td><td class="infocell">Maine&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=ME">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=ME">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="MI">MI</a> &nbsp;                            </td><td class="infocell">Michigan&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MI">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MI">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="MN">MN</a> &nbsp;                            </td><td class="infocell">Minnesota&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MN">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MN">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="MO">MO</a> &nbsp;                            </td><td class="infocell">Missouri&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MO">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MO">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="MS">MS</a> &nbsp;                            </td><td class="infocell">Mississippi&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MS">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MS">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="MT">MT</a> &nbsp;                            </td><td class="infocell">Montana&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MT">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MT">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="NC">NC</a> &nbsp;                            </td><td class="infocell">North Carolina&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NC">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NC">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="ND">ND</a> &nbsp;                            </td><td class="infocell">North Dakota&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=ND">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=ND">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="NE">NE</a> &nbsp;                            </td><td class="infocell">Nebraska&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NE">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NE">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="NH">NH</a> &nbsp;                            </td><td class="infocell">New Hampshire&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NH">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NH">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="NJ">NJ</a> &nbsp;                            </td><td class="infocell">New Jersey&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NJ">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NJ">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="NM">NM</a> &nbsp;                            </td><td class="infocell">New Mexico&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NM">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NM">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="NV">NV</a> &nbsp;                            </td><td class="infocell">Nevada&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NV">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NV">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="NY">NY</a> &nbsp;                            </td><td class="infocell">New York&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NY">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NY">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="OH">OH</a> &nbsp;                            </td><td class="infocell">Ohio&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=OH">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=OH">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="OK">OK</a> &nbsp;                            </td><td class="infocell">Oklahoma&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=OK">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=OK">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="OR">OR</a> &nbsp;                            </td><td class="infocell">Oregon&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=OR">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=OR">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="PA">PA</a> &nbsp;                            </td><td class="infocell">Pennsylvania&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=PA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=PA">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="RI">RI</a> &nbsp;                            </td><td class="infocell">Rhode Island&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=RI">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=RI">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="SC">SC</a> &nbsp;                            </td><td class="infocell">South Carolina&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=SC">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=SC">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="SD">SD</a> &nbsp;                            </td><td class="infocell">South Dakota&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=SD">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=SD">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="TN">TN</a> &nbsp;                            </td><td class="infocell">Tennessee&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=TN">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=TN">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="TX">TX</a> &nbsp;                            </td><td class="infocell">Texas&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=TX">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=TX">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="UT">UT</a> &nbsp;                            </td><td class="infocell">Utah&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=UT">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=UT">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="VA">VA</a> &nbsp;                            </td><td class="infocell">Virginia&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=VA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=VA">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="VT">VT</a> &nbsp;                            </td><td class="infocell">Vermont&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=VT">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=VT">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="WA">WA</a> &nbsp;                            </td><td class="infocell">Washington&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=WA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=WA">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="WI">WI</a> &nbsp;                            </td><td class="infocell">Wisconsin&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=WI">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=WI">copy</a></td></tr><tr class="even"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="WV">WV</a> &nbsp;                            </td><td class="infocell">West Virginia&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=WV">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=WV">copy</a></td></tr><tr class="odd"><td class="infocell">								<a href="#" target="blank" title="USA">USA</a> &nbsp;                            </td><td class="infocell">								<a href="#" target="blank" title="WY">WY</a> &nbsp;                            </td><td class="infocell">Wyoming&nbsp;&nbsp;</td><td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=WY">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=WY">copy</a></td></tr></tbody></table><div class="exportlinks">Export options: <a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;d-16544-e=1&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export csv">CSV </span></a>|<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;d-16544-e=2&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export excel">Excel </span></a>|<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;d-16544-e=3&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export xml">XML </span></a></div>			</td>			<td width="1%"><img src="maint-misc-statecode_files/pixel_clear.gif" alt="" height="20" width="20"></td>		</tr>	</tbody></table>							        <!-- lookup/inquiry footer -->    			</form></body></html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<title>Kuali :: Lookup</title>
+	
+
+
+	
+<link href="../../css/kuali.css" rel="stylesheet" type="text/css"><link href="maint-misc-statecode_files/calendar-win2k-1.css" rel="stylesheet" type="text/css">
+
+
+
+	<link href="maint-misc-statecode_files/kuali_application.css" rel="stylesheet" type="text/css">
+
+
+
+
+	
+
+
+
+	
+
+
+
+	
+
+
+
+	
+
+
+
+	
+
+
+
+	
+
+
+
+	
+
+
+
+	
+
+
+
+	
+
+
+
+	
+
+
+
+	<!-- Set the focus to first text box on form -->
+
+
+	
+		
+			  
+
+			  
+			  </head><body onLoad="placeFocus();">
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+		
+			<div class="lookupcreatenew" title="Create a new record"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=start"><img src="maint-misc-statecode_files/tinybutton-createnew.gif" alt="create new" height="15" width="70"></a></div>
+		
+
+		
+    
+	
+
+
+
+
+
+<form name="KualiForm" id="kualiForm" method="post" action="/kra-reg/kr/lookup.do" enctype="" onSubmit="return hasFormAlreadyBeenSubmitted();">
+
+	
+	
+	
+
+
+    
+    
+
+<!-- DOCUMENT INFO HEADER BOX -->
+
+
+
+
+
+	
+		
+	
+	
+
+					
+
+	
+
+	<div class="headerarea-small" id="headerarea-small">
+	<h1>State Code Lookup
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <a href="https://test.kuali.org/kra-reg/kr/help.do?methodToCall=getResourceHelpText&amp;resourceKey=lookupHelpText" tabindex="32767" target="helpWindow" title="[Help]lookup help">
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+ 
+
+  <img src="maint-misc-statecode_files/my_cp_inf.gif" alt="[Help]lookup help" align="middle" border="0" hspace="5"></a></h1>
+  </div>
+	
+
+
+<input class="tinybutton" name="methodToCall.search" src="maint-misc-statecode_files/pixel_clear.gif" border="0" height="0" type="image" width="0">
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	<table width="100%">
+		<tbody><tr>
+			<td width="1%"><img src="maint-misc-statecode_files/pixel_clear.gif" alt="" height="20" width="20"></td>
+			<td>
+
+			<div id="lookup" align="center"><br>
+			<br>
+			<table class="datatable-100" align="center" cellpadding="0" cellspacing="0">
+				
+				
+				
+				
+				
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+<!-- maintenanceViewMode = lookup, KualiForm.methodToCall = search -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+	
+	<tbody><tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Country Code:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+							
+						
+				
+							
+									
+							
+									
+								<input name="countryCode" id="countryCode" value="" size="4" maxlength="100" style="" class="" type="text">
+						    
+								
+						    
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.kra.bo.Country!!).(((countryCode:countryCode))).((#countryCode:countryCode#)).((&lt;&gt;)).(([])).((**)).((^^)).((&amp;&amp;)).((//)).((~~)).anchor" src="maint-misc-statecode_files/searchicon.gif" class="tinybutton" valign="middle" alt="Search Country Code" title="Search Country Code" border="0" type="image">
+                
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+<input name="methodToCall.performInquiry.(!!org.kuali.kra.bo.Country!!).((#countryCode:countryCode#)).anchor" src="maint-misc-statecode_files/book_open.png" onClick="javascript: inquiryPop('org.kuali.kra.bo.Country','countryCode:countryCode'); return false" class="tinybutton" title="Direct Inquiry" alt="Direct Inquiry" type="image">
+
+                
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    <a href="https://test.kuali.org/kra-reg/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;attributeName=countryCode" tabindex="32767" target="helpWindow" title="[Help]Country Code">
+  
+  
+  
+  
+  
+
+  
+  
+  
+ 
+
+  <img src="maint-misc-statecode_files/my_cp_inf.gif" alt="[Help]Country Code" align="middle" border="0" hspace="5"></a>
+        
+	
+    
+
+
+
+
+
+							
+							
+					
+						
+					
+					</td>
+				    
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+    
+	
+	<tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				State Code:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+							
+						
+				
+							
+									
+							
+									
+								<input name="stateCode" id="stateCode" value="" size="17" maxlength="100" style="" class="" type="text">
+						    
+								
+						    
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    <a href="https://test.kuali.org/kra-reg/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;attributeName=stateCode" tabindex="32767" target="helpWindow" title="[Help]State Code">
+  
+  
+  
+  
+  
+
+  
+  
+  
+ 
+
+  <img src="maint-misc-statecode_files/my_cp_inf.gif" alt="[Help]State Code" align="middle" border="0" hspace="5"></a>
+        
+	
+    
+
+
+
+
+
+							
+							
+					
+						
+					
+					</td>
+				    
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+    
+	
+	<tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Description:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+							
+						
+				
+							
+									
+							
+									
+								<input name="description" id="description" value="" size="10" maxlength="100" style="" class="" type="text">
+						    
+								
+						    
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    <a href="https://test.kuali.org/kra-reg/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;attributeName=description" tabindex="32767" target="helpWindow" title="[Help]Description">
+  
+  
+  
+  
+  
+
+  
+  
+  
+ 
+
+  <img src="maint-misc-statecode_files/my_cp_inf.gif" alt="[Help]Description" align="middle" border="0" hspace="5"></a>
+        
+	
+    
+
+
+
+
+
+							
+							
+					
+						
+					
+					</td>
+				    
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+
+
+
+				<tr align="center">
+					<td colspan="2" class="infoline" height="30"><input name="methodToCall.search" src="maint-misc-statecode_files/buttonsmall_search.gif" value="search" class="tinybutton" title="search" alt="search" border="0" type="image"> <input name="methodToCall.clearValues" src="maint-misc-statecode_files/buttonsmall_clear.gif" value="clearValues" class="tinybutton" title="clear" alt="clear" border="0" type="image"> 
+						<a href="https://test.kuali.org/kra-reg/portal.do?methodToCall=refresh&amp;docFormKey=88888888&amp;anchor=" title="cancel">
+						<img src="maint-misc-statecode_files/buttonsmall_cancel.gif" class="tinybutton" alt="cancel" title="cancel" border="0"></a>
+					
+					<!-- Optional extra buttons --> 					
+					
+											
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+
+			<br>
+			<br>
+			<div class="right">
+				
+			</div>
+			 
+			
+			    
+				<span class="pagebanner">51 items found, displaying all items.</span><span class="pagelinks"><strong>1</strong></span><br><br>
+<table class="datatable-100" id="row" cellpadding="0" cellspacing="0">
+<thead>
+<tr>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;d-16544-s=0&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No">Country Code</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;d-16544-s=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No">State Code</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;d-16544-s=2&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No">Description</a></th>
+<th>Actions</th></tr></thead>
+<tbody>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="AK">AK</a> &nbsp;
+                            </td>
+<td class="infocell">Alaska&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=AK">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=AK">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="AL">AL</a> &nbsp;
+                            </td>
+<td class="infocell">Alabama&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=AL">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=AL">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="AR">AR</a> &nbsp;
+                            </td>
+<td class="infocell">Arkansas&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=AR">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=AR">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="AZ">AZ</a> &nbsp;
+                            </td>
+<td class="infocell">Arizona&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=AZ">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=AZ">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="CA">CA</a> &nbsp;
+                            </td>
+<td class="infocell">California&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=CA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=CA">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="CO">CO</a> &nbsp;
+                            </td>
+<td class="infocell">Colorado&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=CO">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=CO">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="CT">CT</a> &nbsp;
+                            </td>
+<td class="infocell">Connecticut&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=CT">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=CT">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="DC">DC</a> &nbsp;
+                            </td>
+<td class="infocell">District of Columbia&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=DC">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=DC">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="DE">DE</a> &nbsp;
+                            </td>
+<td class="infocell">Delaware&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=DE">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=DE">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="FL">FL</a> &nbsp;
+                            </td>
+<td class="infocell">Florida&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=FL">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=FL">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="GA">GA</a> &nbsp;
+                            </td>
+<td class="infocell">Georgia&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=GA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=GA">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="HI">HI</a> &nbsp;
+                            </td>
+<td class="infocell">Hawaii&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=HI">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=HI">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="IA">IA</a> &nbsp;
+                            </td>
+<td class="infocell">Iowa&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=IA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=IA">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="ID">ID</a> &nbsp;
+                            </td>
+<td class="infocell">Idaho&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=ID">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=ID">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="IL">IL</a> &nbsp;
+                            </td>
+<td class="infocell">Illinois&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=IL">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=IL">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="IN">IN</a> &nbsp;
+                            </td>
+<td class="infocell">Indiana&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=IN">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=IN">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="KS">KS</a> &nbsp;
+                            </td>
+<td class="infocell">Kansas&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=KS">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=KS">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="KY">KY</a> &nbsp;
+                            </td>
+<td class="infocell">Kentucky&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=KY">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=KY">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="LA">LA</a> &nbsp;
+                            </td>
+<td class="infocell">Louisiana&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=LA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=LA">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="MA">MA</a> &nbsp;
+                            </td>
+<td class="infocell">Massachusetts&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MA">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="MD">MD</a> &nbsp;
+                            </td>
+<td class="infocell">Maryland&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MD">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MD">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="ME">ME</a> &nbsp;
+                            </td>
+<td class="infocell">Maine&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=ME">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=ME">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="MI">MI</a> &nbsp;
+                            </td>
+<td class="infocell">Michigan&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MI">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MI">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="MN">MN</a> &nbsp;
+                            </td>
+<td class="infocell">Minnesota&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MN">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MN">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="MO">MO</a> &nbsp;
+                            </td>
+<td class="infocell">Missouri&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MO">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MO">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="MS">MS</a> &nbsp;
+                            </td>
+<td class="infocell">Mississippi&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MS">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MS">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="MT">MT</a> &nbsp;
+                            </td>
+<td class="infocell">Montana&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=MT">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=MT">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="NC">NC</a> &nbsp;
+                            </td>
+<td class="infocell">North Carolina&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NC">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NC">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="ND">ND</a> &nbsp;
+                            </td>
+<td class="infocell">North Dakota&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=ND">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=ND">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="NE">NE</a> &nbsp;
+                            </td>
+<td class="infocell">Nebraska&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NE">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NE">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="NH">NH</a> &nbsp;
+                            </td>
+<td class="infocell">New Hampshire&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NH">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NH">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="NJ">NJ</a> &nbsp;
+                            </td>
+<td class="infocell">New Jersey&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NJ">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NJ">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="NM">NM</a> &nbsp;
+                            </td>
+<td class="infocell">New Mexico&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NM">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NM">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="NV">NV</a> &nbsp;
+                            </td>
+<td class="infocell">Nevada&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NV">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NV">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="NY">NY</a> &nbsp;
+                            </td>
+<td class="infocell">New York&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=NY">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=NY">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="OH">OH</a> &nbsp;
+                            </td>
+<td class="infocell">Ohio&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=OH">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=OH">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="OK">OK</a> &nbsp;
+                            </td>
+<td class="infocell">Oklahoma&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=OK">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=OK">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="OR">OR</a> &nbsp;
+                            </td>
+<td class="infocell">Oregon&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=OR">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=OR">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="PA">PA</a> &nbsp;
+                            </td>
+<td class="infocell">Pennsylvania&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=PA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=PA">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="RI">RI</a> &nbsp;
+                            </td>
+<td class="infocell">Rhode Island&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=RI">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=RI">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="SC">SC</a> &nbsp;
+                            </td>
+<td class="infocell">South Carolina&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=SC">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=SC">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="SD">SD</a> &nbsp;
+                            </td>
+<td class="infocell">South Dakota&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=SD">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=SD">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="TN">TN</a> &nbsp;
+                            </td>
+<td class="infocell">Tennessee&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=TN">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=TN">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="TX">TX</a> &nbsp;
+                            </td>
+<td class="infocell">Texas&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=TX">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=TX">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="UT">UT</a> &nbsp;
+                            </td>
+<td class="infocell">Utah&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=UT">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=UT">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="VA">VA</a> &nbsp;
+                            </td>
+<td class="infocell">Virginia&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=VA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=VA">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="VT">VT</a> &nbsp;
+                            </td>
+<td class="infocell">Vermont&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=VT">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=VT">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="WA">WA</a> &nbsp;
+                            </td>
+<td class="infocell">Washington&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=WA">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=WA">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="WI">WI</a> &nbsp;
+                            </td>
+<td class="infocell">Wisconsin&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=WI">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=WI">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="WV">WV</a> &nbsp;
+                            </td>
+<td class="infocell">West Virginia&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=WV">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=WV">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="#" target="blank" title="USA">USA</a> &nbsp;
+                            </td>
+<td class="infocell">
+								<a href="#" target="blank" title="WY">WY</a> &nbsp;
+                            </td>
+<td class="infocell">Wyoming&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=edit&amp;stateCode=WY">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-reg/kr/maintenance.do?countryCode=USA&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;methodToCall=copy&amp;stateCode=WY">copy</a></td></tr></tbody></table><br><div class="exportlinks">Export options: 
+<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;d-16544-e=1&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export csv">CSV </span></a>|
+<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;d-16544-e=2&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export excel">Excel </span></a>|
+<a href="https://test.kuali.org/kra-reg/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-reg%2Fportal.do&amp;d-16544-e=3&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;conversionFields=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;countryCode=&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=42&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.bo.State&amp;referencesToRefresh=&amp;methodToCall.search.y=4&amp;description=&amp;reqSearchResultsActualSize=0&amp;searchResultKey=searchResults25&amp;stateCode=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export xml">XML </span></a></div>
+			</td>
+			<td width="1%"><img src="maint-misc-statecode_files/pixel_clear.gif" alt="" height="20" width="20"></td>
+		</tr>
+	</tbody></table>
+
+
+
+	
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+        <!-- lookup/inquiry footer -->
+    
+	
+
+
+
+	
+	
+
+
+
+</form>
+</body></html>
