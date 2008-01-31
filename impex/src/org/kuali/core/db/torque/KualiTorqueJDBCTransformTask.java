@@ -2,6 +2,7 @@ package org.kuali.core.db.torque;
 
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -308,6 +309,11 @@ public class KualiTorqueJDBCTransformTask extends Task {
 					String foreignKeyTable = (String)forKey[0];
 					List refs = (List)forKey[1];
 					fk.setAttribute( "foreignTable", foreignKeyTable );
+					String onDelete = (String) forKey[2];
+					// gmcgrego - just adding onDelete if it's cascade so as not to affect kfs behavior
+					if (onDelete == "cascade") {
+						fk.setAttribute("onDelete", onDelete);
+					}
 					for ( int m = 0; m < refs.size(); m++ ) {
 						Element ref = doc.createElement( "reference" );
 						String[] refData = (String[])refs.get( m );
@@ -606,6 +612,15 @@ public class KualiTorqueJDBCTransformTask extends Task {
             {
                 String refTableName = foreignKeys.getString(3);
                 String fkName = foreignKeys.getString(12);
+                int deleteRule = foreignKeys.getInt(11);
+                String onDelete = "none";
+                if (deleteRule == DatabaseMetaData.importedKeyCascade) {
+                	onDelete = "cascade";
+                } else if (deleteRule == DatabaseMetaData.importedKeyRestrict) {
+                	onDelete = "restrict";
+                } else if (deleteRule == DatabaseMetaData.importedKeySetNull) {
+                	onDelete = "setnull";
+                }
                 // if FK has no name - make it up (use tablename instead)
                 if (fkName == null)
                 {
@@ -615,11 +630,12 @@ public class KualiTorqueJDBCTransformTask extends Task {
                 List refs;
                 if (fk == null)
                 {
-                    fk = new Object[2];
+                    fk = new Object[3];
                     fk[0] = refTableName; //referenced table name
                     refs = new ArrayList();
                     fk[1] = refs;
                     fks.put(fkName, fk);
+                    fk[2] = onDelete;
                 }
                 else
                 {
