@@ -311,7 +311,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
 					fk.setAttribute( "foreignTable", foreignKeyTable );
 					String onDelete = (String) forKey[2];
 					// gmcgrego - just adding onDelete if it's cascade so as not to affect kfs behavior
-					if (onDelete == "cascade") {
+					if (onDelete == "CASCADE") {
 						fk.setAttribute("onDelete", onDelete);
 					}
 					for ( int m = 0; m < refs.size(); m++ ) {
@@ -613,13 +613,13 @@ public class KualiTorqueJDBCTransformTask extends Task {
                 String refTableName = foreignKeys.getString(3);
                 String fkName = foreignKeys.getString(12);
                 int deleteRule = foreignKeys.getInt(11);
-                String onDelete = "none";
+                String onDelete = "NONE";
                 if (deleteRule == DatabaseMetaData.importedKeyCascade) {
-                	onDelete = "cascade";
+                	onDelete = "CASCADE";
                 } else if (deleteRule == DatabaseMetaData.importedKeyRestrict) {
-                	onDelete = "restrict";
+                	onDelete = "RESTRICT";
                 } else if (deleteRule == DatabaseMetaData.importedKeySetNull) {
-                	onDelete = "setnull";
+                	onDelete = "SETNULL";
                 }
                 // if FK has no name - make it up (use tablename instead)
                 if (fkName == null)
