@@ -166,8 +166,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   </div></th>
                 <td><select size=1 name="numberofreg2" id="protocol type" onChange="showDivs(this)">
                     <option value=0 selected>select</option>
-                    <option value=01>Performing Organization</option>
-                    <option value=02>External</option>
+                    <option value=01>Standard</option>
+                    <option value=02>Emergency Use</option>
+					<option value=03>Humanitarian Use Device(HUD)</option>
+					<option value=04>Exempt</option>
+					<option value=05>Full Board</option>
                 </select></td>
                 <th><div align=right>
                     <label for="application date">*Application Date:</label>
@@ -190,15 +193,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   </div></th>
                 <td><select onchange="dataChanged()" name="activityType2" id="organization type">
                     <option selected>select</option>
-                    <option value=1>Organized Research</option>
-                    <option value=2>Instruction</option>
-                    <option value=3>Fellowship - Pre-Doctoral</option>
-                    <option value=4>Public Service</option>
-                    <option value=5>Student Services</option>
-                    <option value=6>Other</option>
-                    <option value=7>Fellowship - Post-Doctoral</option>
-                    <option value=8>Clinical Trial</option>
-                    <option value=9>Construction</option>
+                    <option value=1>Performing Organization</option>
+                    <option value=2>External</option>
                   </select></td>
               </tr>
               <tr>
@@ -206,7 +202,17 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td colspan=3 align=left valign=middle><textarea name="newPurchasingItemLine.itemDescription2" tabindex=0 cols=80 rows=3 id="newPurchasingItemLine.itemDescription2"></textarea>
                   <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
               </tr>
-            </table>
+			  <tr>
+                <th><div align=right>*Person:</div></th>
+                <td colspan = 3 nowrap class="grid"><label> Employee Search</label>
+                      <label> <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup"><br>
+                        Non-employee Search <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup"></label>
+                  </td>
+			  </tr>
+</table>
+                 
+                
+                
           </div>
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
@@ -215,6 +221,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
+		 
           <div class="tab-container" align="center" id="G323" style="display: nonee;">
             <div class="h2-container"> <span class="subhead-left">
               <h2>Status &amp; Dates</h2>
@@ -245,7 +252,56 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               </tr>
             </table>
           </div>
-          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+		  <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Additional Information</td>
+              <td class="tabtable2-mid"><a href="#" id="A423" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F423" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+		 
+          <div class="tab-container" align="center" id="G423" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2>Additional Information</h2>
+              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <th><div align="right">
+                    <label for="status">FDA Application Id :</label>
+                  </div></th>
+                <td>A11111111</td>
+                <th><div align="right">
+                    <label for="approval date">Billable:</label>
+<label for="fda application id"> </label>
+                  </div></th>
+                <td align=left valign=middle><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></td>
+              </tr>
+              <tr>
+                <th><div align="right">
+                    <label for="approval date">Reference ID1:</label>
+                  </div></th>
+                <td align=left valign=middle><span>
+                  12/14/2006
+                  </span></td>
+                <th><div align="right">
+                    <label for="approval date">Reference ID2:</label>
+                </div></th>
+                <td align=left valign=middle>03/14/2007</td>
+              </tr>
+			  <tr>
+			  <th><div align="right">Exemption #:</div></th>
+			  <td align=left valign=middle colspan = 3><select onchange="dataChanged()" name="activityType" id="activityType">
+                    <option selected>select</option>
+                    <option>item 1</option>
+                    <option>item 2</option>
+                    <option>item 3</option>
+                    <option>item 4</option>
+                    <option>item 5</option><option>item 6</option>
+                  </select></td>
+			  </tr>
+            </table>
+          </div>		  
+		  <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Organization</td>
               <td class="tabtable2-mid"><a href="#" id="A126" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F126" ></a> </td>
