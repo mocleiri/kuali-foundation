@@ -38,9 +38,25 @@ function kendmod {
     klog "ending with exit status: $exit_status"
     if [[ "$exit_status" != "0" ]]
       then
-        kmail $APPLICATION_CFG_MAIL_LIST "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
+        kmailmod $APPLICATION_CFG_MAIL_LIST "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
     fi
     exit $exit_status
   } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kendmod
+
+function kmailmod {
+  {
+    typeset recipient=$1
+    typeset subject=$2
+    typeset message=$3
+    if [[ "$SEND_MAIL" = "true" ]]
+      then
+        klogmod "mailing recipent: $recipient"
+        echo "$message" | mail -s "$subject" $recipient
+    else
+      echo "SEND_MAIL is turned off"
+    fi 
+  } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kmailmod
