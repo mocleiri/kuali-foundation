@@ -1,38 +1,38 @@
-function kant-mod {
+function kantmod {
   {
     target=$1
     environment=$2
-    klog-mod "executing target: $target against environment: $environment"
-    // kexec-mod "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target"
+    klogmod "executing target: $target against environment: $environment"
+    // kexecmod "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
-typeset -xf kant-mod
+typeset -xf kantmod
 
-function klog-mod {
+function klogmod {
   {
     typeset message=$1
     echo "`date +%Y%m%d.%H.%M.%S`: $message"
   } >> $SCRIPT_LOG 2>&1
 }
-typeset -xf klog-mod
+typeset -xf klogmod
 
-function kexec-mod {
+function kexecmod {
   {
     typeset command=$1
-    klog-mod "executing command: $command"
+    klogmod "executing command: $command"
     eval $command
     typeset return_status=$?
     if [[ "$return_status" != "0" ]]
       then
-        kend-mod $return_status
+        kendmod $return_status
     fi
     return $return_status
   } >> $SCRIPT_LOG 2>&1
 }
-typeset -xf kexec-mod
+typeset -xf kexecmod
 
-function kend-mod {
+function kendmod {
   {
     typeset exit_status=$1
     klog "ending with exit status: $exit_status"
@@ -43,4 +43,4 @@ function kend-mod {
     exit $exit_status
   } >> $SCRIPT_LOG 2>&1
 }
-typeset -xf kend-mod
+typeset -xf kendmod
