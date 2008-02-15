@@ -121,19 +121,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
               <tbody>
                 <tr>
-                  <th colspan="1" rowspan="2" align="right"> <label for="document.documentHeader.financialDocumentDescription">*<a href="https://test.kuali.org/kuali-reg/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.core.document.DocumentHeader&amp;attributeName=financialDocumentDescription" tabindex="32767" target="helpWindow">Description: </a> </label>
+                  <th colspan="1" rowspan="2" align="right"> <label for="document.documentHeader.financialDocumentDescription">*Description:  </label>
                   </th>
                   <td rowspan="2" align="left"><input name="document.documentHeader.financialDocumentDescription" maxlength="40" size="45" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.financialDocumentDescription" type="text">
                   </td>
-                  <th colspan="1" align="right">&nbsp;
-                      <label for="document.explanation"><a href="https://test.kuali.org/kuali-reg/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.module.financial.document.InternalBillingDocument&amp;attributeName=explanation" tabindex="32767" target="helpWindow">Explanation: </a> </label>
-                  </th>
+                  <th colspan="1">&nbsp;
+                    <label for="document.explanation">Explanation:  </label>                  </th>
                   <td align="left" valign="middle"><textarea name="document.explanation" tabindex="0" cols="40" rows="3" style="" id="document.explanation"></textarea>
                   </td>
                 </tr>
                 <tr>
-                  <th rowspan="1" colspan="1" align="right">&nbsp;
-                      <label for="document.documentHeader.organizationDocumentNumber"><a href="https://test.kuali.org/kuali-reg/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.core.document.DocumentHeader&amp;attributeName=organizationDocumentNumber" tabindex="32767" target="helpWindow">Org. Doc. #: </a> </label>
+                  <th rowspan="1" colspan="1" align="left">&nbsp;
+                      <label for="document.documentHeader.organizationDocumentNumber">Org. Doc. #:  </label>
                   </th>
                   <td align="left" valign="middle"><input name="document.documentHeader.organizationDocumentNumber" maxlength="10" size="12" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.organizationDocumentNumber" type="text">
                   </td>
@@ -395,15 +394,53 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Sub-Contracts</td>
               <td class="tabtable1-mid1">&nbsp;</td>
-              <td class="tabtable2-mid"><a id="A15" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F15" ></a> </td>
+              <td class="tabtable2-mid"><a id="A15" onClick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F15" ></a> </td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
           <div class="tab-container" align="center" id="G15" style="display: none;">
             <div class="h2-container"> <span class="subhead-left">
-              <h2>Sub-Contracts</h2>
+              <h2>Add Sub-Contracts</h2>
               </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-            <br>
+              <table align="center" cellpadding="0" cellspacing="0"  summary=""  >
+              <tr>
+                <th>&nbsp;</th>
+                <th scope=col>Subcontractor Name</th>
+                <th scope=col>Amount</th>
+				<th>Actions</th>
+ 			  </tr>
+			  <tr>
+                <th>Add:</th>
+				<td class="infoline"><div align=center> <select name="univ_appt_typ_cd" size="1" onChange="postToAction('0', 'B_PersonnelDetail.do?btnUpdateFringeRate=buttonPressed')">
+                    <option value="startOption" selected>select</option>
+                    <option value="A1">University of Arizona Steward Observatory</option>
+                    <option value="A2">California University of Crocker Nuclear Lab</option>
+                    <option value="PS">- Name 3</option>
+                    <option value="BI">- Name 'n'</option>
+                  </select></div></td>
+			    <td class="infoline"><div align=center><input name="textfield" type="text" id="textfield" size="12"></div></td>
+			    <td nowrap class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+            </tr>
+			<tr>
+			<th width="2%"  scope="row">1</th>
+			<td><div align=center> University of Arizona Steward Observatory</div></td>
+			<td><div align=center> $1.50</div></td>
+			<td nowrap><div align=center> <a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+			</tr>
+			<tr>
+			<th width="2%"  scope="row">2</th>
+			<td><div align=center> California University of Crocker Nuclear Lab</div> </td>
+			<td><div align=center> $3.25</div></td>
+			<td nowrap><div align=center> <a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+			</tr>
+			<tr>
+			<th width="2%"  scope="row">Total:</th>
+			<td>&nbsp;  </td>
+			<td><div align=center> $4.75</div></td>
+			<td nowrap>&nbsp;</td>
+			</tr>
+			</table>
+			<br>
             <br>
             <img src="images/aw-subcontract.JPG" alt="Premium" width="824" height="488"><br>
             <br>
@@ -415,7 +452,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td class="tabtable2-mid"><a id="A125" onClick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F125" ></a> </td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
-            <tr></tr>
+            
           </table>
           <div class="tab-container" align="center" id="G125" style="display: none;">
             <div class="h2-container"> <span class="subhead-left">

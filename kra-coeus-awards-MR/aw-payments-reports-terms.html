@@ -126,8 +126,113 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
           </tr>
         </table>
-        <div class="tab-container" align="center" id="G03" style="display: none;"><img src="images/aw-terms1.jpg" alt="Terms1" width="917" height="285"></div>
-        <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+        <div class="tab-container" align="center" id="G03" style="display: none;">
+		 <div class="h2-container">
+		  <span class="subhead-left"><h2>Terms</h2></span>
+			  <span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-awards-MR-Backup/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <table align=center cellpadding=0 cellspacing=0 summary="">
+              <!-- <tr>
+                        <td colspan="6" class="tab-subhead"><div align="left">Consultants</div></td>
+                      </tr> -->
+              <tr>
+                <th>&nbsp;</th>
+                <th><div align=center>Term Type</div></th>
+				<th width="20%"><label for="actions">Actions</label></th>
+              </tr>
+              <tr>
+                <th class="infoline">Add:</th>
+                <td class="infoline"><div align=center> <select name="TermType" size="1" onChange="postToAction('0', 'B_PersonnelDetail.do?btnUpdateFringeRate=buttonPressed')">
+                    <option value="startOption" selected>select</option>
+                    <option value="A1">Equipment Approval</option>
+                    <option value="A2">Invention</option>
+                    <option value="PS">Other Approval/Notification Requirement</option>
+                    <option value="BI">Property</option>
+					<option value="BI">Publication</option>
+					<option value="BI">Referenced Documents</option>
+					<option value="BI">Rights in Data</option>
+					<option value="BI">Subcontract Approval</option>
+					<option value="BI">Travel</option>
+                  </select></div></td>
+				
+                <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+              </tr>
+		    </table><br><br>
+			  <table cellpadding=0 cellspacing="0" summary="">
+            <tr>
+                <td colspan="11" nowrap class="subhead"><a href="#" id="A334" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F334"></a> Other Approval/Notification Requirement </td>
+              </tr>
+              <tbody id="G334" style="display: none;">
+                <tr>
+                  <th><div align="center">Code</div></th>
+                  <th><div align="left">Description</div></th>
+                </tr>
+                <tr>
+                  <td><div align="center">1</div></td>
+                  <td><div align="left">None</div></td>
+                </tr>
+				<tr>
+                  <td><div align="center">8</div></td>
+                  <td><div align="left">Advanced notification required for alteration and/or renovation costs</div></td>
+                </tr>
+				<tr>
+                  <td><div align="center">45</div></td>
+                  <td><div align="left">Any reduction in cost shared PI effort requires sponsor approval</div></td>
+                </tr>
+				<tr>
+                  <td><div align="center">15</div></td>
+                  <td><div align="left">Carry forward of unexpected funds in excess of 25% of the current period obligation</div></td>
+                </tr>
+				<tr>
+                  <td><div align="center">38</div></td>
+                  <td><div align="left">Entertainment and Alcohol expenses have sponsor approval</div></td>
+                </tr>
+				<tr>
+                  <td><div align="center">49</div></td>
+                  <td><div align="left">Entertainment expenses(without alcohol) have sponsor approval.</div></td>
+                </tr>
+				<tr>
+                  <td><div align="center">14</div></td>
+                  <td><div align="left">Grants officer must be notified 30 days in advance of expiration date if single no-cost extension will be exercised</div></td>
+                </tr>
+				<tr>
+                  <td><div align="center">40</div></td>
+                  <td><div align="left">Meetings Food and Beverage are allowed by the non-Federal sponsor</div></td>
+                </tr>
+			</table>
+			  <table cellpadding=0 cellspacing="0" summary="">
+                <tr>
+                  <td colspan="11" nowrap class="subhead"><a href="#" id="A634" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F634"></a> Equipment Approval </td>
+                </tr>
+                <tbody id="G634" style="display: none;">
+                  <tr>
+                    <th width="14%"><div align="center">Code</div></th>
+                    <th width="86%"><div align="left">Description</div></th>
+                  </tr>
+                  <tr>
+                    <td><div align="center">3</div></td>
+                    <td><div align="left">Equipment may be purchased without the approval </div></td>
+                  </tr>
+                            </table>
+		      <table cellpadding=0 cellspacing="0" summary="">
+                <tr>
+                  <td colspan="11" nowrap class="subhead"><a href="#" id="A734" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F734"></a> Travel </td>
+                </tr>
+                <tbody id="G734" style="display: none;">
+                  <tr>
+                    <th width="14%"><div align="center">Code</div></th>
+                    <th width="86%"><div align="left">Description</div></th>
+                  </tr>
+                  <tr>
+                    <td><div align="center">5</div></td>
+                    <td><div align="left">Requests for approval should be submitted 30days prior to the beginning of each foreign trip </div></td>
+                  </tr>
+                            </table>
+	        <br><br>
+			<img src="images/aw-terms1.jpg" alt="Terms1" width="917" height="285">   	   	   
+		</div>
+        
+		
+		<table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
           <tr>
             <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Special Approval</td>
             <td class="tabtable1-mid1">&nbsp;</td>
