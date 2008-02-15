@@ -35,7 +35,7 @@ typeset -xf kexecmod
 function kendmod {
   {
     typeset exit_status=$1
-    klogend "ending with exit status: $exit_status"
+    klogmod "ending with exit status: $exit_status"
     if [[ "$exit_status" != "0" ]]
       then
         kmailmod petienne@indiana.edu "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
