@@ -6,4 +6,4 @@
 
 kantmod check-modularization unt
 
-kend 0
+kendmod 0

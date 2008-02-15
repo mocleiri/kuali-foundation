@@ -3,7 +3,7 @@ function kantmod {
     target=$1
     environment=$2
     klogmod "executing target: $target against environment: $environment"
-    // kexecmod "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target"
+    kexecmod "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target"
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
@@ -35,7 +35,7 @@ typeset -xf kexecmod
 function kendmod {
   {
     typeset exit_status=$1
-    klog "ending with exit status: $exit_status"
+    klogend "ending with exit status: $exit_status"
     if [[ "$exit_status" != "0" ]]
       then
         kmailmod petienne@indiana.edu "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
@@ -60,18 +60,6 @@ function kmailmod {
   } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kmailmod
-
-# function kant-mod {
-#  {
-#     target=$1
-#     environment=$2
-#     klog "executing target: $target against environment: $environment"
-#     //copy in kexec modified for not terminating
-#     //should call kend
-#     //should mod kend to be extensible for the dev mailing list param
-#     return 0
-#   } >> $SCRIPT_LOG 2>&1
-# }
 
 #  changes to make:
 #  1) Modify script so that return status is not failure, this will allow the cvs task to complete successfully.
