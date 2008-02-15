@@ -38,7 +38,7 @@ function kendmod {
     klog "ending with exit status: $exit_status"
     if [[ "$exit_status" != "0" ]]
       then
-        kmailmod $APPLICATION_CFG_MAIL_LIST "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
+        kmailmod petienne@indiana.edu "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
     fi
     exit $exit_status
   } >> $SCRIPT_LOG 2>&1
@@ -60,3 +60,43 @@ function kmailmod {
   } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kmailmod
+
+# function kant-mod {
+#  {
+#     target=$1
+#     environment=$2
+#     klog "executing target: $target against environment: $environment"
+#     //copy in kexec modified for not terminating
+#     //should call kend
+#     //should mod kend to be extensible for the dev mailing list param
+#     return 0
+#   } >> $SCRIPT_LOG 2>&1
+# }
+
+#  changes to make:
+#  1) Modify script so that return status is not failure, this will allow the cvs task to complete successfully.
+#  2) Change the output so that results are mailed to the developer's mailing list.
+
+#  LIST OF VARIABLES:
+# $ANT_COMMAND				=/usr/local/ant/bin/ant
+# $DEPLOY_BASE_DIRECTORY		=/opt/ears
+# $JAVA_APPLICATION_CODE		=kuali
+# $ANT_PROPERTIES_FILE		=$APPLICATION_DIRECTORY/build.properties
+# $ANT_BUILD_FILE				=$BASE_DIRECTORY/build.xml
+# $SCRIPT_LOG					=$LOGS_DIRECTORY/$SCRIPT_NAME+$EXEC_TIME.$$
+# $APPLICATION_CFG_MAIL_LIST	=kfcm-l@indiana.edu
+# $SCRIPT_NAME				=`basename $0`
+
+# APPLICATION_DIRECTORY		=$BASE_DIRECTORY/$APPLICATION
+# BASE_DIRECTORY				=/home/$USER/kuali
+# USER						=j2eemgr
+
+# USER						=j2eemgr
+# EXEC_TIME					=`date +%Y%m%d.%H.%M.%S`
+# BASE_DIRECTORY				=/home/$USER/kuali
+# APPLICATION_DIRECTORY		=$BASE_DIRECTORY/$APPLICATION
+# LOGS_DIRECTORY				=$APPLICATION_DIRECTORY/logs
+# SCRIPT_NAME					=`basename $0`
+# SCRIPT_LOG					=$LOGS_DIRECTORY/$SCRIPT_NAME+$EXEC_TIME.$$
+
+# APPLICATION=kfs
