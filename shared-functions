@@ -47,7 +47,7 @@ function kend {
 	klog "ending with exit status: $exit_status"
 	if [[ "$exit_status" != "0" ]]; then
 	    if [[ $target = "check-modularization" ]]; then
-		kmail $APPLICATION_DEV_MAIL_LIST "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
+		kmail petienne@indiana.edu "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
 	    else
 		kmail $APPLICATION_CFG_MAIL_LIST "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
 	    fi
