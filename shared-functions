@@ -48,6 +48,7 @@ function kend {
 	if [[ "$exit_status" != "0" ]]; then
 	    if [[ $target = "check-modularization" ]]; then
 		kmail petienne@indiana.edu "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
+		rm -rf /home/j2eemgr/kuali/kuali_project
 	    else
 		kmail $APPLICATION_CFG_MAIL_LIST "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
 	    fi

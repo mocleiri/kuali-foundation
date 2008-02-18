@@ -4,6 +4,6 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-kantmod check-modularization unt
+kant check-modularization unt
 
-kendmod 0
+kend 0
