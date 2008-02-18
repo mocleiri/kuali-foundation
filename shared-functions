@@ -1,168 +1,173 @@
 #!/bin/sh -x
 
 function klog {
-  {
-    typeset message=$1
-    echo "`date +%Y%m%d.%H.%M.%S`: $message"
-  } >> $SCRIPT_LOG 2>&1
+    {
+	typeset message=$1
+	echo "`date +%Y%m%d.%H.%M.%S`: $message"
+    } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf klog
 
 function kmail {
-  {
-    typeset recipient=$1
-    typeset subject=$2
-    typeset message=$3
-    if [[ "$SEND_MAIL" = "true" ]]
-      then
-        klog "mailing recipent: $recipient"
-        echo "$message" | mail -s "$subject" $recipient
-    else
-      echo "SEND_MAIL is turned off"
-    fi 
-  } >> $SCRIPT_LOG 2>&1
+    {
+	typeset recipient=$1
+	typeset subject=$2
+	typeset message=$3
+	if [[ "$SEND_MAIL" = "true" ]]
+	then
+            klog "mailing recipent: $recipient"
+            echo "$message" | mail -s "$subject" $recipient
+	else
+	    echo "SEND_MAIL is turned off"
+	fi 
+    } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kmail
 
 function kexec {
-  {
-    typeset command=$1
-    klog "executing command: $command"
-    eval $command
-    typeset return_status=$?
-    if [[ "$return_status" != "0" ]]
-      then
-        kend $return_status
-    fi
-    return $return_status
-  } >> $SCRIPT_LOG 2>&1
+    {
+	typeset command=$1
+	typeset target=$2
+	klog "executing command: $command"
+	eval $command
+	typeset return_status=$?
+	if [[ "$return_status" != "0" ]]
+	then
+            kend $return_status $target
+	fi
+	return $return_status
+    } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kexec
 
 function kend {
-  {
-    typeset exit_status=$1
-    klog "ending with exit status: $exit_status"
-    if [[ "$exit_status" != "0" ]]
-      then
-        kmail $APPLICATION_CFG_MAIL_LIST "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
-    fi
-    exit $exit_status
-  } >> $SCRIPT_LOG 2>&1
+    {
+	typeset exit_status=$1
+	typeset target=$2
+	klog "ending with exit status: $exit_status"
+	if [[ "$exit_status" != "0" ]]; then
+	    if [[ $target = "check-modularization" ]]; then
+		kmail $APPLICATION_DEV_MAIL_LIST "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
+	    else
+		kmail $APPLICATION_CFG_MAIL_LIST "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
+	    fi
+	fi
+	exit $exit_status
+    } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kend
 
 function ksetprops {
-  {
-    typeset environment=$1
-    typeset user=$DATABASE_APPLICATION_CODE$environment
-    typeset schema="`echo $user | tr a-z A-Z`"
-    typeset password=$environment"174"$DATABASE_APPLICATION_CODE
-    kexec "echo \"application=$APPLICATION\" > $ANT_PROPERTIES_FILE"
-    kexec "echo \"build.environment=$environment\" >> $ANT_PROPERTIES_FILE"
-    kexec "echo \"schema=$schema\" >> $ANT_PROPERTIES_FILE"
-    kexec "echo \"datasource.username=$user\" >> $ANT_PROPERTIES_FILE"
-    kexec "echo \"datasource.password=$password\" >> $ANT_PROPERTIES_FILE"
-    kexec "echo \"database.cvs.module=$DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
-    kexec "echo \"application.database.cvs.module=$APPLICATION_DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
-    kexec "cat $ANT_PROPERTIES_TEMPLATE >> $ANT_PROPERTIES_FILE" 
-  } >> $SCRIPT_LOG 2>&1
+    {
+	typeset environment=$1
+	typeset user=$DATABASE_APPLICATION_CODE$environment
+	typeset schema="`echo $user | tr a-z A-Z`"
+	typeset password=$environment"174"$DATABASE_APPLICATION_CODE
+	kexec "echo \"application=$APPLICATION\" > $ANT_PROPERTIES_FILE"
+	kexec "echo \"build.environment=$environment\" >> $ANT_PROPERTIES_FILE"
+	kexec "echo \"schema=$schema\" >> $ANT_PROPERTIES_FILE"
+	kexec "echo \"datasource.username=$user\" >> $ANT_PROPERTIES_FILE"
+	kexec "echo \"datasource.password=$password\" >> $ANT_PROPERTIES_FILE"
+	kexec "echo \"database.cvs.module=$DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
+	kexec "echo \"application.database.cvs.module=$APPLICATION_DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
+	kexec "cat $ANT_PROPERTIES_TEMPLATE >> $ANT_PROPERTIES_FILE" 
+    } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf ksetprops
 
 function kexport {
-  {
-    typeset environment=$1
-    ksetprops $environment
+    {
+	typeset environment=$1
+	ksetprops $environment
 	kexec "cvs -q checkout $APPLICATION_DATABASE_CVS_MODULE"
-    kant export $environment
-    cvs -q add $APPLICATION_DATABASE_CVS_MODULE/*
-    cvs -q add $APPLICATION_DATABASE_CVS_MODULE/doc/*
+	kant export $environment
+	cvs -q add $APPLICATION_DATABASE_CVS_MODULE/*
+	cvs -q add $APPLICATION_DATABASE_CVS_MODULE/doc/*
 	cvs remove $APPLICATION_DATABASE_CVS_MODULE
-    kexec "cvs -q update $APPLICATION_DATABASE_CVS_MODULE"
-    kexec "cvs commit -m \"daily export\" $APPLICATION_DATABASE_CVS_MODULE"
-    kexec "rm -rf $APPLICATION_DATABASE_CVS_MODULE"
-    return 0
-  } >> $SCRIPT_LOG 2>&1
+	kexec "cvs -q update $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "cvs commit -m \"daily export\" $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "rm -rf $APPLICATION_DATABASE_CVS_MODULE"
+	return 0
+    } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kexport
 
 function kant {
-  {
-    target=$1
-    environment=$2
-    klog "executing target: $target against environment: $environment"
-    kexec "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target"
-    return 0
-  } >> $SCRIPT_LOG 2>&1
+    {
+	target=$1
+	environment=$2
+	klog "executing target: $target against environment: $environment"
+	kexec "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target"
+	return 0
+    } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kant
 
 function kdailytag {
-  {
-    branch=$1
-    old_build_number=`cat $BUILD_NUMBER_FILE`
-    new_build_number=`expr $old_build_number + 1`
-    new_build_tag="build-"$new_build_number
-    kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
-    klog "tagging branch: $branch of application java and database modules with new_build_tag: $new_build_tag"
-    kexec "cvs -q rtag -d $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
-    kexec "cvs -q rtag -r $branch $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
-    kexec "cvs -q rtag -d $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
-    kexec "cvs -q rtag $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
-    return 0
-  } >> $SCRIPT_LOG 2>&1
+    {
+	branch=$1
+	old_build_number=`cat $BUILD_NUMBER_FILE`
+	new_build_number=`expr $old_build_number + 1`
+	new_build_tag="build-"$new_build_number
+	kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
+	klog "tagging branch: $branch of application java and database modules with new_build_tag: $new_build_tag"
+	kexec "cvs -q rtag -d $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
+	kexec "cvs -q rtag -r $branch $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
+	kexec "cvs -q rtag -d $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "cvs -q rtag $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
+	return 0
+    } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kdailytag
 
 function kpurge {
-  {
-    directory=$1
-    number_of_days_old=$2
-    klog "purging items from directory: $directory with number_of_days_old: $number_of_days_old"
-    kexec "find $directory -type f -atime +$number_of_days_old -print -exec rm -f {} \;"
-    return 0
-  } >> $SCRIPT_LOG 2>&1
+    {
+	directory=$1
+	number_of_days_old=$2
+	klog "purging items from directory: $directory with number_of_days_old: $number_of_days_old"
+	kexec "find $directory -type f -atime +$number_of_days_old -print -exec rm -f {} \;"
+	return 0
+    } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kpurge
 
 function kupdate {
-  {
-    typeset environment=$1
-    typeset use_standard_tag=$2
-    typeset do_database_update=$3
-    typeset deploy_web_application=$4
-    typeset tag_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE
-    typeset tag_file_constant=project.cvs.tag=
-    klog "updating environment: $environment with use_standard_tag: $use_standard_tag, deploy_web_application: $deploy_web_application, static_content_node: $static_content_node, and do_database_update: $do_database_update"
-    if [[ "$use_standard_tag" = "true" ]]
-      then
-        klog "overwriting $tag_file"
-        typeset tag=build-`cat $BUILD_NUMBER_FILE`
-        kexec "rm -rf $tag_file"
-        kexec "echo $tag_file_constant$tag > $tag_file"
-    else
-        typeset tag_file_contents=`cat $tag_file`
-        typeset tag=${tag_file_contents#$tag_file_constant}
-    fi
-    klog "tag is $tag"
-    ksetprops $environment
-    if [[ "$do_database_update" = "true" ]]
-      then
-        kant import $environment
-    fi
-    kant dist-external $environment
-    if [[ "$deploy_web_application" = "true" ]]
-      then
-        klog "deploying web application"
-        kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
-      else
-        kexec "$DEPLOY_COMMAND -t deploy-settings $JAVA_APPLICATION_CODE $environment"
-        kexec "$DEPLOY_COMMAND -t deploy-security $JAVA_APPLICATION_CODE $environment"
-    fi
-    klog "deploying external work resources"
-    kexec "sudo $WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment"
-    return 0
-  } >> $SCRIPT_LOG 2>&1
+    {
+	typeset environment=$1
+	typeset use_standard_tag=$2
+	typeset do_database_update=$3
+	typeset deploy_web_application=$4
+	typeset tag_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE
+	typeset tag_file_constant=project.cvs.tag=
+	klog "updating environment: $environment with use_standard_tag: $use_standard_tag, deploy_web_application: $deploy_web_application, static_content_node: $static_content_node, and do_database_update: $do_database_update"
+	if [[ "$use_standard_tag" = "true" ]]
+	then
+            klog "overwriting $tag_file"
+            typeset tag=build-`cat $BUILD_NUMBER_FILE`
+            kexec "rm -rf $tag_file"
+            kexec "echo $tag_file_constant$tag > $tag_file"
+	else
+            typeset tag_file_contents=`cat $tag_file`
+            typeset tag=${tag_file_contents#$tag_file_constant}
+	fi
+	klog "tag is $tag"
+	ksetprops $environment
+	if [[ "$do_database_update" = "true" ]]
+	then
+            kant import $environment
+	fi
+	kant dist-external $environment
+	if [[ "$deploy_web_application" = "true" ]]
+	then
+            klog "deploying web application"
+            kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
+	else
+            kexec "$DEPLOY_COMMAND -t deploy-settings $JAVA_APPLICATION_CODE $environment"
+            kexec "$DEPLOY_COMMAND -t deploy-security $JAVA_APPLICATION_CODE $environment"
+	fi
+	klog "deploying external work resources"
+	kexec "sudo $WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment"
+	return 0
+    } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kupdate
