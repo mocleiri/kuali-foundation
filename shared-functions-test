@@ -41,7 +41,8 @@ function kendmod {
     if [[ "$exit_status" != "0" ]]
       then
       	if [[ "$target = "check-modularization" ]]
-      		then kmailmod petienne@gmail.com "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
+      		then 
+      			kmailmod petienne@gmail.com "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
       	fi
         kmailmod petienne@indiana.edu "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
     fi
