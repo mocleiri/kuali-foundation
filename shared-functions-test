@@ -3,7 +3,7 @@ function kantmod {
     target=$1
     environment=$2
     klogmod "executing target: $target against environment: $environment"
-    kexecmod "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target"
+    kexecmod "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target" $target
     return 0
   } >> $SCRIPT_LOG 2>&1
 }
@@ -20,12 +20,13 @@ typeset -xf klogmod
 function kexecmod {
   {
     typeset command=$1
+    typeset $target=$2
     klogmod "executing command: $command"
     eval $command
     typeset return_status=$?
     if [[ "$return_status" != "0" ]]
       then
-        kendmod $return_status
+        kendmod $return_status $target
     fi
     return $return_status
   } >> $SCRIPT_LOG 2>&1
@@ -35,9 +36,12 @@ typeset -xf kexecmod
 function kendmod {
   {
     typeset exit_status=$1
+    typeset target=$2
     klogmod "ending with exit status: $exit_status"
     if [[ "$exit_status" != "0" ]]
       then
+      	if [[ "$target = "check-modularization" ]]
+      		then kmailmod petienne@gmail.com "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
         kmailmod petienne@indiana.edu "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
     fi
     exit $exit_status
