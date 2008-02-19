@@ -27,13 +27,13 @@ typeset -xf kmail
 function kexec {
     {
 	typeset command=$1
-	typeset target=$2
+	typeset mailingListOverride=$2
 	klog "executing command: $command"
 	eval $command
 	typeset return_status=$?
 	if [[ "$return_status" != "0" ]]
 	then
-            kend $return_status $target
+            kend $return_status $mailingListOverride
 	fi
 	return $return_status
     } >> $SCRIPT_LOG 2>&1
@@ -43,15 +43,15 @@ typeset -xf kexec
 function kend {
     {
 	typeset exit_status=$1
-	typeset target=$2
+	typeset mailingListOverride=$2
+	if [[ $2 != "" ]]; then
+	    typeset mailingList=$mailingListOverride
+	else
+	    typeset mailingList=$APPLICATION_CFG_MAIL_LIST
+	fi
 	klog "ending with exit status: $exit_status"
 	if [[ "$exit_status" != "0" ]]; then
-	    if [[ $target = "check-modularization" ]]; then
-		kmail petienne@indiana.edu "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
-		rm -rf /home/j2eemgr/kuali/kuali_project
-	    else
-		kmail $APPLICATION_CFG_MAIL_LIST "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
-	    fi
+	    kmail $mailingList "$SCRIPT_NAME has errors" "see $SCRIPT_LOG"
 	fi
 	exit $exit_status
     } >> $SCRIPT_LOG 2>&1
@@ -97,8 +97,9 @@ function kant {
     {
 	target=$1
 	environment=$2
+	mailingListOverride=$3
 	klog "executing target: $target against environment: $environment"
-	kexec "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target"
+	kexec "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target" $mailingListOverride
 	return 0
     } >> $SCRIPT_LOG 2>&1
 }
