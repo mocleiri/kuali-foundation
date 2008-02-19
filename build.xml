@@ -33,7 +33,7 @@
 	<target name="check-modularization" depends="init-database-properties">
 		<delete dir="${project.cvs.package}" failonerror="false" />
 		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
-		<cvs command="checkout" cvsroot="${project.cvs.root}" package="${project.cvs.package}" reallyquiet="true" />
+		<cvs command="checkout" cvsroot="${project.cvs.root}" package="${project.cvs.package}" tag="${project.cvs.tag}" reallyquiet="true" />
 		<ant dir="${project.cvs.package}" target="check-modularization" />
 		<delete dir="${project.cvs.package}" />
 	</target>
