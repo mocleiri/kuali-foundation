@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <project name="kul-cfg-envs" default="init-database-properties" basedir=".">
+	
+	<!-- include resource for ant-contrib tasks (design/verifydesign, etc) -->
+	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+	
 	<target name="init-java-properties">
 		<property file="${deployment.directory}/build.properties" />
 		<condition property="import.into.mysql">
