@@ -398,7 +398,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Funding Sources</td>
-              <td class="tabtable2-mid"><a href="#" id="A03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F03" ></a> </td>
+              <td class="tabtable2-mid"><a href="#" id="A03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=8 border=0 id="F03" ></a> </td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
@@ -409,11 +409,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table align="center" border="0" cellpadding="2" cellspacing="0" width="98%">
               <tbody _base_href="http://coeus-test.mit.edu/coeus42/coeuslite/wmc/budget/tiles/budgetSummaryTile.jsp">
                 <tr align="center" valign="top">
-                  <th>&nbsp;</th>
-                  <th><label for="type">*Type</label></th>
-                  <th><label for="number">Number</label></th>
-                  <th><label for="title">Title</label></th>
-                  <th >Actions</th>
+                  <th width="8%">&nbsp;</th>
+                  <th width="19%"><label for="type">*Funding Type</label></th>
+                  <th width="14%"><label for="number">*Funding ID </label></th>
+                  <th width="47%"><label for="title">Funding Description</label></th>
+                  <th width="12%" >Actions</th>
                 </tr>
                 <tr >
                   <th class="infoline"><div align="center">Add:</div></th>
@@ -431,10 +431,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </label>
                     </div></td>
                   <td nowrap class="infoline"><div align="center">
-                      <input name="totalCostLimit" size="8" onchange="dataChanged()" style="text-align: right;" type="text" id="number"/>
-                    </div></td>
+                      <input name="totalCostLimit" size="10" onchange="dataChanged()" style="text-align: right;" type="text" id="number"/>
+                      <span class="grid">
+                       &nbsp;<input name="image" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                      </span></div></td>
                   <td class="infoline"><div align="center">
-                      <input name="totalCostLimit2" size="8" onchange="dataChanged()" style="text-align: right;" type="text" id="title"/>
+                      <input name="totalCostLimit2" size="70" onchange="dataChanged()" style="text-align: right;" type="text" id="title"/>
                     </div></td>
                   <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
@@ -452,10 +454,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </select>
                     </div></td>
                   <td nowrap><div align="center">
-                      <input name="totalCostLimit3" type="text"  onchange="dataChanged()" value="713476" size="8" id="number"/>
+                      <input name="totalCostLimit3" type="text"  onchange="dataChanged()" value="713476" size="10" id="number"/>
                     </div></td>
                   <td nowrap><div align="center">
-                      <input name="totalCostLimit5" type="text"  onchange="dataChanged()" value="NIH" size="8" id="title"/>
+                      <input name="totalCostLimit5" type="text"  onchange="dataChanged()" value="NIH" size="70" id="title"/>
                     </div></td>
                   <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
@@ -473,10 +475,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </select>
                     </div></td>
                   <td><div align="center">
-                      <input name="totalCostLimit4" type="text" onchange="dataChanged()" value="345787" size="8" id="number"/>
+                      <input name="totalCostLimit4" type="text" onchange="dataChanged()" value="345787" size="10" id="number"/>
                     </div></td>
                   <td><div align="center">
-                      <input name="totalCostLimit6" size="8" onchange="dataChanged()"  type="text" id="title"/>
+                      <input name="totalCostLimit6" size="70" onchange="dataChanged()"  type="text" id="title"/>
                     </div></td>
                   <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
