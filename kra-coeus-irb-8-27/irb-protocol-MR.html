@@ -203,7 +203,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
               </tr>
 			  <tr>
-                <th><div align=right>*Person:</div></th>
+                <th><div align=right>*Principal Investigator:</div></th>
                 <td colspan = 3 nowrap class="grid"><label> Employee Search</label>
                       <label> <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup"><br>
                         Non-employee Search <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup"></label>
@@ -266,27 +266,30 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
-                <th><div align="right">
+                <th width="33%"><div align="right">
                     <label for="status">FDA Application Id :</label>
                   </div></th>
-                <td>A11111111</td>
-                <th><div align="right">
+                <td width="26%"><input name="document.documentHeader.organizationDocumentNumber2" maxlength="10" size="12" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.organizationDocumentNumber2" type="text"></td>
+                <th width="23%"><div align="right">
                     <label for="approval date">Billable:</label>
 <label for="fda application id"> </label>
                   </div></th>
-                <td align=left valign=middle><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></td>
+                <td width="18%" align=left valign=middle><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></td>
               </tr>
               <tr>
                 <th><div align="right">
                     <label for="approval date">Reference ID1:</label>
                   </div></th>
                 <td align=left valign=middle><span>
-                  12/14/2006
-                  </span></td>
+                  <span>
+                  <input name="date32" type=text size=12 id="date3">
+                  </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor4"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></span></td>
                 <th><div align="right">
                     <label for="approval date">Reference ID2:</label>
                 </div></th>
-                <td align=left valign=middle>03/14/2007</td>
+                <td align=left valign=middle><span>
+                  <input name="date33" type=text size=12 id="date32">
+                </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor4"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
               </tr>
 			  <tr>
 			  <th><div align="right">Exemption #:</div></th>
@@ -316,16 +319,16 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table cellpadding=0 cellspacing=0 summary="view/edit document overview information">
               <tr>
                 <th><div align="right">Applicant Organization:</div></th>
-                <td>Informed Diagnostics, Inc. <a href="#">
+                <td>Massachusetts Institute of Technology<a href="#">
                   <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
                   </a> <a href="#">
                   <input type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                  </a></td>
+                </a></td>
               </tr>
               <tr>
                 <th><div align=right>Authorized Representative Name &amp; Address:</div></th>
                 <td> Bunten Lex<br>
-                  Informed Diagnostics, Inc.<br>
+                  Massachusetts Institute of Technology<br>
                   1050 E. Duane Ave<br>
                   Suite 1<br>
                   Sunnyvale<br>
@@ -337,10 +340,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               </tr>
               <tr>
                 <th width="20%"><div align=right>Performing Organization:</div></th>
-                <td width="30%">Informed Diagnostics, Inc. <a href="#">
+                <td width="30%">Massachusetts Institute of Technology<a href="#">
                   <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
                   <input type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                  </a></td>
+                </a></td>
               </tr>
             </table>
             <div class="h2-container"><span class="subhead-left">

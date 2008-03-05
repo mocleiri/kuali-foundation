@@ -161,55 +161,28 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <th><div align=right>*Proposal #:</div></th>
                 <td>12351253</td>
                 <th><div align=right>*Sponsor ID:</div></th>
-                <td align=left valign=middle><input name="startDate3" type=text onchange="dataChanged()" value="" size=12 />
-                    <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                    <input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
-                    <br></td>
+                <td align=left valign=middle>1111111
+                <br></td>
               </tr>
               <tr>
                 <th><div align=right>*Proposal Type:</div></th>
-                <td><select size=1 name="numberofreg" id="numberofreg" onChange="showDivs(this)">
-                    <option value=0 selected>select</option>
-                    <option value=01>Continuation</option>
-                    <option value=02>New</option>
-                    <option value=03>Renewal</option>
-                    <option value=04>Resubmission</option>
-                    <option value=05>Revision</option>
-                    <option value=06>Task Orde</option>
-                </select></td>
+                <td>New</td>
                 <th><div align=right>*Project Start Date:</div></th>
                 <td><span>
-                  <input name="date2" type=text size=12>
-                </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                  01/01/2007</span></td>
               </tr>
               <tr>
                 <th><div align=right>
                     <label for=leadunit>*Lead Unit:</label>
                 </div></th>
-                <td align=left valign=middle><select name="leadunit" id="leadunit">
-                    <option selected>select</option>
-                    <option>IN-PEDS</option>
-                    <option>BL-IidC</option>
-                </select></td>
+                <td align=left valign=middle>IN-PEDS</td>
                 <th><div align=right>*Project End Date:</div></th>
                 <td align=left valign=middle><span>
-                  <input name="date2" type=text size=12>
-                </span><span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                  01/01/2009</span></td>
               </tr>
               <tr>
                 <th><div align=right>*Activity Type:</div></th>
-                <td><select onchange="dataChanged()" name="activityType">
-                    <option selected>select</option>
-                    <option value=1>Organized Research</option>
-                    <option value=2>Instruction</option>
-                    <option value=3>Fellowship - Pre-Doctoral</option>
-                    <option value=4>Public Service</option>
-                    <option value=5>Student Services</option>
-                    <option value=6>Other</option>
-                    <option value=7>Fellowship - Post-Doctoral</option>
-                    <option value=8>Clinical Trial</option>
-                    <option value=9>Construction</option>
-                </select></td>
+                <td>Organized Research </td>
                 <th>&nbsp;</th>
                 <td align=left valign=middle>&nbsp;</td>
               </tr>
@@ -404,36 +377,34 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <table align="center" cellpadding="0" cellspacing="0"  summary=""  >
               <tr>
                 <th>&nbsp;</th>
-                <th scope=col>Subcontractor Name</th>
-                <th scope=col>Amount</th>
-				<th>Actions</th>
+                <th width="38%" scope=col>Subcontractor Name</th>
+                <th width="34%" scope=col>Amount</th>
+				<th width="22%">Actions</th>
  			  </tr>
 			  <tr>
                 <th>Add:</th>
-				<td class="infoline"><div align=center> <select name="univ_appt_typ_cd" size="1" onChange="postToAction('0', 'B_PersonnelDetail.do?btnUpdateFringeRate=buttonPressed')">
-                    <option value="startOption" selected>select</option>
-                    <option value="A1">University of Arizona Steward Observatory</option>
-                    <option value="A2">California University of Crocker Nuclear Lab</option>
-                    <option value="PS">- Name 3</option>
-                    <option value="BI">- Name 'n'</option>
-                  </select></div></td>
+				<td class="infoline"><div align=left> 
+				  <input name="startDate42" type=text onchange="dataChanged()" value="" size=40 id="startDate4"/>
+				  <input name="image" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                  <input name="image" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+				</div></td>
 			    <td class="infoline"><div align=center><input name="textfield" type="text" id="textfield" size="12"></div></td>
 			    <td nowrap class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
             </tr>
 			<tr>
-			<th width="2%"  scope="row">1</th>
-			<td><div align=center> University of Arizona Steward Observatory</div></td>
+			<th width="6%"  scope="row">1</th>
+			<td><div align=left> University of Arizona Steward Observatory</div></td>
 			<td><div align=center> $1.50</div></td>
 			<td nowrap><div align=center> <a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
 			</tr>
 			<tr>
-			<th width="2%"  scope="row">2</th>
-			<td><div align=center> California University of Crocker Nuclear Lab</div> </td>
+			<th width="6%"  scope="row">2</th>
+			<td><div align=left> California University of Crocker Nuclear Lab</div> </td>
 			<td><div align=center> $3.25</div></td>
 			<td nowrap><div align=center> <a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
 			</tr>
 			<tr>
-			<th width="2%"  scope="row">Total:</th>
+			<th width="6%"  scope="row">Total:</th>
 			<td>&nbsp;  </td>
 			<td><div align=center> $4.75</div></td>
 			<td nowrap>&nbsp;</td>
