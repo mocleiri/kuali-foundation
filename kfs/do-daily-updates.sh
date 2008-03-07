@@ -11,4 +11,6 @@ kupdate cnv true true true
 kupdate stg false false true
 kpurge $LOGS_DIRECTORY 7
 
+sh ~j2eemgr/kuali/kfs/check-modularization.sh
+
 kend 0
