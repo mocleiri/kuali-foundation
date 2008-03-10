@@ -54,7 +54,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
   <div id="tabs">
     <dl class="tabul">
       <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-protocol.html');return document.MM_returnValue" value="Protocol">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-protocol-MR.html');return document.MM_returnValue" value="Protocol">
         </span></dt>
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-personnel.html');return document.MM_returnValue" value="Personnel">
@@ -103,14 +103,194 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <div id="workarea">
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Print</td>
+              <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Request an Action </td>
               <td class="tabtable1-mid1">&nbsp;</td>
               <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" ></a></span> </td>
               <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
           <!-- TAB -->
-          <div class="tab-container" align="center" id="G02" style="display: none;">
+          <div class="tab-container" align="center" id="G02" style="display: nonee;">
+			<div class="h2-container">  <span class="subhead-left"><h2>Request an Action</h2> </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <table  cellpadding="0" cellspacing="0"  summary="">
+              <tr>
+                <td width="5%" class="tab-subhead" ><a href="#" id="A" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F"></a></td>
+                <td colspan="2" class="tab-subhead" ><p> List of Actions </p></td>
+              </tr>
+              <tbody id="G" style="display: none;">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Submit for Review</td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Request to close</td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Request to close enrollment</td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Request to Re-open enrollment</td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Request for Data Analysis</td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Request for Submission </td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Request for Supervision</td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Withdraw Submission</td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Notify IRB</td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Terminate</td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Suspend</td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Submit Ammendment </td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Submit Renewal </td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>Undo Last Change</td>
+                  <td><div align=center>
+                      <label>
+                      <input name="checkbox22" type="checkbox" class="nobord" id="checkbox22">
+                      </label>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline"><div align="center"><img src="../images/buttonsmall_submit.gif" width="68" height="18" border="0">&nbsp;&nbsp;</div></td>
+                  <td class="infoline"><div align="center">Select (<a href="#">all</a> | <a href="#">none</a>)</div></td>
+                </tr>
+              </tbody>
+              <tbody id="G2" style="display: none;">
+              </tbody>
+            </table>
+          </div>
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >View Summary</td>
+              <td class="tabtable1-mid1">&nbsp;</td>
+              <td class="tabtable2-mid"><a href="#" id="A03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F03" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G03" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2>View Summary</h2>
+              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+<br><br><img src="images/prot-summary.jpg">
+          </div>
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">View History</td>
+              <td class="tabtable1-mid1">&nbsp;</td>
+              <td class="tabtable2-mid"><a href="#" id="A4" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F4" vspace=6></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G4" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2>View History</h2>
+              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <br><br>
+            <img src="images/prot-history.jpg"></div>
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Print</td>
+              <td class="tabtable1-mid1">&nbsp;</td>
+              <td class="tabtable2-mid"><a href="#" id="A5" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F5" vspace=6></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G5" style="display: none;">
             <div class="h2-container"> <span class="subhead-left">
               <h2>Print</h2>
               </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
@@ -156,98 +336,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-              </tr>
-            </table>
-          </div>
-          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
-            <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >View Summary</td>
-              <td class="tabtable1-mid1">&nbsp;</td>
-              <td class="tabtable2-mid"><a href="#" id="A03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F03" ></a> </td>
-              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
-            </tr>
-          </table>
-          <div class="tab-container" align="center" id="G03" style="display: none;">
-            <div class="h2-container"> <span class="subhead-left">
-              <h2>View Summary</h2>
-              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-<br><br><img src="images/prot-summary.jpg">
-          </div>
-          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
-            <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">View History</td>
-              <td class="tabtable1-mid1">&nbsp;</td>
-              <td class="tabtable2-mid"><a href="#" id="A4" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F4" vspace=6></a> </td>
-              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
-            </tr>
-          </table>
-          <div class="tab-container" align="center" id="G4" style="display: none;">
-            <div class="h2-container"> <span class="subhead-left">
-              <h2>View History</h2>
-              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-            <br><br>
-            <img src="images/prot-history.jpg"></div>
-          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
-            <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Request an Action </td>
-              <td class="tabtable1-mid1">&nbsp;</td>
-              <td class="tabtable2-mid"><a href="#" id="A5" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F5" vspace=6></a> </td>
-              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
-            </tr>
-          </table>
-          <div class="tab-container" align="center" id="G5" style="display: none;">
-            <div class="h2-container"> <span class="subhead-left">
-              <h2>Request an Action </h2>
-              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-            <table cellpadding=0 cellspacing="0" summary="view/edit ad hoc recipients">
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox">
-                  <label for="checkbox"></label></th>
-                <td>Request to close</td>
-              </tr>
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></th>
-                <td>Request to close enrollment</td>
-              </tr>
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></th>
-                <td>Request to Re-open enrollment</td>
-              </tr>
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></th>
-                <td>Request for Data Analysis</td>
-              </tr>
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></th>
-                <td>Request for Submission </td>
-              </tr>
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></th>
-                <td>Request for Supervision</td>
-              </tr>
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></th>
-                <td>Submit for Review</td>
-              </tr>
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></th>
-                <td>Withdraw Submission</td>
-              </tr>
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></th>
-                <td>Notify IRB</td>
-              </tr>
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></th>
-                <td>Terminate</td>
-              </tr>
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></th>
-                <td>Suspend</td>
-              </tr>
-              <tr>
-                <th scope=row><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></th>
-                <td>Undo Last Change</td>
               </tr>
             </table>
           </div>
