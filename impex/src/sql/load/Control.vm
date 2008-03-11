@@ -14,17 +14,13 @@
 ## KIND, either express or implied.  See the License for the
 ## specific language governing permissions and limitations
 ## under the License.
-#set ( $fname= "sql/load/${targetDatabase}/row.vm" )
-#set ( $purgefname= "sql/load/${targetDatabase}/purge.vm" )
-$xmlfiles
-#foreach ( $f in $xmlfiles )
-	#set ( $data = ${task.getData( $f )} )
-	#if ( ${data.size()} > 0 ) 	
-		#set ( $currTable = ${data.get(0).Table.Name} )
-		$generator.parse($purgefname,"${currTable}.sql","currTable",$currTable)
-		#foreach ($r in $data)
-			$generator.parse($fname,"${currTable}.sql","row",$r)
-		#end
-	#end
-##	##$generator.shutdown()
+#set ($fname= "sql/load/${targetDatabase}/row.vm")
+#set ($purgefname= "sql/load/${targetDatabase}/purge.vm")
+
+#set ($currTable = ${data.get(0).Table.Name})
+$generator.parse($purgefname,$outputFile,"currTable",$currTable)
+
+#foreach ($r in $data)
+    $generator.parse($fname,$outputFile,"row",$r)
 #end
+
