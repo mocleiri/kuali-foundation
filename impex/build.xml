@@ -20,7 +20,7 @@
 <project name="kuali_db_impex" default="build" basedir=".">
 	
     <property name="src.dir" value="src/" />
-    <property name="build.dir" value="target/classes" />
+    <property name="build.dir" value="build" />
 	<property name="lib.dir" value="lib" />
 	<!--
     <property name="torque.output.dir" value="${build.dir}" />

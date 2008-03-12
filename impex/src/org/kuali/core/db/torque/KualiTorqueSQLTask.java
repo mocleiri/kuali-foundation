@@ -129,18 +129,24 @@ public class KualiTorqueSQLTask extends TexenTask {
         retval = xmlParser.parseFile(xmlFile);
         
         for (Table table : (List<Table>) retval.getTables()) {
-            for (Entry<String, String> entry: invalidSubStringMap.entrySet()) {
-                if (table.getName().indexOf(entry.getKey()) > -1) {
-                    log("Found name substition for " + table.getName());
-                    table.setName(StringUtils.replace(table.getName(), entry.getKey(), entry.getValue()));
-                    log("New name is " + table.getName());
-                }
-            }
+        	substituteValidTableName(table);
         }
+        
+        log("Using platform " + retval.getPlatform());
         
         retval.setFileName(grokName(xmlFile));
         
         return retval;
+    }
+    
+    private void substituteValidTableName(Table table) {
+        for (Entry<String, String> entry: invalidSubStringMap.entrySet()) {
+            if (table.getName().indexOf(entry.getKey()) > -1) {
+                log("Found name substition for " + table.getName());
+                table.setName(StringUtils.replace(table.getName(), entry.getKey(), entry.getValue()));
+                log("New name is " + table.getName());
+            }
+        }    	
     }
 
     /**

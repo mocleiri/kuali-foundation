@@ -23,58 +23,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.torque.engine.database.model.Database;
+import org.apache.torque.engine.platform.Platform;
+import org.kuali.core.db.torque.engine.platform.KualiPlatformFactory;
 import org.xml.sax.Attributes;
-
 
 /**
  * A class for holding application data structures.
- *
+ * 
  * @author <a href="mailto:leon@opticode.co.za>Leon Messerschmidt</a>
  * @author <a href="mailto:jmcnally@collab.net>John McNally</a>
  * @author <a href="mailto:mpoeschl@marmot.at>Martin Poeschl</a>
  * @author <a href="mailto:dlr@collab.net>Daniel Rall</a>
  * @author <a href="mailto:byron_foster@byron_foster@yahoo.com>Byron Foster</a>
  * @author <a href="mailto:monroe@dukece.com>Greg Monroe</a>
- * @version $Id: KualiDatabase.java,v 1.1 2007-10-21 07:57:26 abyrne Exp $
+ * @version $Id: KualiDatabase.java,v 1.1.4.1 2008-03-12 09:24:59 lprzybyl Exp $
  */
-public class KualiDatabase extends Database
-{
-    /** Logging class from commons.logging */
-    //private static Log log = LogFactory.getLog(KualiDatabase.class);
+public class KualiDatabase extends Database {
+	/** Logging class from commons.logging */
+	// private static Log log = LogFactory.getLog(KualiDatabase.class);
+	private ArrayList<View> views = new ArrayList<View>();
+	private ArrayList<Sequence> sequences = new ArrayList<Sequence>();
 
-    private ArrayList<View> views = new ArrayList<View>(); 
-    private ArrayList<Sequence> sequences = new ArrayList<Sequence>(); 
+	/**
+	 * Creates a new instance for the specified database type.
+	 * 
+	 * @param databaseType
+	 *            The default type for this database.
+	 */
+	public KualiDatabase(String databaseType) {
+		super(databaseType);
+	}
 
-    /**
-     * Creates a new instance for the specified database type.
-     *
-     * @param databaseType The default type for this database.
-     */
-    public KualiDatabase(String databaseType) {
-    	super(databaseType);
-    }
+	public Platform getPlatform() {
+		return KualiPlatformFactory.getPlatformFor(getDatabaseType());
+	}
 
-    public List<View> getViews() {
-    	return views;
-    }
+	public List<View> getViews() {
+		return views;
+	}
 
-    public List<Sequence> getSequences() {
-    	return sequences;
-    }
-    
-    public View addView( Attributes attrib ) {
-    	View view = new View();
-    	view.setName( attrib.getValue( "name" ) );
-    	view.setDefinition( attrib.getValue( "viewdefinition" ) );
-    	views.add( view );
-    	return view;
-    }
-    public Sequence addSequence( Attributes attrib ) {
-    	Sequence sequence = new Sequence();
-    	sequence.setName( attrib.getValue( "name" ) );
-    	sequence.setNextVal( attrib.getValue( "nextval" ) );
-    	
-    	sequences.add( sequence );
-    	return sequence;
-    }
+	public List<Sequence> getSequences() {
+		return sequences;
+	}
+
+	public View addView(Attributes attrib) {
+		View view = new View();
+		view.setName(attrib.getValue("name"));
+		view.setDefinition(attrib.getValue("viewdefinition"));
+		views.add(view);
+		return view;
+	}
+
+	public Sequence addSequence(Attributes attrib) {
+		Sequence sequence = new Sequence();
+		sequence.setName(attrib.getValue("name"));
+		sequence.setNextVal(attrib.getValue("nextval"));
+
+		sequences.add(sequence);
+		return sequence;
+	}
 }

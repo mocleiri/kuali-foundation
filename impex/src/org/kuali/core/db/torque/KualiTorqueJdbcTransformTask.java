@@ -89,7 +89,7 @@ public class KualiTorqueJdbcTransformTask extends TorqueJDBCTransformTask {
         JdbcCollectionService jdbcCollections = collectionServiceFactory.getCollectionService(getJdbcCollectionServiceName());
         JdbcToXmlGeneratorFactory generatorFactory = JdbcToXmlGeneratorFactory.getInstance(customizedProjectProperties());
         JdbcToXmlGenerator generator = generatorFactory.getGenerator(getJdbcToXmlGeneratorName());
-
+        
         try {
             jdbcCollections.openConnection();
             doc = generator.generateXML(jdbcCollections);

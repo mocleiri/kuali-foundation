@@ -82,7 +82,6 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	</target>
 
 	<property name="impex.dir" value="impex" />
-    <property name="impex.templates.dir" value="${impex.dir}/templates" />
     <property name="build.properties" value="build.properties"/>
     <property name="impex.contextProperties" value="${build.properties}"/>
 	<property file="${user.home}/impex-build.properties" />
@@ -100,7 +99,6 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	</property>
     <path id="torque-classpath">
         <pathelement location="${impex.dir}/kuali-impextasks.jar" />
-        <pathelement path="${impex.templates.dir}" />
         <fileset dir="${lib.dir}" includes="**/*.jar" />
         <fileset dir="${drivers.directory}" includes="${drivers.file.pattern}" />
     </path>

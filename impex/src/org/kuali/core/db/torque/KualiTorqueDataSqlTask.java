@@ -22,16 +22,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Map.Entry;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.texen.Generator;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.torque.engine.EngineException;
 import org.apache.torque.engine.database.model.Database;
+import org.apache.torque.engine.database.model.Table;
 import org.apache.torque.engine.database.transform.XmlToData;
 import org.apache.torque.task.TorqueDataModelTask;
 import org.apache.torque.task.TorqueDataSQLTask;
@@ -48,9 +53,14 @@ import org.xml.sax.SAXException;
 /**
  * 
  * @author $Author: lprzybyl $
- * @version $Revision: 1.1.2.1 $
+ * @version $Revision: 1.1.2.2 $
  */
 public class KualiTorqueDataSqlTask extends TorqueDataModelTask {
+    private static Map<String, String> invalidSubStringMap = new HashMap<String, String>();
+    static {
+        invalidSubStringMap.put("_DOLLAR_SIGN_", "$");
+    }
+
     /** the XML data file */
     private String dataXmlFile;
     /** the data dtd file */
@@ -109,6 +119,11 @@ public class KualiTorqueDataSqlTask extends TorqueDataModelTask {
         
         KualiXmlToData dataXmlParser = new KualiXmlToData(db, getDataDTD());
         data = dataXmlParser.parseFile(dataXmlFile);
+        
+        for (Object obj : data) {
+        	KualiXmlToData.DataRow row = (KualiXmlToData.DataRow) obj;
+        	substituteValidTableName(row.getTable());
+        }
        
         retval.put("data", data);
 
@@ -124,6 +139,16 @@ public class KualiTorqueDataSqlTask extends TorqueDataModelTask {
         return retval;
     }
     
+    private void substituteValidTableName(Table table) {
+        for (Entry<String, String> entry: invalidSubStringMap.entrySet()) {
+            if (table.getName().indexOf(entry.getKey()) > -1) {
+                log("Found name substition for " + table.getName());
+                table.setName(StringUtils.replace(table.getName(), entry.getKey(), entry.getValue()));
+                log("New name is " + table.getName());
+            }
+        }    	
+    }
+    
     /**
      * Set up the initial context for generating the SQL from the XML schema.
      * 
@@ -137,6 +162,8 @@ public class KualiTorqueDataSqlTask extends TorqueDataModelTask {
 
         // Place our model in the context.
         context.put("appData", getDataModels().get(0));
+        
+        context.put("task", this);
 
         context.remove("dataModels");
 

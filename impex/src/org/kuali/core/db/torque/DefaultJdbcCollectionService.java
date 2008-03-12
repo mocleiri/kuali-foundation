@@ -574,9 +574,7 @@ public class DefaultJdbcCollectionService implements JdbcCollectionService, Logg
         catch (ClassNotFoundException cnfe) {
             exception(cnfe);
         }
-        
         setConnection(DriverManager.getConnection(getDbUrl(), getDbUser(), getDbPassword()));
-        log("DB connection established");
         setDbMetaData(getConnection().getMetaData());
     }
 

@@ -17,6 +17,7 @@
 #set ($fname= "sql/load/${targetDatabase}/row.vm")
 #set ($purgefname= "sql/load/${targetDatabase}/purge.vm")
 
+##$task.substituteValidTableName($data.get(0).Table)
 #set ($currTable = ${data.get(0).Table.Name})
 $generator.parse($purgefname,$outputFile,"currTable",$currTable)
 
