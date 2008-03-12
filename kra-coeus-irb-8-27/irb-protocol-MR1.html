@@ -309,6 +309,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </tr>
           </table>
           <div class="tab-container" align=center id="G126" style="display: none;">
+            <div class="tab-container-error"></div>
             <div class="h2-container"><span class="subhead-left">
               <h2><span class="tabtable1-left">Organization</span></h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
@@ -342,18 +343,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <th>1</th>
                 <td><span>
                   <input name="textfield2232423" type=text value="Home Office" size=20 id="label">
-                  <span class="infoline"><a href="#">
-                  <input name="image322" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                  </a><a href="#">
-                  <input name="image332" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                  </a></span></span><br>
+                  </span><br>
 				  <span class="fineprint">Home Office</span></td>
                 <td>ADE Corporation <a href="#">
                   <input name="image3" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
                   <input name="image3" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
                   <br>
                   </a>Newton, MA 02166</td>
-                <td>Wargel Joe </td>
+                <td>Bunten Lex </td>
                 <td>11111</td>
                 <td><div align=center><a href="#"><img src="../images/tinybutton-clraddress.gif" alt="delete" width=79 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
@@ -375,37 +372,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <tbody _base_href="http://coeus-test.mit.edu/coeus42/coeuslite/wmc/budget/tiles/budgetSummaryTile.jsp">
                 <tr align="center" valign="top">
                   <th width="8%">&nbsp;</th>
-                  <th width="19%"><label for="type">*Funding Type</label></th>
-                  <th width="14%"><label for="number">*Funding ID </label></th>
+                  <th width="19%"><label for="type">Funding Type</label></th>
+                  <th width="14%"><label for="number">Funding ID </label></th>
                   <th width="47%"><label for="title">Funding Description</label></th>
-                  <th width="12%" >Actions</th>
-                </tr>
-                <tr >
-                  <th class="infoline"><div align="center">Add:</div></th>
-                  <td nowrap class="infoline"><div align="center">
-                      <label>
-                      <select name="select3" id="type">
-                        <option selected>select</option>
-                        <option>sponsor</option>
-                        <option>others</option>
-                        <option>submitted  proposal</option>
-                        <option>development proposal</option>
-                        <option>unit</option>
-                        <option>award</option>
-                      </select>
-                      </label>
-                    </div></td>
-                  <td nowrap class="infoline"><div align="center">
-                      <input name="totalCostLimit" size="10" onchange="dataChanged()" style="text-align: right;" type="text" id="number"/>
-                      <span class="grid"> &nbsp;
-                      <input name="image" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                      &nbsp;
-                      <input name="image2" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                      </span></div></td>
-                  <td class="infoline"><div align="center">
-                      <input name="totalCostLimit2" size="70" onchange="dataChanged()" style="text-align: right;" type="text" id="title"/>
-                    </div></td>
-                  <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
                 <tr >
                   <th><div align="center">&nbsp;1 </div></th>
@@ -418,7 +387,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td nowrap><div align="center">
                       <input name="totalCostLimit5" type="text"  onchange="dataChanged()" value="NIH" size="70" id="title"/>
                     </div></td>
-                  <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
                 <tr>
                   <th><div align="center">&nbsp;2 </div></th>
@@ -431,7 +399,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td><div align="center">
                       <input name="totalCostLimit6" size="70" onchange="dataChanged()"  type="text" id="title"/>
                     </div></td>
-                  <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
               </tbody>
             </table>

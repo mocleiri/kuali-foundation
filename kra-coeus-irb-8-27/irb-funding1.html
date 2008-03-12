@@ -145,14 +145,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <tr>
                 <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="sdfg" width="12" height="29" align="absmiddle">
                     <label>
-                    Funding Source</label></td>
+                    Sponsor(2) </label></td>
                 <td class="tabtable1-mid1">&nbsp;</td>
                 <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A100" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F100" ></a></span> </td>
                 <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="sdfg" width="12" height="29" align="absmiddle"></td>
               </tr>
             </table>
             <!-- TAB -->
-            <div class="tab-container" align="center" id="G100" style="display: nonee;">
+            <div class="tab-container" align="center" id="G100" style="display: none;">
               
               <!--<table cellpadding=0 cellspacing="0" summary="">
               <tr>
@@ -229,7 +229,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </table>-->
 <table cellpadding=0 cellspacing="0" summary="">
                 <tr>
-                  <td colspan="13" nowrap class="tab-subhead1">Funding Type - Sponsor</td>
+                  <td colspan="13" nowrap class="tab-subhead1">Sponsor (2)</td>
                 </tr>
 
                   <tr>
@@ -251,9 +251,21 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                   </tr>
               </table>
-              <table cellpadding=0 cellspacing="0" summary="">
+              
+            </div>
+            <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="sdfg" width="12" height="29" align="absmiddle" >
+                Unit(2)&nbsp;</td>
+              <td class="tabtable1-mid1">&nbsp;</td>
+              <td class="tabtable2-mid"><a href="#" id="A200" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F200" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="sdfg" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G200" style="display: none;">
+          <table cellpadding=0 cellspacing="0" summary="">
                 <tr>
-                  <td colspan="13" nowrap class="tab-subhead1">Funding Type - Unit </td>
+                  <td colspan="13" nowrap class="tab-subhead1">Unit (2) </td>
                 </tr>
                 
                   <tr>
@@ -277,42 +289,27 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   </tr>
                 
               </table>
-              <table cellpadding=0 cellspacing="0" summary="">
+			  </div>
+		   <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="sdfg" width="12" height="29" align="absmiddle" >
+                Other(2)&nbsp;</td>
+              <td class="tabtable1-mid1">&nbsp;</td>
+              <td class="tabtable2-mid"><a href="#" id="A201" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F201" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="sdfg" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G201" style="display: none;">
+          <table cellpadding=0 cellspacing="0" summary="">
                 <tr>
-                  <td colspan="13" nowrap class="tab-subhead1">Funding Type - Other </td>
+                  <td colspan="13" nowrap class="tab-subhead1">Other (2) </td>
                 </tr>
                 
                   <tr>
                     <th width="10%">&nbsp;</th>
                     <th> Funding Id </th>
                     <th>
-                      <label for="label2">Description</label></th>
-                    <th>Actions</th>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>375547</td>
-                    <td>Indiana University</td>
-                    <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                  </tr>
-                  <tr>
-                    <th  scope="row">2</th>
-                    <td>154257</td>
-                    <td>Michigan State University</td>
-                    <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                  </tr>
-
-              </table>
-              <table cellpadding=0 cellspacing="0" summary="">
-                <tr>
-                  <td colspan="13" nowrap class="tab-subhead1">Funding Type - Award </td>
-                </tr>
-               
-                  <tr>
-                    <th width="10%">&nbsp;</th>
-                    <th> Funding Id </th>
-                    <th>
-                      <label for="label3">Title</label></th>
+                      <label for="label">Unit</label></th>
                     <th>Actions</th>
                   </tr>
                   <tr>
@@ -329,16 +326,27 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   </tr>
                 
               </table>
-              <table cellpadding=0 cellspacing="0" summary="">
+			  </div>
+		   <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="sdfg" width="12" height="29" align="absmiddle" >
+                Award(2)&nbsp;</td>
+              <td class="tabtable1-mid1">&nbsp;</td>
+              <td class="tabtable2-mid"><a href="#" id="A202" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F202" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="sdfg" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G202" style="display: none;">
+          <table cellpadding=0 cellspacing="0" summary="">
                 <tr>
-                  <td colspan="13" nowrap class="tab-subhead1">Funding Type - Development Proposal </td>
+                  <td colspan="13" nowrap class="tab-subhead1">Award (2) </td>
                 </tr>
                 
                   <tr>
                     <th width="10%">&nbsp;</th>
                     <th> Funding Id </th>
                     <th>
-                      <label for="label4"> Title</label></th>
+                      <label for="label">Unit</label></th>
                     <th>Actions</th>
                   </tr>
                   <tr>
@@ -353,18 +361,29 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td>Michigan State University</td>
                     <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                   </tr>
-             
+                
               </table>
-              <table cellpadding=0 cellspacing="0" summary="">
+			  </div>
+		   <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="sdfg" width="12" height="29" align="absmiddle" >
+                Development Proposal(2)&nbsp;</td>
+              <td class="tabtable1-mid1">&nbsp;</td>
+              <td class="tabtable2-mid"><a href="#" id="A203" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F203" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="sdfg" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G203" style="display: none;">
+          <table cellpadding=0 cellspacing="0" summary="">
                 <tr>
-                  <td colspan="13" nowrap class="tab-subhead1">Funding Type - Institute Proposal </td>
+                  <td colspan="13" nowrap class="tab-subhead1">Development Proposal  (2) </td>
                 </tr>
                 
                   <tr>
                     <th width="10%">&nbsp;</th>
                     <th> Funding Id </th>
                     <th>
-                      <label for="label5">Title</label></th>
+                      <label for="label">Unit</label></th>
                     <th>Actions</th>
                   </tr>
                   <tr>
@@ -379,12 +398,49 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td>Michigan State University</td>
                     <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                   </tr>
-               
+                
               </table>
-            </div>
-            
-              
-            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="b3" summary="">
+			  </div>
+		   <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="sdfg" width="12" height="29" align="absmiddle" >
+                Institute Proposal(2)&nbsp;</td>
+              <td class="tabtable1-mid1">&nbsp;</td>
+              <td class="tabtable2-mid"><a href="#" id="A204" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F204" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="sdfg" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G204" style="display: none;">
+          <table cellpadding=0 cellspacing="0" summary="">
+                <tr>
+                  <td colspan="13" nowrap class="tab-subhead1">Institute Proposal (2) </td>
+                </tr>
+                
+                  <tr>
+                    <th width="10%">&nbsp;</th>
+                    <th> Funding Id </th>
+                    <th>
+                      <label for="label">Unit</label></th>
+                    <th>Actions</th>
+                  </tr>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>375547</td>
+                    <td>Indiana University</td>
+                    <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                  </tr>
+                  <tr>
+                    <th  scope="row">2</th>
+                    <td>154257</td>
+                    <td>Michigan State University</td>
+                    <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                  </tr>
+                
+              </table>
+			  </div>
+		   
+			
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="b3" summary="">
               <tr>
                 <td align="left" class="footer"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="bl3"></td>
                 <td align="right" class="footer-right"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="br3"></td>
