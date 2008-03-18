@@ -1,0 +1,2407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>var jsContextPath = "/kra-cnv";</script><title>Kuali :: Lookup</title>
+	
+
+
+	<link href="../../css/kuali.css" rel="stylesheet" type="text/css">
+
+
+
+	<link href="maint-pro-costelement_files/calendar-win2k-1.css" rel="stylesheet" type="text/css">
+
+
+
+	<link href="../../css/kuali_application.css" rel="stylesheet" type="text/css">
+
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/kuali_application.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/core.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/dhtml.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/my_common.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/calendar.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/calendar-en.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/calendar-setup.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/engine.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/util.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/UserService.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/objectInfo.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-costelement_files/CustomAttributeService.js"></script><!-- Set the focus to first text box on form -->
+
+
+	
+		
+			  
+
+			  
+			  <script type="text/javascript">
+			  function placeFocus() {
+				if (document.forms.length > 0) {
+				  var field = document.forms[0];
+				  for (i = 0; i < field.length; i++) {
+					if ((field.elements[i].type == "text") || (field.elements[i].type == "textarea")) {
+					  document.forms[0].elements[i].focus();
+					  break;
+					}
+				  }
+			   }
+			  }
+
+			  var formHasAlreadyBeenSubmitted = false;
+			  var excludeSubmitRestriction = false;
+			  function hasFormAlreadyBeenSubmitted()
+			  {
+				  if (formHasAlreadyBeenSubmitted && !excludeSubmitRestriction) {
+					 alert("Page already being processed by the server.");
+					 return false;
+				  } else {
+					 formHasAlreadyBeenSubmitted = true;
+					 return true;
+				  }
+				  excludeSubmitRestriction = false;
+			  }
+			  </script></head><body onload="placeFocus();">
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+		
+			<div class="lookupcreatenew" title="Create a new record"><a href="maint-maintdoc-pro-CostElement.html"><img src="maint-pro-costelement_files/tinybutton-createnew.gif" alt="create new" width="70" height="15" border="0"></a> </div>
+		
+
+		
+    
+	
+
+
+
+
+
+            <form name="KualiForm" id="kualiForm" method="post" action="/kra-cnv/kr/lookup.do" enctype="" onsubmit="return hasFormAlreadyBeenSubmitted();">
+
+	
+	
+	
+
+
+    
+    
+
+<!-- DOCUMENT INFO HEADER BOX -->
+
+
+
+
+
+	
+		
+	
+	
+
+					
+
+	<script type="text/javascript">
+    var kualiForm = document.forms['KualiForm'];
+    var kualiElements = kualiForm.elements;
+  </script>
+
+	<div class="headerarea-small" id="headerarea-small">
+	<h1>Cost Element Lookup
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="https://test.kuali.org/kra-cnv/kr/help.do?methodToCall=getResourceHelpText&amp;resourceKey=lookupHelpText" tabindex="32767" target="helpWindow" title="[Help]lookup help"><img src="maint-pro-costelement_files/my_cp_inf.gif" alt="[Help]lookup help" align="middle" border="0" hspace="5"></a></h1>
+	</div>
+	
+
+
+<input class="tinybutton" name="methodToCall.search" src="maint-pro-costelement_files/pixel_clear.gif" border="0" height="0" type="image" width="0">
+
+	<input name="backLocation" value="https://test.kuali.org/kra-cnv/portal.do" type="hidden">
+	<input name="formKey" value="88888888" type="hidden">
+	<input name="lookupableImplServiceName" value="kualiLookupable" type="hidden">
+	<input name="businessObjectClassName" value="org.kuali.kra.budget.bo.CostElement" type="hidden">
+	<input name="conversionFields" value="" type="hidden">
+	<input name="hideReturnLink" value="Yes" type="hidden">
+	<input name="suppressActions" value="No" type="hidden">
+	<input name="multipleValues" value="No" type="hidden">
+	<input name="lookupAnchor" value="" type="hidden">
+	<input name="readOnlyFields" value="" type="hidden">
+	<input name="referencesToRefresh" value="" type="hidden">
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	<table width="100%">
+		<tbody><tr>
+			<td width="1%"><img src="maint-pro-costelement_files/pixel_clear.gif" alt="" height="20" width="20"></td>
+			<td>
+
+			<div id="lookup" align="center"><br>
+			<br>
+			<table class="datatable-100" align="center" cellpadding="0" cellspacing="0">
+				
+				
+				
+				
+				
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+<!-- maintenanceViewMode = lookup, KualiForm.methodToCall = search -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+	
+	<tbody><tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Cost Element:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+							
+						
+				
+							
+									
+							
+									
+								<input name="costElement" id="costElement" value="" size="8" maxlength="100" style="" class="" type="text">
+						    
+								
+						    
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+							
+							
+					
+						
+					
+					</td>
+				    
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+    
+	
+	<tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+
+				
+
+				
+
+				
+
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Budget Category Code:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+						
+					<td class="grid" width="Infinity%">
+						
+						
+							
+							
+										
+							
+								<select name="budgetCategoryCode" style="">
+									
+									
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <option selected="selected" value="">select</option>
+
+    <option value="4">Human Subjects</option>
+
+    <option value="5">Vertebrate Animals</option>
+
+    <option value="6">Publication Costs/Documentation/Dissemenation</option>
+
+    <option value="7">Travel - Domestic</option>
+
+    <option value="8">Alteration and Renovations</option>
+
+    <option value="9">Inpatient Care Costs</option>
+
+    <option value="10">Duplicating</option>
+
+    <option value="11">Postage</option>
+
+    <option value="12">Telephone, Fax</option>
+
+    <option value="13">Equipment Rental</option>
+
+    <option value="14">Service Agreement(s)</option>
+
+    <option value="15">Communications/Marketing</option>
+
+    <option value="16">Software</option>
+
+    <option value="17">Computer Time</option>
+
+    <option value="18">Meeting Costs</option>
+
+    <option value="19">Other Operating Expenses</option>
+
+    <option value="20">Equipment</option>
+
+    <option value="21">Professional Services/Consultant</option>
+
+    <option value="22">Subcontracts</option>
+
+    <option value="23">Travel - Foreign</option>
+
+    <option value="31">Trainee/Participant Costs - Travel</option>
+
+    <option value="32">Trainee/Participant Costs - Stipends</option>
+
+    <option value="33">Outpatient costs</option>
+
+    <option value="34">Calculated Costs</option>
+
+    <option value="35">Trainee/Participant Costs - Tuition</option>
+
+    <option value="36">Trainee/Participant Costs - Subsistence</option>
+
+    <option value="1">Senior Personnel</option>
+
+    <option value="25">Postdoctoral</option>
+
+    <option value="26">Other Professionals</option>
+
+    <option value="27">Graduate Students</option>
+
+    <option value="28">Undergraduate Students</option>
+
+    <option value="29">Project Support Staff</option>
+
+    <option value="30">Other Personnel</option>
+
+    <option value="2">Trainee/Participant Costs - Other</option>
+
+    <option value="3">Materials </option>
+
+
+								</select>
+							
+
+													
+							
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+	                        
+					</td>
+						 
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+    
+	
+	<tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+
+				
+
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Description:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+			    
+						
+
+							
+
+							
+
+								<textarea name="description" rows="5" cols="40" style="" maxlength="100"></textarea>
+								
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+							
+
+						
+					
+					</td>
+							
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+    
+	
+	<tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+                    
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				On Off Campus Flag:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+							
+					<td class="grid" width="Infinity%">
+						
+						
+
+							
+
+							
+
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <input name="onOffCampusFlag" value="Y" type="radio">
+    Yes
+  
+
+  
+    <input name="onOffCampusFlag" value="N" type="radio">
+    No
+  
+
+  
+    <input checked="checked" name="onOffCampusFlag" value="" type="radio">
+    Both
+  
+
+
+
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+							
+
+						
+	                        
+					</td>
+						
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+
+
+
+				<tr align="center">
+					<td colspan="2" class="infoline" height="30"><input name="methodToCall.search" src="maint-pro-costelement_files/buttonsmall_search.gif" value="search" class="tinybutton" title="search" alt="search" border="0" type="image"> <input name="methodToCall.clearValues" src="maint-pro-costelement_files/buttonsmall_clear.gif" value="clearValues" class="tinybutton" title="clear" alt="clear" border="0" type="image"> 
+						<a href="https://test.kuali.org/kra-cnv/portal.do?methodToCall=refresh&amp;docFormKey=88888888&amp;anchor=" title="cancel"><img src="maint-pro-costelement_files/buttonsmall_cancel.gif" class="tinybutton" alt="cancel" title="cancel" border="0"></a>
+					
+					<!-- Optional extra buttons --> 					
+					
+											
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+
+			<br>
+			<br>
+			<div class="right">
+				
+			</div>
+			
+				114 items found.  Please refine your search criteria to narrow down your search.
+           
+			
+			    
+				<span class="pagebanner">70 items found, displaying all items.</span><br><br><span class="pagelinks"></span>
+<table class="datatable-100" id="row" cellpadding="0" cellspacing="0">
+<thead>
+<tr>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;conversionFields=&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=0&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=25&amp;costElement=&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;referencesToRefresh=&amp;methodToCall.search.y=10&amp;description=&amp;reqSearchResultsActualSize=114&amp;searchResultKey=searchResults1&amp;onOffCampusFlag=&amp;budgetCategoryCode=&amp;methodToCall=viewResults&amp;suppressActions=No">Cost Element</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;conversionFields=&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=1&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=25&amp;costElement=&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;referencesToRefresh=&amp;methodToCall.search.y=10&amp;description=&amp;reqSearchResultsActualSize=114&amp;searchResultKey=searchResults1&amp;onOffCampusFlag=&amp;budgetCategoryCode=&amp;methodToCall=viewResults&amp;suppressActions=No">Budget Category Code</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;conversionFields=&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=2&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=25&amp;costElement=&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;referencesToRefresh=&amp;methodToCall.search.y=10&amp;description=&amp;reqSearchResultsActualSize=114&amp;searchResultKey=searchResults1&amp;onOffCampusFlag=&amp;budgetCategoryCode=&amp;methodToCall=viewResults&amp;suppressActions=No">Description</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;conversionFields=&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;d-16544-s=3&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;methodToCall.search.x=25&amp;costElement=&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;referencesToRefresh=&amp;methodToCall.search.y=10&amp;description=&amp;reqSearchResultsActualSize=114&amp;searchResultKey=searchResults1&amp;onOffCampusFlag=&amp;budgetCategoryCode=&amp;methodToCall=viewResults&amp;suppressActions=No">On Off Campus Flag</a></th>
+<th>Actions</th></tr></thead>
+<tbody>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400005&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400005">400005</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Summer Faculty - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400005&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400005&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400025&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400025">400025</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Faculty Salaries Tenured - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400025&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400025&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400040&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400040">400040</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Faculty Salaries Non-Tenured - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400040&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400040&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400050&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400050">400050</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Summer Other Academic - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400050&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400050&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400070&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400070">400070</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Summer Faculty - Off&nbsp;&nbsp;</td>
+<td class="infocell">No&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400070&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400070&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400090&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400090">400090</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Faculty Salaries Tenured - Off&nbsp;&nbsp;</td>
+<td class="infocell">No&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400090&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400090&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400105&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400105">400105</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Faculty Salaires Non-Tenured - Off&nbsp;&nbsp;</td>
+<td class="infocell">No&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400105&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400105&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400115&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400115">400115</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Summer - Other Academic - Off&nbsp;&nbsp;</td>
+<td class="infocell">No&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400115&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400115&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400135&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400135">400135</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Faculty Emeriti&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400135&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400135&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400136&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400136">400136</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Faculty Retired Non-Tenured - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400136&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400136&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400140&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400140">400140</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Other Academic Staff - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400140&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400140&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400155&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400155">400155</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">Other Academic Staff - Off&nbsp;&nbsp;</td>
+<td class="infocell">No&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400155&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400155&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400250&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400250">400250</a> &nbsp;
+                </td>
+<td class="infocell">26&nbsp;&nbsp;</td>
+<td class="infocell">Administrative Staff - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400250&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400250&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400255&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400255">400255</a> &nbsp;
+                </td>
+<td class="infocell">26&nbsp;&nbsp;</td>
+<td class="infocell">Administrative Staff - Off&nbsp;&nbsp;</td>
+<td class="infocell">No&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400255&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400255&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400350&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400350">400350</a> &nbsp;
+                </td>
+<td class="infocell">26&nbsp;&nbsp;</td>
+<td class="infocell">Research Staff - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400350&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400350&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400355&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400355">400355</a> &nbsp;
+                </td>
+<td class="infocell">26&nbsp;&nbsp;</td>
+<td class="infocell">Research Staff - Off&nbsp;&nbsp;</td>
+<td class="infocell">No&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400355&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400355&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400365&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400365">400365</a> &nbsp;
+                </td>
+<td class="infocell">26&nbsp;&nbsp;</td>
+<td class="infocell">Program Manager&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400365&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400365&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400370&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400370">400370</a> &nbsp;
+                </td>
+<td class="infocell">26&nbsp;&nbsp;</td>
+<td class="infocell">Project Engineering Staff - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400370&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400370&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400390&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400390">400390</a> &nbsp;
+                </td>
+<td class="infocell">25&nbsp;&nbsp;</td>
+<td class="infocell">Post-Doctoral Staff&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400390&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400390&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400450&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400450">400450</a> &nbsp;
+                </td>
+<td class="infocell">30&nbsp;&nbsp;</td>
+<td class="infocell">Hourly Personnel - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400450&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400450&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400452&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400452">400452</a> &nbsp;
+                </td>
+<td class="infocell">30&nbsp;&nbsp;</td>
+<td class="infocell">Hourly Personnel - Off&nbsp;&nbsp;</td>
+<td class="infocell">No&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400452&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400452&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400550&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400550">400550</a> &nbsp;
+                </td>
+<td class="infocell">30&nbsp;&nbsp;</td>
+<td class="infocell">Electronic Assembly - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400550&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400550&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400552&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400552">400552</a> &nbsp;
+                </td>
+<td class="infocell">30&nbsp;&nbsp;</td>
+<td class="infocell">Mechanical Assembly - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400552&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400552&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400556&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400556">400556</a> &nbsp;
+                </td>
+<td class="infocell">30&nbsp;&nbsp;</td>
+<td class="infocell">Quality Control - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400556&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400556&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400600&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400600">400600</a> &nbsp;
+                </td>
+<td class="infocell">29&nbsp;&nbsp;</td>
+<td class="infocell">Project Support Staff - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400600&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400600&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400601&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400601">400601</a> &nbsp;
+                </td>
+<td class="infocell">29&nbsp;&nbsp;</td>
+<td class="infocell">Project Support Staff - Off&nbsp;&nbsp;</td>
+<td class="infocell">No&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400601&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400601&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400654&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400654">400654</a> &nbsp;
+                </td>
+<td class="infocell">26&nbsp;&nbsp;</td>
+<td class="infocell">Exempt Technical - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400654&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400654&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400700&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400700">400700</a> &nbsp;
+                </td>
+<td class="infocell">27&nbsp;&nbsp;</td>
+<td class="infocell">Graduate Student Staff - On&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400700&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400700&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=400768&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="400768">400768</a> &nbsp;
+                </td>
+<td class="infocell">28&nbsp;&nbsp;</td>
+<td class="infocell">Undergrad S\&amp;W UROP - Off&nbsp;&nbsp;</td>
+<td class="infocell">No&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400768&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=400768&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420050&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420050">420050</a> &nbsp;
+                </td>
+<td class="infocell">7&nbsp;&nbsp;</td>
+<td class="infocell">Travel Expenses&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420050&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420050&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420060&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420060">420060</a> &nbsp;
+                </td>
+<td class="infocell">31&nbsp;&nbsp;</td>
+<td class="infocell">Travel - Not MTDC&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420060&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420060&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420111&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420111">420111</a> &nbsp;
+                </td>
+<td class="infocell">35&nbsp;&nbsp;</td>
+<td class="infocell">Participant costs - Tuition&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420111&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420111&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420258&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420258">420258</a> &nbsp;
+                </td>
+<td class="infocell">3&nbsp;&nbsp;</td>
+<td class="infocell">Office Supplies&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420258&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420258&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420298&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420298">420298</a> &nbsp;
+                </td>
+<td class="infocell">21&nbsp;&nbsp;</td>
+<td class="infocell">Professional Services&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420298&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420298&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420310&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420310">420310</a> &nbsp;
+                </td>
+<td class="infocell">3&nbsp;&nbsp;</td>
+<td class="infocell">Raw Materials&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420310&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420310&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420320&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420320">420320</a> &nbsp;
+                </td>
+<td class="infocell">8&nbsp;&nbsp;</td>
+<td class="infocell">Renovations&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420320&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420320&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420333&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420333">420333</a> &nbsp;
+                </td>
+<td class="infocell">36&nbsp;&nbsp;</td>
+<td class="infocell">Participant costs - subsistence&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420333&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420333&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420338&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420338">420338</a> &nbsp;
+                </td>
+<td class="infocell">14&nbsp;&nbsp;</td>
+<td class="infocell">Service Contracts&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420338&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420338&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420376&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420376">420376</a> &nbsp;
+                </td>
+<td class="infocell">19&nbsp;&nbsp;</td>
+<td class="infocell">Use of Facilities&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420376&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420376&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420392&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420392">420392</a> &nbsp;
+                </td>
+<td class="infocell">10&nbsp;&nbsp;</td>
+<td class="infocell">Xerox Expense&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420392&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420392&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420600&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420600">420600</a> &nbsp;
+                </td>
+<td class="infocell">22&nbsp;&nbsp;</td>
+<td class="infocell">Subcontracts (first 25K) - Subject to F\&amp;A&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420600&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420600&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420620&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420620">420620</a> &nbsp;
+                </td>
+<td class="infocell">22&nbsp;&nbsp;</td>
+<td class="infocell">Subcontracts (beyond first 25K) - No F\&amp;A&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420620&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420620&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420710&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420710">420710</a> &nbsp;
+                </td>
+<td class="infocell">21&nbsp;&nbsp;</td>
+<td class="infocell">Consultants&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420710&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420710&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420720&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420720">420720</a> &nbsp;
+                </td>
+<td class="infocell">21&nbsp;&nbsp;</td>
+<td class="infocell">Contract Services&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420720&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420720&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420800&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420800">420800</a> &nbsp;
+                </td>
+<td class="infocell">3&nbsp;&nbsp;</td>
+<td class="infocell">Books&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420800&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420800&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420825&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420825">420825</a> &nbsp;
+                </td>
+<td class="infocell">3&nbsp;&nbsp;</td>
+<td class="infocell">Journals&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420825&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420825&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420840&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420840">420840</a> &nbsp;
+                </td>
+<td class="infocell">6&nbsp;&nbsp;</td>
+<td class="infocell">Printing&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420840&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420840&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420890&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420890">420890</a> &nbsp;
+                </td>
+<td class="infocell">19&nbsp;&nbsp;</td>
+<td class="infocell">Subscriptions&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420890&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420890&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=420920&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="420920">420920</a> &nbsp;
+                </td>
+<td class="infocell">11&nbsp;&nbsp;</td>
+<td class="infocell">Postage Mailing and Shipping&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420920&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=420920&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421010&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421010">421010</a> &nbsp;
+                </td>
+<td class="infocell">19&nbsp;&nbsp;</td>
+<td class="infocell">Meetings Allowable&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421010&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421010&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421200&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421200">421200</a> &nbsp;
+                </td>
+<td class="infocell">3&nbsp;&nbsp;</td>
+<td class="infocell">Food&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421200&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421200&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421568&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421568">421568</a> &nbsp;
+                </td>
+<td class="infocell">1&nbsp;&nbsp;</td>
+<td class="infocell">CWSP Credit - Not MTDC&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421568&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421568&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421572&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421572">421572</a> &nbsp;
+                </td>
+<td class="infocell">4&nbsp;&nbsp;</td>
+<td class="infocell">Experimental Subjects &nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421572&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421572&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421586&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421586">421586</a> &nbsp;
+                </td>
+<td class="infocell">19&nbsp;&nbsp;</td>
+<td class="infocell">Memberships and Dues&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421586&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421586&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421588&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421588">421588</a> &nbsp;
+                </td>
+<td class="infocell">19&nbsp;&nbsp;</td>
+<td class="infocell">Miscellaneous&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421588&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421588&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421753&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421753">421753</a> &nbsp;
+                </td>
+<td class="infocell">12&nbsp;&nbsp;</td>
+<td class="infocell">Telephone - Basic Monthly Service&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421753&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421753&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421759&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421759">421759</a> &nbsp;
+                </td>
+<td class="infocell">12&nbsp;&nbsp;</td>
+<td class="infocell">Telephone - Toll Calls&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421759&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421759&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421762&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421762">421762</a> &nbsp;
+                </td>
+<td class="infocell">5&nbsp;&nbsp;</td>
+<td class="infocell">Telephone - Data Facilities&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421762&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421762&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421765&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421765">421765</a> &nbsp;
+                </td>
+<td class="infocell">12&nbsp;&nbsp;</td>
+<td class="infocell">Telephone - Moves and Installations&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421765&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421765&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421809&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421809">421809</a> &nbsp;
+                </td>
+<td class="infocell">20&nbsp;&nbsp;</td>
+<td class="infocell">Fabricated Equipment - Not MTDC&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421809&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421809&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421818&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421818">421818</a> &nbsp;
+                </td>
+<td class="infocell">20&nbsp;&nbsp;</td>
+<td class="infocell">Equipment - Not MTDC&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421818&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421818&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421827&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421827">421827</a> &nbsp;
+                </td>
+<td class="infocell">3&nbsp;&nbsp;</td>
+<td class="infocell">Equipment Minor&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421827&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421827&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421833&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421833">421833</a> &nbsp;
+                </td>
+<td class="infocell">13&nbsp;&nbsp;</td>
+<td class="infocell">Equipment Rental - Not MTDC&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421833&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421833&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421900&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421900">421900</a> &nbsp;
+                </td>
+<td class="infocell">17&nbsp;&nbsp;</td>
+<td class="infocell">Computer Supplies and Peripherals&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421900&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421900&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=421925&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="421925">421925</a> &nbsp;
+                </td>
+<td class="infocell">17&nbsp;&nbsp;</td>
+<td class="infocell">Software&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421925&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=421925&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=422310&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="422310">422310</a> &nbsp;
+                </td>
+<td class="infocell">19&nbsp;&nbsp;</td>
+<td class="infocell">Tuition - RA - Not MTDC&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=422310&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=422310&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=422315&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="422315">422315</a> &nbsp;
+                </td>
+<td class="infocell">32&nbsp;&nbsp;</td>
+<td class="infocell">Stipends - Not MTDC&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=422315&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=422315&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=422320&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="422320">422320</a> &nbsp;
+                </td>
+<td class="infocell">19&nbsp;&nbsp;</td>
+<td class="infocell">Undergrad Student Fees - No Overhead&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=422320&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=422320&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=PHTD01&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="PHTD01">PHTD01</a> &nbsp;
+                </td>
+<td class="infocell">6&nbsp;&nbsp;</td>
+<td class="infocell">Total Direct Cost for Proposal Hierarchy&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=PHTD01&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=PHTD01&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?costElement=PHTID02&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=start" target="blank" title="PHTID02">PHTID02</a> &nbsp;
+                </td>
+<td class="infocell">6&nbsp;&nbsp;</td>
+<td class="infocell">Total Indirect Cost for Proposal Hierarchy&nbsp;&nbsp;</td>
+<td class="infocell">Yes&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=PHTID02&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=edit">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?costElement=PHTID02&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;methodToCall=copy">copy</a></td></tr></tbody></table><br><div class="exportlinks">Export options: 
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;d-16544-e=1&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;conversionFields=&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=25&amp;costElement=&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;referencesToRefresh=&amp;methodToCall.search.y=10&amp;description=&amp;reqSearchResultsActualSize=114&amp;searchResultKey=searchResults1&amp;onOffCampusFlag=&amp;budgetCategoryCode=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export csv">CSV </span></a>|
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;d-16544-e=2&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;conversionFields=&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=25&amp;costElement=&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;referencesToRefresh=&amp;methodToCall.search.y=10&amp;description=&amp;reqSearchResultsActualSize=114&amp;searchResultKey=searchResults1&amp;onOffCampusFlag=&amp;budgetCategoryCode=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export excel">Excel </span></a>|
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;d-16544-e=3&amp;formKey=88888888&amp;lookupableImplServiceName=kualiLookupable&amp;conversionFields=&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;6578706f7274=1&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;methodToCall.search.x=25&amp;costElement=&amp;readOnlyFields=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.CostElement&amp;referencesToRefresh=&amp;methodToCall.search.y=10&amp;description=&amp;reqSearchResultsActualSize=114&amp;searchResultKey=searchResults1&amp;onOffCampusFlag=&amp;budgetCategoryCode=&amp;methodToCall=viewResults&amp;suppressActions=No"><span class="export xml">XML </span></a></div>
+			</td>
+			<td width="1%"><img src="maint-pro-costelement_files/pixel_clear.gif" alt="" height="20" width="20"></td>
+		</tr>
+	</tbody></table>
+
+
+
+	
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+        <!-- lookup/inquiry footer -->
+    
+	
+
+
+
+	
+	
+
+
+
+</form>
+</body></html>

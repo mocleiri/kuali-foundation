@@ -1,0 +1,2348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>var jsContextPath = "/kra-cnv";</script><title>Kuali :: Lookup</title>
+	
+
+
+<link href="../../css/kuali.css" rel="stylesheet" type="text/css">
+
+
+
+	<link href="maint-pro-ValidCalcType_files/calendar-win2k-1.css" rel="stylesheet" type="text/css">
+
+
+
+	<link href="maint-pro-ValidCalcType_files/kuali_application.css" rel="stylesheet" type="text/css">
+
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/kuali_application.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/core.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/dhtml.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/my_common.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/calendar.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/calendar-en.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/calendar-setup.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/engine.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/util.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/UserService.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/objectInfo.js"></script>
+
+
+
+	<script language="JavaScript" type="text/javascript" src="maint-pro-ValidCalcType_files/CustomAttributeService.js"></script><!-- Set the focus to first text box on form -->
+
+
+	
+		
+			  
+
+			  
+			  <script type="text/javascript">
+			  function placeFocus() {
+				if (document.forms.length > 0) {
+				  var field = document.forms[0];
+				  for (i = 0; i < field.length; i++) {
+					if ((field.elements[i].type == "text") || (field.elements[i].type == "textarea")) {
+					  document.forms[0].elements[i].focus();
+					  break;
+					}
+				  }
+			   }
+			  }
+
+			  var formHasAlreadyBeenSubmitted = false;
+			  var excludeSubmitRestriction = false;
+			  function hasFormAlreadyBeenSubmitted()
+			  {
+				  if (formHasAlreadyBeenSubmitted && !excludeSubmitRestriction) {
+					 alert("Page already being processed by the server.");
+					 return false;
+				  } else {
+					 formHasAlreadyBeenSubmitted = true;
+					 return true;
+				  }
+				  excludeSubmitRestriction = false;
+			  }
+			  </script></head><body onload="placeFocus();">
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+		
+			<div class="lookupcreatenew" title="Create a new record"><a href="maint-maintdoc-pro-ValidCalcType.html"><img src="maint-pro-ValidCalcType_files/tinybutton-createnew.gif" alt="create new" width="70" height="15" border="0"></a> </div>
+		
+
+		
+    
+	
+
+
+
+
+
+<form name="KualiForm" id="kualiForm" method="post" action="/kra-cnv/kr/lookup.do" enctype="" onsubmit="return hasFormAlreadyBeenSubmitted();">
+
+	
+	
+	
+
+
+    
+    
+
+<!-- DOCUMENT INFO HEADER BOX -->
+
+
+
+
+
+	
+		
+	
+	
+
+					
+
+	<script type="text/javascript">
+    var kualiForm = document.forms['KualiForm'];
+    var kualiElements = kualiForm.elements;
+  </script>
+
+	<div class="headerarea-small" id="headerarea-small">
+	<h1>Valid Calc Types Lookup
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="https://test.kuali.org/kra-cnv/kr/help.do?methodToCall=getResourceHelpText&amp;resourceKey=lookupHelpText" tabindex="32767" target="helpWindow" title="[Help]lookup help"><img src="maint-pro-ValidCalcType_files/my_cp_inf.gif" alt="[Help]lookup help" align="middle" border="0" hspace="5"></a></h1>
+	</div>
+	
+
+
+<input class="tinybutton" name="methodToCall.search" src="maint-pro-ValidCalcType_files/pixel_clear.gif" border="0" height="0" type="image" width="0">
+
+	<input name="backLocation" value="https://test.kuali.org/kra-cnv/portal.do" type="hidden">
+	<input name="formKey" value="88888888" type="hidden">
+	<input name="lookupableImplServiceName" value="kualiLookupable" type="hidden">
+	<input name="businessObjectClassName" value="org.kuali.kra.budget.bo.ValidCalcType" type="hidden">
+	<input name="conversionFields" value="" type="hidden">
+	<input name="hideReturnLink" value="Yes" type="hidden">
+	<input name="suppressActions" value="No" type="hidden">
+	<input name="multipleValues" value="No" type="hidden">
+	<input name="lookupAnchor" value="" type="hidden">
+	<input name="readOnlyFields" value="" type="hidden">
+	<input name="referencesToRefresh" value="" type="hidden">
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	<table width="100%">
+		<tbody><tr>
+			<td width="1%"><img src="maint-pro-ValidCalcType_files/pixel_clear.gif" alt="" height="20" width="20"></td>
+			<td>
+
+			<div id="lookup" align="center"><br>
+			<br>
+			<table class="datatable-100" align="center" cellpadding="0" cellspacing="0">
+				
+				
+				
+				
+				
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+<!-- maintenanceViewMode = lookup, KualiForm.methodToCall = search -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+	
+	<tbody><tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Calc Type Id:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+							
+						
+				
+							
+									
+							
+									
+								<input name="calcTypeId" id="calcTypeId" value="" size="8" maxlength="100" style="" class="" type="text">
+						    
+								
+						    
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+							
+							
+					
+						
+					
+					</td>
+				    
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+    
+	
+	<tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Rate Class Type:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+							
+						
+				
+							
+									
+							
+									
+								<input name="rateClassType" id="rateClassType" value="" size="1" maxlength="100" style="" class="" type="text">
+						    
+								
+						    
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.kra.budget.bo.RateClassType!!).(((rateClassType:rateClassType))).((#rateClassType:rateClassType#)).((&lt;&gt;)).(([])).((**)).((^^)).((&amp;&amp;)).((//)).((~~)).anchor" src="maint-pro-ValidCalcType_files/searchicon.gif" class="tinybutton" valign="middle" alt="Search Rate Class Type" title="Search Rate Class Type" border="0" type="image">
+                
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<input name="methodToCall.performInquiry.(!!org.kuali.kra.budget.bo.RateClassType!!).((##)).anchor" src="maint-pro-ValidCalcType_files/book_open.png" tabindex="32767" onclick="javascript: inquiryPop('org.kuali.kra.budget.bo.RateClassType',''); return false" class="tinybutton" title="Direct Inquiry" alt="Direct Inquiry" type="image">
+
+                
+    
+
+
+
+
+
+
+
+							
+							
+					
+						
+					
+					</td>
+				    
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+    
+	
+	<tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Dependent Rate Class Type:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+							
+						
+				
+							
+									
+							
+									
+								<input name="dependentRateClassType" id="dependentRateClassType" value="" size="1" maxlength="100" style="" class="" type="text">
+						    
+								
+						    
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+
+
+
+
+
+
+
+							
+							
+					
+						
+					
+					</td>
+				    
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+    
+	
+	<tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Rate Class Code:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+							
+						
+				
+							
+									
+							
+									
+								<input name="rateClassCode" id="rateClassCode" value="" size="3" maxlength="100" style="" class="" type="text">
+						    
+								
+						    
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.kra.budget.bo.RateClass!!).(((rateClassCode:rateClassCode))).((#rateClassCode:rateClassCode#)).((&lt;&gt;)).(([])).((**)).((^^)).((&amp;&amp;)).((//)).((~~)).anchor" src="maint-pro-ValidCalcType_files/searchicon.gif" class="tinybutton" valign="middle" alt="Search Rate Class Code" title="Search Rate Class Code" border="0" type="image">
+                
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<input name="methodToCall.performInquiry.(!!org.kuali.kra.budget.bo.RateClass!!).((##)).anchor" src="maint-pro-ValidCalcType_files/book_open.png" tabindex="32767" onclick="javascript: inquiryPop('org.kuali.kra.budget.bo.RateClass',''); return false" class="tinybutton" title="Direct Inquiry" alt="Direct Inquiry" type="image">
+
+                
+    
+
+
+
+
+
+
+
+							
+							
+					
+						
+					
+					</td>
+				    
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+    
+	
+	<tr>
+
+		
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+			
+			
+                
+			
+			
+				
+			
+			
+
+			
+			
+                
+			
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+		
+	
+
+	
+
+
+
+
+
+
+                
+			
+				
+			
+			
+			
+                
+									
+
+			
+
+				
+
+				
+
+			
+
+			
+			
+	            
+				
+
+				
+
+				
+					
+				
+				
+				
+				
+				
+				
+				
+					
+				
+					
+				
+				
+				
+
+				
+						
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+	<th class="grid" align="right" width="Infinity%">
+    	
+		
+
+		
+    	
+			
+        	
+				
+        	
+				Rate Type Code:
+            	
+			
+            
+			
+            
+		
+    	
+	</th>
+    
+
+
+
+								
+					<td class="grid" width="Infinity%">
+							
+						
+				
+							
+									
+							
+									
+								<input name="rateTypeCode" id="rateTypeCode" value="" size="3" maxlength="100" style="" class="" type="text">
+						    
+								
+						    
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.kra.budget.bo.RateType!!).(((rateTypeCode:rateClassCode,rateClassCode:rateTypeCode))).((#rateClassCode:rateTypeCode,rateTypeCode:rateClassCode#)).((&lt;&gt;)).(([])).((**)).((^^)).((&amp;&amp;)).((//)).((~~)).anchor" src="maint-pro-ValidCalcType_files/searchicon.gif" class="tinybutton" valign="middle" alt="Search Rate Type Code" title="Search Rate Type Code" border="0" type="image">
+                
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+	
+    
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<input name="methodToCall.performInquiry.(!!org.kuali.kra.budget.bo.RateType!!).((##)).anchor" src="maint-pro-ValidCalcType_files/book_open.png" tabindex="32767" onclick="javascript: inquiryPop('org.kuali.kra.budget.bo.RateType',''); return false" class="tinybutton" title="Direct Inquiry" alt="Direct Inquiry" type="image">
+
+                
+    
+
+
+
+
+
+
+
+							
+							
+					
+						
+					
+					</td>
+				    
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+				
+				
+					
+				
+
+				
+	                
+			
+				
+		
+		
+	</tr>
+	
+
+
+
+
+
+				<tr align="center">
+					<td colspan="2" class="infoline" height="30"><input name="methodToCall.search" src="maint-pro-ValidCalcType_files/buttonsmall_search.gif" value="search" class="tinybutton" title="search" alt="search" border="0" type="image"> <input name="methodToCall.clearValues" src="maint-pro-ValidCalcType_files/buttonsmall_clear.gif" value="clearValues" class="tinybutton" title="clear" alt="clear" border="0" type="image"> 
+						<a href="https://test.kuali.org/kra-cnv/portal.do?methodToCall=refresh&amp;docFormKey=88888888&amp;anchor=" title="cancel"><img src="maint-pro-ValidCalcType_files/buttonsmall_cancel.gif" class="tinybutton" alt="cancel" title="cancel" border="0"></a>
+					
+					<!-- Optional extra buttons --> 					
+					
+											
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+
+			<br>
+			<br>
+			<div class="right">
+				
+			</div>
+			 
+			
+			    
+				<span class="pagebanner">7 items found, displaying all items.</span><br><br><span class="pagelinks"></span>
+<table class="datatable-100" id="row" cellpadding="0" cellspacing="0">
+<thead>
+<tr>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;rateClassCode=&amp;rateClassType=&amp;referencesToRefresh=&amp;methodToCall.search.y=11&amp;reqSearchResultsActualSize=0&amp;methodToCall=viewResults&amp;formKey=88888888&amp;conversionFields=&amp;calcTypeId=&amp;d-16544-s=0&amp;readOnlyFields=&amp;rateTypeCode=&amp;methodToCall.search.x=32&amp;dependentRateClassType=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;searchResultKey=searchResults5&amp;suppressActions=No">Calc Type Id</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;rateClassCode=&amp;rateClassType=&amp;referencesToRefresh=&amp;methodToCall.search.y=11&amp;reqSearchResultsActualSize=0&amp;methodToCall=viewResults&amp;formKey=88888888&amp;conversionFields=&amp;calcTypeId=&amp;d-16544-s=1&amp;readOnlyFields=&amp;rateTypeCode=&amp;methodToCall.search.x=32&amp;dependentRateClassType=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;searchResultKey=searchResults5&amp;suppressActions=No">Rate Class Type</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;rateClassCode=&amp;rateClassType=&amp;referencesToRefresh=&amp;methodToCall.search.y=11&amp;reqSearchResultsActualSize=0&amp;methodToCall=viewResults&amp;formKey=88888888&amp;conversionFields=&amp;calcTypeId=&amp;d-16544-s=2&amp;readOnlyFields=&amp;rateTypeCode=&amp;methodToCall.search.x=32&amp;dependentRateClassType=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;searchResultKey=searchResults5&amp;suppressActions=No">Dependent Rate Class Type</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;rateClassCode=&amp;rateClassType=&amp;referencesToRefresh=&amp;methodToCall.search.y=11&amp;reqSearchResultsActualSize=0&amp;methodToCall=viewResults&amp;formKey=88888888&amp;conversionFields=&amp;calcTypeId=&amp;d-16544-s=3&amp;readOnlyFields=&amp;rateTypeCode=&amp;methodToCall.search.x=32&amp;dependentRateClassType=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;searchResultKey=searchResults5&amp;suppressActions=No">Rate Class Code</a></th>
+<th class="sortable">
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;d-16544-o=2&amp;rateClassCode=&amp;rateClassType=&amp;referencesToRefresh=&amp;methodToCall.search.y=11&amp;reqSearchResultsActualSize=0&amp;methodToCall=viewResults&amp;formKey=88888888&amp;conversionFields=&amp;calcTypeId=&amp;d-16544-s=4&amp;readOnlyFields=&amp;rateTypeCode=&amp;methodToCall.search.x=32&amp;dependentRateClassType=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;searchResultKey=searchResults5&amp;suppressActions=No">Rate Type Code</a></th>
+<th>Actions</th></tr></thead>
+<tbody>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=L&amp;calcTypeId=1&amp;methodToCall=start&amp;dependentSeqNumber=0" target="blank" title="1">1</a> &nbsp;
+                </td>
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.RateClassType&amp;rateClassType=L&amp;methodToCall=start" target="blank" title="L">L</a> &nbsp;
+                </td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=L&amp;calcTypeId=1&amp;methodToCall=edit&amp;dependentSeqNumber=0">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=L&amp;calcTypeId=1&amp;methodToCall=copy&amp;dependentSeqNumber=0">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=X&amp;calcTypeId=1&amp;methodToCall=start&amp;dependentSeqNumber=0" target="blank" title="1">1</a> &nbsp;
+                </td>
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.RateClassType&amp;rateClassType=X&amp;methodToCall=start" target="blank" title="X">X</a> &nbsp;
+                </td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=X&amp;calcTypeId=1&amp;methodToCall=edit&amp;dependentSeqNumber=0">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=X&amp;calcTypeId=1&amp;methodToCall=copy&amp;dependentSeqNumber=0">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=Y&amp;calcTypeId=1&amp;methodToCall=start&amp;dependentSeqNumber=0" target="blank" title="1">1</a> &nbsp;
+                </td>
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.RateClassType&amp;rateClassType=Y&amp;methodToCall=start" target="blank" title="Y">Y</a> &nbsp;
+                </td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=Y&amp;calcTypeId=1&amp;methodToCall=edit&amp;dependentSeqNumber=0">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=Y&amp;calcTypeId=1&amp;methodToCall=copy&amp;dependentSeqNumber=0">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=E&amp;calcTypeId=1&amp;methodToCall=start&amp;dependentSeqNumber=1" target="blank" title="1">1</a> &nbsp;
+                </td>
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.RateClassType&amp;rateClassType=E&amp;methodToCall=start" target="blank" title="E">E</a> &nbsp;
+                </td>
+<td class="infocell">Y&nbsp;&nbsp;</td>
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.RateClass&amp;rateClassCode=5&amp;methodToCall=start" target="blank" title="5">5</a> &nbsp;
+                            &nbsp;</td>
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.RateType&amp;rateClassCode=3&amp;methodToCall=start&amp;rateTypeCode=5" target="blank" title="3">3</a> &nbsp;
+                            &nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=E&amp;calcTypeId=1&amp;methodToCall=edit&amp;dependentSeqNumber=1">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=E&amp;calcTypeId=1&amp;methodToCall=copy&amp;dependentSeqNumber=1">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=O&amp;calcTypeId=1&amp;methodToCall=start&amp;dependentSeqNumber=1" target="blank" title="1">1</a> &nbsp;
+                </td>
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.RateClassType&amp;rateClassType=O&amp;methodToCall=start" target="blank" title="O">O</a> &nbsp;
+                </td>
+<td class="infocell">E&nbsp;&nbsp;</td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=O&amp;calcTypeId=1&amp;methodToCall=edit&amp;dependentSeqNumber=1">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=O&amp;calcTypeId=1&amp;methodToCall=copy&amp;dependentSeqNumber=1">copy</a></td></tr>
+<tr class="even">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=V&amp;calcTypeId=1&amp;methodToCall=start&amp;dependentSeqNumber=1" target="blank" title="1">1</a> &nbsp;
+                </td>
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.RateClassType&amp;rateClassType=V&amp;methodToCall=start" target="blank" title="V">V</a> &nbsp;
+                </td>
+<td class="infocell">Y&nbsp;&nbsp;</td>
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.RateClass&amp;rateClassCode=8&amp;methodToCall=start" target="blank" title="8">8</a> &nbsp;
+                            &nbsp;</td>
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.RateType&amp;rateClassCode=2&amp;methodToCall=start&amp;rateTypeCode=8" target="blank" title="2">2</a> &nbsp;
+                            &nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=V&amp;calcTypeId=1&amp;methodToCall=edit&amp;dependentSeqNumber=1">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=V&amp;calcTypeId=1&amp;methodToCall=copy&amp;dependentSeqNumber=1">copy</a></td></tr>
+<tr class="odd">
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=O&amp;calcTypeId=1&amp;methodToCall=start&amp;dependentSeqNumber=2" target="blank" title="1">1</a> &nbsp;
+                </td>
+<td class="infocell">
+								<a href="https://test.kuali.org/kra-cnv/kr/inquiry.do?businessObjectClassName=org.kuali.kra.budget.bo.RateClassType&amp;rateClassType=O&amp;methodToCall=start" target="blank" title="O">O</a> &nbsp;
+                </td>
+<td class="infocell">V&nbsp;&nbsp;</td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell">&nbsp;&nbsp;</td>
+<td class="infocell"><a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=O&amp;calcTypeId=1&amp;methodToCall=edit&amp;dependentSeqNumber=2">edit</a>&nbsp;&nbsp;<a href="https://test.kuali.org/kra-cnv/kr/maintenance.do?businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;rateClassType=O&amp;calcTypeId=1&amp;methodToCall=copy&amp;dependentSeqNumber=2">copy</a></td></tr></tbody></table><br><div class="exportlinks">Export options: 
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;rateClassCode=&amp;rateClassType=&amp;referencesToRefresh=&amp;methodToCall.search.y=11&amp;reqSearchResultsActualSize=0&amp;methodToCall=viewResults&amp;formKey=88888888&amp;d-16544-e=1&amp;conversionFields=&amp;calcTypeId=&amp;6578706f7274=1&amp;readOnlyFields=&amp;rateTypeCode=&amp;methodToCall.search.x=32&amp;dependentRateClassType=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;searchResultKey=searchResults5&amp;suppressActions=No"><span class="export csv">CSV </span></a>|
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;rateClassCode=&amp;rateClassType=&amp;referencesToRefresh=&amp;methodToCall.search.y=11&amp;reqSearchResultsActualSize=0&amp;methodToCall=viewResults&amp;formKey=88888888&amp;d-16544-e=2&amp;conversionFields=&amp;calcTypeId=&amp;6578706f7274=1&amp;readOnlyFields=&amp;rateTypeCode=&amp;methodToCall.search.x=32&amp;dependentRateClassType=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;searchResultKey=searchResults5&amp;suppressActions=No"><span class="export excel">Excel </span></a>|
+<a href="https://test.kuali.org/kra-cnv/kr/lookup.do?backLocation=https%3A%2F%2Ftest.kuali.org%2Fkra-cnv%2Fportal.do&amp;lookupableImplServiceName=kualiLookupable&amp;lookupAnchor=&amp;hideReturnLink=Yes&amp;methodToCall.search=search&amp;searchUsingOnlyPrimaryKeyValues=false&amp;rateClassCode=&amp;rateClassType=&amp;referencesToRefresh=&amp;methodToCall.search.y=11&amp;reqSearchResultsActualSize=0&amp;methodToCall=viewResults&amp;formKey=88888888&amp;d-16544-e=3&amp;conversionFields=&amp;calcTypeId=&amp;6578706f7274=1&amp;readOnlyFields=&amp;rateTypeCode=&amp;methodToCall.search.x=32&amp;dependentRateClassType=&amp;multipleValues=No&amp;businessObjectClassName=org.kuali.kra.budget.bo.ValidCalcType&amp;searchResultKey=searchResults5&amp;suppressActions=No"><span class="export xml">XML </span></a></div>
+			</td>
+			<td width="1%"><img src="maint-pro-ValidCalcType_files/pixel_clear.gif" alt="" height="20" width="20"></td>
+		</tr>
+	</tbody></table>
+
+
+
+	
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+        <!-- lookup/inquiry footer -->
+    
+	
+
+
+
+	
+	
+
+
+
+</form>
+</body></html>
