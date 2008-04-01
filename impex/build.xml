@@ -421,6 +421,9 @@ Note: Due to java native library classloader issues, the export routine (and pos
 				<fileset dir="${torque.schema.dir}" excludes="${import.exclude.data.pattern}">
 					<include name="*.xml" />
 					<exclude name="schema.xml" />
+					<depend targetdir="${torque.schema.dir}/datasql">
+						<mapper type="glob" from="*.xml" to="*.sql" />
+					</depend>
 				</fileset>
 			</path>
 		</foreach>
