@@ -18,6 +18,8 @@ import java.util.List;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.apache.torque.engine.platform.Platform;
+import org.apache.torque.engine.platform.PlatformFactory;
 import org.apache.xerces.dom.DocumentImpl;
 import org.apache.xerces.dom.DocumentTypeImpl;
 import org.apache.xerces.util.XMLChar;
@@ -42,6 +44,8 @@ public class KualiTorqueDataDumpTask extends Task {
 	
 	/** Database password used for JDBC connection. */
 	private String databasePassword;
+	
+	private String databaseType;
 
 	/** The database connection used to retrieve the data to dump. */
 	private Connection conn;
@@ -176,6 +180,7 @@ public class KualiTorqueDataDumpTask extends Task {
 	private void generateXML( Connection con ) throws Exception {
 	
         DatabaseMetaData dbMetaData = con.getMetaData();
+        Platform platform = PlatformFactory.getPlatformFor(databaseType);
         
         List<String> tableList = getTableNames( dbMetaData );
         for ( String tableName : tableList ) {
@@ -186,7 +191,14 @@ public class KualiTorqueDataDumpTask extends Task {
             
         	Element datasetNode = doc.createElement( "dataset" );
     		Statement stmt = conn.createStatement( ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY );
-    		ResultSet rs = stmt.executeQuery( "SELECT * FROM " + tableName );
+    		StringBuffer dataSelectStatement = new StringBuffer( "SELECT * FROM " );
+    		dataSelectStatement.append( tableName );
+    		dataSelectStatement.append( " ORDER BY 'x'" );
+    		List<String> pkFields = platform.getPrimaryKeys(dbMetaData, databaseSchema, tableName);
+    		for ( String field : pkFields ) {
+    			dataSelectStatement.append( ", " ).append( field );
+    		}
+    		ResultSet rs = stmt.executeQuery( dataSelectStatement.toString() );
     		ResultSetMetaData md = rs.getMetaData();
     		int[] columnTypes = new int[md.getColumnCount() + 1];
     		String[] columnNames = new String[md.getColumnCount() + 1];
@@ -308,5 +320,13 @@ public class KualiTorqueDataDumpTask extends Task {
 
 	public void setDatabaseSchema(String databaseSchema) {
 		this.databaseSchema = databaseSchema;
+	}
+
+	public String getDatabaseType() {
+		return databaseType;
+	}
+
+	public void setDatabaseType(String databaseType) {
+		this.databaseType = databaseType;
 	}
 }

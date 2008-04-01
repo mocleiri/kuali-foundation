@@ -46,7 +46,7 @@ import org.xml.sax.Attributes;
  * @author <a href="mailto:dlr@collab.net>Daniel Rall</a>
  * @author <a href="mailto:byron_foster@byron_foster@yahoo.com>Byron Foster</a>
  * @author <a href="mailto:monroe@dukece.com>Greg Monroe</a>
- * @version $Id: Database.java,v 1.1 2007-10-21 07:57:27 abyrne Exp $
+ * @version $Id: Database.java,v 1.1.6.1 2008-04-01 04:07:48 jkeller Exp $
  */
 public class Database
 {
@@ -320,6 +320,8 @@ public class Database
         tbl.setDatabase(this);
         tableList.add(tbl);
         tablesByName.put(tbl.getName(), tbl);
+        tablesByName.put(tbl.getName().toLowerCase(), tbl);
+        tablesByName.put(tbl.getName().toUpperCase(), tbl);
         tablesByJavaName.put(tbl.getJavaName(), tbl);
         tbl.setPackage(getPackage());
     }

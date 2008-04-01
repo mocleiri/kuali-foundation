@@ -19,8 +19,13 @@ package org.apache.torque.engine.platform;
  * under the License.
  */
 
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.torque.engine.database.model.Domain;
@@ -31,7 +36,7 @@ import org.apache.torque.engine.database.model.SchemaType;
  * Default implementation for the Platform interface.
  *
  * @author <a href="mailto:mpoeschl@marmot.at">Martin Poeschl</a>
- * @version $Id: PlatformDefaultImpl.java,v 1.1 2007-10-21 07:57:26 abyrne Exp $
+ * @version $Id: PlatformDefaultImpl.java,v 1.1.6.1 2008-04-01 04:07:48 jkeller Exp $
  */
 public class PlatformDefaultImpl implements Platform
 {
@@ -142,5 +147,37 @@ public class PlatformDefaultImpl implements Platform
 	public boolean isSpecialDefault( String defaultValue ) {
 		return false;
 	}
-    
+
+    /**
+     * Retrieves a list of the columns composing the primary key for a given
+     * table.
+     *
+     * @param dbMeta JDBC metadata.
+     * @param tableName Table from which to retrieve PK information.
+     * @return A list of the primary key parts for <code>tableName</code>.
+     * @throws SQLException
+     */
+    public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName)
+            throws SQLException
+    {
+        List<String> pk = new ArrayList<String>();
+        ResultSet parts = null;
+        try
+        {
+            parts = dbMeta.getPrimaryKeys(null, dbSchema, tableName);
+            while (parts.next())
+            {
+                pk.add(parts.getString(4));
+            }
+        }
+        finally
+        {
+            if (parts != null)
+            {
+                parts.close();
+            }
+        }
+        return pk;
+    }
+	
 }
