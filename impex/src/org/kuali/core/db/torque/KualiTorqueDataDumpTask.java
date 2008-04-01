@@ -46,7 +46,8 @@ public class KualiTorqueDataDumpTask extends Task {
 	private String databasePassword;
 	
 	private String databaseType;
-
+	private String tableName;
+	
 	/** The database connection used to retrieve the data to dump. */
 	private Connection conn;
 	
@@ -299,7 +300,7 @@ public class KualiTorqueDataDumpTask extends Task {
 		// these are the entity types we want from the database
 		String[] types = { "TABLE" }; // JHK: removed views from list
 		try {
-			tableNames = dbMeta.getTables( null, databaseSchema.toUpperCase(), null,
+			tableNames = dbMeta.getTables( null, databaseSchema.toUpperCase(), tableName,
 					types ); // JHK: upper-cased schema name (required by Oracle)
 			while ( tableNames.next() ) {
 				String name = tableNames.getString( 3 );
@@ -329,4 +330,12 @@ public class KualiTorqueDataDumpTask extends Task {
 	public void setDatabaseType(String databaseType) {
 		this.databaseType = databaseType;
 	}
+	
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}	
 }
