@@ -21,14 +21,15 @@ import java.util.Map.Entry;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 
-import static org.kuali.core.db.torque.LogManager.exception;
+import static org.kuali.core.db.torque.FormattedLogger.*;
 
 /**
  * 
  * This class...
  */
-public final class JdbcToXmlGeneratorFactory implements Loggable {
-    private static final org.apache.commons.logging.Log LOG = org.apache.commons.logging.LogFactory.getLog(JdbcToXmlGeneratorFactory.class);
+public final class JdbcToXmlGeneratorFactory {
+    private static final String PROPERTY_SET_MESSAGE = "An exception occurred setting property %s, on class %s. The exception was %s with message '%s'";
+    private static final String CLASS_LOOKUP_MESSAGE = "An exception occurred finding class %s. The exception was %s with message '%s'";
     private static JdbcToXmlGeneratorFactory instance;
     private static final String IMPEX_PROPERTY_PREFIX = "impex.generator.";
     private static final String IMPEX_GENERATOR_SERVICE_PACKAGE_PREFIX = "package";
@@ -70,7 +71,7 @@ public final class JdbcToXmlGeneratorFactory implements Loggable {
                     PropertyUtils.setProperty(this, property.getKey(), property.getValue());
                 }
                 catch (Exception e) {
-                    exception(e);
+                    warn(PROPERTY_SET_MESSAGE, property.getKey(), getClass().getSimpleName(), e.getClass().getSimpleName(), e.getMessage());
                 }
             }
         }
@@ -98,10 +99,10 @@ public final class JdbcToXmlGeneratorFactory implements Loggable {
             retval = (JdbcToXmlGenerator) Class.forName(fullClassName).newInstance();
         }
         catch (ClassNotFoundException cnfe) {
-            exception(cnfe);
+            warn(CLASS_LOOKUP_MESSAGE, fullClassName, cnfe.getClass().getSimpleName(), cnfe.getMessage());
         }
         catch (Exception e) {
-            exception(e);
+            warn(CLASS_LOOKUP_MESSAGE, fullClassName, e.getClass().getSimpleName(), e.getMessage());
         }
         
         return retval;

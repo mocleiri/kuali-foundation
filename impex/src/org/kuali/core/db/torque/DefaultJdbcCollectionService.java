@@ -15,8 +15,6 @@
  */
 package org.kuali.core.db.torque;
 
-import static org.kuali.core.db.torque.LogManager.exception;
-
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -34,23 +32,26 @@ import org.apache.tools.ant.Project;
 import org.apache.xerces.dom.DocumentImpl;
 import org.w3c.dom.Element;
 
+import static org.kuali.core.db.torque.FormattedLogger.*;
+
 /**
  * 
  * This class...
  */
-public class DefaultJdbcCollectionService implements JdbcCollectionService, Loggable {
+public class DefaultJdbcCollectionService implements JdbcCollectionService {
+	private static final String OPEN_CONNECTION_MESSAGE = "An exception occurred when opening a connection. The message was %s.";
 
     private static final void log(String logMessage) {
-        org.apache.commons.logging.LogFactory.getLog(DefaultJdbcCollectionService.class).info(logMessage);
+        info(logMessage);
     }
 
     private static final void log(String logMessage, int level) {
         if (level == Project.MSG_WARN) {
-            org.apache.commons.logging.LogFactory.getLog(DefaultJdbcCollectionService.class).warn(logMessage);
+            warn(logMessage);
 
         }
         else {
-            org.apache.commons.logging.LogFactory.getLog(DefaultJdbcCollectionService.class).debug(logMessage);
+            debug(logMessage);
         }
     }
 
@@ -572,7 +573,7 @@ public class DefaultJdbcCollectionService implements JdbcCollectionService, Logg
             Class.forName(getDbDriver());
         }
         catch (ClassNotFoundException cnfe) {
-            exception(cnfe);
+            warn(OPEN_CONNECTION_MESSAGE, cnfe.getMessage());
         }
         setConnection(DriverManager.getConnection(getDbUrl(), getDbUser(), getDbPassword()));
         setDbMetaData(getConnection().getMetaData());

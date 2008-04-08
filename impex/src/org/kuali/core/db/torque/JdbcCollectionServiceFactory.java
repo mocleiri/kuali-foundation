@@ -21,17 +21,18 @@ import java.util.Map.Entry;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 
-import static org.kuali.core.db.torque.LogManager.exception;
+import static org.kuali.core.db.torque.FormattedLogger.*;
 
 /**
  * 
  * This class...
  */
-public final class JdbcCollectionServiceFactory implements Loggable {
+public final class JdbcCollectionServiceFactory {
     private static JdbcCollectionServiceFactory instance;
     private static final String IMPEX_PROPERTY_PREFIX = "impex.collection.";
     private static final String IMPEX_PACKAGE_PREFIX = "package";
-    private static final org.apache.commons.logging.Log LOG = org.apache.commons.logging.LogFactory.getLog(JdbcCollectionServiceFactory.class);
+    private static final String PROPERTY_SET_MESSAGE = "An exception occurred setting property %s, on class %s. The exception was %s with message '%s'";
+    private static final String CLASS_LOOKUP_MESSAGE = "An exception occurred finding class %s. The exception was %s with message '%s'";
 
     private Hashtable<String, String> instanceProperties;
     
@@ -133,7 +134,7 @@ public final class JdbcCollectionServiceFactory implements Loggable {
                     PropertyUtils.setProperty(this, property.getKey(), property.getValue());
                 }
                 catch (Exception e) {
-                    exception(e);
+                    warn(PROPERTY_SET_MESSAGE, property.getKey(), getClass().getSimpleName(), e.getClass().getSimpleName(), e.getMessage());
                 }
             }
         }
@@ -161,10 +162,10 @@ public final class JdbcCollectionServiceFactory implements Loggable {
             retval = (JdbcCollectionService) Class.forName(fullClassName).newInstance();
         }
         catch (ClassNotFoundException cnfe) {
-            exception(cnfe);
+            warn(CLASS_LOOKUP_MESSAGE, fullClassName, cnfe.getClass().getSimpleName(), cnfe.getMessage());
         }
         catch (Exception e) {
-            exception(e);
+            warn(CLASS_LOOKUP_MESSAGE, fullClassName, e.getClass().getSimpleName(), e.getMessage());
         }
         
         retval.setDbDriver(getDbDriver());
