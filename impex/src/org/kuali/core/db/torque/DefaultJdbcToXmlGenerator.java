@@ -16,11 +16,8 @@
 package org.kuali.core.db.torque;
 
 import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -36,6 +33,8 @@ import org.apache.xerces.util.XMLChar;
 import org.kuali.core.db.torque.JdbcCollectionService.TableIndex;
 import org.w3c.dom.Element;
 
+import static org.kuali.core.db.torque.FormattedLogger.*;
+
 /**
  * 
  * This class...
@@ -47,16 +46,15 @@ public class DefaultJdbcToXmlGenerator implements JdbcToXmlGenerator {
     }
 
     private static final void log(String logMessage) {
-        org.apache.commons.logging.LogFactory.getLog(DefaultJdbcToXmlGenerator.class).info(logMessage);
+        info(logMessage);
     }
 
     private static final void log(String logMessage, int level) {
         if (level == Project.MSG_WARN) {
-            org.apache.commons.logging.LogFactory.getLog(DefaultJdbcToXmlGenerator.class).warn(logMessage);
-
+            warn(logMessage);
         }
         else {
-            org.apache.commons.logging.LogFactory.getLog(DefaultJdbcToXmlGenerator.class).debug(logMessage);
+        	debug(logMessage);
         }
     }
 

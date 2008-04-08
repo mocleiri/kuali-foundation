@@ -1,7 +1,5 @@
 package org.kuali.core.db.torque;
 
-import static org.kuali.core.db.torque.LogManager.exception;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,8 +27,10 @@ import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import static org.kuali.core.db.torque.FormattedLogger.*;
+
 public class KualiTorqueDataDumpTask extends Task {
-    
+	
     private String jdbcCollectionServiceName;
 
     /** Database URL used for JDBC connection. */
@@ -252,6 +252,8 @@ public class KualiTorqueDataDumpTask extends Task {
 
 class DataDumpClosure implements ResultSetClosure {
     private static Map<String, String> invalidSubStringMap = new HashMap<String, String>();
+	private static final String CLOB_PROCESSING_MESSAGE = "Error processing CLOB. Message was: %s";
+    
     static {
         invalidSubStringMap.put("$", "_DOLLAR_SIGN_");
     }
@@ -297,8 +299,7 @@ class DataDumpClosure implements ResultSetClosure {
                             }
                         }
                         catch (IOException ex) {
-                            System.err.println("IO exception processing CLOB");
-                            exception(ex);
+                        	error(CLOB_PROCESSING_MESSAGE, ex.getMessage());
                         }
                         columnValue = sb;
                     }
