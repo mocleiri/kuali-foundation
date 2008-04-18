@@ -19,6 +19,11 @@ package org.apache.torque.engine.platform;
  * under the License.
  */
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
 
@@ -26,7 +31,7 @@ import org.apache.torque.engine.database.model.SchemaType;
  * MySql Platform implementation.
  *
  * @author <a href="mailto:mpoeschl@marmot.at">Martin Poeschl</a>
- * @version $Id: PlatformMysqlImpl.java,v 1.1 2007-10-21 07:57:27 abyrne Exp $
+ * @version $Id: PlatformMysqlImpl.java,v 1.1.6.1 2008-04-18 17:04:37 jkeller Exp $
  */
 public class PlatformMysqlImpl extends PlatformDefaultImpl
 {
@@ -83,5 +88,48 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl
 		
 		return defaultValue;
 	}
-    
+
+	@Override
+	public Long getSequenceNextVal(Connection con, String schema, String sequenceName) {
+		try {
+			PreparedStatement ps = con.prepareStatement( "SELECT auto_increment FROM information_schema.tables WHERE table_schema = ? AND table_name = ?" );
+			Long nextVal = 0L;
+			ps.setString( 1, schema );
+			ps.setString( 2, sequenceName );
+			ResultSet rs = ps.executeQuery();
+			if ( rs.next() ) {
+				nextVal = rs.getLong( 1 );
+			}
+			rs.close();
+			ps.close();
+			System.out.println( "Next Val for " + schema + "." + sequenceName + "=" + nextVal);
+			return nextVal;
+		} catch ( SQLException ex ) {
+			System.err.println( "Unable to extract sequence definition: " + schema + "." + sequenceName );
+			ex.printStackTrace();
+			return 0L;
+		}
+	}
+
+	@Override
+	public String getViewDefinition( Connection con, String schema, String viewName) {
+		try {
+			PreparedStatement ps = con.prepareStatement( "SELECT view_definition FROM information_schema.views WHERE table_schema = ? AND table_name = ?" );
+			String definition = "";
+			ps.setString( 1, schema );
+			ps.setString( 2, viewName );
+			ResultSet rs = ps.executeQuery();
+			if ( rs.next() ) {
+				definition = rs.getString( 1 );
+			}
+			rs.close();
+			ps.close();
+			return definition;
+		} catch ( SQLException ex ) {
+			System.err.println( "Unable to extract view definition: " + schema + "." + viewName );
+			ex.printStackTrace();
+			return "";
+		}
+	}
+	
 }

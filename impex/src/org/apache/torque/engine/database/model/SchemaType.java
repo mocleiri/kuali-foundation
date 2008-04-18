@@ -29,7 +29,7 @@ import org.apache.commons.lang.enums.Enum;
  * Enum for types used in Torque schema.xml files.
  *
  * @author <a href="mailto:mpoeschl@marmot.at>Martin Poeschl</a>
- * @version $Id: SchemaType.java,v 1.1 2007-10-21 07:57:27 abyrne Exp $
+ * @version $Id: SchemaType.java,v 1.1.6.1 2008-04-18 17:04:37 jkeller Exp $
  */
 public class SchemaType extends Enum
 {
@@ -79,17 +79,20 @@ public class SchemaType extends Enum
         return (SchemaType) getEnum(SchemaType.class, type);
     }
 
-    public static Map getEnumMap()
+    @SuppressWarnings("unchecked")
+	public static Map<String,SchemaType> getEnumMap()
     {
         return getEnumMap(SchemaType.class);
     }
 
-    public static List getEnumList()
+    @SuppressWarnings("unchecked")
+    public static List<SchemaType> getEnumList()
     {
         return getEnumList(SchemaType.class);
     }
 
-    public static Iterator iterator()
+    @SuppressWarnings("unchecked")
+    public static Iterator<SchemaType> iterator()
     {
         return iterator(SchemaType.class);
     }

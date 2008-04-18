@@ -2,7 +2,6 @@ package org.kuali.core.db.torque;
 
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -12,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +19,8 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.torque.engine.database.model.TypeMap;
+import org.apache.torque.engine.platform.Platform;
+import org.apache.torque.engine.platform.PlatformFactory;
 import org.apache.xerces.dom.DocumentImpl;
 import org.apache.xerces.dom.DocumentTypeImpl;
 import org.apache.xml.serialize.Method;
@@ -53,13 +53,13 @@ public class KualiTorqueJDBCTransformTask extends Task {
     /** The document root element. */
     protected Element databaseNode;
 
+    protected String dbType;
+    
     /** Hashtable of columns that have primary keys. */
-    protected Hashtable primaryKeys;
+    protected HashMap<String,String> primaryKeys;
 
     /** Hashtable to track what table a column belongs to. */
-    protected Hashtable columnTableMap;
-
-    protected boolean sameJavaName;
+    protected HashMap<String,String> columnTableMap;
 
     private XMLSerializer xmlSerializer;
 
@@ -97,16 +97,10 @@ public class KualiTorqueJDBCTransformTask extends Task {
     {
         xmlSchema = v;
     }
-
-    public void setSameJavaName(boolean v)
-    {
-        this.sameJavaName = v;
-    }
-
-    public boolean isSameJavaName()
-    {
-        return this.sameJavaName;
-    }
+    
+    public void setDbType(String dbType) {
+		this.dbType = dbType;
+	}
 
     /**
      * Default constructor.
@@ -161,11 +155,13 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			con = DriverManager.getConnection( dbUrl, dbUser, dbPassword );
 			log( "DB connection established" );
 
+			Platform platform = PlatformFactory.getPlatformFor( dbType );
+			
 			// Get the database Metadata.
 			DatabaseMetaData dbMetaData = con.getMetaData();
 
 			// The database map.
-			List tableList = getTableNames( dbMetaData );
+			List<String> tableList = platform.getTableNames( dbMetaData, dbSchema );
 			
 			databaseNode = doc.createElement( "database" );
 			databaseNode.setAttribute( "name", dbUser );
@@ -173,42 +169,34 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			databaseNode.setAttribute( "defaultJavaNamingMethod", "nochange" );
 
 			// Build a database-wide column -> table map.
-			columnTableMap = new Hashtable();
+			columnTableMap = new HashMap<String,String>();
 
 			log( "Building column/table map..." );
-			for ( int i = 0; i < tableList.size(); i++ ) {
-				String curTable = (String)tableList.get( i );
-				List columns = getColumns( dbMetaData, curTable );
+			for ( String curTable : tableList ) {
+				List<List<Object>> columns = getColumns( dbMetaData, curTable );
 
-				for ( int j = 0; j < columns.size(); j++ ) {
-					List col = (List)columns.get( j );
-					String name = (String)col.get( 0 );
+				for ( List<Object> col : columns ) {
+					String colName = (String)col.get( 0 );
 
-					columnTableMap.put( name, curTable );
+					columnTableMap.put( colName, curTable );
 				}
 			}
 
-			for ( int i = 0; i < tableList.size(); i++ ) {
-				// Add Table.
-				String curTable = (String)tableList.get( i );
-				// dbMap.addTable(curTable);
+			for ( String curTable : tableList ) {
 				log( "Processing table: " + curTable );
 
 				Element table = doc.createElement( "table" );
 				table.setAttribute( "name", curTable );
-				if ( isSameJavaName() ) {
-					table.setAttribute( "javaName", curTable );
-				}
 
 				// Add Columns.
 				// TableMap tblMap = dbMap.getTable(curTable);
 
 				List columns = getColumns( dbMetaData, curTable );
-				List primKeys = getPrimaryKeys( dbMetaData, curTable );
+				List<String> primKeys = platform.getPrimaryKeys( dbMetaData, dbSchema, curTable );
 				Map<String,Object[]> forgnKeys = getForeignKeys( dbMetaData, curTable );
 
 				// Set the primary keys.
-				primaryKeys = new Hashtable();
+				primaryKeys = new HashMap<String,String>();
 
 				for ( int k = 0; k < primKeys.size(); k++ ) {
 					String curPrimaryKey = (String)primKeys.get( k );
@@ -239,9 +227,6 @@ public class KualiTorqueJDBCTransformTask extends Task {
 
 					Element column = doc.createElement( "column" );
 					column.setAttribute( "name", name );
-					if ( isSameJavaName() ) {
-						column.setAttribute( "javaName", name );
-					}
 
 					column.setAttribute( "type", TypeMap.getTorqueType( type )
 							.getName() );
@@ -346,28 +331,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
 				 * <view name="" viewdefinition="" />
 				 * 
 				 */
-				String definition = "";
-				if ( dbMetaData.getDatabaseProductName().equalsIgnoreCase( "oracle" ) ) {
-					PreparedStatement ps = dbMetaData.getConnection().prepareStatement( "SELECT text FROM all_views WHERE owner = ? AND view_name = ?" );
-					ps.setString( 1, dbSchema );
-					ps.setString( 2, viewName );
-					ResultSet rs = ps.executeQuery();
-					if ( rs.next() ) {
-						definition = rs.getString( 1 );
-					}
-					rs.close();
-					ps.close();						
-				} else if ( dbMetaData.getDatabaseProductName().equalsIgnoreCase( "mysql" ) ) {
-					PreparedStatement ps = dbMetaData.getConnection().prepareStatement( "SELECT view_definition FROM information_schema.views WHERE table_schema = ? AND table_name = ?" );
-					ps.setString( 1, dbSchema );
-					ps.setString( 2, viewName );
-					ResultSet rs = ps.executeQuery();
-					if ( rs.next() ) {
-						definition = rs.getString( 1 );
-					}
-					rs.close();
-					ps.close();						
-				}
+				String definition = platform.getViewDefinition( dbMetaData.getConnection(), dbSchema, viewName );
 				view.setAttribute( "viewdefinition", definition );
 				databaseNode.appendChild( view );
 			}
@@ -379,29 +343,8 @@ public class KualiTorqueJDBCTransformTask extends Task {
 				 * <view name="" nextval="" />
 				 * 
 				 */
-				String nextVal = "0";
-				if ( dbMetaData.getDatabaseProductName().equalsIgnoreCase( "oracle" ) ) {
-					PreparedStatement ps = dbMetaData.getConnection().prepareStatement( "SELECT last_number FROM all_sequences WHERE sequence_owner = ? AND sequence_name = ?" );
-					ps.setString( 1, dbSchema );
-					ps.setString( 2, sequenceName );
-					ResultSet rs = ps.executeQuery();
-					if ( rs.next() ) {
-						nextVal = rs.getString( 1 );
-					}
-					rs.close();
-					ps.close();						
-				} else if ( dbMetaData.getDatabaseProductName().equalsIgnoreCase( "mysql" ) ) { 
-					PreparedStatement ps = dbMetaData.getConnection().prepareStatement( "SELECT id FROM " + sequenceName );
-					ResultSet rs = ps.executeQuery();
-					if ( rs.next() ) {
-						nextVal = rs.getString( 1 );
-					}
-					rs.close();
-					ps.close();						
-				} else {
-					System.err.println( "Unknown DB type: " + dbMetaData.getDatabaseProductName() );
-				}
-				sequence.setAttribute( "nextval", nextVal );
+				Long nextVal = platform.getSequenceNextVal( dbMetaData.getConnection(), dbSchema, sequenceName );
+				sequence.setAttribute( "nextval", nextVal.toString() );
 				
 				databaseNode.appendChild( sequence );
 			}
@@ -412,38 +355,6 @@ public class KualiTorqueJDBCTransformTask extends Task {
 				con = null;
 			}
 		}
-	}
-
-	/**
-	 * Get all the table names in the current database that are not system
-	 * tables.
-	 * 
-	 * @param dbMeta
-	 *            JDBC database metadata.
-	 * @return The list of all the tables in a database.
-	 * @throws SQLException
-	 */
-	public List getTableNames(DatabaseMetaData dbMeta) throws SQLException {
-		log( "Getting table list..." );
-		List tables = new ArrayList();
-		ResultSet tableNames = null;
-		// these are the entity types we want from the database
-		String[] types = { "TABLE", "SEQUENCE" }; // JHK: removed views from list
-		try {
-			tableNames = dbMeta.getTables( null, dbSchema, null, types );
-			while ( tableNames.next() ) {
-				String name = tableNames.getString( 3 );
-				if ( !isSequence( name ) ) {
-					tables.add( name );
-				}
-			}
-		} finally {
-			if ( tableNames != null ) {
-				tableNames.close();
-			}
-		}
-		log( "Found " + tables.size() + " tables." );
-		return tables;
 	}
 
 	public List getViewNames(DatabaseMetaData dbMeta) throws SQLException {
@@ -523,10 +434,10 @@ public class KualiTorqueJDBCTransformTask extends Task {
      * @return The list of columns in <code>tableName</code>.
      * @throws SQLException
      */
-    public List getColumns(DatabaseMetaData dbMeta, String tableName)
+    public List<List<Object>> getColumns(DatabaseMetaData dbMeta, String tableName)
             throws SQLException
     {
-        List columns = new ArrayList();
+        List<List<Object>> columns = new ArrayList<List<Object>>();
         ResultSet columnSet = null;
         try
         {
@@ -540,7 +451,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
                 Integer nullType = new Integer(columnSet.getInt(11));
                 String defValue = columnSet.getString(13);
 
-                List col = new ArrayList(6);
+                List<Object> col = new ArrayList<Object>(6);
                 col.add(name);
                 col.add(sqlType);
                 col.add(size);
@@ -560,37 +471,6 @@ public class KualiTorqueJDBCTransformTask extends Task {
         return columns;
     }
 
-    /**
-     * Retrieves a list of the columns composing the primary key for a given
-     * table.
-     *
-     * @param dbMeta JDBC metadata.
-     * @param tableName Table from which to retrieve PK information.
-     * @return A list of the primary key parts for <code>tableName</code>.
-     * @throws SQLException
-     */
-    public List getPrimaryKeys(DatabaseMetaData dbMeta, String tableName)
-            throws SQLException
-    {
-        List pk = new ArrayList();
-        ResultSet parts = null;
-        try
-        {
-            parts = dbMeta.getPrimaryKeys(null, dbSchema, tableName);
-            while (parts.next())
-            {
-                pk.add(parts.getString(4));
-            }
-        }
-        finally
-        {
-            if (parts != null)
-            {
-                parts.close();
-            }
-        }
-        return pk;
-    }
 
     /**
      * Retrieves a list of foreign key columns for a given table.
