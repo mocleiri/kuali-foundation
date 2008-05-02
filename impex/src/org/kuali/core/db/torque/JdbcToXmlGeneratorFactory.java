@@ -115,14 +115,4 @@ public final class JdbcToXmlGeneratorFactory {
     public void setInstanceProperties(Hashtable<String, String> instanceProperties) {
         this.instanceProperties = instanceProperties;
     }
-
-    public String getLogMessage(Object... objs) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public int getStackOutputLevel() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
 }
