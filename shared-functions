@@ -141,7 +141,7 @@ function kupdate {
 	typeset deploy_web_application=$4
 	typeset tag_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE
 	typeset tag_file_constant=project.cvs.tag=
-	klog "updating environment: $environment with use_standard_tag: $use_standard_tag, deploy_web_application: $deploy_web_application, static_content_node: $static_content_node, and do_database_update: $do_database_update"
+	klog "updating environment: $environment with use_standard_tag: $use_standard_tag, do_database_update: $do_database_update, and deploy_web_application: $deploy_web_application"
 	if [[ "$use_standard_tag" = "true" ]]
 	then
             klog "overwriting $tag_file"
