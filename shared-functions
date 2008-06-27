@@ -99,7 +99,7 @@ function kant {
 	environment=$2
 	mailingListOverride=$3
 	klog "executing target: $target against environment: $environment"
-	kexec "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -f $ANT_BUILD_FILE $target" $mailingListOverride
+	kexec "$ANT_COMMAND -Ddeployment.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE -Dshared.external.build.properties=$ANT_PROPERTIES_FILE -Dproject.cvs.destination=$APPLICATION_DIRECTORY -f $ANT_BUILD_FILE $target" $mailingListOverride
 	return 0
     } >> $SCRIPT_LOG 2>&1
 }
