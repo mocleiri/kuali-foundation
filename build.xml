@@ -32,12 +32,6 @@
 		<cvs command="checkout" cvsroot="${project.cvs.root}" package="${project.cvs.package}" dest="${project.cvs.destination}" tag="${project.cvs.tag}" reallyquiet="true" />
 		<ant dir="${project.cvs.destination}/${project.cvs.package}" target="dist-external" />
 		<delete dir="${project.cvs.destination}/${project.cvs.package}" />
-		<!--
-		old version pre- package refactoring
-		<cvs command="checkout" cvsroot="${project.cvs.root}" package="${project.cvs.package}" tag="${project.cvs.tag}" reallyquiet="true" />
-		<ant dir="${project.cvs.package}" target="dist-external" />
-		<delete dir="${project.cvs.package}" />
-		-->
 	</target>
 	
 	<target name="check-modularization" depends="init-database-properties">
