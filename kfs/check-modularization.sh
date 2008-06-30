@@ -4,6 +4,6 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-kant check-modularization unt petienne@indiana.edu,abyrne@indiana.edu,jksmith@arizona.edu,keller.jonathan@gmail.com
+kant check-modularization unt $APPLICATION_DEV_MAIL_LIST
 
 kend 0
