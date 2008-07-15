@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="src" path="src"/>
+    <classpathentry kind="src" path="examples/genericpool"/>
+    <classpathentry kind="src" path="examples/pooldatasource"/>
+    <classpathentry kind="src" path="examples/xapooldatasource"/>
+    <classpathentry kind="src" path="examples/distributeddatasource"/>
+    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+    <classpathentry kind="lib" path="externals/classes12.jar"/>
+    <classpathentry kind="lib" path="externals/idb.jar"/>
+    <classpathentry kind="lib" path="externals/jta-spec1_0_1.jar"/>
+    <classpathentry kind="lib" path="externals/carol.jar"/>
+    <classpathentry kind="lib" path="externals/jonas_timer.jar"/>
+    <classpathentry kind="lib" path="externals/log4j.jar"/>
+    <classpathentry kind="lib" path="externals/jotm_jrmp_stubs.jar"/>
+    <classpathentry kind="lib" path="externals/jotm.jar"/>
+    <classpathentry kind="lib" path="externals/commons-logging.jar"/>
+    <classpathentry kind="lib" path="externals/p6spy.jar"/>
+    <classpathentry kind="output" path="output/eclipse-bin"/>
+</classpath>
