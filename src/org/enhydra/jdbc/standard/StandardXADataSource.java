@@ -459,7 +459,7 @@ public class StandardXADataSource
 	 * in the process. If none area available then a new
 	 * connection is created.
 	 */
-	synchronized StandardXAStatefulConnection getFreeConnection()
+	public synchronized StandardXAStatefulConnection getFreeConnection()
 		throws SQLException {
 		log.debug("StandardXADataSource:getFreeConnection");
 		StandardXAStatefulConnection cur = null;
