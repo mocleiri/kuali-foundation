@@ -255,12 +255,7 @@
       	<exclude name="eclipse-bin/**" />
       </fileset>
     </copy>
-    <tar tarfile="${tmp}/xapool-${version}-src.tar"
-      longfile="gnu"
-      basedir="${tmp}/"
-      includes="xapool-${version}/**" />
-    <gzip zipfile="${output}/xapool-${version}-src.tgz" src="${tmp}/xapool-${version}-src.tar" />
-    <delete file="${tmp}/xapool-${version}-src.tar" />
+  	<zip zipfile="${output}/xapool-${version}-src.zip" basedir="${tmp}/" includes="xapool-${version}/**" />
     <delete dir="${tmp.dir}" />
   </target>
  </project>

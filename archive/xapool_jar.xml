@@ -9,7 +9,7 @@
  -->
 <project name="XAPool archive" default="jar">
   <target name="jar">
-    <jar jarfile="${dist.lib}/xapool.jar" basedir="${build}/classes"
+    <jar jarfile="${dist.lib}/xapool-${version}-patch.jar" basedir="${build}/classes"
       manifest="${archive}/xapool.mf">
       <include name="**/*.class"/>
     </jar>
