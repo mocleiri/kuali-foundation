@@ -368,6 +368,8 @@ public class KualiTorqueJDBCTransformTask extends Task {
 					rs.close();
 					ps.close();						
 				}
+				// remove binary zeroes that Oracle is adding to the end of the definition
+				definition = definition.replaceAll( "\0", "" );
 				view.setAttribute( "viewdefinition", definition );
 				databaseNode.appendChild( view );
 			}
