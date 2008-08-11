@@ -8,6 +8,7 @@ kexport dba
 kdailytag HEAD
 kupdate unt true true false
 kupdate cnv true true true
+kupdate stg true true false
 kpurge $LOGS_DIRECTORY 7
 
 sh ~j2eemgr/kuali/kfs/check-modularization.sh
