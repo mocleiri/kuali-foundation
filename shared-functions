@@ -93,6 +93,23 @@ function kexport {
 }
 typeset -xf kexport
 
+function kexportsvn {
+    {
+	typeset environment=$1
+	ksetprops $environment
+	kexec "cvs -q checkout $APPLICATION_DATABASE_CVS_MODULE"
+	kant export $environment
+	cvs -q add $APPLICATION_DATABASE_CVS_MODULE/*
+	cvs -q add $APPLICATION_DATABASE_CVS_MODULE/doc/*
+	cvs remove $APPLICATION_DATABASE_CVS_MODULE
+	kexec "cvs -q update $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "cvs commit -m \"daily export\" $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "rm -rf $APPLICATION_DATABASE_CVS_MODULE"
+	return 0
+    } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kexportsvn
+
 function kant {
     {
 	target=$1
@@ -105,7 +122,7 @@ function kant {
 }
 typeset -xf kant
 
-function kdailytag {
+function kdailytagsvn {
     {
 	branch=$1
 	old_build_number=`cat $BUILD_NUMBER_FILE`
@@ -113,10 +130,10 @@ function kdailytag {
 	new_build_tag="build-"$new_build_number
 	kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
 	klog "tagging branch: $branch of application java and database modules with new_build_tag: $new_build_tag"
-	kexec "cvs -q rtag -d $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
-	kexec "cvs -q rtag -r $branch $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
-	kexec "cvs -q rtag -d $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
-	kexec "cvs -q rtag $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "svn -q copy https://test.kuali.org/$APPLICATION_JAVA_CVS_MODULE/trunk http://test.kuali.org/$APPLICATION_JAVA_CVS_MODULE/tags/$new_build_tag"
+	# kexec "cvs -q rtag -r $branch $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
+	# kexec "cvs -q rtag -d $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
+	# kexec "cvs -q rtag $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
 	return 0
     } >> $SCRIPT_LOG 2>&1
 }
