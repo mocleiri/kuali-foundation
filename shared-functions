@@ -122,6 +122,23 @@ function kant {
 }
 typeset -xf kant
 
+function kdailytag {
+    {
+	branch=$1
+	old_build_number=`cat $BUILD_NUMBER_FILE`
+	new_build_number=`expr $old_build_number + 1`
+	new_build_tag="build-"$new_build_number
+	kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
+	klog "tagging branch: $branch of application java and database modules with new_build_tag: $new_build_tag"
+	kexec "cvs -q rtag -d $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
+	kexec "cvs -q rtag -r $branch $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
+	kexec "cvs -q rtag -d $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "cvs -q rtag $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
+	return 0
+    } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kdailytag
+
 function kdailytagsvn {
     {
 	branch=$1
@@ -148,6 +165,47 @@ function kpurge {
 typeset -xf kpurge
 
 function kupdate {
+    {
+	typeset environment=$1
+	typeset use_standard_tag=$2
+	typeset do_database_update=$3
+	typeset deploy_web_application=$4
+	typeset tag_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE
+	typeset tag_file_constant=project.cvs.tag=
+	klog "updating environment: $environment with use_standard_tag: $use_standard_tag, do_database_update: $do_database_update, and deploy_web_application: $deploy_web_application"
+	if [[ "$use_standard_tag" = "true" ]]
+	then
+            klog "overwriting $tag_file"
+            typeset tag=build-`cat $BUILD_NUMBER_FILE`
+            kexec "rm -rf $tag_file"
+            kexec "echo $tag_file_constant$tag > $tag_file"
+	else
+            typeset tag_file_contents=`cat $tag_file`
+            typeset tag=${tag_file_contents#$tag_file_constant}
+	fi
+	klog "tag is $tag"
+	ksetprops $environment
+	if [[ "$do_database_update" = "true" ]]
+	then
+            kant import $environment
+	fi
+	kant dist-external $environment
+	if [[ "$deploy_web_application" = "true" ]]
+	then
+            klog "deploying web application"
+            kexec "$DEPLOY_COMMAND $JAVA_APPLICATION_CODE $environment"
+	else
+            kexec "$DEPLOY_COMMAND -t deploy-settings $JAVA_APPLICATION_CODE $environment"
+            kexec "$DEPLOY_COMMAND -t deploy-security $JAVA_APPLICATION_CODE $environment"
+	fi
+	klog "deploying external work resources"
+	kexec "sudo $WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment"
+	return 0
+    } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kupdate
+
+function kupdatesvn {
     {
 	typeset environment=$1
 	typeset use_standard_tag=$2
@@ -190,4 +248,4 @@ function kupdate {
 	return 0
     } >> $SCRIPT_LOG 2>&1
 }
-typeset -xf kupdate
+typeset -xf kupdatesvn
