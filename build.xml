@@ -35,7 +35,7 @@
 	
 	<target name="dist-external-svn" depends="init-database-properties">
 		<exec executable="${command.svn}" failonerror="true" logerror="true">
-			<arg line="checkout ${project.svn.url} ${build.dir}/${project.home}"/>
+			<arg line="-q checkout ${project.svn.url}/${project.cvs.package}/tags/${project.cvs.tag} ${build.dir}/${project.home}"/>
 		</exec> 
 		<ant dir="${checkout.directory}/${project.cvs.package}" target="dist-external" />
 		<delete dir="${checkout.directory}/${project.cvs.package}" />
