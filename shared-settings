@@ -2,7 +2,7 @@
 
 USER=j2eemgr; typeset -rx USER
 EXEC_TIME=`date +%Y%m%d.%H.%M.%S`; typeset -rx EXEC_TIME
-BASE_DIRECTORY=/home/$USER/kuali; typeset -rx BASE_DIRECTORY
+BASE_DIRECTORY=/home/$USER/kuali/cvs-svn-staging/; typeset -rx BASE_DIRECTORY
 APPLICATION_DIRECTORY=$BASE_DIRECTORY/$APPLICATION; typeset -rx APPLICATION_DIRECTORY
 LOGS_DIRECTORY=$APPLICATION_DIRECTORY/logs; typeset -rx LOGS_DIRECTORY
 SCRIPT_NAME=`basename $0`; typeset -rx SCRIPT_NAME
