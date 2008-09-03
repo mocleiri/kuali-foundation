@@ -130,10 +130,7 @@ function kdailytagsvn {
 	new_build_tag="build-"$new_build_number
 	kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
 	klog "tagging branch: $branch of application java and database modules with new_build_tag: $new_build_tag"
-	kexec "svn -q copy https://test.kuali.org/$APPLICATION_JAVA_CVS_MODULE/trunk http://test.kuali.org/$APPLICATION_JAVA_CVS_MODULE/tags/$new_build_tag"
-	# kexec "cvs -q rtag -r $branch $new_build_tag $APPLICATION_JAVA_CVS_MODULE"
-	# kexec "cvs -q rtag -d $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
-	# kexec "cvs -q rtag $new_build_tag $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "svn -q copy https://test.kuali.org/svn/$APPLICATION_JAVA_CVS_MODULE/trunk https://test.kuali.org/svn/$APPLICATION_JAVA_CVS_MODULE/tags/$new_build_tag"
 	return 0
     } >> $SCRIPT_LOG 2>&1
 }
