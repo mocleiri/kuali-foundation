@@ -97,7 +97,7 @@ function kexportsvn {
     {
 	typeset environment=$1
 	ksetprops $environment
-	kexec "svn -q checkout $SRCCTRL_URL/$APPLICATION_DATABASE_CVS_MODULE/trunk"
+	kexec "svn -q checkout $SRCCTRL_URL/$APPLICATION_DATABASE_CVS_MODULE/trunk $APPLICATION_DATABASE_CVS_MODULE"
 	kant export $environment
 	svn -q add $APPLICATION_DATABASE_CVS_MODULE/*
 	svn -q add $APPLICATION_DATABASE_CVS_MODULE/doc/*
@@ -165,7 +165,7 @@ function kupdate {
             kexec "rm -rf $tag_file"
             kexec "echo $tag_file_constant$tag > $tag_file"
             kexec "rm -rf $svn_properties_file"
-            kexec "echo $svn_url_constant/$tag > $svn_properties_file
+            kexec "echo $svn_url_constant/$tag > $svn_properties_file"
 	else
             typeset tag_file_contents=`cat $tag_file`
             typeset tag=${tag_file_contents#$tag_file_constant}
