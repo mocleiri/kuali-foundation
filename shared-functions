@@ -235,7 +235,7 @@ function kupdatesvn {
 	then
             kant import $environment
 	fi
-	kant dist-external $environment
+	kant dist-external-svn $environment
 	if [[ "$deploy_web_application" = "true" ]]
 	then
             klog "deploying web application"

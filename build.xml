@@ -33,6 +33,14 @@
 		<delete dir="${checkout.directory}/${project.cvs.package}" />
 	</target>
 	
+	<target name="dist-external-svn" depends="init-database-properties">
+		<exec executable="${command.svn}" failonerror="true" logerror="true">
+			<arg line="checkout ${project.svn.url} ${build.dir}/${project.home}"/>
+		</exec> 
+		<ant dir="${checkout.directory}/${project.cvs.package}" target="dist-external" />
+		<delete dir="${checkout.directory}/${project.cvs.package}" />
+	</target>
+	
 	<target name="check-modularization" depends="init-database-properties">
 		<delete dir="${checkout.directory}/${project.cvs.package}" failonerror="false" />
 		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
