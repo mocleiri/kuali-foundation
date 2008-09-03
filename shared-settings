@@ -21,6 +21,7 @@ SCRIPT_LOG=$LOGS_DIRECTORY/$SCRIPT_NAME+$EXEC_TIME.$$; typeset -rx SCRIPT_LOG
     ANT_BUILD_FILE=$BASE_DIRECTORY/build.xml
     export JAVA_HOME=/usr/local/java
     BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/build-number.txt; typeset -rx BUILD_NUMBER_FILE
+	SRCCTRL_URL=https://test.kuali.org/svn; typeset -rx SRCCTRL_URL
 
     cd $BASE_DIRECTORY
 } >> $SCRIPT_LOG 2>&1
