@@ -97,13 +97,13 @@ function kexportsvn {
     {
 	typeset environment=$1
 	ksetprops $environment
-	kexec "cvs -q checkout $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "svn -q checkout $SRCCTRL_URL/$APPLICATION_DATABASE_CVS_MODULE"
 	kant export $environment
-	cvs -q add $APPLICATION_DATABASE_CVS_MODULE/*
-	cvs -q add $APPLICATION_DATABASE_CVS_MODULE/doc/*
-	cvs remove $APPLICATION_DATABASE_CVS_MODULE
-	kexec "cvs -q update $APPLICATION_DATABASE_CVS_MODULE"
-	kexec "cvs commit -m \"daily export\" $APPLICATION_DATABASE_CVS_MODULE"
+	svn -q add $APPLICATION_DATABASE_CVS_MODULE/*
+	svn -q add $APPLICATION_DATABASE_CVS_MODULE/doc/*
+	svn remove $APPLICATION_DATABASE_CVS_MODULE
+	kexec "svn -q update $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "svn commit -m \"daily export\" $APPLICATION_DATABASE_CVS_MODULE"
 	kexec "rm -rf $APPLICATION_DATABASE_CVS_MODULE"
 	return 0
     } >> $SCRIPT_LOG 2>&1
