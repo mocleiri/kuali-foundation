@@ -212,6 +212,7 @@ function kupdatesvn {
 	typeset use_standard_tag=$2
 	typeset do_database_update=$3
 	typeset deploy_web_application=$4
+	typeset do_dist_external=$5
 	typeset tag_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE
 	typeset svn_properties_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$SVN_PROPERTIES_FILE
 	typeset tag_file_constant=project.cvs.tag=
@@ -235,7 +236,10 @@ function kupdatesvn {
 	then
             kant import-svn $environment
 	fi
-	kant dist-external-svn $environment
+	if [[ "$do_dist_external" != "false" ]]
+	then
+		kant dist-external-svn $environment
+	fi
 	if [[ "$deploy_web_application" = "true" ]]
 	then
             klog "deploying web application"
