@@ -233,7 +233,7 @@ function kupdatesvn {
 	ksetprops $environment
 	if [[ "$do_database_update" = "true" ]]
 	then
-            kant import $environment
+            kant import-svn $environment
 	fi
 	kant dist-external-svn $environment
 	if [[ "$deploy_web_application" = "true" ]]

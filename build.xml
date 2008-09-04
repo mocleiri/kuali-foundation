@@ -36,7 +36,7 @@
 	<target name="dist-external-svn" depends="init-database-properties">
 		<exec executable="${command.svn}" failonerror="true" logerror="true">
 			<arg line="-q checkout ${project.svn.url}/${project.cvs.package}/tags/${project.cvs.tag} ${checkout.directory}/${project.cvs.package}"/>
-		</exec> 
+		</exec>
 		<ant dir="${checkout.directory}/${project.cvs.package}" target="dist-external" />
 		<delete dir="${checkout.directory}/${project.cvs.package}" />
 	</target>
@@ -75,6 +75,19 @@
 	</target>
 
 	<target name="import" depends="update-database">
+		<delete dir="${application.database.cvs.module}" />
+		<delete file="velocity.log" />
+	</target>
+	
+	<target name="update-database-svn" depends="create-mysql-user">
+		<exec executable="${command.svn}" failonerror="true" logerror="true">
+			<arg line="-q checkout ${project.svn.url}/${application.database.cvs.module}/tags/${project.cvs.tag} ${application.database.cvs.module}"/>
+		</exec>
+		<ant antfile="${impex.build.file}" target="empty-schema" inheritall="false" />
+		<ant antfile="${impex.build.file}" target="import" inheritall="false" />
+	</target>
+
+	<target name="import-svn" depends="update-database">
 		<delete dir="${application.database.cvs.module}" />
 		<delete file="velocity.log" />
 	</target>
