@@ -87,7 +87,7 @@
 		<ant antfile="${impex.build.file}" target="import" inheritall="false" />
 	</target>
 
-	<target name="import-svn" depends="update-database">
+	<target name="import-svn" depends="update-database-svn">
 		<delete dir="${application.database.cvs.module}" />
 		<delete file="velocity.log" />
 	</target>
