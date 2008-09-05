@@ -218,7 +218,7 @@ function kupdatesvn {
 	typeset tag_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE
 	typeset svn_properties_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$SVN_PROPERTIES_FILE
 	typeset tag_file_constant=project.cvs.tag=
-	typeset svn_url_constant=project.svn.url=file:///opt/svn/repositories/$APPLICATION_JAVA_SVN_MODULE/tags
+	typeset svn_url_constant=project.svn.url=file:///opt/svn/repositories/$APPLICATION_JAVA_SRCCTRL_MODULE/tags
 	klog "updating environment: $environment with use_standard_tag: $use_standard_tag, do_database_update: $do_database_update, and deploy_web_application: $deploy_web_application"
 	if [[ "$use_standard_tag" = "true" ]]
 	then
