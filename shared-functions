@@ -72,7 +72,7 @@ function ksetprops {
 	kexec "echo \"database.cvs.module=$DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"database.srcctrl.module=$DATABASE_SRCCTRL_MODULE\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.database.cvs.module=$APPLICATION_DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
-	kexec "echo \"application.database.srcctrl.module=$APPLICATION_DATABASE_SRCCTRL_MODULE\" $ANT_PROPERTIES_FILE"
+	kexec "echo \"application.database.srcctrl.module=$APPLICATION_DATABASE_SRCCTRL_MODULE\" >> $ANT_PROPERTIES_FILE"
 	kexec "cat $ANT_PROPERTIES_TEMPLATE >> $ANT_PROPERTIES_FILE" 
     } >> $SCRIPT_LOG 2>&1
 }
