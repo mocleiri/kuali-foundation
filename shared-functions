@@ -70,7 +70,9 @@ function ksetprops {
 	kexec "echo \"datasource.username=$user\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"datasource.password=$password\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"database.cvs.module=$DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
+	kexec "echo \"database.srcctrl.module=$DATABASE_SRCCTRL_MODULE\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.database.cvs.module=$APPLICATION_DATABASE_CVS_MODULE\" >> $ANT_PROPERTIES_FILE"
+	kexec "echo \"application.database.srcctrl.module=$APPLICATION_DATABASE_SRCCTRL_MODULE\" $ANT_PROPERTIES_FILE"
 	kexec "cat $ANT_PROPERTIES_TEMPLATE >> $ANT_PROPERTIES_FILE" 
     } >> $SCRIPT_LOG 2>&1
 }
@@ -97,14 +99,14 @@ function kexportsvn {
     {
 	typeset environment=$1
 	ksetprops $environment
-	kexec "svn -q checkout $SRCCTRL_URL/$APPLICATION_DATABASE_CVS_MODULE/trunk $APPLICATION_DATABASE_CVS_MODULE"
+	kexec "svn -q checkout $SRCCTRL_URL/$APPLICATION_DATABASE_SRCCTRL_MODULE/trunk $APPLICATION_DATABASE_SRCCTRL_MODULE"
 	kant export $environment
-	svn -q add $APPLICATION_DATABASE_CVS_MODULE/*
-	svn -q add $APPLICATION_DATABASE_CVS_MODULE/doc/*
-	svn remove $APPLICATION_DATABASE_CVS_MODULE
-	kexec "svn -q update $APPLICATION_DATABASE_CVS_MODULE"
-	kexec "svn commit -m \"daily export\" $APPLICATION_DATABASE_CVS_MODULE"
-	kexec "rm -rf $APPLICATION_DATABASE_CVS_MODULE"
+	svn -q add $APPLICATION_DATABASE_SRCCTRL_MODULE/*
+	svn -q add $APPLICATION_DATABASE_SRCCTRL_MODULE/doc/*
+	svn remove $APPLICATION_DATABASE_SRCCTRL_MODULE
+	kexec "svn -q update $APPLICATION_DATABASE_SRCCTRL_MODULE"
+	kexec "svn commit -m \"daily export\" $APPLICATION_DATABASE_SRCCTRL_MODULE"
+	kexec "rm -rf $APPLICATION_DATABASE_SRCCTRL_MODULE"
 	return 0
     } >> $SCRIPT_LOG 2>&1
 }
@@ -147,8 +149,8 @@ function kdailytagsvn {
 	new_build_tag="build-"$new_build_number
 	kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
 	klog "tagging branch: $branch of application java and database modules with new_build_tag: $new_build_tag"
-	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_JAVA_CVS_MODULE/$branch $SRCCTRL_URL/$APPLICATION_JAVA_CVS_MODULE/tags/$new_build_tag -m daily-tag"
-	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_DATABASE_CVS_MODULE/trunk $SRCCTRL_URL/$APPLICATION_DATABASE_CVS_MODULE/tags/$new_build_tag -m daily-tag"
+	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_JAVA_SRCCTRL_MODULE/$branch $SRCCTRL_URL/$APPLICATION_JAVA_SRCCTRL_MODULE/tags/$new_build_tag -m daily-tag"
+	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_DATABASE_SRCCTRL_MODULE/trunk $SRCCTRL_URL/$APPLICATION_DATABASE_SRCCTRL_MODULE/tags/$new_build_tag -m daily-tag"
 	return 0
     } >> $SCRIPT_LOG 2>&1
 }
@@ -216,7 +218,7 @@ function kupdatesvn {
 	typeset tag_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$DEPLOY_TAG_FILE
 	typeset svn_properties_file=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE/$SVN_PROPERTIES_FILE
 	typeset tag_file_constant=project.cvs.tag=
-	typeset svn_url_constant=project.svn.url=file:///opt/svn/repositories/$APPLICATION_JAVA_CVS_MODULE/tags
+	typeset svn_url_constant=project.svn.url=file:///opt/svn/repositories/$APPLICATION_JAVA_SVN_MODULE/tags
 	klog "updating environment: $environment with use_standard_tag: $use_standard_tag, do_database_update: $do_database_update, and deploy_web_application: $deploy_web_application"
 	if [[ "$use_standard_tag" = "true" ]]
 	then

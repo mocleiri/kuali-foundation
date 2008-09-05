@@ -54,6 +54,21 @@
 		</trycatch>
 		<delete dir="${checkout.directory}/${project.cvs.package}" />
 	</target>
+	
+	<target name="check-modularization-svn" depends="init-database-properties">
+		<delete dir="${checkout.directory}/${project.cvs.package}" failonerror="false" />
+		<exec executable="${command.svn}" failonerror="true" logerror="true">
+			<arg line="-q checkout ${project.svn.url}/${project.cvs.package}/tags/${project.cvs.tag} ${checkout.directory}/${project.cvs.package}"/>
+		</exec>
+		<trycatch property="has.error">
+			<try><ant dir="${checkout.directory}/${project.cvs.package}" target="check-modularization" /></try>
+			<finally>
+				<delete dir="${checkout.directory}/${project.cvs.package}" />
+				<fail if="has.error" />
+			</finally>
+		</trycatch>
+		<delete dir="${checkout.directory}/${project.cvs.package}" />
+	</target>
 		
 	<target name="export" depends="init-database-properties">
 		<delete>
@@ -81,14 +96,14 @@
 	
 	<target name="update-database-svn" depends="create-mysql-user">
 		<exec executable="${command.svn}" failonerror="true" logerror="true">
-			<arg line="-q checkout ${project.svn.url}/${application.database.cvs.module}/tags/${project.cvs.tag} ${application.database.cvs.module}"/>
+			<arg line="-q checkout ${project.svn.url}/${application.database.srcctrl.module}/tags/${project.cvs.tag} ${application.database.srcctrl.module}"/>
 		</exec>
 		<ant antfile="${impex.build.file}" target="empty-schema" inheritall="false" />
 		<ant antfile="${impex.build.file}" target="import" inheritall="false" />
 	</target>
 
 	<target name="import-svn" depends="update-database-svn">
-		<delete dir="${application.database.cvs.module}" />
+		<delete dir="${application.database.srcctrl.module}" />
 		<delete file="velocity.log" />
 	</target>
 </project>
