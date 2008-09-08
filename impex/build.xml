@@ -799,7 +799,7 @@ Please place the jar file for this class in the lib directory and try again.
 		<delete dir="${torque.schema.dir}" />
 		<echo>Running SVN checkout to ${torque.schema.dir}</echo>		
 		<svn>
-			<checkout url="https://test.kuali.org/svn/${svn.module}/${svn.base}" destPath="${torque.schema.dir}" />
+			<checkout url="${svnroot}/${svn.module}/${svn.base}" destPath="${torque.schema.dir}" />
 		</svn>
 	</target>
 	
