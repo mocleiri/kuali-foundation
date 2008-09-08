@@ -90,6 +90,12 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<property name="source.zip" value="${torque.schema.dir}/${torque.project}-data.zip" />
 	<property name="target.zip" value="${torque.schema.dir}/${torque.project}-data.zip" />
 
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
+		<classpath>
+			<fileset dir="lib" includes="*.jar" />
+		</classpath>
+	</typedef>
+	
 	<!--
     The default.properties file will map old properties to the new ones along
     with setting the correct defaults.
@@ -776,29 +782,25 @@ Please place the jar file for this class in the lib directory and try again.
 		</zip>
 	</target>
 
-	<!-- assumes that this module has been checked out as kuali_database from CVS
+	<!-- assumes that this module has been checked out as ${torque.schema.dir} from SVN
 	     is performs an update on the current export user directory and then runs the import process
 	     -->
 	<target name="satellite-update">
-		<!-- update the schema files -->		
-		<cvspass cvsroot="${cvsroot}" password="${cvs.password}" />
-		<echo>Running CVS update in ${torque.schema.dir}</echo>
-		<cvs command="update -C -P -d"  cvsRoot="${cvsroot}" compressionlevel="6"
-		    dest="${torque.schema.dir}" failonerror="true" />
+		<echo>Running SVN update in ${torque.schema.dir}</echo>
+		<svn>
+			<update dir="${torque.schema.dir}" />
+		</svn>
 		<!-- clear the schema -->
 		<antcall target="empty-schema" />
 		<antcall target="import" />
 	</target>
 	
 	<target name="satellite-init">
-		<cvspass cvsroot="${cvsroot}" password="${cvs.password}" />
 		<delete dir="${torque.schema.dir}" />
-		<echo>Running CVS checkout to ${torque.schema.dir}</echo>
-		<cvs command="checkout -d ${torque.schema.dir}"  cvsRoot="${cvsroot}" compressionlevel="6" package="${database.cvs.module}"
-		    failonerror="true" tag="${database.cvs.tag}" />
+		<echo>Running SVN checkout to ${torque.schema.dir}</echo>		
+		<svn>
+			<checkout url="https://test.kuali.org/svn/${svn.module}/${svn.base}" destPath="${torque.schema.dir}" />
+		</svn>
 	</target>
 	
-	<target name="subversion-checkout">
-		
-	</target>
 </project>

@@ -15,17 +15,16 @@
 
 torque.project = kfs
 #
-# the module and tag to check out from CVS for satellite updates
+# the module and tag to check out from SVN for satellite updates
 # these are to be used by a Satellite DBA for automating the refresh of the database
 # 
-cvsroot=:pserver:guest@wsa123.uits.indiana.edu:/opt/cvs
-cvs.password=
-database.cvs.module=kfs-cfg-dbs
-database.cvs.tag=
+svnroot=https://test.kuali.org/svn/
+svn.module=kfs-cfg-dbs
+svn.base=trunk
 #
 # the directory from which to read/write database XML files
 #
-torque.schema.dir=../../${database.cvs.module}
+torque.schema.dir=../../${svn.module}
 torque.sql.dir=${torque.schema.dir}/sql
 #
 # where to find JDBC drivers

@@ -16,5 +16,9 @@
 	<classpathentry kind="lib" path="impex/lib/werken-xpath-0.9.4.jar"/>
 	<classpathentry kind="lib" path="impex/lib/xercesImpl-2.6.2.jar"/>
 	<classpathentry kind="lib" path="impex/lib/xml-apis-2.0.2.jar"/>
+	<classpathentry kind="lib" path="impex/lib/svnant.jar"/>
+	<classpathentry kind="lib" path="impex/lib/svnClientAdapter.jar"/>
+	<classpathentry kind="lib" path="impex/lib/svnjavahl.jar"/>
+	<classpathentry kind="lib" path="impex/lib/svnkit.jar"/>
 	<classpathentry kind="output" path="impex/build"/>
 </classpath>
