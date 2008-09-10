@@ -13,7 +13,6 @@
 #   and columns to be the same as SQL name.
 # -------------------------------------------------------------------
 
-#test
 torque.project = kfs
 #
 # the module and tag to check out from SVN for satellite updates
