@@ -21,6 +21,7 @@
 		<property file="oracle-impex.properties" />
 		<property name="impex.build.file" value="${database.cvs.module}/impex/build.xml" />
 		<property file="${deployment.directory}/cvs-tag.properties" />
+		<property file="${deployment.directory}/project-version.properties" />
 		<loadfile property="impex-build.properties" srcfile="impex-build.properties"><filterchain><expandproperties /></filterchain></loadfile>
 		<delete file="${user.home}/impex-build.properties" />
 		<echo message="${impex-build.properties}" file="${user.home}/impex-build.properties" />
@@ -58,7 +59,7 @@
 	<target name="check-modularization-svn" depends="init-database-properties">
 		<delete dir="${checkout.directory}/${project.module}" failonerror="false" />
 		<exec executable="${command.svn}" failonerror="true" logerror="true">
-			<arg line="-q checkout ${svn.base.url}/${project.module}/tags/${project.cvs.tag} ${checkout.directory}/${project.module}"/>
+			<arg line="-q checkout ${svn.base.url}/${project.module}/tags/${project.version} ${checkout.directory}/${project.module}"/>
 		</exec>
 		<trycatch property="has.error">
 			<try><ant dir="${checkout.directory}/${project.module}" target="check-modularization" /></try>
@@ -96,7 +97,7 @@
 	
 	<target name="update-database-svn" depends="create-mysql-user">
 		<exec executable="${command.svn}" failonerror="true" logerror="true">
-			<arg line="-q checkout ${svn.base.url}/${application.database.srcctrl.module}/tags/${project.cvs.tag} ${application.database.srcctrl.module}"/>
+			<arg line="-q checkout ${svn.base.url}/${application.database.srcctrl.module}/tags/${project.version} ${application.database.srcctrl.module}"/>
 		</exec>
 		<ant antfile="${impex.build.file}" target="empty-schema" inheritall="false" />
 		<ant antfile="${impex.build.file}" target="import" inheritall="false" />
