@@ -14,6 +14,7 @@ SCRIPT_LOG=$LOGS_DIRECTORY/$SCRIPT_NAME+$EXEC_TIME.$$; typeset -rx SCRIPT_LOG
     DEPLOY_BASE_DIRECTORY=/opt/ears; typeset -rx DEPLOY_BASE_DIRECTORY
     DEPLOY_COMMAND=/usr/local/bin/appdeploy; typeset -rx DEPLOY_COMMAND
     DEPLOY_TAG_FILE=cvs-tag.properties; typeset -rx DEPLOY_TAG_FILE
+    SVN_DEPLOY_TAG_FILE=project-version.properties; typeset -rx SVN_DEPLOY_TAG_FILE
 	DEPLOY_PROPERTIES_FILE=build.properties; typeset -rx DEPLOY_BUILD_FILE
     WORK_PURGE_COMMAND=/usr/local/bin/j2ee_deploy_work
     ANT_COMMAND=/usr/local/ant/bin/ant
@@ -23,7 +24,6 @@ SCRIPT_LOG=$LOGS_DIRECTORY/$SCRIPT_NAME+$EXEC_TIME.$$; typeset -rx SCRIPT_LOG
     export JAVA_HOME=/usr/local/java
     BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/build-number.txt; typeset -rx BUILD_NUMBER_FILE
 	SRCCTRL_URL=https://test.kuali.org/svn; typeset -rx SRCCTRL_URL
-	SVN_PROPERTIES_FILE=svn.properties; typeset -rx SVN_PROPERTIES_FILE
 
     cd $BASE_DIRECTORY
 } >> $SCRIPT_LOG 2>&1
