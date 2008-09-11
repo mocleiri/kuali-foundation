@@ -35,10 +35,10 @@
 	
 	<target name="dist-external-svn" depends="init-database-properties">
 		<exec executable="${command.svn}" failonerror="true" logerror="true">
-			<arg line="-q checkout ${svn.base.url}/${project.cvs.package}/tags/${project.cvs.tag} ${checkout.directory}/${project.cvs.package}"/>
+			<arg line="-q checkout ${svn.base.url}/${project.module}/tags/${project.version} ${checkout.directory}/${project.module}"/>
 		</exec>
-		<ant dir="${checkout.directory}/${project.cvs.package}" target="dist-external" />
-		<delete dir="${checkout.directory}/${project.cvs.package}" />
+		<ant dir="${checkout.directory}/${project.module}" target="dist-external" />
+		<delete dir="${checkout.directory}/${project.module}" />
 	</target>
 	
 	<target name="check-modularization" depends="init-database-properties">
@@ -56,18 +56,18 @@
 	</target>
 	
 	<target name="check-modularization-svn" depends="init-database-properties">
-		<delete dir="${checkout.directory}/${project.cvs.package}" failonerror="false" />
+		<delete dir="${checkout.directory}/${project.module}" failonerror="false" />
 		<exec executable="${command.svn}" failonerror="true" logerror="true">
-			<arg line="-q checkout ${svn.base.url}/${project.cvs.package}/tags/${project.cvs.tag} ${checkout.directory}/${project.cvs.package}"/>
+			<arg line="-q checkout ${svn.base.url}/${project.module}/tags/${project.cvs.tag} ${checkout.directory}/${project.module}"/>
 		</exec>
 		<trycatch property="has.error">
-			<try><ant dir="${checkout.directory}/${project.cvs.package}" target="check-modularization" /></try>
+			<try><ant dir="${checkout.directory}/${project.module}" target="check-modularization" /></try>
 			<finally>
-				<delete dir="${checkout.directory}/${project.cvs.package}" />
+				<delete dir="${checkout.directory}/${project.module}" />
 				<fail if="has.error" />
 			</finally>
 		</trycatch>
-		<delete dir="${checkout.directory}/${project.cvs.package}" />
+		<delete dir="${checkout.directory}/${project.module}" />
 	</target>
 		
 	<target name="export" depends="init-database-properties">
