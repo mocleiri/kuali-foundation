@@ -1,0 +1,622 @@
+/* CSS Document */
+
+@import "sIFR-screen.css";
+
+body {
+
+	background-color: #DDDACC;
+	
+	/* background-color:#CDC8AA; */
+
+	margin: 0px;
+
+	padding: 10px;
+
+	background-image: url(../images/bodybg.gif);
+
+	background-position: left top;
+
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+
+	font-size: 0.7em;
+
+	color: #625B44;
+
+	line-height: 1.3em;
+
+}
+
+p {
+	
+	margin: 0 1em 1.5em 0;
+
+}
+
+img {
+	border:none;
+}
+
+ul li {
+	list-style-image:url(../assets/linkdots.gif);
+}
+
+.clear {
+	
+	clear:both;
+	
+}
+
+.center {
+	text-align:center;
+}
+
+.caption {
+	font-size:small;
+	padding:0;
+	margin:0;
+}
+
+.imgright {
+	float:right;
+	margin-left:5px;
+}
+
+.imgleft {
+
+	padding-left: 30px;
+	
+}
+
+.backlink {
+	margin:0;
+	padding-left:14px;
+	background:#fff url(../assets/red-arrow-left.gif) no-repeat;
+	font-weight:bold;
+}
+
+
+
+
+
+
+
+table#layoutTable {
+	width:100%;
+	border:0;
+	padding:0;
+}
+
+table#layoutTable td {
+	vertical-align:top;
+}
+
+
+
+
+
+#wrapper {
+
+	/* background:#006 url(../assets/ruler.gif) 0 0 repeat-y; */
+
+	border:1px solid #fff;
+
+}
+
+#header {
+
+	background-color:#CDC8AA;
+
+}
+
+#horiz-bar {
+	
+	height:17px; /* 25px actual */
+	
+	padding:4px;
+	
+	background: #96282B url(../assets/horiz-bg2.jpg) repeat-x;
+	
+	font-size:12px;
+	
+	text-align:right;
+	
+}
+
+#horiz-bar a {
+	
+	color:#CCCCCC;
+	
+	text-decoration:none;
+	
+}
+
+#horiz-bar a:hover {
+	
+	color:#FFFFFF;
+	
+}
+
+
+
+
+#left-col {
+	width:150px;
+	background:#e7e4dc url(../assets/fade-left.jpg) top right repeat-y;
+	
+}
+
+
+
+
+#right-col {
+	width:150px;
+	background-color:#CDC8AA;
+	
+}
+
+#right-col p {
+
+	margin:4px;
+	
+}
+
+
+.right-col-box {
+	
+	/* padding:4px; */
+	
+	margin:4px;
+	
+	padding-bottom:20px;
+	
+	background:transparent url(../assets/break1.jpg) bottom center no-repeat;
+	
+	/* background-color:#fff; */
+	
+}
+
+.right-col-box td{
+
+	border: #CCCCCC;
+	
+	border-width: 2px;
+	
+}
+
+#main {
+	
+	background-color:#fff;
+	
+}
+
+
+#content {
+	
+	padding:10px;
+	
+}
+
+#footer {
+
+	clear:right;
+
+	background-color:#CDC8AA;
+	
+	border-top:4px solid #950000;
+	
+	padding:1em;
+	
+	text-align:right;
+	
+}
+
+
+/* BEGIN DROP DOWN MENU STYLES ============================== */
+/* FROM http://www.htmldog.com/articles/suckerfish/dropdowns/ */
+/* ========================================================== */
+
+#menu {
+	margin-left:4px;
+}
+
+#menu ul { /* just top list */
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		float: left;
+		width: 137px;
+		font-size:12px;
+		text-align:left;
+	}
+
+#menu ul ul { /* all execpt top lists */
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		float: left;
+		width: 137px;
+		font-size:11px;
+		text-align:left;
+	}
+	
+#menu ul li { /* all list items */
+		list-style-image:none;
+		position: relative;
+		float: left;
+		line-height: 1.25em;
+		margin-bottom : -1px;
+		/* background-color:#fff;  */
+		text-align:right;
+	}
+	
+#menu ul li ul li { /* second-and-above-level list items */
+		border-color:#ccc;
+		border-style:solid;
+		border-width:1px;
+		background-color:#e7e4dc;
+		text-align:left;
+	}
+	
+#menu ul li ul { /* second-level lists */
+	position: absolute;
+	left: -999em;
+	top:0;
+	margin-left: 137px;
+	border-top-color:#900;
+	border-top-width:1px;
+	border-bottom-width:1px;
+	border-left-width:1px;
+}
+
+#menu ul li ul ul { /* third-and-above-level lists */
+	left: -999em;
+	top:0;
+}
+
+
+
+#menu ul li a {
+	width: 127px;
+	display: block;
+	color:#663300;
+	text-decoration: none;
+	padding: .5em 0;
+	padding-right:10px;
+}
+
+#menu ul li a:hover {
+	color:#000;
+}
+
+#menu ul li ul a {
+	font-weight:normal;
+	padding:.5em 5px;
+}
+
+#menu ul a.witharrow {
+	background: #FEFEEA url("../assets/arrowright.gif") center right no-repeat;
+}
+
+#menu ul li:hover ul ul, #menu ul li:hover ul ul ul, #menu ul li.sfhover ul ul, #menu ul li.sfhover ul ul ul {
+	left: -999em;
+}
+
+#menu ul li:hover ul, #menu ul li li:hover ul, #menu ul li li li:hover ul, #menu ul li.sfhover ul, #menu ul li li.sfhover ul, #menu ul li li li.sfhover ul { /* lists nested under hovered list items */
+	left: auto;
+}
+
+#menu ul li:hover, #menu ul li.sfhover, #menu ul ul li a.parent { /* top level list */
+	background:url(../assets/arrow_right.gif) right center no-repeat;
+}
+
+#menu ul ul li:hover, #menu ul ul li.sfhover { /* drop-down lists */
+	background-color:#C0BAA3;
+	background-image:none;
+}
+
+#menu ul li.home {
+	background-image:none;
+}
+
+/* END DROP DOWN MENU STYLES ============================ */
+
+
+
+/* BEGIN COMMUNITY NAV STYLES =========================== */
+
+#communityNavHolder
+{ 
+margin: -10px; /* to stretch it back over the 10px padding of the content div */
+padding: 5px 0 20px 10px;
+_padding: 5px 0 0 10px;
+border-bottom: 1px solid #950000;
+font: 11px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+
+#communityNav
+{ 
+width:660px;
+margin:0;
+padding:0;
+
+}
+
+#communityNav ul, #communityNav li
+{
+margin: 0;
+padding: 0;
+display: inline;
+list-style-type: none;
+}
+
+#communityNav a:link, #communityNav a:visited
+{
+float: left;
+line-height: 14px;
+font-weight: bold;
+margin: 0 10px 4px 10px;
+text-decoration: none;
+color: #999;
+border-bottom: 4px solid #fff;
+}
+
+#communityNav a:link.hot, #communityNav a:visited.hot
+{
+border-bottom: 4px solid #950000;
+padding-bottom: 2px;
+background: transparent;
+color: #000;
+}
+
+#communityNav a:hover
+{ 
+border-bottom: 4px solid #eacccc;
+padding-bottom: 2px;
+background: transparent;
+color: #000;
+}
+
+
+
+/* END COMMUNITY NAV STYLES ============================ */
+
+
+
+
+#boxes {
+
+	/* float: left; */ 
+	
+	width:510px;
+	width:428px;
+	
+	margin:0 auto;
+
+	/* padding-top: 14px; */
+
+}
+
+.box {
+
+	height: 146px; /* +6px to account for 3px border of .box a */
+	height: 166px; /* +6px to account for 3px border of .box a */
+
+	width: 246px; /* +6px to account for 3px border of .box a, -8px to account for margin-right. 246px actual. */
+	width: 206px; /* +6px to account for 3px border of .box a, -8px to account for margin-right. 246px actual. */
+
+	background-image: url(../assets/box_both_200x160.jpg);
+
+	background-repeat: repeat-y;
+
+	background-position: 3px 3px; /* compenating for 3px borders below */
+
+	float: left;
+
+	margin-right: 8px;
+
+	margin-bottom: 14px;
+
+}
+
+.box a {
+
+	background-image: url(../assets/box_both_200x160.jpg);
+
+	background-position: 0px 159px;
+
+	height: 140px;
+	height: 160px;
+
+	width: 240px;
+	width: 200px;
+
+	display: block;
+
+	border: 3px solid #E2DFD3; 
+
+	font-size: 0.9em;
+
+	color: #625B44;
+	
+	text-decoration:none;
+
+}
+
+.box a:hover {
+
+	background: none;
+
+	border-color: #C0BAA3;
+
+	color: #403C2D;
+	
+	text-decoration:none;
+
+}
+
+.box2 {
+
+	height: 72px;
+
+	width: 133px;
+
+	background-image: url(../kuali/images/box_both_200x160.jpg);
+
+	background-repeat: repeat-y;
+
+	background-position: 3px 3px;
+
+	float: left;
+
+	margin-bottom: 14px;
+
+}
+
+.box2 a {
+
+	background-image: url(../kuali/images/box_both_200x160.jpg);
+
+	background-position: 0px 69px;
+
+	height: 69px;
+
+	width: 127px;
+
+	display: block;
+
+	border: 3px solid #E2DFD3;
+
+	font-size: 0.9em;
+
+	color: #625B44;
+
+}
+
+.box2 a:hover {
+
+	background: none;
+
+	border-color: #C0BAA3;
+
+	color: #403C2D;
+
+}
+
+.boxheader {
+
+	font-weight: bold;
+
+	margin-left: 18px;
+
+	margin-top: 4px !important;
+
+	margin-top: 3px;
+
+	display: block;
+
+}
+
+.boxtext {
+
+	display: block;
+
+	font-size:12px;
+
+	line-height: 100%;
+
+	padding-top: 4px;
+
+	padding-right: 4px;
+
+	padding-left: 4px;
+
+	color: #625B44 !important;
+	
+	overflow:hidden;
+
+}
+
+/* headers */
+
+.headerbg {
+
+	background-image: url(../assets/headerbg.jpg);
+
+	height: 40px;
+
+	padding-top: 10px;
+
+	padding-left: 10px;
+	
+	_margin-left:-3px;
+	
+	/* overflow:hidden; */
+
+}
+
+
+h1 {
+	
+	font-size: 24px;
+	
+	color:#950000;
+	
+	font-weight:normal;
+	
+	line-height:normal;
+	
+}
+
+h2 {
+	
+	font-size: 15px;
+	
+	color:#950000;
+	
+	font-weight:normal;
+	
+	line-height:normal;
+	
+}
+
+h3 {
+	
+	font-size: 15px;
+	
+	color:#950000;
+	
+	font-weight:bold;
+	
+	line-height:normal;
+	
+	margin:0;
+	
+}
+
+h4 {
+	
+	font-size: 12px;
+	
+	color:#333;
+	
+	font-weight:bold;
+	
+	line-height:normal;
+	
+}
+
+/* Links */
+
+a {
+	
+	text-decoration:none;
+	
+	color:#950000;
+	
+}
+
+a:hover {
+	
+	text-decoration:underline;
+	
+}
