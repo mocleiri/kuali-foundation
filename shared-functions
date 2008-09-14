@@ -15,8 +15,8 @@ function kmail {
 	typeset message=$3
 	if [[ "$SEND_MAIL" = "true" ]]
 	then
-            klog "mailing recipent: $recipient"
-            echo "$message" | mail -s "$subject" $recipient
+		klog "mailing recipent: $recipient"
+        echo "$message" | mail -s "$subject" $recipient
 	else
 	    echo "SEND_MAIL is turned off"
 	fi 
@@ -33,7 +33,7 @@ function kexec {
 	typeset return_status=$?
 	if [[ "$return_status" != "0" ]]
 	then
-            kend $return_status $mailing_list_override
+		kend $return_status $mailing_list_override
 	fi
 	return $return_status
     } >> $SCRIPT_LOG 2>&1
@@ -161,9 +161,9 @@ function kupdate {
 	typeset application_deploy_directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE
 	if [[ "$2" = "standard" ]]
 	then
-            typeset version=tags/build-`cat $BUILD_NUMBER_FILE`
+        typeset version=tags/build-`cat $BUILD_NUMBER_FILE`
 	else
-	        typeset version=$2
+		typeset version=$2
 	fi
 	klog "updating environment: $environment with version: $version, update_database: $update_database, and deploy_war: $deploy_war"
 
@@ -171,15 +171,15 @@ function kupdate {
 	
 	if [[ "$update_database" = "true" ]]
 	then
-            kant import -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
+		kcheckout $APPLICATION_DATABASE_PROJECT $version $APPLICATION_DATABASE_PROJECT
+        kant import -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
+		kexec "rm -rf $APPLICATION_DATABASE_PROJECT"
 	fi
 	
 	kcheckout $APPLICATION_JAVA_PROJECT $version $application_deploy_directory/$APPLICATION_JAVA_PROJECT
-
 	kant dist-external  -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 	kexec "sudo $DEPLOY_SETTINGS_COMMAND $JAVA_APPLICATION_CODE $environment"
 	kexec "sudo $DEPLOY_SECURITY_COMMAND $JAVA_APPLICATION_CODE $environment"
-
 	if [[ "$deploy_war" = "true" ]]
 	then
 		kant dist-war  -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
@@ -189,7 +189,6 @@ function kupdate {
 		kexec "sudo $DEPLOY_WAR_COMMAND $JAVA_APPLICATION_CODE $environment $APPLICATION_SERVER_NAME"
 		kexec "sudo $WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment"
 	fi
-
 	kexec "rm -rf $application_deploy_directory/$APPLICATION_JAVA_PROJECT"
 
 	return 0
