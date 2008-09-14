@@ -86,7 +86,7 @@ function kcheckout {
     {
 	typeset project=$1
 	typeset version=$2
-	typeset target_drectory=$3
+	typeset target_directory=$3
 	kexec "svn -q checkout $SRCCTRL_URL/$project/$version $target_directory"
     } >> $SCRIPT_LOG 2>&1
 }
