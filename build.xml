@@ -1,109 +1,85 @@
 <?xml version="1.0"?>
-<project name="kul-cfg-envs" default="init-database-properties" basedir=".">
+<project name="kul-cfg-envs" default="init-base-properties" basedir=".">
 	
-	<!-- include resource for ant-contrib tasks (design/verifydesign, etc) -->
 	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
 	
-	<target name="init-java-properties">
-		<property file="${deployment.directory}/build.properties" />
+	<target name="init-base-properties">
+		<property file="${generated.properties.file}" />
+		<property file="${application.deploy.directory}/build.properties" />
+		<property file="${application.working.directory}/build.properties" />
+		<property file="${working.directory}/build.properties" />
 		<condition property="import.into.mysql">
 			<equals arg1="${datasource.ojb.platform}" arg2="MySQL" />
 		</condition>
-		<property file="${shared.external.build.properties}" />
-		<property file="build.properties" />
 	</target>
 	
-	<target name="init-mysql-properties" depends="init-java-properties" if="import.into.mysql">
-		<property file="mysql-impex.properties" />
+	<target name="init-mysql-properties" depends="init-base-properties" if="import.into.mysql">
+		<property file="${mysql.impex.properties.file}" />
 	</target>
 
-	<target name="init-database-properties" depends="init-mysql-properties">
-		<property file="oracle-impex.properties" />
-		<property name="impex.build.file" value="${database.cvs.module}/impex/build.xml" />
-		<property file="${deployment.directory}/cvs-tag.properties" />
-		<loadfile property="impex-build.properties" srcfile="impex-build.properties"><filterchain><expandproperties /></filterchain></loadfile>
-		<delete file="${user.home}/impex-build.properties" />
-		<echo message="${impex-build.properties}" file="${user.home}/impex-build.properties" />
+	<target name="init-impex-properties" depends="init-mysql-properties">
+		<property file="${oracle.impex.properties.file}" />
+		<loadfile property="impex-build.properties" srcfile="${impex.properties.file.template}"><filterchain><expandproperties /></filterchain></loadfile>
+		<delete file="${impex.properties.file}" />
+		<echo message="${impex-build.properties}" file="${impex.properties.file}" />
 	</target>
 	
-	<target name="dist-external" depends="init-database-properties">
-		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
-		<cvs command="checkout" cvsroot="${project.cvs.root}" package="${project.cvs.package}" dest="${checkout.directory}" tag="${project.cvs.tag}" reallyquiet="true" />
-		<ant dir="${checkout.directory}/${project.cvs.package}" target="dist-external" />
-		<delete dir="${checkout.directory}/${project.cvs.package}" />
-	</target>
-	
-	<target name="dist-external-svn" depends="init-database-properties">
-		<exec executable="${command.svn}" failonerror="true" logerror="true">
-			<arg line="-q checkout ${svn.base.url}/${project.cvs.package}/tags/${project.cvs.tag} ${checkout.directory}/${project.cvs.package}"/>
-		</exec>
-		<ant dir="${checkout.directory}/${project.cvs.package}" target="dist-external" />
-		<delete dir="${checkout.directory}/${project.cvs.package}" />
-	</target>
-	
-	<target name="check-modularization" depends="init-database-properties">
-		<delete dir="${checkout.directory}/${project.cvs.package}" failonerror="false" />
-		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
-		<cvs command="checkout" cvsroot="${project.cvs.root}" package="${project.cvs.package}" dest="${checkout.directory}" tag="${project.cvs.tag}" reallyquiet="true" />
-		<trycatch property="has.error">
-			<try><ant dir="${checkout.directory}/${project.cvs.package}" target="check-modularization" /></try>
-			<finally>
-				<delete dir="${checkout.directory}/${project.cvs.package}" />
-				<fail if="has.error" />
-			</finally>
-		</trycatch>
-		<delete dir="${checkout.directory}/${project.cvs.package}" />
-	</target>
-	
-	<target name="check-modularization-svn" depends="init-database-properties">
-		<delete dir="${checkout.directory}/${project.cvs.package}" failonerror="false" />
-		<exec executable="${command.svn}" failonerror="true" logerror="true">
-			<arg line="-q checkout ${svn.base.url}/${project.cvs.package}/tags/${project.cvs.tag} ${checkout.directory}/${project.cvs.package}"/>
-		</exec>
-		<trycatch property="has.error">
-			<try><ant dir="${checkout.directory}/${project.cvs.package}" target="check-modularization" /></try>
-			<finally>
-				<delete dir="${checkout.directory}/${project.cvs.package}" />
-				<fail if="has.error" />
-			</finally>
-		</trycatch>
-		<delete dir="${checkout.directory}/${project.cvs.package}" />
-	</target>
-		
-	<target name="export" depends="init-database-properties">
+	<target name="export" depends="init-impex-properties">
 		<delete>
-			<fileset dir="${application.database.cvs.module}" includes="${application.database.xml},${application.database.docs}.css,${application.database.docs}.html,${application.database.docs}.dtd,${application.database.incremental.file}" />
+			<fileset dir="${database.project}" includes="${export.generated.files}" />
 		</delete>
 		<ant antfile="${impex.build.file}" target="export" inheritall="false" />
-		<delete file="velocity.log" />
+		<delete file="${log.file}" />
 	</target>
 	
-	<target name="create-mysql-user" depends="init-database-properties" if="import.into.mysql">
+	<target name="create-mysql-user" depends="init-impex-properties" if="import.into.mysql">
 		<ant antfile="${impex.build.file}" target="create-user" inheritall="false" />
 	</target>
 
-	<target name="update-database" depends="create-mysql-user">
-		<cvspass cvsroot="${project.cvs.root}" password="${project.cvs.anonpassword}" passfile="${user.home}/.cvspass" />
-		<cvs command="checkout" cvsroot="${project.cvs.root}" package="${application.database.cvs.module}" tag="${project.cvs.tag}" reallyquiet="true" />
+	<target name="import" depends="create-mysql-user">
 		<ant antfile="${impex.build.file}" target="empty-schema" inheritall="false" />
 		<ant antfile="${impex.build.file}" target="import" inheritall="false" />
+		<delete file="${log.file}" />
+	</target>
+		
+	<target name="dist-external" if="dist.external" depends="init-base-properties">
+		<ant dir="${application.deploy.directory}/${application.java.project" target="dist-external" />
 	</target>
 
-	<target name="import" depends="update-database">
-		<delete dir="${application.database.cvs.module}" />
-		<delete file="velocity.log" />
+	<target name="dist-ant" unless="maven.build">
+        <ant dir="${application.deploy.directory}/${application.java.project}" target="dist" />
+    </target>
+
+    <target name="dist-maven" if="maven.build">
+       <maven goals="package" />
+       <copy file="${application.deploy.directory}/${application.java.project}/target/${maven.war.filename}" tofile="${application.deploy.directory}/${application.java.project}/${application}-${build.environment}.war" overwrite="true" verbose="true" />
+    </target>
+
+    <target name="dist-war" depends="init-base-properties,dist-ant,dist-maven" />
+
+	<target name="check-modularization" depends="init-base-properties">
+		<trycatch property="has.error">
+			<try><ant dir="${application.java.project}" target="check-modularization" /></try>
+			<finally>
+				<fail if="has.error" />
+			</finally>
+		</trycatch>
 	</target>
 	
-	<target name="update-database-svn" depends="create-mysql-user">
-		<exec executable="${command.svn}" failonerror="true" logerror="true">
-			<arg line="-q checkout ${svn.base.url}/${application.database.srcctrl.module}/tags/${project.cvs.tag} ${application.database.srcctrl.module}"/>
-		</exec>
-		<ant antfile="${impex.build.file}" target="empty-schema" inheritall="false" />
-		<ant antfile="${impex.build.file}" target="import" inheritall="false" />
-	</target>
-
-	<target name="import-svn" depends="update-database-svn">
-		<delete dir="${application.database.srcctrl.module}" />
-		<delete file="velocity.log" />
-	</target>
+	<macrodef name="maven">
+        <attribute name="goals" />
+        <sequential>
+            <java classname="org.codehaus.classworlds.Launcher" dir="${application.deploy.directory}/${application.java.project}" fork="true" >
+	    	<arg line="-Denvironment=${build.environment} -Dalt.build.location=${alt.build.location} -Dmaven.test.skip=true -Dbuild.version=${build.version} -Dwar=true @{goals}"/>
+        		<sysproperty key="classworlds.conf" value="${maven.home.directory}/bin/m2.conf"/>
+        		<sysproperty key="maven.home" value="${maven.home.directory}"/>
+            	<sysproperty key="maven.test.skip" value="true"/>
+            	<classpath>
+            		<fileset dir="${maven.home.directory}/boot">
+						<include name="classworlds-*.jar"/>
+					</fileset>
+            	</classpath>
+            </java>
+        </sequential>
+    </macrodef>
 </project>

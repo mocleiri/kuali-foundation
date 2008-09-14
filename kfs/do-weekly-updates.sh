@@ -4,6 +4,6 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-kupdate reg true true true
+kupdate reg standard true true
 
 kend 0

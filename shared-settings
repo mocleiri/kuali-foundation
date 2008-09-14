@@ -9,21 +9,22 @@ SCRIPT_NAME=`basename $0`; typeset -rx SCRIPT_NAME
 SCRIPT_LOG=$LOGS_DIRECTORY/$SCRIPT_NAME+$EXEC_TIME.$$; typeset -rx SCRIPT_LOG
 
 {
-    DATABASE_CVS_MODULE=kul-cfg-dbs; typeset -rx DATABASE_CVS_MODULE
-    DATABASE_SRCCTRL_MODULE=kul-cfg-dbs; typeset -rx DATABASE_SRCCTRL_MODULE
     DEPLOY_BASE_DIRECTORY=/opt/ears; typeset -rx DEPLOY_BASE_DIRECTORY
-    DEPLOY_COMMAND=/usr/local/bin/appdeploy; typeset -rx DEPLOY_COMMAND
-    DEPLOY_TAG_FILE=cvs-tag.properties; typeset -rx DEPLOY_TAG_FILE
-	DEPLOY_PROPERTIES_FILE=build.properties; typeset -rx DEPLOY_BUILD_FILE
-    WORK_PURGE_COMMAND=/usr/local/bin/j2ee_deploy_work
-    ANT_COMMAND=/usr/local/ant/bin/ant
-    ANT_PROPERTIES_TEMPLATE=$BASE_DIRECTORY/build.properties
-    ANT_PROPERTIES_FILE=$APPLICATION_DIRECTORY/build.properties
-    ANT_BUILD_FILE=$BASE_DIRECTORY/build.xml
-    export JAVA_HOME=/usr/local/java
+    DEPLOY_VERSION_FILE=version.properties; typeset -rx DEPLOY_VERSION_FILE
+	UNDEPLOY_WAR_FILE_COMMAND=/usr/local/bin/j2ee_remove_war_file; typeset -rx UNDEPLOY_WAR_FILE_COMMAND
+	UNDEPLOY_WAR_CONTEXT_COMMAND=/usr/local/bin/j2ee_remove_war_context; typeset -rx UNDEPLOY_WAR_CONTEXT_COMMAND
+	UNDEPLOY_WAR_DIR_COMMAND=/usr/local/bin/j2ee_remove_war_dir; typeset -rx UNDEPLOY_WAR_DIR_COMMAND
+	DEPLOY_WAR_COMMAND=/usr/local/bin/j2ee_deploy_war; typeset -rx DEPLOY_WAR_COMMAND
+	DEPLOY_SETTINGS_COMMAND=/usr/local/bin/j2ee_deploy_settings; typeset -rx DEPLOY_SETTINGS_COMMAND
+	DEPLOY_SECURITY_COMMAND=/usr/local/bin/j2ee_deploy_security; typeset -rx DEPLOY_SECURITY_COMMAND
+    WORK_PURGE_COMMAND=/usr/local/bin/j2ee_deploy_work; typeset -rx WORK_PURGE_COMMAND
+    ANT_COMMAND=/usr/local/ant/bin/ant; typeset -rx ANT_COMMAND
+    ANT_BUILD_FILE=$BASE_DIRECTORY/build.xml; typeset -rx ANT_BUILD_FILE
+    ANT_PROPERTIES_FILE=$BASE_DIRECTORY/generated-build.properties; typeset -rx ANT_PROPERTIES_FILE
+    DATABASE_PROJECT=kul-cfg-dbs; typeset -rx DATABASE_PROJECT; typeset -rx DATABASE_PROJECT
     BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/build-number.txt; typeset -rx BUILD_NUMBER_FILE
 	SRCCTRL_URL=https://test.kuali.org/svn; typeset -rx SRCCTRL_URL
-	SVN_PROPERTIES_FILE=svn.properties; typeset -rx SVN_PROPERTIES_FILE
+    export JAVA_HOME=/usr/local/java
 
     cd $BASE_DIRECTORY
 } >> $SCRIPT_LOG 2>&1
