@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="kul-cfg-envs" default="init-base-properties" basedir=".">
+<project name="kul-cfg-envs" default="init-properties" basedir=".">
 	
 	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
 	
@@ -16,14 +16,14 @@
 		<property file="${mysql.impex.properties.file}" />
 	</target>
 
-	<target name="init-impex-properties" depends="init-mysql-properties">
+	<target name="init-properties" depends="init-mysql-properties">
 		<property file="${oracle.impex.properties.file}" />
 		<loadfile property="impex-build.properties" srcfile="${impex.properties.file.template}"><filterchain><expandproperties /></filterchain></loadfile>
 		<delete file="${impex.properties.file}" />
 		<echo message="${impex-build.properties}" file="${impex.properties.file}" />
 	</target>
 	
-	<target name="export" depends="init-impex-properties">
+	<target name="export" depends="init-properties">
 		<delete>
 			<fileset dir="${database.project}" includes="${export.generated.files}" />
 		</delete>
@@ -31,7 +31,7 @@
 		<delete file="${log.file}" />
 	</target>
 	
-	<target name="create-mysql-user" depends="init-impex-properties" if="import.into.mysql">
+	<target name="create-mysql-user" depends="init-properties" if="import.into.mysql">
 		<ant antfile="${impex.build.file}" target="create-user" inheritall="false" />
 	</target>
 
@@ -41,7 +41,7 @@
 		<delete file="${log.file}" />
 	</target>
 		
-	<target name="dist-external" if="dist.external" depends="init-base-properties">
+	<target name="dist-external" if="dist.external" depends="init-properties">
 		<ant dir="${application.deploy.directory}/${application.java.project}" target="dist-external" />
 	</target>
 
@@ -54,9 +54,9 @@
        <copy file="${application.deploy.directory}/${application.java.project}/target/${maven.war.filename}" tofile="${application.deploy.directory}/${application.java.project}/${application}-${build.environment}.war" overwrite="true" verbose="true" />
     </target>
 
-    <target name="dist-war" depends="init-base-properties,dist-ant,dist-maven" />
+    <target name="dist-war" depends="init-properties,dist-ant,dist-maven" />
 
-	<target name="check-modularization" depends="init-base-properties">
+	<target name="check-modularization" depends="init-properties">
 		<trycatch property="has.error">
 			<try><ant dir="${application.java.project}" target="check-modularization" /></try>
 			<finally>
