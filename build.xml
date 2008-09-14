@@ -58,7 +58,7 @@
 
 	<target name="check-modularization" depends="init-properties">
 		<trycatch property="has.error">
-			<try><ant dir="${application.java.project}" target="check-modularization" /></try>
+			<try><ant dir="${application.working.directory}/${application.java.project}" target="check-modularization" /></try>
 			<finally>
 				<fail if="has.error" />
 			</finally>
