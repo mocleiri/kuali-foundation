@@ -86,12 +86,8 @@ function kcheckout {
     {
 	typeset project=$1
 	typeset version=$2
-	if [[ $3 != "" ]]; then
-	    typeset target_directory=$3
-	else
-	    typeset target_directory=$BASE_DIRECTORY
-	fi
-	kexec "svn -q checkout $SRCCTRL_URL/$project/$version $target_directory/$project"
+	typeset target_drectory=$3
+	kexec "svn -q checkout $SRCCTRL_URL/$project/$version $target_directory"
     } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf kcheckout
@@ -101,7 +97,7 @@ function kexport {
 	typeset environment=$1
 	typeset version=$2
 	ksetprops $environment $version Oracle9i
-	kcheckout $APPLICATION_DATABASE_PROJECT $version
+	kcheckout $APPLICATION_DATABASE_PROJECT $version $APPLICATION_DATABASE_PROJECT
 	kant export -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 	svn -q add $APPLICATION_DATABASE_PROJECT/*
 	svn -q add $APPLICATION_DATABASE_PROJECT/doc/*
@@ -203,7 +199,7 @@ function kcheckmodularization {
 	database_platform=$3
 	ksetprops $environment $version $database_platform
 	rm -rf $APPLICATION_JAVA_PROJECT
-	kcheckout $APPLICATION_JAVA_PROJECT $version
+	kcheckout $APPLICATION_JAVA_PROJECT $version $APPLICATION_JAVA_PROJECT
 	kant check-modularization -Dgenerated.properties.file=$ANT_PROPERTIES_FILE $APPLICATION_DEV_MAIL_LIST
 	kexec "rm -rf $APPLICATION_JAVA_PROJECT"
 	return 0
