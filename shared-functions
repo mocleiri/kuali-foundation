@@ -130,8 +130,8 @@ function kdailytag {
 	new_build_version="build-"$new_build_number
 	kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
 	klog "tagging version: $version of application java and database modules with new_build_version: $new_build_version"
-	svn -q delete $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$version -m daily-tag-removal
-	svn -q delete $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$version -m daily-tag-removal
+	svn -q delete $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$new_build_version -m daily-tag-removal
+	svn -q delete $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$new_build_version -m daily-tag-removal
 	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$version $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/tags/$new_build_version -m daily-tag"
 	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$version $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/tags/$new_build_version -m daily-tag"
 	return 0
