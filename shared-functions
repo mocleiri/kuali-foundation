@@ -61,6 +61,7 @@ function ksetprops {
     {
 	typeset environment=$1
 	typeset version=$2
+	typeset database_platform=$3
 	typeset database_user=$DATABASE_APPLICATION_CODE$environment
 	typeset schema="`echo $database_user | tr a-z A-Z`"
 	typeset database_password=$environment"174"$DATABASE_APPLICATION_CODE
@@ -74,6 +75,7 @@ function ksetprops {
 	kexec "echo \"build.environment=$environment\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"build.version=$version\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"schema=$schema\" >> $ANT_PROPERTIES_FILE"
+	kexec "echo \"datasource.ojb.platform=$database_platform\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"datasource.username=$database_user\" >> $ANT_PROPERTIES_FILE"
 	echo "datasource.password=$database_password" >> $ANT_PROPERTIES_FILE 
     } >> $SCRIPT_LOG 2>&1
@@ -98,7 +100,7 @@ function kexport {
     {
 	typeset environment=$1
 	typeset version=$2
-	ksetprops $environment $version
+	ksetprops $environment $version Oracle9i
 	kcheckout $APPLICATION_DATABASE_PROJECT $version
 	kant export -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 	svn -q add $APPLICATION_DATABASE_PROJECT/*
@@ -132,8 +134,8 @@ function kdailytag {
 	new_build_version="build-"$new_build_number
 	kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
 	klog "tagging version: $version of application java and database modules with new_build_version: $new_build_version"
-	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$version $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/tags/$new_build_tag -m daily-tag"
-	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$version $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/tags/$new_build_tag -m daily-tag"
+	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$version $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/tags/$new_build_version -m daily-tag"
+	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$version $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/tags/$new_build_version -m daily-tag"
 	return 0
     } >> $SCRIPT_LOG 2>&1
 }
@@ -155,6 +157,7 @@ function kupdate {
 	typeset environment=$1
 	typeset update_database=$3
 	typeset deploy_war=$4
+	typeset database_platform=$5
 	typeset application_deploy_directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE
 	if [[ "$2" = "standard" ]]
 	then
@@ -164,7 +167,7 @@ function kupdate {
 	fi
 	klog "updating environment: $environment with version: $version, update_database: $update_database, and deploy_war: $deploy_war"
 
-	ksetprops $environment $version
+	ksetprops $environment $version $database_platform
 	
 	if [[ "$update_database" = "true" ]]
 	then
@@ -197,9 +200,11 @@ typeset -xf kupdate
 function kcheckmodularization {
     {
 	environment=$1
-	ksetprops $environment
+	version=$2
+	database_platform=$3
+	ksetprops $environment $version $database_platform
 	rm -rf $APPLICATION_JAVA_PROJECT
-	kcheckout $APPLICATION_JAVA_PROJECT trunk
+	kcheckout $APPLICATION_JAVA_PROJECT $version
 	kant check-modularization -Dgenerated.properties.file=$ANT_PROPERTIES_FILE $APPLICATION_DEV_MAIL_LIST
 	kexec "rm -rf $APPLICATION_JAVA_PROJECT"
 	return 0

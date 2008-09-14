@@ -5,7 +5,6 @@
 	
 	<target name="init-base-properties">
 		<property file="${generated.properties.file}" />
-		<property file="${application.deploy.directory}/build.properties" />
 		<property file="${application.working.directory}/build.properties" />
 		<property file="${working.directory}/build.properties" />
 		<condition property="import.into.mysql">
