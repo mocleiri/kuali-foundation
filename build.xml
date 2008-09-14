@@ -42,7 +42,7 @@
 	</target>
 		
 	<target name="dist-external" if="dist.external" depends="init-base-properties">
-		<ant dir="${application.deploy.directory}/${application.java.project" target="dist-external" />
+		<ant dir="${application.deploy.directory}/${application.java.project}" target="dist-external" />
 	</target>
 
 	<target name="dist-ant" unless="maven.build">
