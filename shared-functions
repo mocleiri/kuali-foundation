@@ -71,7 +71,7 @@ function ksetprops {
 	kexec "echo \"database.project=$DATABASE_PROJECT\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.java.project=$APPLICATION_JAVA_PROJECT\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.database.project=$APPLICATION_DATABASE_PROJECT\" >> $ANT_PROPERTIES_FILE"
-	kexec "echo \"application=$APPLICATION\" >> $ANT_PROPERTIES_FILE"
+	kexec "echo \"application=$JAVA_APPLICATION_CODE\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"build.environment=$environment\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"build.version=$version\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"schema=$schema\" >> $ANT_PROPERTIES_FILE"
