@@ -47,11 +47,12 @@
 
 	<target name="dist-ant" unless="maven.build">
         <ant dir="${application.deploy.directory}/${application.java.project}" target="dist" />
+        <copy file="${application.deploy.directory}/${application.java.project}/${application}-${build.environment}.war" tofile="${application.deploy.directory}/${application}-${build.environment}.war" overwrite="true" />
     </target>
 
     <target name="dist-maven" if="maven.build">
        <maven goals="package" />
-       <copy file="${application.deploy.directory}/${application.java.project}/target/${maven.war.filename}" tofile="${application.deploy.directory}/${application.java.project}/${application}-${build.environment}.war" overwrite="true" verbose="true" />
+       <copy file="${application.deploy.directory}/${application.java.project}/target/${maven.war.filename}" tofile="${application.deploy.directory}/${application}-${build.environment}.war" overwrite="true" verbose="true" />
     </target>
 
     <target name="dist-war" depends="init-properties,dist-ant,dist-maven" />
