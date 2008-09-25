@@ -97,6 +97,7 @@ function kexport {
 	typeset environment=$1
 	typeset version=$2
 	ksetprops $environment $version Oracle9i
+	rm -rf $APPLICATION_DATABASE_PROJECT
 	kcheckout $APPLICATION_DATABASE_PROJECT $version $APPLICATION_DATABASE_PROJECT
 	kant export -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 	svn -q add $APPLICATION_DATABASE_PROJECT/*
@@ -169,11 +170,13 @@ function kupdate {
 	
 	if [[ "$update_database" = "true" ]]
 	then
+	    rm -rf $APPLICATION_DATABASE_PROJECT
 		kcheckout $APPLICATION_DATABASE_PROJECT $version $APPLICATION_DATABASE_PROJECT
         kant import -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 		kexec "rm -rf $APPLICATION_DATABASE_PROJECT"
 	fi
 	
+	rm -rf $APPLICATION_DIRECTORY/$APPLICATION_JAVA_PROJECT
 	kcheckout $APPLICATION_JAVA_PROJECT $version $application_deploy_directory/$APPLICATION_JAVA_PROJECT
 	kant dist-external  -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 	kexec "sudo $DEPLOY_SETTINGS_COMMAND $JAVA_APPLICATION_CODE $environment"
