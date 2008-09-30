@@ -1,1 +1,1 @@
-function doedit(obj) { return }
+ function doedit(obj) { return }
