@@ -7,6 +7,7 @@
 		<property file="${generated.properties.file}" />
 		<property file="${application.working.directory}/build.properties" />
 		<property file="${working.directory}/build.properties" />
+		<property file="${application.deploy.directory}/build.properties" />
 		<condition property="import.into.mysql">
 			<equals arg1="${datasource.ojb.platform}" arg2="MySQL" />
 		</condition>
