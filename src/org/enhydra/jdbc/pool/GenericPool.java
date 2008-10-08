@@ -181,6 +181,9 @@ public class GenericPool {
 	throws Exception {
 
 	long now = System.currentTimeMillis(); // current time to compare
+	boolean create = false;
+	
+	synchronized (this) {
 	if (getUnlockedObjectCount() > 0) {
 	    // now, we have to return an object to the user
 	    GenerationObject o = null;
@@ -189,7 +192,6 @@ public class GenericPool {
 		
 	    Enumeration e = unlocked.keys(); // then take them
 	    while (e.hasMoreElements()) { // for each objects ...
-		synchronized (this) {
 		    if (!e.hasMoreElements()) break; // recheck for synchronization.
 			
 		    o = (GenerationObject) e.nextElement();
@@ -199,7 +201,6 @@ public class GenericPool {
 		    // Prevents others accessing the object while we are
 		    // not synchronized.
 		    realObject = o.getObj();
-		}
 		    
 		// first, verify if the object is not dead (lifetime)
 		if ((now - life.longValue()) > lifeTime) {
@@ -237,8 +238,6 @@ public class GenericPool {
 	    
 	    
 	// if no objects available, create a new one
-	boolean create = false;
-	synchronized (this) {
 	    if (count < maxSize) {
 		create = true;
 		count++; // assume we can create a connection.
@@ -311,6 +310,7 @@ public class GenericPool {
 		log.debug(
 			"GenericPool:checkOut count=" + count + " maxSize=" + maxSize);
 
+		synchronized(this) {
 		if (getUnlockedObjectCount() > 0) {
 			// if there are objects in the unlocked pool
 			if ((checkLevelObject == 3)
@@ -349,7 +349,8 @@ public class GenericPool {
 
 
 
-		} 
+		}
+		}
 
 		int currentWait = 0;
 
@@ -609,7 +610,7 @@ public class GenericPool {
 	/**
 	 * switch off the pool
 	 */
-	public void stop() {
+	public synchronized void stop() {
 		log.debug("GenericPool:stop start to stop the pool");
 		if ((getLockedObjectCount() != 0) || (getUnlockedObjectCount() != 0)) {
 			expireAll(); // try to kill all the objects in the 2 pools
@@ -787,6 +788,7 @@ public class GenericPool {
 	void expireAll() {
 		log.debug(
 			"GenericPool:expireAll close all object in the unlocked and locked structures");
+		synchronized(this) {
 		for (Enumeration e = unlocked.keys();
 			e.hasMoreElements();
 			) { // for each object of
@@ -795,6 +797,7 @@ public class GenericPool {
 			poolHelper.expire(o.getObj()); // try to "kill" the object
 			o.killObject();
 			o = null;
+		}
 		}
 		for (Enumeration e = locked.keys();
 			e.hasMoreElements();
@@ -825,6 +828,7 @@ public class GenericPool {
 				genObj = o.getGeneration(); // get the generation number
 		}
 
+		synchronized(this) {
 		for (Enumeration e = unlocked.keys();
 			e.hasMoreElements();
 			) { // for each object of
@@ -839,6 +843,7 @@ public class GenericPool {
 					removeUnlockedObject(o);
 
 			}
+		}
 		}
 		++this.generation; // now, we work with the next generation of object
 
