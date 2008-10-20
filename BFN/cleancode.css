@@ -12,6 +12,7 @@
 	background-image:none;
 	height:18px;
 	color:#FFFFFF;
+	text-align:left;
 }
 
 #workarea .elementcontent, .subelementcontent, .expsubelementcontent
@@ -25,6 +26,7 @@
 	background-image:none;
 	height:18px;
 	color:#FFFFFF;
+	text-align:left;
 }
 
 #workarea .subelementcontainer
@@ -56,13 +58,20 @@
 
 #workarea .elementtable input
 {
-	width:100%;
+	width:98%;
 }
 
-/*
+#workarea .elementtable select
+{
+	width:98%;
+	border-color:#666666 #CCCCCC #CCCCCC #666666;
+	border-style:solid;
+	border-width:1px;
+	font-size:100%;
+}
+
+
 #workarea .elementtable td, th
 {
-	border: solid 1px;
-	padding:0px;
+	text-align:center;
 }
-*/
