@@ -1,0 +1,144 @@
+<!--
+#########################################################################################
+#                                                                                       #
+#  U I   N E S T E D   S T R U C T U R A L   O U T L I N E                              #
+#                                                                                       #
+#  A "Page" contains one or more "Panels"	                                            #
+#  A Panel contains one or more "Elements"                                              #
+#  An Element may contain one or more of the following:                                 #
+#	 [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#	 one or more "Expanding Sub-elements"                                               #
+#                                                                                       #
+#  A Sub-element or Expanding Sub-Element may contain one or more of the following:     #
+#    [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#	 one or more "Expanding Sub-elements"                                               #
+#                                                                                       #
+#########################################################################################
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel Template</title>
+    <LINK REL="SHORTCUT ICON" HREF="../images/icon.ico">
+    <meta http-equiv=Content-Type content="text/html; charset=ISO-8859-1">
+    <link href="../BFN/paneltemplate.css" rel=stylesheet type="text/css">
+    <script src="../scripts/jquery.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function(){				
+			<!-- panelcontent01 -->
+				$("#panelcontent01").hide();
+				$("a.panelcontrol01").toggle(
+					function()
+					{
+						$("#panelcontent01").slideDown(600);
+						$("a.panelcontrol01").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#panelcontent01").slideUp(600);
+						$("a.panelcontrol01").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- panelcontent02 -->
+				$("#panelcontent02").hide();
+				$("a.panelcontrol02").toggle(
+					function()
+					{
+						$("#panelcontent02").slideDown(600);
+						$("a.panelcontrol02").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#panelcontent02").slideUp(600);
+						$("a.panelcontrol02").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+		});
+	</script>
+</head>
+<body>
+	
+    <p>Panel Template</p>
+    
+    <div style="padding:20px;">
+        <table width="95%" cellpadding="0" cellspacing="0" border="0" align="center">
+            <!-- top panel head -->
+                <tr>
+                    <td background="../images/tab-topleft.gif" width="12" height="29">
+                        <!--1-->
+                    </td>
+                    <td background="../images/tab-back.gif" width="300">
+                        <!--2-->
+                    </td>
+                    <td background="../images/tab-ogee.gif" width="100">
+                        <a href="#" class="panelcontrol01"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0"></a>
+                    </td>
+                    <td background="../images/tab-shortside.gif">
+                        <!--4-->
+                    </td>
+                    <td background="../images/tab-topright.gif" width="12">
+                        <!--5-->
+                    </td>
+                </tr>
+            <!-- panel content -->
+                <tr>
+                    <td background="../images/panelcontent1.gif" width="12" height="29">
+                        <!--1-->
+                    </td>
+                    <td colspan="3" bgcolor="#E4E4E4">
+                        <div id="panelcontent01">
+                            2-4 (content) <br /> x<br /> x<br /> x<br />
+                        </div>
+                    </td>
+                    <td background="../images/panelcontent3.gif" width="12">
+                        <!--5-->
+                    </td>
+                </tr>
+            <!-- top panel head -->
+                <tr>
+                    <td background="../images/tab-midleft.gif" width="12" height="29">
+                        <!--1-->
+                    </td>
+                    <td background="../images/tab-back.gif" width="300">
+                        <!--2-->
+                    </td>
+                    <td background="../images/tab-midogee.gif" width="100">
+                        <a href="#" class="panelcontrol02"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0"></a>
+                    </td>
+                    <td background="../images/tab-midshortside.gif">
+                        <!--4-->
+                    </td>
+                    <td background="../images/tab-midright.gif" width="12">
+                        <!--5-->
+                    </td>
+                </tr>
+            <!-- panel content -->
+                <tr>
+                    <td background="../images/panelcontent1.gif" width="12" height="29">
+                        <!--1-->
+                    </td>
+                    <td colspan="3" bgcolor="#E4E4E4">
+                        <div id="panelcontent02">
+                            2-4 (content) <br /> x<br /> x<br /> x<br />
+                        </div>
+                    </td>
+                    <td background="../images/panelcontent3.gif" width="12">
+                        <!--5-->
+                    </td>
+                </tr>
+            <!-- panel foot -->
+                <tr>
+                    <td background="../images/panelfoot1.gif" width="12" height="20">
+                        <!--1-->
+                    </td>
+                    <td colspan="3" background="../images/panelfoot2.gif">
+                        <!--2-4-->
+                    </td>
+                    <td background="../images/panelfoot3.gif" width="12">
+                        <!--5-->
+                    </td>
+                </tr>
+        </table>
+    </div>
+
+</body>
+</html>

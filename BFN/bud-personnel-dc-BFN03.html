@@ -1,0 +1,611 @@
+<!--
+#########################################################################################
+#                                                                                       #
+#  U I   N E S T E D   S T R U C T U R A L   O U T L I N E                              #
+#                                                                                       #
+#  A "Page" contains one or more "Panels"	                                            #
+#  A Panel contains one or more "Elements"                                              #
+#  An Element may contain one or more of the following:                                 #
+#	 [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#	 one or more "Expanding Sub-elements"                                               #
+#                                                                                       #
+#  A Sub-element or Expanding Sub-Element may contain one or more of the following:     #
+#    [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#	 one or more "Expanding Sub-elements"                                               #
+#                                                                                       #
+#########################################################################################
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Kuali</title>
+    <LINK REL="SHORTCUT ICON" HREF="../images/icon.ico">
+    <meta http-equiv=Content-Type content="text/html; charset=ISO-8859-1">
+    <link href="../css/kuali_application.css" rel=stylesheet type="text/css">
+    <link href="../css/kuali.css" rel=stylesheet type="text/css">
+    <link href="../bfn/cleancode.css" rel=stylesheet type="text/css">
+    <script language=javascript src="../scripts/my_bm_inc.js"></script>
+    <script language=javascript1.2 src="../scripts/my_explorer.js"></script>
+    <script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js"></script>
+    <script language=JavaScript src="../scripts/CalendarPopup.js"></script>
+    <script src="jquery.js"></script>
+    <script language=JavaScript type="text/JavaScript">
+		<!--
+		function MM_goToURL() { //v3.0
+		  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+		  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+		}
+		function MM_openBrWindow(theURL,winName,features) { //v2.0
+		  window.open(theURL,winName,features);
+		}
+		//-->
+    </script>
+    <script type="text/javascript">
+		$(document).ready(function(){				
+			<!-- panelcontent01 -->
+				<!--$("#panelcontent01").hide();-->
+				$("a.panelcontrol01").toggle(
+					function()
+					{
+						$("#panelcontent01").slideUp(600);
+						$("a.panelcontrol01").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#panelcontent01").slideDown(600);
+						$("a.panelcontrol01").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- panelcontent02 -->
+				$("#panelcontent02").hide();
+				$("a.panelcontrol02").toggle(
+					function()
+					{
+						$("#panelcontent02").slideDown(600);
+						$("a.panelcontrol02").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#panelcontent02").slideUp(600);
+						$("a.panelcontrol02").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- subelementcontent01 -->
+				$("#subelementcontent01").hide();
+				$("a.subpanelcontrol01").toggle(
+					function()
+					{
+						$("#subelementcontent01").slideDown(400);
+						$("a.subpanelcontrol01").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent01").slideUp(400);
+						$("a.subpanelcontrol01").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- subelementcontent02 -->
+				$("#subelementcontent02").hide();
+				$("a.subpanelcontrol02").toggle(
+					function()
+					{
+						$("#subelementcontent02").slideDown(400);
+						$("a.subpanelcontrol02").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent02").slideUp(400);
+						$("a.subpanelcontrol02").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+		});
+	</script>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="headerarea-kra" id="headerarea">
+    <h1>Budget <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
+    <div class="headerbox">
+       <table cellpadding=0 cellspacing=0 summary="document header: general information" style="border-bottom:#A0A0A0; border-bottom-style:solid; border-bottom-width:1px">
+            <tr>
+                <th scope=row><div align=right>Doc Nbr:</div></th>
+                <td>2585</td>
+                <th scope=row><div align=right>Status:</div></th>
+                <td>SAVED</td>
+            </tr>
+            <tr>
+                <th scope=row><div align=right>Initiator:</div></th>
+                <td>quickstart</td>
+                <th scope=row><div align=right>Created:</div></th>
+                <td>10:06 AM 03/30/2005</td>
+            </tr>
+            <tr>
+                <th class="bord-l" scope=row><div align=right>Budget Name:</div></th>
+                <td class="datacell-l">One</td>
+                <th class="bord-l" scope=row><div align=right>Version #:</div></th>
+                <td class="datacell-l">1</td>
+            </tr>
+        </table>
+    </div>
+</div>
+    
+<!--TABBED TOP NAVIGATION-->
+<div class="horz-links-bkgrnd" id="horz-links">
+    <div id="tabs">
+        <dl class="tabul">
+            <dt><span class="tabright">
+            <input name="Submit" type=submit onClick="MM_goToURL('parent','bud-budget.html');return document.MM_returnValue" value="Budget Versions">
+            </span></dt>
+            <dt><span class="tabright ">
+            <input name="Submit" type=submit onClick="MM_goToURL('parent','bud-summary1.html');return document.MM_returnValue" value=Parameters>
+            </span></dt>
+            <dt><span class="tabright">
+            <input name="Submit" type=submit onClick="MM_goToURL('parent','bud-rates.html');return document.MM_returnValue" value=Rates>
+            </span></dt>
+            <dt class="licurrent"><span class="tabright tabcurrent">
+            <input name="Submit" type=submit onClick="MM_goToURL('parent','bud-personnel-dc.html');return document.MM_returnValue" value=Personnel>
+            </span></dt>
+            <dt><span class="tabright">
+            <input name="Submit" type=submit onclick="MM_goToURL('parent','bud-nonpersbudget2.html');return document.MM_returnValue" value=Non-Personnel>
+            </span></dt>
+            <dt><span class="tabright">
+            <input name="Submit" type=submit onClick="MM_goToURL('parent','bud-totals5.html');return document.MM_returnValue" value=Summary>
+            </span></dt>
+            <dt><span class="tabright">
+            <input name="Submit" type=submit onClick="MM_goToURL('parent','bud-distincome2-tw-MR.html');return document.MM_returnValue" value="Distribution &amp; Income">
+            </span></dt>
+            <dt><span class="tabright">
+            <input name="Submit" type=submit onClick="MM_goToURL('parent','bud-modular.html');return document.MM_returnValue" value="Modular Budget">
+            </span></dt>
+            <dt><span class="tabright">
+            <input name="Submit" type=submit onClick="MM_goToURL('parent','bud-budhierarcy.html');return document.MM_returnValue" value="Proposal Hierarchy">
+            </span></dt>
+            <dt><span class="tabright">
+            <input name="Submit" type=submit onClick="MM_goToURL('parent','bud-budactions.html');return document.MM_returnValue" value="Budget Actions">
+            </span></dt>
+        </dl>
+    </div>
+</div>
+
+<!-- GLOBAL NAVIGATION CONTROLS -->
+<div class="msg-excol">
+    <div class="left-errmsg">
+        <div class=""><span class="excol"> </span></div>
+    </div>
+    <div class="right">
+        <div class="excol">
+            <input name="imageField" type=image class="tinybutton" src="../images/tinybutton1-retprop.gif">
+            <input name="imageField" type=image class="tinybutton" src="../images/tinybutton1-siteindex.gif">
+            <input name="imageField" type=image class="tinybutton" src="../images/tinybutton-expandall.gif" alt="expand all">
+            <input name="imageField" type=image class="tinybutton" src="../images/tinybutton-collapseall.gif" alt="collapse all">
+            <br>
+        </div>
+    </div>
+</div>
+
+<!-- BEGIN PRIMARY TABLE LAYOUT -->
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+        	<td class="column-left"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
+        	<td>
+            	<div align="center">
+        			<div id="workarea">
+        
+<!-- PANEL: Project Personnel (All Periods) -->
+	<!-- Panel Header: Project Personnel (All Periods) -->
+        <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+                <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Project Personnel (All Periods)</td>
+                <td class="tabtable1-mid">
+                	<span class="tabtable2-mid">
+                	<a href="#" class="panelcontrol01"><img src="../images/tinybutton-hide.gif" alt="show/hide this panel" width=45 height=15 border=0></a>
+                    </span>
+                </td>
+                <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+        </table>
+	<!-- Panel Content: Project Personnel (All Periods) -->
+        <div class="tab-container" align="center" id="panelcontent01">
+        
+        <!-- ELEMENT: Project Personnel (All Periods) -->
+            <table width="98%" cellpadding="0" cellspacing="0">
+                <!-- Element Header: Project Personnel (All Periods) -->
+                    <thead>
+                        <tr>
+                            <th align="left" class="elementheader" colspan="2">
+                                Project Personnel (All Periods)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Element Content: [Element Name Here] -->
+                            <tr>
+                                <td class="elementcontent" colspan="2">
+                                    
+                                    <table cellpadding="0" cellspacing="0" class="elementtable">
+                                    	<tr>
+                                        	<th>&nbsp;
+                                            	
+                                            </th>
+                                            <th>
+                                            	Person
+                                            </th>
+                                            <th>
+                                            	Job Code
+                                            </th>
+                                            <th>
+                                            	*Appointment Type
+                                            </th>
+                                            <th>
+                                            	*Base Salary
+                                            </th>
+                                            <th>
+                                            	*Salary Effective Date
+                                            </th>
+                                            <th>
+                                            	Actions
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                        	<th>
+                                            	Add:
+                                            </th>
+                                            <td colspan="6" class="infoline" style="text-align:left">
+                                            	Employee Search <img src="../images/searchicon.gif" alt="lookup" width="16" height="16"><br />
+                                                Non-employee Search <img src="../images/searchicon.gif" alt="lookup" width="16" height="16"><br />
+                                                To be named <img src="../images/searchicon.gif" alt="lookup" width="16" height="16">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<th>
+                                            	1
+                                            </th>
+                                            <td style="text-align:left">
+                                            	Terry Durkin<br />
+                                                <span class="fineprint">(Principal Investigator)</span>
+                                            </td>
+                                            <td>
+                                            	<input name="document.budgetPerson[0].jobCode" maxlength="6" size="6" tabindex="0" value="aa017" id="document.budgetPerson[0].jobCode" type="text">
+                                            </td>
+                                            <td>
+                                            	<select name="document.budgetPerson[0].appointmentTypeCode" tabindex="0">
+                                                	<option value="1">TEMPORARY EMPLOYEE</option>
+                                                    <option value="2">SUMMER EMPLOYEE</option>
+                                                    <option value="3" selected="selected">9M DURATION</option>
+                                                    <option value="4">10M DURATION</option>
+                                                    <option value="5">11M DURATION</option>
+                                                    <option value="6">12M DURATION</option>
+                                                    <option value="7">REGULAR EMPLOYEE</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                            	<input name="document.budgetPerson[0].calculationBase" maxlength="22" size="16" tabindex="0" value="93,000.00" id="document.budgetPerson[0].calculationBase" type="text">
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <input name="document.budgetPerson[0].effectiveDate" style="width:100px;" maxlength="21" size="10" tabindex="0" value="10/01/2008" id="document.budgetPerson[0].effectiveDate" type="text">
+                                                <img src="../images/cal.gif" width="16" height="16" style="vertical-align:text-bottom;">
+                                            </td>
+                                            <td>
+                                            	<div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<th>
+                                            	1
+                                            </th>
+                                            <td style="text-align:left">
+                                            	Bryan Hutchinson<br />
+                                                <span class="fineprint">(Co-Investigator)</span>
+                                            </td>
+                                            <td>
+                                            	<input name="document.budgetPerson[0].jobCode" maxlength="6" size="6" tabindex="0" value="aa018" id="document.budgetPerson[0].jobCode" type="text">
+                                            </td>
+                                            <td>
+                                            	<select name="document.budgetPerson[0].appointmentTypeCode" tabindex="0">
+                                                	<option value="1">TEMPORARY EMPLOYEE</option>
+                                                    <option value="2" selected="selected">SUMMER EMPLOYEE</option>
+                                                    <option value="3">9M DURATION</option>
+                                                    <option value="4">10M DURATION</option>
+                                                    <option value="5">11M DURATION</option>
+                                                    <option value="6">12M DURATION</option>
+                                                    <option value="7">REGULAR EMPLOYEE</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                            	<input name="document.budgetPerson[0].calculationBase" maxlength="22" size="16" tabindex="0" value="85,000.00" id="document.budgetPerson[0].calculationBase" type="text">
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <input name="document.budgetPerson[0].effectiveDate" style="width:100px;" maxlength="21" size="10" tabindex="0" value="10/01/2008" id="document.budgetPerson[0].effectiveDate" type="text">
+                                                <img src="../images/cal.gif" width="16" height="16" style="vertical-align:text-bottom;">
+                                            </td>
+                                            <td>
+                                            	<div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <p align="center">
+                                    	<a href="#"><img src="../images/tinybutton-syncpersonnel.gif" alt="delete" width=87 height=15 border=0></a>
+                                    </p>
+                                    
+                                </td>
+                            </tr>
+                    </tbody>
+            </table>
+        
+        </div> <!-- End Panel Content Div (class='tab-container') Div -->
+
+<!-- PANEL: Period Detail --> 
+	<!-- Panel Header: Period Detail --> 
+        <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+                <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Period Detail</td>
+                <td class="tabtable2-mid">
+                	<a href="#" class="panelcontrol02"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0></a>
+                </td>
+                <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+        </table>
+    <!-- Panel Content: Period Detail -->
+		<div class="tab-container" align="center" id="panelcontent02">
+        
+        <!-- ELEMENT: Period Detailw -->
+            <table width="98%" cellpadding="0" cellspacing="0">
+                <!-- Element Header: Period Detail -->
+                    <thead>
+                        <tr>
+                            <th align="left" class="elementheader" colspan="2">
+                                Period Detail
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Element Content: Period Detail -->
+                            <tr>
+                                <td class="elementcontent" colspan="2">
+                                    
+                                    <table cellpadding="0" cellspacing="0" class="elementtable">
+                                    	<tr>
+                                        	<th style="text-align:right;">
+                                            	Budget Period:
+                                            </th>
+                                            <td>
+                                            	<select name="viewBudgetPeriod" class="fixed-size-200-select">
+                                                    <option value="1">1: 10/01/2008 - 09/30/2009</option>
+                                                    <option value="2">2: 10/01/2009 - 09/30/2010</option>
+                                                </select>
+                                            </td>
+                                            <th style="text-align:right;">
+                                            	View:
+                                            </th>
+                                            <td>
+                                            	<select name="viewBudgetView">
+                                                    <option value="0">Full Detail</option>
+                                                    <option value="1">Simple Detail</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                            	<a href="bud-nonpersbudget-brief.html" onClick="return (false);"><img src="../images/tinybutton-updateview.gif" alt="update view" width=71 height=15 align=absmiddle></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <!-- Sub-element: Budget Overview (Period 1) -->
+                                        <div align="center" class="subelementcontainer">
+                                            <table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+                                                <thead>
+                                                    <tr>
+                                                        <th align="left" class="subelementheader" colspan="2">
+                                                            Budget Overview (Period 1)
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="subelementcontent" colspan="2">
+                                                            
+                                                            <table cellpadding="0" cellspacing="0" class="elementtable">
+                                                                <tr>
+                                                                    <th style="text-align:right;">
+                                                                        Period 1 Start Date:
+                                                                    </th>
+                                                                    <td style="text-align:left;">
+                                                                        10/01/2008
+                                                                    </td>
+                                                                    <th style="text-align:right;">
+                                                                        Period Cost Limit:
+                                                                    </th>
+                                                                    <td style="text-align:left;">
+                                                                        100,000.00
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style="text-align:right;">
+                                                                        Period 1 End Date:
+                                                                    </th>
+                                                                    <td style="text-align:left;">
+                                                                        9/30/2009
+                                                                    </td>
+                                                                    <th style="text-align:right;">
+                                                                        Total Cost Limit:
+                                                                    </th>
+                                                                    <td style="text-align:left;">
+                                                                        0.00
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style="text-align:right;">
+                                                                        Direct Cost:
+                                                                    </th>
+                                                                    <td style="text-align:left;">
+                                                                        170,439.02
+                                                                    </td>
+                                                                    <th style="text-align:right;">
+                                                                        Unrecovered F&A:
+                                                                    </th>
+                                                                    <td style="text-align:left;">
+                                                                        4,509.73
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style="text-align:right;">
+                                                                        Indirect Cost:
+                                                                    </th>
+                                                                    <td style="text-align:left;">
+                                                                        19,409.40
+                                                                    </td>
+                                                                    <th style="text-align:right;">
+                                                                        Cost Sharing:
+                                                                    </th>
+                                                                    <td style="text-align:left;">
+                                                                        26,066.64
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style="text-align:right;">
+                                                                        Total Requested Cost:
+                                                                    </th>
+                                                                    <td style="text-align:left;" colspan="3">
+                                                                        189,848.42
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                    <!-- Expanding Sub-element Control: Personnel Detail (Period 1) -->
+                                                    <tr>
+                                                        <th align="left" class="expsubelementcontrol" colspan="2">
+                                                            <a href="#" class="subpanelcontrol01"><img src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="absmiddle"></a>
+                                                            Personnel Detail (Period 1)
+                                                        </th>
+                                                    </tr>
+                                                </tbody>
+                                                <!-- Expanding Sub-element Content: [Expanding Sub-element Name Here] -->
+                                                    <tbody id="subelementcontent01">
+                                                        <tr>
+                                                            <td class="expsubelementcontent" width="55">&nbsp;</td>
+                                                            <td class="expsubelementcontent">
+                                                                
+                                                            	<table cellpadding="0" cellspacing="0" class="elementtable" width="100%" style="width:100%;">
+                                                                    <tr>
+                                                                        <th>
+                                                                            *Person
+                                                                        </th>
+                                                                        <th>
+                                                                            *Object Code Name
+                                                                        </th>
+                                                                        <th>
+                                                                            Group
+                                                                        </th>
+                                                                        <th>
+                                                                            Action
+                                                                        </th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <!--<select name="newBudgetPersonnelDetails.personSequenceNumber" onChange="updateCostElement('134', '1', 'newBudgetLineItems[0].costElement', this, 'P', updateCostElement_Callback);">
+                                                                                <option value="" selected>Select</option>
+                                                                                <option value="1">Terry Durkin - aa017</option>
+                                                                                <option value="2">Bryan Hutchinson - aa018</option>
+                                                                                <option value="-1">Summary</option>
+                                                                            </select>-->
+                                                                            &nbsp;
+                                                                        </td>
+                                                                        <td>
+                                                                             <!--<select name="newBudgetLineItems[0].costElement">
+                                                                                <option value="" selected>select</option>
+                                                                                <option value="421568">CWSP Credit - Not MTDC</option>
+                                                                                <option value="400005">Summer Faculty - On</option>
+                                                                                <option value="400025">Faculty Salaries Tenured - On</option>
+                                                                                <option value="400040">Faculty Salaries Non-Tenured - On</option>
+                                                                                <option value="400050">Summer Other Academic - On</option>
+                                                                                <option value="400070">Summer Faculty - Off</option>
+                                                                                <option value="400090">Faculty Salaries Tenured - Off</option>
+                                                                                <option value="400105">Faculty Salaires Non-Tenured - Off</option>
+                                                                                <option value="400115">Summer - Other Academic - Off</option>
+                                                                                <option value="400135">Faculty Emeriti</option>
+                                                                                <option value="400140">Other Academic Staff - On</option>
+                                                                                <option value="400155">Other Academic Staff - Off</option>
+                                                                                <option value="400250">Administrative Staff - On</option>
+                                                                                <option value="400255">Administrative Staff - Off</option>
+                                                                                <option value="400350">Research Staff - On</option>
+                                                                                <option value="400355">Research Staff - Off</option>
+                                                                                <option value="400365">Program Manager</option>
+                                                                                <option value="400390">Post-Doctoral Staff</option>
+                                                                                <option value="400450">Hourly Personnel - On</option>
+                                                                                <option value="400452">Hourly Personnel - Off</option>
+                                                                                <option value="400600">Project Support Staff - On</option>
+                                                                                <option value="400601">Project Support Staff - Off</option>
+                                                                                <option value="400654">Exempt Technical - On</option>
+                                                                                <option value="400136">Faculty Retired Non-Tenured - On</option>
+                                                                                <option value="400370">Project Engineering Staff - On</option>
+                                                                                <option value="400550">Electronic Assembly - On</option>
+                                                                                <option value="400552">Mechanical Assembly - On</option>
+                                                                                <option value="400556">Quality Control - On</option>
+                                                                                <option value="400768">Undergrad S\&amp;W UROP - Off</option>
+                                                                                <option value="400700">Graduate Student Staff - On</option>
+                                                                                <option value="400770">Undergrad S\&amp;W UROP - On</option>
+                                                                                <option value="400706">Research Asst - On</option>
+                                                                                <option value="400708">Research Asst - Off</option>
+                                                                                <option value="400754">MIT Students - On</option>
+                                                                                <option value="400756">MIT Students - Off</option>
+                                                                                <option value="420262">Temporary Help</option>
+                                                                            </select>-->
+                                                                            &nbsp;
+                                                                        </td>
+                                                                        <td>
+                                                                           <!-- <select name="newBudgetLineItems[0].groupName" onBlur="javascript:disableGrpNameTextbox(this);return;">
+                                                                                <option value="">select</option>
+                                                                                <option value="AY">AY</option>
+                                                                                <option value="June">June</option>
+                                                                            </select>
+                                                                            -- or --
+                                                                            <input name="document.budgetPeriod[0].budgetLineItem[0].costSharingAmount" type="text" id="document.budgetPeriod[0].budgetLineItem[0].costSharingAmount" value="(new group)" size="14" maxlength="22">-->
+                                                                            &nbsp;
+                                                                        </td>
+                                                                        <td>
+                                                                            <!--<a href="bud-personnel9-3.html"><img src="../images/tinybutton-add1.gif" alt="add" width="40" height="15" border="0"></a>-->
+                                                                            &nbsp;
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                                
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                            </table>
+                                        </div>
+                                </td>
+                            </tr>
+                    </tbody>
+            </table>
+       		
+                
+		</div> <!-- End Panel Content Div (class='tab-container') Div -->
+        
+
+          
+<!-- END WORKAREA (PANEL GROUP FOOT) -->          
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="b3" summary="">
+        <tr>
+            <td align="left" class="footer"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="bl3"></td>
+            <td align="right" class="footer-right"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="br3"></td>
+        </tr>
+    </table>
+</div>  <!-- end id='workarea' div -->
+        
+<!-- INSTRUCTIONAL NOTES -->        
+    <div align="right">
+    	<br>* required
+    </div>
+    
+<!-- GLOBAL DOCUMENT CONTROLS -->
+    <div class="globalbuttons">
+    	<a href="#"> </a><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0"><img src="../images/buttonsmall_refresh.gif" alt="save" width="68" height="18" hspace="5" border="0"><a href="#"></a><a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width="48" height="18" hspace="5" border="0"></a><a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0"></a>
+    </div>
+    
+<!-- END PRIMARY TABLE LAYOUT -->
+    			</div> <!-- end align='center' div -->
+			</td>
+            <td class="column-right"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
+		</tr>
+	</table>
+</body>
+</html>
