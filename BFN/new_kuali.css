@@ -28,22 +28,22 @@
 	a:link
 	{
 		color: #000000;
-		text-decoration: underline;
+		text-decoration:none;
 	}
 	a:visited
 	{
 		color: #333333;
-		text-decoration: underline;
+		text-decoration: none;
 	}
 	a:hover
 	{
 		color: #990000;
-		text-decoration: underline;
+		text-decoration: none;
 	}
 	a:active
 	{
 		color: #333333;
-		text-decoration: underline;
+		text-decoration: none;
 	}
 
 /*FORM CONTROLS*/
@@ -386,6 +386,16 @@
 	.elementtable td, th
 	{
 		text-align:center;
+	}
+	.hierarchydetail
+	{
+		background-image:url("../images/th-back.gif");
+		/*border-top: solid #939393 1px;
+		border-bottom: solid #939393 1px;
+		border-right: solid #939393 1px;
+		border-left: solid #939393 1px;*/
+		/*padding:2px;*/
+		margin-left:2px;
 	}
 
 /*CLASS CALLS*/

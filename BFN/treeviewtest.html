@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <script src="jquery.js"></script>
+  <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="jquery.treeview.js"></script>
+  <style type="text/css">
+  #browser {
+    font-family: Verdana, helvetica, arial, sans-serif;
+    font-size: 68.75%;
+  }
+  </style>
+  <script>
+  $(document).ready(function(){
+    $("#browser").treeview();
+	
+  });
+  </script>
+  
+</head>
+<body>
+  
+	<ul id="browser" class="filetree">
+		<li>
+        	<span class="folder">Folder 1</span>
+            <ul>
+                <li>
+                	<span class="file">Item 1.1</span>
+                </li>
+            </ul>
+ 		</li>
+ 		<li>
+        	<span class="folder">Folder 2</span>
+ 			<ul>
+ 				<li>
+                	<span class="folder"><a href="http://ResourceForge.com" target="_blank">Subfolder 2.1</a></span>
+ 					<ul id="folder21">
+ 						<li><span class="file">File 2.1.1</span></li>
+ 						<li><span class="file"><a href="http://ResourceForge.com" target="_blank">File 2.1.2</a></span></li>
+ 					</ul>
+ 				</li>
+ 				<li><span class="file">File 2.2</span></li>
+ 			</ul>
+ 		</li>
+ 		<li class="closed">
+        	<span class="folder">Folder 3 (closed at start)</span>
+            <ul>
+                <li><span class="file">File 3.1</span></li>
+            </ul>
+ 		</li>
+ 		<li><span class="file">File 4</span></li>
+   </ul>
+
+</body>
+</html>
