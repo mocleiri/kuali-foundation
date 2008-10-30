@@ -475,7 +475,8 @@ public class KualiTorqueJDBCTransformTask extends Task {
 				|| sequenceName.toUpperCase().startsWith( "SEQUENCE_" ) 
 				|| sequenceName.toUpperCase().endsWith( "_SEQ" ) 
 				|| sequenceName.toUpperCase().endsWith( "_SEQUENCE" )
-				|| sequenceName.toUpperCase().endsWith( "_ID" ) ;
+				|| sequenceName.toUpperCase().endsWith( "_ID" )
+				|| sequenceName.toUpperCase().endsWith( "_S" ) ;
 	}
 	
 	public List getSequenceNames(DatabaseMetaData dbMeta) throws SQLException {
