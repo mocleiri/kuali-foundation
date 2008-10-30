@@ -19,6 +19,11 @@ package org.apache.torque.engine.platform;
  * under the License.
  */
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
 
@@ -26,7 +31,7 @@ import org.apache.torque.engine.database.model.SchemaType;
  * Interface for RDBMS platform specific behaviour.
  *
  * @author <a href="mailto:mpoeschl@marmot.at">Martin Poeschl</a>
- * @version $Id: Platform.java,v 1.1 2007-10-21 07:57:26 abyrne Exp $
+ * @version $Id: Platform.java,v 1.1.6.2 2008-04-18 17:04:37 jkeller Exp $
  */
 public interface Platform
 {
@@ -99,4 +104,11 @@ public interface Platform
     
 	public boolean isSpecialDefault( String defaultValue );
     
+	String getViewDefinition( Connection con, String schema, String viewName);
+	
+	Long getSequenceNextVal( Connection con, String schema, String sequenceName );
+
+	public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException;
+	
+	public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;
 }

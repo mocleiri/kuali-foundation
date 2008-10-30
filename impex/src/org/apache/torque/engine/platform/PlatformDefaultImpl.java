@@ -19,8 +19,14 @@ package org.apache.torque.engine.platform;
  * under the License.
  */
 
-import java.util.Hashtable;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.torque.engine.database.model.Domain;
@@ -31,11 +37,11 @@ import org.apache.torque.engine.database.model.SchemaType;
  * Default implementation for the Platform interface.
  *
  * @author <a href="mailto:mpoeschl@marmot.at">Martin Poeschl</a>
- * @version $Id: PlatformDefaultImpl.java,v 1.1 2007-10-21 07:57:26 abyrne Exp $
+ * @version $Id: PlatformDefaultImpl.java,v 1.1.6.2 2008-04-18 17:04:37 jkeller Exp $
  */
 public class PlatformDefaultImpl implements Platform
 {
-    private Map schemaDomainMap;
+    private Map<SchemaType,Domain> schemaDomainMap;
 
     /**
      * Default constructor.
@@ -47,11 +53,11 @@ public class PlatformDefaultImpl implements Platform
 
     private void initialize()
     {
-        schemaDomainMap = new Hashtable(30);
-        Iterator iter = SchemaType.iterator();
+        schemaDomainMap = new HashMap<SchemaType,Domain>(30);
+        Iterator<SchemaType> iter = SchemaType.iterator();
         while (iter.hasNext())
         {
-            SchemaType type = (SchemaType) iter.next();
+            SchemaType type = iter.next();
             schemaDomainMap.put(type, new Domain(type));
         }
         schemaDomainMap.put(SchemaType.BOOLEANCHAR,
@@ -86,7 +92,7 @@ public class PlatformDefaultImpl implements Platform
      */
     public Domain getDomainForSchemaType(SchemaType jdbcType)
     {
-        return (Domain) schemaDomainMap.get(jdbcType);
+        return schemaDomainMap.get(jdbcType);
     }
 
     /**
@@ -142,5 +148,74 @@ public class PlatformDefaultImpl implements Platform
 	public boolean isSpecialDefault( String defaultValue ) {
 		return false;
 	}
+
+	public Long getSequenceNextVal(Connection con, String schema, String sequenceName) {
+		throw new UnsupportedOperationException("getSequenceDefinition");
+	}
+
+	public String getViewDefinition( Connection con, String schema, String viewName) {
+		throw new UnsupportedOperationException("getViewDefinition");
+	}
     
+    /**
+     * Retrieves a list of the columns composing the primary key for a given
+     * table.
+     *
+     * @param dbMeta JDBC metadata.
+     * @param tableName Table from which to retrieve PK information.
+     * @return A list of the primary key parts for <code>tableName</code>.
+     * @throws SQLException
+     */
+    public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName)
+            throws SQLException
+    {
+        List<String> pk = new ArrayList<String>();
+        ResultSet parts = null;
+        try
+        {
+            parts = dbMeta.getPrimaryKeys(null, dbSchema, tableName);
+            while (parts.next())
+            {
+                pk.add(parts.getString(4));
+            }
+        }
+        finally
+        {
+            if (parts != null)
+            {
+                parts.close();
+            }
+        }
+        return pk;
+    }
+	
+    /**
+	 * Get all the table names in the current database that are not system
+	 * tables.
+	 * 
+	 * @param dbMeta
+	 *            JDBC database metadata.
+	 * @return The list of all the tables in a database.
+	 * @throws SQLException
+	 */
+	public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+		System.out.println( "Getting table list..." );
+		List<String> tables = new ArrayList<String>();
+		ResultSet tableNames = null;
+		// these are the entity types we want from the database
+		String[] types = { "TABLE" }; // JHK: removed views from list
+		try {
+			tableNames = dbMeta.getTables( null, databaseSchema, null, types );
+			while ( tableNames.next() ) {
+				String name = tableNames.getString( 3 );
+				tables.add( name );
+			}
+		} finally {
+			if ( tableNames != null ) {
+				tableNames.close();
+			}
+		}
+		System.out.println( "Found " + tables.size() + " tables." );
+		return tables;
+	}	
 }
