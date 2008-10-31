@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -29,6 +28,13 @@ import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Element;
 
 public class KualiTorqueJDBCTransformTask extends Task {
+	
+	// some flags for making it easier to debug
+	private final boolean processTables = true;
+	private final boolean processViews = true;
+	private final boolean processSequences = true;
+	
+	
     /** Name of XML database schema produced. */
     protected String xmlSchema;
 
@@ -57,9 +63,6 @@ public class KualiTorqueJDBCTransformTask extends Task {
     
     /** Hashtable of columns that have primary keys. */
     protected HashMap<String,String> primaryKeys;
-
-    /** Hashtable to track what table a column belongs to. */
-    protected HashMap<String,String> columnTableMap;
 
     private XMLSerializer xmlSerializer;
 
@@ -159,196 +162,189 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			
 			// Get the database Metadata.
 			DatabaseMetaData dbMetaData = con.getMetaData();
-
-			// The database map.
-			List<String> tableList = platform.getTableNames( dbMetaData, dbSchema );
 			
 			databaseNode = doc.createElement( "database" );
-			databaseNode.setAttribute( "name", dbUser );
+			databaseNode.setAttribute( "name", "kfs" );
 			// JHK added naming method
 			databaseNode.setAttribute( "defaultJavaNamingMethod", "nochange" );
 
-			// Build a database-wide column -> table map.
-			columnTableMap = new HashMap<String,String>();
-
-			log( "Building column/table map..." );
-			for ( String curTable : tableList ) {
-				List<List<Object>> columns = getColumns( dbMetaData, curTable );
-
-				for ( List<Object> col : columns ) {
-					String colName = (String)col.get( 0 );
-
-					columnTableMap.put( colName, curTable );
-				}
-			}
-
-			for ( String curTable : tableList ) {
-				log( "Processing table: " + curTable );
-
-				Element table = doc.createElement( "table" );
-				table.setAttribute( "name", curTable );
-
-				// Add Columns.
-				// TableMap tblMap = dbMap.getTable(curTable);
-
-				List columns = getColumns( dbMetaData, curTable );
-				List<String> primKeys = platform.getPrimaryKeys( dbMetaData, dbSchema, curTable );
-				Map<String,Object[]> forgnKeys = getForeignKeys( dbMetaData, curTable );
-
-				// Set the primary keys.
-				primaryKeys = new HashMap<String,String>();
-
-				for ( int k = 0; k < primKeys.size(); k++ ) {
-					String curPrimaryKey = (String)primKeys.get( k );
-					primaryKeys.put( curPrimaryKey, curPrimaryKey );
-				}
-
-				for ( int j = 0; j < columns.size(); j++ ) {
-					List col = (List)columns.get( j );
-					String name = (String)col.get( 0 );
-					Integer type = ((Integer)col.get( 1 ));
-					int size = ((Integer)col.get( 2 )).intValue();
-					int scale = ((Integer)col.get( 5 )).intValue();
-
-					// From DatabaseMetaData.java
-					//
-					// Indicates column might not allow NULL values. Huh?
-					// Might? Boy, that's a definitive answer.
-					/* int columnNoNulls = 0; */
-
-					// Indicates column definitely allows NULL values.
-					/* int columnNullable = 1; */
-
-					// Indicates NULLABILITY of column is unknown.
-					/* int columnNullableUnknown = 2; */
-
-					Integer nullType = (Integer)col.get( 3 );
-					String defValue = (String)col.get( 4 );
-
-					Element column = doc.createElement( "column" );
-					column.setAttribute( "name", name );
-
-					column.setAttribute( "type", TypeMap.getTorqueType( type )
-							.getName() );
-
-					if ( size > 0 &&
-							(type.intValue() == Types.CHAR ||
-									type.intValue() == Types.VARCHAR ||
-									type.intValue() == Types.LONGVARCHAR ||
-									type.intValue() == Types.DECIMAL || type
-									.intValue() == Types.NUMERIC) ) {
-						column.setAttribute( "size", String.valueOf( size ) );
+			if ( processTables ) {
+				List<String> tableList = platform.getTableNames( dbMetaData, dbSchema );
+	
+				for ( String curTable : tableList ) {
+					log( "Processing table: " + curTable );
+	
+					Element table = doc.createElement( "table" );
+					table.setAttribute( "name", curTable );
+	
+					// Add Columns.
+					// TableMap tblMap = dbMap.getTable(curTable);
+	
+					List columns = getColumns( dbMetaData, curTable );
+					List<String> primKeys = platform.getPrimaryKeys( dbMetaData, dbSchema, curTable );
+					Map<String,Object[]> foreignKeys = getForeignKeys( dbMetaData, curTable );
+	
+					// Set the primary keys.
+					primaryKeys = new HashMap<String,String>();
+	
+					for ( int k = 0; k < primKeys.size(); k++ ) {
+						String curPrimaryKey = (String)primKeys.get( k );
+						primaryKeys.put( curPrimaryKey, curPrimaryKey );
 					}
-
-					if ( scale > 0 &&
-							(type.intValue() == Types.DECIMAL || type
-									.intValue() == Types.NUMERIC) ) {
-						column.setAttribute( "scale", String.valueOf( scale ) );
-					}
-
-					if ( primaryKeys.containsKey( name ) ) {
-						column.setAttribute( "primaryKey", "true" );
-						// JHK: protect MySQL from excessively long column in the PK
-						//System.out.println( curTable + "." + name + " / " + size );
-						if ( column.getAttribute( "size" ) != null 
-								&& size > 765 ) {
-							System.out.println( "updating column " + curTable + "." + name + " length from " + size + " to 255" );
-							column.setAttribute( "size", "255" );
+	
+					for ( int j = 0; j < columns.size(); j++ ) {
+						List col = (List)columns.get( j );
+						String name = (String)col.get( 0 );
+						Integer type = ((Integer)col.get( 1 ));
+						int size = ((Integer)col.get( 2 )).intValue();
+						int scale = ((Integer)col.get( 5 )).intValue();
+	
+						// From DatabaseMetaData.java
+						//
+						// Indicates column might not allow NULL values. Huh?
+						// Might? Boy, that's a definitive answer.
+						/* int columnNoNulls = 0; */
+	
+						// Indicates column definitely allows NULL values.
+						/* int columnNullable = 1; */
+	
+						// Indicates NULLABILITY of column is unknown.
+						/* int columnNullableUnknown = 2; */
+	
+						Integer nullType = (Integer)col.get( 3 );
+						String defValue = (String)col.get( 4 );
+	
+						Element column = doc.createElement( "column" );
+						column.setAttribute( "name", name );
+	
+						column.setAttribute( "type", TypeMap.getTorqueType( type )
+								.getName() );
+	
+						if ( size > 0 &&
+								(type.intValue() == Types.CHAR ||
+										type.intValue() == Types.VARCHAR ||
+										type.intValue() == Types.LONGVARCHAR ||
+										type.intValue() == Types.DECIMAL || type
+										.intValue() == Types.NUMERIC) ) {
+							column.setAttribute( "size", String.valueOf( size ) );
 						}
-					} else {
-						if ( nullType.intValue() == DatabaseMetaData.columnNoNulls ) {
-							column.setAttribute( "required", "true" );
+	
+						if ( scale > 0 &&
+								(type.intValue() == Types.DECIMAL || type
+										.intValue() == Types.NUMERIC) ) {
+							column.setAttribute( "scale", String.valueOf( scale ) );
 						}
-					}
-
-					if ( StringUtils.isNotEmpty( defValue ) ) {
-						defValue = defValue.trim();
-						// trim out parens & quotes out of def value.
-						// makes sense for MSSQL. not sure about others.
-						if ( defValue.startsWith( "(" ) &&
-								defValue.endsWith( ")" ) ) {
-							defValue = defValue.substring( 1,
-									defValue.length() - 1 );
+	
+						if ( primaryKeys.containsKey( name ) ) {
+							column.setAttribute( "primaryKey", "true" );
+							// JHK: protect MySQL from excessively long column in the PK
+							//System.out.println( curTable + "." + name + " / " + size );
+							if ( column.getAttribute( "size" ) != null 
+									&& size > 765 ) {
+								System.out.println( "updating column " + curTable + "." + name + " length from " + size + " to 255" );
+								column.setAttribute( "size", "255" );
+							}
+						} else {
+							if ( nullType.intValue() == DatabaseMetaData.columnNoNulls ) {
+								column.setAttribute( "required", "true" );
+							}
 						}
-
-						if ( defValue.startsWith( "'" ) &&
-								defValue.endsWith( "'" ) ) {
-							defValue = defValue.substring( 1,
-									defValue.length() - 1 );
-						}
-						if ( defValue.equals( "NULL" ) ) {
-							defValue = "";
-						}
+	
 						if ( StringUtils.isNotEmpty( defValue ) ) {
-							column.setAttribute( "default", defValue );
+							defValue = defValue.trim();
+							// trim out parens & quotes out of def value.
+							// makes sense for MSSQL. not sure about others.
+							if ( defValue.startsWith( "(" ) &&
+									defValue.endsWith( ")" ) ) {
+								defValue = defValue.substring( 1,
+										defValue.length() - 1 );
+							}
+	
+							if ( defValue.startsWith( "'" ) &&
+									defValue.endsWith( "'" ) ) {
+								defValue = defValue.substring( 1,
+										defValue.length() - 1 );
+							}
+							if ( defValue.equals( "NULL" ) ) {
+								defValue = "";
+							}
+							if ( StringUtils.isNotEmpty( defValue ) ) {
+								column.setAttribute( "default", defValue );
+							}
 						}
+						table.appendChild( column );
 					}
-					table.appendChild( column );
+	
+					// Foreign keys for this table.
+					for ( String fkName : foreignKeys.keySet() ) {
+						Element fk = doc.createElement( "foreign-key" );
+						fk.setAttribute(  "name", fkName );
+						Object[] forKey = foreignKeys.get( fkName );
+						String foreignKeyTable = (String)forKey[0];
+						List refs = (List)forKey[1];
+						fk.setAttribute( "foreignTable", foreignKeyTable );
+						String onDelete = (String) forKey[2];
+						// gmcgrego - just adding onDelete if it's cascade so as not to affect kfs behavior
+						if (onDelete == "cascade") {
+							fk.setAttribute("onDelete", onDelete);
+						}
+						for ( int m = 0; m < refs.size(); m++ ) {
+							Element ref = doc.createElement( "reference" );
+							String[] refData = (String[])refs.get( m );
+							ref.setAttribute( "local", refData[0] );
+							ref.setAttribute( "foreign", refData[1] );
+							fk.appendChild( ref );
+						}
+						table.appendChild( fk );
+					}
+					
+					for ( TableIndex idx : getIndexes( dbMetaData, curTable ) ) {
+						String tagName = idx.unique?"unique":"index";
+						Element index = doc.createElement( tagName );
+						index.setAttribute( "name", idx.name );
+						for ( String colName : idx.columns ) {
+							Element col = doc.createElement( tagName + "-column" );
+							col.setAttribute( "name", colName );
+							index.appendChild( col );
+						}
+						table.appendChild( index );
+					}
+					
+					databaseNode.appendChild( table );
 				}
-
-				// Foreign keys for this table.
-				for ( String fkName : forgnKeys.keySet() ) {
-					Element fk = doc.createElement( "foreign-key" );
-					fk.setAttribute(  "name", fkName );
-					Object[] forKey = forgnKeys.get( fkName );
-					String foreignKeyTable = (String)forKey[0];
-					List refs = (List)forKey[1];
-					fk.setAttribute( "foreignTable", foreignKeyTable );
-					String onDelete = (String) forKey[2];
-					// gmcgrego - just adding onDelete if it's cascade so as not to affect kfs behavior
-					if (onDelete == "cascade") {
-						fk.setAttribute("onDelete", onDelete);
-					}
-					for ( int m = 0; m < refs.size(); m++ ) {
-						Element ref = doc.createElement( "reference" );
-						String[] refData = (String[])refs.get( m );
-						ref.setAttribute( "local", refData[0] );
-						ref.setAttribute( "foreign", refData[1] );
-						fk.appendChild( ref );
-					}
-					table.appendChild( fk );
+			}
+			if ( processViews ) {
+				List<String> viewNames = getViewNames( dbMetaData );
+				for ( String viewName : viewNames ) {
+					Element view = doc.createElement( "view" );
+					view.setAttribute( "name", viewName );
+					/*
+					 * <view name="" viewdefinition="" />
+					 * 
+					 */
+					String definition = platform.getViewDefinition( dbMetaData.getConnection(), dbSchema, viewName );
+					//definition = definition.replaceAll( "\0", "" );
+					view.setAttribute( "viewdefinition", definition );
+					databaseNode.appendChild( view );
 				}
-				
-				for ( TableIndex idx : getIndexes( dbMetaData, curTable ) ) {
-					String tagName = idx.unique?"unique":"index";
-					Element index = doc.createElement( tagName );
-					index.setAttribute( "name", idx.name );
-					for ( String colName : idx.columns ) {
-						Element col = doc.createElement( tagName + "-column" );
-						col.setAttribute( "name", colName );
-						index.appendChild( col );
-					}
-					table.appendChild( index );
+			}
+			
+			if ( processSequences ) {
+				List<String> sequenceNames = getSequenceNames( dbMetaData );
+				for ( String sequenceName : sequenceNames ) {
+					Element sequence = doc.createElement( "sequence" );
+					sequence.setAttribute( "name", sequenceName );
+					/*
+					 * <view name="" nextval="" />
+					 * 
+					 */
+					Long nextVal = platform.getSequenceNextVal( dbMetaData.getConnection(), dbSchema, sequenceName );
+					sequence.setAttribute( "nextval", nextVal.toString() );
+					
+					databaseNode.appendChild( sequence );
 				}
-				
-				databaseNode.appendChild( table );
+				doc.appendChild( databaseNode );
 			}
-			List<String> viewNames = getViewNames( dbMetaData );
-			for ( String viewName : viewNames ) {
-				Element view = doc.createElement( "view" );
-				view.setAttribute( "name", viewName );
-				/*
-				 * <view name="" viewdefinition="" />
-				 * 
-				 */
-				String definition = platform.getViewDefinition( dbMetaData.getConnection(), dbSchema, viewName );
-				view.setAttribute( "viewdefinition", definition );
-				databaseNode.appendChild( view );
-			}
-			List<String> sequenceNames = getSequenceNames( dbMetaData );
-			for ( String sequenceName : sequenceNames ) {
-				Element sequence = doc.createElement( "sequence" );
-				sequence.setAttribute( "name", sequenceName );
-				/*
-				 * <view name="" nextval="" />
-				 * 
-				 */
-				Long nextVal = platform.getSequenceNextVal( dbMetaData.getConnection(), dbSchema, sequenceName );
-				sequence.setAttribute( "nextval", nextVal.toString() );
-				
-				databaseNode.appendChild( sequence );
-			}
-			doc.appendChild( databaseNode );
 		} finally {
 			if ( con != null ) {
 				con.close();
