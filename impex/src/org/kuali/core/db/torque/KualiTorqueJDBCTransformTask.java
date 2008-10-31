@@ -323,7 +323,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
 					 * 
 					 */
 					String definition = platform.getViewDefinition( dbMetaData.getConnection(), dbSchema, viewName );
-					//definition = definition.replaceAll( "\0", "" );
+					definition = definition.replaceAll( "\0", "" );
 					view.setAttribute( "viewdefinition", definition );
 					databaseNode.appendChild( view );
 				}
