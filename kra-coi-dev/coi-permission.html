@@ -78,6 +78,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		<dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-notes.html');return document.MM_returnValue" value="Notes & Attachments">
         </span></dt>  
+		<dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-management.html');return document.MM_returnValue" value="COI Management">
+        </span></dt> 
    <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosureActions.html');return document.MM_returnValue" value="Disclosure Actions">
         </span></dt> 
@@ -115,19 +118,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           </span><span class="subhead-right"> <img src="../images/tinybutton-viewrights.gif" alt="view rights" width="67" height="15" onClick="MM_openBrWindow('prop-permissions-viewrights.html','','scrollbars=yes,resizable=yes,width=800,height=600')"></span></div>
           <table cellpadding=0 cellspacing="0"  summary="">
               <tr>
-                <th width="35%"><div align="right"> Aggregator: </div></th>
+                <th width="35%"><div align="right"> Disclosure Creator: </div></th>
                 <td align=left valign=middle >Smith, Davicia P ; <span class="infocell">Beckford, Augustus O</span></td>
               </tr>
               <tr>
-                <th><div align="right">Budget Creator:</div></th>
+                <th><div align="right">Disclosure Viewer:</div></th>
                 <td align=left valign=middle >Davis, Bethany; Bland, Christy; Cole, Cybil; Eger, Cheryl</td>
               </tr>
               <tr>
-                <th><div align="right">Narrative Writer:</div></th>
-                <td align=left valign=middle >&nbsp;</td>
-              </tr>
-              <tr>
-                <th><div align="right">Viewer:</div></th>
+                <th><div align="right">Financial Interest Viewer:</div></th>
                 <td align=left valign=middle >&nbsp;</td>
               </tr>
             </table>
@@ -165,10 +164,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td class="infoline">&nbsp;</td>
                 <td class="infoline"><select name="select" id="select">
                     <option selected>unassigned</option>
-                    <option>Aggregator</option>
-                    <option>Budget Creator</option>
-                    <option>Narrative Writer</option>
-                    <option>Viewer</option>
+                    <option>Disclosure Creator</option>
+                    <option>Disclosure Viewer</option>
+                    <option>Financial Interest Viewer</option>
                 </select></td>
                 <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
@@ -178,7 +176,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td><span class="infocell">Beckford, Augustus O</span></td>
                 <td align="right">165000</td>
                 <td>SB-SART</td>
-                <td>Aggregator</td>
+                <td>Disclosure Creator</td>
                 <td nowrap><div align="center"><a href="#" onClick="MM_openBrWindow('prop-permissions-roles.html','','scrollbars=yes,width=800,height=400')"><img src="../images/tinybutton-editrole.gif" alt="delete" width=54 height=15 hspace=3 vspace=3 border=0></a><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
@@ -196,7 +194,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Smith, Davicia P</td>
                 <td align="right">165000</td>
                 <td>Center for Environmental Health Sciences</td>
-                <td>Aggregator</td>
+                <td>Disclosure Creator</td>
                 <td nowrap><div align="center"><a href="#" onClick="MM_openBrWindow('prop-permissions-roles.html','','scrollbars=yes,width=800,height=400')"><img src="../images/tinybutton-editrole.gif" alt="delete" width=54 height=15 hspace=3 vspace=3 border=0></a><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
@@ -205,7 +203,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Davis, Bethany</td>
                 <td align="right">999028</td>
                 <td>Indiana University</td>
-                <td>Budget Creator</td>
+                <td>Disclosure Viewer</td>
                 <td nowrap><div align="center"><a href="#" onClick="MM_openBrWindow('prop-permissions-roles.html','','scrollbars=yes,width=800,height=400')"><img src="../images/tinybutton-editrole.gif" alt="delete" width=54 height=15 hspace=3 vspace=3 border=0></a><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
@@ -214,7 +212,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Bland, Christy </td>
                 <td align="right">999027</td>
                 <td>Indiana University</td>
-                <td>Budget Creator</td>
+                <td>Disclosure Viewer</td>
                 <td nowrap><div align="center"><a href="#" onClick="MM_openBrWindow('prop-permissions-roles.html','','scrollbars=yes,width=800,height=400')"><img src="../images/tinybutton-editrole.gif" alt="delete" width=54 height=15 hspace=3 vspace=3 border=0></a><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
@@ -223,7 +221,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Cole, Cybil </td>
                 <td align="right">999029</td>
                 <td>Indiana University</td>
-                <td>Budget Creator</td>
+                <td>Disclosure Viewer</td>
                 <td nowrap><div align="center"><a href="#" onClick="MM_openBrWindow('prop-permissions-roles.html','','scrollbars=yes,width=800,height=400')"><img src="../images/tinybutton-editrole.gif" alt="delete" width=54 height=15 hspace=3 vspace=3 border=0></a><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
@@ -232,7 +230,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Eger, Cheryl</td>
                 <td align="right">999030</td>
                 <td>University of Cincinnati </td>
-                <td>Budget Creator</td>
+                <td>Disclosure Viewer</td>
                 <td nowrap><div align="center"><a href="#" onClick="MM_openBrWindow('prop-permissions-roles.html','','scrollbars=yes,width=800,height=400')"><img src="../images/tinybutton-editrole.gif" alt="delete" width=54 height=15 hspace=3 vspace=3 border=0></a><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
