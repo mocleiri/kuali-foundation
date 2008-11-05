@@ -198,6 +198,60 @@
 		padding-bottom:12px;
 		border:0px;
 	}
+
+/* CONTROL PANEL */
+	.controlpanel_01
+	{
+		width:12px;
+		height:17px;
+		background-position:left top;
+		background:url(../images/annotate-tl1.gif);
+	}
+	.controlpanel_02
+	{
+		background-position:left top;
+		background:url(../images/annotate-back.gif);
+		color:#666666;
+		font-weight:bold;
+		text-align:left;
+	}
+	.controlpanel_03
+	{
+		width:12px;
+		background-position:right top;
+		background:url(../images/annotate-tr1.gif);
+	}
+	.controlpanel_04
+	{
+		background-position:left;
+		background:url(../images/annotate-l.gif);
+	}
+	.controlpanel_05
+	{
+		background-position:left top;
+		background-color:#FFFFFF;
+	}
+	.controlpanel_06
+	{
+		background-position:right;
+		background:url(../images/annotate-r2.gif);
+	}
+	.controlpanel_07
+	{
+		height:24px;
+		background-position:left bottom;
+		background:url(../images/annotate-bl1.gif);
+	}
+	.controlpanel_08
+	{
+		background-position:bottom;
+		background:url(../images/annotate-back-b2.gif);
+	}
+	.controlpanel_09
+	{
+		background-position:right bottom;
+		background:url(../images/annotate-br1.gif);
+	}
 	
 /*PANEL*/
 	.panelgroup
