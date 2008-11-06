@@ -55,7 +55,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       
 
       <dt class="licurrent"><span class="tabright tabcurrent">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosure.html');return document.MM_returnValue" value="Disclosure">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosure.html');return document.MM_returnValue" value="Disclosure Form">
         </span></dt>
 <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-financialInterest.html');return document.MM_returnValue" value="Financial Interests">
@@ -96,15 +96,55 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     <td><div  align="center">
       <div id="workarea">
         <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Document Overview</td>
+              <td class="tabtable1-mid1">&nbsp;</td>
+              <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A013" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F013" ></a></span> </td>
+              <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+
+          <div class="tab-container" align="center" id="G013" style="display: block;">
+          
+            <div class="h2-container">
+              <h2>Document Overview</h2>
+            </div>
+            <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <th colspan="1" rowspan="2" align="right" valign="top">
+                    <label for="document.documentHeader.financialDocumentDescription">*Description:</label>
+                  </th>
+                  <td rowspan="2" align="left" valign="top"><input name="document.documentHeader.financialDocumentDescription" maxlength="40" size="45" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.financialDocumentDescription" type="text">
+                  </td>
+                  <th colspan="1" align="right">&nbsp;
+                    <label for="document.explanation">Explanation:  </label>
+                  </th>
+                  <td align="left" valign="middle"><textarea name="document.explanation" tabindex="0" cols="40" rows="3" style="" id="document.explanation"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <th rowspan="1" colspan="1" align="right">&nbsp;
+                    <label for="document.documentHeader.organizationDocumentNumber">Org. Doc. #:  </label>
+                  </th>
+                  <td align="left" valign="middle"><input name="document.documentHeader.organizationDocumentNumber" maxlength="10" size="12" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.organizationDocumentNumber" type="text">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+		  
+		<table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
           <tr>
-            <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">General Questions </td>
+            <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Disclosure Form Questions </td>
             <td class="tabtable1-mid1">&nbsp;</td>
-            <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" ></a></span> </td>
-            <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            <td class="tabtable2-mid"><a href="#" id="A031" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031" ></a> </td>
+            <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
           </tr>
         </table>
-        <div class="tab-container" align="center" id="G02" style="display: none;">
-          <div class="h2-container"><span class="subhead-left"><h2>General Questions</h2>
+        <div class="tab-container" align="center" id="G031" style="display: none;">
+          <div class="h2-container"><span class="subhead-left"><h2>Disclosure Form Questions</h2>
             </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
          <br> 
          <br>
@@ -230,7 +270,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         </div>
         <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
           <tr>
-            <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Organizatinal Verification Questions </td>
+            <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >TBD Questions </td>
             <td class="tabtable1-mid1">&nbsp;</td>
             <td class="tabtable2-mid"><a href="#" id="A03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F03" ></a> </td>
             <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
@@ -238,7 +278,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         </table>
         <div class="tab-container" align="center" id="G03" style="display: none;">
           <div class="h2-container"> <span class="subhead-left">
-            <h2>Organizational Verification Questions </h2>
+            <h2>TBD Questions </h2>
           </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
           <table cellpadding=0 cellspacing="0" class="result-table" summary="">
             <tbody id="G5">
@@ -310,7 +350,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           </div>
          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
           <tr>
-            <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Financial Questions </td>
+            <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >TBD Questions </td>
             <td class="tabtable1-mid1">&nbsp;</td>
             <td class="tabtable2-mid"><a href="#" id="A04" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F04" ></a> </td>
             <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
@@ -318,7 +358,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         </table>
         <div class="tab-container" align="center" id="G04" style="display: none;">
           <div class="h2-container"> <span class="subhead-left">
-            <h2>Financial Questions </h2>
+            <h2>TBD Questions </h2>
           </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
           <table cellpadding=0 cellspacing="0" class="result-table" summary="">
             <tbody id="G5">
@@ -390,7 +430,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           </div>
         <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
           <tr>
-            <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >History</td>
+            <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Disclosure from History</td>
             <td class="tabtable1-mid1">&nbsp;</td>
             <td class="tabtable2-mid"><a href="#" id="A05" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F05" ></a> </td>
             <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
@@ -398,13 +438,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         </table>
 		<div class="tab-container" align="center" id="G05" style="display: none;">
           <div class="h2-container"> <span class="subhead-left">
-            <h2>History</h2>
+            <h2>Disclosure from History</h2>
           </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
           <table cellpadding=0 cellspacing="0" class="result-table" summary="">
             <tbody id="G5">
               <tr>
                 <th width="5%">&nbsp;</th>
-                <th width="31%"> Discolsure Category</th>
+                <th width="31%"> Disclosure Category</th>
                 <th width="27%">Date Submitted </th>
                 <th width="24%">Description </th>
                 <th width="13%">Actions</th>
