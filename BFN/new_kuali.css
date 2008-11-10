@@ -131,20 +131,24 @@
 	{
 		background-color:#D8D8D8;
 		width:100%;
+		background-position:bottom;
+		background:url(./images/tabnav-divbg.gif);
 	}
 	.horizontaltabstable
 	{
 		/*margin-left:12px;*/
-		height:30px;
+		/*height:30px;*/
 	}
 	.horizontaltabstable td
 	{
 		vertical-align:middle;
+		text-align:center;
 	}
 	.horizontaltabstable td a
 	{
 		font-size: 105%;
 		font-family:"Trebuchet MS",Arial,Verdana,sans-serif;
+		line-height:13px;
 		font-weight:bold;
 		text-decoration: none;
 	}
