@@ -131,8 +131,9 @@
 	{
 		background-color:#D8D8D8;
 		width:100%;
-		background-position:bottom;
+		/*background-position:bottom;*/
 		background:url(./images/tabnav-divbg.gif);
+		
 	}
 	.horizontaltabstable
 	{
@@ -387,6 +388,11 @@
 		padding-right:3px;
 		padding-left:10px;
 		padding-bottom:10px;
+	}
+	
+	.subelementheader
+	{
+		border-left:1px solid #939393;
 	}
 	
 	.subelementheader,.expsubelementcontrol
