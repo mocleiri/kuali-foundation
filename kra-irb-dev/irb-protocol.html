@@ -524,62 +524,95 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div class="h2-container"><span class="subhead-left">
               <h2><span class="tabtable1-left">Organizations</span></h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-            <table align=center cellpadding=0 cellspacing=0 summary="">
-              <!-- <tr>
-                        <td colspan="6" class="tab-subhead"><div align="left">Consultants</div></td>
-                      </tr> -->
-              <tr>
-                <th>&nbsp;</th>
-                <th><div align=left>
-                    <label for="label">*Organization Id </label>
-                  </div></th>
-                <th>Organization Type</th>
-                <th><div align=left>Address</div></th>
-                <th>IRB Contact name </th>
-                <th>FWA Number </th>
-                <th>Actions</th>
-              </tr>
-              <tr>
-                <th class="infoline">Add:</th>
-                <td class="infoline"><input name="textfield223243" type=text size=10 id="label">
-                  <a href="#">
-                  <input name="image32" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                  </a><a href="#">
-                  <input name="image33" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                  </a></td>
-                <td class="infoline"><select onchange="dataChanged()" name="select5" id="select">
-                    <option selected>select</option>
-                    <option selected>Performing Organization</option>
-                    <option value=2>External</option>
-                  </select></td>
-                <td class="infoline">(Select)<a href="#">
-                  <input name="image4" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                  </a></td>
-                <td class="infoline">&nbsp;</td>
-                <td class="infoline">&nbsp;</td>
-                <td class="infoline"><div align=center><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></div></td>
-              </tr>
-              <tr>
-                <th>1</th>
-                <td><span>
-                  <input name="textfield2232423" type=text value="000001" size=10 id="label">
-                  <span class="infoline"><a href="#">
-                  <input name="image322" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                  </a><a href="#">
-                  <input name="image332" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                  </a></span></span><br>
-                  <span class="fineprint">University</span></td>
-                <td>Performing Organization</td>
-                <td>77 Massachusetts Ave, Cambridge, MA 02139 <a href="#">
-                  <input name="image3" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                  <input name="image3" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                  <br>
-                  </a></td>
-                <td>Wargel Joe </td>
-                <td>11111</td>
-                <td><div align=center><a href="#"><img src="../images/tinybutton-clraddress.gif" alt="delete" width=79 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-              </tr>
-            </table>
+          
+            	<table align=center cellpadding=0 cellspacing=0 summary="">
+                    <tr>
+                        <th>
+                        	&nbsp;
+                        </th>
+                        <th>
+                            <div align=left>
+                            <label for="label">*Organization Id </label>
+                            </div>
+                        </th>
+                        <th>
+                        	Organization Type
+                        </th>
+                        <th>
+                        	Contact
+                        </th>
+                        <th>
+                        	FWA Number
+                        </th>
+                        <th>
+                        	Actions
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="infoline">
+                            Add:
+                        </th>
+                        <td class="infoline">
+                            <input name="textfield223243" type=text size=10 id="label">
+                            <a href="#">
+                            <input name="image32" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                            </a><a href="#">
+                            <input name="image33" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+                            </a>
+                        </td>
+                        <td class="infoline">
+                            <select onchange="dataChanged()" name="select5" id="select">
+                            <option selected>select</option>
+                            <option selected>Performing Organization</option>
+                            <option value=2>External</option>
+                            </select>
+                        </td>
+                        <td class="infoline">
+                            <input type="text" name="contx" size="55">
+                            <input name="image4" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                            <input name="image4" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+                        </td>
+                        <td class="infoline">
+                            &nbsp;
+                        </td>
+                        <td class="infoline">
+                            <div align=center><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            1
+                        </th>
+                        <td>
+                            <span>
+                            <input name="textfield2232423" type=text value="000001" size=10 id="label">
+                            <span class="infoline"><a href="#">
+                            <input name="image322" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                            </a><a href="#">
+                            <input name="image332" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+                            </a></span></span><br>
+                            <span class="fineprint">University</span>
+                        </td>
+                        <td>
+                        	Performing Organization
+                        </td>
+                        <td>
+                            Wargel, Joe: 
+                            77 Massachusetts Ave, Cambridge, MA 02139 <a href="#">
+                            <input name="image3" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                            <input name="image3" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+                            <br>
+                            </a>
+                        </td>
+                        <td>
+                        	11111
+                        </td>
+                        <td>
+                        	<div align=center><a href="#"><img src="../images/tinybutton-clraddress.gif" alt="delete" width=79 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                        </td>
+                    </tr>
+                </table>
+                
           </div>
           <!-- TAB -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
