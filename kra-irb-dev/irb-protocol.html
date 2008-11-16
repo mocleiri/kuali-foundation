@@ -346,15 +346,78 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </table><div class="h2-container"> <span class="subhead-left">
               <h2>Risk Levels</h2>
               </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-            <table cellpadding=0 cellspacing=0 summary="">
-              <tr>
-                <td><p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p align="center"><img src="images/risk.jpg" width="618" height="354"></p>
-                <p>&nbsp;</p></td>
-              </tr>
-             
-            </table>
+            
+                <table cellpadding=0 cellspacing=0 summary="">
+                    <tr>
+                        <th>
+                            Risk Level
+                        </th>
+                        <th style="width:105px;;">
+                        	Date Assigned
+                        </th>
+                        <th style="width:105px;">
+                            Date Updated
+                        </th>
+                        <th style="width:60px;">
+                        	Status
+                        </th>
+                        <th>
+                            Comments
+                        </th>
+                        <th style="width:16px;">&nbsp;
+                        	
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            No greater than minimal risk.
+                        </td>
+                        <td>
+                        	08-Oct-2008
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td>
+                        	Active
+                        </td>
+                        <td>
+                            Enter comments here on t...
+                        </td>
+                        <td style="text-align:center;">
+                        	<input type="image" src="../images/book_open.png" width="16" height="16" border="0" style="border:none;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Moderate Risk
+                        </td>
+                        <td>
+                        	08-Nov-2008
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td>
+                        	Active
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td style="text-align:center;">
+                        	<input type="image" src="../images/book_open.png" width="16" height="16" border="0" style="border:none;">
+                        </td>
+                    </tr>
+                    <!--<tr>
+                        <td colspan="6">
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p align="center"><img src="images/risk.jpg" width="618" height="354"></p>
+                            <p>&nbsp;</p>
+                        </td>
+                    </tr>-->
+                </table>
+            
           </div>
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
@@ -530,70 +593,149 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div class="h2-container"> <span class="subhead-left">
               <h2>Funding Sources</h2>
               </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-            <table align="center" border="0" cellpadding="2" cellspacing="0" width="98%">
-              <tbody _base_href="http://coeus-test.mit.edu/coeus42/coeuslite/wmc/budget/tiles/budgetSummaryTile.jsp">
-                <tr align="center" valign="top">
-                  <th width="8%">&nbsp;</th>
-                  <th width="19%"><label for="type">*Funding Type</label></th>
-                  <th width="14%"><label for="number">*Funding ID </label></th>
-                  <th width="47%"><label for="title">Funding Description</label></th>
-                  <th width="12%" >Actions</th>
-                </tr>
-                <tr >
-                  <th class="infoline"><div align="center">Add:</div></th>
-                  <td nowrap class="infoline"><div align="center">
-                      <label>
-                      <select name="select3" id="type">
-                        <option selected>select</option>
-                        <option>sponsor</option>
-                        <option>others</option>
-                        <option>submitted  proposal</option>
-                        <option>development proposal</option>
-                        <option>unit</option>
-                        <option>award</option>
-                      </select>
-                      </label>
-                    </div></td>
-                  <td nowrap class="infoline"><div align="center">
-                      <input name="totalCostLimit" size="10" onchange="dataChanged()" style="text-align: right;" type="text" id="number"/>
-                      <span class="grid"> &nbsp;
-                      <input name="image" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                      &nbsp;
-                      <input name="image2" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                      </span></div></td>
-                  <td class="infoline"><div align="center">
-                      <input name="totalCostLimit2" size="70" onchange="dataChanged()" style="text-align: right;" type="text" id="title"/>
-                    </div></td>
-                  <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                </tr>
-                <tr >
-                  <th><div align="center">&nbsp;1 </div></th>
-                  <td><div align="center">
-                      <input name="totalCostLimit8" size="24" onchange="dataChanged()" style="text-align: right;" type="text" id="totalCostLimit" value="Sponsor"/>
-                    </div></td>
-                  <td nowrap><div align="center">
-                      <input name="totalCostLimit3" type="text"  onchange="dataChanged()" value="713476" size="10" id="number"/>
-                    </div></td>
-                  <td nowrap><div align="center">
-                      <input name="totalCostLimit5" type="text"  onchange="dataChanged()" value="NIH" size="70" id="title"/>
-                    </div></td>
-                  <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                </tr>
-                <tr>
-                  <th><div align="center">&nbsp;2 </div></th>
-                  <td><div align="center">
-                      <input name="totalCostLimit82" size="24" onchange="dataChanged()" style="text-align: right;" type="text" id="totalCostLimit8" value="Other"/>
-                    </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit4" type="text" onchange="dataChanged()" value="345787" size="10" id="number"/>
-                    </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit6" size="70" onchange="dataChanged()"  type="text" id="title"/>
-                    </div></td>
-                  <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                </tr>
-              </tbody>
-            </table>
+            
+            
+                <table align="center" border="0" cellpadding="2" cellspacing="0" width="98%">
+                    <tbody _base_href="http://coeus-test.mit.edu/coeus42/coeuslite/wmc/budget/tiles/budgetSummaryTile.jsp">
+                        <tr align="center" valign="top">
+                            <th>&nbsp;</th>
+                            <th><label for="type">*Funding Type</label></th>
+                            <th><label for="number">*Funding ID </label></th>
+                            <th><label for="title">*Source</label></th>
+                            <th><label for="title">*Title</label></th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr >
+                            <th class="infoline">
+                            	<div align="center">Add:</div>
+                            </th>
+                            <td nowrap class="infoline">
+                                <div align="center">
+                                <label>
+                                <select name="select3" id="type">
+                                <option selected>select</option>
+                                <option>sponsor</option>
+                                <option>others</option>
+                                <option>submitted  proposal</option>
+                                <option>development proposal</option>
+                                <option>unit</option>
+                                <option>award</option>
+                                </select>
+                                </label>
+                                </div>
+                            </td>
+                            <td nowrap class="infoline">
+                                <div align="center">
+                                <input name="totalCostLimit" size="10" onchange="dataChanged()" style="text-align: right;" type="text" id="number"/>
+                                <span class="grid">
+                                <input name="image" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                                <input name="image2" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+                                </span></div>
+                            </td>
+                            <td class="infoline">
+                                <div align="center">
+                                <input name="totalCostLimit2" size="20" onchange="dataChanged()" style="text-align: right;" type="text" id="source1"/>
+                                </div>
+                            </td>
+                            <td class="infoline">
+                                <div align="center">
+                                <input name="totalCostLimit21" size="35" onchange="dataChanged()" style="text-align: right;" type="text" id="title1"/>
+                                </div>
+                            </td>
+                            <td class="infoline">
+                            	<div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                            </td>
+                        </tr>
+                        <tr >
+                            <th>
+                            	<div align="center">1</div>
+                            </th>
+                            <td>
+                                <div align="center">
+                                <input name="totalCostLimit8" size="24" onchange="dataChanged()" style="text-align: right;" type="text" id="totalCostLimit" value="Award"/>
+                                </div>
+                            </td>
+                            <td nowrap>
+                                <div align="center">
+                                <input name="totalCostLimit3" type="text"  onchange="dataChanged()" value="713476" size="10" id="number"/>
+                                </div>
+                            </td>
+                            <td nowrap>
+                                <div align="center">
+                                <input name="totalCostLimit52" type="text"  onchange="dataChanged()" value="NIH" size="20" id="source2"/>
+                                </div>
+                            </td>
+                            <td nowrap>
+                                <div align="center">
+                                <input name="totalCostLimit52" type="text"  onchange="dataChanged()" value="Lorem Ipsum" size="35" id="title2"/>
+                                </div>
+                            </td>
+                            <td>
+                            	<div align=center>
+                                	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a>
+                                	<a href="#"><img src="../images/tinybutton-detail.gif" alt="detail" width=40 height=15 hspace=3 vspace=3 border=0></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><div align="center">2</div></th>
+                            <td>
+                                <div align="center">
+                                <input name="totalCostLimit82" size="24" onchange="dataChanged()" style="text-align: right;" type="text" id="totalCostLimit8" value="Unit"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div align="center">
+                                <input name="totalCostLimit43" type="text" onchange="dataChanged()" value="345787" size="10" id="number"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div align="center">
+                                <input name="totalCostLimit63" size="20" onchange="dataChanged()"  type="text" id="source3" value="Chemistry Department" />
+                                </div>
+                            </td>
+                            <td>
+                                <div align="center">
+                                <input name="totalCostLimit63" size="35" onchange="dataChanged()"  type="text" id="title3" value="Dolor Sit" />
+                                </div>
+                            </td>
+                            <td>
+                            	<div align=center>
+                                	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a>
+                                	<a href="#"><img src="../images/tinybutton-detail.gif" alt="detail" width=40 height=15 hspace=3 vspace=3 border=0></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><div align="center">3</div></th>
+                            <td>
+                                <div align="center">
+                                <input name="totalCostLimit82" size="24" onchange="dataChanged()" style="text-align: right;" type="text" id="totalCostLimit8" value="Other"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div align="center">
+                                <input name="totalCostLimit43" type="text" onchange="dataChanged()" value="345787" size="10" id="number"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div align="center">
+                                <input name="totalCostLimit63" size="20" onchange="dataChanged()"  type="text" id="source3"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div align="center">
+                                <input name="totalCostLimit63" size="35" onchange="dataChanged()"  type="text" id="title3"/>
+                                </div>
+                            </td>
+                            <td>
+                            	<div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+            
           </div>
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
