@@ -96,13 +96,22 @@ function kexport {
     {
 	typeset environment=$1
 	typeset version=$2
+	typeset tempdir=$APPLICATION_DATABASE_PROJECT"-tmp"
 	ksetprops $environment $version Oracle9i
 	rm -rf $APPLICATION_DATABASE_PROJECT
 	kcheckout $APPLICATION_DATABASE_PROJECT $version $APPLICATION_DATABASE_PROJECT
+	cp -r $APPLICATION_DATABASE_PROJECT tempdir
 	kant export -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 	svn -q add $APPLICATION_DATABASE_PROJECT/*
 	svn -q add $APPLICATION_DATABASE_PROJECT/doc/*
-	svn remove $APPLICATION_DATABASE_PROJECT
+	for i in $(diff $srcctrldir $tempdir | grep "Only in $tempdir")
+	do
+		if [[ "$i" != "Only" && "$i" != "in" && "$i" != "$tempdir:" ]]
+		then
+			kexec "svn remove $APPLICATION_DATABASE_PROJECT/$i"
+		fi
+	done
+	rm -rf tempdir
 	kexec "svn -q update $APPLICATION_DATABASE_PROJECT"
 	kexec "svn commit -m \"daily export\" $APPLICATION_DATABASE_PROJECT"
 	kexec "rm -rf $APPLICATION_DATABASE_PROJECT"
