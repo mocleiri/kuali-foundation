@@ -97,14 +97,15 @@ function kexport {
 	typeset environment=$1
 	typeset version=$2
 	typeset tempdir=$APPLICATION_DATABASE_PROJECT"-tmp"
+	typeset diffsearchstring="Only in $tempdir"
 	ksetprops $environment $version Oracle9i
 	rm -rf $APPLICATION_DATABASE_PROJECT
 	kcheckout $APPLICATION_DATABASE_PROJECT $version $APPLICATION_DATABASE_PROJECT
-	cp -r $APPLICATION_DATABASE_PROJECT tempdir
+	cp -r $APPLICATION_DATABASE_PROJECT $tempdir
 	kant export -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 	svn -q add $APPLICATION_DATABASE_PROJECT/*
 	svn -q add $APPLICATION_DATABASE_PROJECT/doc/*
-	for i in $(diff $srcctrldir $tempdir | grep "Only in $tempdir")
+	for i in $(diff $APPLICATION_DATABASE_PROJECT $tempdir | grep "Only in $tempdir")
 	do
 		if [[ "$i" != "Only" && "$i" != "in" && "$i" != "$tempdir:" ]]
 		then
