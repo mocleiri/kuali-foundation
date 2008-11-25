@@ -109,10 +109,10 @@ function kexport {
 	do
 		if [[ "$i" != "Only" && "$i" != "in" && "$i" != "$tempdir:" ]]
 		then
-			kexec "svn remove $APPLICATION_DATABASE_PROJECT/$i"
+			svn remove $APPLICATION_DATABASE_PROJECT/$i
 		fi
 	done
-	rm -rf tempdir
+	rm -rf $tempdir
 	kexec "svn -q update $APPLICATION_DATABASE_PROJECT"
 	kexec "svn commit -m \"daily export\" $APPLICATION_DATABASE_PROJECT"
 	kexec "rm -rf $APPLICATION_DATABASE_PROJECT"
