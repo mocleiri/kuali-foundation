@@ -254,9 +254,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               </tbody>
             </table>
           </div>
+          
+          
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Summary, History, & Print</td>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Print Protocol</td>
               <td class="tabtable1-mid1">&nbsp;</td>
               <td class="tabtable2-mid"><a href="#" id="A03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F03" ></a> </td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
@@ -539,7 +541,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<!--<br><br><img src="images/prot-summary.jpg">-->
             
             <!-- View History -->
-            <div class="h2-container">
+            <!--<div class="h2-container">
             	<span class="subhead-left"><h2><a href="#" id="A800" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F800"></a>
                 View History</h2></span>
                 <span class="subhead-right">
@@ -831,8 +833,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </td>
                     </tr>
                 </tbody>
-            </table>
-			<br />
+            </table>-->
+			<!--<br />-->
             <!--<br><br><img src="images/prot-history.jpg">-->
             
             <!-- Print -->
@@ -874,8 +876,303 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             
           </div>
           
-          
-          
+          <!-- PANEL: ACTION HISTORY -->
+            <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+                <tr>
+                    <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" />Action History</td>
+                    <td class="tabtable1-mid1">&nbsp;</td>
+                    <td class="tabtable2-mid"><a href="#" id="A0311" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F0311" /></a> </td>
+                    <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle" /></td>
+                </tr>
+            </table>
+            <div class="tab-container" align="center" id="G0311" style="display: none;">
+          	
+            <!-- View History -->
+            <div class="h2-container">
+            	<span class="subhead-left">
+                	<h2>
+                		<!--<a href="#" id="A800" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F800"></a>-->
+                		View History
+                    </h2>
+                </span>
+                <span class="subhead-right">
+                	<span class="subhead">
+                    	<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
+                    </span>
+                </span>
+            </div>
+            <table cellpadding="0" cellspacing="0">
+                <!--<tbody id="G800" style="display: block;">-->
+                    <tr>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Action Date
+                        </th>
+                        <th>
+                           Comments
+                        </th>
+                        <th style="width:190px; text-align:center;">&nbsp;
+                            Actions
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            Notified Committee
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Expected Approval
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            Renewal-001
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Submitted to IRB
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            Renewal-001: Submit to IRB
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Renewal Created
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            Renewal-001 created
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Approved
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            Amendment-001:
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Assigned to Agenda
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            Amendment-001: Ready for committee
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Submitted to IRB
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            Amendment-001: Submit to IRB
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Amendment Created
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            Amendment-001 created
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Administrative Correction
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            Enter comment here
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Approved
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Assigned to Agenda
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Submitted to IRB
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            Submit to IRB
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Protocol Created
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            07-Nov-2008
+                        </td>
+                        <td>
+                            Protocol Created
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>
+                            <a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>
+                            <a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>
+                        </td>
+                    </tr>
+                <!--</tbody>-->
+            </table>
+			<br />
+            <!--<br><br><img src="images/prot-history.jpg">-->
+            
+          	</div>
           
           
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
