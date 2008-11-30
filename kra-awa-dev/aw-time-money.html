@@ -216,6 +216,7 @@
                     <span class="subhead-left"><h2>Cost Share</h2></span>
                     <span class="subhead-right">
                         <span class="subhead">
+                            <a href=""><img src="../images/tinybutton-validbenefitsrates.gif" width="100" height="15" border="0" alt="valid benefits rates" align="absmiddle" /></a>
                             <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
                         </span>
                     </span>
@@ -224,19 +225,21 @@
                 <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
                     <tr>
                         <th>&nbsp;</th>
-                        <th width="38%" scope=col>*Percentage</th>
-                        <th width="34%" scope=col>*Type</th>
-                        <th width="34%" scope=col>*Fiscal Year</th>
-                        <th width="34%" scope=col>Source</th>
-                        <th width="34%" scope=col>Destination</th>
-                        <th width="34%" scope=col>*Commitment Amount</th>
-                        <th width="22%">Actions</th>
+                        <th>Percentage</th>
+                        <th>*Type</th>
+                        <th>*Fiscal Year</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>*Commitment Amount</th>
+                        <th>Cost Share Met</th>
+                        <th>Verification Date</th>
+                        <th>Actions</th>
                     </tr>
                     <tr>
                         <th>Add:</th>
                         <td class="infoline">
                             <div align="center">
-                            <input name="textfield" type="text" id="textfield" size="4">
+                            <input name="textfield" type="text" id="textfield" size="4">%
                             </div>
                         </td>
                         <td class="infoline">
@@ -269,6 +272,14 @@
                             <input name="textfield" type="text" id="textfield" size="12">
                             </div>
                         </td>
+                        <td class="infoline">
+                            <div align="right">
+                            <input name="textfield" type="text" id="textfield" size="12">
+                            </div>
+                        </td>
+                        <td class="infoline">
+                        	<input name="date1a" type="text" size="10">
+                            <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle" /></a>
                         <td nowrap class="infoline">
                             <div align="center">
                             <a href="#"><img src="../images/tinybutton-add1.gif" alt="Add" width=40 height=15 hspace=3 vspace=3 border=0></a>
@@ -279,7 +290,7 @@
                         <th width="6%" scope="row">1</th>
                         <td>
                             <div align="center">
-                            <input name="textfield" type="text" id="textfield" value=".50" size="4">
+                            <input name="textfield" type="text" id="textfield" value=".50" size="4">%
                             </div>
                         </td>
                         <td>
@@ -310,6 +321,13 @@
                         <td>
                             <div align="right">1.50</div>
                         </td>
+                        <td>
+                            <div align="right"><input name="textfield" type="text" size="12" value="4.70" style="text-align:right;" /></div>
+                        </td>
+                        <td>
+                        	<input name="date1b" type="text" value="12/14/2009" size="10">
+                            <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle" /></a>
+                        </td>
                         <td nowrap>
                             <div align="center">
                             <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a>
@@ -320,7 +338,7 @@
                         <th width="6%"  scope="row">2</th>
                         <td>
                             <div align="center">
-                            <input name="textfield" type="text" id="textfield" value=".50" size="4">
+                            <input name="textfield" type="text" id="textfield" value=".50" size="4">%
                             </div>
                         </td>
                         <td>
@@ -351,6 +369,13 @@
                         <td>
                             <div align="right">3.25</div>
                         </td>
+                        <td>
+                            <div align="right"><input name="textfield" type="text" size="12" value="6.30" style="text-align:right;" /></div>
+                        </td>
+                        <td>
+                        	<input name="date1c" type="text" value="12/14/2009" size="10">
+                            <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle" /></a>
+                        </td>
                         <td nowrap>
                             <div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
                         </td>
@@ -359,31 +384,25 @@
                         <th width="6%"  scope="row">Total:</th>
                         <td colspan="5" class="infoline">&nbsp;</td>
                         <td class="infoline"><div align="right"><strong>$4.75</strong></div></td>
+                        <td class="infoline"><div align="right"><strong>$11.00</strong></div></td>
+                        <td class="infoline">&nbsp;</td>
                         <td class="infoline"><div align="center"></div></td>
                     </tr>
-                </table>        
+                </table>
+        <!-- Element Content: Comments -->
+                <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
+                    <tr>
+                        <th scope="row" style="text-align:right; width:100px;">Comments:</th>
+                        <td>
+                            <textarea name="textfield" cols="60" rows="4" id="textfield"></textarea>
+                            <a href="#"><img src="../images/pencil_add.png" width="16" height="16" border="0" alt="edit" /></a>
+                        </td>
+                    </tr>
+                </table>       
                 <p>
                     <a href="#"><img src="../images/tinybutton-recalculate.gif" alt="delete" width=72 height=15 hspace=3 vspace=3 border=0></a>
                 </p>
-		 <!-- Panel Element: Comments -->
-             <!-- Element Header: Comments -->   
-                <div class="h2-container">
-                    <span class="subhead-left"><h2>Comments</h2></span>
-                    <span class="subhead-right">
-                        <span class="subhead">
-                            <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
-                        </span>
-                    </span>
-                </div>
-            <!-- Element Content: Comments -->
-                <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
-                    <tr>
-                        <th  scope="row">Add:</th>
-                        <td>
-                            <textarea name="textfield" cols="60" rows="4" id="textfield"></textarea>
-                        </td>
-                    </tr>
-                </table>
+                
         </div> <!-- End Panel Content Div (class='tab-container') Div -->
           
 <!-- PANEL: Rates --> 
