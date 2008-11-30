@@ -114,7 +114,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td class="grid" ><label>
                     <select name="asdf" id="proposal role">
                       <option selected>select</option>
-                      <option>Principle Investigator</option>
+                      <option>Principal Investigator</option>
                       <option>Co-Investigator</option>
                       <option>Study Personnel</option>
                       <option>Correspondent - Administrator</option><option>Correspondent - CRC</option>
@@ -161,15 +161,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <tr>
                     <th align="left" nowrap="nowrap"> <div align="right"><label for="protocol role">Protocol  Role: </label></div></th>
                     <td valign="middle"><select name="asdf3" id="protocol role">
-                        <option>select</option>
-                        <option selected="selected">Principle Investigator</option>
+                        <!--<option>select</option>-->
+                        <option selected="selected">Principal Investigator</option>
                         <option>Co-Investigator</option>
-                        <option>Key Person</option>
+                        <!--<option>Key Person</option>-->
                       </select>
                       <a href="#"><img src="../images/tinybutton-updateview.gif" alt="update view" width=71 height=15 hspace=3 border=0 align="absmiddle"></a></td>
                   </tr>
-                  
-                  
                   <tr>
                     <th align="left" nowrap="nowrap"><div align="right">Affiliation:</div></th>
                     <td align="left"><select name="asdf3" id="protocol role">
@@ -412,17 +410,35 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <tbody id="G61" style="display: none;">
                   <tr>
                     <th width="15%" align="left" nowrap="nowrap"> <div align="right">Protocol Role: </div></th>
-                    <td colspan="3" valign="middle"><select name="asdf4" id="protocol role">
-                        <option selected>select</option>
-                        <option>Principle Investigator</option>
-                        <option>Co-Investigator</option>
-                        <option selected="selected">Key Person</option>
-                      </select>
+                    <td colspan="3" valign="middle">
+                        
+                        Study Personnel
+                        
+                       <!-- <select name="asdf4" id="protocol role">
+                            <option selected>select</option>
+                            <option>Principal Investigator</option>
+                            <option>Co-Investigator</option>
+                            <option selected="selected">Key Person</option>
+                        </select>-->
+                        
                       <a href="#"><img src="../images/tinybutton-updateview.gif" alt="update view" width=71 height=15 hspace=3 border=0 align="absmiddle"></a></td>
                   </tr>
                   <tr>
                     <th align="left" nowrap="nowrap"><div align="right">*Key Person Role:</div></th>
                     <td width="30%" align="left"><input name="dynaFormInfo[0].addressLine7" maxlength="80" value="" onkeypress="dataChanged();" type="text" id="key person role"/></td>                    
+                  </tr>
+                  <tr>
+                    <th align="left" nowrap="nowrap"><div align="right">Affiliation:</div></th>
+                    <td align="left"><select name="asydf3" id="protocol role">
+                        <option selected>select</option>
+                        <option>Faculty</option>
+                        <option>Non-faculty</option>
+                        <option>Affiliate</option>
+                    </select></td>
+                  </tr>
+                  <tr>
+                    <th align="left" nowrap="nowrap"><div align="right">Training:</div></th>
+                    <td align="left"><input name="checkbox2" type="checkbox" class="nobord" id="checkbox2x"></td>
                   </tr>
                 </tbody>
               </table>
@@ -497,27 +513,16 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <th align="left" nowrap="nowrap"> <div align="right">Country: </div></th>
                     <td align="left">United States </td>
                   </tr>
-                  <tr>
+                  <!--<tr>
                     <th align="left" nowrap="nowrap"><div align="right">% Effort: </div></th>
                     <td align="left">&nbsp;</td>
                     <th align="left" nowrap="nowrap"><div align="right">Faculty:</div></th>
                     <td align="left"><label>
                       yes
                     </label></td>
-                  </tr>
+                  </tr>-->
                 </tbody>
               </table>
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
               
               <table cellpadding=0 cellspacing="0" summary="">
                 <tr>
@@ -556,12 +561,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   </tr>
                 </tbody>
               </table>
-              
-              
-              
-              
-              
-              
               
             </div>
             <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
@@ -664,10 +663,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <th align="left" nowrap="nowrap"> <div align="right">Country: </div></th>
                     <td align="left">United States </td>
                   </tr>
-                  <tr>
+                  <!--<tr>
                     <th align="left" nowrap="nowrap"><div align="right">Comments:</div></th>
                     <td colspan="3" align="left">ant et fugiant a te inquieti iniqui. et tu vides eos et distinguis umbras, et ecce pulchra sunt cum eis omnia, et ipsi turpes sunt. et quid nocuerunt tibi? aut in quo imperium tuum dehonestaverunt, a caelis usque in novissima iustum et integrum? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae</td>
-                  </tr>
+                  </tr>-->
                 </tbody>
               </table>
 			
@@ -845,10 +844,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <th align="left" nowrap="nowrap"> <div align="right">Country: </div></th>
                     <td align="left">United States </td>
                   </tr>
-                  <tr>
+                  <!--<tr>
                     <th align="left" nowrap="nowrap"><div align="right">Comments:</div></th>
                     <td colspan="3" align="left">ant et fugiant a te inquieti iniqui. et tu vides eos et distinguis umbras, et ecce pulchra sunt cum eis omnia, et ipsi turpes sunt. et quid nocuerunt tibi? aut in quo imperium tuum dehonestaverunt, a caelis usque in novissima iustum et integrum? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae</td>
-                  </tr>
+                  </tr>-->
                 </tbody>
               </table>
 			
