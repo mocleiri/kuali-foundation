@@ -553,7 +553,10 @@
         <!-- Panel Element: F&A Rates -->
         	<!-- Element Header: F&A Rates -->
                 <div class="h2-container">
-               	  <span class="subhead-left"><h2>F&amp;A Rates</h2></span>
+               	  <span class="subhead-left"><h2>
+                  <a href="#" id="ABFN01a" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN01a" /></a> 
+                  F&amp;A Rates
+                  </h2></span>
                     <span class="subhead-right">
                         	<a href="#"><img src="../images/tinybutton-validfarates.gif" alt="help" width="86" height="15" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
                      		<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
@@ -561,6 +564,8 @@
                 </div>
             <!-- Element Content: F&A Rate -->
                 <table cellpAdding=0 cellspacing="0"  summary="">
+                  
+                  <tbody id="GBFN01a">
                     <tr>
                         <th>&nbsp;</th>
                         <th>*Rate</th>
@@ -741,33 +746,37 @@
                     	<th scope="row">Total</th>
                     	<td colspan="6" class="infoline">&nbsp;</td>
                     	<td class="infoline"><div align="right"><strong>$4,000.00</strong></div></td>
-                    	<td colspan="3" class="infoline">&nbsp;</td>
+                    	<td colspan="2" class="infoline">&nbsp;</td>
+                        <td class="infoline" style="text-align:center;"><a href="#"><img src="../images/tinybutton-recalculate.gif" alt="delete" width=72 height=15 hspace=3 vspace=3 border=0></a></td>
                     </tr>
-                </table>
-        <!-- Panel Element: Comments -->
-            <!-- Element Header: Comments -->
-               <!-- <div class="h2-container">
-                	<h2><span class="subhead-left">Comments</span></h2>
-                	<span class="subhead-right">
-                    	<span class="subhead">
-                        	<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
-                        </span>
-                    </span>
-                </div>-->
-            <!-- Element Content: Comments -->
-                <table cellpAdding=0 cellspacing="0"  summary="">
                     <tr>
-                        <th scope="row" style="width:120px;"><div align="center">Comment:</div></th>
-                        <td><textarea name="date3" style="width:97%;" rows="4" id="expiration date"></textarea>                          <img src="../images/pencil_add.png" alt="select date" width="16" height="16" align="absmiddle"></td>
+                        <th colspan="2" style="text-align:right;">Comments:</th>
+                        <td colspan="9">
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <textarea name="za" style="width:100%; text-align:left;" rows="4"></textarea>
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                        <input name="xa" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
                     </tr>
+                    </tbody>
                 </table>
-                
-            
-                  <!-- Panel Element: Benefits Rates -->
-        	      <!-- Element Header: Benefits Rates -->
-                  <a href="#"><img src="../images/tinybutton-recalculate.gif" alt="delete" width=72 height=15 hspace=3 vspace=3 border=0></a></p>
-<div class="h2-container">
-                	<h2><span class="subhead-left">Benefits Rates</span></h2>
+				
+            <!-- Element Header: Benefits Rates -->    
+                <div class="h2-container" style="border-top:1px solid #E4E4E4;">
+                	<h2>
+                    	<span class="subhead-left">
+                            <a href="#" id="ABFN01b" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN01b" /></a>
+                            Benefits Rates
+                        </span>
+                    </h2>
                 	<span class="subhead-right">
                         <span class="subhead">
                             <a href=""><img src="../images/tinybutton-validbenefitsrates.gif" width="100" height="15" border="0" alt="valid benefits rates" align="absmiddle" /></a>
@@ -775,31 +784,44 @@
                         </span>
                     </span>
                 </div>
-            <!-- Element Content: Comments -->
+            <!-- Element Content: Benefits Rates -->
             	<table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
+                	<tbody id="GBFN01b" style="display:none;">
 
 
                   <tr>
-                    <th width="40%" scope="row"><div align="right">On Campus:</div></th>
-                    <td><div align="center">
-                        <input name="textfield" type="text" id="textfield" value="15.75" size="6">
-                      % </div></td>
+                    <th style="width:120px; text-align:right;">On Campus:</th>
+                    <td style="text-align:left;">
+                        <input name="textfield" type="text" id="textfield" value="15.75" style="width:35px; text-align:right;">%
+                    </td>
                   </tr>
                   <tr>
-                    <th  scope="row"><div align="right">Off Campus:</div></th>
-                    <td><div align="center">
-                      <input name="textfield" type="text" id="textfield" value="10.32" size="6">
-                      % </div></td>
+                    <th style="text-align:right;">Off Campus:</th>
+                    <td style="text-align:left;">
+                      <input name="textfield" type="text" id="textfield" value="10.32" style="width:35px; text-align:right;">%
+                    </td>
                   </tr>
-                </table>
-            	<!-- Element Content: Comments -->
-                <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
                   <tr>
-                    <th scope="row" style="text-align:right; width:100px;">Comments:</th>
-                    <td><textarea name="date3" style="width:97%;" rows="4" id="expiration date"></textarea>
-                      <a href="#"><img src="../images/pencil_add.png" width="16" height="16" border="0" alt="edit" /></a> </td>
+                    <th style="text-align:right;">Comments:</th>
+                    <td>
+                    
+                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                            </td>
+                            <td style="border:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    </td>
                   </tr>
+                  
+                  </tbody>
                 </table>
+            	
                 
 		</div> <!-- End Panel Content Div (class='tab-container') Div -->
             
