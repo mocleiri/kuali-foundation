@@ -134,13 +134,21 @@
 		vertical-align:middle;
 		text-align:center;
 	}
-	.horizontaltabstable td a
+	.horizontaltabstable button
 	{
 		font-size: 105%;
 		font-family:"Trebuchet MS",Arial,Verdana,sans-serif;
 		line-height:13px;
 		font-weight:bold;
 		text-decoration: none;
+		padding:0px;
+		background:transparent;
+		border:none;
+		cursor:pointer;
+	}
+	.horizontaltabstable button:hover
+	{
+		color: #990000;
 	}
 	/* inactive tab */
 	.tabinactive1
@@ -400,7 +408,7 @@
 		padding:0px;
 		border-spacing:0px;
 		border-collapse:collapse;
-		padding-top:1px;
+		border-top:#E4E4E4 1px solid;
 	}
 	.elementhead_left
 	{
@@ -426,7 +434,7 @@
 		padding:0px;
 		border-spacing:0px;
 		border-collapse:collapse;
-		padding-top:1px;
+		border-top:#E4E4E4 1px solid;
 	}
 	.subelementhead_left
 	{
