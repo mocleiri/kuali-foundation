@@ -460,10 +460,106 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <th><div align="right">
                     <label for="approval date">Summary/Keywords:</label>
                   </div></th>
-                <td colspan="3" align=left valign=middle><textarea name="newPurchasingItemLine.itemDescription2" tabindex=0 cols=40 rows=2 id="newPurchasingItemLine.itemDescription2"></textarea>
-                  <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
+                <td colspan="3" align=left valign=middle>
+                	
+                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none;">
+                                <textarea name="zs" style="width:100%; text-align:left;" rows="3"></textarea>
+                            </td>
+                            <td style="border:none; width:20px; vertical-align:bottom;">
+                                <input name="xs" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
               </tr>
             </table>
+            
+        <!-- Other Identifiers Panel -->
+            <br>
+            <div class="h2-container">
+                <span class="subhead-left">
+                    <h2>Other Identifers</h2>
+                </span>
+                <span class="subhead-right">
+                    <span class="subhead">
+                        <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
+                    </span>
+                </span>
+            </div>
+            <table align=center cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Type</th>
+                    <th>Other Identifier</th>
+                    <th>Application Date</th>
+                    <th>Approval Date</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <th class="infoline">add:</th>
+                    <td class="infoline" style="text-align:center;">
+                        <input type="text" name="type" value="" size="24" />
+                    </td>
+                    <td class="infoline" style="text-align:center;">
+                        <input type="text" name="otheridentifier" value="" size="15" />
+                    </td>
+                    <td class="infoline" style="text-align:center;">
+                        <input type="text" name="date1" id="applicationdate" value="" size="10" />
+						<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                    </td>
+                    <td class="infoline" style="text-align:center;">
+                        <input type="text" name="date2" id="approvaldate" value="" size="10" />
+						<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                    </td>
+                    <td class="infoline" style="text-align:center;">
+                        <div align=center>
+                            <a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="add" width="40" height="15" border="0"></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>1</th>
+                    <td style="text-align:left;">RTOG</td>
+                    <td style="text-align:left;">12345</td>
+                    <td style="text-align:left;">01-Dec-2008</td>
+                    <td style="text-align:left;">02-Dec-2008</td>
+                    <td style="text-align:center;">
+                        <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width="40" height="15" border="0"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <td style="text-align:left;">CALGB</td>
+                    <td style="text-align:left;">absdf</td>
+                    <td style="text-align:left;">01-Jan-2008</td>
+                    <td style="text-align:left;">01-Mar-2008</td>
+                    <td style="text-align:center;">
+                        <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width="40" height="15" border="0"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">Comment:</th>
+                    <td colspan="5" style="vertical-align:bottom">
+                    
+                    	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                    
+                    </td>
+                </tr>
+            </table>
+            
+            
+            
             <br>
             <div class="h2-container"> <span class="subhead-left">
               <h2>Area of Research</h2>
@@ -482,7 +578,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td class="infoline">(select) <a href="#">
                   <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
                   </a></td>
-                <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
                 <th>1</th>
