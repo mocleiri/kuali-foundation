@@ -500,7 +500,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <tr>
                     <th class="infoline">add:</th>
                     <td class="infoline" style="text-align:center;">
-                        <input type="text" name="type" value="" size="24" />
+                        <!--<input type="text" name="type" value="" size="24" />-->
+                        <select name="CustomData" id="CustomData">
+                            <option value="0" selected>CALGB</option>
+                            <option value="1">RTOG</option>
+                            <option value="2">IRBNet </option>
+                            <option value="3">COAG </option>
+                        </select>
                     </td>
                     <td class="infoline" style="text-align:center;">
                         <input type="text" name="otheridentifier" value="" size="15" />
