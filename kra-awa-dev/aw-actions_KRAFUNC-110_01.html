@@ -205,17 +205,28 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table  cellpAdding="0" cellspacing="0"  summary="">
                 <tbody >
                     <tr>
-                        <td>Award Summary</td>
-                        <td style="text-align:center;">
+                        <td class="infoline">Award Summary</td>
+                        <td class="infoline" style="text-align:center; width:130px;">
                             <input name="awardsummary" type="checkbox" class="nobord" id="awardsummary">
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="infoline">
                         	Award Notice
-                            <table style="border:none;">
+                        </td>
+                        <td class="infoline" style="text-align:center;">
+                            <input name="awardnotice" type="checkbox" class="nobord" id="awardnotice">
+                        </td>
+                    </tr>
+                    <tr>
+                    	<td colspan="2">   
+                        
+                            <table style="border:none; width:100%;">
                             	<tr>
-                                	<td style="border:none; white-space:nowrap; padding:3px; vertical-align:top;">
+                                	<td style="border:none; white-space:nowrap; padding:3px; vertical-align:top; width:50px;">
+                                    	&nbsp;
+                                    </td>
+                                    <td style="border:none; white-space:nowrap; padding:3px; vertical-align:top;">
                                     	<input type="checkbox" class="nobord" name="CustomData0" value="0" checked="checked" /> Address List<br />
                                         <input type="checkbox" class="nobord" name="CustomData1" value="1" checked="checked" /> Closeout<br />
                                         <input type="checkbox" class="nobord" name="CustomData2" value="2" checked="checked" /> Comments<br />
@@ -242,85 +253,77 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                     </td>
                                 </tr>
                                 <tr>
-                                	<td colspan="3" style="border:none; white-space:nowrap; padding:3px; vertical-align:top; text-align:center;">
+                                	<td colspan="4" style="border:none; white-space:nowrap; padding:3px; vertical-align:top; text-align:center;">
                                     	<input name="selectall" src="../images/tinybutton-selectall.gif" onclick="javascript: alert('selects all award notice checkboxes'); return false" class="tinybutton" alt="select all" type="image" />
                                         <input name="deselectall" src="../images/tinybutton-deselectall.gif" onclick="javascript: alert('deselects all award notice checkboxes'); return false" class="tinybutton" alt="deselect all" type="image" />
                                     </td>
                                 </tr>
                             </table>
                             
-                            
-                        </td>
-                        <td style="text-align:center;">
-                            <input name="awardnotice" type="checkbox" class="nobord" id="awardnotice">
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="infoline">
                         	Change Report
-                            <table style="border:none;">
-                            	<tr>
-                                	<td style="border:none; white-space:nowrap; padding:3px; text-align:right; width:130px;">
-                                    	Sequence No.:
-                                    </td>
-                                    <td style="border:none; white-space:nowrap; padding:3px; text-align:left;">
-                                    	<input type="text" id="seqno" name="seqno" size="5" value="8" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                	<td style="border:none; white-space:nowrap; padding:3px; text-align:right;">
-                                    	Amt Sequence No.:
-                                    </td>
-                                    <td style="border:none; white-space:nowrap; padding:3px; text-align:left;">
-                                    	<input type="text" id="amtseqno" name="amtseqno" size="5" value="1" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                	<td style="border:none; white-space:nowrap; padding:3px; text-align:right;">
-                                    	Signature Required:
-                                    </td>
-                                    <td style="border:none; white-space:nowrap; padding:3px; text-align:left;">
-                                    	<input type="checkbox" class="nobord" name="Csigreq" value="0" checked="checked" />
-                                    </td>
-                                </tr>
-                            </table>
                         </td>
-                        <td style="text-align:center;">
+                        <td class="infoline" style="text-align:center;">
                             <input name="changereport" type="checkbox" class="nobord" id="changereport">
                         </td>
                     </tr>
                     <tr>
-                        <td>Budget Hierarchy</td>
-                        <td style="text-align:center;">
+                        <td colspan="2"> 
+                            
+                            <table style="border:none;">
+                            	<tr>
+                                	<td style="border:none; white-space:nowrap; padding:3px; text-align:center; width:33%;">
+                                    	Sequence No.:
+                                    	<input type="text" id="seqno" name="seqno" size="5" value="8" />
+                                    </td>
+                                	<td style="border:none; white-space:nowrap; padding:3px; text-align:center; width:33%;">
+                                    	Amt Sequence No.:
+                                    	<input type="text" id="amtseqno" name="amtseqno" size="5" value="1" />
+                                    </td>
+                                	<td style="border:none; white-space:nowrap; padding:3px; text-align:center;">
+                                    	Signature Required:
+                                    	<input type="checkbox" class="nobord" name="sigreq" value="0" checked="checked" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                    	</td>   
+                    </tr>    
+                    <tr>
+                        <td class="infoline">Budget Hierarchy</td>
+                        <td class="infoline" style="text-align:center;">
                             <input name="budgethierarchy" type="checkbox" class="nobord" id="budgethierarchy">
                         </td>
                     </tr>
                     <tr>
-                        <td>Modification to Budget Hierarchy</td>
-                        <td style="text-align:center;">
+                        <td class="infoline">Modification to Budget Hierarchy</td>
+                        <td class="infoline" style="text-align:center;">
                             <input name="modstobudhist" type="checkbox" class="nobord" id="modstobudhist">
                         </td>
                     </tr>
                     <tr>
-                        <td>Budget</td>
-                        <td style="text-align:center;">
+                        <td class="infoline">Budget</td>
+                        <td class="infoline" style="text-align:center;">
                             <input name="budget" type="checkbox" class="nobord" id="budget">
                         </td>
                     </tr>
                     <tr>
-                        <td>Time &amp; Money History</td>
-                        <td style="text-align:center;">
+                        <td class="infoline">Time &amp; Money History</td>
+                        <td class="infoline" style="text-align:center;">
                             <input name="timemoneyhistory" type="checkbox" class="nobord" id="timemoneyhistory">
                         </td>
                     </tr>
                     <tr>
-                        <td>Transaction Detail</td>
-                        <td style="text-align:center;">
+                        <td class="infoline">Transaction Detail</td>
+                        <td class="infoline" style="text-align:center;">
                             <input name="transactiondetail" type="checkbox" class="nobord" id="transactiondetail">
                         </td>
                     </tr>
                     <tr>
-                        <td class="infoline" style="text-align:center;">
+                        <td class="infoline" style="text-align:center; height:40px;">
                         	<img src="../images/tinybutton-printsel.gif" alt="dsdfhg" width="80" height="15" vspace="5">
                         </td>
                         <td class="infoline" style="text-align:center;">
