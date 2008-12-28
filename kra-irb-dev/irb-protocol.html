@@ -491,8 +491,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table align=center cellpadding=0 cellspacing=0 summary="">
                 <tr>
                     <th>&nbsp;</th>
-                    <th>Type</th>
-                    <th>Other Identifier</th>
+                    <th>*Type</th>
+                    <th>*Other Identifier</th>
                     <th>Application Date</th>
                     <th>Approval Date</th>
                     <th>Actions</th>
@@ -526,28 +526,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                 </tr>
                 <tr>
-                    <th>1</th>
+                    <th rowspan="2">1</th>
                     <td style="text-align:left;">RTOG</td>
                     <td style="text-align:left;">12345</td>
                     <td style="text-align:left;">01-Dec-2008</td>
                     <td style="text-align:left;">02-Dec-2008</td>
-                    <td style="text-align:center;">
-                        <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width="40" height="15" border="0"></a>
-                    </td>
-                </tr>
-                <tr>
-                    <th>2</th>
-                    <td style="text-align:left;">CALGB</td>
-                    <td style="text-align:left;">absdf</td>
-                    <td style="text-align:left;">01-Jan-2008</td>
-                    <td style="text-align:left;">01-Mar-2008</td>
-                    <td style="text-align:center;">
+                    <td rowspan="2" style="text-align:center;">
                         <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width="40" height="15" border="0"></a>
                     </td>
                 </tr>
                 <tr>
                     <th style="text-align:right;">Comment:</th>
-                    <td colspan="5" style="vertical-align:bottom">
+                    <td colspan="3" style="vertical-align:bottom">
                     
                     	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                             <tr>
@@ -556,6 +546,33 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                                 <td style="border:none; width:20px; vertical-align:bottom;">
                                     <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                    
+                    </td>
+                </tr>
+                <tr>
+                    <th rowspan="2">2</th>
+                    <td style="text-align:left;">CALGB</td>
+                    <td style="text-align:left;">absdf</td>
+                    <td style="text-align:left;">01-Jan-2008</td>
+                    <td style="text-align:left;">01-Mar-2008</td>
+                    <td rowspan="2" style="text-align:center;">
+                        <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width="40" height="15" border="0"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">Comment:</th>
+                    <td colspan="3" style="vertical-align:bottom">
+                    
+                    	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <textarea name="zb" style="width:100%; text-align:left;" rows="3"></textarea>
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="xb" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
                                 </td>
                             </tr>
                         </table>
@@ -584,7 +601,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td class="infoline">(select) <a href="#">
                   <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
                   </a></td>
-                <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                <td class="infoline">
+                	&nbsp;
+                </td>
               </tr>
               <tr>
                 <th>1</th>
