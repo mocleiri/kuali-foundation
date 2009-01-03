@@ -1937,7 +1937,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	<!-- Panel Tab Header --> 
         <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-                <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Reporting Requirements</td>
+                <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Report Tracking</td>
                 <td class="tabtable2-mid"><a href="#" id="A3011" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F3011" vspace=6></a></td>
                 <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
@@ -1947,13 +1947,162 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		<!-- Panel Element: Reporting Requirements -->
         	<!-- Element Header: Reporting Requirements -->
                 <div class="h2-container">
-                	<h2><span class="subhead-left">Reporting Requirements</span></h2>
+                	<h2><span class="subhead-left">Report Tracking</span></h2>
                 	<span class="subhead-right">
                     	<span class="subhead">
                         	<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
                         </span>
                     </span>
                 </div>
+            <!-- Subelement: Customize View -->
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                    	<td colspan="16" class="tab-subhead1" style="text-align:left;">
+                        	<a href="#" id="ABFN00" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN00" /></a> Customize View
+                        </td>
+                    </tr>
+                    <tbody id="GBFN00" style="display:none;">
+                        <!-- title line -->
+                        <tr>
+                            <th style="text-align:center">Columns</th>
+                            <th style="text-align:center">Group</th>
+                            <th style="text-align:center">Detail</th>
+                        </tr>
+                        <!-- data lines -->
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Report Type
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="a" value="0" checked="checked" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="s" value="0" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Frequency
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="d" value="0" checked="checked" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="f" value="0" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Frequency Base
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="g" value="0" checked="checked" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="h" value="0" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Base Date
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="j" value="0" checked="checked" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="k" value="0" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Status
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="k" value="0" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="l" value="0" checked="checked" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Distribution
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="q" value="0" checked="checked" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="w" value="0" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Due Date
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="e" value="0" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="r" value="0" checked="checked" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Overdue Counter
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="t" value="0" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="y" value="0" checked="checked" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Activity Date
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="u" value="0" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="i" value="0" checked="checked" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Comments
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="o" value="0" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="p" value="0" checked="checked" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Person
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="z" value="0" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="x" value="0" checked="checked" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:center;">
+                            	Last Update
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="c" value="0" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input type="checkbox" class="nobord" name="v" value="0" checked="checked" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             <!-- Subelement: Fiscal -->
                 <table cellpadding="0" cellspacing="0">
                     <tr>
@@ -1965,7 +2114,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <!-- title line -->
                         <tr>
                             <th></th>
-                            <th style="text-align:center">Rep Type</th>
+                            <th style="text-align:center">Report Type</th>
                             <th style="text-align:center">Frequency</th>
                             <th style="text-align:center">Frequency Base</th>
                             <th style="text-align:center">Base Date</th>
@@ -1976,10 +2125,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <tr>
                         	<th style="text-align:center">Add:</th>
                             <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addreptype" value="" size="24" />
+                            	<select name="addreptype">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">SF 269 Expenditure Re...</option>
+                                    <option value="2">Final</option>
+                                    <option value="3">Invoice</option>
+                                </select>
                             </td>
                             <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="" size="24" />
+                            	<select name="addfrequency">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">90 days after expiration</option>
+                                    <option value="2">Annual</option>
+                                    <option value="3">Monthly</option>
+                                </select>
                             </td>
                             <td class="infoline" style="text-align:center;">
                             	<input type="text" name="addfrequencybase" value="" size="24" />
@@ -1989,7 +2148,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
                             </td>
                             <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="" size="12" />
+                            	<select name="adddistribution">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">Sponsor Form</option>
+                                    <option value="2">label two</option>
+                                </select>
                             </td>
                             <td class="infoline" style="text-align:center;">
                             	<a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width="40" height="15" border="0" /></a>
@@ -1999,10 +2162,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <tr>
                         	<th style="text-align:center">1</th>
                             <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="Final" size="24" />
+                            	<select name="addreptype1">
+                                    <option value="0">select</option>
+                                    <option value="1">SF 269 Expenditure Re...</option>
+                                    <option value="2" selected="selected">Final</option>
+                                    <option value="3">Invoice</option>
+                                </select>
                             </td>
                             <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="90 days after expiration" size="24" />
+                            	<select name="addfrequency1">
+                                    <option value="0">select</option>
+                                    <option value="1" selected="selected">90 days after expiration</option>
+                                    <option value="2">Annual</option>
+                                    <option value="3">Monthly</option>
+                                </select>
                             </td>
                             <td style="text-align:center;">
                             	<input type="text" name="addfrequencybase" value="Final Expiration Date" size="24" />
@@ -2012,7 +2185,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
                             </td>
                             <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
+                            	<select name="adddistribution1">
+                                    <option value="0">select</option>
+                                    <option value="1" selected="selected">Sponsor Form</option>
+                                    <option value="2">label two</option>
+                                </select>
                             </td>
                             <td style="text-align:center;">
                             	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
@@ -2021,10 +2198,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <tr>
                         	<th style="text-align:center">2</th>
                             <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="SF 269 Expenditure Re..." size="24" />
+                            	<select name="addreptype2">
+                                    <option value="0">select</option>
+                                    <option value="1" selected="selected">SF 269 Expenditure Re...</option>
+                                    <option value="2">Final</option>
+                                    <option value="3">Invoice</option>
+                                </select>
                             </td>
                             <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="Annual" size="24" />
+                            	<select name="addfrequency2">
+                                    <option value="0">select</option>
+                                    <option value="1">90 days after expiration</option>
+                                    <option value="2" selected="selected">Annual</option>
+                                    <option value="3">Monthly</option>
+                                </select>
                             </td>
                             <td style="text-align:center;">
                             	<input type="text" name="addfrequencybase" value="Effective date of obligation" size="24" />
@@ -2034,7 +2221,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
                             </td>
                             <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
+                            	<select name="adddistribution2">
+                                    <option value="0">select</option>
+                                    <option value="1" selected="selected">Sponsor Form</option>
+                                    <option value="2">label two</option>
+                                </select>
                             </td>
                             <td style="text-align:center;">
                             	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
@@ -2043,10 +2234,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <tr>
                         	<th style="text-align:center">3</th>
                             <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="Invoice" size="24" />
+                            	<select name="addreptype3">
+                                    <option value="0">select</option>
+                                    <option value="1">SF 269 Expenditure Re...</option>
+                                    <option value="2">Final</option>
+                                    <option value="2" selected="selected">Invoice</option>
+                                </select>
                             </td>
                             <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="Monthly" size="24" />
+                            	<select name="addfrequency3">
+                                    <option value="0">select</option>
+                                    <option value="1">90 days after expiration</option>
+                                    <option value="2">Annual</option>
+                                    <option value="3" selected="selected">Monthly</option>
+                                </select>
                             </td>
                             <td style="text-align:center;">
                             	<input type="text" name="addfrequencybase" value="Effective Date" size="24" />
@@ -2056,7 +2257,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
                             </td>
                             <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
+                            	<select name="adddistribution3">
+                                    <option value="0">select</option>
+                                    <option value="1" selected="selected">Sponsor Form</option>
+                                    <option value="2">label two</option>
+                                </select>
                             </td>
                             <td style="text-align:center;">
                             	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
@@ -2068,6 +2273,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 <table cellspacing="0" cellpadding="0" style="padding-left:25px;">
                                     <tbody>
                                         <tr>
+                                            <th style="border-top:#999999 solid 1px; text-align:center;">Select</th>
                                             <th style="border-top:#999999 solid 1px; text-align:center;">Status</th>
                                             <th style="border-top:#999999 solid 1px; text-align:center;">Due Date</th>
                                             <th style="border-top:#999999 solid 1px; text-align:center;">Overdue #</th>
@@ -2078,7 +2284,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending0">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Dec-2009" size="10">
@@ -2103,7 +2316,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending1">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Sep-2009" size="10">
@@ -2128,7 +2348,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending2">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Oct-2009" size="10">
@@ -2153,7 +2380,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending3">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Nov-2009" size="10">
@@ -2178,7 +2412,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending4">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Aug-2009" size="10">
@@ -2203,7 +2444,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending5">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Aug-2009" size="10">
@@ -2228,7 +2476,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending6">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Jun-2009" size="10">
@@ -2253,7 +2508,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending7">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Apr-2009" size="10">
@@ -2278,7 +2540,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending8">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Nov-2008" size="10">
@@ -2303,7 +2572,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending9">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Dec-2008" size="10">
@@ -2328,7 +2604,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending10">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Jan-2009" size="10">
@@ -2353,7 +2636,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending11">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Feb-2009" size="10">
@@ -2378,7 +2668,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending12">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Mar-2009" size="10">
@@ -2403,7 +2700,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending13">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-May-2009" size="10">
@@ -2428,7 +2732,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
+                                            	<input type="checkbox" class="nobord" name="CustomData" value="0" />
+                                            </td>
+                                            <td style="text-align:center;">
+                                            	<select name="pending14">
+                                                    <option value="0" selected="selected">pending</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
                                             </td>
                                             <td style="text-align:center;">
                                                 <input name="duedate1" type="text" value="01-Jul-2009" size="10">
@@ -2449,6 +2760,41 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                             </td>
                                             <td style="text-align:left;">
                                             	01-Dec-2008 05:33 PM Susan Mundt
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br />
+                                <table cellspacing="0" cellpadding="0" style="padding-left:25px;">
+                                    <tbody>
+                                        <tr>
+                                            <th style="border-top:#999999 solid 1px; text-align:center;" rowspan="2">Edit Selected:<span class="fineprint"><br /><a href="#">all</a> |  <a href="#">none</a></span></th>
+                                            <th style="border-top:#999999 solid 1px; text-align:center;">Status</th>
+                                            <th style="border-top:#999999 solid 1px; text-align:center;">Overdue #</th>
+                                            <th style="border-top:#999999 solid 1px; text-align:center;">Activity Date</th>
+                                            <th style="border-top:#999999 solid 1px; text-align:center;">Comments</th>
+                                            <th style="border-top:#999999 solid 1px; text-align:center;">Person</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="infoline" style="text-align:center;">
+                                            	<select name="editstatus1">
+                                                    <option value="0" selected="selected">select</option>
+                                                    <option value="1">label one</option>
+                                                    <option value="2">label two</option>
+                                                </select>
+                                            </td>
+                                            <td class="infoline" style="text-align:center;">
+                                            	<input type="text" name="overdue1" value="0" size="16" />
+                                            </td>
+                                            <td class="infoline" style="text-align:center;">
+                                            	<input name="activitydate1" type="text" value="" size="10">
+                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
+                                            </td>
+                                            <td class="infoline" style="text-align:center;">
+                                            	<input type="text" name="comments1" value="" size="16" />
+                                            </td>
+                                            <td class="infoline" style="text-align:center;">
+                                            	<input type="text" name="person1" value="" size="16" />
                                             </td>
                                         </tr>
                                     </tbody>
@@ -2466,497 +2812,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </td>
                     </tr>
                     <tbody id="GBFN02" style="display:none;">
-                        <!-- title line -->
-                        <tr>
-                            <th></th>
-                            <th style="text-align:center">Rep Type</th>
-                            <th style="text-align:center">Frequency</th>
-                            <th style="text-align:center">Frequency Base</th>
-                            <th style="text-align:center">Base Date</th>
-                            <th style="text-align:center">Distribution</th>
-                            <th style="text-align:center">Actions</th>
-                        </tr>
-                        <!-- add line -->
-                        <tr>
-                        	<th style="text-align:center">Add:</th>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addreptype" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input name="basedate1" type="text" value="" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="" size="12" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width="40" height="15" border="0" /></a>
-                            </td>
-                        </tr>
-                        <!-- data lines -->
-                        <tr>
-                        	<th style="text-align:center">1</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="Final" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="90 days after expiration" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Final Expiration Date" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate2" type="text" value="31-Dec-2009" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th style="text-align:center">2</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="SF 269 Expenditure Re..." size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="Annual" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Effective date of obligation" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate3" type="text" value="12-Aug-2008" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th style="text-align:center">3</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="Invoice" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="Monthly" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Effective Date" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate4" type="text" value="01-Oct-2008" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
                         <tr>
                         	<td colspan="7" class="infoline" style="padding:5px; background-image:url(../images/th-back.gif);">
                             	
-                                <table cellspacing="0" cellpadding="0" style="padding-left:25px;">
-                                    <tbody>
-                                        <tr>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Status</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Due Date</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Overdue #</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Activity Date</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Comments</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Person</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Last Update</th>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Dec-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Sep-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Oct-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Nov-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Aug-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Aug-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jun-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Apr-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Nov-2008" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Dec-2008" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jan-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Feb-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Mar-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-May-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jul-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                [BFN] Please see the "Fiscal (3)" sub-panel above until we have a more stable mock design.
                                 
                             </td>
                         </tr>
@@ -2970,497 +2829,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </td>
                     </tr>
                     <tbody id="GBFN03" style="display:none;">
-                        <!-- title line -->
-                        <tr>
-                            <th></th>
-                            <th style="text-align:center">Rep Type</th>
-                            <th style="text-align:center">Frequency</th>
-                            <th style="text-align:center">Frequency Base</th>
-                            <th style="text-align:center">Base Date</th>
-                            <th style="text-align:center">Distribution</th>
-                            <th style="text-align:center">Actions</th>
-                        </tr>
-                        <!-- add line -->
-                        <tr>
-                        	<th style="text-align:center">Add:</th>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addreptype" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input name="basedate1" type="text" value="" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="" size="12" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width="40" height="15" border="0" /></a>
-                            </td>
-                        </tr>
-                        <!-- data lines -->
-                        <tr>
-                        	<th style="text-align:center">1</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="Final" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="90 days after expiration" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Final Expiration Date" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate2" type="text" value="31-Dec-2009" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th style="text-align:center">2</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="SF 269 Expenditure Re..." size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="Annual" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Effective date of obligation" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate3" type="text" value="12-Aug-2008" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th style="text-align:center">3</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="Invoice" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="Monthly" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Effective Date" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate4" type="text" value="01-Oct-2008" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
                         <tr>
                         	<td colspan="7" class="infoline" style="padding:5px; background-image:url(../images/th-back.gif);">
                             	
-                                <table cellspacing="0" cellpadding="0" style="padding-left:25px;">
-                                    <tbody>
-                                        <tr>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Status</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Due Date</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Overdue #</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Activity Date</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Comments</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Person</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Last Update</th>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Dec-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Sep-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Oct-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Nov-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Aug-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Aug-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jun-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Apr-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Nov-2008" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Dec-2008" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jan-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Feb-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Mar-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-May-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jul-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                [BFN] Please see the "Fiscal (3)" sub-panel above until we have a more stable mock design.
                                 
                             </td>
                         </tr>
@@ -3474,497 +2846,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </td>
                     </tr>
                     <tbody id="GBFN04" style="display:none;">
-                        <!-- title line -->
-                        <tr>
-                            <th></th>
-                            <th style="text-align:center">Rep Type</th>
-                            <th style="text-align:center">Frequency</th>
-                            <th style="text-align:center">Frequency Base</th>
-                            <th style="text-align:center">Base Date</th>
-                            <th style="text-align:center">Distribution</th>
-                            <th style="text-align:center">Actions</th>
-                        </tr>
-                        <!-- add line -->
-                        <tr>
-                        	<th style="text-align:center">Add:</th>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addreptype" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input name="basedate1" type="text" value="" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="" size="12" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width="40" height="15" border="0" /></a>
-                            </td>
-                        </tr>
-                        <!-- data lines -->
-                        <tr>
-                        	<th style="text-align:center">1</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="Final" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="90 days after expiration" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Final Expiration Date" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate2" type="text" value="31-Dec-2009" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th style="text-align:center">2</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="SF 269 Expenditure Re..." size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="Annual" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Effective date of obligation" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate3" type="text" value="12-Aug-2008" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th style="text-align:center">3</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="Invoice" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="Monthly" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Effective Date" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate4" type="text" value="01-Oct-2008" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
                         <tr>
                         	<td colspan="7" class="infoline" style="padding:5px; background-image:url(../images/th-back.gif);">
                             	
-                                <table cellspacing="0" cellpadding="0" style="padding-left:25px;">
-                                    <tbody>
-                                        <tr>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Status</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Due Date</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Overdue #</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Activity Date</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Comments</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Person</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Last Update</th>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Dec-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Sep-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Oct-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Nov-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Aug-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Aug-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jun-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Apr-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Nov-2008" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Dec-2008" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jan-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Feb-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Mar-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-May-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jul-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                [BFN] Please see the "Fiscal (3)" sub-panel above until we have a more stable mock design.
                                 
                             </td>
                         </tr>
@@ -3978,504 +2863,17 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </td>
                     </tr>
                     <tbody id="GBFN05" style="display:none;">
-                        <!-- title line -->
-                        <tr>
-                            <th></th>
-                            <th style="text-align:center">Rep Type</th>
-                            <th style="text-align:center">Frequency</th>
-                            <th style="text-align:center">Frequency Base</th>
-                            <th style="text-align:center">Base Date</th>
-                            <th style="text-align:center">Distribution</th>
-                            <th style="text-align:center">Actions</th>
-                        </tr>
-                        <!-- add line -->
-                        <tr>
-                        	<th style="text-align:center">Add:</th>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addreptype" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="" size="24" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input name="basedate1" type="text" value="" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="" size="12" />
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width="40" height="15" border="0" /></a>
-                            </td>
-                        </tr>
-                        <!-- data lines -->
-                        <tr>
-                        	<th style="text-align:center">1</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="Final" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="90 days after expiration" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Final Expiration Date" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate2" type="text" value="31-Dec-2009" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th style="text-align:center">2</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="SF 269 Expenditure Re..." size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="Annual" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Effective date of obligation" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate3" type="text" value="12-Aug-2008" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th style="text-align:center">3</th>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addreptype" value="Invoice" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequency" value="Monthly" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="addfrequencybase" value="Effective Date" size="24" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<input name="basedate4" type="text" value="01-Oct-2008" size="10">
-                                <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                            	<input type="text" name="adddistribution" value="Sponsor Form" size="12" />
-                            </td>
-                            <td style="text-align:center;">
-                            	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" border="0"></a>
-                            </td>
-                        </tr>
                         <tr>
                         	<td colspan="7" class="infoline" style="padding:5px; background-image:url(../images/th-back.gif);">
                             	
-                                <table cellspacing="0" cellpadding="0" style="padding-left:25px;">
-                                    <tbody>
-                                        <tr>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Status</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Due Date</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Overdue #</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Activity Date</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Comments</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Person</th>
-                                            <th style="border-top:#999999 solid 1px; text-align:center;">Last Update</th>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Dec-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Sep-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Oct-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Nov-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Aug-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Aug-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jun-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Apr-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Nov-2008" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Dec-2008" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jan-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Feb-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Mar-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-May-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="pending1" value="Pending" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                                <input name="duedate1" type="text" value="01-Jul-2009" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="overdue1" value="0" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input name="activitydate1" type="text" value="" size="10">
-                                				<a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="comments1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:center;">
-                                            	<input type="text" name="person1" value="" size="16" />
-                                            </td>
-                                            <td style="text-align:left;">
-                                            	01-Dec-2008 05:33 PM Susan Mundt
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                [BFN] Please see the "Fiscal (3)" sub-panel above until we have a more stable mock design.
                                 
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 
-          </div>  <!-- end Reporting Requirements panel -->
+          </div>  <!-- end Report Tracking panel -->
           
           
           <!-- PANEL: Terms -->
