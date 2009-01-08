@@ -498,7 +498,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <th>Actions</th>
                 </tr>
                 <tr>
-                    <th class="infoline">add:</th>
+                    <th class="infoline" rowspan="2">add:</th>
                     <td class="infoline" style="text-align:center;">
                         <!--<input type="text" name="type" value="" size="24" />-->
                         <select name="CustomData" id="CustomData">
@@ -519,11 +519,28 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <input type="text" name="date2" id="approvaldate" value="" size="10" />
 						<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
                     </td>
-                    <td class="infoline" style="text-align:center;">
+                    <td class="infoline" rowspan="2" style="text-align:center;">
                         <div align=center>
                             <a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="add" width="40" height="15" border="0"></a>
                         </div>
                     </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">Comment:</th>
+                    <th colspan="3" style="vertical-align:bottom">
+                    
+                    	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none;">
+                                    <textarea name="z" style="width:100%; text-align:left;" rows="2" readonly></textarea>
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom; background:none;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" title="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                    
+                    </th>
                 </tr>
                 <tr>
                     <th rowspan="2">1</th>
@@ -542,10 +559,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td style="border:none;">
-                                    <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                    <!--<textarea name="z" style="width:100%; text-align:left;" rows="3" readonly>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel tortor sit amet nisi adipiscing viverra. Praesent quis nisi vel felis pretium facilisis.</textarea>-->
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel tortor sit amet nisi 
+                                    adipiscing viverra. Praesent quis nisi vel felis pretium facilisis. Duis consectetur urna at purus. 
+                                    Aenean sed turpis sit amet nunc molestie suscipit. Quisque congue leo at ante laoreet tincidunt. 
+                                    Nam sed orci...
                                 </td>
                                 <td style="border:none; width:20px; vertical-align:bottom;">
-                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                    <input name="x" src="../images/open_detailview.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Read Only Text Area" title="Expanded Read Only Text Area" type="image" />
                                 </td>
                             </tr>
                         </table>
@@ -569,10 +590,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td style="border:none;">
-                                    <textarea name="zb" style="width:100%; text-align:left;" rows="3"></textarea>
+                                    <!--<textarea name="zb" style="width:100%; text-align:left;" rows="3" readonly>Quisque pulvinar lacus quis felis vulputate eleifend. Quisque purus nunc, imperdiet ultrices, pretium quis, consequat et, nisl. Quisque sit amet justo.</textarea>-->
+                                    Quisque pulvinar lacus quis felis vulputate eleifend. Quisque purus nunc, imperdiet ultrices, pretium 
+                                    quis, consequat et, nisl. Quisque sit amet justo. Sed tellus. Nam felis elit, pretium vehicula, 
+                                    fringilla a, iaculis rhoncus, ipsum. Cum sociis natoque penatibus et magnis dis parturient montes, 
+                                    nascetur ridiculus mus...
                                 </td>
                                 <td style="border:none; width:20px; vertical-align:bottom;">
-                                    <input name="xb" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                    <input name="xb" src="../images/open_detailview.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Read Only Text Area" title="Expanded Read Only Text Area" type="image" />
                                 </td>
                             </tr>
                         </table>
