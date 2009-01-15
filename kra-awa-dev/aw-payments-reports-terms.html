@@ -107,7 +107,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           
           
           
-          <!-- PANEL: Payment -->
+          <!-- PANEL: Payment & Invoices -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Payment &amp; Invoices</td>
@@ -288,8 +288,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   <tbody id="G123" style="display: none;">
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
@@ -425,8 +425,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   <tbody id="G123b" style="display: none;">
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
@@ -612,6 +612,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                     <option>final</option>
                                     <option>progress/status</option>
                                   </select>
+                                  <input name="refresh0" src="../images/arrow_refresh.png" class="tinybutton" alt="Refresh Pulldown Options" title="Refresh Pulldown Options" type="image" />
                                 </div></td>
                               <td class="infoline"><div align="center">
                                   <select name="select" id="select">
@@ -622,6 +623,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                     <option>other </option>
                                     <option>other </option>
                                   </select>
+                                  <input name="refresh1" src="../images/arrow_refresh.png" class="tinybutton" alt="Refresh Pulldown Options" title="Refresh Pulldown Options" type="image" />
                                 </div></td>
                               <td class="infoline"><div align="center">
                                   <select name="select" id="select">
@@ -642,8 +644,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td class="infoline"><div align="center">
                                   <input name="date1" type="text" size="8" id="aaplication date">
-                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></span></div></td>
-                              <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
+                              <td class="infoline">
+                                  <div align=center>
+                                      <a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="Add" width="40" height="15" border="0"></a>
+                                  </div>
+                              </td>
                             </tr>
                             <tr>
                               <th rowspan="2">1</th>
@@ -686,7 +692,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td><div align="center">
                                   <input name="date1" type="text" id="aaplication date" value="10/22/2008" size="8">
-                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor4"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></div></td>
+                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor4"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></div></td>
                               <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -698,8 +704,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
@@ -811,7 +817,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td><div align="center">
                                   <input name="date1" type="text" id="aaplication date" value="10/22/2008" size="8">
-                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor5"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></div></td>
+                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor5"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></div></td>
                               <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -822,8 +828,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   <tbody id="G234" style="display: none;">
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
@@ -905,8 +911,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td class="infoline"><div align="center">
                                   <input name="date1" type="text" size="8" id="aaplication date">
-                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></span></div></td>
-                              <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
+                              <td class="infoline">
+                                  <div align=center>
+                                      <a href="#"><img src="../images/tinybutton-refresh.gif" alt="refresh" title="Refresh Pulldown Options" width="48" height="15" border="0"></a>
+                                      <a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="Add" width="40" height="15" border="0"></a>
+                                  </div>
+                              </td>
                             </tr>
                             <tr>
                               <th rowspan="2">1</th>
@@ -949,7 +960,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td><div align="center">
                                   <input name="date1" type="text" id="aaplication date" value="10/22/2008" size="8">
-                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor6"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></div></td>
+                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor6"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></div></td>
                               <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -960,8 +971,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   <tbody id="G345" style="display: none;">
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
@@ -1073,7 +1084,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td><div align="center">
                                   <input name="date1" type="text" id="aaplication date" value="10/22/2008" size="8">
-                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor7"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></div></td>
+                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor7"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></div></td>
                               <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -1084,8 +1095,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   <tbody id="G456" style="display: none;">
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
@@ -1167,7 +1178,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td class="infoline"><div align="center">
                                   <input name="date1" type="text" size="8" id="aaplication date">
-                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></span></div></td>
+                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
                               <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -1211,7 +1222,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td><div align="center">
                                   <input name="date1" type="text" id="aaplication date" value="10/22/2008" size="8">
-                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor8"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></div></td>
+                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor8"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></div></td>
                               <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -1222,8 +1233,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   <tbody id="G567" style="display: none;">
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
@@ -1335,7 +1346,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td><div align="center">
                                   <input name="date1" type="text" id="aaplication date" value="10/22/2008" size="8">
-                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor2"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></div></td>
+                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor2"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></div></td>
                               <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -1346,8 +1357,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   <tbody id="G678" style="display: none;">
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
@@ -1430,7 +1441,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td class="infoline"><div align="center">
                                   <input name="date1" type="text" size="8" id="aaplication date">
-                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></span></div></td>
+                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
                               <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -1474,7 +1485,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td><div align="center">
                                   <input name="date1" type="text" id="aaplication date" value="10/22/2008" size="8">
-                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor9"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></div></td>
+                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor9"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></div></td>
                               <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -1485,9 +1496,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   <tbody id="G789" style="display: none;">
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
-        
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
@@ -1599,7 +1609,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td><div align="center">
                                   <input name="date1" type="text" id="aaplication date" value="10/22/2008" size="8">
-                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor10"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></div></td>
+                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor10"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></div></td>
                               <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -1610,8 +1620,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   <tbody id="G890" style="display: none;">
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
@@ -1693,7 +1703,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td class="infoline"><div align="center">
                                   <input name="date1" type="text" size="8" id="aaplication date">
-                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></span></div></td>
+                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
                               <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -1737,7 +1747,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td><div align="center">
                                   <input name="date1" type="text" id="aaplication date" value="10/22/2008" size="8">
-                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor11"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></div></td>
+                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor11"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></div></td>
                               <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -1748,8 +1758,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   <tbody id="G6123" style="display: none;">
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
@@ -1861,7 +1871,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td><div align="center">
                                   <input name="date1" type="text" id="aaplication date" value="10/22/2008" size="8">
-                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor12"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="absmiddle"></a></div></td>
+                                  <a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor12"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></div></td>
                               <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             <tr>
@@ -1872,8 +1882,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                   <tbody id="G112" style="display: none;">
                                     <tr>
                                       <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">Contact Type</div></th>
-                                      <th><div align="center">Name/Organization</div></th>
+                                      <th><div align="center">*Contact Type</div></th>
+                                      <th><div align="center">*Name/Organization</div></th>
                                       <th><div align="center"># of Copies</div></th>
                                       <th width="50"><div align="center">Actions</div></th>
                                     </tr>
