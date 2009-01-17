@@ -235,6 +235,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                     </td>
                                     <td style="border:none; white-space:nowrap; padding:3px; vertical-align:top;">
                                         <input type="checkbox" class="nobord" name="CustomData14" value="14" checked="checked" /> Science Code<br />
+                                        <input type="checkbox" class="nobord" name="CustomData145" value="145" checked="checked" /> Signature Required<br />
                                         <input type="checkbox" class="nobord" name="CustomData15" value="15" checked="checked" /> Special Review<br />
                                         <input type="checkbox" class="nobord" name="CustomData16" value="16" checked="checked" /> Subcontract<br />
                                         <input type="checkbox" class="nobord" name="CustomData17" value="17" checked="checked" /> Technical Reporting<br />
@@ -261,26 +262,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <table style="border:none;">
                             	<tr>
                                 	<td style="border:none; white-space:nowrap; padding:3px; text-align:right; width:130px;">
-                                    	Sequence No.:
+                                    	Sequence No.: <input type="text" id="seqno" name="seqno" size="5" value="8" />
                                     </td>
-                                    <td style="border:none; white-space:nowrap; padding:3px; text-align:left;">
-                                    	<input type="text" id="seqno" name="seqno" size="5" value="8" />
-                                    </td>
-                                </tr>
-                                <tr>
                                 	<td style="border:none; white-space:nowrap; padding:3px; text-align:right;">
-                                    	Amt Sequence No.:
+                                    	Amt Sequence No.: <input type="text" id="amtseqno" name="amtseqno" size="5" value="1" />
                                     </td>
-                                    <td style="border:none; white-space:nowrap; padding:3px; text-align:left;">
-                                    	<input type="text" id="amtseqno" name="amtseqno" size="5" value="1" />
-                                    </td>
-                                </tr>
-                                <tr>
                                 	<td style="border:none; white-space:nowrap; padding:3px; text-align:right;">
-                                    	Signature Required:
-                                    </td>
-                                    <td style="border:none; white-space:nowrap; padding:3px; text-align:left;">
-                                    	<input type="checkbox" class="nobord" name="Csigreq" value="0" checked="checked" />
+                                    	Signature Required: <input type="checkbox" class="nobord" name="Csigreq" value="0" checked="checked" />
                                     </td>
                                 </tr>
                             </table>
