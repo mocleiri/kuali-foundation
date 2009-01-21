@@ -11,6 +11,5 @@ kupdate cnv standard true true Oracle9i
 kpurge $LOGS_DIRECTORY 7
 
 sh ~j2eemgr/kuali/kfs/check-modularization.sh
-sh ~j2eemgr/kuali/kfs/do-weekly-updates.sh
 
 kend 0
