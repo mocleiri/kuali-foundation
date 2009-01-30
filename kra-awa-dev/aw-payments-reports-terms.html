@@ -102,8 +102,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <table width="100%" cellpadding="0" cellspacing="0">
   <tr>
     <td class="column-left"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
-    <td><div  align="center">
-        <div id="workarea">
+    <td>
+    <div  align="center">
+    <div id="workarea">
           
           
           
@@ -127,28 +128,35 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>
                 	<select name="paymentbasis" id="paymentbasis">
                     	<option value="0" selected>Cost Reimbursement</option>
-                        <option value="0">Ipsum</option>
-                        <option value="0">Lorem</option>
-                        <option value="0">Ulset</option>
+                        <option value="1">Firm Fixed Price</option>
+                        <option value="2">No Payment</option>
                     </select>
                 </td>
                 <th><div align="right">*Payment Method:</div></th>
                 <td>
                 	<select name="paymentmethod" id="paymentmethod">
-                    	<option value="0" selected>Est&#146;d ACH mech</option>
-                        <option value="0">Ipsum</option>
-                        <option value="0">Lorem</option>
-                        <option value="0">Ulset</option>
+                    	<option value="0" selected>Advanced Payment Invoice</option>
+                        <option value="1">Automatic Payment</option>
+                        <option value="2">Cost Invoice with Certification</option>
+                        <option value="3">Cost Invoice</option>
+                        <option value="4">DoD Advance Payment Pool</option>
+                        <option value="5">Established ACH Mechanism for Sponsor</option>
+                        <option value="6">Gift</option>
+                        <option value="7">No Payment or Billed by Department</option>
+                        <option value="8">Progress Payment Invoices</option>
+                        <option value="9">SF270/Request for Advance</option>
+                        <option value="10">Scheduled Payment Invoices</option>
+                        <option value="11">Special Handling--see comments</option>
                     </select>
                 </td>
               </tr>
               <tr>
                 <th  scope="row"><div align="right">Final Invoice:</div></th>
-                <td> due within 
-                  <input name="textfield" type="text" id="textfield" size="5">  
-                days</td>
+                <td>
+                	due within <input name="textfield" type="text" id="textfield" size="5" value="60"> days
+                </td>
                 <th><div align="right">Document Funding ID:</div></th>
-                <td><input name="textfield" type="text" id="textfield" size="14"></td>
+                <td><input name="textfield" type="text" id="textfield" size="14" value="THD046377A"></td>
               </tr>
             </table>
            <br>
@@ -159,14 +167,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <h2><span class="tabtable1-left-colspan">Payment &amp; Invoice Requirements</span></h2>
             </span> <span class="subhead-right"> <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-awards-MR-Backup/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a> </span> </div>
             <table cellpadding=0 cellspacing="0" summary="">
-                         
-                          
                             <tr>
                               <th>&nbsp;</th>
-                              <th>Type</th>
+                              <th>Payment Type</th>
                               <th>Frequency</th>
                               <th>Frequency Base</th>
-                              <th>Base Date</th>
                               <th>OSP File Copy</th>
                               <th>Due Date</th>
                               <th width="50">Actions</th>
@@ -176,326 +181,351 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                               <td class="infoline"><div align="center">
                                   <select name="select" id="select">
                                     <option selected>select</option>
+                                    <option>advance payment</option>
+                                    <option>invoice</option>
                                     <option>final</option>
-                                    <option>progress/status</option>
                                   </select>
                                 </div></td>
                               <td class="infoline"><div align="center">
-                                  <select name="select" id="select">
+                                  <select name="select" id="select" style="width:98%;">
                                     <option selected>select</option>
-                                    <option>90 days after expiration</option>
-                                    <option>60 days prior to expiration</option>
-                                    <option>other </option>
-                                    <option>other </option>
-                                    <option>other </option>
+                                    <option>monthly</option>
+                                    <option>quarterly</option>
+                                    <option>semiannual</option>
+                                    <option>annual</option>
+                                    <option>scheduled </option>
                                   </select>
                                 </div></td>
                               <td class="infoline"><div align="center">
-                                <select name="select" id="select">
-                                  <option selected>select</option>
-                                  <option>effective date </option>
-                                  <option>90 days after expiration</option>
-                                  <option>60 days prior to expiration</option>
-                                  <option>other </option>
-                                  <option>other </option>
-                                  <option>other </option>
-                                                                </select>
+                                <select name="select" id="select"  style="width:98%;">
+                                    <option selected>select</option>
+                                    <option>as required</option>
+                                    <option>effective date</option>
+                                    <option>execution date</option>
+                                </select><br />
+                                <span class="fineprint">Base Date: DD/MM/YYYY</span>
                               </div></td>
-                            <td class="infoline">
-                                &nbsp;
-                                <!--<span class="fineprint">07/01/2008</span>-->
-                                <!--<input name="basedate" type="text" id="basedate" value="" size="10" />-->
-								<!--<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>-->
-                            </td>
                               <td class="infoline"><div align="center">
                                  <select name="select" id="select">
                                     <option selected>select</option>
-                                    <option>As Required</option>
-                                    <option>Eff Date</option>
-                                    <option>Eff Date of Oblig</option>
-                                    <option>Exp Date</option>
-                                    <option>Exp Date of Oblig</option>
-                                    <option>Final Exp Date</option>
+                                    <option>report</option>
+                                    <option>report + letter</option>
+                                    <option>letter only</option>
+                                    <option>sponsor form</option>
                                   </select>
                                 </div></td>
                               <td class="infoline"><div align="center">
-                                  <input name="date1" type="text" size="8" id="aaplication date">
+                                  <input name="date1" type="text" size="9" id="aaplication date">
                                   <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
                               <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             
                             
+                            <!-- 1 -->
+                                <tr>
+                                  <th rowspan="2">1</th>
+                                  <td><div align="center">
+                                      <select name="paytype1" id="paytype1">
+                                        <option>select</option>
+                                        <option>advance payment</option>
+                                        <option selected>invoice</option>
+                                        <option>final</option>
+                                      </select>
+                                    </div></td>
+                                  <td><div align="center">
+                                      <select name="frequency1" id="frequency1" style="width:98%;">
+                                        <option>select</option>
+                                        <option selected>monthly</option>
+                                        <option>quarterly</option>
+                                        <option>semiannual</option>
+                                        <option>annual</option>
+                                        <option>scheduled </option>
+                                    </select>
+                                    </div></td>
+                                  <td><div align="center">
+                                    <select name="freqbase1" id="freqbase1" style="width:98%;">
+                                        <option>select</option>
+                                        <option>as required</option>
+                                        <option selected>effective date</option>
+                                        <option>execution date</option>
+                                    </select><br />
+                                    <span class="fineprint">Base Date: 01/01/2009</span>
+                                  </div></td>
+                                  <td><div align="center">
+                                      <select name="ospfilecopy1" id="ospfilecopy1">
+                                        <option>select</option>
+                                        <option>report</option>
+                                        <option>report + letter</option>
+                                        <option selected>letter only</option>
+                                        <option>sponsor form</option>
+                                      </select>
+                                    </div></td>
+                                  <td><div align="center">
+                                    <input name="duedate1" id="duedate1" type="text" size="9" value="02/01/2009">
+                                    <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor13"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
+                                  <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                                </tr>
+                                <tr>
+                                  <td colspan="6" style="padding:0px; border-style:none">
+                                  	
+                                    <table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
+                                        <tr>
+                                        	<td colspan="14" nowrap class="tab-subhead1">
+                                        		<a href="#" id="A123y" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F123y"></a>
+                                        		Recipients
+                                        	</td>
+                                        </tr>
+                                        <tbody id="G123y" style="display: none;">
+                                        	<tr>
+                                                <th height="15"><div align="center"></div></th>
+                                                <th><div align="center">Contact Type</div></th>
+                                                <th><div align="center">Name/Organization</div></th>
+                                                <th><div align="center"># of Copies</div></th>
+                                                <th width="50"><div align="center">Actions</div></th>
+                                            </tr>
+                                            <tr>
+                                                <th><div align="center">Add:</div></th>
+                                                <td class="infoline">
+                                                    <div align="center">
+                                                    <select name="select" id="select">
+                                                        <option selected>select</option>
+                                                        <option>financial contact</option>
+                                                        <option>contract officer</option>
+                                                        <option>other</option>
+                                                    </select>
+                                                    </div>
+                                                </td>
+                                                <td class="infoline">
+                                                    <div align="center">
+                                                    <input name="textfield" type="text" id="textfield" size="35">
+                                                    <img src="../images/searchicon.gif" alt="asdf" width="16" height="16"></div>
+                                                </td>
+                                                <td class="infoline">
+                                                    <div align="center">
+                                                    <input name="textfield" type="text" id="textfield" size="5">
+                                                    </div>
+                                                </td>
+                                                <td class="infoline"><div align="center"><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                                            </tr>
+                                            <tr>
+                                            	<th><div align="center">1</div></th>
+                                            	<td>
+                                                	<div align="center">
+                                                    <select name="contype3" id="contype3">
+                                                        <option>select</option>
+                                                        <option selected>financial contact</option>
+                                                        <option>contract officer</option>
+                                                        <option>other</option>
+                                                    </select>
+                                                    </div>
+                                                </td>
+                                            	<td>
+                                                    <div align="center">
+                                                    <input name="textfield" type="text" id="textfield" value="Shared Services - XYZ Corp" size="35">
+                                                    <img src="../images/searchicon.gif" alt="sa" width="16" height="16">
+                                                    <input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
+                                                    </div>
+                                                </td>
+                                            	<td>
+                                                	<div align="center"><span class="infoline">
+                                            		<input name="textfield" type="text" id="textfield" value="3" size="5">
+                                            		</span></div>
+                                                </td>
+                                                <td>
+                                                	<div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                            	<th>
+                                                	<div align="center">2</div>
+                                                </th>
+                                            	<td>
+                                                	<div align="center">
+                                                    <select name="contype4" id="contype4">
+                                                        <option>select</option>
+                                                        <option selected>financial contact</option>
+                                                        <option>contract officer</option>
+                                                        <option>other</option>
+                                                    </select>
+                                                    </div>
+                                                </td>
+                                            	<td>
+                                                	<div align="center">
+                                                    <input name="textfield" type="text" id="textfield" value="Mean Joe Green" size="35">
+                                                    <img src="../images/searchicon.gif" alt="sa" width="16" height="16">
+                                                    <input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div align="center"><span class="infoline">
+                                                    <input name="textfield" type="text" id="textfield" value="1" size="5">
+                                                    </span></div>
+                                                </td>
+                                                <td>
+                                                	<div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                  
+                                  </td>
+                                </tr>
                             
-                            <tr>
-                              <th rowspan="2">1</th>
-                              <td><div align="center">
-                                  <select name="select" id="select">
-                                    <option>select</option>
-                                    <option>final</option>
-                                    <option selected>advance payment</option>
-                                  </select>
-                                </div></td>
-                              <td><div align="center">
-                                  <select name="select" id="select">
-                                    <option>select</option>
-                                     <option selected>scheduled </option> <option>90 days after expiration</option>
-                                    <option>60 days prior to expiration</option>
-                                    <option>other </option>
-                                    <option>other </option>
-                                    <option>other </option>
-                                </select>
-                                </div></td>
-                              <td><div align="center">
-                                <select name="select" id="select">
-                                  <option>select</option>
-                                  <option selected>effective date </option>
-                                  <option>90 days after expiration</option>
-                                  <option>60 days prior to expiration</option>
-                                  <option>other </option>
-                                  <option>other </option>
-                                  <option>other </option>
-                                </select>
-                              </div></td>
-                            <td>
-                            	<span class="fineprint">07/01/2008</span>
-                                <!--<input type="text" name="date1" id="date1" value="07/01/2008" size="10" />-->
-								<!--<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>-->
-                            </td>
-                              <td><div align="center">
-                                  <select name="selectcd" id="selectcd">
-                                    <option>select</option>
-                                    <option>As Required</option>
-                                    <option>Eff Date</option>
-                                    <option selected>Eff Date of Oblig</option>
-                                    <option>Exp Date</option>
-                                    <option>Exp Date of Oblig</option>
-                                    <option>Final Exp Date</option>
-                                  </select>
-                                </div></td>
-                              <td><div align="center">
-                                <input name="date1" type="text" size="8" id="aaplication date">
-                                <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor13"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
-                              <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                            </tr>
-                            <tr>
-                              <td colspan="7" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
-                                  <tr>
-                                    <td colspan="14" nowrap class="tab-subhead1">
-                                    	<a href="#" id="A123" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F123"></a>
-                                        Recipients
-                                    </td>
-                                  </tr>
-                                  <tbody id="G123" style="display: none;">
-                                    <tr>
-                                      <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">*Contact Type</div></th>
-                                      <th><div align="center">*Name/Organization</div></th>
-                                      <th><div align="center"># of Copies</div></th>
-                                      <th width="50"><div align="center">Actions</div></th>
-                                    </tr>
-                                    <tr>
-                                      <th><div align="center">Add:</div></th>
-                                      <td class="infoline"><div align="center">
-                                        <select name="select" id="select">
-                                          <option selected>select</option>
-                                          <option>payment/fiscal</option>
-                                          <option>contract officer</option>
-                                          <option>other </option>
-                                          <option>other </option>
-                                          <option>other </option>
-                                                                                </select>
-                                      </div></td>
-                                      <td class="infoline"><div align="center">
-                                          <input name="textfield" type="text" id="textfield" size="14">
-                                          <img src="../images/searchicon.gif" alt="asdf" width="16" height="16"></div></td>
-                                      <td class="infoline"><div align="center">
-                                          <input name="textfield" type="text" id="textfield" size="5">
-                                        </div></td>
-                                      <td class="infoline"><div align="center"><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                                    </tr>
-                                    <tr>
-                                      <th><div align="center">1</div></th>
-                                      <td><div align="center">
-                                          <select name="select" id="select">
-                                            <option>select</option>
-                                            <option selected>payment/fiscal</option>
-                                            <option>contract officer</option>
-                                            <option>other </option>
-                                            <option>other </option>
-                                            <option>other </option>
-                                        </select>
-                                        </div></td>
-                                      <td><div align="center">
-                                          <input name="textfield" type="text" id="textfield" value="Shared Services - XYZ Corp" size="14">
-                                          <img src="../images/searchicon.gif" alt="sa" width="16" height="16">
-                                          <input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
-                                        </div></td>
-                                      <td><div align="center"><span class="infoline">
-                                          <input name="textfield" type="text" id="textfield" value="3" size="5">
-                                          </span></div></td>
-                                      <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                                    </tr>
-                                    <tr>
-                                      <th><div align="center">2</div></th>
-                                      <td><div align="center">
-                                        <select name="select" id="select">
-                                          <option>select</option>
-                                          <option>payment/fiscal</option>
-                                          <option selected>contract officer</option>
-                                          <option>other </option>
-                                          <option>other </option>
-                                          <option>other </option>
-                                                                                </select>
-                                      </div></td>
-                                      <td><div align="center">
-                                          <input name="textfield" type="text" id="textfield" value="Mean Joe Green" size="14">
-                                          <img src="../images/searchicon.gif" alt="sa" width="16" height="16">
-                                          <input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
-                                        </div></td>
-                                      <td><div align="center"><span class="infoline">
-                                          <input name="textfield" type="text" id="textfield" value="1" size="5">
-                                          </span></div></td>
-                                      <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                                    </tr>
-                                  </tbody>
-                                </table></td>
-                            </tr>
-                            
-                            
-                            
-                            <tr>
-                              <th rowspan="2">2</th>
-                              <td><div align="center">
-                                  <select name="select" id="select">
-                                    <option>select</option>
-                                    <option>final</option>
-                                    <option selected>advance payment</option>
-                                  </select>
-                                </div></td>
-                              <td><div align="center">
-                                  <select name="select" id="select">
-                                    <option>select</option>
-                                     <option selected>scheduled </option> <option>90 days after expiration</option>
-                                    <option>60 days prior to expiration</option>
-                                    <option>other </option>
-                                    <option>other </option>
-                                    <option>other </option>
-                                </select>
-                                </div></td>
-                              <td><div align="center">
-                                <select name="select" id="select">
-                                  <option>select</option>
-                                  <option selected>effective date </option>
-                                  <option>90 days after expiration</option>
-                                  <option>60 days prior to expiration</option>
-                                  <option>other </option>
-                                  <option>other </option>
-                                  <option>other </option>
-                                </select>
-                              </div></td>
-                            <td>
-                            	<span class="fineprint">07/01/2008</span>
-                                <!--<input type="text" name="date1" id="date1" value="07/01/2008" size="10" />-->
-								<!--<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>-->
-                            </td>
-                              <td><div align="center">
-                                  <select name="selectc" id="selectc">
-                                    <option>select</option>
-                                    <option>As Required</option>
-                                    <option>Eff Date</option>
-                                    <option>Eff Date of Oblig</option>
-                                    <option>Exp Date</option>
-                                    <option>Exp Date of Oblig</option>
-                                    <option selected>Final Exp Date</option>
-                                  </select>
-                                </div></td>
-                              <td><div align="center">
-                                <input name="date1" type="text" size="8" id="aaplication date">
-                                <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor13"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
-                              <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                            </tr>
-                            <tr>
-                              <td colspan="7" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
-                                  <tr>
-                                    <td colspan="14" nowrap class="tab-subhead1">
-                                    	<a href="#" id="A123b" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F123b"></a>
-                                        Recipients
-                                    </td>
-                                  </tr>
-                                  <tbody id="G123b" style="display: none;">
-                                    <tr>
-                                      <th height="15"><div align="center"></div></th>
-                                      <th><div align="center">*Contact Type</div></th>
-                                      <th><div align="center">*Name/Organization</div></th>
-                                      <th><div align="center"># of Copies</div></th>
-                                      <th width="50"><div align="center">Actions</div></th>
-                                    </tr>
-                                    <tr>
-                                      <th><div align="center">Add:</div></th>
-                                      <td class="infoline"><div align="center">
-                                        <select name="select" id="select">
-                                          <option selected>select</option>
-                                          <option>payment/fiscal</option>
-                                          <option>contract officer</option>
-                                          <option>other </option>
-                                          <option>other </option>
-                                          <option>other </option>
-                                                                                </select>
-                                      </div></td>
-                                      <td class="infoline"><div align="center">
-                                          <input name="textfield" type="text" id="textfield" size="14">
-                                          <img src="../images/searchicon.gif" alt="asdf" width="16" height="16"></div></td>
-                                      <td class="infoline"><div align="center">
-                                          <input name="textfield" type="text" id="textfield" size="5">
-                                        </div></td>
-                                      <td class="infoline"><div align="center"><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                                    </tr>
-                                    <tr>
-                                      <th><div align="center">1</div></th>
-                                      <td><div align="center">
-                                          <select name="select" id="select">
-                                            <option>select</option>
-                                            <option selected>payment/fiscal</option>
-                                            <option>contract officer</option>
-                                            <option>other </option>
-                                            <option>other </option>
-                                            <option>other </option>
-                                        </select>
-                                        </div></td>
-                                      <td><div align="center">
-                                          <input name="textfield" type="text" id="textfield" value="Shared Services - XYZ Corp" size="14">
-                                          <img src="../images/searchicon.gif" alt="sa" width="16" height="16">
-                                          <input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
-                                        </div></td>
-                                      <td><div align="center"><span class="infoline">
-                                          <input name="textfield" type="text" id="textfield" value="3" size="5">
-                                          </span></div></td>
-                                      <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                                    </tr>
-                                    <tr>
-                                      <th><div align="center">2</div></th>
-                                      <td><div align="center">
-                                        <select name="select" id="select">
-                                          <option>select</option>
-                                          <option>payment/fiscal</option>
-                                          <option selected>contract officer</option>
-                                          <option>other </option>
-                                          <option>other </option>
-                                          <option>other </option>
-                                                                                </select>
-                                      </div></td>
-                                      <td><div align="center">
-                                          <input name="textfield" type="text" id="textfield" value="Mean Joe Green" size="14">
-                                          <img src="../images/searchicon.gif" alt="sa" width="16" height="16">
-                                          <input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
-                                        </div></td>
-                                      <td><div align="center"><span class="infoline">
-                                          <input name="textfield" type="text" id="textfield" value="1" size="5">
-                                          </span></div></td>
-                                      <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                                    </tr>
-                                  </tbody>
-                                </table></td>
+                            <!-- 2 -->
+                                <tr>
+                                  <th rowspan="2">2</th>
+                                  <td><div align="center">
+                                      <select name="paytype2" id="paytype2">
+                                        <option>select</option>
+                                        <option>advance payment</option>
+                                        <option>invoice</option>
+                                        <option selected>final</option>
+                                      </select>
+                                    </div></td>
+                                  <td><div align="center">
+                                      <select name="frequency2" id="frequency2" style="width:98%;">
+                                        <option>select</option>
+                                        <option selected>35: 120 days prior to expiration</option>
+                                        <option>10: 30 days after expiration</option>
+                                        <option>33: 45 days after expiration</option>
+                                        <option>30: 6 months after expiration</option>
+                                        <option>31: 60 days after annual anniversary</option>
+                                        <option>11: 60 days after expiration</option>
+                                        <option>43: 75 days after expiration</option>
+                                        <option>23: 9 months prior to expiration date</option>
+                                        <option>12: 90 days after expiration</option>
+                                        <option>7: Annual</option>
+                                        <option>14: As required</option>
+                                        <option>13: At Expiration</option>
+                                        <option>4: Scheduled</option>
+                                    </select>
+                                    </div></td>
+                                  <td><div align="center">
+                                    <select name="freqbase2" id="freqbase2" style="width:98%;">
+                                        <option>select</option>
+                                        <option>expiration date of obligation</option>
+                                        <option selected>final expiration date</option>
+                                    </select><br />
+                                    <span class="fineprint">Base Date: 12/31/2013</span>
+                                  </div></td>
+                                  <td><div align="center">
+                                      <select name="ospfilecopy2" id="ospfilecopy2">
+                                        <option>select</option>
+                                        <option>report</option>
+                                        <option>report + letter</option>
+                                        <option selected>letter only</option>
+                                        <option>sponsor form</option>
+                                      </select>
+                                    </div></td>
+                                  <td><div align="center">
+                                    <input name="duedate2" id="duedate2" type="text" size="9" value="02/28/2014">
+                                    <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor13"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
+                                  <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                                </tr>
+                                <tr>
+                                  <td colspan="6" style="padding:0px; border-style:none">
+                                  
+                                    <table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
+                                        <tr>
+                                        	<td colspan="14" nowrap class="tab-subhead1">
+                                        		<a href="#" id="A123x" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F123x"></a>
+                                        		Recipients
+                                        	</td>
+                                        </tr>
+                                        <tbody id="G123x" style="display: none;">
+                                        	<tr>
+                                                <th height="15"><div align="center"></div></th>
+                                                <th><div align="center">Contact Type</div></th>
+                                                <th><div align="center">Name/Organization</div></th>
+                                                <th><div align="center"># of Copies</div></th>
+                                                <th width="50"><div align="center">Actions</div></th>
+                                            </tr>
+                                            <tr>
+                                                <th><div align="center">Add:</div></th>
+                                                <td class="infoline">
+                                                    <div align="center">
+                                                    <select name="select" id="select">
+                                                        <option selected>select</option>
+                                                        <option>financial contact</option>
+                                                        <option>contract officer</option>
+                                                        <option>other</option>
+                                                    </select>
+                                                    </div>
+                                                </td>
+                                                <td class="infoline">
+                                                    <div align="center">
+                                                    <input name="textfield" type="text" id="textfield" size="35">
+                                                    <img src="../images/searchicon.gif" alt="asdf" width="16" height="16"></div>
+                                                </td>
+                                                <td class="infoline">
+                                                    <div align="center">
+                                                    <input name="textfield" type="text" id="textfield" size="5">
+                                                    </div>
+                                                </td>
+                                                <td class="infoline"><div align="center"><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                                            </tr>
+                                            <tr>
+                                            	<th><div align="center">1</div></th>
+                                            	<td>
+                                                	<div align="center">
+                                                    <select name="contype1" id="contype1">
+                                                        <option>select</option>
+                                                        <option selected>financial contact</option>
+                                                        <option>contract officer</option>
+                                                        <option>other</option>
+                                                    </select>
+                                                    </div>
+                                                </td>
+                                            	<td>
+                                                    <div align="center">
+                                                    <input name="textfield" type="text" id="textfield" value="Shared Services - XYZ Corp" size="35">
+                                                    <img src="../images/searchicon.gif" alt="sa" width="16" height="16">
+                                                    <input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
+                                                    </div>
+                                                </td>
+                                            	<td>
+                                                	<div align="center"><span class="infoline">
+                                            		<input name="textfield" type="text" id="textfield" value="3" size="5">
+                                            		</span></div>
+                                                </td>
+                                                <td>
+                                                	<div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                            	<th>
+                                                	<div align="center">2</div>
+                                                </th>
+                                            	<td>
+                                                	<div align="center">
+                                                    <select name="contype2" id="contype2">
+                                                        <option>select</option>
+                                                        <option selected>financial contact</option>
+                                                        <option>contract officer</option>
+                                                        <option>other</option>
+                                                    </select>
+                                                    </div>
+                                                </td>
+                                            	<td>
+                                                	<div align="center">
+                                                    <input name="textfield" type="text" id="textfield" value="Mean Joe Green" size="35">
+                                                    <img src="../images/searchicon.gif" alt="sa" width="16" height="16">
+                                                    <input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div align="center"><span class="infoline">
+                                                    <input name="textfield" type="text" id="textfield" value="1" size="5">
+                                                    </span></div>
+                                                </td>
+                                                <td>
+                                                	<div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                </td>
                             </tr>
                           <tr>
                             <th colspan="2" style="text-align:right; width:100px;">Invoice Instructions:</th>
@@ -507,63 +537,104 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
            
            <br>
             <div class="h2-container">
-              <h2><span class="subhead-left">Payment &amp; Invoice Schedule</span></h2>
+              <h2><span class="subhead-left"><a href="#" id="A123t" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F123t"></a> Payment &amp; Invoice Schedule</span></h2>
             </div>
             <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
+              <tbody id="G123t" style="display: none;">
               <tr>
                 <th>Status</th>
                 <th>Invoice Due</th>
                 <th>Invoice Overdue</th>
-                <th>Invoice #</th>
+                <th>Invoice ID</th>
                 <th>Amount</th>
                 <th>Person to Submit</th>
                 <th>Activity Date</th>
                 <th>Comments</th>
                 <th>Last Update</th>
               </tr>
-              <tr>
-                <td  scope="row"><input type="text" name="" id="" value="Paid" style="width:100%;" /></td>
-                <td style="white-space:nowrap">
-                    <input type="text" name="date1s" id="date1s" value="07/01/2008" size="10" />
-					<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                </td>
-                <td style="text-align:center;"><input type="text" name="" id="" value="0" style="width:25px;" /></td>
-                <td><input type="text" name="" id="" value="427400-01" style="width:100%;" /></td>
-                <td nowrap><div align="right"><input style="text-align:right;" type="text" name="" id="" value="25,000.00" style="width:100%;" /></div></td>
-                <td nowrap><input type="text" name="" id="" value="James Bond" style="width:100%;" /></td>
-                <td style="white-space:nowrap">
-                	<input type="text" name="date1s" id="date1t" value="07/01/2008" size="10" />
-					<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                </td>
-                <td nowrap style="width:180px;"><input type="text" name="" id="" value="Inv'd 6/20/08, Pd in full 7/12/08" style="width:100%;" /></td>
-                <td nowrap style="width:180px;"><input type="text" name="" id="" value="11/11/2008 08:01pm James Bond" style="width:100%;" /></td>
-              </tr>
-              <tr>
-                <td  scope="row"><input type="text" name="" id="" value="Billed" style="width:100%;" /></td>
-                <td style="white-space:nowrap">
-                    <input type="text" name="date1s" id="date1s" value="07/01/2008" size="10" />
-					<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                </td>
-                <td style="text-align:center;"><input type="text" name="" id="" value="0" style="width:25px;" /></td>
-                <td><input type="text" name="" id="" value="427400-02" style="width:100%;" /></td>
-                <td nowrap><input style="text-align:right;" type="text" name="" id="" value="8,276.54" style="width:100%;" /></td>
-                <td nowrap><input type="text" name="" id="" value="M. Smart" style="width:100%;" /></td>
-                <td style="white-space:nowrap">
-                	<input type="text" name="date1s" id="date1t" value="12/01/2008" size="10" />
-					<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                </td>
-                <td nowrap style="width:180px;"><input type="text" name="" id="" value="Inv'd 10/10/08" style="width:100%;" /></td>
-                <td nowrap style="width:180px;"><input type="text" name="" id="" value="11/11/2008 08:01pm M. Smart" style="width:100%;" /></td>
-              </tr>
               
-              
-              
-              
+                <tr>
+                    <td  scope="row">
+                    	<select name="CustomDataa1">
+                            <option value="0">select</option>
+                            <option value="1">payment due</option>
+                            <option value="3">to be invoiced</option>
+                            <option value="4">invoiced</option>
+                            <option value="5" selected="selected">paid</option>
+                        </select>
+                    </td>
+                    <td style="white-space:nowrap">
+                        <input type="text" name="date1s" id="date1s" value="02/01/2009" size="10" />
+                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                    </td>
+                    <td style="text-align:center;">
+                    	<input type="text" name="" id="" value="0" style="width:25px;" />
+                    </td>
+                    <td>
+                    	<input type="text" name="" id="" value="427400-01" style="width:98%;" />
+                    </td>
+                    <td nowrap>
+                    	<div align="right"><input style="text-align:right;" type="text" name="" id="" value="25,000.00" style="width:100%;" /></div>
+                    </td>
+                    <td nowrap>
+                    	<input type="text" name="" id="" value="James Bond" style="width:100%;" /></td>
+                    <td style="white-space:nowrap">
+                        <input type="text" name="date1s" id="date1t" value="07/01/2008" size="10" />
+                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                    </td>
+                    <td nowrap style="width:180px;">
+                    	<input type="text" name="f" id="f" value="Inv'd 6/20/08, Pd in full 7/12/08" style="width:98%;" />
+                    </td>
+                    <td nowrap style="width:180px;">
+                    	<input type="text" name="g" id="g" value="James Bond 11/11/2008 08:01pm" style="width:98%;" />
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td  scope="row">
+                    	<select name="CustomDataa1">
+                            <option value="0">select</option>
+                            <option value="1">payment due</option>
+                            <option value="3">to be invoiced</option>
+                            <option value="4" selected="selected">invoiced</option>
+                            <option value="5">paid</option>
+                        </select>
+                    </td>
+                    <td style="white-space:nowrap">
+                        <input type="text" name="date1s" id="date1s" value="02/28/2014" size="10" />
+                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                    </td>
+                    <td style="text-align:center;">
+                    	<input type="text" name="" id="" value="0" style="width:25px;" />
+                    </td>
+                    <td>
+                    	<input type="text" name="" id="" value="427400-02" style="width:98%;" />
+                    </td>
+                    <td nowrap>
+                    	<div align="right"><input style="text-align:right;" type="text" name="" id="" value="8,276.54" style="width:100%;" /></div>
+                    </td>
+                    <td nowrap>
+                    	<input type="text" name="" id="" value="M. Smart" style="width:100%;" /></td>
+                    <td style="white-space:nowrap">
+                        <input type="text" name="date1s" id="date1t" value="12/01/2008" size="10" />
+                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                    </td>
+                    <td nowrap style="width:180px;">
+                    	<input type="text" name="" id="" value="Inv'd 10/10/08" style="width:98%;" />
+                    </td>
+                    <td nowrap style="width:180px;">
+                    	<input type="text" name="" id="" value="M. Smart 11/11/2008 08:01pm" style="width:98%;" />
+                    </td>
+                </tr>
+                
               <tr>
                 <td colspan="4" class="infoline"  scope="row"><div align="right"><strong>Total:</strong></div></td>
                 <td nowrap class="infoline"><div align="right"><strong>$33,276.54</strong></div></td>
-                <td colspan="4" nowrap class="infoline">&nbsp;</td>
+                <td colspan="4" nowrap class="infoline" style="text-align:left;">
+                	<input name="x" src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('If this were not a mock, this button would recalculate the total.'); return false" class="tinybutton" alt="recalculate" type="image" />
+                </td>
               </tr>
+              </tbody>
             </table>
             
             <!--<p><img src="images/paymtpanelsuggestion.jpg" alt="payments" width="744" height="481"></p>-->
