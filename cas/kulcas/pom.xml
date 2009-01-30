@@ -26,10 +26,8 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
-					<!-- Using 2.0.1 version because webXml doesn't work with latest one  -->
 					<version>2.0.1</version>
-					<configuration>
-						<!-- <dependentWarExcludes>WEB-INF/lib/**, WEB-INF/web.xml</dependentWarExcludes> -->
+					<configuration>						
 					</configuration>
 				</plugin>
 			</plugins>
@@ -69,7 +67,7 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-war-plugin</artifactId>
 						<configuration>
-							<!-- <webXml>src/main/config/rice-web.xml</webXml> -->
+							<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 						</configuration>
 					</plugin>
 				</plugins>

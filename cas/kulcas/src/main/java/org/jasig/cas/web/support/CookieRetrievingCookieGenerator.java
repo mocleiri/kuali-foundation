@@ -21,11 +21,14 @@
  */
 package org.jasig.cas.web.support;
  
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jasig.cas.authentication.principal.RememberMeCredentials;
+import org.kuali.kfs.sys.web.ConfigPropertiesExposerListener;
 import org.springframework.util.StringUtils;
 import org.springframework.web.util.CookieGenerator;
 
@@ -52,7 +55,8 @@ public final class CookieRetrievingCookieGenerator extends CookieGenerator {
             final Cookie cookie = createCookie(cookieValue);
             cookie.setMaxAge(this.rememberMeMaxAge);
         	// Kuali Modification to get the requiresHttps property
-        	final boolean requireHttps = Boolean.getBoolean(request.getSession().getServletContext().getInitParameter("org.kuali.cas.auth.requireHttps"));
+            Map map = (Map) request.getSession().getServletContext().getAttribute(ConfigPropertiesExposerListener.DEFAULT_CONTEXT_PROPERTY);
+        	final boolean requireHttps = (Boolean) map.get("org.kuali.cas.auth.requireHttps");
             if (isCookieSecure() || !requireHttps) {
                 cookie.setSecure(true);
             }

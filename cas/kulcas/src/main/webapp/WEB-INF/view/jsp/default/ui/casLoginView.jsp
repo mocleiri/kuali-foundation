@@ -21,7 +21,7 @@
 <%-- 
 Kuali modification to warn about demo authentication 
 --%>
-<c:set var="showPasswordField" scope="request" value="true"/>                    
+<c:set var="showPasswordField" scope="request" value="${configProperties['org.kuali.cas.auth.showPasswordField']}"/>                    
 <c:if test="${not requestScope.showPasswordField}">
 <font face="Arial,Helvetica">Enter your UserID below; then click on the <b>Login</b> button to continue.  A password is not required, because this is a </font>
 <font face="Arial,Helvetica" color="red"><b>DEMO ONLY</b></font><font face="Arial,Helvetica"> authentication application.</font>
