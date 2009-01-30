@@ -156,17 +156,9 @@
 	TODO: Move these credentials to somewhere external
 	-->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName">
-            <value>oracle.jdbc.driver.OracleDriver</value>
-        </property>
-        <property name="url">
-            <value>jdbc:oracle:thin:@esdbk02.uits.indiana.edu:1521:KUALI</value>
-        </property>
-        <property name="username">
-            <value>kuldev</value>
-        </property>
-        <property name="password">
-            <value>dev174kul</value>
-        </property>
+        <property name="driverClassName" value="${org.kuali.cas.auth.jdbc.driverClassName}" />
+        <property name="url" value="${org.kuali.cas.auth.jdbc.url}" />
+        <property name="username" value="${org.kuali.cas.auth.jdbc.username}" />
+        <property name="password" value="${org.kuali.cas.auth.jdbc.password}" />
     </bean>		
 </beans>
