@@ -134,10 +134,10 @@
         </table>
 	<!-- Panel Content Div -->
         <div class="tab-container" align="center" id="G02" style="display: none;">
-        <!-- Panel Element: Transaction -->
-            <!-- Element Header: Transaction -->
+        <!-- Panel Element: New Transaction -->
+            <!-- Element Header: New Transaction -->
                 <div class="h2-container">
-                    <span class="subhead-left"><h2>Transaction</h2></span>
+                    <span class="subhead-left"><h2>New Transaction</h2></span>
                     <span class="subhead-right">
                         <span class="subhead">
                             <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
@@ -151,8 +151,12 @@
                         <td style="text-align:center; width:100px;">
                         	<select name="CustomData">
                                 <option value="0">select</option>
-                                <option value="1" selected="selected">label one</option>
-                                <option value="2">label two</option>
+                                <option value="1" selected="selected">New</option>
+                                <option value="2">Modification</option>
+                                <option value="2">Supplement</option>
+                                <option value="2">Increment</option>
+                                <option value="2">No Cost Extension</option>
+                                <option value="2">Error Correction</option>
                             </select>
                         </td>
                         <th style="text-align:right; width:95px;">Notice Date:</th>
@@ -182,12 +186,12 @@
                         </tr>
                         <tr>
                             <th>&nbsp;</th>
-                            <th>Award Number</th>
+                            <th>Award Hierarchy Node</th>
+                            <th>Obligated Start Date</th>
+                            <th>Obligated End Date</th>
+                            <th>Final End Date</th>
                             <th>Obligated Amount</th>
                             <th>Anticipated Amount</th>
-                            <th>Obligated Effective Date</th>
-                            <th>Obligated Expiration Date</th>
-                            <th>Final Expiration Date</th>
                             <th>Action</th>
                         </tr>
                         <tr>
@@ -214,12 +218,6 @@
                                 <input name="addx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
                             </td>
                             <td style="text-align:center;" class="infoline">
-                                <input type="text" id="addt2" name="addt2" size="14" value="0.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input type="text" id="addt3" name="addt3" size="14" value="0.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:center;" class="infoline">
                                 <input type="text" name="adddate1" id="adddate1" value="" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
                             </td>
@@ -230,6 +228,12 @@
                             <td style="text-align:center;" class="infoline">
                                 <input type="text" name="adddate3" id="adddate3" value="" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                            </td>
+                            <td style="text-align:right;" class="infoline">
+                                <input type="text" id="addt2" name="addt2" size="14" value="0.00" style="text-align:right;" />
+                            </td>
+                            <td style="text-align:right;" class="infoline">
+                                <input type="text" id="addt3" name="addt3" size="14" value="0.00" style="text-align:right;" />
                             </td>
                             <td style="text-align:center;" class="infoline">
                                 <input name="addtransaction" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this button would add the transaction as a data row, below.'); return false" class="tinybutton" alt="Add" title="Add" type="image" />
@@ -243,12 +247,6 @@
                                 000121-001
                                 <input name="addx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
                             </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2b" name="addt2b" size="14" value="$18,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2b" name="addt2b1" size="14" value="$18,000.00" style="text-align:right;" />
-                            </td>
                             <td style="text-align:center;">
                                 <input type="text" name="adddate2b" id="adddate2b" value="02/12/2008" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
@@ -260,6 +258,12 @@
                             <td style="text-align:center;">
                                 <input type="text" name="adddate2b" id="adddate2b2" value="05/03/2009" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                            </td>
+                            <td style="text-align:right;">
+                                <input type="text" id="addt2b" name="addt2b" size="14" value="18,000.00" style="text-align:right;" />
+                            </td>
+                            <td style="text-align:right;">
+                                <input type="text" id="addt2b" name="addt2b1" size="14" value="18,000.00" style="text-align:right;" />
                             </td>
                             <td style="text-align:center;">
                                 <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
@@ -273,12 +277,6 @@
                                 000121-003
                                 <input name="addx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
                             </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2c" name="addt2c1" size="14" value="$12,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2c" name="addt2c" size="14" value="$12,000.00" style="text-align:right;" />
-                            </td>
                             <td style="text-align:center;">
                                 <input type="text" name="adddate2c" id="adddate2c" value="02/12/2008" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
@@ -291,6 +289,12 @@
                                 <input type="text" name="adddate2c" id="adddate2c2" value="05/03/2009" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
                             </td>
+                            <td style="text-align:right;">
+                                <input type="text" id="addt2c" name="addt2c1" size="14" value="12,000.00" style="text-align:right;" />
+                            </td>
+                            <td style="text-align:right;">
+                                <input type="text" id="addt2c" name="addt2c" size="14" value="12,000.00" style="text-align:right;" />
+                            </td>
                             <td style="text-align:center;">
                                 <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
                             </td>
@@ -300,7 +304,7 @@
                             <th style="text-align:center;">
                                 Totals:
                             </th>
-                            <td style="text-align:center;" class="infoline">&nbsp;
+                            <td colspan="4" style="text-align:center;" class="infoline">&nbsp;
                                 
                             </td>
                             <td style="text-align:right; font-weight:bold;" class="infoline">
@@ -309,8 +313,8 @@
                             <td style="text-align:right; font-weight:bold;" class="infoline">
                                 $30,000.00
                             </td>
-                            <td colspan="4"style="text-align:center;" class="infoline">&nbsp;
-                                
+                            <td style="text-align:center;" class="infoline">
+                                <input name="x" src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('If this were not a mock, the totals would be updated.'); return false" class="tinybutton" alt="recalculate" type="image" />
                             </td>
                         </tr>
                     <!-- TO -->
@@ -319,12 +323,12 @@
                         </tr>
                         <tr>
                             <th>&nbsp;</th>
-                            <th>Award Number</th>
+                            <th>Award Hierarchy Node</th>
+                            <th>Obligated Start Date</th>
+                            <th>Obligated End Date</th>
+                            <th>Final End Date</th>
                             <th>Obligated Amount</th>
                             <th>Anticipated Amount</th>
-                            <th>Obligated Effective Date</th>
-                            <th>Obligated Expiration Date</th>
-                            <th>Final Expiration Date</th>
                             <th>Action</th>
                         </tr>
                         <tr>
@@ -351,12 +355,6 @@
                                 <input name="addxx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
                             </td>
                             <td style="text-align:center;" class="infoline">
-                                <input type="text" id="addt2x" name="addt2x" size="14" value="0.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input type="text" id="addt3x" name="addt3x" size="14" value="0.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:center;" class="infoline">
                                 <input type="text" name="adddate1x" id="adddate1x" value="" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
                             </td>
@@ -367,6 +365,12 @@
                             <td style="text-align:center;" class="infoline">
                                 <input type="text" name="adddate3x" id="adddate3x" value="" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                            </td>
+                            <td style="text-align:right;" class="infoline">
+                                <input type="text" id="addt2x" name="addt2x" size="14" value="0.00" style="text-align:right;" />
+                            </td>
+                            <td style="text-align:right;" class="infoline">
+                                <input type="text" id="addt3x" name="addt3x" size="14" value="0.00" style="text-align:right;" />
                             </td>
                             <td style="text-align:center;" class="infoline">
                                 <input name="addtransaction" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this button would add the transaction as a data row, below.'); return false" class="tinybutton" alt="Add" title="Add" type="image" />
@@ -380,12 +384,6 @@
                                 000121-004
                                 <input name="addx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
                             </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2bx" name="addt2bx" size="14" value="$25,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2b1x" name="addt2b1x" size="14" value="$25,000.00" style="text-align:right;" />
-                            </td>
                             <td style="text-align:center;">
                                 <input type="text" name="adddate2bx" id="adddate2bx" value="02/12/2008" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
@@ -397,6 +395,12 @@
                             <td style="text-align:center;">
                                 <input type="text" name="adddate2bx" id="adddate2b2x" value="05/03/2009" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                            </td>
+                            <td style="text-align:right;">
+                                <input type="text" id="addt2bx" name="addt2bx" size="14" value="25,000.00" style="text-align:right;" />
+                            </td>
+                            <td style="text-align:right;">
+                                <input type="text" id="addt2b1x" name="addt2b1x" size="14" value="25,000.00" style="text-align:right;" />
                             </td>
                             <td style="text-align:center;">
                                 <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
@@ -410,12 +414,6 @@
                                 000121-006
                                 <input name="addxx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
                             </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2cx" name="addt2c1x" size="14" value="$5,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2cx" name="addt2cx" size="14" value="$5,000.00" style="text-align:right;" />
-                            </td>
                             <td style="text-align:center;">
                                 <input type="text" name="adddate2cx" id="adddate2cx" value="02/12/2008" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
@@ -428,6 +426,12 @@
                                 <input type="text" name="adddate2cx" id="adddate2c2x" value="05/03/2009" size="10" />
                                 <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
                             </td>
+                            <td style="text-align:right;">
+                                <input type="text" id="addt2cx" name="addt2c1x" size="14" value="5,000.00" style="text-align:right;" />
+                            </td>
+                            <td style="text-align:right;">
+                                <input type="text" id="addt2cx" name="addt2cx" size="14" value="5,000.00" style="text-align:right;" />
+                            </td>
                             <td style="text-align:center;">
                                 <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
                             </td>
@@ -437,7 +441,7 @@
                             <th style="text-align:center;">
                                 Totals:
                             </th>
-                            <td style="text-align:center;" class="infoline">&nbsp;
+                            <td colspan="4" style="text-align:center;" class="infoline">&nbsp;
                                 
                             </td>
                             <td style="text-align:right; font-weight:bold;" class="infoline">
@@ -446,11 +450,12 @@
                             <td style="text-align:right; font-weight:bold;" class="infoline">
                                 $30,000.00
                             </td>
-                            <td colspan="4"style="text-align:center;" class="infoline">&nbsp;
-                                
+                            <td style="text-align:center;" class="infoline">
+                                <input name="x" src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('If this were not a mock, the totals would be updated.'); return false" class="tinybutton" alt="recalculate" type="image" />
                             </td>
                         </tr>
                 </table>
+                <div style="text-align:center;"><input name="x" src="../images/tinybutton-applytransaction.gif" onclick="javascript: alert('If this were not a mock, the transaction(s) above would be applied.'); return false" class="tinybutton" alt="apply transaction" type="image" style="margin-top:5px;" /></div>
                 <br />
         <!-- Panel Element: Award Hierarchy -->
             <!-- Element Header: Award Hierarchy -->
@@ -465,8 +470,25 @@
             <!-- Element Content: Award Hierarchy -->
              	<table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
                     <tr>
-                        <td style="background-image:url(../images/th-back.gif);">
-                                                        
+                        <td style="text-align:center; background-color:#C3C3C3; font-weight:bold;">
+                        	&nbsp;
+                            <!--<span id="treecontrol" style="display:inline;">
+                                <a title="Collapse the entire tree below" href="#"><img src="../BFN/images/minus.gif" /> Collapse All</a>
+                                &nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="../BFN/images/plus.gif" /> Expand All</a>
+                            </span>-->
+                        </td>
+                        <td style="text-align:center; background-color:#C3C3C3; font-weight:bold; width:285px;">
+                            <input type="radio" class="nobord" name="when01" value="0" checked="checked" />current
+                            <input type="radio" class="nobord" name="when01" value="1" />pending
+                        </td>
+                        <td style="text-align:center; background-color:#C3C3C3; font-weight:bold; width:350px;">
+                            <input type="radio" class="nobord" name="which01" value="0" checked="checked" />total
+                            <input type="radio" class="nobord" name="which01" value="2" />distributable
+                            <input type="radio" class="nobord" name="which01" value="3" />distributed
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-image:url(../images/th-back.gif);" colspan="3">
                             <div>
                                 <span style="float:right; margin-right:17px;">
                                     <table style="border-collapse:collapse; border:1px solid #999999;">
@@ -478,20 +500,21 @@
                                                 Anticipated
                                             </td>
                                             <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                Oblg. eff
+                                                Oblg. Start
                                             </td>
                                             <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                Oblg. exp
+                                                Oblg. End
                                             </td>
                                             <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                Final exp
+                                                Final End
                                             </td>
                                         </tr>
                                     </table>
                                 </span>
                                 <span id="treecontrol" style="display:inline;">
-                                    <a title="Collapse the entire tree below" href="#"><img src="./images/minus.gif" /> Collapse All</a>
-                                    &nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="./images/plus.gif" /> Expand All</a>
+                                    <!--&nbsp;-->
+                                    <a title="Collapse the entire tree below" href="#"><img src="../BFN/images/minus.gif" /> Collapse All</a>
+                                    &nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="../BFN/images/plus.gif" /> Expand All</a>
                                 </span>
                             </div>
                             
@@ -504,10 +527,10 @@
                                                 <table style="border-collapse:collapse; border:1px solid #999999;">
                                                     <tr>
                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                            $20,000.00
+                                                            20,000.00
                                                         </td>
                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                            $50,000.00
+                                                            50,000.00
                                                         </td>
                                                         <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                             01/12/2007
@@ -530,10 +553,10 @@
                                                         <table style="border-collapse:collapse; border:1px solid #999999;">
                                                             <tr>
                                                                 <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    $20,000.00
+                                                                    20,000.00
                                                                 </td>
                                                                 <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    $50,000.00
+                                                                    50,000.00
                                                                 </td>
                                                                 <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                     01/12/2007
@@ -557,10 +580,10 @@
                                                         <table style="border-collapse:collapse; border:1px solid #999999;">
                                                             <tr>
                                                                 <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    $20,000.00
+                                                                    20,000.00
                                                                 </td>
                                                                 <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    $50,000.00
+                                                                    50,000.00
                                                                 </td>
                                                                 <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                     01/12/2007
@@ -583,10 +606,10 @@
                                                                 <table style="border-collapse:collapse; border:1px solid #999999;">
                                                                     <tr>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $20,000.00
+                                                                            20,000.00
                                                                         </td>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $50,000.00
+                                                                            50,000.00
                                                                         </td>
                                                                         <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                             01/12/2007
@@ -608,10 +631,10 @@
                                                                 <table style="border-collapse:collapse; border:1px solid #999999;">
                                                                     <tr>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $20,000.00
+                                                                            20,000.00
                                                                         </td>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $50,000.00
+                                                                            50,000.00
                                                                         </td>
                                                                         <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                             01/12/2007
@@ -633,10 +656,10 @@
                                                                 <table style="border-collapse:collapse; border:1px solid #999999;">
                                                                     <tr>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $20,000.00
+                                                                            20,000.00
                                                                         </td>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $50,000.00
+                                                                            50,000.00
                                                                         </td>
                                                                         <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                             01/12/2007
@@ -658,10 +681,10 @@
                                                                 <table style="border-collapse:collapse; border:1px solid #999999;">
                                                                     <tr>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $20,000.00
+                                                                            20,000.00
                                                                         </td>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $50,000.00
+                                                                            50,000.00
                                                                         </td>
                                                                         <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                             01/12/2007
@@ -683,10 +706,10 @@
                                                                 <table style="border-collapse:collapse; border:1px solid #999999;">
                                                                     <tr>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $20,000.00
+                                                                            20,000.00
                                                                         </td>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $50,000.00
+                                                                            50,000.00
                                                                         </td>
                                                                         <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                             01/12/2007
@@ -708,10 +731,10 @@
                                                                 <table style="border-collapse:collapse; border:1px solid #999999;">
                                                                     <tr>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $20,000.00
+                                                                            20,000.00
                                                                         </td>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $50,000.00
+                                                                            50,000.00
                                                                         </td>
                                                                         <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                             01/12/2007
@@ -733,10 +756,10 @@
                                                                 <table style="border-collapse:collapse; border:1px solid #999999;">
                                                                     <tr>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $20,000.00
+                                                                            20,000.00
                                                                         </td>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $50,000.00
+                                                                            50,000.00
                                                                         </td>
                                                                         <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                             01/12/2007
@@ -758,10 +781,10 @@
                                                                 <table style="border-collapse:collapse; border:1px solid #999999;">
                                                                     <tr>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $20,000.00
+                                                                            20,000.00
                                                                         </td>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $50,000.00
+                                                                            50,000.00
                                                                         </td>
                                                                         <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                             01/12/2007
@@ -783,10 +806,10 @@
                                                                 <table style="border-collapse:collapse; border:1px solid #999999;">
                                                                     <tr>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $20,000.00
+                                                                            20,000.00
                                                                         </td>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $50,000.00
+                                                                            50,000.00
                                                                         </td>
                                                                         <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                             01/12/2007
@@ -808,10 +831,10 @@
                                                                 <table style="border-collapse:collapse; border:1px solid #999999;">
                                                                     <tr>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $20,000.00
+                                                                            20,000.00
                                                                         </td>
                                                                         <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            $50,000.00
+                                                                            50,000.00
                                                                         </td>
                                                                         <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                             01/12/2007
