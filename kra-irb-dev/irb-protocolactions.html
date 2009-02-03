@@ -141,12 +141,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <a href="#" id="A201s" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201s"></a>
                         </td>
                         <td class="tab-subhead">
-                            Submit for review
+                            Submit for Review
                         </td>
                     </tr>
                 </table>
                 <div id="G201s" style="display: none;">
-                    <table cellpadding="0" cellspacing="0"  summary="">
+                   <!-- <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <td style="width:50px;">
                                 
@@ -158,7 +158,121 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
                             </td>
                         </tr>
+                    </table>-->
+                    
+                    <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <td colspan="4">
+                                Preconfigured text here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada dapibus turpis. Phasellus sed neque. Vestibulum 
+                                bibendum venenatis lorem. Sed gravida. Vestibulum nunc augue, hendrerit quis, commodo a, laoreet eget, ante. Fusce mattis metus. 
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right; width:125px;">
+                                Type:
+                            </th>
+                            <td>
+                                <select name="typeQ">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">label one</option>
+                                    <option value="2">label two</option>
+                                </select>
+                            </td>
+                            <th style="text-align:right;">
+                                Review Type:
+                            </th>
+                            <td>
+                                <select name="reviewtypeQ">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">label one</option>
+                                    <option value="2">label two</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">
+                                Type Qualifier
+                            </th>
+                            <td colspan="3">
+                                <select name="typequalifierQ" style="width:100%;">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">label one potentially has some insanely long text in it so here it is, right here.</option>
+                                    <option value="2">label two</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">
+                                Committee ID:
+                            </th>
+                            <td>
+                                <input type="text" id="committeeidQ" name="committeeidQ" size="25" value="Ipsum" />
+                            </td>
+                            <th style="text-align:right;">
+                                Committee Name:
+                            </th>
+                            <td>
+                                <input type="text" id="committeenameQ" name="committeenameQ" size="50" value="Ipsum" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">
+                                Schedule ID:
+                            </th>
+                            <td>
+                                <input type="text" id="scheduleidQ" name="scheduleidQ" size="25" value="Ipsum" />
+                            </td>
+                            <th style="text-align:right;">
+                                Schedule Date:
+                            </th>
+                            <td>
+                                <input type="text" name="scheduledateQ" id="scheduledateQ" value="12/31/2009" size="10" />
+								<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                            </td>
+                        </tr>
                     </table>
+                    <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <th>
+                                Committee ID
+                            </th>
+                            <th>
+                                Committee Name
+                            </th>
+                            <th rowspan="3" class="infoline" style="width:100px; padding:3px;">
+                                <input style="padding:1px;" name="selectcommittee" src="../images/tinybutton-selectcommittee.gif" onclick="javascript: alert('select committee'); return false" class="tinybutton" alt="select committee" title="select committee" type="image" /><br />
+                                <input style="padding:1px;" name="selectschedule" src="../images/tinybutton-selectschedule.gif" onclick="javascript: alert('select schedule'); return false" class="tinybutton" alt="select schedule" title="select schedule" type="image" /><br />
+                                <input style="padding:1px;" name="showall" src="../images/tinybutton-showall.gif" onclick="javascript: alert('show all'); return false" class="tinybutton" alt="show all" title="show all" type="image" /><br />
+                                <input style="padding:1px;" name="selectreviewer" src="../images/tinybutton-selectreviewer.gif" onclick="javascript: alert('select reviewer'); return false" class="tinybutton" alt="select reviewer" title="select reviewer" type="image" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                BC001
+                            </td>
+                            <td>
+                                Bryan's Uber Cool Committee
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                CU001
+                            </td>
+                            <td>
+                                Cornell IRB 1
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <td style="text-align:center; padding:5px;" class="infoline">
+                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    
+                    
                 </div>
             
             <!-- Request to close -->
@@ -168,7 +282,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <a href="#" id="A201q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201q"></a>
                         </td>
                         <td class="tab-subhead">
-                            Request to close
+                            Request to Close
                         </td>
                     </tr>
                 </table>
@@ -179,7 +293,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 
                             </td>
                             <td>
-                                Request to close content
+                                Request to Close Content
                             </td>
                             <td style="width:50px; text-align:center;">
                                 <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
@@ -195,7 +309,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <a href="#" id="A201w" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201w"></a>
                         </td>
                         <td class="tab-subhead">
-                            Request to close enrollment
+                            Request to Close Enrollment
                         </td>
                     </tr>
                 </table>
@@ -206,7 +320,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 
                             </td>
                             <td>
-                                Request to close enrollment content
+                                Request to Close Enrollment Content
                             </td>
                             <td style="width:50px; text-align:center;">
                                 <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
@@ -222,7 +336,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <a href="#" id="A201e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201e"></a>
                         </td>
                         <td class="tab-subhead">
-                            Request to Re-open enrollment
+                            Request to Re-open Enrollment
                         </td>
                     </tr>
                 </table>
@@ -233,7 +347,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 
                             </td>
                             <td>
-                                Request to Re-open enrollment content
+                                Request to Re-open Enrollment Content
                             </td>
                             <td style="width:50px; text-align:center;">
                                 <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
@@ -431,28 +545,73 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </table>
                 </div>
             
-            <!-- Submit Ammendment -->
+            <!-- Submit Amendment -->
                 <table cellpadding="0" cellspacing="0"  summary="">
                     <tr>
                         <td class="tab-subhead" style="width:50px;">
                             <a href="#" id="A201a" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201a"></a>
                         </td>
                         <td class="tab-subhead">
-                            Submit Ammendment
+                            Submit Amendment
                         </td>
                     </tr>
                 </table>
                 <div id="G201a" style="display: none;">
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
-                            <td style="width:50px;">
+                            <th style="width:100px; text-align:right;">
+                               *Comment:
+                            </th>
+                            <td>
+                            	
+                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none;">
+                                            <textarea name="commentz" style="width:100%; text-align:left;" rows="4"></textarea>
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                            <input name="commentzx" src="../images/pencil_add.png" onclick="javascript: alert('if this were not a mock, this icon would open an editable text area.'); return false" class="tinybutton" alt="Expanded Text Area" title="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
                                 
                             </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <th style="width:100px; text-align:right;">
+                               *Amend:
+                            </th>
                             <td>
-                                Submit Ammendment content
+                            
+                            
+                            	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none;">
+                                            <input type="checkbox" class="nobord" name="generalinfo" value="0" />General Info<br />
+                                            <input type="checkbox" class="nobord" name="fundingsource" value="1" />Funding Source<br />
+                                            <input type="checkbox" class="nobord" name="protocolreferences" value="2" />Protocol References<br />
+                                            <input type="checkbox" class="nobord" name="protocalorganizations" value="3" />Protocol Organizations<br />
+                                            <input type="checkbox" class="nobord" name="subjects" value="4" />Subjects
+                                        </td>
+                                        <td style="border:none;">
+                                            <input type="checkbox" class="nobord" name="modifyattachments" value="5" />Add/Modify Attachments<br />
+                                            <input type="checkbox" class="nobord" name="areasofresearch" value="6" />Areas of Research<br />
+                                            <input type="checkbox" class="nobord" name="specialreviewer" value="7" />Special Reviewe<br />
+                                            <input type="checkbox" class="nobord" name="protocolpersonnel" value="8" />Protocol Personnel<br />
+                                            <input type="checkbox" class="nobord" name="others" value="09" />Others
+                                        </td>
+                                    </tr>
+                                </table>
+                                            
                             </td>
-                            <td style="width:50px; text-align:center;">
-                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <td style="text-align:center; padding:5px;" class="infoline">
+                                <input name="xw" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
                             </td>
                         </tr>
                     </table>
@@ -539,7 +698,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div id="G201" style="display: none;">
             <table cellpadding="0" cellspacing="0">
                 <tr>
-                    <th style="text-align:right">
+                    <th style="text-align:right; width:125px;">
                         Protocol Number:
                     </th>
                     <td>
