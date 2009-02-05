@@ -698,7 +698,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div id="G201" style="display: none;">
             <table cellpadding="0" cellspacing="0">
                 <tr>
-                    <th style="text-align:right; width:125px;">
+                    <th style="text-align:right; width:135px;">
                         Protocol Number:
                     </th>
                     <td>
@@ -712,8 +712,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                     <th rowspan="5">
                         <a href="#"><img src="../images/tinybutton-previous3.gif" alt="close" width="70" height="15" border="0" style="padding:2px;" /></a><br />
-                        <a href="#"><img src="../images/tinybutton-next3.gif" alt="close" width="70" height="15" border="0" style="padding:2px;" /></a><br />
-                        
+                        <a href="#"><img src="../images/tinybutton-next3.gif" alt="close" width="70" height="15" border="0" style="padding:2px;" /></a>
                     </th>
                 </tr>
                 <tr>
@@ -732,30 +731,16 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
                 <tr>
                     <th style="text-align:right">
-                        Type:
-                    </th>
-                    <td>
-                        Standard
-                    </td>
-                    <th style="text-align:right">&nbsp;
-                        
-                    </th>
-                    <td>&nbsp;
-                        
-                    </td>
-                </tr>
-                <tr>
-                    <th style="text-align:right">
                         Status:
                     </th>
                     <td>
                         Active - Open to Enrollment
                     </td>
                     <th style="text-align:right">&nbsp;
-                        
+                        Type:
                     </th>
-                    <td>&nbsp;
-                        
+                    <td>
+                    	Standard
                     </td>
                 </tr>
                 <tr>
@@ -871,7 +856,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </tr>
                     <!--<tbody id="G600" style="display: none;">-->
                         <tr>
-                            <th style="text-align:right;">
+                            <th style="text-align:right; width:135px;">
                                 Committee Id:
                             </th>
                             <td>
@@ -912,6 +897,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </tr>
                         <tr>
                             <th style="text-align:right;">
+                                Type Qualifier:
+                            </th>
+                            <td>
+                            	Lorem Ipsum Dolor
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">
                                 Submission Status:
                             </th>
                             <td>
@@ -947,7 +940,55 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </tr>
                     <!--</tbody>-->
                 </table>
-            <!-- View History -->
+            <!-- Reviewers -->
+                <table  cellpadding="0" cellspacing="0"  summary="">
+                    <tr>
+                        <td class="tab-subhead" colspan="8">
+                            <!--<a href="#" id="A700" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F700"></a>-->
+                            Vote Summary
+                        </td>
+                    </tr>
+                    <!--<tbody id="G700" style="display: none;">-->
+                        <tr>
+                            <th style="text-align:right; width:30px;">
+                                No:
+                            </th>
+                            <td style="text-align:left; width:20px;">
+                            	3
+                            </td>
+                            <th style="text-align:right; width:30px;">
+                                Yes:
+                            </th>
+                            <td style="text-align:left; width:20px;">
+                            	6
+                            </td>
+                            <th style="text-align:right; width:30px;">
+                                Abstain:
+                            </th>
+                            <td style="text-align:left; width:20px;">
+                            	1
+                            </td>
+                       		<th style="text-align:right;">
+                                Comments:
+                            </th>
+                            <td>
+                                
+                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none;">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse purus. Nullam et justo. In volutpat odio sit amet pede. Pellentesque ipsum dui, convallis in, mollis a, lacinia vel, diam. Phasellus molestie neque at sapien condimentum massa nunc...
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                    <!--</tbody>-->
+                </table>
+            <!-- View Notes -->
                 <table  cellpadding="0" cellspacing="0"  summary="" style="padding:0px; border-collapse:collapse; border-spacing:0px; border-bottom:none;">
                     <tr>
                         <td class="subhead" colspan="6">
@@ -968,30 +1009,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         <!--<th scope=col><div align="left"><label for="note topic">*Note Topic</label></div></th>-->
                                         <th scope=col><div align=left><label for="note text">Note Text</label></div></th>
                                         <th scope=col><label for="restricted">Restricted?</label></th>
-                                        <th scope=col><div align=center>Actions</div></th>
                                     </tr>
-                                    <tr>
-                                        <th scope=row><div align=center>Add:</div></th>
-                                        <td class="infoline">&nbsp;</td>
-                                        <td class="infoline">&nbsp;</td>
-                                        <!--<td class="infoline"><input name="org_doc_nbr22" size=25 type=text alt="Description"></td>-->
-                                        <td height="30" nowrap class="infoline">
-                                        
-                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                                <tr>
-                                                    <td style="border:none;">
-                                                        <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
-                                                    </td>
-                                                    <td style="border:none; width:20px; vertical-align:bottom;">
-                                                        <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        
-                                        </td>
-                                        <td nowrap class="infoline"><label><div align="center"><input name="checkbox" type="checkbox" class="nobord" id="restricted"></div></label></td>
-                                        <td class="infoline"><div align=center><input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-add1.gif" alt="add"></div></td>
-                                    </tr>
+                                    
                                     <tr>
                                         <th scope=row>1</th>
                                         <td>2007-07-23 20:07:23.523</td>
@@ -1013,8 +1032,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                             
                                         
                                         </td>
-                                        <td><div align="center"><input name="checkbox2" type="checkbox" class="nobord" id="restricted"></div></td>
-                                        <td><div align="center"><img src="../images/tinybutton-update.gif" alt="update" width="48" height="15"></div></td>
+                                        <td><div align="center">no</div></td>
                                     </tr>
                                     <tr>
                                         <th scope=row>2</th>
@@ -1036,8 +1054,28 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                             </table>
                                             
                                         </td>
-                                        <td><div align="center"><input name="checkbox3" type="checkbox" class="nobord" id="restricted"></div></td>
-                                        <td><div align="center"><img src="../images/tinybutton-update.gif" alt="update" width="48" height="15"></div></td>
+                                        <td><div align="center">yes</div></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope=row>3</th>
+                                        <td>2009-02-04 23:04:00.001</td>
+                                        <td>bfniedner</td>
+                                        <!--<td>testing 2</td>-->
+                                        <td height="30">
+                                        	
+                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none;">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                        </td>
+                                        <td><div align="center">yes</div></td>
                                         
                                         
                                     <!--</tr>
@@ -1126,8 +1164,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             
                             	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border:none;">
-                                            &nbsp;
+                                        <td style="border:none;">&nbsp;
+                                            
                                         </td>
                                         <td style="border:none; width:20px; vertical-align:bottom;">
                                             <!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />-->
@@ -1417,8 +1455,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 
                                 <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border:none;">
-                                            &nbsp;
+                                        <td style="border:none;">&nbsp;
+                                            
                                         </td>
                                         <td style="border:none; width:20px; vertical-align:bottom;">
                                             <!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />-->
@@ -1453,8 +1491,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             
                             	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border:none;">
-                                            &nbsp;
+                                        <td style="border:none;">&nbsp;
+                                            
                                         </td>
                                         <td style="border:none; width:20px; vertical-align:bottom;">
                                             <!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />-->
@@ -1489,8 +1527,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             
                             	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border:none;">
-                                            &nbsp;
+                                        <td style="border:none;">&nbsp;
+                                            
                                         </td>
                                         <td style="border:none; width:20px; vertical-align:bottom;">
                                             <!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />-->
