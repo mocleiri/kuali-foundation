@@ -636,7 +636,7 @@ Please place the jar file for this class in the lib directory and try again.
 			     userid="${import.admin.user}"
 			     password="${import.admin.password}"
 				 onerror="@{onerror}"
-			     keepformat="true"
+			     keepformat="false"
 			     delimitertype="row"
 			     delimiter="/">
 				@{sql}
