@@ -43,9 +43,49 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	}
 	// -->
 </script>
+<!-- jQuery Library -->
+	<script type="text/javascript" src="../scripts/jquery.js"></script>
+    <!-- jQuery Document Ready -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+		
+		<!-- checklistcontrol -->
+			$("#checklistcontrol").change(
+				function()
+				{
+					pickchecklist();
+				}
+			);
+		
+		<!-- pickchecklist -->
+			pickchecklist();
+			function pickchecklist()
+			{
+				
+				<!-- Expidited -->
+					if (document.protocolactionsform.checklistcontrol.selectedIndex == 2)
+					{
+						$("#checklistexemptdiv").slideUp(300, function() { $("#checklistexpediteddiv").slideDown(600); });
+					}
+				<!-- Exempt -->
+					else if (document.protocolactionsform.checklistcontrol.selectedIndex == 3)
+					{
+						$("#checklistexpediteddiv").slideUp(300, function() { $("#checklistexemptdiv").slideDown(600); });
+					}
+				<!-- Default -->
+					else
+					{
+						$("#checklistexpediteddiv").slideUp(300);
+						$("#checklistexemptdiv").slideUp(300);
+					}
+					
+			}	
+					
+		});
+	</script>
 </head>
 <body>
-<form name="example"  method="post" action="">
+<form name="protocolactionsform" method="post">
 <div class="headerarea-kra" id="headerarea">
   <h1>IRB - Protocol Actions <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
   <div class="headerbox">
@@ -134,166 +174,25 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           <div class="tab-container" align="center" id="G02" style="display: nonee;">
 			<div class="h2-container">  <span class="subhead-left"><h2>Available Actions</h2> </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             
-            <!-- Submit for Review -->
+            <!-- Approve Action -->
                 <table cellpadding="0" cellspacing="0"  summary="">
                     <tr>
                         <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201s" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201s"></a>
+                            <a href="#" id="A201qa" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201qa"></a>
                         </td>
                         <td class="tab-subhead">
-                            Submit for Review
+                            Approve Action
                         </td>
                     </tr>
                 </table>
-                <div id="G201s" style="display: none;">
-                   <!-- <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <td style="width:50px;">
-                                
-                            </td>
-                            <td>
-                                Submit for Review content
-                            </td>
-                            <td style="width:50px; text-align:center;">
-                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
-                            </td>
-                        </tr>
-                    </table>-->
-                    
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <td colspan="4">
-                                Preconfigured text here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada dapibus turpis. Phasellus sed neque. Vestibulum 
-                                bibendum venenatis lorem. Sed gravida. Vestibulum nunc augue, hendrerit quis, commodo a, laoreet eget, ante. Fusce mattis metus. 
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:right; width:125px;">
-                                Type:
-                            </th>
-                            <td>
-                                <select name="typeQ">
-                                    <option value="0" selected="selected">select</option>
-                                    <option value="1">label one</option>
-                                    <option value="2">label two</option>
-                                </select>
-                            </td>
-                            <th style="text-align:right;">
-                                Review Type:
-                            </th>
-                            <td>
-                                <select name="reviewtypeQ">
-                                    <option value="0" selected="selected">select</option>
-                                    <option value="1">label one</option>
-                                    <option value="2">label two</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:right;">
-                                Type Qualifier
-                            </th>
-                            <td colspan="3">
-                                <select name="typequalifierQ" style="width:100%;">
-                                    <option value="0" selected="selected">select</option>
-                                    <option value="1">label one potentially has some insanely long text in it so here it is, right here.</option>
-                                    <option value="2">label two</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:right;">
-                                Committee ID:
-                            </th>
-                            <td>
-                                <input type="text" id="committeeidQ" name="committeeidQ" size="25" value="Ipsum" />
-                            </td>
-                            <th style="text-align:right;">
-                                Committee Name:
-                            </th>
-                            <td>
-                                <input type="text" id="committeenameQ" name="committeenameQ" size="50" value="Ipsum" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:right;">
-                                Schedule ID:
-                            </th>
-                            <td>
-                                <input type="text" id="scheduleidQ" name="scheduleidQ" size="25" value="Ipsum" />
-                            </td>
-                            <th style="text-align:right;">
-                                Schedule Date:
-                            </th>
-                            <td>
-                                <input type="text" name="scheduledateQ" id="scheduledateQ" value="12/31/2009" size="10" />
-								<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                        </tr>
-                    </table>
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <th>
-                                Committee ID
-                            </th>
-                            <th>
-                                Committee Name
-                            </th>
-                            <th rowspan="3" class="infoline" style="width:100px; padding:3px;">
-                                <input style="padding:1px;" name="selectcommittee" src="../images/tinybutton-selectcommittee.gif" onclick="javascript: alert('select committee'); return false" class="tinybutton" alt="select committee" title="select committee" type="image" /><br />
-                                <input style="padding:1px;" name="selectschedule" src="../images/tinybutton-selectschedule.gif" onclick="javascript: alert('select schedule'); return false" class="tinybutton" alt="select schedule" title="select schedule" type="image" /><br />
-                                <input style="padding:1px;" name="showall" src="../images/tinybutton-showall.gif" onclick="javascript: alert('show all'); return false" class="tinybutton" alt="show all" title="show all" type="image" /><br />
-                                <input style="padding:1px;" name="selectreviewer" src="../images/tinybutton-selectreviewer.gif" onclick="javascript: alert('select reviewer'); return false" class="tinybutton" alt="select reviewer" title="select reviewer" type="image" />
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                BC001
-                            </td>
-                            <td>
-                                Bryan's Uber Cool Committee
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                CU001
-                            </td>
-                            <td>
-                                Cornell IRB 1
-                            </td>
-                        </tr>
-                    </table>
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <td style="text-align:center; padding:5px;" class="infoline">
-                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                    
-                    
-                    
-                </div>
-            
-            <!-- Request to close -->
-                <table cellpadding="0" cellspacing="0"  summary="">
-                    <tr>
-                        <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201q"></a>
-                        </td>
-                        <td class="tab-subhead">
-                            Request to Close
-                        </td>
-                    </tr>
-                </table>
-                <div id="G201q" style="display: none;">
+                <div id="G201qa" style="display: none;">
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <td style="width:50px;">
                                 
                             </td>
                             <td>
-                                Request to Close Content
+                                Approve Action Content
                             </td>
                             <td style="width:50px; text-align:center;">
                                 <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
@@ -301,26 +200,26 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </tr>
                     </table>
                 </div>
-            
-            <!-- Request to close enrollment -->
+                
+            <!-- Assign to Agenda -->
                 <table cellpadding="0" cellspacing="0"  summary="">
                     <tr>
                         <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201w" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201w"></a>
+                            <a href="#" id="A201qs" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201qs"></a>
                         </td>
                         <td class="tab-subhead">
-                            Request to Close Enrollment
+                            Assign to Agenda
                         </td>
                     </tr>
                 </table>
-                <div id="G201w" style="display: none;">
+                <div id="G201qs" style="display: none;">
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <td style="width:50px;">
                                 
                             </td>
                             <td>
-                                Request to Close Enrollment Content
+                                Assign to Agenda Content
                             </td>
                             <td style="width:50px; text-align:center;">
                                 <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
@@ -328,26 +227,26 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </tr>
                     </table>
                 </div>
-            
-            <!-- Request to Re-open enrollment -->
+                
+            <!-- Record Committee Action -->
                 <table cellpadding="0" cellspacing="0"  summary="">
                     <tr>
                         <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201e"></a>
+                            <a href="#" id="A201qd" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201qd"></a>
                         </td>
                         <td class="tab-subhead">
-                            Request to Re-open Enrollment
+                            Record Committee Action
                         </td>
                     </tr>
                 </table>
-                <div id="G201e" style="display: none;">
+                <div id="G201qd" style="display: none;">
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <td style="width:50px;">
                                 
                             </td>
                             <td>
-                                Request to Re-open Enrollment Content
+                                Record Committee Action Content
                             </td>
                             <td style="width:50px; text-align:center;">
                                 <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
@@ -355,26 +254,26 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </tr>
                     </table>
                 </div>
-            
-            <!-- Request for Data Analysis -->
+                
+            <!-- Grant Exemption -->
                 <table cellpadding="0" cellspacing="0"  summary="">
                     <tr>
                         <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201r" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201r"></a>
+                            <a href="#" id="A201qf" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201qf"></a>
                         </td>
                         <td class="tab-subhead">
-                            Request for Data Analysis
+                            Grant Exemption
                         </td>
                     </tr>
                 </table>
-                <div id="G201r" style="display: none;">
+                <div id="G201qf" style="display: none;">
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <td style="width:50px;">
                                 
                             </td>
                             <td>
-                                Request for Data Analysis content
+                                Grant Exemption Content
                             </td>
                             <td style="width:50px; text-align:center;">
                                 <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
@@ -382,181 +281,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </tr>
                     </table>
                 </div>
-            
-            <!-- Request for Submission -->
+                
+            <!-- Create Amendment -->
                 <table cellpadding="0" cellspacing="0"  summary="">
                     <tr>
                         <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201t" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201t"></a>
+                            <a href="#" id="A201ad" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201ad"></a>
                         </td>
                         <td class="tab-subhead">
-                            Request for Submission
+                            Create Amendment
                         </td>
                     </tr>
                 </table>
-                <div id="G201t" style="display: none;">
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <td style="width:50px;">
-                                
-                            </td>
-                            <td>
-                                Request for Submission content
-                            </td>
-                            <td style="width:50px; text-align:center;">
-                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            
-            <!-- Request for Supervision -->
-                <table cellpadding="0" cellspacing="0"  summary="">
-                    <tr>
-                        <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201y" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201y"></a>
-                        </td>
-                        <td class="tab-subhead">
-                            Request for Supervision
-                        </td>
-                    </tr>
-                </table>
-                <div id="G201y" style="display: none;">
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <td style="width:50px;">
-                                
-                            </td>
-                            <td>
-                                Request for Supervision content
-                            </td>
-                            <td style="width:50px; text-align:center;">
-                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            
-            <!-- Withdraw Submission -->
-                <table cellpadding="0" cellspacing="0"  summary="">
-                    <tr>
-                        <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201u" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201u"></a>
-                        </td>
-                        <td class="tab-subhead">
-                            Withdraw Submission
-                        </td>
-                    </tr>
-                </table>
-                <div id="G201u" style="display: none;">
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <td style="width:50px;">
-                                
-                            </td>
-                            <td>
-                                Withdraw Submission content
-                            </td>
-                            <td style="width:50px; text-align:center;">
-                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            
-            <!-- Notify IRB -->
-                <table cellpadding="0" cellspacing="0"  summary="">
-                    <tr>
-                        <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201i" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201i"></a>
-                        </td>
-                        <td class="tab-subhead">
-                            Notify IRB
-                        </td>
-                    </tr>
-                </table>
-                <div id="G201i" style="display: none;">
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <td style="width:50px;">
-                                
-                            </td>
-                            <td>
-                                Notify IRB content
-                            </td>
-                            <td style="width:50px; text-align:center;">
-                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            
-            <!-- Terminate -->
-                <table cellpadding="0" cellspacing="0"  summary="">
-                    <tr>
-                        <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201o" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201o"></a>
-                        </td>
-                        <td class="tab-subhead">
-                            Terminate
-                        </td>
-                    </tr>
-                </table>
-                <div id="G201o" style="display: none;">
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <td style="width:50px;">
-                                
-                            </td>
-                            <td>
-                                Terminate content
-                            </td>
-                            <td style="width:50px; text-align:center;">
-                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            
-            <!-- Suspend -->
-                <table cellpadding="0" cellspacing="0"  summary="">
-                    <tr>
-                        <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201p" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201p"></a>
-                        </td>
-                        <td class="tab-subhead">
-                            Suspend
-                        </td>
-                    </tr>
-                </table>
-                <div id="G201p" style="display: none;">
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <td style="width:50px;">
-                                
-                            </td>
-                            <td>
-                                Suspend content
-                            </td>
-                            <td style="width:50px; text-align:center;">
-                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            
-            <!-- Submit Amendment -->
-                <table cellpadding="0" cellspacing="0"  summary="">
-                    <tr>
-                        <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201a" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201a"></a>
-                        </td>
-                        <td class="tab-subhead">
-                            Submit Amendment
-                        </td>
-                    </tr>
-                </table>
-                <div id="G201a" style="display: none;">
+                <div id="G201ad" style="display: none;">
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <th style="width:100px; text-align:right;">
@@ -615,27 +352,419 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             </td>
                         </tr>
                     </table>
-                </div>
+                </div>  
             
-            <!-- Submit Renewal -->
+            <!-- Submit for Review -->
                 <table cellpadding="0" cellspacing="0"  summary="">
                     <tr>
                         <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201d" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201d"></a>
+                            <a href="#" id="A201sd" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201sd"></a>
                         </td>
                         <td class="tab-subhead">
-                            Submit Renewal
+                            Submit for Review
                         </td>
                     </tr>
                 </table>
-                <div id="G201d" style="display: none;">
+                <div id="G201sd" style="display: none;">
+                   <!-- <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <td style="width:50px;">
+                                
+                            </td>
+                            <td>
+                                Submit for Review content
+                            </td>
+                            <td style="width:50px; text-align:center;">
+                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
+                            </td>
+                        </tr>
+                    </table>-->
+                    
+                    <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <td colspan="4">
+                                Preconfigured text here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada dapibus turpis. Phasellus sed neque. Vestibulum 
+                                bibendum venenatis lorem. Sed gravida. Vestibulum nunc augue, hendrerit quis, commodo a, laoreet eget, ante. Fusce mattis metus. 
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right; width:125px;">
+                                Type:
+                            </th>
+                            <td>
+                                <select name="typeQ">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">Initial Protocol Application for Approval</option>
+                                    <option value="2">Continuing Review/Continuation</option>
+                                    <option value="3">Amendment</option>
+                                    <option value="4">Response to Previous IRB Notification</option>
+                                    <option value="5">Self Report of Non-Compliance</option>
+                                    <option value="6">Compliant</option>
+                                    <option value="7">Adverse Event</option>
+                                    <option value="8">Report of protocol-related COI</option>
+                                    <option value="9">Request for Termination</option>
+                                    <option value="0">Request to Close</option>
+                                    <option value="21">Request for Suspension</option>
+                                    <option value="22">Request to Close Enrollment</option>
+                                    <option value="23">FYI</option>
+                                    <option value="24">Request for Data Analysis Only</option>
+                                    <option value="25">Request for Re-Open Enrollment</option>
+                                    <option value="26">Continuing Review/Continuation and Amendment</option>
+                                </select>
+                            </td>
+                            <th style="text-align:right;">
+                                Review Type:
+                            </th>
+                            <td>
+                                <select name="reviewtypeQ" id="checklistcontrol">
+                                    <option value="0">select</option>
+                                    <option value="1">Full</option>
+                                    <option value="2" selected="selected">Expedited</option>
+                                    <option value="3">Exempt</option>
+                                    <option value="4">Limited/Single Use</option>
+                                    <option value="5">IRB Review Not Required</option>
+                                    <option value="6">Response</option>
+                                    <option value="7">FYI</option>
+                                </select>
+                                <input name="x" src="../images/tinybutton-refresh.gif" onclick="javascript: alert('If this were not a mock, this button would refresh the checklist based on the Review Type'); return false" class="tinybutton" alt="refresh" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">
+                                Type Qualifier
+                            </th>
+                            <td colspan="3">
+                                <select name="typequalifierQ" style="width:100%;">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">Annual Scheduled by IRB</option>
+                                    <option value="2">Contingent/Conditional Approval/Deferred Approval/ Non-Approval</option>
+                                    <option value="1">Eligibility Exceptions/Protocol Deviations</option>
+                                    <option value="1">AE/UADE</option>
+                                    <option value="1">Complaint</option>
+                                    <option value="1">Deviation</option>
+                                    <option value="1">Protocol-related COI Report</option>
+                                    <option value="1">Self report for Noncompliance</option>
+                                    <option value="1">Request for Eligibility Exception</option>
+                                    <option value="1">Training Certification</option>
+                                    <option value="1">Unanticipated Problems</option>
+                                    <option value="1">DSMB Report</option>
+                                    <option value="1">Annual Report</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">
+                                Committee ID:
+                            </th>
+                            <td>
+                                <input type="text" id="committeeidQ" name="committeeidQ" size="25" value="CU002" />
+                                <input name="x" src="../images/searchicon.gif" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                <span class="fineprint"><br />Second IRB</span>
+                            </td>
+                            <th style="text-align:right;">
+                                Schedule ID:
+                            </th>
+                            <td>
+                                <input type="text" id="scheduleidQ" name="scheduleidQ" size="25" value="195" />
+                                <input name="x" src="../images/searchicon.gif" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                <span class="fineprint"><br />04/03/2009</span>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    
+                    
+                    <div id="checklistexemptdiv" class="checklistdiv">
+                    	<table cellpadding="0" cellspacing="0"  summary="">
+                            <tr>
+                                <th colspan="2" style="padding:3px;">
+                                    Checklist (Exempt)
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="1" />
+                                </td>
+                                <td class="fineprint">
+                                    Educational Research Conducted in Educational Settings. Research conducted in established or commonly 
+                                    accepted educational settings, involving normal educational practices, such as:i) research on regular and 
+                                    special education instructional strategies, orii) research on the effectiveness of, or the comparison among 
+                                    instructional techniques, curricula, or classroom management methods
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="2" />
+                                </td>
+                                <td class="fineprint">
+                                    Surveys/Interviews/Standardized Educational Tests/Observation of Public Behavior Research involving the use of 
+                                    educational tests (cognitive, diagnostic, aptitude, achievement), survey procedures, interview procedures or 
+                                    observation of public behavior if:i) information obtained is recorded in such a manner that human subjects 
+                                    cannot be identified, directly or through identifiers linked to the subjects; orii) any disclosure of the human 
+                                    subjects' responses outside the research would not reasonably place the subjects at risk of criminal or civil 
+                                    liability or be damaging to the subjects' financial standing, employability or reputation
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="3" checked="checked" />
+                                </td>
+                                <td class="fineprint">
+                                    Surveys/ Interviews /Observation of Public Behavior Research involving the use of educational tests (cognitive, 
+                                    diagnostic, aptitude, achievement), survey procedures, interview procedures or observation of public behavior 
+                                    if the subjects are elected or appointed public officials
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="4" />
+                                </td>
+                                <td class="fineprint">
+                                    Secondary Use of Pre-Existing Data (Data must exist at the time the research is submitted for review.) Research 
+                                    involving the collection or study of existing data, documents, records, pathological specimens or diagnostic 
+                                    specimens if:i) these sources are publicly available, orii) the information is recorded by the investigator in 
+                                    such a manner that subjects cannot be identified, directly or through identifiers linked to the subjects.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="5" />
+                                </td>
+                                <td class="fineprint">
+                                    Evaluation of Public Benefit or Service Program Research and demonstration projects which are conducted by or 
+                                    subject to the approval of Department or Agency heads, and which are designed to study, evaluate, or otherwise 
+                                    examine public benefit or service programs. The following criteria must be satisfied to qualify for exemption:i) 
+                                    the program must deliver a public benefit (e.g. financial or medical benefits as provided under the Social 
+                                    Security Act) or service (e.g. social, supportive, or nutrition services as provided under the Older Americans 
+                                    Act);ii) project must be conducted pursuant to specific federal statutory authority;iii) there must be no 
+                                    statutory requirement that the project be reviewed by an IRB;iv) the project must not involve significant 
+                                    physical invasions or intrusions upon the privacy of participants
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="6" />
+                                </td>
+                                <td class="fineprint">
+                                    Taste and Food Quality Evaluation Taste and food quality evaluation and consumer acceptance studies:i) if 
+                                    wholesome foods without additive are consumed, orii) If food is consumed that contains a food ingredient at 
+                                    or below the level and for a use found to be safe, or agricultural chemical or environmental contaminant at 
+                                    or below the level found to be safe, by the FDA or approved by the Environmental Protection Agency or the 
+                                    Food Safety and Inspection Service of the U.S. Department of Agriculture
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div id="checklistexpediteddiv" class="checklistdiv">
+                    	<table cellpadding="0" cellspacing="0"  summary="">
+                            <tr>
+                                <th colspan="2" style="padding:3px;">
+                                    Checklist (Expedited)
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="1" />
+                                </td>
+                                <td class="fineprint">
+                                    Clinical studies of drugs and medical devices only when condition (a) or (b) is met. (a) Research on drugs 
+                                    for which an investigational new drug application (21 CFR Part 312) is not required. (Note: Research on 
+                                    marketed drugs that significantly increases the risks or decreases the acceptability of the risks associated 
+                                    with the use of the product is not eligible for expedited review.) (b) Research on medical devices for which 
+                                    (i) an investigational device exemption application (21 CFR Part 812) is not required; or (ii) the medical 
+                                    device is cleared/approved for marketing and the medical device is being used in accordance with its 
+                                    cleared/approved labeling.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="2" />
+                                </td>
+                                <td class="fineprint">
+                                    Collection of blood samples by finger stick, heel stick, ear stick, or venipuncture as follows: (a) from 
+                                    healthy, nonpregnant adults who weigh at least 110 pounds. For these subjects, the amounts drawn may not 
+                                    exceed 550 ml in an 8 week period and collection may not occur more frequently than 2 times per week; or (b) 
+                                    from other adults and children2, considering the age, weight, and health of the subjects, the collection 
+                                    procedure, the amount of blood to be collected, and the frequency with which it will be collected. For these 
+                                    subjects, the amount drawn may not exceed the lesser of 50 ml or 3 ml per kg in an 8 week period and 
+                                    collection may not occur more frequently than 2 times per week.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="3" />
+                                </td>
+                                <td class="fineprint">
+                                    Prospective collection of biological specimens for research purposes by noninvasive means. Examples: (a) 
+                                    hair and nail clippings in a nondisfiguring manner; (b) deciduous teeth at time of exfoliation or if routine 
+                                    patient care indicates a need for extraction; (c) permanent teeth if routine patient care indicates a need 
+                                    for extraction; (d) excreta and external secretions (including sweat); (e) uncannulated saliva collected 
+                                    either in an unstimulated fashion or stimulated by chewing gumbase or wax or by applying a dilute citric 
+                                    solution to the tongue; (f) placenta removed at delivery; (g) amniotic fluid obtained at the time of rupture 
+                                    of the membrane prior to or during labor; (h) supra- and subgingival dental plaque and calculus, provided 
+                                    the collection procedure is not more invasive than routine prophylactic scaling of the teeth and the process 
+                                    is accomplished in accordance with accepted prophylactic techniques; (i) mucosal and skin cells coll
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="4" />
+                                </td>
+                                <td class="fineprint">
+                                    Collection of data through noninvasive procedures (not involving general anesthesia or sedation) 
+                                    routinely employed in clinical practice, excluding procedures involving x-rays or microwaves. 
+                                    Where medical devices are employed, they must be cleared/approved for marketing. (Studies 
+                                    intended to evaluate the safety and effectiveness of the medical device are not generally 
+                                    eligible for expedited review, including studies of cleared medical devices for new indications.)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="5" checked="checked" />
+                                </td>
+                                <td class="fineprint">
+                                    Research involving materials (data, documents, records, or specimens) that have been collected, or will be collected 
+                                    solely for nonresearch purposes (such as medical treatment or diagnosis). (NOTE: Some research in this category may 
+                                    be exempt from the HHS regulations for the protection of human subjects. 45 CFR 46.101(b)(4). This listing refers 
+                                    only to research that is not exempt.) 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="6" />
+                                </td>
+                                <td class="fineprint">
+                                    Collection of data from voice, video, digital, or image recordings made for research purposes
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="7" />
+                                </td>
+                                <td class="fineprint">
+                                    Research on individual or group characteristics or behavior (including, but not limited to, research on 
+                                    perception, cognition, motivation, identity, language, communication, cultural beliefs or practices, and 
+                                    social behavior) or research employing survey, interview, oral history, focus group, program evaluation, 
+                                    human factors evaluation, or quality assurance methodologies. (NOTE: Some research in this category may be 
+                                    exempt from the HHS regulations for the protection of human subjects. 45 CFR 46.101(b)(2) and (b)(3). This 
+                                    listing refers only to research that is not exempt.)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="8" />
+                                </td>
+                                <td class="fineprint">
+                                    Continuing review of research previously approved by the convened IRB as follows (a) where (i) the research 
+                                    is permanently closed to the enrollment of new subjects; (ii) all subjects have completed all research-related 
+                                    interventions; and (iii) the research remains active only for long-term follow-up of subjects; or (b) where no 
+                                    subjects have been enrolled and no additional risks have been identified; or (c) where the remaining research 
+                                    activities are limited to data analysis
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="9" />
+                                </td>
+                                <td class="fineprint">
+                                    Continuing review of research, not conducted under an investigational new drug application or investigational device 
+                                    exemption where categories two (2) through eight (8) do not apply but the IRB has determined and documented at a 
+                                    convened meeting that the research involves no greater than minimal risk and no additional risks have been 
+                                    identified
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="10" checked="checked" />
+                                </td>
+                                <td class="fineprint">
+                                    Minor revision to previously approved protocol (e.g., change in investigators, subject propulation, compensation, 
+                                    recruitment method, etc.)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="11" />
+                                </td>
+                                <td class="fineprint">
+                                    Response to Specific Minor Revisions
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="nobord" name="checklist[]" value="12" />
+                                </td>
+                                <td class="fineprint">
+                                    Response to Substantive Revisions
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <!--<table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <th>
+                                Committee ID
+                            </th>
+                            <th>
+                                Committee Name
+                            </th>
+                            <th rowspan="3" class="infoline" style="width:100px; padding:3px;">
+                                <input style="padding:1px;" name="selectcommittee" src="../images/tinybutton-selectcommittee.gif" onclick="javascript: alert('select committee'); return false" class="tinybutton" alt="select committee" title="select committee" type="image" /><br />
+                                <input style="padding:1px;" name="selectschedule" src="../images/tinybutton-selectschedule.gif" onclick="javascript: alert('select schedule'); return false" class="tinybutton" alt="select schedule" title="select schedule" type="image" /><br />
+                                <input style="padding:1px;" name="showall" src="../images/tinybutton-showall.gif" onclick="javascript: alert('show all'); return false" class="tinybutton" alt="show all" title="show all" type="image" /><br />
+                                <input style="padding:1px;" name="selectreviewer" src="../images/tinybutton-selectreviewer.gif" onclick="javascript: alert('select reviewer'); return false" class="tinybutton" alt="select reviewer" title="select reviewer" type="image" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                BC001
+                            </td>
+                            <td>
+                                Bryan's Uber Cool Committee
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                CU001
+                            </td>
+                            <td>
+                                Cornell IRB 1
+                            </td>
+                        </tr>
+                    </table>-->
+                    <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <td style="text-align:center; padding:5px;" class="infoline">
+                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    
+                    
+                </div>
+            
+            <!-- Create Renewal with Amendment  -->
+                <table cellpadding="0" cellspacing="0"  summary="">
+                    <tr>
+                        <td class="tab-subhead" style="width:50px;">
+                            <a href="#" id="A201q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201q"></a>
+                        </td>
+                        <td class="tab-subhead">
+                            Create Renewal with Amendment 
+                        </td>
+                    </tr>
+                </table>
+                <div id="G201q" style="display: none;">
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <td style="width:50px;">
                                 
                             </td>
                             <td>
-                                Submit Renewal
+                                Create Renewal with Amendment Content
                             </td>
                             <td style="width:50px; text-align:center;">
                                 <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
@@ -644,25 +773,25 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </table>
                 </div>
             
-            <!-- Undo Last Change -->
+            <!-- Enter Review Comments  -->
                 <table cellpadding="0" cellspacing="0"  summary="">
                     <tr>
                         <td class="tab-subhead" style="width:50px;">
-                            <a href="#" id="A201f" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201f"></a>
+                            <a href="#" id="A201w" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201w"></a>
                         </td>
                         <td class="tab-subhead">
-                            Undo Last Change
+                            Enter Review Comments 
                         </td>
                     </tr>
                 </table>
-                <div id="G201f" style="display: none;">
+                <div id="G201w" style="display: none;">
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <td style="width:50px;">
                                 
                             </td>
                             <td>
-                                Undo Last Change content
+                                Enter Review Comments Content
                             </td>
                             <td style="width:50px; text-align:center;">
                                 <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
@@ -671,9 +800,61 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </table>
                 </div>
             
+            <!-- Withdraw Submission -->
+                <table cellpadding="0" cellspacing="0"  summary="">
+                    <tr>
+                        <td class="tab-subhead" style="width:50px;">
+                            <a href="#" id="A201e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201e"></a>
+                        </td>
+                        <td class="tab-subhead">
+                            Withdraw Submission
+                        </td>
+                    </tr>
+                </table>
+                <div id="G201e" style="display: none;">
+                    <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <td style="width:50px;">
+                                
+                            </td>
+                            <td>
+                                Withdraw Submission Content
+                            </td>
+                            <td style="width:50px; text-align:center;">
+                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             
+            <!-- Create Renewal without Amendment  -->
+                <table cellpadding="0" cellspacing="0"  summary="">
+                    <tr>
+                        <td class="tab-subhead" style="width:50px;">
+                            <a href="#" id="A201r" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201r"></a>
+                        </td>
+                        <td class="tab-subhead">
+                            Create Renewal without Amendment 
+                        </td>
+                    </tr>
+                </table>
+                <div id="G201r" style="display: none;">
+                    <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <td style="width:50px;">
+                                
+                            </td>
+                            <td>
+                                Create Renewal without Amendment  content
+                            </td>
+                            <td style="width:50px; text-align:center;">
+                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
           </div>
-          
           
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
