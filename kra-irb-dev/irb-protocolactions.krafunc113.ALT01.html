@@ -348,7 +348,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <td style="text-align:center; padding:5px;" class="infoline">
-                                <input name="xw" src="../images/tinybutton-create.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="create" type="image" />
+                                <input name="xw" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
                             </td>
                         </tr>
                     </table>
@@ -366,6 +366,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </tr>
                 </table>
                 <div id="G201sd" style="display: none;">
+                   <!-- <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <td style="width:50px;">
+                                
+                            </td>
+                            <td>
+                                Submit for Review content
+                            </td>
+                            <td style="width:50px; text-align:center;">
+                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
+                            </td>
+                        </tr>
+                    </table>-->
+                    
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <td colspan="4">
@@ -461,15 +475,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 Committee ID:
                             </th>
                             <td>
-                                <select name="comid" id="comid">
-                                    <option value="0">First IRB</option>
-                                    <option value="1" selected>Second IRB</option>
-                                    <option value="2">Third IRB</option>
-                                </select>
-                                
-                                <!--<input type="text" id="committeeidQ" name="committeeidQ" size="25" value="CU002" />
+                                <input type="text" id="committeeidQ" name="committeeidQ" size="25" value="CU002" />
                                 <input name="x" src="../images/searchicon.gif" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
-                                <span class="fineprint"><br />Second IRB</span>-->
+                                <span class="fineprint"><br />Second IRB</span>
                                 
                             </td>
                             <th style="text-align:right;">
@@ -481,12 +489,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                     <option value="1" selected>04/03/2009, 343 EHOB, 2:00 PM</option>
                                     <option value="2">05/12/2009, 343 EHOB, 2:00 PM</option>
                                 </select>
-                                <input name="refresh0" src="../images/arrow_refresh.png" class="tinybutton" alt="Refresh Pulldown Options" title="Refresh Pulldown Options" type="image" />
                             </td>
                         </tr>
                     </table>
                     
-                    <table cellpadding="0" cellspacing="0">
+                    <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <th style="padding:3px;">
                                 Availiable Reviewers
@@ -749,6 +756,38 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </table>
                     </div>
                     
+                    <!--<table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <th>
+                                Committee ID
+                            </th>
+                            <th>
+                                Committee Name
+                            </th>
+                            <th rowspan="3" class="infoline" style="width:100px; padding:3px;">
+                                <input style="padding:1px;" name="selectcommittee" src="../images/tinybutton-selectcommittee.gif" onclick="javascript: alert('select committee'); return false" class="tinybutton" alt="select committee" title="select committee" type="image" /><br />
+                                <input style="padding:1px;" name="selectschedule" src="../images/tinybutton-selectschedule.gif" onclick="javascript: alert('select schedule'); return false" class="tinybutton" alt="select schedule" title="select schedule" type="image" /><br />
+                                <input style="padding:1px;" name="showall" src="../images/tinybutton-showall.gif" onclick="javascript: alert('show all'); return false" class="tinybutton" alt="show all" title="show all" type="image" /><br />
+                                <input style="padding:1px;" name="selectreviewer" src="../images/tinybutton-selectreviewer.gif" onclick="javascript: alert('select reviewer'); return false" class="tinybutton" alt="select reviewer" title="select reviewer" type="image" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                BC001
+                            </td>
+                            <td>
+                                Bryan's Uber Cool Committee
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                CU001
+                            </td>
+                            <td>
+                                Cornell IRB 1
+                            </td>
+                        </tr>
+                    </table>-->
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
                             <td style="text-align:center; padding:5px;" class="infoline">
@@ -756,6 +795,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             </td>
                         </tr>
                     </table>
+                    
+                    
                     
                 </div>
             
@@ -773,59 +814,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <div id="G201q" style="display: none;">
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
-                            <th style="width:100px; text-align:right;">
-                               *Comment:
-                            </th>
-                            <td>
-                            	
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="commentz" style="width:100%; text-align:left;" rows="4"></textarea>
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom;">
-                                            <input name="commentzx" src="../images/pencil_add.png" onclick="javascript: alert('if this were not a mock, this icon would open an editable text area.'); return false" class="tinybutton" alt="Expanded Text Area" title="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
+                            <td style="width:50px;">
                                 
                             </td>
-                        </tr>
-                    </table>
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <th style="width:100px; text-align:right;">
-                               *Amend:
-                            </th>
                             <td>
-                            
-                            
-                            	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <input type="checkbox" class="nobord" name="generalinfo" value="0" />General Info<br />
-                                            <input type="checkbox" class="nobord" name="fundingsource" value="1" />Funding Source<br />
-                                            <input type="checkbox" class="nobord" name="protocolreferences" value="2" />Protocol References<br />
-                                            <input type="checkbox" class="nobord" name="protocalorganizations" value="3" />Protocol Organizations<br />
-                                            <input type="checkbox" class="nobord" name="subjects" value="4" />Subjects
-                                        </td>
-                                        <td style="border:none;">
-                                            <input type="checkbox" class="nobord" name="modifyattachments" value="5" />Add/Modify Attachments<br />
-                                            <input type="checkbox" class="nobord" name="areasofresearch" value="6" />Areas of Research<br />
-                                            <input type="checkbox" class="nobord" name="specialreviewer" value="7" />Special Reviewe<br />
-                                            <input type="checkbox" class="nobord" name="protocolpersonnel" value="8" />Protocol Personnel<br />
-                                            <input type="checkbox" class="nobord" name="others" value="09" />Others
-                                        </td>
-                                    </tr>
-                                </table>
-                                            
+                                Create Renewal with Amendment Content
                             </td>
-                        </tr>
-                    </table>
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <td style="text-align:center; padding:5px;" class="infoline">
-                                <input name="xw" src="../images/tinybutton-create.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="create" type="image" />
+                            <td style="width:50px; text-align:center;">
+                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
                             </td>
                         </tr>
                     </table>
@@ -865,50 +861,21 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <a href="#" id="A201e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201e"></a>
                         </td>
                         <td class="tab-subhead">
-                            Withdraw Protocol
+                            Withdraw Submission
                         </td>
                     </tr>
                 </table>
                 <div id="G201e" style="display: none;">
                     <table cellpadding="0" cellspacing="0"  summary="">
                         <tr>
-                            <th colspan="2" style="height:20px;">
-                                Are you sure you want to withdraw this protocol?
-                            </th>
-                        </tr>
-                        <tr>
-                            <th style="text-align:right; width:100px;">
-                                Comments:
-                            </th>
-                            <td>
-                                
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom;">
-                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
+                            <td style="width:50px;">
                                 
                             </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:right;">
-                                Action Date:
-                            </th>
                             <td>
-                                <input type="text" name="date1" id="date1" value="12/31/2009" size="10" />
-								<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                                Withdraw Submission Content
                             </td>
-                        </tr>
-                    </table>
-                    <table cellpadding="0" cellspacing="0"  summary="">
-                        <tr>
-                            <td style="text-align:center; padding:5px;" class="infoline">
-                                <input name="xw" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
+                            <td style="width:50px; text-align:center;">
+                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
                             </td>
                         </tr>
                     </table>
@@ -932,10 +899,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 
                             </td>
                             <td>
-                                &nbsp;
+                                Create Renewal without Amendment  content
                             </td>
                             <td style="width:50px; text-align:center;">
-                                <input name="x" src="../images/tinybutton-create.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="create" type="image" />
+                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
                             </td>
                         </tr>
                     </table>
