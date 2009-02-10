@@ -216,7 +216,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </div></td>
                               <td class="infoline"><div align="center">
                                   <input name="date1" type="text" size="9" id="aaplication date">
-                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
+                                  <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div>
+                              </td>
                               <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                             </tr>
                             
@@ -542,6 +543,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
               <tbody id="G123t" style="display: none;">
               <tr>
+                <th>&nbsp;</th>
                 <th>Status</th>
                 <th>Invoice Due</th>
                 <th>Invoice Overdue</th>
@@ -551,9 +553,56 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <th>Activity Date</th>
                 <th>Comments</th>
                 <th>Last Update</th>
+                <th>Action</th>
               </tr>
-              
+              	
                 <tr>
+                    <th>
+                    	Add:
+                    </th>
+                    <td class="infoline"  scope="row">
+                    	<select name="addsched">
+                            <option value="0" selected="selected">select</option>
+                            <option value="1">payment due</option>
+                            <option value="3">to be invoiced</option>
+                            <option value="4">invoiced</option>
+                            <option value="5">paid</option>
+                        </select>
+                    </td>
+                    <td class="infoline" style="white-space:nowrap">
+                        <input type="text" name="date1s" id="date1s" value="" size="10" />
+                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                    </td>
+                    <td class="infoline" style="text-align:center;">
+                    	<input type="text" name="" id="" value="" style="width:25px;" />
+                    </td>
+                    <td class="infoline">
+                    	<input type="text" name="" id="" value="" style="width:98%;" />
+                    </td>
+                    <td class="infoline" nowrap>
+                    	<div align="right"><input style="text-align:right;" type="text" name="fg" id="fg" value="0.00" style="width:100%;" /></div>
+                    </td>
+                    <td class="infoline" nowrap>
+                    	<input type="text" name="" id="" value="" style="width:100%;" /></td>
+                    <td class="infoline" style="white-space:nowrap">
+                        <input type="text" name="date1s" id="date1t" value="" size="10" />
+                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                    </td>
+                    <td class="infoline" nowrap style="width:180px;">
+                    	<input type="text" name="f" id="f" value="" style="width:98%;" />
+                    </td>
+                    <td class="infoline" nowrap style="width:180px;">
+                    	<input type="text" name="g" id="g" value="" style="width:98%;" />
+                    </td>
+                    <td class="infoline" style="text-align:center;">
+                    	<input name="x" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this button would add a new data row.'); return false" class="tinybutton" alt="add" type="image" />
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th>
+                    	1
+                    </th>
                     <td  scope="row">
                     	<select name="CustomDataa1">
                             <option value="0">select</option>
@@ -574,7 +623,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     	<input type="text" name="" id="" value="427400-01" style="width:98%;" />
                     </td>
                     <td nowrap>
-                    	<div align="right"><input style="text-align:right;" type="text" name="" id="" value="25,000.00" style="width:100%;" /></div>
+                    	<div align="right"><input style="text-align:right;" type="text" name="gh" id="gh" value="25,000.00" style="width:100%;" /></div>
                     </td>
                     <td nowrap>
                     	<input type="text" name="" id="" value="James Bond" style="width:100%;" /></td>
@@ -588,9 +637,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td nowrap style="width:180px;">
                     	<input type="text" name="g" id="g" value="James Bond 11/11/2008 08:01pm" style="width:98%;" />
                     </td>
+                    <td style="text-align:center;">
+                    	<input name="x" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="delete" type="image" />
+                    </td>
                 </tr>
                 
                 <tr>
+                    <th>
+                    	2
+                    </th>
                     <td  scope="row">
                     	<select name="CustomDataa1">
                             <option value="0">select</option>
@@ -611,7 +666,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     	<input type="text" name="" id="" value="427400-02" style="width:98%;" />
                     </td>
                     <td nowrap>
-                    	<div align="right"><input style="text-align:right;" type="text" name="" id="" value="8,276.54" style="width:100%;" /></div>
+                    	<div align="right"><input style="text-align:right;" type="text" name="df" id="df" value="8,276.54" style="width:100%;" /></div>
                     </td>
                     <td nowrap>
                     	<input type="text" name="" id="" value="M. Smart" style="width:100%;" /></td>
@@ -625,12 +680,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td nowrap style="width:180px;">
                     	<input type="text" name="" id="" value="M. Smart 11/11/2008 08:01pm" style="width:98%;" />
                     </td>
+                    <td style="text-align:center;">
+                    	<input name="x" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="delete" type="image" />
+                    </td>
                 </tr>
                 
               <tr>
-                <td colspan="4" class="infoline"  scope="row"><div align="right"><strong>Total:</strong></div></td>
+                <td colspan="5" class="infoline"  scope="row"><div align="right"><strong>Total:</strong></div></td>
                 <td nowrap class="infoline"><div align="right"><strong>$33,276.54</strong></div></td>
-                <td colspan="4" nowrap class="infoline" style="text-align:left;">
+                <td colspan="5" nowrap class="infoline" style="text-align:left;">
                 	<input name="x" src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('If this were not a mock, this button would recalculate the total.'); return false" class="tinybutton" alt="recalculate" type="image" />
                 </td>
               </tr>
