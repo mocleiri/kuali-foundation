@@ -214,7 +214,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                     <option>sponsor form</option>
                                   </select>
                                 </div></td>
-                              <td class="infoline"><div align="center">
+                              <td class="infoline" nowrap><div align="center">
                                   <input name="date1" type="text" size="9" id="aaplication date">
                                   <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div>
                               </td>
@@ -261,7 +261,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         <option>sponsor form</option>
                                       </select>
                                     </div></td>
-                                  <td><div align="center">
+                                  <td nowrap><div align="center">
                                     <input name="duedate1" id="duedate1" type="text" size="9" value="02/01/2009">
                                     <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor13"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
                                   <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
@@ -418,7 +418,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                         <option>sponsor form</option>
                                       </select>
                                     </div></td>
-                                  <td><div align="center">
+                                  <td nowrap><div align="center">
                                     <input name="duedate2" id="duedate2" type="text" size="9" value="02/28/2014">
                                     <span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor13"> <img src="../images/cal.gif" alt="select date" width="16" height="16" align="top"></a></span></div></td>
                                   <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
@@ -531,8 +531,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                           <tr>
                             <th colspan="2" style="text-align:right; width:100px;">Invoice Instructions:</th>
                             <td colspan="12"><div align="center">
-                              <textarea name="date3" style="width:97%;" rows="4" id="expiration date"></textarea>
-                              <a href="#"><img src="../images/pencil_add.png" width="16" height="16" border="0" alt="edit" /></a> </div></td>
+                              
+                              	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none;">
+                                            <textarea name="date3" style="width:100%;" rows="4" id="expiration date"></textarea>
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                             </td> 
                           </tr>
                         </table>
            
@@ -560,7 +571,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <th>
                     	Add:
                     </th>
-                    <td class="infoline"  scope="row">
+                    <td class="infoline">
                     	<select name="addsched">
                             <option value="0" selected="selected">select</option>
                             <option value="1">payment due</option>
@@ -574,25 +585,36 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
                     </td>
                     <td class="infoline" style="text-align:center;">
-                    	<input type="text" name="" id="" value="" style="width:25px;" />
+                    	<input type="text" name="g" id="g" value="" style="width:25px;" />
                     </td>
                     <td class="infoline">
-                    	<input type="text" name="" id="" value="" style="width:98%;" />
+                    	<input type="text" name="s" id="s" value="" style="width:98%;" />
+                    </td>
+                    <td class="infoline" style="text-align:right;" nowrap>
+                    	<input style="text-align:right; width:100%;" type="text" name="fg" id="fg" value="0.00" />
                     </td>
                     <td class="infoline" nowrap>
-                    	<div align="right"><input style="text-align:right;" type="text" name="fg" id="fg" value="0.00" style="width:100%;" /></div>
-                    </td>
-                    <td class="infoline" nowrap>
-                    	<input type="text" name="" id="" value="" style="width:100%;" /></td>
+                    	<input type="text" name="j" id="j" value="" style="width:100%;" /></td>
                     <td class="infoline" style="white-space:nowrap">
                         <input type="text" name="date1s" id="date1t" value="" size="10" />
                         <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
                     </td>
                     <td class="infoline" nowrap style="width:180px;">
-                    	<input type="text" name="f" id="f" value="" style="width:98%;" />
+                    	
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" name="f" id="f" value="Inv'd 6/20/08, Pd in full 7/12/08" style="width:98%;" />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="xn" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
                     </td>
                     <td class="infoline" nowrap style="width:180px;">
-                    	<input type="text" name="g" id="g" value="" style="width:98%;" />
+                    	<input type="text" name="gu" id="gu" value="" style="width:98%;" />
                     </td>
                     <td class="infoline" style="text-align:center;">
                     	<input name="x" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this button would add a new data row.'); return false" class="tinybutton" alt="add" type="image" />
@@ -603,7 +625,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <th>
                     	1
                     </th>
-                    <td  scope="row">
+                    <td>
                     	<select name="CustomDataa1">
                             <option value="0">select</option>
                             <option value="1">payment due</option>
@@ -617,22 +639,33 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
                     </td>
                     <td style="text-align:center;">
-                    	<input type="text" name="" id="" value="0" style="width:25px;" />
+                    	<input type="text" name="l" id="l" value="0" style="width:25px;" />
                     </td>
                     <td>
-                    	<input type="text" name="" id="" value="427400-01" style="width:98%;" />
+                    	<input type="text" name="k" id="k" value="427400-01" style="width:98%;" />
                     </td>
                     <td nowrap>
-                    	<div align="right"><input style="text-align:right;" type="text" name="gh" id="gh" value="25,000.00" style="width:100%;" /></div>
+                    	<div align="right"><input style="text-align:right; width:100%;" type="text" name="gh" id="gh" value="25,000.00" /></div>
                     </td>
                     <td nowrap>
-                    	<input type="text" name="" id="" value="James Bond" style="width:100%;" /></td>
+                    	<input type="text" name="m" id="m" value="James Bond" style="width:100%;" /></td>
                     <td style="white-space:nowrap">
                         <input type="text" name="date1s" id="date1t" value="07/01/2008" size="10" />
                         <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
                     </td>
                     <td nowrap style="width:180px;">
-                    	<input type="text" name="f" id="f" value="Inv'd 6/20/08, Pd in full 7/12/08" style="width:98%;" />
+                        
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" name="f" id="f" value="Inv'd 6/20/08, Pd in full 7/12/08" style="width:98%;" />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="xg" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
                     </td>
                     <td nowrap style="width:180px;">
                     	<input type="text" name="g" id="g" value="James Bond 11/11/2008 08:01pm" style="width:98%;" />
@@ -666,7 +699,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     	<input type="text" name="" id="" value="427400-02" style="width:98%;" />
                     </td>
                     <td nowrap>
-                    	<div align="right"><input style="text-align:right;" type="text" name="df" id="df" value="8,276.54" style="width:100%;" /></div>
+                    	<div align="right"><input style="text-align:right; width:100%;" type="text" name="df" id="df" value="8,276.54" /></div>
                     </td>
                     <td nowrap>
                     	<input type="text" name="" id="" value="M. Smart" style="width:100%;" /></td>
@@ -675,7 +708,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
                     </td>
                     <td nowrap style="width:180px;">
-                    	<input type="text" name="" id="" value="Inv'd 10/10/08" style="width:98%;" />
+                        
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" name="" id="" value="Inv'd 10/10/08" style="width:98%;" />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
                     </td>
                     <td nowrap style="width:180px;">
                     	<input type="text" name="" id="" value="M. Smart 11/11/2008 08:01pm" style="width:98%;" />
