@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Truncate Me!</title>
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript">
+			$(document).ready(function(){				
+				
+				<!-- runtrunc function -->
+					function runtrunc()
+					{
+						var numcharA=parseInt(window.document.truncateform.numcharA.value);
+						var sourceA=window.document.truncateform.sourceA.value;
+						
+						$("#results").html(sourceA.substring(0,numcharA));
+						$("#displaynumchar").html(numcharA);
+						
+					}
+				<!-- runtrunc trigger -->
+					$(".runme").keyup(
+						function()
+						{
+							//alert("hit1");
+							runtrunc();
+						}
+					);
+				<!-- runtrunc initial values -->
+					runtrunc();
+				
+			});
+		</script>
+    </head>
+    <body style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:11px;">
+    	<form id="truncateform" name="truncateform" method="post" action="index.php">
+            <p>
+                <b>Truncate Me!</b>
+            </p>
+            <p>
+                Source:<br />
+                <textarea name="sourceA" id="sourceA" class="runme" style="width:100%; height:300px;"></textarea>
+            </p>
+            <p>
+                Truncate to this number of characters: <input name="numcharA" id="numcharA" value="250" class="runme" style="width:50px;" />
+            </p>
+            <p>
+                Showing <span id="displaynumchar">0</span> or less characters:
+                <div id="results">
+                    [results here]
+                </div>
+            </p>
+        </form>
+    </body>
+</html>
