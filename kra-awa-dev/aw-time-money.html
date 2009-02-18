@@ -1161,18 +1161,16 @@
                 <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
                     <tr>
                         <th>&nbsp;</th>
-                        <th>Period</th>
+                        
                         <th>*Start Date</th>
                         <th>*End Date</th>
                         <th>Direct Cost</th>
-                        <th>Indirect Cost</th>
+                        <th>F&amp;A Cost</th>
                         <th>Actions</th>
                     </tr>
                     <tr>
                         <th>Add:</th>
-                        <td class="infoline" style="text-align:center;">
-                            <input name="addperiod" type="text" style="width:50px;">
-                        </td>
+                        
                         <td class="infoline" style="text-align:center;">
                             <input name="addstartdate" type="text" size="10">
                             <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
@@ -1193,9 +1191,7 @@
                     </tr>
                     <tr>
                         <th>1</th>
-                        <td style="text-align:center;">
-                            <input name="addperiod1" value="1" type="text" style="width:50px;">
-                        </td>
+                       
                         <td style="text-align:center;">
                             <input name="addstartdate1" value="01/10/2008" type="text" size="10">
                             <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
@@ -1216,9 +1212,7 @@
                     </tr>
                     <tr>
                         <th>2</th>
-                        <td style="text-align:center;">
-                            <input name="addperiod2" value="2" type="text" style="width:50px;">
-                        </td>
+                        
                         <td style="text-align:center;">
                             <input name="addstartdate2" value="01/10/2009" type="text" size="10">
                             <a href="#"><img src="../images/cal.gif" alt="select date" width="16" height="16" align="top" /></a>
@@ -1238,7 +1232,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th colspan="4" style="text-align:right;">
+                        <th colspan="3" style="text-align:right;">
                         	Total:
                         </th>
                         <td class="infoline" style="text-align:right; font-weight:bold;">
@@ -1247,27 +1241,16 @@
                         <td class="infoline" style="text-align:right; font-weight:bold;">
                             $0.00
                         </td>
-                        <th rowspan="3">&nbsp;
-                            
+                        <th rowspan="2">
+                            <input name="x" src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('If this were not a mock, this button would recalculate the three totals above.'); return false" class="tinybutton" alt="recalculate" title="Recalculate All" type="image" />
                         </th>
                     </tr>
                     <tr>
-                        <th colspan="4" style="text-align:right;">
-                        	Total Anticipated (Direct + Indirect):
+                        <th colspan="3" style="text-align:right;">
+                        	Total Anticipated (Direct + F&amp;A):
                         </th>
                         <td colspan="2" class="infoline" style="text-align:right; font-weight:bold;">
                             $0.00
-                        </td>
-                        <!--<th>
-                            &nbsp;
-                        </th>-->
-                    </tr>
-                    <tr>
-                        <th colspan="4" style="text-align:right;">&nbsp;
-                        	
-                        </th>
-                        <td colspan="2" class="infoline" style="text-align:center;">
-                            <input name="x" src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('If this were not a mock, this button would recalculate the three totals above.'); return false" class="tinybutton" alt="recalculate" title="Recalculate All" type="image" />
                         </td>
                         <!--<th>
                             &nbsp;
