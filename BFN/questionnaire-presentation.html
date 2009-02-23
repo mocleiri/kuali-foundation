@@ -31,6 +31,55 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			
+			// Opened Panel
+				$(".openedpanelcontrol").toggle(
+					function()
+					{
+						$(this).parent().parent().parent().parent().next().slideUp(400);
+						$(this).attr("src","../images/tinybutton-show.gif");
+					},function(){
+						$(this).parent().parent().parent().parent().next().slideDown(400);
+						$(this).attr("src","../images/tinybutton-hide.gif");
+					}
+				);
+			
+			// Closed Panel
+				$(".closedpaneldiv").attr("style","display:none;");
+				$(".closedpanelcontrol").toggle(
+					function()
+					{
+						$(this).parent().parent().parent().parent().next().slideDown(400);
+						$(this).attr("src","../images/tinybutton-hide.gif");
+					},function(){
+						$(this).parent().parent().parent().parent().next().slideUp(400);
+						$(this).attr("src","../images/tinybutton-show.gif");
+					}
+				);
+				
+			// Opened Section
+				$(".openedsectioncontrol").toggle(
+					function()
+					{
+						$(this).parent().parent().parent().parent().next().slideUp(400);
+						$(this).attr("src","../images/tinybutton-show.gif");
+					},function(){
+						$(this).parent().parent().parent().parent().next().slideDown(400);
+						$(this).attr("src","../images/tinybutton-hide.gif");
+					}
+				);
+			
+			// Closed Section
+				$(".closedsectiondiv").attr("style","display:none;");
+				$(".closedsectioncontrol").toggle(
+					function()
+					{
+						$(this).parent().parent().parent().parent().next().slideDown(400);
+						$(this).attr("src","../images/tinybutton-hide.gif");
+					},function(){
+						$(this).parent().parent().parent().parent().next().slideUp(400);
+						$(this).attr("src","../images/tinybutton-show.gif");
+					}
+				);
 			
 			// More/Less Information...
 				$(".Qmoreinfocontrol").parent().next().hide(0);
@@ -153,6 +202,7 @@
 	</script>
 </head>
 <body>
+<form name="questionnaireform">
 
 <!-- PAGE HEADER -->
 <div class="pageheader">
@@ -160,7 +210,7 @@
     	<tr>
         	<td align="left" valign="middle">
             	<span class="pagetitle">
-                	Questionnaire
+                	Questionnaire 
                 	<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="bottom" /></a>
                 </span>
             </td>
@@ -196,44 +246,24 @@
 <div class="horizontaltabs">
 	<table class="horizontaltabstable">
     	<tr>
-        	<!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" name="navtab00" value="Lorem Ipsum Dolor" alt="Lorem Ipsum Dolor">Lorem Ipsum Dolor</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- ACTIVE -->
+        	<!-- ACTIVE -->
                 <td class="tabactive1">&nbsp;</td>
                 <td class="tabactive2">
-                    <button type="submit" name="navtab01" value="Ipsum" alt="Ipsum">Ipsum</button>
+                    <button type="submit" name="Presentation" value="Presentation" alt="Presentation">My Cool Questionnaire About Stuff</button>
                 </td>
                 <td class="tabactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" name="navtab02" value="Dolor" alt="Dolor">Dolor</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" name="navtab03" value="Curabitur Porta" alt="Curabitur Porta">Curabitur Porta</button>
+                    <button type="submit" name="Editor" value="Editor" alt="Editor">Some Other Very Serious Questionnaire</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
         </tr>
         <tr>
-        	<!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
-            <!-- ACTIVE -->
+        	<!-- ACTIVE -->
                 <td class="tabactive4"></td>
                 <td class="tabactive5"></td>
                 <td class="tabactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
             <!-- INACTIVE -->
                 <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
@@ -252,240 +282,407 @@
     <img src="../images/tinybutton-collapseall.gif" alt="collapse all" />
 </div>
 
-
-
 <!-- TOP PANEL HEAD -->
 <table class="paneltable">
     <tr>
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
-            Questionnaire: Animal Use
+            Animal Use (v.1.00123)
         </td>
         <td class="toppanelhead3">
-            <!--<a href="#" class="panelcontrol01"><img id="panelcontrolimage01" src="../images/tinybutton-hide.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>-->
+            <img class="openedpanelcontrol" src="../images/tinybutton-hide.gif" alt="show/hide this panel" width="45" height="15" border="0" />
         </td>
         <td class="toppanelhead4">&nbsp;</td>
         <td class="toppanelhead5">&nbsp;</td>
     </tr>
 </table>
-            
+
 <!-- PANEL CONTENT -->
-<div id="panelcontent01">
+<div class="openpaneldiv">
     <table class="paneltable">
         <tr>
             <td class="panelcontent1">&nbsp;</td>
             <td class="panelcontent2" colspan="3">
                
-               	<form name="questionnaireform">
+               	<!-- ELEMENT HEAD: Label Here -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <img class="closedsectioncontrol" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" />
+                            Research Details
+                        </th>
+                        <th class="elementhead_right">
+                            <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" alt="help" /></a>
+                        </th>
+                    </tr>
+                </table>
+                
+                <!-- CONTENT: Label Here -->
+                <div class="closedsectiondiv">
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_questionnaire">
+                                
+                                
                
-           		<div class="Qdiv" id="QID001">
-                	<div class="Qquestiondiv">
-                    	<span class="Qmoreinfocontrol">More Information...</span>
-                        <span class="Qnumber">1.0.0</span>
-                        <span class="Qquestion">Confirm live vertebrates will be used in this protocol?</span>
-                        
-                    </div>
-                    <div class="Qmoreinfodiv">
-                    	<span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID001]</span>
-                    </div>
-                    <div class="Qresponsediv">
-                    	<span class="Qresponse">
-                        	<input type="radio" class="reticulate" style="border:none;" name="AID001" value="0" checked="checked" />yes
-                            <input type="radio" class="reticulate" style="border:none;" name="AID001" value="1" />no
-                        </span>
-                    </div>
+                                <div class="Qdiv" id="QID001">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.0.0</span>
+                                        <span class="Qquestion">Confirm live vertebrates will be used in this protocol?</span>
+                                        
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID001]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID001" value="0" checked="checked" />yes
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID001" value="1" />no
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID002">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.0.0</span>
+                                        <span class="Qquestion">Will you be using whole dead animals which are regulated by USDA?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID002]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID002" value="0" checked="checked" />yes
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID002" value="1" />no
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID003">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.0</span>
+                                        <span class="Qquestion">Which of the following describes the types of animal use proposed in this protocol? (check all that apply)</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID003]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_0" checked="checked" />Research (choose type)<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_1" />Vet College Teaching<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_2" />Other Teaching, Training or Demonstration<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_3" />Breeding<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_4" />Food Source<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_5" />Observation<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_6" />Other (specify)
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID004">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.1</span>
+                                        <span class="Qquestion">What type of research?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID004]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID004" value="0" checked="checked" />basic
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID004" value="1" />advanced
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID006">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.1.1</span>
+                                        <span class="Qquestion">Tell me more about your "basic" research.</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID006]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none;">
+                                                        <textarea name="AID006" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                                        <input name="AID006x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID007">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.1.1</span>
+                                        <span class="Qquestion">Tell me more about your "advanced" research.</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID007]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none;">
+                                                        <textarea name="AID007" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                                        <input name="AID007x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID005">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.1</span>
+                                        <span class="Qquestion">Explain the type of animal use proposed in this protocol.</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID005]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none;">
+                                                        <textarea name="AID005" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                                        <input name="AID005x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID008">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.1</span>
+                                        <span class="Qquestion">What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID008]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="text" class="evaluatereticulate" id="AID008" name="AID008" size="3" value="0" />
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID010">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.1</span>
+                                        <span class="Qquestion">What is the location?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID005]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="text" id="AID010" name="AID010" size="3" value="0" />
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID009">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.1</span>
+                                        <span class="Qquestion">What is the scientific justification?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID005]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none;">
+                                                        <textarea name="AID009" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                                        <input name="AID009x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </span>
+                                    </div>
+                                </div>
+                
+                
+                                
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 
-                <div class="Qdiv" id="QID002">
-                	<div class="Qquestiondiv">
-                    	<span class="Qmoreinfocontrol">More Information...</span>
-                        <span class="Qnumber">1.0.0</span>
-                        <span class="Qquestion">Will you be using whole dead animals which are regulated by USDA?</span>
-                    </div>
-                    <div class="Qmoreinfodiv">
-                    	<span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID002]</span>
-                    </div>
-                    <div class="Qresponsediv">
-                    	<span class="Qresponse">
-                        	<input type="radio" class="reticulate" style="border:none;" name="AID002" value="0" checked="checked" />yes
-                            <input type="radio" class="reticulate" style="border:none;" name="AID002" value="1" />no
-                        </span>
-                    </div>
-                </div>
+                <!-- ELEMENT HEAD: Label Here -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <img class="closedsectioncontrol" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" />
+                            Animal Procurement
+                        </th>
+                        <th class="elementhead_right">
+                            <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" alt="help" /></a>
+                        </th>
+                    </tr>
+                </table>
                 
-                <div class="Qdiv" id="QID003">
-                	<div class="Qquestiondiv">
-                    	<span class="Qmoreinfocontrol">More Information...</span>
-                        <span class="Qnumber">1.1.0</span>
-                        <span class="Qquestion">Which of the following describes the types of animal use proposed in this protocol? (check all that apply)</span>
-                    </div>
-                    <div class="Qmoreinfodiv">
-                    	<span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID003]</span>
-                    </div>
-                    <div class="Qresponsediv">
-                    	<span class="Qresponse">
-                        	<input type="checkbox" class="reticulate" style="border:none;" name="AID003_0" checked="checked" />Research (choose type)<br />
-                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_1" />Vet College Teaching<br />
-                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_2" />Other Teaching, Training or Demonstration<br />
-                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_3" />Breeding<br />
-                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_4" />Food Source<br />
-                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_5" />Observation<br />
-                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_6" />Other (specify)
-                        </span>
-                    </div>
+                <!-- CONTENT: Label Here -->
+                <div class="closedsectiondiv">
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_questionnaire">
+                                
+                                <div class="Qdiv" id="QID210">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.1</span>
+                                        <span class="Qquestion">From where will you obtain animals?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID210]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="text" class="evaluatereticulate" id="AID210" name="AID008" size="3" value="0" />
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID211">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.1</span>
+                                        <span class="Qquestion">Do you need state or local licence to obtain animals? </span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID211]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="text" class="evaluatereticulate" id="AID211" name="AID008" size="3" value="0" />
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                            </td>
+                        </tr>
+                    </table>
                 </div>
+               
+               
                 
-                <div class="Qdiv" id="QID004">
-                	<div class="Qquestiondiv">
-                    	<span class="Qmoreinfocontrol">More Information...</span>
-                        <span class="Qnumber">1.1.1</span>
-                        <span class="Qquestion">What type of research?</span>
-                    </div>
-                    <div class="Qmoreinfodiv">
-                    	<span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID004]</span>
-                    </div>
-                    <div class="Qresponsediv">
-                    	<span class="Qresponse">
-                        	<input type="radio" class="reticulate" style="border:none;" name="AID004" value="0" checked="checked" />basic
-                            <input type="radio" class="reticulate" style="border:none;" name="AID004" value="1" />advanced
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="Qdiv" id="QID006">
-                	<div class="Qquestiondiv">
-                    	<span class="Qmoreinfocontrol">More Information...</span>
-                        <span class="Qnumber">1.1.1.1</span>
-                        <span class="Qquestion">Tell me more about your "basic" research.</span>
-                    </div>
-                    <div class="Qmoreinfodiv">
-                    	<span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID006]</span>
-                    </div>
-                    <div class="Qresponsediv">
-                    	<span class="Qresponse">
-                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none;">
-                                        <textarea name="AID006" style="width:100%; text-align:left;" rows="2"></textarea>
-                                    </td>
-                                    <td style="border:none; width:20px; vertical-align:bottom;">
-                                        <input name="AID006x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="Qdiv" id="QID007">
-                	<div class="Qquestiondiv">
-                    	<span class="Qmoreinfocontrol">More Information...</span>
-                        <span class="Qnumber">1.1.1.1</span>
-                        <span class="Qquestion">Tell me more about your "advanced" research.</span>
-                    </div>
-                    <div class="Qmoreinfodiv">
-                    	<span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID007]</span>
-                    </div>
-                    <div class="Qresponsediv">
-                    	<span class="Qresponse">
-                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none;">
-                                        <textarea name="AID007" style="width:100%; text-align:left;" rows="2"></textarea>
-                                    </td>
-                                    <td style="border:none; width:20px; vertical-align:bottom;">
-                                        <input name="AID007x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="Qdiv" id="QID005">
-                	<div class="Qquestiondiv">
-                    	<span class="Qmoreinfocontrol">More Information...</span>
-                        <span class="Qnumber">1.1.1</span>
-                        <span class="Qquestion">Explain the type of animal use proposed in this protocol.</span>
-                    </div>
-                    <div class="Qmoreinfodiv">
-                    	<span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID005]</span>
-                    </div>
-                    <div class="Qresponsediv">
-                    	<span class="Qresponse">
-                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none;">
-                                        <textarea name="AID005" style="width:100%; text-align:left;" rows="2"></textarea>
-                                    </td>
-                                    <td style="border:none; width:20px; vertical-align:bottom;">
-                                        <input name="AID005x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="Qdiv" id="QID008">
-                	<div class="Qquestiondiv">
-                    	<span class="Qmoreinfocontrol">More Information...</span>
-                        <span class="Qnumber">1.1.1</span>
-                        <span class="Qquestion">What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?</span>
-                    </div>
-                    <div class="Qmoreinfodiv">
-                    	<span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID008]</span>
-                    </div>
-                    <div class="Qresponsediv">
-                    	<span class="Qresponse">
-                        	<input type="text" class="evaluatereticulate" id="AID008" name="AID008" size="3" value="0" />
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="Qdiv" id="QID010">
-                	<div class="Qquestiondiv">
-                    	<span class="Qmoreinfocontrol">More Information...</span>
-                        <span class="Qnumber">1.1.1</span>
-                        <span class="Qquestion">What is the location?</span>
-                    </div>
-                    <div class="Qmoreinfodiv">
-                    	<span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID005]</span>
-                    </div>
-                    <div class="Qresponsediv">
-                    	<span class="Qresponse">
-                        	<input type="text" id="AID010" name="AID010" size="3" value="0" />
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="Qdiv" id="QID009">
-                	<div class="Qquestiondiv">
-                    	<span class="Qmoreinfocontrol">More Information...</span>
-                        <span class="Qnumber">1.1.1</span>
-                        <span class="Qquestion">What is the scientific justification?</span>
-                    </div>
-                    <div class="Qmoreinfodiv">
-                    	<span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID005]</span>
-                    </div>
-                    <div class="Qresponsediv">
-                    	<span class="Qresponse">
-                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none;">
-                                        <textarea name="AID009" style="width:100%; text-align:left;" rows="2"></textarea>
-                                    </td>
-                                    <td style="border:none; width:20px; vertical-align:bottom;">
-                                        <input name="AID009x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </span>
-                    </div>
-                </div>
-                
-                </form>
                     
+            </td>
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+
+<!-- MID PANEL HEAD -->
+<table class="paneltable">
+    <tr>
+        <td class="midpanelhead1">&nbsp;</td>
+        <td class="midpanelhead2">
+        	Pharmaceutical Controls (v.2.00000)
+        </td>
+        <td class="midpanelhead3">
+            <img class="closedpanelcontrol" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" />
+        </td>
+        <td class="midpanelhead4">&nbsp;</td>
+        <td class="midpanelhead5">&nbsp;</td>
+    </tr>
+</table>
+         
+<!-- PANEL CONTENT -->
+<div class="closedpaneldiv">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+            	
+                
+                <!-- ELEMENT HEAD: Label Here -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <img class="closedsectioncontrol" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" />
+                            Licensing
+                        </th>
+                        <th class="elementhead_right">
+                            <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" alt="help" /></a>
+                        </th>
+                    </tr>
+                </table>
+                
+                <!-- CONTENT: Label Here -->
+                <div class="closedsectiondiv">
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_info">
+                                
+                                <div class="Qdiv" id="QID310">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.1</span>
+                                        <span class="Qquestion">List licensing required for the use of these pharmaceuticals.</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID310]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="text" class="evaluatereticulate" id="AID310" name="AID008" size="3" value="0" />
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID311">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <span class="Qnumber">1.1.1</span>
+                                        <span class="Qquestion">Do you need to obtain these licences?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID311]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="text" class="evaluatereticulate" id="AID311" name="AID008" size="3" value="0" />
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
             </td>
             <td class="panelcontent3">&nbsp;</td>
         </tr>
@@ -518,5 +715,6 @@
 </td></tr></table>
 
 <!-- DOCUMENT FOOT -->
+</form>
 </body>
 </html>

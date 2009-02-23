@@ -24,6 +24,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <link rel="shortcut icon" href="../images/icon.ico" />
     <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="../BFN/new_kuali.css" rel=stylesheet type="text/css">
     <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />
     <link href="questionnaire.css" rel="stylesheet" type="text/css" />
     <!-- jQuery Library -->
@@ -34,6 +35,18 @@
 		$(document).ready(function(){		
 			<!-- Tree View -->
 				$("#browser").treeview({
+					control: "#treecontrol"
+				});
+				$("#browser1").treeview({
+					control: "#treecontrol"
+				});
+				$("#browser3").treeview({
+					control: "#treecontrol"
+				});
+				$("#browser4").treeview({
+					control: "#treecontrol"
+				});
+				$("#browser5").treeview({
 					control: "#treecontrol"
 				});
 		<!-- PANEL -->
@@ -453,44 +466,24 @@
 <div class="horizontaltabs">
 	<table class="horizontaltabstable">
     	<tr>
-        	<!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" name="navtab00" value="Lorem Ipsum Dolor" alt="Lorem Ipsum Dolor">Lorem Ipsum Dolor</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
             <!-- ACTIVE -->
                 <td class="tabactive1">&nbsp;</td>
                 <td class="tabactive2">
-                    <button type="submit" name="navtab01" value="Ipsum" alt="Ipsum">Ipsum</button>
+                    <button type="submit" name="Editor" value="Editor" alt="Editor">Editor</button>
                 </td>
                 <td class="tabactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" name="navtab02" value="Dolor" alt="Dolor">Dolor</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" name="navtab03" value="Curabitur Porta" alt="Curabitur Porta">Curabitur Porta</button>
+                    <button type="submit" name="Presentation" value="Preview" alt="Preview">Preview</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
         </tr>
         <tr>
-        	<!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
             <!-- ACTIVE -->
                 <td class="tabactive4"></td>
                 <td class="tabactive5"></td>
                 <td class="tabactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
             <!-- INACTIVE -->
                 <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
@@ -516,7 +509,7 @@
     <tr>
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
-            Questionnaire Hierarchy (Animal Use)
+            My Cool Questionnaire About Stuff
         </td>
         <td class="toppanelhead3">
             <!--<a href="#" class="panelcontrol01"><img id="panelcontrolimage01" src="../images/tinybutton-hide.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>-->
@@ -526,94 +519,557 @@
     </tr>
 </table>
 
+<form name="questionnaireform" id="questionnaireform">
+
 <!-- PANEL CONTENT -->
 <div id="panelcontent01">
     <table class="paneltable">
         <tr>
             <td class="panelcontent1">&nbsp;</td>
             <td class="panelcontent2" colspan="3">         
-
-				<table width="100%" cellpadding="0" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th class="elementheader" align="left">
-                                            <!--Questionnaire: Animal Use-->
-                                        </th>
-                                        <th class="elementheader" style="text-align:right; padding:2px;">
-                                            <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" title="Help" /></a>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="elementcontent" colspan="2">
-
-                                            <!--<img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <a id="listcontrol00" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
-                                            <div id="treecontrol" style="display:inline;">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<a title="Collapse the entire tree below" href="#"><img src="./images/minus.gif" /> Collapse All</a>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="./images/plus.gif" /> Expand All</a>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
-                                                <a href="#"><img align="absmiddle" src="../images/searchicon.gif" width="16" height="16" border="0" alt="Search for Group" title="Search for Area of Research"></a>
-                                            </div>-->
-                                            <img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <b>Questionnaire: Animal Use</b>
-                                            
-                                            <ul id="browser" class="filetree">
-                                                <li class="closed">
-                                                	Confirm live vertebrates will be used in this protocol?
-                                                    
-                                                    <ul>
-                                                    	<li class="closed">
-                                                        	[Yes] Will you be using whole dead animals which are regulated by USDA?
-                                                            
-                                                            <ul>
-                                                                <li class="closed">
-                                                                	[Yes] Which of the following describes the types of animal use proposed in this protocol?
-                                                                    
-                                                                    <ul>
-                                                                    	<li class="closed">
-                                                                        	[Research] What type of research?
+				
+                
+                	<div style="padding-bottom:5px;">
+                        <table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+                            <tr>
+                                <td class="subelementcontent">
+                                    <p>[Controls for the Questionnare Here: new, add template, edit label, versioning]</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                	
+                
+                <!-- Template 1: Animal Use (v.1.00123) -->
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="elementheader" align="left">
+                                    Template 1: Animal Use (v.1.00123)
+                                </th>
+                                <th class="elementheader" style="text-align:right; padding:2px;">
+                                    <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" title="Help" /></a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="elementcontent" colspan="2">
+                                
+                                	<div style="padding-bottom:5px;">
+										<table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+                                            <tr>
+                                                <td class="subelementcontent">
+                                                    <p>[Controls for the Template Here: move, remove/cut/copy/paste, add section, edit label, versioning]</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+    
+                                    <!--<img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <a id="listcontrol00" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
+                                    <div id="treecontrol" style="display:inline;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<a title="Collapse the entire tree below" href="#"><img src="./images/minus.gif" /> Collapse All</a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="./images/plus.gif" /> Expand All</a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
+                                        <a href="#"><img align="absmiddle" src="../images/searchicon.gif" width="16" height="16" border="0" alt="Search for Group" title="Search for Area of Research"></a>
+                                    </div>-->
+                                    
+                                    <!-- Section 1: Research Details -->
+                                        <img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <a id="listcontrol03" style="margin-left:2px;"><b>Section 1: Research Details</b></a>
+                                            <div class="hierarchydetail" id="listcontent03" style="margin-top:5px;">
+                                                <table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="subelementheader" align="left">
+                                                                Research Details
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="subelementcontent">
+                                                                
+                                                                <table cellpadding="0" cellspacing="0" class="elementtable" width="100%">
+                                                                    <tr>
+                                                                        <th style="text-align:right;">Node:</th>
+                                                                        <th colspan="3">
+                                                                            <!--<a href="#"><img src="../images/arrow-up.gif" width="17" height="14" border="0" alt="Move Up" title="Move this node up within its sibling group"></a>&nbsp;-->
+                                                                            <a href="#"><img src="../images/arrow-down.gif" width="17" height="14" border="0" alt="Move Down" title="Move this node down within its sibling group"></a>&nbsp;
+                                                                            <a href="#"><img src="./images/tinybutton-removenode.gif" width="79" height="15" border="0" alt="Remove Node" title="Remove this node and its child groups/sponsors"></a>&nbsp;
+                                                                            <a href="#"><img src="./images/tinybutton-cutnode.gif" width="79" height="15" border="0" alt="Cut Node" title="Cut this node and its child roups/sponsors.  (Node will not be removed until you paste it.)"></a>&nbsp;
+                                                                            <a href="#"><img src="./images/tinybutton-pastenode.gif" width="79" height="15" border="0" alt="Paste Node" title="Paste your previously cut node structure under this node"></a>
+                                                                        </th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="width:120px; text-align:right;">
+                                                                            Heading:
+                                                                        </th>
+                                                                        <td colspan="2">
                                                                             
-                                                                            <ul>
-                                                                            	<li>
-                                                                                	[basic] Tell me more about your "basic" research.
-                                                                                </li>
-                                                                                <li>
-                                                                                	[advanced] Tell me more about your "advanced" research.
-                                                                                </li>
-                                                                            </ul>
+                                                                            <input type="text" id="lorem" name="lorem" size="25" value="Heading" />
                                                                             
-                                                                        </li>
-                                                                        <li>
-                                                                        	[Other] Explain the type of animal use proposed in this protocol.
-                                                                        </li>
-                                                                    </ul>
-                                                                    
-                                                                </li>
-                                                            </ul>
-                                                            
-                                                        </li>
-                                                    </ul>
-                                                    
-                                                </li>
-                                                <li class="closed">
-                                                	What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
-                                                    
-                                                    <ul>
-                                                    	<li>
-                                                        	[>12] What is the location?
-                                                        </li>
-                                                        <li>
-                                                            [>12] What is the scientific justification?
-                                                        </li>
-                                                    </ul>
-                                                    
-                                                </li>
-                                            </ul>
+                                                                        </td>
+                                                                         <th style="width:60px;">
+                                                                            <input name="x" src="../images/tinybutton-update.gif" onclick="javascript: alert('do button action'); return false" class="noborder" alt="update" title="Update this Question" type="image" />
+                                                                        </th>  
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="width:120px; text-align:center;" colspan="4">
+                                                                            Requirements
+                                                                        </th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="text-align:center;" colspan="4">
+                                                                            <span class="fineprint"><i>Root questions can have no preconditions for inclusion.</i></span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="width:120px; text-align:center;" colspan="4">
+                                                                            Add Question
+                                                                        </th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="text-align:center;" colspan="4">
+                                                                            <span class="fineprint">[Add a Sibling Question is under development].</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="width:120px; text-align:center;" colspan="4">
+                                                                            Add Section
+                                                                        </th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="text-align:center;" colspan="4">
+                                                                            <span class="fineprint">[Add a Sibling Section is under development].</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                        
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        <ul id="browser" class="filetree">
                                             
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            <li class="closed">
+                                                <div>
+                                                <a id="listcontrol01" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
+                                                    <div class="hierarchydetail" id="listcontent01" style="margin-top:2px;">
+                                                        
+                                                        <table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="subelementheader" align="left">
+                                                                        <a href="#" class="hidedetail"><img src="../images/tinybutton-hide.gif" align="absmiddle" border="0" width="45" height="15"></a>
+                                                                         Confirm live vertebrates will be used in this protocol?
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="subelementcontent">
+                                                                        
+                                                                        <table cellpadding="0" cellspacing="0" class="elementtable" width="100%">
+                                                                            <tr>
+                                                                                <th style="text-align:right;">Node:</th>
+                                                                                <th colspan="3">
+                                                                                    <!--<a href="#"><img src="../images/arrow-up.gif" width="17" height="14" border="0" alt="Move Up" title="Move this node up within its sibling group"></a>&nbsp;-->
+                                                                                    <a href="#"><img src="../images/arrow-down.gif" width="17" height="14" border="0" alt="Move Down" title="Move this node down within its sibling group"></a>&nbsp;
+                                                                                    <a href="#"><img src="./images/tinybutton-removenode.gif" width="79" height="15" border="0" alt="Remove Node" title="Remove this node and its child groups/sponsors"></a>&nbsp;
+                                                                                    <a href="#"><img src="./images/tinybutton-cutnode.gif" width="79" height="15" border="0" alt="Cut Node" title="Cut this node and its child roups/sponsors.  (Node will not be removed until you paste it.)"></a>&nbsp;
+                                                                                    <a href="#"><img src="./images/tinybutton-pastenode.gif" width="79" height="15" border="0" alt="Paste Node" title="Paste your previously cut node structure under this node"></a>
+                                                                                </th>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th style="width:120px; text-align:right;">
+                                                                                    Question:
+                                                                                </th>
+                                                                                <td colspan="2">
+                                                                                    
+                                                                                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <td style="border:none;">
+                                                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2">Confirm live vertebrates will be used in this protocol?</textarea>
+                                                                                            </td>
+                                                                                            <td style="border:none; width:20px; vertical-align:bottom;">
+                                                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="noborder" alt="Expanded Text Area" type="image" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                    
+                                                                                </td>
+                                                                                 <th style="width:60px;">
+                                                                                    <input name="x" src="../images/tinybutton-update.gif" onclick="javascript: alert('do button action'); return false" class="noborder" alt="update" title="Update this Question" type="image" />
+                                                                                </th>  
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th style="width:120px; text-align:center;" colspan="4">
+                                                                                    Requirements
+                                                                                </th>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:center;" colspan="4">
+                                                                                    <span class="fineprint"><i>Root questions can have no preconditions for inclusion.</i></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th style="width:120px; text-align:center;" colspan="4">
+                                                                                    Add Question
+                                                                                </th>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:center;" colspan="4">
+                                                                                    <span class="fineprint">[Add a Sibling Question is under development].</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th style="width:120px; text-align:center;" colspan="4">
+                                                                                    Add Section
+                                                                                </th>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:center;" colspan="4">
+                                                                                    <span class="fineprint">[Add a Sibling Section is under development].</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                                <ul>
+                                                    <li class="closed">
+                                                        
+                                                        <div>
+                                                        <a id="listcontrol02" style="margin-left:2px;">[Yes] Will you be using whole dead animals which are regulated by USDA?</a>
+                                                            <div class="hierarchydetail" id="listcontent02" style="margin-top:2px;">
+                                                                
+                                                                <table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="subelementheader" align="left">
+                                                                                <a href="#" class="hidedetail"><img src="../images/tinybutton-hide.gif" align="absmiddle" border="0" width="45" height="15"></a>
+                                                                                 Will you be using whole dead animals which are regulated by USDA?
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="subelementcontent">
+                                                                                
+                                                                                <table cellpadding="0" cellspacing="0" class="elementtable" width="100%">
+                                                                                    <tr>
+                                                                                        <th style="text-align:right;">Node:</th>
+                                                                                        <th colspan="3">
+                                                                                            <!--<a href="#"><img src="../images/arrow-up.gif" width="17" height="14" border="0" alt="Move Up" title="Move this node up within its sibling group"></a>&nbsp;-->
+                                                                                            <a href="#"><img src="../images/arrow-down.gif" width="17" height="14" border="0" alt="Move Down" title="Move this node down within its sibling group"></a>&nbsp;
+                                                                                            <a href="#"><img src="./images/tinybutton-removenode.gif" width="79" height="15" border="0" alt="Remove Node" title="Remove this node and its child groups/sponsors"></a>&nbsp;
+                                                                                            <a href="#"><img src="./images/tinybutton-cutnode.gif" width="79" height="15" border="0" alt="Cut Node" title="Cut this node and its child roups/sponsors.  (Node will not be removed until you paste it.)"></a>&nbsp;
+                                                                                            <a href="#"><img src="./images/tinybutton-pastenode.gif" width="79" height="15" border="0" alt="Paste Node" title="Paste your previously cut node structure under this node"></a>
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="width:120px; text-align:right;">
+                                                                                            Question:
+                                                                                        </th>
+                                                                                        <td colspan="2">
+                                                                                            
+                                                                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                                <tr>
+                                                                                                    <td style="border:none;">
+                                                                                                        <textarea name="z" style="width:100%; text-align:left;" rows="2">Confirm live vertebrates will be used in this protocol?</textarea>
+                                                                                                    </td>
+                                                                                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                                                                                        <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="noborder" alt="Expanded Text Area" type="image" />
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                            
+                                                                                        </td>
+                                                                                         <th style="width:60px;">
+                                                                                            <input name="x" src="../images/tinybutton-update.gif" onclick="javascript: alert('do button action'); return false" class="noborder" alt="update" title="Update this Question" type="image" />
+                                                                                        </th>  
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="width:120px; text-align:center;" colspan="4">
+                                                                                            Requirements
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="width:120px; text-align:right;">
+                                                                                            Parent Response:
+                                                                                        </th>
+                                                                                        <td style="text-align:left; width:85;" class="infoline">
+                                                                                            <select name="selectcontrol02" id="selectcontrol02" style="width:100%;">
+                                                                                                <option value="0" selected="selected">Text</option>
+                                                                                                <option value="1">Numeric</option>
+                                                                                                <option value="2">Date</option>
+                                                                                            </select>
+                                                                                            
+                                                                                            <script type="text/javascript">
+                                                                                                $(document).ready(function(){
+                                                                                                    
+                                                                                                    function selectfunction02()
+                                                                                                    {
+                                                                                                        $("#selectdiv02a").hide("200");
+                                                                                                        $("#selectdiv02b").hide("200");
+                                                                                                        $("#selectdiv02c").hide("200");
+                                                                                                        
+                                                                                                        if(document.questionnaireform.selectcontrol02.selectedIndex == 0)
+                                                                                                        {
+                                                                                                            $("#selectdiv02a").show("400");
+                                                                                                        }
+                                                                                                        if(document.questionnaireform.selectcontrol02.selectedIndex == 1)
+                                                                                                        {
+                                                                                                            $("#selectdiv02b").show("400");
+                                                                                                        }
+                                                                                                        if(document.questionnaireform.selectcontrol02.selectedIndex == 2)
+                                                                                                        {
+                                                                                                            $("#selectdiv02c").show("400");
+                                                                                                        }
+                                                                                                    }
+                                                                                                    
+                                                                                                    selectfunction02();
+                                                                                                    $("#selectcontrol02").change(
+                                                                                                        function()
+                                                                                                        {
+                                                                                                            //alert("hit");
+                                                                                                            selectfunction02();
+                                                                                                        }
+                                                                                                    );
+                                                                                                        
+                                                                                                });
+                                                                                            </script>
+                                                                                            
+                                                                                        </td>
+                                                                                        <td style="text-align:left;" class="infoline">
+                                                                                            
+                                                                                            <div id="selectdiv02a">
+                                                                                                <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
+                                                                                                    <tr>
+                                                                                                        <td style="border:none; width:65px; text-align:right; background:none;">
+                                                                                                            Text:
+                                                                                                        </td>
+                                                                                                        <td style="border:none; text-align:left; background:none;">
+                                                                                                            <input type="text" id="lorem" name="lorem" size="45" value="" />
+                                                                                                            <input type="radio" class="nobord" name="text1" value="0" checked="checked" />Equals
+                                                                                                            <input type="radio" class="nobord" name="text1" value="0" />Contains
+                                                                                                        </td>
+                                                                                                        <td style="border:none; text-align:right; width:25px; background:none;;">
+                                                                                                            <input name="refresh0" src="../images/arrow_refresh.png" class="noborder" alt="refresh" title="Refresh Options" type="image" style="background:none;" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                            
+                                                                                            <div id="selectdiv02b">
+                                                                                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                                    <tr>
+                                                                                                        <td style="border:none; width:65px; text-align:right; background:none;">
+                                                                                                            Numeric:
+                                                                                                        </td>
+                                                                                                        <td style="border:none; text-align:left; background:none;">
+                                                                                                            <input type="text" id="lorem" name="lorem" size="6" value="" />
+                                                                                                            <input type="radio" class="nobord" name="radio1" value="0" checked="checked" />Equals
+                                                                                                            <input type="radio" class="nobord" name="radio1" value="1" />Greater Than
+                                                                                                            <input type="radio" class="nobord" name="radio1" value="2" />Less Than
+                                                                                                        </td>
+                                                                                                        <td style="border:none; text-align:right; width:25px; background:none;">
+                                                                                                            <input name="refresh0" src="../images/arrow_refresh.png" class="noborder" alt="refresh" title="Refresh Options" type="image" style="background:none;" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                            
+                                                                                            <div id="selectdiv02c">
+                                                                                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                                    <tr>
+                                                                                                        <td style="border:none; width:65px; text-align:right; background:none;">
+                                                                                                            Date:
+                                                                                                        </td>
+                                                                                                        <td style="border:none; text-align:left; background:none;">
+                                                                                                            <input type="text" name="date1" id="date1" value="31-Dec-2009" size="10" /> <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer; border:none;" alt="date selector" align="top" /></a>
+                                                                                                            <input type="radio" class="nobord" name="radio1s" value="0" checked="checked" />Equals
+                                                                                                            <input type="radio" class="nobord" name="radio1s" value="1" />Before
+                                                                                                            <input type="radio" class="nobord" name="radio1s" value="2" />After
+                                                                                                        </td>
+                                                                                                        <td style="border:none; text-align:right; width:25px; background:none;">
+                                                                                                            <input name="refresh0" src="../images/arrow_refresh.png" class="noborder" alt="refresh" title="Refresh Options" type="image" style="background:none;" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                            
+                                                                                        </td>
+                                                                                        <td style="width:60px;" class="infoline">
+                                                                                            <input name="x" src="../images/tinybutton-add1.gif" onclick="javascript: alert('do button action'); return false" class="noborder" alt="add" title="Add this Requirement" type="image" />
+                                                                                        </td>  
+                                                                                    </tr>
+                                                                                     <tr>
+                                                                                        <th>
+                                                                                            1
+                                                                                        </th>
+                                                                                        <td style="text-align:left;" colspan="2">
+                                                                                            Text equals "Yes"
+                                                                                        </td>
+                                                                                        <th style="width:60px;">
+                                                                                            <input name="x" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('do button action'); return false" class="noborder" alt="delete" title="Delete this Requirement" type="image" />
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="width:120px; text-align:center;" colspan="4">
+                                                                                            Add Question
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:center;" colspan="4">
+                                                                                            <span class="fineprint">[Add a Sibling Question is under development].</span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="width:120px; text-align:center;" colspan="4">
+                                                                                            Add Section
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:center;" colspan="4">
+                                                                                            <span class="fineprint">[Add a Sibling Section is under development].</span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                        
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <ul>
+                                                            <li class="closed">
+                                                                [Yes] Which of the following describes the types of animal use proposed in this protocol?
+                                                                
+                                                                <ul>
+                                                                    <li class="closed">
+                                                                        [Research] What type of research?
+                                                                        
+                                                                        <ul>
+                                                                            <li>
+                                                                                [basic] Tell me more about your "basic" research.
+                                                                            </li>
+                                                                            <li>
+                                                                                [advanced] Tell me more about your "advanced" research.
+                                                                            </li>
+                                                                        </ul>
+                                                                        
+                                                                    </li>
+                                                                    <li>
+                                                                        [Other] Explain the type of animal use proposed in this protocol.
+                                                                    </li>
+                                                                </ul>
+                                                                
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                    </li>
+                                                </ul>
+                                                
+                                            </li>
+                                            <li class="closed">
+                                                What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
+                                                
+                                                <ul>
+                                                    <li>
+                                                        [>12] What is the location?
+                                                    </li>
+                                                    <li>
+                                                        [>12] What is the scientific justification?
+                                                    </li>
+                                                </ul>
+                                                
+                                            </li>
+                                        
+                                        </ul>
+                                        
+                                    <!-- Section 2: Animal Procurement -->      
+                                        <img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <b>Section 2: Animal Procurement</b>
+                                        <ul id="browser1" class="filetree">
+                                            
+                                            <li class="closed">
+                                                From where will you obtain animals?
+                                            </li>
+                                            <li class="closed">
+                                                Do you need state or local licence to obtain animals?
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                <!-- Template 3: Pharmaceutical Controls (v.2.00000) -->
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="elementheader" align="left">
+                                    Template 2: Pharmaceutical Controls (v.2.00000)
+                                </th>
+                                <th class="elementheader" style="text-align:right; padding:2px;">
+                                    <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" title="Help" /></a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="elementcontent" colspan="2">
+                                
+                                	<div style="padding-bottom:5px;">
+										<table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+                                            <tr>
+                                                <td class="subelementcontent">
+                                                    <p>[Controls for the Template Here: move, remove/cut/copy/paste, add section, edit label, versioning]</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+    
+                                    <!--<img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <a id="listcontrol00" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
+                                    <div id="treecontrol" style="display:inline;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<a title="Collapse the entire tree below" href="#"><img src="./images/minus.gif" /> Collapse All</a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="./images/plus.gif" /> Expand All</a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
+                                        <a href="#"><img align="absmiddle" src="../images/searchicon.gif" width="16" height="16" border="0" alt="Search for Group" title="Search for Area of Research"></a>
+                                    </div>-->
+                                    
+                                    <!-- Section 3: Licencing -->
+                                        <img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <b>Section 3: Licencing</b>
+                                        <ul id="browser3" class="filetree">
+                                            
+                                            <li class="closed">
+                                                List licensing required for the use of these pharmaceuticals.
+                                            </li>
+                                            <li class="closed">
+                                                Do you need to obtain these licences?
+                                            </li>
+                                        
+                                        </ul>
+                                        
+                                    
+                                   
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
             </td>
             <td class="panelcontent3">&nbsp;</td>
@@ -645,6 +1101,8 @@
 
 <!-- END PANEL CONTAINER -->
 </td></tr></table>
+
+</form>
 
 <!-- DOCUMENT FOOT -->
 </body>

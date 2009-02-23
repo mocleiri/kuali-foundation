@@ -50,16 +50,16 @@
 	}
 
 /*FORM CONTROLS*/
-	textarea, select, input
+	select, textarea, input
 	{
-		font-size: 100%;
 		font-family: Verdana, Arial, Helvetica, sans-serif;
-		border-top: 1px solid #333333;
-		border-left: 1px solid #333333;
-		border-right: 1px solid #999999;
-		border-bottom: 1px solid #999999;
-		
+		border-top: 1px solid #888888;
+		border-right: 1px solid #888888;
+		border-bottom: 1px solid #888888;
+		border-left: 1px solid #888888;
+		font-size:11px;
 	}
+
 	.noborder
 	{
 		border:none;
@@ -293,7 +293,7 @@
 		border-spacing:0px;
 		border-top: solid #939393 1px;
 	}
-	
+
 /*PANEL*/
 	/*panelcontainer*/
 	.panelcontainer
@@ -401,6 +401,13 @@
 		width:12px;
 		background:url(../images/panelfoot3.gif);
 	}
+	
+	.questionnairesection
+	{
+		border:solid 1px #999999;
+		background-color:#CCCCCC;
+		padding:1px;
+	}
 
 /* ELEMENT HEAD */
 	.elementhead_table
@@ -417,7 +424,7 @@
 		background-color:#666666;
 		height:18px;
 		color:#FFFFFF;
-		padding-left:4px;
+		padding:4px;
 	}
 	.elementhead_right
 	{
@@ -561,7 +568,8 @@
 	}
 	.content_info
 	{
-		background-image: url("../images/th-back1.gif");
+		background-image: url("../images/th-back1.gif") no-repeat;
+		background-size: 100%;
 		background-position: bottom;
 		border-top: solid #939393 0px;
 		border-bottom: solid #939393 1px;
@@ -583,6 +591,18 @@
 		padding-right:3px;
 		padding-left:3px;
 		padding-bottom:3px;
+	}
+	.content_questionnaire
+	{
+		background-color:#F1F1F1;
+		border-top: solid #939393 0px;
+		border-bottom: solid #939393 1px;
+		border-left: solid #939393 1px;
+		border-right: solid #939393 1px;
+		padding-top:10px;
+		padding-right:10px;
+		padding-left:10px;
+		padding-bottom:10px;
 	}
 
 /* INSTRUCTIONAL NOTES */
