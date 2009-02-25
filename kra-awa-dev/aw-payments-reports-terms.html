@@ -555,14 +555,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <tbody id="G123t" style="display: none;">
               <tr>
                 <th>&nbsp;</th>
+                <th nowrap>Invoice ID</th>
+                <th>Due Date</th>
+                <th>Overdue</th>
+                <th>Preparer</th>
                 <th>Status</th>
-                <th>Invoice Due</th>
-                <th>Invoice Overdue</th>
-                <th>Invoice ID</th>
-                <th>Amount</th>
-                <th>Person to Submit</th>
                 <th>Activity Date</th>
                 <th>Comments</th>
+                <th>Amount</th>
                 <th>Last Update</th>
                 <th>Action</th>
               </tr>
@@ -571,168 +571,201 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <th>
                     	Add:
                     </th>
-                    <td class="infoline">
-                    	<select name="addsched">
-                            <option value="0" selected="selected">select</option>
-                            <option value="1">payment due</option>
-                            <option value="3">to be invoiced</option>
-                            <option value="4">invoiced</option>
-                            <option value="5">paid</option>
-                        </select>
-                    </td>
-                    <td class="infoline" style="white-space:nowrap">
-                        <input type="text" name="date1s" id="date1s" value="" size="10" />
-                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                    </td>
-                    <td class="infoline" style="text-align:center;">
-                    	<input type="text" name="g" id="g" value="" style="width:25px;" />
-                    </td>
-                    <td class="infoline">
-                    	<input type="text" name="s" id="s" value="" style="width:98%;" />
-                    </td>
-                    <td class="infoline" style="text-align:right;" nowrap>
-                    	<input style="text-align:right; width:100%;" type="text" name="fg" id="fg" value="0.00" />
-                    </td>
-                    <td class="infoline" nowrap>
-                    	<input type="text" name="j" id="j" value="" style="width:100%;" /></td>
-                    <td class="infoline" style="white-space:nowrap">
-                        <input type="text" name="date1s" id="date1t" value="" size="10" />
-                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                    </td>
-                    <td class="infoline" nowrap style="width:180px;">
-                    	
-                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="border:none;">
-                                    <input type="text" name="f" id="f" value="Inv'd 6/20/08, Pd in full 7/12/08" style="width:98%;" />
-                                </td>
-                                <td style="border:none; width:20px; vertical-align:bottom;">
-                                    <input name="xn" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                </td>
-                            </tr>
-                        </table>
-                        
-                    </td>
-                    <td class="infoline" nowrap style="width:180px;">
-                    	<input type="text" name="gu" id="gu" value="" style="width:98%;" />
-                    </td>
-                    <td class="infoline" style="text-align:center;">
-                    	<input name="x" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this button would add a new data row.'); return false" class="tinybutton" alt="add" type="image" />
-                    </td>
+                    <!-- Invoice ID -->
+                        <td class="infoline">
+                            <input type="text" name="s" id="s" value="" style="width:98%;" />
+                        </td>
+                    <!-- Due Date -->
+                        <td class="infoline" style="white-space:nowrap">
+                            <input type="text" name="date1s" id="date1s" value="" size="10" />
+                            <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                        </td>
+                    <!-- Overdue -->
+                        <td class="infoline" style="text-align:center;">
+                            <input type="text" name="g" id="g" value="" style="width:25px;" />
+                        </td>
+                    <!-- Preparer -->
+                        <td class="infoline" nowrap>
+                            <input type="text" name="j" id="j" value="" style="width:100%;" />
+                        </td>
+                    <!-- Status -->
+                        <td class="infoline">
+                            <select name="addsched">
+                                <option value="0" selected="selected">select</option>
+                                <option value="1">payment due</option>
+                                <option value="3">to be invoiced</option>
+                                <option value="4">invoiced</option>
+                                <option value="5">paid</option>
+                            </select>
+                        </td>
+                    <!-- Activity Date -->
+                        <td class="infoline" style="white-space:nowrap">
+                            <input type="text" name="date1s" id="date1t" value="" size="10" />
+                            <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                        </td>
+                    <!-- Comments -->
+                        <td class="infoline" nowrap style="width:180px;">
+                            
+                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" name="f" id="f" value="Inv'd 6/20/08, Pd in full 7/12/08" style="width:98%;" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                        <input name="xn" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    <!-- Amount -->
+                        <td class="infoline" style="text-align:right;" nowrap>
+                            <input style="text-align:right; width:100%;" type="text" name="fg" id="fg" value="0.00" />
+                        </td>
+                    <!-- Last Update -->
+                        <td class="infoline" nowrap style="width:180px;">
+                            <input type="text" name="gu" id="gu" value="" style="width:98%;" />
+                        </td>
+                    <!-- Action -->
+                        <td class="infoline" style="text-align:center;">
+                            <input name="x" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this button would add a new data row.'); return false" class="tinybutton" alt="add" type="image" />
+                        </td>
                 </tr>
                 
                 <tr>
                     <th>
                     	1
                     </th>
-                    <td>
-                    	<select name="CustomDataa1">
-                            <option value="0">select</option>
-                            <option value="1">payment due</option>
-                            <option value="3">to be invoiced</option>
-                            <option value="4">invoiced</option>
-                            <option value="5" selected="selected">paid</option>
-                        </select>
-                    </td>
-                    <td style="white-space:nowrap">
-                        <input type="text" name="date1s" id="date1s" value="02/01/2009" size="10" />
-                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                    </td>
-                    <td style="text-align:center;">
-                    	<input type="text" name="l" id="l" value="0" style="width:25px;" />
-                    </td>
-                    <td>
-                    	<input type="text" name="k" id="k" value="427400-01" style="width:98%;" />
-                    </td>
-                    <td nowrap>
-                    	<div align="right"><input style="text-align:right; width:100%;" type="text" name="gh" id="gh" value="25,000.00" /></div>
-                    </td>
-                    <td nowrap>
-                    	<input type="text" name="m" id="m" value="James Bond" style="width:100%;" /></td>
-                    <td style="white-space:nowrap">
-                        <input type="text" name="date1s" id="date1t" value="07/01/2008" size="10" />
-                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                    </td>
-                    <td nowrap style="width:180px;">
-                        
-                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="border:none;">
-                                    <input type="text" name="f" id="f" value="Inv'd 6/20/08, Pd in full 7/12/08" style="width:98%;" />
-                                </td>
-                                <td style="border:none; width:20px; vertical-align:bottom;">
-                                    <input name="xg" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                </td>
-                            </tr>
-                        </table>
-                        
-                    </td>
-                    <td nowrap style="width:180px;">
-                    	<input type="text" name="g" id="g" value="James Bond 11/11/2008 08:01pm" style="width:98%;" />
-                    </td>
-                    <td style="text-align:center;">
-                    	<input name="x" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="delete" type="image" />
-                    </td>
+                    <!-- Invoice ID -->
+                        <td>
+                            <input type="text" name="k" id="k" value="427400-01" style="width:98%;" />
+                        </td>
+                    <!-- Due Date -->
+                        <td style="white-space:nowrap">
+                            <input type="text" name="date1s" id="date1s" value="02/01/2009" size="10" />
+                            <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                        </td>
+                    <!-- Overdue -->
+                        <td style="text-align:center;">
+                            <input type="text" name="l" id="l" value="0" style="width:25px;" />
+                        </td>
+                    <!-- Preparer -->
+                        <td nowrap>
+                            <input type="text" name="m" id="m" value="James Bond" style="width:100%;" />
+                        </td>
+                    <!-- Status -->
+                        <td>
+                            <select name="CustomDataa1">
+                                <option value="0">select</option>
+                                <option value="1">payment due</option>
+                                <option value="3">to be invoiced</option>
+                                <option value="4">invoiced</option>
+                                <option value="5" selected="selected">paid</option>
+                            </select>
+                        </td>
+                    <!-- Activity Date -->
+                        <td style="white-space:nowrap">
+                            <input type="text" name="date1s" id="date1t" value="07/01/2008" size="10" />
+                            <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                        </td>
+                    <!-- Comments -->
+                        <td nowrap style="width:180px;">
+                            
+                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" name="f" id="f" value="Inv'd 6/20/08, Pd in full 7/12/08" style="width:98%;" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                        <input name="xg" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    <!-- Amount -->
+                        <td nowrap>
+                            <div align="right"><input style="text-align:right; width:100%;" type="text" name="gh" id="gh" value="25,000.00" /></div>
+                        </td>
+                    <!-- Last Update -->
+                        <td nowrap style="width:180px;">
+                            <input type="text" name="g" id="g" value="James Bond 11/11/2008 08:01pm" style="width:98%;" />
+                        </td>
+                    <!-- Action -->
+                        <td style="text-align:center;">
+                            <input name="x" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="delete" type="image" />
+                        </td>
                 </tr>
                 
                 <tr>
                     <th>
                     	2
                     </th>
-                    <td  scope="row">
-                    	<select name="CustomDataa1">
-                            <option value="0">select</option>
-                            <option value="1">payment due</option>
-                            <option value="3">to be invoiced</option>
-                            <option value="4" selected="selected">invoiced</option>
-                            <option value="5">paid</option>
-                        </select>
-                    </td>
-                    <td style="white-space:nowrap">
-                        <input type="text" name="date1s" id="date1s" value="02/28/2014" size="10" />
-                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                    </td>
-                    <td style="text-align:center;">
-                    	<input type="text" name="" id="" value="0" style="width:25px;" />
-                    </td>
-                    <td>
-                    	<input type="text" name="" id="" value="427400-02" style="width:98%;" />
-                    </td>
-                    <td nowrap>
-                    	<div align="right"><input style="text-align:right; width:100%;" type="text" name="df" id="df" value="8,276.54" /></div>
-                    </td>
-                    <td nowrap>
-                    	<input type="text" name="" id="" value="M. Smart" style="width:100%;" /></td>
-                    <td style="white-space:nowrap">
-                        <input type="text" name="date1s" id="date1t" value="12/01/2008" size="10" />
-                        <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                    </td>
-                    <td nowrap style="width:180px;">
-                        
-                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="border:none;">
-                                    <input type="text" name="" id="" value="Inv'd 10/10/08" style="width:98%;" />
-                                </td>
-                                <td style="border:none; width:20px; vertical-align:bottom;">
-                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                </td>
-                            </tr>
-                        </table>
-                        
-                    </td>
-                    <td nowrap style="width:180px;">
-                    	<input type="text" name="" id="" value="M. Smart 11/11/2008 08:01pm" style="width:98%;" />
-                    </td>
-                    <td style="text-align:center;">
-                    	<input name="x" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="delete" type="image" />
-                    </td>
+                    <!-- Invoice ID -->
+                        <td>
+                            <input type="text" name="" id="" value="427400-02" style="width:98%;" />
+                        </td>
+                    <!-- Due Date -->
+                        <td style="white-space:nowrap">
+                            <input type="text" name="date1s" id="date1s" value="02/28/2014" size="10" />
+                            <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                        </td>
+                    <!-- Overdue -->
+                        <td style="text-align:center;">
+                            <input type="text" name="" id="" value="0" style="width:25px;" />
+                        </td>
+                    <!-- Preparer -->
+                        <td nowrap>
+                            <input type="text" name="" id="" value="M. Smart" style="width:100%;" />
+                        </td>
+                    <!-- Status -->
+                        <td  scope="row">
+                            <select name="CustomDataa1">
+                                <option value="0">select</option>
+                                <option value="1">payment due</option>
+                                <option value="3">to be invoiced</option>
+                                <option value="4" selected="selected">invoiced</option>
+                                <option value="5">paid</option>
+                            </select>
+                        </td>
+                    <!-- Activity Date -->
+                        <td style="white-space:nowrap">
+                            <input type="text" name="date1s" id="date1t" value="12/01/2008" size="10" />
+                            <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                        </td>
+                    <!-- Comments -->
+                        <td nowrap style="width:180px;">
+                            
+                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" name="" id="" value="Inv'd 10/10/08" style="width:98%;" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                        <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    <!-- Amount -->
+                        <td nowrap>
+                            <div align="right"><input style="text-align:right; width:100%;" type="text" name="df" id="df" value="8,276.54" /></div>
+                        </td>
+                    <!-- Last Update -->
+                        <td nowrap style="width:180px;">
+                            <input type="text" name="" id="" value="M. Smart 11/11/2008 08:01pm" style="width:98%;" />
+                        </td>
+                    <!-- Action -->
+                        <td style="text-align:center;">
+                            <input name="x" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="delete" type="image" />
+                        </td>
                 </tr>
                 
               <tr>
-                <td colspan="5" class="infoline"  scope="row"><div align="right"><strong>Total:</strong></div></td>
+                <td colspan="8" class="infoline"  scope="row"><div align="right"><strong>Total:</strong></div></td>
                 <td nowrap class="infoline"><div align="right"><strong>$33,276.54</strong></div></td>
-                <td colspan="5" nowrap class="infoline" style="text-align:left;">
+                <td colspan="2" nowrap class="infoline" style="text-align:left;">
                 	<input name="x" src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('If this were not a mock, this button would recalculate the total.'); return false" class="tinybutton" alt="recalculate" type="image" />
                 </td>
               </tr>
