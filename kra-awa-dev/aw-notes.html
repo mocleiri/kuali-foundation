@@ -77,7 +77,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','aw-permissions.html');return document.MM_returnValue" value="Permissions">
         </span></dt>
       <dt class="licurrent" ><span class="tabright tabcurrent">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','aw-notes.html');return document.MM_returnValue" value="Comments &amp; Attachments">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','aw-notes.html');return document.MM_returnValue" value="Notes &amp; Attachments">
         </span></dt>
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','aw-actions.html');return document.MM_returnValue" value="Award Actions">
@@ -105,180 +105,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     <td><div  align="center">
         <div id="workarea">
 
-<!-- PANEL: Comments -->
-	<!-- Panel Tab Header -->
-        <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
-            <tr>
-                <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Comments</td>
-                <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A301" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F301" ></a></span> </td>
-                <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
-            </tr>
-        </table>
-	<!-- Panel Content Div -->
-        <div class="tab-container" align="center" id="G301" style="display: none;">
-        <!-- Panel Element: Comments -->
-            <!-- Element Header: Comments -->
-                <div class="h2-container">
-                    <span class="subhead-left"><h2>Comments</h2></span>
-                    <span class="subhead-right">
-                        <span class="subhead">
-                            <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
-                        </span>
-                    </span>
-                </div>
-            <!-- Subpanel: Financial -->
-                <table cellpadding="0" cellspacing="0">
-                    <tr>
-                    	<td colspan="16" class="tab-subhead1" style="text-align:left;">
-                        	<a href="#" id="ABFN00" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN00" /></a> Financial
-                        </td>
-                    </tr>
-                    <tbody id="GBFN00" style="display:none;">
-                        <!-- add line -->
-                        <tr>
-                        	<th style="width:100px; text-align:right;">Comments:</th>
-                            <td style="text-align:left;">
-                            	
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="fiscalcomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea>
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom;">
-                                            <input name="x0" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            <!-- Subpanel: General -->
-                <table cellpadding="0" cellspacing="0">
-                    <tr>
-                    	<td colspan="16" class="tab-subhead1" style="text-align:left;">
-                        	<a href="#" id="ABFN01" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN01" /></a> General
-                        </td>
-                    </tr>
-                    <tbody id="GBFN01" style="display:none;">
-                        <!-- add line -->
-                        <tr>
-                        	<th style="width:100px; text-align:right;">Comments:</th>
-                            <td style="text-align:left;">
-                            	
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="generalcomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea>
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom;">
-                                            <input name="x1" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            <!-- Subpanel: Intellectual Property -->
-                <table cellpadding="0" cellspacing="0">
-                    <tr>
-                    	<td colspan="16" class="tab-subhead1" style="text-align:left;">
-                        	<a href="#" id="ABFN02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN02" /></a> Intellectual Property
-                        </td>
-                    </tr>
-                    <tbody id="GBFN02" style="display:none;">
-                        <!-- add line -->
-                        <tr>
-                        	<th style="width:100px; text-align:right;">Comments:</th>
-                            <td style="text-align:left;">
-                            	
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="intpropcomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea>
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom;">
-                                            <input name="x2" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            <!-- Subpanel: Procurement -->
-                <table cellpadding="0" cellspacing="0">
-                    <tr>
-                    	<td colspan="16" class="tab-subhead1" style="text-align:left;">
-                        	<a href="#" id="ABFN03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN03" /></a> Procurement
-                        </td>
-                    </tr>
-                    <tbody id="GBFN03" style="display:none;">
-                        <!-- add line -->
-                        <tr>
-                        	<th style="width:100px; text-align:right;">Comments:</th>
-                            <td style="text-align:left;">
-                            	
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="procurementcomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea>
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom;">
-                                            <input name="x3" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            <!-- Subpanel: Property  -->
-                <table cellpadding="0" cellspacing="0">
-                    <tr>
-                    	<td colspan="16" class="tab-subhead1" style="text-align:left;">
-                        	<a href="#" id="ABFN04" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN04" /></a> Property 
-                        </td>
-                    </tr>
-                    <tbody id="GBFN04" style="display:none;">
-                        <!-- add line -->
-                        <tr>
-                        	<th style="width:100px; text-align:right;">Comments:</th>
-                            <td style="text-align:left;">
-                            	
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="propertycomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea>
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom;">
-                                            <input name="x4" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>
-                	<input name="x" src="../images/tinybutton-synctotemplate.gif" onclick="javascript: alert('do button action'); return false" class="tinybutton" alt="sync to template" type="image" />
-                </p>
-                
-        </div> <!-- End Panel Content Div (class='tab-container') Div -->
+
 
 <!-- PANEL: Attachments -->
 	<!-- Panel Tab Header -->
         <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-                <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Attachments (3)</td>
-                <td class="tabtable2-mid"><a href="#" id="A1" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F1" vspace=6></a></td>
-                <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+                <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Attachments (3)</td>
+                <td class="tabtable1-mid"><a href="#" id="A1" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F1" vspace=6></a></td>
+                <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
         </table>
           
@@ -373,12 +208,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td class="infoline"><input name="org_doc_nbr22" size=25 type=text alt="Description" id="note topic"></td>
                 <td height="30" nowrap class="infoline">
                 
-                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                    <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td style="border:none;">
+                            <td style="border:none; background:none;">
                                 <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
                             </td>
-                            <td style="border:none; width:20px; vertical-align:bottom;">
+                            <td style="border:none; width:20px; vertical-align:bottom; background:none;">
                                 <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
                             </td>
                         </tr>
