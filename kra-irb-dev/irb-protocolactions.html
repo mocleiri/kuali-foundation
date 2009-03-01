@@ -1112,6 +1112,98 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </table>
                 </div>
                 
+            <!-- Notify IRB -->
+                <table cellpadding="0" cellspacing="0"  summary="">
+                    <tr>
+                        <td class="tab-subhead" style="width:50px;">
+                            <a href="#" id="A201zz" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F201zz"></a>
+                        </td>
+                        <td class="tab-subhead">
+                            Notify IRB
+                        </td>
+                    </tr>
+                </table>
+                <div id="G201zz" style="display: none;">
+                    <table cellpadding="0" cellspacing="0"  summary="">
+                        <tr>
+                            <th style="width:120px; text-align:right;">
+                                Submission Type:
+                            </th>
+                            <td>
+                                <select>
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">AE/UADE</option>
+                                    <option value="2">Annual Report</option>
+                                    <option value="3">Complaint</option>
+                                    <option value="4">DSMB Report</option>
+                                    <option value="5">Deviation</option>
+                                    <option value="6">Protocol-related COI Report</option>
+                                    <option value="7">Request for Eligibility Exception</option>
+                                    <option value="8">Self Report for Non-compliance</option>
+                                </select>
+                            </td>
+                            <th style="width:90px; text-align:right;">
+                                Review Type:
+                            </th>
+                            <td>
+                                <select>
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">Full</option>
+                                    <option value="2">Expedited</option>
+                                    <option value="3">Exempt</option>
+                                    <option value="4">Limited/Single use</option>
+                                    <option value="5">IRB Review not Required</option>
+                                    <option value="6">Reponse</option>
+                                    <option value="7">FYI</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">
+                                Committee:
+                            </th>
+                            <td>
+                                <select>
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">First IRB</option>
+                                    <option value="2">Second IRB</option>
+                                    <option value="3">Third IRB</option>
+                                </select>
+                            </td>
+                            <th rowspan="2" style="text-align:right;">
+                                Comment:
+                            </th>
+                            <td rowspan="2">
+                                
+                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none;">
+                                            <textarea name="commentz" style="width:100%; text-align:left;" rows="2"></textarea>
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                            <input name="commentzx" src="../images/pencil_add.png" onclick="javascript: alert('if this were not a mock, this icon would open an editable text area.'); return false" class="tinybutton" alt="Expanded Text Area" title="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">
+                                Attachment:
+                            </th>
+                            <td>
+                                <input type="file" style="width:200px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; padding:5px;" colspan="4" class="infoline">
+                                <input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
             <!-- Create Amendment -->
                 <table cellpadding="0" cellspacing="0"  summary="">
                     <tr>
