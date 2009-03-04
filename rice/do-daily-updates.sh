@@ -16,6 +16,6 @@ kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 # 	4) deploy war (boolean)
 #   5) database platform ("Oracle9i")
 ##
-kupdate stg standard true true Oracle9i
+kupdate stg "" true true Oracle9i
 
 kend 0
