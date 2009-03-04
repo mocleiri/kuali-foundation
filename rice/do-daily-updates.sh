@@ -1,5 +1,6 @@
 #!/bin/sh
 
+#do-daily-updates.sh
 . ~j2eemgr/kuali/rice/0.9.4-settings
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
