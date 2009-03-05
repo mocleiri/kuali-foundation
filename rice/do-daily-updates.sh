@@ -11,11 +11,11 @@ kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 ##
 # Args to kupdate
 # 	1) environment ("unt","cnv","stg")
-#   2) name ("standard" == use project/artifact version)
+#   2) name ("standard" -- do not use an arbitrary value)
 #	3) update database (boolean)
 # 	4) deploy war (boolean)
-#   5) database platform ("Oracle9i")
+#   5) database platform ("Oracle9i" -- do not use an arbitrary value)
 ##
-kupdate stg "" true true Oracle9i
+kupdate stg standard true true Oracle9i
 
 kend 0
