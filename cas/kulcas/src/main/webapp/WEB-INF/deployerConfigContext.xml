@@ -17,13 +17,10 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-    <bean id="propertyConfigurer" class="org.kuali.kfs.sys.web.ExposablePropertyPlaceholderConfigurer">
-      <property name="locations">
-          <list>
-              <value>/WEB-INF/cas.properties</value>
-          </list>
-      </property>
-    </bean>  
+	<bean id="propertyConfigurer" class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/cas.properties" />
+		<property name="placeholderPrefix" value="$sc{" />
+	</bean>
 
 	<!--
 		| This bean declares our AuthenticationManager.  The CentralAuthenticationService service bean
@@ -102,7 +99,7 @@
 				-->
 				<bean class="org.kuali.kfs.sys.web.KualiAuthenticationHandler">
 					<property name="dataSource" ref="dataSource" />
-					<property name="validatePassword" value="${org.kuali.cas.auth.showPasswordField}" />
+					<property name="validatePassword" value="$sc{org.kuali.cas.auth.showPasswordField}" />
 				</bean>
 			</list>
 		</property>
@@ -156,9 +153,9 @@
 	TODO: Move these credentials to somewhere external
 	-->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="${org.kuali.cas.auth.jdbc.driverClassName}" />
-        <property name="url" value="${org.kuali.cas.auth.jdbc.url}" />
-        <property name="username" value="${org.kuali.cas.auth.jdbc.username}" />
-        <property name="password" value="${org.kuali.cas.auth.jdbc.password}" />
+        <property name="driverClassName" value="$sc{org.kuali.cas.auth.jdbc.driverClassName}" />
+        <property name="url" value="$sc{org.kuali.cas.auth.jdbc.url}" />
+        <property name="username" value="$sc{org.kuali.cas.auth.jdbc.username}" />
+        <property name="password" value="$sc{org.kuali.cas.auth.jdbc.password}" />
     </bean>		
 </beans>
