@@ -23,7 +23,7 @@ public class ConfigPropertiesExposerListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce) {
 		ServletContext servletContext = sce.getServletContext();
 		WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
-		ExposablePropertyPaceholderConfigurer configurer = (ExposablePropertyPaceholderConfigurer) context.getBean(propertiesBeanName);
+		ExposablePropertyPlaceholderConfigurer configurer = (ExposablePropertyPlaceholderConfigurer) context.getBean(propertiesBeanName);
 		sce.getServletContext().setAttribute(contextProperty, configurer.getResolvedProps());
 	}
 
