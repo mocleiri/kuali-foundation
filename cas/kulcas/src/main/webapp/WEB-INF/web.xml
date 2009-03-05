@@ -22,19 +22,19 @@
 	</context-param>
 	<context-param>
 		<param-name>org.kuali.cas.auth.jdbc.driverClassName</param-name>
-		<param-value>com.mysql.jdbc.Driver</param-value>
+		<param-value>!!!I NEED A VALUE!!!</param-value>
 	</context-param>
 	<context-param>
 		<param-name>org.kuali.cas.auth.jdbc.url</param-name>
-		<param-value>jdbc:mysql://localhost:3306/kuldev</param-value>
+		<param-value>!!!I NEED A VALUE!!!</param-value>
 	</context-param>
 	<context-param>
 		<param-name>org.kuali.cas.auth.jdbc.username</param-name>
-		<param-value>kuldev</param-value>
+		<param-value>!!!I NEED A VALUE!!!</param-value>
 	</context-param>
 	<context-param>
 		<param-name>org.kuali.cas.auth.jdbc.password</param-name>
-		<param-value>kuldev</param-value>
+		<param-value>!!!I NEED A VALUE!!!</param-value>
 	</context-param>
 
 	<!-- 
