@@ -430,7 +430,7 @@
     	<tr>
         	<td align="left" valign="middle">
             	<span class="pagetitle">
-                	Questionnaire Management
+                	Questionnaire Editor
                 	<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="bottom" /></a>
                 </span>
             </td>
@@ -469,19 +469,13 @@
             <!-- ACTIVE -->
                 <td class="tabactive1">&nbsp;</td>
                 <td class="tabactive2">
-                    <button type="submit" name="editor" value="editor" alt="Questionnaire Editor" onClick="window.location='questionnaire-editor.html'">Questionnaire Editor</button>
+                    <button type="submit" name="Editor" value="Editor" alt="Editor">Editor</button>
                 </td>
                 <td class="tabactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" name="presentation" value="presentation" alt="Questionnaire Preview" onClick="window.location='questionnaire-preview.html'">Questionnaire Preview</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='questionnaire-questionmanager.html'">Question Manager</button>
+                    <button type="submit" name="Presentation" value="Preview" alt="Preview">Preview</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
         </tr>
@@ -494,16 +488,12 @@
                 <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
                 <td class="tabinactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
         </tr>
     </table>
 </div>
 
 <!-- BEGIN PANEL CONTAINER -->
-<table class="panelcontainer" cellspacing="20"><tr><td>
+<table class="panelcontainer" cellspacing="20"> <tr> <td>
 
 <!-- GLOBAL NAVIGATION CONTROLS -->
 <div class="globalnav">
@@ -519,328 +509,66 @@
     <tr>
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
-            Questionnaire Management
+            My Cool Questionnaire About Stuff
         </td>
         <td class="toppanelhead3">
-            <a href="#" class="panelcontrol01"><img id="panelcontrolimage01" src="../images/tinybutton-hide.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
+            <!--<a href="#" class="panelcontrol01"><img id="panelcontrolimage01" src="../images/tinybutton-hide.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>-->
         </td>
         <td class="toppanelhead4">&nbsp;</td>
         <td class="toppanelhead5">&nbsp;</td>
     </tr>
 </table>
 
-<form name="questionnaireform" id="questionnaireform">
+<form name="questionnaireform" id="questionnaireform"> 
 
 <!-- PANEL CONTENT -->
 <div id="panelcontent01">
     <table class="paneltable">
         <tr>
             <td class="panelcontent1">&nbsp;</td>
-            <td class="panelcontent2" colspan="3">  
+            <td class="panelcontent2" colspan="3">         
+				
                 
-                <!--At first entry:
-                <ul>
-                    <li>Create New Blank Questionnaire (requires at least one section)</li>
-                    <li>Load Existing Questionnaire (search function)</li>
-                    <li>Load Questionnaire Template (search function)</li>
-                </ul>-->
+                	<div style="padding-bottom:5px;">
+                        <table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+                            <tr>
+                                <td class="subelementcontent">
+                                    At first entry:
+                                    <ul>
+                                    	<li>Create New Blank Questionnaire (requires at least one section)</li>
+                                        <li>Load Existing Questionnaire (search function)</li>
+                                        <li>Load Questionnaire Template (search function)</li>
+                                    </ul>
+                                    After something is loaded:
+                                    <ul>
+                                    	<li>Insert Questionnaire Template (search function)</li>
+                                        <li>Insert Workspace/Non-template</li>
+                                        <li>Insert Section</li>
+                                        <li>Edit Questionnaire Name</li>
+                                        <li>Status</li>
+                                        <li>Edit Description</li>
+                                        <li>Module (dropdown)</li>
+                                        <li>Submodule (dependent dropdown)</li>
+                                        <li>Preview</li>
+                                        <li>Approve</li>
+                                        <li>Route for Approval</li>
+                                        <li>Save as Template</li>
+                                        <li>Save (will increment version for changes other than status)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                	
                 
-                <!-- ELEMENT HEAD: Load Questionnaire -->
-                <table class="elementhead_table">
-                    <tr>
-                        <th class="elementhead_left">
-                            <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
-                            Load Questionnaire
-                        </th>
-                        <th class="elementhead_right">
-                            <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" alt="help" /></a>
-                        </th>
-                    </tr>
-                </table>
-                
-                <!-- CONTENT: Load Questionnaire -->
-                <!--<div id="content01">-->
-                    <table class="content_table">  
-                       <tr>
-                            <td class="content_grey" style="width:165px; text-align:right;">
-                                New Questionnaire:
-                            </td>
-                            <td class="content_white" style="width:65px; text-align:right;">
-                                Name:
-                            </td>
-                            <td class="content_white">
-                                <input type="text" id="questionnairename" name="questionnairename" style="width:100%" value="" />
-                            </td>
-                            <td class="content_white" style="width:100px; text-align:right;">
-                                First Section:
-                            </td>
-                            <td class="content_white">
-                                <input type="text" id="sectionname" name="sectionname" style="width:100%" value="" />
-                            </td>
-                            <td class="content_white" style="width:65px; text-align:center;">
-                                <input name="loadnewquestionnaire" src="../images/tinybutton-load.gif" onclick="javascript: alert('If this were not a mock, this would load a new, blank questionnaire.'); return false" style="border:none;" alt="load" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="content_table">  
-                       <tr>
-                            <td class="content_grey" style="width:165px; text-align:right;">
-                                Existing Questionnaire:
-                            </td>
-                            <td class="content_white" style="width:65px; text-align:right;">
-                                Name:
-                            </td>
-                            <td class="content_white">
-                                
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <input type="text" id="existingquestionnairename" name="existingquestionnairename" style="width:100%" value="" />
-                                        </td>
-                                        <td style="border:none; width:30px; text-align:center;">
-                                            <input name="searchforquestionnaire" src="../images/searchicon.gif" onclick="javascript: alert('If this were not a mock, this would open the search dialog.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
-                            <td class="content_white" style="width:65px; text-align:center;">
-                                <input name="loadexistingquestionnaire" src="../images/tinybutton-load.gif" onclick="javascript: alert('If this were not a mock, this would load a the specified questionnaire.'); return false" style="border:none;" alt="load" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="content_table">  
-                       <tr>
-                            <td class="content_grey" style="width:165px; text-align:right;">
-                                Questionnaire Template:
-                            </td>
-                            <td class="content_white" style="width:65px; text-align:right;">
-                                Name:
-                            </td>
-                            <td class="content_white">
-                                
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <input type="text" id="questionnairetemplatename" name="questionnairetemplatename" style="width:100%" value="" />
-                                        </td>
-                                        <td style="border:none; width:30px; text-align:center;">
-                                            <input name="searchforquestionnairetemplate" src="../images/searchicon.gif" onclick="javascript: alert('If this were not a mock, this would open the search dialog.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
-                            <td class="content_white" style="width:65px; text-align:center;">
-                                <input name="loadquestionnairetemplate" src="../images/tinybutton-load.gif" onclick="javascript: alert('If this were not a mock, this would load the specified questionnaire template.'); return false" style="border:none;" alt="load" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                
-
-            </td>
-            <td class="panelcontent3">&nbsp;</td>
-        </tr>
-    </table>
-</div>
-
-<!-- MID PANEL HEAD -->
-<table class="paneltable">
-    <tr>
-        <td class="midpanelhead1">&nbsp;</td>
-        <td class="midpanelhead2">
-        	My Cool Questionnaire About Stuff
-        </td>
-        <td class="midpanelhead3">
-            <a href="#" class="panelcontrol02"><img id="panelcontrolimage02" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
-        </td>
-        <td class="midpanelhead4">&nbsp;</td>
-        <td class="midpanelhead5">&nbsp;</td>
-    </tr>
-</table>
-         
-<!-- PANEL CONTENT -->
-<div id="panelcontent02">
-    <table class="paneltable">
-        <tr>
-            <td class="panelcontent1">&nbsp;</td>
-            <td class="panelcontent2" colspan="3">
-            
-            	<!-- ELEMENT HEAD: Load Questionnaire -->
-                <table class="elementhead_table">
-                    <tr>
-                        <th class="elementhead_left">
-                            <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
-                            Edit Questionnaire: My Cool Questionnaire About Stuff
-                        </th>
-                        <th class="elementhead_right">
-                            <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" alt="help" /></a>
-                        </th>
-                    </tr>
-                </table>
-                
-                <!-- CONTENT: Load Questionnaire -->
-                <!--<div id="content01">-->
-                    <table class="content_table">  
-                       <tr>
-                            <td class="content_grey" style="width:85px; text-align:right;">
-                                Name:
-                            </td>
-                            <td class="content_white">
-                                <input type="text" id="thisquestionnairename" name="thisquestionnairename" style="width:100%" value="My Cool Questionnaire About Stuff" />
-                            </td>
-                            <td class="content_white" style="width:90px; text-align:center;">
-                                version 1.003
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_grey" style="width:65px; text-align:right;">
-                                Description:
-                            </td>
-                            <td class="content_white" colspan="2">
-                                
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
-                                        </td>
-                                        <td style="border:none; width:30px; vertical-align:bottom; text-align:center;">
-                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger window for editing this text.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="content_table">  
-                       <tr>
-                            <td class="content_grey" style="width:85px; text-align:right;">
-                                Status:
-                            </td>
-                            <td class="content_white">
-                                <select name="CustomData" id="CustomData">
-                                    <option value="0">select</option>
-                                    <option value="1" selected>In Progress</option>
-                                    <option value="2">Completed</option>
-                                    <option value="3">Inactive</option>
-                                </select>
-                            </td>
-                            <td class="content_grey" style="width:65px; text-align:right;">
-                                Approved:
-                            </td>
-                            <td class="content_white">
-                                <input type="radio" style="border:none;" name="CustomData" value="0" />Yes
-                                <input type="radio" style="border:none;" name="CustomData" value="1" checked="checked" />No
-                            </td>
-                        
-                            <td class="content_grey" style="width:85px; text-align:right;">
-                                Module:
-                            </td>
-                            <td class="content_white">
-                                <select name="CustomData" id="CustomData">
-                                    <option value="0">select</option>
-                                    <option value="1" selected>lorem</option>
-                                    <option value="2">ipsum</option>
-                                    <option value="3">nolar</option>
-                                </select>
-                            </td>
-                            <td class="content_grey" style="width:65px; text-align:right;">
-                                Sub-module:
-                            </td>
-                            <td class="content_white">
-                                <select name="CustomData" id="CustomData">
-                                    <option value="0">select</option>
-                                    <option value="1">lorem</option>
-                                    <option value="2" selected>ipsum</option>
-                                    <option value="3">nolar</option>
-                                </select>
-                                <input name="refresh0" src="../images/arrow_refresh.png" style="border:none;" alt="Refresh Pulldown Options" title="Refresh Pulldown Options" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="content_table">  
-                       	<tr>
-                            <td class="content_grey" style="width:200px; text-align:right;">
-                                Lifespan:
-                            </td>
-                            <td class="content_white" colspan="3">
-                            
-                            	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none; text-align:center;">
-                                            Begin: <input type="text" name="date1" id="date1" value="31-Dec-2009" size="10" />
-											<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                                        </td>
-                                        <td style="border:none; text-align:center;">
-                                            End: <input type="text" name="date2" id="date2" value="31-Dec-2010" size="10" />
-											<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
-                       </tr>
-                       <tr>
-                            <td class="content_grey" style="width:200px; text-align:right;">
-                                Add Questionnaire Template:
-                            </td>
-                            <td class="content_white">
-                                
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <input type="text" id="questionnairetemplatename" name="questionnairetemplatename" style="width:100%" value="" />
-                                        </td>
-                                        <td style="border:none; width:30px; text-align:center;">
-                                            <input name="searchforquestionnairetemplate" src="../images/searchicon.gif" onclick="javascript: alert('If this were not a mock, this would open the search dialog.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
-                            <td class="content_white" style="width:230px">
-                                <select name="CustomData" id="CustomData">
-                                    <option value="0">select</option>
-                                    <option value="1">at top</option>
-                                    <option value="2">after: Animal Use</option>
-                                    <option value="3" selected>after: My Cool Custom workspace</option>
-                                </select>
-                            </td>
-                            <td class="content_white" style="width:65px; text-align:center;">
-                                <input name="addquestionnairetemplate" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this would add the specified questionnaire template.'); return false" style="border:none;" alt="add" type="image" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_grey" style="width:200px; text-align:right;">
-                                Add Workspace:
-                            </td>
-                            <td class="content_white">
-                               <input type="text" id="workspacename" name="workspacename" style="width:100%" value="" />
-                            </td>
-                            <td class="content_white" style="width:230px">
-                                <select name="CustomData" id="CustomData">
-                                    <option value="0">select</option>
-                                    <option value="1">at top</option>
-                                    <option value="2">after: Animal Use</option>
-                                    <option value="3" selected>after: My Cool Custom workspace</option>
-                                </select>
-                            </td>
-                            <td class="content_white" style="width:65px; text-align:center;">
-                                <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this would add a named workspace.'); return false" style="border:none;" alt="add" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-            	<!--</div>-->
-            
-            	<!-- Template 1: Animal Use (v.1.00123) -->
+                <!-- Template 1: Animal Use (v.1.00123) -->
                     <table width="100%" cellpadding="0" cellspacing="0">
                         <thead>
                             <tr>
-                                <th class="subelementheader" align="left">
-                                    Template: Animal Use (unmodified v.1.00123)
+                                <th class="elementheader" align="left">
+                                    Template 1: Animal Use (v.1.00123)
                                 </th>
-                                <th class="subelementheader" style="text-align:right; padding:2px;">
+                                <th class="elementheader" style="text-align:right; padding:2px;">
                                     <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" title="Help" /></a>
                                 </th>
                             </tr>
@@ -952,7 +680,7 @@
                                             
                                             <li class="closed">
                                                 <div>
-                                                &nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">
+                                                
                                                 <a id="listcontrol01" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
                                                     <div class="hierarchydetail" id="listcontent01" style="margin-top:2px;">
                                                         
@@ -961,7 +689,7 @@
                                                                 <tr>
                                                                     <th class="subelementheader" align="left">
                                                                         <a href="#" class="hidedetail"><img src="../images/tinybutton-hide.gif" align="absmiddle" border="0" width="45" height="15"></a>
-                                                                         Confirm live vertebrates will be used in this protocol? (v.1.022)
+                                                                         Confirm live vertebrates will be used in this protocol?
                                                                     </th>
                                                                 </tr>
                                                             </thead>
@@ -1004,24 +732,12 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <th style="width:120px; text-align:center;" colspan="4">
-                                                                                    Defined Response Options
-                                                                                </th>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td style="text-align:center;" colspan="4">
-                                                                                    [Define what the possible responses are (i.e. pull down choices)]
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <th style="width:120px; text-align:center;" colspan="4">
                                                                                     Requirements
                                                                                 </th>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td style="text-align:center;" colspan="4">
                                                                                     <span class="fineprint"><i>Root questions can have no preconditions for inclusion.</i></span>
-                                                                                    <br />
-                                                                                    [triger routing]
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -1031,17 +747,7 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td style="text-align:center;" colspan="4">
-                                                                                    <span class="fineprint">[Add a Sibling Question is under development. Include predefined question.]</span>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <th style="width:120px; text-align:center;" colspan="4">
-                                                                                    Add Template
-                                                                                </th>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td style="text-align:center;" colspan="4">
-                                                                                    <span class="fineprint">[Add a Questionnaire Template is under development]</span>
+                                                                                    <span class="fineprint">[Add a Sibling Question is under development].</span>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -1051,17 +757,7 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td style="text-align:center;" colspan="4">
-                                                                                    <span class="fineprint">[Add a Sibling Section is under development]</span>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <th style="width:120px; text-align:center;" colspan="4">
-                                                                                    Question Use
-                                                                                </th>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td style="text-align:center;" colspan="4">
-                                                                                    <span class="fineprint">[Show where this question is used and allow updating.]</span>
+                                                                                    <span class="fineprint">[Add a Sibling Section is under development].</span>
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
@@ -1086,7 +782,7 @@
                                                                         <tr>
                                                                             <th class="subelementheader" align="left">
                                                                                 <a href="#" class="hidedetail"><img src="../images/tinybutton-hide.gif" align="absmiddle" border="0" width="45" height="15"></a>
-                                                                                 Will you be using whole dead animals which are regulated by USDA? (v.1.045)
+                                                                                 Will you be using whole dead animals which are regulated by USDA?
                                                                             </th>
                                                                         </tr>
                                                                     </thead>
@@ -1102,7 +798,6 @@
                                                                                             <a href="#"><img src="../images/arrow-down.gif" width="17" height="14" border="0" alt="Move Down" title="Move this node down within its sibling group"></a>&nbsp;
                                                                                             <a href="#"><img src="./images/tinybutton-removenode.gif" width="79" height="15" border="0" alt="Remove Node" title="Remove this node and its child groups/sponsors"></a>&nbsp;
                                                                                             <a href="#"><img src="./images/tinybutton-cutnode.gif" width="79" height="15" border="0" alt="Cut Node" title="Cut this node and its child roups/sponsors.  (Node will not be removed until you paste it.)"></a>&nbsp;
-                                                                                            /*<a href="#"><img src="./images/tinybutton-copynode.gif" width="79" height="15" border="0" alt="Copy Node" title="Copy this node and its child roups/sponsors."></a>&nbsp;*/
                                                                                             <a href="#"><img src="./images/tinybutton-pastenode.gif" width="79" height="15" border="0" alt="Paste Node" title="Paste your previously cut node structure under this node"></a>
                                                                                         </th>
                                                                                     </tr>
@@ -1130,16 +825,6 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <th style="width:120px; text-align:center;" colspan="4">
-                                                                                            Defined Response Options
-                                                                                        </th>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td style="text-align:center;" colspan="4">
-                                                                                            [Define what the possible responses are (i.e. pull down choices)]
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <th style="width:120px; text-align:center;" colspan="4">
                                                                                             Requirements
                                                                                         </th>
                                                                                     </tr>
@@ -1152,8 +837,7 @@
                                                                                                 <option value="0" selected="selected">Text</option>
                                                                                                 <option value="1">Numeric</option>
                                                                                                 <option value="2">Date</option>
-                                                                                            </select><br />
-                                                                                            [triger routing]
+                                                                                            </select>
                                                                                             
                                                                                             <script type="text/javascript">
                                                                                                 $(document).ready(function(){
@@ -1272,17 +956,7 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td style="text-align:center;" colspan="4">
-                                                                                            <span class="fineprint">[Add a Sibling Question is under development. Include predefined question.]</span>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <th style="width:120px; text-align:center;" colspan="4">
-                                                                                            Add Template
-                                                                                        </th>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td style="text-align:center;" colspan="4">
-                                                                                            <span class="fineprint">[Add a Questionnaire Template is under development]</span>
+                                                                                            <span class="fineprint">[Add a Sibling Question is under development].</span>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
@@ -1292,17 +966,7 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td style="text-align:center;" colspan="4">
-                                                                                            <span class="fineprint">[Add a Sibling Section is under development]</span>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <th style="width:120px; text-align:center;" colspan="4">
-                                                                                            Question Use
-                                                                                        </th>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td style="text-align:center;" colspan="4">
-                                                                                            <span class="fineprint">[Show where this question is used and allow updating.]</span>
+                                                                                            <span class="fineprint">[Add a Sibling Section is under development].</span>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
@@ -1338,7 +1002,7 @@
                                                                         
                                                                         <ul>
                                                                             <li>
-                                                                                &nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">
+                                                                                
                                                 								[Endangered Species] Have the proper local authorities been notified.
                                                                             </li>
                                                                             <li>
@@ -1369,25 +1033,6 @@
                                                 </ul>
                                                 
                                             </li>
-                                            <li class="closed">
-                                                &nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">
-                                                Will all handelers of live animals be vetted Cornell employees?
-                                                
-                                                
-                                                
-                                            </li>
-                                            <li class="closed">
-                                                Is there a proceedure in place to insure local animal control compliance?
-                                                
-                                                
-                                                
-                                            </li>
-                                            <li class="closed">
-                                                What concerns have been raised by local institutions?
-                                                
-                                               
-                                                
-                                            </li>
                                         
                                         </ul>
                                         
@@ -1396,7 +1041,7 @@
                                         <ul id="browser1" class="filetree">
                                             
                                             <li class="closed">
-                                                &nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">
+                                                
                                                 From where will you obtain animals?
                                             </li>
                                             <li class="closed">
@@ -1414,11 +1059,11 @@
                     <table width="100%" cellpadding="0" cellspacing="0">
                         <thead>
                             <tr>
-                                <th class="subelementheader" align="left">
-                                    Workspace: My Cool, Custom Work Area
+                                <th class="elementheader" align="left">
+                                    Workspace (Non-template)
                                     <!--Template 2: Pharmaceutical Controls (v.2.00000)-->
                                 </th>
-                                <th class="subelementheader" style="text-align:right; padding:2px;">
+                                <th class="elementheader" style="text-align:right; padding:2px;">
                                     <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" title="Help" /></a>
                                 </th>
                             </tr>
@@ -1455,7 +1100,7 @@
                                         <ul id="browser3" class="filetree">
                                             
                                             <li class="closed">
-                                                &nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">
+                                                
                                                 List licensing required for the use of these pharmaceuticals.
                                             </li>
                                             <li class="closed">
@@ -1471,15 +1116,13 @@
                             </tr>
                         </tbody>
                     </table>
-            
-            
-            
+
             </td>
             <td class="panelcontent3">&nbsp;</td>
         </tr>
     </table>
 </div>
-      
+        
 <!-- PANEL FOOT -->
 <table class="paneltable">
     <tr>
@@ -1497,16 +1140,15 @@
 <!-- GLOBAL DOCUMENT CONTROLS -->
 <div class="globaldocumentcontrols">
     <a href="#"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" /></a>
-    <a href="#"><img src="../images/buttonsmall_saveastemplate.gif" alt="save as template" width="120" height="18" hspace="5" border="0" /></a>
     <a href="#"><img src="../images/buttonsmall_refresh.gif" alt="save" width="68" height="18" hspace="5" border="0" /></a>
     <a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width="48" height="18" hspace="5" border="0" /></a>
     <a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0" /></a>
 </div>
 
 <!-- END PANEL CONTAINER -->
-</td></tr></table>
+</td> </tr> </table>
 
-</form>
+</form> 
 
 <!-- DOCUMENT FOOT -->
 </body>
