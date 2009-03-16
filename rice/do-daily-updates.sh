@@ -17,5 +17,6 @@ kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 #   5) database platform ("Oracle9i" -- do not use an arbitrary value)
 ##
 kupdate stg standard true true Oracle9i
+kpurge $LOGS_DIRECTORY 7
 
 kend 0
