@@ -10,6 +10,6 @@ kupdate cnv standard true true Oracle9i
 kupdate unt standard true false Oracle9i
 kpurge $LOGS_DIRECTORY 7
 
-sh ~j2eemgr/kuali/kfs/check-modularization.sh
+#sh ~j2eemgr/kuali/kfs/check-modularization.sh
 
 kend 0
