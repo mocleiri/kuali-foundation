@@ -53,7 +53,7 @@ public final class CookieRetrievingCookieGenerator extends CookieGenerator {
             cookie.setMaxAge(this.rememberMeMaxAge);
         	// Kuali Modification to get the requiresHttps property
             String requireHttpsStr = request.getSession().getServletContext().getInitParameter("org.kuali.cas.auth.requireHttps");
-        	boolean requireHttps = Boolean.valueOf(requireHttpsStr);
+        	boolean requireHttps = Boolean.parseBoolean(requireHttpsStr);
             if (isCookieSecure() || requireHttps) {
                 cookie.setSecure(true);
             }
