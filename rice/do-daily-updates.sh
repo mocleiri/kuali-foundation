@@ -4,6 +4,7 @@
 . ~j2eemgr/kuali/rice/0.9.4-settings
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
+IMPEX_PROPERTIES_FILE=$APPLICATION_DIRECTORY/impex-build.properties; typeset -rx
 
 kexport dba $APPLICATION_INFRASTRUCTURE_VERSION
 kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
