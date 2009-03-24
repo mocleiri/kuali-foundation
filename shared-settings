@@ -22,6 +22,7 @@ SCRIPT_LOG=$LOGS_DIRECTORY/$SCRIPT_NAME+$EXEC_TIME.$$; typeset -rx SCRIPT_LOG
     ANT_BUILD_FILE=$BASE_DIRECTORY/build.xml; typeset -rx ANT_BUILD_FILE
     ANT_PROPERTIES_FILE=$BASE_DIRECTORY/generated-build.properties; typeset -rx ANT_PROPERTIES_FILE
     DATABASE_PROJECT=kul-cfg-dbs; typeset -rx DATABASE_PROJECT
+    IMPEX_PROPERTIES_FILE=~/impex-build.properties; typeset -rx
     INFRASTRUCTURE_JAVA_PROJECT=rice; typeset -rx INFRASTRUCTURE_JAVA_PROJECT
     BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/build-number.txt; typeset -rx BUILD_NUMBER_FILE
 	SRCCTRL_URL=https://test.kuali.org/svn; typeset -rx SRCCTRL_URL

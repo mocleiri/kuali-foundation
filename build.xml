@@ -28,20 +28,28 @@
 		<delete>
 			<fileset dir="${database.project}" includes="${export.generated.files}" />
 		</delete>
-		<ant antfile="${impex.build.file}" target="export" inheritall="false" />
+		<ant antfile="${impex.build.file}" target="export" inheritall="false">
+			<property name="impex.properties.file" value="${impex.properties.file}"/>
+		</ant>
 		<delete file="${log.file}" />
 	</target>
 	
 	<target name="create-mysql-user" depends="init-properties" if="import.into.mysql">
-		<ant antfile="${impex.build.file}" target="create-user" inheritall="false" />
+		<ant antfile="${impex.build.file}" target="create-user" inheritall="false">
+			<property name="impex.properties.file" value="${impex.properties.file}"/>
+		</ant>
 	</target>
-
+	
 	<target name="import" depends="create-mysql-user">
-		<ant antfile="${impex.build.file}" target="empty-schema" inheritall="false" />
-		<ant antfile="${impex.build.file}" target="import" inheritall="false" />
+		<ant antfile="${impex.build.file}" target="empty-schema" inheritall="false">
+			<property name="impex.properties.file" value="${impex.properties.file}"/>
+		</ant>
+		<ant antfile="${impex.build.file}" target="import" inheritall="false">
+			<property name="impex.properties.file" value="${impex.properties.file}"/>
+		</ant>
 		<delete file="${log.file}" />
 	</target>
-		
+	
 	<target name="dist-external" if="dist.external" depends="init-properties">
 		<ant dir="${application.deploy.directory}/${application.java.project}" target="dist-external" />
 	</target>
