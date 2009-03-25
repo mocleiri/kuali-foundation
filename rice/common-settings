@@ -1,0 +1,10 @@
+#!/bin/sh -x
+
+#set -x
+SEND_MAIL=true; typeset -rx SEND_MAIL
+#SEND_MAIL=false; typeset -rx SEND_MAIL
+
+APPLICATION=rice; typeset -rx APPLICATION
+APPLICATION_CFG_MAIL_LIST=krice.dev.core@kuali.org; typeset -rx APPLICATION_CFG_MAIL_LIST
+#APPLICATION_DEV_MAIL_LIST=krice.dev@kuali.org; typeset -rx APPLICATION_DEV_MAIL_LIST
+APPLICATION_JAVA_PROJECT=$APPLICATION; typeset -rx APPLICATION_JAVA_PROJECT
