@@ -86,6 +86,18 @@
 						$("a.panelcontrol03").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
 					}
 				);
+			<!-- panelcontent04 -->
+				$("#panelcontent04").hide();
+				$("a.panelcontrol04").toggle(
+					function()
+					{
+						$("#panelcontent04").slideDown(500);
+						$("a.panelcontrol04").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#panelcontent04").slideUp(500);
+						$("a.panelcontrol04").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
 		<!-- SUB-ELEMENT -->
 			<!-- subelementcontent01 -->
 				$("#subelementcontent01").hide();
@@ -834,9 +846,12 @@
             	<!--</div>-->
             
             	<!-- Template 1: Animal Use (v.1.00123) -->
-                    <table width="100%" cellpadding="0" cellspacing="0">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="border-top:solid 1px #E4E3E4;">
                         <thead>
                             <tr>
+                                <th class="subelementheader" style="padding:2px; width:50px; text-align:left;">
+                                    <a href="#" class="panelcontrol04"><img id="panelcontrolimage04" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
+                                </th>
                                 <th class="subelementheader" align="left">
                                     Template: Animal Use (unmodified v.1.00123)
                                 </th>
@@ -845,20 +860,64 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                    </table>
+                    <div id="panelcontent04">
+                        <table width="100%" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="elementcontent" colspan="2">
                                 
                                 	<div style="padding-bottom:5px;">
-										<table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+										<table width="100%" cellpadding="0" cellspacing="0" class="subelement" style="border-top:solid 1px #939393;">
                                             <tr>
-                                                <td class="subelementcontent">
-                                                    Controls for the Template:
-                                                    <ul>
-                                                        <li>Insert Section</li>
-                                                        <li>Remove Template/Workspace from this Questionnaire</li>
-                                                        <li>Move Template/Workspace</li>
-                                                    </ul>
+                                                <td class="content_grey" style="width:120px; text-align:right;">
+                                                    Move Template:
+                                                </td>
+                                                <td class="content_white">
+                                                    <select name="CustomData" style="width:100%;">
+                                                        <option value="0" selected="selected">select</option>
+                                                        <option value="1">After "My Cool, Custom Work Area"</option>
+                                                    </select>
+                                                </td>
+                                                <td class="content_white" style="width:50px; text-align:center;">
+                                                    <input name="x" src="../images/tinybutton-move.gif" onclick="javascript: alert('If thiswere not a mock, this would move this template as specified.'); return false" style="border:none;" alt="move template" type="image" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:right;">
+                                                    Insert Section:
+                                                </td>
+                                                <td class="content_white" style="text-align:right;">
+                                                    
+                                                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; width:50px; text-align:right;">
+                                                                Name:
+                                                            </td>
+                                                            <td style="border:none;">
+                                                                <input type="text" id="sectionname" name="sectionname" style="width:100%" value="" />
+                                                            </td>
+                                                            <td style="border:none; width:60px; text-align:right;">
+                                                                Location:
+                                                            </td>
+                                                            <td style="border:none;">
+                                                                <select name="CustomData" style="width:100%;">
+                                                                    <option value="0" selected="selected">select</option>
+                                                                    <option value="1">Before "Research Details"</option>
+                                                                    <option value="2">After "Research Details"</option>
+                                                                    <option value="3">After "Animal Procurement"</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                                <td class="content_white" style="text-align:center;">
+                                                    <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this would alert that the template will be *modified* before add a section as specified.'); return false" style="border:none;" alt="add" type="image" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;" colspan="3">
+                                                    <input name="x" src="../images/tinybutton-removetemplate.gif" onclick="javascript: alert('If thiswere not a mock, this would ask for confirmation before removing this template.'); return false" style="border:none;" alt="remove template" type="image" />
                                                 </td>
                                             </tr>
                                         </table>
@@ -1407,40 +1466,86 @@
                                     
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
+                        </table>
+                    </div>
                     
-                <!-- Template 3: Pharmaceutical Controls (v.2.00000) -->
-                    <table width="100%" cellpadding="0" cellspacing="0">
+                <!-- Workspace: My Cool, Custom Work Area -->
+                    <table width="100%" cellpadding="0" cellspacing="0" style="border-top:solid 1px #E4E3E4;">
                         <thead>
                             <tr>
+                                <th class="subelementheader" style="padding:2px; width:50px; text-align:left;">
+                                    <a href="#" class="panelcontrol03"><img id="panelcontrolimage03" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
+                                </th>
                                 <th class="subelementheader" align="left">
                                     Workspace: My Cool, Custom Work Area
-                                    <!--Template 2: Pharmaceutical Controls (v.2.00000)-->
                                 </th>
                                 <th class="subelementheader" style="text-align:right; padding:2px;">
                                     <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" title="Help" /></a>
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                    </table>
+                    <div id="panelcontent03">    
+                        <table width="100%" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="elementcontent" colspan="2">
-                                
+                                	
                                 	<div style="padding-bottom:5px;">
-										<table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+										<table width="100%" cellpadding="0" cellspacing="0" class="subelement" style="border-top:solid 1px #939393;">
                                             <tr>
-                                                <td class="subelementcontent">
-                                                    Controls for the Template / Workspace:
-                                                    <ul>
-                                                        <li>Insert Section</li>
-                                                        <li>Remove Template/Workspace from this Questionnaire</li>
-                                                        <li>Move Template/Workspace</li>
-                                                    </ul>
+                                                <td class="content_grey" style="width:120px; text-align:right;">
+                                                    Move Workspace:
+                                                </td>
+                                                <td class="content_white">
+                                                    <select name="CustomData" style="width:100%;">
+                                                        <option value="0" selected="selected">select</option>
+                                                        <option value="1">Before "Animal Use"</option>
+                                                    </select>
+                                                </td>
+                                                <td class="content_white" style="width:50px; text-align:center;">
+                                                    <input name="x" src="../images/tinybutton-move.gif" onclick="javascript: alert('If thiswere not a mock, this would move this template as specified.'); return false" style="border:none;" alt="move template" type="image" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:right;">
+                                                    Insert Section:
+                                                </td>
+                                                <td class="content_white" style="text-align:right;">
+                                                    
+                                                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; width:50px; text-align:right;">
+                                                                Name:
+                                                            </td>
+                                                            <td style="border:none;">
+                                                                <input type="text" id="sectionname" name="sectionname" style="width:100%" value="" />
+                                                            </td>
+                                                            <td style="border:none; width:60px; text-align:right;">
+                                                                Location:
+                                                            </td>
+                                                            <td style="border:none;">
+                                                                <select name="CustomData" style="width:100%;">
+                                                                    <option value="0" selected="selected">select</option>
+                                                                    <option value="1">Before "Licencing"</option>
+                                                                    <option value="2">After "Licencing"</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                                <td class="content_white" style="text-align:center;">
+                                                    <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this would add a section as specified.'); return false" style="border:none;" alt="add" type="image" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;" colspan="3">
+                                                    <input name="x" src="../images/tinybutton-removeworkspace.gif" onclick="javascript: alert('If thiswere not a mock, this would ask for confirmation before removing this workspace.'); return false" style="border:none;" alt="remove workspace" type="image" />
                                                 </td>
                                             </tr>
                                         </table>
                                     </div>
+                                    
     
                                     <!--<img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <a id="listcontrol00" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
                                     <div id="treecontrol" style="display:inline;">
@@ -1463,14 +1568,11 @@
                                             </li>
                                         
                                         </ul>
-                                        
-                                    
-                                   
                                     
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
+                        </table>
+                    </div>
             
             
             
