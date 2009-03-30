@@ -431,7 +431,7 @@
         	<td align="left" valign="middle">
             	<span class="pagetitle">
                 	Questionnaire Management
-                	<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="bottom" /></a>
+                	<input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this page.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
                 </span>
             </td>
             <td align="right">
@@ -522,7 +522,7 @@
             Question Manager
         </td>
         <td class="toppanelhead3">
-            <a href="#" class="panelcontrol01"><img id="panelcontrolimage01" src="../images/tinybutton-hide.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
+            <!--<a href="#" class="panelcontrol01"><img id="panelcontrolimage01" src="../images/tinybutton-hide.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>-->
         </td>
         <td class="toppanelhead4">&nbsp;</td>
         <td class="toppanelhead5">&nbsp;</td>
@@ -538,8 +538,411 @@
             <td class="panelcontent1">&nbsp;</td>
             <td class="panelcontent2" colspan="3">  
                 
-               [manage categorized questions here]
-            
+               <!-- ELEMENT HEAD: Question -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            Question
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                
+                <!-- CONTENT: Question -->
+                <table class="content_table">  
+                   <tr>
+                        <td class="content_grey" style="width:115px; text-align:right;">
+                            Question:
+                        </td>
+                        <td class="content_white" colspan="3">
+                            
+                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <textarea name="z" style="width:100%; text-align:left;" rows="2">Confirm live vertebrates will be used in this protocol?</textarea>
+                                    </td>
+                                    <td style="border:none; width:55px; text-align:center; vertical-align:bottom;">
+                                        <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a popup edit area. Changes would reversion the question.'); return false" style="border:none;" alt="save" type="image" />
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog allowing an existing question:version to be loaded.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:right;">
+                            Version:
+                        </td>
+                        <td class="content_white">
+                            1.000 (Unmodified)
+                        </td>
+                        <td class="content_grey" style="text-align:right;">
+                            Status:
+                        </td>
+                        <td class="content_white">
+                            
+                            <select>
+                                <option value="0" selected="selected">active</option>
+                                <option value="1">inactive</option>
+                            </select>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:right;">
+                            Category:
+                        </td>
+                        <td class="content_white" colspan="3">
+                            
+                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" id="x" name="x" style="width:100%" value="Animal Use" />
+                                    </td>
+                                    <td style="border:none; width:30px; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog. Changing the category would reversion the question.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:right;">
+                            Description:
+                        </td>
+                        <td class="content_white" colspan="3">
+                            
+                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <textarea name="z" style="width:100%; text-align:left;" rows="2">This question is used in Animal Use cases for potential live vertebrates.</textarea>
+                                    </td>
+                                    <td style="border:none; width:30px; text-align:center; vertical-align:bottom;">
+                                        <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a popup edit area. Changes would reversion the question.'); return false" style="border:none;" alt="save" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                </table>
+                <table class="subelementhead_table" style="border-top:none;">
+                    <tr>
+                    	<td colspan="2" class="subelementhead_left" style="text-align:left;">
+                        	<b>Response</b>
+                        </td>
+                    </tr>
+                </table>
+                <table class="content_table">
+                    <tr>
+                        <td class="content_grey" style="width:110px; text-align:center;">
+                            Type
+                        </td>
+                        <td class="content_grey" style="text-align:center;">
+                            Values
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_white" style="text-align:center; vertical-align:top;">
+                            
+                            <select id="responsetypecontrol">
+                                <option value="0">select</option>
+                                <option value="1" selected="selected">Yes/No</option>
+                                <option value="2">Yes/No/NA</option>
+                                <option value="3">Number</option>
+                                <option value="4">Date</option>
+                                <option value="5">Ranking</option>
+                                <option value="6">Text</option>
+                                <option value="7">KC List</option>
+                                <option value="8">Dropdown</option>
+                                <option value="9">Checkbox</option>
+                            </select>
+                            
+                            <!-- Hide/Show Selected Type's Options -->
+							<script type="text/javascript">
+								$(document).ready(function(){
+									
+									setValueOptions();
+									$("#responsetypecontrol").change( function() {
+										setValueOptions();
+									});
+									function setValueOptions()
+									{
+										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 0 )
+										{
+											$(".responsetypediv").slideUp(200);
+											$("#responsetypeSelect").slideDown(400);
+										}
+										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 1 )
+										{
+											$(".responsetypediv").slideUp(200);
+											$("#responsetypeYesNo").slideDown(400);
+										}
+										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 2 )
+										{
+											$(".responsetypediv").slideUp(200);
+											$("#responsetypeYesNoNA").slideDown(400);
+										}
+										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 3 )
+										{
+											$(".responsetypediv").slideUp(200);
+											$("#responsetypeNumber").slideDown(400);
+										}
+										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 4 )
+										{
+											$(".responsetypediv").slideUp(200);
+											$("#responsetypeDate").slideDown(400);
+										}
+										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 5 )
+										{
+											$(".responsetypediv").slideUp(200);
+											$("#responsetypeRanking").slideDown(400);
+										}
+										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 6 )
+										{
+											$(".responsetypediv").slideUp(200);
+											$("#responsetypeText").slideDown(400);
+										}
+										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 7 )
+										{
+											$(".responsetypediv").slideUp(200);
+											$("#responsetypeKCList").slideDown(400);
+										}
+										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 8 )
+										{
+											$(".responsetypediv").slideUp(200);
+											$("#responsetypeDropdown").slideDown(400);
+										}
+										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 9 )
+										{
+											$(".responsetypediv").slideUp(200);
+											$("#responsetypeCheckbox").slideDown(400);
+										}
+									}
+									
+									<!-- Select None Question Use -->
+									$("#quseNone").click( function() {
+										$(".quse").attr('checked','');
+									});
+									
+									<!-- Select All Question Use -->
+									$("#quseAll").click( function() {
+										$(".quse").attr('checked','checked');
+									});
+									
+								});
+							</script>
+                            
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                            
+                            <!-- select -->
+                            <div id="responsetypeSelect" class="responsetypediv">
+                                <i>Please select the Type of response you would like for this question.</i>
+                            </div>
+                            
+                            <!-- Yes/No -->
+                            <div id="responsetypeYesNo" class="responsetypediv">
+                                <p>
+                                	The user will be presented with the following radio buttons: Yes, No. Only one selection is possible.
+                                </p>
+                                <p>
+                                	Default Choice:
+                                    <select>
+                                        <option value="1">Yes</option>
+                                        <option value="2" selected="selected">No</option>
+                                    </select>
+                                </p>
+                            </div>
+                            
+                            <!-- Yes/No/NA -->
+                            <div id="responsetypeYesNoNA" class="responsetypediv">
+                                <p>
+                                	The user will be presented with the following radio buttons: Yes, No, Not Applicable. Only one selection is possible.
+                                </p>
+                                <p>
+                                	Default Choice:
+                                    <select>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+                                        <option value="3" selected="selected">Not Applicable</option>
+                                    </select>
+                                </p>
+                            </div>
+                            
+                            <!-- Number -->
+                            <div id="responsetypeNumber" class="responsetypediv">
+                                <p>
+                                	The user will be presented with a text box.  The entered value will be validated requiring a number only.
+                                </p>
+                            </div>
+                            
+                            <!-- Date -->
+                            <div id="responsetypeDate" class="responsetypediv">
+                                <p>
+                                	The user will be presented with a text box.  The entered value will be validated for a date in MM/DD/YYYY format.
+                                </p>
+                            </div>
+                            
+                            <!-- Ranking -->
+                            <div id="responsetypeRanking" class="responsetypediv">
+                                <p>
+                                	[Ranking options here]
+                                </p>
+                            </div>
+                            
+                            <!-- Text -->
+                            <div id="responsetypeText" class="responsetypediv">
+                                <p>
+                                	The user will be presented with a text area.
+                                </p>
+                                <p>
+                                	Maximum length of response in characters:
+                                    <input type="text" size="4" value="150" />
+                                </p>
+                            </div>
+                            
+                            <!-- KC List -->
+                            <div id="responsetypeKCList" class="responsetypediv">
+                                <p>
+                                	[KC List options here]
+                                </p>
+                            </div>
+                            
+                            <!-- Dropdown -->
+                            <div id="responsetypeDropdown" class="responsetypediv">
+                                <p>
+                                	The user will be presented with a dropdown of alphanumerically listed options.  Only one selection is possible.
+                                </p>
+                                <p>
+                                	[Show a list of the current options, add an option, remove an option, set the initial selection.]
+                                </p>
+                            </div>
+                            
+                            <!-- Checkbox -->
+                            <div id="responsetypeCheckbox" class="responsetypediv">
+                                <p>
+                                	The user will be presented with one or more checkboxes.  More than one selection is possible.
+                                </p>
+                                <p>
+                                	[Show a list of the current options, add an option, remove an option, set the initial state for each checkbox.]
+                                </p>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_info" style="text-align:center;" colspan="2">
+                            <input name="x" src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would save changes as a new question or a new version.  If this is a new version of a question you would be asked if you want to apply it to all active questionnaires. If a non-existant category has been entered, the new category would be added.'); return false" style="border:none; padding:2px;" alt="save" type="image" />
+                            <input name="x" src="../images/tinybutton-clear40.gif" onclick="javascript: alert('This would clear the form data allowing a NEW question to be added.'); return false" style="border:none; padding:2px;" alt="clear" type="image" />
+                        </td>
+                    </tr>
+                </table>
+               
+               <!-- ELEMENT HEAD: Question Use -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <a href="#" class="panelcontrol02"><img id="panelcontrolimage04" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
+                            Question Use: Confirm live vertebrates will be used... (version 1.000: unmodified)
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+               	<div id="panelcontent02">
+                    <!-- CONTENT: Question -->
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
+                                
+                            </td>
+                            <td class="content_grey" style="width:50px; text-align:center;">
+                                Select
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Module
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Questionnaire
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="width:50px; text-align:center;">
+                                1
+                            </td>
+                            <td class="content_white" style="width:50px; text-align:center;">
+                                <input type="checkbox" style="border:none;" id="cb01" name="cb01" class="quse" checked="checked" />
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                Lorem Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                My Cool Questionnaire About Stuff 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:center;">
+                                2
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                                <input type="checkbox" style="border:none;" id="cb02" name="cb02" class="quse" />
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                Lorem Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                Some Other Questionnaire About Different Stuff 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:center;">
+                                3
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                                <input type="checkbox" style="border:none;" id="cb03" name="cb03" class="quse" />
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                Lorem Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                Yet Another Questionnaire About Stuff 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:center;">
+                                4
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                                <input type="checkbox" style="border:none;" id="cb04" name="cb04" class="quse" />
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                Lorem Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                The Questionnaire To End All Questionnaires 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_info" style="text-align:center;">
+                                
+                            </td>
+                            <td class="content_info fineprint" style="text-align:center;">
+                                <a href="#" id="quseAll">all</a> | <a href="#" id="quseNone">none</a>
+                            </td>
+                            <td class="content_info" style="text-align:center;" colspan="2">
+                                <input name="x" src="../images/tinybutton-applytoselected.gif" onclick="javascript: alert('This would apply the current version (modified) to the selected Modules/Questionnairs and reload the new Question Use list.  Save (as above) is implied by this action.'); return false" style="border:none; padding:2px;" alt="apply" type="image" />
+                                <input name="x" src="../images/tinybutton-inactivate98.gif" onclick="javascript: alert('BFN: I have no idea what this does.  :|'); return false" style="border:none; padding:2px;" alt="inactivate" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+               
             </td>
             <td class="panelcontent3">&nbsp;</td>
         </tr>
@@ -562,10 +965,8 @@
     
 <!-- GLOBAL DOCUMENT CONTROLS -->
 <div class="globaldocumentcontrols">
-    <a href="#"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" /></a>
-    <a href="#"><img src="../images/buttonsmall_saveastemplate.gif" alt="save as template" width="120" height="18" hspace="5" border="0" /></a>
     <a href="#"><img src="../images/buttonsmall_refresh.gif" alt="save" width="68" height="18" hspace="5" border="0" /></a>
-    <a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width="48" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_close.gif" alt="close" width="48" height="18" hspace="5" border="0" /></a>
     <a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0" /></a>
 </div>
 

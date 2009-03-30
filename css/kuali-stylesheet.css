@@ -568,7 +568,7 @@
 	}
 	.content_info
 	{
-		background-image: url("../images/th-back1.gif") no-repeat;
+		background-image: url("../images/th-back1.gif"); no-repeat;
 		background-size: 100%;
 		background-position: bottom;
 		border-top: solid #939393 0px;
