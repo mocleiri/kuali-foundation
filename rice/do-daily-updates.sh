@@ -19,7 +19,7 @@ kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 ##
 kupdate stg standard true true Oracle9i
 
-. ~j2eemgr/kuali/rice/do-daily-updates.sh
+. ~j2eemgr/kuali/rice/do-daily-kuali-client-updates.sh
 
 kpurge $LOGS_DIRECTORY 7
 
