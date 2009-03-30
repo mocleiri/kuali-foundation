@@ -1,7 +1,5 @@
 #!/bin/sh
 
-#do-daily-updates.sh
-
 . ~j2eemgr/kuali/rice/common-settings
 . ~j2eemgr/kuali/rice/1.0.0-kuali-client-settings
 . ~j2eemgr/kuali/shared-settings
@@ -9,7 +7,7 @@
 
 kexport dba $APPLICATION_INFRASTRUCTURE_VERSION
 # may need to update kdailytag, it assumes we have one database project per application project!
-# kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
+kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 
 ##
 # Args to kupdate
