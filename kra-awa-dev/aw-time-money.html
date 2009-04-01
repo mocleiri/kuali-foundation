@@ -123,14 +123,440 @@
         	<td>
             	<div align="center">
         			<div id="workarea">
-        
-<!-- PANEL: Time & Money -->
+
+<!-- PANEL: Award Hierarchy -->
 	<!-- Panel Tab Header -->
         <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-                <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Time &amp; Money</td>
-                <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" ></a></span> </td>
+                <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Award Hierarchy</td>
+                <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A02x" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02x" ></a></span> </td>
                 <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+        </table>
+	<!-- Panel Content Div -->
+        <div class="tab-container" align="center" id="G02x" style="display: none;">
+        	
+            <!-- Panel Element: Award Hierarchy -->
+            <!-- Element Header: Award Hierarchy -->
+                <div class="h2-container">
+                    <span class="subhead-left"><h2>Award Hierarchy</h2></span>
+                    <span class="subhead-right">
+                        <span class="subhead">
+                            <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
+                        </span>
+                    </span>
+                </div>
+            <!-- Element Content: Award Hierarchy -->
+             	<table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
+                    <tr>
+                        <td style="text-align:center; background-color:#C3C3C3; font-weight:bold;">
+                        	&nbsp;
+                            <!--<span id="treecontrol" style="display:inline;">
+                                <a title="Collapse the entire tree below" href="#"><img src="../BFN/images/minus.gif" /> Collapse All</a>
+                                &nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="../BFN/images/plus.gif" /> Expand All</a>
+                            </span>-->
+                        </td>
+                        <td style="text-align:center; background-color:#C3C3C3; font-weight:bold; width:245px;">
+                            <input type="radio" class="nobord" name="when01" value="0" checked="checked" />current
+                            <input type="radio" class="nobord" name="when01" value="1" />pending
+                        </td>
+                        <td style="text-align:center; background-color:#C3C3C3; font-weight:bold; width:305px;">
+                            <input type="checkbox" class="nobord" name="which01" value="0" checked="checked" />total
+                            <input type="checkbox" class="nobord" name="which02" value="2" />distributable
+                            <input type="checkbox" class="nobord" name="which03" value="3" />distributed
+                        </td>
+                        <td style="text-align:center; background-color:#C3C3C3; width:60px;">
+                            <input name="x" src="../images/tinybutton-refresh.gif" onclick="javascript: alert('If this were not a mock, this button would refresh the data below.'); return false" class="tinybutton" alt="refresh" alt="refresh" type="image" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-image:url(../images/th-back.gif);" colspan="4">
+                            <div>
+                                <span style="float:right; margin-right:17px;">
+                                    <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                        <tr>
+                                            <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                Obligated
+                                            </td>
+                                            <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                Anticipated
+                                            </td>
+                                            <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                Oblg. Start
+                                            </td>
+                                            <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                Oblg. End
+                                            </td>
+                                            <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                Final End
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </span>
+                                <span id="treecontrol" style="display:inline;">
+                                    <!--&nbsp;-->
+                                    <a title="Collapse the entire tree below" href="#"><img src="../BFN/images/minus.gif" /> Collapse All</a>
+                                    &nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="../BFN/images/plus.gif" /> Expand All</a>
+                                </span>
+                            </div>
+                            
+                            <div id="awardhierarchydiv" style="clear:left; height:300px; margin:10px 0 0 0; overflow-y:scroll; overflow-x:hidden; position:relative;">
+                            
+                                <ul id="browser" class="filetree">
+                                   <ul>
+                                        <li>
+                                            <span style="float:right;">
+                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                    <tr>
+                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                            20,000.00
+                                                        </td>
+                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                            50,000.00
+                                                        </td>
+                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                            01/12/2007
+                                                        </td>
+                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                            12/31/2008
+                                                        </td>
+                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                            11/30/2012
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </span>
+                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
+                                            <span style="margin-left:2px;">000121-001 :</span>
+                                            
+                                            <ul>
+                                                <li>
+                                                    <span style="float:right;">
+                                                        <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <tr>
+                                                                <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    20,000.00
+                                                                </td>
+                                                                <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    50,000.00
+                                                                </td>
+                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    01/12/2007
+                                                                </td>
+                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    12/31/2008
+                                                                </td>
+                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    11/30/2012
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </span>
+                                                    &nbsp;<img src="../BFN/images/award_inactive.gif" width="11" height="11" border="0" title="Status: Inactive">
+                                                    <span style="margin-left:2px;">000121-002 :</span>
+                                                    
+                                                    
+                                                </li>
+                                                <li>
+                                                    <span style="float:right;">
+                                                        <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <tr>
+                                                                <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    20,000.00
+                                                                </td>
+                                                                <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    50,000.00
+                                                                </td>
+                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    01/12/2007
+                                                                </td>
+                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    12/31/2008
+                                                                </td>
+                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    11/30/2012
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </span>
+                                                    &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
+                                                    <span style="margin-left:2px;">000121-003 :</span>
+                                                    
+                                                    <ul>
+                                                        <li>
+                                                            <span style="float:right;">
+                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    <tr>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            20,000.00
+                                                                        </td>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            50,000.00
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            01/12/2007
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            12/31/2008
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            11/30/2012
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
+                                                            <span style="margin-left:2px;">000121-004 :</span>
+                                                        </li>
+                                                        <li>
+                                                            <span style="float:right;">
+                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    <tr>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            20,000.00
+                                                                        </td>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            50,000.00
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            01/12/2007
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            12/31/2008
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            11/30/2012
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                            &nbsp;<img src="../BFN/images/award_pending.gif" width="11" height="11" border="0" title="Status: Pending">
+                                                            <span style="margin-left:2px;">000121-005 :</span>
+                                                        </li>
+                                                        <li>
+                                                            <span style="float:right;">
+                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    <tr>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            20,000.00
+                                                                        </td>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            50,000.00
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            01/12/2007
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            12/31/2008
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            11/30/2012
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
+                                                            <span style="margin-left:2px;">000121-006 :</span>
+                                                        </li>
+                                                        <li>
+                                                            <span style="float:right;">
+                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    <tr>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            20,000.00
+                                                                        </td>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            50,000.00
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            01/12/2007
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            12/31/2008
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            11/30/2012
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
+                                                            <span style="margin-left:2px;">000121-007 :</span>
+                                                        </li>
+                                                        <li>
+                                                            <span style="float:right;">
+                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    <tr>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            20,000.00
+                                                                        </td>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            50,000.00
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            01/12/2007
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            12/31/2008
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            11/30/2012
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
+                                                            <span style="margin-left:2px;">000121-008 :</span>
+                                                        </li>
+                                                        <li>
+                                                            <span style="float:right;">
+                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    <tr>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            20,000.00
+                                                                        </td>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            50,000.00
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            01/12/2007
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            12/31/2008
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            11/30/2012
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
+                                                            <span style="margin-left:2px;">000121-009 :</span>
+                                                        </li>
+                                                        <li>
+                                                            <span style="float:right;">
+                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    <tr>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            20,000.00
+                                                                        </td>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            50,000.00
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            01/12/2007
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            12/31/2008
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            11/30/2012
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
+                                                            <span style="margin-left:2px;">000121-010 :</span>
+                                                        </li>
+                                                        <li>
+                                                            <span style="float:right;">
+                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    <tr>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            20,000.00
+                                                                        </td>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            50,000.00
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            01/12/2007
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            12/31/2008
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            11/30/2012
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                            &nbsp;<img src="../BFN/images/award_pending.gif" width="11" height="11" border="0" title="Status: Pending">
+                                                            <span style="margin-left:2px;">000121-011 :</span>
+                                                        </li>
+                                                        <li>
+                                                            <span style="float:right;">
+                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    <tr>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            20,000.00
+                                                                        </td>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            50,000.00
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            01/12/2007
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            12/31/2008
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            11/30/2012
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                            &nbsp;<img src="../BFN/images/award_pending.gif" width="11" height="11" border="0" title="Status: Pending">
+                                                            <span style="margin-left:2px;">000121-012 :</span>
+                                                        </li>
+                                                        <li>
+                                                            <span style="float:right;">
+                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                                    <tr>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            20,000.00
+                                                                        </td>
+                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            50,000.00
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            01/12/2007
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            12/31/2008
+                                                                        </td>
+                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
+                                                                            11/30/2012
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                            &nbsp;<img src="../BFN/images/award_pending.gif" width="11" height="11" border="0" title="Status: Pending">
+                                                            <span style="margin-left:2px;">000121-013 :</span>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </ul>
+                            
+                            </div>
+                            
+                            
+                            
+                        </td>
+                    </tr>
+                </table>
+            
+        </div>
+      
+<!-- PANEL: Transactions -->
+	<!-- Panel Tab Header -->
+        <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+                <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Transactions</td>
+                <td class="tabtable2-mid"><a href="#" id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" ></a></td>
+                <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
         </table>
 	<!-- Panel Content Div -->
@@ -663,433 +1089,6 @@
                         </td>
                     </tr>
                 </table>
-                <br />
-        
-        
-        
-        
-        <!-- Panel Element: Award Hierarchy -->
-            <!-- Element Header: Award Hierarchy -->
-                <div class="h2-container">
-                    <span class="subhead-left"><h2>Award Hierarchy</h2></span>
-                    <span class="subhead-right">
-                        <span class="subhead">
-                            <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
-                        </span>
-                    </span>
-                </div>
-            <!-- Element Content: Award Hierarchy -->
-             	<table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
-                    <tr>
-                        <td style="text-align:center; background-color:#C3C3C3; font-weight:bold;">
-                        	&nbsp;
-                            <!--<span id="treecontrol" style="display:inline;">
-                                <a title="Collapse the entire tree below" href="#"><img src="../BFN/images/minus.gif" /> Collapse All</a>
-                                &nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="../BFN/images/plus.gif" /> Expand All</a>
-                            </span>-->
-                        </td>
-                        <td style="text-align:center; background-color:#C3C3C3; font-weight:bold; width:245px;">
-                            <input type="radio" class="nobord" name="when01" value="0" checked="checked" />current
-                            <input type="radio" class="nobord" name="when01" value="1" />pending
-                        </td>
-                        <td style="text-align:center; background-color:#C3C3C3; font-weight:bold; width:305px;">
-                            <input type="checkbox" class="nobord" name="which01" value="0" checked="checked" />total
-                            <input type="checkbox" class="nobord" name="which02" value="2" />distributable
-                            <input type="checkbox" class="nobord" name="which03" value="3" />distributed
-                        </td>
-                        <td style="text-align:center; background-color:#C3C3C3; width:60px;">
-                            <input name="x" src="../images/tinybutton-refresh.gif" onclick="javascript: alert('If this were not a mock, this button would refresh the data below.'); return false" class="tinybutton" alt="refresh" alt="refresh" type="image" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="background-image:url(../images/th-back.gif);" colspan="4">
-                            <div>
-                                <span style="float:right; margin-right:17px;">
-                                    <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                        <tr>
-                                            <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                Obligated
-                                            </td>
-                                            <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                Anticipated
-                                            </td>
-                                            <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                Oblg. Start
-                                            </td>
-                                            <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                Oblg. End
-                                            </td>
-                                            <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                Final End
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </span>
-                                <span id="treecontrol" style="display:inline;">
-                                    <!--&nbsp;-->
-                                    <a title="Collapse the entire tree below" href="#"><img src="../BFN/images/minus.gif" /> Collapse All</a>
-                                    &nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="../BFN/images/plus.gif" /> Expand All</a>
-                                </span>
-                            </div>
-                            
-                            <div id="awardhierarchydiv" style="clear:left; height:125px; margin:10px 0 0 0; overflow-y:scroll; overflow-x:hidden; position:relative;">
-                            
-                                <ul id="browser" class="filetree">
-                                   <ul>
-                                        <li>
-                                            <span style="float:right;">
-                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                    <tr>
-                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                            20,000.00
-                                                        </td>
-                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                            50,000.00
-                                                        </td>
-                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                            01/12/2007
-                                                        </td>
-                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                            12/31/2008
-                                                        </td>
-                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                            11/30/2012
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </span>
-                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
-                                            <span style="margin-left:2px;">000121-001 :</span>
-                                            
-                                            <ul>
-                                                <li>
-                                                    <span style="float:right;">
-                                                        <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                            <tr>
-                                                                <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    20,000.00
-                                                                </td>
-                                                                <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    50,000.00
-                                                                </td>
-                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    01/12/2007
-                                                                </td>
-                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    12/31/2008
-                                                                </td>
-                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    11/30/2012
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </span>
-                                                    &nbsp;<img src="../BFN/images/award_inactive.gif" width="11" height="11" border="0" title="Status: Inactive">
-                                                    <span style="margin-left:2px;">000121-002 :</span>
-                                                    
-                                                    
-                                                </li>
-                                                <li>
-                                                    <span style="float:right;">
-                                                        <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                            <tr>
-                                                                <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    20,000.00
-                                                                </td>
-                                                                <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    50,000.00
-                                                                </td>
-                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    01/12/2007
-                                                                </td>
-                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    12/31/2008
-                                                                </td>
-                                                                <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    11/30/2012
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </span>
-                                                    &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
-                                                    <span style="margin-left:2px;">000121-003 :</span>
-                                                    
-                                                    <ul>
-                                                        <li>
-                                                            <span style="float:right;">
-                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    <tr>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            20,000.00
-                                                                        </td>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            50,000.00
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            01/12/2007
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            12/31/2008
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            11/30/2012
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </span>
-                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
-                                                            <span style="margin-left:2px;">000121-004 :</span>
-                                                        </li>
-                                                        <li>
-                                                            <span style="float:right;">
-                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    <tr>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            20,000.00
-                                                                        </td>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            50,000.00
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            01/12/2007
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            12/31/2008
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            11/30/2012
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </span>
-                                                            &nbsp;<img src="../BFN/images/award_pending.gif" width="11" height="11" border="0" title="Status: Pending">
-                                                            <span style="margin-left:2px;">000121-005 :</span>
-                                                        </li>
-                                                        <li>
-                                                            <span style="float:right;">
-                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    <tr>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            20,000.00
-                                                                        </td>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            50,000.00
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            01/12/2007
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            12/31/2008
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            11/30/2012
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </span>
-                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
-                                                            <span style="margin-left:2px;">000121-006 :</span>
-                                                        </li>
-                                                        <li>
-                                                            <span style="float:right;">
-                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    <tr>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            20,000.00
-                                                                        </td>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            50,000.00
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            01/12/2007
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            12/31/2008
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            11/30/2012
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </span>
-                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
-                                                            <span style="margin-left:2px;">000121-007 :</span>
-                                                        </li>
-                                                        <li>
-                                                            <span style="float:right;">
-                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    <tr>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            20,000.00
-                                                                        </td>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            50,000.00
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            01/12/2007
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            12/31/2008
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            11/30/2012
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </span>
-                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
-                                                            <span style="margin-left:2px;">000121-008 :</span>
-                                                        </li>
-                                                        <li>
-                                                            <span style="float:right;">
-                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    <tr>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            20,000.00
-                                                                        </td>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            50,000.00
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            01/12/2007
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            12/31/2008
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            11/30/2012
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </span>
-                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
-                                                            <span style="margin-left:2px;">000121-009 :</span>
-                                                        </li>
-                                                        <li>
-                                                            <span style="float:right;">
-                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    <tr>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            20,000.00
-                                                                        </td>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            50,000.00
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            01/12/2007
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            12/31/2008
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            11/30/2012
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </span>
-                                                            &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
-                                                            <span style="margin-left:2px;">000121-010 :</span>
-                                                        </li>
-                                                        <li>
-                                                            <span style="float:right;">
-                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    <tr>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            20,000.00
-                                                                        </td>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            50,000.00
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            01/12/2007
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            12/31/2008
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            11/30/2012
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </span>
-                                                            &nbsp;<img src="../BFN/images/award_pending.gif" width="11" height="11" border="0" title="Status: Pending">
-                                                            <span style="margin-left:2px;">000121-011 :</span>
-                                                        </li>
-                                                        <li>
-                                                            <span style="float:right;">
-                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    <tr>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            20,000.00
-                                                                        </td>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            50,000.00
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            01/12/2007
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            12/31/2008
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            11/30/2012
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </span>
-                                                            &nbsp;<img src="../BFN/images/award_pending.gif" width="11" height="11" border="0" title="Status: Pending">
-                                                            <span style="margin-left:2px;">000121-012 :</span>
-                                                        </li>
-                                                        <li>
-                                                            <span style="float:right;">
-                                                                <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
-                                                                    <tr>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            20,000.00
-                                                                        </td>
-                                                                        <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            50,000.00
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            01/12/2007
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            12/31/2008
-                                                                        </td>
-                                                                        <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                            11/30/2012
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </span>
-                                                            &nbsp;<img src="../BFN/images/award_pending.gif" width="11" height="11" border="0" title="Status: Pending">
-                                                            <span style="margin-left:2px;">000121-013 :</span>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </ul>
-                            
-                            </div>
-                            
-                            
-                            
-                        </td>
-                    </tr>
-                </table>
-                
-               <!-- <br>
-                <br>
-                <h1>Total</h1>
-                <img src="../kra-awa-dev/images/aw-money&dates-total.jpg"><br>
-                <br>
-                <h1>Distributed</h1>
-                <img src="../kra-awa-dev/images/aw-money&dates-distributed.jpg"><br>
-                <br>
-                <h1>Distributable</h1>
-                <img src="../kra-awa-dev/images/aw-money&dates-distributable.jpg"><br>-->
         
         </div> <!-- End Panel Content Div (class='tab-container') Div -->
 
