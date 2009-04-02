@@ -209,6 +209,36 @@
 					}
 				);
 			
+			<!-- Hide/Show Tier One -->
+				$(".hideshowcontainerx").find('.hideshowdivx').hide(); 
+				$(".hideshowcontainerx").find('.hideshowcontrolx').toggle(
+					function()
+					{
+						$(this).parent().parent().parent().parent().parent().find('.hideshowdivx').show(400);
+						$(this).html("<img src='../images/tinybutton-hide.gif' alt='hide this panel' title='Hide this panel.' style='width:45px; height:15px; border:none;' align='top' />");
+					},
+					function()
+					{
+						$(this).parent().parent().parent().parent().parent().find('.hideshowdivx').hide(200);
+						$(this).html("<img src='../images/tinybutton-show.gif' alt='show this panel' title='Show this panel.' style='width:45px; height:15px; border:none;' align='top' />");
+					}
+				);
+				
+			<!-- Hide/Show Tier Two -->	
+				$(".hideshowcontainer2").find('.hideshowdiv2').hide(); 
+				$(".hideshowcontainer2").find('.hideshowcontrol2').toggle(
+					function()
+					{
+						$(this).parent().parent().parent().parent().parent().find('.hideshowdiv2').show(400);
+						$(this).html("<img src='../images/tinybutton-hide.gif' alt='hide this panel' title='Hide this panel.' style='width:45px; height:15px; border:none;' align='top' />");
+					},
+					function()
+					{
+						$(this).parent().parent().parent().parent().parent().find('.hideshowdiv2').hide(200);
+						$(this).html("<img src='../images/tinybutton-show.gif' alt='show this panel' title='Show this panel.' style='width:45px; height:15px; border:none;' align='top' />");
+					}
+				);
+			
 		});
 	</script>
 </head>
@@ -411,22 +441,887 @@
                                                 <table width="100%" cellpadding="0" cellspacing="0" class="subelement" style="border-top:1px solid #999999;">
                                                     <thead>
                                                         <tr>
-                                                            <th class="subelementheader" align="left">
-                                                                [summary/history label here]
+                                                            <th class="subelementheader" style="padding:3px; text-align:left;" colspan="3">
+                                                                Summary History
                                                             </th>
                                                         </tr>
+                                                        <!-- column headers -->
+                                                            <tr>
+                                                                <th class="subelementcontent">
+                                                                    &nbsp;
+                                                                </th>
+                                                                <th class="subelementcontent">
+                                                                    Transaction Type
+                                                                </th>
+                                                            </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td class="subelementcontent">
-                                                                [summary/history content here]
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="infoline" style="text-align:center;">
-                                                                <input src="../images/tinybutton-load.gif" onclick="javascript: alert('This button would load this node into the other panels on this page.'); return false" class="tinybutton" alt="load" title="Load this node." type="image" style="padding:3px;" />
-                                                            </td>
-                                                        </tr>
+                                                        <!-- 1 -->
+                                                            <tr>
+                                                                <th class="subelementcontent" style="text-align:center; width:30px;">
+                                                                    1
+                                                                </th>
+                                                                <td class="subelementcontent" style="padding:0px; border-collapse:collapse; border-bottom:none;">
+                                                                    <div class="hideshowcontainerx">
+                                                                        <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-right:none; border-bottom:none;" cellspacing="0">
+                                                                            <tr>
+                                                                                <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                    <a href='#' class='hideshowcontrolx'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                    New
+                                                                                </th>
+                                                                            </tr>
+                                                                        </table>
+                                                                        <div class='hideshowdivx' style="padding:5px; border-bottom:solid 1px #999999;">
+                                                                        
+                                                                            <!-- Obligated Amount -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Obligated Amount
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Direct
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Indirect
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Change
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Total
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                Distributable
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Anticipated Amount -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Anticipated Amount
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Direct
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Indirect
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Change
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Total
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                Distributable
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Dates -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Dates
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Final Exp
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Obl Eff
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Obl Exp
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Notice Date
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                09/30/11
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                10/01/2008
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                09/30/2009
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                &nbsp;
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Last Update and Comments -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Last Update and Comments
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; width:165px;">
+                                                                                                Time
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; width:160px;">
+                                                                                                User
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Comments
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                10/20/2008 04:40:41 PM
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Kieth Young
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                
+                                                                                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                                    <tr>
+                                                                                                        <td style="border:none;">
+                                                                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum mi a arcu. In hac habitasse platea dictumst. Nunc non ipsum ut purus ullamcorpe...
+                                                                                                        </td>
+                                                                                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                                                                                            <input src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This button would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" title="Expanded Read Only Text Area" type="image" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                                
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        
+                                                        <!-- 2 -->
+                                                            <tr>
+                                                                <th class="subelementcontent" style="text-align:center; width:30px;">
+                                                                    2
+                                                                </th>
+                                                                <td class="subelementcontent" style="padding:0px; border-collapse:collapse; border-bottom:none;">
+                                                                    <div class="hideshowcontainerx">
+                                                                        <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-right:none; border-bottom:none;" cellspacing="0">
+                                                                            <tr>
+                                                                                <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                    <a href='#' class='hideshowcontrolx'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                    Modification
+                                                                                </th>
+                                                                            </tr>
+                                                                        </table>
+                                                                        <div class='hideshowdivx' style="padding:5px; border-bottom:solid 1px #999999;">
+                                                                        
+                                                                            <!-- Obligated Amount -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Obligated Amount
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Direct
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Indirect
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Change
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Total
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                Distributable
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Anticipated Amount -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Anticipated Amount
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Direct
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Indirect
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Change
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Total
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                Distributable
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Dates -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Dates
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Final Exp
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Obl Eff
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Obl Exp
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Notice Date
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                09/30/11
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                10/01/2008
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                09/30/2009
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                &nbsp;
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Last Update and Comments -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Last Update and Comments
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; width:165px;">
+                                                                                                Time
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; width:160px;">
+                                                                                                User
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Comments
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                10/20/2008 04:40:41 PM
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Kieth Young
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                
+                                                                                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                                    <tr>
+                                                                                                        <td style="border:none;">
+                                                                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum mi a arcu. In hac habitasse platea dictumst. Nunc non ipsum ut purus ullamcorpe...
+                                                                                                        </td>
+                                                                                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                                                                                            <input src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This button would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" title="Expanded Read Only Text Area" type="image" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                                
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        
+                                                        <!-- 3 -->
+                                                            <tr>
+                                                                <th class="subelementcontent" style="text-align:center; width:30px;">
+                                                                    3
+                                                                </th>
+                                                                <td class="subelementcontent" style="padding:0px; border-collapse:collapse; border-bottom:none;">
+                                                                    <div class="hideshowcontainerx">
+                                                                        <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-right:none; border-bottom:none;" cellspacing="0">
+                                                                            <tr>
+                                                                                <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                    <a href='#' class='hideshowcontrolx'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                    Supplement
+                                                                                </th>
+                                                                            </tr>
+                                                                        </table>
+                                                                        <div class='hideshowdivx' style="padding:5px; border-bottom:solid 1px #999999;">
+                                                                        
+                                                                            <!-- Obligated Amount -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Obligated Amount
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Direct
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Indirect
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Change
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Total
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                Distributable
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Anticipated Amount -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Anticipated Amount
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Direct
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Indirect
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Change
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Total
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                Distributable
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Dates -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Dates
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Final Exp
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Obl Eff
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Obl Exp
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Notice Date
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                09/30/11
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                10/01/2008
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                09/30/2009
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                &nbsp;
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Last Update and Comments -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Last Update and Comments
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; width:165px;">
+                                                                                                Time
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; width:160px;">
+                                                                                                User
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Comments
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                10/20/2008 04:40:41 PM
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Kieth Young
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                
+                                                                                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                                    <tr>
+                                                                                                        <td style="border:none;">
+                                                                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum mi a arcu. In hac habitasse platea dictumst. Nunc non ipsum ut purus ullamcorpe...
+                                                                                                        </td>
+                                                                                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                                                                                            <input src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This button would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" title="Expanded Read Only Text Area" type="image" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                                
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        
+                                                        <!-- 4 -->
+                                                            <tr>
+                                                                <th class="subelementcontent" style="text-align:center; width:30px;">
+                                                                    4
+                                                                </th>
+                                                                <td class="subelementcontent" style="padding:0px; border-collapse:collapse; border-bottom:none;">
+                                                                    <div class="hideshowcontainerx">
+                                                                        <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-right:none; border-bottom:none;" cellspacing="0">
+                                                                            <tr>
+                                                                                <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                    <a href='#' class='hideshowcontrolx'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                    Supplement
+                                                                                </th>
+                                                                            </tr>
+                                                                        </table>
+                                                                        <div class='hideshowdivx' style="padding:5px; border-bottom:solid 1px #999999;">
+                                                                        
+                                                                            <!-- Obligated Amount -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Obligated Amount
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Direct
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Indirect
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Change
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Total
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                Distributable
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Anticipated Amount -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Anticipated Amount
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Direct
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Indirect
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Change
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Total
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                Distributable
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                0.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse; border-right:none;">
+                                                                                                100,000.00
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Dates -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Dates
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Final Exp
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Obl Eff
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Obl Exp
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Notice Date
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                09/30/11
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                10/01/2008
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                09/30/2009
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                &nbsp;
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <!-- Last Update and Comments -->
+                                                                            <div class="hideshowcontainer2">
+                                                                                <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <th class="subelementcontent" style="border-collapse:collapse; padding:3px;">
+                                                                                            <a href='#' class='hideshowcontrol2'><img src="../images/tinybutton-show.gif" alt="show this panel" title="Show this panel." style="width:45px; height:15px; border:none;" align="top" /></a>
+                                                                                            Last Update and Comments
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div class='hideshowdiv2' style="padding:0px;">
+                                                                                    <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-bottom:none;" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; width:165px;">
+                                                                                                Time
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse; width:160px;">
+                                                                                                User
+                                                                                            </th>
+                                                                                            <th class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Comments
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                10/20/2008 04:40:41 PM
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                Kieth Young
+                                                                                            </td>
+                                                                                            <td class="subelementcontent" style="border-collapse:collapse;">
+                                                                                                
+                                                                                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                                    <tr>
+                                                                                                        <td style="border:none;">
+                                                                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum mi a arcu. In hac habitasse platea dictumst. Nunc non ipsum ut purus ullamcorpe...
+                                                                                                        </td>
+                                                                                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                                                                                            <input src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This button would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" title="Expanded Read Only Text Area" type="image" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                                
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                                  
+                                                        <!-- load -->
+                                                            <tr>
+                                                                <td class="infoline" style="text-align:center;" colspan="2">
+                                                                    <input src="../images/tinybutton-load.gif" onclick="javascript: alert('This button would load this node into the other panels on this page.'); return false" class="tinybutton" alt="load" title="Load this node." type="image" style="padding:3px;" />
+                                                                </td>
+                                                            </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
