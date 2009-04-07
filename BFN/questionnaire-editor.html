@@ -821,7 +821,7 @@
                                 </select>
                             </td>
                             <td class="content_white" style="width:65px; text-align:center;">
-                                <input name="addquestionnairetemplate" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the specified questionnaire template.'); return false;" style="border:none;" alt="add" type="image" />
+                                <input name="addquestionnairetemplate" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the specified questionnaire template at the specified location, including its sections.'); return false;" style="border:none;" alt="add" type="image" />
                             </td>
                         </tr>
                         <tr>
@@ -840,7 +840,7 @@
                                 </select>
                             </td>
                             <td class="content_white" style="width:65px; text-align:center;">
-                                <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a named workspace.'); return false;" style="border:none;" alt="add" type="image" />
+                                <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a named workspace at the specified location.'); return false;" style="border:none;" alt="add" type="image" />
                             </td>
                         </tr>
                     </table>
@@ -885,7 +885,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="content_grey" style="text-align:right;">
-                                                    Insert Section:
+                                                    Add Section:
                                                 </td>
                                                 <td class="content_white" style="text-align:right;">
                                                     
@@ -984,11 +984,11 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td style="text-align:center;" colspan="4">
-                                                                            <span class="fineprint"><i>Root sections can have no preconditions for inclusion.</i></span>
+                                                                            <span class="fineprint"><i>The first section of a questionnaire can have no preconditions for inclusion.</i></span>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th style="width:120px; text-align:center;" colspan="4">
+                                                                        <th style="text-align:center;" colspan="4">
                                                                             Add Question
                                                                         </th>
                                                                     </tr>
@@ -998,13 +998,76 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th style="width:120px; text-align:center;" colspan="4">
+                                                                        <th style="text-align:center;" colspan="4">
                                                                             Add Section
                                                                         </th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td style="text-align:center;" colspan="4">
-                                                                            <span class="fineprint">[Add Section is under development.  This would add a section as a sibling (or child?) of this section.]</span>
+                                                                        <td class="content_white" style="text-align:right;" colspan="3">
+                                                                            
+                                                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                <tr>
+                                                                                    <td style="border:none; width:60px; text-align:right;">
+                                                                                        Name:
+                                                                                    </td>
+                                                                                    <td style="border:none;">
+                                                                                        <input type="text" id="sectionname" name="sectionname" style="width:100%" value="" />
+                                                                                    </td>
+                                                                                    <td style="border:none; width:60px; text-align:right;">
+                                                                                        Location:
+                                                                                    </td>
+                                                                                    <td style="border:none;">
+                                                                                        <select name="CustomData" style="width:100%;">
+                                                                                            <option value="0" selected="selected">select</option>
+                                                                                            <option value="1">Before "Research Details"</option>
+                                                                                            <option value="2">After "Research Details"</option>
+                                                                                            <option value="2">After "Animal Procurement"</option>
+                                                                                        </select>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                            
+                                                                        </td>
+                                                                        <td class="content_white" style="text-align:center;">
+                                                                            <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a section as specified.'); return false;" style="border:none;" alt="add" type="image" />
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                                <table cellpadding="0" cellspacing="0" class="elementtable" style="width:100%; border-top:none;">
+                                                                    <tr>
+                                                                        <th style="text-align:center; border-top:none;" colspan="4">
+                                                                            Add Questionnaire Template
+                                                                        </th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="content_white">
+                                                                            
+                                                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                <tr>
+                                                                                    <td style="border:none; width:60px;">
+                                                                                        Template: 
+                                                                                    </td>
+                                                                                    <td style="border:none;">
+                                                                                        <input type="text" id="questionnairetemplatename" name="questionnairetemplatename" style="width:100%" value="" />
+                                                                                    </td>
+                                                                                    <td style="border:none; width:30px; text-align:center;">
+                                                                                        <input name="searchforquestionnairetemplate" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false;" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                            
+                                                                        </td>
+                                                                        <td class="content_white" style="width:405px">
+                                                                            Method:
+                                                                            <select name="CustomData" id="CustomData">
+                                                                                <option value="0">select</option>
+                                                                                <option value="1">Insert Questions Only (sections will be removed)</option>
+                                                                                <option value="2">Add Sections to the End of this Workspace/Template</option>
+                                                                                <option value="3">Add A Separate Questionnaire</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td class="content_white" style="width:65px; text-align:center;">
+                                                                            <input name="addquestionnairetemplate" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the specified questionnaire template at the specified location, including its sections.'); return false;" style="border:none;" alt="add" type="image" />
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -1043,7 +1106,7 @@
                                                                         <table cellpadding="0" cellspacing="0" class="elementtable" width="100%">
                                                                             <tr>
                                                                                 <th style="text-align:right;">Node:</th>
-                                                                                <th>
+                                                                                <th colspan="3">
                                                                                     <!--<input name="x" src="../images/arrow-up.gif" onclick="javascript: alert('This would move this node and its children up within its sibling group.'); return false;" style="border:none;" alt="move up" title="Move Up" type="image" />-->
                                                                                     <input src="../images/arrow-down.gif" onclick="javascript: alert('This would move this node and its children down within its sibling group.'); return false;" style="border:none;" alt="move down" title="Move Down" type="image" />
                                                                                     <input src="../images/tinybutton-removenode.gif" onclick="javascript: alert('This would ask for confirmation before removing this node and its children.'); return false;" style="border:none;" alt="remove node" title="Remove Node" type="image" />
@@ -1051,9 +1114,28 @@
                                                                                     <input src="../images/tinybutton-copynode.gif" onclick="javascript: alert('This would copy this node and its children.'); return false;" style="border:none;" alt="copy node" title="Copy Node" type="image" />
                                                                                     <input src="../images/tinybutton-pastenode.gif" onclick="javascript: alert('This would paste your previously copied or cut node and its children under this node.'); return false;" style="border:none;" alt="paste node" title="Paste Node" type="image" />
                                                                                 </th>
-                                                                                <th style="text-align:right; width:75px;">New Page:</th>
-                                                                                <th style="width:80px;">
-                                                                                    <input type="checkbox" class="nobord" checked="checked" />
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th style="text-align:right;">New Page:</th>
+                                                                                <td style="text-align:center; width:25px;">
+                                                                                	<!--<input type="checkbox" class="nobord" checked="checked" />-->
+                                                                                    <acronym title="The first question of a Section implies a New Page.">Yes</acronym>
+                                                                                </td>
+                                                                                <td style="text-align:left;">
+                                                                                    
+                                                                                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <td style="border:none; width:95px; text-align:right;">
+                                                                                                Optional Title:
+                                                                                            </td>
+                                                                                            <td style="border:none;">
+                                                                                                <input type="text" style="width:100%;" id="q0k" name="q0k" value="General Animal Questions A" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                    
+                                                                                </td>
+                                                                                <th style="width:50px;">
                                                                                     <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the presentations display of a new page beginning with this question.'); return false;" class="noborder" alt="update" title="Update New Page Status" type="image" />
                                                                                 </th>
                                                                             </tr>
@@ -1072,7 +1154,7 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td style="text-align:center;" colspan="4">
-                                                                                    <span class="fineprint"><i>Root questions can have no preconditions for inclusion.</i></span>
+                                                                                    <span class="fineprint"><i>The first question of a section can have no preconditions for inclusion.</i></span>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -1085,14 +1167,42 @@
                                                                                     <span class="fineprint">[Add Question is under development.  This would add a question as a child or sibling of this question.  The layout will be greatly informed by development of the Question Manager.]</span>
                                                                                 </td>
                                                                             </tr>
+                                                                        </table>
+                                                                        <table cellpadding="0" cellspacing="0" class="elementtable" style="width:100%; border-top:none;">
                                                                             <tr>
-                                                                                <th style="width:120px; text-align:center;" colspan="4">
-                                                                                    Add Section
+                                                                                <th style="text-align:center; border-top:none;" colspan="4">
+                                                                                    Add Questionnaire Template
                                                                                 </th>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td style="text-align:center;" colspan="4">
-                                                                                    <span class="fineprint">[Add Section is under development.  This would add a section as a sibling (or child?) of this section.]</span>
+                                                                                <td class="content_white">
+                                                                                    
+                                                                                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <td style="border:none; width:60px;">
+                                                                                                Template: 
+                                                                                            </td>
+                                                                                            <td style="border:none;">
+                                                                                                <input type="text" id="questionnairetemplatename" name="questionnairetemplatename" style="width:100%" value="" />
+                                                                                            </td>
+                                                                                            <td style="border:none; width:30px; text-align:center;">
+                                                                                                <input name="searchforquestionnairetemplate" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false;" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                    
+                                                                                </td>
+                                                                                <td class="content_white" style="width:405px">
+                                                                                    Method:
+                                                                                    <select name="CustomData" id="CustomData">
+                                                                                        <option value="0">select</option>
+                                                                                        <option value="1">Insert Questions Only (sections will be removed)</option>
+                                                                                        <option value="2">Add Sections to the End of this Workspace/Template</option>
+                                                                                        <option value="3">Add A Separate Questionnaire</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td class="content_white" style="width:65px; text-align:center;">
+                                                                                    <input name="addquestionnairetemplate" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the specified questionnaire template at the specified location, including its sections.'); return false;" style="border:none;" alt="add" type="image" />
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
@@ -1128,7 +1238,7 @@
                                                                                 <table cellpadding="0" cellspacing="0" class="elementtable" width="100%">
                                                                                     <tr>
                                                                                         <th style="text-align:right;">Node:</th>
-                                                                                        <th>
+                                                                                        <th colspan="3">
                                                                                             <!--<input name="x" src="../images/arrow-up.gif" onclick="javascript: alert('This would move this node and its children up within its sibling group.'); return false;" style="border:none;" alt="move up" title="Move Up" type="image" />-->
                                                                                             <input src="../images/arrow-down.gif" onclick="javascript: alert('This would move this node and its children down within its sibling group.'); return false;" style="border:none;" alt="move down" title="Move Down" type="image" />
                                                                                             <input src="../images/tinybutton-removenode.gif" onclick="javascript: alert('This would ask for confirmation before removing this node and its children.'); return false;" style="border:none;" alt="remove node" title="Remove Node" type="image" />
@@ -1136,9 +1246,27 @@
                                                                                             <input src="../images/tinybutton-copynode.gif" onclick="javascript: alert('This would copy this node and its children.'); return false;" style="border:none;" alt="copy node" title="Copy Node" type="image" />
                                                                                             <input src="../images/tinybutton-pastenode.gif" onclick="javascript: alert('This would paste your previously copied or cut node and its children under this node.'); return false;" style="border:none;" alt="paste node" title="Paste Node" type="image" />
                                                                                         </th>
-                                                                                        <th style="text-align:right; width:75px;">New Page:</th>
-                                                                                        <th style="width:80px;">
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="text-align:right;">New Page:</th>
+                                                                                        <td style="text-align:center; width:25px;">
                                                                                             <input type="checkbox" class="nobord" />
+                                                                                        </td>
+                                                                                        <td style="text-align:left;">
+                                                                                            
+                                                                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                                <tr>
+                                                                                                    <td style="border:none; width:95px; text-align:right;">
+                                                                                                        Optional Title:
+                                                                                                    </td>
+                                                                                                    <td style="border:none;">
+                                                                                                        <input type="text" style="width:100%;" value="" />
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                            
+                                                                                        </td>
+                                                                                        <th style="width:50px;">
                                                                                             <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the presentations display of a new page beginning with this question.'); return false;" class="noborder" alt="update" title="Update New Page Status" type="image" />
                                                                                         </th>
                                                                                     </tr>
@@ -1150,34 +1278,125 @@
                                                                                             <span class="fineprint">[This is under developoment.  The layout of question fields and controls will be greatly informed by development of the Question Manager.]</span>
                                                                                         </td>  
                                                                                     </tr>
+                                                                                </table>
+                                                                                <table cellpadding="0" cellspacing="0" class="elementtable" style="width:100%; border-top:none;">
                                                                                     <tr>
-                                                                                        <th style="text-align:center;" colspan="4">
+                                                                                        <th style="text-align:center; border-top:none;" colspan="5">
                                                                                             Requirements for Display
                                                                                         </th>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td style="text-align:center;" colspan="4">
-                                                                                            <span class="fineprint">[Requirements for Display is under development.  This will establish the parent question's response(s) required for this question to be shown.  Because this functionality is depenent upon possible answer types, the layout will be greatly informed by development of the Question Manager.]</span>
+                                                                                        <th style="text-align:center; width:150px;">
+                                                                                            Add
+                                                                                        </th>
+                                                                                        <td class="content_info" style="text-align:center;">
+                                                                                            <select name="CustomData">
+                                                                                                <option value="0" selected="selected">select</option>
+                                                                                                <option value="1">and</option>
+                                                                                                <option value="2">or</option>
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td class="content_info" style="text-align:center;">
+                                                                                            Previous Response:
+                                                                                            <select name="CustomData">
+                                                                                                <option value="0" selected="selected">select</option>
+                                                                                                <option value="1">Contains text value</option>
+                                                                                                <option value="2">Matches text</option>
+                                                                                                <option value="3">Less than number</option>
+                                                                                                <option value="4">Less than or equals number</option>
+                                                                                                <option value="5">Equals number</option>
+                                                                                                <option value="6">Greater than or equals number</option>
+                                                                                                <option value="7">Greater than number</option>
+                                                                                                <option value="8">Before date</option>
+                                                                                                <option value="9">After date</option>
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td class="content_info" style="text-align:center;">
+                                                                                            Value:
+                                                                                            <input type="text" size="25" />
+                                                                                        </td>
+                                                                                        <td class="content_info" class="content_white" style="width:65px; text-align:center;">
+                                                                                            <input name="addquestionnairetemplate" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the specified requirement.'); return false;" style="border:none;" alt="add" type="image" />
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <table cellpadding="0" cellspacing="0" class="elementtable" style="width:100%; border-top:none;">
+                                                                                    <tr>
+                                                                                    	<th style="text-align:left; border-top:none; width:150px;">
+                                                                                        	 Current Requirements:
+                                                                                        </th> 
+                                                                                        <td style="text-align:center; width:20px; border-top:none;">
+                                                                                        	1
+                                                                                        </td>
+                                                                                        <td style="text-align:left; border-top:none;">
+                                                                                            Matches text: Yes
+                                                                                        </td>
+                                                                                        <td class="content_white" style="text-align:center; border-top:none; width:65px;">
+                                                                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete this requirement.'); return false;" style="border:none;" alt="delete" type="image" />
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <th style="width:120px; text-align:center;" colspan="4">
+                                                                                    	<td style="text-align:right; font-style:italic;">
+                                                                                        	 (or)
+                                                                                        </td> 
+                                                                                        <td style="text-align:center;">
+                                                                                        	2
+                                                                                        </td>
+                                                                                        <td style="text-align:left;">
+                                                                                            Matches text: Sometimes
+                                                                                        </td>
+                                                                                        <td class="content_white" style="text-align:center;">
+                                                                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete this requirement.'); return false;" style="border:none;" alt="delete" type="image" />
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <table cellpadding="0" cellspacing="0" class="elementtable" style="width:100%; border-top:none;">
+                                                                                    <tr>
+                                                                                        <th style="width:120px; text-align:center;  border-top:none;">
                                                                                             Add Question
                                                                                         </th>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td style="text-align:center;" colspan="4">
+                                                                                        <td style="text-align:center;">
                                                                                             <span class="fineprint">[Add Question is under development.  This would add a question as a child or sibling of this question.  The layout will be greatly informed by development of the Question Manager.]</span>
                                                                                         </td>
                                                                                     </tr>
+                                                                                </table>
+                                                                                <table cellpadding="0" cellspacing="0" class="elementtable" style="width:100%; border-top:none;">
                                                                                     <tr>
-                                                                                        <th style="width:120px; text-align:center;" colspan="4">
-                                                                                            Add Section
+                                                                                        <th style="text-align:center; border-top:none;" colspan="4">
+                                                                                            Add Questionnaire Template
                                                                                         </th>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td style="text-align:center;" colspan="4">
-                                                                                            <span class="fineprint">[Add Section is under development.  This would add a section as a sibling (or child?) of this section.]</span>
+                                                                                        <td class="content_white">
+                                                                                            
+                                                                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                                <tr>
+                                                                                                    <td style="border:none; width:60px;">
+                                                                                                        Template: 
+                                                                                                    </td>
+                                                                                                    <td style="border:none;">
+                                                                                                        <input type="text" id="questionnairetemplatename" name="questionnairetemplatename" style="width:100%" value="" />
+                                                                                                    </td>
+                                                                                                    <td style="border:none; width:30px; text-align:center;">
+                                                                                                        <input name="searchforquestionnairetemplate" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false;" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                            
+                                                                                        </td>
+                                                                                        <td class="content_white" style="width:405px">
+                                                                                            Method:
+                                                                                            <select name="CustomData" id="CustomData">
+                                                                                                <option value="0">select</option>
+                                                                                                <option value="1">Insert Questions Only (sections will be removed)</option>
+                                                                                                <option value="2">Add Sections to the End of this Workspace/Template</option>
+                                                                                                <option value="3">Add A Separate Questionnaire</option>
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td class="content_white" style="width:65px; text-align:center;">
+                                                                                            <input name="addquestionnairetemplate" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the specified questionnaire template at the specified location, including its sections.'); return false;" style="border:none;" alt="add" type="image" />
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
@@ -1327,7 +1546,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="content_grey" style="text-align:right;">
-                                                    Insert Section:
+                                                    Add Section:
                                                 </td>
                                                 <td class="content_white" style="text-align:right;">
                                                     
