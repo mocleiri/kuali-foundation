@@ -154,6 +154,19 @@ function kdailytag {
 }
 typeset -xf kdailytag
 
+function kjavaretag {
+    {
+	source_version=$1
+	target_version=$2
+	path=$3
+	klog "re-tagging $path from $source_version to $target_version"
+	kexec "svn -q delete $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$target_version/$path -m daily-tag"
+	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$source_version/$path $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$target_version/$path -m daily-tag"
+	return 0
+    } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kjavaretag
+
 function kpurge {
     {
 	directory=$1
