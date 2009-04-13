@@ -593,21 +593,17 @@
                     </tr>
                     <tr>
                         <td class="content_grey" style="text-align:right;">
+                            ID:
+                        </td>
+                        <td class="content_white">
+                            QID001
+                        </td>
+                        <td class="content_grey" style="text-align:right;">
                             Category:
                         </td>
-                        <td class="content_white" colspan="3">
-                            
-                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none;">
-                                        <input type="text" id="x" name="x" style="width:100%" value="Animal Use" />
-                                    </td>
-                                    <td style="border:none; width:30px; text-align:center;">
-                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog. Changing the category would reversion the question.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
-                                    </td>
-                                </tr>
-                            </table>
-                            
+                        <td class="content_white">
+                            Animal Use
+                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog. Changing the category would reversion the question.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
                         </td>
                     </tr>
                     <tr>
@@ -619,10 +615,10 @@
                             <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="border:none;">
-                                        <textarea name="z" style="width:100%; text-align:left;" rows="2">This question is used in Animal Use cases for potential live vertebrates.</textarea>
+                                        <textarea style="width:100%; text-align:left;" rows="2">This question is used in Animal Use cases for potential live vertebrates.</textarea>
                                     </td>
                                     <td style="border:none; width:30px; text-align:center; vertical-align:bottom;">
-                                        <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a popup edit area. Changes would reversion the question.'); return false" style="border:none;" alt="save" type="image" />
+                                        <input src="../images/pencil_add.png" onclick="javascript: alert('This would open a popup edit area. Changes would reversion the question.'); return false" style="border:none;" alt="save" type="image" />
                                     </td>
                                 </tr>
                             </table>
@@ -648,20 +644,17 @@
                     </tr>
                     <tr>
                         <td class="content_white" style="text-align:center; vertical-align:top;">
-                            
                             <select id="responsetypecontrol">
                                 <option value="0">select</option>
                                 <option value="1" selected="selected">Yes/No</option>
                                 <option value="2">Yes/No/NA</option>
                                 <option value="3">Number</option>
                                 <option value="4">Date</option>
-                                <option value="5">Ranking</option>
                                 <option value="6">Text</option>
                                 <option value="7">KC List</option>
                                 <option value="8">Dropdown</option>
                                 <option value="9">Checkbox</option>
                             </select>
-                            
                             <!-- Hide/Show Selected Type's Options -->
 							<script type="text/javascript">
 								$(document).ready(function(){
@@ -700,24 +693,19 @@
 										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 5 )
 										{
 											$(".responsetypediv").slideUp(200);
-											$("#responsetypeRanking").slideDown(400);
+											$("#responsetypeText").slideDown(400);
 										}
 										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 6 )
 										{
 											$(".responsetypediv").slideUp(200);
-											$("#responsetypeText").slideDown(400);
+											$("#responsetypeKCList").slideDown(400);
 										}
 										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 7 )
 										{
 											$(".responsetypediv").slideUp(200);
-											$("#responsetypeKCList").slideDown(400);
-										}
-										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 8 )
-										{
-											$(".responsetypediv").slideUp(200);
 											$("#responsetypeDropdown").slideDown(400);
 										}
-										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 9 )
+										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 8 )
 										{
 											$(".responsetypediv").slideUp(200);
 											$("#responsetypeCheckbox").slideDown(400);
@@ -747,54 +735,23 @@
                             
                             <!-- Yes/No -->
                             <div id="responsetypeYesNo" class="responsetypediv">
-                                <p>
-                                	The user will be presented with the following radio buttons: Yes, No. Only one selection is possible.
-                                </p>
-                                <p>
-                                	Default Choice:
-                                    <select>
-                                        <option value="1">Yes</option>
-                                        <option value="2" selected="selected">No</option>
-                                    </select>
-                                </p>
+                                The user will be presented with the following radio buttons: Yes, No. Only one selection is possible.
                             </div>
                             
                             <!-- Yes/No/NA -->
                             <div id="responsetypeYesNoNA" class="responsetypediv">
-                                <p>
-                                	The user will be presented with the following radio buttons: Yes, No, Not Applicable. Only one selection is possible.
-                                </p>
-                                <p>
-                                	Default Choice:
-                                    <select>
-                                        <option value="1">Yes</option>
-                                        <option value="2">No</option>
-                                        <option value="3" selected="selected">Not Applicable</option>
-                                    </select>
-                                </p>
+                                The user will be presented with the following pulldown: Yes, No, Not Applicable. Only one selection is possible.
                             </div>
                             
                             <!-- Number -->
                             <div id="responsetypeNumber" class="responsetypediv">
-                                <p>
-                                	The user will be presented with a text box.  The entered value will be validated requiring a number only.
-                                </p>
+                                The user will be presented with a text box.  The entered value will be validated requiring a number only.
                             </div>
                             
                             <!-- Date -->
                             <div id="responsetypeDate" class="responsetypediv">
-                                <p>
-                                	The user will be presented with a text box.  The entered value will be validated for a date in MM/DD/YYYY format.
-                                </p>
+                                The user will be presented with a text box.  The entered value will be validated for a date in MM/DD/YYYY format.
                             </div>
-                            
-                            <!-- Ranking -->
-                            <div id="responsetypeRanking" class="responsetypediv">
-                                <p>
-                                	[Ranking options here]
-                                </p>
-                            </div>
-                            
                             <!-- Text -->
                             <div id="responsetypeText" class="responsetypediv">
                                 <p>
@@ -809,36 +766,115 @@
                             <!-- KC List -->
                             <div id="responsetypeKCList" class="responsetypediv">
                                 <p>
-                                	[KC List options here]
+                                	The user will be presented with checkboxes based on the KC List indicated.
+                                </p>
+                                <p>
+                                	<input name="kclist" type="text" size="25" value="Some KC List" />
+                                    <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog allowing the possible KC lists to be set.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
                                 </p>
                             </div>
                             
                             <!-- Dropdown -->
                             <div id="responsetypeDropdown" class="responsetypediv">
-                                <p>
-                                	The user will be presented with a dropdown of alphanumerically listed options.  Only one selection is possible.
-                                </p>
-                                <p>
-                                	[Show a list of the current options, add an option, remove an option, set the initial selection.]
-                                </p>
+                                The user will be presented with a dropdown of alphanumerically listed options.  Only one selection is possible.
+                                <table style="border:none;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; padding:3px;">
+                                            <input name="newdropdown" type="text" style="width:150px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; padding:3px; vertical-align:bottom;">
+                                            <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated option to the pulldown choices.'); return false" style="border:none;" alt="add" alt="Add This Option" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; padding:3px;">
+                                            <input name="dropdown1" type="text" style="width:150px;" value="One Fish" />
+                                        </td>
+                                        <td style="border:none; width:20px; padding:3px; vertical-align:bottom;">
+                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; padding:3px;">
+                                            <input name="dropdown2" type="text" style="width:150px;" value="Two Fish" />
+                                        </td>
+                                        <td style="border:none; width:20px; padding:3px; vertical-align:bottom;">
+                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; padding:3px;">
+                                            <input name="dropdown3" type="text" style="width:150px;" value="Red Fish" />
+                                        </td>
+                                        <td style="border:none; width:20px; padding:3px; vertical-align:bottom;">
+                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; padding:3px;">
+                                            <input name="dropdown4" type="text" style="width:150px;" value="Blue Fish" />
+                                        </td>
+                                        <td style="border:none; width:20px; padding:3px; vertical-align:bottom;">
+                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             
                             <!-- Checkbox -->
                             <div id="responsetypeCheckbox" class="responsetypediv">
-                                <p>
-                                	The user will be presented with one or more checkboxes.  More than one selection is possible.
-                                </p>
-                                <p>
-                                	[Show a list of the current options, add an option, remove an option, set the initial state for each checkbox.]
-                                </p>
+                                The user will be presented with one or more checkboxes.  No selections, or more than one selection, is possible.
+                                <table style="border:none;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; padding:3px;">
+                                            <input name="newcheckbox" type="text" style="width:150px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; padding:3px; vertical-align:bottom;">
+                                            <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated option to the pulldown choices.'); return false" style="border:none;" alt="add" alt="Add This Option" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; padding:3px;">
+                                            <input name="checkbox1" type="text" style="width:150px;" value="One Byte" />
+                                        </td>
+                                        <td style="border:none; width:20px; padding:3px; vertical-align:bottom;">
+                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; padding:3px;">
+                                            <input name="checkbox2" type="text" style="width:150px;" value="Two Bytes" />
+                                        </td>
+                                        <td style="border:none; width:20px; padding:3px; vertical-align:bottom;">
+                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; padding:3px;">
+                                            <input name="checkbox3" type="text" style="width:150px;" value="Red Light" />
+                                        </td>
+                                        <td style="border:none; width:20px; padding:3px; vertical-align:bottom;">
+                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; padding:3px;">
+                                            <input name="checkbox4" type="text" style="width:150px;" value="Blue Light" />
+                                        </td>
+                                        <td style="border:none; width:20px; padding:3px; vertical-align:bottom;">
+                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             
                         </td>
                     </tr>
                     <tr>
                         <td class="content_info" style="text-align:center;" colspan="2">
-                            <input name="x" src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would save changes as a new question or a new version.  If this is a new version of a question you would be asked if you want to apply it to all active questionnaires. If a non-existant category has been entered, the new category would be added.'); return false" style="border:none; padding:2px;" alt="save" type="image" />
-                            <input name="x" src="../images/tinybutton-clear40.gif" onclick="javascript: alert('This would clear the form data allowing a NEW question to be added.'); return false" style="border:none; padding:2px;" alt="clear" type="image" />
+                            <input src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would save changes as a new question or a new version.  If this is a new version of a question you would be asked if you want to apply it to all active questionnaires. If a non-existant category has been entered, the new category would be added.'); return false" style="border:none; padding:2px;" alt="save" type="image" />
+                            <input src="../images/tinybutton-clear40.gif" onclick="javascript: alert('This would clear the form data allowing a NEW question to be added.'); return false" style="border:none; padding:2px;" alt="clear" type="image" />
+                            <input src="../images/tinybutton-refresh.gif" onclick="javascript: alert('This would refresh the Values to reflect the pulldown choice.'); return false" style="border:none; padding:2px;" alt="refresh" type="image" />
                         </td>
                     </tr>
                 </table>
@@ -856,17 +892,17 @@
                     </tr>
                 </table>
                	<div id="panelcontent02">
-                    <!-- CONTENT: Question -->
+                    <!-- CONTENT: Question Use -->
                     <table class="content_table">  
                        <tr>
                             <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
                                 
                             </td>
-                            <td class="content_grey" style="width:50px; text-align:center;">
-                                Select
-                            </td>
                             <td class="content_grey" style="text-align:center;">
                                 Module
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Template
                             </td>
                             <td class="content_grey" style="text-align:center;">
                                 Questionnaire
@@ -876,11 +912,11 @@
                             <td class="content_grey" style="width:50px; text-align:center;">
                                 1
                             </td>
-                            <td class="content_white" style="width:50px; text-align:center;">
-                                <input type="checkbox" style="border:none;" id="cb01" name="cb01" class="quse" checked="checked" />
-                            </td>
                             <td class="content_white" style="text-align:left;">
                                 Lorem Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                MyTemplate
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 My Cool Questionnaire About Stuff 
@@ -890,11 +926,11 @@
                             <td class="content_grey" style="text-align:center;">
                                 2
                             </td>
-                            <td class="content_white" style="text-align:center;">
-                                <input type="checkbox" style="border:none;" id="cb02" name="cb02" class="quse" />
-                            </td>
                             <td class="content_white" style="text-align:left;">
                                 Lorem Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                MyTemplate
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 Some Other Questionnaire About Different Stuff 
@@ -904,11 +940,11 @@
                             <td class="content_grey" style="text-align:center;">
                                 3
                             </td>
-                            <td class="content_white" style="text-align:center;">
-                                <input type="checkbox" style="border:none;" id="cb03" name="cb03" class="quse" />
-                            </td>
                             <td class="content_white" style="text-align:left;">
                                 Lorem Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                MyTemplate
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 Yet Another Questionnaire About Stuff 
@@ -918,28 +954,28 @@
                             <td class="content_grey" style="text-align:center;">
                                 4
                             </td>
-                            <td class="content_white" style="text-align:center;">
-                                <input type="checkbox" style="border:none;" id="cb04" name="cb04" class="quse" />
-                            </td>
                             <td class="content_white" style="text-align:left;">
                                 Lorem Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                MyTemplate
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 The Questionnaire To End All Questionnaires 
                             </td>
                         </tr>
-                        <tr>
+                        <!--<tr>
                             <td class="content_info" style="text-align:center;">
                                 
                             </td>
                             <td class="content_info fineprint" style="text-align:center;">
                                 <a href="#" id="quseAll">all</a> | <a href="#" id="quseNone">none</a>
                             </td>
-                            <td class="content_info" style="text-align:center;" colspan="2">
+                            <td class="content_info" style="text-align:center;" colspan="3">
                                 <input name="x" src="../images/tinybutton-applytoselected.gif" onclick="javascript: alert('This would apply the current version (modified) to the selected Modules/Questionnairs and reload the new Question Use list.  Save (as above) is implied by this action.'); return false" style="border:none; padding:2px;" alt="apply" type="image" />
                                 <input name="x" src="../images/tinybutton-inactivate98.gif" onclick="javascript: alert('BFN: I have no idea what this does.  :|'); return false" style="border:none; padding:2px;" alt="inactivate" type="image" />
                             </td>
-                        </tr>
+                        </tr>-->
                     </table>
                 </div>
                
