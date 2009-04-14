@@ -991,7 +991,27 @@
         <!-- Panel Element: New Transaction -->
             <!-- Element Header: New Transaction -->
                 <div class="h2-container">
-                    <span class="subhead-left"><h2>New Transaction</h2></span>
+                    <span class="subhead-left"><h2>
+                    <a href="#" id="controlP2"><img id="imgP2" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
+					<script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#divP2").hide();
+                            $("#controlP2").toggle(
+                                function()
+                                {
+                                    $("#divP2").slideDown(400);
+                                    $("#imgP2").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#divP2").slideUp(200);
+                                    $("#imgP2").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );	
+                        });
+                    </script>
+                    New Transaction
+                    </h2></span>
                     <span class="subhead-right">
                         <span class="subhead">
                             <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
@@ -999,7 +1019,8 @@
                     </span>
                 </div>
             <!-- Element Content: Transaction -->
-             	<table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
+             	<div id="divP2">
+                <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
                     <tr>
                         <th style="text-align:right; width:130px;">Transaction Type:</th>
                         <td style="text-align:center; width:100px;">
@@ -1316,14 +1337,34 @@
                         </tr>
                         
                 </table>
-                <!--<div style="text-align:center;"><input name="x" src="../images/tinybutton-applytransaction.gif" onclick="javascript: alert('If this were not a mock, the transaction(s) above would be applied.'); return false" class="tinybutton" alt="apply transaction" type="image" style="margin-top:5px;" /></div>-->
-                <br />
-        
-       
+                </div>
+                
         <!-- Panel Element: New Transaction -->
             <!-- Element Header: Pending Transaction -->
-                <div class="h2-container">
-                    <span class="subhead-left"><h2>Pending Transaction</h2></span>
+                <div class="h2-container" style="border-top:1px solid #E4E4E4;">
+                    <span class="subhead-left">
+                    	<h2>
+                        	<a href="#" id="controlP1"><img id="imgP1" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
+                            <script type="text/javascript">
+								$(document).ready(function(){
+									$("#divP1").hide();
+									$("#controlP1").toggle(
+										function()
+										{
+											$("#divP1").slideDown(400);
+											$("#imgP1").attr("src","../images/tinybutton-hide.gif");
+										},
+										function()
+										{
+											$("#divP1").slideUp(200);
+											$("#imgP1").attr("src","../images/tinybutton-show.gif");
+										}
+									);	
+								});
+							</script>
+                            Pending Transaction
+                        </h2>
+                    </span>
                     <span class="subhead-right">
                         <span class="subhead">
                             <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
@@ -1331,6 +1372,7 @@
                     </span>
                 </div>
             <!-- Element Content: Pending Transaction -->
+            	<div id="divP1">
              	<table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
                     <tr>
                         <th>&nbsp;</th>
@@ -1516,6 +1558,7 @@
                         </td>
                     </tr>
                 </table>
+                </div>
         
         </div> <!-- End Panel Content Div (class='tab-container') Div -->
 
