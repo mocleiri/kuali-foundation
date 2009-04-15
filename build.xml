@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Apr 14, 2009 10:34:33 AM                                                        
+
+    Will wrap the impex tool to provide for imports from multiple projects
+    (e.g., rice base + KFS) into a single schema.
+
+     ====================================================================== -->
+<project name="kul-cfg-dbs" default="help">
+
+    <property file="${user.home}/impex-build.properties" />
+
+    <property name="kfs.svn.dir" value="kfs-cfg-dbs/trunk"/>
+    <property name="rice.svn.dir" value="rice-cfg-dbs/branches/rice-release-0-9-4"/>
+    <property name="rice-kuali.svn.dir" value="rice-cfg-dbs/rice-kuali-client-db/branches/rice-release-0-9-4"/>
+    
+    <property name="kfs-import-template.properties.file" location="kfs-import-template.properties" />
+    <property name="kfs-import.properties.file" location="kfs-import.properties" />
+    
+    <property name="rice-import-template.properties.file" location="rice-import-template.properties" />
+    <property name="rice-import.properties.file" location="rice-import.properties" />
+    
+    <!-- ================================= 
+          target: import              
+         ================================= -->
+    <target name="import-kfs">
+        <loadfile property="kfs.props" srcfile="${kfs-import-template.properties.file}">
+            <filterchain><expandproperties/></filterchain>
+        </loadfile>
+        <echo file="${kfs-import.properties.file}" message="${kfs.props}" />
+        <ant inheritall="no" antfile="impex/build.xml" target="create-schema">
+            <property name="impex.properties.file" value="${kfs-import.properties.file}"/>
+        </ant>
+    </target>
+
+    <!-- ================================= 
+          target: import-rice              
+         ================================= -->
+    <target name="import-rice">
+        
+    </target>
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: help                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="help">
+    </target>
+
+</project>
