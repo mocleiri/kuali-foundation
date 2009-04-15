@@ -440,7 +440,47 @@
                                         </span>
                                         <div>
                                             &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
-                                            000121-001
+                                            <a href="#" id="control-ah01">000121-001</a>
+                                            <script type="text/javascript">
+												$(document).ready(function(){
+													$("#div-aw01").hide();
+													$("#control-ah01").toggle(
+														function()
+														{
+															$(".hierarchydetail").hide(200);
+															$("#div-aw01").show(400);
+														},
+														function()
+														{
+															$("#div-aw01").hide(200);
+														}
+													);	
+												});
+											</script>
+                                            <div id="div-aw01" class="hierarchydetail">
+                                            	
+                                                <table cellpadding="0" cellspacing="0" class="subelement" style="border-top:solid 1px #999999; margin-top:7px;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="subelementheader" style="padding:3px;" align="left" colspan="2">
+                                                                000121-001
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th style="width:50px; text-align:right;">Node:</th>
+                                                            <td style="padding:3px;">
+                                                                <input src="../images/tinybutton-display.gif" onclick="javascript: alert('This would ???'); return false;" style="border:none;" alt="display" title="Display" type="image" />
+                                                                <input src="../images/tinybutton-edit60.gif" onclick="javascript: alert('This would ???'); return false;" style="border:none;" alt="edit node" title="Edit Node" type="image" />
+                                                                <input src="../images/tinybutton-copy60.gif" onclick="javascript: alert('This would ???'); return false;" style="border:none;" alt="copy node" title="Copy Node" type="image" />
+                                                                <input src="../images/tinybutton-newchild.gif" onclick="javascript: alert('This would ???'); return false;" style="border:none;" alt="new child node" title="New Child Node" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                
+                                            </div>
                                         </div>
                                         
                                         <ul>
