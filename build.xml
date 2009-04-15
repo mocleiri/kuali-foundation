@@ -13,6 +13,7 @@
     <property name="kfs.svn.dir" value="kfs-cfg-dbs/trunk"/>
     <property name="rice.svn.dir" value="rice-cfg-dbs/branches/rice-release-0-9-4"/>
     <property name="rice-kuali.svn.dir" value="rice-cfg-dbs/rice-kuali-client-db/branches/rice-release-0-9-4"/>
+    <property name="rice-client-only.svn.dir" value="rice-cfg-dbs/rice-client-db/branches/rice-release-0-9-4"/>
     
     <property name="kfs-import-template.properties.file" location="kfs-import-template.properties" />
     <property name="kfs-import.properties.file" location="kfs-import.properties" />
@@ -39,6 +40,21 @@
     <target name="import-rice">
         
     </target>
+
+    <!-- ================================= 
+          target: import-rice-client-only              
+         ================================= -->
+    <target name="import-rice-client-only">
+        
+    </target>
+    
+    <!--
+        TODO: check out appropriate project into internal directory
+              set properties im preparation for impex tool
+              run import
+              how to handle schema create and empty?
+    -->
+    
     <!-- - - - - - - - - - - - - - - - - - 
           target: help                      
          - - - - - - - - - - - - - - - - - -->
