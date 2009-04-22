@@ -32,7 +32,7 @@
     <script type="text/javascript" src="jquery.treeview.js"></script>
     <!-- jQuery Document Ready -->
 	<script type="text/javascript">
-		$(document).ready(function(){		
+		$(document).ready(function(){	
 			<!-- Tree View -->
 				$("#browser").treeview({
 					control: "#treecontrol"
@@ -586,7 +586,7 @@
                 <!--<div id="content01">-->
                     <table class="content_table">  
                        <tr>
-                            <td class="content_grey" style="width:165px; text-align:right;">
+                            <td class="content_grey" style="width:225px; text-align:right;">
                                 New Questionnaire:
                             </td>
                             <td class="content_white" style="width:65px; text-align:right;">
@@ -608,7 +608,7 @@
                     </table>
                     <table class="content_table">  
                        <tr>
-                            <td class="content_grey" style="width:165px; text-align:right;">
+                            <td class="content_grey" style="width:225px; text-align:right;">
                                 Existing Questionnaire:
                             </td>
                             <td class="content_white" style="width:65px; text-align:right;">
@@ -635,32 +635,37 @@
                     </table>
                     <table class="content_table">  
                        <tr>
-                            <td class="content_grey" style="width:165px; text-align:right;">
-                                Questionnaire Template:
+                            <td class="content_grey" style="width:225px; text-align:right;">
+                                New From Existing Questionnaire:
                             </td>
                             <td class="content_white" style="width:65px; text-align:right;">
-                                Name:
+                                Source:
                             </td>
                             <td class="content_white">
                                 
                                 <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none;">
-                                            <input type="text" id="questionnairetemplatename" name="questionnairetemplatename" style="width:100%" value="" />
+                                            <input type="text" id="existingquestionnairename" name="existingquestionnairename" style="width:100%" value="" />
                                         </td>
                                         <td style="border:none; width:30px; text-align:center;">
-                                            <input name="searchforquestionnairetemplate" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false;" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                            <input name="searchforquestionnaire" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false;" align="top" alt="search " title="Search " style="border:none;" type="image" />
                                         </td>
                                     </tr>
                                 </table>
                                 
                             </td>
+                            <td class="content_white" style="width:100px; text-align:right;">
+                                New Name:
+                            </td>
+                            <td class="content_white">
+                                <input type="text" id="sectionname" name="sectionname" style="width:100%" value="" />
+                            </td>
                             <td class="content_white" style="width:65px; text-align:center;">
-                                <input name="loadquestionnairetemplate" src="../images/tinybutton-load.gif" onclick="javascript: alert('This would load the specified questionnaire template.'); return false;" style="border:none;" alt="load" type="image" />
+                                <input name="loadnewquestionnaire" src="../images/tinybutton-load.gif" onclick="javascript: alert('This would load a new questionnaire with content copied from the specified source.'); return false;" style="border:none;" alt="load" type="image" />
                             </td>
                         </tr>
                     </table>
-                
 
             </td>
             <td class="panelcontent3">&nbsp;</td>
@@ -698,7 +703,6 @@
                             Edit Questionnaire: My Cool Questionnaire About Stuff
                         </th>
                         <th class="elementhead_right">
-                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
                             <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
                         </th>
                     </tr>
@@ -808,67 +812,97 @@
                        </tr>
                        <tr>
                             <td class="content_grey" style="width:200px; text-align:right;">
-                                Add Questionnaire Template:
+                                Add Existing Questionnaire:
                             </td>
-                            <td class="content_white">
+                            <td class="content_white" style="text-align:right;" colspan="2">
                                 
                                 <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border:none;">
-                                            <input type="text" id="questionnairetemplatename" name="questionnairetemplatename" style="width:100%" value="" />
+                                        <td style="border:none; width:50px; text-align:right;">
+                                            Source:
                                         </td>
-                                        <td style="border:none; width:30px; text-align:center;">
-                                            <input name="searchforquestionnairetemplate" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false;" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                        <td style="border:none;">
+                                            
+                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none;">
+                                                        <input type="text" id="questionnairetemplatename" name="questionnairetemplatename" style="width:100%" value="" />
+                                                    </td>
+                                                    <td style="border:none; width:30px; text-align:center;">
+                                                        <input name="searchforquestionnairetemplate" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false;" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                        </td>
+                                        <td style="border:none; width:60px; text-align:right;">
+                                            Location:
+                                        </td>
+                                        <td style="border:none; width:225px;">
+                                            <select name="CustomData" style="width:100%;">
+                                                <option value="0" selected="selected">select</option>
+                                                <option value="1">Before "Research Details"</option>
+                                                <option value="2">After "Research Details"</option>
+                                                <option value="3">After "Animal Procurement"</option>
+                                                <option value="4">After "Licencing"</option>
+                                            </select>
                                         </td>
                                     </tr>
                                 </table>
                                 
                             </td>
-                            <td class="content_white" style="width:230px">
-                                <select name="CustomData" id="CustomData">
-                                    <option value="0">select</option>
-                                    <option value="1">at top</option>
-                                    <option value="2">after: Animal Use</option>
-                                    <option value="3" selected>after: My Cool Custom workspace</option>
-                                </select>
-                            </td>
-                            <td class="content_white" style="width:65px; text-align:center;">
-                                <input name="addquestionnairetemplate" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the specified questionnaire template at the specified location, including its sections.'); return false;" style="border:none;" alt="add" type="image" />
+                            <td class="content_white" style="text-align:center;">
+                                <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add all of the sections and questions from the source, inserting them at the specified location.'); return false;" style="border:none;" alt="add" type="image" />
                             </td>
                         </tr>
                         <tr>
                             <td class="content_grey" style="width:200px; text-align:right;">
-                                Add Workspace:
+                                Add New Section:
                             </td>
-                            <td class="content_white">
-                               <input type="text" id="workspacename" name="workspacename" style="width:100%" value="" />
+                            <td class="content_white" style="text-align:right;" colspan="2">
+                                
+                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; width:50px; text-align:right;">
+                                            Name:
+                                        </td>
+                                        <td style="border:none;">
+                                            <input type="text" id="sectionname" name="sectionname" style="width:100%" value="" />
+                                        </td>
+                                        <td style="border:none; width:60px; text-align:right;">
+                                            Location:
+                                        </td>
+                                        <td style="border:none; width:225px;">
+                                            <select name="CustomData" style="width:100%;">
+                                                <option value="0" selected="selected">select</option>
+                                                <option value="1">Before "Research Details"</option>
+                                                <option value="2">After "Research Details"</option>
+                                                <option value="3">After "Animal Procurement"</option>
+                                                <option value="4">After "Licencing"</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
                             </td>
-                            <td class="content_white" style="width:230px">
-                                <select name="CustomData" id="CustomData">
-                                    <option value="0">select</option>
-                                    <option value="1">at top</option>
-                                    <option value="2">after: Animal Use</option>
-                                    <option value="3" selected>after: My Cool Custom workspace</option>
-                                </select>
-                            </td>
-                            <td class="content_white" style="width:65px; text-align:center;">
-                                <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a named workspace at the specified location.'); return false;" style="border:none;" alt="add" type="image" />
+                            <td class="content_white" style="text-align:center;">
+                                <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a new section as specified.'); return false;" style="border:none;" alt="add" type="image" />
                             </td>
                         </tr>
                     </table>
             	<!--</div>-->
             
-            	<!-- Template 1: Animal Use (v.1.00123) -->
+            	<!-- Section 1: Research Details -->
                     <table width="100%" cellpadding="0" cellspacing="0" style="border-top:solid 1px #E4E3E4;">
                         <thead>
                             <tr>
-                                <th class="subelementheader" style="padding:2px; width:50px; text-align:left;">
+                                <th class="elementhead_left" style="width:50px;">
                                     <a href="#" class="panelcontrol04"><img id="panelcontrolimage04" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
                                 </th>
-                                <th class="subelementheader" align="left">
-                                    Template: Animal Use (unmodified v.1.00123)
+                                <th class="elementhead_left">
+                                    Section 1: Research Details
                                 </th>
-                                <th class="subelementheader" style="text-align:right; padding:2px;">
+                                <th class="elementhead_right">
                                     <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" title="Help" /></a>
                                 </th>
                             </tr>
@@ -876,34 +910,35 @@
                     </table>
                     <div id="panelcontent04">
                         <table width="100%" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td class="elementcontent" colspan="2">
+                            <tr> 
+                                <td class="elementcontent" colspan="2"> 
                                 
                                 	<div style="padding-bottom:5px;">
 										<table width="100%" cellpadding="0" cellspacing="0" class="subelement" style="border-top:solid 1px #939393;">
                                             <tr>
-                                                <td class="content_grey" style="width:120px; text-align:right;">
-                                                    Move Template:
+                                                <td class="content_grey" style="width:170px; text-align:right;">
+                                                    Move Section:
                                                 </td>
                                                 <td class="content_white">
                                                     <select name="CustomData" style="width:100%;">
                                                         <option value="0" selected="selected">select</option>
-                                                        <option value="1">After "My Cool, Custom Work Area"</option>
+                                                        <option value="3">After "Animal Procurement"</option>
+                                                        <option value="4">After "Licencing"</option>
                                                     </select>
                                                 </td>
-                                                <td class="content_white" style="width:50px; text-align:center;">
-                                                    <input name="x" src="../images/tinybutton-move.gif" onclick="javascript: alert('This would move this template as specified.'); return false;" style="border:none;" alt="move template" type="image" />
+                                                <td class="content_white" style="width:70px; text-align:center;">
+                                                    <input name="x" src="../images/tinybutton-move.gif" onclick="javascript: alert('This would move this section as specified.'); return false;" style="border:none;" alt="move template" type="image" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="content_grey" style="text-align:right;">
-                                                    Add Section:
+                                                    Add New Section:
                                                 </td>
                                                 <td class="content_white" style="text-align:right;">
                                                     
                                                     <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                                                         <tr>
-                                                            <td style="border:none; width:50px; text-align:right;">
+                                                            <td style="border:none; width:42px; text-align:right;">
                                                                 Name:
                                                             </td>
                                                             <td style="border:none;">
@@ -912,12 +947,13 @@
                                                             <td style="border:none; width:60px; text-align:right;">
                                                                 Location:
                                                             </td>
-                                                            <td style="border:none;">
+                                                            <td style="border:none; width:225px;">
                                                                 <select name="CustomData" style="width:100%;">
                                                                     <option value="0" selected="selected">select</option>
                                                                     <option value="1">Before "Research Details"</option>
                                                                     <option value="2">After "Research Details"</option>
                                                                     <option value="3">After "Animal Procurement"</option>
+                                                                    <option value="4">After "Licencing"</option>
                                                                 </select>
                                                             </td>
                                                         </tr>
@@ -925,174 +961,135 @@
                                                     
                                                 </td>
                                                 <td class="content_white" style="text-align:center;">
-                                                    <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would alert that the template will be *modified* before adding a section as specified.'); return false;" style="border:none;" alt="add" type="image" />
+                                                    <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a new section as specified.'); return false;" style="border:none;" alt="add" type="image" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="content_grey" style="text-align:center;" colspan="3">
-                                                    <input name="x" src="../images/tinybutton-removetemplate.gif" onclick="javascript: alert('This would ask for confirmation before removing this template.'); return false;" style="border:none;" alt="remove template" type="image" />
+                                                <td class="content_grey" style="text-align:right;">
+                                                    Duplicate Section:
+                                                </td>
+                                                <td class="content_white" style="text-align:right;">
+                                                    
+                                                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; width:70px; text-align:right;">
+                                                                New Name:
+                                                            </td>
+                                                            <td style="border:none;">
+                                                                <input type="text" id="sectionname" name="sectionname" style="width:100%" value="" />
+                                                            </td>
+                                                            <td style="border:none; width:60px; text-align:right;">
+                                                                Location:
+                                                            </td>
+                                                            <td style="border:none; width:225px;">
+                                                                <select name="CustomData" style="width:100%;">
+                                                                    <option value="0" selected="selected">select</option>
+                                                                    <option value="1">Before "Research Details"</option>
+                                                                    <option value="2">After "Research Details"</option>
+                                                                    <option value="3">After "Animal Procurement"</option>
+                                                                    <option value="4">After "Licencing"</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                                <td class="content_white" style="text-align:center;">
+                                                    <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a copy of this section at the specified location.'); return false;" style="border:none;" alt="add" type="image" />
                                                 </td>
                                             </tr>
-                                        </table>
+                                            <tr>
+                                                <td class="content_info" style="text-align:center;" colspan="3">
+                                                    <input src="../images/tinybutton-removesection.gif" onclick="javascript: alert('This would ask for confirmation before removing this section.'); return false;" style="border:none; padding:2px;" alt="remove section" type="image" />
+                                                </td>
+                                            </tr>
+                                        </table> 
+                                        
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="border-top:#E4E3E4 solid 1px;">
+                                            <tr>
+                                                <th class="subelementheader" style="text-align:left;" colspan="3">
+                                                    <img id="HScontrol00" src="../images/tinybutton-show.gif" alt="show/hide this panel" title="show/hide this panel"  style="width:45px; height:15px; border:none; cursor:pointer; padding:2px; vertical-align:middle;" />
+                                                    <script type="text/javascript">
+														$(document).ready(function(){
+															// initial state
+																$("#HSdiv00").hide();
+															// toggle state
+																$("#HScontrol00").toggle(
+																	function()
+																	{
+																		$("#HSdiv00").slideDown(400);
+																		$("#HScontrol00").attr("src","../images/tinybutton-hide.gif");
+																	},
+																	function()
+																	{
+																		$("#HSdiv00").slideUp(200);
+																		$("#HScontrol00").attr("src","../images/tinybutton-show.gif");
+																	}
+																);	
+														});
+													</script>
+                                                    Requirements for Display:
+                                                </th>
+                                            </tr>
+                                        </table> 
+                                        <div id="HSdiv00">
+                                            <table width="100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        <i>There can be no requirements for display for the first section.</i>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="border-top:#E4E3E4 solid 1px;">
+                                            <tr>
+                                                <th class="subelementheader" style="text-align:left;" colspan="3">
+                                                    <img id="HScontrol01" src="../images/tinybutton-show.gif" alt="show/hide this panel" title="show/hide this panel"  style="width:45px; height:15px; border:none; cursor:pointer; padding:2px; vertical-align:middle;" />
+                                                    <script type="text/javascript">
+														$(document).ready(function(){
+															// initial state
+																$("#HSdiv01").hide();
+															// toggle state
+																$("#HScontrol01").toggle(
+																	function()
+																	{
+																		$("#HSdiv01").slideDown(400);
+																		$("#HScontrol01").attr("src","../images/tinybutton-hide.gif");
+																	},
+																	function()
+																	{
+																		$("#HSdiv01").slideUp(200);
+																		$("#HScontrol01").attr("src","../images/tinybutton-show.gif");
+																	}
+																);	
+														});
+													</script>
+                                                    Add Question:
+                                                </th>
+                                            </tr>
+                                        </table> 
+                                        <div id="HSdiv01">
+                                            <table width="100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        [Add Question is under development. This would add a question to this section. The layout will be greatly informed by development of the Question Manager.]
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        
                                     </div>
     
                                     <!--<img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <a id="listcontrol00" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>-->
                                     
                                     
                                     <!-- Section 1: Research Details -->
-                                        <img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <a id="listcontrol03" style="margin-left:2px;"><b><span class="hovermered">Section 1: Research Details</span></b></a>
-                                        <div class="hierarchydetail" id="listcontent03" style="margin-top:5px;">
-                                                <table width="100%" cellpadding="0" cellspacing="0" class="subelement">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="subelementheader" align="left">
-                                                                Research Details
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="subelementcontent">
-                                                                
-                                                                <table cellpadding="0" cellspacing="0" class="elementtable" width="100%">
-                                                                    <tr>
-                                                                        <th style="text-align:right;">Node:</th>
-                                                                        <th colspan="3">
-                                                                            <!--<input name="x" src="../images/arrow-up.gif" onclick="javascript: alert('This would move this node and its children up within its sibling group.'); return false;" style="border:none;" alt="move up" title="Move Up" type="image" />-->
-                                                                            <input src="../images/arrow-down.gif" onclick="javascript: alert('This would move this node and its children down within its sibling group.'); return false;" style="border:none;" alt="move down" title="Move Down" type="image" />
-                                                                            <input src="../images/tinybutton-removenode.gif" onclick="javascript: alert('This would ask for confirmation before removing this node and its children.'); return false;" style="border:none;" alt="remove node" title="Remove Node" type="image" />
-                                                                            <input src="../images/tinybutton-cutnode.gif" onclick="javascript: alert('This would cut this node and its children.  Node would not be removed until you paste it.'); return false;" style="border:none;" alt="cut node" title="Cut Node" type="image" />
-                                                                            <input src="../images/tinybutton-copynode.gif" onclick="javascript: alert('This would copy this node and its children.'); return false;" style="border:none;" alt="copy node" title="Copy Node" type="image" />
-                                                                            <input src="../images/tinybutton-pastenode.gif" onclick="javascript: alert('This would paste your previously copied or cut node and its children under this node.'); return false;" style="border:none;" alt="paste node" title="Paste Node" type="image" />
-                                                                        </th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style="width:120px; text-align:right;">
-                                                                            Heading:
-                                                                        </th>
-                                                                        <td colspan="2">
-                                                                            
-                                                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                                                                <tr>
-                                                                                    <td style="border:none; text-align:right; width:75px;">
-                                                                                        Section 1:
-                                                                                    </td>
-                                                                                    <td style="border:none;">
-                                                                                        <input type="text" style="width:100%;" value="Research Details" />
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
-                                                                            
-                                                                        </td>
-                                                                        <td style="width:60px;">
-                                                                            <input name="x" src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the heading of this section.'); return false;" class="noborder" alt="update" title="Update Section" type="image" />
-                                                                        </td>  
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style="text-align:center;" colspan="4">
-                                                                            Requirements for Display
-                                                                        </th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="text-align:center;" colspan="4">
-                                                                            <span class="fineprint"><i>The first section of a questionnaire can have no preconditions for inclusion.</i></span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style="text-align:center;" colspan="4">
-                                                                            Add Question
-                                                                        </th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="text-align:center;" colspan="4">
-                                                                            <span class="fineprint">[Add Question is under development.  This would add a question as a child of this section.  The layout will be greatly informed by development of the Question Manager.]</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style="text-align:center;" colspan="4">
-                                                                            Add Section
-                                                                        </th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="content_white" style="text-align:right;" colspan="3">
-                                                                            
-                                                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                                                                <tr>
-                                                                                    <td style="border:none; width:60px; text-align:right;">
-                                                                                        Name:
-                                                                                    </td>
-                                                                                    <td style="border:none;">
-                                                                                        <input type="text" id="sectionname" name="sectionname" style="width:100%" value="" />
-                                                                                    </td>
-                                                                                    <td style="border:none; width:60px; text-align:right;">
-                                                                                        Location:
-                                                                                    </td>
-                                                                                    <td style="border:none;">
-                                                                                        <select name="CustomData" style="width:100%;">
-                                                                                            <option value="0" selected="selected">select</option>
-                                                                                            <option value="1">Before "Research Details"</option>
-                                                                                            <option value="2">After "Research Details"</option>
-                                                                                            <option value="2">After "Animal Procurement"</option>
-                                                                                        </select>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
-                                                                            
-                                                                        </td>
-                                                                        <td class="content_white" style="text-align:center;">
-                                                                            <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a section as specified.'); return false;" style="border:none;" alt="add" type="image" />
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                                <table cellpadding="0" cellspacing="0" class="elementtable" style="width:100%; border-top:none;">
-                                                                    <tr>
-                                                                        <th style="text-align:center; border-top:none;" colspan="4">
-                                                                            Add Questionnaire Template
-                                                                        </th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="content_white">
-                                                                            
-                                                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                                                                <tr>
-                                                                                    <td style="border:none; width:60px;">
-                                                                                        Template: 
-                                                                                    </td>
-                                                                                    <td style="border:none;">
-                                                                                        <input type="text" id="questionnairetemplatename" name="questionnairetemplatename" style="width:100%" value="" />
-                                                                                    </td>
-                                                                                    <td style="border:none; width:30px; text-align:center;">
-                                                                                        <input name="searchforquestionnairetemplate" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false;" align="top" alt="search " title="Search " style="border:none;" type="image" />
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
-                                                                            
-                                                                        </td>
-                                                                        <td class="content_white" style="width:405px">
-                                                                            Method:
-                                                                            <select name="CustomData" id="CustomData">
-                                                                                <option value="0">select</option>
-                                                                                <option value="1">Insert Questions Only (sections will be removed)</option>
-                                                                                <option value="2">Add Sections to the End of this Workspace/Template</option>
-                                                                                <option value="3">Add A Separate Questionnaire</option>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td class="content_white" style="width:65px; text-align:center;">
-                                                                            <input name="addquestionnairetemplate" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the specified questionnaire template at the specified location, including its sections.'); return false;" style="border:none;" alt="add" type="image" />
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                        
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!--<div id="treecontrol" style="display:inline;">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<a title="Collapse the entire tree below" href="#"><img src="./images/minus.gif" /> Collapse All</a>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="./images/plus.gif" /> Expand All</a>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;<a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
-                                            </div>-->
+                                        <!--<div id="treecontrol" style="display:inline;">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<a title="Collapse the entire tree below" href="#"><img src="./images/minus.gif" /> Collapse All</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="./images/plus.gif" /> Expand All</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
+                                        </div>-->
                                         <ul id="browser" class="filetree">
                                             
                                             <li class="closed">
@@ -1243,8 +1240,8 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <td class="subelementcontent">
+                                                                        <tr> 
+                                                                            <td class="subelementcontent"> 
                                                                                 
                                                                                 <table cellpadding="0" cellspacing="0" class="elementtable" width="100%">
                                                                                     <tr>
@@ -1326,10 +1323,10 @@
                                                                                             Value:
                                                                                             <input type="text" size="25" />
                                                                                         </td>
-                                                                                        <td class="content_info" class="content_white" style="width:65px; text-align:center;">
+                                                                                        <td class="content_info" class="content_white" style="width:65px; text-align:center;"> 
                                                                                             <input name="addquestionnairetemplate" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the specified requirement.'); return false;" style="border:none;" alt="add" type="image" />
-                                                                                        </td>
-                                                                                    </tr>
+                                                                                        </td> 
+                                                                                    </tr> 
                                                                                 </table>
                                                                                 <table cellpadding="0" cellspacing="0" class="elementtable" style="width:100%; border-top:none;">
                                                                                     <tr>
@@ -1495,9 +1492,681 @@
                                             </li>
                                         
                                         </ul>
+                                    
+                                </td> 
+                            </tr> 
+                        </table>
+                    </div>
+                    
+                <!-- Section 2: Animal Procurement -->
+                    <table width="100%" cellpadding="0" cellspacing="0" style="border-top:solid 1px #E4E3E4;">
+                        <thead>
+                            <tr>
+                                <th class="elementhead_left" style="width:50px;">
+                                    <a href="#" class="panelcontrol03"><img id="panelcontrolimage03" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
+                                </th>
+                                <th class="elementhead_left">
+                                    Section 2: Animal Procurement
+                                </th>
+                                <th class="elementhead_right">
+                                    <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" title="Help" /></a>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div id="panelcontent03">
+                        <table width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td class="elementcontent" colspan="2">
+                                
+                                	<div style="padding-bottom:5px;">
+										<table width="100%" cellpadding="0" cellspacing="0" class="subelement" style="border-top:solid 1px #939393;">
+                                            <tr>
+                                                <td class="content_grey" style="width:170px; text-align:right;">
+                                                    Move Section:
+                                                </td>
+                                                <td class="content_white">
+                                                    <select name="CustomData" style="width:100%;">
+                                                        <option value="0" selected="selected">select</option>
+                                                        <option value="3">After "Animal Procurement"</option>
+                                                        <option value="4">After "Licencing"</option>
+                                                    </select>
+                                                </td>
+                                                <td class="content_white" style="width:70px; text-align:center;">
+                                                    <input name="x" src="../images/tinybutton-move.gif" onclick="javascript: alert('This would move this section as specified.'); return false;" style="border:none;" alt="move template" type="image" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:right;">
+                                                    Add New Section:
+                                                </td>
+                                                <td class="content_white" style="text-align:right;">
+                                                    
+                                                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; width:42px; text-align:right;">
+                                                                Name:
+                                                            </td>
+                                                            <td style="border:none;">
+                                                                <input type="text" id="sectionname" name="sectionname" style="width:100%" value="" />
+                                                            </td>
+                                                            <td style="border:none; width:60px; text-align:right;">
+                                                                Location:
+                                                            </td>
+                                                            <td style="border:none; width:225px;">
+                                                                <select name="CustomData" style="width:100%;">
+                                                                    <option value="0" selected="selected">select</option>
+                                                                    <option value="1">Before "Research Details"</option>
+                                                                    <option value="2">After "Research Details"</option>
+                                                                    <option value="3">After "Animal Procurement"</option>
+                                                                    <option value="4">After "Licencing"</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                                <td class="content_white" style="text-align:center;">
+                                                    <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a new section as specified.'); return false;" style="border:none;" alt="add" type="image" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:right;">
+                                                    Duplicate Section:
+                                                </td>
+                                                <td class="content_white" style="text-align:right;">
+                                                    
+                                                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; width:70px; text-align:right;">
+                                                                New Name:
+                                                            </td>
+                                                            <td style="border:none;">
+                                                                <input type="text" id="sectionname" name="sectionname" style="width:100%" value="" />
+                                                            </td>
+                                                            <td style="border:none; width:60px; text-align:right;">
+                                                                Location:
+                                                            </td>
+                                                            <td style="border:none; width:225px;">
+                                                                <select name="CustomData" style="width:100%;">
+                                                                    <option value="0" selected="selected">select</option>
+                                                                    <option value="1">Before "Research Details"</option>
+                                                                    <option value="2">After "Research Details"</option>
+                                                                    <option value="3">After "Animal Procurement"</option>
+                                                                    <option value="4">After "Licencing"</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                                <td class="content_white" style="text-align:center;">
+                                                    <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a copy of this section at the specified location.'); return false;" style="border:none;" alt="add" type="image" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_info" style="text-align:center;" colspan="3">
+                                                    <input name="x" src="../images/tinybutton-removesection.gif" onclick="javascript: alert('This would ask for confirmation before removing this section.'); return false;" style="border:none; padding:2px;" alt="remove section" type="image" />
+                                                </td>
+                                            </tr>
+                                        </table> 
+                                        
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="border-top:#E4E3E4 solid 1px;">
+                                            <tr>
+                                                <th class="subelementheader" style="text-align:left;" colspan="3">
+                                                    <img id="HScontrol03" src="../images/tinybutton-show.gif" alt="show/hide this panel" title="show/hide this panel"  style="width:45px; height:15px; border:none; cursor:pointer; padding:2px; vertical-align:middle;" />
+                                                    <script type="text/javascript">
+														$(document).ready(function(){
+															// initial state
+																$("#HSdiv03").hide();
+															// toggle state
+																$("#HScontrol03").toggle(
+																	function()
+																	{
+																		$("#HSdiv03").slideDown(400);
+																		$("#HScontrol03").attr("src","../images/tinybutton-hide.gif");
+																	},
+																	function()
+																	{
+																		$("#HSdiv03").slideUp(200);
+																		$("#HScontrol03").attr("src","../images/tinybutton-show.gif");
+																	}
+																);	
+														});
+													</script>
+                                                    Requirements for Display
+                                                </th>
+                                            </tr>
+                                        </table> 
+                                        <div id="HSdiv03">
+                                            <table cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse;">
+                                                <tr>
+                                                    <td class="content_info" style="text-align:center; width:50px; font-weight:bold;">
+                                                        Add
+                                                    </td>
+                                                    <td class="content_info" style="text-align:center;">
+                                                        <select>
+                                                            <option value="0" selected="selected">select</option>
+                                                            <option value="1">and</option>
+                                                            <option value="2">or</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="content_info" style="text-align:center;">
+                                                        
+                                                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; width:70px; text-align:right;">
+                                                                    Section:
+                                                                </td>
+                                                                <td style="border:none; vertical-align:bottom; padding:2px;">
+                                                                    <select style="width:100%;">
+                                                                        <option value="0" selected="selected">select</option>
+                                                                        <option value="1">Section 1: Research Details</option>
+                                                                        <option value="2">Section 2: Animal Procurement</option>
+                                                                        <option value="3">Section 3: Licensure</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td style="border:none; width:70px; text-align:right;">
+                                                                    Question:
+                                                                </td>
+                                                                <td style="border:none; padding:2px;">
+                                                                    <select style="width:100%;">
+                                                                        <option value="0" selected="selected">select</option>
+                                                                        <option value="1">QID001: Confirm live vertebrates will be used in this protocol?</option>
+                                                                        <option value="2">QID002: Will you be using whole dead animals which are regulated...</option>
+                                                                        <option value="3">QID003: Which of the following describes the types of animal use...</option>
+                                                                        <option value="4">QID004: What type of research?</option>
+                                                                        <option value="5">QID005: Tell me more about your "basic" research.</option>
+                                                                        <option value="6">QID006: Tell me more about your "advanced" research.</option>
+                                                                        <option value="7">QID007: Explain the type of animal use proposed in this protocol.</option>
+                                                                        <option value="8">QID008: What is the maximum number of hours that a live animal...</option>
+                                                                        <option value="9">QID009: What is the location?</option>
+                                                                        <option value="10">QID010: What is the scientific justification?</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td style="border:none; width:20px; text-align:center;" rowspan="2">
+                                                                    <input src="../images/arrow_refresh.png" onclick="javascript: alert('This would refresh the pulldown options for no-script browsers.'); return false;" style="border:none;" alt="Refresh Pulldown Options" title="Refresh Pulldown Options" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border:none; width:70px; text-align:right;">
+                                                                    Response:
+                                                                </td>
+                                                                <td style="border:none; vertical-align:bottom; padding:2px;">
+                                                                    <select style="width:100%;">
+                                                                        <option value="0" selected="selected">select</option>
+                                                                        <option value="2">Matches selection</option>
+                                                                        <option value="3">Contains text value</option>
+                                                                        <option value="4">Matches text</option>
+                                                                        <option value="5">Does not equal number</option>
+                                                                        <option value="6">Less than number</option>
+                                                                        <option value="7">Less than or equals number</option>
+                                                                        <option value="8">Equals number</option>
+                                                                        <option value="9">Greater than or equals number</option>
+                                                                        <option value="10">Greater than number</option>
+                                                                        <option value="11">Before date</option>
+                                                                        <option value="12">After date</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td style="border:none; width:70px; text-align:right;">
+                                                                    Value:
+                                                                </td>
+                                                                <td style="border:none; padding:2px;">
+                                                                    <input type="text" style="width:100%;" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                            
+                                                    </td>
+                                                    <td class="content_info" class="content_white" style="width:65px; text-align:center;">
+                                                        <input name="addquestionnairetemplate" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the specified requirement.'); return false;" style="border:none;" alt="add" type="image" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:center; font-weight:bold;">
+                                                        1
+                                                    </td>
+                                                    <td class="content_white" style="text-align:center;">
+                                                        <i>or</i>
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        Section 1: Research Details > QID001: Confirm live vertebrates will be used in this protocol?<br />
+                                                        Matches selection: "Yes"
+                                                    </td>
+                                                    <td class="content_white" style="text-align:center;">
+                                                        <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the specified requirement.'); return false;" style="border:none;" alt="delete" title="delete" type="image" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:center; font-weight:bold;">
+                                                        2
+                                                    </td>
+                                                    <td class="content_white" style="text-align:center;">
+                                                        <i>or</i>
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        Section 1: Research Details > QID003: Which of the following describes the types of animal use proposed in this protocol?<br />
+                                                        Matches selection: "Other"
+                                                    </td>
+                                                    <td class="content_white" style="text-align:center;">
+                                                        <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the specified requirement.'); return false;" style="border:none;" alt="delete" title="delete" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="border-top:#E4E3E4 solid 1px;">
+                                            <tr>
+                                                <th class="subelementheader" style="text-align:left;" colspan="3">
+                                                    <img id="HScontrol04" src="../images/tinybutton-show.gif" alt="show/hide this panel" title="show/hide this panel"  style="width:45px; height:15px; border:none; cursor:pointer; padding:2px; vertical-align:middle;" />
+                                                    <script type="text/javascript">
+														$(document).ready(function(){
+															// initial state
+																$("#HSdiv04").hide();
+															// toggle state
+																$("#HScontrol04").toggle(
+																	function()
+																	{
+																		$("#HSdiv04").slideDown(400);
+																		$("#HScontrol04").attr("src","../images/tinybutton-hide.gif");
+																	},
+																	function()
+																	{
+																		$("#HSdiv04").slideUp(200);
+																		$("#HScontrol04").attr("src","../images/tinybutton-show.gif");
+																	}
+																);	
+														});
+													</script>
+                                                    Add a Question
+                                                </th>
+                                            </tr>
+                                        </table> 
+                                        <div id="HSdiv04">
+                                                        
+                                           <table class="content_table">  
+                                               <tr>
+                                                    <td class="content_grey" style="width:115px; text-align:right;">
+                                                        Question:
+                                                    </td>
+                                                    <td class="content_white" colspan="3">
+                                                        
+                                                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="2">Confirm live vertebrates will be used in this protocol?</textarea>
+                                                                </td>
+                                                                <td style="border:none; width:55px; text-align:center; vertical-align:bottom;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a popup edit area. Changes would reversion the question.'); return false" style="border:none;" alt="save" type="image" />
+                                                                    <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog allowing an existing question:version to be loaded.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        Version:
+                                                    </td>
+                                                    <td class="content_white">
+                                                        1.000 (Unmodified)
+                                                    </td>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        Status:
+                                                    </td>
+                                                    <td class="content_white">
+                                                        
+                                                        <select>
+                                                            <option value="0" selected="selected">active</option>
+                                                            <option value="1">inactive</option>
+                                                        </select>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        ID:
+                                                    </td>
+                                                    <td class="content_white">
+                                                        QID001
+                                                    </td>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        Category:
+                                                    </td>
+                                                    <td class="content_white">
+                                                        Animal Use
+                                                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog. Changing the category would reversion the question.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        Description:
+                                                    </td>
+                                                    <td class="content_white" colspan="3">
+                                                        
+                                                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none;">
+                                                                    <textarea style="width:100%; text-align:left;" rows="2">This question is used in Animal Use cases for potential live vertebrates.</textarea>
+                                                                </td>
+                                                                <td style="border:none; width:30px; text-align:center; vertical-align:bottom;">
+                                                                    <input src="../images/pencil_add.png" onclick="javascript: alert('This would open a popup edit area. Changes would reversion the question.'); return false" style="border:none;" alt="save" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        Response:
+                                                    </td>
+                                                    <td class="content_white" colspan="3">
+                                                        
+                                                       <table class="content_table" style="border-top:1px solid #939393;">
+                                                            <tr>
+                                                                <td class="content_grey" style="width:110px; text-align:center;">
+                                                                    Type
+                                                                </td>
+                                                                <td class="content_grey" style="text-align:center;">
+                                                                    Values
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_white" style="text-align:center; vertical-align:top;">
+                                                                    <select id="responsetypecontrol">
+                                                                        <option value="0">select</option>
+                                                                        <option value="1" selected="selected">Yes/No</option>
+                                                                        <option value="2">Yes/No/NA</option>
+                                                                        <option value="3">Number</option>
+                                                                        <option value="4">Date</option>
+                                                                        <option value="6">Text</option>
+                                                                        <option value="7">KC List</option>
+                                                                        <option value="8">Dropdown</option>
+                                                                        <option value="9">Checkbox</option>
+                                                                    </select>
+                                                                    <!-- Hide/Show Selected Type's Options -->
+                                                                    <script type="text/javascript">
+                                                                        $(document).ready(function(){
+                                                                            
+                                                                            setValueOptions();
+                                                                            $("#responsetypecontrol").change( function() {
+                                                                                setValueOptions();
+                                                                            });
+                                                                            function setValueOptions()
+                                                                            {
+                                                                                if ( document.questionnaireform.responsetypecontrol.selectedIndex == 0 )
+                                                                                {
+                                                                                    $(".responsetypediv").slideUp(200);
+                                                                                    $("#responsetypeSelect").slideDown(400);
+                                                                                }
+                                                                                if ( document.questionnaireform.responsetypecontrol.selectedIndex == 1 )
+                                                                                {
+                                                                                    $(".responsetypediv").slideUp(200);
+                                                                                    $("#responsetypeYesNo").slideDown(400);
+                                                                                }
+                                                                                if ( document.questionnaireform.responsetypecontrol.selectedIndex == 2 )
+                                                                                {
+                                                                                    $(".responsetypediv").slideUp(200);
+                                                                                    $("#responsetypeYesNoNA").slideDown(400);
+                                                                                }
+                                                                                if ( document.questionnaireform.responsetypecontrol.selectedIndex == 3 )
+                                                                                {
+                                                                                    $(".responsetypediv").slideUp(200);
+                                                                                    $("#responsetypeNumber").slideDown(400);
+                                                                                }
+                                                                                if ( document.questionnaireform.responsetypecontrol.selectedIndex == 4 )
+                                                                                {
+                                                                                    $(".responsetypediv").slideUp(200);
+                                                                                    $("#responsetypeDate").slideDown(400);
+                                                                                }
+                                                                                if ( document.questionnaireform.responsetypecontrol.selectedIndex == 5 )
+                                                                                {
+                                                                                    $(".responsetypediv").slideUp(200);
+                                                                                    $("#responsetypeText").slideDown(400);
+                                                                                }
+                                                                                if ( document.questionnaireform.responsetypecontrol.selectedIndex == 6 )
+                                                                                {
+                                                                                    $(".responsetypediv").slideUp(200);
+                                                                                    $("#responsetypeKCList").slideDown(400);
+                                                                                }
+                                                                                if ( document.questionnaireform.responsetypecontrol.selectedIndex == 7 )
+                                                                                {
+                                                                                    $(".responsetypediv").slideUp(200);
+                                                                                    $("#responsetypeDropdown").slideDown(400);
+                                                                                }
+                                                                                if ( document.questionnaireform.responsetypecontrol.selectedIndex == 8 )
+                                                                                {
+                                                                                    $(".responsetypediv").slideUp(200);
+                                                                                    $("#responsetypeCheckbox").slideDown(400);
+                                                                                }
+                                                                            }
+                                                                            
+                                                                            <!-- Select None Question Use -->
+                                                                            $("#quseNone").click( function() {
+                                                                                $(".quse").attr('checked','');
+                                                                            });
+                                                                            
+                                                                            <!-- Select All Question Use -->
+                                                                            $("#quseAll").click( function() {
+                                                                                $(".quse").attr('checked','checked');
+                                                                            });
+                                                                            
+                                                                        });
+                                                                    </script>
+                                                                    
+                                                                </td>
+                                                                <td class="content_white" style="text-align:left;">
+                                                                    
+                                                                    <!-- select -->
+                                                                    <div id="responsetypeSelect" class="responsetypediv">
+                                                                        <i>Please select the Type of response you would like for this question.</i>
+                                                                    </div>
+                                                                    
+                                                                    <!-- Yes/No -->
+                                                                    <div id="responsetypeYesNo" class="responsetypediv">
+                                                                        The user will be presented with the following radio buttons: Yes, No. Only one selection is possible.
+                                                                    </div>
+                                                                    
+                                                                    <!-- Yes/No/NA -->
+                                                                    <div id="responsetypeYesNoNA" class="responsetypediv">
+                                                                        The user will be presented with the following pulldown: Yes, No, Not Applicable. Only one selection is possible.
+                                                                    </div>
+                                                                    
+                                                                    <!-- Number -->
+                                                                    <div id="responsetypeNumber" class="responsetypediv">
+                                                                        The user will be presented with a text box.  The entered value will be validated requiring a number only.
+                                                                    </div>
+                                                                    
+                                                                    <!-- Date -->
+                                                                    <div id="responsetypeDate" class="responsetypediv">
+                                                                        The user will be presented with a text box.  The entered value will be validated for a date in MM/DD/YYYY format.
+                                                                    </div>
+                                                                    <!-- Text -->
+                                                                    <div id="responsetypeText" class="responsetypediv">
+                                                                        <p>
+                                                                            The user will be presented with a text area.
+                                                                        </p>
+                                                                        <p>
+                                                                            Maximum length of response in characters:
+                                                                            <input type="text" size="4" value="150" />
+                                                                        </p>
+                                                                    </div>
+                                                                    
+                                                                    <!-- KC List -->
+                                                                    <div id="responsetypeKCList" class="responsetypediv">
+                                                                        <p>
+                                                                            The user will be presented with checkboxes based on the KC List indicated.
+                                                                        </p>
+                                                                        <p>
+                                                                            <input name="kclist" type="text" size="25" value="Some KC List" />
+                                                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog allowing the possible KC lists to be set.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                                                        </p>
+                                                                    </div>
+                                                                    
+                                                                    <!-- Dropdown -->
+                                                                    <div id="responsetypeDropdown" class="responsetypediv">
+                                                                        <p>The user will be presented with a dropdown of alphanumerically listed options.  Only one selection is possible.</p>
+                                                                        <table style="border:1px solid #939393; border-collapse:collapse; margin-left:5px; margin-bottom:5px; width:625px;" cellpadding="0" cellspacing="0">
+                                                                            <tr>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; width:50px; text-align:center;" class="content_info">
+                                                                                    <b>Add:</b>
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px;" class="content_info">
+                                                                                    <input name="newdropdown" type="text" style="width:100%;" />
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; width:20px; padding:3px; vertical-align:bottom;" class="content_info">
+                                                                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated option to the pulldown choices.'); return false" style="border:none; text-align:center;" alt="add" alt="Add This Option" type="image" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; text-align:center;" class="content_grey">
+                                                                                    1
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px;">
+                                                                                    <input name="dropdown1" type="text" style="width:100%;" value="One Fish" />
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; width:20px; padding:3px; vertical-align:bottom; text-align:center;">
+                                                                                    <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; text-align:center;" class="content_grey">
+                                                                                    2
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px;">
+                                                                                    <input name="dropdown2" type="text" style="width:100%;" value="Two Fish" />
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; width:20px; padding:3px; vertical-align:bottom; text-align:center;">
+                                                                                    <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; text-align:center;" class="content_grey">
+                                                                                    3
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px;">
+                                                                                    <input name="dropdown3" type="text" style="width:100%;" value="Red Fish" />
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; width:20px; padding:3px; vertical-align:bottom; text-align:center;">
+                                                                                    <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; text-align:center;" class="content_grey">
+                                                                                    4
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px;">
+                                                                                    <input name="dropdown4" type="text" style="width:100%;" value="Blue Fish" />
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; width:20px; padding:3px; vertical-align:bottom; text-align:center;">
+                                                                                    <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                    
+                                                                    <!-- Checkbox -->
+                                                                    <div id="responsetypeCheckbox" class="responsetypediv">
+                                                                        <p>The user will be presented with one or more checkboxes.  No selections, or more than one selection, is possible.</p>
+                                                                        <table style="border:1px solid #939393; border-collapse:collapse; margin-left:5px; margin-bottom:5px; width:625px;" cellpadding="0" cellspacing="0">
+                                                                            <tr>
+                                                                                <td colspan="2" style="border:1px solid #939393; border-collapse:collapse; padding:3px; width:50px; text-align:right;" class="content_info">
+                                                                                    <b>Maximum Number of Answers:</b>
+                                                                                    <input name="numberofquestions" type="text" style="width:25px;" value="2" />
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; width:55px; padding:3px; vertical-align:bottom; text-align:center;" class="content_info">
+                                                                                    <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the possible number of answers selected.'); return false" style="border:none;" alt="update" alt="Update This Response Type" type="image" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; width:50px; text-align:center;" class="content_info">
+                                                                                    <b>Add:</b>
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px;" class="content_info">
+                                                                                    <input name="newdropdown" type="text" style="width:100%;" />
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; vertical-align:bottom; text-align:center;" class="content_info">
+                                                                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated option to the pulldown choices.'); return false" style="border:none;" alt="add" alt="Add This Option" type="image" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; text-align:center;" class="content_grey">
+                                                                                    1
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px;">
+                                                                                    <input name="dropdown1" type="text" style="width:100%;" value="One Byte" />
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; vertical-align:bottom; text-align:center;">
+                                                                                    <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; text-align:center;" class="content_grey">
+                                                                                    2
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px;">
+                                                                                    <input name="dropdown2" type="text" style="width:100%;" value="Two Bites" />
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; vertical-align:bottom; text-align:center;">
+                                                                                    <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; text-align:center;" class="content_grey">
+                                                                                    3
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px;">
+                                                                                    <input name="dropdown3" type="text" style="width:100%;" value="Red Light" />
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; vertical-align:bottom; text-align:center;">
+                                                                                    <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; text-align:center;" class="content_grey">
+                                                                                    4
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px;">
+                                                                                    <input name="dropdown4" type="text" style="width:100%;" value="Green Lights" />
+                                                                                </td>
+                                                                                <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; vertical-align:bottom; text-align:center;">
+                                                                                    <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove the associated option from the pulldown choices.'); return false" style="border: none;" alt="delete" alt="Delete This Option" type="image" />
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_info" style="text-align:center;" colspan="2">
+                                                                    <input src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would save changes as a new question or a new version.  If this is a new version of a question you would be asked if you want to apply it to all active questionnaires. If a non-existant category has been entered, the new category would be added.'); return false" style="border:none; padding:2px;" alt="save" type="image" />
+                                                                    <input src="../images/tinybutton-clear40.gif" onclick="javascript: alert('This would clear the form data allowing a NEW question to be added.'); return false" style="border:none; padding:2px;" alt="clear" type="image" />
+                                                                    <input src="../images/tinybutton-refresh.gif" onclick="javascript: alert('This would refresh the Values to reflect the pulldown choice.'); return false" style="border:none; padding:2px;" alt="refresh" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                           
+                                            
+                                        </div>
+                                        
+                                    </div>
+    
+                                    <!-- Section 2: Animal Procurement -->
+                                        <!--<div id="treecontrol" style="display:inline;">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<a title="Collapse the entire tree below" href="#"><img src="./images/minus.gif" /> Collapse All</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="./images/plus.gif" /> Expand All</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
+                                        </div>-->
+                                        
                                         
                                     <!-- Section 2: Animal Procurement -->      
-                                        <img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <b>Section 2: Animal Procurement</b>
                                         <ul id="browser1" class="filetree">
                                             
                                             <li class="closed">
@@ -1513,122 +2182,13 @@
                                         
                                         </ul>
                                     
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    
-                <!-- Workspace: My Cool, Custom Work Area -->
-                    <table width="100%" cellpadding="0" cellspacing="0" style="border-top:solid 1px #E4E3E4;">
-                        <thead>
-                            <tr>
-                                <th class="subelementheader" style="padding:2px; width:50px; text-align:left;">
-                                    <a href="#" class="panelcontrol03"><img id="panelcontrolimage03" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
-                                </th>
-                                <th class="subelementheader" align="left">
-                                    Workspace: My Cool, Custom Work Area
-                                </th>
-                                <th class="subelementheader" style="text-align:right; padding:2px;">
-                                    <a href="#"><img src="../images/my_cp_inf.gif" width="15" height="14" border="0" title="Help" /></a>
-                                </th>
-                            </tr>
-                        </thead>
-                    </table>
-                    <div id="panelcontent03">    
-                        <table width="100%" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td class="elementcontent" colspan="2">
-                                	
-                                	<div style="padding-bottom:5px;">
-										<table width="100%" cellpadding="0" cellspacing="0" class="subelement" style="border-top:solid 1px #939393;">
-                                            <tr>
-                                                <td class="content_grey" style="width:120px; text-align:right;">
-                                                    Move Workspace:
-                                                </td>
-                                                <td class="content_white">
-                                                    <select name="CustomData" style="width:100%;">
-                                                        <option value="0" selected="selected">select</option>
-                                                        <option value="1">Before "Animal Use"</option>
-                                                    </select>
-                                                </td>
-                                                <td class="content_white" style="width:50px; text-align:center;">
-                                                    <input name="x" src="../images/tinybutton-move.gif" onclick="javascript: alert('If thiswere not a mock, this would move this template as specified.'); return false;" style="border:none;" alt="move template" type="image" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="content_grey" style="text-align:right;">
-                                                    Add Section:
-                                                </td>
-                                                <td class="content_white" style="text-align:right;">
-                                                    
-                                                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td style="border:none; width:50px; text-align:right;">
-                                                                Name:
-                                                            </td>
-                                                            <td style="border:none;">
-                                                                <input type="text" id="sectionname" name="sectionname" style="width:100%" value="" />
-                                                            </td>
-                                                            <td style="border:none; width:60px; text-align:right;">
-                                                                Location:
-                                                            </td>
-                                                            <td style="border:none;">
-                                                                <select name="CustomData" style="width:100%;">
-                                                                    <option value="0" selected="selected">select</option>
-                                                                    <option value="1">Before "Licencing"</option>
-                                                                    <option value="2">After "Licencing"</option>
-                                                                </select>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    
-                                                </td>
-                                                <td class="content_white" style="text-align:center;">
-                                                    <input name="addworkspace" src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a section as specified.'); return false;" style="border:none;" alt="add" type="image" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="content_grey" style="text-align:center;" colspan="3">
-                                                    <input name="x" src="../images/tinybutton-removeworkspace.gif" onclick="javascript: alert('If thiswere not a mock, this would ask for confirmation before removing this workspace.'); return false;" style="border:none;" alt="remove workspace" type="image" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    
-    
-                                    <!--<img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <a id="listcontrol00" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
-                                    <div id="treecontrol" style="display:inline;">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;<a title="Collapse the entire tree below" href="#"><img src="./images/minus.gif" /> Collapse All</a>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;<a title="Expand the entire tree below" href="#"><img src="./images/plus.gif" /> Expand All</a>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;<a title="Toggle the tree below, opening closed branches, closing open branches" href="#">Toggle All</a>
-                                        <a href="#"><img align="absmiddle" src="../images/searchicon.gif" width="16" height="16" border="0" alt="Search for Group" title="Search for Area of Research"></a>
-                                    </div>-->
-                                    
-                                    <!-- Section 3: Licencing -->
-                                        <img src="./images/hierarchy-root.png" width="14" height="14" border="0"> <b>Section 3: Licencing</b>
-                                        <ul id="browser3" class="filetree">
-                                            
-                                            <li class="closed">
-                                                &nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">
-                                                List licensing required for the use of these pharmaceuticals.
-                                            </li>
-                                            <li class="closed">
-                                                Do you need to obtain these licences?
-                                                <ul>
-                                                	<li>When will you obtain the appropriate licensure?</li>
-                                                </ul>
-                                            </li>
-                                        
-                                        </ul>
-                                    
-                                </td>
-                            </tr>
+                                </td> 
+                            </tr> 
                         </table>
                     </div>
             
             
-            
-            </td>
+            </td> 
             <td class="panelcontent3">&nbsp;</td>
         </tr>
     </table>
@@ -1677,9 +2237,6 @@
                             <td class="content_grey" style="text-align:center;">
                                 Module
                             </td>
-                            <td class="content_grey" style="text-align:center;">
-                                Template
-                            </td>
                         </tr>
                         <tr>
                             <td class="content_grey" style="width:50px; text-align:center;">
@@ -1687,9 +2244,6 @@
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 Lorem Ipsum
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                                MyTemplate
                             </td>
                         </tr>
                         <tr>
@@ -1699,9 +2253,6 @@
                             <td class="content_white" style="text-align:left;">
                                 Lorem Ipsum
                             </td>
-                            <td class="content_white" style="text-align:left;">
-                                MyTemplate
-                            </td>
                         </tr>
                         <tr>
                             <td class="content_grey" style="text-align:center;">
@@ -1710,9 +2261,6 @@
                             <td class="content_white" style="text-align:left;">
                                 Lorem Ipsum
                             </td>
-                            <td class="content_white" style="text-align:left;">
-                                MyTemplate
-                            </td>
                         </tr>
                         <tr>
                             <td class="content_grey" style="text-align:center;">
@@ -1720,9 +2268,6 @@
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 Lorem Ipsum
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                                MyTemplate
                             </td>
                         </tr>
                     </table>
@@ -1751,9 +2296,8 @@
 <!-- GLOBAL DOCUMENT CONTROLS -->
 <div class="globaldocumentcontrols">
     <a href="#"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" /></a>
-    <a href="#"><img src="../images/buttonsmall_saveastemplate.gif" alt="save as template" width="120" height="18" hspace="5" border="0" /></a>
-    <a href="#"><img src="../images/buttonsmall_refresh.gif" alt="save" width="68" height="18" hspace="5" border="0" /></a>
-    <a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width="48" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_refresh.gif" alt="refresh" width="68" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_close.gif" alt="close" width="48" height="18" hspace="5" border="0" /></a>
     <a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0" /></a>
 </div>
 
