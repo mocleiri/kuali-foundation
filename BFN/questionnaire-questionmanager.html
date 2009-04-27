@@ -565,7 +565,7 @@
                                     </td>
                                     <td style="border:none; width:55px; text-align:center; vertical-align:bottom;">
                                         <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a popup edit area. Changes would reversion the question.'); return false" style="border:none;" alt="save" type="image" />
-                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog allowing an existing question:version to be loaded.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog allowing an existing question:version to be loaded.  Searches would be possible by ID, category, and question.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
                                     </td>
                                 </tr>
                             </table>
@@ -608,7 +608,7 @@
                     </tr>
                     <tr>
                         <td class="content_grey" style="text-align:right;">
-                            Description:
+                            Explanation:
                         </td>
                         <td class="content_white" colspan="3">
                             
@@ -616,6 +616,44 @@
                                 <tr>
                                     <td style="border:none;">
                                         <textarea style="width:100%; text-align:left;" rows="2">This question is used in Animal Use cases for potential live vertebrates.</textarea>
+                                    </td>
+                                    <td style="border:none; width:30px; text-align:center; vertical-align:bottom;">
+                                        <input src="../images/pencil_add.png" onclick="javascript: alert('This would open a popup edit area. Changes would reversion the question.'); return false" style="border:none;" alt="save" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:right;">
+                            Policy:
+                        </td>
+                        <td class="content_white" colspan="3">
+                            
+                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <textarea style="width:100%; text-align:left;" rows="2">This question is tied to lots of very important policies that use lots of very big words.</textarea>
+                                    </td>
+                                    <td style="border:none; width:30px; text-align:center; vertical-align:bottom;">
+                                        <input src="../images/pencil_add.png" onclick="javascript: alert('This would open a popup edit area. Changes would reversion the question.'); return false" style="border:none;" alt="save" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:right;">
+                            Regulation:
+                        </td>
+                        <td class="content_white" colspan="3">
+                            
+                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <textarea style="width:100%; text-align:left;" rows="2">This question is under-regulated while republicans are in office and over-regulated when democrats are in office.</textarea>
                                     </td>
                                     <td style="border:none; width:30px; text-align:center; vertical-align:bottom;">
                                         <input src="../images/pencil_add.png" onclick="javascript: alert('This would open a popup edit area. Changes would reversion the question.'); return false" style="border:none;" alt="save" type="image" />
@@ -644,140 +682,145 @@
                     </tr>
                     <tr>
                         <td class="content_white" style="text-align:center; vertical-align:top;">
-                            <select id="responsetypecontrol">
-                                <option value="0">select</option>
-                                <option value="1" selected="selected">Yes/No</option>
+                            <select id="responsetypecontrol1">
+                                <option value="0" selected="selected">select</option>
+                                <option value="1">Yes/No</option>
                                 <option value="2">Yes/No/NA</option>
                                 <option value="3">Number</option>
                                 <option value="4">Date</option>
-                                <option value="6">Text</option>
-                                <option value="7">KC List</option>
-                                <option value="8">Dropdown</option>
-                                <option value="9">Checkbox</option>
+                                <option value="5">Text</option>
+                                <option value="6">KC List</option>
+                                <option value="7">Dropdown</option>
+                                <option value="8">Checkbox</option>
+                                <option value="9">Search</option>
                             </select>
                             <!-- Hide/Show Selected Type's Options -->
-							<script type="text/javascript">
-								$(document).ready(function(){
-									
-									setValueOptions();
-									$("#responsetypecontrol").change( function() {
-										setValueOptions();
-									});
-									function setValueOptions()
-									{
-										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 0 )
-										{
-											$(".responsetypediv").slideUp(200);
-											$("#responsetypeSelect").slideDown(400);
-										}
-										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 1 )
-										{
-											$(".responsetypediv").slideUp(200);
-											$("#responsetypeYesNo").slideDown(400);
-										}
-										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 2 )
-										{
-											$(".responsetypediv").slideUp(200);
-											$("#responsetypeYesNoNA").slideDown(400);
-										}
-										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 3 )
-										{
-											$(".responsetypediv").slideUp(200);
-											$("#responsetypeNumber").slideDown(400);
-										}
-										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 4 )
-										{
-											$(".responsetypediv").slideUp(200);
-											$("#responsetypeDate").slideDown(400);
-										}
-										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 5 )
-										{
-											$(".responsetypediv").slideUp(200);
-											$("#responsetypeText").slideDown(400);
-										}
-										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 6 )
-										{
-											$(".responsetypediv").slideUp(200);
-											$("#responsetypeKCList").slideDown(400);
-										}
-										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 7 )
-										{
-											$(".responsetypediv").slideUp(200);
-											$("#responsetypeDropdown").slideDown(400);
-										}
-										if ( document.questionnaireform.responsetypecontrol.selectedIndex == 8 )
-										{
-											$(".responsetypediv").slideUp(200);
-											$("#responsetypeCheckbox").slideDown(400);
-										}
-									}
-									
-									<!-- Select None Question Use -->
-									$("#quseNone").click( function() {
-										$(".quse").attr('checked','');
-									});
-									
-									<!-- Select All Question Use -->
-									$("#quseAll").click( function() {
-										$(".quse").attr('checked','checked');
-									});
-									
-								});
-							</script>
-                            
+                            <script type="text/javascript">
+                                $(document).ready(function(){
+                                    
+                                    // initial state
+                                        setValueOptions1();
+                                    // trigger state change
+                                        $("#responsetypecontrol1").change( function() {
+                                            setValueOptions1();
+                                        });
+                                    // function
+                                        function setValueOptions1()
+                                        {
+                                            $(".responsetypediv1").slideUp(200);
+                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 0 )
+                                            {
+                                                $("#responsetypeSelect1").slideDown(400);
+                                            }
+                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 1 )
+                                            {
+                                                $("#responsetypeYesNo1").slideDown(400);
+                                            }
+                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 2 )
+                                            {
+                                                $("#responsetypeYesNoNA1").slideDown(400);
+                                            }
+                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 3 )
+                                            {
+                                                $("#responsetypeNumber1").slideDown(400);
+                                            }
+                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 4 )
+                                            {
+                                                $("#responsetypeDate1").slideDown(400);
+                                            }
+                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 5 )
+                                            {
+                                                $("#responsetypeText1").slideDown(400);
+                                            }
+                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 6 )
+                                            {
+                                                $("#responsetypeKCList1").slideDown(400);
+                                            }
+                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 7 )
+                                            {
+                                                $("#responsetypeDropdown1").slideDown(400);
+                                            }
+                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 8 )
+                                            {
+                                                $("#responsetypeCheckbox1").slideDown(400);
+                                            }
+                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 9 )
+                                            {
+                                                $("#responsetypeSearch1").slideDown(400);
+                                            }
+                                        }
+                                    
+                                });
+                            </script>
                         </td>
                         <td class="content_white" style="text-align:left;">
                             
                             <!-- select -->
-                            <div id="responsetypeSelect" class="responsetypediv">
+                            <div id="responsetypeSelect1" class="responsetypediv1">
                                 <i>Please select the Type of response you would like for this question.</i>
                             </div>
                             
                             <!-- Yes/No -->
-                            <div id="responsetypeYesNo" class="responsetypediv">
-                                The user will be presented with the following radio buttons: Yes, No. Only one selection is possible.
+                            <div id="responsetypeYesNo1" class="responsetypediv1">
+                                <p>
+                                    The user will be presented with the following radio buttons: Yes, No. Only one selection is possible.
+                                </p>
                             </div>
                             
                             <!-- Yes/No/NA -->
-                            <div id="responsetypeYesNoNA" class="responsetypediv">
-                                The user will be presented with the following pulldown: Yes, No, Not Applicable. Only one selection is possible.
+                            <div id="responsetypeYesNoNA1" class="responsetypediv1">
+                                <p>
+                                    The user will be presented with the following pulldown: Yes, No, Not Applicable. Only one selection is possible.
+                                </p>
                             </div>
                             
                             <!-- Number -->
-                            <div id="responsetypeNumber" class="responsetypediv">
-                                The user will be presented with a text box.  The entered value will be validated requiring a number only.
+                            <div id="responsetypeNumber1" class="responsetypediv1">
+                                <p>
+                                    The user will be presented with a text box.  The entered value will be validated requiring a number only.
+                                </p>
                             </div>
                             
                             <!-- Date -->
-                            <div id="responsetypeDate" class="responsetypediv">
-                                The user will be presented with a text box.  The entered value will be validated for a date in MM/DD/YYYY format.
-                            </div>
-                            <!-- Text -->
-                            <div id="responsetypeText" class="responsetypediv">
+                            <div id="responsetypeDate1" class="responsetypediv1">
                                 <p>
-                                	The user will be presented with a text area.
+                                    The user will be presented with <input type="text" value="1" name="ntb01" style="width:25px;" /> text boxes.  The entered value will be validated for a date in MM/DD/YYYY format.
+                                </p>
+                            </div>
+                            
+                            <!-- Text -->
+                            <div id="responsetypeText1" class="responsetypediv1">
+                                <p>
+                                    The user will be presented with <input type="text" value="1" name="nta01" style="width:25px;" /> text areas.
                                 </p>
                                 <p>
-                                	Maximum length of response in characters:
-                                    <input type="text" size="4" value="150" />
+                                    Maximum length of response in characters:
+                                    <input name="maxtext01" type="text" size="4" value="150" />
                                 </p>
                             </div>
                             
                             <!-- KC List -->
-                            <div id="responsetypeKCList" class="responsetypediv">
+                            <div id="responsetypeKCList1" class="responsetypediv1">
                                 <p>
-                                	The user will be presented with checkboxes based on the KC List indicated.
+                                    The user will be presented with checkboxes based on the KC List indicated.
                                 </p>
                                 <p>
-                                	<input name="kclist" type="text" size="25" value="Some KC List" />
+                                    <input name="kclist" type="text" size="25" value="Some KC List" />
                                     <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog allowing the possible KC lists to be set.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
+                                    &nbsp;&nbsp;&nbsp;Number of possible answers:
+                                    <input type="text" style="width:25px;" />
                                 </p>
                             </div>
                             
                             <!-- Dropdown -->
-                            <div id="responsetypeDropdown" class="responsetypediv">
+                            <div id="responsetypeDropdown1" class="responsetypediv1">
                                 <p>The user will be presented with a dropdown of alphanumerically listed options.  Only one selection is possible.</p>
                                 <table style="border:1px solid #939393; border-collapse:collapse; margin-left:5px; margin-bottom:5px; width:625px;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; width:50px; text-align:left;" class="subelementheader" colspan="3">
+                                            <b>Dropdown Options:</b>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; width:50px; text-align:center;" class="content_info">
                                             <b>Add:</b>
@@ -837,9 +880,14 @@
                             </div>
                             
                             <!-- Checkbox -->
-                            <div id="responsetypeCheckbox" class="responsetypediv">
+                            <div id="responsetypeCheckbox1" class="responsetypediv1">
                                 <p>The user will be presented with one or more checkboxes.  No selections, or more than one selection, is possible.</p>
                                 <table style="border:1px solid #939393; border-collapse:collapse; margin-left:5px; margin-bottom:5px; width:625px;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; width:50px; text-align:left;" class="subelementheader" colspan="3">
+                                            <b>Checkbox Options:</b>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td colspan="2" style="border:1px solid #939393; border-collapse:collapse; padding:3px; width:50px; text-align:right;" class="content_info">
                                             <b>Maximum Number of Answers:</b>
@@ -905,6 +953,19 @@
                                         </td>
                                     </tr>
                                 </table>
+                            </div>
+                            
+                            <!-- Search -->
+                            <div id="responsetypeSearch1" class="responsetypediv1">
+                                <p>
+                                    The user will be presented with the ability to search for
+                                    <select name="searchfor01">
+                                        <option value="0">select</option>
+                                        <option value="1" selected="selected">Person</option>
+                                        <option value="2">Rolodex</option>
+                                        <option value="3">Unit</option>
+                                    </select>.
+                                </p>
                             </div>
                             
                         </td>
