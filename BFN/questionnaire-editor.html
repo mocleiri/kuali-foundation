@@ -134,6 +134,18 @@
 						$("a.panelcontrol07").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
 					}
 				);
+			<!-- panelcontent08 -->
+				$("#panelcontent08").hide();
+				$("a.panelcontrol08").toggle(
+					function()
+					{
+						$("#panelcontent08").slideDown(500);
+						$("a.panelcontrol08").html("<img src='../images/tinybutton-hide.gif' alt='show/hide panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#panelcontent08").slideUp(500);
+						$("a.panelcontrol08").html("<img src='../images/tinybutton-show.gif' alt='show/hide panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
 		<!-- SUB-ELEMENT -->
 			<!-- subelementcontent01 -->
 				$("#subelementcontent01").hide();
@@ -560,7 +572,7 @@
     <img src="../images/tinybutton-collapseall.gif" alt="collapse all" />
 </div>
 
-
+<form name="questionnaireform" id="questionnaireform"> 
 
 <!-- TOP PANEL HEAD -->
 <table class="paneltable">
@@ -576,8 +588,6 @@
         <td class="toppanelhead5">&nbsp;</td>
     </tr>
 </table>
-
-<form name="questionnaireform" id="questionnaireform">
 
 <!-- PANEL CONTENT -->
 <div id="panelcontent01">
@@ -702,7 +712,7 @@
     <tr>
         <td class="midpanelhead1">&nbsp;</td>
         <td class="midpanelhead2">
-        	Questionnaire Details
+        	Questionnaire Details &amp; Use
         </td>
         <td class="midpanelhead3">
             <a href="#" class="panelcontrol02"><img id="panelcontrolimage02" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
@@ -724,7 +734,7 @@
                     <tr>
                         <th class="elementhead_left">
                             <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
-                            Details: My Cool Questionnaire About Stuff
+                            Questionnaire Details
                         </th>
                         <th class="elementhead_right">
                             <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
@@ -733,7 +743,7 @@
                 </table>
                 
                 <!-- CONTENT: Load Questionnaire -->
-                <!--<div id="content01">-->
+                <div id="content01">
                     <table class="content_table">  
                        <tr>
                             <td class="content_grey" style="width:85px; text-align:right;">
@@ -774,43 +784,18 @@
                             <td class="content_white">
                                 <select name="CustomData" id="CustomData">
                                     <option value="0">select</option>
-                                    <option value="1" selected>In Progress</option>
-                                    <option value="2">Completed</option>
-                                    <option value="3">Inactive</option>
+                                    <option value="1" selected>Active</option>
+                                    <option value="2">Inactive</option>
                                 </select>
                             </td>
-                            <td class="content_grey" style="width:65px; text-align:right;">
-                                Approved:
+                            <td class="content_grey" style="width:85px; text-align:right; white-space:nowrap;">
+                                Final:
                             </td>
                             <td class="content_white">
                                 <input type="radio" style="border:none;" name="CustomData" value="0" />Yes
                                 <input type="radio" style="border:none;" name="CustomData" value="1" checked="checked" />No
                             </td>
-                        
                             <td class="content_grey" style="width:85px; text-align:right;">
-                                Module:
-                            </td>
-                            <td class="content_white">
-                                <select name="CustomData" id="CustomData">
-                                    <option value="0">select</option>
-                                    <option value="1" selected>lorem</option>
-                                    <option value="2">ipsum</option>
-                                    <option value="3">nolar</option>
-                                </select>
-                            </td>
-                            <td class="content_grey" style="width:65px; text-align:right;">
-                                Sub-module:
-                            </td>
-                            <td class="content_white">
-                                <select name="CustomData" id="CustomData">
-                                    <option value="0">select</option>
-                                    <option value="1">lorem</option>
-                                    <option value="2" selected>ipsum</option>
-                                    <option value="3">nolar</option>
-                                </select>
-                                <input name="refresh0" src="../images/arrow_refresh.png" onclick="javascript: alert('This would refresh the dependent pulldown options.'); return false;" style="border:none; vertical-align:top;" alt="Refresh Pulldown Options" title="Refresh Pulldown Options" type="image" />
-                            </td>
-                            <td class="content_grey" style="text-align:right;">
                                 Lifespan:
                             </td>
                             <td class="content_white">
@@ -832,7 +817,165 @@
                        </tr>
                     </table>
             	<!--</div>-->
-            
+            	
+                <!-- ELEMENT HEAD: Question Use -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <a href="#" class="panelcontrol08"><img src='../images/tinybutton-show.gif' alt='show/hide panel' width='45' height='15' border='0' align='absmiddle'></a>
+                            Questionnaire Use
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+               	<div id="panelcontent08">
+                    <!-- CONTENT: Question Use -->
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_grey" style="width:50px; text-align:center;">
+                            	&nbsp;
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Module
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Sub-module
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Label
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Version
+                            </td>
+                            <td class="content_grey" style="text-align:center; width:70px;">
+                                Action
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="width:50px; text-align:right;">
+                                Add:
+                            </td>
+                            <td class="content_info" style="text-align:left;">
+                                <select style="width:100%;">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">lorem</option>
+                                    <option value="2">ipsum</option>
+                                    <option value="3">nolar</option>
+                                </select>
+                            </td>
+                            <td class="content_info" style="text-align:left;">
+                            	
+                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none;">
+                                            <select style="width:100%;">
+                                                <option value="0" selected="selected">select</option>
+                                                <option value="1">lorem</option>
+                                                <option value="2">ipsum</option>
+                                                <option value="3">nolar</option>
+                                            </select>
+                                        </td>
+                                        <td style="border:none; width:20px; text-align:right;">
+                                            <input name="refresh0" src="../images/arrow_refresh.png" onclick="javascript: alert('This would refresh the dependent pulldown options.'); return false;" style="border:none; vertical-align:top;" alt="refresh" title="Refresh Pulldown Options" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td class="content_info" style="text-align:left;">
+                                <input type="text" style="width:100%;" />
+                            </td>
+                            <td class="content_info" style="text-align:left;">
+                                1.000
+                            </td>
+                            <td class="content_info" style="text-align:center;">
+                            	<input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this questionnaire to the selected module/sub-module.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="width:50px; text-align:center;">
+                                1
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                Lorem
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	Dolar
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	1.000
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                            	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the associated questionnaire.'); return false" style="border:none;" alt="view" title="View" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:center;">
+                                2
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                Lorem
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	Dolar
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	1.000
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                            	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the associated questionnaire.'); return false" style="border:none;" alt="view" title="View" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:center;">
+                                3
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                Lorem
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	Dolar
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	1.000
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                            	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the associated questionnaire.'); return false" style="border:none;" alt="view" title="View" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:center;">
+                                4
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                Lorem
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	Ipsum
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	Dolar
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	1.000
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                            	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the associated questionnaire.'); return false" style="border:none;" alt="view" title="View" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             
             </td> 
             <td class="panelcontent3">&nbsp;</td>
@@ -4322,91 +4465,6 @@
             <td class="panelcontent3">&nbsp;</td>
         </tr>
     </table>
-</div>
-
-<!-- MID PANEL HEAD -->
-<table class="paneltable">
-    <tr>
-        <td class="midpanelhead1">&nbsp;</td>
-        <td class="midpanelhead2">
-        	Questionnaire Use
-        </td>
-        <td class="midpanelhead3">
-            <a href="#" class="panelcontrol05"><img id="panelcontrolimage05" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
-        </td>
-        <td class="midpanelhead4">&nbsp;</td>
-        <td class="midpanelhead5">&nbsp;</td>
-    </tr>
-</table>
-         
-<!-- PANEL CONTENT -->
-<div id="panelcontent05">
-	<table class="paneltable">
-        <tr>
-            <td class="panelcontent1">&nbsp;</td>
-            <td class="panelcontent2" colspan="3">
-            
-    			<!-- ELEMENT HEAD: Question Use -->
-                <table class="elementhead_table">
-                    <tr>
-                        <th class="elementhead_left">
-                            Questionnaire Use: My Cool Questionnaire About Stuff (version 1.000: unmodified)
-                        </th>
-                        <th class="elementhead_right">
-                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
-                        </th>
-                    </tr>
-                </table>
-               	<div id="panelcontent02">
-                    <!-- CONTENT: Question Use -->
-                    <table class="content_table">  
-                       <tr>
-                            <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
-                                
-                            </td>
-                            <td class="content_grey" style="text-align:center;">
-                                Module
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_grey" style="width:50px; text-align:center;">
-                                1
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                                Lorem Ipsum
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_grey" style="text-align:center;">
-                                2
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                                Lorem Ipsum
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_grey" style="text-align:center;">
-                                3
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                                Lorem Ipsum
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_grey" style="text-align:center;">
-                                4
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                                Lorem Ipsum
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                
-			</td>
-            <td class="panelcontent3">&nbsp;</td>
-        </tr>
-    </table>    
 </div>
 
 <!-- PANEL FOOT -->
