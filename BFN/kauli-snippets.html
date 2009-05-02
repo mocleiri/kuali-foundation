@@ -194,18 +194,24 @@ Page
 <!-- Help -->
 <a href="#" target="helpWindow" title="help"><img src="../images/my_cp_inf.gif" alt="help" align="middle" border="0" /></a>
 
-
 <!-- Calendar -->
-<input type="text" name="date1" id="date1" value="31-Dec-2009" size="10" />
-<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-
-
+<table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+    <tr>
+        <td style="border:none; background:none; text-align:right;">
+            <input type="text" value="" style="width:80px;" />
+        </td>
+        <td style="border:none; width:20px; vertical-align:top; background:none;">
+            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" class="tinybutton" alt="date selector" title="Date Selector" type="image" />
+        </td>
+    </tr>
+</table>
+				
 <!-- Tinybutton -->
-<input name="x" src="../images/tinybutton-synctotemplate.gif" onclick="javascript: alert('do button action'); return false" class="tinybutton" alt="sync" type="image" />
+<input src="../images/tinybutton-synctotemplate.gif" onclick="javascript: alert('Please let Bart or Tom know what this button does so we can add a description of the functionality here.'); return false" class="tinybutton" alt="sync" title="Sync" type="image" />
     
     
 <!-- Select/Options -->
-<select name="CustomData">
+<select>
 	<option value="0">select</option>
     <option value="1" selected="selected">label one</option>
     <option value="2">label two</option>
@@ -218,7 +224,7 @@ Page
 <input type="radio" class="nobord" name="CustomData" value="0" checked="checked" />
 
 <!-- Input -->
-<input type="text" id="lorem" name="lorem" size="25" value="Ipsum" />
+<input type="text" style="width:150px;" value="Ipsum" />
 
 <!-- Select -->    
 <select name="CustomData" id="CustomData">
