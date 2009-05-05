@@ -5,5 +5,6 @@
 . ~j2eemgr/kuali/shared-functions
 
 kupdate reg standard true true MySQL
+kupdate stg standard true true Oracle9i
 
 kend 0
