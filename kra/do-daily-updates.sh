@@ -16,7 +16,8 @@ kupdate cnv standard true false Oracle9i
 buildsvnwebapp cnv
 runS2sScripts cnv
 #APPLICATION_SERVER_NAME=kuali5; typeset -rx APPLICATION_SERVER_NAME
-kupdate stg standard false true Oracle9i
+#kupdate stg standard false true Oracle9i
+buildsvnwebapp stg
 kpurge $LOGS_DIRECTORY 7
 
 kcend 0
