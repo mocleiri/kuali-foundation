@@ -386,7 +386,7 @@
                         <td style="background-image:url(../images/th-back.gif);" colspan="4">
                             <div>
                                 <span style="float:right; margin-right:17px;">
-                                    <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                    <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                         <tr>
                                             <td style="text-align:center; font-weight:bold; background-image:url(../images/th-back.gif); width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                 Oblg. Start
@@ -416,11 +416,34 @@
                             
                             <div id="awardhierarchydiv" style="clear:left; height:285px; margin:10px 0 0 0; overflow-y:scroll; overflow-x:hidden; position:relative;">
                             
-                                <ul id="browser" class="filetree">
+                            	<!-- stripe / hover <li> -->
+								<script type="text/javascript">
+									$(document).ready(function(){
+										$('li:odd').css({backgroundColor: '#eeeeee'});
+										$('.amnts:even td').css({backgroundColor: '#eeeeee'});
+										$('li:even').css({backgroundColor: '#ffffff'});
+										$('.amnts:odd td').css({backgroundColor: '#ffffff'});
+										
+										$(".stripeli li").mouseover(function(){
+												
+												$(this).addClass("lihover");
+												
+												
+											}).mouseout(function(){
+												
+												$(this).removeClass("lihover");
+												
+												
+												
+										});
+									});
+								</script>
+                            
+                                <ul id="browser" class="filetree stripeli">
                                    
                                     <li>
                                         <span style="float:right;">
-                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                 <tr>
                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                         01/12/2007
@@ -597,7 +620,7 @@
                                         <ul>
                                             <li>
                                                 <span style="float:right;">
-                                                    <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                    <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                         <tr>
                                                             <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                 01/12/2007
@@ -771,7 +794,7 @@
                                             </li>
                                             <li>
                                                 <span style="float:right;">
-                                                    <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                    <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                         <tr>
                                                             <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                 01/12/2007
@@ -799,7 +822,7 @@
                                                 <ul>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -826,34 +849,34 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                        01/12/2007
+                                                                        <b>01/12/2007</b>
                                                                     </td>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                        12/31/2008
+                                                                        <b>12/31/2008</b>
                                                                     </td>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                        11/30/2012
+                                                                        <b>11/30/2012</b>
                                                                     </td>
                                                                     <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                        20,000.00
+                                                                        <b>20,000.00</b>
                                                                     </td>
                                                                     <td style="text-align:right; width:120px; border-collapse:collapse; border:1px solid #999999;">
-                                                                        50,000.00
+                                                                        <b>50,000.00</b>
                                                                     </td>
                                                                 </tr>
                                                             </table>
                                                         </span>
                                                         <div>
                                                             &nbsp;<img src="../BFN/images/award_active.gif" width="11" height="11" border="0" title="Status: Active">
-                                                            000121-005 (currently selected)
+                                                            <b>000121-005</b> <i>(currently selected)</i>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -880,7 +903,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -907,7 +930,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -934,7 +957,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -961,7 +984,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -988,7 +1011,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -1015,7 +1038,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -1042,7 +1065,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -1069,7 +1092,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -1096,7 +1119,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -1123,7 +1146,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -1150,7 +1173,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -1179,7 +1202,7 @@
                                             </li>
                                             <li>
                                                 <span style="float:right;">
-                                                    <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                    <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                         <tr>
                                                             <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                 01/12/2007
@@ -1207,7 +1230,7 @@
                                                 <ul>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -1234,7 +1257,7 @@
                                                     </li>
                                                     <li>
                                                         <span style="float:right;">
-                                                            <table style="width:600px; border-collapse:collapse; border:1px solid #999999;">
+                                                            <table class="amnts" style="width:600px; border-collapse:collapse; border:1px solid #999999;">
                                                                 <tr>
                                                                     <td style="text-align:center; width:120px; border-collapse:collapse; border:1px solid #999999;">
                                                                         01/12/2007
@@ -1262,6 +1285,7 @@
                                                     
                                                 </ul>
                                             </li>
+                                            
                                         </ul>
                                     </li>
                                     

@@ -1039,3 +1039,10 @@ td.infoline
 	clear: both;
 	line-height: 1%;
 }
+
+.lihover
+{
+	background:#ff0000;
+	background-image:url(file:///C|/!BFN/Pics/20080701%20Jeeps/FiveRigsNorthFarm.jpg)
+	color:#0F0;
+}
