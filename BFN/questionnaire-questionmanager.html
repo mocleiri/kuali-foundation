@@ -689,10 +689,9 @@
                                 <option value="3">Number</option>
                                 <option value="4">Date</option>
                                 <option value="5">Text</option>
-                                <option value="6">KC List</option>
-                                <option value="7">Dropdown</option>
-                                <option value="8">Checkbox</option>
-                                <option value="9">Search</option>
+                                <option value="6">Dropdown</option>
+                                <option value="7">Checkbox</option>
+                                <option value="8">Lookup</option>
                             </select>
                             <!-- Hide/Show Selected Type's Options -->
                             <script type="text/javascript">
@@ -734,17 +733,13 @@
                                             }
                                             if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 6 )
                                             {
-                                                $("#responsetypeKCList1").slideDown(400);
+                                                $("#responsetypeDropdown1").slideDown(400);
                                             }
                                             if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 7 )
                                             {
-                                                $("#responsetypeDropdown1").slideDown(400);
-                                            }
-                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 8 )
-                                            {
                                                 $("#responsetypeCheckbox1").slideDown(400);
                                             }
-                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 9 )
+                                            if ( document.questionnaireform.responsetypecontrol1.selectedIndex == 8 )
                                             {
                                                 $("#responsetypeSearch1").slideDown(400);
                                             }
@@ -763,58 +758,55 @@
                             <!-- Yes/No -->
                             <div id="responsetypeYesNo1" class="responsetypediv1">
                                 <p>
-                                    The user will be presented with the following radio buttons: Yes, No. Only one selection is possible.
+                                    The user will be presented with the following radio buttons: Yes, No.<br />
+                                    Only one selection is possible.<br />
+                                    A selection is required.
                                 </p>
                             </div>
                             
                             <!-- Yes/No/NA -->
                             <div id="responsetypeYesNoNA1" class="responsetypediv1">
                                 <p>
-                                    The user will be presented with the following pulldown: Yes, No, Not Applicable. Only one selection is possible.
+                                    The user will be presented with the following pulldown: Yes, No, Not Applicable.<br />
+                                    Only one selection is possible.<br />
+                                    A selection is required.
                                 </p>
                             </div>
                             
                             <!-- Number -->
                             <div id="responsetypeNumber1" class="responsetypediv1">
                                 <p>
-                                    The user will be presented with a text box.  The entered value will be validated requiring a number only.
+                                    The user will be presented with <input type="text" value="1" name="ntb01v" style="width:25px;" /> text boxes.<br />
+                                    The entered value will be validated requiring a number only.<br />
+                                    The maximum length of the number in characters is <input type="text" value="1" name="ntb01vf" style="width:25px;" />.<br />
+                                    The number of possible answers is <input type="text" value="1" name="ntb01vs" style="width:25px;" />, not to exceed the number of text boxes presented.
                                 </p>
                             </div>
                             
                             <!-- Date -->
                             <div id="responsetypeDate1" class="responsetypediv1">
                                 <p>
-                                    The user will be presented with <input type="text" value="1" name="ntb01" style="width:25px;" /> text boxes.  The entered value will be validated for a date in MM/DD/YYYY format.
+                                    The user will be presented with <input type="text" value="1" name="ntb01" style="width:25px;" /> text boxes.<br />
+                                    The entered value will be validated for a date in MM/DD/YYYY format.<br />
+                                    A response is required for each text box.<br />
+                                    The number of possible answers is <input type="text" value="1" name="ntb01vj" style="width:25px;" />, not to exceed the number of text boxes presented.
                                 </p>
                             </div>
                             
                             <!-- Text -->
                             <div id="responsetypeText1" class="responsetypediv1">
                                 <p>
-                                    The user will be presented with <input type="text" value="1" name="nta01" style="width:25px;" /> text areas.
-                                </p>
-                                <p>
-                                    Maximum length of response in characters:
-                                    <input name="maxtext01" type="text" size="4" value="150" />
-                                </p>
-                            </div>
-                            
-                            <!-- KC List -->
-                            <div id="responsetypeKCList1" class="responsetypediv1">
-                                <p>
-                                    The user will be presented with checkboxes based on the KC List indicated.
-                                </p>
-                                <p>
-                                    <input name="kclist" type="text" size="25" value="Some KC List" />
-                                    <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog allowing the possible KC lists to be set.'); return false" align="top" alt="search " title="Search " style="border:none;" type="image" />
-                                    &nbsp;&nbsp;&nbsp;Number of possible answers:
-                                    <input type="text" style="width:25px;" />
+                                    The user will be presented with <input type="text" value="1" name="nta01" style="width:25px;" /> text areas.<br />
+                                    The number of possible answers is <input type="text" value="1" name="ntb01x" style="width:25px;" />, not to exceed the number of text areas presented.<br />
+                                    Maximum length of each response in characters: <input name="maxtext01" type="text" size="4" value="150" />.
                                 </p>
                             </div>
                             
                             <!-- Dropdown -->
                             <div id="responsetypeDropdown1" class="responsetypediv1">
-                                <p>The user will be presented with a dropdown of alphanumerically listed options.  Only one selection is possible.</p>
+                                <p>The user will be presented with a dropdown of alphanumerically listed options.<br />
+                                Only one selection is possible.<br />
+                                A selection is required.</p>
                                 <table style="border:1px solid #939393; border-collapse:collapse; margin-left:5px; margin-bottom:5px; width:625px;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; width:50px; text-align:left;" class="subelementheader" colspan="3">
@@ -881,7 +873,9 @@
                             
                             <!-- Checkbox -->
                             <div id="responsetypeCheckbox1" class="responsetypediv1">
-                                <p>The user will be presented with one or more checkboxes.  No selections, or more than one selection, is possible.</p>
+                                <p>The user will be presented with one or more checkboxes.<br />
+                                At least one selection is required.<br />
+                                Up to <input type="text" value="1" name="nta01h" style="width:25px;" /> selections are allowed.</p>
                                 <table style="border:1px solid #939393; border-collapse:collapse; margin-left:5px; margin-bottom:5px; width:625px;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:1px solid #939393; border-collapse:collapse; padding:3px; width:50px; text-align:left;" class="subelementheader" colspan="3">
@@ -955,7 +949,7 @@
                                 </table>
                             </div>
                             
-                            <!-- Search -->
+                            <!-- Lookup -->
                             <div id="responsetypeSearch1" class="responsetypediv1">
                                 <p>
                                     The user will be presented with the ability to search for
@@ -965,6 +959,18 @@
                                         <option value="2">Rolodex</option>
                                         <option value="3">Unit</option>
                                     </select>.
+                                    <br />
+                                    The field to return is
+                                    <select name="searchfor01">
+                                        <option value="0">select</option>
+                                        <option value="1" selected="selected">Name</option>
+                                        <option value="2">Phone</option>
+                                        <option value="3">Address</option>
+                                        <option value="3">E-mail Address</option>
+                                    </select>.
+                                    <input src="../images/arrow_refresh.png" onclick="javascript: alert('This would update the Field dropdown based on the Search pulldown.'); return false" style="border:none;" alt="refresh" title="Refresh" type="image" />
+                                    <br />
+                                    The number of possible returns is <input type="text" value="1" name="ntb02f" style="width:25px;" />.
                                 </p>
                             </div>
                             
@@ -972,9 +978,7 @@
                     </tr>
                     <tr>
                         <td class="content_info" style="text-align:center;" colspan="2">
-                            <input src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would save changes as a new question or a new version.  If this is a new version of a question you would be asked if you want to apply it to all active questionnaires. If a non-existant category has been entered, the new category would be added.'); return false" style="border:none; padding:2px;" alt="save" type="image" />
-                            <input src="../images/tinybutton-clear40.gif" onclick="javascript: alert('This would clear the form data allowing a NEW question to be added.'); return false" style="border:none; padding:2px;" alt="clear" type="image" />
-                            <input src="../images/tinybutton-refresh.gif" onclick="javascript: alert('This would refresh the Values to reflect the pulldown choice.'); return false" style="border:none; padding:2px;" alt="refresh" type="image" />
+                            <input src="../images/tinybutton-refresh.gif" onclick="javascript: alert('This would update the Value description and options based on the Type pulldown.'); return false" style="border:none; padding:2px;" alt="refresh" type="image" />
                         </td>
                     </tr>
                 </table>
@@ -1086,7 +1090,8 @@
     
 <!-- GLOBAL DOCUMENT CONTROLS -->
 <div class="globaldocumentcontrols">
-    <a href="#"><img src="../images/buttonsmall_refresh.gif" alt="save" width="68" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_submit.gif" alt="submit" width="68" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" /></a>
     <a href="#"><img src="../images/buttonsmall_close.gif" alt="close" width="48" height="18" hspace="5" border="0" /></a>
     <a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0" /></a>
 </div>
