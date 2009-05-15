@@ -6,6 +6,5 @@
 
 kupdate reg standard true true MySQL
 kbranch standard endowment
-kupdate stg standard true true Oracle9i
 
 kend 0
