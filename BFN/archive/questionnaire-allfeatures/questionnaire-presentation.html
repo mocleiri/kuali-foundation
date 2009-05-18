@@ -309,20 +309,57 @@
                     <tr>
                         <th class="elementhead_left">
                             <!--<img class="closedsectioncontrol" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" />-->
-                            Questions
+                            Questionnaire Controls
                         </th>
                         <th class="elementhead_right">
-                            <input name="print1" src="../images/tinybutton-printdark.gif" onclick="javascript: alert('This would print the questionnaire.'); return false" style="border:none;" alt="print" type="image" />
                             <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
                         </th>
                     </tr>
                 </table>
                 
                 <!-- CONTENT: Label Here -->
-                <div>
+                <div class="openedsectiondiv">
+                    <table class="content_table">  
+                       	<tr>
+                            <td class="content_grey" style="width:100px; text-align:center;">
+                            	<b>Actions:</b>
+                            </td>
+                            <td class="content_white">
+                            	<select name="CustomData" id="CustomData" style="width:100%;">
+                                    <option value="0" selected>select</option>
+                                    <option value="1">Entire Questionnaire</option>
+                                    <option value="2">Research Details</option>
+                                    <option value="3">Animal Procurement </option>
+                                </select>
+                            </td>
+                            <td class="content_white" style="width:150px; text-align:center;">
+                            	<input name="print1" src="../images/tinybutton-print.gif" onclick="javascript: alert('If this were not a mock, this button would print the selected data.'); return false" style="border:none;" alt="print" type="image" />
+                                <input name="export1" src="../images/tinybutton-export.gif" onclick="javascript: alert('If this were not a mock, this button would export the selected data.'); return false" style="border:none;" alt="export" type="image" />
+                            </td>
+                       	</tr>
+                   	</table> 
+                </div>
+                
+                <!-- ELEMENT HEAD: Label Here -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <img class="closedsectioncontrol" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" />
+                            Section 1: Research Details (page 1)
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                
+                <!-- CONTENT: Label Here -->
+                <div class="closedsectiondiv" >
                     <table class="content_table">  
                        <tr>
                             <td class="content_questionnaire">
+                                
+                                
                
                                 <div class="Qdiv" id="QID001">
                                     <div class="Qquestiondiv">
@@ -530,12 +567,81 @@
                                     </div>
                                 </div>
                 
-                				
+                				<div class="sectionpage" id="sectionpage01">
+                                	<input name="pageprevious01" src="../images/previous_off.gif" onclick="javascript: alert('If this were not a mock, this would load the previous page of this section.  In this case, there is nothing before Page 1 so this button is off.'); return false" style="border:none; vertical-align:middle;" alt="previous" title="Load Previous Page" type="image" />
+                                    <b>Page 1: General Animal Questions A</b>
+                                    <input name="pagenext01" src="../images/next.gif" onclick="javascript: alert('If this were not a mock, this would load the next page of this section.'); return false" style="border:none; vertical-align:middle;" alt="next" title="Load Next Page" type="image" />
+                                </div>
                                 
                             </td>
                         </tr>
                     </table>
                 </div>
+                
+                <!-- ELEMENT HEAD: Label Here -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <img class="closedsectioncontrol" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" />
+                            Section 2: Animal Procurement (page 1)
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                
+                <!-- CONTENT: Label Here -->
+                <div class="closedsectiondiv">
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_questionnaire">
+                                
+                                <div class="Qdiv" id="QID210">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.1.1</span>-->
+                                        <span class="Qquestion">From where will you obtain animals?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID210]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="text" class="evaluatereticulate" id="AID210" name="AID008" size="3" value="0" />
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID211">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.1.1</span>-->
+                                        <span class="Qquestion">Do you need state or local licence to obtain animals? </span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID211]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="text" class="evaluatereticulate" id="AID211" name="AID008" size="3" value="0" />
+                                        </span>
+                                    </div>
+                                </div>
+                
+                				<div class="sectionpage" id="sectionpage01">
+                                	<input name="pageprevious01" src="../images/previous_off.gif" onclick="javascript: alert('If this were not a mock, this would load the previous page of this section.  In this case, there is nothing before Page 1 so this button is off.'); return false" style="border:none; vertical-align:middle;" alt="previous" title="Load Previous Page" type="image" />
+                                    <b>Page 1: Source and Licence</b>
+                                    <input name="pagenext01" src="../images/next.gif" onclick="javascript: alert('If this were not a mock, this would load the next page of this section.'); return false" style="border:none; vertical-align:middle;" alt="next" title="Load Next Page" type="image" />
+                                </div>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+               
+               
+                
                     
             </td>
             <td class="panelcontent3">&nbsp;</td>
@@ -564,8 +670,33 @@
         <tr>
             <td class="panelcontent1">&nbsp;</td>
             <td class="panelcontent2" colspan="3">
+            	
                 
-                [Similar to above.]
+                <!-- ELEMENT HEAD: Label Here -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <img class="closedsectioncontrol" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" />
+                            [section label here]
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                
+                <!-- CONTENT: Label Here -->
+                <div class="closedsectiondiv">
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_info">
+                                
+                                [questions here]
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 
             </td>
             <td class="panelcontent3">&nbsp;</td>
@@ -594,8 +725,33 @@
         <tr>
             <td class="panelcontent1">&nbsp;</td>
             <td class="panelcontent2" colspan="3">
+            	
                 
-                [Similar to above.]
+                <!-- ELEMENT HEAD: Label Here -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <img class="closedsectioncontrol" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" />
+                            [section label here]
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                
+                <!-- CONTENT: Label Here -->
+                <div class="closedsectiondiv">
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_info">
+                                
+                                [questions here]
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 
             </td>
             <td class="panelcontent3">&nbsp;</td>

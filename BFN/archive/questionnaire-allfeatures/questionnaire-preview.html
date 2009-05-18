@@ -1,0 +1,575 @@
+<!--
+#########################################################################################
+#                                                                                       #
+#  U I   N E S T E D   S T R U C T U R A L   O U T L I N E                              #
+#                                                                                       #
+#  A "Page" contains one or more "Panels" and optionally a "Control Panel" at the top.  #
+#  A Panel contains one or more "Elements."                                             #
+#  An Element can optionally expand and contains one or more of the following:          #
+#	 [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#                                                                                       #
+#  A Sub-element can optionally expand and contains one or more of the following:       #
+#    [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#                                                                                       #
+#########################################################################################
+-->
+
+<!-- DOCUMENT HEAD -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Kuali</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <link rel="shortcut icon" href="../images/icon.ico" />
+    <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="../BFN/new_kuali.css" rel=stylesheet type="text/css">
+    <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />
+    <link href="questionnaire.css" rel="stylesheet" type="text/css" />
+    <!-- jQuery Library -->
+	<script type="text/javascript" src="../scripts/jquery.js"></script>
+    <script type="text/javascript" src="jquery.treeview.js"></script>
+    <!-- jQuery Document Ready -->
+	<script type="text/javascript">
+		$(document).ready(function(){		
+			<!-- Tree View -->
+				$("#browser").treeview({
+					control: "#treecontrol"
+				});
+				$("#browser1").treeview({
+					control: "#treecontrol"
+				});
+				$("#browser3").treeview({
+					control: "#treecontrol"
+				});
+				$("#browser4").treeview({
+					control: "#treecontrol"
+				});
+				$("#browser5").treeview({
+					control: "#treecontrol"
+				});
+		<!-- PANEL -->
+			<!-- panelcontent01 -->
+				<!--$("#panelcontent01").hide();-->
+				$("a.panelcontrol01").toggle(
+					function()
+					{
+						$("#panelcontent01").slideUp(500);
+						$("a.panelcontrol01").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#panelcontent01").slideDown(500);
+						$("a.panelcontrol01").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- panelcontent02 -->
+				$("#panelcontent02").hide();
+				$("a.panelcontrol02").toggle(
+					function()
+					{
+						$("#panelcontent02").slideDown(500);
+						$("a.panelcontrol02").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#panelcontent02").slideUp(500);
+						$("a.panelcontrol02").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- panelcontent03 -->
+				$("#panelcontent03").hide();
+				$("a.panelcontrol03").toggle(
+					function()
+					{
+						$("#panelcontent03").slideDown(500);
+						$("a.panelcontrol03").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#panelcontent03").slideUp(500);
+						$("a.panelcontrol03").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+		<!-- SUB-ELEMENT -->
+			<!-- subelementcontent01 -->
+				$("#subelementcontent01").hide();
+				$("a.subpanelcontrol01").toggle(
+					function()
+					{
+						$("#subelementcontent01").slideDown(300);
+						$("a.subpanelcontrol01").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent01").slideUp(300);
+						$("a.subpanelcontrol01").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- subelementcontent02 -->
+				$("#subelementcontent02").hide();
+				$("a.subelementcontrol02").toggle(
+					function()
+					{
+						$("#subelementcontent02").slideDown(300);
+						$("a.subelementcontrol02").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent02").slideUp(300);
+						$("a.subelementcontrol02").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- subelementcontent03 -->
+				$("#subelementcontent03").hide();
+				$("a.subelementcontrol03").toggle(
+					function()
+					{
+						$("#subelementcontent03").slideDown(300);
+						$("a.subelementcontrol03").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent03").slideUp(300);
+						$("a.subelementcontrol03").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- subelementcontent04 -->
+				$("#subelementcontent04").hide();
+				$("a.subelementcontrol04").toggle(
+					function()
+					{
+						$("#subelementcontent04").slideDown(300);
+						$("a.subelementcontrol04").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent04").slideUp(300);
+						$("a.subelementcontrol04").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- subelementcontent05 -->
+				$("#subelementcontent05").hide();
+				$("a.subelementcontrol05").toggle(
+					function()
+					{
+						$("#subelementcontent05").slideDown(300);
+						$("a.subelementcontrol05").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent05").slideUp(300);
+						$("a.subelementcontrol05").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- subelementcontent06 -->
+				$("#subelementcontent06").hide();
+				$("a.subelementcontrol06").toggle(
+					function()
+					{
+						$("#subelementcontent06").slideDown(300);
+						$("a.subelementcontrol06").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent06").slideUp(300);
+						$("a.subelementcontrol06").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- subelementcontent07 -->
+				$("#subelementcontent07").hide();
+				$("a.subelementcontrol07").toggle(
+					function()
+					{
+						$("#subelementcontent07").slideDown(300);
+						$("a.subelementcontrol07").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent07").slideUp(300);
+						$("a.subelementcontrol07").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- subelementcontent08 -->
+				$("#subelementcontent08").hide();
+				$("a.subelementcontrol08").toggle(
+					function()
+					{
+						$("#subelementcontent08").slideDown(300);
+						$("a.subelementcontrol08").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent08").slideUp(300);
+						$("a.subelementcontrol08").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- subelementcontent09 -->
+				$("#subelementcontent09").hide();
+				$("a.subelementcontrol09").toggle(
+					function()
+					{
+						$("#subelementcontent09").slideDown(300);
+						$("a.subelementcontrol09").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent09").slideUp(300);
+						$("a.subelementcontrol09").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+			<!-- subelementcontent10 -->
+				$("#subelementcontent10").hide();
+				$("a.subelementcontrol10").toggle(
+					function()
+					{
+						$("#subelementcontent10").slideDown(300);
+						$("a.subelementcontrol10").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#subelementcontent10").slideUp(300);
+						$("a.subelementcontrol10").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
+		
+		
+		<!-- LIST CONTENT -->
+			<!-- initial state -->
+				$(".hierarchydetail").hide();
+			<!-- hidedetail -->
+				$(".hidedetail").toggle(
+					function()
+					{
+						$(".hierarchydetail").slideUp(300);
+					}
+				);
+			<!-- listcontent00 -->
+				$("#listcontrol00").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent00)").slideUp(300);
+						$("#listcontent00").slideToggle(300);
+					}
+				);
+			<!-- listcontent01 -->
+				$("#listcontrol01").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent01)").slideUp(300);
+						$("#listcontent01").slideToggle(300);
+					}
+				);
+			<!-- listcontent02 -->
+				$("#listcontrol02").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent02)").slideUp(300);
+						$("#listcontent02").slideToggle(300);
+					}
+				);
+			<!-- listcontent03 -->
+				$("#listcontrol03").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent03)").slideUp(300);
+						$("#listcontent03").slideToggle(300);
+					}
+				);
+			<!-- listcontent04 -->
+				$("#listcontrol04").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent04)").slideUp(300);
+						$("#listcontent04").slideToggle(300);
+					}
+				);
+			<!-- listcontent06 -->
+				$("#listcontrol06").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent06)").slideUp(300);
+						$("#listcontent06").slideToggle(300);
+					}
+				);
+			<!-- listcontent07 -->
+				$("#listcontrol07").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent07)").slideUp(300);
+						$("#listcontent07").slideToggle(300);
+					}
+				);
+			<!-- listcontent08 -->
+				$("#listcontrol08").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent08)").slideUp(300);
+						$("#listcontent08").slideToggle(300);
+					}
+				);
+			<!-- listcontent09 -->
+				$("#listcontrol09").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent09)").slideUp(300);
+						$("#listcontent09").slideToggle(300);
+					}
+				);
+			<!-- listcontent10 -->
+				$("#listcontrol10").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent10)").slideUp(300);
+						$("#listcontent10").slideToggle(300);
+					}
+				);
+			<!-- listcontent11 -->
+				$("#listcontrol11").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent11)").slideUp(300);
+						$("#listcontent11").slideToggle(300);
+					}
+				);
+			<!-- listcontent12 -->
+				$("#listcontrol12").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent12)").slideUp(300);
+						$("#listcontent12").slideToggle(300);
+					}
+				);
+			<!-- listcontent13 -->
+				$("#listcontrol13").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent13)").slideUp(300);
+						$("#listcontent13").slideToggle(300);
+					}
+				);
+			<!-- listcontent14 -->
+				$("#listcontrol14").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent14)").slideUp(300);
+						$("#listcontent14").slideToggle(300);
+					}
+				);
+			<!-- listcontent15 -->
+				$("#listcontrol15").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent15)").slideUp(300);
+						$("#listcontent15").slideToggle(300);
+					}
+				);
+			<!-- listcontent16 -->
+				$("#listcontrol16").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent16)").slideUp(300);
+						$("#listcontent16").slideToggle(300);
+					}
+				);
+			<!-- listcontent17 -->
+				$("#listcontrol17").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent17)").slideUp(300);
+						$("#listcontent17").slideToggle(300);
+					}
+				);
+			<!-- listcontent18 -->
+				$("#listcontrol18").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent18)").slideUp(300);
+						$("#listcontent18").slideToggle(300);
+					}
+				);
+			<!-- listcontent19 -->
+				$("#listcontrol19").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent19)").slideUp(300);
+						$("#listcontent19").slideToggle(300);
+					}
+				);
+			<!-- listcontent20 -->
+				$("#listcontrol20").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent20)").slideUp(300);
+						$("#listcontent20").slideToggle(300);
+					}
+				);
+			<!-- listcontent21 -->
+				$("#listcontrol21").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent21)").slideUp(300);
+						$("#listcontent21").slideToggle(300);
+					}
+				);
+			<!-- listcontent22 -->
+				$("#listcontrol22").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent22)").slideUp(300);
+						$("#listcontent22").slideToggle(300);
+					}
+				);
+			<!-- listcontent23 -->
+				$("#listcontrol23").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent23)").slideUp(300);
+						$("#listcontent23").slideToggle(300);
+					}
+				);
+			<!-- listcontent24 -->
+				$("#listcontrol24").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent24)").slideUp(300);
+						$("#listcontent24").slideToggle(300);
+					}
+				);
+			<!-- listcontent25 -->
+				$("#listcontrol25").click(
+					function()
+					{
+						$(".hierarchydetail:not(#listcontent25)").slideUp(300);
+						$("#listcontent25").slideToggle(300);
+					}
+				);
+		});
+	</script>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="pageheader">
+	<table class='header' cellpadding="0" border="0">
+    	<tr>
+        	<td align="left" valign="middle">
+            	<span class="pagetitle">
+                	Questionnaire Management
+                	<input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this page.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                </span>
+            </td>
+            <td align="right">
+            	
+                <table class="headerdocsummary" cellpadding="0" border="0">
+                	<tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                    <tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                    <tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                </table>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- TOP NAVIGATION(TABNAV)-->
+<div class="horizontaltabs">
+	<table class="horizontaltabstable">
+    	<tr>
+            <!-- ACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" name="editor" value="editor" alt="Questionnaire Editor" onClick="window.location='questionnaire-editor.html'">Questionnaire Editor</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabactive1">&nbsp;</td>
+                <td class="tabactive2">
+                    <button type="submit" name="presentation" value="presentation" alt="Questionnaire Preview" onClick="window.location='questionnaire-preview.html'">Questionnaire Preview</button>
+                </td>
+                <td class="tabactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='questionnaire-questionmanager.html'">Question Manager</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+        </tr>
+        <tr>
+            <!-- ACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabactive4"></td>
+                <td class="tabactive5"></td>
+                <td class="tabactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- BEGIN PANEL CONTAINER -->
+<table class="panelcontainer" cellspacing="20"><tr><td>
+
+<!-- GLOBAL NAVIGATION CONTROLS -->
+<div class="globalnav">
+	<img src="../images/tinybutton1-siteindex.gif" alt="site index" />
+    <img src="../images/tinybutton-expandall.gif" alt="expand all" />
+    <img src="../images/tinybutton-collapseall.gif" alt="collapse all" />
+</div>
+
+<form name="questionnaireform" id="questionnaireform">
+
+<!-- TOP PANEL HEAD -->
+<table class="paneltable">
+    <tr>
+        <td class="toppanelhead1">&nbsp;</td>
+        <td class="toppanelhead2">
+        	My Cool Questionnaire About Stuff
+        </td>
+        <td class="toppanelhead3">
+            <a href="#" class="panelcontrol02"><img id="panelcontrolimage02" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
+        </td>
+        <td class="toppanelhead4">&nbsp;</td>
+        <td class="toppanelhead5">&nbsp;</td>
+    </tr>
+</table>
+         
+<!-- PANEL CONTENT -->
+<div id="panelcontent02">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+            
+            	[Preview: This would be a view like one of the tabs on the <a href="questionnaire-presentation.html" target="_blank" style="color:#ff0000;"><u>presentation view</u></a>.  When we have a stable enough concept for those tabs, I can copy it here.]
+            
+            </td>
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+      
+<!-- PANEL FOOT -->
+<table class="paneltable">
+    <tr>
+        <td class="panelfoot1">&nbsp;</td>
+        <td class="panelfoot2" colspan="3">&nbsp;</td>
+        <td class="panelfoot3">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- INSTRUCTIONAL NOTES -->        
+<div class="instructionalnotes">
+    * required
+</div>
+    
+<!-- GLOBAL DOCUMENT CONTROLS -->
+<div class="globaldocumentcontrols">
+    <a href="#"><img src="../images/buttonsmall_refresh.gif" alt="save" width="68" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width="48" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0" /></a>
+</div>
+
+<!-- END PANEL CONTAINER -->
+</td></tr></table>
+
+</form>
+
+<!-- DOCUMENT FOOT -->
+</body>
+</html>
