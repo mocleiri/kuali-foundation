@@ -18,8 +18,8 @@ sampleappdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 #   5) database platform ("Oracle9i" -- do not use an arbitrary value)
 ##
 
-DATABASE_APPLICATION_CODE=recipe094; typeset -rx DATABASE_APPLICATION_CODE
-APPLICATION_JAVA_PROJECT=rice-sample-apps/recipe
+DATABASE_APPLICATION_CODE=ricesamp094; typeset -x DATABASE_APPLICATION_CODE
+APPLICATION_JAVA_PROJECT=rice-sample-apps/recipe; typeset -x APPLICATION_JAVA_PROJECT
 
 kupdate cnv standard true false Oracle9i
 kpurge $LOGS_DIRECTORY 7
