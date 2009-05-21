@@ -4,9 +4,10 @@
 . ~j2eemgr/kuali/rice/1.0.0-sample-app-settings
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
+. ~j2eemgr/kuali/rice/common-functions
 
 kexport client $APPLICATION_INFRASTRUCTURE_VERSION
-kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
+sampleappdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 
 ##
 # Args to kupdate

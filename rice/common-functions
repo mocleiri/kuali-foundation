@@ -1,0 +1,19 @@
+function sampleappdailytag {
+    {
+	version=$1
+	old_build_number=`cat $BUILD_NUMBER_FILE`
+	new_build_number=`expr $old_build_number + 1`
+	new_build_version="build-"$new_build_number
+	new_build_version_path=tags/$new_build_version
+	kexec "echo $new_build_number > $BUILD_NUMBER_FILE"
+	klog "tagging version: $version of application java, database, and infrastructure modules with new_build_version: $new_build_version"
+	svn -q delete $SAMPLEAPP_SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$new_build_version_path -m daily-tag-removal
+	svn -q delete $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$new_build_version_path -m daily-tag-removal
+	svn -q delete $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$new_build_version_path-$APPLICATION_JAVA_PROJECT -m daily-tag-removal
+	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$version $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$new_build_version_path -m kdailytag"
+	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$version $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$new_build_version_path -m kdailytag"
+	kexec "svn -q copy $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$APPLICATION_INFRASTRUCTURE_VERSION $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$new_build_version_path-$APPLICATION_JAVA_PROJECT -m kdailytag"
+	return 0
+    } >> $SCRIPT_LOG 2>&1
+}
+typeset -xf kdailytag
