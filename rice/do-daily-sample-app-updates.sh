@@ -7,6 +7,9 @@
 . ~j2eemgr/kuali/rice/common-functions
 
 kexport client $APPLICATION_INFRASTRUCTURE_VERSION
+
+APPLICATION_JAVA_PROJECT=rice-sample-apps/recipe; typeset -x APPLICATION_JAVA_PROJECT
+
 sampleappdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 
 ##
@@ -19,7 +22,6 @@ sampleappdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 ##
 
 DATABASE_APPLICATION_CODE=ricesamp094; typeset -x DATABASE_APPLICATION_CODE
-APPLICATION_JAVA_PROJECT=rice-sample-apps/recipe; typeset -x APPLICATION_JAVA_PROJECT
 
 kupdate cnv standard true false Oracle9i
 kpurge $LOGS_DIRECTORY 7
