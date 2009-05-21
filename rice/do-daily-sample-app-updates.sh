@@ -6,8 +6,7 @@
 . ~j2eemgr/kuali/shared-functions
 
 kexport client $APPLICATION_INFRASTRUCTURE_VERSION
-# may need to update kdailytag, it assumes we have one database project per application project!
-#kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
+kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 
 ##
 # Args to kupdate
@@ -17,7 +16,7 @@ kexport client $APPLICATION_INFRASTRUCTURE_VERSION
 # 	4) deploy war (boolean)
 #   5) database platform ("Oracle9i" -- do not use an arbitrary value)
 ##
-#kupdate cnv standard true true Oracle9i
-#kpurge $LOGS_DIRECTORY 7
+kupdate cnv standard true true Oracle9i
+kpurge $LOGS_DIRECTORY 7
 
 kend 0

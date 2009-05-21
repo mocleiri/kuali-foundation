@@ -1,6 +1,5 @@
 #!/bin/sh
 
-#do-daily-updates.sh
 . ~j2eemgr/kuali/rice/common-settings
 . ~j2eemgr/kuali/rice/1.0.0-settings
 . ~j2eemgr/kuali/shared-settings
@@ -18,8 +17,8 @@ kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 #   5) database platform ("Oracle9i" -- do not use an arbitrary value)
 ##
 kupdate cnv standard true true Oracle9i
-kupdate stg standard true true Oracle9i
 
+. ~j2eemgr/kuali/rice/do-daily-sample-app-updates.sh
 . ~j2eemgr/kuali/rice/do-daily-kuali-client-updates.sh
 
 kpurge $LOGS_DIRECTORY 7

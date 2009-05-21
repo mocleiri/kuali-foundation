@@ -5,6 +5,6 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-kupdate stg standard true true Oracle9i
+#kupdate stg standard true true Oracle9i
 
 kend 0
