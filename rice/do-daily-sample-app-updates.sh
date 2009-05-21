@@ -17,7 +17,11 @@ sampleappdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 # 	4) deploy war (boolean)
 #   5) database platform ("Oracle9i" -- do not use an arbitrary value)
 ##
-kupdate cnv standard true true Oracle9i
+
+DATABASE_APPLICATION_CODE=recipe094; typeset -rx DATABASE_APPLICATION_CODE
+APPLICATION_JAVA_PROJECT=rice-sample-apps/recipe
+
+kupdate cnv standard true false Oracle9i
 kpurge $LOGS_DIRECTORY 7
 
 kend 0
