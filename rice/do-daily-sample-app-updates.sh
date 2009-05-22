@@ -23,7 +23,7 @@ sampleappdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 
 DATABASE_APPLICATION_CODE=ricesamp094; typeset -x DATABASE_APPLICATION_CODE
 
-kupdate cnv standard true false Oracle9i
+kupdate cnv standard true true Oracle9i
 kpurge $LOGS_DIRECTORY 7
 
 kend 0
