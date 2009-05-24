@@ -4,7 +4,7 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-kexport dba trunk
+kexport dba branches/kfs-200907-implementations-br
 kdailytag branches/kfs-200907-implementations-br
 kupdate cnv standard true true Oracle9i
 kupdate unt standard true false Oracle9i
