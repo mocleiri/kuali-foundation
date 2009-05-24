@@ -1308,9 +1308,238 @@
         </table>
 	<!-- Panel Content Div -->
         <div class="tab-container" align="center" id="G02" style="display: none;">
+        
+        
+            <!-- Transaction -->
+                <div class="h2-container">
+                    <span class="subhead-left"><h2>
+                    <!--<a href="#" id="controlP3"><img id="imgP3" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
+					<script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#divP3").hide();
+                            $("#controlP3").toggle(
+                                function()
+                                {
+                                    $("#divP3").slideDown(400);
+                                    $("#imgP3").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#divP3").slideUp(200);
+                                    $("#imgP3").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );	
+                        });
+                    </script>-->
+                    Transaction
+                    </h2></span>
+                    <span class="subhead-right">
+                        
+                            <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
+                        
+                    </span>
+                </div>
+                <div id="divP3">
+                    <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Transaction ID</th>
+                            <th>Source</th>
+                            <th>Destination</th>
+                            <th>Obligated </th>
+                            <th>Anticipated </th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr>
+                            <th>Add:</th>
+                            <td class="infoline" style="text-align:center;">
+                            	<input type="text" style="width:125px;"  />
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                            	<select>
+                                    <option value="0" selected>select</option>
+                                    <option value="1">external</option>
+                                    <option value="2">000121: 001</option>
+                                    <option value="3">000121: 002</option>
+                                    <option value="4">000121: 003</option>
+                                    <option value="5">000121: 004</option>
+                                    <option value="6">000121: 005</option>
+                                    <option value="7">000121: 006</option>
+                                    <option value="8">000121: 007</option>
+                                    <option value="9">000121: 008</option>
+                                    <option value="10">000121: 009</option>
+                                    <option value="11">000121: 010</option>
+                                    <option value="12">000121: 011</option>
+                                    <option value="13">000121: 012</option>
+                                    <option value="14">000121: 013</option>
+                                    <option value="15">000121: 014</option>
+                                    <option value="16">000121: 015</option>
+                                    <option value="17">000121: 016</option>
+                                    <option value="18">000121: 017</option>
+                                    <option value="19">000121: 018</option>
+                                    <option value="20">000121: 019</option>
+                                    <option value="21">000121: 020</option>
+                                </select>
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                            	<select>
+                                    <option value="0" selected>select</option>
+                                    <option value="1">external</option>
+                                    <option value="2">000121: 001</option>
+                                    <option value="3">000121: 002</option>
+                                    <option value="4">000121: 003</option>
+                                    <option value="5">000121: 004</option>
+                                    <option value="6">000121: 005</option>
+                                    <option value="7">000121: 006</option>
+                                    <option value="8">000121: 007</option>
+                                    <option value="9">000121: 008</option>
+                                    <option value="10">000121: 009</option>
+                                    <option value="11">000121: 010</option>
+                                    <option value="12">000121: 011</option>
+                                    <option value="13">000121: 012</option>
+                                    <option value="14">000121: 013</option>
+                                    <option value="15">000121: 014</option>
+                                    <option value="16">000121: 015</option>
+                                    <option value="17">000121: 016</option>
+                                    <option value="18">000121: 017</option>
+                                    <option value="19">000121: 018</option>
+                                    <option value="20">000121: 019</option>
+                                    <option value="21">000121: 020</option>
+                                </select>
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                            	<input type="text" style="width:100px; text-align:right;" value="0.00"  />
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                            	<input type="text" style="width:100px; text-align:right;" value="0.00"  />
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                            	<input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the transaction.'); return false" class="tinybutton" alt="add" title="Add" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>1</th>
+                            <td style="text-align:left;">
+                            	123456
+                            </td>
+                            <td style="text-align:left;">
+                            	000121: 001
+                            </td>
+                            <td style="text-align:left;">
+                            	000121: 004
+                            </td>
+                            <td style="text-align:right;">
+                            	5,000.00
+                            </td>
+                            <td style="text-align:right;">
+                            	5,000.00
+                            </td>
+                            <td style="text-align:center;">
+                            	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the transaction.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <td style="text-align:left;">
+                            	123457
+                            </td>
+                            <td style="text-align:left;">
+                            	000121: 001
+                            </td>
+                            <td style="text-align:left;">
+                            	000121: 003
+                            </td>
+                            <td style="text-align:right;">
+                            	2,000.00
+                            </td>
+                            <td style="text-align:right;">
+                            	2,000.00
+                            </td>
+                            <td style="text-align:center;">
+                            	
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>3</th>
+                            <td style="text-align:left;">
+                            	123458
+                            </td>
+                            <td style="text-align:left;">
+                            	000121: 003
+                            </td>
+                            <td style="text-align:left;">
+                            	000121: 004
+                            </td>
+                            <td style="text-align:right;">
+                            	1,000.00
+                            </td>
+                            <td style="text-align:right;">
+                            	1,000.00
+                            </td>
+                            <td style="text-align:center;">
+                            	
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>4</th>
+                            <td style="text-align:left;">
+                            	123459
+                            </td>
+                            <td style="text-align:left;">
+                            	external
+                            </td>
+                            <td style="text-align:left;">
+                            	000121: 003
+                            </td>
+                            <td style="text-align:right;">
+                            	2,000.00
+                            </td>
+                            <td style="text-align:right;">
+                            	2,000.00
+                            </td>
+                            <td style="text-align:center;">
+                            	
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>5</th>
+                            <td style="text-align:left;">
+                            	123460
+                            </td>
+                            <td style="text-align:left;">
+                            	000121: 003
+                            </td>
+                            <td style="text-align:left;">
+                            	000121: 004
+                            </td>
+                            <td style="text-align:right;">
+                            	1,000.00
+                            </td>
+                            <td style="text-align:right;">
+                            	1,000.00
+                            </td>
+                            <td style="text-align:center;">
+                            	
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right; font-weight:bold;" colspan="4" class="infoline">Totals:</td>
+                            <td style="text-align:right; font-weight:bold;" class="infoline">
+                            	$11,000.00
+                            </td>
+                            <td style="text-align:right; font-weight:bold;" class="infoline">
+                            	$11,000.00
+                            </td>
+                            <td style="text-align:center;" class="infoline">
+                            	<input src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('This would recalculate the totals.'); return false" class="tinybutton" alt="recalculate" title="Recalculate" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+        
         <!-- Panel Element: New Transaction -->
             <!-- Element Header: New Transaction -->
-                <div class="h2-container">
+                <!--<div class="h2-container">
                     <span class="subhead-left"><h2>
                     <a href="#" id="controlP2"><img id="imgP2" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
 					<script type="text/javascript">
@@ -1337,9 +1566,9 @@
                             <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
                         
                     </span>
-                </div>
+                </div>-->
             <!-- Element Content: Transaction -->
-             	<div id="divP2">
+             	<!--<div id="divP2">
                 <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
                     <tr>
                         <th style="text-align:right; width:130px;">Transaction Type:</th>
@@ -1375,7 +1604,7 @@
                     </tr>
                 </table>
                 <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
-                	<!-- FROM -->
+                	
                         <tr>
                             <td style="text-align:left; background-color:#C3C3C3; font-weight:bold; height:20px;" colspan="8">From:</td>
                         </tr>
@@ -1512,7 +1741,7 @@
                                 <input name="x" src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('If this were not a mock, the totals would be updated.'); return false" class="tinybutton" alt="recalculate" type="image" />
                             </td>
                         </tr>
-                    <!-- TO -->
+                    
                         <tr>
                             <td style="text-align:left; background-color:#C3C3C3; font-weight:bold; height:20px;" colspan="8">To:</td>
                         </tr>
@@ -1657,11 +1886,11 @@
                         </tr>
                         
                 </table>
-                </div>
+                </div>-->
                 
         <!-- Panel Element: New Transaction -->
             <!-- Element Header: Pending Transaction -->
-                <div class="h2-container" style="border-top:1px solid #E4E4E4;">
+                <!--<div class="h2-container" style="border-top:1px solid #E4E4E4;">
                     <span class="subhead-left">
                     	<h2>
                         	<a href="#" id="controlP1"><img id="imgP1" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
@@ -1690,9 +1919,9 @@
                             <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
                         
                     </span>
-                </div>
+                </div>-->
             <!-- Element Content: Pending Transaction -->
-            	<div id="divP1">
+            	<!--<div id="divP1">
              	<table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
                     <tr>
                         <th>&nbsp;</th>
@@ -1878,7 +2107,7 @@
                         </td>
                     </tr>
                 </table>
-                </div>
+                </div>-->
         
         </div> <!-- End Panel Content Div (class='tab-container') Div -->
         
