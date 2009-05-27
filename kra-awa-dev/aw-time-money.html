@@ -2735,7 +2735,8 @@
                     <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
                         <tr>
                             <th>&nbsp;</th>
-                            <th>Transaction ID</th>
+                            <th>Type</th>
+                            <th>Comment</th>
                             <th>Source</th>
                             <th>Destination</th>
                             <th>Obligated </th>
@@ -2745,8 +2746,29 @@
                         <tr>
                             <th>Add:</th>
                             <td class="infoline" style="text-align:center;">
-                            	<input type="text" style="width:125px;"  />
+                            	<select>
+                                    <option value="0" selected>select</option>
+                                    <option value="1">new</option>
+                                    <option value="2">correction</option>
+                                    <option value="3">continuation</option>
+                                    <option value="4">supplement</option>
+                                    <option value="5">allotment</option>
+                                    <option value="6">deobligation</option>
+                                </select>
                             </td>
+                            <td class="infoline" style="text-align:center;">
+                            	
+                                <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="1"></textarea>
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:bottom; background:none;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
                             <td class="infoline" style="text-align:center;">
                             	<select>
                                     <option value="0" selected>select</option>
@@ -2800,10 +2822,10 @@
                                 </select>
                             </td>
                             <td class="infoline" style="text-align:center;">
-                            	<input type="text" style="width:100px; text-align:right;" value="0.00"  />
+                            	<input type="text" style="width:90px; text-align:right;" value="0.00"  />
                             </td>
                             <td class="infoline" style="text-align:center;">
-                            	<input type="text" style="width:100px; text-align:right;" value="0.00"  />
+                            	<input type="text" style="width:90px; text-align:right;" value="0.00"  />
                             </td>
                             <td class="infoline" style="text-align:center;">
                             	<input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the transaction.'); return false" class="tinybutton" alt="add" title="Add" type="image" />
@@ -2812,7 +2834,10 @@
                         <tr>
                             <th>1</th>
                             <td style="text-align:left;">
-                            	123456
+                            	supplement
+                            </td>
+                            <td style="text-align:left;">
+                            	Neque porro quisquam sit.
                             </td>
                             <td style="text-align:left;">
                             	000121-001
@@ -2827,13 +2852,27 @@
                             	5,000.00
                             </td>
                             <td style="text-align:center;">
-                            	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the transaction.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" />
+                            	
                             </td>
                         </tr>
                         <tr>
                             <th>2</th>
                             <td style="text-align:left;">
-                            	123457
+                            	supplement
+                            </td>
+                            <td style="text-align:left;">
+                            	
+                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none;">
+                                            Hest qui dolorem ipsum quia dolor sit amet...
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
                             </td>
                             <td style="text-align:left;">
                             	000121-001
@@ -2854,7 +2893,10 @@
                         <tr>
                             <th>3</th>
                             <td style="text-align:left;">
-                            	123458
+                            	continuation
+                            </td>
+                            <td style="text-align:left;">
+                            	quisquam est qui dolorem.
                             </td>
                             <td style="text-align:left;">
                             	000121-003
@@ -2875,7 +2917,10 @@
                         <tr>
                             <th>4</th>
                             <td style="text-align:left;">
-                            	123459
+                            	allotment
+                            </td>
+                            <td style="text-align:left;">
+                            	Consectetur, adipisci velit.
                             </td>
                             <td style="text-align:left;">
                             	external
@@ -2896,7 +2941,10 @@
                         <tr>
                             <th>5</th>
                             <td style="text-align:left;">
-                            	123460
+                            	allotment
+                            </td>
+                            <td style="text-align:left;">
+                            	Porro quisquam est qui.
                             </td>
                             <td style="text-align:left;">
                             	000121-003
@@ -2911,11 +2959,11 @@
                             	1,000.00
                             </td>
                             <td style="text-align:center;">
-                            	
+                            	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the transaction.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" />
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align:right; font-weight:bold;" colspan="4" class="infoline">Totals:</td>
+                            <td style="text-align:right; font-weight:bold;" colspan="5" class="infoline">Totals:</td>
                             <td style="text-align:right; font-weight:bold;" class="infoline">
                             	$11,000.00
                             </td>
@@ -2928,578 +2976,6 @@
                         </tr>
                     </table>
                 </div>
-        
-        <!-- Panel Element: New Transaction -->
-            <!-- Element Header: New Transaction -->
-                <!--<div class="h2-container">
-                    <span class="subhead-left"><h2>
-                    <a href="#" id="controlP2"><img id="imgP2" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
-					<script type="text/javascript">
-                        $(document).ready(function(){
-                            $("#divP2").hide();
-                            $("#controlP2").toggle(
-                                function()
-                                {
-                                    $("#divP2").slideDown(400);
-                                    $("#imgP2").attr("src","../images/tinybutton-hide.gif");
-                                },
-                                function()
-                                {
-                                    $("#divP2").slideUp(200);
-                                    $("#imgP2").attr("src","../images/tinybutton-show.gif");
-                                }
-                            );	
-                        });
-                    </script>
-                    New Transaction
-                    </h2></span>
-                    <span class="subhead-right">
-                        
-                            <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
-                        
-                    </span>
-                </div>-->
-            <!-- Element Content: Transaction -->
-             	<!--<div id="divP2">
-                <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
-                    <tr>
-                        <th style="text-align:right; width:130px;">Transaction Type:</th>
-                        <td style="text-align:center; width:100px;">
-                        	<select name="CustomData">
-                                <option value="0">select</option>
-                                <option value="1" selected="selected">New</option>
-                                <option value="2">Modification</option>
-                                <option value="2">Supplement</option>
-                                <option value="2">Increment</option>
-                                <option value="2">No Cost Extension</option>
-                                <option value="2">Error Correction</option>
-                            </select>
-                        </td>
-                        <th style="text-align:right; width:95px;">Notice Date:</th>
-                        <td style="text-align:center; width:100px;">
-                        	<input type="text" name="date1" id="date1" value="31/12/2009" size="10" />
-							<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                        </td>
-                        <th style="text-align:right; width:95px;">Comments:</th>
-                        <td style="text-align:left;">
-                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none;">
-                                        <textarea name="z" style="width:100%; text-align:left;" rows="1"></textarea>
-                                    </td>
-                                    <td style="border:none; width:20px; vertical-align:bottom;">
-                                        <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-                <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
-                	
-                        <tr>
-                            <td style="text-align:left; background-color:#C3C3C3; font-weight:bold; height:20px;" colspan="8">From:</td>
-                        </tr>
-                        <tr>
-                            <th>&nbsp;</th>
-                            <th>Award Hierarchy Node</th>
-                            <th>Obligated Start Date</th>
-                            <th>Obligated End Date</th>
-                            <th>Final End Date</th>
-                            <th>Obligated Amount</th>
-                            <th>Anticipated Amount</th>
-                            <th>Action</th>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center;">
-                                Add:
-                            </th>
-                            <td style="text-align:center;" class="infoline" nowrap>
-                                <select name="addt1">
-                                    <option value="0" selected="selected">select</option>
-                                    <option value="1">000121-001</option>
-                                    <option value="2">000121-002</option>
-                                    <option value="2">000121-003</option>
-                                    <option value="2">000121-004</option>
-                                    <option value="2">000121-005</option>
-                                    <option value="2">000121-006</option>
-                                    <option value="2">000121-007</option>
-                                    <option value="2">000121-008</option>
-                                    <option value="2">000121-009</option>
-                                    <option value="2">000121-010</option>
-                                    <option value="2">000121-011</option>
-                                    <option value="2">000121-012</option>
-                                    <option value="2">000121-013</option>
-                                </select>
-                                <input name="addx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input type="text" name="adddate1" id="adddate1" value="" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input type="text" name="adddate2" id="adddate2" value="" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input type="text" name="adddate3" id="adddate3" value="" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:right;" class="infoline">
-                                <input type="text" id="addt2" name="addt2" size="14" value="0.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:right;" class="infoline">
-                                <input type="text" id="addt3" name="addt3" size="14" value="0.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input name="addtransaction" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this button would add the transaction as a data row, below.'); return false" class="tinybutton" alt="Add" title="Add" type="image" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center;">
-                                1:
-                            </th>
-                            <td style="text-align:center;">
-                                000121-001
-                                <input name="addx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2b" id="adddate2b" value="12/02/2008" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2b" id="adddate2b1" value="01/22/2009" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2b" id="adddate2b2" value="03/05/2009" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2b" name="addt2b" size="14" value="18,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2b" name="addt2b1" size="14" value="18,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:center;">
-                                <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center;">
-                                2:
-                            </th>
-                            <td style="text-align:center;">
-                                000121-003
-                                <input name="addx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2c" id="adddate2c" value="12/02/2008" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2c" id="adddate2c1" value="01/22/2009" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2c" id="adddate2c2" value="03/05/2009" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2c" name="addt2c1" size="14" value="12,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2c" name="addt2c" size="14" value="12,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:center;">
-                                <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <th style="text-align:center;">
-                                Totals:
-                            </th>
-                            <td colspan="4" style="text-align:center;" class="infoline">&nbsp;
-                                
-                            </td>
-                            <td style="text-align:right; font-weight:bold;" class="infoline">
-                                $30,000.00
-                            </td>
-                            <td style="text-align:right; font-weight:bold;" class="infoline">
-                                $30,000.00
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input name="x" src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('If this were not a mock, the totals would be updated.'); return false" class="tinybutton" alt="recalculate" type="image" />
-                            </td>
-                        </tr>
-                    
-                        <tr>
-                            <td style="text-align:left; background-color:#C3C3C3; font-weight:bold; height:20px;" colspan="8">To:</td>
-                        </tr>
-                        <tr>
-                            <th>&nbsp;</th>
-                            <th>Award Hierarchy Node</th>
-                            <th>Obligated Start Date</th>
-                            <th>Obligated End Date</th>
-                            <th>Final End Date</th>
-                            <th>Obligated Amount</th>
-                            <th>Anticipated Amount</th>
-                            <th>Action</th>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center;">
-                                Add:
-                            </th>
-                            <td style="text-align:center;" class="infoline" nowrap>
-                                <select name="addt1x">
-                                    <option value="0" selected="selected">select</option>
-                                    <option value="1">000121-001</option>
-                                    <option value="2">000121-002</option>
-                                    <option value="2">000121-003</option>
-                                    <option value="2">000121-004</option>
-                                    <option value="2">000121-005</option>
-                                    <option value="2">000121-006</option>
-                                    <option value="2">000121-007</option>
-                                    <option value="2">000121-008</option>
-                                    <option value="2">000121-009</option>
-                                    <option value="2">000121-010</option>
-                                    <option value="2">000121-011</option>
-                                    <option value="2">000121-012</option>
-                                    <option value="2">000121-013</option>
-                                </select>
-                                <input name="addxx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input type="text" name="adddate1x" id="adddate1x" value="" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input type="text" name="adddate2x" id="adddate2x" value="" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input type="text" name="adddate3x" id="adddate3x" value="" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:right;" class="infoline">
-                                <input type="text" id="addt2x" name="addt2x" size="14" value="0.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:right;" class="infoline">
-                                <input type="text" id="addt3x" name="addt3x" size="14" value="0.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input name="addtransaction" src="../images/tinybutton-add1.gif" onclick="javascript: alert('If this were not a mock, this button would add the transaction as a data row, below.'); return false" class="tinybutton" alt="Add" title="Add" type="image" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center;">
-                                1:
-                            </th>
-                            <td style="text-align:center;">
-                                000121-004
-                                <input name="addx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2bx" id="adddate2bx" value="12/02/2008" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2bx" id="adddate2b1x" value="01/22/2009" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2bx" id="adddate2b2x" value="03/05/2009" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2bx" name="addt2bx" size="14" value="25,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2b1x" name="addt2b1x" size="14" value="25,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:center;">
-                                <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center;">
-                                2:
-                            </th>
-                            <td style="text-align:center;">
-                                000121-006
-                                <input name="addxx" src="../images/book_open.png" onclick="javascript: alert('If this were not a mock, this would open the direct lookup window.'); return false" class="tinybutton" alt="Direct Inquiry" title="Direct Inquiry" type="image" />
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2cx" id="adddate2cx" value="12/02/2008" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2cx" id="adddate2c1x" value="01/22/2009" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:center;">
-                                <input type="text" name="adddate2cx" id="adddate2c2x" value="03/05/2009" size="10" />
-                                <a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2cx" name="addt2c1x" size="14" value="5,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:right;">
-                                <input type="text" id="addt2cx" name="addt2cx" size="14" value="5,000.00" style="text-align:right;" />
-                            </td>
-                            <td style="text-align:center;">
-                                <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <th style="text-align:center;">
-                                Totals:
-                            </th>
-                            <td colspan="4" style="text-align:center;" class="infoline">&nbsp;
-                                
-                            </td>
-                            <td style="text-align:right; font-weight:bold;" class="infoline">
-                                $30,000.00
-                            </td>
-                            <td style="text-align:right; font-weight:bold;" class="infoline">
-                                $30,000.00
-                            </td>
-                            <td style="text-align:center;" class="infoline">
-                                <input name="x" src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('If this were not a mock, the totals would be updated.'); return false" class="tinybutton" alt="recalculate" type="image" />
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="text-align:center;" colspan="8" class="infoline">
-                                <input style="padding:3px; margin-top:5px;" name="x" src="../images/tinybutton-applytransaction.gif" onclick="javascript: alert('If this were not a mock, the transaction(s) above would be applied.'); return false" class="tinybutton" alt="apply transaction" type="image" />
-                            </td>
-                        </tr>
-                        
-                </table>
-                </div>-->
-                
-        <!-- Panel Element: New Transaction -->
-            <!-- Element Header: Pending Transaction -->
-                <!--<div class="h2-container" style="border-top:1px solid #E4E4E4;">
-                    <span class="subhead-left">
-                    	<h2>
-                        	<a href="#" id="controlP1"><img id="imgP1" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
-                            <script type="text/javascript">
-								$(document).ready(function(){
-									$("#divP1").hide();
-									$("#controlP1").toggle(
-										function()
-										{
-											$("#divP1").slideDown(400);
-											$("#imgP1").attr("src","../images/tinybutton-hide.gif");
-										},
-										function()
-										{
-											$("#divP1").slideUp(200);
-											$("#imgP1").attr("src","../images/tinybutton-show.gif");
-										}
-									);	
-								});
-							</script>
-                            Pending Transaction
-                        </h2>
-                    </span>
-                    <span class="subhead-right">
-                        
-                            <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
-                        
-                    </span>
-                </div>-->
-            <!-- Element Content: Pending Transaction -->
-            	<!--<div id="divP1">
-             	<table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th>Award Hierarchy Node</th>
-                        <th>Obligated Start Date</th>
-                        <th>Obligated End Date</th>
-                        <th>Final End Date</th>
-                        <th>Obligated Amount</th>
-                        <th>Anticipated Amount</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center;">
-                            1:
-                        </th>
-                        <td style="text-align:center;">
-                            000121-006
-                        </td>
-                        <td style="text-align:center;">
-                            12/02/2008
-                        </td>
-                        <td style="text-align:center;">
-                            01/22/2009
-                        </td>
-                        <td style="text-align:center;">
-                            03/05/2009
-                        </td>
-                        <td style="text-align:right;">
-                            2,000.00
-                        </td>
-                        <td style="text-align:right;">
-                            2,000.00
-                        </td>
-                        <td style="text-align:center;">
-                            <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center;">
-                            2:
-                        </th>
-                        <td style="text-align:center;">
-                            000121-006
-                        </td>
-                        <td style="text-align:center;">
-                            12/02/2008
-                        </td>
-                        <td style="text-align:center;">
-                            01/22/2009
-                        </td>
-                        <td style="text-align:center;">
-                            03/05/2009
-                        </td>
-                        <td style="text-align:right;">
-                            5,000.00
-                        </td>
-                        <td style="text-align:right;">
-                            5,000.00
-                        </td>
-                        <td style="text-align:center;">
-                            <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center;">
-                            3:
-                        </th>
-                        <td style="text-align:center;">
-                            000121-006
-                        </td>
-                        <td style="text-align:center;">
-                            12/02/2008
-                        </td>
-                        <td style="text-align:center;">
-                            01/22/2009
-                        </td>
-                        <td style="text-align:center;">
-                            03/05/2009
-                        </td>
-                        <td style="text-align:right;">
-                            3,000.00
-                        </td>
-                        <td style="text-align:right;">
-                            3,000.00
-                        </td>
-                        <td style="text-align:center;">
-                            <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center;">
-                            4:
-                        </th>
-                        <td style="text-align:center;">
-                            000121-006
-                        </td>
-                        <td style="text-align:center;">
-                            12/02/2008
-                        </td>
-                        <td style="text-align:center;">
-                            01/22/2009
-                        </td>
-                        <td style="text-align:center;">
-                            03/05/2009
-                        </td>
-                        <td style="text-align:right;">
-                            5,000.00
-                        </td>
-                        <td style="text-align:right;">
-                            5,000.00
-                        </td>
-                        <td style="text-align:center;">
-                            <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center;">
-                            5:
-                        </th>
-                        <td style="text-align:center;">
-                            000121-006
-                        </td>
-                        <td style="text-align:center;">
-                            12/02/2008
-                        </td>
-                        <td style="text-align:center;">
-                            01/22/2009
-                        </td>
-                        <td style="text-align:center;">
-                            03/05/2009
-                        </td>
-                        <td style="text-align:right;">
-                            5,000.00
-                        </td>
-                        <td style="text-align:right;">
-                            5,000.00
-                        </td>
-                        <td style="text-align:center;">
-                            <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center;">
-                            6:
-                        </th>
-                        <td style="text-align:center;">
-                            000121-006
-                        </td>
-                        <td style="text-align:center;">
-                            12/02/2008
-                        </td>
-                        <td style="text-align:center;">
-                            01/22/2009
-                        </td>
-                        <td style="text-align:center;">
-                            03/05/2009
-                        </td>
-                        <td style="text-align:right;">
-                            5,000.00
-                        </td>
-                        <td style="text-align:right;">
-                            5,000.00
-                        </td>
-                        <td style="text-align:center;">
-                            <input name="addtransaction" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would delete this data row.'); return false" class="tinybutton" alt="Delete" title="Delete" type="image" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center;">
-                            Totals:
-                        </th>
-                        <td colspan="4" style="text-align:center;" class="infoline">&nbsp;
-                            
-                        </td>
-                        <td style="text-align:right; font-weight:bold;" class="infoline">
-                            $25,000.00
-                        </td>
-                        <td style="text-align:right; font-weight:bold;" class="infoline">
-                            $25,000.00
-                        </td>
-                        <td style="text-align:center;" class="infoline">
-                            
-                        </td>
-                    </tr>
-                </table>
-                </div>-->
         
         </div> <!-- End Panel Content Div (class='tab-container') Div -->
         
