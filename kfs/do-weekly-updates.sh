@@ -4,7 +4,7 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-kupdate reg standard true true MySQL
+#kupdate reg standard true true MySQL
 kbranch standard endowment
 
 kend 0
