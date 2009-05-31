@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.kuali.rice.cas</groupId>
 	<artifactId>kuali-cas</artifactId>
@@ -8,16 +7,17 @@
 	<name>kuali-cas</name>
 	<url>http://rice.kuali.org</url>
 
-    <properties>
-        <servlet-api.version>2.4</servlet-api.version>
-        <jstl.version>1.1.2</jstl.version>
-        <taglibs-standard.version>1.1.2</taglibs-standard.version>
-        <jetty.version>6.1.7</jetty.version>
-        <cas-server-core.version>3.3</cas-server-core.version>
-        <cas-server-support-legacy.version>3.3</cas-server-support-legacy.version>
-        <cas-webapp.version>3.3</cas-webapp.version>
-        <cas-old.version>2.0.12</cas-old.version>      
-        <cas-server-support-jdbc.version>3.3.1</cas-server-support-jdbc.version>      
+	<properties>
+		<servlet-api.version>2.4</servlet-api.version>
+		<jstl.version>1.1.2</jstl.version>
+		<taglibs-standard.version>1.1.2</taglibs-standard.version>
+		<jetty.version>6.1.7</jetty.version>
+		<cas-server-core.version>3.3</cas-server-core.version>
+		<cas-server-support-legacy.version>3.3</cas-server-support-legacy.version>
+		<cas-webapp.version>3.3</cas-webapp.version>
+		<cas-old.version>2.0.12</cas-old.version>
+		<cas-server-support-jdbc.version>3.3.1</cas-server-support-jdbc.version>
+		<build.properties>build.properties</build.properties>
 	</properties>
 
 	<build>
@@ -26,21 +26,30 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>2.0.1</version>
-					<configuration>						
+					<configuration>
+						<webResources>
+							<webResource>
+								<directory>${basedir}/src/main/webapp/WEB-INF</directory>
+								<includes>
+									<include>web.xml</include>
+								</includes>
+								<targetPath>WEB-INF</targetPath>
+								<filtering>true</filtering>
+							</webResource>
+						</webResources>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                  <source>1.5</source>
-                  <target>1.5</target>
-                </configuration>
-              </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
 			<plugin>
 				<dependencies>
 					<dependency>
@@ -69,6 +78,9 @@
 	<profiles>
 		<profile>
 			<id>cas</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
@@ -77,6 +89,24 @@
 						<configuration>
 							<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>properties-maven-plugin</artifactId>
+						<version>1.0-alpha-1</version>
+						<executions>
+							<execution>
+								<phase>initialize</phase>
+								<goals>
+									<goal>read-project-properties</goal>
+								</goals>
+								<configuration>
+									<files>
+										<file>${build.properties}</file>
+									</files>
+								</configuration>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
@@ -93,46 +123,46 @@
 					<version>${cas-server-core.version}</version>
 				</dependency>
 				<!--  
-				<dependency>
-				     <groupId>org.jasig.cas</groupId>
-				     <artifactId>cas-server-support-legacy</artifactId>
-				     <version>${cas-server-support-legacy.version}</version>
-				</dependency>
+					<dependency>
+					<groupId>org.jasig.cas</groupId>
+					<artifactId>cas-server-support-legacy</artifactId>
+					<version>${cas-server-support-legacy.version}</version>
+					</dependency>
 				-->
 				<dependency>
-	                <groupId>javax.servlet</groupId>
-	                <artifactId>servlet-api</artifactId>
-	                <version>${servlet-api.version}</version>
-	                <scope>provided</scope>
-	            </dependency>
-	            <dependency>
-	                <groupId>javax.servlet</groupId>
-	                <artifactId>jstl</artifactId>
-	                <version>${jstl.version}</version>
-	                <scope>provided</scope>
-	            </dependency>
-	            <!--  
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+					<version>${servlet-api.version}</version>
+					<scope>provided</scope>
+				</dependency>
 				<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>jstl</artifactId>
+					<version>${jstl.version}</version>
+					<scope>provided</scope>
+				</dependency>
+				<!--  
+					<dependency>
 					<groupId>cas</groupId>
 					<artifactId>cas</artifactId>
 					<version>${cas-old.version}</version>
-				</dependency>
+					</dependency>
 				-->
 				<dependency>
-				    <groupId>org.jasig.cas</groupId>
-				    <artifactId>cas-server-support-jdbc</artifactId>
-				    <version>${cas-server-support-jdbc.version}</version>
+					<groupId>org.jasig.cas</groupId>
+					<artifactId>cas-server-support-jdbc</artifactId>
+					<version>${cas-server-support-jdbc.version}</version>
 				</dependency>
 				<dependency>
-				    <groupId>commons-dbcp</groupId>
-				    <artifactId>commons-dbcp</artifactId>
-				    <version>1.2.1</version>
-				    <scope>runtime</scope>
+					<groupId>commons-dbcp</groupId>
+					<artifactId>commons-dbcp</artifactId>
+					<version>1.2.1</version>
+					<scope>runtime</scope>
 				</dependency>
 			</dependencies>
 		</profile>
 	</profiles>
-		
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -141,18 +171,18 @@
 				<version>${cas-old.version}</version>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>	
-		
+	</dependencyManagement>
+
 	<repositories>
 		<repository>
 			<id>jasig</id>
 			<name>JA-SIG Repository</name>
 			<url>http://developer.ja-sig.org/maven2</url>
 		</repository>
-        <repository>
-            <id>kuali</id>
-            <name>Kuali Repository</name>
-            <url>https://test.kuali.org/maven</url>
-        </repository>
-   	</repositories>
+		<repository>
+			<id>kuali</id>
+			<name>Kuali Repository</name>
+			<url>https://test.kuali.org/maven</url>
+		</repository>
+	</repositories>
 </project>

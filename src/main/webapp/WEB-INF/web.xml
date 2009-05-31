@@ -22,19 +22,19 @@
 	</context-param>
 	<context-param>
 		<param-name>org.kuali.cas.auth.jdbc.driverClassName</param-name>
-		<param-value>!!!I NEED A VALUE!!!</param-value>
+		<param-value>${org.kuali.cas.auth.jdbc.driverClassName}</param-value>
 	</context-param>
 	<context-param>
 		<param-name>org.kuali.cas.auth.jdbc.url</param-name>
-		<param-value>!!!I NEED A VALUE!!!</param-value>
+		<param-value>${org.kuali.cas.auth.jdbc.url}</param-value>
 	</context-param>
 	<context-param>
 		<param-name>org.kuali.cas.auth.jdbc.username</param-name>
-		<param-value>!!!I NEED A VALUE!!!</param-value>
+		<param-value>${org.kuali.cas.auth.jdbc.username}</param-value>
 	</context-param>
 	<context-param>
 		<param-name>org.kuali.cas.auth.jdbc.password</param-name>
-		<param-value>!!!I NEED A VALUE!!!</param-value>
+		<param-value>${org.kuali.cas.auth.jdbc.password}</param-value>
 	</context-param>
 
 	<!-- 
