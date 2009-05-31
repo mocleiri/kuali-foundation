@@ -11,6 +11,7 @@
 		<condition property="import.into.mysql">
 			<equals arg1="${datasource.ojb.platform}" arg2="MySQL" />
 		</condition>
+		<property name="maven.build.properties" value="build.properties" />
 	</target>
 	
 	<target name="init-mysql-properties" depends="init-base-properties" if="import.into.mysql">
@@ -79,7 +80,7 @@
         <attribute name="goals" />
         <sequential>
             <java classname="org.codehaus.classworlds.Launcher" dir="${application.deploy.directory}/${application.java.project}" fork="true" >
-	    	<arg line="-Denvironment=${build.environment} -Dalt.build.location=${alt.build.location} -Dmaven.test.skip=true -Dbuild.version=${build.version} -Dwar=true @{goals}"/>
+	    	<arg line="-Dbuild.properties=${maven.build.properties} -Denvironment=${build.environment} -Dalt.build.location=${alt.build.location} -Dmaven.test.skip=true -Dbuild.version=${build.version} -Dwar=true @{goals}"/>
         		<sysproperty key="classworlds.conf" value="${maven.home.directory}/bin/m2.conf"/>
         		<sysproperty key="maven.home" value="${maven.home.directory}"/>
             	<sysproperty key="maven.test.skip" value="true"/>

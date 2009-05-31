@@ -1,7 +1,7 @@
 #!/bin/sh
 
-. ~j2eemgr/kuali/cas/common-settings
-. ~j2eemgr/kuali/cas/1.0.0-settings
+. ~j2eemgr/kuali/kul-cas/common-settings
+. ~j2eemgr/kuali/kul-cas/1.0.0-settings
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
