@@ -164,7 +164,7 @@ function addLoadEvent(func) {
           <input name="Submit" type=submit onClick="MM_goToURL('parent','1-prop-distribution.html');return document.MM_returnValue" value="Distribution">
           </span></dt>
         <dt><span class="tabright">
-          <input name="Submit" type=submit onClick="MM_goToURL('self','#');return document.MM_returnValue" value="Institute Proposal Actions">
+          <input name="Submit" type=submit onClick="MM_goToURL('parent','1-prop-actions.html');return document.MM_returnValue" value="Institute Proposal Actions">
           </span></dt>
       </dl>
     </div>
@@ -587,7 +587,68 @@ function addLoadEvent(func) {
                 <td><div align="center"><img src="../images/tinybutton-update.gif" alt="update" width="48" height="15"></div></td>
               </tr>
             </table>
-          </div><table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
+          </div> <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Delivery Info</td>
+              <td class="tabtable2-mid"><a href="#" id="A78k" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F78k" vspace=6></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
+            </tr>
+          </table>
+          <div class="tab-container" align=center id="G78k" style="display: none;">
+            <div class="tab-container-error"></div>
+            <div class="h2-container"><span class="subhead-left">
+              <h2>Delivery Info</h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <table cellpadding=0 cellspacing=0 summary="view/edit document overview information">
+              <tr>
+                <th align=right valign=middle>Mail By:</th>
+                <td><select name="select6">
+                    <option selected>select</option>
+                    <option>OSP</option>
+                    <option>Department</option>
+                  </select></td>
+                <th align=right valign=middle>Type:</th>
+                <td align=left valign=middle><select name="select7">
+                    <option selected>select</option>
+                    <option>Regular</option>
+                    <option>DHL</option>
+                    <option>Electronic</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <th width="20%" align=right valign=middle>Mail Account ID:</th>
+                <td width="30%"><input name="textfield22" type=text size=20></td>
+                <th align=right valign=middle>Number of Copies:</th>
+                <td align=left valign=middle><input name="textfield2" type=text size=5></td>
+              </tr>
+              <tr>
+                <th align=right valign=middle>Mailing Name &amp; Address:</th>
+                <td align=left valign=middle><table class="nobord" width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td class="nobord">Gill, D. Helen<a href="#">
+                      <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                      <br>
+                      </a>National Science Foundation<br>
+                      4201 Wilson Boulevard<br>
+                      Arlington<br>
+                      VA - 22230<br>
+                      USA</td>
+                     <td class="nobord"><div align="center"><a href="#">
+                       <input type="image" class="nobord" src="../images/tinybutton-clear.gif" alt="lookup">
+                     </a></div></td>
+                    </tr>
+                  </table>
+                  </td>
+                <th align=right valign=middle>Mail Description:</th>
+                <td align=left valign=middle><span class="nobord">
+                  <textarea name="textarea6" cols=20 rows=3></textarea>
+                  <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea">
+                  </span></td>
+              </tr>
+            </table>
+          </div>
+          
+          <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Keywords</td>
               <td class="tabtable2-mid"><a href="#" id="A34g" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F34g" vspace=6></a></td>
