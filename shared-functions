@@ -235,7 +235,7 @@ function kupdate {
 	fi
 	kexec "rm -rf $application_deploy_directory/$APPLICATION_JAVA_PROJECT"
 
-	kexec "sudo $WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment"
+	kexec "sudo $WORK_PURGE_COMMAND $JAVA_APPLICATION_CODE $environment 7"
 
 	return 0
     } >> $SCRIPT_LOG 2>&1
