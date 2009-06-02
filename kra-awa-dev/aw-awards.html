@@ -702,8 +702,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <input name="sid" type=text onchange="dataChanged()" value="123456" size="16" id="sid"/>
                           <input name="image2" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
                             <input name="image2" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                            <span class="fineprint"><br />National Cancer Institute</span>
-                        </td>
+                       <br />National Cancer Institute
+</td>
                         <th>
                             <div align=right>
                             <label for="label11">Prime Sponsor: </label>
@@ -713,8 +713,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <input name="psid" type=text onchange="dataChanged()" value="000340" size="16" id="psid"/>
                           <input name="image23" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
                             <input name="image23" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                            <span class="fineprint"><br />National Institutes of Health</span>
-                        </td>
+                         <br />National Institutes of Health
+                      </td>
                     </tr>
                     <tr>
                         <th>
@@ -858,7 +858,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             </td>
                             <th>
                                 <div align="right">
-                                <label for="account id">Budget Start Date: </label>
+                                <label for="account id">Obligation Start Date: </label>
                                 </div>
                             </th>
                             <td align=left valign=middle>
@@ -868,26 +868,28 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             </td>
                         </tr>
                         <tr>
-                            <th>
-                                <div align="right">
-                                <label for="account type">*Project End Date:</label>
-                                </div>
-                            </th>
-                            <td align=left valign=middle>
-                                <span>
-                                <input name="ed" type="text" value="12/31/2013" size=12>
-                                </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor4"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span>
-                            </td>
-                            <th>
-                                <div align="right">
-                                <label for="account id">Execution Date: </label>
-                                </div>
-                            </th>
-                            <td align=left valign=middle>
-                                <span>
-                                <input name="bsd" type="text" value="01/01/2009" size=12>
-                                </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span>
-                            </td>
+                          <th> <div align="right">
+                            <label for="account type">*Project End Date:</label>
+                          </div>
+                          </th>
+                          <td align=left valign=middle><span>
+                            <input name="ed" type="text" value="12/31/2013" size=12>
+                          </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor4"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                          <th><div align="right">Obligation End Date:</div></th>
+                          <td align=left valign=middle><span>
+                            <input name="ed2" type="text" value="12/31/2013" size=12>
+                          </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor6"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                        </tr>
+                        <tr>
+                          <th> <div align="right">
+                            <label for="account id2">Execution Date: </label>
+                          </div>
+                          </th>
+                          <td align=left valign=middle><span>
+                            <input name="bsd3" type="text" value="01/01/2009" size=12>
+                          </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                          <th>&nbsp;</th>
+                          <td align=left valign=middle>&nbsp;</td>
                         </tr>
                     </table>
               </div>
