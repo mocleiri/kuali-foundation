@@ -596,6 +596,236 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
               </table>
             </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                   <!-- Submit for Review  (Alternate Configuration)-->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead" style="width:50px;"><a href="#" id="A201ll" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201ll"></a></td>
+                <td class="tab-subhead">Submit for Review (Alternate Configuration 1)</td>
+              </tr>
+            </table>
+            <div id="G201ll" style="display: none;">
+              <table cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                  <th style="text-align:right; width:125px;">*Submission Type:</th>
+                  <td><select name="typeQ">
+                      <option value=0 selected=selected>select</option>
+                      <option>Initial Protocol Application for Approval</option>
+                      <option>Response to Previous IRB Notification</option>
+                      <option>Amendment</option>
+                      <option>Continuing Review/Continuation with Amendment</option>
+                      <option>Continuing Review/Continuation without Amendment</option>
+                    </select></td>
+                  <th style="text-align:right; width:170px;">*Submission Review Type:</th>
+                  <td><select name="reviewtypeQ" id="checklistcontrol">
+                      <option value=0>select</option>
+                      <option value=1>Full</option>
+                      <option value=2 selected=selected>Expedited</option>
+                      <option value=3>Exempt</option>
+                      <option value=4>Limited/Single Use</option>
+                      <option value=5>IRB Review Not Required</option>
+                      <option value=6>Response</option>
+                      <option value=7>FYI</option>
+                    </select></td>
+                </tr>
+                <tr>
+                  <th style="text-align:right;">Type Qualifier:</th>
+                  <td colspan=3><select name="typequalifierQ" style="width:100%;">
+                      <option value=0 selected=selected>select</option>
+                      <option value=1>Annual Scheduled by IRB</option>
+                      <option value=2>Contingent/Conditional Approval/Deferred Approval/ Non-Approval</option>
+                      <option value=1>Eligibility Exceptions/Protocol Deviations</option>
+                      <option value=1>AE/UADE</option>
+                      <option value=1>Complaint</option>
+                      <option value=1>Deviation</option>
+                      <option value=1>Protocol-related COI Report</option>
+                      <option value=1>Self report for Noncompliance</option>
+                      <option value=1>Request for Eligibility Exception</option>
+                      <option value=1>Training Certification</option>
+                      <option value=1>Unanticipated Problems</option>
+                      <option value=1>DSMB Report</option>
+                      <option value=1>Annual Report</option>
+                    </select></td>
+                </tr>
+                <!--<tr><th style="text-align:right;">
+                                Committee ID:
+                            </th><td><input type="text" id="committeeidQ" name="committeeidQ" size="25" value="CU002" /><input name="x" src="../images/searchicon.gif" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" /><span class="fineprint"><br />Second IRB</span></td><th style="text-align:right;">
+                                Schedule ID:
+                            </th><td><input type="text" id="scheduleidQ" name="scheduleidQ" size="25" value="195" /><input name="x" src="../images/searchicon.gif" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" /><span class="fineprint"><br />04/03/2009</span></td></tr>-->
+              </table>
+              <!--
+                    <table cellpadding="0" cellspacing="0"><tr><th style="padding:3px;">
+                                Availiable Reviewers
+                            </th><th style="padding:3px;"><input name="x" src="../images/tinybutton-refresh.gif" onclick="javascript: alert('If this were not a mock, this button would refresh the list of Reviewers based on the Schedule'); return false" class="tinybutton" alt="refresh" type="image" /></th><th style="padding:3px;">
+                                Assigned Reviewers
+                            </th></tr><tr><td style="text-align:left; vertical-align:top;"><input type="checkbox" class="nobord" name="CustomData" value="0" />Tom Clark<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Bart Niedner<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Terry Durkin<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Phat Albert
+                                
+                            </td><th style="width:75px; text-align:center; vertical-align:middle;" class="infoline"><input name="x" src="../images/previous.gif" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="assign" alt="Assign Selected Reviewers" type="image" /><input name="x" src="../images/next.gif" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="remove" alt="Remove Selected Reviewers" type="image" /></th><td style="text-align:left; vertical-align:top;"><input type="checkbox" class="nobord" name="CustomData" value="0" />Lone Ranger<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Fred Flinstone<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Road Runner
+                                
+                            </td></tr></table>
+                    -->
+              <div id="checklistexemptdiv" class="checklistdiv"></div>
+              <div id="checklistexpediteddiv" class="checklistdiv"></div>
+              <table cellpadding=0 cellspacing=0 style="height:30px;">
+                <tr>
+                  <td style="text-align:center; padding:5px;" class="infoline"><input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
+                </tr>
+              </table>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+                 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                
+            
+                   <!-- Submit for Review  (Alternate Configuration)-->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead" style="width:50px;"><a href="#" id="A201mc" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201mc"></a></td>
+                <td class="tab-subhead">Submit for Review (Alternate Configuration 2)</td>
+              </tr>
+            </table>
+            <div id="G201mc" style="display: none;">
+              <table cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                 <th style="text-align:right;">*Submission Type:</th>
+                  <td><select name="typeQ4">
+                    <option value=0 selected=selected>select</option>
+                    <option>Initial Protocol Application for Approval</option>
+                    <option>Response to Previous IRB Notification</option>
+                    <option>Amendment</option>
+                    <option>Continuing Review/Continuation with Amendment</option>
+                    <option>Continuing Review/Continuation without Amendment</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <th style="text-align:right;">Type Qualifier:</th>
+                  <td><select name="typequalifierQ3" style="width:100%;">
+                    <option value=0 selected=selected>select</option>
+                    <option value=1>Annual Scheduled by IRB</option>
+                    <option value=2>Contingent/Conditional Approval/Deferred Approval/ Non-Approval</option>
+                    <option value=1>Eligibility Exceptions/Protocol Deviations</option>
+                    <option value=1>AE/UADE</option>
+                    <option value=1>Complaint</option>
+                    <option value=1>Deviation</option>
+                    <option value=1>Protocol-related COI Report</option>
+                    <option value=1>Self report for Noncompliance</option>
+                    <option value=1>Request for Eligibility Exception</option>
+                    <option value=1>Training Certification</option>
+                    <option value=1>Unanticipated Problems</option>
+                    <option value=1>DSMB Report</option>
+                    <option value=1>Annual Report</option>
+                  </select></td>
+                </tr>
+                <tr>
+                   <th style="text-align:right;">*Submission Review Type</th>
+                  <td><select name="reviewtypeQ3" id="reviewtypeQ2">
+                    <option value=0>select</option>
+                    <option value=1>Full</option>
+                    <option value=2 selected=selected>Expedited</option>
+                    <option value=3>Exempt</option>
+                    <option value=4>Limited/Single Use</option>
+                    <option value=5>IRB Review Not Required</option>
+                    <option value=6>Response</option>
+                    <option value=7>FYI</option>
+                  </select></td>
+                </tr>
+                <!--<tr><th style="text-align:right;">
+                                Committee ID:
+                            </th><td><input type="text" id="committeeidQ" name="committeeidQ" size="25" value="CU002" /><input name="x" src="../images/searchicon.gif" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" /><span class="fineprint"><br />Second IRB</span></td><th style="text-align:right;">
+                                Schedule ID:
+                            </th><td><input type="text" id="scheduleidQ" name="scheduleidQ" size="25" value="195" /><input name="x" src="../images/searchicon.gif" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" /><span class="fineprint"><br />04/03/2009</span></td></tr>-->
+              </table>
+              <!--
+                    <table cellpadding="0" cellspacing="0"><tr><th style="padding:3px;">
+                                Availiable Reviewers
+                            </th><th style="padding:3px;"><input name="x" src="../images/tinybutton-refresh.gif" onclick="javascript: alert('If this were not a mock, this button would refresh the list of Reviewers based on the Schedule'); return false" class="tinybutton" alt="refresh" type="image" /></th><th style="padding:3px;">
+                                Assigned Reviewers
+                            </th></tr><tr><td style="text-align:left; vertical-align:top;"><input type="checkbox" class="nobord" name="CustomData" value="0" />Tom Clark<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Bart Niedner<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Terry Durkin<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Phat Albert
+                                
+                            </td><th style="width:75px; text-align:center; vertical-align:middle;" class="infoline"><input name="x" src="../images/previous.gif" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="assign" alt="Assign Selected Reviewers" type="image" /><input name="x" src="../images/next.gif" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="remove" alt="Remove Selected Reviewers" type="image" /></th><td style="text-align:left; vertical-align:top;"><input type="checkbox" class="nobord" name="CustomData" value="0" />Lone Ranger<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Fred Flinstone<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Road Runner
+                                
+                            </td></tr></table>
+                    -->
+              <div id="checklistexemptdiv" class="checklistdiv"></div>
+              <div id="checklistexpediteddiv" class="checklistdiv"></div>
+              <table cellpadding=0 cellspacing=0 style="height:30px;">
+                <tr>
+                  <td style="text-align:center; padding:5px;" class="infoline"><input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
+                </tr>
+              </table>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+                 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <!-- Withdraw Protocol -->
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
