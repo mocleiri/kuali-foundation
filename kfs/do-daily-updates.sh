@@ -11,6 +11,6 @@ kupdate unt standard false false Oracle9i
 kupdate stg branches/kfs-200907-implementations-br false true Oracle9i
 kpurge $LOGS_DIRECTORY 7
 
-#sh ~j2eemgr/kuali/kfs/check-modularization.sh
+sh ~j2eemgr/kuali/kfs/check-modularization.sh
 
 kend 0
