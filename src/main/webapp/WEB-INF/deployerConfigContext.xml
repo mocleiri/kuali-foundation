@@ -157,5 +157,6 @@
         <property name="url" value="$sc{org.kuali.cas.auth.jdbc.url}" />
         <property name="username" value="$sc{org.kuali.cas.auth.jdbc.username}" />
         <property name="password" value="$sc{org.kuali.cas.auth.jdbc.password}" />
+        <property name="validationQuery" value="$sc{org.kuali.cas.auth.jdbc.validationQuery}" />
     </bean>		
 </beans>

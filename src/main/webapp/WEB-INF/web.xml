@@ -36,6 +36,10 @@
 		<param-name>org.kuali.cas.auth.jdbc.password</param-name>
 		<param-value>${org.kuali.cas.auth.jdbc.password}</param-value>
 	</context-param>
+	<context-param>
+		<param-name>org.kuali.cas.auth.jdbc.validationQuery</param-name>
+		<param-value>${org.kuali.cas.auth.jdbc.validationQuery}</param-value>
+	</context-param>
 
 	<!-- 
 		place this into the contextConfigLocation to enable remote services
