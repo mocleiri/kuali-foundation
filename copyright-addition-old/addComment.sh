@@ -5,26 +5,19 @@
 
 # caseyhb 1June2009
 # modified to work with SVN
-
 function usage()
 {
-    local printDefault=true
-    echo "addComment.sh [url] [branch] (excluded files) (excluded dirs)\n"
-    echo "where 'url' is the Subversion repository URL of the project\n"
-    echo "      'branch' is the project branch (default 'trunk')\n"
-    echo "      'excluded files' is a file of newline delimited filenames to be excluded\n"
-    echo "      'excluded dirs' is a file of newline-delimited directory names to be excluded\n"
+    echo "addComment.sh [-b branch] url local_dir [excluded files] [excluded dirs]"
+    echo "where 'url' is the Subversion repository URL of the project"
+    echo "      'branch' is the project branch (default 'trunk')"
+    echo "      'excluded files' is a file of newline delimited filenames to be excluded (default 'ignore.files')"
+    echo "      'excluded dirs' is a file of newline-delimited directory names to be excluded (default 'ignore.dirs')"
+    echo
+    echo "addComment checks out a project from SVN, operates on that local copy and then exits. \n
+    /It's up to the user to check the 'licensed' code back in."
     exit 1
 }
 
-# check args
-if [ $# -lt 4 ]; then
-    usage()
-fi
-#elif (( $# -lt 2 )); then
-#    usage()
-
-cd "$1"  #get into directory we're going to process
 typeset Programdir=`dirname "$0"`
 typeset Directory="$CVSROOT/$1"
 typeset Branch=$2
@@ -56,6 +49,13 @@ function add_to_message {
   esac
   Message="$Message\n$Directory/$1: $NewMessage"
 }
+
+# check args
+if [ $# -eq 0 ]; then
+    usage
+fi
+
+cd "$1"  #get into directory we're going to process
 
 #traverse the directory tree from current up to root, checking each one
 #if find a directory whose name begins with . don't do license processing
