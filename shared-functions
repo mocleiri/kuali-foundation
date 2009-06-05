@@ -242,17 +242,3 @@ function kupdate {
 }
 typeset -xf kupdate
 
-function kcheckmodularization {
-    {
-	environment=$1
-	version=$2
-	database_platform=$3
-	ksetprops $environment $version $database_platform
-	rm -rf $APPLICATION_DIRECTORY/$APPLICATION_JAVA_PROJECT
-	kcheckout $APPLICATION_JAVA_PROJECT $version $APPLICATION_DIRECTORY/$APPLICATION_JAVA_PROJECT
-	kant check-modularization -Dgenerated.properties.file=$ANT_PROPERTIES_FILE $APPLICATION_DEV_MAIL_LIST
-	kexec "rm -rf $APPLICATION_DIRECTORY/$APPLICATION_JAVA_PROJECT"
-	return 0
-    } >> $SCRIPT_LOG 2>&1
-}
-typeset -xf kcheckmodularization
