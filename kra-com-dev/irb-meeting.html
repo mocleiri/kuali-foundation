@@ -93,13 +93,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </div>
             <table cellpadding=0 cellspacing="0"  summary="">
                 <tr>
-                    <th style="width:145px;">
+                    <th style="width:145px; text-align:right;">
                     	Committee ID:
                     </th>
                     <td>
                     	CU001
                     </td>
-                    <th style="width:140px;">
+                    <th style="width:140px; text-align:right;">
                     	Committee Name:
                     </th>
                     <td>
@@ -107,7 +107,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                 </tr>
                 <tr>
-                    <th>
+                    <th style="text-align:right;">
                     	Schedule Date:
                     </th>
                     <td>
@@ -124,7 +124,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </table>
                         
                     </td>
-                    <th>
+                    <th style="text-align:right;">
                     	Status:
                     </th>
                     <td>
@@ -138,13 +138,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                 </tr>
                 <tr>
-                    <th>
+                    <th style="text-align:right;">
                     	Place:
                     </th>
                     <td>
                     	<input type="text" style="width:97%;" value="EHOB 343" />
                     </td>
-                    <th>
+                    <th style="text-align:right;">
                     	Time:
                     </th>
                     <td>
@@ -152,13 +152,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                 </tr>
                 <tr>
-                    <th>
+                    <th style="text-align:right;">
                     	Max Protocols:
                     </th>
                     <td>
                     	<input type="text" style="width:97%;" value="500" />
                     </td>
-                    <th>
+                    <th style="text-align:right;">
                     	Deadline:
                     </th>
                     <td>
@@ -166,13 +166,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                 </tr>
                 <tr>
-                    <th>
+                    <th style="text-align:right;">
                     	Agenda Generation:
                     </th>
                     <td>
                     	<input type="text" style="width:97%;" value="" />
                     </td>
-                    <th>
+                    <th style="text-align:right;">
                     	Meeting Date:
                     </th>
                     <td>
@@ -191,13 +191,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                 </tr>
                 <tr>
-                    <th>
+                    <th style="text-align:right;">
                     	Start Time:
                     </th>
                     <td>
                     	<input type="text" style="width:75px;" value="13:05" />
                     </td>
-                    <th>
+                    <th style="text-align:right;">
                     	End Time:
                     </th>
                     <td>
@@ -206,7 +206,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
                 
                 <tr>
-                    <th>
+                    <th style="text-align:right;">
                     	Comments:
                     </th>
                     <td colspan="4">
@@ -391,8 +391,57 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </div>
             <table cellpadding=0 cellspacing="0"  summary="">
                 <tr>
-                    <td>
-                    	<img src="./images/OtherActions.jpg" />
+                    <th>&nbsp;</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                	<th>Add:</th>
+                    <td class="infoline" style="text-align:center;"><input type="text" style="width:97%;" value="" /></td>
+                    <td class="infoline" style="text-align:center;"><input type="text" style="width:97%;" value="" /></td>
+                    <td class="infoline" style="text-align:center;">
+                    	<input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the Other Action to the list.'); return false" class="tinybutton" alt="add" title="Add" type="image" />
+                    </td>
+                </tr>
+                <tr>
+                	<th>1</th>
+                    <td>Other Business</td>
+                    <td>Discussed Kuali Coeus Implementation.</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" />
+                    </td>
+                </tr>
+                <tr>
+                	<th>2</th>
+                    <td>New Member Consideration</td>
+                    <td>Do we accept new members.</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" />
+                    </td>
+                </tr>
+                <tr>
+                	<th>3</th>
+                    <td>Non-Compliance</td>
+                    <td>Review Smith protocol issues.</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" />
+                    </td>
+                </tr>
+                <tr>
+                	<th>4</th>
+                    <td>Protocol Deviation</td>
+                    <td>Review Jones protocol issues.</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" />
+                    </td>
+                </tr>
+                <tr>
+                	<th>5</th>
+                    <td>Adverse Event</td>
+                    <td>Winter storm warning.</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" />
                     </td>
                 </tr>
             </table>
@@ -421,8 +470,102 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </div>
             <table cellpadding=0 cellspacing="0"  summary="">
                 <tr>
-                    <td>
-                    	<img src="./images/Attendence.jpg" />
+                    <th style="width:50px;">&nbsp;</th>
+                    <th>Name</th>
+                    <th style="width:55px;">Guest</th>
+                    <th>Alternate For</th>
+                    <th style="width:70px;">Actions</th>
+                </tr>
+                <tr>
+                	<th>Add:</th>
+                    <td class="infoline">
+                    	
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" style="width:100%;" value="" />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                    <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                </td>
+                            </tr>
+                        </table>  
+                        
+                    </td>
+                    <td class="infoline" style="text-align:center;">
+                    	<select name="guest">
+                            <option value="0">select</option>
+                            <option value="1" selected="selected">no</option>
+                            <option value="2">yes</option>
+                        </select>
+                    </td>
+                    <td class="infoline" style="text-align:center;"><input type="text" style="width:97%;" value="" /></td>
+                    <td class="infoline" style="text-align:center;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated data row.'); return false" class="tinybutton" alt="add" title="Add" type="image" /></td>
+                </tr>
+                <tr>
+                	<th>1</th>
+                    <td>Slusar, Andrew</td>
+                    <td>no</td>
+                    <td>Dan Dwyer</td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                </tr>
+                <tr>
+                	<th>2</th>
+                    <td>Hutchinson, Bryan</td>
+                    <td>no</td>
+                    <td>&nbsp;</td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                </tr>
+                <tr>
+                	<th>3</th>
+                    <td>DeStefano, Michelle</td>
+                    <td>no</td>
+                    <td>&nbsp;</td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                </tr>
+                <tr>
+                	<th>4</th>
+                    <td>Dwyer, Deb</td>
+                    <td>yes</td>
+                    <td>&nbsp;</td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                </tr>
+            </table>
+            <table cellpadding=0 cellspacing="0"  summary="">
+                <tr>
+                    <td colspan="2" class="tab-subhead1">Absentees</td>
+                </tr>
+                <tr>
+                    <th style="width:50px;">&nbsp;</th>
+                    <th>Member Name</th>
+                </tr>
+                <tr>
+                	<th>1</th>
+                    <td>Stinson, Ray</td>
+                </tr>
+                <tr>
+                	<th>2</th>
+                    <td>Smith, Carolyn</td>
+                </tr>
+            </table>
+            <table cellpadding=0 cellspacing="0"  summary="">
+                <tr>
+                    <td class="tab-subhead1">Comments</td>
+                </tr>
+                <tr>
+                	<td>
+                    
+                    	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <textarea name="z" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque venenatis rutrum diam at viverra. Phasellus eget nibh sapien. Aenean at odio augue. Vivamus ac lorem ac augue feugiat tincidunt. In hac habitasse platea dictumst. Aliquam erat volutpat. Donec euismod eros a diam luctus feugiat et a nibh.</textarea>
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                    
                     </td>
                 </tr>
             </table>
@@ -451,10 +594,437 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </div>
             <table cellpadding=0 cellspacing="0"  summary="">
                 <tr>
-                    <td>
-                    	<img src="./images/Minutes.jpg" /><br />
-                        <img src="./images/MinuteEntry.jpg" />
+                    <th style="width:40px;">&nbsp;</th>
+                    <th style="width:140px;">Entry Type</th>
+                    <th style="width:130px;">Protocol</th>
+                    <th>Entry</th>
+                    <th style="width:55px;">Private</th>
+                    <th style="width:90px;">Contengency Code</th>
+                    <th style="width:45px;">Actions</th>
+                </tr>
+                <tr>
+                	<th>Add:</th>
+                    <td class="infoline" style="text-align:center;">
+                    	<select name="entrytypeA">
+                            <option value="0" selected="selected">select</option>
+                            <option value="1">Adverse Events</option>
+                            <option value="2">Attendance</option>
+                            <option value="3">General Comments</option>
+                            <option value="4">Other Business</option>
+                            <option value="5">Protocol</option>
+                        </select>
                     </td>
+                    <td class="infoline" style="text-align:center;">
+                    	<select name="protocolA">
+                            <option value="0s" selected="selected">select</option>
+                            <option value="0">none</option>
+                            <option value="1">0902000142A009</option>
+                            <option value="2">0902000142A010</option>
+                            <option value="3">0902000142A011</option>
+                            <option value="4">0902000142A012</option>
+                            <option value="5">0902000142A013</option>
+                            <option value="6">0902000142A014</option>
+                            <option value="7">0902000142A015</option>
+                        </select>
+                    </td>
+                    <td class="infoline">
+                    	
+                        <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none;">
+                                    <textarea name="z" style="width:100%; text-align:left;" rows="1"></textarea>
+                                </td>
+                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td class="infoline" style="text-align:center;">
+                    	<select name="private00">
+                            <option value="0" selected="selected">select</option>
+                            <option value="1">yes</option>
+                            <option value="2">no</option>
+                        </select>
+                    </td>
+                    <td class="infoline" style="text-align:center;"><input type="text" style="width:20px;" value="" /></td>
+                    <td class="infoline" style="text-align:center;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated data row.'); return false" class="tinybutton" alt="add" title="Add" type="image" /></td>
+                </tr>
+                <tr>
+                	<th>1</th>
+                    <td style="text-align:center;">
+                    	<select name="entrytype01b">
+                            <option value="0">select</option>
+                            <option value="1">Adverse Events</option>
+                            <option value="2">Attendance</option>
+                            <option value="3" selected="selected">General Comments</option>
+                            <option value="4">Other Business</option>
+                            <option value="5">Protocol</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="protocol01">
+                            <option value="0" selected="selected">none</option>
+                            <option value="1">0902000142A009</option>
+                            <option value="2">0902000142A010</option>
+                            <option value="3">0902000142A011</option>
+                            <option value="4">0902000142A012</option>
+                            <option value="5">0902000142A013</option>
+                            <option value="6">0902000142A014</option>
+                            <option value="7">0902000142A015</option>
+                        </select>
+                    </td>
+                    <td>
+                    	
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" style="width:97%;" value="A comment here." />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="private01b">
+                            <option value="1">yes</option>
+                            <option value="2" selected="selected">no</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                </tr>
+                <tr>
+                	<th>2</th>
+                    <td style="text-align:center;">
+                    	<select name="entrytype02b">
+                            <option value="0">select</option>
+                            <option value="1">Adverse Events</option>
+                            <option value="2" selected="selected">Attendance</option>
+                            <option value="3">General Comments</option>
+                            <option value="4">Other Business</option>
+                            <option value="5">Protocol</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="protocol02">
+                            <option value="0" selected="selected">none</option>
+                            <option value="1">0902000142A009</option>
+                            <option value="2">0902000142A010</option>
+                            <option value="3">0902000142A011</option>
+                            <option value="4">0902000142A012</option>
+                            <option value="5">0902000142A013</option>
+                            <option value="6">0902000142A014</option>
+                            <option value="7">0902000142A015</option>
+                        </select>
+                    </td>
+                    <td>
+                    	
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" style="width:97%;" value="Andrew Slusar: Alternate for Dan Dwyer." />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="private02">
+                            <option value="1">yes</option>
+                            <option value="2" selected="selected">no</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                </tr>
+                <tr>
+                	<th>3</th>
+                    <td style="text-align:center;">
+                    	<select name="entrytype03b">
+                            <option value="0">select</option>
+                            <option value="1">Adverse Events</option>
+                            <option value="2">Attendance</option>
+                            <option value="3">General Comments</option>
+                            <option value="4">Other Business</option>
+                            <option value="5" selected="selected">Protocol</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="protocol03b">
+                            <option value="0">none</option>
+                            <option value="1" selected="selected">0902000142A009</option>
+                            <option value="2">0902000142A010</option>
+                            <option value="3">0902000142A011</option>
+                            <option value="4">0902000142A012</option>
+                            <option value="5">0902000142A013</option>
+                            <option value="6">0902000142A014</option>
+                            <option value="7">0902000142A015</option>
+                        </select>
+                    </td>
+                    <td>
+                    	
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" style="width:97%;" value="Inclusion of a statement of the informed consent that some..." />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="private03">
+                            <option value="1">yes</option>
+                            <option value="2" selected="selected">no</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                </tr>
+                <tr>
+                	<th>4</th>
+                    <td style="text-align:center;">
+                    	<select name="entrytype04b">
+                            <option value="0">select</option>
+                            <option value="1">Adverse Events</option>
+                            <option value="2">Attendance</option>
+                            <option value="3">General Comments</option>
+                            <option value="4">Other Business</option>
+                            <option value="5" selected="selected">Protocol</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="protocol04b">
+                            <option value="0">none</option>
+                            <option value="1">0902000142A009</option>
+                            <option value="2" selected="selected">0902000142A010</option>
+                            <option value="3">0902000142A011</option>
+                            <option value="4">0902000142A012</option>
+                            <option value="5">0902000142A013</option>
+                            <option value="6">0902000142A014</option>
+                            <option value="7">0902000142A015</option>
+                        </select>
+                    </td>
+                    <td>
+                    	
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" style="width:97%;" value="Inclusion of a statement of the informed consent which prov..." />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="private04">
+                            <option value="1">yes</option>
+                            <option value="2" selected="selected">no</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                </tr><tr>
+                	<th>5</th>
+                    <td style="text-align:center;">
+                    	<select name="entrytype05b">
+                            <option value="0">select</option>
+                            <option value="1">Adverse Events</option>
+                            <option value="2">Attendance</option>
+                            <option value="3">General Comments</option>
+                            <option value="4">Other Business</option>
+                            <option value="5" selected="selected">Protocol</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="protocol05b">
+                            <option value="0">none</option>
+                            <option value="1">0902000142A009</option>
+                            <option value="2">0902000142A010</option>
+                            <option value="3" selected="selected">0902000142A011</option>
+                            <option value="4">0902000142A012</option>
+                            <option value="5">0902000142A013</option>
+                            <option value="6">0902000142A014</option>
+                            <option value="7">0902000142A015</option>
+                        </select>
+                    </td>
+                    <td>
+                    	
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" style="width:97%;" value="Clarification to the IRB regarding the data retrieval method to..." />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="private05">
+                            <option value="1">yes</option>
+                            <option value="2" selected="selected">no</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                </tr>
+                <tr>
+                	<th>6</th>
+                    <td style="text-align:center;">
+                    	<select name="entrytype06b">
+                            <option value="0">select</option>
+                            <option value="1">Adverse Events</option>
+                            <option value="2">Attendance</option>
+                            <option value="3">General Comments</option>
+                            <option value="4">Other Business</option>
+                            <option value="5" selected="selected">Protocol</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="protocol06b">
+                            <option value="0">none</option>
+                            <option value="1" selected="selected">0902000142A009</option>
+                            <option value="2">0902000142A010</option>
+                            <option value="3">0902000142A011</option>
+                            <option value="4">0902000142A012</option>
+                            <option value="5">0902000142A013</option>
+                            <option value="6">0902000142A014</option>
+                            <option value="7">0902000142A015</option>
+                        </select>
+                    </td>
+                    <td>
+                    	
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" style="width:97%;" value="This is a restricted message." />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="private06b">
+                            <option value="1" selected="selected">yes</option>
+                            <option value="2">no</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                </tr>
+                <tr>
+                	<th>7</th>
+                    <td style="text-align:center;">
+                    	<select name="entrytype07b">
+                            <option value="0">select</option>
+                            <option value="1">Adverse Events</option>
+                            <option value="2">Attendance</option>
+                            <option value="3">General Comments</option>
+                            <option value="4" selected="selected">Other Business</option>
+                            <option value="5">Protocol</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="protocol07b">
+                            <option value="0" selected="selected">none</option>
+                            <option value="1">0902000142A009</option>
+                            <option value="2">0902000142A010</option>
+                            <option value="3">0902000142A011</option>
+                            <option value="4">0902000142A012</option>
+                            <option value="5">0902000142A013</option>
+                            <option value="6">0902000142A014</option>
+                            <option value="7">0902000142A015</option>
+                        </select>
+                    </td>
+                    <td>
+                    	
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" style="width:97%;" value="Andrew Slusar: Alternate for Dan Dwyer." />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="private07">
+                            <option value="1">yes</option>
+                            <option value="2" selected="selected">no</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                </tr>
+                <tr>
+                	<th>8</th>
+                    <td style="text-align:center;">
+                    	<select name="entrytype08b">
+                            <option value="0">select</option>
+                            <option value="1" selected="selected">Adverse Events</option>
+                            <option value="2">Attendance</option>
+                            <option value="3">General Comments</option>
+                            <option value="4">Other Business</option>
+                            <option value="5">Protocol</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="protocol08">
+                            <option value="0" selected="selected">none</option>
+                            <option value="1">0902000142A009</option>
+                            <option value="2">0902000142A010</option>
+                            <option value="3">0902000142A011</option>
+                            <option value="4">0902000142A012</option>
+                            <option value="5">0902000142A013</option>
+                            <option value="6">0902000142A014</option>
+                            <option value="7">0902000142A015</option>
+                        </select>
+                    </td>
+                    <td>
+                    	
+                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <input type="text" style="width:97%;" value="Winter storm warning." />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td style="text-align:center;">
+                    	<select name="private08">
+                            <option value="1">yes</option>
+                            <option value="2" selected="selected">no</option>
+                        </select>
+                    </td>
+                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
                 </tr>
             </table>
     </div>
