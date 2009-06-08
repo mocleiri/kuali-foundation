@@ -603,102 +603,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             
             
             
-            
-            
-            
-            
-            
-            
-                   <!-- Submit for Review  (Alternate Configuration)-->
-            <table cellpadding=0 cellspacing=0 summary="">
-              <tr>
-                <td class="tab-subhead" style="width:50px;"><a href="#" id="A201ll" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201ll"></a></td>
-                <td class="tab-subhead">Submit for Review (Alternate Configuration 1)</td>
-              </tr>
-            </table>
-            <div id="G201ll" style="display: none;">
-              <table cellpadding=0 cellspacing=0 summary="">
-                <tr>
-                  <th style="text-align:right; width:125px;">*Submission Type:</th>
-                  <td><select name="typeQ">
-                      <option value=0 selected=selected>select</option>
-                      <option>Initial Protocol Application for Approval</option>
-                      <option>Response to Previous IRB Notification</option>
-                      <option>Amendment</option>
-                      <option>Continuing Review/Continuation with Amendment</option>
-                      <option>Continuing Review/Continuation without Amendment</option>
-                    </select></td>
-                  <th style="text-align:right; width:170px;">*Submission Review Type:</th>
-                  <td><select name="reviewtypeQ" id="checklistcontrol">
-                      <option value=0>select</option>
-                      <option value=1>Full</option>
-                      <option value=2 selected=selected>Expedited</option>
-                      <option value=3>Exempt</option>
-                      <option value=4>Limited/Single Use</option>
-                      <option value=5>IRB Review Not Required</option>
-                      <option value=6>Response</option>
-                      <option value=7>FYI</option>
-                    </select></td>
-                </tr>
-                <tr>
-                  <th style="text-align:right;">Type Qualifier:</th>
-                  <td colspan=3><select name="typequalifierQ" style="width:100%;">
-                      <option value=0 selected=selected>select</option>
-                      <option value=1>Annual Scheduled by IRB</option>
-                      <option value=2>Contingent/Conditional Approval/Deferred Approval/ Non-Approval</option>
-                      <option value=1>Eligibility Exceptions/Protocol Deviations</option>
-                      <option value=1>AE/UADE</option>
-                      <option value=1>Complaint</option>
-                      <option value=1>Deviation</option>
-                      <option value=1>Protocol-related COI Report</option>
-                      <option value=1>Self report for Noncompliance</option>
-                      <option value=1>Request for Eligibility Exception</option>
-                      <option value=1>Training Certification</option>
-                      <option value=1>Unanticipated Problems</option>
-                      <option value=1>DSMB Report</option>
-                      <option value=1>Annual Report</option>
-                    </select></td>
-                </tr>
-                <!--<tr><th style="text-align:right;">
-                                Committee ID:
-                            </th><td><input type="text" id="committeeidQ" name="committeeidQ" size="25" value="CU002" /><input name="x" src="../images/searchicon.gif" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" /><span class="fineprint"><br />Second IRB</span></td><th style="text-align:right;">
-                                Schedule ID:
-                            </th><td><input type="text" id="scheduleidQ" name="scheduleidQ" size="25" value="195" /><input name="x" src="../images/searchicon.gif" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" /><span class="fineprint"><br />04/03/2009</span></td></tr>-->
-              </table>
-              <!--
-                    <table cellpadding="0" cellspacing="0"><tr><th style="padding:3px;">
-                                Availiable Reviewers
-                            </th><th style="padding:3px;"><input name="x" src="../images/tinybutton-refresh.gif" onclick="javascript: alert('If this were not a mock, this button would refresh the list of Reviewers based on the Schedule'); return false" class="tinybutton" alt="refresh" type="image" /></th><th style="padding:3px;">
-                                Assigned Reviewers
-                            </th></tr><tr><td style="text-align:left; vertical-align:top;"><input type="checkbox" class="nobord" name="CustomData" value="0" />Tom Clark<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Bart Niedner<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Terry Durkin<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Phat Albert
-                                
-                            </td><th style="width:75px; text-align:center; vertical-align:middle;" class="infoline"><input name="x" src="../images/previous.gif" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="assign" alt="Assign Selected Reviewers" type="image" /><input name="x" src="../images/next.gif" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="remove" alt="Remove Selected Reviewers" type="image" /></th><td style="text-align:left; vertical-align:top;"><input type="checkbox" class="nobord" name="CustomData" value="0" />Lone Ranger<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Fred Flinstone<br /><input type="checkbox" class="nobord" name="CustomData" value="0" />Road Runner
-                                
-                            </td></tr></table>
-                    -->
-              <div id="checklistexemptdiv" class="checklistdiv"></div>
-              <div id="checklistexpediteddiv" class="checklistdiv"></div>
-              <table cellpadding=0 cellspacing=0 style="height:30px;">
-                <tr>
-                  <td style="text-align:center; padding:5px;" class="infoline"><input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
-                </tr>
-              </table>
-            </div>
-            
-            
-            
-            
-            
-            
-            
-                 
-            
-            
-            
-            
-            
-            
-            
+        
             
             
             
@@ -757,13 +662,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td><select name="reviewtypeQ3" id="reviewtypeQ2">
                     <option value=0>select</option>
                     <option value=1>Full</option>
-                    <option value=2 selected=selected>Expedited</option>
-                    <option value=3>Exempt</option>
+                    <option value=2>Expedited</option>
+                    <option value=3 selected>Exempt</option>
                     <option value=4>Limited/Single Use</option>
                     <option value=5>IRB Review Not Required</option>
                     <option value=6>Response</option>
                     <option value=7>FYI</option>
-                  </select></td>
+                  </select>
+                  <input name="x5" src="../images/tinybutton-refresh.gif" onclick="javascript: alert('If this were not a mock, this button would refresh the checklist based on the Review Type'); return false" class="tinybutton" alt="refresh" type=image /></td>
                 </tr>
                 <!--<tr><th style="text-align:right;">
                                 Committee ID:
@@ -787,6 +693,63 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <table cellpadding=0 cellspacing=0 style="height:30px;">
                 <tr>
                   <td style="text-align:center; padding:5px;" class="infoline"><input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
+                </tr>
+              </table>
+              <table cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                  <th rowspan=6 style="width:125px; text-align:right;">*Checklist (Exempt):</th>
+                  <td><input type=checkbox class="nobord" name="checklist[]2" value=1 /></td>
+                  <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                    <tr>
+                      <td style="border:none;">Educational Research Conducted in Educational Settings. Research conducted in established or commonly accepted educational settings, involving normal educational practices, such as:i) research on regular and special education instructional strategies...</td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                    </tr>
+                  </table></td>
+                </tr>
+                <tr>
+                  <td><input type=checkbox class="nobord" name="checklist[]2" value=2 /></td>
+                  <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                    <tr>
+                      <td style="border:none;">Surveys/Interviews/Standardized Educational Tests/Observation of Public Behavior Research involving the use of educational tests (cognitive, diagnostic, aptitude, achievement), survey procedures, interview procedures or observation of public behavior...</td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                    </tr>
+                  </table></td>
+                </tr>
+                <tr>
+                  <td><input type=checkbox class="nobord" name="checklist[]2" value=3 checked=checked /></td>
+                  <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                    <tr>
+                      <td style="border:none;">Surveys/ Interviews /Observation of Public Behavior Research involving the use of educational tests (cognitive, diagnostic, aptitude, achievement), survey procedures, interview procedures or observation of public behavior if the subjects are elected...</td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                    </tr>
+                  </table></td>
+                </tr>
+                <tr>
+                  <td><input type=checkbox class="nobord" name="checklist[]2" value=4 /></td>
+                  <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                    <tr>
+                      <td style="border:none;">Secondary Use of Pre-Existing Data (Data must exist at the time the research is submitted for review.) Research involving the collection or study of existing data, documents, records, pathological specimens or diagnostic specimens if:i) these sources...</td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                    </tr>
+                  </table></td>
+                </tr>
+                <tr>
+                  <td><input type=checkbox class="nobord" name="checklist[]2" value=5 /></td>
+                  <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                    <tr>
+                      <td style="border:none;">Evaluation of Public Benefit or Service Program Research and demonstration projects which are conducted by or subject to the approval of Department or Agency heads, and which are designed to study, evaluate, or otherwise examine public benefit or ser...</td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                    </tr>
+                  </table></td>
+                </tr>
+                <tr>
+                  <td><input type=checkbox class="nobord" name="checklist[]2" value=6 /></td>
+                  <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                    <tr>
+                      <td style="border:none;">Taste and Food Quality Evaluation Taste and food quality evaluation and consumer acceptance studies:i) if wholesome foods without additive are consumed, orii) If food is consumed that contains a food ingredient at or below the level and for a use fou...</td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                    </tr>
+                  </table></td>
                 </tr>
               </table>
             </div>
@@ -1073,6 +1036,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div id="G201qs" style="display: none; padding-left:56px">
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
+                  <td colspan="2" class="subhead">Details</td>
+                </tr>
+                <tr>
                   <th style="text-align:right; width:35%">Assign this protocol to an agenda:</th>
                   <td><input name="checkbox5" type=checkbox class="nobord" id="checkbox5"></td>
                 </tr>
@@ -1092,7 +1058,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               </table>
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                  <td colspan=6 class="tab-subhead"><a href="#" id="A201tt" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201tt"></a> Review Comments</td>
+                  <td colspan=6 class="subhead"><a href="#" id="A201tt" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201tt"></a> Review Comments</td>
                 </tr>
                 <tbody id="G201tt" style="display:none;">
                   <tr>
@@ -1783,8 +1749,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td class="tab-subhead">Notify IRB</td>
               </tr>
             </table>
-            <div id="G201zz" style="display: none;">
+            <div id="G201zz" style="display: none;padding-left:56px">
               <table cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                  <td colspan="2" class="subhead">Details</td>
+                </tr>
                 <tr>
                   <th style="width:120px; text-align:right;">Submission Type:</th>
                   <td><select>
@@ -1798,28 +1767,62 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       <option value=7>Request for Eligibility Exception</option>
                       <option value=8>Self Report for Non-compliance</option>
                     </select></td>
-                  <th style="text-align:right;">Attachment:</th>
-                  <td><input type=file style="width:200px;" /></td>
                 </tr>
                 <tr>
                   <th style="text-align:right;">Committee:</th>
                   <td><select>
-                      <option value=0 selected=selected>select</option>
-                      <option value=1>First IRB</option>
-                      <option value=2>Second IRB</option>
-                      <option value=3>Third IRB</option>
-                    </select></td>
+                    <option value=0 selected=selected>select</option>
+                    <option value=1>First IRB</option>
+                    <option value=2>Second IRB</option>
+                    <option value=3>Third IRB</option>
+                  </select></td>
+                </tr>
+                <tr>
                   <th style="text-align:right;">Comment:</th>
                   <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                      <tr>
-                        <td style="border:none;"><textarea name="commentz" style="width:100%; text-align:left;" rows=2></textarea></td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="commentzx" src="../images/pencil_add.png" onclick="javascript: alert('if this were not a mock, this icon would open an editable text area.'); return false" class="tinybutton" alt="Expanded Text Area" title="Expanded Text Area" type=image /></td>
+                    <tr>
+                      <td style="border:none;"><textarea name="commentz2" style="width:100%; text-align:left;" rows=2></textarea></td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="commentzx2" src="../images/pencil_add.png" onclick="javascript: alert('if this were not a mock, this icon would open an editable text area.'); return false" class="tinybutton" alt="Expanded Text Area" title="Expanded Text Area" type=image /></td>
                       </tr>
-                    </table></td>
+                  </table></td>
                 </tr>
+                </table>
+                
+                   <table cellpadding=0 cellspacing=0 summary="">
+                
+                <tr>
+                  <td colspan="3" class="subhead">Attachments</td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">&nbsp;</th>
+                  <th style="text-align:center; padding:5px;"><span style="text-align:right;">Attachment</span></th>
+                  <th style="text-align:center; padding:5px;">Actions</th>
+                  </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">add</th>
+                  <td class="infoline" style="text-align:center; padding:5px;"><input type=file style="width:200px;" /></td>
+                  <td class="infoline" style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="add" width=40 height=15 border=0></a></div></td>
+                  </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">1</th>
+                  <td style="text-align:center; padding:5px;">my_attachement1.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                  </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">2</th>
+                  <td style="text-align:center; padding:5px;">my_attachement2.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                  </tr>
+                </table>
+                   <table cellpadding=0 cellspacing=0 summary="">
+                
+                
                 <tr>
                   <td style="text-align:center; padding:5px;" colspan=4 class="infoline"><input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
                 </tr>
+                
+                
+                
               </table>
             </div>
             <!-- Create Amendment -->
@@ -1953,30 +1956,58 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td class="tab-subhead">Request to Close</td>
               </tr>
             </table>
-            <div id="G301b" style="display: none;">
+            <div id="G301b" style="display: none;padding-left:56px">
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                  <th style="text-align:right; width:150px;">Committee:</th>
-                  <td><select name="CustomData">
-                      <option value=0 selected=selected>select</option>
-                      <option value=1>First IRB</option>
-                      <option value=2>Second IRB</option>
-                      <option value=2>Third IRB</option>
-                    </select></td>
+                  <td colspan="2" class="subhead">Details</td>
                 </tr>
                 <tr>
-                  <th style="text-align:right; width:100px;">Reason:</th>
+                  <th style="text-align:right; width:150px;">Committee:</th>
+                  <td><select name="CustomData5">
+                    <option value=0 selected=selected>select</option>
+                    <option value=1>First IRB</option>
+                    <option value=2>Second IRB</option>
+                    <option value=2>Third IRB</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <th style="text-align:right; width:150px;"> Reason:</th>
                   <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                      <tr>
-                        <td style="border:none;"><textarea name="z" style="width:100%; text-align:left;" rows=4></textarea></td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
-                      </tr>
-                    </table></td>
+                    <tr>
+                      <td style="border:none;"><textarea name="z7" style="width:100%; text-align:left;" rows=4></textarea></td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x15" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
+                    </tr>
+                  </table></td>
                 </tr>
               </table>
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                  <td style="text-align:center; padding:5px;" class="infoline"><input name="xw" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
+                  <td colspan="3" class="subhead">Attachments</td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">&nbsp;</th>
+                  <th style="text-align:center; padding:5px;"><span style="text-align:right;">Attachment</span></th>
+                  <th style="text-align:center; padding:5px;">Actions</th>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">add</th>
+                  <td class="infoline" style="text-align:center; padding:5px;"><input type=file style="width:200px;" /></td>
+                  <td class="infoline" style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="add" width=40 height=15 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">1</th>
+                  <td style="text-align:center; padding:5px;">my_attachement1.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">2</th>
+                  <td style="text-align:center; padding:5px;">my_attachement2.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                </tr>
+              </table>
+              <table cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                  <td style="text-align:center; padding:5px;" colspan=4 class="infoline"><input name="x8" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
                 </tr>
               </table>
             </div>
@@ -1987,30 +2018,58 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td class="tab-subhead">Request for Suspension</td>
               </tr>
             </table>
-            <div id="G301b4" style="display: none;">
+            <div id="G301b4" style="display: none;padding-left:56px">
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                  <th style="text-align:right; width:150px;">Committee:</th>
-                  <td><select name="CustomData">
-                      <option value=0 selected=selected>select</option>
-                      <option value=1>First IRB</option>
-                      <option value=2>Second IRB</option>
-                      <option value=2>Third IRB</option>
-                    </select></td>
+                  <td colspan="2" class="subhead">Details</td>
                 </tr>
                 <tr>
-                  <th style="text-align:right; width:100px;">Reason:</th>
+                  <th style="text-align:right; width:150px;">Committee:</th>
+                  <td><select name="CustomData4">
+                    <option value=0 selected=selected>select</option>
+                    <option value=1>First IRB</option>
+                    <option value=2>Second IRB</option>
+                    <option value=2>Third IRB</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <th style="text-align:right; width:150px;"> Reason:</th>
                   <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                      <tr>
-                        <td style="border:none;"><textarea name="z" style="width:100%; text-align:left;" rows=4></textarea></td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
-                      </tr>
-                    </table></td>
+                    <tr>
+                      <td style="border:none;"><textarea name="z6" style="width:100%; text-align:left;" rows=4></textarea></td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x14" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
+                    </tr>
+                  </table></td>
                 </tr>
               </table>
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                  <td style="text-align:center; padding:5px;" class="infoline"><input name="xw" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
+                  <td colspan="3" class="subhead">Attachments</td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">&nbsp;</th>
+                  <th style="text-align:center; padding:5px;"><span style="text-align:right;">Attachment</span></th>
+                  <th style="text-align:center; padding:5px;">Actions</th>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">add</th>
+                  <td class="infoline" style="text-align:center; padding:5px;"><input type=file style="width:200px;" /></td>
+                  <td class="infoline" style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="add" width=40 height=15 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">1</th>
+                  <td style="text-align:center; padding:5px;">my_attachement1.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">2</th>
+                  <td style="text-align:center; padding:5px;">my_attachement2.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                </tr>
+              </table>
+              <table cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                  <td style="text-align:center; padding:5px;" colspan=4 class="infoline"><input name="x9" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
                 </tr>
               </table>
             </div>
@@ -2021,30 +2080,58 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td class="tab-subhead">Request to Close Enrollment</td>
               </tr>
             </table>
-            <div id="G301b3" style="display: none;">
+            <div id="G301b3" style="display: none;padding-left:56px">
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                  <th style="text-align:right; width:150px;">Committee:</th>
-                  <td><select name="CustomData">
-                      <option value=0 selected=selected>select</option>
-                      <option value=1>First IRB</option>
-                      <option value=2>Second IRB</option>
-                      <option value=2>Third IRB</option>
-                    </select></td>
+                  <td colspan="2" class="subhead">Details</td>
                 </tr>
                 <tr>
-                  <th style="text-align:right; width:100px;">Reason:</th>
+                  <th style="text-align:right; width:150px;">Committee:</th>
+                  <td><select name="CustomData3">
+                    <option value=0 selected=selected>select</option>
+                    <option value=1>First IRB</option>
+                    <option value=2>Second IRB</option>
+                    <option value=2>Third IRB</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <th style="text-align:right; width:150px;"> Reason:</th>
                   <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                      <tr>
-                        <td style="border:none;"><textarea name="z" style="width:100%; text-align:left;" rows=4></textarea></td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
-                      </tr>
-                    </table></td>
+                    <tr>
+                      <td style="border:none;"><textarea name="z5" style="width:100%; text-align:left;" rows=4></textarea></td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x13" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
+                    </tr>
+                  </table></td>
                 </tr>
               </table>
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                  <td style="text-align:center; padding:5px;" class="infoline"><input name="xw" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
+                  <td colspan="3" class="subhead">Attachments</td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">&nbsp;</th>
+                  <th style="text-align:center; padding:5px;"><span style="text-align:right;">Attachment</span></th>
+                  <th style="text-align:center; padding:5px;">Actions</th>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">add</th>
+                  <td class="infoline" style="text-align:center; padding:5px;"><input type=file style="width:200px;" /></td>
+                  <td class="infoline" style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="add" width=40 height=15 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">1</th>
+                  <td style="text-align:center; padding:5px;">my_attachement1.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">2</th>
+                  <td style="text-align:center; padding:5px;">my_attachement2.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                </tr>
+              </table>
+              <table cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                  <td style="text-align:center; padding:5px;" colspan=4 class="infoline"><input name="x10" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
                 </tr>
               </table>
             </div>
@@ -2055,30 +2142,58 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td class="tab-subhead">Request to Re-open Enrollment</td>
               </tr>
             </table>
-            <div id="G301b2" style="display: none;">
+            <div id="G301b2" style="display: none;padding-left:56px">
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                  <th style="text-align:right; width:150px;">Committee:</th>
-                  <td><select name="CustomData">
-                      <option value=0 selected=selected>select</option>
-                      <option value=1>First IRB</option>
-                      <option value=2>Second IRB</option>
-                      <option value=2>Third IRB</option>
-                    </select></td>
+                  <td colspan="2" class="subhead">Details</td>
                 </tr>
                 <tr>
-                  <th style="text-align:right; width:100px;">Reason:</th>
+                  <th style="text-align:right; width:150px;">Committee:</th>
+                  <td><select name="CustomData2">
+                    <option value=0 selected=selected>select</option>
+                    <option value=1>First IRB</option>
+                    <option value=2>Second IRB</option>
+                    <option value=2>Third IRB</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <th style="text-align:right; width:150px;"> Reason:</th>
                   <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                      <tr>
-                        <td style="border:none;"><textarea name="z" style="width:100%; text-align:left;" rows=4></textarea></td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
-                      </tr>
-                    </table></td>
+                    <tr>
+                      <td style="border:none;"><textarea name="z4" style="width:100%; text-align:left;" rows=4></textarea></td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x12" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
+                    </tr>
+                  </table></td>
                 </tr>
               </table>
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                  <td style="text-align:center; padding:5px;" class="infoline"><input name="xw" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
+                  <td colspan="3" class="subhead">Attachments</td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">&nbsp;</th>
+                  <th style="text-align:center; padding:5px;"><span style="text-align:right;">Attachment</span></th>
+                  <th style="text-align:center; padding:5px;">Actions</th>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">add</th>
+                  <td class="infoline" style="text-align:center; padding:5px;"><input type=file style="width:200px;" /></td>
+                  <td class="infoline" style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="add" width=40 height=15 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">1</th>
+                  <td style="text-align:center; padding:5px;">my_attachement1.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">2</th>
+                  <td style="text-align:center; padding:5px;">my_attachement2.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                </tr>
+              </table>
+              <table cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                  <td style="text-align:center; padding:5px;" colspan=4 class="infoline"><input name="x11" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
                 </tr>
               </table>
             </div>
@@ -2089,8 +2204,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td class="tab-subhead">Request for Data Analysis Only</td>
               </tr>
             </table>
-            <div id="G301b1" style="display: none;">
+            <div id="G301b1" style="display: none;padding-left:56px">
               <table cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                  <td colspan="2" class="subhead">Details</td>
+                </tr>
                 <tr>
                   <th style="text-align:right; width:150px;">Committee:</th>
                   <td><select name="CustomData">
@@ -2101,7 +2219,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </select></td>
                 </tr>
                 <tr>
-                  <th style="text-align:right; width:100px;">Reason:</th>
+                  <th style="text-align:right; width:150px;"> Reason:</th>
                   <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
                       <tr>
                         <td style="border:none;"><textarea name="z" style="width:100%; text-align:left;" rows=4></textarea></td>
@@ -2112,7 +2230,32 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               </table>
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                  <td style="text-align:center; padding:5px;" class="infoline"><input name="xw" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
+                  <td colspan="3" class="subhead">Attachments</td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">&nbsp;</th>
+                  <th style="text-align:center; padding:5px;"><span style="text-align:right;">Attachment</span></th>
+                  <th style="text-align:center; padding:5px;">Actions</th>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">add</th>
+                  <td class="infoline" style="text-align:center; padding:5px;"><input type=file style="width:200px;" /></td>
+                  <td class="infoline" style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="add" width=40 height=15 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">1</th>
+                  <td style="text-align:center; padding:5px;">my_attachement1.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th style="text-align:center; padding:5px;">2</th>
+                  <td style="text-align:center; padding:5px;">my_attachement2.doc</td>
+                  <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
+                </tr>
+              </table>
+              <table cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                  <td style="text-align:center; padding:5px;" colspan=4 class="infoline"><input name="x7" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
                 </tr>
               </table>
             </div>
