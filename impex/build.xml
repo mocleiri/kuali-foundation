@@ -91,6 +91,13 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<property name="source.zip" value="${torque.schema.dir}/${torque.project}-data.zip" />
 	<property name="target.zip" value="${torque.schema.dir}/${torque.project}-data.zip" />
 
+	<condition property="import.two.schemas">
+		<and>
+			<isset property="torque.schema.dir.2" />
+			<isset property="torque.sql.dir.2" />
+		</and>
+	</condition>
+
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
 		<classpath>
 			<fileset dir="${lib.dir}" includes="*.jar" />
@@ -112,7 +119,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
     centralize them and clean up the targets.
   -->
 	<target name="inittasks">
-		<mkdir dir="${torque.schema.dir}" />
+		
 		<path id="torque-classpath">
 			<pathelement location="kuali-impextasks.jar" />
 			<fileset dir="${torque.lib.dir}" includes="*.jar" />
@@ -123,49 +130,21 @@ Note: Due to java native library classloader issues, the export routine (and pos
 				<pathelement location="lib/ant-contrib-1.0b3.jar" />
 			</classpath>
 		</taskdef>
-		<taskdef name="torque-data-model"
-		         classpathref="torque-classpath"
-		         classname="org.apache.torque.task.TorqueDataModelTask"
-		/>
-		<taskdef name="torque-data-dump"
-		         classpathref="torque-classpath"
-		         classname="org.kuali.core.db.torque.KualiTorqueDataDumpTask"
-		/>
-		<taskdef name="torque-data-sql"
-		         classpathref="torque-classpath"
-		         classname="org.kuali.core.db.torque.KualiTorqueDataSQLTask"
-		/>
-		<taskdef name="torque-doc"
-		         classpathref="torque-classpath"
-		         classname="org.apache.torque.task.TorqueDocumentationTask"
-		/>
+		<taskdef name="torque-data-model" classpathref="torque-classpath" classname="org.apache.torque.task.TorqueDataModelTask" />
+		<taskdef name="torque-data-dump" classpathref="torque-classpath" classname="org.kuali.core.db.torque.KualiTorqueDataDumpTask" />
+		<taskdef name="torque-data-sql" classpathref="torque-classpath" classname="org.kuali.core.db.torque.KualiTorqueDataSQLTask" />
+		<taskdef name="torque-doc" classpathref="torque-classpath" classname="org.apache.torque.task.TorqueDocumentationTask" />
 
-		<taskdef name="torque-doc-desc"
-			classpathref="torque-classpath" 
-			classname="org.apache.torque.task.TorqueMergeXMLDoc" />
-		
-		<taskdef name="create-xmlfile-with-blank-desc" 
-				classpathref="torque-classpath"
-				classname="org.apache.torque.task.TorqueXMLWithDesc" />
+		<taskdef name="torque-doc-desc" classpathref="torque-classpath" classname="org.apache.torque.task.TorqueMergeXMLDoc" />
 
-		<taskdef name="torque-jdbc-transform"
-		         classpathref="torque-classpath"
-		         classname="org.kuali.core.db.torque.KualiTorqueJDBCTransformTask"
-		/>
-		<taskdef name="torque-sql"
-		         classpathref="torque-classpath"
-		         classname="org.kuali.core.db.torque.KualiTorqueSQLTask"
-		/>
-		<taskdef name="torque-sql-exec"
-		         classpathref="torque-classpath"
-		         classname="org.apache.torque.task.TorqueSQLExec"
-		/>
+		<taskdef name="create-xmlfile-with-blank-desc" classpathref="torque-classpath" classname="org.apache.torque.task.TorqueXMLWithDesc" />
+
+		<taskdef name="torque-jdbc-transform" classpathref="torque-classpath" classname="org.kuali.core.db.torque.KualiTorqueJDBCTransformTask" />
+		<taskdef name="torque-sql" classpathref="torque-classpath" classname="org.kuali.core.db.torque.KualiTorqueSQLTask" />
+		<taskdef name="torque-sql-exec" classpathref="torque-classpath" classname="org.apache.torque.task.TorqueSQLExec" />
 	</target>
-
-	<target name="create-ddl"
-	        description="==> generates the SQL for your project"
-			depends="inittasks"
-	>
+	
+	<target name="create-ddl" description="==> generates the SQL for your project" depends="inittasks">
 
 		<echo message="+------------------------------------------+" />
 		<echo message="|                                          |" />
@@ -173,25 +152,34 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="|                                          |" />
 		<echo message="+------------------------------------------+" />
 
-		<echo message="loading templates from classpath" />
-
-		<mkdir dir="${torque.sql.dir}"/>
-
 		<property name="torque.sql.absolute.dir" location="${torque.sql.dir}" />
 		<!-- above works around a problem with torque-data-dump getting passed a relative directory, and not working right if tbe process was started from a directory other than ant's basedir -->
 
-		<torque-sql contextProperties="${torque.contextProperties}"
-		            controlTemplate="${torque.template.sql}"
-		            outputDirectory="${torque.sql.absolute.dir}"
-		            outputFile="report.sql.generation"
-		            sqldbmap="${torque.sql.dir}/sqldb.map"
-		            targetDatabase="${import.torque.database}"
-		            templatePath="${torque.templatePath}"
-		            useClasspath="true"
-		>
-			<fileset dir="${torque.schema.dir}" includes="schema.xml"/>
-		</torque-sql>
+		<create-ddl-macro torque.sql.dir="${torque.sql.dir}" torque.schema.dir="${torque.schema.dir}" torque.sql.absolute.dir="${torque.sql.absolute.dir}" />
+
+		<!-- now create-ddl for the second schema, if defined -->
+		<if>
+			<isset property="import.two.schemas" />
+			<then>
+				<property name="torque.sql.absolute.dir.2" location="${torque.sql.dir.2}" />
+				<create-ddl-macro torque.sql.dir="${torque.sql.dir.2}" torque.schema.dir="${torque.schema.dir.2}" torque.sql.absolute.dir="${torque.sql.absolute.dir.2}" />
+			</then>
+		</if>
+
 	</target>
+
+	<macrodef name="create-ddl-macro">
+		<attribute name="torque.sql.dir" />
+		<attribute name="torque.schema.dir" />
+		<attribute name="torque.sql.absolute.dir" />
+		<sequential>
+			<echo message="create-ddl at @{torque.sql.dir}" />
+			<mkdir dir="@{torque.sql.dir}" />
+			<torque-sql contextProperties="${torque.contextProperties}" controlTemplate="${torque.template.sql}" outputDirectory="@{torque.sql.absolute.dir}" outputFile="report.sql.generation" sqldbmap="@{torque.sql.dir}/sqldb.map" targetDatabase="${import.torque.database}" templatePath="${torque.templatePath}" useClasspath="true">
+				<fileset dir="@{torque.schema.dir}" includes="schema.xml" />
+			</torque-sql>
+		</sequential>
+	</macrodef>
 
 
 	<!-- ================================================================================ -->
@@ -199,13 +187,28 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<!-- ================================================================================ -->
 	<!-- Generates an empty schema-description.xml file                                   -->
 	<!--                                                                                  -->
-	<!-- ================================================================================ -->	
+	<!-- ================================================================================ -->
 	<target name="generate-empty-schema-description" depends="inittasks">
-	    <create-xmlfile-with-blank-desc
-	    	inputFileString="${torque.schema.dir}/schema.xml"
-	        outputFileString="${torque.schema.dir}/schema-description.xml"/>
+
+		<generate-empty-schema-description-macro torque.schema.dir="${torque.schema.dir}" />
+
+		<if>
+			<isset property="import.two.schemas" />
+			<then>
+				<generate-empty-schema-description-macro torque.schema.dir="${torque.schema.dir.2}" />
+			</then>
+		</if>
+
 	</target>
-	
+
+	<macrodef name="generate-empty-schema-description-macro">
+		<attribute name="torque.schema.dir" />
+		<sequential>
+			<create-xmlfile-with-blank-desc inputFileString="@{torque.schema.dir}/schema.xml" outputFileString="@{torque.schema.dir}/schema-description.xml" />
+		</sequential>
+	</macrodef>
+
+
 	<!-- ================================================================ -->
 	<!-- G E N E R A T E   D O C S                                        -->
 	<!-- ================================================================ -->
@@ -214,94 +217,99 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<!-- ================================================================ -->
 
 
-	<target name="doc"
-	        description="==> generates documentation for your datamodel"
-			depends="inittasks"
-	>
+	<target name="doc" description="==> generates documentation for your datamodel" depends="inittasks">
 
 		<echo message="+------------------------------------------+" />
 		<echo message="|                                          |" />
 		<echo message="| Generating docs for YOUR datamodel!      |" />
 		<echo message="|                                          |" />
 		<echo message="+------------------------------------------+" />
-		
-		<mkdir dir="${torque.schema.dir}/doc" />
 
-	    <torque-doc-desc 
-			dbSchemaString="${torque.schema.dir}/schema.xml" 
-			schemaWithDescString="${torque.schema.dir}/schema-description.xml"/>
-	
-		<torque-doc contextProperties="${torque.contextProperties}"
-		            controlTemplate="${torque.template.doc}"
-		            outputDirectory="${torque.schema.dir}/doc"
-		            outputFile="report.doc.generation"
-		            outputFormat="${torque.doc.format}"
-		            sqldbmap="${torque.sql.dir}/sqldb.map"
-		            templatePath="${torque.templatePath}"
-		            useClasspath="${torque.useClasspath}"
-		>
-			<fileset dir="${torque.schema.dir}" includes="schema.xml" />
-		</torque-doc>
+		<doc-macro torque.schema.dir="${torque.schema.dir}" torque.sql.dir="${torque.sql.dir}" />
+
+		<if>
+			<isset property="import.two.schemas" />
+			<then>
+				<doc-macro torque.schema.dir="${torque.schema.dir.2}" torque.sql.dir="${torque.sql.dir.2}" />
+			</then>
+		</if>
+
 	</target>
+
+	<macrodef name="doc-macro">
+		<attribute name="torque.schema.dir" />
+		<attribute name="torque.sql.dir" />
+		<sequential>
+			<mkdir dir="@{torque.schema.dir}/doc" />
+
+			<torque-doc-desc dbSchemaString="@{torque.schema.dir}/schema.xml" schemaWithDescString="@{torque.schema.dir}/schema-description.xml" />
+
+			<torque-doc contextProperties="${torque.contextProperties}" controlTemplate="${torque.template.doc}" outputDirectory="@{torque.schema.dir}/doc" outputFile="report.doc.generation" outputFormat="${torque.doc.format}" sqldbmap="@{torque.sql.dir}/sqldb.map" templatePath="${torque.templatePath}" useClasspath="${torque.useClasspath}">
+				<fileset dir="@{torque.schema.dir}" includes="schema.xml" />
+			</torque-doc>
+		</sequential>
+	</macrodef>
 
 
 	<!-- ================================================================ -->
 	<!-- I N S E R T  S I N G L E  S Q L  F I L E S                       -->
 	<!-- ================================================================ -->
 
-	<target name="apply-ddl" description="==> inserts the generated sql "
-			depends="inittasks"
-		>
+	<target name="apply-ddl" description="==> inserts the generated sql " depends="inittasks">
 
-		<sql driver="${import.torque.database.driver}"
-		     password="${import.torque.database.password}"
-		     url="${import.torque.database.url}"
-		     userid="${import.torque.database.user}"
-		     delimiter="/"
-		     delimitertype="row"
-		     autocommit="false"
-		     keepformat="true"
-		     escapeprocessing="false"
-		     onerror="continue"
-		>
-			<classpath refid="torque-classpath" />
-			<fileset dir="${torque.schema.dir}/sql">
-				<include name="schema.sql" />
-			</fileset>
-		</sql>
+		<apply-ddl-macro torque.schema.dir="${torque.schema.dir}" />
+
+		<if>
+			<isset property="import.two.schemas" />
+			<then>
+				<apply-ddl-macro torque.schema.dir="${torque.schema.dir.2}" />
+			</then>
+		</if>
 
 	</target>
 
-	<target name="apply-constraint-ddl"
-	        description="==> inserts the generated sql "
-			depends="inittasks"
-	>
+	<macrodef name="apply-ddl-macro">
+		<attribute name="torque.schema.dir" />
+		<sequential>
+			<sql driver="${import.torque.database.driver}" password="${import.torque.database.password}" url="${import.torque.database.url}" userid="${import.torque.database.user}" delimiter="/" delimitertype="row" autocommit="false" keepformat="true" escapeprocessing="false" onerror="continue">
+				<classpath refid="torque-classpath" />
+				<fileset dir="@{torque.schema.dir}/sql">
+					<include name="schema.sql" />
+				</fileset>
+			</sql>
+		</sequential>
+	</macrodef>
 
-		<sql driver="${import.torque.database.driver}"
-		     password="${import.torque.database.password}"
-		     url="${import.torque.database.url}"
-		     userid="${import.torque.database.user}"
-		     delimiter="/"
-		     delimitertype="row"
-		     autocommit="false"
-		     keepformat="true"
-		     escapeprocessing="false"
-		     onerror="continue"
-		>
-			<classpath refid="torque-classpath" />
-			<fileset dir="${torque.schema.dir}/sql">
-				<include name="schema-constraints.sql" />
-			</fileset>
-		</sql>
+	<target name="apply-constraint-ddl" description="==> inserts the generated sql " depends="inittasks">
+
+		<apply-constraint-ddl-macro torque.schema.dir="${torque.schema.dir}" />
+
+		<if>
+			<isset property="import.two.schemas" />
+			<then>
+				<apply-constraint-ddl-macro torque.schema.dir="${torque.schema.dir.2}" />
+			</then>
+		</if>
+
 	</target>
+
+	<macrodef name="apply-constraint-ddl-macro">
+		<attribute name="torque.schema.dir" />
+		<sequential>
+			<sql driver="${import.torque.database.driver}" password="${import.torque.database.password}" url="${import.torque.database.url}" userid="${import.torque.database.user}" delimiter="/" delimitertype="row" autocommit="false" keepformat="true" escapeprocessing="false" onerror="continue">
+				<classpath refid="torque-classpath" />
+				<fileset dir="@{torque.schema.dir}/sql">
+					<include name="schema-constraints.sql" />
+				</fileset>
+			</sql>
+		</sequential>
+	</macrodef>
 
 	<!-- ================================================================ -->
 	<!-- J D B C  TO  X M L                                               -->
 	<!-- ================================================================ -->
 
-	<target name="jdbc-to-xml" description="==> jdbc to xml"
-			depends="inittasks"
-		>
+	<target name="jdbc-to-xml" description="==> jdbc to xml" depends="inittasks">
 
 		<echo message="+-----------------------------------------------+" />
 		<echo message="|                                               |" />
@@ -312,14 +320,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<property name="torque.schema.absolute.dir" location="${torque.schema.dir}" />
 		<!-- above works around a problem with torque-jdbc-transform getting passed a relative directory, and not working right if tbe process was started from a directory other than ant's basedir -->
 
-		<torque-jdbc-transform dbDriver="${export.torque.database.driver}"
-		                       dbPassword="${export.torque.database.password}"
-		                       dbSchema="${export.torque.database.schema}"
-							   dbType="${export.torque.database}"
-		                       dbUrl="${export.torque.database.url}"
-		                       dbUser="${export.torque.database.user}"
-		                       outputFile="${torque.schema.absolute.dir}/schema.xml"
-		/>
+		<torque-jdbc-transform dbDriver="${export.torque.database.driver}" dbPassword="${export.torque.database.password}" dbSchema="${export.torque.database.schema}" dbType="${export.torque.database}" dbUrl="${export.torque.database.url}" dbUser="${export.torque.database.user}" outputFile="${torque.schema.absolute.dir}/schema.xml" />
 		<copy file="database.dtd" todir="${torque.schema.dir}" />
 	</target>
 
@@ -327,8 +328,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<!-- Dump data from database into xml file                            -->
 	<!-- ================================================================ -->
 
-	<target name="export-data" depends="inittasks,create-data-dtd"
-		>
+	<target name="export-data" depends="inittasks,create-data-dtd">
 		<echo message="+-----------------------------------------------+" />
 		<echo message="|                                               |" />
 		<echo message="| Dumping the data from database into XML       |" />
@@ -344,14 +344,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 			</fileset>
 		</delete>
 
-		<torque-data-dump databaseDriver="${export.torque.database.driver}"
-		                  databaseUrl="${export.torque.database.url}"
-		                  databaseUser="${export.torque.database.user}"
-		                  databaseSchema="${export.torque.database.schema}"
-		                  databasePassword="${export.torque.database.password}"
-						  databaseType="${export.torque.database}"
-		                  outputDirectory="${torque.output.absolute.dir}"
-		/>
+		<torque-data-dump databaseDriver="${export.torque.database.driver}" databaseUrl="${export.torque.database.url}" databaseUser="${export.torque.database.user}" databaseSchema="${export.torque.database.schema}" databasePassword="${export.torque.database.password}" databaseType="${export.torque.database}" outputDirectory="${torque.output.absolute.dir}" />
 
 		<!-- remove files for empty tables -->
 		<delete>
@@ -365,8 +358,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		</delete>
 	</target>
 
-	<target name="export-table-data" depends="inittasks,create-data-dtd"
-		>
+	<target name="export-table-data" depends="inittasks,create-data-dtd">
 		<echo message="+-----------------------------------------------+" />
 		<echo message="|                                               |" />
 		<echo message="| Dumping the data from database into XML       |" />
@@ -376,23 +368,12 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<property name="torque.output.absolute.dir" location="${torque.schema.dir}" />
 		<!-- above works around a problem with torque-data-dump getting passed a relative directory, and not working right if tbe process was started from a directory other than ant's basedir -->
 
-		<torque-data-dump databaseDriver="${export.torque.database.driver}"
-		                  databaseUrl="${export.torque.database.url}"
-		                  databaseUser="${export.torque.database.user}"
-		                  databaseSchema="${export.torque.database.schema}"
-		                  databasePassword="${export.torque.database.password}"
-		                  tableName="${export.torque.table.name}"
-		                  outputDirectory="${torque.output.absolute.dir}"
-		/>
+		<torque-data-dump databaseDriver="${export.torque.database.driver}" databaseUrl="${export.torque.database.url}" databaseUser="${export.torque.database.user}" databaseSchema="${export.torque.database.schema}" databasePassword="${export.torque.database.password}" tableName="${export.torque.table.name}" outputDirectory="${torque.output.absolute.dir}" />
 	</target>
 
 	<target name="package-export">
-		<delete file="${target.zip}"
-		        failonerror="false"
-		/>
-		<zip destfile="${target.zip}"
-		     whenempty="fail"
-		>
+		<delete file="${target.zip}" failonerror="false" />
+		<zip destfile="${target.zip}" whenempty="fail">
 			<fileset dir="${torque.schema.dir}">
 				<include name="*.xml" />
 				<include name="doc/**/*" />
@@ -410,10 +391,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<!-- Generate the DATA DTD for your project                           -->
 	<!-- ================================================================ -->
 
-	<target name="create-data-dtd"
-	        description="==> generates the DATA DTD for your project"
-			depends="inittasks"
-	>
+	<target name="create-data-dtd" description="==> generates the DATA DTD for your project" depends="inittasks">
 
 		<echo message="+-----------------------------------------------+" />
 		<echo message="|                                               |" />
@@ -421,14 +399,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
 
-		<torque-data-model contextProperties="${torque.contextProperties}"
-		                   controlTemplate="${torque.template.dataDtd}"
-		                   outputDirectory="${torque.schema.dir}"
-		                   outputFile="report.datadtd.generation"
-		                   templatePath="${torque.templatePath}"
-		                   useClasspath="${torque.useClasspath}"
-		                   xmlFile="${torque.schema.dir}/schema.xml"
-		/>
+		<torque-data-model contextProperties="${torque.contextProperties}" controlTemplate="${torque.template.dataDtd}" outputDirectory="${torque.schema.dir}" outputFile="report.datadtd.generation" templatePath="${torque.templatePath}" useClasspath="${torque.useClasspath}" xmlFile="${torque.schema.dir}/schema.xml" />
 	</target>
 
 	<!-- ================================================================ -->
@@ -443,57 +414,52 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
 
-		<!-- due to the size of the data, there is no way to load it all at once.  Somewhere in the process,
-  	     previously output data is not being purged from the VM (somewhere in Torque or Velocity).  So, the indirect way of creating the files
-  	     below invokes a separate VM for each file -->
-		<foreach target="external-run-dataxml-load"
-		         inheritall="true"
-		         param="xmlDataFile"
-		         parallel="true"
-		         maxthreads="1"
-		>
-			<path>
-				<fileset dir="${torque.schema.dir}" excludes="${import.exclude.data.pattern}">
-					<include name="*.xml" />
-					<exclude name="schema.xml" />
-					<depend targetdir="${torque.schema.dir}/datasql">
-						<mapper type="glob" from="*.xml" to="*.sql" />
-					</depend>
-				</fileset>
-			</path>
-		</foreach>
+		<dataxml-to-sql-macro torque.schema.dir="${torque.schema.dir}" />
 
+		<if>
+			<isset property="import.two.schemas" />
+			<then>
+				<dataxml-to-sql-macro torque.schema.dir="${torque.schema.dir.2}" />
+			</then>
+		</if>
 	</target>
 
-	<target name="dataxml-file-to-sql-file"
-			depends="inittasks"
-	>
+	<macrodef name="dataxml-to-sql-macro">
+		<attribute name="torque.schema.dir" />
+		<sequential>
+			<!-- due to the size of the data, there is no way to load it all at once.  Somewhere in the process,
+			  	     previously output data is not being purged from the VM (somewhere in Torque or Velocity).  So, the indirect way of creating the files
+			  	     below invokes a separate VM for each file -->
+			<foreach target="external-run-dataxml-load" inheritall="false" param="xmlDataFile" parallel="true" maxthreads="1">
+				<param name="import.torque.database" value="${import.torque.database}"/>
+				<param name="torque.schema.dir" value="@{torque.schema.dir}"/>					
+				<param name="torque.template.dataSql" value="${torque.template.dataSql}"/>
+				<path>
+					<fileset dir="@{torque.schema.dir}" excludes="${import.exclude.data.pattern}">
+						<include name="*.xml" />
+						<exclude name="schema.xml" />
+						<depend targetdir="@{torque.schema.dir}/datasql">
+							<mapper type="glob" from="*.xml" to="*.sql" />
+						</depend>
+					</fileset>
+				</path>
+			</foreach>
+		</sequential>
+	</macrodef>
+
+	<target name="dataxml-file-to-sql-file" depends="inittasks">
 		<echo message="Processing File: ${xmlDataFile}" />
-		<mkdir dir="${torque.schema.dir}/datasql"/>
-		<torque-data-sql outputDirectory="${torque.schema.dir}/datasql"
-		                 outputFile="data.generation"
-			templatePath="${torque.templatePath}"
-					                 useClasspath="${torque.useClasspath}"		                          
-            dataDTD="${torque.schema.dir}/data.dtd"
-		                 targetDatabase="${import.torque.database}"
-            controlTemplate="${torque.template.dataSql}"
-            useResourceLoaderCache="false"
-			xmlFile="${torque.schema.dir}/schema.xml"
-		                 
-		                 
-		>
+		<mkdir dir="${torque.schema.dir}/datasql" />
+		<torque-data-sql outputDirectory="${torque.schema.dir}/datasql" outputFile="data.generation" templatePath="${torque.templatePath}" useClasspath="${torque.useClasspath}" dataDTD="${torque.schema.dir}/data.dtd" targetDatabase="${import.torque.database}" controlTemplate="${torque.template.dataSql}" useResourceLoaderCache="false" xmlFile="${torque.schema.dir}/schema.xml">
 			<fileset file="${xmlDataFile}" />
 		</torque-data-sql>
 	</target>
 
 	<target name="external-run-dataxml-load">
-		<java classname="org.apache.tools.ant.Main"
-		      fork="true"
-		      dir="${basedir}" 
-		>
+		<java classname="org.apache.tools.ant.Main" fork="true" dir="${basedir}">
 			<classpath path="${java.class.path}" />
 			<jvmarg value="-Xmx1g" />
-			<arg value="-DxmlDataFile=${xmlDataFile}"/>
+			<arg value="-DxmlDataFile=${xmlDataFile}" />
 			<arg value="-Duser.home=${user.home}" />
 			<arg value="-Dimport.torque.database=${import.torque.database}" />
 			<arg value="-Dtorque.schema.dir=${torque.schema.dir}" />
@@ -504,44 +470,38 @@ Note: Due to java native library classloader issues, the export routine (and pos
 
 
 	<target name="apply-data-sql" depends="inittasks">
-		<sql driver="${import.torque.database.driver}"
-		     password="${import.torque.database.password}"
-		     url="${import.torque.database.url}"
-		     userid="${import.torque.database.user}"
-		     delimiter="/"
-		     delimitertype="row"
-		     autocommit="false"
-		     keepformat="true"
-		     escapeprocessing="false"
-		     onerror="continue"
-		>
-			<classpath refid="torque-classpath" />
-			<fileset dir="${torque.schema.dir}/datasql">
-				<include name="*.sql" />
-			</fileset>
-		</sql>
+		<apply-data-sql-macro torque.schema.dir="${torque.schema.dir}" />
+		<if>
+			<isset property="import.two.schemas" />
+			<then>
+				<apply-data-sql-macro torque.schema.dir="${torque.schema.dir.2}" />
+			</then>
+		</if>
 	</target>
+
+	<macrodef name="apply-data-sql-macro">
+		<attribute name="torque.schema.dir" />
+		<sequential>
+			<sql driver="${import.torque.database.driver}" password="${import.torque.database.password}" url="${import.torque.database.url}" userid="${import.torque.database.user}" delimiter="/" delimitertype="row" autocommit="false" keepformat="true" escapeprocessing="false" onerror="continue">
+				<classpath refid="torque-classpath" />
+				<fileset dir="@{torque.schema.dir}/datasql">
+					<include name="*.sql" />
+				</fileset>
+			</sql>
+		</sequential>
+	</macrodef>
 
 	<target name="unpack-export">
 		<delete dir="${torque.schema.dir}/datasql" failonerror="no" />
 		<delete dir="${torque.schema.dir}/sql" failonerror="no" />
 
-		<unzip dest="${torque.schema.dir}"
-		       src="${source.zip}"
-		       overwrite="true"
-		/>
+		<unzip dest="${torque.schema.dir}" src="${source.zip}" overwrite="true" />
 	</target>
 
-	<target name="import"
-	        depends="check-import-properties,create-ddl,apply-ddl,dataxml-to-sql,apply-data-sql,apply-constraint-ddl"
-	        description="==> Main Import Task"
-	>
+	<target name="import" depends="check-import-properties,create-ddl,apply-ddl,dataxml-to-sql,apply-data-sql,apply-constraint-ddl" description="==> Main Import Task">
 	</target>
 
-	<target name="export"
-	        depends="check-export-properties,jdbc-to-xml,export-data,doc"
-	        description="==> Main Export Task - doesn't work when using OCI JDBC connection"
-	>
+	<target name="export" depends="check-export-properties,jdbc-to-xml,export-data,doc" description="==> Main Export Task - doesn't work when using OCI JDBC connection">
 		<delete>
 			<fileset dir="${torque.schema.dir}" includes="**/*.generation" />
 		</delete>
@@ -550,12 +510,12 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<target name="check-import-properties" depends="inittasks">
 		<condition property="import.properties.set">
 			<and>
-				<isset property="import.torque.database"/>
-				<isset property="import.torque.database.driver"/>
-				<isset property="import.torque.database.url"/>
-				<isset property="import.torque.database.user"/>
-				<isset property="import.torque.database.schema"/>
-				<isset property="import.torque.database.password"/>
+				<isset property="import.torque.database" />
+				<isset property="import.torque.database.driver" />
+				<isset property="import.torque.database.url" />
+				<isset property="import.torque.database.user" />
+				<isset property="import.torque.database.schema" />
+				<isset property="import.torque.database.password" />
 			</and>
 		</condition>
 
@@ -582,34 +542,22 @@ Please place the jar file for this class in the lib directory and try again.
 	</target>
 
 	<target name="test-oracle-connection">
-		<sql driver="${import.torque.database.driver}"
-		     password="${import.torque.database.password}"
-		     url="${import.torque.database.url}"
-		     userid="${import.torque.database.user}"
-		     onerror="abort"
-			 classpathref="torque-classpath"
-		>SELECT dummy FROM dual</sql>
+		<sql driver="${import.torque.database.driver}" password="${import.torque.database.password}" url="${import.torque.database.url}" userid="${import.torque.database.user}" onerror="abort" classpathref="torque-classpath">SELECT dummy FROM dual</sql>
 	</target>
 
 	<target name="test-mysql-connection">
-		<sql driver="${import.torque.database.driver}"
-		     password="${import.torque.database.password}"
-		     url="${import.torque.database.url}"
-		     userid="${import.torque.database.user}"
-		     onerror="abort"
-			 classpathref="torque-classpath"
-		>SELECT 1</sql>
+		<sql driver="${import.torque.database.driver}" password="${import.torque.database.password}" url="${import.torque.database.url}" userid="${import.torque.database.user}" onerror="abort" classpathref="torque-classpath">SELECT 1</sql>
 	</target>
 
 	<target name="check-export-properties" depends="inittasks">
 		<condition property="export.properties.set">
 			<and>
-				<isset property="export.torque.database"/>
-				<isset property="export.torque.database.driver"/>
-				<isset property="export.torque.database.url"/>
-				<isset property="export.torque.database.user"/>
-				<isset property="export.torque.database.schema"/>
-				<isset property="export.torque.database.password"/>
+				<isset property="export.torque.database" />
+				<isset property="export.torque.database.driver" />
+				<isset property="export.torque.database.url" />
+				<isset property="export.torque.database.user" />
+				<isset property="export.torque.database.schema" />
+				<isset property="export.torque.database.password" />
 			</and>
 		</condition>
 
@@ -641,15 +589,7 @@ Please place the jar file for this class in the lib directory and try again.
 		<attribute name="file" />
 		<sequential>
 			<echo>Running File: @{file}</echo>
-			<sql driver="${import.torque.database.driver}"
-			     classpathref="torque-classpath"
-			     url="${import.admin.url}"
-			     userid="@{user}"
-			     password="@{password}"
-			     keepformat="true"
-			     delimitertype="row"
-			     delimiter="/" 
-				 src="@{file}" />
+			<sql driver="${import.torque.database.driver}" classpathref="torque-classpath" url="${import.admin.url}" userid="@{user}" password="@{password}" keepformat="true" delimitertype="row" delimiter="/" src="@{file}" />
 		</sequential>
 	</macrodef>
 
@@ -658,15 +598,7 @@ Please place the jar file for this class in the lib directory and try again.
 		<attribute name="onerror" default="abort" />
 		<sequential>
 			<echo>@{sql}</echo>
-			<sql driver="${import.torque.database.driver}"
-			     classpathref="torque-classpath"
-			     url="${import.admin.url}"
-			     userid="${import.admin.user}"
-			     password="${import.admin.password}"
-				 onerror="@{onerror}"
-			     keepformat="false"
-			     delimitertype="row"
-			     delimiter="/">
+			<sql driver="${import.torque.database.driver}" classpathref="torque-classpath" url="${import.admin.url}" userid="${import.admin.user}" password="${import.admin.password}" onerror="@{onerror}" keepformat="false" delimitertype="row" delimiter="/">
 				@{sql}
 			</sql>
 		</sequential>
@@ -675,14 +607,7 @@ Please place the jar file for this class in the lib directory and try again.
 	<macrodef name="impex-sql">
 		<attribute name="sql" />
 		<sequential>
-			<sql driver="${import.torque.database.driver}"
-			     classpathref="torque-classpath"
-			     password="${import.torque.database.password}"
-			     url="${import.torque.database.url}"
-			     userid="${import.torque.database.user}"
-			     keepformat="true"
-			     delimitertype="row"
-			     delimiter="/">
+			<sql driver="${import.torque.database.driver}" classpathref="torque-classpath" password="${import.torque.database.password}" url="${import.torque.database.url}" userid="${import.torque.database.user}" keepformat="true" delimitertype="row" delimiter="/">
 				@{sql}
 			</sql>
 		</sequential>
@@ -760,15 +685,8 @@ Please place the jar file for this class in the lib directory and try again.
 	<!-- ================================= 
           target: build              
          ================================= -->
-	<target name="build"
-	        depends="build-init"
-	>
-		<javac classpathref="compile-classpath"
-		       srcdir="src"
-		       destdir="build"
-		       debug="true"
-		       optimize="false"
-		/>
+	<target name="build" depends="build-init">
+		<javac classpathref="compile-classpath" srcdir="src" destdir="build" debug="true" optimize="false" />
 		<copy todir="build">
 			<fileset dir="src">
 				<include name="**/*.vm" />
@@ -800,9 +718,7 @@ Please place the jar file for this class in the lib directory and try again.
 
 	<!-- packages this tool for delivery -->
 	<target name="package-impex-tool" depends="build">
-		<zip destfile="../db_impex.zip"
-		     whenempty="fail"
-		>
+		<zip destfile="../db_impex.zip" whenempty="fail">
 			<zipfileset dir="." prefix="impex">
 				<include name="*.*" />
 				<exclude name="database.dtd" />
@@ -818,26 +734,82 @@ Please place the jar file for this class in the lib directory and try again.
 	     is performs an update on the current export user directory and then runs the import process
 	     -->
 
-	<target name="satellite-update">
+	<target name="satellite-update" depends="inittasks">
 		<available file="${torque.schema.dir}" property="data.dir.exists" />
+		<available file="${torque.schema.dir.2}" property="data.dir.exists.2" />
+
 		<antcall target="satellite-init" />
-		<echo>Running SVN update in ${torque.schema.dir}</echo>
-		<svn>
-			<update dir="${torque.schema.dir}" />
-		</svn>
+
+		<svn-update-macro torque.schema.dir="${torque.schema.dir}" />
+		<if>
+			<isset property="import.two.schemas" />
+			<then>
+				<svn-update-macro torque.schema.dir="${torque.schema.dir.2}" />
+			</then>
+		</if>
+
 		<!-- clear the schema -->
 		<antcall target="empty-schema" />
 		<!-- for automated updates, clear the datasql directory for consistency when tables emptied or removed -->
 		<delete dir="${torque.schema.dir}/datasql" failonerror="false" />
+		<delete dir="${torque.schema.dir.2}/datasql" failonerror="false" />
 		<antcall target="import" />
 	</target>
 
-	<target name="satellite-init" unless="data.dir.exists">
-		<delete dir="${torque.schema.dir}" />
-		<echo>Running SVN checkout to ${torque.schema.dir}</echo>
-		<svn>
-			<checkout url="${svnroot}/${svn.module}/${svn.base}" destPath="${torque.schema.dir}" />
-		</svn>
+	<macrodef name="svn-update-macro">
+		<attribute name="torque.schema.dir" />
+		<sequential>
+			<echo>Running SVN update in @{torque.schema.dir}</echo>
+			<svn>
+				<update dir="@{torque.schema.dir}" />
+			</svn>
+		</sequential>
+	</macrodef>
+
+	<target name="satellite-init" depends="inittasks">
+<echo message="data dir exists: ${data.dir.exists}"/>
+		<if>
+			<not>
+				<isset property="data.dir.exists" />
+			</not>
+			<then>
+				<satellite-init-macro torque.schema.dir="${torque.schema.dir}" svnroot="${svnroot}" svn.module="${svn.module}" svn.base="${svn.base}" />
+			</then>
+		</if>
+
+		<if>
+			<and>
+				<isset property="import.two.schemas" />
+				<not>
+					<isset property="data.dir.exists.2" />
+				</not>
+			</and>
+			<then>
+				<condition property="valid.satellite.two.schemas">
+					<and>
+						<isset property="svnroot.2" />
+						<isset property="svn.module.2" />
+						<isset property="svn.base.2" />
+					</and>
+				</condition>
+				<fail unless="valid.satellite.two.schemas">If using two schemas for satellite-update, svnroot.2, svn.module.2 and svn.base.2 must be set!</fail>
+				<satellite-init-macro torque.schema.dir="${torque.schema.dir.2}" svnroot="${svnroot.2}" svn.module="${svn.module.2}" svn.base="${svn.base.2}" />
+			</then>
+		</if>
 	</target>
+
+	<macrodef name="satellite-init-macro">
+		<attribute name="torque.schema.dir" />
+		<attribute name="svnroot" />
+		<attribute name="svn.module" />
+		<attribute name="svn.base" />
+		<sequential>
+			<delete dir="@{torque.schema.dir}" />
+			<echo>Running SVN checkout to @{torque.schema.dir}</echo>
+			<svn>
+				<checkout url="@{svnroot}/@{svn.module}/@{svn.base}" destPath="@{torque.schema.dir}" />
+			</svn>
+		</sequential>
+	</macrodef>
 
 </project>
