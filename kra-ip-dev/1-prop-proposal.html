@@ -419,13 +419,13 @@ function addLoadEvent(func) {
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
             </tr>
           </table>
-          <div class="tab-container" align=center id="G3" style="display: none;">
+          <div class="tab-container" align=center id="G3" style="display: nonee;">
             <div class="h2-container"><span class="subhead-left">
               <h2> Account Info</h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             <table cellpadding=0 cellspacing=0 summary="view/edit document overview information">
               <tr>
-                <th align=right valign=middle><div align=right> Account ID:</div></th>
+                <th width="25%" align=right valign=middle><div align=right> Account ID:</div></th>
                 <td><input name="startDate" maxlength=10 value="" onchange="dataChanged()" type=text /></td>
               </tr>
             </table>
@@ -435,42 +435,47 @@ function addLoadEvent(func) {
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             <table cellpadding=0 cellspacing=0 summary="view/edit document overview information">
               <tr>
-                <th align=right valign=middle>&nbsp;</th>
+                <th width="25%" align=right valign=middle>&nbsp;</th>
                 <th>Initial Period</th>
                 <th  valign=middle>Total Period</th>
+                <th width="40%" rowspan="3"  valign=middle>&nbsp;</th>
               </tr>
               <tr>
-                <th align=right valign=middle><div align=right> Requested Start Date:</div></th>
+                <th width="25%" align=right valign=middle><div align=right> Requested Start Date:</div></th>
                 <td><div align="center">
                     <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
-                  </div></td>
-                <td><div align="center">
-                    <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
-                    <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
-                  </div></td>
-              </tr>
-              <tr>
-                <th align=right valign=middle><div align=right> Requested End Date:</div></th>
-                <td><div align="center">
-                    <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
-                    <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
-                  </div></td>
+                </div></td>
                 <td><div align="center">
                     <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
                   </div></td>
               </tr>
               <tr>
-                <td colspan="3" align=right valign=middle class="subhead">Project Amounts</td>
+                <th width="25%" align=right valign=middle><div align=right> Requested End Date:</div></th>
+                <td><div align="center">
+                    <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
+                    <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
+                </div></td>
+                <td><div align="center">
+                    <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
+                    <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
+                  </div></td>
+              </tr>
+            </table>
+            <br>
+             <table cellpadding=0 cellspacing=0 summary="view/edit document overview information">
+              <tr>
+                <td colspan="4" align=right valign=middle class="subhead">Project Amounts</td>
               </tr>
               <tr>
-                <th align=right valign=middle>&nbsp;</th>
+                <th width="25%" align=right valign=middle>&nbsp;</th>
                 <th> <div align="right">Initial Period</div></th>
                 <th  valign=middle><div align="right">Total Period</div></th>
-              </tr>
+                <th width="40%" rowspan="4"  valign=middle>&nbsp;</th>
+               </tr>
               <tr>
-                <th align=right valign=middle><div align=right> Total Direct Cost:</div></th>
+                <th width="25%" align=right valign=middle><div align=right> Total Direct Cost:</div></th>
                 <td><div align="right">
                     <input name="startDate8" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                   </div></td>
@@ -479,9 +484,9 @@ function addLoadEvent(func) {
                       <input name="startDate4" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     </div>
                   </div></td>
-              </tr>
+               </tr>
               <tr>
-                <th align=right valign=middle><div align=right> Total F&amp;A Cost:</div></th>
+                <th width="25%" align=right valign=middle><div align=right> Total F&amp;A Cost:</div></th>
                 <td><div align="center">
                     <div align="right">
                       <input name="startDate6" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
@@ -492,13 +497,13 @@ function addLoadEvent(func) {
                       <input name="startDate3" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     </div>
                   </div></td>
-              </tr>
+               </tr>
               <tr>
-                <th align=right valign=middle><div align=right> Total All Cost:</div></th>
+                <th width="25%" align=right valign=middle><div align=right> Total All Cost:</div></th>
                 <td><div align="right"> <strong>$0.00 </strong></div></td>
                 <td align=right valign=middle><div align="right"> <strong>$0.00 </strong></div></td>
-              </tr>
-            </table>
+               </tr>
+            </table><br>
           </div>
           <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
             <tr>
