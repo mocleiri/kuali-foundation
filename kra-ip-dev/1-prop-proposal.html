@@ -197,21 +197,22 @@ function addLoadEvent(func) {
             <div class="h2-container">
               <h2>Document Overview</h2>
             </div>
-            <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
+            <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
               <tbody>
                 <tr>
-                  <th colspan="1" rowspan="2" align="right" valign="top"> <label for="document.documentHeader.financialDocumentDescription">*Description:</label>
-                  </th>
-                  <td rowspan="2" align="left" valign="top"><input name="document.documentHeader.financialDocumentDescription" maxlength="40" size="45" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.financialDocumentDescription" type="text"></td>
-                  <th colspan="1" align="right">&nbsp;
-                    <label for="document.explanation">Explanation: </label>
-                  </th>
-                  <td align="left" valign="middle"><textarea name="document.explanation" tabindex="0" cols="40" rows="3" style="" id="document.explanation"></textarea></td>
+                  <th colspan="1" align="right" width="20%"><label for="document.documentHeader.financialDocumentDescription7">*Description:</label></th>
+                  <td align="left" valign="middle" width="30%"><input name="document.documentHeader.financialDocumentDescription" maxlength="40" size="45" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.financialDocumentDescription" type="text"></td>
+                  <th colspan="1" rowspan="2" align="right" width="20%"><label for="document.documentHeader.financialDocumentDescription7">Explanation:</label></th>
+                  <td rowspan="2" align="left" valign="middle"width="30%"><table style="border:none; width:100%;">
+                    <tr>
+                      <td style="border:none; width:100%;"><textarea name="textarea5" style="width:100%;" rows="2" id="textarea5"></textarea></td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="image12" type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
+                    </tr>
+                  </table></td>
                 </tr>
                 <tr>
-                  <th rowspan="1" colspan="1" align="right">&nbsp;
-                    <label for="document.documentHeader.organizationDocumentNumber">Org. Doc. #: </label>
-                  </th>
+                  <th colspan="1" align="right">&nbsp;
+                    <label for="document.documentHeader.organizationDocumentNumber3">Org. Doc. #: </label></th>
                   <td align="left" valign="middle"><input name="document.documentHeader.organizationDocumentNumber" maxlength="10" size="12" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.organizationDocumentNumber" type="text"></td>
                 </tr>
               </tbody>
@@ -431,49 +432,36 @@ function addLoadEvent(func) {
             </table>
             <br>
             <div class="h2-container"><span class="subhead-left">
-              <h2> Project Dates</h2>
-              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+w              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             <table cellpadding=0 cellspacing=0 summary="view/edit document overview information">
               <tr>
                 <th width="25%" align=right valign=middle>&nbsp;</th>
                 <th>Initial Period</th>
                 <th  valign=middle>Total Period</th>
-                <th width="40%" rowspan="3"  valign=middle>&nbsp;</th>
+                <th width="40%" rowspan="6"  valign=middle>&nbsp;</th>
               </tr>
               <tr>
                 <th width="25%" align=right valign=middle><div align=right> Requested Start Date:</div></th>
-                <td><div align="center">
+                <td><div align="right">
                     <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
                 </div></td>
-                <td><div align="center">
+                <td><div align="right">
                     <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
                   </div></td>
               </tr>
               <tr>
                 <th width="25%" align=right valign=middle><div align=right> Requested End Date:</div></th>
-                <td><div align="center">
+                <td><div align="right">
                     <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
                 </div></td>
-                <td><div align="center">
+                <td><div align="right">
                     <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
                   </div></td>
               </tr>
-            </table>
-            <br>
-             <table cellpadding=0 cellspacing=0 summary="view/edit document overview information">
-              <tr>
-                <td colspan="4" align=right valign=middle class="subhead">Project Amounts</td>
-              </tr>
-              <tr>
-                <th width="25%" align=right valign=middle>&nbsp;</th>
-                <th> <div align="right">Initial Period</div></th>
-                <th  valign=middle><div align="right">Total Period</div></th>
-                <th width="40%" rowspan="4"  valign=middle>&nbsp;</th>
-               </tr>
               <tr>
                 <th width="25%" align=right valign=middle><div align=right> Total Direct Cost:</div></th>
                 <td><div align="right">
