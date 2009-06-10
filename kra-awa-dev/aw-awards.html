@@ -445,45 +445,67 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </div>
             <!-- Institution -->
             <div class="h2-container">
-              <h2><span class="subhead-left">Action Overview</span></h2>
+              <h2><span class="subhead-left">Current Action</span></h2>
               <span class="subhead-right"> <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-            <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
-              <tr>
-                <th>*Transaction Type</th>
-                <th>Notice Date</th>
-                <th>Comments</th>
-              </tr>
-              <tr>
-                <td><div align=center>
-                    <select name="x5">
-                      <option value="0" selected>select</option>
-                      <option>administrative amendment</option>
-                      <option>allotment</option>
-                      <option>continuation</option>
-                      <option>correction deobligation</option>
-                      <option>FA rate change</option>
-                      <option>new</option>
-                      <option>no-cost extension</option>
-                      <option>PI change</option>
-                      <option>restriction change</option>
-                      <option>subaward change</option>
-                      <option>suspension</option>
-                      <option>supplement</option>
-                      <option>termination</option>
-                      <option>unit change</option>
-                    </select>
-                  </div></td>
-                <td><div align=center><span class="infoline"><span>
-                    <input name="bsd5" type="text" value="01/01/2009" size=12>
-                    </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor8"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></span></div></td>
-                <td><table style="border:none; width:100%;">
+
+                <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
                     <tr>
-                      <td style="border:none; width:100%;"><textarea name="textarea6" style="width:100%;" rows="2" id="textarea7">asdf asdf asdf </textarea></td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="image13" type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
+                        <th style="width:180px;">*Transaction Type</th>
+                        <th style="width:105px;">Notice Date</th>
+                        <th>Comments</th>
                     </tr>
-                  </table></td>
-              </tr>
-            </table>
+                    <tr>
+                        <td style="text-align:center;">
+                            <select name="x5">
+                                <option value="0" selected>select</option>
+                                <option>administrative amendment</option>
+                                <option>allotment</option>
+                                <option>continuation</option>
+                                <option>correction deobligation</option>
+                                <option>FA rate change</option>
+                                <option>new</option>
+                                <option>no-cost extension</option>
+                                <option>PI change</option>
+                                <option>restriction change</option>
+                                <option>subaward change</option>
+                                <option>suspension</option>
+                                <option>supplement</option>
+                                <option>termination</option>
+                                <option>unit change</option>
+                            </select>
+                        </td>
+                        <td>
+                        	
+                            <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none; background:none; text-align:right;">
+                                        <input type="text" value="01/01/2009" style="width:80px;" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                        <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" class="tinybutton" alt="date selector" title="Date Selector" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                        <td>
+                        	
+                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <textarea name="z" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus interdum dolor, ut convallis eros dignissim vel. Integer fringilla felis sit amet quam posuere viverra. Curabitur fermentum condimentum ante, auctor tempus leo interdum eget. Nullam imperdiet mauris vel metus faucibus porttitor.</textarea>
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                        <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+
+						</td>
+              		</tr>
+            	</table>
+                
+                
             <div class="h2-container"><span class="subhead-left">
               <h2>Institution</h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
