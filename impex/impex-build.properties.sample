@@ -29,6 +29,7 @@ torque.sql.dir=${torque.schema.dir}/sql
 
 # if you want to import a second set of schema files (kfs overlay on a rice base DB)
 # uncomment the following lines and set appropriately
+#svnroot.2=https://test.kuali.org/svn/
 #svn.module.2=kfs-cfg-dbs
 #svn.base.2=trunk
 #torque.schema.dir.2=../../${svn.module.2}
