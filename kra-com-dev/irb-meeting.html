@@ -111,11 +111,17 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     	Schedule Date:
                     </th>
                     <td>
+                        05/20/2009
+                    </td>
+                    <th style="text-align:right;">
+                    	Meeting Date:
+                    </th>
+                    <td>
                     	
                         <table style="border:none; background:none; width:100px;" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td style="border:none; background:none; text-align:right;">
-                                    <input type="text" value="05/20/2009" style="width:80px;" />
+                                    <input type="text" value="05/20/2009 " style="width:80px;" />
                                 </td>
                                 <td style="border:none; width:20px; vertical-align:top; background:none;">
                                     <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" class="tinybutton" alt="date selector" title="Date Selector" type="image" />
@@ -123,18 +129,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             </tr>
                         </table>
                         
-                    </td>
-                    <th style="text-align:right;">
-                    	Status:
-                    </th>
-                    <td>
-                    	<select>
-                            <option value="0" selected="selected">select</option>
-                            <option value="1">Scheduled</option>
-                            <option value="2">Cancelled</option>
-                            <option value="2">Agenda Closed</option>
-                            <option value="2">Committee Has Met</option>
-                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -159,7 +153,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     	<input type="text" style="width:97%;" value="500" />
                     </td>
                     <th style="text-align:right;">
-                    	Deadline:
+                    	*Deadline:
                     </th>
                     <td>
                     	<input type="text" style="width:97%;" value="" />
@@ -170,24 +164,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     	Agenda Generation:
                     </th>
                     <td>
-                    	<input type="text" style="width:97%;" value="" />
+                    	05/18/2009
                     </td>
                     <th style="text-align:right;">
-                    	Meeting Date:
+                    	Status:
                     </th>
                     <td>
-                    	
-                        <table style="border:none; background:none; width:100px;" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="border:none; background:none; text-align:right;">
-                                    <input type="text" value="08/04/2008" style="width:80px;" />
-                                </td>
-                                <td style="border:none; width:20px; vertical-align:top; background:none;">
-                                    <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" class="tinybutton" alt="date selector" title="Date Selector" type="image" />
-                                </td>
-                            </tr>
-                        </table>
-                        
+                    	<select>
+                            <option value="0" selected="selected">select</option>
+                            <option value="1">Scheduled</option>
+                            <option value="2">Cancelled</option>
+                            <option value="2">Agenda Closed</option>
+                            <option value="2">Committee Has Met</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -251,14 +240,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </div>
             <table cellpadding=0 cellspacing="0"  summary="">
                 <tr>
-                    <th>&nbsp;</th>
-                    <th>Protocol No</th>
+                    <th style="width:20px;">&nbsp;</th>
+                    <th style="width:85px;">Protocol No</th>
                     <th>Protocol Title</th>
-                    <th>Submission Type</th>
-                    <th>Sub. Type Qualifier</th>
-                    <th>Sub. Review Type</th>
-                    <th>Submission Status</th>
-                    <th>Submission Date</th>
+                    <th style="width:85px;">Submission Type</th>
+                    <th style="width:85px;">Sub. Type Qualifier</th>
+                    <th style="width:85px;">Sub. Review Type</th>
+                    <th style="width:85px;">Submission Status</th>
+                    <th style="width:85px;">Submission Date</th>
+                    <th style="width:60px;">Action</th>
                 </tr>
                 <tr>
                     <th>
@@ -284,6 +274,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                     <td>
                     	03/30/2009
+                    </td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would open the associated protocol details e-doc.'); return false" class="tinybutton" alt="view" title="View" type="image" />
                     </td>
                 </tr>
                 <tr>
@@ -311,6 +304,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td>
                     	03/30/2009
                     </td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would open the associated protocol details e-doc.'); return false" class="tinybutton" alt="view" title="View" type="image" />
+                    </td>
                 </tr>
                 <tr>
                     <th>
@@ -337,6 +333,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td>
                     	03/30/2009
                     </td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would open the associated protocol details e-doc.'); return false" class="tinybutton" alt="view" title="View" type="image" />
+                    </td>
                 </tr>
                 <tr>
                     <th>
@@ -362,6 +361,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                     <td>
                     	03/30/2009
+                    </td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would open the associated protocol details e-doc.'); return false" class="tinybutton" alt="view" title="View" type="image" />
                     </td>
                 </tr>
             </table>
@@ -391,14 +393,25 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </div>
             <table cellpadding=0 cellspacing="0"  summary="">
                 <tr>
-                    <th>&nbsp;</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                    <th>Actions</th>
+                    <th style="width:50px;">&nbsp;</th>
+                    <th style="width:175px;">*Type</th>
+                    <th>*Description</th>
+                    <th style="width:60px;">Actions</th>
                 </tr>
                 <tr>
                 	<th>Add:</th>
-                    <td class="infoline" style="text-align:center;"><input type="text" style="width:97%;" value="" /></td>
+                    <td class="infoline" style="text-align:center;">
+                    	
+                        <select>
+                            <option value="0" selected="selected">select</option>
+                            <option value="1">Other Business</option>
+                            <option value="2">New Member Consideration</option>
+                            <option value="3">Non-Compliance</option>
+                            <option value="4">Protocol Deviation</option>
+                            <option value="5">Adverse Event</option>
+                        </select>
+                        
+                    </td>
                     <td class="infoline" style="text-align:center;"><input type="text" style="width:97%;" value="" /></td>
                     <td class="infoline" style="text-align:center;">
                     	<input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the Other Action to the list.'); return false" class="tinybutton" alt="add" title="Add" type="image" />
@@ -470,82 +483,111 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </div>
             <table cellpadding=0 cellspacing="0"  summary="">
                 <tr>
-                    <th style="width:50px;">&nbsp;</th>
-                    <th>Name</th>
-                    <th style="width:55px;">Guest</th>
-                    <th>Alternate For</th>
-                    <th style="width:70px;">Actions</th>
-                </tr>
-                <tr>
-                	<th>Add:</th>
+                	<th>Add Guest:</th>
                     <td class="infoline">
                     	
-                        <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <div style="text-align:center;">
+                        <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="border:none;">
-                                    <input type="text" style="width:100%;" value="" />
-                                </td>
-                                <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
-                                    <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                <td style="border:none; background:none;">
+                                    Employee Search <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                        			Non-employee Search <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
                                 </td>
                             </tr>
-                        </table>  
+                        </table> 
+                        </div> 
                         
                     </td>
-                    <td class="infoline" style="text-align:center;">
-                    	<select name="guest">
-                            <option value="0">select</option>
-                            <option value="1" selected="selected">no</option>
-                            <option value="2">yes</option>
-                        </select>
-                    </td>
-                    <td class="infoline" style="text-align:center;"><input type="text" style="width:97%;" value="" /></td>
-                    <td class="infoline" style="text-align:center;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated data row.'); return false" class="tinybutton" alt="add" title="Add" type="image" /></td>
-                </tr>
-                <tr>
-                	<th>1</th>
-                    <td>Slusar, Andrew</td>
-                    <td>no</td>
-                    <td>Dan Dwyer</td>
-                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
-                </tr>
-                <tr>
-                	<th>2</th>
-                    <td>Hutchinson, Bryan</td>
-                    <td>no</td>
-                    <td>&nbsp;</td>
-                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
-                </tr>
-                <tr>
-                	<th>3</th>
-                    <td>DeStefano, Michelle</td>
-                    <td>no</td>
-                    <td>&nbsp;</td>
-                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
-                </tr>
-                <tr>
-                	<th>4</th>
-                    <td>Dwyer, Deb</td>
-                    <td>yes</td>
-                    <td>&nbsp;</td>
-                    <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
+                    <td class="infoline" style="text-align:center; width:112px;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the person to the Present sub-panel.'); return false" class="tinybutton" alt="add" title="Add" type="image" /></td>
                 </tr>
             </table>
             <table cellpadding=0 cellspacing="0"  summary="">
                 <tr>
-                    <td colspan="2" class="tab-subhead1">Absentees</td>
+                    <td colspan="4" class="tab-subhead1">Present</td>
                 </tr>
                 <tr>
                     <th style="width:50px;">&nbsp;</th>
-                    <th>Member Name</th>
+                    <th>Name</th>
+                    <th style="width:250px;">Role</th>
+                    <th style="width:100px;">Action</th>
                 </tr>
                 <tr>
                 	<th>1</th>
-                    <td>Stinson, Ray</td>
+                    <td>
+                    	Slusar, Andrew
+                        <input name="x" src="../images/book_open.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Direct Inquiry" type="image" />
+                    </td>
+                    <td>Alternate for Dan Dwyer</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-markabsent.gif" onclick="javascript: alert('This would move this person to the Absent sub-panel.'); return false" class="tinybutton" alt="absent" title="Mark Absent" type="image" />
+                    </td>
                 </tr>
                 <tr>
                 	<th>2</th>
-                    <td>Smith, Carolyn</td>
+                    <td>
+                    	Hutchinson, Bryan
+                        <input name="x" src="../images/book_open.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Direct Inquiry" type="image" />
+                    </td>
+                    <td>Member</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-markabsent.gif" onclick="javascript: alert('This would move this person to the Absent sub-panel.'); return false" class="tinybutton" alt="absent" title="Mark Absent" type="image" />
+                    </td>
+                </tr>
+                <tr>
+                	<th>3</th>
+                    <td>
+                    	DeStefano, Michelle
+                        <input name="x" src="../images/book_open.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Direct Inquiry" type="image" />
+                    </td>
+                    <td>Member</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-markabsent.gif" onclick="javascript: alert('This would move this person to the Absent sub-panel.'); return false" class="tinybutton" alt="absent" title="Mark Absent" type="image" />
+                    </td>
+                </tr>
+                <tr>
+                	<th>4</th>
+                    <td>
+                    	Dwyer, Deb
+                        <input name="x" src="../images/book_open.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Direct Inquiry" type="image" />
+                    </td>
+                    <td>Guest</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would remove this guest from attendance.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" />
+                    </td>
+                </tr>
+            </table>
+            <table cellpadding=0 cellspacing="0"  summary="">
+                <tr>
+                    <td colspan="4" class="tab-subhead1">Absent</td>
+                </tr>
+                <tr>
+                    <th style="width:50px;">&nbsp;</th>
+                    <th>Name</th>
+                    <th style="width:250px;">Role</th>
+                    <th style="width:100px;">Action</th>
+                </tr>
+                <tr>
+                	<th>1</th>
+                    <td>
+                    	Stinson, Ray
+                        <input name="x" src="../images/book_open.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Direct Inquiry" type="image" />
+                    </td>
+                    <td>Alternate for Bryan Hutchinson</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-markpresent.gif" onclick="javascript: alert('This would move this person to the Present sub-panel.'); return false" class="tinybutton" alt="present" title="Mark Present" type="image" />
+                    </td>
+                </tr>
+                <tr>
+                	<th>2</th>
+                    <td>
+                    	Smith, Carolyn
+                        <input name="x" src="../images/book_open.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Direct Inquiry" type="image" />
+                    </td>
+                    <td>Member</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-markpresent.gif" onclick="javascript: alert('This would move this person to the Present sub-panel.'); return false" class="tinybutton" alt="present" title="Mark Present" type="image" />
+                    </td>
                 </tr>
             </table>
             <table cellpadding=0 cellspacing="0"  summary="">
@@ -595,11 +637,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table cellpadding=0 cellspacing="0"  summary="">
                 <tr>
                     <th style="width:40px;">&nbsp;</th>
-                    <th style="width:140px;">Entry Type</th>
+                    <th style="width:140px;">*Entry Type</th>
                     <th style="width:130px;">Protocol</th>
-                    <th>Entry</th>
-                    <th style="width:55px;">Private</th>
-                    <th style="width:90px;">Contengency Code</th>
+                    <th>Description</th>
+                    <th style="width:55px;">*Private</th>
+                    <th style="width:90px;">Contingency Code</th>
                     <th style="width:45px;">Actions</th>
                 </tr>
                 <tr>
@@ -695,7 +737,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <option value="2" selected="selected">no</option>
                         </select>
                     </td>
-                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;">n/a</td>
                     <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
                 </tr>
                 <tr>
@@ -742,7 +784,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <option value="2" selected="selected">no</option>
                         </select>
                     </td>
-                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;">n/a</td>
                     <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
                 </tr>
                 <tr>
@@ -789,7 +831,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <option value="2" selected="selected">no</option>
                         </select>
                     </td>
-                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;">n/a</td>
                     <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
                 </tr>
                 <tr>
@@ -836,7 +878,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <option value="2" selected="selected">no</option>
                         </select>
                     </td>
-                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;">n/a</td>
                     <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
                 </tr><tr>
                 	<th>5</th>
@@ -882,7 +924,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <option value="2" selected="selected">no</option>
                         </select>
                     </td>
-                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;">n/a</td>
                     <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
                 </tr>
                 <tr>
@@ -914,10 +956,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td style="border:none;">
-                                    <input type="text" style="width:97%;" value="This is a restricted message." />
+                                    This is a restricted message...
                                 </td>
                                 <td style="border:none; width:20px; vertical-align:bottom;">
-                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                    <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />
                                 </td>
                             </tr>
                         </table>
@@ -929,7 +971,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <option value="2">no</option>
                         </select>
                     </td>
-                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;">17 <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" class="tinybutton" alt="Direct Inquiry" type="image" /></td>
                     <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
                 </tr>
                 <tr>
@@ -976,7 +1018,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <option value="2" selected="selected">no</option>
                         </select>
                     </td>
-                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;">n/a</td>
                     <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
                 </tr>
                 <tr>
@@ -1008,10 +1050,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td style="border:none;">
-                                    <input type="text" style="width:97%;" value="Winter storm warning." />
+                                    Winter storm warning...
                                 </td>
                                 <td style="border:none; width:20px; vertical-align:bottom;">
-                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                    <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />
                                 </td>
                             </tr>
                         </table>
@@ -1023,7 +1065,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <option value="2" selected="selected">no</option>
                         </select>
                     </td>
-                    <td style="text-align:center;"><input type="text" style="width:20px;" value="17" /></td>
+                    <td style="text-align:center;">25 <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" class="tinybutton" alt="Direct Inquiry" type="image" /></td>
                     <td style="text-align:center;"><input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" class="tinybutton" alt="delete" title="Delete" type="image" /></td>
                 </tr>
             </table>
