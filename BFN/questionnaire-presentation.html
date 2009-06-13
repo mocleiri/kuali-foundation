@@ -288,7 +288,7 @@
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
             <span style="float:right; padding-right:20px; font-weight:normal;">Update Required</span>
-            Questionnaire: Animal Use
+            Animal Use (Incomplete)
         </td>
         <td class="toppanelhead3">
             <img class="openedpanelcontrol" src="../images/tinybutton-hide.gif" alt="show/hide this panel" width="45" height="15" border="0" />
@@ -310,7 +310,7 @@
                     <tr>
                         <th class="elementhead_left">
                             <!--<img class="closedsectioncontrol" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" />-->
-                            Questionnaire Status
+                            Questionnaire Update Status: Update Required
                         </th>
                         <th class="elementhead_right">
                             <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
@@ -322,10 +322,35 @@
                 <div>
                     <table class="content_table">  
                        <tr>
-                            <td class="content_questionnaire">
-                            	[Undetermined content here allowing for updates to this questionnaire.]
+                            <td class="content_questionnaire" colspan="2">
+                            	<b>A newer version of the questionnaire has been published.  An update is required.</b>
                             </td>
-                        </tr>
+                       </tr>
+                       <tr>
+                            <td class="content_questionnaire">
+                            	
+                                <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right; width:20px; vertical-align:top;">
+                                            <input type="radio" class="nobord" name="upd01" value="0" checked="checked" />
+                                        </td>
+                                        <td style="border:none; vertical-align:top; background:none;">
+                                            Copy the answers from the old version of questionnaire to the new one.  Only questions that have been changed in the new version will have to be answered.
+                                        </td>
+                                        <td style="border:none; background:none; text-align:right; width:20px; vertical-align:top;">
+                                            <input type="radio" class="nobord" name="upd02" value="0" />
+                                        </td>
+                                        <td style="border:none; vertical-align:top; background:none;">
+                                            Do not copy answers from previous version of the questionnaire.  Every question in the new version of the questionnaire will have to be answered.
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td class="content_questionnaire">
+                            	<input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the questionnaire by the method indicated.'); return false" style="border:none;" alt="update" title="Update" type="image" />
+                            </td>
+                       </tr>
                     </table>
                 </div>
                 
