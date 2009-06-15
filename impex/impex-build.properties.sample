@@ -17,23 +17,24 @@ torque.project = kfs
 #
 # the module and tag to check out from SVN for satellite updates
 # these are to be used by a Satellite DBA for automating the refresh of the database
-# 
+#
+# these values are for a Kuali client rice base database 
 svnroot=https://test.kuali.org/svn/
-svn.module=kfs-cfg-dbs
-svn.base=trunk
-#
-# the directory from which to read/write database XML files
-#
+svn.module=rice-cfg-dbs
+# use this Rice source for running with an embedded rice database (normal for development)
+svn.base=rice-kuali-client-db/branches/rice-release-1-0-0-br/
+# Use the branch below for installing the necessary empty tables when running a separate Rice instance 
+#svn.base=rice-client-db/branches/rice-release-1-0-0-br/
 torque.schema.dir=../../${svn.module}
 torque.sql.dir=${torque.schema.dir}/sql
 
-# if you want to import a second set of schema files (kfs overlay on a rice base DB)
-# uncomment the following lines and set appropriately
-#svnroot.2=https://test.kuali.org/svn/
-#svn.module.2=kfs-cfg-dbs
-#svn.base.2=trunk
-#torque.schema.dir.2=../../${svn.module.2}
-#torque.sql.dir.2=${torque.schema.dir.2}/sql
+# then, to overlay a KFS/KC/KS database on the base rice database, use the parameters below
+# If these parameters are commented out, the impex process will only use the information above 
+svnroot.2=https://test.kuali.org/svn/
+svn.module.2=kfs-cfg-dbs
+svn.base.2=trunk
+torque.schema.dir.2=../../${svn.module.2}
+torque.sql.dir.2=${torque.schema.dir.2}/sql
 
 
 #
@@ -52,7 +53,7 @@ source.zip=../kuldemo.zip
 #
 export.torque.database = oracle
 export.torque.database.driver = oracle.jdbc.OracleDriver
-export.torque.database.url = jdbc:oracle:oci:@
+export.torque.database.url = jdbc:oracle:thin:@localhost:1521:XE
 export.torque.database.user=kuldba
 export.torque.database.schema=KULDBA
 export.torque.database.password=kuldba
@@ -96,6 +97,8 @@ import.admin.password=kuluser_admin
 # this may need to be different if (like in the case of MySQL) there is a schema name on the URL
 # admin commands will not run with that URL if the schema has not yet been created
 import.admin.url = ${import.torque.database.url}
+# if using MySQL, you will need to remove the schema/database name from the end as below
+#import.admin.url=jdbc:mysql://localhost:3306
 
 # these are used by the bootstrapping mechanism
 oracle.usermaint.user=kulusermaint
