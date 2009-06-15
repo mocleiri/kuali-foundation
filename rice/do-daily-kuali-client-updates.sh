@@ -5,8 +5,8 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-#kexport dba $APPLICATION_INFRASTRUCTURE_VERSION
-#kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
+kexport dba $APPLICATION_INFRASTRUCTURE_VERSION
+kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 
 ##
 # Args to kupdate

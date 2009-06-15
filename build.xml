@@ -51,6 +51,13 @@
 		<delete file="${log.file}" />
 	</target>
 	
+	<target name="import-no-empty-schema" depends="init-properties">
+		<ant antfile="${impex.build.file}" target="import" inheritall="false">
+			<property name="impex.properties.file" value="${impex.properties.file}"/>
+		</ant>
+		<delete file="${log.file}" />
+	</target>
+	
 	<target name="dist-external" if="dist.external" depends="init-properties">
 		<ant dir="${application.deploy.directory}/${application.java.project}" target="dist-external" />
 	</target>

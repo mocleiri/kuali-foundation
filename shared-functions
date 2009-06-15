@@ -72,6 +72,10 @@ function ksetprops {
 	kexec "echo \"impex.properties.file=$IMPEX_PROPERTIES_FILE\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.java.project=$APPLICATION_JAVA_PROJECT\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.database.project=$APPLICATION_DATABASE_PROJECT\" >> $ANT_PROPERTIES_FILE"
+	if [[ ! -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
+	then
+		kexec "echo \"infrastructure.database.project=$INFRASTRUCTURE_DATABASE_PROJECT\" >> $ANT_PROPERTIES_FILE"
+	fi
 	kexec "echo \"application=$JAVA_APPLICATION_CODE\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"build.environment=$environment\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"build.version=$version\" >> $ANT_PROPERTIES_FILE"
@@ -149,6 +153,13 @@ function kdailytag {
 	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$version $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$new_build_version_path -m kdailytag"
 	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$version $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$new_build_version_path -m kdailytag"
 	kexec "svn -q copy $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$APPLICATION_INFRASTRUCTURE_VERSION $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$new_build_version_path-$APPLICATION_JAVA_PROJECT -m kdailytag"
+	
+	if [[ ! -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
+	then
+		svn -q delete $SRCCTRL_URL/$INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION_DATABASE_PROJECT -m daily-tag-removal
+		kexec "svn -q copy $SRCCTRL_URL/$INFRASTRUCTURE_DATABASE_PROJECT/$DATABASE_INFRASTRUCTURE_VERSION $SRCCTRL_URL/$INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION_DATABASE_PROJECT -m kdailytag"
+	fi
+	
 	return 0
     } >> $SCRIPT_LOG 2>&1
 }
@@ -218,6 +229,16 @@ function kupdate {
 		kcheckout $APPLICATION_DATABASE_PROJECT $version $APPLICATION_DATABASE_PROJECT
         kant import -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 		kexec "rm -rf $APPLICATION_DATABASE_PROJECT"
+		
+		if [[ ! -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
+		then 
+			rm -rf $INFRASTRUCTURE_DATABASE_PROJECT
+			kcheckout $INFRASTRUCTURE_DATABASE_PROJECT $version $INFRASTRUCTURE_DATABASE_PROJECT
+        	kant import-no-empty-schema -Doutput.dir=$BASE_DIRECTORY/$INFRASTRUCTURE_DATABASE_PROJECT -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
+			kexec "rm -rf $INFRASTRUCTURE_DATABASE_PROJECT"
+		fi
+		
+		
 	fi
 	
 	rm -rf $application_deploy_directory/$APPLICATION_JAVA_PROJECT
