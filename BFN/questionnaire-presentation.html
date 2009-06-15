@@ -287,7 +287,7 @@
     <tr>
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
-            <span style="float:right; padding-right:20px; font-weight:normal;">Update Required</span>
+            <!--<span style="float:right; padding-right:20px; font-weight:normal;">Update Required</span>-->
             Animal Use (Incomplete)
         </td>
         <td class="toppanelhead3">
@@ -358,7 +358,24 @@
                 <table class="elementhead_table">
                     <tr>
                         <th class="elementhead_left">
-                            <!--<img class="closedsectioncontrol" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" />-->
+                            <a href="#" class="panelcontrol03"><img id="panelcontrolimage03" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
+                            <script type="text/javascript">
+								$(document).ready(function(){
+									$("#panelcontent03").hide();
+									$("#panelcontrolimage03").toggle(
+										function()
+										{
+											$("#panelcontent03").slideDown(600);
+											$("#panelcontrolimage03").attr("src","../images/tinybutton-show.gif");
+										},
+										function()
+										{
+											$("#panelcontent03").slideUp(400);
+											$("#panelcontrolimage03").attr("src","../images/tinybutton-hide.gif");
+										}
+									);	
+								});
+							</script>
                             Questions
                         </th>
                         <th class="elementhead_right">
@@ -369,7 +386,7 @@
                 </table>
                 
                 <!-- CONTENT: Label Here -->
-                <div>
+                <div id="panelcontent03">
                     <table class="content_table">  
                        <tr>
                             <td class="content_questionnaire">
@@ -598,7 +615,7 @@
     <tr>
         <td class="midpanelhead1">&nbsp;</td>
         <td class="midpanelhead2">
-        	<span style="float:right; padding-right:20px; font-weight:normal;">Incomplete</span>
+        	<!--<span style="float:right; padding-right:20px; font-weight:normal;">Incomplete</span>-->
             Questionnaire: [questionnaire label here]
         </td>
         <td class="midpanelhead3">
@@ -629,7 +646,7 @@
     <tr>
         <td class="midpanelhead1">&nbsp;</td>
         <td class="midpanelhead2">
-        	<span style="float:right; padding-right:20px; font-weight:normal;">Complete</span>
+        	<!--<span style="float:right; padding-right:20px; font-weight:normal;">Complete</span>-->
             Questionnaire: [questionnaire label here]
         </td>
         <td class="midpanelhead3">
