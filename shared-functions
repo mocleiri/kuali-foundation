@@ -72,7 +72,7 @@ function ksetprops {
 	kexec "echo \"impex.properties.file=$IMPEX_PROPERTIES_FILE\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.java.project=$APPLICATION_JAVA_PROJECT\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.database.project=$APPLICATION_DATABASE_PROJECT\" >> $ANT_PROPERTIES_FILE"
-	if [[ ! -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
+	if [[ -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
 	then
 		kexec "echo \"infrastructure.database.project=$INFRASTRUCTURE_DATABASE_PROJECT\" >> $ANT_PROPERTIES_FILE"
 	fi
@@ -154,7 +154,7 @@ function kdailytag {
 	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$version $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$new_build_version_path -m kdailytag"
 	kexec "svn -q copy $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$APPLICATION_INFRASTRUCTURE_VERSION $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$new_build_version_path-$APPLICATION_JAVA_PROJECT -m kdailytag"
 	
-	if [[ ! -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
+	if [[ -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
 	then
 		svn -q delete $SRCCTRL_URL/$INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION_DATABASE_PROJECT -m daily-tag-removal
 		kexec "svn -q copy $SRCCTRL_URL/$INFRASTRUCTURE_DATABASE_PROJECT/$DATABASE_INFRASTRUCTURE_VERSION $SRCCTRL_URL/$INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION_DATABASE_PROJECT -m kdailytag"
@@ -230,7 +230,7 @@ function kupdate {
         kant import -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 		kexec "rm -rf $APPLICATION_DATABASE_PROJECT"
 		
-		if [[ ! -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
+		if [[ -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
 		then 
 			rm -rf $INFRASTRUCTURE_DATABASE_PROJECT
 			kcheckout $INFRASTRUCTURE_DATABASE_PROJECT $version $INFRASTRUCTURE_DATABASE_PROJECT
