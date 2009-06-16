@@ -632,7 +632,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </div></td>
               <td><div align="center"> 123-456-7890 </div></td>
               <td><div align="center"><a href="mailto:"> agodfrey@universe.edu </a></div></td>
-              <td><div align="center"> yes</div></td>
+              <td><div align="center">
+                <label>
+                  <input name="radio" type="radio" class="nobord" id="radio" value="radio" checked>
+                </label>
+              </div></td>
               <td><div align=center> <a href="#"><img src="../images/tinybutton-delete2.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
             </tr>
             <tr>
@@ -650,7 +654,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </div></td>
               <td><div align="center">123-456-7890 </div></td>
               <td><div align="center"><a href="mailto:">mcaffee@universe.edu </a></div></td>
-              <td><div align="center">yes</div></td>
+              <td><div align="center">
+                <input type="radio" name="radio" id="radio2" value="radio" class="nobord">
+              </div></td>
               <td><div align=center> <a href="#"><img src="../images/tinybutton-delete2.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
             </tr>
             <tr>
@@ -668,7 +674,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </div></td>
               <td><div align="center">123-456-7890 </div></td>
               <td><div align="center"><a href="mailto:">jcoltrane@universe.edu </a></div></td>
-              <td><div align="center">yes</div></td>
+              <td><div align="center">
+                <input type="radio" name="radio" id="radio3" value="radio" class="nobord">
+              </div></td>
               <td><div align=center> <a href="#"><img src="../images/tinybutton-delete2.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
             </tr>
             <tr>
@@ -686,7 +694,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </div></td>
               <td><div align="center">123-456-7890 </div></td>
               <td><div align="center"><a href="mailto:">cbirdparker@universe.edu </a></div></td>
-              <td><div align="center">no</div></td>
+              <td><div align="center">
+                <input type="radio" name="radio" id="radio4" value="radio" class="nobord">
+              </div></td>
               <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
             </tr>
             <tr>
@@ -704,7 +714,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </div></td>
               <td><div align="center">123-456-7890 </div></td>
               <td><div align="center"><a href="mailto:">galbright@universe.edu </a></div></td>
-              <td><div align="center">no</div></td>
+              <td><div align="center">
+                <input type="radio" name="radio" id="radio5" value="radio" class="nobord">
+              </div></td>
               <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
             </tr>
           </table>
@@ -725,7 +737,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           <table cellpadding=0 cellspacing="0"  summary="">
             <tr>
               <th>&nbsp;</th>
-              <th>Person</th>
+              <th>Person or Organization</th>
               <th> <div align="center">
                   <label for ="label4">*Project Role</label>
                 </div></th>
@@ -774,8 +786,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <th scope="row"><div align="center">1</div></th>
               <td>Godfrey, Alberta D
                 <input name="image3" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                <br>
-                <span class="fineprint">Division of Super Science </span></td>
+                <br></td>
               <td><div align="center">
                   <select name="select" id="select">
                     <option>Administrative Contact - 1</option>
@@ -804,10 +815,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </tr>
             <tr>
               <th  scope="row"><div align="center">2</div></th>
-              <td>McAfee, Alan E
+              <td>Grants Management
                 <input name="image3" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                <br>
-                <span class="fineprint">Grants Management </span></td>
+            
+               </td>
               <td><div align="center">
                   <select name="select" id="select">
                     <option>Administrative Contact - 1</option>
@@ -838,8 +849,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <th scope="row"><div align="center">3</div></th>
               <td>Coltrane, John
                 <input name="image3" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                <br>
-                <span class="fineprint">Accounts Payable</span></td>
+                <br></td>
               <td><div align="center">
                   <select name="select" id="select">
                     <option>Administrative Contact - 1</option>
@@ -868,10 +878,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </tr>
             <tr>
               <th  scope="row"><div align="center">4</div></th>
-              <td>Parker, Charlie
+              <td>Office of Tech. Transfer
                 <input name="image3" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                <br>
-                <span class="fineprint"> Office of Tech. Transfer</span></td>
+               </td>
               <td><div align="center">
                   <select name="select" id="select">
                     <option>Administrative Contact - 1</option>
@@ -902,8 +911,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <th  scope="row"><div align="center">5</div></th>
               <td>Albright, Gerald
                 <input name="image3" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                <br>
-                <span class="fineprint"> Shared Services</span></td>
+                <br></td>
               <td><div align="center">
                   <select name="select" id="select">
                     <option>Administrative Contact - 1</option>
