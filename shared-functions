@@ -234,7 +234,7 @@ function kupdate {
 		then 
 			rm -rf $INFRASTRUCTURE_DATABASE_PROJECT
 			kcheckout $INFRASTRUCTURE_DATABASE_PROJECT $version-$APPLICATION $INFRASTRUCTURE_DATABASE_PROJECT
-        	kant import-no-empty-schema -Doutput.dir=$BASE_DIRECTORY/$INFRASTRUCTURE_DATABASE_PROJECT -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
+        	kant import-no-empty-schema "-Doutput.dir=$BASE_DIRECTORY/$INFRASTRUCTURE_DATABASE_PROJECT -Dgenerated.properties.file=$ANT_PROPERTIES_FILE"
 			kexec "rm -rf $INFRASTRUCTURE_DATABASE_PROJECT"
 		fi
 	fi
