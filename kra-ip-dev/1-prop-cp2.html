@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Kuali</title>
+<LINK REL="SHORTCUT ICON" HREF="../images/icon.ico">
+<meta http-equiv=Content-Type content="text/html; charset=ISO-8859-1">
+<link href="../css/kuali_application.css" rel=stylesheet type="text/css">
+<link href="../css/kuali.css" rel=stylesheet type="text/css">
+<script language=javascript src="../scripts/my_bm_inc.js"></script>
+<script language=javascript1.2 src="../scripts/my_explorer.js"></script>
+<script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js"></script>
+<script language=JavaScript src="../scripts/CalendarPopup.js"></script>
+<script language=JavaScript type="text/JavaScript">
+<!--
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+function MM_showHideLayers() { //v9.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) 
+  with (document) if (getElementByid && ((obj=getElementByid(args[i]))!=null)) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+#workarea .neutral {
+	background-color: #FFFFFF;
+	border: 1px none #FFFFFF;
+	width: 50%;
+}
+-->
+</style>
+</head>
+<body>
+<!--webbot BOT="GeneratedScript" PREVIEW=" " startspan -->
+<script type="text/javascript"><!--
+function Validator(theForm)
+{
+	var numberRegExp= /\d+/; //matches any string containing one or more digits (NB only gets first number it sees).
+	var matches, inputNameNumber, message="";
+	for(i=0; i<theForm.elements.length; i++){//loop round all elements in the form.
+		if ( (theForm.elements[i].name.indexOf("firstname")>=0) || (theForm.elements[i].name.indexOf("surname")>=0) )//check name contains either the string "firstname" or "surname".
+		{
+			matches = numberRegExp.exec(theForm.elements[i].name);//extract number from name using regular expression.
+			if (matches != null) {
+				inputNameNumber = "";
+				for (j = 0; j < matches.length; j++) {
+					inputNameNumber = inputNameNumber + matches[j];//get the number we've found.
+				}
+				inputNameNumber = parseInt(inputNameNumber);
+
+				if(inputNameNumber!="NaN"){//check it's not an empty string
+					if(theForm.elements[i].value=="" && inputNameNumber<=divNum){//check value is empty and input number is less than number of divs on display.
+						message+="Please enter a value for the \""+ theForm.elements[i].name +"\" field." + "\n";
+					}
+				}
+			}// if no matches, ignore.
+		}//if input name doesn't contain "firstname" or "surname" ignore
+	}
+
+	if(message!=""){
+		alert(message);
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+var divNum=0;
+function showDivs(obj){
+	var i, num;
+	divNum = parseInt(obj.options[obj.selectedIndex].value);
+	
+	for(i=1; i<=10; i++){
+		num = (i<10) ? "0"+i : i;
+		
+		if(document.getElementByid('registration'+num)){ // if the div exists.
+			if(i<=divNum){// display.
+				document.getElementByid('registration'+num).style.display="block";
+			}
+			else{ // hide.
+				document.getElementByid('registration'+num).style.display="none";
+			}
+		}
+	}
+}
+
+function hideAllDivsOnLoad(){
+	showDivs(document.getElementByid("numberofreg"));
+}
+
+addLoadEvent(hideAllDivsOnLoad);
+
+// add an onload event without destroying any previously set onload functions.
+function addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof window.onload != 'function') {
+		window.onload = func;
+	} else {
+		window.onload = function() {
+			if (oldonload) {
+				oldonload();
+			}
+			func();
+		}
+	}
+}
+//--></script>
+<form>
+  <div id="headerarea-small"> </div>
+  <!--TABBED TOP NAVIGATION-->
+  <div class="horz-links-bkgrnd" id="horz-links">
+    <div id="tabs">
+      <dl class="tabul">
+        <dt><span class="tabright">
+          <input name="Submit" type=submit onClick="MM_goToURL('parent','1-prop-cp1.html');return document.MM_returnValue" value="Current Support">
+          </span></dt>
+        <dt class="licurrent" ><span class="tabright tabcurrent">
+          <input  name="Submit" type=submit onClick="MM_goToURL('parent','1-prop-cp2.html');return document.MM_returnValue" value="Pending Support">
+          </span></dt>
+      </dl>
+    </div>
+  </div>
+  <table width="100%" cellpadding=0 cellspacing=0>
+    <tr>
+      <td class="column-left"><img src="../images/pixel_clear.gif" alt="" width=20 height=20></td>
+      <td><div id="workarea">
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Pending Support - Lisa Oliva</td>
+              <td class="tabtable1-mid">&nbsp;</td>
+              <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G262" style="display: block;">
+            <table cellpadding=0 cellspacing="0" summary="view/add notes" style="border-top-style:solid; border-top-width:1px; border-top-color:#999">
+              <tr>
+                <th scope=col>Sponsor Award #</th>
+                <th scope=col>Agency</th>
+                <th scope=col>PI</th>
+                <th scope=col>Title</th>
+                <th scope=col>Award Amount</th>
+                <th scope=col>Effective Date</th>
+                <th scope=col>End Date</th>
+                <th scope=col>Effort %</th>
+                <th scope=col>Academic Year Effort</th>
+                <th scope=col>Summer Effort</th>
+                <th scope=col>Calander Year Effort</th>
+              </tr>
+              <tr>
+                <td>1R01NL 45205-05</td>
+                <td>NH<br></td>
+                <td>CO-L</td>
+                <td>Title goes here</td>
+                <td><div align="right">$57,000</div></td>
+                <td><div align="center">03/05/2008</div></td>
+                <td><div align="center">11/21/2009</div></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>1R01NL 45205-05</td>
+                <td>NH<br></td>
+                <td>CO-L</td>
+                <td>Title goes here</td>
+                <td><div align="right">$4,000</div></td>
+                <td><div align="center">04/23/2008</div></td>
+                <td><div align="center">10/21/2009</div></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>1R01NL 45205-05</td>
+                <td>NH<br></td>
+                <td>CO-L</td>
+                <td>Title goes here</td>
+                <td><div align="right">$23,730</div></td>
+                <td><div align="center">06/12/2008</div></td>
+                <td><div align="center">04/21/2009</div></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>1R01NL 45205-05</td>
+                <td>NH<br></td>
+                <td>CO-L</td>
+                <td>Title goes here</td>
+                <td><div align="right">$52,404</div></td>
+                <td><div align="center">04/05/2008</div></td>
+                <td><div align="center">10/21/2009</div></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>1R01NL 45205-05</td>
+                <td>NH<br></td>
+                <td>CO-L</td>
+                <td>Title goes here</td>
+                <td><div align="right">$57,000</div></td>
+                <td><div align="center">03/05/2008</div></td>
+                <td><div align="center">11/21/2009</div></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>1R01NL 45205-05</td>
+                <td>NH<br></td>
+                <td>CO-L</td>
+                <td>Title goes here</td>
+                <td><div align="right">$4,000</div></td>
+                <td><div align="center">04/23/2008</div></td>
+                <td><div align="center">10/21/2009</div></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>1R01NL 45205-05</td>
+                <td>NH<br></td>
+                <td>CO-L</td>
+                <td>Title goes here</td>
+                <td><div align="right">$23,730</div></td>
+                <td><div align="center">06/12/2008</div></td>
+                <td><div align="center">04/21/2009</div></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>1R01NL 45205-05</td>
+                <td>NH<br></td>
+                <td>CO-L</td>
+                <td>Title goes here</td>
+                <td><div align="right">$52,404</div></td>
+                <td><div align="center">04/05/2008</div></td>
+                <td><div align="center">10/21/2009</div></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+          </div>
+          <!-- TAB -->
+          <table width="100%" border=0 cellpadding=0 cellspacing=0 class="b3" summary="">
+            <tr>
+              <td align=left class="footer"><img src="../images/pixel_clear.gif" alt="" width=12 height=14 class="bl3"></td>
+              <td align=right class="footer-right"><img src="../images/pixel_clear.gif" alt="" width=12 height=14 class="br3"></td>
+            </tr>
+          </table>
+        </div></td>
+      <td class="column-right"><img src="../images/pixel_clear.gif" alt="" width=20 height=20></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

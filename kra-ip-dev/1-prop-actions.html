@@ -105,8 +105,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       <td class="column-left"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
       <td><div  align="center">
           <div id="workarea">
-            <div align="right"></div>
-            <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
+<table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
               <tr>
                 <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Data Validation</td>
                 <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A01" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F01" ></a></span></td>
@@ -138,7 +137,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td width="6%" class="tab-subhead" ><a href="#" id="A36" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F36"></a></td>
                   <td colspan="2" class="tab-subhead" >Institue Proposal (2)</td>
                 </tr>
-                <tbody id="G36" style="display: nonee;">
+                <tbody id="G36" style="display: none;">
                   <tr>
                     <td  align="left" >&nbsp;</td>
                     <td>Validation Error: Sponsor &amp; Program Information - a valid Sponsor ID is required</td>
@@ -154,7 +153,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </div></td>
                   </tr>
                 </tbody>
-                <tbody id="G38" style="display: nonee;">
+                <tbody id="G38" style="display: none;">
                 </tbody>
                 <tr>
                   <td colspan="3" class="subhead" ><span class="subhead-left">Warnings </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></td>
@@ -163,7 +162,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td class="tab-subhead" ><a href="#" id="A39" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F39"></a></td>
                   <td colspan="2" class="tab-subhead" >Intellectual Property Review (1)</td>
                 </tr>
-                <tbody id="G39" style="display: nonee;">
+                <tbody id="G39" style="display: none;">
                   <tr>
                     <td height="22"  align="left" >&nbsp;</td>
                     <td>Validation Error: a value for Submitted for Review  is required</td>
@@ -172,7 +171,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </div></td>
                   </tr>
                 </tbody>
-                <tbody id="G40" style="display: nonee;">
+                <tbody id="G40" style="display: none;">
                 </tbody>
               </table>
             </div>
@@ -190,24 +189,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <table  cellpAdding="0" cellspacing="0"  summary="">
                 <tbody >
                   <tr>
-                    <th style="text-align:left;">Item 1</th>
-                    <td style="text-align:center;"><input name="modstobudhist" type="checkbox" class="nobord" id="modstobudhist"></td>
-                  </tr>
-                  <tr>
-                    <th style="text-align:left;">Item 2</th>
-                    <td style="text-align:center;"><input name="budget" type="checkbox" class="nobord" id="budget"></td>
-                  </tr>
-                  <tr>
-                    <th style="text-align:left;">Item 3</th>
-                    <td style="text-align:center;"><input name="timemoneyhistory" type="checkbox" class="nobord" id="timemoneyhistory"></td>
-                  </tr>
-                  <tr>
-                    <th style="text-align:left;">Item 4</th>
-                    <td style="text-align:center;"><input name="transactiondetail" type="checkbox" class="nobord" id="transactiondetail"></td>
-                  </tr>
-                  <tr>
-                    <td class="infoline" style="text-align:center;"><img src="../images/tinybutton-printsel.gif" alt="dsdfhg" width="80" height="15" vspace="5"></td>
-                    <td class="infoline" style="text-align:center;"> Select (<a href="#">all</a> | <a href="#">none</a>) </td>
+                    <td  ><div class="floaters" style="text-align:center">
+                     select a person:
+                        <label>
+                            <select name="select" id="select">
+                              <option selected>Godfrey, Alberta D</option>
+                              <option> Mays, Lyle</option>
+                              <option>Coltrane, John</option>
+                            </select>
+                          </label>
+                      
+                      <span class="infoline" style="text-align:center;"><br>
+                      <br>
+                      <img src="../images/tinybutton-viewreport.gif" alt="view report" width="69" height="15" vspace="5" onClick="MM_openBrWindow('1-prop-cp1.html','','scrollbars=yes,resizable=yes,width=1000,height=640')"></span>
+                      </div></td>
                   </tr>
                 </tbody>
               </table>
@@ -217,24 +212,21 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <table  cellpAdding="0" cellspacing="0"  summary="">
                 <tbody >
                   <tr>
-                    <th style="text-align:left;">Item 1</th>
-                    <td style="text-align:center;"><input name="modstobudhist" type="checkbox" class="nobord" id="modstobudhist"></td>
-                  </tr>
-                  <tr>
-                    <th style="text-align:left;">Item 2</th>
-                    <td style="text-align:center;"><input name="budget" type="checkbox" class="nobord" id="budget"></td>
-                  </tr>
-                  <tr>
-                    <th style="text-align:left;">Item 3</th>
-                    <td style="text-align:center;"><input name="timemoneyhistory" type="checkbox" class="nobord" id="timemoneyhistory"></td>
-                  </tr>
-                  <tr>
-                    <th style="text-align:left;">Item 4</th>
-                    <td style="text-align:center;"><input name="transactiondetail" type="checkbox" class="nobord" id="transactiondetail"></td>
-                  </tr>
-                  <tr>
-                    <td class="infoline" style="text-align:center;"><img src="../images/tinybutton-printsel.gif" alt="dsdfhg" width="80" height="15" vspace="5"></td>
-                    <td class="infoline" style="text-align:center;"> Select (<a href="#">all</a> | <a href="#">none</a>) </td>
+                    <td  ><div class="floaters" style="text-align:center">
+                    select a notice:
+                        <label>
+                            <select name="select2" id="select2">
+                              <option>notice 1</option>
+                              <option>notice 2</option>
+                              <option>notice 3</option>
+                              <option>notice 4</option>
+                            </select>
+                          </label>
+                   
+                    <span class="infoline" style="text-align:center;"><br>
+                    <br>
+                    <img src="../images/tinybutton-viewnotice.gif" alt="dsdfhg" width="69" height="15" vspace="5"></span>
+                      </div></td>
                   </tr>
                 </tbody>
               </table>
