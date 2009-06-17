@@ -194,16 +194,19 @@ function addLoadEvent(func) {
             </tr>
           </table>
           <div class="tab-container" align="center" id="G01" style="display: none;">
-            <div class="h2-container"><span class="subhead-left">
-              <h2>Project Personnel</h2>
-              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-awards-MR-Backup/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-            <table cellpadding=0 cellspacing="0"  summary="">
+          <div class="h2-container"><span class="subhead-left">
+            <h2><a href="#" id="A909" onClick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F909"></a> Key Personnel</h2>
+            </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+          <div style="clear:both"></div>
+<table cellpadding=0 cellspacing="0" summary="">
+            
+            <tbody id="G909" style="display: none;">
               <tr>
                 <th scope="row">&nbsp;</th>
-                <th align="center" valign="top"><label for="object code">Name</label></th>
-                <th align="center" valign="top">Project Role</th>
+                <th align="center" valign="top"><label for="object code">Person</label></th>
                 <th align="center" valign="top">Unit</th>
-                <th align="center" valign="top"><label for="cost sharing"> Phone </label></th>
+                <th align="center" valign="top">Project Role</th>
+                <th align="center" valign="top"><label for="cost sharing">Office Phone </label></th>
                 <th align="center" valign="top"><label for="qty">Email</label></th>
                 <th align="center" valign="top">Actions</th>
               </tr>
@@ -216,6 +219,7 @@ function addLoadEvent(func) {
                   </select>
                   <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
                   <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image"></td>
+                <td class="infoline">&nbsp;</td>
                 <td class="infoline"><div align="center">
                     <select name="select" id="select">
                       <option selected>select</option>
@@ -226,7 +230,6 @@ function addLoadEvent(func) {
                   </div></td>
                 <td class="infoline">&nbsp;</td>
                 <td class="infoline">&nbsp;</td>
-                <td class="infoline">&nbsp;</td>
                 <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
@@ -235,389 +238,37 @@ function addLoadEvent(func) {
                     <input name="image4" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
                     <br>
                   </div></td>
-                <td nowrap><div align="center">Principal Investigator</div></td>
                 <td nowrap><div align="center">Pediatrics
                     <input name="image2" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
                   </div></td>
+                <td nowrap><div align="center">Principal Investigator</div></td>
                 <td><div align="center">617-278-6555 </div></td>
                 <td><div align="center">godfreya@mit.edu </div></td>
                 <td><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
-                <td colspan="6" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing=0 summary=""style="width:100%;">
+                <td colspan="6" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
                     <tr>
-                      <td colspan=13 nowrap class="tab-subhead1"><a href="#" id="A23qw" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F23qw"></a> Person Details</td>
+                      <td colspan="4" class="tab-subhead1"><a href="#" id="A633" onClick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F633"></a>Person Details</td>
                     </tr>
-                    <tbody id="G23qw" style="display: none;">
+                    <tbody id="G633" style="display: none;">
                       <tr>
-                        <th align=left nowrap=nowrap><div align=right>Proposal Role:</div></th>
-                        <td colspan=3><select name="asdf2" id="asdf2">
-                            <option>select</option>
-                            <option>PI/Contact</option>
-                            <option>PI/Multiple</option>
-                            <option selected>Key Person</option>
-                          </select>
-                          <a href="#"><img src="../images/tinybutton-updateView.gif" alt="update view" width=71 height=15 hspace=3 border=0 align=absmiddle></a></td>
+                        <th align="left" nowrap="nowrap"><div align="right">Faculty:</div></th>
+                        <td><input name="asdf2322" type="checkbox" class="nobord" id="asdf232" checked></td>
+                        <th align="left" nowrap="nowrap"><div align="right">Academic Year Effort: </div></th>
+                        <td><input name="dynaFormInfo[0].userName22" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName2"/></td>
                       </tr>
                       <tr>
-                        <th align=left nowrap=nowrap><div align=right>Full Name:</div></th>
-                        <td><input name="dynaFormInfo[0].fullName2" maxlength="90" value="GODFREY, ALBERTA D" readonly="readonly" type="text" id="full name"/></td>
-                        <th align=left width="15%"><div align=right>User Name:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].userName2" maxlength="60" value="ha12189" readonly="readonly" type="text" id="user name"/></td>
+                        <th align="left" nowrap="nowrap"><div align="right">Total Effort:</div></th>
+                        <td><input name="dynaFormInfo[0].userName224" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName223"/></td>
+                        <th align="left"><div align="right">Summer Effort: </div></th>
+                        <td align="left"><input name="dynaFormInfo[0].userName222" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName22"/></td>
                       </tr>
                       <tr>
-                        <th align=left width="15%"><div align=right>Email Address:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].emailAddress2" maxlength="60" value="hrclark@ll.mit.edu" onkeypress="dataChanged();" type="text" id="email address"/></td>
-                        <th align=left width="15%"><div align=right>Office Phone:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].officePhone4" maxlength=20 value=9999999999 onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left width="15%"><div align=right>Primary Title:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].primaryTitle4" maxlength=51 value=Professor onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Directory Title:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].directoryTitle4" maxlength=50 value="Faculty Computer Department" onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left width="15%"><div align=right>Home Unit:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].homeUnit4" maxlength=8 value="" readonly=readonly type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>School</div></th>
-                        <td><input name="dynaFormInfo[0].school4" maxlength=50 value=MIT readonly=readonly type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left width="15%"><div align=right>eRA Commons User Name:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].eraCommonsUserName4" maxlength=20 value="" onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>Fax:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].faxNumber4" maxlength=20 value=7777777777 onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>Pager:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].pagerNumber4" maxlength=20 value=8888888888 onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>Mobile:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].mobilePhoneNumber4" maxlength=10 value=6794422310 onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left><div align=right>Office Location:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].officeLocation4" maxlength=30 value=E19-750 onkeypress="dataChanged();" type=text></td>
-                        <th align=left><div align=right>Sec.Office Location:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].secondaryOfficeLocation4" maxlength=30 value=E19-800 readonly=readonly type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>Address Line 1:</div></th>
-                        <td><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="77 Massachusetts Ave." onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Address Line 2:</div></th>
-                        <td><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>Address Line 3:</div></th>
-                        <td><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>City:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].city4" maxlength=30 value=Cambridge onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>County:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].county4" maxlength=30 value=Middlesex onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>State:</div></th>
-                        <td align=left width="30%"><select name="state4" onchange="dataChanged()">
-                            <option value="">------------Please Select------------</option>
-                            <option value=SC>South Carolina</option>
-                            <option value=VA>Virginia</option>
-                            <option value=LA>Louisiana</option>
-                            <option value=GA>Georgia</option>
-                            <option value=DC>District of Columbia</option>
-                            <option value=OH>Ohio</option>
-                            <option value=MN>Minnesota</option>
-                            <option value=KY>Kentucky</option>
-                            <option value=WA>Washington</option>
-                            <option value=IL>Illinois</option>
-                            <option value=OR>Oregon</option>
-                            <option value=NM>New Mexico</option>
-                            <option value=MA selected=selected>Massachusetts</option>
-                            <option value=MS>Mississippi</option>
-                            <option value=DE>Delaware</option>
-                            <option value=WV>West Virginia</option>
-                            <option value=HI>Hawaii</option>
-                            <option value=FL>Florida</option>
-                            <option value=KS>Kansas</option>
-                            <option value=SD>South Dakota</option>
-                            <option value=AK>Alaska</option>
-                            <option value=TN>Tennessee</option>
-                            <option value=id>idaho</option>
-                            <option value=RI>Rhode Island</option>
-                            <option value=NY>New York</option>
-                            <option value=NC>North Carolina</option>
-                            <option value=NH>New Hampshire</option>
-                            <option value=MT>Montana</option>
-                            <option value=WI>Wisconsin</option>
-                            <option value=CO>Colorado</option>
-                            <option value=OK>Oklahoma</option>
-                            <option value=NE>Nebraska</option>
-                            <option value=NV>Nevada</option>
-                            <option value=MI>Michigan</option>
-                            <option value=MD>Maryland</option>
-                            <option value=TX>Texas</option>
-                            <option value=VT>Vermont</option>
-                            <option value=AZ>Arizona</option>
-                            <option value=IN>Indiana</option>
-                            <option value=AL>Alabama</option>
-                            <option value=CA>California</option>
-                            <option value=UT>Utah</option>
-                            <option value=WY>Wyoming</option>
-                            <option value=ND>North Dakota</option>
-                            <option value=PA>Pennsylvania</option>
-                            <option value=AR>Arkansas</option>
-                            <option value=CT>Connecticut</option>
-                            <option value=NJ>New Jersey</option>
-                            <option value=ME>Maine</option>
-                            <option value=IA>Iowa</option>
-                            <option value=MO>Missouri</option>
-                          </select></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>Postal Code:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].postalCode4" maxlength=10 value=02139 onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Country:</div></th>
-                        <td align=left><select name="dynaFormInfo[0].country4" onchange="populateReviewType('personDynaBeansList',this.value,'state');">
-                            <option value="">------------Please Select------------</option>
-                            <option value=ALB>Albania</option>
-                            <option value=DZA>Algeria</option>
-                            <option value=ASM>American Samoa</option>
-                            <option value=AND>Andorra</option>
-                            <option value=AGO>Angola</option>
-                            <option value=AIA>Anguilla</option>
-                            <option value=ATA>Antarctica</option>
-                            <option value=ATG>Antigua and Barbuda</option>
-                            <option value=ARG>Argentina</option>
-                            <option value=ABW>Aruba</option>
-                            <option value=AUS>Australia</option>
-                            <option value=AUT>Austria</option>
-                            <option value=BHS>Bahamas</option>
-                            <option value=BHR>Bahrain</option>
-                            <option value=BGD>Bangladesh</option>
-                            <option value=BRB>Barbados</option>
-                            <option value=BEL>Belgium</option>
-                            <option value=BLZ>Belize</option>
-                            <option value=BEN>Benin</option>
-                            <option value=BMU>Bermuda</option>
-                            <option value=BTN>Bhutan</option>
-                            <option value=BOL>Bolivia</option>
-                            <option value=BWA>Botswana</option>
-                            <option value=BVT>Bouvet Island</option>
-                            <option value=BRA>Brazil</option>
-                            <option value=IOT>British Indian Ocean Territory</option>
-                            <option value=BRN>Brunei Darussalam</option>
-                            <option value=BGR>Bulgaria</option>
-                            <option value=BFA>Burkina Faso</option>
-                            <option value=BUR>Burma</option>
-                            <option value=BDI>Burundi</option>
-                            <option value=BYS>Byelorussian SSR</option>
-                            <option value=CMR>Cameroon</option>
-                            <option value=CAN>Canada</option>
-                            <option value=CPV>Cape Verde</option>
-                            <option value=CYM>Cayman Islands</option>
-                            <option value=CAF>Central African Republic</option>
-                            <option value=TCD>Chad</option>
-                            <option value=CHL>Chile</option>
-                            <option value=CHN>China</option>
-                            <option value=CXR>Christmas Island</option>
-                            <option value=CCK>Cocos (Keeling) Islands</option>
-                            <option value=COL>Colombia</option>
-                            <option value=COM>Comoros</option>
-                            <option value=COG>Congo</option>
-                            <option value=COK>Cook Islands</option>
-                            <option value=CRI>Costa Rica</option>
-                            <option value=CIV>Cote D'Ivoire</option>
-                            <option value=CUB>Cuba</option>
-                            <option value=CYP>Cyprus</option>
-                            <option value=AFG>Afghanistan</option>
-                            <option value=CSK>Czechoslovakia</option>
-                            <option value=DNK>Denmark</option>
-                            <option value=DJI>Djibouti</option>
-                            <option value=DMA>Dominica</option>
-                            <option value=DOM>Dominican Republic</option>
-                            <option value=TMP>East Timor</option>
-                            <option value=ECU>Ecuador</option>
-                            <option value=EGY>Egypt</option>
-                            <option value=SLV>El Salvador</option>
-                            <option value=GNQ>Equatorial Guinea</option>
-                            <option value=ETH>Ethiopia</option>
-                            <option value=FLK>Falkland Islands (Malvinas)</option>
-                            <option value=FRO>Faroe Islands</option>
-                            <option value=FJI>Fiji</option>
-                            <option value=FIN>Finland</option>
-                            <option value=FRA>France</option>
-                            <option value=GUF>French Guiana</option>
-                            <option value=PYF>French Polynesia</option>
-                            <option value=ATF>French Southern Territories</option>
-                            <option value=GAB>Gabon</option>
-                            <option value=GMB>Gambia</option>
-                            <option value=DDR>German Democratic Republic</option>
-                            <option value=DEU>Germany, Federal Republic of</option>
-                            <option value=GHA>Ghana</option>
-                            <option value=GIB>Gibraltar</option>
-                            <option value=GRC>Greece</option>
-                            <option value=GRL>Greenland</option>
-                            <option value=GRD>Grenada</option>
-                            <option value=GLP>Gudeloupe</option>
-                            <option value=GUM>Guam</option>
-                            <option value=GTM>Guatemala</option>
-                            <option value=GIN>Guinea</option>
-                            <option value=GNB>Guinea-Bissau</option>
-                            <option value=GUY>Guyana</option>
-                            <option value=HTI>Haiti</option>
-                            <option value=HMD>Heard and Mc Donald Islands</option>
-                            <option value=HND>Honduras</option>
-                            <option value=HKG>Hong Kong</option>
-                            <option value=HUN>Hungary</option>
-                            <option value=ISL>Iceland</option>
-                            <option value=IND>India</option>
-                            <option value=idN>Indonesia</option>
-                            <option value=IRN>Iran (Islamic Republic of)</option>
-                            <option value=IRQ>Iraq</option>
-                            <option value=IRL>Ireland</option>
-                            <option value=ISR>Israel</option>
-                            <option value=ITA>Italy</option>
-                            <option value=JAM>Jamaica</option>
-                            <option value=JPN>Japan</option>
-                            <option value=JOR>Jordan</option>
-                            <option value=KHM>Kampuchea, Democratic</option>
-                            <option value=KEN>Kenya</option>
-                            <option value=KIR>Kiribati</option>
-                            <option value=PRK>Korea, Democratic People's Republic of</option>
-                            <option value=KOR>Korea, Republic of</option>
-                            <option value=KWT>Kuwait</option>
-                            <option value=LAO>Lao People's Democratic Republic</option>
-                            <option value=LBN>Lebanon</option>
-                            <option value=LSO>Lesotho</option>
-                            <option value=LBR>Liberia</option>
-                            <option value=LBY>Libyan Arab Jamahiriya</option>
-                            <option value=LIE>Liechtenstein</option>
-                            <option value=LUX>Luxembourg</option>
-                            <option value=MAC>Macau</option>
-                            <option value=MDG>Madagascar</option>
-                            <option value=MWI>Malawi</option>
-                            <option value=MYS>Malaysia</option>
-                            <option value=MDV>Maldives</option>
-                            <option value=MLI>Mali</option>
-                            <option value=MLT>Malta</option>
-                            <option value=MHL>Marshall Islands</option>
-                            <option value=MTQ>Martinique</option>
-                            <option value=MRT>Mauritania</option>
-                            <option value=MUS>Mauritius</option>
-                            <option value=MEX>Mexico</option>
-                            <option value=FSM>Micronesia</option>
-                            <option value=MCO>Monaco</option>
-                            <option value=MNG>Mongolia</option>
-                            <option value=MSR>Montserrat</option>
-                            <option value=MAR>Morocco</option>
-                            <option value=MOZ>Mozambique</option>
-                            <option value=NAM>Namibia</option>
-                            <option value=NRU>Nauru</option>
-                            <option value=NPL>Nepal</option>
-                            <option value=NLD>Netherlands</option>
-                            <option value=ANT>Netherlands Antilles</option>
-                            <option value=NTZ>Neutral Zone</option>
-                            <option value=NCL>New Caledonia</option>
-                            <option value=NZL>New Zealand</option>
-                            <option value=NIC>Nicaragua</option>
-                            <option value=NER>Niger</option>
-                            <option value=NGA>Nigeria</option>
-                            <option value=NIU>Niue</option>
-                            <option value=NFK>Norfolk Island</option>
-                            <option value=MNP>Northern Mariana Islands</option>
-                            <option value=NOR>Norway</option>
-                            <option value=OMN>Oman</option>
-                            <option value=PAK>Pakistan</option>
-                            <option value=PLW>Palau</option>
-                            <option value=PAN>Panama</option>
-                            <option value=PNG>Papua New Guinea</option>
-                            <option value=PRY>Paraguay</option>
-                            <option value=PER>Peru</option>
-                            <option value=PHL>Philippines</option>
-                            <option value=PCN>Pitcairn Island</option>
-                            <option value=POL>Poland</option>
-                            <option value=PRT>Portugal</option>
-                            <option value=PRI>Puerto Rico</option>
-                            <option value=QAT>Qatar</option>
-                            <option value=REU>Reunion</option>
-                            <option value=ROM>Romania</option>
-                            <option value=RWA>Rwanda</option>
-                            <option value=SHN>St. Helena</option>
-                            <option value=KNA>Saint Kitts and Nevis</option>
-                            <option value=LCA>Saint Lucia</option>
-                            <option value=SPM>St. Pierre and Miquelon</option>
-                            <option value=VCT>Saint Vincent and the Grenadines</option>
-                            <option value=WSM>Samoa</option>
-                            <option value=SMR>San Marino</option>
-                            <option value=SAU>Saudia Arabia</option>
-                            <option value=STP>Sao Tome and Principe</option>
-                            <option value=SEN>Senegal</option>
-                            <option value=SYC>Seychelles</option>
-                            <option value=SLE>Sierra Leones</option>
-                            <option value=SGP>Singapore</option>
-                            <option value=SLB>Solomon Islands</option>
-                            <option value=SOM>Somalia</option>
-                            <option value=ZAF>South Africa</option>
-                            <option value=ESP>Spain</option>
-                            <option value=LKA>Sri Lanka</option>
-                            <option value=SDN>Sudan</option>
-                            <option value=SUR>Suriname</option>
-                            <option value=SJM>Svalbard and Jan Mayen Islands</option>
-                            <option value=SWZ>Swaziland</option>
-                            <option value=SWE>Sweden</option>
-                            <option value=CHE>Switzerland</option>
-                            <option value=SYR>Syrian Arab Republic</option>
-                            <option value=TWN>Taiwan, Province of China</option>
-                            <option value=TZA>Tanzania, United Republic of</option>
-                            <option value=THA>Thailand</option>
-                            <option value=TGO>Togo</option>
-                            <option value=TKL>Tokelau</option>
-                            <option value=TON>Tonga</option>
-                            <option value=TTO>Trinidad and Tobago</option>
-                            <option value=TUN>Tunisia</option>
-                            <option value=TUR>Turkey</option>
-                            <option value=TCA>Turks and Caicos Islands</option>
-                            <option value=TUV>Tuvalu</option>
-                            <option value=UGA>Uganda</option>
-                            <option value=UKR>Ukranian SSR</option>
-                            <option value=ARE>United Arab Emirates</option>
-                            <option value=GBR>United Kingdom</option>
-                            <option value=USA selected=selected>United States</option>
-                            <option value=UMI>United States Minor Outlying Islands</option>
-                            <option value=URY>Uruguay</option>
-                            <option value=SUN>USSR</option>
-                            <option value=VUT>Vanuatu</option>
-                            <option value=VAT>Vatican City State (Holy See)</option>
-                            <option value=VEN>Venezuela</option>
-                            <option value=VNM>Viet Nam</option>
-                            <option value=VGB>Virgin Islands (British)</option>
-                            <option value=VIR>Virgin Islands (U.S.)</option>
-                            <option value=WLF>Wallis and Futuna Islands</option>
-                            <option value=SVN>Slovenia</option>
-                            <option value=ESH>Western Sahara</option>
-                            <option value=YEM>Yemen</option>
-                            <option value=YMD>Yemen, Democratic</option>
-                            <option value=YUG>Yugoslavia</option>
-                            <option value=ZAR>Zaire</option>
-                            <option value=ZMB>Zambia</option>
-                            <option value=ZWE>Zimbabwe</option>
-                            <option value=XXX>Unknown</option>
-                          </select></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>% Effort:</div></th>
-                        <td align=left><span>
-                          <input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text>
-                          </span></td>
-                        <th align=left nowrap=nowrap><div align=right>Faculty:</div></th>
-                        <td align=left><label>
-                            <input name="asdf" type=checkbox class="nobord" id="asdf" checked>
-                          </label></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>*Key Person Role:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Other Significant Contributor:</div></th>
-                        <td align=left><input name="asdf3" type=checkbox class="nobord" id="asdf3" checked></td>
+                        <th align="left" nowrap="nowrap"><div align="right">&nbsp;</div></th>
+                        <td colspan="">&nbsp;</td>
+                        <th align="left"><div align="right">Calendar Year Effort: </div></th>
+                        <td align="left"><input name="dynaFormInfo[0].userName223" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName222"/></td>
                       </tr>
                     </tbody>
                   </table>
@@ -678,389 +329,37 @@ function addLoadEvent(func) {
                 <td><div align="center"> Mays, Lyle
                     <input name="image5" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
                   </div></td>
-                <td nowrap><div align="center">Co-Investigator</div></td>
                 <td nowrap><div align="center">Pediatrics
                     <input name="image18" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
                   </div></td>
+                <td nowrap><div align="center">Co-Investigator </div></td>
                 <td><div align="center">999-999-9999 </div></td>
                 <td><div align="center">mayesl@mit.edu </div></td>
                 <td nowrap><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" hspace="3" vspace="3" border="0"></a></div></td>
               </tr>
               <tr>
-                <td colspan="6" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing=0 summary=""style="width:100%;">
+                <td colspan="6" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
                     <tr>
-                      <td colspan=13 nowrap class="tab-subhead1"><a href="#" id="A23we" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F23we"></a> Person Details</td>
+                      <td colspan="4" class="tab-subhead1"><a href="#" id="A655" onClick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F655"></a>Person Details</td>
                     </tr>
-                    <tbody id="G23we" style="display: none;">
+                    <tbody id="G655" style="display: none;">
                       <tr>
-                        <th align=left nowrap=nowrap><div align=right>Proposal Role:</div></th>
-                        <td colspan=3><select name="asdf2" id="asdf2">
-                            <option>select</option>
-                            <option>PI/Contact</option>
-                            <option>PI/Multiple</option>
-                            <option selected>Key Person</option>
-                          </select>
-                          <a href="#"><img src="../images/tinybutton-updateView.gif" alt="update view" width=71 height=15 hspace=3 border=0 align=absmiddle></a></td>
+                        <th align="left" nowrap="nowrap"><div align="right">Faculty:</div></th>
+                        <td><input name="asdf2322" type="checkbox" class="nobord" id="asdf232" checked></td>
+                        <th align="left" nowrap="nowrap"><div align="right">Academic Year Effort: </div></th>
+                        <td><input name="dynaFormInfo[0].userName22" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName2"/></td>
                       </tr>
                       <tr>
-                        <th align=left nowrap=nowrap><div align=right>Full Name:</div></th>
-                        <td><input name="dynaFormInfo[0].fullName4" maxlength=90 value="MCAFEE, ALAN E" readonly=readonly type=text></td>
-                        <th align=left width="15%"><div align=right>User Name:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].userName4" maxlength=60 value=malan readonly=readonly type=text></td>
+                        <th align="left" nowrap="nowrap"><div align="right">Total Effort:</div></th>
+                        <td><input name="dynaFormInfo[0].userName224" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName223"/></td>
+                        <th align="left"><div align="right">Summer Effort: </div></th>
+                        <td align="left"><input name="dynaFormInfo[0].userName222" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName22"/></td>
                       </tr>
                       <tr>
-                        <th align=left width="15%"><div align=right>Email Address:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].emailAddress4" maxlength=60 value="alan.mcafee@mit.edu" onkeypress="dataChanged();" type=text></td>
-                        <th align=left width="15%"><div align=right>Office Phone:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].officePhone4" maxlength=20 value=9999999999 onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left width="15%"><div align=right>Primary Title:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].primaryTitle4" maxlength=51 value=Professor onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Directory Title:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].directoryTitle4" maxlength=50 value="Faculty Computer Department" onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left width="15%"><div align=right>Home Unit:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].homeUnit4" maxlength=8 value="" readonly=readonly type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>School</div></th>
-                        <td><input name="dynaFormInfo[0].school4" maxlength=50 value=MIT readonly=readonly type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left width="15%"><div align=right>eRA Commons User Name:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].eraCommonsUserName4" maxlength=20 value="" onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>Fax:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].faxNumber4" maxlength=20 value=7777777777 onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>Pager:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].pagerNumber4" maxlength=20 value=8888888888 onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>Mobile:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].mobilePhoneNumber4" maxlength=10 value=6794422310 onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left><div align=right>Office Location:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].officeLocation4" maxlength=30 value=E19-750 onkeypress="dataChanged();" type=text></td>
-                        <th align=left><div align=right>Sec.Office Location:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].secondaryOfficeLocation4" maxlength=30 value=E19-800 readonly=readonly type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>Address Line 1:</div></th>
-                        <td><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="77 Massachusetts Ave." onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Address Line 2:</div></th>
-                        <td><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>Address Line 3:</div></th>
-                        <td><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>City:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].city4" maxlength=30 value=Cambridge onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>County:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].county4" maxlength=30 value=Middlesex onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>State:</div></th>
-                        <td align=left width="30%"><select name="state4" onchange="dataChanged()">
-                            <option value="">------------Please Select------------</option>
-                            <option value=SC>South Carolina</option>
-                            <option value=VA>Virginia</option>
-                            <option value=LA>Louisiana</option>
-                            <option value=GA>Georgia</option>
-                            <option value=DC>District of Columbia</option>
-                            <option value=OH>Ohio</option>
-                            <option value=MN>Minnesota</option>
-                            <option value=KY>Kentucky</option>
-                            <option value=WA>Washington</option>
-                            <option value=IL>Illinois</option>
-                            <option value=OR>Oregon</option>
-                            <option value=NM>New Mexico</option>
-                            <option value=MA selected=selected>Massachusetts</option>
-                            <option value=MS>Mississippi</option>
-                            <option value=DE>Delaware</option>
-                            <option value=WV>West Virginia</option>
-                            <option value=HI>Hawaii</option>
-                            <option value=FL>Florida</option>
-                            <option value=KS>Kansas</option>
-                            <option value=SD>South Dakota</option>
-                            <option value=AK>Alaska</option>
-                            <option value=TN>Tennessee</option>
-                            <option value=id>idaho</option>
-                            <option value=RI>Rhode Island</option>
-                            <option value=NY>New York</option>
-                            <option value=NC>North Carolina</option>
-                            <option value=NH>New Hampshire</option>
-                            <option value=MT>Montana</option>
-                            <option value=WI>Wisconsin</option>
-                            <option value=CO>Colorado</option>
-                            <option value=OK>Oklahoma</option>
-                            <option value=NE>Nebraska</option>
-                            <option value=NV>Nevada</option>
-                            <option value=MI>Michigan</option>
-                            <option value=MD>Maryland</option>
-                            <option value=TX>Texas</option>
-                            <option value=VT>Vermont</option>
-                            <option value=AZ>Arizona</option>
-                            <option value=IN>Indiana</option>
-                            <option value=AL>Alabama</option>
-                            <option value=CA>California</option>
-                            <option value=UT>Utah</option>
-                            <option value=WY>Wyoming</option>
-                            <option value=ND>North Dakota</option>
-                            <option value=PA>Pennsylvania</option>
-                            <option value=AR>Arkansas</option>
-                            <option value=CT>Connecticut</option>
-                            <option value=NJ>New Jersey</option>
-                            <option value=ME>Maine</option>
-                            <option value=IA>Iowa</option>
-                            <option value=MO>Missouri</option>
-                          </select></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>Postal Code:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].postalCode4" maxlength=10 value=02139 onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Country:</div></th>
-                        <td align=left><select name="dynaFormInfo[0].country4" onchange="populateReviewType('personDynaBeansList',this.value,'state');">
-                            <option value="">------------Please Select------------</option>
-                            <option value=ALB>Albania</option>
-                            <option value=DZA>Algeria</option>
-                            <option value=ASM>American Samoa</option>
-                            <option value=AND>Andorra</option>
-                            <option value=AGO>Angola</option>
-                            <option value=AIA>Anguilla</option>
-                            <option value=ATA>Antarctica</option>
-                            <option value=ATG>Antigua and Barbuda</option>
-                            <option value=ARG>Argentina</option>
-                            <option value=ABW>Aruba</option>
-                            <option value=AUS>Australia</option>
-                            <option value=AUT>Austria</option>
-                            <option value=BHS>Bahamas</option>
-                            <option value=BHR>Bahrain</option>
-                            <option value=BGD>Bangladesh</option>
-                            <option value=BRB>Barbados</option>
-                            <option value=BEL>Belgium</option>
-                            <option value=BLZ>Belize</option>
-                            <option value=BEN>Benin</option>
-                            <option value=BMU>Bermuda</option>
-                            <option value=BTN>Bhutan</option>
-                            <option value=BOL>Bolivia</option>
-                            <option value=BWA>Botswana</option>
-                            <option value=BVT>Bouvet Island</option>
-                            <option value=BRA>Brazil</option>
-                            <option value=IOT>British Indian Ocean Territory</option>
-                            <option value=BRN>Brunei Darussalam</option>
-                            <option value=BGR>Bulgaria</option>
-                            <option value=BFA>Burkina Faso</option>
-                            <option value=BUR>Burma</option>
-                            <option value=BDI>Burundi</option>
-                            <option value=BYS>Byelorussian SSR</option>
-                            <option value=CMR>Cameroon</option>
-                            <option value=CAN>Canada</option>
-                            <option value=CPV>Cape Verde</option>
-                            <option value=CYM>Cayman Islands</option>
-                            <option value=CAF>Central African Republic</option>
-                            <option value=TCD>Chad</option>
-                            <option value=CHL>Chile</option>
-                            <option value=CHN>China</option>
-                            <option value=CXR>Christmas Island</option>
-                            <option value=CCK>Cocos (Keeling) Islands</option>
-                            <option value=COL>Colombia</option>
-                            <option value=COM>Comoros</option>
-                            <option value=COG>Congo</option>
-                            <option value=COK>Cook Islands</option>
-                            <option value=CRI>Costa Rica</option>
-                            <option value=CIV>Cote D'Ivoire</option>
-                            <option value=CUB>Cuba</option>
-                            <option value=CYP>Cyprus</option>
-                            <option value=AFG>Afghanistan</option>
-                            <option value=CSK>Czechoslovakia</option>
-                            <option value=DNK>Denmark</option>
-                            <option value=DJI>Djibouti</option>
-                            <option value=DMA>Dominica</option>
-                            <option value=DOM>Dominican Republic</option>
-                            <option value=TMP>East Timor</option>
-                            <option value=ECU>Ecuador</option>
-                            <option value=EGY>Egypt</option>
-                            <option value=SLV>El Salvador</option>
-                            <option value=GNQ>Equatorial Guinea</option>
-                            <option value=ETH>Ethiopia</option>
-                            <option value=FLK>Falkland Islands (Malvinas)</option>
-                            <option value=FRO>Faroe Islands</option>
-                            <option value=FJI>Fiji</option>
-                            <option value=FIN>Finland</option>
-                            <option value=FRA>France</option>
-                            <option value=GUF>French Guiana</option>
-                            <option value=PYF>French Polynesia</option>
-                            <option value=ATF>French Southern Territories</option>
-                            <option value=GAB>Gabon</option>
-                            <option value=GMB>Gambia</option>
-                            <option value=DDR>German Democratic Republic</option>
-                            <option value=DEU>Germany, Federal Republic of</option>
-                            <option value=GHA>Ghana</option>
-                            <option value=GIB>Gibraltar</option>
-                            <option value=GRC>Greece</option>
-                            <option value=GRL>Greenland</option>
-                            <option value=GRD>Grenada</option>
-                            <option value=GLP>Gudeloupe</option>
-                            <option value=GUM>Guam</option>
-                            <option value=GTM>Guatemala</option>
-                            <option value=GIN>Guinea</option>
-                            <option value=GNB>Guinea-Bissau</option>
-                            <option value=GUY>Guyana</option>
-                            <option value=HTI>Haiti</option>
-                            <option value=HMD>Heard and Mc Donald Islands</option>
-                            <option value=HND>Honduras</option>
-                            <option value=HKG>Hong Kong</option>
-                            <option value=HUN>Hungary</option>
-                            <option value=ISL>Iceland</option>
-                            <option value=IND>India</option>
-                            <option value=idN>Indonesia</option>
-                            <option value=IRN>Iran (Islamic Republic of)</option>
-                            <option value=IRQ>Iraq</option>
-                            <option value=IRL>Ireland</option>
-                            <option value=ISR>Israel</option>
-                            <option value=ITA>Italy</option>
-                            <option value=JAM>Jamaica</option>
-                            <option value=JPN>Japan</option>
-                            <option value=JOR>Jordan</option>
-                            <option value=KHM>Kampuchea, Democratic</option>
-                            <option value=KEN>Kenya</option>
-                            <option value=KIR>Kiribati</option>
-                            <option value=PRK>Korea, Democratic People's Republic of</option>
-                            <option value=KOR>Korea, Republic of</option>
-                            <option value=KWT>Kuwait</option>
-                            <option value=LAO>Lao People's Democratic Republic</option>
-                            <option value=LBN>Lebanon</option>
-                            <option value=LSO>Lesotho</option>
-                            <option value=LBR>Liberia</option>
-                            <option value=LBY>Libyan Arab Jamahiriya</option>
-                            <option value=LIE>Liechtenstein</option>
-                            <option value=LUX>Luxembourg</option>
-                            <option value=MAC>Macau</option>
-                            <option value=MDG>Madagascar</option>
-                            <option value=MWI>Malawi</option>
-                            <option value=MYS>Malaysia</option>
-                            <option value=MDV>Maldives</option>
-                            <option value=MLI>Mali</option>
-                            <option value=MLT>Malta</option>
-                            <option value=MHL>Marshall Islands</option>
-                            <option value=MTQ>Martinique</option>
-                            <option value=MRT>Mauritania</option>
-                            <option value=MUS>Mauritius</option>
-                            <option value=MEX>Mexico</option>
-                            <option value=FSM>Micronesia</option>
-                            <option value=MCO>Monaco</option>
-                            <option value=MNG>Mongolia</option>
-                            <option value=MSR>Montserrat</option>
-                            <option value=MAR>Morocco</option>
-                            <option value=MOZ>Mozambique</option>
-                            <option value=NAM>Namibia</option>
-                            <option value=NRU>Nauru</option>
-                            <option value=NPL>Nepal</option>
-                            <option value=NLD>Netherlands</option>
-                            <option value=ANT>Netherlands Antilles</option>
-                            <option value=NTZ>Neutral Zone</option>
-                            <option value=NCL>New Caledonia</option>
-                            <option value=NZL>New Zealand</option>
-                            <option value=NIC>Nicaragua</option>
-                            <option value=NER>Niger</option>
-                            <option value=NGA>Nigeria</option>
-                            <option value=NIU>Niue</option>
-                            <option value=NFK>Norfolk Island</option>
-                            <option value=MNP>Northern Mariana Islands</option>
-                            <option value=NOR>Norway</option>
-                            <option value=OMN>Oman</option>
-                            <option value=PAK>Pakistan</option>
-                            <option value=PLW>Palau</option>
-                            <option value=PAN>Panama</option>
-                            <option value=PNG>Papua New Guinea</option>
-                            <option value=PRY>Paraguay</option>
-                            <option value=PER>Peru</option>
-                            <option value=PHL>Philippines</option>
-                            <option value=PCN>Pitcairn Island</option>
-                            <option value=POL>Poland</option>
-                            <option value=PRT>Portugal</option>
-                            <option value=PRI>Puerto Rico</option>
-                            <option value=QAT>Qatar</option>
-                            <option value=REU>Reunion</option>
-                            <option value=ROM>Romania</option>
-                            <option value=RWA>Rwanda</option>
-                            <option value=SHN>St. Helena</option>
-                            <option value=KNA>Saint Kitts and Nevis</option>
-                            <option value=LCA>Saint Lucia</option>
-                            <option value=SPM>St. Pierre and Miquelon</option>
-                            <option value=VCT>Saint Vincent and the Grenadines</option>
-                            <option value=WSM>Samoa</option>
-                            <option value=SMR>San Marino</option>
-                            <option value=SAU>Saudia Arabia</option>
-                            <option value=STP>Sao Tome and Principe</option>
-                            <option value=SEN>Senegal</option>
-                            <option value=SYC>Seychelles</option>
-                            <option value=SLE>Sierra Leones</option>
-                            <option value=SGP>Singapore</option>
-                            <option value=SLB>Solomon Islands</option>
-                            <option value=SOM>Somalia</option>
-                            <option value=ZAF>South Africa</option>
-                            <option value=ESP>Spain</option>
-                            <option value=LKA>Sri Lanka</option>
-                            <option value=SDN>Sudan</option>
-                            <option value=SUR>Suriname</option>
-                            <option value=SJM>Svalbard and Jan Mayen Islands</option>
-                            <option value=SWZ>Swaziland</option>
-                            <option value=SWE>Sweden</option>
-                            <option value=CHE>Switzerland</option>
-                            <option value=SYR>Syrian Arab Republic</option>
-                            <option value=TWN>Taiwan, Province of China</option>
-                            <option value=TZA>Tanzania, United Republic of</option>
-                            <option value=THA>Thailand</option>
-                            <option value=TGO>Togo</option>
-                            <option value=TKL>Tokelau</option>
-                            <option value=TON>Tonga</option>
-                            <option value=TTO>Trinidad and Tobago</option>
-                            <option value=TUN>Tunisia</option>
-                            <option value=TUR>Turkey</option>
-                            <option value=TCA>Turks and Caicos Islands</option>
-                            <option value=TUV>Tuvalu</option>
-                            <option value=UGA>Uganda</option>
-                            <option value=UKR>Ukranian SSR</option>
-                            <option value=ARE>United Arab Emirates</option>
-                            <option value=GBR>United Kingdom</option>
-                            <option value=USA selected=selected>United States</option>
-                            <option value=UMI>United States Minor Outlying Islands</option>
-                            <option value=URY>Uruguay</option>
-                            <option value=SUN>USSR</option>
-                            <option value=VUT>Vanuatu</option>
-                            <option value=VAT>Vatican City State (Holy See)</option>
-                            <option value=VEN>Venezuela</option>
-                            <option value=VNM>Viet Nam</option>
-                            <option value=VGB>Virgin Islands (British)</option>
-                            <option value=VIR>Virgin Islands (U.S.)</option>
-                            <option value=WLF>Wallis and Futuna Islands</option>
-                            <option value=SVN>Slovenia</option>
-                            <option value=ESH>Western Sahara</option>
-                            <option value=YEM>Yemen</option>
-                            <option value=YMD>Yemen, Democratic</option>
-                            <option value=YUG>Yugoslavia</option>
-                            <option value=ZAR>Zaire</option>
-                            <option value=ZMB>Zambia</option>
-                            <option value=ZWE>Zimbabwe</option>
-                            <option value=XXX>Unknown</option>
-                          </select></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>% Effort:</div></th>
-                        <td align=left><span>
-                          <input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text>
-                          </span></td>
-                        <th align=left nowrap=nowrap><div align=right>Faculty:</div></th>
-                        <td align=left><label>
-                            <input name="asdf" type=checkbox class="nobord" id="asdf" checked>
-                          </label></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>*Key Person Role:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Other Significant Contributor:</div></th>
-                        <td align=left><input name="asdf3" type=checkbox class="nobord" id="asdf3" checked></td>
+                        <th align="left" nowrap="nowrap"><div align="right">&nbsp;</div></th>
+                        <td colspan="">&nbsp;</td>
+                        <th align="left"><div align="right">Calendar Year Effort: </div></th>
+                        <td align="left"><input name="dynaFormInfo[0].userName223" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName222"/></td>
                       </tr>
                     </tbody>
                   </table>
@@ -1111,389 +410,37 @@ function addLoadEvent(func) {
                 <td><div align="center"> Coltrane, John
                     <input name="image5" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
                   </div></td>
-                <td nowrap><div align="center">Key Person</div></td>
                 <td nowrap><div align="center">Oncology
                     <input name="image10" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
                   </div></td>
+                <td nowrap><div align="center">Key Person </div></td>
                 <td><div align="center">513-721-7719</div></td>
                 <td><div align="center">coltranej@mit.edu </div></td>
                 <td nowrap><div align="center"><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width="40" height="15" hspace="3" vspace="3" border="0"></a></div></td>
               </tr>
               <tr>
-                <td colspan="6" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing=0 summary=""style="width:100%;">
+                <td colspan="6" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
                     <tr>
-                      <td colspan=13 nowrap class="tab-subhead1"><a href="#" id="A23er" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F23er"></a> Person Details</td>
+                      <td colspan="4" class="tab-subhead1"><a href="#" id="A677" onClick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F677"></a>Person Details</td>
                     </tr>
-                    <tbody id="G23er" style="display: none;">
+                    <tbody id="G677" style="display: none;">
                       <tr>
-                        <th align=left nowrap=nowrap><div align=right>Proposal Role:</div></th>
-                        <td colspan=3><select name="asdf2" id="asdf2">
-                            <option>select</option>
-                            <option>PI/Contact</option>
-                            <option>PI/Multiple</option>
-                            <option selected>Key Person</option>
-                          </select>
-                          <a href="#"><img src="../images/tinybutton-updateView.gif" alt="update view" width=71 height=15 hspace=3 border=0 align=absmiddle></a></td>
+                        <th align="left" nowrap="nowrap"><div align="right">Faculty:</div></th>
+                        <td><input name="asdf2322" type="checkbox" class="nobord" id="asdf232" checked></td>
+                        <th align="left" nowrap="nowrap"><div align="right">Academic Year Effort: </div></th>
+                        <td><input name="dynaFormInfo[0].userName22" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName2"/></td>
                       </tr>
                       <tr>
-                        <th align=left nowrap=nowrap><div align=right>Full Name:</div></th>
-                        <td><input name="dynaFormInfo[0].fullName4" maxlength=90 value="COLTRANE, JOHN" readonly=readonly type=text></td>
-                        <th align=left width="15%"><div align=right>User Name:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].userName4" maxlength=60 value=malan readonly=readonly type=text></td>
+                        <th align="left" nowrap="nowrap"><div align="right">Total Effort:</div></th>
+                        <td><input name="dynaFormInfo[0].userName224" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName223"/></td>
+                        <th align="left"><div align="right">Summer Effort: </div></th>
+                        <td align="left"><input name="dynaFormInfo[0].userName222" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName22"/></td>
                       </tr>
                       <tr>
-                        <th align=left width="15%"><div align=right>Email Address:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].emailAddress4" maxlength=60 value="alan.mcafee@mit.edu" onkeypress="dataChanged();" type=text></td>
-                        <th align=left width="15%"><div align=right>Office Phone:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].officePhone4" maxlength=20 value=9999999999 onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left width="15%"><div align=right>Primary Title:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].primaryTitle4" maxlength=51 value=Professor onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Directory Title:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].directoryTitle4" maxlength=50 value="Faculty Computer Department" onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left width="15%"><div align=right>Home Unit:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].homeUnit4" maxlength=8 value="" readonly=readonly type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>School</div></th>
-                        <td><input name="dynaFormInfo[0].school4" maxlength=50 value=MIT readonly=readonly type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left width="15%"><div align=right>eRA Commons User Name:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].eraCommonsUserName4" maxlength=20 value="" onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>Fax:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].faxNumber4" maxlength=20 value=7777777777 onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>Pager:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].pagerNumber4" maxlength=20 value=8888888888 onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>Mobile:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].mobilePhoneNumber4" maxlength=10 value=6794422310 onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left><div align=right>Office Location:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].officeLocation4" maxlength=30 value=E19-750 onkeypress="dataChanged();" type=text></td>
-                        <th align=left><div align=right>Sec.Office Location:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].secondaryOfficeLocation4" maxlength=30 value=E19-800 readonly=readonly type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>Address Line 1:</div></th>
-                        <td><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="77 Massachusetts Ave." onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Address Line 2:</div></th>
-                        <td><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>Address Line 3:</div></th>
-                        <td><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>City:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].city4" maxlength=30 value=Cambridge onkeypress="dataChanged();" type=text></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>County:</div></th>
-                        <td align=left width="30%"><input name="dynaFormInfo[0].county4" maxlength=30 value=Middlesex onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap width="15%"><div align=right>State:</div></th>
-                        <td align=left width="30%"><select name="state4" onchange="dataChanged()">
-                            <option value="">------------Please Select------------</option>
-                            <option value=SC>South Carolina</option>
-                            <option value=VA>Virginia</option>
-                            <option value=LA>Louisiana</option>
-                            <option value=GA>Georgia</option>
-                            <option value=DC>District of Columbia</option>
-                            <option value=OH>Ohio</option>
-                            <option value=MN>Minnesota</option>
-                            <option value=KY>Kentucky</option>
-                            <option value=WA>Washington</option>
-                            <option value=IL>Illinois</option>
-                            <option value=OR>Oregon</option>
-                            <option value=NM>New Mexico</option>
-                            <option value=MA selected=selected>Massachusetts</option>
-                            <option value=MS>Mississippi</option>
-                            <option value=DE>Delaware</option>
-                            <option value=WV>West Virginia</option>
-                            <option value=HI>Hawaii</option>
-                            <option value=FL>Florida</option>
-                            <option value=KS>Kansas</option>
-                            <option value=SD>South Dakota</option>
-                            <option value=AK>Alaska</option>
-                            <option value=TN>Tennessee</option>
-                            <option value=id>idaho</option>
-                            <option value=RI>Rhode Island</option>
-                            <option value=NY>New York</option>
-                            <option value=NC>North Carolina</option>
-                            <option value=NH>New Hampshire</option>
-                            <option value=MT>Montana</option>
-                            <option value=WI>Wisconsin</option>
-                            <option value=CO>Colorado</option>
-                            <option value=OK>Oklahoma</option>
-                            <option value=NE>Nebraska</option>
-                            <option value=NV>Nevada</option>
-                            <option value=MI>Michigan</option>
-                            <option value=MD>Maryland</option>
-                            <option value=TX>Texas</option>
-                            <option value=VT>Vermont</option>
-                            <option value=AZ>Arizona</option>
-                            <option value=IN>Indiana</option>
-                            <option value=AL>Alabama</option>
-                            <option value=CA>California</option>
-                            <option value=UT>Utah</option>
-                            <option value=WY>Wyoming</option>
-                            <option value=ND>North Dakota</option>
-                            <option value=PA>Pennsylvania</option>
-                            <option value=AR>Arkansas</option>
-                            <option value=CT>Connecticut</option>
-                            <option value=NJ>New Jersey</option>
-                            <option value=ME>Maine</option>
-                            <option value=IA>Iowa</option>
-                            <option value=MO>Missouri</option>
-                          </select></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>Postal Code:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].postalCode4" maxlength=10 value=02139 onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Country:</div></th>
-                        <td align=left><select name="dynaFormInfo[0].country4" onchange="populateReviewType('personDynaBeansList',this.value,'state');">
-                            <option value="">------------Please Select------------</option>
-                            <option value=ALB>Albania</option>
-                            <option value=DZA>Algeria</option>
-                            <option value=ASM>American Samoa</option>
-                            <option value=AND>Andorra</option>
-                            <option value=AGO>Angola</option>
-                            <option value=AIA>Anguilla</option>
-                            <option value=ATA>Antarctica</option>
-                            <option value=ATG>Antigua and Barbuda</option>
-                            <option value=ARG>Argentina</option>
-                            <option value=ABW>Aruba</option>
-                            <option value=AUS>Australia</option>
-                            <option value=AUT>Austria</option>
-                            <option value=BHS>Bahamas</option>
-                            <option value=BHR>Bahrain</option>
-                            <option value=BGD>Bangladesh</option>
-                            <option value=BRB>Barbados</option>
-                            <option value=BEL>Belgium</option>
-                            <option value=BLZ>Belize</option>
-                            <option value=BEN>Benin</option>
-                            <option value=BMU>Bermuda</option>
-                            <option value=BTN>Bhutan</option>
-                            <option value=BOL>Bolivia</option>
-                            <option value=BWA>Botswana</option>
-                            <option value=BVT>Bouvet Island</option>
-                            <option value=BRA>Brazil</option>
-                            <option value=IOT>British Indian Ocean Territory</option>
-                            <option value=BRN>Brunei Darussalam</option>
-                            <option value=BGR>Bulgaria</option>
-                            <option value=BFA>Burkina Faso</option>
-                            <option value=BUR>Burma</option>
-                            <option value=BDI>Burundi</option>
-                            <option value=BYS>Byelorussian SSR</option>
-                            <option value=CMR>Cameroon</option>
-                            <option value=CAN>Canada</option>
-                            <option value=CPV>Cape Verde</option>
-                            <option value=CYM>Cayman Islands</option>
-                            <option value=CAF>Central African Republic</option>
-                            <option value=TCD>Chad</option>
-                            <option value=CHL>Chile</option>
-                            <option value=CHN>China</option>
-                            <option value=CXR>Christmas Island</option>
-                            <option value=CCK>Cocos (Keeling) Islands</option>
-                            <option value=COL>Colombia</option>
-                            <option value=COM>Comoros</option>
-                            <option value=COG>Congo</option>
-                            <option value=COK>Cook Islands</option>
-                            <option value=CRI>Costa Rica</option>
-                            <option value=CIV>Cote D'Ivoire</option>
-                            <option value=CUB>Cuba</option>
-                            <option value=CYP>Cyprus</option>
-                            <option value=AFG>Afghanistan</option>
-                            <option value=CSK>Czechoslovakia</option>
-                            <option value=DNK>Denmark</option>
-                            <option value=DJI>Djibouti</option>
-                            <option value=DMA>Dominica</option>
-                            <option value=DOM>Dominican Republic</option>
-                            <option value=TMP>East Timor</option>
-                            <option value=ECU>Ecuador</option>
-                            <option value=EGY>Egypt</option>
-                            <option value=SLV>El Salvador</option>
-                            <option value=GNQ>Equatorial Guinea</option>
-                            <option value=ETH>Ethiopia</option>
-                            <option value=FLK>Falkland Islands (Malvinas)</option>
-                            <option value=FRO>Faroe Islands</option>
-                            <option value=FJI>Fiji</option>
-                            <option value=FIN>Finland</option>
-                            <option value=FRA>France</option>
-                            <option value=GUF>French Guiana</option>
-                            <option value=PYF>French Polynesia</option>
-                            <option value=ATF>French Southern Territories</option>
-                            <option value=GAB>Gabon</option>
-                            <option value=GMB>Gambia</option>
-                            <option value=DDR>German Democratic Republic</option>
-                            <option value=DEU>Germany, Federal Republic of</option>
-                            <option value=GHA>Ghana</option>
-                            <option value=GIB>Gibraltar</option>
-                            <option value=GRC>Greece</option>
-                            <option value=GRL>Greenland</option>
-                            <option value=GRD>Grenada</option>
-                            <option value=GLP>Gudeloupe</option>
-                            <option value=GUM>Guam</option>
-                            <option value=GTM>Guatemala</option>
-                            <option value=GIN>Guinea</option>
-                            <option value=GNB>Guinea-Bissau</option>
-                            <option value=GUY>Guyana</option>
-                            <option value=HTI>Haiti</option>
-                            <option value=HMD>Heard and Mc Donald Islands</option>
-                            <option value=HND>Honduras</option>
-                            <option value=HKG>Hong Kong</option>
-                            <option value=HUN>Hungary</option>
-                            <option value=ISL>Iceland</option>
-                            <option value=IND>India</option>
-                            <option value=idN>Indonesia</option>
-                            <option value=IRN>Iran (Islamic Republic of)</option>
-                            <option value=IRQ>Iraq</option>
-                            <option value=IRL>Ireland</option>
-                            <option value=ISR>Israel</option>
-                            <option value=ITA>Italy</option>
-                            <option value=JAM>Jamaica</option>
-                            <option value=JPN>Japan</option>
-                            <option value=JOR>Jordan</option>
-                            <option value=KHM>Kampuchea, Democratic</option>
-                            <option value=KEN>Kenya</option>
-                            <option value=KIR>Kiribati</option>
-                            <option value=PRK>Korea, Democratic People's Republic of</option>
-                            <option value=KOR>Korea, Republic of</option>
-                            <option value=KWT>Kuwait</option>
-                            <option value=LAO>Lao People's Democratic Republic</option>
-                            <option value=LBN>Lebanon</option>
-                            <option value=LSO>Lesotho</option>
-                            <option value=LBR>Liberia</option>
-                            <option value=LBY>Libyan Arab Jamahiriya</option>
-                            <option value=LIE>Liechtenstein</option>
-                            <option value=LUX>Luxembourg</option>
-                            <option value=MAC>Macau</option>
-                            <option value=MDG>Madagascar</option>
-                            <option value=MWI>Malawi</option>
-                            <option value=MYS>Malaysia</option>
-                            <option value=MDV>Maldives</option>
-                            <option value=MLI>Mali</option>
-                            <option value=MLT>Malta</option>
-                            <option value=MHL>Marshall Islands</option>
-                            <option value=MTQ>Martinique</option>
-                            <option value=MRT>Mauritania</option>
-                            <option value=MUS>Mauritius</option>
-                            <option value=MEX>Mexico</option>
-                            <option value=FSM>Micronesia</option>
-                            <option value=MCO>Monaco</option>
-                            <option value=MNG>Mongolia</option>
-                            <option value=MSR>Montserrat</option>
-                            <option value=MAR>Morocco</option>
-                            <option value=MOZ>Mozambique</option>
-                            <option value=NAM>Namibia</option>
-                            <option value=NRU>Nauru</option>
-                            <option value=NPL>Nepal</option>
-                            <option value=NLD>Netherlands</option>
-                            <option value=ANT>Netherlands Antilles</option>
-                            <option value=NTZ>Neutral Zone</option>
-                            <option value=NCL>New Caledonia</option>
-                            <option value=NZL>New Zealand</option>
-                            <option value=NIC>Nicaragua</option>
-                            <option value=NER>Niger</option>
-                            <option value=NGA>Nigeria</option>
-                            <option value=NIU>Niue</option>
-                            <option value=NFK>Norfolk Island</option>
-                            <option value=MNP>Northern Mariana Islands</option>
-                            <option value=NOR>Norway</option>
-                            <option value=OMN>Oman</option>
-                            <option value=PAK>Pakistan</option>
-                            <option value=PLW>Palau</option>
-                            <option value=PAN>Panama</option>
-                            <option value=PNG>Papua New Guinea</option>
-                            <option value=PRY>Paraguay</option>
-                            <option value=PER>Peru</option>
-                            <option value=PHL>Philippines</option>
-                            <option value=PCN>Pitcairn Island</option>
-                            <option value=POL>Poland</option>
-                            <option value=PRT>Portugal</option>
-                            <option value=PRI>Puerto Rico</option>
-                            <option value=QAT>Qatar</option>
-                            <option value=REU>Reunion</option>
-                            <option value=ROM>Romania</option>
-                            <option value=RWA>Rwanda</option>
-                            <option value=SHN>St. Helena</option>
-                            <option value=KNA>Saint Kitts and Nevis</option>
-                            <option value=LCA>Saint Lucia</option>
-                            <option value=SPM>St. Pierre and Miquelon</option>
-                            <option value=VCT>Saint Vincent and the Grenadines</option>
-                            <option value=WSM>Samoa</option>
-                            <option value=SMR>San Marino</option>
-                            <option value=SAU>Saudia Arabia</option>
-                            <option value=STP>Sao Tome and Principe</option>
-                            <option value=SEN>Senegal</option>
-                            <option value=SYC>Seychelles</option>
-                            <option value=SLE>Sierra Leones</option>
-                            <option value=SGP>Singapore</option>
-                            <option value=SLB>Solomon Islands</option>
-                            <option value=SOM>Somalia</option>
-                            <option value=ZAF>South Africa</option>
-                            <option value=ESP>Spain</option>
-                            <option value=LKA>Sri Lanka</option>
-                            <option value=SDN>Sudan</option>
-                            <option value=SUR>Suriname</option>
-                            <option value=SJM>Svalbard and Jan Mayen Islands</option>
-                            <option value=SWZ>Swaziland</option>
-                            <option value=SWE>Sweden</option>
-                            <option value=CHE>Switzerland</option>
-                            <option value=SYR>Syrian Arab Republic</option>
-                            <option value=TWN>Taiwan, Province of China</option>
-                            <option value=TZA>Tanzania, United Republic of</option>
-                            <option value=THA>Thailand</option>
-                            <option value=TGO>Togo</option>
-                            <option value=TKL>Tokelau</option>
-                            <option value=TON>Tonga</option>
-                            <option value=TTO>Trinidad and Tobago</option>
-                            <option value=TUN>Tunisia</option>
-                            <option value=TUR>Turkey</option>
-                            <option value=TCA>Turks and Caicos Islands</option>
-                            <option value=TUV>Tuvalu</option>
-                            <option value=UGA>Uganda</option>
-                            <option value=UKR>Ukranian SSR</option>
-                            <option value=ARE>United Arab Emirates</option>
-                            <option value=GBR>United Kingdom</option>
-                            <option value=USA selected=selected>United States</option>
-                            <option value=UMI>United States Minor Outlying Islands</option>
-                            <option value=URY>Uruguay</option>
-                            <option value=SUN>USSR</option>
-                            <option value=VUT>Vanuatu</option>
-                            <option value=VAT>Vatican City State (Holy See)</option>
-                            <option value=VEN>Venezuela</option>
-                            <option value=VNM>Viet Nam</option>
-                            <option value=VGB>Virgin Islands (British)</option>
-                            <option value=VIR>Virgin Islands (U.S.)</option>
-                            <option value=WLF>Wallis and Futuna Islands</option>
-                            <option value=SVN>Slovenia</option>
-                            <option value=ESH>Western Sahara</option>
-                            <option value=YEM>Yemen</option>
-                            <option value=YMD>Yemen, Democratic</option>
-                            <option value=YUG>Yugoslavia</option>
-                            <option value=ZAR>Zaire</option>
-                            <option value=ZMB>Zambia</option>
-                            <option value=ZWE>Zimbabwe</option>
-                            <option value=XXX>Unknown</option>
-                          </select></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>% Effort:</div></th>
-                        <td align=left><span>
-                          <input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text>
-                          </span></td>
-                        <th align=left nowrap=nowrap><div align=right>Faculty:</div></th>
-                        <td align=left><label>
-                            <input name="asdf" type=checkbox class="nobord" id="asdf" checked>
-                          </label></td>
-                      </tr>
-                      <tr>
-                        <th align=left nowrap=nowrap><div align=right>*Key Person Role:</div></th>
-                        <td align=left><input name="dynaFormInfo[0].addressLine7" maxlength=80 value="" onkeypress="dataChanged();" type=text></td>
-                        <th align=left nowrap=nowrap><div align=right>Other Significant Contributor:</div></th>
-                        <td align=left><input name="asdf3" type=checkbox class="nobord" id="asdf3" checked></td>
+                        <th align="left" nowrap="nowrap"><div align="right">*Project Role:&nbsp;</div></th>
+                        <td colspan=""><input name="dynaFormInfo[0].userName" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName"/></td>
+                        <th align="left"><div align="right">Calendar Year Effort: </div></th>
+                        <td align="left"><input name="dynaFormInfo[0].userName223" maxlength="60" value=" " readonly="readonly" type="text" id="dynaFormInfo[0].userName222"/></td>
                       </tr>
                     </tbody>
                   </table>
@@ -1539,164 +486,161 @@ function addLoadEvent(func) {
                     </tbody>
                   </table></td>
               </tr>
-            </table>
-            <br>
-            <br>
-            <div class="h2-container">
-              <h2><span class="subhead-left">Combined Credit Split</span></h2>
-              <span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-awards-MR-Backup/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-            <table  cellpadding="0" cellspacing="0"  summary="">
-              <tbody>
-                <tr>
-                  <th width="20%"></th>
-                  <th width="20%">Recognition</th>
-                  <th width="20%">Responsibility</th>
-                  <th width="20%">Space</th>
-                  <th width="20%">Financial</th>
-                </tr>
-                <tr>
-                  <td nowrap class="tab-subhead1"><strong>Godfrey, Alberta D</strong></td>
-                  <td class="tab-subhead1"><div align="right"><strong>
-                      <label>
-                        <input name="textfield" type="text" class="right" id="textfield" value="30.0" size="6">
-                      </label>
-                      </strong></div></td>
-                  <td class="tab-subhead1"><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="40.0" size="6">
-                      </strong></div></td>
-                  <td class="tab-subhead1"><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="50.0" size="6">
-                      </strong></div></td>
-                  <td class="tab-subhead1"><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="60.0" size="6">
-                      </strong></div></td>
-                </tr>
-                <tr>
-                  <td nowrap>375547 - Pediatrics
-                    <input name="image13" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="25.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="20.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="15.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="10.0" size="6">
-                      </strong></div></td>
-                </tr>
-                <tr>
-                  <td nowrap>823462 - Biology
-                    <input name="image14" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="75.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="80.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="85.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="90.0" size="6">
-                      </strong></div></td>
-                </tr>
-                <tr>
-                  <td nowrap class="infoline"><strong>Unit Total:</strong></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                </tr>
-              </tbody>
-              <tbody>
-                <tr>
-                  <td nowrap class="tab-subhead1"><strong>Mays, Lyle</strong></td>
-                  <td class="tab-subhead1"><div align="right"><strong>
-                      <label>
-                        <input name="textfield" type="text" class="right" id="textfield" value="70.0" size="6">
-                      </label>
-                      </strong></div></td>
-                  <td class="tab-subhead1"><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="60.0" size="6">
-                      </strong></div></td>
-                  <td class="tab-subhead1"><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="50.0" size="6">
-                      </strong></div></td>
-                  <td class="tab-subhead1"><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="40.0" size="6">
-                      </strong></div></td>
-                </tr>
-                <tr>
-                  <td nowrap>999383 - Chemistry
-                    <input name="image15" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="15.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="20.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="25.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
+            </tbody>
+          </table>
+          <div class="h2-container">
+            <h2><span class="subhead-left"><a href="#" id="A78l" onClick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F78l"></a> Combined Credit Split</span></h2>
+            <span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a> </span> </div>
+           <div style="clear:both"></div><table  cellpadding="0" cellspacing="0"  summary="">
+            <tbody id="G78l" style="display: none;">
+              <tr>
+                <th width="20%"></th>
+                <th width="20%">Recognition</th>
+                <th width="20%">Responsibility</th>
+                <th width="20%">Space</th>
+                <th width="20%">Financial</th>
+              </tr>
+              <tr>
+                <td nowrap class="tab-subhead1"><strong>Godfrey, Alberta D</strong></td>
+                <td class="tab-subhead1"><div align="right"><strong>
+                    <label>
                       <input name="textfield" type="text" class="right" id="textfield" value="30.0" size="6">
-                      </strong></div></td>
-                </tr>
-                <tr>
-                  <td nowrap>823462 - Biology
-                    <input name="image16" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="30.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="40.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="50.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="60.0" size="6">
-                      </strong></div></td>
-                </tr>
-                <tr>
-                  <td nowrap>375547 -  Pediatrics
-                    <input name="image17" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="55.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="40.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="25.0" size="6">
-                      </strong></div></td>
-                  <td><div align="right"><strong>
-                      <input name="textfield" type="text" class="right" id="textfield" value="10.0" size="6">
-                      </strong></div></td>
-                </tr>
-                <tr>
-                  <td nowrap class="infoline"><strong>Unit Total:</strong></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                </tr>
-                <tr>
-                  <td colspan="5" nowrap class="tab-subhead1" >Totals</td>
-                </tr>
-                <tr>
-                  <td nowrap class="infoline"><strong>Project Person  Total:</strong></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                  <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
-                </tr>
-              </tbody>
-            </table>
-            <a href="#"><img src="../images/tinybutton-recalculate.gif" alt="delete" width=72 height=15 hspace=3 vspace=3 border=0></a> </div>
+                    </label>
+                    </strong></div></td>
+                <td class="tab-subhead1"><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="40.0" size="6">
+                    </strong></div></td>
+                <td class="tab-subhead1"><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="50.0" size="6">
+                    </strong></div></td>
+                <td class="tab-subhead1"><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="60.0" size="6">
+                    </strong></div></td>
+              </tr>
+              <tr>
+                <td nowrap>375547 - Pediatrics
+                  <input name="image13" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="25.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="20.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="15.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="10.0" size="6">
+                    </strong></div></td>
+              </tr>
+              <tr>
+                <td nowrap>823462 - Biology
+                  <input name="image14" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="75.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="80.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="85.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="90.0" size="6">
+                    </strong></div></td>
+              </tr>
+              <tr>
+                <td nowrap class="infoline"><strong>Unit Total:</strong></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+              </tr>
+              <tr>
+                <td nowrap class="tab-subhead1"><strong>Mays, Lyle</strong></td>
+                <td class="tab-subhead1"><div align="right"><strong>
+                    <label>
+                      <input name="textfield" type="text" class="right" id="textfield" value="70.0" size="6">
+                    </label>
+                    </strong></div></td>
+                <td class="tab-subhead1"><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="60.0" size="6">
+                    </strong></div></td>
+                <td class="tab-subhead1"><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="50.0" size="6">
+                    </strong></div></td>
+                <td class="tab-subhead1"><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="40.0" size="6">
+                    </strong></div></td>
+              </tr>
+              <tr>
+                <td nowrap>999383 - Chemistry
+                  <input name="image15" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="15.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="20.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="25.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="30.0" size="6">
+                    </strong></div></td>
+              </tr>
+              <tr>
+                <td nowrap>823462 - Biology
+                  <input name="image16" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="30.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="40.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="50.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="60.0" size="6">
+                    </strong></div></td>
+              </tr>
+              <tr>
+                <td nowrap>375547 -  Pediatrics
+                  <input name="image17" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="55.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="40.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="25.0" size="6">
+                    </strong></div></td>
+                <td><div align="right"><strong>
+                    <input name="textfield" type="text" class="right" id="textfield" value="10.0" size="6">
+                    </strong></div></td>
+              </tr>
+              <tr>
+                <td nowrap class="infoline"><strong>Unit Total:</strong></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+              </tr>
+              <tr>
+                <td colspan="5" nowrap class="tab-subhead1" >Totals</td>
+              </tr>
+              <tr>
+                <td nowrap class="infoline"><strong>Project Person  Total:</strong></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+                <td class="infoline"><div align="right"><strong>100.0</strong></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <a href="#"><img src="../images/tinybutton-recalculate.gif" alt="delete" width=72 height=15 hspace=3 vspace=3 border=0></a> </div>
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="blank" width="12" height="29" align="absmiddle" > Unit Administrators
