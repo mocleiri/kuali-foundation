@@ -163,7 +163,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </tr>
           </table>
           <!-- TAB -->
-          <div class="tab-container" align=center id="G02" style="display: nonee;">
+          <div class="tab-container" align=center id="G02" style="display: none;">
             <div class="h2-container"><span class="subhead-left">
               <h2>Available Actions</h2>
               </span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
@@ -596,29 +596,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
               </table>
             </div>
-            
-            
-            
-            
-            
-            
-            
-        
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-                
-            
-                   <!-- Submit for Review  (Alternate Configuration)-->
+            <!-- Submit for Review  (Alternate Configuration)-->
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
                 <td class="tab-subhead" style="width:50px;"><a href="#" id="A201mc" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201mc"></a></td>
@@ -628,48 +606,48 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div id="G201mc" style="display: none;">
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                 <th style="text-align:right;">*Submission Type:</th>
+                  <th style="text-align:right;">*Submission Type:</th>
                   <td><select name="typeQ4">
-                    <option value=0 selected=selected>select</option>
-                    <option>Initial Protocol Application for Approval</option>
-                    <option>Response to Previous IRB Notification</option>
-                    <option>Amendment</option>
-                    <option>Continuing Review/Continuation with Amendment</option>
-                    <option>Continuing Review/Continuation without Amendment</option>
-                  </select></td>
+                      <option value=0 selected=selected>select</option>
+                      <option>Initial Protocol Application for Approval</option>
+                      <option>Response to Previous IRB Notification</option>
+                      <option>Amendment</option>
+                      <option>Continuing Review/Continuation with Amendment</option>
+                      <option>Continuing Review/Continuation without Amendment</option>
+                    </select></td>
                 </tr>
                 <tr>
                   <th style="text-align:right;">Type Qualifier:</th>
                   <td><select name="typequalifierQ3" style="width:100%;">
-                    <option value=0 selected=selected>select</option>
-                    <option value=1>Annual Scheduled by IRB</option>
-                    <option value=2>Contingent/Conditional Approval/Deferred Approval/ Non-Approval</option>
-                    <option value=1>Eligibility Exceptions/Protocol Deviations</option>
-                    <option value=1>AE/UADE</option>
-                    <option value=1>Complaint</option>
-                    <option value=1>Deviation</option>
-                    <option value=1>Protocol-related COI Report</option>
-                    <option value=1>Self report for Noncompliance</option>
-                    <option value=1>Request for Eligibility Exception</option>
-                    <option value=1>Training Certification</option>
-                    <option value=1>Unanticipated Problems</option>
-                    <option value=1>DSMB Report</option>
-                    <option value=1>Annual Report</option>
-                  </select></td>
+                      <option value=0 selected=selected>select</option>
+                      <option value=1>Annual Scheduled by IRB</option>
+                      <option value=2>Contingent/Conditional Approval/Deferred Approval/ Non-Approval</option>
+                      <option value=1>Eligibility Exceptions/Protocol Deviations</option>
+                      <option value=1>AE/UADE</option>
+                      <option value=1>Complaint</option>
+                      <option value=1>Deviation</option>
+                      <option value=1>Protocol-related COI Report</option>
+                      <option value=1>Self report for Noncompliance</option>
+                      <option value=1>Request for Eligibility Exception</option>
+                      <option value=1>Training Certification</option>
+                      <option value=1>Unanticipated Problems</option>
+                      <option value=1>DSMB Report</option>
+                      <option value=1>Annual Report</option>
+                    </select></td>
                 </tr>
                 <tr>
-                   <th style="text-align:right;">*Submission Review Type</th>
+                  <th style="text-align:right;">*Submission Review Type</th>
                   <td><select name="reviewtypeQ3" id="reviewtypeQ2">
-                    <option value=0>select</option>
-                    <option value=1>Full</option>
-                    <option value=2>Expedited</option>
-                    <option value=3 selected>Exempt</option>
-                    <option value=4>Limited/Single Use</option>
-                    <option value=5>IRB Review Not Required</option>
-                    <option value=6>Response</option>
-                    <option value=7>FYI</option>
-                  </select>
-                  <input name="x5" src="../images/tinybutton-refresh.gif" onclick="javascript: alert('If this were not a mock, this button would refresh the checklist based on the Review Type'); return false" class="tinybutton" alt="refresh" type=image /></td>
+                      <option value=0>select</option>
+                      <option value=1>Full</option>
+                      <option value=2>Expedited</option>
+                      <option value=3 selected>Exempt</option>
+                      <option value=4>Limited/Single Use</option>
+                      <option value=5>IRB Review Not Required</option>
+                      <option value=6>Response</option>
+                      <option value=7>FYI</option>
+                    </select>
+                    <input name="x5" src="../images/tinybutton-refresh.gif" onclick="javascript: alert('If this were not a mock, this button would refresh the checklist based on the Review Type'); return false" class="tinybutton" alt="refresh" type=image /></td>
                 </tr>
                 <!--<tr><th style="text-align:right;">
                                 Committee ID:
@@ -688,106 +666,69 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 
                             </td></tr></table>
                     -->
-          
-             
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
                   <th rowspan=6 style="width:125px; text-align:right;">*Checklist (Exempt):</th>
                   <td><input type=checkbox class="nobord" name="checklist[]2" value=1 /></td>
                   <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                    <tr>
-                      <td style="border:none;">Educational Research Conducted in Educational Settings. Research conducted in established or commonly accepted educational settings, involving normal educational practices, such as:i) research on regular and special education instructional strategies...</td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
-                    </tr>
-                  </table></td>
+                      <tr>
+                        <td style="border:none;">Educational Research Conducted in Educational Settings. Research conducted in established or commonly accepted educational settings, involving normal educational practices, such as:i) research on regular and special education instructional strategies...</td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                      </tr>
+                    </table></td>
                 </tr>
                 <tr>
                   <td><input type=checkbox class="nobord" name="checklist[]2" value=2 /></td>
                   <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                    <tr>
-                      <td style="border:none;">Surveys/Interviews/Standardized Educational Tests/Observation of Public Behavior Research involving the use of educational tests (cognitive, diagnostic, aptitude, achievement), survey procedures, interview procedures or observation of public behavior...</td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
-                    </tr>
-                  </table></td>
+                      <tr>
+                        <td style="border:none;">Surveys/Interviews/Standardized Educational Tests/Observation of Public Behavior Research involving the use of educational tests (cognitive, diagnostic, aptitude, achievement), survey procedures, interview procedures or observation of public behavior...</td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                      </tr>
+                    </table></td>
                 </tr>
                 <tr>
                   <td><input type=checkbox class="nobord" name="checklist[]2" value=3 checked=checked /></td>
                   <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                    <tr>
-                      <td style="border:none;">Surveys/ Interviews /Observation of Public Behavior Research involving the use of educational tests (cognitive, diagnostic, aptitude, achievement), survey procedures, interview procedures or observation of public behavior if the subjects are elected...</td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
-                    </tr>
-                  </table></td>
+                      <tr>
+                        <td style="border:none;">Surveys/ Interviews /Observation of Public Behavior Research involving the use of educational tests (cognitive, diagnostic, aptitude, achievement), survey procedures, interview procedures or observation of public behavior if the subjects are elected...</td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                      </tr>
+                    </table></td>
                 </tr>
                 <tr>
                   <td><input type=checkbox class="nobord" name="checklist[]2" value=4 /></td>
                   <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                    <tr>
-                      <td style="border:none;">Secondary Use of Pre-Existing Data (Data must exist at the time the research is submitted for review.) Research involving the collection or study of existing data, documents, records, pathological specimens or diagnostic specimens if:i) these sources...</td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
-                    </tr>
-                  </table></td>
+                      <tr>
+                        <td style="border:none;">Secondary Use of Pre-Existing Data (Data must exist at the time the research is submitted for review.) Research involving the collection or study of existing data, documents, records, pathological specimens or diagnostic specimens if:i) these sources...</td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                      </tr>
+                    </table></td>
                 </tr>
                 <tr>
                   <td><input type=checkbox class="nobord" name="checklist[]2" value=5 /></td>
                   <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                    <tr>
-                      <td style="border:none;">Evaluation of Public Benefit or Service Program Research and demonstration projects which are conducted by or subject to the approval of Department or Agency heads, and which are designed to study, evaluate, or otherwise examine public benefit or ser...</td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
-                    </tr>
-                  </table></td>
+                      <tr>
+                        <td style="border:none;">Evaluation of Public Benefit or Service Program Research and demonstration projects which are conducted by or subject to the approval of Department or Agency heads, and which are designed to study, evaluate, or otherwise examine public benefit or ser...</td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                      </tr>
+                    </table></td>
                 </tr>
                 <tr>
                   <td><input type=checkbox class="nobord" name="checklist[]2" value=6 /></td>
                   <td style="padding:5px;"><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                    <tr>
-                      <td style="border:none;">Taste and Food Quality Evaluation Taste and food quality evaluation and consumer acceptance studies:i) if wholesome foods without additive are consumed, orii) If food is consumed that contains a food ingredient at or below the level and for a use fou...</td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
-                    </tr>
-                  </table></td>
+                      <tr>
+                        <td style="border:none;">Taste and Food Quality Evaluation Taste and food quality evaluation and consumer acceptance studies:i) if wholesome foods without additive are consumed, orii) If food is consumed that contains a food ingredient at or below the level and for a use fou...</td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x6" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                      </tr>
+                    </table></td>
                 </tr>
-              </table> <table cellpadding=0 cellspacing=0 style="height:30px;">
+              </table>
+              <table cellpadding=0 cellspacing=0 style="height:30px;">
                 <tr>
                   <td style="text-align:center; padding:5px;" class="infoline"><input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
                 </tr>
               </table>
             </div>
-            
-            
-            
-            
-            
-            
-            
-                 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             <!-- Withdraw Protocol -->
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
@@ -1770,25 +1711,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <tr>
                   <th style="text-align:right;">Committee:</th>
                   <td><select>
-                    <option value=0 selected=selected>select</option>
-                    <option value=1>First IRB</option>
-                    <option value=2>Second IRB</option>
-                    <option value=3>Third IRB</option>
-                  </select></td>
+                      <option value=0 selected=selected>select</option>
+                      <option value=1>First IRB</option>
+                      <option value=2>Second IRB</option>
+                      <option value=3>Third IRB</option>
+                    </select></td>
                 </tr>
                 <tr>
                   <th style="text-align:right;">Comment:</th>
                   <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                    <tr>
-                      <td style="border:none;"><textarea name="commentz2" style="width:100%; text-align:left;" rows=2></textarea></td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="commentzx2" src="../images/pencil_add.png" onclick="javascript: alert('if this were not a mock, this icon would open an editable text area.'); return false" class="tinybutton" alt="Expanded Text Area" title="Expanded Text Area" type=image /></td>
+                      <tr>
+                        <td style="border:none;"><textarea name="commentz2" style="width:100%; text-align:left;" rows=2></textarea></td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="commentzx2" src="../images/pencil_add.png" onclick="javascript: alert('if this were not a mock, this icon would open an editable text area.'); return false" class="tinybutton" alt="Expanded Text Area" title="Expanded Text Area" type=image /></td>
                       </tr>
-                  </table></td>
+                    </table></td>
                 </tr>
-                </table>
-                
-                   <table cellpadding=0 cellspacing=0 summary="">
-                
+              </table>
+              <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
                   <td colspan="3" class="subhead">Attachments</td>
                 </tr>
@@ -1796,32 +1735,27 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <th style="text-align:center; padding:5px;">&nbsp;</th>
                   <th style="text-align:center; padding:5px;"><span style="text-align:right;">Attachment</span></th>
                   <th style="text-align:center; padding:5px;">Actions</th>
-                  </tr>
+                </tr>
                 <tr>
                   <th style="text-align:center; padding:5px;">add</th>
                   <td class="infoline" style="text-align:center; padding:5px;"><input type=file style="width:200px;" /></td>
                   <td class="infoline" style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="add" width=40 height=15 border=0></a></div></td>
-                  </tr>
+                </tr>
                 <tr>
                   <th style="text-align:center; padding:5px;">1</th>
                   <td style="text-align:center; padding:5px;">my_attachement1.doc</td>
                   <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
-                  </tr>
+                </tr>
                 <tr>
                   <th style="text-align:center; padding:5px;">2</th>
                   <td style="text-align:center; padding:5px;">my_attachement2.doc</td>
                   <td style="text-align:center; padding:5px;"><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width=40 height=15 border=0></a></div></td>
-                  </tr>
-                </table>
-                   <table cellpadding=0 cellspacing=0 summary="">
-                
-                
+                </tr>
+              </table>
+              <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
                   <td style="text-align:center; padding:5px;" colspan=4 class="infoline"><input name="x" src="../images/tinybutton-submit.gif" onclick="javascript: alert('If this were not a mock, this button would request this action.'); return false" class="tinybutton" alt="submit" type=image /></td>
                 </tr>
-                
-                
-                
               </table>
             </div>
             <!-- Create Amendment -->
@@ -1963,20 +1897,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <tr>
                   <th style="text-align:right; width:150px;">Committee:</th>
                   <td><select name="CustomData5">
-                    <option value=0 selected=selected>select</option>
-                    <option value=1>First IRB</option>
-                    <option value=2>Second IRB</option>
-                    <option value=2>Third IRB</option>
-                  </select></td>
+                      <option value=0 selected=selected>select</option>
+                      <option value=1>First IRB</option>
+                      <option value=2>Second IRB</option>
+                      <option value=2>Third IRB</option>
+                    </select></td>
                 </tr>
                 <tr>
                   <th style="text-align:right; width:150px;"> Reason:</th>
                   <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                    <tr>
-                      <td style="border:none;"><textarea name="z7" style="width:100%; text-align:left;" rows=4></textarea></td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x15" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
-                    </tr>
-                  </table></td>
+                      <tr>
+                        <td style="border:none;"><textarea name="z7" style="width:100%; text-align:left;" rows=4></textarea></td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x15" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
+                      </tr>
+                    </table></td>
                 </tr>
               </table>
               <table cellpadding=0 cellspacing=0 summary="">
@@ -2025,20 +1959,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <tr>
                   <th style="text-align:right; width:150px;">Committee:</th>
                   <td><select name="CustomData4">
-                    <option value=0 selected=selected>select</option>
-                    <option value=1>First IRB</option>
-                    <option value=2>Second IRB</option>
-                    <option value=2>Third IRB</option>
-                  </select></td>
+                      <option value=0 selected=selected>select</option>
+                      <option value=1>First IRB</option>
+                      <option value=2>Second IRB</option>
+                      <option value=2>Third IRB</option>
+                    </select></td>
                 </tr>
                 <tr>
                   <th style="text-align:right; width:150px;"> Reason:</th>
                   <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                    <tr>
-                      <td style="border:none;"><textarea name="z6" style="width:100%; text-align:left;" rows=4></textarea></td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x14" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
-                    </tr>
-                  </table></td>
+                      <tr>
+                        <td style="border:none;"><textarea name="z6" style="width:100%; text-align:left;" rows=4></textarea></td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x14" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
+                      </tr>
+                    </table></td>
                 </tr>
               </table>
               <table cellpadding=0 cellspacing=0 summary="">
@@ -2087,20 +2021,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <tr>
                   <th style="text-align:right; width:150px;">Committee:</th>
                   <td><select name="CustomData3">
-                    <option value=0 selected=selected>select</option>
-                    <option value=1>First IRB</option>
-                    <option value=2>Second IRB</option>
-                    <option value=2>Third IRB</option>
-                  </select></td>
+                      <option value=0 selected=selected>select</option>
+                      <option value=1>First IRB</option>
+                      <option value=2>Second IRB</option>
+                      <option value=2>Third IRB</option>
+                    </select></td>
                 </tr>
                 <tr>
                   <th style="text-align:right; width:150px;"> Reason:</th>
                   <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                    <tr>
-                      <td style="border:none;"><textarea name="z5" style="width:100%; text-align:left;" rows=4></textarea></td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x13" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
-                    </tr>
-                  </table></td>
+                      <tr>
+                        <td style="border:none;"><textarea name="z5" style="width:100%; text-align:left;" rows=4></textarea></td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x13" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
+                      </tr>
+                    </table></td>
                 </tr>
               </table>
               <table cellpadding=0 cellspacing=0 summary="">
@@ -2149,20 +2083,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <tr>
                   <th style="text-align:right; width:150px;">Committee:</th>
                   <td><select name="CustomData2">
-                    <option value=0 selected=selected>select</option>
-                    <option value=1>First IRB</option>
-                    <option value=2>Second IRB</option>
-                    <option value=2>Third IRB</option>
-                  </select></td>
+                      <option value=0 selected=selected>select</option>
+                      <option value=1>First IRB</option>
+                      <option value=2>Second IRB</option>
+                      <option value=2>Third IRB</option>
+                    </select></td>
                 </tr>
                 <tr>
                   <th style="text-align:right; width:150px;"> Reason:</th>
                   <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
-                    <tr>
-                      <td style="border:none;"><textarea name="z4" style="width:100%; text-align:left;" rows=4></textarea></td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="x12" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
-                    </tr>
-                  </table></td>
+                      <tr>
+                        <td style="border:none;"><textarea name="z4" style="width:100%; text-align:left;" rows=4></textarea></td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x12" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type=image /></td>
+                      </tr>
+                    </table></td>
                 </tr>
               </table>
               <table cellpadding=0 cellspacing=0 summary="">
@@ -3615,7 +3549,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div class="h2-container"><span class="subhead-left">
               <h2><a href="#" id="A201" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201"></a> View Summary (Notified Committee 11/14/2008)</h2>
               </span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-            <div id="G201" style="display: nonee;">
+            <div id="G201" style="display: none;">
               <div style=clear:both></div>
               <table cellpadding=0 cellspacing=0>
                 <tr>
@@ -3651,7 +3585,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
                 <!--<tbody id="G200" style="display: none;">-->
                 <tr>
-                  <th>Name</th>
+                  <th height="39">Name</th>
                   <th>Role</th>
                   <th>Affiliation</th>
                   <th>Unit(s)</th>
@@ -3842,11 +3776,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div style=clear:both></div>
             <table cellpadding=0 cellspacing=0 summary="" style="padding:0px; border-collapse:collapse; border-spacing:0px; border-bottom:none;">
               <tr>
-                <td class="subhead" colspan=7><a href="#" id="A7001" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F7001"></a> View History</td>
+                <td class="subhead" colspan=6><a href="#" id="A7001" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F7001"></a> View History</td>
               </tr>
-              <tbody id="G7001" style="display: nonee;">
+              <tbody id="G7001" style="display: none;">
                 <tr>
-                  <td style="text-align:center; padding:0px; border-collapse:collapse; border-spacing:0px;" colspan=7 class="infoline"><table style="margin-left:-25px; width:550px; border:none; background:none; padding:3px; border-collapse:collapse; border-spacing:0px; height:35px;">
+                  <td style="text-align:center; padding:0px; border-collapse:collapse; border-spacing:0px;" colspan=6 class="infoline"><table style="margin-left:-25px; width:550px; border:none; background:none; padding:3px; border-collapse:collapse; border-spacing:0px; height:35px;">
                       <tr>
                         <th style="width:135px; text-align:right; border:none; background:none; border-right:1px solid #999999;">View Date Range:</th>
                         <td nowrap style="border:none; text-align:center; background:none; border-right:1px solid #999999;">Beginning On
@@ -3866,220 +3800,859 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <th>Action Date</th>
                   <th>Submission Status</th>
                   <th>Comments</th>
-                  <th style="text-align:center;">&nbsp; Actions</th>
                 </tr>
                 <tr>
                   <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=0 checked=checked title="This node is loaded into the Summary View, above." /></td>
-                  <td>Notified Committee</td>
-                  <td>11/14/2008</td>
-                  <td>11/14/2008</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline"><strong>Notified Committee</strong></td>
+                  <td class="infoline">11/14/2008</td>
+                  <td class="infoline">11/14/2008</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline"><table style="border:none;  background:none; width:100%;" cellpadding=0 cellspacing=0>
                       <tr>
-                        <td style="border:none;">&nbsp;</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />--></td>
+                        <td style="border:none; background:none">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                        <td style="border:none; background:none; width:20px; vertical-align:bottom;"><input name="x20" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
                       </tr>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="open detail view" onClick="window.open('irb-detail1popup.html','detail','width=700,height=700')" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>--></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=1 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Expedited Approval</td>
-                  <td>10/11/2008</td>
-                  <td>10/11/2008</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">Renewal-001</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />--></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A1q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F1q"></a> Attachments (3)</td>
+                      </tr>
+                      <tbody id="G1q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=1 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Expedited Approval</strong></td>
+                  <td class="infoline">10/11/2008</td>
+                  <td class="infoline">10/11/2008</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline"><table style="border:none;  background:none; width:100%;" cellpadding=0 cellspacing=0>
+                      <tr>
+                        <td style="border:none; background:none">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                        <td style="border:none; background:none; width:20px; vertical-align:bottom;"><input name="x21" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
                       </tr>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <a href="#"><img src="../images/tinybutton-correspondence.gif" width=85 height=15 border=0 alt="correspondence" /></a></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=2 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Submitted to IRB</td>
-                  <td>08/11/2008</td>
-                  <td>08/11/2008</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">Renewal-001: Submit to IRB</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />--></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A3q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F3q"></a> Attachments (3)</td>
+                      </tr>
+                      <tbody id="G3q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=2 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Submitted to IRB</strong></td>
+                  <td class="infoline">08/11/2008</td>
+                  <td class="infoline">08/11/2008</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
+                      <tr>
+                        <td colspan="11" nowrap class=""><a href="#" id="A4q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F4q"></a> Attachments (3)</td>
+                      </tr>
+                      <tbody id="G4q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=3 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Renewal Created</strong></td>
+                  <td class="infoline">07/11/2008</td>
+                  <td class="infoline">07/11/2008</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline"><table style="border:none;  background:none; width:100%;" cellpadding=0 cellspacing=0>
+                      <tr>
+                        <td style="border:none; background:none">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                        <td style="border:none; background:none; width:20px; vertical-align:bottom;"><input name="x22" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
                       </tr>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>--></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=3 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Renewal Created</td>
-                  <td>07/11/2008</td>
-                  <td>07/11/2008</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">Renewal-001 created</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />--></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A5q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F5q"></a> Attachments (3)</td>
+                      </tr>
+                      <tbody id="G5q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=4 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Approved</strong></td>
+                  <td class="infoline">02/27/2008</td>
+                  <td class="infoline">02/27/2008</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline"><table style="border:none;  background:none; width:100%;" cellpadding=0 cellspacing=0>
+                      <tr>
+                        <td style="border:none; background:none">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                        <td style="border:none; background:none; width:20px; vertical-align:bottom;"><input name="x23" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
                       </tr>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>--></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=4 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Approved</td>
-                  <td>02/27/2008</td>
-                  <td>02/27/2008</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">Amendment-001: Lorem ipsum dolor sit amet, consectetur cras amet...</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A6q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F6q"></a> Attachments (3)</td>
+                      </tr>
+                      <tbody id="G6q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=5 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Assigned to Agenda</strong></td>
+                  <td class="infoline">02/11/2008</td>
+                  <td class="infoline">02/11/2008</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
+                      <tr>
+                        <td colspan="11" nowrap class=""><a href="#" id="A7q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F7q"></a> Attachments (3)</td>
+                      </tr>
+                      <tbody id="G7q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=6 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Submitted to IRB</strong></td>
+                  <td class="infoline">02/10/2008</td>
+                  <td class="infoline">02/10/2008</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
+                      <tr>
+                        <td colspan="11" nowrap class=""><a href="#" id="A8q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F8q"></a> Attachments (3)</td>
+                      </tr>
+                      <tbody id="G8q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=7 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Amendment Created</strong></td>
+                  <td class="infoline">02/09/2008</td>
+                  <td class="infoline">02/09/2008</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline"><table style="border:none;  background:none; width:100%;" cellpadding=0 cellspacing=0>
+                      <tr>
+                        <td style="border:none; background:none">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                        <td style="border:none; background:none; width:20px; vertical-align:bottom;"><input name="x24" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
                       </tr>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="javascript:popupViewhistorycomment('irb-popup-viewhistorycomment.html')"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="javascript:popupViewhistorydetail('irb-popup-viewhistorydetail.html')"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <a href="javascript:popupViewhistorycorrespondence('irb-popup-viewhistorycorrespondence.html')"><img src="../images/tinybutton-correspondence.gif" width=85 height=15 border=0 alt="correspondence" /></a></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=5 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Assigned to Agenda</td>
-                  <td>02/11/2008</td>
-                  <td>02/11/2008</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">Amendment-001: Ready for committee</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />--></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A9q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F9q"></a> Attachments (3)</td>
                       </tr>
+                      <tbody id="G9q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>--></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=6 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Submitted to IRB</td>
-                  <td>02/10/2008</td>
-                  <td>02/10/2008</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=8 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Administrative Correction</strong></td>
+                  <td class="infoline">02/07/2008</td>
+                  <td class="infoline">02/07/2008</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">Amendment-001: Submit to IRB. Lorem ipsum dolor sit amet, consec...</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A10q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F10q"></a> Attachments (3)</td>
                       </tr>
+                      <tbody id="G10q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>--></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=7 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Amendment Created</td>
-                  <td>02/09/2008</td>
-                  <td>02/09/2008</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=9 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Approved</strong></td>
+                  <td class="infoline">10/17/2007</td>
+                  <td class="infoline">10/17/2007</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">Amendment-001 created. Lorem ipsum dolor sit amet, consectetur...</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A11q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F11q"></a> Attachments (3)</td>
                       </tr>
+                      <tbody id="G11q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>--></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=8 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Administrative Correction</td>
-                  <td>02/07/2008</td>
-                  <td>02/07/2008</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=10 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Assigned to Agenda</strong></td>
+                  <td class="infoline">10/16/2007</td>
+                  <td class="infoline">10/16/2007</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">&nbsp;</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />--></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A12q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F12q"></a> Attachments (3)</td>
                       </tr>
+                      <tbody id="G12q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>--></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=9 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Approved</td>
-                  <td>10/17/2007</td>
-                  <td>10/17/2007</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=11 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Submitted to IRB</strong></td>
+                  <td class="infoline">10/14/2007</td>
+                  <td class="infoline">10/14/2007</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">&nbsp;</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />--></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A13q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F13q"></a> Attachments (3)</td>
                       </tr>
+                      <tbody id="G13q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <a href="#"><img src="../images/tinybutton-correspondence.gif" width=85 height=15 border=0 alt="correspondence" /></a></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=10 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Assigned to Agenda</td>
-                  <td>10/16/2007</td>
-                  <td>10/16/2007</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=12 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Protocol Created</strong></td>
+                  <td class="infoline">07/10/2007</td>
+                  <td class="infoline">07/10/2007</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">&nbsp;</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />--></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A14q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F14q"></a> Attachments (3)</td>
                       </tr>
+                      <tbody id="G14q" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x19" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>--></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=11 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Submitted to IRB</td>
-                  <td>10/14/2007</td>
-                  <td>10/14/2007</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=12 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Notify IRB </strong></td>
+                  <td class="infoline">07/10/2007</td>
+                  <td class="infoline">07/10/2007</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">Submit to IRB</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />--></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A2qq" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F2qq"></a> Attachments (3)</td>
                       </tr>
+                      <tbody id="G2qq" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x16" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x17" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x18" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>--></td>
                 </tr>
                 <tr>
-                  <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=12 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
-                  <td>Protocol Created</td>
-                  <td>07/10/2007</td>
-                  <td>07/10/2007</td>
-                  <td>&nbsp;</td>
-                  <td><table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                  <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=12 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
+                  <td class="infoline"><strong>Request to Suspend </strong></td>
+                  <td class="infoline">07/10/2007</td>
+                  <td class="infoline">07/10/2007</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="infoline" style="text-align:center;">&nbsp;</td>
+                  <td colspan="5" style="padding:0px; border-style:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%">
                       <tr>
-                        <td style="border:none;">Protocol Created</td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><!--<input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />--></td>
+                        <td colspan="11" nowrap class=""><a href="#" id="A68k" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F68k"></a> Attachments (3)</td>
                       </tr>
+                      <tbody id="G68k" style="display: none;">
+                        <tr>
+                          <th>File Name</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr>
+                          <td> attached_file1.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">t multa invenerunt, et praenuntiaverunt ante multo annos defectus luminarium solis et lunae, quo die, qua...</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x16" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file2.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">cet te, quid in se agatur, qui tibi confitetur; quia oculum tuum non excludit cor clausum, nec manum tuam repellit duritia hominum: sed solvis eam, cum voles, aut miserans aut vindicans, et non est qui se abscondat a calore tuo. sed te laudet anima mea, ut amet te, et con</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x17" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td>attached_file3.doc</td>
+                          <td><div align="center">
+                              <table style="border:none; width:100%;" cellpadding=0 cellspacing=0>
+                                <tr>
+                                  <td style="border:none;">quo mense anni et quo die mensis et qua hora diei et quota parte luminis sui defectura sit luna vel sol: et ita fiet, ut praenuntiatur. et mirantur haec homines et stupent, qui nesciunt ea, et exultant atque extolluntur qui sciunt, et per impiam superbiam recedentes, et deficientes</td>
+                                  <td style="border:none; width:20px; vertical-align:bottom;"><input name="x18" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type=image /></td>
+                                </tr>
+                              </table>
+                            </div></td>
+                        </tr>
+                      </tbody>
                     </table></td>
-                  <td style="text-align:center;"><!--<a href="#"><img src="../images/tinybutton-comment.gif" width="57" height="15" border="0" alt="comment" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-detail.gif" width="40" height="15" border="0" alt="detail" title="Load into Summary View" onClick="javascript: alert('If this were not a mock, this button would load this history node into the View Summary panel, above.'); return false" /></a>-->
-                    <!--<a href="#"><img src="../images/tinybutton-correspondence.gif" width="85" height="15" border="0" alt="correspondence" /></a>--></td>
                 </tr>
                 <tr>
-                  <td style="text-align:left;" class="infoline" colspan=7><a href="#"><img src="../images/tinybutton-load.gif" align=top width=34 height=15 border=0 alt="detail" title="Load selected node into Summary View" onClick="javascript: alert('If this were not a mock, this button would load the selected history node into the View Summary panel, above.'); return false" /></a> Load selected node into Summary View, above</td>
+                  <td style="text-align:left;" class="infoline" colspan=6><a href="#"><img src="../images/tinybutton-load.gif" align=top width=34 height=15 border=0 alt="detail" title="Load selected node into Summary View" onClick="javascript: alert('If this were not a mock, this button would load the selected history node into the View Summary panel, above.'); return false" /></a> Load selected node into Summary View, above</td>
                 </tr>
               </tbody>
             </table>
@@ -4338,7 +4911,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         </div>
         <div align=right><br>
           * required</div>
-        <div class="globalbuttons"><a href="#"></a><img src="../images/buttonsmall_save.gif" alt="save" width=53 height=18 hspace=5 border=0><img src="../images/buttonsmall_route.gif" width=56 height=18><a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width=48 height=18 hspace=5 border=0></a><a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width=66 height=18 hspace=5 border=0></a></div>
+        <div class="globalbuttons"><img src="../images/buttonsmall_save.gif" alt="save" width=53 height=18 hspace=5 border=0><img src="../images/buttonsmall_route.gif" width=56 height=18><a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width=48 height=18 hspace=5 border=0></a><a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width=66 height=18 hspace=5 border=0></a></div>
       </div></td>
     <td class="column-right"><img src="../images/pixel_clear.gif" alt="" width=20 height=20></td>
   </tr>
