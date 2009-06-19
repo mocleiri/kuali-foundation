@@ -1,2 +1,6 @@
+.svn
+.settings
+target
+licenses
 jscalendar-1.0
 build
