@@ -53,10 +53,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <td>10:06 AM 03/30/2005</td>
       </tr>
       <tr>
-        <th class="bord-l" scope=row><div align=right>Protocol Name:</div></th>
-        <td class="datacell-l">Protocol A</td>
-        <th class="bord-l" scope=row><div align=right>Version:</div></th>
-        <td class="datacell-l">1</td>
+        <th class="bord-l" scope=row><div align=right>Protocol #:</div></th>
+        <td class="datacell-l">000235</td>
+        <th class="bord-l" scope=row><div align=right>Expiration Date:</div></th>
+        <td class="datacell-l">10/24/2009</td>
       </tr>
     </table>
   </div>
@@ -66,28 +66,28 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
   <div id="tabs">
     <dl class="tabul">
       <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('self','irb-protocol.html');return document.MM_returnValue" value="Protocol">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-protocol.html');return document.MM_returnValue" value="Protocol">
         </span></dt>
       <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('self','irb-personnel.html');return document.MM_returnValue" value="Personnel">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-personnel.html');return document.MM_returnValue" value="Personnel">
         </span></dt>
       <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('self','irb-customdata.html');return document.MM_returnValue" value="Custom Data">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-permissions.html');return document.MM_returnValue" value="Permissions">
         </span></dt>
       <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('self','irb-questionnaire.html');return document.MM_returnValue" value="Questionnaire">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-questionnaire.html');return document.MM_returnValue" value="Questionnaire">
+        </span></dt>
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-customdata.html');return document.MM_returnValue" value="Custom Data">
+        </span></dt>
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-notes.html');return document.MM_returnValue" value="Attachments &amp; Notes ">
         </span></dt>
       <dt class="licurrent" ><span class="tabright tabcurrent">
-        <input name="Submit" type="submit" onClick="MM_goToURL('self','irb-specialreview.html');return document.MM_returnValue" value="Special Review">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-specialreview.html');return document.MM_returnValue" value="Special Review">
         </span></dt>
       <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('self','irb-permissions.html');return document.MM_returnValue" value="Permissions">
-        </span></dt>
-      <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('self','irb-notes.html');return document.MM_returnValue" value="Notes &amp; Attachments">
-        </span></dt>
-      <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('self','irb-protocolactions.html');return document.MM_returnValue" value="Protocol Actions">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-protocolactions.html');return document.MM_returnValue" value="Protocol Actions">
         </span></dt>
     </dl>
   </div>
