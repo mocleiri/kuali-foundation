@@ -113,7 +113,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <table align="center" cellpadding="0" cellspacing="0"  summary=""  >
                 <tr>
                   <th><div align="right">*Attachment Type:</div></th>
-                  <td><span class="infoline">
+                  <td colspan="3"><span class="infoline">
                     <select name="univ_appt_typ_cd" size="1" onChange="postToAction('0', 'B_PersonnelDetail.do?btnUpdateFringeRate=buttonPressed')">
                       <option value="startOption" selected>select</option>
                       <option value="A1" >- Informed Consent Document </option>
@@ -128,8 +128,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       <option value="G2">- Other </option>
                     </select>
                     </span></td>
-                  <th><div align="right">*File Name:</div></th>
-                  <td><input name="file" type="file" class="nobord" id="file" size="12"></td>
                 </tr>
                 <tr>
                   <th><div align="right">Status:</div></th>
@@ -162,18 +160,22 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <tr>
                   <th><div align="right">Comments:</div></th>
                   <td><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td style="border:none;"><textarea name="zs2" style="width:100%; text-align:left;" rows="3"></textarea></td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs2" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
-                      </tr>
-                    </table></td>
+                    <tr>
+                      <td height="59" style="border:none;"><textarea name="zs3" style="width:100%; text-align:left;" rows="3"></textarea></td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs3" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                    </tr>
+                  </table></td>
                   <th><div align="right">Description:</div></th>
                   <td><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td style="border:none;"><textarea name="zs2" style="width:100%; text-align:left;" rows="3"></textarea></td>
-                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs2" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
-                      </tr>
-                    </table></td>
+                    <tr>
+                      <td style="border:none;"><textarea name="zs3" style="width:100%; text-align:left;" rows="3"></textarea></td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs3" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                    </tr>
+                  </table></td>
+                </tr>
+                <tr>
+                  <th><div align="right">*File Name:</div></th>
+                  <td colspan="3"><input name="file" type="file" class="nobord" id="file" size="12"></td>
                 </tr>
                 <tr>
                   <td colspan="4" class="infoline"><div align="center"><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
@@ -184,9 +186,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td colspan="13" nowrap class="tab-subhead1"><a href="#" id="A44" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F44"></a> Informed Consent Document - complete</td>
                 </tr>
                 <tbody id="G44" style="display: none;">
+                
                   <tr>
-                    <th><div align="right">*Attachment Type:</div></th>
-                    <td><span class="infoline">
+                    <th nowrap><div align="right">*Attachment Type:</div></th>
+                    <td colspan="3"><span class="infoline">
                       <select name="univ_appt_typ_cd" size="1" onChange="postToAction('0', 'B_PersonnelDetail.do?btnUpdateFringeRate=buttonPressed')">
                         <option value="startOption" selected>select</option>
                         <option value="A1" selected>- Informed Consent Document </option>
@@ -200,9 +203,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <option value="GR">- Adverse Event </option>
                         <option value="G2">- Other </option>
                       </select>
-                      </span></td>
-                    <th><div align="right">*File Name:</div></th>
-                    <td>Document1.doc</td>
+                    </span></td>
                   </tr>
                   <tr>
                     <th><div align="right">Status:</div></th>
@@ -214,7 +215,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </select>
                       </span></td>
                     <th><div align="right">Contact Name:</div></th>
-                    <td width="30%"><span class="infoline">
+                    <td><span class="infoline">
                       <input name="textfield" type="text" id="textfield" value="tom clark" size="12">
                       </span></td>
                   </tr>
@@ -237,18 +238,56 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <tr>
                     <th><div align="right">Comments:</div></th>
                     <td><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                        <tr>
-                          <td style="border:none;"><textarea name="zs2" style="width:100%; text-align:left;" rows="3"></textarea></td>
-                          <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs2" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
-                        </tr>
-                      </table></td>
+                      <tr>
+                        <td style="border:none;"><textarea name="zs2" style="width:100%; text-align:left;" rows="3"></textarea></td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs2" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                      </tr>
+                    </table></td>
                     <th><div align="right">Description:</div></th>
                     <td><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none;"><textarea name="zs2" style="width:100%; text-align:left;" rows="3"></textarea></td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs2" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                      </tr>
+                    </table></td>
+                  </tr>  
+                  <tr>
+                    <th rowspan="2"><div align="right">*File Name:</div></th>
+                    <td colspan="3"><strong>Document1.doc</strong> &nbsp;&nbsp;<a href="#">edit</a> | <a href="#">remove</a></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" style="padding:0px; border:none" >
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="width:100%; border:none">
                         <tr>
-                          <td style="border:none;"><textarea name="zs2" style="width:100%; text-align:left;" rows="3"></textarea></td>
-                          <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs2" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                          <td colspan="4" class="tab-subhead1"><a href="#" id="A696" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F696"></a> File Versions</td>
                         </tr>
-                      </table></td>
+                       <tbody id="G696" style="display:none"> 
+                         <tr>
+                           <th>Last Modifier</th>
+                           <th>Created Date</th>
+                           <th>Last Modified Date</th>
+                           <th>Comment</th>
+                          </tr>
+                         <tr>
+                           <td>Tom Clark</td>
+                           <td><div align="center">07/02/2007 13:46</div></td>
+                           <td><div align="center">07/02/2007 13:46</div></td>
+                           <td>ocebam dolos, non quibus contra caput innocentis, agerent, sed aliquando pro capite nocentis. et, deus, vidisti de longinquo lapsantem in lubrico, et in multo fumo scintillantem fidem meam, quam exhibebam in illo magisterio diligentibus vanitatem et quaerentibus mendacium, socius eorum. in illis annis unam habebam, non eo quod legitimum vocatur c</td>
+                         </tr>
+                         <tr>
+                           <td>Tom Clark</td>
+                           <td><div align="center">07/02/2007 13:46</div></td>
+                           <td><div align="center">07/02/2007 13:46</div></td>
+                           <td>ocebam dolos, non quibus contra caput innocentis, agerent, sed aliquando pro capite nocentis. et, deus, vidisti de longinquo lapsantem in lubrico, et in multo fumo scintillantem fidem meam, quam exhibebam in illo magisterio diligentibus vanitatem et quaerentibus mendacium, socius eorum. in illis annis unam habebam, non eo quod legitimum vocatur c</td>
+                         </tr>
+                         <tr>
+                           <td>Tom Clark</td>
+                           <td><div align="center">07/02/2007 13:46</div></td>
+                           <td><div align="center">07/02/2007 13:46</div></td>
+                           <td>ocebam dolos, non quibus contra caput innocentis, agerent, sed aliquando pro capite nocentis. et, deus, vidisti de longinquo lapsantem in lubrico, et in multo fumo scintillantem fidem meam, quam exhibebam in illo magisterio diligentibus vanitatem et quaerentibus mendacium, socius eorum. in illis annis unam habebam, non eo quod legitimum vocatur c</td>
+                        </tr></tbody>
+                      </table>
+                    </td>
                   </tr>
                   <tr>
                     <td colspan="4" class="infoline"><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-replace.gif" alt="add" width=49 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
@@ -257,13 +296,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               </table>
               <table cellpadding=0 cellspacing="0" summary="">
                 <tr>
-                  <td colspan="13" nowrap class="tab-subhead1"><a href="#" id="A66" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F66"></a> Recruitment Brochure- incomplete</td>
+                  <td colspan="13" nowrap class="tab-subhead1"><a href="#" id="A277" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F277"></a> Recruitment Brochure- incomplete</td>
                 </tr>
-                <tbody id="G66" style="display: none;">
+                <tbody id="G277" style="display: none;">
                   <tr>
-                    <th><div align="right">*Attachment Type:</div></th>
-                    <td><span class="infoline">
-                      <select name="univ_appt_typ_cd" size="1" onChange="postToAction('0', 'B_PersonnelDetail.do?btnUpdateFringeRate=buttonPressed')">
+                    <th nowrap><div align="right">*Attachment Type:</div></th>
+                    <td colspan="3"><span class="infoline">
+                      <select name="univ_appt_typ_cd3" size="1" onChange="postToAction('0', 'B_PersonnelDetail.do?btnUpdateFringeRate=buttonPressed')">
                         <option value="startOption" selected>select</option>
                         <option value="A1" >- Informed Consent Document </option>
                         <option value="A2" selected>- Recruitment Brochure </option>
@@ -276,55 +315,90 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <option value="GR">- Adverse Event </option>
                         <option value="G2">- Other </option>
                       </select>
-                      </span></td>
-                    <th><div align="right">*File Name:</div></th>
-                    <td>Document2.doc</td>
+                    </span></td>
                   </tr>
                   <tr>
                     <th><div align="right">Status:</div></th>
                     <td><span class="infoline">
-                      <select name="univ_appt_typ_cd" size="1" onChange="postToAction('0', 'B_PersonnelDetail.do?btnUpdateFringeRate=buttonPressed')">
+                      <select name="univ_appt_typ_cd2" size="1" onChange="postToAction('0', 'B_PersonnelDetail.do?btnUpdateFringeRate=buttonPressed')">
                         <option value="startOption">select</option>
                         <option>complete </option>
                         <option selected>incomplete</option>
                       </select>
-                      </span></td>
+                    </span></td>
                     <th><div align="right">Contact Name:</div></th>
-                    <td width="30%"><span class="infoline">
-                      <input name="textfield" type="text" id="textfield" value="tom clark" size="12">
-                      </span></td>
+                    <td><span class="infoline">
+                      <input name="textfield2" type="text" id="textfield2" value="tom clark" size="12">
+                    </span></td>
                   </tr>
                   <tr>
                     <th><div align="right">Uploaded By:</div></th>
                     <td scope=col>thrclark</td>
                     <th><div align="right">Email:</div></th>
                     <td><span class="infoline">
-                      <input name="textfield" type="text" id="textfield" size="12">
-                      </span></td>
+                      <input name="textfield2" type="text" id="textfield2" size="12">
+                    </span></td>
                   </tr>
                   <tr>
                     <th><div align="right">Timestamp:</div></th>
                     <td>07/02/2007 13:46</td>
                     <th><div align="right">Phone:</div></th>
                     <td><span class="infoline">
-                      <input name="textfield" type="text" id="textfield" size="12">
-                      </span></td>
+                      <input name="textfield2" type="text" id="textfield2" size="12">
+                    </span></td>
                   </tr>
                   <tr>
                     <th><div align="right">Comments:</div></th>
                     <td><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                        <tr>
-                          <td style="border:none;"><textarea name="zs2" style="width:100%; text-align:left;" rows="3"></textarea></td>
-                          <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs2" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
-                        </tr>
-                      </table></td>
+                      <tr>
+                        <td style="border:none;"><textarea name="zs" style="width:100%; text-align:left;" rows="3"></textarea></td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                      </tr>
+                    </table></td>
                     <th><div align="right">Description:</div></th>
                     <td><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none;"><textarea name="zs" style="width:100%; text-align:left;" rows="3"></textarea></td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                  <tr>
+                    <th rowspan="2"><div align="right">*File Name:</div></th>
+                    <td colspan="3"><strong>Document1.doc</strong> &nbsp;&nbsp;<a href="#">edit</a> | <a href="#">remove</a></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" style="padding:0px; border:none" ><table width="100%" border="0" cellpadding="0" cellspacing="0" style="width:100%; border:none">
+                      <tr>
+                        <td colspan="4" class="tab-subhead1"><a href="#" id="A14f" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15  border=0 align="absmiddle" id="F14f"></a> File Versions</td>
+                      </tr>
+                      <tbody id="G14f" style="display:none">
                         <tr>
-                          <td style="border:none;"><textarea name="zs2" style="width:100%; text-align:left;" rows="3"></textarea></td>
-                          <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs2" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                          <th>Last Modifier</th>
+                          <th>Created Date</th>
+                          <th>Last Modified Date</th>
+                          <th>Comment</th>
                         </tr>
-                      </table></td>
+                        <tr>
+                          <td>Tom Clark</td>
+                          <td><div align="center">07/02/2007 13:46</div></td>
+                          <td><div align="center">07/02/2007 13:46</div></td>
+                          <td>ocebam dolos, non quibus contra caput innocentis, agerent, sed aliquando pro capite nocentis. et, deus, vidisti de longinquo lapsantem in lubrico, et in multo fumo scintillantem fidem meam, quam exhibebam in illo magisterio diligentibus vanitatem et quaerentibus mendacium, socius eorum. in illis annis unam habebam, non eo quod legitimum vocatur c</td>
+                        </tr>
+                        <tr>
+                          <td>Tom Clark</td>
+                          <td><div align="center">07/02/2007 13:46</div></td>
+                          <td><div align="center">07/02/2007 13:46</div></td>
+                          <td>ocebam dolos, non quibus contra caput innocentis, agerent, sed aliquando pro capite nocentis. et, deus, vidisti de longinquo lapsantem in lubrico, et in multo fumo scintillantem fidem meam, quam exhibebam in illo magisterio diligentibus vanitatem et quaerentibus mendacium, socius eorum. in illis annis unam habebam, non eo quod legitimum vocatur c</td>
+                        </tr>
+                        <tr>
+                          <td>Tom Clark</td>
+                          <td><div align="center">07/02/2007 13:46</div></td>
+                          <td><div align="center">07/02/2007 13:46</div></td>
+                          <td>ocebam dolos, non quibus contra caput innocentis, agerent, sed aliquando pro capite nocentis. et, deus, vidisti de longinquo lapsantem in lubrico, et in multo fumo scintillantem fidem meam, quam exhibebam in illo magisterio diligentibus vanitatem et quaerentibus mendacium, socius eorum. in illis annis unam habebam, non eo quod legitimum vocatur c</td>
+                        </tr>
+                      </tbody>
+                    </table></td>
                   </tr>
                   <tr>
                     <td colspan="4" class="infoline"><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-replace.gif" alt="add" width=49 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
