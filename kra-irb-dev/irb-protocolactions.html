@@ -98,11 +98,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <td>10:06 AM 03/30/2005</td>
       </tr>
       <tr>
-          <th class="bord-l" scope=row><div align=right>Protocol #:</div></th>
-          <td class="datacell-l">000235</td>
-          <th class="bord-l" scope=row><div align=right>Expiration Date:</div></th>
-          <td class="datacell-l">10/24/2009</td>
-        </tr>
+        <th class="bord-l" scope=row><div align=right>Protocol #:</div></th>
+        <td class="datacell-l">000235</td>
+        <th class="bord-l" scope=row><div align=right>Expiration Date:</div></th>
+        <td class="datacell-l">10/24/2009</td>
+      </tr>
     </table>
   </div>
 </div>
@@ -131,7 +131,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-specialreview.html');return document.MM_returnValue" value="Special Review">
         </span></dt>
-       <dt class="licurrent" ><span class="tabright tabcurrent">
+      <dt class="licurrent" ><span class="tabright tabcurrent">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-protocolactions.html');return document.MM_returnValue" value="Protocol Actions">
         </span></dt>
     </dl>
@@ -3539,6 +3539,54 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           </div>
           <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
             <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Print</td>
+              <td class="tabtable2-mid"><a href="#" id="A776" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F776"></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
+            </tr>
+          </table>
+          <div class="tab-container" align=center id="G776" style="display: none;">
+            <div class="h2-container"><span class="subhead-left">
+              <h2>Print</h2>
+              </span><span class="subhead-right"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <div style=clear:both></div>
+            <table cellpadding=0 cellspacing=0 summary="print forms">
+              <tbody>
+                <tr>
+                  <td>Summary View</td>
+                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
+                </tr>
+                <tr>
+                  <td>Full Protocol</td>
+                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
+                </tr>
+                <tr>
+                  <td>Protocol History</td>
+                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
+                </tr>
+                <tr>
+                  <td>Review Comments</td>
+                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
+                </tr>
+                <tr>
+                  <td class="tab-subhead" colspan=2>Attachments</td>
+                </tr>
+                <tr>
+                  <td>Informed Consent Document - complete (Document1.doc)</td>
+                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
+                </tr>
+                <tr>
+                  <td>Recruitment Brochure- incomplete (Document2.doc)</td>
+                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
+                </tr>
+                <tr>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline" style="text-align:center;"><input class="nobord" type=image src="../images/tinybutton-printsel.gif" width=80 height=15 /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
+            <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Summary, History, & Print</td>
               <td class="tabtable2-mid"><a href="#" id="A03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F03"></a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
@@ -3801,10 +3849,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <th>Submission Status</th>
                   <th>Comments</th>
                 </tr>
-                
-                       
-               
-               
                 <tr>
                   <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=12 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
                   <td class="infoline"><strong>Notify IRB </strong></td>
@@ -3915,8 +3959,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </tbody>
                     </table></td>
                 </tr>
-                
-                
                 <tr>
                   <td style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=0 checked=checked title="This node is loaded into the Summary View, above." /></td>
                   <td class="infoline"><strong>Notified Committee</strong></td>
@@ -4045,7 +4087,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td class="infoline">&nbsp;</td>
                   <td class="infoline">&nbsp;</td>
                 </tr>
-               
                 <tr>
                   <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=3 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
                   <td class="infoline"><strong>Renewal Created</strong></td>
@@ -4059,7 +4100,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </tr>
                     </table></td>
                 </tr>
-                
                 <tr>
                   <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=4 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
                   <td class="infoline"><strong>Approved</strong></td>
@@ -4128,7 +4168,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td class="infoline">&nbsp;</td>
                   <td class="infoline">&nbsp;</td>
                 </tr>
-               
                 <tr>
                   <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=6 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
                   <td class="infoline"><strong>Submitted to IRB</strong></td>
@@ -4137,7 +4176,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td class="infoline">&nbsp;</td>
                   <td class="infoline">&nbsp;</td>
                 </tr>
-               
                 <tr>
                   <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=7 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
                   <td class="infoline"><strong>Amendment Created</strong></td>
@@ -4151,7 +4189,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </tr>
                     </table></td>
                 </tr>
-                                <tr>
+                <tr>
                   <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=8 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
                   <td class="infoline"><strong>Administrative Correction</strong></td>
                   <td class="infoline">02/07/2008</td>
@@ -4159,7 +4197,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td class="infoline">&nbsp;</td>
                   <td class="infoline">&nbsp;</td>
                 </tr>
-                
                 <tr>
                   <td class="infoline" style="text-align:center;"><input type=radio class="nobord" name="CustomData" value=9 title="Select to load this node into the Summary View, above." onClick="javascript: alert('If this were not a mock, selecting this radio button would AJAX load the selected history node into the View Summary panel, above. Non-script browser fallback could use Load button below.'); return false" /></td>
                   <td class="infoline"><strong>Approved</strong></td>
@@ -4333,73 +4370,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td class="infoline">&nbsp;</td>
                   <td class="infoline">&nbsp;</td>
                 </tr>
-               
-               
-               
-               
-               
-               
-               
-               
-        
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 <tr>
                   <td style="text-align:left;" class="infoline" colspan=6><a href="#"><img src="../images/tinybutton-load.gif" align=top width=34 height=15 border=0 alt="detail" title="Load selected node into Summary View" onClick="javascript: alert('If this were not a mock, this button would load the selected history node into the View Summary panel, above.'); return false" /></a> Load selected node into Summary View, above</td>
                 </tr>
               </tbody>
             </table>
             <!-- Print -->
-            <div class="h2-container"><span class="subhead-left">
-              <h2><a href="#" id="A900" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F900"></a> Print</h2>
-              </span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             <div style=clear:both></div>
-            <table cellpadding=0 cellspacing=0 summary="print forms">
-              <tbody id="G900" style="display: none;">
-                <tr>
-                  <td>Summary View</td>
-                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
-                </tr>
-                <tr>
-                  <td>Full Protocol</td>
-                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
-                </tr>
-                <tr>
-                  <td>Protocol History</td>
-                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
-                </tr>
-                <tr>
-                  <td>Review Comments</td>
-                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
-                </tr>
-                <tr>
-                  <td class="tab-subhead" colspan=2>Attachments</td>
-                </tr>
-                <tr>
-                  <td>Informed Consent Document - complete (Document1.doc)</td>
-                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
-                </tr>
-                <tr>
-                  <td>Recruitment Brochure- incomplete (Document2.doc)</td>
-                  <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
-                </tr>
-                <tr>
-                  <td class="infoline">&nbsp;</td>
-                  <td class="infoline" style="text-align:center;"><input class="nobord" type=image src="../images/tinybutton-printsel.gif" width=80 height=15 /></td>
-                </tr>
-              </tbody>
-            </table>
             <!--<br><br><img src="images/prot-history.jpg">-->
           </div>
           <!-- PANEL: ACTION HISTORY -->
