@@ -157,15 +157,19 @@ function addLoadEvent(func) {
           </span></dt>
         <dt><span class="tabright">
           <input name="Submit2" type=submit onClick="MM_goToURL('parent','1-prop-specialreview.html');return document.MM_returnValue" value="Special Review">
-        </span></dt>
+          </span></dt>
         <dt><span class="tabright">
-          <input name="Submit" type=submit onClick="MM_goToURL('parent','1-prop-intelprop.html');return document.MM_returnValue" value="Intellectual Property Review"></span></dt>
+          <input name="Submit" type=submit onClick="MM_goToURL('parent','1-prop-intelprop.html');return document.MM_returnValue" value="Intellectual Property Review">
+          </span></dt>
         <dt><span class="tabright">
           <input name="Submit" type=submit onClick="MM_goToURL('parent','1-prop-distribution.html');return document.MM_returnValue" value="Distribution">
           </span></dt>
         <dt><span class="tabright">
           <input name="Submit" type=submit onClick="MM_goToURL('parent','1-prop-actions.html');return document.MM_returnValue" value="Institutional Proposal Actions">
           </span></dt>
+        <dt><span class="tabright">
+          <input name="Submit" type="submit" onClick="MM_goToURL('parent','1-prop-medusahierarchyAP.html');return document.MM_returnValue" value="Medusa">
+          </span>
       </dl>
     </div>
   </div>
@@ -204,11 +208,11 @@ function addLoadEvent(func) {
                   <td align="left" valign="middle" width="30%"><input name="document.documentHeader.financialDocumentDescription" maxlength="40" size="45" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.financialDocumentDescription" type="text"></td>
                   <th colspan="1" rowspan="2" align="right" width="20%"><label for="document.documentHeader.financialDocumentDescription7">Explanation:</label></th>
                   <td rowspan="2" align="left" valign="middle"width="30%"><table style="border:none; width:100%;">
-                    <tr>
-                      <td style="border:none; width:100%;"><textarea name="textarea5" style="width:100%;" rows="2" id="textarea5"></textarea></td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="image12" type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
-                    </tr>
-                  </table></td>
+                      <tr>
+                        <td style="border:none; width:100%;"><textarea name="textarea5" style="width:100%;" rows="2" id="textarea5"></textarea></td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="image12" type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
+                      </tr>
+                    </table></td>
                 </tr>
                 <tr>
                   <th colspan="1" align="right">&nbsp;
@@ -431,8 +435,7 @@ function addLoadEvent(func) {
               </tr>
             </table>
             <br>
-            <div class="h2-container"><span class="subhead-left">
-Project Periods and Amounts </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <div class="h2-container"><span class="subhead-left"> Project Periods and Amounts </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             <table cellpadding=0 cellspacing=0 summary="view/edit document overview information">
               <tr>
                 <th width="25%" align=right valign=middle>&nbsp;</th>
@@ -445,7 +448,7 @@ Project Periods and Amounts </span><span class="subhead-right"> <a href="#"> <im
                 <td><div align="right">
                     <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
-                </div></td>
+                  </div></td>
                 <td><div align="right">
                     <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
@@ -456,7 +459,7 @@ Project Periods and Amounts </span><span class="subhead-right"> <a href="#"> <im
                 <td><div align="right">
                     <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
-                </div></td>
+                  </div></td>
                 <td><div align="right">
                     <input name="startDate2" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     <input type="image" class="nobord" src="../images/cal.gif" alt="inquiry">
@@ -472,7 +475,7 @@ Project Periods and Amounts </span><span class="subhead-right"> <a href="#"> <im
                       <input name="startDate4" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     </div>
                   </div></td>
-               </tr>
+              </tr>
               <tr>
                 <th width="25%" align=right valign=middle><div align=right> Total F&amp;A Cost:</div></th>
                 <td><div align="center">
@@ -485,13 +488,14 @@ Project Periods and Amounts </span><span class="subhead-right"> <a href="#"> <im
                       <input name="startDate3" type=text onchange="dataChanged()" value="" size="10" maxlength=10 />
                     </div>
                   </div></td>
-               </tr>
+              </tr>
               <tr>
                 <th width="25%" align=right valign=middle><div align=right> Total All Cost:</div></th>
                 <td><div align="right"> <strong>$0.00 </strong></div></td>
                 <td align=right valign=middle><div align="right"> <strong>$0.00 </strong></div></td>
-               </tr>
-            </table><br>
+              </tr>
+            </table>
+            <br>
           </div>
           <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
             <tr>
@@ -580,7 +584,8 @@ Project Periods and Amounts </span><span class="subhead-right"> <a href="#"> <im
                 <td><div align="center"><img src="../images/tinybutton-update.gif" alt="update" width="48" height="15"></div></td>
               </tr>
             </table>
-          </div> <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
+          </div>
+          <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Delivery Info</td>
               <td class="tabtable2-mid"><a href="#" id="A78k" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F78k" vspace=6></a></td>
@@ -619,19 +624,18 @@ Project Periods and Amounts </span><span class="subhead-right"> <a href="#"> <im
                 <td align=left valign=middle><table class="nobord" width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td class="nobord">Gill, D. Helen<a href="#">
-                      <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                      <br>
-                      </a>National Science Foundation<br>
-                      4201 Wilson Boulevard<br>
-                      Arlington<br>
-                      VA - 22230<br>
-                      USA</td>
-                     <td class="nobord"><div align="center"><a href="#">
-                       <input type="image" class="nobord" src="../images/tinybutton-clear.gif" alt="lookup">
-                     </a></div></td>
+                        <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                        <br>
+                        </a>National Science Foundation<br>
+                        4201 Wilson Boulevard<br>
+                        Arlington<br>
+                        VA - 22230<br>
+                        USA</td>
+                      <td class="nobord"><div align="center"><a href="#">
+                          <input type="image" class="nobord" src="../images/tinybutton-clear.gif" alt="lookup">
+                          </a></div></td>
                     </tr>
-                  </table>
-                  </td>
+                  </table></td>
                 <th align=right valign=middle>Mail Description:</th>
                 <td align=left valign=middle><span class="nobord">
                   <textarea name="textarea6" cols=20 rows=3></textarea>
@@ -640,7 +644,6 @@ Project Periods and Amounts </span><span class="subhead-right"> <a href="#"> <im
               </tr>
             </table>
           </div>
-          
           <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Keywords</td>
@@ -764,12 +767,6 @@ Project Periods and Amounts </span><span class="subhead-right"> <a href="#"> <im
               </tr>
             </table>
           </div>
-          
-          
-          
-          
-          
-          
           <table width="100%" border=0 cellpadding=0 cellspacing=0 class="b3" summary="">
             <tr>
               <td align=left class="footer"><img src="../images/pixel_clear.gif" alt="" width=12 height=14 class="bl3"></td>
