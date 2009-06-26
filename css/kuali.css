@@ -1046,3 +1046,8 @@ td.infoline
 	background-image:url(file:///C|/!BFN/Pics/20080701%20Jeeps/FiveRigsNorthFarm.jpg)
 	color:#0F0;
 }
+
+.compare td, .compare th
+{
+	color:#666666;
+}
