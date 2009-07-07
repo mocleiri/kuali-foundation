@@ -404,19 +404,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
               
               <tr>
-                <th colspan="2">&nbsp;</th>
+                <th>&nbsp;</th>
                 <th><label for ="person">Schedule Date</label></th>
                 <th>Day of Week</th>
                 <th>Deadline</th>
                 <th>Status</th>
                 <th><label for="role">Place </label></th>
                 <th>Time</th>
+                <th>Delete</th>
                 <th>Actions</th>
               </tr>
               
               <tr>
                 <th>1</th>
-                <td style="width:25px;"><input type="checkbox" class="nobord" name="cb01" value="0" /></td>
                 <td><div align="center">
                     <input name="startDate3" type=text onchange="dataChanged()" value="8/04/2008" size=12 />
                     <a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor"><img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></div></td>
@@ -441,13 +441,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <input type="radio" class="nobord" name="ampm1" value="0" checked="checked" />AM
                     <input type="radio" class="nobord" name="ampm1" value="1" />PM
                   </div></td>
+                <td><div align="center">
+                  <input type="checkbox" class="nobord" name="cb02" value="0" />
+                </div></td>
                 <td><div align=center>
                   <a href="irb-meeting.html"><img src="../images/tinybutton-maintain.gif" alt="maintain" title="Maintain" style="width:60px; height:15px; border:none;" /></a>
                 </div></td>
               </tr>
               <tr>
                 <th>2</th>
-                <td><input type="checkbox" class="nobord" name="cb02" value="0" /></td>
                 <td><div align="center">
                     <input name="startDate3" type=text onchange="dataChanged()" value="8/11/2008" size=12 />
                     <a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor3"><img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></div></td>
@@ -472,13 +474,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <input type="radio" class="nobord" name="ampm2" value="0" checked="checked" />AM
                   <input type="radio" class="nobord" name="ampm2" value="1" />PM
                 </div></td>
+                <td><div align="center">
+                  <input type="checkbox" class="nobord" name="cb02" value="0" />
+                </div></td>
                 <td><div align=center>
                   <a href="irb-meeting.html"><img src="../images/tinybutton-maintain.gif" alt="maintain" title="Maintain" style="width:60px; height:15px; border:none;" /></a>
                 </div></td>
               </tr>
               <tr>
                 <th>3</th>
-                <td><input type="checkbox" class="nobord" name="cb03" value="0" /></td>
                 <td><div align="center">
                     <input name="startDate3" type=text onchange="dataChanged()" value="8/18/2008" size=12 />
                     <a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor4"><img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></div></td>
@@ -503,13 +507,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <input type="radio" class="nobord" name="ampm3" value="0" checked="checked" />AM
                     <input type="radio" class="nobord" name="ampm3" value="1" />PM
                   </div></td>
+                <td><div align="center">
+                  <input type="checkbox" class="nobord" name="cb03" value="0" />
+                </div></td>
                 <td><div align=center>
                   <a href="irb-meeting.html"><img src="../images/tinybutton-maintain.gif" alt="maintain" title="Maintain" style="width:60px; height:15px; border:none;" /></a>
                 </div></td>
               </tr>
               <tr>
                 <th>4</th>
-                <td><input type="checkbox" class="nobord" name="cb04" value="0" /></td>
                 <td><div align="center">
                     <input name="startDate3" type=text onchange="dataChanged()" value="9/01/2008" size=12 />
                     <a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor5"><img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></div></td>
@@ -534,13 +540,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <input type="radio" class="nobord" name="ampm4" value="0" checked="checked" />AM
                     <input type="radio" class="nobord" name="ampm4" value="1" />PM
                   </div></td>
+                <td><div align="center">
+                  <input type="checkbox" class="nobord" name="cb04" value="0" />
+                </div></td>
                 <td><div align=center>
                   <a href="irb-meeting.html"><img src="../images/tinybutton-maintain.gif" alt="maintain" title="Maintain" style="width:60px; height:15px; border:none;" /></a>
                 </div></td>
               </tr>
               <tr>
                 <th>5</th>
-                <td><input type="checkbox" class="nobord" name="cb05" value="0" /></td>
                 <td><div align="center">
                     <input name="startDate3" type=text onchange="dataChanged()" value="9/08/2008" size=12 />
                     <a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor6"><img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></div></td>
@@ -565,13 +573,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <input type="radio" class="nobord" name="ampm5" value="0" checked="checked" />AM
                     <input type="radio" class="nobord" name="ampm5" value="1" />PM
                   </div></td>
+                <td><div align="center">
+                  <input type="checkbox" class="nobord" name="cb05" value="0" />
+                </div></td>
                 <td><div align=center>
                   <a href="irb-meeting.html"><img src="../images/tinybutton-maintain.gif" alt="maintain" title="Maintain" style="width:60px; height:15px; border:none;" /></a>
                 </div></td>
               </tr>
               <tr>
                 <th>6</th>
-                <td><input type="checkbox" class="nobord" name="cb06" value="0" /></td>
                 <td><div align="center">
                   <input name="startDate" type=text onchange="dataChanged()" value="9/15/2008" size=12 />
                   <a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor8"><img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></div></td>
@@ -596,15 +606,25 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <input type="radio" class="nobord" name="ampm5" value="0" checked="checked" />AM
                     <input type="radio" class="nobord" name="ampm5" value="1" />PM
                   </div></td>
+                <td><div align="center">
+                  <input type="checkbox" class="nobord" name="cb06" value="0" />
+                </div></td>
                 <td><div align=center>
                   <a href="irb-meeting.html"><img src="../images/tinybutton-maintain.gif" alt="maintain" title="Maintain" style="width:60px; height:15px; border:none;" /></a>
                 </div></td>
               </tr>
               <tr>
-                <th colspan="2" style="padding:3px;">
-                	<input src="../images/tinybutton-deleteselected.gif" onclick="javascript: alert('This would remove the selected meetings.'); return false" class="tinybutton" alt="delete selected" title="Delete Selected" type="image" />
-                </th>
-                <td colspan="7" class="infoline">&nbsp;</td>
+                <th style="padding:3px;">&nbsp;</th>
+                <td class="infoline">&nbsp;</td>
+                <td class="infoline">&nbsp;</td>
+                <td class="infoline">&nbsp;</td>
+                <td class="infoline">&nbsp;</td>
+                <td class="infoline">&nbsp;</td>
+                <td class="infoline">&nbsp;</td>
+                <td colspan="2" class="infoline">
+                  <div align="center">
+                    <input src="../images/tinybutton-deleteselected.gif" onclick="javascript: alert('This would remove the selected meetings.'); return false" class="tinybutton" alt="delete selected" title="Delete Selected" type="image" />
+                </div></td>
               </tr>
             </table>
             <!-- <img src="images/schedule.png" width="763" height="408">-->
