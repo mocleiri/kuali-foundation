@@ -5,9 +5,8 @@
 
 cd "$1"  #get into directory we're going to process
 typeset Programdir=$2
-#typeset Directory="$CVSROOT/$1"
 typeset Directory="$1"
-#typeset Branch=$2
+typeset Debug=$3
 typeset File
 typeset -l Extension  #ignore case
 typeset Style
@@ -86,7 +85,7 @@ for File in `ls`; do
         *) Style="" ; add_to_message "$File" -1 ;;
       esac
       if [[ $Style != "" ]]; then
-        "$Programdir/addComment.pl" "$File" "$Style"
+        "$Programdir/addComment.pl" "$File" "$Style" "$Debug"
         ReturnStatus=$?
         if (( $ReturnStatus != 0 )); then
           add_to_message "$File" $ReturnStatus
@@ -100,4 +99,4 @@ if [[ $Message != "" ]]; then
   #echo $Message | mail -s "$0 WARNINGS/ERRORS" kfcm-l@indiana.edu
   echo $Message
 fi
-exit
+exit 0
