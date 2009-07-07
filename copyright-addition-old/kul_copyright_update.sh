@@ -49,7 +49,7 @@ function do_command
     {
         typeset Command_String=$*
         typeset Return_Status
-
+        #echo "Starting command \"$Command_String\""
         print_to_log "Starting command \"$Command_String\""
         eval $Command_String
         Return_Status=$?
@@ -123,14 +123,25 @@ function STEP20 {
 }
 
 function STEP30 {
-    set_error_message "error adding/updating copyright info; after fixing the problem it may be best to restart the script from the top rather than this step"
+    set_error_message "error adding/updating copyright info in base directory; after fixing the problem it may be best to restart the script from the top rather than this step"
     #chb: take care of $Localdir first (that's the boolean value after $Debug) 
     cd $Localdir/..
     Base=`basename $Localdir` 
-    echo "This is PWD: `pwd`"
-    echo "This is BASE: $Base"
-    echo "This is programdir: $Programdir"
+    #echo "This is BASE: $Base"
+    #echo "This is localdir: $Localdir"
+    #echo "This is programdir: $Programdir"
+    #do_command "$Programdir/addComment.sh $Base $Programdir $Debug 0"
+    # chb: this works, but is bad... do_command "find / -wholename $Localdir -exec addComment.sh {} $Programdir $Debug 0 \;"
+    # chb : this works, but only for the one directory ...  do_command "$Programdir/addComment.sh $Base $Programdir $Debug 0"
+    #this works, but debug output is not redirected .... eval $Programdir/addComment.sh $Base $Programdir $Debug 0 2>&1 $SCRIPTLOG
     do_command "$Programdir/addComment.sh $Base $Programdir $Debug 0"
+}
+
+function STEP35 {
+    #echo "This is localdir: $Localdir"
+    #echo "This is programdir: $Programdir"
+    set_error_message "error adding/updating copyright info while recursing; after fixing the problem it may be best to restart the script from the top rather than this step"
+    cd $Programdir
     do_command "find $Localdir/* -type d -exec addComment.sh {} $Programdir $Debug 1 \;"
 }
 
@@ -146,6 +157,7 @@ function STEP50 {
 
 STEP20
 STEP30
+STEP35
 #to enable commit and cleanup, uncomment next two lines
 #STEP40
 #STEP50
