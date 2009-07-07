@@ -93,6 +93,8 @@ function set_error_message
 }
 typeset -xf set_error_message
 
+#capture pwd
+Programdir=`pwd`
 
 if [[ $1 = "" || $# -eq 0 ]]; then
     usage
@@ -122,9 +124,14 @@ function STEP20 {
 
 function STEP30 {
     set_error_message "error adding/updating copyright info; after fixing the problem it may be best to restart the script from the top rather than this step"
-    #chb: take care of the top level directory first 
-    do_command "addComment.sh $Localdir `pwd`"
-    do_command "find $Localdir/* -type d -exec addComment.sh {} `pwd` $Debug \;"
+    #chb: take care of $Localdir first (that's the boolean value after $Debug) 
+    cd $Localdir/..
+    Base=`basename $Localdir` 
+    echo "This is PWD: `pwd`"
+    echo "This is BASE: $Base"
+    echo "This is programdir: $Programdir"
+    do_command "$Programdir/addComment.sh $Base $Programdir $Debug 0"
+    do_command "find $Localdir/* -type d -exec addComment.sh {} $Programdir $Debug 1 \;"
 }
 
 function STEP40 {

@@ -24,6 +24,8 @@ my($file,$style,$debug) = @ARGV;
 if ($style eq "") { exit 2; }
 $debug = ($debug eq "true") ? 1 : 0; 
 
+if($debug){print "Processing " . $file . "...\n";}
+
 open READFILE, "$file" or die "Can't open $file : $!";
 
 #chb: std perl idiom for getting the current year
@@ -194,7 +196,8 @@ if( $commentOther == 0)
                 print "DEBUG: Printing heredocarr.\n"; 
                 print STDERR @heredocArr;
             } 
-            #@newFile = splice(@readLines,1,0,@heredocArr); 
+            #chb: don't want a duplicate prologue so take off the first line
+            @readLines = splice(@readLines,$markupPrologueIx+1,$readLines-1); 
             @newFile = (@prologue,@heredocArr,@readLines); 
             
             if($debug)
@@ -264,7 +267,7 @@ sub AddNewHeader(@)
     #print<<ENDHEADER;
     my @heredocArr = split('/$',<<ENDHEADER); 
     $comment_start
-    $c Copyright $copyrightYears FooBar Foundation
+    $c Copyright $copyrightYears The Kuali Foundation
     $c 
     $c Licensed under the Educational Community License, Version 2.0 (the "License");
     $c you may not use this file except in compliance with the License.

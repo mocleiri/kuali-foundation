@@ -7,6 +7,7 @@ cd "$1"  #get into directory we're going to process
 typeset Programdir=$2
 typeset Directory="$1"
 typeset Debug=$3
+typeset First=$4
 typeset File
 typeset -l Extension  #ignore case
 typeset Style
@@ -33,14 +34,18 @@ function add_to_message {
     *) NewMessage="unknown error $2" ;;
   esac
   Message="$Message\n$Directory/$1: $NewMessage"
+  echo "MESSAGE: $Message"
 }
+
+echo "This is First in addComment.sh $First"
 
 #traverse the directory tree from current up to root, checking each one
 #if find a directory whose name begins with . don't do license processing
 #(e.g. .settings)
 #OR if directory is in ignore.dirs file, don't do license processing
-#while [[ $Directory != $CVSROOT && $Directory != "/" ]]; do
-while [[ $Directory != "/" ]]; do
+while [ $Directory != "/" ] && [ ! $First  ]; do
+    echo "This is Directory: $Directory"
+    echo "This is First: $First"
   if [[ ${Directory#* } != $Directory ]]; then  #contains space
     add_to_message "" -4
   fi
@@ -54,6 +59,8 @@ while [[ $Directory != "/" ]]; do
     Directory=`dirname "$Directory"`
   fi
 done
+
+echo "After directory while loop" 
 
 #Directory="$CVSROOT/$1"  #get back to the correct value for use in add_to_message
 #now examine all the files in the directory one by one
@@ -99,4 +106,5 @@ if [[ $Message != "" ]]; then
   #echo $Message | mail -s "$0 WARNINGS/ERRORS" kfcm-l@indiana.edu
   echo $Message
 fi
-exit 0
+
+exit
