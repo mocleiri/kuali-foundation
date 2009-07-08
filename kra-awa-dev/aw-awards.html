@@ -445,71 +445,59 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </div>
             <!-- Institution -->
             <div class="h2-container">
-              <h2><span class="subhead-left">Current Action</span></h2>
+              <h2><span class="subhead-left">Details &amp; Dates </span></h2>
               <span class="subhead-right"> <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-
-                <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
-                    <tr>
-                        <th style="width:180px;">*Transaction Type</th>
-                        <th style="width:105px;">Notice Date</th>
-                        <th>Comments</th>
-                    </tr>
-                    <tr>
-                        <td style="text-align:center;">
-                            <select name="x5">
-                                <option value="0" selected>select</option>
-                                <option>administrative amendment</option>
-                                <option>allotment</option>
-                                <option>continuation</option>
-                                <option>correction deobligation</option>
-                                <option>FA rate change</option>
-                                <option>new</option>
-                                <option>no-cost extension</option>
-                                <option>PI change</option>
-                                <option>restriction change</option>
-                                <option>subaward change</option>
-                                <option>suspension</option>
-                                <option>supplement</option>
-                                <option>termination</option>
-                                <option>unit change</option>
-                            </select>
-                        </td>
-                        <td>
-                        	
-                            <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none; background:none; text-align:right;">
-                                        <input type="text" value="01/01/2009" style="width:80px;" />
-                                    </td>
-                                    <td style="border:none; width:20px; vertical-align:top; background:none;">
-                                        <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" class="tinybutton" alt="date selector" title="Date Selector" type="image" />
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                        </td>
-                        <td>
-                        	
-                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none;">
-                                        <textarea name="z" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus interdum dolor, ut convallis eros dignissim vel. Integer fringilla felis sit amet quam posuere viverra. Curabitur fermentum condimentum ante, auctor tempus leo interdum eget. Nullam imperdiet mauris vel metus faucibus porttitor.</textarea>
-                                    </td>
-                                    <td style="border:none; width:20px; vertical-align:bottom;">
-                                        <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                    </td>
-                                </tr>
-                            </table>
-
-						</td>
-              		</tr>
-            	</table>
-                
-                
-            <div class="h2-container"><span class="subhead-left">
-              <h2>Institution</h2>
-              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
+              <tr>
+                <td colspan="3" class="tab-subhead1" style="text-align:left;"><a href="#" id="A1q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F1q" /></a> Current Action </td>
+              </tr>
+              <tbody id="G1q" style="display:none">
+                <tr>
+                  <th style="width:180px;">*Transaction Type</th>
+                  <th style="width:105px;">Notice Date</th>
+                  <th>Comments</th>
+                </tr>
+                <tr>
+                  <td style="text-align:center;"><select name="x5">
+                      <option value="0" selected>select</option>
+                      <option>administrative amendment</option>
+                      <option>allotment</option>
+                      <option>continuation</option>
+                      <option>correction deobligation</option>
+                      <option>FA rate change</option>
+                      <option>new</option>
+                      <option>no-cost extension</option>
+                      <option>PI change</option>
+                      <option>restriction change</option>
+                      <option>subaward change</option>
+                      <option>suspension</option>
+                      <option>supplement</option>
+                      <option>termination</option>
+                      <option>unit change</option>
+                    </select></td>
+                  <td><table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none; background:none; text-align:right;"><input type="text" value="01/01/2009" style="width:80px;" /></td>
+                        <td style="border:none; width:20px; vertical-align:top; background:none;"><input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" class="tinybutton" alt="date selector" title="Date Selector" type="image" /></td>
+                      </tr>
+                    </table></td>
+                  <td><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none;"><textarea name="z" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus interdum dolor, ut convallis eros dignissim vel. Integer fringilla felis sit amet quam posuere viverra. Curabitur fermentum condimentum ante, auctor tempus leo interdum eget. Nullam imperdiet mauris vel metus faucibus porttitor.</textarea></td>
+                        <td style="border:none; width:20px; vertical-align:bottom;"><input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                      </tr>
+                    </table></td>
+                </tr>
+              </tbody>
+            </table>
             <table cellpAdding=0 cellspacing=0 summary="">
+              <tr>
+                <td colspan="4"class="tab-subhead1" style="text-align:left;"><a href="#" id="A1q2" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F1q2" /></a> Institution</td>
+              </tr>
+              
+              <tbody id="G1q2" style="display:none">
+              
+              
               <tr>
                 <th><div align=right>*Award ID:</div></th>
                 <td>000743-005</td>
@@ -606,12 +594,17 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </tr>
                   </table></td>
               </tr>
+              
+              
+              
+              </tbody>
+              
             </table>
             <!-- Sponsor -->
-            <div class="h2-container"><span class="subhead-left">
-              <h2>Sponsor</h2>
-              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             <table cellpAdding=0 cellspacing=0 summary="">
+              <tr>
+                <td colspan="4" class="tab-subhead1"><a href="#" id="ABFN" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN" /></a> Sponsor</td>
+              </tr>
               <tr>
                 <th> <div align=right>
                     <label for="label7">*Sponsor:</label>
@@ -651,75 +644,80 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <th align=right> <label for="label13">NSF Science Code:</label>
                 </th>
                 <td align=left valign=middle><select size=1 name="select3" id="select5" onChange="showDivs(this)">
-                    <option>select</option>
-                    <option selected>Civil - Engineering: A.04</option>
-                    <option>Social work - Non-Science and Engineering Fields: J.07</option>
-                    <option>Aeronautical and Astronautical - Engineering: A.01</option>
-                    <option>Bioengineering/Biomedical -Engineering: A.02</option>
-                    <option>Chemical - Engineering: A.03</option>
-                    <option>Electrical - Engineering: A.05</option>
-                    <option>Mechanical - Engineering: A.06</option>
-                    <option>Metallurgical and Materials - Engineering: A.07</option>
-                    <option>Other - Engineering: A.99</option>
-                    <option>Astronomy - Physical Sciences: B.01</option>
-                    <option>Chemistry - Physical Sciences: B.02</option>
-                    <option>Physics - Physical Sciences: B.03</option>
-                    <option>Other - Physical Sciences: B99</option>
-                    <option>Atmospheric - Environmental Sciences: C.01</option>
-                    <option>Earth Sciences - Environmental Sciences: C.02</option>
-                    <option>Oceanography - Environmental Sciences: C.03</option>
-                    <option>Other - Environmental Sciences: C.99</option>
-                    <option>Mathematical Science: D.01</option>
-                    <option>Computer Sciences: E.01</option>
-                    <option>Agricultural - Life Sciences: F.01</option>
-                    <option>Biological - Life  Sciences: F.02</option>
-                    <option>Medical - Life Sciences: F.03</option>
-                    <option>Other - Life Sciences: F.99</option>
-                    <option>Psychology: G.01</option>
-                    <option>Economics -Social Sciences: H.01</option>
-                    <option>Political Science - Social Sciences: H.02</option>
-                    <option>Sociology - Social Sciences: H.03</option>
-                    <option>Other - Social Sciences: H.99</option>
-                    <option>Other Sciences, n.e.c.: I.01</option>
-                    <option>Education - Non-Science and Engineering Fields: J.01</option>
-                    <option>Law - Non-Science and Engineering Fields: J.02</option>
-                  </select></td>
+                  <option>select</option>
+                  <option selected>Civil - Engineering: A.04</option>
+                  <option>Social work - Non-Science and Engineering Fields: J.07</option>
+                  <option>Aeronautical and Astronautical - Engineering: A.01</option>
+                  <option>Bioengineering/Biomedical -Engineering: A.02</option>
+                  <option>Chemical - Engineering: A.03</option>
+                  <option>Electrical - Engineering: A.05</option>
+                  <option>Mechanical - Engineering: A.06</option>
+                  <option>Metallurgical and Materials - Engineering: A.07</option>
+                  <option>Other - Engineering: A.99</option>
+                  <option>Astronomy - Physical Sciences: B.01</option>
+                  <option>Chemistry - Physical Sciences: B.02</option>
+                  <option>Physics - Physical Sciences: B.03</option>
+                  <option>Other - Physical Sciences: B99</option>
+                  <option>Atmospheric - Environmental Sciences: C.01</option>
+                  <option>Earth Sciences - Environmental Sciences: C.02</option>
+                  <option>Oceanography - Environmental Sciences: C.03</option>
+                  <option>Other - Environmental Sciences: C.99</option>
+                  <option>Mathematical Science: D.01</option>
+                  <option>Computer Sciences: E.01</option>
+                  <option>Agricultural - Life Sciences: F.01</option>
+                  <option>Biological - Life  Sciences: F.02</option>
+                  <option>Medical - Life Sciences: F.03</option>
+                  <option>Other - Life Sciences: F.99</option>
+                  <option>Psychology: G.01</option>
+                  <option>Economics -Social Sciences: H.01</option>
+                  <option>Political Science - Social Sciences: H.02</option>
+                  <option>Sociology - Social Sciences: H.03</option>
+                  <option>Other - Social Sciences: H.99</option>
+                  <option>Other Sciences, n.e.c.: I.01</option>
+                  <option>Education - Non-Science and Engineering Fields: J.01</option>
+                  <option>Law - Non-Science and Engineering Fields: J.02</option>
+                </select></td>
+              </tr>
+              <tr>
+                <td colspan="4" align=right style="padding:0px; border:none">     <!-- Sponsor Funding Transferred -->
+            <div style="padding-left:56px">
+              <table cellpadding=0 cellspacing=0 summary="" style="width:100%">
+                <tr>
+                  <td colspan="3" class="tab-subhead1"><a href="#" id="ABFN3" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN3" /></a> Sponsor Funding Transferred </td>
+                </tr>
+                <tr>
+                  <th style="text-align:center;">&nbsp; </th>
+                  <th style="text-align:center;"> <b>ID/Description</b> </th>
+                  <th style="text-align:center; width:60px;"> <b>Action</b> </th>
+                </tr>
+                <tr>
+                  <th> <div align=right> <b>Add:</b> </div>
+                  </th>
+                  <td class="infoline"><input name="sftid" type=text onchange="dataChanged()" value="" size="80" id="sftid"/>
+                    <input name="image23" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                    <input name="image23" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                  <td class="infoline" style="text-align:center;"><input name="image231" type="image" class="nobord" src="../images/tinybutton-add1.gif" alt="add"></td>
+                </tr>
+                <tr>
+                  <th> 1 </th>
+                  <td> 000627 : Department of Health and Human Services </td>
+                  <td style="text-align:center;"><input name="image2311" type="image" class="nobord" src="../images/tinybutton-delete1.gif" alt="delete"></td>
+                </tr>
+                <tr>
+                  <th> 2 </th>
+                  <td> 003839 : National Eye Institute </td>
+                  <td style="text-align:center;"><input name="image2312" type="image" class="nobord" src="../images/tinybutton-delete1.gif" alt="delete"></td>
+                </tr>
+              </table>
+            </div></td>
               </tr>
             </table>
-            <!-- Sponsor Funding Transferred -->
-            <table cellpAdding=0 cellspacing=0 summary="">
-              <tr>
-                <td colspan="3" class="tab-subhead1"> Sponsor Funding Transferred </td>
-              </tr>
-              <tr>
-                <th style="text-align:center;">&nbsp; </th>
-                <th style="text-align:center;"> <b>ID/Description</b> </th>
-                <th style="text-align:center; width:60px;"> <b>Action</b> </th>
-              </tr>
-              <tr>
-                <th> <div align=right> <b>Add:</b> </div>
-                </th>
-                <td class="infoline"><input name="sftid" type=text onchange="dataChanged()" value="" size="80" id="sftid"/>
-                  <input name="image23" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                  <input name="image23" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
-                <td class="infoline" style="text-align:center;"><input name="image231" type="image" class="nobord" src="../images/tinybutton-add1.gif" alt="add"></td>
-              </tr>
-              <tr>
-                <th> 1 </th>
-                <td> 000627 : Department of Health and Human Services </td>
-                <td style="text-align:center;"><input name="image2311" type="image" class="nobord" src="../images/tinybutton-delete1.gif" alt="delete"></td>
-              </tr>
-              <tr>
-                <th> 2 </th>
-                <td> 003839 : National Eye Institute </td>
-                <td style="text-align:center;"><input name="image2312" type="image" class="nobord" src="../images/tinybutton-delete1.gif" alt="delete"></td>
-              </tr>
-            </table>
+       
             <!-- Dates -->
-            <div class="h2-container"><span class="subhead-left">
-              <h2>Time &amp; Money</h2>
-              </span><span class="subhead-right"> <a href="aw-time-money-viewhist.html"><img src="../images/tinybutton-history.gif" alt="help" width=47 height=15 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             <table cellpAdding=0 cellspacing=0 summary="">
+              <tr>
+                <td colspan="4" class="tab-subhead1"><a href="#" id="ABFN2" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN2" /></a> Time &amp; Money</td>
+              </tr>
               <tr>
                 <th> <div align="right">
                     <label for="account id">Project Start Date: </label>
@@ -751,23 +749,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               </tr>
               <tr>
                 <th> <div align="right">
-                  <label for="account id2">Execution Date: </label>
-                </div>
+                    <label for="account id2">Execution Date: </label>
+                  </div>
                 </th>
                 <td align=left valign=middle><span>
                   <input name="bsd3" type="text" value="01/01/2009" size=12>
-                </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                  </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
                 <th>&nbsp;</th>
                 <td align=left valign=middle>&nbsp;</td>
               </tr>
               <tr>
                 <th><div align="right">
-                  <label for="account id4">Anticipated Amount: </label>
-                </div></th>
+                    <label for="account id4">Anticipated Amount: </label>
+                  </div></th>
                 <td align=left valign=middle>$587,624</td>
                 <th><div align="right">
-                  <label for="account id3">Obligated Amount: </label>
-                </div></th>
+                    <label for="account id3">Obligated Amount: </label>
+                  </div></th>
                 <td align=left valign=middle>$100,000</td>
               </tr>
             </table>
