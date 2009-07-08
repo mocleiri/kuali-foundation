@@ -718,18 +718,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <!-- Dates -->
             <div class="h2-container"><span class="subhead-left">
               <h2>Time &amp; Money</h2>
-              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+              </span><span class="subhead-right"> <a href="aw-time-money-viewhist.html"><img src="../images/tinybutton-history.gif" alt="help" width=47 height=15 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             <table cellpAdding=0 cellspacing=0 summary="">
-              <tr>
-                <th><div align="right">
-                    <label for="account id4">Anticipated Amount: </label>
-                  </div></th>
-                <td align=left valign=middle>$587,624</td>
-                <th><div align="right">
-                    <label for="account id3">Obligated Amount: </label>
-                  </div></th>
-                <td align=left valign=middle>$100,000</td>
-              </tr>
               <tr>
                 <th> <div align="right">
                     <label for="account id">Project Start Date: </label>
@@ -761,14 +751,24 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               </tr>
               <tr>
                 <th> <div align="right">
-                    <label for="account id2">Execution Date: </label>
-                  </div>
+                  <label for="account id2">Execution Date: </label>
+                </div>
                 </th>
                 <td align=left valign=middle><span>
                   <input name="bsd3" type="text" value="01/01/2009" size=12>
-                  </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
                 <th>&nbsp;</th>
                 <td align=left valign=middle>&nbsp;</td>
+              </tr>
+              <tr>
+                <th><div align="right">
+                  <label for="account id4">Anticipated Amount: </label>
+                </div></th>
+                <td align=left valign=middle>$587,624</td>
+                <th><div align="right">
+                  <label for="account id3">Obligated Amount: </label>
+                </div></th>
+                <td align=left valign=middle>$100,000</td>
               </tr>
             </table>
           </div>
