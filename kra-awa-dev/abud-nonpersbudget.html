@@ -25,7 +25,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <body>
 <form name="example"  method="post" action="">
 <div class="headerarea-kra" id="headerarea">
-  <h1>Award Budget<a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
+  <h1>Award Budget<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 hspace="12" border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
   <h1 class="hidden">tab name goes here (accessibility requirement)</h1>
   <div class="headerbox">
     <table cellpadding=0 cellspacing=0 summary="document header: general information" style="border-bottom:#A0A0A0; border-bottom-style:solid; border-bottom-width:1px">
@@ -54,7 +54,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <div class="horz-links-bkgrnd" id="horz-links">
   <div id="tabs">
     <dl class="tabul">
-      <dt><span class="tabright ">
+      <dt  ><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-budget.html');return document.MM_returnValue" value="Budget Versions">
         </span></dt>
       <dt><span class="tabright ">
@@ -64,22 +64,17 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-rates.html');return document.MM_returnValue" value="Rates">
         </span></dt>
       <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-summary.html');return document.MM_returnValue" value="Summary">
+        </span></dt>
+      <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-personnel.html');return document.MM_returnValue" value="Personnel">
         </span></dt>
       <dt class="licurrent" ><span class="tabright tabcurrent">
         <input name="Submit" type="submit" onclick="MM_goToURL('parent','abud-nonpersbudget.html');return document.MM_returnValue" value="Non-Personnel">
         </span></dt>
-      <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-summary.html');return document.MM_returnValue" value="Summary">
-        </span></dt>
+      <!--5678-->
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-distincome.html');return document.MM_returnValue" value="Distribution &amp; Income">
-        </span></dt>
-      <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-modular.html');return document.MM_returnValue" value="Modular Budget">
-        </span></dt>
-      <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-budhierarcy.html');return document.MM_returnValue" value="Proposal Hierarchy">
         </span></dt>
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-budactions.html');return document.MM_returnValue" value="Budget Actions">

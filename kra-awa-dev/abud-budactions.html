@@ -25,7 +25,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <body>
 <form name="example"  method="post" action="">
 <div class="headerarea-kra" id="headerarea">
-  <h1>Award Budget<a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1><h1 class="hidden">tab name goes here (accessibility requirement)</h1>
+<h1>Award Budget<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 hspace="12" border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1><h1 class="hidden">tab name goes here (accessibility requirement)</h1>
     <div class="headerbox">
     <table cellpadding=0 cellspacing=0 summary="document header: general information" style="border-bottom:#A0A0A0; border-bottom-style:solid; border-bottom-width:1px">
         <tr>
@@ -57,29 +57,24 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         </span></dt>
       <dt><span class="tabright ">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-parameters.html');return document.MM_returnValue" value="Parameters">
-</span></dt><dt><span class="tabright">
+        </span></dt>
+      <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-rates.html');return document.MM_returnValue" value="Rates">
+        </span></dt>
+       <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-summary.html');return document.MM_returnValue" value="Summary">
         </span></dt>
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-personnel.html');return document.MM_returnValue" value="Personnel">
         </span></dt>
-<dt><span class="tabright">
-          <input name="Submit" type="submit" onclick="MM_goToURL('parent','abud-nonpersbudget.html');return document.MM_returnValue" value="Non-Personnel">
-          </span></dt><dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-summary.html');return document.MM_returnValue" value="Summary">
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onclick="MM_goToURL('parent','abud-nonpersbudget.html');return document.MM_returnValue" value="Non-Personnel">
         </span></dt>
-     
+      <!--5678-->
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-distincome.html');return document.MM_returnValue" value="Distribution &amp; Income">
         </span></dt>
-      <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-modular.html');return document.MM_returnValue" value="Modular Budget">
-        </span></dt>
-    
-      <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-budhierarcy.html');return document.MM_returnValue" value="Proposal Hierarchy">
-        </span></dt>
-      <dt class="licurrent" ><span class="tabright tabcurrent">
+    <dt class="licurrent" ><span class="tabright tabcurrent">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-budactions.html');return document.MM_returnValue" value="Budget Actions">
         </span></dt>
     </dl>
@@ -106,7 +101,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       <div id="workarea">
         <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
           <tr>
-            <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Generate Salary Report</td>
+            <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Budget Validation</td>
             <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" ></a></span> </td>
             <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
           </tr>
@@ -119,7 +114,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           sdfg</div>
  <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Print Forms</td>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Print Forms</td>
               <td class="tabtable2-mid"><a href="#" id="A125" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F125" ></a> </td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
@@ -173,41 +168,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <br>
             <br>
           </div>
+ 
         <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
           <tr>
-            <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Budget Justification</td>
-            <td class="tabtable2-mid"><a href="#" id="A03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F03" ></a> </td>
-            <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
-          </tr>
-        </table>
-        <div class="tab-container" align="center" id="G03" style="display: none;">
-          <div class="h2-container"> <span class="subhead-left">
-            <h2>Budget Justification</h2>
-          </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-          <table cellpadding=0 cellspacing="0" summary="view/add notes">
-            <tr>
-              <th width="130" scope=col>Last Updated Timestamp</th>
-              <th width="130" scope=col>Updated By:</th>
-              <th scope=col><div align=left>
-                  <label for="note text">Justification Text</label>
-              </div></th>
-              </tr>
-
-            <tr>
-              <td><div align="center">2007-07-23 20:07:23.523</div></td>
-              <td><div align="center">thrclark</div></td>
-              <td height="30"><span class="infoline">
-                <textarea name="prsn_base_slry2" cols="80" rows="6"></textarea>
-              </span></td>
-            </tr>
-            <tr>
-              <td colspan="3" class="infoline"><div align="center"><img src="../images/tinybutton-consolexjust.gif" alt="blank" width="176" height="15" hspace="5" vspace="5"></div>                <div align="center"></div></td>
-              </tr>
-          </table>
-        </div>
-        <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
-          <tr>
-            <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Sub Award Budget</td>
+            <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Sub Award Budget</td>
             <td class="tabtable2-mid"><a href="#" id="A4" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F4" vspace=6></a> </td>
             <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
           </tr>
@@ -234,7 +198,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                </div></td>
                <td class="infoline"><div align="center">
                    <textarea name="newPurchasingItemLine.itemDescription" tabindex=0 cols=20 rows=2 id="newPurchasingItemLine.itemDescription"></textarea>
-                   <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea">
+                   <textarea name="prsn_base_slry2" cols="80" rows="6"></textarea>
+<input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea">
                </div></td>
                <td class="infoline"><div align="center">
                    <label for="fileField"></label>
@@ -376,12 +341,234 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
            </tbody>
          </table>
         </div>
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="b3" summary="">
-          <tr>
-            <td align="left" class="footer"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="bl3"></td>
-            <td align="right" class="footer-right"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="br3"></td>
-          </tr>
-        </table>
+  
+          <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Copy to New Budget</td>
+              <td class="tabtable2-mid"><a href="#" id="A06" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F06" ></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G06" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2>Copy to New <span class="tabtable1-left-colspan">Budget</span></h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <table  cellpAdding="0" cellspacing="0"  summary="">
+              <tbody id="G10" >
+                <tr>
+                <tr>
+                  <th><div align="right">Award:</div></th>
+                  <td>yes </td>
+                </tr>
+              <th><div align="right">
+                    <label for="budget">Budget?</label>
+                  </div></th>
+                <td><label>
+                    <input name="checkbox" type="checkbox" class="nobord" id="budget">
+                  </label>
+                  <select name="select" id="budget">
+                    <option selected>all versions</option>
+                    <option>final version</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <th><div align="right">
+                    <label for="attachments">Attachments?</label>
+                  </div></th>
+                <td><input name="checkbox" type="checkbox" class="nobord" id="attachments"></td>
+              </tr>
+              <tr>
+                <td colspan="2" class="infoline"><div align="center">(copy award button)</div></td>
+              </tr>
+            </table>
+          </div>
+          <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Ad Hoc Recipients</td>
+              <td class="tabtable2-mid"><a href="#" id="A07" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F07" vspace=6></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G07" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2>Ad Hoc Recipients</h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <table cellpAdding=0 cellspacing="0" summary="view/edit ad hoc recipients">
+              <tr>
+                <td colspan=4 class="tab-subhead">Person Requests:</td>
+              </tr>
+              <tr>
+                <th scope=col>&nbsp;</th>
+                <th scope=col><div align=left>
+                    <label for="action requested">*Action Requested</label>
+                  </div></th>
+                <th scope=col><div align=left>
+                    <label for="person">*Person</label>
+                  </div></th>
+                <th scope=col><div align=center>Actions</div></th>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>Add:</div></th>
+                <td class="infoline"><select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                    <option value=K>ACKNOWLEDGE</option>
+                    <option value=A selected>APPROVE</option>
+                    <option value=F>FYI</option>
+                  </select></td>
+                <td class="infoline"><span class="nowrap">
+                  <input name="incomeList[0].fin_object_cd232" size=30 value="" type=text id="person">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span> <span class="fineprint"></span></td>
+                <td class="infoline"><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-add1.gif" alt="Add">
+                  </div></td>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>1</div></th>
+                <td><span>
+                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                    <option value=K>ACKNOWLEDGE</option>
+                    <option value=A selected>APPROVE</option>
+                    <option value=F>FYI</option>
+                  </select>
+                  </span></td>
+                <td><input name="incomeList[0].fin_object_cd232" size=30 value="thrclark" type=text id="person">
+                  <span class="nowrap">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span></td>
+                <td><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
+                  </div></td>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>2</div></th>
+                <td><span>
+                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                    <option value=K>ACKNOWLEDGE</option>
+                    <option value=A selected>APPROVE</option>
+                    <option value=F>FYI</option>
+                  </select>
+                  </span></td>
+                <td><input name="incomeList[0].fin_object_cd232" size=30 value="User ID" type=text id="person">
+                  <span class="nowrap">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span></td>
+                <td><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
+                  </div></td>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>3</div></th>
+                <td><span>
+                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                    <option value=K>ACKNOWLEDGE</option>
+                    <option value=A selected>APPROVE</option>
+                    <option value=F>FYI</option>
+                  </select>
+                  </span></td>
+                <td><input name="incomeList[0].fin_object_cd232" size=30 value="rkirkend" type=text id="person">
+                  <span class="nowrap">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span></td>
+                <td><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
+                  </div></td>
+              </tr>
+              <tr>
+                <td colspan=4 class="tab-subhead">Workgroup Requests:</td>
+              </tr>
+              <tr>
+                <th scope=col>&nbsp;</th>
+                <th scope=col><div align=left>*Action Requested</div></th>
+                <th scope=col><div align=left>*Workgroup</div></th>
+                <th scope=col><div align=center>Actions</div></th>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>Add:</div></th>
+                <td class="infoline"><select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                    <option value=K>ACKNOWLEDGE</option>
+                    <option value=A selected>APPROVE</option>
+                    <option value=F>FYI</option>
+                  </select></td>
+                <td class="infoline"><input name="incomeList[0].fin_object_cd232" size=30 value="" type=text id="person">
+                  <span class="nowrap">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span> <span class="fineprint"></span></td>
+                <td class="infoline"><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-add1.gif" alt="Add">
+                  </div></td>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>1</div></th>
+                <td><span>
+                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                    <option value=K>ACKNOWLEDGE</option>
+                    <option value=A selected>APPROVE</option>
+                    <option value=F>FYI</option>
+                  </select>
+                  </span></td>
+                <td><input name="incomeList[0].fin_object_cd232" size=30 value="thrclark" type=text id="person">
+                  <span class="nowrap">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span></td>
+                <td><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
+                  </div></td>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>2</div></th>
+                <td><span>
+                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                    <option value=K>ACKNOWLEDGE</option>
+                    <option value=A selected>APPROVE</option>
+                    <option value=F>FYI</option>
+                  </select>
+                  </span></td>
+                <td><input name="incomeList[0].fin_object_cd232" size=30 value="User ID" type=text id="person">
+                  <span class="nowrap">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span></td>
+                <td><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
+                  </div></td>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>3</div></th>
+                <td><span>
+                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                    <option value=K>ACKNOWLEDGE</option>
+                    <option value=A selected>APPROVE</option>
+                    <option value=F>FYI</option>
+                  </select>
+                  </span></td>
+                <td><input name="incomeList[0].fin_object_cd232" size=30 value="rkirkend" type=text id="person">
+                  <span class="nowrap">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span></td>
+                <td><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
+                  </div></td>
+              </tr>
+            </table>
+          </div>
+          <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Route Log </td>
+              <td class="tabtable2-mid"><a href="#" id="A734" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F734" vspace=6></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G734" style="display: none;">
+            <iframe onload="setRouteLogIframeDimensions();" name="routeLogIFrame" id="routeLogIFrame" src="../misc/routelog.html" hspace="0" vspace="0" title="OneStart Workflow Route Log for document id: 317191" frameborder="0" height="400" width="95%"> </iframe>
+            > </div>
+          <table width="100%" border="0" cellpAdding="0" cellspacing="0" class="b3" summary="">
+            <tr>
+              <td align="left" class="footer"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="bl3"></td>
+              <td align="right" class="footer-right"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="br3"></td>
+            </tr>
+          </table>
+          
+          
+          
       </div>
       <div align="right"><br>
         * required </div>

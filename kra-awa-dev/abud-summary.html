@@ -25,7 +25,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <body>
 <form name="example"  method="post" action="">
 <div class="headerarea-kra" id="headerarea">
-  <h1>Award Budget<a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
+  <h1>Award Budget<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 hspace="12" border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
   <h1 class="hidden">tab name goes here (accessibility requirement)</h1>
   <div class="headerbox">
     <table cellpadding=0 cellspacing=0 summary="document header: general information" style="border-bottom:#A0A0A0; border-bottom-style:solid; border-bottom-width:1px">
@@ -63,24 +63,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-rates.html');return document.MM_returnValue" value="Rates">
         </span></dt>
+      <dt class="licurrent" ><span class="tabright tabcurrent">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-summary.html');return document.MM_returnValue" value="Summary">
+        </span></dt>
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-personnel.html');return document.MM_returnValue" value="Personnel">
         </span></dt>
       <dt><span class="tabright">
         <input name="Submit" type="submit" onclick="MM_goToURL('parent','abud-nonpersbudget.html');return document.MM_returnValue" value="Non-Personnel">
         </span></dt>
-      <dt class="licurrent" ><span class="tabright tabcurrent">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-summary.html');return document.MM_returnValue" value="Summary">
-        </span></dt>
       <!--5678-->
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-distincome.html');return document.MM_returnValue" value="Distribution &amp; Income">
-        </span></dt>
-      <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-modular.html');return document.MM_returnValue" value="Modular Budget">
-        </span></dt>
-      <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-budhierarcy.html');return document.MM_returnValue" value="Proposal Hierarchy">
         </span></dt>
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-budactions.html');return document.MM_returnValue" value="Budget Actions">
@@ -116,36 +110,24 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <div class="tab-container" align="center">
           <table  cellpadding="0" cellspacing="0"  summary="">
             <tr>
-              <td colspan="9" class="subhead" ><span class="subhead-left">Summary&nbsp;</span></td>
+              <td colspan="6" class="subhead" ><span class="subhead-left">Summary&nbsp;</span></td>
             </tr>
             <tr>
-              <td colspan="3" rowspan="2" class="infoline" >&nbsp;</td>
-              <td colspan="5" class="infoline"><div align="center"><a href="overview.html"><img src="../images/tinybutton-back1.gif" alt="save" width="43" height="15" hspace="5" border="0"><img src="../images/tinybutton-next.gif" alt="save" width="43" height="15" hspace="5" border="0"></a></div></td>
-              <td rowspan="2" class="infoline" ><div align="center"><strong>Total</strong></div></td>
+              <td colspan="3" class="infoline" >&nbsp;</td>
+              <th class="infoline">Budget Change<br>
+              <span class="fineprint">01/01/2009 - 12/31/2009 </span></th>
+              <th class="infoline">Previous Budget<br>
+              <span class="fineprint">01/01/2010 - 12/31/2010 </span></th>
+              <td class="infoline" ><div align="center"><strong>Obligated Total </strong></div></td>
             </tr>
             <tr>
-              <th >Period 1<br>
-                <span class="fineprint">01/01/2009 - 12/31/2009 </span></th>
-              <th >Period 2<br>
-                <span class="fineprint">01/01/2010 - 12/31/2010 </span></th>
-              <th >Period 3<br>
-                <span class="fineprint">01/01/2011 - 12/31/2011 </span></th>
-              <th >Period 4<br>
-                <span class="fineprint">01/01/2012 - 12/31/2012 </span></th>
-              <th >Period 5<br>
-                <span class="fineprint">01/01/2013 - 12/31/2013 </span></th>
-            </tr>
-            <tr>
-              <td colspan="9" class="subhead" ><span class="subhead-left">Personnel &nbsp;<a href="abud-personnel.html"><img src="../images/edit1.gif" alt="save" width="29" height="13" hspace="5" border="0"></a></span></td>
+              <td colspan="6" class="subhead" ><span class="subhead-left">Personnel &nbsp;<a href="abud-personnel.html"><img src="../images/edit1.gif" alt="save" width="29" height="13" hspace="5" border="0"></a></span></td>
             </tr>
             <tbody id="G" style="display: nonee;">
             </tbody>
             <tr>
               <td width="50" class="tab-subhead" ><a id="A448" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F448"></a></td>
               <td colspan="2" class="tab-subhead" >Salary</td>
-              <td  align="right" class="tab-subhead"><div align="right">30,000.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">30,000.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">30,000.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right">30,000.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right">30,000.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>150,000.00</strong></div></td>
@@ -156,17 +138,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td colspan="2"  class="infoline"><strong>Faculty Tenured Salaries</strong></td>
                 <td  align="right" class="infoline"><div align="right"><strong>10,000.00</strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong>10,000.00</strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong>10,000.00</strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong>10,000.00</strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong>10,000.00</strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong>50,000.00</strong></div></td>
               </tr>
               <tr>
                 <td> Smith, Adam</td>
                 <td>Principle Investigator</td>
-                <td  align="right"><div align="right">6,000.00 </div></td>
-                <td  align="right"><div align="right">6,000.00 </div></td>
-                <td  align="right"><div align="right">6,000.00 </div></td>
                 <td  align="right"><div align="right">6,000.00 </div></td>
                 <td  align="right"><div align="right">6,000.00 </div></td>
                 <td  align="right"><div align="right">30,000.00</div></td>
@@ -176,16 +152,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Co Investigator</td>
                 <td  align="right"><div align="right">4,000.00 </div></td>
                 <td  align="right"><div align="right">4,000.00 </div></td>
-                <td  align="right"><div align="right">4,000.00 </div></td>
-                <td  align="right"><div align="right">4,000.00 </div></td>
-                <td  align="right"><div align="right">4,000.00 </div></td>
                 <td  align="right"><div align="right">20,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  class="infoline"><strong>Summer Salary</strong></td>
-                <td  align="right" class="infoline"><div align="right"><strong> 20,000.00 </strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong> 20,000.00 </strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong> 20,000.00 </strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong> 20,000.00 </strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong> 20,000.00 </strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong>100,000.00</strong></div></td>
@@ -195,9 +165,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Principle Investigator</td>
                 <td  align="right"><div align="right">10,000.00 </div></td>
                 <td  align="right"><div align="right">10,000.00 </div></td>
-                <td  align="right"><div align="right">10,000.00 </div></td>
-                <td  align="right"><div align="right">10,000.00 </div></td>
-                <td  align="right"><div align="right">10,000.00 </div></td>
                 <td  align="right"><div align="right">50,000.00</div></td>
               </tr>
               <tr>
@@ -205,17 +172,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Co Investigator</td>
                 <td  align="right"><div align="right">6,000.00 </div></td>
                 <td  align="right"><div align="right">6,000.00 </div></td>
-                <td  align="right"><div align="right">6,000.00 </div></td>
-                <td  align="right"><div align="right">6,000.00 </div></td>
-                <td  align="right"><div align="right">6,000.00 </div></td>
                 <td  align="right"><div align="right">30,000.00</div></td>
               </tr>
               <tr>
                 <td> Johnson, Tammy</td>
                 <td>&nbsp;</td>
-                <td  align="right"><div align="right">4,000.00 </div></td>
-                <td  align="right"><div align="right">4,000.00 </div></td>
-                <td  align="right"><div align="right">4,000.00 </div></td>
                 <td  align="right"><div align="right">4,000.00 </div></td>
                 <td  align="right"><div align="right">4,000.00 </div></td>
                 <td  align="right"><div align="right">20,000.00</div></td>
@@ -226,18 +187,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td colspan="2" class="tab-subhead" >Fringe</td>
               <td  align="right" class="tab-subhead"><div align="right">15,000.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right">15,000.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">15,000.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">15,000.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">15,000.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>75,000.00</strong></div></td>
             </tr>
             <tbody id="G449" style="display: none;">
               <tr>
                 <td rowspan="7" class="infoline" >&nbsp;</td>
                 <td colspan="2"  class="infoline"><strong>Faculty Tenured Salaries</strong></td>
-                <td  align="right" class="infoline"><div align="right"><strong>5,000.00</strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong>5,000.00</strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong>5,000.00</strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong>5,000.00</strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong>5,000.00</strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong>25,000.00</strong></div></td>
@@ -247,9 +202,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Principle Investigator</td>
                 <td  align="right"><div align="right">3,000.00</div></td>
                 <td  align="right"><div align="right">3,000.00</div></td>
-                <td  align="right"><div align="right">3,000.00</div></td>
-                <td  align="right"><div align="right">3,000.00</div></td>
-                <td  align="right"><div align="right">3,000.00</div></td>
                 <td  align="right"><div align="right">15,000.00</div></td>
               </tr>
               <tr>
@@ -257,16 +209,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Co Investigator</td>
                 <td  align="right"><div align="right">2,000.00</div></td>
                 <td  align="right"><div align="right">2,000.00</div></td>
-                <td  align="right"><div align="right">2,000.00</div></td>
-                <td  align="right"><div align="right">2,000.00</div></td>
-                <td  align="right"><div align="right">2,000.00</div></td>
                 <td  align="right"><div align="right">10,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  class="infoline"><strong>Summer Salary</strong></td>
-                <td  align="right" class="infoline"><div align="right"><strong> 10,000.00 </strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong> 10,000.00 </strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong> 10,000.00 </strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong> 10,000.00 </strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong> 10,000.00 </strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong>50,000.00</strong></div></td>
@@ -276,9 +222,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Principle Investigator</td>
                 <td  align="right"><div align="right">5,000.00</div></td>
                 <td  align="right"><div align="right">5,000.00</div></td>
-                <td  align="right"><div align="right">5,000.00</div></td>
-                <td  align="right"><div align="right">5,000.00</div></td>
-                <td  align="right"><div align="right">5,000.00</div></td>
                 <td  align="right"><div align="right">25,000.00</div></td>
               </tr>
               <tr>
@@ -286,17 +229,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td>Co Investigator</td>
                 <td  align="right"><div align="right">3,000.00</div></td>
                 <td  align="right"><div align="right">3,000.00</div></td>
-                <td  align="right"><div align="right">3,000.00</div></td>
-                <td  align="right"><div align="right">3,000.00</div></td>
-                <td  align="right"><div align="right">3,000.00</div></td>
                 <td  align="right"><div align="right">15,000.00</div></td>
               </tr>
               <tr>
                 <td> Johnson, Tammy</td>
                 <td>&nbsp;</td>
-                <td  align="right"><div align="right">2,000.00</div></td>
-                <td  align="right"><div align="right">2,000.00</div></td>
-                <td  align="right"><div align="right">2,000.00</div></td>
                 <td  align="right"><div align="right">2,000.00</div></td>
                 <td  align="right"><div align="right">2,000.00</div></td>
                 <td  align="right"><div align="right">10,000.00</div></td>
@@ -307,9 +244,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td colspan="2" class="tab-subhead" >Calculated Direct Costs</td>
               <td  align="right" class="tab-subhead"><div align="right">3,600.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right">3,600.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">3,600.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">3,600.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">3,600.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>18,000.00</strong></div></td>
             </tr>
             <tbody id="G2449" style="display: none;">
@@ -318,16 +252,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td colspan="2">Lab Allocation - Salaries</td>
                 <td align=right><div align="right">1,000.00 </div></td>
                 <td align=right><div align="right">1,000.00 </div></td>
-                <td align=right><div align="right">1,000.00 </div></td>
-                <td align=right><div align="right">1,000.00 </div></td>
-                <td align=right><div align="right">1,000.00 </div></td>
                 <td  align="right"><div align="right">5,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2">Lab Allocation - Other - Utilities</td>
-                <td align=right><div align="right">100.00 </div></td>
-                <td align=right><div align="right">100.00 </div></td>
-                <td align=right><div align="right">100.00 </div></td>
                 <td align=right><div align="right">100.00 </div></td>
                 <td align=right><div align="right">100.00 </div></td>
                 <td  align="right"><div align="right">500.00</div></td>
@@ -336,25 +264,16 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td colspan="2">Lab Allocation - Other - M&amp;S</td>
                 <td align=right><div align="right">200.00 </div></td>
                 <td align=right><div align="right">200.00 </div></td>
-                <td align=right><div align="right">200.00 </div></td>
-                <td align=right><div align="right">200.00 </div></td>
-                <td align=right><div align="right">200.00 </div></td>
                 <td  align="right"><div align="right">1,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2">Vacation</td>
                 <td align=right><div align="right">2,000.00 </div></td>
                 <td align=right><div align="right">2,000.00 </div></td>
-                <td align=right><div align="right">2,000.00 </div></td>
-                <td align=right><div align="right">2,000.00 </div></td>
-                <td align=right><div align="right">2,000.00 </div></td>
                 <td  align="right"><div align="right">10,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2">Other</td>
-                <td align=right><div align="right">300.00 </div></td>
-                <td align=right><div align="right">300.00 </div></td>
-                <td align=right><div align="right">300.00 </div></td>
                 <td align=right><div align="right">300.00 </div></td>
                 <td align=right><div align="right">300.00 </div></td>
                 <td  align="right"><div align="right">1,500.00</div></td>
@@ -365,20 +284,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td colspan="2" ><strong>Personnel Subtotal</strong></td>
               <td ><div align="right"><em>48,600.00 </em></div></td>
               <td ><div align="right"><em>48,600.00 </em></div></td>
-              <td ><div align="right"><em>48,600.00 </em></div></td>
-              <td ><div align="right"><em>48,600.00 </em></div></td>
-              <td ><div align="right"><em>48,600.00 </em></div></td>
               <td ><div align="right"><em>243,000.00</em></div></td>
             </tr>
             <tr>
-              <td colspan="9" class="subhead" ><span class="subhead-left">Non-Personnel &nbsp;<a href="abud-nonpersbudget.html"><img src="../images/edit1.gif" alt="save" width="29" height="13" hspace="5" border="0"></a></span></td>
+              <td colspan="6" class="subhead" ><span class="subhead-left">Non-Personnel &nbsp;<a href="abud-nonpersbudget.html"><img src="../images/edit1.gif" alt="save" width="29" height="13" hspace="5" border="0"></a></span></td>
             </tr>
             <tr>
               <td class="tab-subhead"><a id="A55" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F55"></a></span></td>
               <td colspan="2" class="tab-subhead" >Equipment </td>
-              <td  align="right" class="tab-subhead"><div align="right">9,000.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">9,000.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">9,000.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right">9,000.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right">9,000.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>45,000.00</strong></div></td>
@@ -389,16 +302,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td colspan="2"  align="left" >Equipment - Not MTDC</td>
                 <td align=right><div align="right">7,000.00 </div></td>
                 <td align=right><div align="right">7,000.00 </div></td>
-                <td align=right><div align="right">7,000.00 </div></td>
-                <td align=right><div align="right">7,000.00 </div></td>
-                <td align=right><div align="right">7,000.00 </div></td>
                 <td  align="right"><div align="right">35,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  align="left" >Reactor Use</td>
-                <td align=right><div align="right">2,000.00 </div></td>
-                <td align=right><div align="right">2,000.00 </div></td>
-                <td align=right><div align="right">2,000.00 </div></td>
                 <td align=right><div align="right">2,000.00 </div></td>
                 <td align=right><div align="right">2,000.00 </div></td>
                 <td  align="right"><div align="right">10,000.00</div></td>
@@ -409,9 +316,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td colspan="2" class="tab-subhead" >Travel </td>
               <td  align="right" class="tab-subhead"><div align="right">2,500.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right">2,500.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">2,500.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">2,500.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">2,500.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>12,500.00</strong></div></td>
             </tr>
             <tbody id="G56" style="display: none;">
@@ -420,16 +324,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td colspan="2"  align="left" >Travel - Professional Development</td>
                 <td align=right><div align="right">2,000.00 </div></td>
                 <td align=right><div align="right">2,000.00 </div></td>
-                <td align=right><div align="right">2,000.00 </div></td>
-                <td align=right><div align="right">2,000.00 </div></td>
-                <td align=right><div align="right">2,000.00 </div></td>
                 <td  align="right"><div align="right">10,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2" class="datacell-top">Travel - Expenses</td>
-                <td align=right><div align="right">500.00 </div></td>
-                <td align=right><div align="right">500.00 </div></td>
-                <td align=right><div align="right">500.00 </div></td>
                 <td align=right><div align="right">500.00 </div></td>
                 <td align=right><div align="right">500.00 </div></td>
                 <td  align="right"><div align="right">2,500.00</div></td>
@@ -440,9 +338,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td colspan="2" class="tab-subhead" >Participant Support </td>
               <td  align="right" class="tab-subhead"><div align="right">1,300.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right">1,300.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">1,300.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">1,300.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">1,300.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>6,500.00</strong></div></td>
             </tr>
             <tbody id="G57" style="display: none;">
@@ -451,16 +346,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td colspan="2"  align="left" > Participant Subsistence</td>
                 <td align=right><div align="right">1,000.00 </div></td>
                 <td align=right><div align="right">1,000.00 </div></td>
-                <td align=right><div align="right">1,000.00 </div></td>
-                <td align=right><div align="right">1,000.00 </div></td>
-                <td align=right><div align="right">1,000.00 </div></td>
                 <td  align="right"><div align="right">5,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  align="left" > Participant Tuition</td>
-                <td align=right><div align="right">300.00 </div></td>
-                <td align=right><div align="right">300.00 </div></td>
-                <td align=right><div align="right">300.00 </div></td>
                 <td align=right><div align="right">300.00 </div></td>
                 <td align=right><div align="right">300.00 </div></td>
                 <td  align="right"><div align="right">1,500.00</div></td>
@@ -471,9 +360,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td colspan="2" class="tab-subhead" >Other</td>
               <td  align="right" class="tab-subhead"><div align="right">6,500.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right">6,500.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">6,500.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">6,500.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">6,500.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>32,500.00</strong></div></td>
             </tr>
             <tbody id="G58" style="display: none;">
@@ -482,16 +368,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td colspan="2"  align="left" >Materials &amp; Services</td>
                 <td align=right><div align="right">5,000.00 </div></td>
                 <td align=right><div align="right">5,000.00 </div></td>
-                <td align=right><div align="right">5,000.00 </div></td>
-                <td align=right><div align="right">5,000.00 </div></td>
-                <td align=right><div align="right">5,000.00 </div></td>
                 <td  align="right"><div align="right">2,500.00</div></td>
               </tr>
               <tr>
                 <td colspan="2" class="datacell-top">Memberships &amp; Dues</td>
-                <td align=right><div align="right">1,500.00 </div></td>
-                <td align=right><div align="right">1,500.00 </div></td>
-                <td align=right><div align="right">1,500.00 </div></td>
                 <td align=right><div align="right">1,500.00 </div></td>
                 <td align=right><div align="right">1,500.00 </div></td>
                 <td  align="right"><div align="right">7,500.00</div></td>
@@ -502,9 +382,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td colspan="2" class="tab-subhead" >Calculated Direct Cost</td>
               <td  align="right" class="tab-subhead"><div align="right">665.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right">665.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">665.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">665.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">665.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>3,325.00</strong></div></td>
             </tr>
             <tbody id="G538" style="display: none;">
@@ -513,16 +390,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td colspan="2"  align="left" >Lab Allocation - Salaries</td>
                 <td align=right><div align="right">600.00 </div></td>
                 <td align=right><div align="right">600.00 </div></td>
-                <td align=right><div align="right">600.00 </div></td>
-                <td align=right><div align="right">600.00 </div></td>
-                <td align=right><div align="right">600.00 </div></td>
                 <td  align="right"><div align="right">3,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  align="left" >Lab Allocation - Other - Utilities</td>
-                <td align=right><div align="right">50.00 </div></td>
-                <td align=right><div align="right">50.00 </div></td>
-                <td align=right><div align="right">50.00 </div></td>
                 <td align=right><div align="right">50.00 </div></td>
                 <td align=right><div align="right">50.00 </div></td>
                 <td  align="right"><div align="right">250.00</div></td>
@@ -531,25 +402,16 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td colspan="2"  align="left" >Lab Allocation - Other - M&amp;S</td>
                 <td align=right><div align="right">75.00 </div></td>
                 <td align=right><div align="right">75.00 </div></td>
-                <td align=right><div align="right">75.00 </div></td>
-                <td align=right><div align="right">75.00 </div></td>
-                <td align=right><div align="right">75.00 </div></td>
                 <td  align="right"><div align="right">375.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  align="left" >Other</td>
                 <td align=right><div align="right">65.00 </div></td>
                 <td align=right><div align="right">65.00 </div></td>
-                <td align=right><div align="right">65.00 </div></td>
-                <td align=right><div align="right">65.00 </div></td>
-                <td align=right><div align="right">65.00 </div></td>
                 <td  align="right"><div align="right">325.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  align="left" >Vacation</td>
-                <td align=right><div align="right">500.00 </div></td>
-                <td align=right><div align="right">500.00 </div></td>
-                <td align=right><div align="right">500.00 </div></td>
                 <td align=right><div align="right">500.00 </div></td>
                 <td align=right><div align="right">500.00 </div></td>
                 <td  align="right"><div align="right">2,500.00</div></td>
@@ -560,20 +422,16 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td colspan="2" ><strong>Non-Personnel Subtotal</strong></td>
               <td ><div align="right"><em>19,965.00</em></div></td>
               <td ><div align="right"><em>19,965.00</em></div></td>
-              <td ><div align="right"><em>19,965.00</em></div></td>
-              <td ><div align="right"><em>19,965.00</em></div></td>
-              <td ><div align="right"><em>19,965.00</em></div></td>
               <td ><div align="right"><em>99,825.00</em></div></td>
             </tr>
             <tr>
-              <td colspan="9" class="subhead" >Totals</td>
-            </tr> <tr>
+              <td colspan="6" class="subhead" >Totals</td>
+            </tr>
+            <tr>
               <td width="50" rowspan="3" align="left" class="infoline">&nbsp;</td>
               <td colspan="2" align="left" class="infoline"><strong>TOTAL DIRECT COSTS</strong></td>
               <td class="infoline"><div align="right"><strong>68,565.00 </strong></div></td>
               <td class="infoline"><div align="right"><strong>68,565.00 </strong></div></td>
-              <td class="infoline"><div align="right"><strong>68,565.00 </strong></div></td>
-              <td class="infoline"><div align="right"><strong>68,565.00 </strong></div></td> <td class="infoline"><div align="right"><strong>68,565.00 </strong></div></td>
               <td class="infoline"><div align="right"><strong>342,825.00</strong></div></td>
             </tr>
             <tr>
@@ -583,19 +441,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <span class="fineprint">65,000.00</span> </strong></div></td>
               <td class="infoline"><div align="right"><strong>30,973.80<br>
                   <span class="fineprint">65,000.00</span> </strong></div></td>
-              <td class="infoline"><div align="right"><strong>30,973.80<br>
-                  <span class="fineprint">65,000.00</span> </strong></div></td> <td class="infoline"><div align="right"><strong>30,973.80<br>
-                  <span class="fineprint">65,000.00</span> </strong></div></td>
-              <td class="infoline"><div align="right"><strong>30,973.80<br>
-                  <span class="fineprint">65,000.00</span> </strong></div></td>
               <td class="infoline"><div align="right"><strong>154,869.00</strong><br>
                   <span class="fineprint">325,000.00</span> </div></td>
             </tr>
             <tr>
               <td colspan="2" align="left" class="infoline"><strong>TOTAL COSTS </strong></td>
               <td class="infoline"><div align="right"><strong>99,538.80 </strong></div></td>
-              <td class="infoline"><div align="right"><strong>99,538.80 </strong></div></td>
-              <td class="infoline"><div align="right"><strong>99,538.80 </strong></div></td> <td class="infoline"><div align="right"><strong>99,538.80 </strong></div></td>
               <td class="infoline"><div align="right"><strong>99,538.80 </strong></div></td>
               <td class="infoline"><div align="right"><strong>497,694.00</strong> </div></td>
             </tr>

@@ -25,7 +25,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <body>
 <form name="example"  method="post" action="">
 <div class="headerarea-kra" id="headerarea">
-  <h1>Award Budget<a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1><h1 class="hidden">tab name goes here (accessibility requirement)</h1>
+  <h1>Award Budget<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 hspace="12" border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1><h1 class="hidden">tab name goes here (accessibility requirement)</h1>
   <div class="headerbox">
     <table cellpadding=0 cellspacing=0 summary="document header: general information" style="border-bottom:#A0A0A0; border-bottom-style:solid; border-bottom-width:1px">
       <tr>
@@ -53,32 +53,29 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <div class="horz-links-bkgrnd" id="horz-links">
   <div id="tabs">
     <dl class="tabul">
-      <dt class="licurrent" ><span class="tabright tabcurrent">
+     <dt class="licurrent" ><span class="tabright tabcurrent">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-budget.html');return document.MM_returnValue" value="Budget Versions">
         </span></dt>
       <dt><span class="tabright ">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-parameters.html');return document.MM_returnValue" value="Parameters">
-</span></dt><dt><span class="tabright">
+        </span></dt>
+      <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-rates.html');return document.MM_returnValue" value="Rates">
+        </span></dt>
+     <dt><span class="tabright ">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-summary.html');return document.MM_returnValue" value="Summary">
         </span></dt>
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-personnel.html');return document.MM_returnValue" value="Personnel">
         </span></dt>
-<dt><span class="tabright">
-          <input name="Submit" type="submit" onclick="MM_goToURL('parent','abud-nonpersbudget.html');return document.MM_returnValue" value="Non-Personnel">
-          </span></dt><dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-summary.html');return document.MM_returnValue" value="Summary">
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onclick="MM_goToURL('parent','abud-nonpersbudget.html');return document.MM_returnValue" value="Non-Personnel">
         </span></dt>
-     
+      <!--5678-->
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-distincome.html');return document.MM_returnValue" value="Distribution &amp; Income">
         </span></dt>
       <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-modular.html');return document.MM_returnValue" value="Modular Budget">
-        </span></dt>
-            <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-budhierarcy.html');return document.MM_returnValue" value="Proposal Hierarchy">
-        </span></dt>      <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','abud-budactions.html');return document.MM_returnValue" value="Budget Actions">
         </span></dt>
     </dl>
@@ -116,180 +113,164 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
           <table cellpadding=0 cellspacing="0"  summary="">
             <tr>
-              <th scope="row">&nbsp;</th>
-              <th><div align="left">*Name</div></th>
-              <th>Version #</th>
-              <th>Direct Cost</th>
-              <th>Indirect Cost</th>
-              <th>Total</th>
-              <th>Status</th>
-              <th>Final</th>
+              <th width="50" scope="row">&nbsp;</th>
+              <th>Budget</th>
+              <th>T&amp;M Doc </th>
+              <th>Budget Start </th>
+              <th>Budget End</th>
+              <th>Budget Change</th>
+              <th>Budget Type</th>
+              <th>Budget Status</th>
               <th><div align="center">Actions</div></th>
             </tr>
             <tr>
-              <th width="50" align="right" scope="row"><div align="right">Add:</div></th>
-              <td class="infoline"><label>
-                <input name="name" type="text" id="name" size="16">
-                </label></td>
-              <td class="infoline">&nbsp;</td>
-              <td class="infoline">&nbsp;</td>
-              <td class="infoline">&nbsp;</td>
-              <td class="infoline">&nbsp;</td>
-              <td class="infoline">&nbsp;</td>
-              <td class="infoline">&nbsp;</td>
-              <td class="infoline"><div align=center><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></div></td>
+              <th> Add: </th>
+              <td class="infoline" style="text-align:center;">&nbsp;</td>
+              <td class="infoline" style="text-align:center;">&nbsp;</td>
+              <td class="infoline" style="text-align:center;">&nbsp;</td>
+              <td class="infoline" style="text-align:center;">&nbsp;</td>
+              <td class="infoline" style="text-align:center;">&nbsp;</td>
+              <td class="infoline" style="text-align:center;">&nbsp;</td>
+              <td class="infoline" style="text-align:center;">&nbsp;</td>
+              <td class="infoline" style="text-align:center; white-space:nowrap;"><input src="../images/tinybutton-new.gif" onclick="javascript: alert('Please let Bart or Tom know what this button does so we can add a description of the functionality here.'); return false" class="tinybutton" alt="new" title="New" type="image" />
+                <input src="../images/tinybutton-copy2.gif" onclick="javascript: alert('This would open the standard lookup dialog.  Search is limited to Institutional Proposals linked to any node of the Award.  Search Criteria: Institutional Proposal ID, Budget Version, Budget Period, Budget Start, Budget End, Total Cost. Automatically display results for all Institutional Proposals linked to the Award with focus on results. Result columns: Institutional Proposal ID, Budget Version, Budget Period, Budget Start, Budget End, Budget Total.'); return false" class="tinybutton" alt="copy" title="Copy" type="image" /></td>
             </tr>
             <tr>
               <td align="right" class="tab-subhead1" scope="row"><div align="center"><a href="#" id="A6" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F6" vspace=0></a></div></td>
-              <td class="tab-subhead1">budget a</td>
               <td class="tab-subhead1"><div align="center">1</div></td>
-              <td class="tab-subhead1"><div align="right">45,000</div></td>
-              <td class="tab-subhead1"><div align="right">100,000</div></td>
-              <td class="tab-subhead1"><div align="right">145,000</div></td>
-              <td class="tab-subhead1"><div align="center">
-                  <select onchange="dataChanged()" name="activityType">
-                    <option>select</option>
-                    <option selected>incomplete</option>
-                    <option>complete</option>
-                    <option>none</option>
-                  </select>
-                </div></td>
-              <td class="tab-subhead1"><div align="center">
-                  <input name="radio" type="radio" class="radio" id="final2" value="final" checked>
-                </div></td>
-              <td nowrap class="tab-subhead1" ><div align=center> <a href="#"><img src="../images/tinybutton-open1.gif" alt="delete" width=38 height=15 hspace=3 vspace=0 border=0><img src="../images/tinybutton-copy2.gif" alt="delete" width=40 height=15 hspace=3 vspace=0 border=0></a></div></td>
+              <td class="tab-subhead1"><div align="center">1</div></td>
+              <td class="tab-subhead1"><div align="center">12/31/2008</div></td>
+              <td class="tab-subhead1"><div align="center">12/31/2012</div></td>
+              <td class="tab-subhead1"><div align="right"> 20,000.00 </div></td>
+              <td class="tab-subhead1"><div align="center">new</div></td>
+              <td class="tab-subhead1"><div align="center">past posted</div></td>
+              <td class="tab-subhead1" style="text-align:center; white-space:nowrap;"><a href="abud-parameters.html"><img src="../images/tinybutton-open.gif" style="border:none;" alt="open award budget" title="Open Award Budget" /></a>
+                <input src="../images/tinybutton-rebudget.gif" onclick="javascript: alert('Please let Bart or Tom know what this button does so we can add a description of the functionality here.'); return false" class="tinybutton" alt="rebudget" title="Rebudget" type="image" /></td>
             </tr>
             <tbody id="G6" style="display: none;">
               <tr>
                 <th align="right" scope="row">&nbsp;</th>
                 <td colspan="8" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
-                    <tbody id="G1" style="display: nonee;">
-                      <tr>
-                        <th><div align="right">Residual Funds:</div></th>
-                        <td align="left">0.00</td>
-                        <th><div align="right">F&amp;A Rate Type:</div></th>
-                        <td align="left">TBD</td>
-                      </tr>
-                      <tr>
-                        <th><div align="right">Cost Sharing:</div></th>
-                        <td align="left">0.00</td>
-                        <th><div align="right">Last Updated:</div></th>
-                        <td align="left">10:06 AM 03/30/2005</td>
-                      </tr>
-                      <tr>
-                        <th><div align="right">Unrecovered F&amp;A:</div></th>
-                        <td align="left">0.00</td>
-                        <th><div align="right">Last Updated By:</div></th>
-                        <td align="left">Tom Clark</td>
-                      </tr>
-                      <tr>
-                        <th><div align="right">Comments:</div></th>
-                        <td colspan="3" align="left">Rapiebant me spectacula theatrica, plena imaginibus miseriarum mearum et fomitibus ignis mei. quis est, quod ibi homo vult dolere luctuosa et tragica, quae tamen pati ipse nollet? et tamen pati vult ex eis dolorem spectator, et dolor ipse est voluptas eius. </td>
-                      </tr>
-                    </tbody>
-                  </table></td>
+                  <tbody id="G1" style="display:;">
+                    <tr>
+                      <th width="20%" style="text-align: right">Cost Share</th>
+                      <td width="30%" align="left">25,000.00</td>
+                      <th width="20%" style="text-align: right">Last Updated</th>
+                      <td width="30%" align="left">Apr 10, 2009 7:21:10 PM</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right">Unrecovered F&amp;A </th>
+                      <td align="left">&nbsp;</td>
+                      <th style="text-align: right"> Last Update by</th>
+                      <td align="left">Joe Smith</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right">Description</th>
+                      <td colspan="3" align="left">Year 1</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right">Comments:</th>
+                      <td colspan="3" align="left">m tu nobis in convalle plorantionis ascendentibus, et cantantibus canticum graduum, dederas sagittas acutas, et carbones vastatores, adversus linguam subdolam velut consulendo contradicentem, et sicut cibum assolet, amando consumentem. Sagittaveras tu cor nostrum caritate tua, et gestabamus verba tua transfixa visceribus, et exempla servorum tuorum, quos de nigris lucidos et de mortuis vivos feceras, congesta in sinum cogitationis nostrae, urebant et absumebant gravem torporem, ne in ima vergeremus; et accendebant nos valide, ut omnis ex lingua subdola contradicitionis flatus inflammare nos acrius posset, non extinguere. verum tamen quia propter nomen tuum, quod sanctificasti per terras, etiam laudatores utique haberet votum et propositum nostrum, ia</td>
+                    </tr>
+                  </tbody>
+                </table></td>
               </tr>
             </tbody>
             <tr>
               <td align="right" class="tab-subhead1" scope="row"><div align="center"><a href="#" id="A7" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F7" vspace=0></a></div></td>
-              <td class="tab-subhead1">budget b</td>
               <td class="tab-subhead1"><div align="center">2</div></td>
-              <td class="tab-subhead1"><div align="right">45,000</div></td>
-              <td class="tab-subhead1"><div align="right">100,000</div></td>
-              <td class="tab-subhead1"><div align="right">145,000</div></td>
-              <td class="tab-subhead1"><div align="center">
-                  <select onchange="dataChanged()" name="activityType">
-                    <option>select</option>
-                    <option selected>incomplete</option>
-                    <option>complete</option>
-                    <option>none</option>
-                  </select>
-                </div></td>
-              <td class="tab-subhead1"><div align="center">
-                  <input name="radio" type="radio" class="radio" id="final2" value="final" checked>
-                </div></td>
-              <td nowrap class="tab-subhead1" ><div align=center> <a href="#"><img src="../images/tinybutton-open.gif" alt="delete" width=38 height=15 hspace=3 vspace=0 border=0><img src="../images/tinybutton-copy2.gif" alt="delete" width=40 height=15 hspace=3 vspace=0 border=0></a></div></td>
+              <td class="tab-subhead1"><div align="center">2</div></td>
+              <td class="tab-subhead1"><div align="center">12/31/2008</div></td>
+              <td class="tab-subhead1"><div align="center">12/31/2012</div></td>
+              <td class="tab-subhead1"><div align="right"> 20,000.00 </div></td>
+              <td class="tab-subhead1"><div align="center">new</div></td>
+              <td class="tab-subhead1"><div align="center">current posted</div></td>
+              <td class="tab-subhead1" style="text-align:center; white-space:nowrap;"><input src="../images/tinybutton-open.gif" onclick="javascript: alert('Please let Bart or Tom know what this button does so we can add a description of the functionality here.'); return false" class="tinybutton" alt="open" title="Open" type="image" />
+                <input src="../images/tinybutton-rebudget.gif" onclick="javascript: alert('Please let Bart or Tom know what this button does so we can add a description of the functionality here.'); return false" class="tinybutton" alt="rebudget" title="Rebudget" type="image" /></td>
             </tr>
             <tbody id="G7" style="display: none;">
               <tr>
                 <th align="right" scope="row">&nbsp;</th>
                 <td colspan="8" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
-                    <tbody id="G2" style="display: nonee;">
-                      <tr>
-                        <th><div align="right">Residual Funds:</div></th>
-                        <td align="left">0.00</td>
-                        <th><div align="right">F&amp;A Rate Type:</div></th>
-                        <td align="left">TBD</td>
-                      </tr>
-                      <tr>
-                        <th><div align="right">Cost Sharing:</div></th>
-                        <td align="left">0.00</td>
-                        <th><div align="right">Last Updated:</div></th>
-                        <td align="left">10:06 AM 03/30/2005</td>
-                      </tr>
-                      <tr>
-                        <th><div align="right">Unrecovered F&amp;A:</div></th>
-                        <td align="left">0.00</td>
-                        <th><div align="right">Last Updated By:</div></th>
-                        <td align="left">Tom Clark</td>
-                      </tr>
-                      <tr>
-                        <th><div align="right">Comments:</div></th>
-                        <td colspan="3" align="left">Rapiebant me spectacula theatrica, plena imaginibus miseriarum mearum et fomitibus ignis mei. quis est, quod ibi homo vult dolere luctuosa et tragica, quae tamen pati ipse nollet? et tamen pati vult ex eis dolorem spectator, et dolor ipse est voluptas eius. </td>
-                      </tr>
-                    </tbody>
-                  </table></td>
+                  <tbody id="G2" style="display:;">
+                    <tr>
+                      <th width="20%" style="text-align: right">Cost Share</th>
+                      <td width="30%" align="left">25,000.00</td>
+                      <th width="20%" style="text-align: right">Last Updated</th>
+                      <td width="30%" align="left">Apr 10, 2009 7:21:10 PM</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right">Unrecovered F&amp;A </th>
+                      <td align="left">&nbsp;</td>
+                      <th style="text-align: right"> Last Update by</th>
+                      <td align="left">Joe Smith</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right">Description</th>
+                      <td colspan="3" align="left">Year 1</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right">Comments:</th>
+                      <td colspan="3" align="left">m tu nobis in convalle plorantionis ascendentibus, et cantantibus canticum graduum, dederas sagittas acutas, et carbones vastatores, adversus linguam subdolam velut consulendo contradicentem, et sicut cibum assolet, amando consumentem. Sagittaveras tu cor nostrum caritate tua, et gestabamus verba tua transfixa visceribus, et exempla servorum tuorum, quos de nigris lucidos et de mortuis vivos feceras, congesta in sinum cogitationis nostrae, urebant et absumebant gravem torporem, ne in ima vergeremus; et accendebant nos valide, ut omnis ex lingua subdola contradicitionis flatus inflammare nos acrius posset, non extinguere. verum tamen quia propter nomen tuum, quod sanctificasti per terras, etiam laudatores utique haberet votum et propositum nostrum, ia</td>
+                    </tr>
+                  </tbody>
+                </table></td>
               </tr>
             </tbody>
             <tr>
               <td align="right" class="tab-subhead1" scope="row"><div align="center"><a href="#" id="A8" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F8" vspace=0></a></div></td>
-              <td class="tab-subhead1">budget c</td>
               <td class="tab-subhead1"><div align="center">3</div></td>
-              <td class="tab-subhead1"><div align="right">45,000</div></td>
-              <td class="tab-subhead1"><div align="right">100,000</div></td>
-              <td class="tab-subhead1"><div align="right">145,000</div></td>
+              <td class="tab-subhead1"><div align="center">3</div></td>
+              <td class="tab-subhead1"><div align="center">12/31/2008</div></td>
+              <td class="tab-subhead1"><div align="center">12/31/2012</div></td>
+              <td class="tab-subhead1"><div align="right"> 20,000.00 </div></td>
+              <td class="tab-subhead1"><div align="center">rebudget</div></td>
               <td class="tab-subhead1"><div align="center">
-                  <select onchange="dataChanged()" name="activityType">
-                    <option>select</option>
-                    <option selected>incomplete</option>
-                    <option>complete</option>
-                    <option>none</option>
-                  </select>
-                </div></td>
-              <td class="tab-subhead1"><div align="center">
-                  <input name="radio" type="radio" class="radio" id="final2" value="final" checked>
-                </div></td>
-              <td nowrap class="tab-subhead1" ><div align=center> <a href="#"><img src="../images/tinybutton-open.gif" alt="delete" width=38 height=15 hspace=3 vspace=0 border=0><img src="../images/tinybutton-copy2.gif" alt="delete" width=40 height=15 hspace=3 vspace=0 border=0></a></div></td>
+                submitted
+              </div></td>
+              <td class="tab-subhead1" style="text-align:center; white-space:nowrap;"><input src="../images/tinybutton-open.gif" onclick="javascript: alert('Please let Bart or Tom know what this button does so we can add a description of the functionality here.'); return false" class="tinybutton" alt="open" title="Open" type="image" />
+                <input src="../images/tinybutton-rebudget.gif" onclick="javascript: alert('Please let Bart or Tom know what this button does so we can add a description of the functionality here.'); return false" class="tinybutton" alt="rebudget" title="Rebudget" type="image" /></td>
             </tr>
             <tbody id="G8" style="display: none;">
               <tr>
                 <th align="right" scope="row">&nbsp;</th>
                 <td colspan="8" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
+                  <tbody id="G3" style="display:;">
                     <tr>
-                      <th><div align="right">Residual Funds:</div></th>
-                      <td align="left">0.00</td>
-                      <th><div align="right">F&amp;A Rate Type:</div></th>
-                      <td align="left">TBD</td>
+                      <th width="20%" style="text-align: right">Cost Share</th>
+                      <td width="30%" align="left">25,000.00</td>
+                      <th width="20%" style="text-align: right">Last Updated</th>
+                      <td width="30%" align="left">Apr 10, 2009 7:21:10 PM</td>
                     </tr>
                     <tr>
-                      <th><div align="right">Cost Sharing:</div></th>
-                      <td align="left">0.00</td>
-                      <th><div align="right">Last Updated:</div></th>
-                      <td align="left">10:06 AM 03/30/2005</td>
+                      <th style="text-align: right">Unrecovered F&amp;A </th>
+                      <td align="left">&nbsp;</td>
+                      <th style="text-align: right"> Last Update by</th>
+                      <td align="left">Joe Smith</td>
                     </tr>
                     <tr>
-                      <th><div align="right">Unrecovered F&amp;A:</div></th>
-                      <td align="left">0.00</td>
-                      <th><div align="right">Last Updated By:</div></th>
-                      <td align="left">Tom Clark</td>
+                      <th style="text-align: right">Description</th>
+                      <td colspan="3" align="left">Year 1</td>
                     </tr>
                     <tr>
-                      <th><div align="right">Comments:</div></th>
-                      <td colspan="3" align="left">Rapiebant me spectacula theatrica, plena imaginibus miseriarum mearum et fomitibus ignis mei. quis est, quod ibi homo vult dolere luctuosa et tragica, quae tamen pati ipse nollet? et tamen pati vult ex eis dolorem spectator, et dolor ipse est voluptas eius. </td>
+                      <th style="text-align: right">Comments:</th>
+                      <td colspan="3" align="left">m tu nobis in convalle plorantionis ascendentibus, et cantantibus canticum graduum, dederas sagittas acutas, et carbones vastatores, adversus linguam subdolam velut consulendo contradicentem, et sicut cibum assolet, amando consumentem. Sagittaveras tu cor nostrum caritate tua, et gestabamus verba tua transfixa visceribus, et exempla servorum tuorum, quos de nigris lucidos et de mortuis vivos feceras, congesta in sinum cogitationis nostrae, urebant et absumebant gravem torporem, ne in ima vergeremus; et accendebant nos valide, ut omnis ex lingua subdola contradicitionis flatus inflammare nos acrius posset, non extinguere. verum tamen quia propter nomen tuum, quod sanctificasti per terras, etiam laudatores utique haberet votum et propositum nostrum, ia</td>
                     </tr>
-                  </table></td>
+                  </tbody>
+                </table></td>
               </tr>
             </tbody>
+            <tr >
+              <td class="infoline">&nbsp;</td>
+              <td colspan="2" class="infoline"><div align="right"><strong>TOTALS:</strong></div></td>
+              <td class="infoline"><div align="center"><strong>12/31/2008</strong></div></td>
+              <td class="infoline"><div align="center"><strong>12/31/2012</strong></div></td>
+              <td class="infoline"><div align="right"><strong>60,000.00</strong></div></td>
+              <td colspan="2" class="infoline">&nbsp;</td>
+              <td class="infoline"><div align="center">
+                <input src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('Please let Bart or Tom know what this button does so we can add a description of the functionality here.'); return false" class="tinybutton" alt="open" title="Open" type="image" />
+              </div></td>
+            </tr>
           </table>
         </div>
         <!-- TAB -->
