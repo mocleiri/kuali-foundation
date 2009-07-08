@@ -34,7 +34,7 @@ function add_to_message {
     *) NewMessage="unknown error $2" ;;
   esac
   Message="$Message\n$Directory/$1: $NewMessage"
-  echo "MESSAGE: $Message"
+  #echo "MESSAGE: $Message"
 }
 
 #echo "This is First in addComment.sh $First"
@@ -60,8 +60,8 @@ while [ $Directory != "/" ] && [ ! $First  ]; do
   fi
 done
 
-echo "After directory while loop" 
-echo `ls`
+#jecho "After directory while loop" 
+
 #Directory="$CVSROOT/$1"  #get back to the correct value for use in add_to_message
 #now examine all the files in the directory one by one
 #ignore files in ignore.files, or if they have no extension, or if their

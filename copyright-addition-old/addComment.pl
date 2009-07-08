@@ -12,6 +12,8 @@
 
 #modified by chb - June, 2009
 
+#use Tie::File;
+
 use strict;
 use warnings;
 #chb: force auto flush of output buffers
@@ -26,7 +28,12 @@ $debug = ($debug eq "true") ? 1 : 0;
 
 if($debug){print "Processing " . $file . "...\n";}
 
+#chb: old costly way
 open READFILE, "$file" or die "Can't open $file : $!";
+#chb: not as costly?
+#tie @readFile, 'Tie::File', "$file" or die ...;
+
+
 
 #chb: std perl idiom for getting the current year
 #could use localtime, but CVS stores in GMT, so might as well do that here; it only matters on New Year's Eve, and hopefully people aren't checking in then anyway
@@ -83,7 +90,7 @@ if($getYearsResult)
 }
 else
 {
-    print "ERROR: get_years returned is: " . $getYearsResult . "in file " . $file . "\n";
+    print "ERROR: get_years returned null: " . $getYearsResult . "in file " . $file . "\n";
 }
 
 #TODO: debug
@@ -210,7 +217,7 @@ if( $commentOther == 0)
         {
             @newFile = (@heredocArr,@readLines); 
         }
-        if($debug){print WRITEFILE @newFile;}
+        print WRITEFILE @newFile;
     }
     #if we need to modify an old Kuali comment
     elsif ( $oldCommentKuali  )
