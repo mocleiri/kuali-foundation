@@ -123,6 +123,19 @@ for($i=0; $i<$limit; $i++)
     my $line = $farray[$i];
     if($debug){print STDERR "Current index: ". $i . "\n";}
     if($debug){print STDERR "Current line: ". $line . "\n";}
+    
+    if(!$line) || !$style || $comment_per_line)
+    {
+        print STDERR "ERROR: line undefined in file " . $file . "\n";
+    }
+    elsif(!$style)
+    {
+        print STDERR "ERROR: style undefined in file " . $file . "\n";
+    }
+    elsif(!$comment_per_line($style))
+    {
+        print STDERR "ERROR: comment_per_line undefined for style in file " . $file . "\n";
+    }
 
     if($style eq "C" && $line =~ /^(package|import)\s+[a-zA-Z0-9.]*;.*/ )
     {
