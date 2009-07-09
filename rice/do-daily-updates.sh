@@ -38,7 +38,7 @@ DATABASE_APPLICATION_CODE=ricesamp094; typeset -x DATABASE_APPLICATION_CODE
 
 kupdate cnv standard true true Oracle9i
 
-kpurge $LOGS_DIRECTORY 7
+kpurge $LOGS_DIRECTORY 15
 
 kend 0
 
