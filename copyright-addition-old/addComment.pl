@@ -12,7 +12,7 @@
 
 #modified by chb - June, 2009
 
-#use Tie::File;
+use Tie::File;
 
 use strict;
 use warnings;
@@ -26,12 +26,13 @@ my($file,$style,$debug) = @ARGV;
 if ($style eq "") { exit 2; }
 $debug = ($debug eq "true") ? 1 : 0; 
 
-if($debug){print "Processing " . $file . "...\n";}
+if($debug){print "Processing " . $file . " with style of: " . $style . "\n";}
 
 #chb: old costly way
-open READFILE, "$file" or die "Can't open $file : $!";
+#open READFILE, "$file" or die "Can't open $file : $!";
 #chb: not as costly?
-#tie @readFile, 'Tie::File', "$file" or die ...;
+my @farray;
+tie @farray, 'Tie::File', "$file" or die "Can't open $file : $!";
 
 
 
@@ -76,24 +77,19 @@ my %comment_per_line = (
 
 #chb: if we have a style that doesn't have an associated comment start, exit
 #seems odd to do this, given that we have written $comment_start....?
-if ($comment_start{$style} eq "") {
+if ($comment_start{$style} eq "") 
+{
     exit 1
 }
 
-#TODO: debug
 if($debug) { print "About to call get_years\n"; }
-my $getYearsResult = get_years();
-my @svnLogYears;
-if($getYearsResult)
+my @svnLogYears = get_years();
+
+if(!@svnLogYears)
 {
-    @svnLogYears = split(/-/,$getYearsResult);
-}
-else
-{
-    print "ERROR: get_years returned null: " . $getYearsResult . "in file " . $file . "\n";
+    print "ERROR: get_years returned null for file " . $file . "\n";
 }
 
-#TODO: debug
 if($debug) {print "this is the result of get_years: ". $svnLogYears[0]  . " and " . $svnLogYears[1] . "\n";}
 
 # chb: idea here is to go line by line, testing for various regexes, with the 
@@ -108,104 +104,112 @@ if($debug) {print "this is the result of get_years: ". $svnLogYears[0]  . " and 
 
 # another perl trick--any file passed in on the command line is assumed to
 # be the default file handle
-my $HeaderRemoved = "";
-my @firstSixteenLines; 
 my $linesParsed = 20;
-my($count, $markupPrologueIx, $commentExists, $oldCommentKuali, $commentOther );
-$count = $markupPrologueIx = $commentExists = $oldCommentKuali = $commentOther = 0;
-my($commentKuali, $oldEclIx, $oldEclPhraseIx, $kualiCommentYearsIx, $shellOrMarkup);
-$commentKuali =  $oldEclIx = $oldEclPhraseIx = $kualiCommentYearsIx = $shellOrMarkup = 0;
+my( $markupPrologueIx, $commentExists, $newCommentKuali, $oldCommentKuali, $commentOther, $codeBreak );
+$markupPrologueIx = $commentExists = $newCommentKuali = $oldCommentKuali = $commentOther = $codeBreak = 0;
+my($commentKuali, $oldEclIx, $oldEclPhraseIx, $newEclPhraseIx, $kualiCommentYearsIx, $shellOrMarkup);
+$commentKuali =  $oldEclIx = $oldEclPhraseIx = $newEclPhraseIx = $kualiCommentYearsIx = $shellOrMarkup = 0;
 
-while(<READFILE>)
+#chb: size used farther down when farray is spliced
+my $farraySize = @farray;
+my $limit = ($farraySize < $linesParsed ? $farraySize : $linesParsed );
+if($debug){print "tied array is this big: " . $farraySize . "\n";}
+if($debug){print "This is limit: ". $limit . "\n";}
+
+my $i;
+for($i=0; $i<$limit; $i++)
 {
-    if($debug) {print STDERR "In READFILE while.\n";}
-    if ($. < $linesParsed)
-    {
-        if($debug){print STDERR "In conditional after while.\n";}
-        my $line = $_;
+    if($debug) {print STDERR "In farray loop.\n";}
+    my $line = $farray[$i];
+    if($debug){print STDERR "Current index: ". $i . "\n";}
+    if($debug){print STDERR "Current line: ". $line . "\n";}
 
-        if($style eq "SHELL" || ($style eq "HTML" && $line =~ /^<\?xml /)) 
-        {  
-            if($debug){print "In shell conditional\n";}
-            #shell/perl scripts and well-formed XML documents need the first line preserved
-            $shellOrMarkup = 1;
-            $markupPrologueIx = $. - 1;
-            if($debug){print "This is prologue line number" . $markupPrologueIx . "\n";}
-        } 
-        if ($line =~ /^\s*\Q$comment_start{$style}/ && $commentExists eq 0) 
-        {
-            if($debug){print "In exists conditional.\n";}
-            $commentExists = 1;
-        }
-        if( ($line =~ /^\s*\Q$comment_per_line{$style}\E\s*Copyright\s*200[0-9]-200[0-9]\s*The\sKuali/ ) && $commentExists)
-        {
-            if($debug){print "In kuali comment conditional.\n";}
-            $commentKuali = 1;
-            $kualiCommentYearsIx = $. - 1;
-        }
-        if($line =~ /^\s*\Q$comment_per_line{$style}\E\s*Licensed under the Educational Community License.*/ && $commentExists && $commentKuali)
-        {
-            if($debug){print "In old kuali comment ECL phrase conditional.\n";}
-            $oldCommentKuali = 1;
-            $oldEclPhraseIx = $. - 1;
-        }
-        if($line =~ /^\s*\Q$comment_per_line{$style}\E\s*http:.*\/ecl1.php/ && $commentExists && $commentKuali)
-        {
-            if($debug){print "In old kuali comment conditional.\n";}
-            $oldCommentKuali = 1;
-            $oldEclIx = $. - 1;
-        }
-        if($commentKuali == 0 && $commentExists == 1)
+    if($style eq "C" && $line =~ /^(package|import)\s+[a-zA-Z0-9.]*;.*/ )
+    {
+        #chb: get out
+        if($debug){print STDERR "In codeBrak conditional\n";}
+        $codeBreak = 1; 
+        last;
+    }
+    if($style eq "SHELL" || ($style eq "HTML" && $line =~ /^<\?xml /)) 
+    {  
+        if($debug){print "In shell conditional\n";}
+        #shell/perl scripts and well-formed XML documents need the first line preserved
+        $shellOrMarkup = 1;
+        $markupPrologueIx = $i;
+        if($debug){print "This is prologue line number" . $markupPrologueIx . "\n";}
+    } 
+    if ($line =~ /^\s*\Q$comment_start{$style}/ && $commentExists == 0 ) 
+    {
+        if($debug){print "In exists conditional.\n";}
+        $commentExists = 1;
+    }
+    if( ($line =~ /Copyright.*The\sKuali\sFoundation/ ) && $commentExists)
+    {
+        if($debug){print "In kuali comment conditional.\n";}
+        $commentKuali = 1;
+        $kualiCommentYearsIx = $i;
+    }
+    if($line =~ /^\s*\Q$comment_per_line{$style}\E\s*Licensed under the Educational Community License, Version 1\.0.*/ && $commentExists && $commentKuali)
+    {
+        if($debug){print "In old kuali comment ECL phrase conditional.\n";}
+        $oldCommentKuali = 1;
+        $oldEclPhraseIx = $i;
+    }
+    if($line =~ /^\s*\Q$comment_per_line{$style}\E\s*Licensed under the Educational Community License, Version 2\.0.*/ && $commentExists && $commentKuali)
+    {
+        if($debug){print "In new kuali comment ECL phrase conditional.\n";}
+        $newCommentKuali = 1;
+        $newEclPhraseIx = $i;
+    }
+    if($line =~ /^\s*\Q$comment_per_line{$style}\E\s*http:.*\/ecl1.php/ && $commentExists && $commentKuali)
+    {
+        if($debug){print "In old kuali comment conditional.\n";}
+        $oldCommentKuali = 1;
+        $oldEclIx = $i;
+    }
+    if($commentKuali == 0 && $commentExists == 1)
+    {
+        if($line =~ /(apache|mozilla|antlr|bea systems|bouncy|cddl|common public)/i || $i == ($linesParsed - 1))
         {
             if($debug){print "In other comment conditional.\n";}
-            if($line =~ /(apache|mozilla|antlr|bea systems|bouncy|cddl|common public)/i || $. == ($linesParsed - 1))
-            {
-                $commentOther = 1;
-            }
+            $commentOther = 1;
         }
     }
 }
 
-open READFILE, $file;# or die "Can't open $file : $!";
-my @readLines = <READFILE>;
-my $readLines = @readLines;
-close READFILE;
-
-if($debug){print "Readlines is this big: " . $readLines . "\n";}
-
-if($debug){print "This is file open for writing " . $file . "\n";}
-
-#chb: TODO: this should really make use of the in-place editor
-#
+#open READFILE, $file;# or die "Can't open $file : $!";
+#my @readLines = <READFILE>;
+#my $readLines = @readLines;
+#close READFILE;
 
 
 #if comment is not third-party 
-if( $commentOther == 0)
+if( $commentOther == 0 && $newCommentKuali == 0)
 {
-    open WRITEFILE, "> $file" or die "Can't open $file : $!";
+    #open WRITEFILE, "> $file" or die "Can't open $file : $!";
     my @newFile;
 
     #if we just need to add a new header
     if( $commentExists == 0 )
     {
         my @heredocArr = AddNewHeader(@svnLogYears);
-        my $heredocArr = @heredocArr;
         
         if( $shellOrMarkup )
         {
-            my @prologue = $readLines[$markupPrologueIx];
+            my $prologue = $farray[$markupPrologueIx];
             if($debug){print "In commentExists check\n";}
             #insert the output of add new header into the array after the markup prologue
-            if($debug)
-            {
-                print "DEBUG: Printing readLines\n";
-                print STDERR @readLines;
-                print "DEBUG: Printing heredocarr.\n"; 
-                print STDERR @heredocArr;
-            } 
+#            if($debug)
+#            {
+#                print "DEBUG: Printing readLines\n";
+#                print STDERR @readLines;
+#                print "DEBUG: Printing heredocarr.\n"; 
+#                print STDERR @heredocArr;
+#            } 
             #chb: don't want a duplicate prologue so take off the first line
-            @readLines = splice(@readLines,$markupPrologueIx+1,$readLines-1); 
-            @newFile = (@prologue,@heredocArr,@readLines); 
+            my @tail = splice(@farray,$markupPrologueIx+1,$farraySize-1); 
+            @farray = ($prologue,@heredocArr,@tail); 
             
             if($debug)
             {
@@ -215,41 +219,88 @@ if( $commentOther == 0)
         }
         else
         {
-            @newFile = (@heredocArr,@readLines); 
+            @farray = (@heredocArr,@farray); 
         }
-        print WRITEFILE @newFile;
+        #print WRITEFILE @newFile;
     }
     #if we need to modify an old Kuali comment
     elsif ( $oldCommentKuali  )
     {
         #chb: need to replace year and ecl version, year first...
-        my $oldYearLine = $readLines[$kualiCommentYearsIx];
+        my $oldYearLine = $farray[$kualiCommentYearsIx];
         if($debug){print "This is oldYearLine : " . $oldYearLine .  "\n"; }
-        $oldYearLine =~ s/(^.*)Copyright (200[0-9])-200[0-9](.*)/$1Copyright $2-$svnLogYears[1]$3/;
+        #need to guard against possibility that old license contains a single year and not range  
+        #by comparing the first year in the old header with the years in svn log years
+        if ($oldYearLine =~ /(^.*)Copyright (200[0-9])(.*)/ )
+        {
+            @svnLogYears = ($2,@svnLogYears);
+            @svnLogYears = sort(@svnLogYears);
+            my $kualiStr = " The Kuali Foundation";
+         
+            if($debug)
+            {
+                print STDERR "Year handling vars: \n"; 
+                print STDERR "svnLogYears:\n"; 
+                print STDERR @svnLogYears . "\n";
+                print STDERR "This is second match: " . $2 . "\n";
+            } 
+            if($2 < $svnLogYears[0] )
+            {
+                $oldYearLine =~ s/(^.*)Copyright (200[0-9])(.*)/$1Copyright $2-$svnLogYears[1]$kualiStr/;
+            }
+            elsif ($2 > $svnLogYears[0] ) 
+            {      
+               if($2 > $svnLogYears[1] || $2 == $svnLogYears[1])
+               { 
+                   $oldYearLine =~ s/(^.*)Copyright (200[0-9])(.*)/$1Copyright $svnLogYears[0]-$2$kualiStr/;
+               }
+               elsif($2 < $svnLogYears[1] )
+               {
+                   $oldYearLine =~ s/(^.*)Copyright (200[0-9])(.*)/$1Copyright $svnLogYears[0]-$svnLogYears[1]$kualiStr/;
+               } 
+            }
+            elsif($2 == $svnLogYears[0] )
+            {
+                if($svnLogYears[0] == $svnLogYears[1] )
+                {
+                    $oldYearLine =~ s/(^.*)Copyright (200[0-9])(.*)/$1Copyright $2$kualiStr/;
+                }
+                else
+                {
+                    $oldYearLine =~ s/(^.*)Copyright (200[0-9])(.*)/$1Copyright $svnLogYears[0]-$svnLogYears[1]$kualiStr/;
+                }
+            }
+        }
+        else
+        {
+           print STDERR "ERROR: kualiCommentYearsIx returned line with no Copyright date info";
+        } 
+        
         if($debug){print "This is oldYearLine : " . $oldYearLine .  "\n"; }
       
-        my $oldLicensePhraseLine = $readLines[$oldEclPhraseIx];
+        my $oldLicensePhraseLine = $farray[$oldEclPhraseIx];
         if($debug){print "This is oldLicensePhraseLine : " . $oldLicensePhraseLine .  "\n"; }
         $oldLicensePhraseLine =~ s/(^.*)Version 1\.0(.*$)/$1Version 2.0$2/;
         if($debug){print "This is oldLicensePhraseLine : " . $oldLicensePhraseLine .  "\n"; }
 
         #chb: now we take and modify the ecl url
-        my $oldLicenseLine = $readLines[$oldEclIx];
+        my $oldLicenseLine = $farray[$oldEclIx];
         if($debug){print "This is oldLicenseLine : " . $oldLicenseLine .  "\n"; }
         $oldLicenseLine =~ s/(^.*)http(.*)ecl1\.php(\s*$)/$1http$2$licensePage$3/;
         if($debug){print "This is oldLicenseLine : " . $oldLicenseLine .  "\n"; }
         #chb: layout of license means we have 5 arrays to order, years first, ecl version second 
-        my @firstPart = @readLines[0 .. $kualiCommentYearsIx-1];#start of ile to year range
-        my @oldYearLine = ($oldYearLine);#year range 
-        my @thirdPart = @readLines[$kualiCommentYearsIx+1 .. $oldEclPhraseIx-1];#after year range to before ECL phrase
-        my @oldLicensePhraseLine = ($oldLicensePhraseLine); #ECL phrase
-        my @fifthPart = @readLines[$oldEclPhraseIx+1 .. $oldEclIx-1]; #after ECL phrase to before ECL URL
-        my @oldLicenseLine = ($oldLicenseLine); #ECL URL
-        my @seventhPart = @readLines[$oldEclIx+1 .. $readLines-1];
-        @newFile = (@firstPart,@oldYearLine,@thirdPart,@oldLicensePhraseLine,@fifthPart,@oldLicenseLine,@seventhPart);
-        print WRITEFILE @newFile;
+        my @firstPart = @farray[0 .. $kualiCommentYearsIx-1];#start of ile to year range
+        #my @oldYearLine = ($oldYearLine);#year range 
+        my @thirdPart = @farray[$kualiCommentYearsIx+1 .. $oldEclPhraseIx-1];#after year range to before ECL phrase
+        #my @oldLicensePhraseLine = ($oldLicensePhraseLine); #ECL phrase
+        my @fifthPart = @farray[$oldEclPhraseIx+1 .. $oldEclIx-1]; #after ECL phrase to before ECL URL
+        #my @oldLicenseLine = ($oldLicenseLine); #ECL URL
+        my @seventhPart = @farray[$oldEclIx+1 .. $farraySize-1];
+        @farray = (@firstPart,$oldYearLine,@thirdPart,$oldLicensePhraseLine,@fifthPart,$oldLicenseLine,@seventhPart);
+        #print WRITEFILE @newFile;
     }
-    close WRITEFILE;
+    #close WRITEFILE;
+    untie @farray;
 }
 
 exit;
@@ -292,10 +343,13 @@ ENDHEADER
     return @heredocArr;
 }
 
+# chb: returns an array of size 2 with the earliest svn commit date first
+# if only one commit date or earliest date == latest, then both elements will
+# have the same value
 sub get_years()
 {
     if($debug){print "In get years\n";}
-    my(@checkin_dates,@sorted_years,$line);
+    my(@checkin_dates,@sorted_dates,$line);
     my @outlines = `svn log $file`;
 
     my $size = @outlines;
@@ -358,31 +412,40 @@ sub get_years()
         }
     }
     my $size_dates = @checkin_dates;
+    
     if($debug){print "This is the size of checkin_dates: " . $size_dates . "\n";}  
-    @sorted_years = sort(@checkin_dates);
+    if(!$size_dates || $size_dates == 0) 
+    {
+        print STDERR "ERROR: no commit date found in svn log";
+        exit -1
+    }
+    @sorted_dates = sort(@checkin_dates);
     #chb: get earliest and latest years
-    my $first_year = shift(@sorted_years);
-    my $last_year = pop(@sorted_years); 
-    if($debug){print "This is the first_year: " . $first_year . "\n";}
-    if($debug){print "This is the last_year: " . $last_year . "\n";}
-    my $years = $first_year;
-
-    if(!$years || $last_year < $first_year)
-    {
-        print "ERROR: get_years in " . $file . " produces " . $years . "\n";         
-        print "This is the first_year: " . $first_year . "\n";
-        print "This is the last_year: " . $last_year . "\n";
-    }
-    if (!$last_year || $first_year eq $last_year)
-    {
-        #nopreturn $years;
-    }
-    elsif ($last_year > $first_year ) 
-    {
-        $years = $first_year . "-" . $last_year; 
-        return $years;
-    }
-
-    return $years;
+    @sorted_dates[0,1] = @sorted_dates[0, $size_dates-1];
+    return @sorted_dates;
+    
+    #    my $first_year = shift(@sorted_years);
+    #    my $last_year = pop(@sorted_years); 
+    #    if($debug){print "This is the first_year: " . $first_year . "\n";}
+    #    if($debug){print "This is the last_year: " . $last_year . "\n";}
+    #    my $years = $first_year;
+    #
+    #    if(!$years || $last_year < $first_year)
+    #    {
+    #        print "ERROR: get_years in " . $file . " produces " . $years . "\n";         
+    #        print "This is the first_year: " . $first_year . "\n";
+    #        print "This is the last_year: " . $last_year . "\n";
+    #    }
+    #    if (!$last_year || $first_year eq $last_year)
+    #    {
+    #        #nop
+    #    }
+    #    elsif ($last_year > $first_year ) 
+    #    {
+    #        $years = $first_year . "-" . $last_year; 
+    #        return $years;
+    #    }
+    #
+    #    return $years;
 }
 

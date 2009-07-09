@@ -102,9 +102,9 @@ for File in `ls`; do
   fi
 done
 
-if [[ $Message != "" ]]; then
+#if [[ $Message != "" ]]; then
   #echo $Message | mail -s "$0 WARNINGS/ERRORS" kfcm-l@indiana.edu
-  echo $Message
-fi
+  #echo $Message
+#fi
 
 exit
