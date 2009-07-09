@@ -72,23 +72,19 @@ my %comment_per_line = (
     DOS => "REM",
     SQLLDR => "--",
     SQR => "!",
+    JSP => "",
     HTML => "",
 );
 
 #chb: if we have a style that doesn't have an associated comment start, exit
 #seems odd to do this, given that we have written $comment_start....?
-if ($comment_start{$style} eq "") 
+if (defined $comment_start{$style} != 1) 
 {
     exit 1
 }
 
 if($debug) { print "About to call get_years\n"; }
 my @svnLogYears = get_years();
-
-if(!@svnLogYears)
-{
-    print "ERROR: get_years returned null for file " . $file . "\n";
-}
 
 if($debug) {print "this is the result of get_years: ". $svnLogYears[0]  . " and " . $svnLogYears[1] . "\n";}
 
@@ -124,15 +120,15 @@ for($i=0; $i<$limit; $i++)
     if($debug){print STDERR "Current index: ". $i . "\n";}
     if($debug){print STDERR "Current line: ". $line . "\n";}
     
-    if(!$line) || !$style || $comment_per_line)
+    if(!$line)
     {
         print STDERR "ERROR: line undefined in file " . $file . "\n";
     }
-    elsif(!$style)
+    elsif( defined $style != 1)
     {
         print STDERR "ERROR: style undefined in file " . $file . "\n";
     }
-    elsif(!$comment_per_line($style))
+    elsif(defined $comment_per_line{$style} != 1)
     {
         print STDERR "ERROR: comment_per_line undefined for style in file " . $file . "\n";
     }
