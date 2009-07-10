@@ -142,7 +142,7 @@ function STEP35 {
     #echo "This is programdir: $Programdir"
     set_error_message "error adding/updating copyright info while recursing; after fixing the problem it may be best to restart the script from the top rather than this step"
     cd $Programdir
-    do_command "find $Localdir/* -type d -exec addComment.sh {} $Programdir $Debug 1 \;"
+    do_command "find $Localdir/* -type d -exec $Programdir/addComment.sh {} $Programdir $Debug 1 \;"
 }
 
 function STEP40 {
