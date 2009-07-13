@@ -444,14 +444,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <div class="left-errmsg-tab"></div>
             </div>
             <!-- Institution -->
-            <div class="h2-container">
-              <h2><span class="subhead-left">Details &amp; Dates </span></h2>
-              <span class="subhead-right"> <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-            <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
-              <tr>
-                <td colspan="3" class="tab-subhead1" style="text-align:left;"><a href="#" id="A1q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F1q" /></a> Current Action </td>
-              </tr>
-              <tbody id="G1q" style="display:none">
+            <div class="h2-container"><span class="subhead-left">
+              <h2><a href="#" id="A1q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F1q" /></a> Current Action</h2>
+              </span><span class="subhead-right"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <div style="clear:both"></div>
+            <div id="G1q" style="display: block;">
+              <table cellpadding="0" cellspacing="0"  summary=""  >
                 <tr>
                   <th style="width:180px;">*Transaction Type</th>
                   <th style="width:105px;">Notice Date</th>
@@ -488,288 +486,317 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </tr>
                     </table></td>
                 </tr>
-              </tbody>
-            </table>
-            <table cellpAdding=0 cellspacing=0 summary="">
-              <tr>
-                <td colspan="4"class="tab-subhead1" style="text-align:left;"><a href="#" id="A1q2" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F1q2" /></a> Institution</td>
-              </tr>
-              
-              <tbody id="G1q2" style="display:none">
-              
-              
-              <tr>
-                <th><div align=right>*Award ID:</div></th>
-                <td>000743-005</td>
-                <th><div align=right>
-                    <label for="label4">Account Type: </label>
-                  </div></th>
-                <td><select name="x1">
-                    <option value="0">select</option>
-                    <option value="1" selected>Regular</option>
-                    <option value="2">Fabricated Equipment</option>
-                    <option value="3">Draper Fellowship</option>
-                    <option value="4">Core Grant Administration</option>
-                    <option value="5">Gift</option>
-                    <option value="6">Conversion Account</option>
-                    <option value="7">Off-campus account</option>
-                    <option value="8">SBIR</option>
-                    <option value="9">STTR</option>
-                    <option value="10">No Account</option>
-                    <option value="11">Service Facilities</option>
-                  </select></td>
-              </tr>
-              <tr>
-                <th><div align=right>
-                    <label for="label2">*Version:</label>
-                  </div></th>
-                <td>1</td>
-                <th><div align=right>
-                    <label for="basis of payment"></label>
-                    *Activity Type:</div></th>
-                <td><select name="y1">
-                    <option value="0">select</option>
-                    <option value="1">Clinical Trial</option>
-                    <option value="2">Construction</option>
-                    <option value="3">Fellowship - Post-Doctoral</option>
-                    <option value="4">Fellowship - Pre-Doctoral</option>
-                    <option value="5">Instruction</option>
-                    <option value="6" selected>Organized Research</option>
-                    <option value="7">Other Research</option>
-                    <option value="8">Public Service</option>
-                    <option value="9">Student Service</option>
-                  </select></td>
-              </tr>
-              <tr>
-                <th><div align=right>
-                    <label for="label">Account ID:</label>
-                  </div></th>
-                <td align=left valign=middle><input name="startDate432" type=text onchange="dataChanged()" value="300150" size=12 id="startDate43"/></td>
-                <th><div align=right>
-                    <label for="label7"></label>
-                    <label for="label">*Award Type:</label>
-                    <label for="basis of payment"></label>
-                  </div></th>
-                <td><select name="z1">
-                    <option value="0">select</option>
-                    <option value="1">Budget Office WBS </option>
-                    <option value="2">Consortium Expenditures </option>
-                    <option value="3">Consortium Membership</option>
-                    <option value="4">Contract </option>
-                    <option value="5">Cooperative Agreement </option>
-                    <option value="6">Facilities Agreement</option>
-                    <option value="7">Fellowship </option>
-                    <option value="8">Gift </option>
-                    <option value="9" selected>Grant </option>
-                    <option value="10">Indefinite Delivery Contract </option>
-                    <option value="11">NIH Training Grant </option>
-                    <option value="12">Other Transaction Agreement </option>
-                    <option value="13">Student Financial Aid</option>
-                  </select></td>
-              </tr>
-              <tr>
-                <th><div align=right>
-                    <label for="label2">*Award Status:</label>
-                  </div></th>
-                <td><select>
-                    <option value=0 selected>select</option>
-                    <option>Active </option>
-                    <option>Inactive </option>
-                    <option>Pending </option>
-                    <option>Terminated </option>
-                    <option>Closed </option>
-                    <option>Hold </option>
-                  </select></td>
-                <th>&nbsp;</th>
-                <td align=left valign=middle>&nbsp;</td>
-              </tr>
-              <tr>
-                <th><div align=right>
-                    <label for="label7">*Title:</label>
-                  </div></th>
-                <td colspan="3"><table style="border:none; width:100%;">
-                    <tr>
-                      <td style="border:none; width:100%;"><textarea name="textarea2" style="width:100%;" rows="2" id="textarea">Study of Important Scientific Stuff</textarea></td>
-                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="image3" type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
-                    </tr>
-                  </table></td>
-              </tr>
-              
-              
-              
-              </tbody>
-              
-            </table>
-            <!-- Sponsor -->
-            <table cellpAdding=0 cellspacing=0 summary="">
-              <tr>
-                <td colspan="4" class="tab-subhead1"><a href="#" id="A53" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F53" /></a> Sponsor</td>
-              </tr>   <tbody id="G53" style="display:none">
-              <tr>
-                <th> <div align=right>
-                    <label for="label7">*Sponsor:</label>
-                  </div>
-                </th>
-                <td><input name="sid" type=text onchange="dataChanged()" value="123456" size="16" id="sid"/>
-                  <input name="image2" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                  <input name="image2" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                  <br />
-                  National Cancer Institute </td>
-                <th> <div align=right>
-                    <label for="label11">Prime Sponsor: </label>
-                  </div>
-                </th>
-                <td><input name="psid" type=text onchange="dataChanged()" value="000340" size="16" id="psid"/>
-                  <input name="image23" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                  <input name="image23" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
-                  <br />
-                  National Institutes of Health </td>
-              </tr>
-              <tr>
-                <th> <div align=right>
-                    <label for="label9">Sponsor Award ID:</label>
-                  </div>
-                </th>
-                <td><input name="startDate43" type=text onchange="dataChanged()" value="1R01CA123456" size=16 id="startDate42"/></td>
-                <th> <div align=right>
-                    <label for="label10">CFDA Number: </label>
-                  </div>
-                </th>
-                <td><input name="startDate433" type=text id="startDate433" onchange="dataChanged()" value="93.286" size=16/></td>
-              </tr>
-              <tr>
-                <th align=right> <label for="label13">Modification ID:</label>
-                </th>
-                <td align=left valign=middle><input name="startDate43" type=text onchange="dataChanged()" value="1" size=16 id="startDate42"/></td>
-                <th align=right> <label for="label13">NSF Science Code:</label>
-                </th>
-                <td align=left valign=middle><select size=1 name="select3" id="select5" onChange="showDivs(this)">
-                  <option>select</option>
-                  <option selected>Civil - Engineering: A.04</option>
-                  <option>Social work - Non-Science and Engineering Fields: J.07</option>
-                  <option>Aeronautical and Astronautical - Engineering: A.01</option>
-                  <option>Bioengineering/Biomedical -Engineering: A.02</option>
-                  <option>Chemical - Engineering: A.03</option>
-                  <option>Electrical - Engineering: A.05</option>
-                  <option>Mechanical - Engineering: A.06</option>
-                  <option>Metallurgical and Materials - Engineering: A.07</option>
-                  <option>Other - Engineering: A.99</option>
-                  <option>Astronomy - Physical Sciences: B.01</option>
-                  <option>Chemistry - Physical Sciences: B.02</option>
-                  <option>Physics - Physical Sciences: B.03</option>
-                  <option>Other - Physical Sciences: B99</option>
-                  <option>Atmospheric - Environmental Sciences: C.01</option>
-                  <option>Earth Sciences - Environmental Sciences: C.02</option>
-                  <option>Oceanography - Environmental Sciences: C.03</option>
-                  <option>Other - Environmental Sciences: C.99</option>
-                  <option>Mathematical Science: D.01</option>
-                  <option>Computer Sciences: E.01</option>
-                  <option>Agricultural - Life Sciences: F.01</option>
-                  <option>Biological - Life  Sciences: F.02</option>
-                  <option>Medical - Life Sciences: F.03</option>
-                  <option>Other - Life Sciences: F.99</option>
-                  <option>Psychology: G.01</option>
-                  <option>Economics -Social Sciences: H.01</option>
-                  <option>Political Science - Social Sciences: H.02</option>
-                  <option>Sociology - Social Sciences: H.03</option>
-                  <option>Other - Social Sciences: H.99</option>
-                  <option>Other Sciences, n.e.c.: I.01</option>
-                  <option>Education - Non-Science and Engineering Fields: J.01</option>
-                  <option>Law - Non-Science and Engineering Fields: J.02</option>
-                </select></td>
-              </tr>
-              <tr>
-                <td colspan="4" align=right style="padding:0px; border:none">     <!-- Sponsor Funding Transferred -->
-            <div style="padding-left:56px">
-              <table cellpadding=0 cellspacing=0 summary="" style="width:100%">
-                <tr>
-                  <td colspan="3" class="tab-subhead1"><a href="#" id="A53h" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F53h" /></a> Sponsor Funding Transferred </td>
-                </tr><tbody id="G53h" style="display:none">
-                <tr>
-                  <th style="text-align:center;">&nbsp; </th>
-                  <th style="text-align:center;"> <b>ID/Description</b> </th>
-                  <th style="text-align:center; width:60px;"> <b>Action</b> </th>
-                </tr>
-                <tr>
-                  <th> <div align=right> <b>Add:</b> </div>
-                  </th>
-                  <td class="infoline"><input name="sftid" type=text onchange="dataChanged()" value="" size="80" id="sftid"/>
-                    <input name="image23" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                    <input name="image23" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
-                  <td class="infoline" style="text-align:center;"><input name="image231" type="image" class="nobord" src="../images/tinybutton-add1.gif" alt="add"></td>
-                </tr>
-                <tr>
-                  <th> 1 </th>
-                  <td> 000627 : Department of Health and Human Services </td>
-                  <td style="text-align:center;"><input name="image2311" type="image" class="nobord" src="../images/tinybutton-delete1.gif" alt="delete"></td>
-                </tr>
-                <tr>
-                  <th> 2 </th>
-                  <td> 003839 : National Eye Institute </td>
-                  <td style="text-align:center;"><input name="image2312" type="image" class="nobord" src="../images/tinybutton-delete1.gif" alt="delete"></td>
-                </tr></tbody>
               </table>
-            </div></td>
-              </tr></tbody>
-            </table>
-       
-            <!-- Dates -->
+            </div>
+            <div class="h2-container"><span class="subhead-left">
+              <h2><a href="#" id="A1q2" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F1q2" /></a> Institution</h2>
+              </span><span class="subhead-right"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>       <div style="clear:both"></div>
+            <div  id="G1q2" style="display:block">
+              <table cellpAdding=0 cellspacing=0 summary="">
+                <tbody>
+                  <tr>
+                    <th><div align=right>*Award ID:</div></th>
+                    <td>000743-005</td>
+                    <th><div align=right>
+                        <label for="label4">Account Type: </label>
+                      </div></th>
+                    <td><select name="x1">
+                        <option value="0">select</option>
+                        <option value="1" selected>Regular</option>
+                        <option value="2">Fabricated Equipment</option>
+                        <option value="3">Draper Fellowship</option>
+                        <option value="4">Core Grant Administration</option>
+                        <option value="5">Gift</option>
+                        <option value="6">Conversion Account</option>
+                        <option value="7">Off-campus account</option>
+                        <option value="8">SBIR</option>
+                        <option value="9">STTR</option>
+                        <option value="10">No Account</option>
+                        <option value="11">Service Facilities</option>
+                      </select></td>
+                  </tr>
+                  <tr>
+                    <th><div align=right>
+                        <label for="label2">*Version:</label>
+                      </div></th>
+                    <td>1</td>
+                    <th><div align=right>
+                        <label for="basis of payment"></label>
+                        *Activity Type:</div></th>
+                    <td><select name="y1">
+                        <option value="0">select</option>
+                        <option value="1">Clinical Trial</option>
+                        <option value="2">Construction</option>
+                        <option value="3">Fellowship - Post-Doctoral</option>
+                        <option value="4">Fellowship - Pre-Doctoral</option>
+                        <option value="5">Instruction</option>
+                        <option value="6" selected>Organized Research</option>
+                        <option value="7">Other Research</option>
+                        <option value="8">Public Service</option>
+                        <option value="9">Student Service</option>
+                      </select></td>
+                  </tr>
+                  <tr>
+                    <th><div align=right>
+                        <label for="label">Account ID:</label>
+                      </div></th>
+                    <td align=left valign=middle><input name="startDate432" type=text onchange="dataChanged()" value="300150" size=12 id="startDate43"/></td>
+                    <th><div align=right>
+                        <label for="label7"></label>
+                        <label for="label">*Award Type:</label>
+                        <label for="basis of payment"></label>
+                      </div></th>
+                    <td><select name="z1">
+                        <option value="0">select</option>
+                        <option value="1">Budget Office WBS </option>
+                        <option value="2">Consortium Expenditures </option>
+                        <option value="3">Consortium Membership</option>
+                        <option value="4">Contract </option>
+                        <option value="5">Cooperative Agreement </option>
+                        <option value="6">Facilities Agreement</option>
+                        <option value="7">Fellowship </option>
+                        <option value="8">Gift </option>
+                        <option value="9" selected>Grant </option>
+                        <option value="10">Indefinite Delivery Contract </option>
+                        <option value="11">NIH Training Grant </option>
+                        <option value="12">Other Transaction Agreement </option>
+                        <option value="13">Student Financial Aid</option>
+                      </select></td>
+                  </tr>
+                  <tr>
+                    <th><div align=right>
+                        <label for="label2">*Award Status:</label>
+                      </div></th>
+                    <td><select>
+                        <option value=0 selected>select</option>
+                        <option>Active </option>
+                        <option>Inactive </option>
+                        <option>Pending </option>
+                        <option>Terminated </option>
+                        <option>Closed </option>
+                        <option>Hold </option>
+                      </select></td>
+                    <th>&nbsp;</th>
+                    <td align=left valign=middle>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th><div align=right>
+                        <label for="label7">*Title:</label>
+                      </div></th>
+                    <td colspan="3"><table style="border:none; width:100%;">
+                        <tr>
+                          <td style="border:none; width:100%;"><textarea name="textarea2" style="width:100%;" rows="2" id="textarea">Study of Important Scientific Stuff</textarea></td>
+                          <td style="border:none; width:20px; vertical-align:bottom;"><input name="image3" type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
+                        </tr>
+                      </table></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Sponsor -->
+            <div class="h2-container"><span class="subhead-left">
+              <h2><a href="#" id="A53" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F53" /></a> Sponsor</h2>
+              </span><span class="subhead-right"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <div style="clear:both"></div>
+            
+            <div  id="G53" style="display:block">
+            
             <table cellpAdding=0 cellspacing=0 summary="">
-              <tr>
-                <td colspan="4" class="tab-subhead1"><a href="#" id="A53m" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F53m" /></a> Time &amp; Money</td>
-              </tr><tbody id="G53m" style="display:none">
-              <tr>
-                <th> <div align="right">
-                    <label for="account id">Project Start Date: </label>
-                  </div>
-                </th>
-                <td align=left valign=middle><span>
-                  <input name="bsd" type="text" value="01/01/2009" size=12>
-                  </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
-                <th> <div align="right">
-                    <label for="account id">Obligation Start Date: </label>
-                  </div>
-                </th>
-                <td align=left valign=middle><span>
-                  <input name="bsd" type="text" value="02/13/2009" size=12>
-                  </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
-              </tr>
-              <tr>
-                <th> <div align="right">
-                    <label for="account type">*Project End Date:</label>
-                  </div>
-                </th>
-                <td align=left valign=middle><span>
-                  <input name="ed" type="text" value="12/31/2013" size=12>
-                  </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor4"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
-                <th><div align="right">Obligation End Date:</div></th>
-                <td align=left valign=middle><span>
-                  <input name="ed2" type="text" value="12/31/2013" size=12>
-                  </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor6"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
-              </tr>
-              <tr>
-                <th> <div align="right">
-                    <label for="account id2">Execution Date: </label>
-                  </div>
-                </th>
-                <td align=left valign=middle><span>
-                  <input name="bsd3" type="text" value="01/01/2009" size=12>
-                  </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
-                <th>&nbsp;</th>
-                <td align=left valign=middle>&nbsp;</td>
-              </tr>
-              <tr>
-                <th><div align="right">
-                    <label for="account id4">Anticipated Amount: </label>
-                  </div></th>
-                <td align=left valign=middle>$587,624</td>
-                <th><div align="right">
-                    <label for="account id3">Obligated Amount: </label>
-                  </div></th>
-                <td align=left valign=middle>$100,000</td>
-              </tr></tbody>
+              <tbody>
+                <tr>
+                  <th> <div align=right>
+                      <label for="label7">*Sponsor:</label>
+                    </div>
+                  </th>
+                  <td><input name="sid" type=text onchange="dataChanged()" value="123456" size="16" id="sid"/>
+                    <input name="image2" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                    <input name="image2" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+                    <br />
+                    National Cancer Institute </td>
+                  <th> <div align=right>
+                      <label for="label11">Prime Sponsor: </label>
+                    </div>
+                  </th>
+                  <td><input name="psid" type=text onchange="dataChanged()" value="000340" size="16" id="psid"/>
+                    <input name="image23" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                    <input name="image23" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+                    <br />
+                    National Institutes of Health </td>
+                </tr>
+                <tr>
+                  <th> <div align=right>
+                      <label for="label9">Sponsor Award ID:</label>
+                    </div>
+                  </th>
+                  <td><input name="startDate43" type=text onchange="dataChanged()" value="1R01CA123456" size=16 id="startDate42"/></td>
+                  <th> <div align=right>
+                      <label for="label10">CFDA Number: </label>
+                    </div>
+                  </th>
+                  <td><input name="startDate433" type=text id="startDate433" onchange="dataChanged()" value="93.286" size=16/></td>
+                </tr>
+                <tr>
+                  <th align=right> <label for="label13">Modification ID:</label>
+                  </th>
+                  <td align=left valign=middle><input name="startDate43" type=text onchange="dataChanged()" value="1" size=16 id="startDate42"/></td>
+                  <th align=right> <label for="label13">NSF Science Code:</label>
+                  </th>
+                  <td align=left valign=middle><select size=1 name="select3" id="select5" onChange="showDivs(this)">
+                      <option>select</option>
+                      <option selected>Civil - Engineering: A.04</option>
+                      <option>Social work - Non-Science and Engineering Fields: J.07</option>
+                      <option>Aeronautical and Astronautical - Engineering: A.01</option>
+                      <option>Bioengineering/Biomedical -Engineering: A.02</option>
+                      <option>Chemical - Engineering: A.03</option>
+                      <option>Electrical - Engineering: A.05</option>
+                      <option>Mechanical - Engineering: A.06</option>
+                      <option>Metallurgical and Materials - Engineering: A.07</option>
+                      <option>Other - Engineering: A.99</option>
+                      <option>Astronomy - Physical Sciences: B.01</option>
+                      <option>Chemistry - Physical Sciences: B.02</option>
+                      <option>Physics - Physical Sciences: B.03</option>
+                      <option>Other - Physical Sciences: B99</option>
+                      <option>Atmospheric - Environmental Sciences: C.01</option>
+                      <option>Earth Sciences - Environmental Sciences: C.02</option>
+                      <option>Oceanography - Environmental Sciences: C.03</option>
+                      <option>Other - Environmental Sciences: C.99</option>
+                      <option>Mathematical Science: D.01</option>
+                      <option>Computer Sciences: E.01</option>
+                      <option>Agricultural - Life Sciences: F.01</option>
+                      <option>Biological - Life  Sciences: F.02</option>
+                      <option>Medical - Life Sciences: F.03</option>
+                      <option>Other - Life Sciences: F.99</option>
+                      <option>Psychology: G.01</option>
+                      <option>Economics -Social Sciences: H.01</option>
+                      <option>Political Science - Social Sciences: H.02</option>
+                      <option>Sociology - Social Sciences: H.03</option>
+                      <option>Other - Social Sciences: H.99</option>
+                      <option>Other Sciences, n.e.c.: I.01</option>
+                      <option>Education - Non-Science and Engineering Fields: J.01</option>
+                      <option>Law - Non-Science and Engineering Fields: J.02</option>
+                    </select></td>
+                </tr>
+                <tr>
+                  <td colspan="4" align=right style="padding:0px; border:none"><!-- Sponsor Funding Transferred -->
+                      <table cellpadding=0 cellspacing=0 summary="" style="width:100%">
+                        <tr>
+                          <td colspan="3" class="tab-subhead1"><a href="#" id="A53h" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F53h" /></a> Sponsor Funding Transferred </td>
+                        </tr>
+                        <tbody id="G53h" style="display:none">
+                          <tr>
+                            <th style="text-align:center;">&nbsp; </th>
+                            <th style="text-align:center;"> <b>ID/Description</b> </th>
+                            <th style="text-align:center; width:60px;"> <b>Action</b> </th>
+                          </tr>
+                          <tr>
+                            <th> <div align=right> <b>Add:</b> </div>
+                            </th>
+                            <td class="infoline"><input name="sftid" type=text onchange="dataChanged()" value="" size="80" id="sftid"/>
+                              <input name="image23" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                              <input name="image23" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                            <td class="infoline" style="text-align:center;"><input name="image231" type="image" class="nobord" src="../images/tinybutton-add1.gif" alt="add"></td>
+                          </tr>
+                          <tr>
+                            <th> 1 </th>
+                            <td> 000627 : Department of Health and Human Services </td>
+                            <td style="text-align:center;"><input name="image2311" type="image" class="nobord" src="../images/tinybutton-delete1.gif" alt="delete"></td>
+                          </tr>
+                          <tr>
+                            <th> 2 </th>
+                            <td> 003839 : National Eye Institute </td>
+                            <td style="text-align:center;"><input name="image2312" type="image" class="nobord" src="../images/tinybutton-delete1.gif" alt="delete"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                </tr>
+              </tbody>
             </table>
-          </div>
+            
+            
+            
+            
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            <!-- Dates -->
+            <div class="h2-container"><span class="subhead-left">
+              <h2><a href="#" id="A53m" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="F53m" /></a> Time &amp; Money</h2>
+              </span><span class="subhead-right"><img src="../images/tinybutton-history.gif" alt="history" width="47" height="15" align="absmiddle"> <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <div style="clear:both"></div>
+            
+            
+            
+            
+            <div id="G53m" style="display:block">
+            
+            <table cellpAdding=0 cellspacing=0 summary="">
+              <tbody >
+                <tr>
+                  <th> <div align="right">
+                      <label for="account id">Project Start Date: </label>
+                    </div>
+                  </th>
+                  <td align=left valign=middle><span>
+                    <input name="bsd" type="text" value="01/01/2009" size=12>
+                    </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                  <th> <div align="right">
+                      <label for="account id">Obligation Start Date: </label>
+                    </div>
+                  </th>
+                  <td align=left valign=middle><span>
+                    <input name="bsd" type="text" value="02/13/2009" size=12>
+                    </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                </tr>
+                <tr>
+                  <th> <div align="right">
+                      <label for="account type">*Project End Date:</label>
+                    </div>
+                  </th>
+                  <td align=left valign=middle><span>
+                    <input name="ed" type="text" value="12/31/2013" size=12>
+                    </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor4"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                  <th><div align="right">Obligation End Date:</div></th>
+                  <td align=left valign=middle><span>
+                    <input name="ed2" type="text" value="12/31/2013" size=12>
+                    </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor6"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                </tr>
+                <tr>
+                  <th> <div align="right">
+                      <label for="account id2">Execution Date: </label>
+                    </div>
+                  </th>
+                  <td align=left valign=middle><span>
+                    <input name="bsd3" type="text" value="01/01/2009" size=12>
+                    </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                  <th>&nbsp;</th>
+                  <td align=left valign=middle>&nbsp;</td>
+                </tr>
+                <tr>
+                  <th><div align="right">
+                      <label for="account id4">Anticipated Amount: </label>
+                    </div></th>
+                  <td align=left valign=middle>$587,624</td>
+                  <th><div align="right">
+                      <label for="account id3">Obligated Amount: </label>
+                    </div></th>
+                  <td align=left valign=middle>$100,000</td>
+                </tr>
+              </tbody>
+            </table>
+            
+            </div>
+            
+            
+            </div>
+            
+         
           <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Subawards</td>
