@@ -323,13 +323,16 @@ sub AddNewHeader(@)
     my $comment_end = $comment_end{$style};
     if($debug){print "This is arg 0 in AddNewHeader: " . $yearParms[0] . "\n"; }
     my $copyrightYears = $_[0] . "-" . $_[1];
-    if ($comment_end eq "") {
-        $comment_end = "$c DO NOT add comments before the blank line below, or they will disappear.\n";
-    } else {
-        if ($c ne "") {
-            $comment_end = " $comment_end";  #just taking care of a mild style preference I've seen
-        }
-    }
+#    if ($comment_end eq "") {
+#        $comment_end = "$c DO NOT add comments before the blank line below, or they will disappear.\n";
+#    } 
+#    else 
+#    {
+#        if ($c ne "") 
+#        {
+#            $comment_end = " $comment_end";  #just taking care of a mild style preference I've seen
+#        }
+#    }
 
     #print<<ENDHEADER;
     my @heredocArr = split('/$',<<ENDHEADER); 
