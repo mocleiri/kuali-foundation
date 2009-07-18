@@ -323,6 +323,7 @@ sub AddNewHeader(@)
     my $comment_end = $comment_end{$style};
     if($debug){print "This is arg 0 in AddNewHeader: " . $yearParms[0] . "\n"; }
     my $copyrightYears = $_[0] . "-" . $_[1];
+    if($debug){print "This is comment_end in AddNewHeader: " . $comment_end . "\n"; }
 #    if ($comment_end eq "") {
 #        $comment_end = "$c DO NOT add comments before the blank line below, or they will disappear.\n";
 #    } 
