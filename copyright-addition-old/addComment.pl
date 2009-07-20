@@ -11,13 +11,12 @@
 #bug?: blank files get no license added (who cares?)
 
 #modified by chb - June, 2009
+#bug: sql files are missing end comment
 
 use Tie::File;
 
 use strict;
 use warnings;
-#chb: force auto flush of output buffers
-$|++;
 
 sub get_years();
 sub AddNewHeader(@);
@@ -33,8 +32,6 @@ if($debug){print "Processing " . $file . " with style of: " . $style . "\n";}
 #chb: not as costly?
 my @farray;
 tie @farray, 'Tie::File', "$file" or die "Can't open $file : $!";
-
-
 
 #chb: std perl idiom for getting the current year
 #could use localtime, but CVS stores in GMT, so might as well do that here; it only matters on New Year's Eve, and hopefully people aren't checking in then anyway
@@ -115,12 +112,12 @@ if($debug){print "This is limit: ". $limit . "\n";}
 my $i;
 for($i=0; $i<$limit; $i++)
 {
-    if($debug) {print STDERR "In farray loop.\n";}
+    if($debug && $i==0) {print STDERR "In farray loop.\n";}
     my $line = $farray[$i];
     if($debug){print STDERR "Current index: ". $i . "\n";}
     if($debug){print STDERR "Current line: ". $line . "\n";}
     
-    if(!$line)
+    if( defined $line != 1)
     {
         print STDERR "ERROR: line undefined in file " . $file . "\n";
     }
@@ -136,7 +133,7 @@ for($i=0; $i<$limit; $i++)
     if($style eq "C" && $line =~ /^(package|import)\s+[a-zA-Z0-9.]*;.*/ )
     {
         #chb: get out
-        if($debug){print STDERR "In codeBrak conditional\n";}
+        if($debug){print STDERR "In code break conditional\n";}
         $codeBreak = 1; 
         last;
     }
@@ -187,12 +184,6 @@ for($i=0; $i<$limit; $i++)
     }
 }
 
-#open READFILE, $file;# or die "Can't open $file : $!";
-#my @readLines = <READFILE>;
-#my $readLines = @readLines;
-#close READFILE;
-
-
 #if comment is not third-party 
 if( $commentOther == 0 && $newCommentKuali == 0)
 {
@@ -209,13 +200,11 @@ if( $commentOther == 0 && $newCommentKuali == 0)
             my $prologue = $farray[$markupPrologueIx];
             if($debug){print "In commentExists check\n";}
             #insert the output of add new header into the array after the markup prologue
-#            if($debug)
-#            {
-#                print "DEBUG: Printing readLines\n";
-#                print STDERR @readLines;
-#                print "DEBUG: Printing heredocarr.\n"; 
-#                print STDERR @heredocArr;
-#            } 
+            if($debug)
+            {
+                print "DEBUG: Printing heredocarr.\n"; 
+                print STDERR @heredocArr;
+            } 
             #chb: don't want a duplicate prologue so take off the first line
             my @tail = splice(@farray,$markupPrologueIx+1,$farraySize-1); 
             @farray = ($prologue,@heredocArr,@tail); 
@@ -230,10 +219,8 @@ if( $commentOther == 0 && $newCommentKuali == 0)
         {
             @farray = (@heredocArr,@farray); 
         }
-        #print WRITEFILE @newFile;
     }
-    #if we need to modify an old Kuali comment
-    elsif ( $oldCommentKuali  )
+    elsif ( $oldCommentKuali )    #if we need to modify an old Kuali comment
     {
         #chb: need to replace year and ecl version, year first...
         my $oldYearLine = $farray[$kualiCommentYearsIx];
@@ -324,35 +311,36 @@ sub AddNewHeader(@)
     if($debug){print "This is arg 0 in AddNewHeader: " . $yearParms[0] . "\n"; }
     my $copyrightYears = $_[0] . "-" . $_[1];
     if($debug){print "This is comment_end in AddNewHeader: " . $comment_end . "\n"; }
-#    if ($comment_end eq "") {
-#        $comment_end = "$c DO NOT add comments before the blank line below, or they will disappear.\n";
-#    } 
-#    else 
-#    {
-#        if ($c ne "") 
-#        {
-#            $comment_end = " $comment_end";  #just taking care of a mild style preference I've seen
-#        }
-#    }
+    if ($comment_end eq "") {
+        $comment_end = "$c DO NOT add comments before the blank line below, or they will disappear.\n";
+    } 
+    else 
+    {
+        if ($c ne "") 
+        {
+            $comment_end = " $comment_end";  #just taking care of a mild style preference I've seen
+        }
+    }
 
     #print<<ENDHEADER;
-    my @heredocArr = split('/$',<<ENDHEADER); 
-    $comment_start
-    $c Copyright $copyrightYears The Kuali Foundation
-    $c 
-    $c Licensed under the Educational Community License, Version 2.0 (the "License");
-    $c you may not use this file except in compliance with the License.
-    $c You may obtain a copy of the License at
-    $c 
-    $c http://www.opensource.org/licenses/$licensePage
-    $c 
-    $c Unless required by applicable law or agreed to in writing, software
-    $c distributed under the License is distributed on an "AS IS" BASIS,
-    $c WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    $c See the License for the specific language governing permissions and
-    $c limitations under the License.
-    $comment_end
+    my $heredocHeader = <<ENDHEADER; 
+$comment_start
+$c Copyright $copyrightYears The Kuali Foundation
+$c 
+$c Licensed under the Educational Community License, Version 2.0 (the "License");
+$c you may not use this file except in compliance with the License.
+$c You may obtain a copy of the License at
+$c 
+$c http://www.opensource.org/licenses/$licensePage
+$c 
+$c Unless required by applicable law or agreed to in writing, software
+$c distributed under the License is distributed on an "AS IS" BASIS,
+$c WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+$c See the License for the specific language governing permissions and
+$c limitations under the License.
+$comment_end
 ENDHEADER
+    my $heredocArr = split('/$', $heredocHeader); 
     return @heredocArr;
 }
 
@@ -436,29 +424,6 @@ sub get_years()
     #chb: get earliest and latest years
     @sorted_dates[0,1] = @sorted_dates[0, $size_dates-1];
     return @sorted_dates;
-    
-    #    my $first_year = shift(@sorted_years);
-    #    my $last_year = pop(@sorted_years); 
-    #    if($debug){print "This is the first_year: " . $first_year . "\n";}
-    #    if($debug){print "This is the last_year: " . $last_year . "\n";}
-    #    my $years = $first_year;
-    #
-    #    if(!$years || $last_year < $first_year)
-    #    {
-    #        print "ERROR: get_years in " . $file . " produces " . $years . "\n";         
-    #        print "This is the first_year: " . $first_year . "\n";
-    #        print "This is the last_year: " . $last_year . "\n";
-    #    }
-    #    if (!$last_year || $first_year eq $last_year)
-    #    {
-    #        #nop
-    #    }
-    #    elsif ($last_year > $first_year ) 
-    #    {
-    #        $years = $first_year . "-" . $last_year; 
-    #        return $years;
-    #    }
-    #
-    #    return $years;
+   
 }
 
