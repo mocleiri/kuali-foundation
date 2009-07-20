@@ -217,6 +217,11 @@ if( $commentOther == 0 && $newCommentKuali == 0)
         }
         else
         {
+            if($debug)
+            {
+                print "DEBUG: Printing heredocarr.\n"; 
+                print STDERR @heredocArr;
+            } 
             @farray = (@heredocArr,@farray); 
         }
     }
@@ -309,7 +314,15 @@ sub AddNewHeader(@)
     my $comment_start = $comment_start{$style};
     my $comment_end = $comment_end{$style};
     if($debug){print "This is arg 0 in AddNewHeader: " . $yearParms[0] . "\n"; }
-    my $copyrightYears = $_[0] . "-" . $_[1];
+    my $copyrightYears; 
+    if( $yearParms[0] == $yearParms[1] )
+    {
+        $copyrightYears = $yearParms[0];
+    }
+    else
+    { 
+        $copyrightYears = $_[0] . "-" . $_[1];
+    } 
     if($debug){print "This is comment_end in AddNewHeader: " . $comment_end . "\n"; }
     if ($comment_end eq "") {
         $comment_end = "$c DO NOT add comments before the blank line below, or they will disappear.\n";
@@ -340,7 +353,7 @@ $c See the License for the specific language governing permissions and
 $c limitations under the License.
 $comment_end
 ENDHEADER
-    my $heredocArr = split('/$', $heredocHeader); 
+    my @heredocArr = split('/$', $heredocHeader); 
     return @heredocArr;
 }
 
