@@ -193,6 +193,7 @@ if( $commentOther == 0 && $newCommentKuali == 0)
     #if we just need to add a new header
     if( $commentExists == 0 )
     {
+	if($debug){print "comment exists == 0\n";}
         my @heredocArr = AddNewHeader(@svnLogYears);
         
         if( $shellOrMarkup )
@@ -203,7 +204,7 @@ if( $commentOther == 0 && $newCommentKuali == 0)
             if($debug)
             {
                 print "DEBUG: Printing heredocarr.\n"; 
-                print STDERR @heredocArr;
+                print @heredocArr;
             } 
             #chb: don't want a duplicate prologue so take off the first line
             my @tail = splice(@farray,$markupPrologueIx+1,$farraySize-1); 
@@ -212,7 +213,7 @@ if( $commentOther == 0 && $newCommentKuali == 0)
             if($debug)
             {
                 print "DEBUG: Printing newfile ARRAY.\n"; 
-                print STDERR @newFile;
+                print @newFile;
             }
         }
         else
@@ -220,7 +221,7 @@ if( $commentOther == 0 && $newCommentKuali == 0)
             if($debug)
             {
                 print "DEBUG: Printing heredocarr.\n"; 
-                print STDERR @heredocArr;
+                print @heredocArr;
             } 
             @farray = (@heredocArr,@farray); 
         }
@@ -240,10 +241,10 @@ if( $commentOther == 0 && $newCommentKuali == 0)
          
             if($debug)
             {
-                print STDERR "Year handling vars: \n"; 
-                print STDERR "svnLogYears:\n"; 
-                print STDERR @svnLogYears . "\n";
-                print STDERR "This is second match: " . $2 . "\n";
+                print "Year handling vars: \n"; 
+                print "svnLogYears:\n"; 
+                print @svnLogYears . "\n";
+                print "This is second match: " . $2 . "\n";
             } 
             if($2 < $svnLogYears[0] )
             {
@@ -353,7 +354,7 @@ $c See the License for the specific language governing permissions and
 $c limitations under the License.
 $comment_end
 ENDHEADER
-    my @heredocArr = split('/$', $heredocHeader); 
+    my @heredocArr = split('\n', $heredocHeader); 
     return @heredocArr;
 }
 
@@ -439,4 +440,5 @@ sub get_years()
     return @sorted_dates;
    
 }
+
 
