@@ -6,9 +6,9 @@
 
 kexport dba trunk
 kdailytag trunk
+kupdate dev2 branches/endowment-build-1205 false true Oracle9i
 kupdate cnv standard true true Oracle9i
 kupdate unt standard true false Oracle9i
-kupdate dev2 branches/endowment-build-1205 false true Oracle9i
 kpurge $LOGS_DIRECTORY 7
 
 sh ~j2eemgr/kuali/kfs/check-modularization.sh
