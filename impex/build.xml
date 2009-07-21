@@ -500,13 +500,17 @@ Note: Due to java native library classloader issues, the export routine (and pos
 
 	<target name="pre-import-sql" if="pre.import.script.files">
 		<for list="${pre.import.script.files}" param="fileName" trim="true" keepgoing="false" parallel="false">
-			<run-sql-file file="@{fileName}" />
+			<sequential>
+				<run-sql-file file="@{fileName}" />
+			</sequential>
 		</for>
 	</target>
 
 	<target name="post-import-sql" if="post.import.script.files">
 		<for list="${post.import.script.files}" param="fileName" trim="true" keepgoing="false" parallel="false">
-			<run-sql-file file="@{fileName}" />
+			<sequential>
+				<run-sql-file file="@{fileName}" />
+			</sequential>
 		</for>
 	</target>
 	
