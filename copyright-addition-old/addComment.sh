@@ -84,11 +84,11 @@ for File in `ls`; do
         html|htm|xml|xsd|xsl|jmx|tld|wsdd|dia|dtd) Style="HTML" ;;
         jsp|tag) Style="JSP" ;;
         vm) Style="VM" ;;
-        sh|pl) Style="SHELL" ;;
+        sh|pl|properties) Style="SHELL" ;;
         bat) Style="DOS" ;;
         ctl) Style="SQLLDR" ;;
         sqr|h) Style="SQR" ;;
-        jpg|gif|zip|dmp|ico|war|jar|pdf|xls|png|ois|project|properties|jj|log|sla|tex|tsv|csv|txt|eps|fb|prefs|xml) Style="" ;;
+        jpg|gif|zip|dmp|ico|war|jar|pdf|xls|png|ois|project|jj|log|sla|tex|tsv|csv|txt|eps|fb|prefs|xml) Style="" ;;
         *) Style="" ; add_to_message "$File" -1 ;;
       esac
       if [[ $Style != "" ]]; then
