@@ -45,6 +45,7 @@ my %comment_start = (
     HTML => "<!--",
     JSP => "<%--",
     VM => "#*",
+    PROPS => "#",
     SHELL => "#",
     DOS => "REM",
     SQLLDR => "--",
@@ -65,6 +66,7 @@ my %comment_end = (
 my %comment_per_line = (
     C => " *",
     VM => " *",
+    PROPS => "#",
     SHELL => "#",
     DOS => "REM",
     SQLLDR => "--",
@@ -191,9 +193,9 @@ if( $commentOther == 0 && $newCommentKuali == 0)
     my @newFile;
 
     #if we just need to add a new header
-    if( $commentExists == 0 )
+    if( $commentExists == 0 || ( ($style eq "PROPS") && $commentExists == 1) )
     {
-	if($debug){print "comment exists == 0\n";}
+        if($debug){print "comment exists == " . $commentExists . "\n";}
         my @heredocArr = AddNewHeader(@svnLogYears);
         
         if( $shellOrMarkup )

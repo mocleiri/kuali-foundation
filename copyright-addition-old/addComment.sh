@@ -80,13 +80,14 @@ for File in `ls`; do
       add_to_message "$File" -2
     else
       case $Extension in
-        java|js|ddl|table|indexes|sql|css) Style="C" ;;
+        java|js|ddl|table|indexes|css) Style="C" ;;
         html|htm|xml|xsd|xsl|jmx|tld|wsdd|dia|dtd) Style="HTML" ;;
         jsp|tag) Style="JSP" ;;
         vm) Style="VM" ;;
-        sh|pl|properties) Style="SHELL" ;;
+        properties) Style="PROPS" ;;
+        sh|pl) Style="SHELL" ;;
         bat) Style="DOS" ;;
-        ctl) Style="SQLLDR" ;;
+        ctl|sql) Style="SQLLDR" ;;
         sqr|h) Style="SQR" ;;
         jpg|gif|zip|dmp|ico|war|jar|pdf|xls|png|ois|project|jj|log|sla|tex|tsv|csv|txt|eps|fb|prefs|xml) Style="" ;;
         *) Style="" ; add_to_message "$File" -1 ;;
