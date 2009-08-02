@@ -1,0 +1,915 @@
+<!--
+#########################################################################################
+#                                                                                       #
+#  U I   N E S T E D   S T R U C T U R A L   O U T L I N E                              #
+#                                                                                       #
+#  A "Page" contains one or more "Panels" and optionally a "Control Panel" at the top.  #
+#  A Panel contains one or more "Elements."                                             #
+#  An Element can optionally expand and contains one or more of the following:          #
+#	 [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#                                                                                       #
+#  A Sub-element can optionally expand and contains one or more of the following:       #
+#    [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#                                                                                       #
+#########################################################################################
+-->
+
+<!-- DOCUMENT HEAD -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Kuali</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <link rel="shortcut icon" href="../images/icon.ico" />
+    <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="questionnaire.css" rel="stylesheet" type="text/css" />
+    <!-- jQuery Library -->
+	<script type="text/javascript" src="../scripts/jquery.js"></script>
+    <!-- jQuery Document Ready -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+			// Opened Panel
+				$(".openedpanelcontrol").toggle(
+					function()
+					{
+						$(this).parent().parent().parent().parent().next().slideUp(400);
+						$(this).attr("src","../images/tinybutton-show.gif");
+					},function(){
+						$(this).parent().parent().parent().parent().next().slideDown(400);
+						$(this).attr("src","../images/tinybutton-hide.gif");
+					}
+				);
+			
+			// Closed Panel
+				$(".closedpaneldiv").attr("style","display:none;");
+				$(".closedpanelcontrol").toggle(
+					function()
+					{
+						$(this).parent().parent().parent().parent().next().slideDown(400);
+						$(this).attr("src","../images/tinybutton-hide.gif");
+					},function(){
+						$(this).parent().parent().parent().parent().next().slideUp(400);
+						$(this).attr("src","../images/tinybutton-show.gif");
+					}
+				);
+				
+			// Opened Section
+				$(".openedsectioncontrol").toggle(
+					function()
+					{
+						$(this).parent().parent().parent().parent().next().slideUp(400);
+						$(this).attr("src","../images/tinybutton-show.gif");
+					},function(){
+						$(this).parent().parent().parent().parent().next().slideDown(400);
+						$(this).attr("src","../images/tinybutton-hide.gif");
+					}
+				);
+			
+			// Closed Section
+				$(".closedsectiondiv").attr("style","display:none;");
+				$(".closedsectioncontrol").toggle(
+					function()
+					{
+						$(this).parent().parent().parent().parent().next().slideDown(400);
+						$(this).attr("src","../images/tinybutton-hide.gif");
+					},function(){
+						$(this).parent().parent().parent().parent().next().slideUp(400);
+						$(this).attr("src","../images/tinybutton-show.gif");
+					}
+				);
+			
+			// More/Less Information...
+				$(".Qmoreinfocontrol").parent().next().hide(0);
+				$(".Qmoreinfocontrol").toggle(
+					function()
+					{
+						$(this).parent().next().slideDown(400);
+						$(this).html("Less Information...");
+					},function(){
+						$(this).parent().next().slideUp(400);
+						$(this).html("More Information...");
+					}
+				);
+				
+				<!-- reticulate -->
+					$(".reticulate").click(
+						function()
+						{
+							buildquestionset();
+						}
+					);
+					$(".evaluatereticulate").keyup(
+						function()
+						{
+							buildquestionset();
+						}
+					);
+				
+				<!-- initial state of questions -->
+					$("#QID002").hide(0);
+					$("#QID003").hide(0);
+					$("#QID004").hide(0);
+					
+					$("#QID006").hide(0);
+					$("#QID007").hide(0);
+					
+					$("#QID009").hide(0);
+					$("#QID010").hide(0);
+					$("#QID011").hide(0);
+					
+					$("#QID015").hide(0);
+					
+					$("#QID017").hide(0);
+					$("#QID018").hide(0);
+				
+				<!-- buildquestionset -->
+					buildquestionset();
+					function buildquestionset()
+					{
+						<!-- QID001 -->
+							if(document.questionnaireform.AID001[0].checked == true)
+							{
+								$("#QID002").slideDown(600);
+								$("#QID003").slideDown(600);
+								$("#QID004").slideDown(600);
+							}
+							else
+							{
+								$("#QID002").slideUp(600);
+								$("#QID003").slideUp(600);
+								$("#QID004").slideUp(600);
+							}
+						<!-- QID005 -->
+							if(document.questionnaireform.AID005[0].checked == true)
+							{
+								$("#QID006").slideDown(600);
+								$("#QID007").slideDown(600);
+							}
+							else
+							{
+								$("#QID006").slideUp(600);
+								$("#QID007").slideUp(600);
+							}
+						<!-- QID008 -->
+							if(document.questionnaireform.AID008[0].checked == true)
+							{
+								$("#QID009").slideDown(600);
+								$("#QID010").slideDown(600);
+								$("#QID011").slideDown(600);
+							}
+							else
+							{
+								$("#QID009").slideUp(600);
+								$("#QID010").slideUp(600);
+								$("#QID011").slideUp(600);
+							}
+						<!-- QID014 -->
+							if(document.questionnaireform.AID014[0].checked == true)
+							{
+								$("#QID015").slideDown(600);
+							}
+							else
+							{
+								$("#QID015").slideUp(600);
+							}
+						<!-- QID016 -->
+							if(document.questionnaireform.AID016[0].checked == true)
+							{
+								$("#QID017").slideDown(600);
+								$("#QID018").slideDown(600);
+							}
+							else
+							{
+								$("#QID017").slideUp(600);
+								$("#QID018").slideUp(600);
+							}
+						
+							
+					}
+					
+		});
+	</script>
+</head>
+<body>
+<form name="questionnaireform">
+
+<!-- PAGE HEADER -->
+<div class="pageheader">
+	<table class='header' cellpadding="0" border="0">
+    	<tr>
+        	<td align="left" valign="middle">
+            	<span class="pagetitle">
+                	Questionnaire 
+                	<input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this page.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                </span>
+            </td>
+            <td align="right">
+            	
+                <table class="headerdocsummary" cellpadding="0" border="0">
+                	<tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                    <tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                    <tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                </table>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- TOP NAVIGATION(TABNAV)-->
+<div class="horizontaltabs">
+	<table class="horizontaltabstable">
+    	<tr>
+        	<!-- ACTIVE -->
+                <td class="tabactive1">&nbsp;</td>
+                <td class="tabactive2">
+                    <button type="submit" name="Presentation" value="Presentation" alt="Presentation">Annual COI Reports</button>
+                </td>
+                <td class="tabactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" name="Editor" value="Editor" alt="Editor">Some Other Page</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+        </tr>
+        <tr>
+        	<!-- ACTIVE -->
+                <td class="tabactive4"></td>
+                <td class="tabactive5"></td>
+                <td class="tabactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- BEGIN PANEL CONTAINER -->
+<table class="panelcontainer" cellspacing="20"><tr><td>
+
+<!-- GLOBAL NAVIGATION CONTROLS -->
+<div class="globalnav">
+	<img src="../images/tinybutton1-siteindex.gif" alt="site index" />
+    <img src="../images/tinybutton-expandall.gif" alt="expand all" />
+    <img src="../images/tinybutton-collapseall.gif" alt="collapse all" />
+</div>
+
+<!-- TOP PANEL HEAD -->
+<table class="paneltable">
+    <tr>
+        <td class="toppanelhead1">&nbsp;</td>
+        <td class="toppanelhead2">
+            <!--<span style="float:right; padding-right:20px; font-weight:normal;">Update Required</span>-->
+            ACME Corp. (Incomplete)
+        </td>
+        <td class="toppanelhead3">
+            <img class="openedpanelcontrol" src="../images/tinybutton-hide.gif" alt="show/hide this panel" width="45" height="15" border="0" />
+        </td>
+        <td class="toppanelhead4">&nbsp;</td>
+        <td class="toppanelhead5">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- PANEL CONTENT -->
+<div class="openpaneldiv">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+                
+                <!-- ELEMENT HEAD: Label Here -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <!--<img class="closedsectioncontrol" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" />-->
+                            Questionnaire Update Status: Update Required
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                
+                <!-- CONTENT: Label Here -->
+                <div>
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_questionnaire" colspan="2">
+                            	<b>A newer version of the questionnaire has been published.  An update is required.</b>
+                            </td>
+                       </tr>
+                       <tr>
+                            <td class="content_questionnaire">
+                            	
+                                <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right; width:20px; vertical-align:top;">
+                                            <input type="radio" class="nobord" name="upd01" value="0" checked="checked" />
+                                        </td>
+                                        <td style="border:none; vertical-align:top; background:none;">
+                                            Copy the answers from the old version of questionnaire to the new one.  Only questions that have been changed in the new version will have to be answered.
+                                        </td>
+                                        <td style="border:none; background:none; text-align:right; width:20px; vertical-align:top;">
+                                            <input type="radio" class="nobord" name="upd02" value="0" />
+                                        </td>
+                                        <td style="border:none; vertical-align:top; background:none;">
+                                            Do not copy answers from previous version of the questionnaire.  Every question in the new version of the questionnaire will have to be answered.
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td class="content_questionnaire">
+                            	<input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the questionnaire by the method indicated.'); return false" style="border:none;" alt="update" title="Update" type="image" />
+                            </td>
+                       </tr>
+                    </table>
+                </div>
+                
+                <!-- ELEMENT HEAD: Label Here -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <a href="#" class="panelcontrol03"><img id="panelcontrolimage03" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
+                            <script type="text/javascript">
+								$(document).ready(function(){
+									$("#panelcontent03").hide();
+									$("#panelcontrolimage03").toggle(
+										function()
+										{
+											$("#panelcontent03").slideDown(600);
+											$("#panelcontrolimage03").attr("src","../images/tinybutton-show.gif");
+										},
+										function()
+										{
+											$("#panelcontent03").slideUp(400);
+											$("#panelcontrolimage03").attr("src","../images/tinybutton-hide.gif");
+										}
+									);	
+								});
+							</script>
+                            Questions
+                        </th>
+                        <th class="elementhead_right">
+                            <input name="print1" src="../images/tinybutton-printdark.gif" onclick="javascript: alert('This would print the questionnaire.'); return false" style="border:none;" alt="print" type="image" />
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                
+                <!-- CONTENT: Label Here -->
+                <div id="panelcontent03">
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_questionnaire">
+               
+                                <!-- CONSULTING -->
+                                
+                                    <div class="Qdiv" id="QID001">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.0.0</span>-->
+                                            <span class="Qquestion">Are you a consultant with this entity?</span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Consulting: Here is stuff about the question including explanation, policies, and regulations. [QID: QID001]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID001" value="0" />yes
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID001" value="1" checked="checked" />no
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID002">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.0.0</span>-->
+                                            <span class="Qquestion">
+                                                Do you have a written consulting agreement (non-University agreement) with this entity?  If yes, please attach a copy of the agreement to this report.
+                                            </span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Consulting: Here is stuff about the question including explanation, policies, and regulations. [QID: QID002]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID002" value="0" checked="checked" />yes
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID002" value="1" />no
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID003">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.1.0</span>-->
+                                            <span class="Qquestion">Please describe in detail the frequency and nature of your consulting activities with this entity.</span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Consulting: Here is stuff about the question including explanation, policies, and regulations. [QID: QID003]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none;">
+                                                            <textarea name="AID003" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                        </td>
+                                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                                            <input name="AID003x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID004">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.1.1</span>-->
+                                            <span class="Qquestion">
+                                                Will the terms of your consulting in any way restrict the release of information or other dissemination of 
+                                                research results by faculty/researchers involved in the project?
+                                            </span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Consulting: Here is stuff about the question including explanation, policies, and regulations. [QID: QID004]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID004" value="0" checked="checked" />yes
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID004" value="1" />no
+                                            </span>
+                                        </div>
+                                    </div>
+                                
+                                <!-- EMPLOYMENT -->
+                                
+                                    <div class="Qdiv" id="QID005">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.0.0</span>-->
+                                            <span class="Qquestion">
+                                            	Do you, your spouse, registered domestic partner, or any dependent child(ren) hold a position of management 
+                                            	or employment with this entity?
+                                            </span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Employment: Here is stuff about the question including explanation, policies, and regulations. [QID: QID005]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID005" value="0" />yes
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID005" value="1" checked="checked" />no
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID006">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.0.0</span>-->
+                                            <span class="Qquestion">
+                                                Please indicate the positions held:
+                                            </span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Employment: Here is stuff about the question including explanation, policies, and regulations. [QID: QID006]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID006_0" />Director<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID006_1" />Officer<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID006_2" />Employee<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID006_3" />Partner<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID006_4" />Member, Board of Directors<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID006_5" />Trustor<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID006_6" />Chair, Scientific Advisory Board
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID007">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.1.0</span>-->
+                                            <span class="Qquestion">Please describe the responsibilities of your position(s) with the entity.</span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Employment: Here is stuff about the question including explanation, policies, and regulations. [QID: QID007]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none;">
+                                                            <textarea name="AID007" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                        </td>
+                                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                                            <input name="AID007x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </span>
+                                        </div>
+                                    </div>
+                                
+                                <!-- EQUITY -->
+                                
+                                    <div class="Qdiv" id="QID008">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.0.0</span>-->
+                                            <span class="Qquestion">
+                                            	Do you, your spouse, registered domestic partner, or any dependent child(ren) hold an equity interest in this entity?
+                                            </span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Equity: Here is stuff about the question including explanation, policies, and regulations. [QID: QID008]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID008" value="0" />yes
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID008" value="1" checked="checked" />no
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID009">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.0.0</span>-->
+                                            <span class="Qquestion">
+                                                Please indicate the type of equity interest that you, your spouse, registered domestic partner, or any dependent child(ren) have in this entity.
+                                            </span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Equity: Here is stuff about the question including explanation, policies, and regulations. [QID: QID009]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID009_0" />Bonds<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID009_1" />Convertible Security<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID009_3" />Stocks/Stock Options<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID009_5" />Other
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID010">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.1.0</span>-->
+                                            <span class="Qquestion">Is the equity publicly traded?</span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Equity: Here is stuff about the question including explanation, policies, and regulations. [QID: QID010]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID010" value="0" />yes
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID010" value="1" checked="checked" />no
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID011">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.0.0</span>-->
+                                            <span class="Qquestion">
+                                                What is the current total market value of the equity you, your spouse, registered domestic partner, and any dependent children hold in this entity?
+                                            </span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Equity: Here is stuff about the question including explanation, policies, and regulations. [QID: QID011]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID011" />$0 to $1,000<br />
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID011" />$1,001 to $4,999<br />
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID011" />$5,000 to $9,999<br />
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID011" />$10,000 or more
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID012">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.1.0</span>-->
+                                            <span class="Qquestion">Please provide an internal estimate of the value of the equity.</span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Equity: Here is stuff about the question including explanation, policies, and regulations. [QID: QID012]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none;">
+                                                            <textarea name="AID012" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                        </td>
+                                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                                            <input name="AID012x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID013">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.1.0</span>-->
+                                            <span class="Qquestion">Please indicate the total percentage of equity held in this entity.</span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Equity: Here is stuff about the question including explanation, policies, and regulations. [QID: QID013]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="text" name="AID013" id="AID013" style="width:50px;" />%
+                                                <script type="text/javascript">
+													$(document).ready(function(){
+														$("#AID013").keyup(
+															function()
+															{
+																if (isNaN(questionnaireform.AID013.value))
+																{
+																	alert("This field requires a NUMBER only.");
+																} 
+															}
+														);
+													});
+												</script>
+                                            </span>
+                                        </div>
+                                    </div>
+                                
+                                <!-- HONORARIA -->
+                                
+                                    <div class="Qdiv" id="QID014">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.0.0</span>-->
+                                            <span class="Qquestion">
+                                            	Have you received honoraria income from the entity?
+                                            </span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Honoraria: Here is stuff about the question including explanation, policies, and regulations. [QID: QID014]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID014" value="0" />yes
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID014" value="1" checked="checked" />no
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID015">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.1.0</span>-->
+                                            <span class="Qquestion">Please describe the nature and frequency of your activities with this entity.</span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Honoraria: Here is stuff about the question including explanation, policies, and regulations. [QID: QID015]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none;">
+                                                            <textarea name="AID015" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                        </td>
+                                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                                            <input name="AID015x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </span>
+                                        </div>
+                                    </div>
+                                
+                                <!-- INCOME -->
+                                
+                                    <div class="Qdiv" id="QID016">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.0.0</span>-->
+                                            <span class="Qquestion">
+                                            	Excluding gifts, contracts or grants administered by the University, have you, your spouse, registered domestic partner or dependent child(ren) received any income from this entity in the past 12 months?
+                                            </span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Income: Here is stuff about the question including explanation, policies, and regulations. [QID: QID016]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID016" value="0" />yes
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID016" value="1" checked="checked" />no
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID017">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.0.0</span>-->
+                                            <span class="Qquestion">
+                                                Please indicate the nature of income you received from this entity.
+                                            </span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Income: Here is stuff about the question including explanation, policies, and regulations. [QID: QID017]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID017_0" />Payment in Kind<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID017_1" />Per Diem<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID017_2" />Salary<br />
+                                                <input type="checkbox" class="reticulate" style="border:none;" name="AID017_3" />Other
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="Qdiv" id="QID018">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.0.0</span>-->
+                                            <span class="Qquestion">
+                                                Please indicate the amount of income received in the past 12 months.
+                                            </span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Income: Here is stuff about the question including explanation, policies, and regulations. [QID: QID018]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID018" />less than $500<br />
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID018" />$500 to $999<br />
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID018" />$10,000 to $19,999<br />
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID018" />$20,000 to $49,999<br />
+                                                <input type="radio" class="reticulate" style="border:none;" name="AID018" />$50,000 or more
+                                            </span>
+                                        </div>
+                                    </div>
+                                
+                                <!-- INTERESTS -->
+                                
+                                    <div class="Qdiv" id="QID019">
+                                        <div class="Qquestiondiv">
+                                            <span class="Qmoreinfocontrol">More Information...</span>
+                                            <!--<span class="Qnumber">1.1.0</span>-->
+                                            <span class="Qquestion">Please explain how you are keeping your interests and obligations to the entity separate from your University activities.</span>
+                                        </div>
+                                        <div class="Qmoreinfodiv">
+                                            <span class="Qmoreinfo">Interests: Here is stuff about the question including explanation, policies, and regulations. [QID: QID019]</span>
+                                        </div>
+                                        <div class="Qresponsediv">
+                                            <span class="Qresponse">
+                                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none;">
+                                                            <textarea name="AID019" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                        </td>
+                                                        <td style="border:none; width:20px; vertical-align:bottom;">
+                                                            <input name="AID019x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </span>
+                                        </div>
+                                    </div>
+                                
+                
+                				
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                    
+            </td>
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+<!-- MID PANEL HEAD -->
+<table class="paneltable">
+    <tr>
+        <td class="midpanelhead1">&nbsp;</td>
+        <td class="midpanelhead2">
+        	<!--<span style="float:right; padding-right:20px; font-weight:normal;">Incomplete</span>-->
+            Roadrunner Inc. (Incomplete)
+        </td>
+        <td class="midpanelhead3">
+            <img class="closedpanelcontrol" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" />
+        </td>
+        <td class="midpanelhead4">&nbsp;</td>
+        <td class="midpanelhead5">&nbsp;</td>
+    </tr>
+</table>
+         
+<!-- PANEL CONTENT -->
+<div class="closedpaneldiv">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+                
+                [Similar to above.]
+                
+            </td>
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+<!-- MID PANEL HEAD -->
+<table class="paneltable">
+    <tr>
+        <td class="midpanelhead1">&nbsp;</td>
+        <td class="midpanelhead2">
+        	<!--<span style="float:right; padding-right:20px; font-weight:normal;">Complete</span>-->
+            Warner Bros. Entertainment Inc. (Incomplete)
+        </td>
+        <td class="midpanelhead3">
+            <img class="closedpanelcontrol" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" />
+        </td>
+        <td class="midpanelhead4">&nbsp;</td>
+        <td class="midpanelhead5">&nbsp;</td>
+    </tr>
+</table>
+         
+<!-- PANEL CONTENT -->
+<div class="closedpaneldiv">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+                
+                [Similar to above.]
+                
+            </td>
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+        
+<!-- PANEL FOOT -->
+<table class="paneltable">
+    <tr>
+        <td class="panelfoot1">&nbsp;</td>
+        <td class="panelfoot2" colspan="3">&nbsp;</td>
+        <td class="panelfoot3">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- INSTRUCTIONAL NOTES -->        
+<div class="instructionalnotes">
+    * required
+</div>
+    
+<!-- GLOBAL DOCUMENT CONTROLS -->
+<div class="globaldocumentcontrols">
+    <a href="#"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_refresh.gif" alt="save" width="68" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width="48" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0" /></a>
+</div>
+
+<!-- END PANEL CONTAINER -->
+</td></tr></table>
+
+<!-- DOCUMENT FOOT -->
+</form>
+</body>
+</html>
