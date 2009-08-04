@@ -6,7 +6,6 @@
 
 kexport dba trunk
 kdailytag trunk
-kupdate dev2 branches/endowment-build-1219 false true Oracle9i
 kupdate cnv standard true true Oracle9i
 kupdate unt standard true false Oracle9i
 kpurge $LOGS_DIRECTORY 7
