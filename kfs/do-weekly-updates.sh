@@ -5,6 +5,7 @@
 . ~j2eemgr/kuali/shared-functions
 
 kupdate reg standard true true MySQL
-kbranch standard endowment
+
+sh ~j2eemgr/kuali/kfs/do-weekly-endowment-updates.sh
 
 kend 0
