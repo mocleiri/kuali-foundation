@@ -6,6 +6,4 @@
 
 kupdate dev2 branches/endowment-build-1219 false true Oracle9i
 
-# test
-
 kend 0
