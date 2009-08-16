@@ -1,0 +1,356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Kuali</title>
+<LINK REL="SHORTCUT ICON" HREF="../images/icon.ico">
+<meta http-equiv=Content-Type content="text/html; charset=ISO-8859-1">
+<link href="../css/kuali_application.css" rel=stylesheet type="text/css">
+<link href="../css/kuali.css" rel=stylesheet type="text/css">
+<script language=javascript src="../scripts/my_bm_inc.js"></script>
+<script language=javascript1.2 src="../scripts/my_explorer.js"></script>
+<script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js"></script>
+<script language=JavaScript src="../scripts/CalendarPopup.js"></script>
+<script language=JavaScript type="text/JavaScript">
+<!--
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+function MM_showHideLayers() { //v9.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) 
+  with (document) if (getElementByid && ((obj=getElementByid(args[i]))!=null)) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+#workarea .neutral {
+	background-color: #FFFFFF;
+	border: 1px none #FFFFFF;
+	width: 50%;
+}
+-->
+</style>
+</head>
+<body>
+<!--webbot BOT="GeneratedScript" PREVIEW=" " startspan -->
+<script type="text/javascript"><!--
+function Validator(theForm)
+{
+	var numberRegExp= /\d+/; //matches any string containing one or more digits (NB only gets first number it sees).
+	var matches, inputNameNumber, message="";
+	for(i=0; i<theForm.elements.length; i++){//loop round all elements in the form.
+		if ( (theForm.elements[i].name.indexOf("firstname")>=0) || (theForm.elements[i].name.indexOf("surname")>=0) )//check name contains either the string "firstname" or "surname".
+		{
+			matches = numberRegExp.exec(theForm.elements[i].name);//extract number from name using regular expression.
+			if (matches != null) {
+				inputNameNumber = "";
+				for (j = 0; j < matches.length; j++) {
+					inputNameNumber = inputNameNumber + matches[j];//get the number we've found.
+				}
+				inputNameNumber = parseInt(inputNameNumber);
+
+				if(inputNameNumber!="NaN"){//check it's not an empty string
+					if(theForm.elements[i].value=="" && inputNameNumber<=divNum){//check value is empty and input number is less than number of divs on display.
+						message+="Please enter a value for the \""+ theForm.elements[i].name +"\" field." + "\n";
+					}
+				}
+			}// if no matches, ignore.
+		}//if input name doesn't contain "firstname" or "surname" ignore
+	}
+
+	if(message!=""){
+		alert(message);
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+var divNum=0;
+function showDivs(obj){
+	var i, num;
+	divNum = parseInt(obj.options[obj.selectedIndex].value);
+	
+	for(i=1; i<=10; i++){
+		num = (i<10) ? "0"+i : i;
+		
+		if(document.getElementByid('registration'+num)){ // if the div exists.
+			if(i<=divNum){// display.
+				document.getElementByid('registration'+num).style.display="block";
+			}
+			else{ // hide.
+				document.getElementByid('registration'+num).style.display="none";
+			}
+		}
+	}
+}
+
+function hideAllDivsOnLoad(){
+	showDivs(document.getElementByid("numberofreg"));
+}
+
+addLoadEvent(hideAllDivsOnLoad);
+
+// add an onload event without destroying any previously set onload functions.
+function addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof window.onload != 'function') {
+		window.onload = func;
+	} else {
+		window.onload = function() {
+			if (oldonload) {
+				oldonload();
+			}
+			func();
+		}
+	}
+}
+//--></script>
+<form>
+  <div class="headerarea-kra" id="headerarea">
+    <h1>Proposal Log <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('temp/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
+    <h1 class="hidden">tab name goes here (accessibility requirement)</h1>
+    <h1 class="hidden">tab name goes here (accessibility requirement)</h1>
+    <div class="headerbox">
+      <table cellpadding=0 cellspacing=0 summary="document header: general information" style="border-bottom:#A0A0A0; border-bottom-style:solid; border-bottom-width:1px">
+        <tr>
+          <th scope=row><div align=right>Document ID:</div></th>
+          <td>291607</td>
+          <th scope=row><div align=right>Status:</div></th>
+          <td>new</td>
+        </tr>
+        <tr>
+          <th scope=row><div align=right>Initiator:</div></th>
+          <td>&lt;User name&gt;</td>
+          <th scope=row><div align=right>Last Updated:</div></th>
+          <td>10:06 AM 03/30/2005</td>
+        </tr>
+        <tr>
+          <th class="bord-l" scope=row><div align=right>Sponsor:</div></th>
+          <td class="datacell-l">&lt;sponsor name&gt;</td>
+          <th class="bord-l" scope=row><div align=right>PI:</div></th>
+          <td class="datacell-l">&lt;PI name&gt;</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!--TABBED TOP NAVIGATION-->
+  <div class="horz-links-bkgrnd" id="horz-links">
+    <div id="tabs">
+      <dl class="tabul">
+        <dt class="licurrent" ><span class="tabright tabcurrent">
+          <input name="Submit" type=submit onClick="MM_goToURL('parent','temp/1-prop-proposal.html');return document.MM_returnValue" value="Proposal Log">
+          </span></dt>
+      </dl>
+    </div>
+  </div>
+  <div class="msg-excol">
+    <div class="left-errmsg">
+      <div class="error"><span class="excol"> </span></div>
+    </div>
+    <div class="right">
+      <div class="excol">
+        <input name="imageField" type=image class="tinybutton" src="../images/tinybutton1-siteindex.gif" alt="site index">
+        <input name="imageField" type=image class="tinybutton" src="../images/tinybutton-expandall.gif" alt="expand all">
+        <input name="imageField" type=image class="tinybutton" src="../images/tinybutton-collapseall.gif" alt="collapse all">
+        <br>
+      </div>
+    </div>
+  </div>
+  <table width="100%" cellpadding=0 cellspacing=0>
+    <tr>
+      <td class="column-left"><img src="../images/pixel_clear.gif" alt="" width=20 height=20></td>
+      <td><div id="workarea">
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Document Overview</td>
+              <td class="tabtable1-mid"><a id="A262" onclick="rend(this, false)"><img src="../images/tinybutton-hide.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F262" vspace=6></a></td>
+              <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G262" style="display: block;">
+            <div class="h2-container">
+              <h2>Document Overview</h2>
+            </div>
+            <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <th colspan="1" rowspan="2" align="right" valign="top"> <label for="document.documentHeader.financialDocumentDescription">*Description:</label>
+                  </th>
+                  <td rowspan="2" align="left" valign="top"><input name="document.documentHeader.financialDocumentDescription" maxlength="40" size="45" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.financialDocumentDescription" type="text"></td>
+                  <th colspan="1" align="right">&nbsp;
+                    <label for="document.explanation">Explanation: </label>
+                  </th>
+                  <td align="left" valign="middle"><textarea name="document.explanation" tabindex="0" cols="40" rows="3" style="" id="document.explanation"></textarea></td>
+                </tr>
+                <tr>
+                  <th rowspan="1" colspan="1" align="right">&nbsp;
+                    <label for="document.documentHeader.organizationDocumentNumber">Org. Doc. #: </label>
+                  </th>
+                  <td align="left" valign="middle"><input name="document.documentHeader.organizationDocumentNumber" maxlength="10" size="12" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.organizationDocumentNumber" type="text"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Proposal Log</td>
+              <td class="tabtable2-mid"><a href="#" id="A5" onclick="rend(this, false)"><img src="../images/tinybutton-hide.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F5" vspace=6></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
+            </tr>
+          </table>
+          <div class="tab-container" align=center id="G5" style="display: block;">
+            <div class="h2-container"><span class="subhead-left">
+              <h2>Institutional Proposal </h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('temp/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <th><div align=right>*Proposal  Log ID:</div></th>
+                <td>12351253</td>
+                <th><div align=right >Status:</div></th>
+                <td align=left valign=middle><select onchange="dataChanged()" name="activityType2"  style="width:200px;">
+                    <option selected>Pending</option>
+                    <option>Temporary</option>
+                    <option>Submitted</option>
+                    <option>Merged</option>
+                    <option>Void </option>
+                  </select></td>
+              </tr>
+              <tr>
+                <th><div align=right>Fiscal Month/Year:</div></th>
+                <td>06/2010</td>
+                <th><div align=right >Deadline Date:</div></th>
+                <td align=left valign=middle><input name="startDate9" maxlength="10" value="" onchange="dataChanged()" type="text">
+				  <input type="image" class="nobord" src="../images/calendar.gif" alt="lookup"></td>
+              </tr>
+              <tr>
+                 <th><div align=right >*Log Type:</div></th>
+                <td align=left valign=middle><select onchange="dataChanged()" name="activityType2" style="width:200px;">
+                    <option selected>Permanent</option>
+                    <option>Temporary</option>
+                    <option>Disclosure</option>
+                  </select></td>
+                <th><div align=right>*Proposal Type:</div></th>
+                <td><select size="1" name="numberofreg" id="numberofreg" onChange="showDivs(this)" style="width:200px;">
+                    <option value="0" selected="">select</option>
+                    <option value="01">Continuation</option>
+                    <option value="02">New</option>
+                    <option value="03">Renewal</option>
+                    <option value="04">Resubmission</option>
+                    <option value="05">Revision</option>
+                    <option value="06">Task Order</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <th><div align=right >*Principal Investigator:</div></th>
+                <td>
+                  
+                  
+                  <table border="0" width="100%" style="border:none;">
+                    	<tr>
+                        	<td style="border:none;">
+                            	Employee Search
+                            </td>
+                            <td width="40" valign="middle" style="border:none;">
+                            	<nobr>
+                                <img src="../images/searchicon.gif" border="0" width="16" height="16" align="absmiddle">
+                                <img src="../images/book_open.png" border="0" width="16" height="16" align="absmiddle">
+                                </nobr>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="border:none;">
+                            	Non-employee Search
+                            </td>
+                            <td width="40" valign="middle" style="border:none;">
+                            	<nobr>
+                                <img src="../images/searchicon.gif" border="0" width="16" height="16" align="absmiddle">
+                                <img src="../images/book_open.png" border="0" width="16" height="16" align="absmiddle">
+                                </nobr>
+                            </td>
+                        </tr>
+                        <!--<tr>
+                        	<td style="border:none;">
+                            	<input type="text" name="x" style="width:100%" value="004538" />
+                            </td>
+                            <td style="border:none;">&nbsp;</td>
+                        </tr>-->
+                        <tr>
+                        	<td style="border:none;">
+                            	<span class="fineprint">Terry Durkin</span>
+                            </td>
+                            <td style="border:none;">&nbsp;</td>
+                        </tr>
+                    </table>
+                  
+                  
+                  
+                  </td>
+                <th><div align=right>*Lead Unit:</div></th>
+                <td><input name="startDate9" maxlength=10 value="" onchange="dataChanged()" type=text />
+                  <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup"></td>
+              </tr>
+              <tr>
+                <th><div align=right>*Project Title:</div></th>
+                <td colspan=3 align=left valign=middle><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="border:none;"><textarea name="zs" style="width:100%; text-align:left;" rows="3"></textarea></td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs" src="../images/pencil_add.png" onclick="javascript: alert('Edit Title Pop-up'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                    </tr>
+                  </table></td>
+              </tr>
+              <tr>
+                <th><div align=right >Sponsor:</div></th>
+                <td colspan=3>
+                	<input name="sd1" value="" type="text" />
+                  	<input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                </td>
+              </tr>
+              <tr>
+                <th><div align=right>Comment:</div></th>
+                <td colspan=3 align=left valign=middle><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="border:none;"><textarea name="zs" style="width:100%; text-align:left;" rows="3"></textarea></td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="xs" src="../images/pencil_add.png" onclick="javascript: alert('Edit Comment Pop-up'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                    </tr>
+                  </table></td>
+              </tr>
+              <tr>
+                <th><div align=right >Created By:</div></th>
+                <td>twilson</td>
+                <th><div align=right >Created date:</div></th>
+                <td align=left valign=middle> 05/25/2009 10:44:18 </td>
+              </tr>
+              <tr>
+                <th><div align=right >Updated By:</div></th>
+                <td>twilson</td>
+                <th><div align=right >Last Update:</div></th>
+                <td align=left valign=middle> 05/25/2009 10:44:18 </td>
+              </tr>
+            </table>
+            <br>
+          </div>
+          <table width="100%" border=0 cellpadding=0 cellspacing=0 class="b3" summary="">
+            <tr>
+              <td align=left class="footer"><img src="../images/pixel_clear.gif" alt="" width=12 height=14 class="bl3"></td>
+              <td align=right class="footer-right"><img src="../images/pixel_clear.gif" alt="" width=12 height=14 class="br3"></td>
+            </tr>
+          </table>
+        </div>
+        <div align=right><br>
+          * required</div>
+        <div class="globalbuttons"><a href="#"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0"></a><a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width="48" height="18" hspace="5" border="0"></a><a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0"></a></div></td>
+      <td class="column-right"><img src="../images/pixel_clear.gif" alt="" width=20 height=20></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
