@@ -103,12 +103,43 @@ function MM_goToURL() { //v3.0
   <table width="100%" cellpadding="0" cellspacing="0">
     <tr>
       <td class="column-left"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
-      <td><div id="workarea">
+      <td><div id="workarea">          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Document Overview</td>
+              <td class="tabtable1-mid"><a id="A262" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F262" vspace=6></a></td>
+              <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G262" style="display: block;">
+            <div class="h2-container">
+              <h2>Document Overview</h2>
+            </div>
+            <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <th colspan="1" align="right" width="20%"><label for="document.documentHeader.financialDocumentDescription7">*Description:</label></th>
+                  <td align="left" valign="middle" width="30%"><input name="document.documentHeader.financialDocumentDescription" maxlength="40" size="45" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.financialDocumentDescription" type="text"></td>
+                  <th colspan="1" rowspan="2" align="right" width="20%"><label for="document.documentHeader.financialDocumentDescription7">Explanation:</label></th>
+                  <td rowspan="2" align="left" valign="middle"width="30%"><table style="border:none; width:100%;">
+                    <tr>
+                      <td style="border:none; width:100%;"><textarea name="textarea5" style="width:100%;" rows="2" id="textarea5"></textarea></td>
+                      <td style="border:none; width:20px; vertical-align:bottom;"><input name="image12" type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
+                    </tr>
+                  </table></td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;
+                    <label for="document.documentHeader.organizationDocumentNumber3">Org. Doc. #: </label></th>
+                  <td align="left" valign="middle"><input name="document.documentHeader.organizationDocumentNumber" maxlength="10" size="12" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.organizationDocumentNumber" type="text"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Review Data</td>
-              <td class="tabtable1-mid"><span class="tabtable2-mid"><a id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" ></a></span></td>
-              <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Review Data</td>
+              <td class="tabtable2-mid"><span class="tabtable2-mid"><a id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" ></a></span></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
           <!-- TAB -->
@@ -118,9 +149,9 @@ function MM_goToURL() { //v3.0
               <span class="subhead-right"> <a href="asdf.html"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle"></a> </span> </div>
             <table cellpadding=0 cellspacing="0">
               <tr>
-                <th  align="right"> Submitted for Review</th>
+                <th  align="right" style="width:155px;"> Submitted for Review</th>
                 <td >12/12/2008</td>
-                <th  align="right">Review Requirement</th>
+                <th  align="right" style="width:155px;">Review Requirement</th>
                 <td >Expedited</td>
               </tr>
               <tr>
@@ -131,11 +162,7 @@ function MM_goToURL() { //v3.0
               </tr>
               <tr>
                 <th  align="right">Reviewer</th>
-                <td >Tyler Wilson 
-                  
-                  <br></td>
-                <th  align="right">&nbsp;</th>
-                <td >&nbsp;</td>
+                <td colspan="3">Tyler Wilson</td>
               </tr>
               <tr>
                 <th  align="right">General Comments</th>
@@ -198,7 +225,7 @@ function MM_goToURL() { //v3.0
         </div>
         <div align=right><br>
           * required</div>
-        <div class="globalbuttons"> <a href="1-prop-intelprop-maint.html" target="_blank"><img src="../images/buttonsmall_editipreview.gif" alt="save" width="106" height="18" hspace="5" border="0"></a></div></td>
+        <div class="globalbuttons"><a href="parameters.html"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0"><img src="../images/buttonsmall_close.gif" alt="save" width="48" height="18" hspace="5" border="0"></a><a href="../confirm-cancel.html"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0"></a></div></td>
       <td class="column-right"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
     </tr>
   </table>
