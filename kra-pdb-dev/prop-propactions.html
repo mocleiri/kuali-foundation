@@ -95,10 +95,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         </span></dt>
       <dt class="licurrent" ><span class="tabright tabcurrent">
         <input name="Submit" type="submit" onClick="MM_goToURL('self','prop-propactions.html');return document.MM_returnValue" value="Proposal Actions">
-          </span></dt>             <dt><span class="tabright">
+        </span></dt>
+      <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','prop-medusahierarchyAP.html');return document.MM_returnValue" value="Medusa">
         </span></dt>
-
     </dl>
   </div>
 </div>
@@ -258,7 +258,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          <div class="tab-container" align="center" id="G3" style="display: nonee;">
+          <div class="tab-container" align="center" id="G3" style="display: none;">
             <div class="h2-container"> <span class="subhead-left">
               <h2>Proposal Hierarchy - Unlinked</h2>
               </span></div>
@@ -471,54 +471,123 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </tr>
           </table>
           <div class="tab-container" align="center" id="G45" style="display: none;">
-         
             <div class="h2-container">
-              <h2><span class="subhead-left">Proposal Hierarchy</span></h2>
-            <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+              <h2><span class="subhead-left">Link Child Proposal</span></h2>
+              <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             <table  cellpadding="0" cellspacing="0"  summary="">
               <tbody >
                 <tr>
-                  <td align=left valign=middle><div class="floaters">&nbsp;You are currently viewing <strong>Proposal #00000021</strong>, which is a Parent Document. The following actions are available:</div></td>
+                  <td colspan="2" align=left valign=middle><div class="floaters">&nbsp;You are currently viewing <strong>Proposal #00000021</strong>, which is a Parent Document. The following actions are available:</div></td>
                 </tr>
                 <tr>
-                  <td class="infoline"><div align="center"><img src="../images/tinybutton-linkchildprop.gif" alt="dsdfhg" width="102" height="15" vspace="5"><img src="../images/tinybutton-syncall.gif" alt="dsdfhg" width="51" height="15" vspace="5"></div></td>
+                  <th align=left valign=middle><div align="right">Link Child Proposal:</div></th>
+                  <td align=left valign=middle><span class="nowrap">My Proposal Title
+                    (#00000047)
+                    <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                    </span></td>
+                </tr>
+                <tr>
+                  <th align=left valign=middle><div align="right">Link Budget Type:</div></th>
+                  <td align=left valign=middle><span class="infoline">
+                    <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                      <option value=K selected>select</option>
+                      <option value=K>Sub-Budget</option>
+                      <option value=A>Sub-Project </option>
+                    </select>
+                    </span></td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="infoline"><div align="center"><img src="../images/tinybutton-linkchildprop.gif" alt="dsdfhg" width="102" height="15" vspace="5"></div></td>
                 </tr>
             </table>
-            <p><span class="tab-container" style="display: nonee;">-- or -- </span><br>
+            <br>
+            <div class="h2-container">
+              <h2><span class="subhead-left">Sync All Proposals</span></h2>
+              <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <table  cellpadding="0" cellspacing="0"  summary="">
+              <tbody >
+                <tr>
+                  <td align=left valign=middle><div class="floaters">et cadentes in asperitatem tuam. videlicet nesciunt, quod ubique sis, quem nullus circuminscribit locus, et solus es praesens etiam his.</div></td>
+                </tr>
+                <tr>
+                  <td class="infoline"><div align="center"><img src="../images/tinybutton-syncall.gif" alt="dsdfhg" width="51" height="15" vspace="5"></div></td>
+                </tr>
+            </table>
+            <p><br>
+              <br>
+            -- or -- <br>
+            <br>
+<br>
             </p>
-            <div class="h2-container"> <span class="subhead-left">
-              <h2>Proposal Hierarchy</h2>
-              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <div class="h2-container">
+              <h2><span class="subhead-left">Link to Hierarchy</span></h2>
+              <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             <table  cellpadding="0" cellspacing="0"  summary="">
               <tbody >
                 <tr>
-                  <td align=left valign=middle><div class="floaters">&nbsp;You are currently viewing <strong>Proposal #00000021</strong>, which is currently  unlinked to a proposal hierarchy. </div></td>
+                  <td colspan="2" align=left valign=middle><div class="floaters">&nbsp;You are currently viewing <strong>Proposal #00000021</strong>, which is currently  unlinked to a proposal hierarchy. </div></td>
                 </tr>
                 <tr>
-                  <td class="infoline"><div align="center"><img src="../images/tinybutton-createhierarchy.gif" alt="dsdfhg" width="93" height="15" vspace="5"> <img src="../images/tinybutton-linktohierarchy.gif" alt="dsdfhg" width="93" height="15" vspace="5"></div></td>
+                  <th width="35%" align=left valign=middle><div align="right">Link to Hierarchy:</div></th>
+                  <td align=left valign=middle><span class="nowrap">select
+                    <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                    </span></td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="infoline"><div align="center"><img src="../images/tinybutton-linktohierarchy.gif" alt="dsdfhg" width="93" height="15" vspace="5"></div></td>
                 </tr>
             </table>
             <br>
-            <span class="tab-container" style="display: nonee;">-- or -- </span><br>
-            <br>
-            <div class="h2-container"> <span class="subhead-left">
-              <h2>Proposal Hierarchy</h2>
-              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <div class="h2-container">
+              <h2><span class="subhead-left">Create Hierarchy</span></h2>
+              <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             <table  cellpadding="0" cellspacing="0"  summary="">
               <tbody >
                 <tr>
-                  <td align=left valign=middle><div class="floaters">&nbsp;You are currently viewing <strong>Proposal #00000021</strong>, which is a Child Document. The following actions are available:</div></td>
+                  <td align=left valign=middle><div class="floaters">et cadentes in asperitatem tuam. videlicet nesciunt, quod ubique sis, quem nullus circuminscribit locus, et solus es praesens etiam his.</div></td>
                 </tr>
                 <tr>
-                  <td class="infoline"><div align="center"><img src="../images/tinybutton-remhierarchy.gif" alt="dsdfhg" width="126" height="15" vspace="5"> <img src="../images/tinybutton-synctoparent.gif" alt="dsdfhg" width="85" height="15" vspace="5"></div></td>
+                  <td class="infoline"><div align="center"><img src="../images/tinybutton-createhierarchy.gif" alt="dsdfhg" width="93" height="15" vspace="5"></div></td>
                 </tr>
             </table>
+             <p><br>
+              <br>
+            -- or -- <br>
+            <br>
+<br>
+            </p>
+            <div class="h2-container">
+              <h2><span class="subhead-left">Remove from Hierarchy</span></h2>
+              <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <table  cellpadding="0" cellspacing="0"  summary="">
+              <tbody >
+                <tr>
+                  <td width="" align=left valign=middle><div class="floaters">You are currently viewing <strong>Proposal #00000021</strong>, which is a Child Document. The parent Document is <strong>Proposal #00000019.</strong></div></td>
+                </tr>
+                <tr>
+                  <td class="infoline"><div align="center"><img src="../images/tinybutton-remhierarchy.gif" alt="dsdfhg" width="126" height="15" vspace="5"></div></td>
+                </tr>
+            </table>
+            <br>
+            <div class="h2-container">
+              <h2><span class="subhead-left">Sync to Parent</span></h2>
+              <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <table  cellpadding="0" cellspacing="0"  summary="">
+              <tbody >
+                <tr>
+                  <td align=left valign=middle><div class="floaters">et cadentes in asperitatem tuam. videlicet nesciunt, quod ubique sis, quem nullus circuminscribit locus, et solus es praesens etiam his.</div></td>
+                </tr>
+                <tr>
+                  <td class="infoline"><div align="center"><img src="../images/tinybutton-synctoparent.gif" alt="dsdfhg" width="85" height="15" vspace="5"></div></td>
+                </tr>
+            </table>
+            
           </div>
-          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+          <table cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td width="366" class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Ad Hoc Recipients</td>
-              <td width="426" class="tabtable2-mid"><a href="#" id="A4" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F4" vspace=6></a></td>
-              <td width="431" class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Ad Hoc Recipients</td>
+              <td class="tabtable2-mid"><a href="#" id="A4" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F4" vspace=6></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
           <div class="tab-container" align="center" id="G4" style="display: none;">
