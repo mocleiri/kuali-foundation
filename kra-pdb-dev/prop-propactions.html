@@ -476,24 +476,35 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             <table  cellpadding="0" cellspacing="0"  summary="">
               <tbody >
-                
+                <tr>
+                  <td colspan="3" align=left valign=middle><div class="floaters">&nbsp;You are currently viewing <strong>Proposal #00000021</strong>, which is a Parent Document. The following actions are available:</div></td>
+                </tr>
                 <tr>
                   <th>Link Child Proposal</th>
                   <th>Link Budget Type</th>
                   <th>Actions</th>
                 </tr>
                 <tr>
-                  <td align=left valign=middle><div align="center"><span class="nowrap">My Proposal Title
-                    (#00000047)
-                    <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
-                  </span></div></td>
+                  <td align=left valign=middle><div align="center">
+                    <table style="border:none; width: inherit;" cellpadding=0 cellspacing=0>
+                        <tr>
+                          <td style="border:none;"><span class="nowrap">
+                            <input name="incomeList[0].fin_object_cd232" size=12 value="00000047" type=text id="person">
+                            <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                            <br>
+                          <span class="fineprint">My Proposal Title </span></span></td>
+                          
+                        </tr>
+                      </table>
+                    <div align="center"></div>
+                  </div></td>
                   <td align=left valign=middle><div align="center"><span class="infoline">
-                    <select name="newAdHocRoutePerson.actionRequested" id="action requested">
-                      <option value=K selected>select</option>
-                      <option value=K>Sub-Budget</option>
-                      <option value=A>Sub-Project </option>
-                    </select>
-                  </span></div></td>
+                      <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                        <option value=K selected>select</option>
+                        <option value=K>Sub-Budget</option>
+                        <option value=A>Sub-Project </option>
+                      </select>
+                      </span></div></td>
                   <td align=left valign=middle><div align="center"><img src="../images/tinybutton-linkchildprop.gif" alt="dsdfhg" width="102" height="15" vspace="5"></div></td>
                 </tr>
                 <tr>
@@ -501,68 +512,60 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
             </table>
             <br>
-            <p>-- or -- </p>            
+            <p>-- or -- </p>
             <div class="h2-container">
               <h2><span class="subhead-left">Proposal Hierarchy</span></h2>
-            <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+              <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             <table  cellpadding="0" cellspacing="0"  summary="">
               <tbody >
-                
+                <tr>
+                  <td colspan="3" align=left valign=middle><div class="floaters">&nbsp;You are currently viewing <strong>Proposal #00000021</strong>, which is currently  unlinked to a proposal hierarchy. </div></td>
+                </tr>
                 <tr>
                   <th>Link to Hierarchy</th>
                   <th>Link Budget Type</th>
                   <th>Actions</th>
                 </tr>
                 <tr>
-                  <td align=left valign=middle><div align="center"><span class="nowrap">My Proposal Title
-                    (#00000047)
-                    <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
-                  </span></div></td>
+                  <td align=left valign=middle><div align="center">
+                    <table style="border:none; width: inherit;" cellpadding=0 cellspacing=0>
+                      <tr>
+                        <td style="border:none;"><span class="nowrap">
+                          <input name="incomeList[0].fin_object_cd232" size=12 value="00000047" type=text id="person">
+                          <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                          <br>
+                          <span class="fineprint">My Proposal Title </span></span></td>
+                      </tr>
+                    </table>
+                    <div align="center"></div>
+                  </div></td>
                   <td align=left valign=middle><div align="center"><span class="infoline">
-                    <select name="newAdHocRoutePerson.actionRequested" id="action requested">
-                      <option value=K selected>select</option>
-                      <option value=K>Sub-Budget</option>
-                      <option value=A>Sub-Project </option>
-                    </select>
-                  </span></div></td>
+                      <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                        <option value=K selected>select</option>
+                        <option value=K>Sub-Budget</option>
+                        <option value=A>Sub-Project </option>
+                      </select>
+                      </span></div></td>
                   <td align=left valign=middle><div align="center"><img src="../images/tinybutton-linktohierarchy.gif" alt="dsdfhg" width="93" height="15" vspace="5"></div></td>
                 </tr>
                 <tr>
                   <td colspan="3" class="infoline"><div align="center"><img src="../images/tinybutton-createhierarchy.gif" alt="dsdfhg" width="93" height="15" vspace="5"></div></td>
                 </tr>
             </table>
-
             <br>
-            <p>-- or -- </p>            
+            <p>-- or -- </p>
             <div class="h2-container">
               <h2><span class="subhead-left">Proposal Hierarchy</span></h2>
-            <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+              <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             <table  cellpadding="0" cellspacing="0"  summary="">
               <tbody >
                 <tr>
-                  <th>Remove from Hierarchy</th>
-                  <th>Link Budget Type</th>
-                  <th>Actions</th>
+                  <td align=left valign=middle><div class="floaters">You are currently viewing <strong>Proposal #00000021</strong>, which is a Child Document. The parent Document is <strong>Proposal #00000019.</strong></div></td>
                 </tr>
                 <tr>
-                  <td align=left valign=middle><div align="center"><span class="nowrap">My Proposal Title
-                    (#00000047)
-                    <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
-                  </span></div></td>
-                  <td align=left valign=middle><div align="center"><span class="infoline">
-                    <select name="newAdHocRoutePerson.actionRequested" id="action requested">
-                      <option value=K selected>select</option>
-                      <option value=K>Sub-Budget</option>
-                      <option value=A>Sub-Project </option>
-                    </select>
-                  </span></div></td>
-                  <td align=left valign=middle><div align="center"><img src="../images/tinybutton-remhierarchy.gif" alt="dsdfhg" width="126" height="15" vspace="5"></div></td>
-                </tr>
-                <tr>
-                  <td colspan="3" class="infoline"><div align="center"><img src="../images/tinybutton-synctoparent.gif" alt="dsdfhg" width="85" height="15" vspace="5"></div></td>
+                  <td class="infoline"><div align="center"> <img src="../images/tinybutton-remhierarchy.gif" alt="dsdfhg" width="126" height="15" vspace="5"> <img src="../images/tinybutton-synctoparent.gif" alt="dsdfhg" width="85" height="15" vspace="5"></div></td>
                 </tr>
             </table>
-
           </div>
           <table cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
