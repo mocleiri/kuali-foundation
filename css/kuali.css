@@ -457,6 +457,12 @@ a.fineprint:hover
 	background-position: bottom;
 }
 
+#workarea td.infolineblue
+{
+	background-image: url("../images/th-back1blue.gif");
+	background-position: bottom;
+}
+
 #workarea td.tabtable1-mid
 {
 	background-image: url("../images/tab-bevel2.gif");
@@ -929,6 +935,12 @@ td.infoline
 	border-bottom-style: solid;
 	border-bottom-color: #999999;
 	padding: 2px;
+	background-position: bottom;
+}
+
+td.infolineblue
+{
+	background-image: url("../images/th-back1blue.gif");
 	background-position: bottom;
 }
 
