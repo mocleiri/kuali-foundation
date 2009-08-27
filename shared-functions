@@ -237,7 +237,7 @@ function kupdate {
 		then 
 			rm -rf $idp_wrk_dir
 			kcheckout $INFRASTRUCTURE_DATABASE_PROJECT $version-$APPLICATION $idp_wrk_dir
-        	kant import-no-empty-schema "-Doutput.dir=$BASE_DIRECTORY/$idp_wrk_dir -Dgenerated.properties.file=$ANT_PROPERTIES_FILE"
+        	kant import-no-empty-schema "-Doutput.dir=$idp_wrk_dir -Dgenerated.properties.file=$ANT_PROPERTIES_FILE"
 			kexec "rm -rf $idp_wrk_dir"
 		fi
 	fi
