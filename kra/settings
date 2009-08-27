@@ -1,8 +1,8 @@
 #!/bin/sh -x
 
 #set -x
-#SEND_MAIL=true; typeset -rx SEND_MAIL
-SEND_MAIL=false; typeset -rx SEND_MAIL
+SEND_MAIL=true; typeset -rx SEND_MAIL
+#SEND_MAIL=false; typeset -rx SEND_MAIL
 
 APPLICATION=kra; typeset -rx APPLICATION
 JAVA_APPLICATION_CODE=$APPLICATION; typeset -rx JAVA_APPLICATION_CODE
