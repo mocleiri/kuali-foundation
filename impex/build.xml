@@ -788,7 +788,7 @@ Please place the jar file for this class in the lib directory and try again.
 		<attribute name="torque.schema.dir" />
 		<sequential>
 			<echo>Running SVN update in @{torque.schema.dir}</echo>
-			<svn>
+			<svn javahl="false">
 				<update dir="@{torque.schema.dir}" />
 			</svn>
 		</sequential>
@@ -834,7 +834,7 @@ Please place the jar file for this class in the lib directory and try again.
 		<sequential>
 			<delete dir="@{torque.schema.dir}" />
 			<echo>Running SVN checkout to @{torque.schema.dir}</echo>
-			<svn>
+			<svn javahl="false">
 				<checkout url="@{svnroot}/@{svn.module}/@{svn.base}" destPath="@{torque.schema.dir}" />
 			</svn>
 		</sequential>
