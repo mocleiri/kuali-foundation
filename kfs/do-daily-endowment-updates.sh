@@ -4,8 +4,6 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-kupdate reg standard true true MySQL
-
-sh ~j2eemgr/kuali/kfs/do-weekly-endowment-updates.sh
+# kupdate dev2 branches/endowment-build-1219 false true Oracle9i
 
 kend 0

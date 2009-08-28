@@ -4,8 +4,6 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-kupdate reg standard true true MySQL
-
-sh ~j2eemgr/kuali/kfs/do-weekly-endowment-updates.sh
+sh ~j2eemgr/kuali/kfs/do-hourly-endowment-updates.sh
 
 kend 0

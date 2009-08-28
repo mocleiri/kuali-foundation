@@ -52,6 +52,7 @@
 	</target>
 	
 	<target name="import-no-empty-schema" depends="init-properties">
+		<echo message="impex-properties file in import-no-empty-schema: ${impex.properties.file}"/>
 		<ant antfile="${impex.build.file}" target="import" inheritall="false">
 			<property name="impex.properties.file" value="${impex.properties.file}"/>
 		</ant>

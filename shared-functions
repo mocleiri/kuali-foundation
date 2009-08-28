@@ -101,26 +101,27 @@ function kexport {
     {
 	typeset environment=$1
 	typeset version=$2
-	typeset tempdir=$APPLICATION_DATABASE_PROJECT"-tmp"
+	typeset adp_wrk_dir=$APPLICATION_DIRECTORY/$APPLICATION_DATABASE_PROJECT
+	typeset tempdir=$adp_wrk_dir"-tmp"
 	typeset diffsearchstring="Only in $tempdir"
 	ksetprops $environment $version Oracle9i
-	rm -rf $APPLICATION_DATABASE_PROJECT
-	kcheckout $APPLICATION_DATABASE_PROJECT $version $APPLICATION_DATABASE_PROJECT
-	cp -r $APPLICATION_DATABASE_PROJECT $tempdir
+	rm -rf $adp_wrk_dir
+	kcheckout $APPLICATION_DATABASE_PROJECT $version $adp_wrk_dir
+	cp -r $adp_wrk_dir $tempdir
 	kant export -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
-	svn -q add $APPLICATION_DATABASE_PROJECT/*
-	svn -q add $APPLICATION_DATABASE_PROJECT/doc/*
-	for i in $(diff $APPLICATION_DATABASE_PROJECT $tempdir | grep "Only in $tempdir")
+	svn -q add $adp_wrk_dir/*
+	svn -q add $adp_wrk_dir/doc/*
+	for i in $(diff $adp_wrk_dir $tempdir | grep "Only in $tempdir")
 	do
 		if [[ "$i" != "Only" && "$i" != "in" && "$i" != "$tempdir:" ]]
 		then
-			svn remove $APPLICATION_DATABASE_PROJECT/$i
+			svn remove $adp_wrk_dir/$i
 		fi
 	done
 	rm -rf $tempdir
-	kexec "svn -q update $APPLICATION_DATABASE_PROJECT"
-	kexec "svn commit -m \"daily export\" $APPLICATION_DATABASE_PROJECT"
-	kexec "rm -rf $APPLICATION_DATABASE_PROJECT"
+	kexec "svn -q update $adp_wrk_dir"
+	kexec "svn commit -m \"daily export\" $adp_wrk_dir"
+	kexec "rm -rf $adp_wrk_dir"
 	return 0
     } >> $SCRIPT_LOG 2>&1
 }
@@ -219,23 +220,25 @@ function kupdate {
 	else
 		typeset version=$2
 	fi
+	typeset adp_wrk_dir=$APPLICATION_DIRECTORY/$APPLICATION_DATABASE_PROJECT
+	typeset idp_wrk_dir=$APPLICATION_DIRECTORY/$INFRASTRUCTURE_DATABASE_PROJECT
 	klog "updating environment: $environment with version: $version, update_database: $update_database, and deploy_war: $deploy_war"
 
 	ksetprops $environment $version $database_platform
 	
 	if [[ "$update_database" = "true" ]]
 	then
-	    rm -rf $APPLICATION_DATABASE_PROJECT
-		kcheckout $APPLICATION_DATABASE_PROJECT $version $APPLICATION_DATABASE_PROJECT
+	    rm -rf $adp_wrk_dir
+		kcheckout $APPLICATION_DATABASE_PROJECT $version $adp_wrk_dir
         kant import -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
-		kexec "rm -rf $APPLICATION_DATABASE_PROJECT"
+		kexec "rm -rf $adp_wrk_dir"
 		
-		if [[ -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
+		if [[ -n $idp_wrk_dir ]]
 		then 
-			rm -rf $INFRASTRUCTURE_DATABASE_PROJECT
-			kcheckout $INFRASTRUCTURE_DATABASE_PROJECT $version-$APPLICATION $INFRASTRUCTURE_DATABASE_PROJECT
-        	kant import-no-empty-schema "-Doutput.dir=$BASE_DIRECTORY/$INFRASTRUCTURE_DATABASE_PROJECT -Dgenerated.properties.file=$ANT_PROPERTIES_FILE"
-			kexec "rm -rf $INFRASTRUCTURE_DATABASE_PROJECT"
+			rm -rf $idp_wrk_dir
+			kcheckout $INFRASTRUCTURE_DATABASE_PROJECT $version-$APPLICATION $idp_wrk_dir
+        	kant import-no-empty-schema "-Doutput.dir=$idp_wrk_dir -Dgenerated.properties.file=$ANT_PROPERTIES_FILE"
+			kexec "rm -rf $idp_wrk_dir"
 		fi
 	fi
 	

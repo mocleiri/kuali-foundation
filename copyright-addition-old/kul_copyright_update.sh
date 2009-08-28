@@ -162,5 +162,7 @@ STEP35
 #STEP40
 #STEP50
 
+echo `date +%Y%m%d:%T` >> $SCRIPTLOG
+
 exit
 
