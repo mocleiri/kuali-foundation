@@ -51,17 +51,22 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
   <div class="horz-links-bkgrnd" id="horz-links">
   <div id="tabs">
     <dl class="tabul">
-      
-      
 
-      <dt class="licurrent"><span class="tabright tabcurrent">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosure3.html');return document.MM_returnValue" value="Disclosure">
-        </span></dt>
-<dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-financialInterest.html');return document.MM_returnValue" value="Disclosure Actions ">
-        </span></dt>  <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-customdata.html');return document.MM_returnValue" value="Committee">
-        </span></dt>
+        <dt class="licurrent">
+        	<span class="tabright tabcurrent">
+        	<input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosure.html');return document.MM_returnValue" value="Disclosure">
+        	</span>
+        </dt>
+        <dt>
+            <span class="tabright">
+            <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosureactions.html');return document.MM_returnValue" value="Disclosure Actions">
+            </span>
+        </dt>
+        <dt>
+            <span class="tabright">
+            <input name="Submit" type="submit" onClick="javascript: alert('This would navigate to the as yet unbuilt COI Committee page.'); return false" value="Committee">
+            </span>
+        </dt>
        
     </dl>
   </div>

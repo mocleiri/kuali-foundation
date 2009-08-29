@@ -54,14 +54,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       
       
 
-      <dt class="licurrent"><span class="tabright tabcurrent">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosure3.html');return document.MM_returnValue" value="Disclosure">
-        </span></dt>
-<dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-financialInterest.html');return document.MM_returnValue" value="Disclosure Actions ">
-        </span></dt>  <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-customdata.html');return document.MM_returnValue" value="Committee">
-        </span></dt>
+       <dt><span class="tabright">
+          <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosure.html');return document.MM_returnValue" value="Disclosure">
+          </span></dt>
+        <dt class="licurrent"><span class="tabright tabcurrent">
+          <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosureactions.html');return document.MM_returnValue" value="Disclosure Actions">
+          </span></dt>
+        <dt><span class="tabright">
+          <input name="Submit" type="submit" onClick="javascript: alert('This would navigate to the as yet unbuilt COI Committee page.'); return false" value="Committee">
+          </span></dt>
        
     </dl>
   </div>
@@ -87,29 +88,110 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           
           
 <!-- Reviewer Actions -->  
-          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
-            <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Reviewer Actions</td>
-              
-              <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A013e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F013e" ></a></span></td>
-              <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
-            </tr>
-          </table>
-          <div class="tab-container" align="center" id="G013e" style="display: block;">
-            <div class="h2-container">
-              <h2>Reviewer Actions</h2>
-            </div>
-            <table cellpadding=0 cellspacing="0" class="result-table" summary="">
-              <tbody id="G5">
+    <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+        <tr>
+            <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Reviewer Actions</td>
+            <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A013e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F013e" ></a></span></td>
+            <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+        </tr>
+    </table>
+    <div class="tab-container" align="center" id="G013e" style="display: block;">
+        <div class="h2-container">
+        	<h2>Add Action</h2>
+        </div>
+        <table style="padding:0px; border-spacing:0px;" cellspacing="0" class="result-table">
+            <tbody>
                 <tr>
-                  <th>1</th>
+                    <th style="text-align:right; width:135px;">Recommendation:</th>
+                    <td>
+                    	<select name="recommendations" id="recommendations">
+                            <option value="0" selected>select</option>
+                            <option value="1">See a doctor right away</option>
+                            <option value="2">Wear a raincoat today</option>
+                            <option value="3">Put $100.00 on number 7</option>
+                        </select>
+                    </td>
+                    <th style="text-align:right; width:80px;">Reviewer:</th>
+                    <td>
+                    	
+                        <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none; text-align:right;">
+                                    <input type="text" value="" style="width:100%;" />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                    <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <th style="text-align:right; width:125px;">Date Completed:</th>
+                    <td style="width:130px;">
+                    	
+                        <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none; text-align:right;">
+                                    <input type="text" value="" style="width:80px;" />
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                    <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
                 </tr>
                 <tr>
-                  <td>2</td>
+                    <th style="text-align:right;">Comments:</th>
+                    <td colspan="5">
+                    
+                    	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none;">
+                                    <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                </td>
+                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                    
+                    </td>
                 </tr>
-              </tbody>
-            </table>
-			</div>
+            </tbody>
+        </table>
+        <table style="padding:0px; border-spacing:0px; border-top:0px;" cellspacing="0" class="result-table">
+            <tbody>
+                <tr>
+                    <td class="infoline" style="text-align:right; width:146px; font-weight:bold;">Add Attachments:</td>
+                    <td class="infoline"><input type="file" name="file1" id="file1" style="border:solid 1px #333;" /></td>
+                    <td class="infoline" style="width:60px; text-align:center;">
+                    	<input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the selected file as an attachment.'); return false" style="border:none;" alt="add" title="Add this File" type="image" />
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;" class="infoline">1</th>
+                    <td>whatsup.doc</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated attachment.'); return false" style="border:none;" alt="delete" title="Delete this Attachment" type="image" />
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;" class="infoline">1</th>
+                    <td>hollywood.doc</td>
+                    <td style="text-align:center;">
+                    	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated attachment.'); return false" style="border:none;" alt="delete" title="Delete this Attachment" type="image" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center; height:30px;" class="infoline" colspan="3">
+                    	<input src="../images/tinybutton-submit.gif" onclick="javascript: alert('This would submit the action to workflow and return to Reviewer Actions.'); return false" style="border:none;" alt="submit" title="Submit" type="image" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
           
 <!-- COI Administrator Actions -->   
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">

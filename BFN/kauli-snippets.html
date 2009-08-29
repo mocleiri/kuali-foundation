@@ -177,7 +177,7 @@ Page
 <textarea name="" style="width:300px" rows="4"></textarea>
 <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
 
-<!-- Text Pop-up: Full Width -->
+<!-- Text Area -->
 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
 	<tr>
     	<td style="border:none; background:none;">
@@ -189,7 +189,7 @@ Page
     </tr>
 </table>
 
-<!-- Expanded Read Only text area -->
+<!-- Text Area: Read Only -->
 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
     <tr>
         <td style="border:none; background:none;">
@@ -205,13 +205,25 @@ Page
 <a href="#" target="helpWindow" title="help"><img src="../images/my_cp_inf.gif" alt="help" align="middle" border="0" /></a>
 
 <!-- Calendar -->
-<table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+<table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
     <tr>
         <td style="border:none; background:none; text-align:right;">
             <input type="text" value="" style="width:80px;" />
         </td>
         <td style="border:none; width:20px; vertical-align:top; background:none;">
             <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+        </td>
+    </tr>
+</table>
+
+<!-- Person Lookup -->
+<table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+    <tr>
+        <td style="border:none; background:none; text-align:right;">
+            <input type="text" value="" style="width:100%;" />
+        </td>
+        <td style="border:none; width:20px; vertical-align:top; background:none;">
+            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
         </td>
     </tr>
 </table>
