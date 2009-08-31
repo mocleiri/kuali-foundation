@@ -492,6 +492,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </span>
             </span>
         </div>
+        
+        <!-- Add Administrator Actions (top stuff) -->
         <table style="padding:0px; border-spacing:0px;" cellspacing="0" class="result-table">
             <tbody>
                 <tr>
@@ -592,9 +594,244 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
             </tbody>
         </table>
+        
+        <!-- Notes -->
+        <table cellpadding=0 cellspacing="0" summary="view/add notes">
+        	<tr>
+            	<td colspan="6" class="tab-subhead1">
+                	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle;" id="C_notes2">
+                    <script type="text/javascript">
+						$(document).ready(function(){
+							// initial state
+								$("#D_notes2").hide(0);
+							// trigger
+								$("#C_notes2").toggle(
+									function()
+									{
+										$("#D_notes2").slideDown(400);
+										$("#C_notes2").attr("src","../images/tinybutton-hide.gif");
+									},
+									function()
+									{
+										$("#D_notes2").slideUp(200);
+										$("#C_notes2").attr("src","../images/tinybutton-show.gif");
+									}
+								);	
+						});
+					</script>
+                    Notes (2)
+                </td>
+            </tr>
+            <tbody id="D_notes2">
+                <tr>
+                  <th scope=col>&nbsp;</th>
+                  <th scope=col>Posted Timestamp</th>
+                  <th scope=col>Author</th>
+                  <th scope=col><div align="left">
+                      <label for="note topic">*Note Topic</label>
+                    </div></th>
+                  <th scope=col><div align=left>
+                      <label for="note text">Note Text</label>
+                    </div></th>
+                  <th scope=col><label for="restricted">Restricted?</label></th>
+                  <th scope=col><div align=center>Actions</div></th>
+                </tr>
+                <tr>
+                  <th scope=row><div align=center>Add:</div></th>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline">&nbsp;</td>
+                  <td class="infoline"><input name="org_doc_nbr22" size=25 type=text alt="Description"></td>
+                  <td height="30" nowrap class="infoline">
+                  	
+                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                  </td>
+                  <td nowrap class="infoline"><label>
+                    <div align="center">
+                      <input name="checkbox" type="checkbox" class="nobord" id="restricted">
+                    </div>
+                    </label></td>
+                  <td class="infoline"><div align=center>
+                      <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-add1.gif" alt="add">
+                    </div></td>
+                </tr>
+                <tr>
+                  <th scope=row>1</th>
+                  <td>07/23/2007 20:07:23.523</td>
+                  <td>bfniedner</td>
+                  <td>testing</td>
+                  <td height="30">
+                  
+                  	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                ma iustum et integrum? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae, et offendentes in rectitudinem tuam, et cadentes in asperitatem tuam. videlicet nesciunt, quod ubique sis, quem nullus circuminscribit locus, et solus es praesens...
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                  
+                  </td>
+                  <td><div align="center">
+                      <input name="checkbox2" type="checkbox" class="nobord" id="restricted">
+                    </div></td>
+                  <td><div align="center"><img src="../images/tinybutton-update.gif" alt="update" width="48" height="15"></div></td>
+                </tr>
+                <tr>
+                  <th scope=row>2</th>
+                  <td>07/24/2007 21:07:56.516</td>
+                  <td>bfniedner</td>
+                  <td>testing 2</td>
+                  <td height="30">
+                  
+                  	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                ma iustum et integrum? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae, et offendentes in rectitudinem tuam, et cadentes in asperitatem tuam. videlicet nesciunt, quod ubique sis, quem nullus circuminscribit locus, et solus es praesens...
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                  
+                  </td>
+                  <td><div align="center">
+                      <input name="checkbox3" type="checkbox" class="nobord" id="restricted">
+                    </div></td>
+                  <td><div align="center"><img src="../images/tinybutton-update.gif" alt="update" width="48" height="15"></div></td>
+                </tr>
+            </tbody>
+		</table>
+        
+        <!-- Attachments -->
+        <table align="center" cellpadding="0" cellspacing="0" >
+        	<tr>
+            	<td colspan="6" class="tab-subhead1">
+                	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle;" id="C_attachments2">
+                    <script type="text/javascript">
+						$(document).ready(function(){
+							// initial state
+								$("#D_attachments2").hide(0);
+							// trigger
+								$("#C_attachments2").toggle(
+									function()
+									{
+										$("#D_attachments2").slideDown(400);
+										$("#C_attachments2").attr("src","../images/tinybutton-hide.gif");
+									},
+									function()
+									{
+										$("#D_attachments2").slideUp(200);
+										$("#C_attachments2").attr("src","../images/tinybutton-show.gif");
+									}
+								);	
+						});
+					</script>
+                    Attachments (3)
+                </td>
+            </tr>
+            <tbody id="D_attachments2">
+                <tr>
+                    <th>&nbsp;</th>
+                    <th scope=col>Posted Timestamp</th>
+                    <th scope=col>Uploaded By</th>
+                    <th>Description</th>
+                    <th>*File Name</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <th>Add:</th>
+                    <td class="infoline">&nbsp;</td>
+                    <td class="infoline">&nbsp;</td>
+                    <td height="30" nowrap class="infoline">
+                        
+                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none;">
+                                    <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                </td>
+                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td class="infoline" height="30">
+                        <label>
+                        <input name="file" type="file" class="nobord" id="file" size="12">
+                        </label>
+                    </td>
+                    <td nowrap class="infoline">
+                        <div align=center>
+                            <a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="2%"  scope="row">1</th>
+                    <td> 05/25/2007 10:44:18 </td>
+                    <td> HUNTLEY,KEISHA Y</td>
+                    <td>my description...</td>
+                    <td>myDoc1.doc</td>
+                    <td nowrap>
+                        <div align=center>
+                            <a href="#">
+                                <input name="x2" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
+                                <input name="x5" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="2%"  scope="row">2</th>
+                    <td> 05/26/2007 10:44:18 </td>
+                    <td> HUNTLEY,KEISHA Y</td>
+                    <td>my description...</td>
+                    <td>myDoc2.doc</td>
+                    <td nowrap>
+                        <div align=center>
+                            <a href="#">
+                                <input name="x3" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
+                                <input name="x6" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="2%"  scope="row">3</th>
+                    <td> 05/27/2007 10:44:18 </td>
+                    <td> HUNTLEY,KEISHA Y</td>
+                    <td>my description...</td>
+                    <td>myDoc3.doc</td>
+                    <td nowrap>
+                        <div align=center>
+                            <a href="#">
+                                <input name="x4" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
+                                <input name="x7" src="../images/tinybutton-delete1.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Submit -->
         <table style="padding:0px; border-spacing:0px; border-top:0px;" cellspacing="0" class="result-table">
             <tbody>
-                <tr>
+                <!--<tr>
                     <td class="infoline" style="text-align:right; width:146px; font-weight:bold;">Add Attachments:</td>
                     <td class="infoline"><input type="file" name="file1" id="file1" style="border:solid 1px #333;" /></td>
                     <td class="infoline" style="width:60px; text-align:center;">
@@ -603,18 +840,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
                 <tr>
                     <th style="text-align:right;" class="infoline">1</th>
-                    <td>watergate.doc</td>
+                    <td>whatsup.doc</td>
                     <td style="text-align:center;">
                     	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated attachment.'); return false" style="border:none;" alt="delete" title="Delete this Attachment" type="image" />
                     </td>
                 </tr>
                 <tr>
                     <th style="text-align:right;" class="infoline">2</th>
-                    <td>chappaquiddick.doc</td>
+                    <td>hollywood.doc</td>
                     <td style="text-align:center;">
                     	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated attachment.'); return false" style="border:none;" alt="delete" title="Delete this Attachment" type="image" />
                     </td>
-                </tr>
+                </tr>-->
                 <tr>
                     <td style="text-align:center; height:30px;" class="infoline" colspan="3">
                     	<input src="../images/tinybutton-submit.gif" onclick="javascript: alert('This would submit the action to workflow and return to Reviewer Actions.'); return false" style="border:none;" alt="submit" title="Submit" type="image" />
