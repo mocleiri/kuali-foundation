@@ -22,8 +22,8 @@ kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 kupdate stg standard true true Oracle9i
 
 #chb: 25Jun2009: from do-weekly-kuali-client-updates.sh
-. ~j2eemgr/kuali/rice/common-settings
-. ~j2eemgr/kuali/rice/1.0.0-kuali-client-settings
+#. ~j2eemgr/kuali/rice/common-settings
+#. ~j2eemgr/kuali/rice/1.0.0-kuali-client-settings
 
 #kupdate stg standard true true Oracle9i
 
