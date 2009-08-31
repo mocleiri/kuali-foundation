@@ -495,32 +495,49 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <table style="padding:0px; border-spacing:0px;" cellspacing="0" class="result-table">
             <tbody>
                 <tr>
-                    <th style="text-align:right; width:135px;">Disposition:</th>
-                    <td>
+                    <th style="text-align:right; width:125px;">Disposition:</th>
+                    <td style="width:125px;">
                     	<select name="disposition" id="disposition">
                             <option value="0" selected>select</option>
-                            <option value="1">Happy</option>
-                            <option value="2">Sad</option>
-                            <option value="3">Kind</option>
-                            <option value="4">Mean</option>
+                            <option value="1">Approved</option>
+                            <option value="2">Disapproved</option>
                         </select>
+                        <script type="text/javascript">
+							$(document).ready(function(){
+								// trigger
+									$("#disposition").change(
+										function()
+										{
+											if( document.example.disposition.selectedIndex == 0 )
+											{
+												$("#statusrecommendation2").html("<option value='0' selected>select</option>");
+											}
+											if( document.example.disposition.selectedIndex == 1 )
+											{
+												$("#statusrecommendation2").html("<option value='0' selected>select</option><option value='1'>No conflict exists</option><option value='2'>Financial Interests Managed</option>");
+											}
+											if( document.example.disposition.selectedIndex == 2 )
+											{
+												$("#statusrecommendation2").html("<option value='0' selected>select</option><option value='1'>Financial Interests Unmanageable</option>");
+											}
+										}
+									);	
+							});
+						</script>
                     </td>
                     <th style="text-align:right; width:120px;">Review Status:</th>
                     <td>
-                    	<select name="status" id="status">
+                    	<select name="statusrecommendation2" id="statusrecommendation2">
                             <option value="0" selected>select</option>
-                            <option value="1">incompleate</option>
-                            <option value="2">pending</option>
-                            <option value="3">final</option>
                         </select>
+                        <input src="../images/arrow_refresh.png" onclick="javascript: alert('For non-script browsers, this would update the Review Status options based on the Disposition state.'); return false" class="tinybutton" alt="refresh" title="Refresh" type="image" />
                     </td>
-                    <th style="text-align:right; width:120px;">Approved By:</th>
+                    <th style="text-align:right; width:120px;">Dispositioned By:</th>
                     <td>
                     	<select name="status" id="status">
                             <option value="0" selected>select</option>
-                            <option value="1">straws</option>
-                            <option value="2">coin flip</option>
-                            <option value="3">rock paper sissors</option>
+                            <option value="1">COI Administrator</option>
+                            <option value="2">COI Committee</option>
                         </select>
                     </td>
                 </tr>
