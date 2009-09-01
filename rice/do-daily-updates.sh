@@ -9,6 +9,12 @@ kexport dba $APPLICATION_INFRASTRUCTURE_VERSION
 kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 
 . ~j2eemgr/kuali/rice/common-settings
+. ~j2eemgr/kuali/rice/1.0.1-kuali-client-settings
+
+kexport dba $APPLICATION_INFRASTRUCTURE_VERSION
+kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
+
+. ~j2eemgr/kuali/rice/common-settings
 . ~j2eemgr/kuali/rice/1.0.0-settings
 
 kexport dba $APPLICATION_INFRASTRUCTURE_VERSION
