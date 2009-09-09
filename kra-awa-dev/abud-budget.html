@@ -101,7 +101,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     <td><div id="workarea" >
         <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
           <tr>
-            <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Budget Versions (7/23/07 - 7/23/09)</td>
+            <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Budget Versions (09/01/2007 - 08/31/2014)</td>
             <td class="tabtable1-mid">&nbsp;</td>
             <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
           </tr>
@@ -112,171 +112,392 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <h2>Budget Versions</h2>
             </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
           <table cellpadding=0 cellspacing="0"  summary="">
+                
+                <!-- Column Headers -->
                 <tr>
                   <th width="50" scope="row">&nbsp;</th>
-                  <th>Budget</th>
-                  <th>T&amp;M Doc </th>
+                  <th>Type</th>
+                  <th>Version #</th>
                   <th>Budget Start </th>
                   <th>Budget End</th>
                   <th>Budget Change</th>
-                  <th>Budget Type</th>
                   <th>Budget Status</th>
                   <th><div align="center">Actions</div></th>
                 </tr>
+                
+                <!-- Add Line -->
                 <tr>
-                  <th> Add: </th>
+                  <th>Add:</th>
                   <td class="infoline" style="text-align:center;">&nbsp;</td>
                   <td class="infoline" style="text-align:center;">&nbsp;</td>
                   <td class="infoline" style="text-align:center;">&nbsp;</td>
                   <td class="infoline" style="text-align:center;">&nbsp;</td>
                   <td class="infoline" style="text-align:center;">&nbsp;</td>
                   <td class="infoline" style="text-align:center;">&nbsp;</td>
-                  <td class="infoline" style="text-align:center;">&nbsp;</td>
-                  <td class="infoline" style="text-align:center; white-space:nowrap;"><input src="../images/tinybutton-new.gif" onclick="javascript: alert(' New button in add row opens empty AWD BGT document with no data feed from a proposal budget .'); return false" class="tinybutton" alt="new" title="New" type="image" />
-                    <input src="../images/tinybutton-copy2.gif" onclick="javascript: alert('This would open the standard lookup dialog.  Search is limited to Institutional Proposals linked to any node of the Award.  You can only copy in one year at a time from the propoal search results. Search Criteria: Institutional Proposal ID, Budget Version, Budget Period, Budget Start, Budget End, Total Cost. Automatically display results for all Institutional Proposals linked to the Award with focus on results. Result columns: Institutional Proposal ID, Budget Version, Budget Period, Budget Start, Budget End, Budget Total.'); return false" class="tinybutton" alt="copy" title="Copy" type="image" /></td>
+                  <td class="infoline" style="text-align:center; white-space:nowrap;">
+                  	<input src="../images/tinybutton-new.gif" onclick="javascript: alert('New button in add row opens empty AWD BGT document with no data feed from a proposal budget.'); return false" class="tinybutton" alt="new" title="New" type="image" />
+                  </td>
                 </tr>
-                <tr>
-                  <td align="right" class="tab-subhead1" scope="row"><div align="center"><a href="#" id="A8" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F8" vspace=0></a></div></td>
-                  <td class="tab-subhead1"><div align="center">3</div></td>
-                  <td class="tab-subhead1"><div align="center">123524</div></td>
-                  <td class="tab-subhead1"><div align="center">12/31/2008</div></td>
-                  <td class="tab-subhead1"><div align="center">12/31/2012</div></td>
-                  <td class="tab-subhead1"><div align="right"> 20,000.00 </div></td>
-                  <td class="tab-subhead1"><div align="center">rebudget</div></td>
-                  <td class="tab-subhead1"><div align="center">
-                      <select>
-                        <option selected>in progress</option>
-                        <option>submitted</option>
-                        <option>posted</option>
-                        <option>rejected</option>
-                      </select>
-                    </div></td>
-                  <td class="tab-subhead1" style="text-align:center; white-space:nowrap;"><a href="abud-parameters.html"><img src="../images/tinybutton-open.gif" style="border:none;" alt="open award budget" title="Open Award Budget" /></a>                    <input src="../images/tinybutton-rebudget.gif" onclick="javascript: alert('this would open the budget for changes between budget categories, but the totals would not change'); return false" class="tinybutton" alt="rebudget" title="Rebudget" type="image" /></td>
+                
+                <!-- Data Row -->
+                <tr style="border-collapse:collapse;">
+                    <td align="right" class="tab-subhead1" scope="row" style="border-collapse:collapse;">
+                        <div align="center">
+                            <a href="#" id="A6" onclick="rend(this, false)">
+                            	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F6" vspace=0>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="left">Decrease</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">6</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">09/01/2007</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">09/10/2009</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="right">-2,563.79</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;">
+                        <div align="center">
+                            <select>
+                                <option selected>in progress</option>
+                                <option>submitted</option>
+                                <option>posted</option>
+                                <option>rejected</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="text-align:center; white-space:nowrap; border-collapse:collapse;">
+                    	<a href="abud-parameters.html"><img src="../images/tinybutton-open.gif" style="border:none;" alt="open award budget" title="Open Award Budget" /></a>
+                    </td>
                 </tr>
-                <tbody id="G8" style="display: none;">
-                  <tr>
-                    <th align="right" scope="row">&nbsp;</th>
-                    <td colspan="8" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
-                        <tbody id="G2" style="display:;">
-                          <tr>
-                            <th width="20%" style="text-align: right">Cost Share</th>
-                            <td width="30%" align="left">25,000.00</td>
-                            <th width="20%" style="text-align: right">Last Updated</th>
-                            <td width="30%" align="left">Apr 10, 2009 7:21:10 PM</td>
-                          </tr>
-                          <tr>
-                            <th style="text-align: right">Unrecovered F&amp;A </th>
-                            <td align="left">&nbsp;</td>
-                            <th style="text-align: right"> Last Update by</th>
-                            <td align="left">Joe Smith</td>
-                          </tr>
-                          <tr>
-                            <th style="text-align: right">Description</th>
-                            <td colspan="3" align="left">Year 1</td>
-                          </tr>
-                          <tr>
-                            <th style="text-align: right">Comments:</th>
-                            <td colspan="3" align="left">m tu nobis in convalle plorantionis ascendentibus, et cantantibus canticum graduum, dederas sagittas acutas, et carbones vastatores, adversus linguam subdolam velut consulendo contradicentem, et sicut cibum assolet, amando consumentem. Sagittaveras tu cor nostrum caritate tua, et gestabamus verba tua transfixa visceribus, et exempla servorum tuorum, quos de nigris lucidos et de mortuis vivos feceras, congesta in sinum cogitationis nostrae, urebant et absumebant gravem torporem, ne in ima vergeremus; et accendebant nos valide, ut omnis ex lingua subdola contradicitionis flatus inflammare nos acrius posset, non extinguere. verum tamen quia propter nomen tuum, quod sanctificasti per terras, etiam laudatores utique haberet votum et propositum nostrum, ia</td>
-                          </tr>
-                        </tbody>
-                      </table></td>
-                  </tr>
+                <tbody id="G6" style="display:none; border-right:none;">
+                    <tr style="border-right:none; border-collapse:collapse;">
+                        <th align="right" scope="row" style="border-collapse:collapse;">&nbsp;</th>
+                        <td colspan="8" style="padding:0px; border-left:none;border-collapse:collapse;">
+                    
+                            <table cellpadding=0 cellspacing="0" summary="" style="width:100%; border-right:none; border-collapse:collapse;"">
+                                <tbody id="G2" style="border-collapse:collapse;">
+                                    <tr style="border-collapse:collapse;">
+                                        <th width="20%" style="text-align: right; border-collapse:collapse;">Cost Sharing</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">5,000.00</td>
+                                        <th width="20%" style="text-align:right; border-collapse:collapse;">Last Updated</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">Apr 10, 2009 7:21:10 PM, Joe Smith</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-collapse:collapse;">F&amp;A Rate Type</th>
+                                        <td align="left" style="border-collapse:collapse;">&nbsp;</td>
+                                        <th style="text-align:right; border-collapse:collapse;">Unrecovered F&amp;A</th>
+                                        <td align="right" style="border-collapse:collapse;">632.10</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-bottom:none; border-collapse:collapse;">Comments:</th>
+                                        <td colspan="3" align="left" style="border-bottom:none; border-collapse:collapse;">Extra funding for last 3 months of project year 2.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    
+                    	</td>
+                    </tr>
                 </tbody>
-                <tr>
-                  <td align="right" class="tab-subhead1" scope="row"><div align="center"><a href="#" id="A7" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F7" vspace=0></a></div></td>
-                  <td class="tab-subhead1"><div align="center">2</div></td>
-                  <td class="tab-subhead1"><div align="center">123458</div></td>
-                  <td class="tab-subhead1"><div align="center">12/31/2008</div></td>
-                  <td class="tab-subhead1"><div align="center">12/31/2012</div></td>
-                  <td class="tab-subhead1"><div align="right"> 20,000.00 </div></td>
-                  <td class="tab-subhead1"><div align="center">new</div></td>
-                  <td class="tab-subhead1"><div align="center"> posted</div></td>
-                  <td class="tab-subhead1" style="text-align:center; white-space:nowrap;"><a href="abud-parameters.html"><img src="../images/tinybutton-open.gif" style="border:none;" alt="open award budget" title="Open Award Budget" /></a><span class="tab-subhead1" style="text-align:center; white-space:nowrap;">
-                    <input src="../images/tinybutton-rebudget.gif" onclick="javascript: alert('this would open the budget for changes between budget categories, but the totals would not change'); return false" class="tinybutton" alt="rebudget" title="Rebudget" type="image" />
-                  </span></td>
+                
+                <!-- Data Row -->
+                <tr style="border-collapse:collapse;">
+                    <td align="right" class="tab-subhead1" scope="row" style="border-collapse:collapse;">
+                        <div align="center">
+                            <a href="#" id="A5" onclick="rend(this, false)">
+                            	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F5" vspace=0>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="left">Rebudget</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">5</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">09/01/2007</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">09/15/2009</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="right">0.00</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;">
+                        <div align="center">
+                            <select>
+                                <option selected>in progress</option>
+                                <option>submitted</option>
+                                <option>posted</option>
+                                <option>rejected</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="text-align:center; white-space:nowrap; border-collapse:collapse;">
+                    	<a href="abud-parameters.html"><img src="../images/tinybutton-open.gif" style="border:none;" alt="open award budget" title="Open Award Budget" /></a>
+                    </td>
                 </tr>
-                <tbody id="G7" style="display: none;">
-                  <tr>
-                    <th align="right" scope="row">&nbsp;</th>
-                    <td colspan="8" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
-                        <tbody id="G2" style="display:;">
-                          <tr>
-                            <th width="20%" style="text-align: right">Cost Share</th>
-                            <td width="30%" align="left">25,000.00</td>
-                            <th width="20%" style="text-align: right">Last Updated</th>
-                            <td width="30%" align="left">Apr 10, 2009 7:21:10 PM</td>
-                          </tr>
-                          <tr>
-                            <th style="text-align: right">Unrecovered F&amp;A </th>
-                            <td align="left">&nbsp;</td>
-                            <th style="text-align: right"> Last Update by</th>
-                            <td align="left">Joe Smith</td>
-                          </tr>
-                          <tr>
-                            <th style="text-align: right">Description</th>
-                            <td colspan="3" align="left">Year 1</td>
-                          </tr>
-                          <tr>
-                            <th style="text-align: right">Comments:</th>
-                            <td colspan="3" align="left">m tu nobis in convalle plorantionis ascendentibus, et cantantibus canticum graduum, dederas sagittas acutas, et carbones vastatores, adversus linguam subdolam velut consulendo contradicentem, et sicut cibum assolet, amando consumentem. Sagittaveras tu cor nostrum caritate tua, et gestabamus verba tua transfixa visceribus, et exempla servorum tuorum, quos de nigris lucidos et de mortuis vivos feceras, congesta in sinum cogitationis nostrae, urebant et absumebant gravem torporem, ne in ima vergeremus; et accendebant nos valide, ut omnis ex lingua subdola contradicitionis flatus inflammare nos acrius posset, non extinguere. verum tamen quia propter nomen tuum, quod sanctificasti per terras, etiam laudatores utique haberet votum et propositum nostrum, ia</td>
-                          </tr>
-                        </tbody>
-                      </table></td>
-                  </tr>
+                <tbody id="G5" style="display:none; border-right:none;">
+                    <tr style="border-right:none; border-collapse:collapse;">
+                        <th align="right" scope="row" style="border-collapse:collapse;">&nbsp;</th>
+                        <td colspan="8" style="padding:0px; border-left:none;border-collapse:collapse;">
+                    
+                            <table cellpadding=0 cellspacing="0" summary="" style="width:100%; border-right:none; border-collapse:collapse;"">
+                                <tbody id="G2" style="border-collapse:collapse;">
+                                    <tr style="border-collapse:collapse;">
+                                        <th width="20%" style="text-align: right; border-collapse:collapse;">Cost Sharing</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">5,000.00</td>
+                                        <th width="20%" style="text-align:right; border-collapse:collapse;">Last Updated</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">Apr 10, 2009 7:21:10 PM, Joe Smith</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-collapse:collapse;">F&amp;A Rate Type</th>
+                                        <td align="left" style="border-collapse:collapse;">&nbsp;</td>
+                                        <th style="text-align:right; border-collapse:collapse;">Unrecovered F&amp;A</th>
+                                        <td align="right" style="border-collapse:collapse;">632.10</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-bottom:none; border-collapse:collapse;">Comments:</th>
+                                        <td colspan="3" align="left" style="border-bottom:none; border-collapse:collapse;">Extra funding for last 3 months of project year 2.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    
+                    	</td>
+                    </tr>
                 </tbody>
-                <tr>
-                  <td align="right" class="tab-subhead1" scope="row"><div align="center"><a href="#" id="A6" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F6" vspace=0></a></div></td>
-                  <td class="tab-subhead1"><div align="center">1</div></td>
-                  <td class="tab-subhead1"><div align="center">123321</div></td>
-                  <td class="tab-subhead1"><div align="center">12/31/2008</div></td>
-                  <td class="tab-subhead1"><div align="center">12/31/2012</div></td>
-                  <td class="tab-subhead1"><div align="right"> 20,000.00 </div></td>
-                  <td class="tab-subhead1"><div align="center">new</div></td>
-                  <td class="tab-subhead1"><div align="center"> posted</div></td>
-                  <td class="tab-subhead1" style="text-align:center; white-space:nowrap;"><a href="abud-parameters.html"><img src="../images/tinybutton-open.gif" style="border:none;" alt="open award budget" title="Open Award Budget" /></a><span class="tab-subhead1" style="text-align:center; white-space:nowrap;">
-                    <input src="../images/tinybutton-rebudget.gif" onclick="javascript: alert('this would open the budget for changes between budget categories, but the totals would not change'); return false" class="tinybutton" alt="rebudget" title="Rebudget" type="image" />
-                  </span></td>
+                
+                <!-- Data Row -->
+                <tr style="border-collapse:collapse;">
+                    <td align="right" class="tab-subhead1" scope="row" style="border-collapse:collapse;">
+                        <div align="center">
+                            <a href="#" id="A4" onclick="rend(this, false)">
+                            	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F4" vspace=0>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="left">Increase</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">4</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">09/01/2007</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">08/31/2009</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="right">-7,432.00</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;">
+                        <div align="center">
+                            <select>
+                                <option selected>in progress</option>
+                                <option>submitted</option>
+                                <option>posted</option>
+                                <option>rejected</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="text-align:center; white-space:nowrap; border-collapse:collapse;">
+                    	<a href="abud-parameters.html"><img src="../images/tinybutton-open.gif" style="border:none;" alt="open award budget" title="Open Award Budget" /></a>
+                    </td>
                 </tr>
-                <tbody id="G6" style="display: none;">
-                  <tr>
-                    <th align="right" scope="row">&nbsp;</th>
-                    <td colspan="8" style="padding:0px; border-left:none"><table cellpadding=0 cellspacing="0" summary="" style="width:100%;">
-                        <tbody id="G1" style="display:;">
-                          <tr>
-                            <th width="20%" style="text-align: right">Cost Share</th>
-                            <td width="30%" align="left">25,000.00</td>
-                            <th width="20%" style="text-align: right">Last Updated</th>
-                            <td width="30%" align="left">Apr 10, 2009 7:21:10 PM</td>
-                          </tr>
-                          <tr>
-                            <th style="text-align: right">Unrecovered F&amp;A </th>
-                            <td align="left">&nbsp;</td>
-                            <th style="text-align: right"> Last Update by</th>
-                            <td align="left">Joe Smith</td>
-                          </tr>
-                          <tr>
-                            <th style="text-align: right">Description</th>
-                            <td colspan="3" align="left">Year 1</td>
-                          </tr>
-                          <tr>
-                            <th style="text-align: right">Comments:</th>
-                            <td colspan="3" align="left">m tu nobis in convalle plorantionis ascendentibus, et cantantibus canticum graduum, dederas sagittas acutas, et carbones vastatores, adversus linguam subdolam velut consulendo contradicentem, et sicut cibum assolet, amando consumentem. Sagittaveras tu cor nostrum caritate tua, et gestabamus verba tua transfixa visceribus, et exempla servorum tuorum, quos de nigris lucidos et de mortuis vivos feceras, congesta in sinum cogitationis nostrae, urebant et absumebant gravem torporem, ne in ima vergeremus; et accendebant nos valide, ut omnis ex lingua subdola contradicitionis flatus inflammare nos acrius posset, non extinguere. verum tamen quia propter nomen tuum, quod sanctificasti per terras, etiam laudatores utique haberet votum et propositum nostrum, ia</td>
-                          </tr>
-                        </tbody>
-                      </table></td>
-                  </tr>
+                <tbody id="G4" style="display:none; border-right:none;">
+                    <tr style="border-right:none; border-collapse:collapse;">
+                        <th align="right" scope="row" style="border-collapse:collapse;">&nbsp;</th>
+                        <td colspan="8" style="padding:0px; border-left:none;border-collapse:collapse;">
+                    
+                            <table cellpadding=0 cellspacing="0" summary="" style="width:100%; border-right:none; border-collapse:collapse;"">
+                                <tbody id="G2" style="border-collapse:collapse;">
+                                    <tr style="border-collapse:collapse;">
+                                        <th width="20%" style="text-align: right; border-collapse:collapse;">Cost Sharing</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">5,000.00</td>
+                                        <th width="20%" style="text-align:right; border-collapse:collapse;">Last Updated</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">Apr 10, 2009 7:21:10 PM, Joe Smith</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-collapse:collapse;">F&amp;A Rate Type</th>
+                                        <td align="left" style="border-collapse:collapse;">&nbsp;</td>
+                                        <th style="text-align:right; border-collapse:collapse;">Unrecovered F&amp;A</th>
+                                        <td align="right" style="border-collapse:collapse;">632.10</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-bottom:none; border-collapse:collapse;">Comments:</th>
+                                        <td colspan="3" align="left" style="border-bottom:none; border-collapse:collapse;">Extra funding for last 3 months of project year 2.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    
+                    	</td>
+                    </tr>
                 </tbody>
+                
+                <!-- Data Row -->
+                <tr style="border-collapse:collapse;">
+                    <td align="right" class="tab-subhead1" scope="row" style="border-collapse:collapse;">
+                        <div align="center">
+                            <a href="#" id="A3" onclick="rend(this, false)">
+                            	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F3" vspace=0>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="left">Increase</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">3</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">09/01/2007</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">05/30/2009</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="right">26,000.00</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;">
+                        <div align="center">
+                            <select>
+                                <option selected>in progress</option>
+                                <option>submitted</option>
+                                <option>posted</option>
+                                <option>rejected</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="text-align:center; white-space:nowrap; border-collapse:collapse;">
+                    	<a href="abud-parameters.html"><img src="../images/tinybutton-open.gif" style="border:none;" alt="open award budget" title="Open Award Budget" /></a>
+                    </td>
+                </tr>
+                <tbody id="G3" style="display:none; border-right:none;">
+                    <tr style="border-right:none; border-collapse:collapse;">
+                        <th align="right" scope="row" style="border-collapse:collapse;">&nbsp;</th>
+                        <td colspan="8" style="padding:0px; border-left:none;border-collapse:collapse;">
+                    
+                            <table cellpadding=0 cellspacing="0" summary="" style="width:100%; border-right:none; border-collapse:collapse;"">
+                                <tbody id="G2" style="border-collapse:collapse;">
+                                    <tr style="border-collapse:collapse;">
+                                        <th width="20%" style="text-align: right; border-collapse:collapse;">Cost Sharing</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">5,000.00</td>
+                                        <th width="20%" style="text-align:right; border-collapse:collapse;">Last Updated</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">Apr 10, 2009 7:21:10 PM, Joe Smith</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-collapse:collapse;">F&amp;A Rate Type</th>
+                                        <td align="left" style="border-collapse:collapse;">&nbsp;</td>
+                                        <th style="text-align:right; border-collapse:collapse;">Unrecovered F&amp;A</th>
+                                        <td align="right" style="border-collapse:collapse;">632.10</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-bottom:none; border-collapse:collapse;">Comments:</th>
+                                        <td colspan="3" align="left" style="border-bottom:none; border-collapse:collapse;">Extra funding for last 3 months of project year 2.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    
+                    	</td>
+                    </tr>
+                </tbody>
+                
+                <!-- Data Row -->
+                <tr style="border-collapse:collapse;">
+                    <td align="right" class="tab-subhead1" scope="row" style="border-collapse:collapse;">
+                        <div align="center">
+                            <a href="#" id="A2" onclick="rend(this, false)">
+                            	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F2" vspace=0>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="left">Rebudget</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">2</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">09/01/2007</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">08/31/2008</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="right">0.00</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;">
+                        <div align="center">
+                            <select>
+                                <option selected>in progress</option>
+                                <option>submitted</option>
+                                <option>posted</option>
+                                <option>rejected</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="text-align:center; white-space:nowrap; border-collapse:collapse;">
+                    	<a href="abud-parameters.html"><img src="../images/tinybutton-open.gif" style="border:none;" alt="open award budget" title="Open Award Budget" /></a>
+                    </td>
+                </tr>
+                <tbody id="G2" style="display:none; border-right:none;">
+                    <tr style="border-right:none; border-collapse:collapse;">
+                        <th align="right" scope="row" style="border-collapse:collapse;">&nbsp;</th>
+                        <td colspan="8" style="padding:0px; border-left:none;border-collapse:collapse;">
+                    
+                            <table cellpadding=0 cellspacing="0" summary="" style="width:100%; border-right:none; border-collapse:collapse;"">
+                                <tbody id="G2" style="border-collapse:collapse;">
+                                    <tr style="border-collapse:collapse;">
+                                        <th width="20%" style="text-align: right; border-collapse:collapse;">Cost Sharing</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">5,000.00</td>
+                                        <th width="20%" style="text-align:right; border-collapse:collapse;">Last Updated</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">Apr 10, 2009 7:21:10 PM, Joe Smith</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-collapse:collapse;">F&amp;A Rate Type</th>
+                                        <td align="left" style="border-collapse:collapse;">&nbsp;</td>
+                                        <th style="text-align:right; border-collapse:collapse;">Unrecovered F&amp;A</th>
+                                        <td align="right" style="border-collapse:collapse;">632.10</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-bottom:none; border-collapse:collapse;">Comments:</th>
+                                        <td colspan="3" align="left" style="border-bottom:none; border-collapse:collapse;">Extra funding for last 3 months of project year 2.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    
+                    	</td>
+                    </tr>
+                </tbody>
+                
+                <!-- Data Row -->
+                <tr style="border-collapse:collapse;">
+                    <td align="right" class="tab-subhead1" scope="row" style="border-collapse:collapse;">
+                        <div align="center">
+                            <a href="#" id="A1" onclick="rend(this, false)">
+                            	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F1" vspace=0>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="left">New</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">1</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">09/01/2007</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="center">08/31/2008</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;"><div align="right">50,000.00</div></td>
+                    <td class="tab-subhead1" style="border-collapse:collapse;">
+                        <div align="center">
+                            <select>
+                                <option selected>in progress</option>
+                                <option>submitted</option>
+                                <option>posted</option>
+                                <option>rejected</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="tab-subhead1" style="text-align:center; white-space:nowrap; border-collapse:collapse;">
+                    	<a href="abud-parameters.html"><img src="../images/tinybutton-open.gif" style="border:none;" alt="open award budget" title="Open Award Budget" /></a>
+                    </td>
+                </tr>
+                <tbody id="G1" style="display:none; border-right:none;">
+                    <tr style="border-right:none; border-collapse:collapse;">
+                        <th align="right" scope="row" style="border-collapse:collapse;">&nbsp;</th>
+                        <td colspan="8" style="padding:0px; border-left:none;border-collapse:collapse;">
+                    
+                            <table cellpadding=0 cellspacing="0" summary="" style="width:100%; border-right:none; border-collapse:collapse;"">
+                                <tbody id="G2" style="border-collapse:collapse;">
+                                    <tr style="border-collapse:collapse;">
+                                        <th width="20%" style="text-align: right; border-collapse:collapse;">Cost Sharing</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">5,000.00</td>
+                                        <th width="20%" style="text-align:right; border-collapse:collapse;">Last Updated</th>
+                                        <td width="30%" align="left" style="border-collapse:collapse;">Apr 10, 2009 7:21:10 PM, Joe Smith</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-collapse:collapse;">F&amp;A Rate Type</th>
+                                        <td align="left" style="border-collapse:collapse;">&nbsp;</td>
+                                        <th style="text-align:right; border-collapse:collapse;">Unrecovered F&amp;A</th>
+                                        <td align="right" style="border-collapse:collapse;">632.10</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; border-bottom:none; border-collapse:collapse;">Comments:</th>
+                                        <td colspan="3" align="left" style="border-bottom:none; border-collapse:collapse;">Extra funding for last 3 months of project year 2.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    
+                    	</td>
+                    </tr>
+                </tbody>
+                
+               	<!-- Footer -->
                 <tr >
+                  <td colspan="5" class="infoline"><div align="right"><strong>TOTALS:</strong></div></td>
+                  <td class="infoline"><div align="right"><strong>$80,868.21</strong></div></td>
                   <td class="infoline">&nbsp;</td>
-                  <td colspan="2" class="infoline"><div align="right"><strong>TOTALS:</strong></div></td>
-                  <td class="infoline"><div align="center"><strong>12/31/2008</strong></div></td>
-                  <td class="infoline"><div align="center"><strong>12/31/2012</strong></div></td>
-                  <td class="infoline"><div align="right"><strong>60,000.00</strong></div></td>
-                  <td colspan="2" class="infoline">&nbsp;</td>
                   <td class="infoline"><div align="center">
                       <input src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('Please let Bart or Tom know what this button does so we can add a description of the functionality here.'); return false" class="tinybutton" alt="open" title="Open" type="image" />
                     </div></td>
                 </tr>
+                
+                
               </table>
         </div>
         
