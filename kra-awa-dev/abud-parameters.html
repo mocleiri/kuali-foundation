@@ -102,7 +102,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <div id="workarea">
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Award Overview (000121-005) </td>
+              <td class="tabtable1-left" style="width:350px;"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Budget Overview (000121-005: 400100) </td>
               <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="Abfn01" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="Fbfn01" ></a></span> </td>
               <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
@@ -112,166 +112,521 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <!-- Panel Element: Budget -->
               <!-- Element Header: Budget -->
               <div class="h2-container">
-                <h2><span class="subhead-left"><span class="tabtable1-left">Award</span> Overview</span></h2>
+                <h2><span class="subhead-left"><span class="tabtable1-left">Budget Overview</span></span></h2>
               <span class="subhead-right"> <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a> </span> </div>
-              <!-- Element Content: Budget -->
-              <table cellpadding=0 cellspacing="0"  summary="">
-                <tr>
-                  <th style="text-align:right;">Account:</th>
-                  <td>400100</td>
-                  <th style="text-align:right;"> On/Off Campus:</th>
-                  <td>on</td>
-                </tr>
-                <tr>
-                  <th style="text-align:right;">Project Start Date:</th>
-                  <td>01/01/2009</td>
-                  <th style="text-align:right;">F&amp;A Rate Type:</th>
-                  <td>MTDC</td>
-                </tr>
-                <tr>
-                  <th style="text-align:right;">Project End Date:</th>
-                  <td>12/31/2013</td>
-                  <th style="text-align:right;"> Obligated Total:</th>
-                  <td>100,000.00</td>
-                </tr>
-              </table>
+              
+              	<table cellpadding=0 cellspacing="0"  summary="">
+                    <tr>
+                        <th style="text-align:right; width:125px;">Account ID:</th>
+                        <td>400100</td>
+                        <th style="text-align:right; width:225px;">Budget Start Date:</th>
+                        <td>09/01/2009</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;">Award ID:</th>
+                        <td>000121-005</td>
+                        <th style="text-align:right;">Budget End Date:</th>
+                        <td>08/31/2014</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;">Budget Version:</th>
+                        <td>3</td>
+                        <th style="text-align:right;">Obligated Total:</th>
+                        <td style="text-align:right; padding-right:10px;">$100,000.00</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;">Budget Type:</th>
+                        <td>Increase</td>
+                        <th style="text-align:right;">Budget Change Total Cost Limit:</th>
+                        <td style="text-align:right; padding-right:10px;">$15,000.00</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;">Budget Status:</th>
+                        <td>Submitted</td>
+                        <th style="text-align:right;">Unrecovered F&amp;A Rate Type:</th>
+                        <td>
+                            <select id="unrecoveredfaratetype">
+                                <option value="0">select</option>
+                                <option value="1" selected="selected">MTDC</option>
+                                <option value="2">TDC</option>
+                                <option value="3">TC</option>
+                                <option value="4">S&amp;W</option>
+                                <option value="5">other</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;">On/Off Campus:</th>
+                        <td>
+                            <select id="onoffcampus">
+                                <option value="1">all on</option>
+                                <option value="2">all off</option>
+                                <option value="3" selected="selected">Default</option>
+                            </select>
+                        </td>
+                        <th style="text-align:right;">F&amp;A rate Type</th>
+                        <td>MTDC</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;">Description:</th>
+                        <td colspan="3"><input type="text" style="width:99%;" value="Yr2 Supplement" /></td>
+                        </tr>
+                    <tr>
+                        <th style="text-align:right;">Comments:</th>
+                        <td colspan="3">
+                    
+                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;"><textarea style="width:99%; text-align:left;" rows="3">Extra funding for last 3 months of project year 2</textarea></td>
+                                    <td style="border:none; width:20px; vertical-align:bottom;"><input src="../images/pencil_add.png" onclick="javascript: alert('This would open an expanded text area dialog.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                    </tr>
+                </table>
+              
             </div>
             
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Budget Periods &amp; Totals (000121-005) </td>
+              <td class="tabtable1-left" style="width:350px;"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Budget Periods &amp; Totals (000121-005: 400100) </td>
               <td class="tabtable2-mid"><a href="#" id="A125" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F125" ></a> </td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
           <div class="tab-container" align="center" id="G125" style="display: nonee;">
             <div class="h2-container"> <span class="subhead-left">
-              <h2>Budget Periods</h2>
+              <h2>Budget Periods &amp; Totals</h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-            <table align="center" border="0" cellpadding="2" cellspacing="0" width="98%">
-              <tbody _base_href="http://coeus-test.mit.edu/coeus42/coeuslite/wmc/budget/tiles/budgetSummaryTile.jsp">
-                <tr align="center" valign="top">
-                  <th>&nbsp;</th>
-                  <th><label for ="start date">Start Date</label></th>
-                  <th><label for ="end date">End Date</label></th>
-                  <th>Total Requested Cost </th>
-                  <th><label for ="direct cost"> Direct Cost </label></th>
-                  <th><label for ="indirect cost">Indirect Cost</label></th>
-                  <th><label for ="unrecovered f&a">Unrecovered F&amp;A</label></th>
-                  <th><label for ="cost sharing">Cost Sharing</label></th>
-                  <th>Cost Limit</th>
-                  <th >Actions</th>
-                </tr>
-                <tr >
-                  <th class="infoline"><div align="center">Add:</div></th>
-                  <td nowrap class="infoline"><div align="center">
-                      <input name="totalCostLimit" size="10" onchange="dataChanged()" style="text-align: right;" type="text" id="start date"/>
-                  <img src="../images/cal.gif" alt="calendar" width="16" height="16"></div></td>
-                  <td nowrap class="infoline"><div align="center">
-                      <input name="totalCostLimit" size="10" onchange="dataChanged()" style="text-align: right;" type="text" id ="end date"/>
-                  <img src="../images/cal.gif" alt="calendar" width="16" height="16"></div></td>
-                  <td class="infoline">
-                    <div align="center">
-                      <input name="direct cost" size="8" onchange="dataChanged()" style="text-align: right;" type="text" id ="direct cost2"/>
-                    </div></td>
-                  <td class="infoline"><div align="center">
-                      <input name="totalCostLimit" size="8" onchange="dataChanged()" style="text-align: right;" type="text" id ="direct cost"/>
-                    </div></td>
-                  <td class="infoline"><div align="center">
-                      <input name="totalCostLimit" size="8" onchange="dataChanged()" style="text-align: right;" type="text" id ="indirect cost"/>
-                    </div></td>
-                  <td class="infoline"><div align="center">
-                      <input name="totalCostLimit" size="8" onchange="dataChanged()" style="text-align: right;" type="text" id ="unrecovered f&a" />
-                    </div></td>
-                  <td class="infoline"><div align="center">
-                      <input name="totalCostLimit" size="8" onchange="dataChanged()" style="text-align: right;" type="text" id ="cost sharing"/>
-                    </div></td>
-                  <td class="infoline"><div align="center">
-                      <input name="totalCostLimit" size="8" onchange="dataChanged()" style="text-align: right;" type="text" id ="cost sharing"/>
-                  </div></td>
-                  <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                </tr>
-                <tr >
-                  <th><div align="center">&nbsp;1 </div></th>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="10" value="06/05/2008" onchange="dataChanged()" style="text-align: right;" type="text" id="start date"/>
-                  <img src="../images/cal.gif" alt="calendar" width="16" height="16"></div></td>
-                  <td nowrap><div align="center">
-                      <input name="totalCostLimit" size="10" value="06/04/2009" onchange="dataChanged()" style="text-align: right;" type="text" id="end date"/>
-                  <img src="../images/cal.gif" alt="calendar" width="16" height="16"></div></td>
-                  <td>                    <div align="center">
-                    <input name="direct cost2" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id ="direct cost3"/>
-                  </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id ="direct cost"/>
-                    </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id ="indirect cost"/>
-                    </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id="unrecovered f&a"/>
-                    </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id ="cost sharing"/>
-                    </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id ="cost sharing"/>
-                  </div></td>
-                  <td><div align=center> <a href="#"><img src="../images/tinybutton-delete2.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                </tr>
-                <tr>
-                  <th><div align="center">&nbsp;2 </div></th>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="10" value="06/05/2009 " onchange="dataChanged()" style="text-align: right;" type="text" id ="start date"/>
-                  <img src="../images/cal.gif" alt="calendar" width="16" height="16"></div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="10" value="06/19/2009" onchange="dataChanged()" style="text-align: right;" type="text" id ="end date"/>
-                  <img src="../images/cal.gif" alt="calendar" width="16" height="16"></div></td>
-                  <td>                    <div align="center">
-                    <input name="direct cost3" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id ="direct cost4"/>
-                  </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id ="direct cost"/>
-                  </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id ="indirect cost"/>
-                  </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id ="unrecovered f&a"/>
-                  </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id ="cost sharing"/>
-                  </div></td>
-                  <td><div align="center">
-                      <input name="totalCostLimit" size="8" value="0.00" onchange="dataChanged()" style="text-align: right;" type="text" id ="cost sharing"/>
-                  </div></td>
-                  <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                </tr>
-                <tr>
-                  <td colspan="10" class="subhead">Totals</td>
-                </tr>
-                <tr>
-                  <th>&nbsp;</th>
-                  <td class="infoline"><div align="center"><strong>
-                      06/05/2008</strong></div></td>
-                  <td class="infoline"><div align="center"><strong>
-                      06/19/2009</strong></div></td>
-                  <td class="infoline"><div align="right"><strong>$0.00 </strong></div></td>
-                  <td class="infoline"><div align="center"><strong>
-                      0.00
-                    </strong></div></td>
-                  <td class="infoline"><div align="center"><strong>
-                      0.00
-                    </strong></div></td>
-                  <td class="infoline"><div align="center"><strong>
-                      0.00
-                    </strong></div></td>
-                  <td class="infoline"><div align="center"><strong>
-                      0.00
-                    </strong></div></td>
-                  <td class="infoline">&nbsp;</td>
-                  <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-recalculate.gif" alt="delete" width=72 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                </tr>
+            
+            
+                <table align="center" border="0" cellpadding="2" cellspacing="0" width="98%">
+                    <tbody _base_href="http://coeus-test.mit.edu/coeus42/coeuslite/wmc/budget/tiles/budgetSummaryTile.jsp">
+                        <tr align="center" valign="top">
+                            <th style="width:100px;">&nbsp;</th>
+                            <th>Period Start Date</th>
+                            <th>Period End Date</th>
+                            <th>Total Cost</th>
+                            <th>Direct Cost</th>
+                            <th>F&amp;A Cost</th>
+                            <th>Unrecovered F&amp;A</th>
+                            <th>Cost Sharing</th>
+                            <th>Cost Limit</th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr>
+                            <th class="infoline" style="text-align:right;">Add:</th>
+                            <td class="infoline" style="text-align:center;">
+								
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                                
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                           	<td class="infoline" style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="" />
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="" />
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="" />
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="" />
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="" />
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="" />
+                            </td>
+                            <td class="infoline" style="text-align:center;">
+                            	<input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a new data row as indicated.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th style="text-align:right;">1</th>
+                            <td style="text-align:center;">
+								
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="09/01/2009" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="text-align:right;">
+                                
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="08/31/2010" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                           	<td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="1,093.75" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="875.00" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="218.00" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="87.50" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="25,750.86" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="125,000.00" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input src="../images/tinybutton-delete2.gif" onclick="javascript: alert('Please let Bart know why this is grayed out.'); return false" style="border:none;" alt="delete" title="Delete" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">2</th>
+                            <td style="text-align:center;">
+								
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="09/01/2010" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="text-align:center;">
+                                
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="08/31/2011" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                           	<td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="31.83" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="25.46" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="6.37" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="2.55" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="5,000.00" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="100.00" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" style="border:none;" alt="delete" title="Delete" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">3</th>
+                            <td style="text-align:center;">
+								
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="09/01/2011" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="text-align:center;">
+                                
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="08/31/2012" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                           	<td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="228.09" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="182.47" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="45.62" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="18.25" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="83.00" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="750.00" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" style="border:none;" alt="delete" title="Delete" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">4</th>
+                            <td style="text-align:center;">
+								
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="09/01/2012" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="text-align:center;">
+                                
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="08/31/2013" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                           	<td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="4,687.33" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="3,749.86" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="937.47" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="374.99" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="794.00" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="942.00" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" style="border:none;" alt="delete" title="Delete" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">5</th>
+                            <td style="text-align:center;">
+								
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="09/01/2013" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="text-align:center;">
+                                
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="08/31/2014" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                           	<td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="10,455.06" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="8,364.05" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="2,091.01" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="836.41" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="98.00" />
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" style="width:98%; text-align:right;" value="875.00" />
+                            </td>
+                            <td style="text-align:center;">
+                            	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the associated data row.'); return false" style="border:none;" alt="delete" title="Delete" type="image" />
+                            </td>
+                        </tr>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                        <tr>
+                         	<td colspan="10" class="subhead">Totals</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right; font-weight:bold;">Budget Change:</td>
+                            <td style="text-align:center; font-weight:bold;">
+                                09/01/2009
+                            </td>
+                            <td style="text-align:center; font-weight:bold;">
+                                08/31/2014
+                            </td>
+                           	<td style="text-align:right; font-weight:bold;">
+                                $16,496.05
+                            </td>
+                            <td style="text-align:right; font-weight:bold;">
+                                $13,196.84
+                            </td>
+                            <td style="text-align:right; font-weight:bold;">
+                                $3,299.21
+                            </td>
+                            <td style="text-align:right; font-weight:bold;">
+                                $1,319.68
+                            </td>
+                            <td style="text-align:right; font-weight:bold;">
+                                $31,725.86
+                            </td>
+                            <td style="text-align:right; font-weight:bold;">
+                                $127,667.00
+                            </td>
+                            <td style="text-align:center; vertical-align:middle;" rowspan="3">
+                            	<input src="../images/tinybutton-recalculate.gif" onclick="javascript: alert('This would recalculate the associated totals.'); return false" style="border:none;" alt="recalculate" title="Recalculate" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;">Previous Change:</td>
+                            <td style="text-align:center;">
+                                09/01/2009
+                            </td>
+                            <td style="text-align:center;">
+                                03/31/2014
+                            </td>
+                           	<td style="text-align:right;">
+                                $18,750.00
+                            </td>
+                            <td style="text-align:right;">
+                                $15,000.00
+                            </td>
+                            <td style="text-align:right;">
+                                $3,750.00
+                            </td>
+                            <td style="text-align:right;">
+                                $1,500.00
+                            </td>
+                            <td style="text-align:right;">
+                                $75,000.00
+                            </td>
+                            <td style="text-align:right;">
+                                $350,000.00
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right; font-weight:bold;">Obligated Total:</td>
+                            <td style="text-align:center; font-weight:bold;">
+                                09/01/2009
+                            </td>
+                            <td style="text-align:center; font-weight:bold;">
+                                08/31/2014
+                            </td>
+                           	<td style="text-align:right; font-weight:bold;">
+                                $35,246.05
+                            </td>
+                            <td style="text-align:right; font-weight:bold;">
+                                $28,196.84
+                            </td>
+                            <td style="text-align:right; font-weight:bold;">
+                                $7,049.21
+                            </td>
+                            <td style="text-align:right; font-weight:bold;">
+                                $2,819.68
+                            </td>
+                            <td style="text-align:right; font-weight:bold;">
+                                $106,725.86
+                            </td>
+                            <td style="text-align:right; font-weight:bold;">
+                                $477,667.00
+                            </td>
+                        </tr>
+                
+                
+                
               </tbody>
             </table>
           </div>

@@ -100,19 +100,86 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     <td class="column-left"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
     <td><div  align="center">
       <div id="workarea">
-        <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
-          <tr>
-            <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Budget Validation</td>
-            <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" ></a></span> </td>
-            <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
-          </tr>
-        </table>
-        <!-- TAB -->
-        <div class="tab-container" align="center" id="G02" style="display: none;">
-          <div class="h2-container"> <span class="subhead-left">
-            <h2>Label</h2>
-          </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-          sdfg</div>
+        
+        
+        
+        
+        
+        
+          
+		<!-- TAB PANEL: BUDGET VALIDATION -->
+            <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
+              <tr>
+                <td height="29" class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Budget Validation</td>
+                <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A01" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F01" ></a></span></td>
+                <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+              </tr>
+            </table>
+            <div class="tab-container" align="center" id="G01" style="display: none;">
+              <div class="h2-container"> <span class="subhead-left">
+                <h2>Budget Validation</h2>
+                </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+              <table cellpAdding=0 cellspacing="0" summary="view/edit ad hoc recipients">
+                <tr>
+                  <td><div class="floaters">
+                      <p>You can activate a Validation check to determine any errors or incomplete information. The following Validations types will be determined:</p>
+                      <ul>
+                        <li>errors that prevent submission into routing</li>
+                        <li>warnings that serve as alerts to  possible data issues but will not prevent submission into routing</li>
+                      </ul>
+                      <p align="center"><a href="#" id="a"><img src="../images/tinybutton-validateoff.gif" alt="" width="101" height="15" border="0" id="a"></a> </p>
+                    </div></td>
+                </tr>
+              </table>
+              <table  cellpAdding="0" cellspacing="0"  summary="">
+                <tr>
+                  <td colspan="3" class="subhead" ><span class="subhead-left">Validation Errors </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></td>
+                </tr>
+                <tr>
+                  <td width="6%" class="tab-subhead" ><a href="#" id="A36" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F36"></a></td>
+                  <td colspan="2" class="tab-subhead" >Summary (1)</td>
+                </tr>
+                <tbody id="G36" style="display: none;">
+                  <tr>
+                    <td  align="left" >&nbsp;</td>
+                    <td>Validation Error: Total Cost Limit has been exceeded.</td>
+                    <td width="5%"><div align="center">
+                        <input name="imageField3" type="image" src="../images/tinybutton-fix.gif" width="26" height="15" border="0" class="tinybutton">
+                      </div></td>
+                  </tr>
+                </tbody>
+                <tbody id="G38" style="display: none;">
+                </tbody>
+                <tr>
+                  <td colspan="3" class="subhead" ><span class="subhead-left">Warnings </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></td>
+                </tr>
+                <tr>
+                  <td class="tab-subhead" ><a href="#" id="A39" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F39"></a></td>
+                  <td colspan="2" class="tab-subhead" >Budget Periods &amp; Totals (2)</td>
+                </tr>
+                <tbody id="G39" style="display: none;">
+                  <tr>
+                    <td height="22"  align="left" >&nbsp;</td>
+                    <td>Warning: Period 3 Cost Limit has been exceeded.</td>
+                    <td width="5%"><div align="center">
+                        <input name="imageField3" type="image" src="../images/tinybutton-fix.gif" width="26" height="15" border="0" class="tinybutton">
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <td height="22"  align="left" >&nbsp;</td>
+                    <td>Warning: The fiscal years and associated rates itemized in the Rates tab do not match the budget period dates.</td>
+                    <td width="5%"><div align="center">
+                        <input name="imageField3" type="image" src="../images/tinybutton-fix.gif" width="26" height="15" border="0" class="tinybutton">
+                      </div></td>
+                  </tr>
+                </tbody>
+                <tbody id="G40" style="display: none;">
+                </tbody>
+              </table>
+            </div>          
+          
+          
+          
  <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Print Forms</td>
@@ -527,7 +594,92 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           </table>
           <div class="tab-container" align="center" id="G734" style="display: none;">
             <iframe onload="setRouteLogIframeDimensions();" name="routeLogIFrame" id="routeLogIFrame" src="../misc/routelog.html" hspace="0" vspace="0" title="OneStart Workflow Route Log for document id: 317191" frameborder="0" height="400" width="95%"> </iframe>
-            > </div>
+            </div>
+          
+          
+          
+<!-- PANEL: Attachments -->
+	<!-- Panel Tab Header -->
+        <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+                <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Budget Attachments (3)</td>
+              <td class="tabtable2-mid"><a href="#" id="A1" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F1" vspace=6></a></td>
+                <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+        </table>
+          
+          <!-- TAB -->
+          <div class="tab-container" align="center" id="G1" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2>Budget Attachments</h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a> </span> </div>
+            <table align="center" cellpAdding="0" cellspacing="0"  summary=""  >
+              <tr>
+                <th>&nbsp;</th>
+                <th scope=col>Posted Timestamp</th>
+                <th scope=col>Uploaded By</th>
+                <th>Description</th>
+                <th><label for="file name">*File Name</label></th>
+                <th>Actions</th>
+              <tr>
+                <th><div align="right">Add:</div></th>
+                <td class="infoline">&nbsp;</td>
+                <td class="infoline">&nbsp;</td>
+                <td nowrap class="infoline">
+                
+                	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                
+                </td>
+                <td class="infoline" style="text-align:center;">
+                  <input name="file" type="file" class="nobord" id="file name">
+                </td>
+                <td nowrap class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="Add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+              </tr>
+              <tr>
+                <th width="2%"  scope="row">1</th>
+                <td>05/25/2007 10:44:18</td>
+                <td>HUNTLEY,KEISHA Y</td>
+                <td>Univ of Hawaii, Jones Subaward</td>
+                <td>UHIJonesBgt.pdf</td>
+                <td nowrap><div align=center> <a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+              </tr>
+              <tr>
+                <th width="2%"  scope="row">2</th>
+                <td>05/26/2007 10:44:18</td>
+                <td>HUNTLEY,KEISHA Y</td>
+                <td>Conference registration fee structure</td>
+                <td>ConferenceFees.xls</td>
+                <td nowrap><div align=center> <a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+              </tr>
+              <tr>
+                <th width="2%"  scope="row">3</th>
+                <td>05/27/2007 10:44:18</td>
+                <td>HUNTLEY,KEISHA Y</td>
+                <td>Stipend Applicants Fall 2009</td>
+                <td>Fall2009Fellows.doc</td>
+                <td nowrap><div align=center> <a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+              </tr>
+            </table>
+          </div>         
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
           <table width="100%" border="0" cellpAdding="0" cellspacing="0" class="b3" summary="">
             <tr>
               <td align="left" class="footer"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="bl3"></td>

@@ -23,7 +23,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </script>
 </head>
 <body>
-<form name="example"  method="post" action="">
+<form name="example"  method="post" action=""> 
 <div class="headerarea-kra" id="headerarea">
   <h1>Award Budget<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 hspace="12" border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
   <h1 class="hidden">tab name goes here (accessibility requirement)</h1>
@@ -108,85 +108,160 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           </tr>
         </table>
         <div class="tab-container" align="center">
-          <table  cellpadding="0" cellspacing="0"  summary="">
-            <tr>
-              <td colspan="6" class="subhead" ><span class="subhead-left">Summary&nbsp;</span></td>
-            </tr>
-            <tr>
-              <td colspan="3" class="infoline" >&nbsp;</td>
-              <th class="infoline">Budget Change<br>
-              <span class="fineprint">01/01/2009 - 12/31/2010</span></th>
-              <th class="infoline">Previous Budget<br>
-              <span class="fineprint">01/01/2009 - 12/31/2009 </span></th>
-              <td class="infoline" ><div align="center"><strong>Obligated Total </strong></div></td>
-            </tr>
-            <tr>
-              <td colspan="6" class="subhead" ><span class="subhead-left">Personnel &nbsp;<a href="abud-personnel.html"><img src="../images/edit1.gif" alt="save" width="29" height="13" hspace="5" border="0"></a></span></td>
-            </tr>
-            <tbody id="G" style="display: nonee;">
-            </tbody>
-            <tr>
-              <td width="50" class="tab-subhead" ><a id="A448" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F448"></a></td>
-              <td colspan="2" class="tab-subhead" >Salary</td>
-              <td  align="right" class="tab-subhead"><div align="right">30,000.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">120,000.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right"><strong>150,000.00</strong></div></td>
-            </tr>
-            <tbody id="G448" style="display: none;">
-              <tr>
-                <td rowspan="7" class="infoline" >&nbsp;</td>
-                <td colspan="2"  class="infoline"><strong>Faculty Tenured Salaries</strong></td>
-                <td  align="right" class="infoline"><div align="right"><strong>10,000.00</strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong>40,000.00</strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong>50,000.00</strong></div></td>
-              </tr>
-              <tr>
-                <td> Smith, Adam</td>
-                <td>Principle Investigator</td>
-                <td  align="right"><div align="right">6,000.00 </div></td>
-                <td  align="right"><div align="right">24,000.00 </div></td>
-                <td  align="right"><div align="right">30,000.00</div></td>
-              </tr>
-              <tr>
-                <td> Jones, Davey</td>
-                <td>Co Investigator</td>
-                <td  align="right"><div align="right">4,000.00 </div></td>
-                <td  align="right"><div align="right">16,000.00 </div></td>
-                <td  align="right"><div align="right">20,000.00</div></td>
-              </tr>
-              <tr>
-                <td colspan="2"  class="infoline"><strong>Summer Salary</strong></td>
-                <td  align="right" class="infoline"><div align="right"><strong> 20,000.00 </strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong> 80,000.00 </strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong>100,000.00</strong></div></td>
-              </tr>
-              <tr>
-                <td> Smith, Adam</td>
-                <td>Principle Investigator</td>
-                <td  align="right"><div align="right">10,000.00 </div></td>
-                <td  align="right"><div align="right">40,000.00 </div></td>
-                <td  align="right"><div align="right">50,000.00</div></td>
-              </tr>
-              <tr>
-                <td> Jones, Davey</td>
-                <td>Co Investigator</td>
-                <td  align="right"><div align="right">6,000.00 </div></td>
-                <td  align="right"><div align="right">24,000.00 </div></td>
-                <td  align="right"><div align="right">30,000.00</div></td>
-              </tr>
-              <tr>
-                <td> Johnson, Tammy</td>
-                <td>&nbsp;</td>
-                <td  align="right"><div align="right">4,000.00 </div></td>
-                <td  align="right"><div align="right">16,000.00 </div></td>
-                <td  align="right"><div align="right">20,000.00</div></td>
-              </tr>
-            </tbody>
+          
+            <table  cellpadding="0" cellspacing="0">
+                <tr>
+                	<td colspan="9" class="subhead"><span class="subhead-left">Summary</span></td>
+                </tr>
+                <tr>
+                    <td colspan="3" rowspan="2" class="infoline">&nbsp;</td>
+                    <td colspan="3" class="infoline">
+                    	<div align="center">
+                        <a href="overview.html">
+                        <img src="../images/tinybutton-back1.gif" alt="save" width="43" height="15" hspace="5" border="0">
+                        <img src="../images/tinybutton-next.gif" alt="save" width="43" height="15" hspace="5" border="0">
+                        </a>
+                        </div>
+                    </td>
+                    <td rowspan="2" class="infoline">
+                    	<div align="center"><strong>Budget Change</strong></div>
+                    </td>
+                    <td rowspan="2" class="infoline">
+                    	<div align="center"><strong>Previous Budget</strong></div>
+                    </td>
+                    <td rowspan="2" class="infoline">
+                    	<div align="center"><strong>Obligated Total</strong></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Period 1<br>
+                        <span class="fineprint">01/01/2009 - 12/31/2009</span>
+                    </th>
+                    <th>
+                        Period 2<br>
+                        <span class="fineprint">01/01/2010 - 12/31/2010</span>
+                    </th>
+                    <th>
+                        Period 3<br>
+                        <span class="fineprint">01/01/2011 - 12/31/2011</span>
+                    </th>
+                </tr>
+                <tr>
+                	<td colspan="9" class="subhead" >
+                        <span class="subhead-left">
+                        Personnel
+                        <a href="bud-personnel.html"><img src="../images/edit1.gif" alt="save" width="29" height="13" hspace="5" border="0"></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50" class="tab-subhead" >
+                    	<a id="A448" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F448"></a>
+                    </td>
+                    <td colspan="2" class="tab-subhead" >
+                    	Salary
+                    </td>
+                    <td  align="right" class="tab-subhead">
+                    	<div align="right">30,000.00</div>
+                    </td>
+                    <td  align="right" class="tab-subhead">
+                    	<div align="right">30,000.00</div>
+                    </td>
+                    <td  align="right" class="tab-subhead">
+                    	<div align="right">30,000.00</div>
+                    </td>
+                    <td  align="right" class="tab-subhead">
+                    	<div align="right">30,000.00</div>
+                    </td>
+                    <td  align="right" class="tab-subhead">
+                    	<div align="right">30,000.00</div>
+                    </td>
+                    <td  align="right" class="tab-subhead">
+                    	<div align="right"><strong>150,000.00</strong></div>
+                    </td>
+                </tr>
+            
+                <tbody id="G448" style="display: none;">
+                    <tr>
+                        <td rowspan="7" class="infoline" >&nbsp;</td>
+                        <td colspan="2"  class="infoline"><strong>Faculty Tenured Salaries</strong></td>
+                        <td  align="right" class="infoline"><div align="right"><strong>10,000.00</strong></div></td>
+                        <td  align="right" class="infoline"><div align="right"><strong>10,000.00</strong></div></td>
+                        <td  align="right" class="infoline"><div align="right"><strong>10,000.00</strong></div></td>
+                        <td  align="right" class="infoline"><div align="right"><strong>10,000.00</strong></div></td>
+                        <td  align="right" class="infoline"><div align="right"><strong>10,000.00</strong></div></td>
+                        <td  align="right" class="infoline"><div align="right"><strong>50,000.00</strong></div></td>
+                    </tr>
+                    <tr>
+                        <td>Smith, Adam</td>
+                        <td>Principal Investigator</td>
+                        <td  align="right"><div align="right">6,000.00 </div></td>
+                        <td  align="right"><div align="right">6,000.00 </div></td>
+                        <td  align="right"><div align="right">6,000.00 </div></td>
+                        <td  align="right"><div align="right">6,000.00 </div></td>
+                        <td  align="right"><div align="right">6,000.00 </div></td>
+                        <td  align="right"><div align="right">30,000.00</div></td>
+                    </tr>
+                    <tr>
+                        <td>Jones, Davey</td>
+                        <td>Co Investigator</td>
+                        <td  align="right"><div align="right">4,000.00 </div></td>
+                        <td  align="right"><div align="right">4,000.00 </div></td>
+                        <td  align="right"><div align="right">4,000.00 </div></td>
+                        <td  align="right"><div align="right">4,000.00 </div></td>
+                        <td  align="right"><div align="right">4,000.00 </div></td>
+                        <td  align="right"><div align="right">20,000.00</div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"  class="infoline"><strong>Summer Salary</strong></td>
+                        <td  align="right" class="infoline"><div align="right"><strong> 20,000.00 </strong></div></td>
+                        <td  align="right" class="infoline"><div align="right"><strong> 20,000.00 </strong></div></td>
+                        <td  align="right" class="infoline"><div align="right"><strong> 20,000.00 </strong></div></td>
+                        <td  align="right" class="infoline"><div align="right"><strong> 20,000.00 </strong></div></td>
+                        <td  align="right" class="infoline"><div align="right"><strong> 20,000.00 </strong></div></td>
+                        <td  align="right" class="infoline"><div align="right"><strong>100,000.00</strong></div></td>
+                    </tr>
+                    <tr>
+                        <td>Smith, Adam</td>
+                        <td>Principal Investigator</td>
+                        <td  align="right"><div align="right">10,000.00 </div></td>
+                        <td  align="right"><div align="right">10,000.00 </div></td>
+                        <td  align="right"><div align="right">10,000.00 </div></td>
+                        <td  align="right"><div align="right">10,000.00 </div></td>
+                        <td  align="right"><div align="right">10,000.00 </div></td>
+                        <td  align="right"><div align="right">50,000.00</div></td>
+                    </tr>
+                    <tr>
+                        <td>Jones, Davey</td>
+                        <td>Co Investigator</td>
+                        <td  align="right"><div align="right">6,000.00 </div></td>
+                        <td  align="right"><div align="right">6,000.00 </div></td>
+                        <td  align="right"><div align="right">6,000.00 </div></td>
+                        <td  align="right"><div align="right">6,000.00 </div></td>
+                        <td  align="right"><div align="right">6,000.00 </div></td>
+                        <td  align="right"><div align="right">30,000.00</div></td>
+                    </tr>
+                    <tr>
+                    <td>Johnson, Tammy</td>
+                        <td>&nbsp;</td>
+                        <td  align="right"><div align="right">4,000.00 </div></td>
+                        <td  align="right"><div align="right">4,000.00 </div></td>
+                        <td  align="right"><div align="right">4,000.00 </div></td>
+                        <td  align="right"><div align="right">4,000.00 </div></td>
+                        <td  align="right"><div align="right">4,000.00 </div></td>
+                        <td  align="right"><div align="right">20,000.00</div></td>
+                    </tr>
+                </tbody>
+            
             <tr>
               <td class="tab-subhead" ><a id="A449" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F449"></a></td>
               <td colspan="2" class="tab-subhead" >Fringe</td>
               <td  align="right" class="tab-subhead"><div align="right">15,000.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">50,000.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">15,000.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">15,000.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">15,000.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">15,000.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>75,000.00</strong></div></td>
             </tr>
             <tbody id="G449" style="display: none;">
@@ -194,48 +269,69 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td rowspan="7" class="infoline" >&nbsp;</td>
                 <td colspan="2"  class="infoline"><strong>Faculty Tenured Salaries</strong></td>
                 <td  align="right" class="infoline"><div align="right"><strong>5,000.00</strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong>20,000.00</strong></div></td>
+                <td  align="right" class="infoline"><div align="right"><strong>5,000.00</strong></div></td>
+                <td  align="right" class="infoline"><div align="right"><strong>5,000.00</strong></div></td>
+                <td  align="right" class="infoline"><div align="right"><strong>5,000.00</strong></div></td>
+                <td  align="right" class="infoline"><div align="right"><strong>5,000.00</strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong>25,000.00</strong></div></td>
               </tr>
               <tr>
                 <td> Smith, Adam</td>
-                <td>Principle Investigator</td>
+                <td>Principal Investigator</td>
                 <td  align="right"><div align="right">3,000.00</div></td>
-                <td  align="right"><div align="right">12,000.00</div></td>
+                <td  align="right"><div align="right">3,000.00</div></td>
+                <td  align="right"><div align="right">3,000.00</div></td>
+                <td  align="right"><div align="right">3,000.00</div></td>
+                <td  align="right"><div align="right">3,000.00</div></td>
                 <td  align="right"><div align="right">15,000.00</div></td>
               </tr>
               <tr>
                 <td> Jones, Davey</td>
                 <td>Co Investigator</td>
                 <td  align="right"><div align="right">2,000.00</div></td>
-                <td  align="right"><div align="right">8,000.00</div></td>
+                <td  align="right"><div align="right">2,000.00</div></td>
+                <td  align="right"><div align="right">2,000.00</div></td>
+                <td  align="right"><div align="right">2,000.00</div></td>
+                <td  align="right"><div align="right">2,000.00</div></td>
                 <td  align="right"><div align="right">10,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  class="infoline"><strong>Summer Salary</strong></td>
                 <td  align="right" class="infoline"><div align="right"><strong> 10,000.00 </strong></div></td>
-                <td  align="right" class="infoline"><div align="right"><strong> 40,000.00 </strong></div></td>
+                <td  align="right" class="infoline"><div align="right"><strong> 10,000.00 </strong></div></td>
+                <td  align="right" class="infoline"><div align="right"><strong> 10,000.00 </strong></div></td>
+                <td  align="right" class="infoline"><div align="right"><strong> 10,000.00 </strong></div></td>
+                <td  align="right" class="infoline"><div align="right"><strong> 10,000.00 </strong></div></td>
                 <td  align="right" class="infoline"><div align="right"><strong>50,000.00</strong></div></td>
               </tr>
               <tr>
                 <td> Smith, Adam</td>
-                <td>Principle Investigator</td>
+                <td>Principal Investigator</td>
                 <td  align="right"><div align="right">5,000.00</div></td>
-                <td  align="right"><div align="right">20,000.00</div></td>
+                <td  align="right"><div align="right">5,000.00</div></td>
+                <td  align="right"><div align="right">5,000.00</div></td>
+                <td  align="right"><div align="right">5,000.00</div></td>
+                <td  align="right"><div align="right">5,000.00</div></td>
                 <td  align="right"><div align="right">25,000.00</div></td>
               </tr>
               <tr>
                 <td> Jones, Davey</td>
                 <td>Co Investigator</td>
                 <td  align="right"><div align="right">3,000.00</div></td>
-                <td  align="right"><div align="right">12,000.00</div></td>
+                <td  align="right"><div align="right">3,000.00</div></td>
+                <td  align="right"><div align="right">3,000.00</div></td>
+                <td  align="right"><div align="right">3,000.00</div></td>
+                <td  align="right"><div align="right">3,000.00</div></td>
                 <td  align="right"><div align="right">15,000.00</div></td>
               </tr>
               <tr>
                 <td> Johnson, Tammy</td>
                 <td>&nbsp;</td>
                 <td  align="right"><div align="right">2,000.00</div></td>
-                <td  align="right"><div align="right">8,000.00</div></td>
+                <td  align="right"><div align="right">2,000.00</div></td>
+                <td  align="right"><div align="right">2,000.00</div></td>
+                <td  align="right"><div align="right">2,000.00</div></td>
+                <td  align="right"><div align="right">2,000.00</div></td>
                 <td  align="right"><div align="right">10,000.00</div></td>
               </tr>
             </tbody>
@@ -243,7 +339,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td class="tab-subhead" ><a id="A2449" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F2449"></a></td>
               <td colspan="2" class="tab-subhead" >Calculated Direct Costs</td>
               <td  align="right" class="tab-subhead"><div align="right">3,600.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">14,400.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">3,600.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">3,600.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">3,600.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">3,600.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>18,000.00</strong></div></td>
             </tr>
             <tbody id="G2449" style="display: none;">
@@ -251,31 +350,46 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td rowspan="5" class="infoline" >&nbsp;</td>
                 <td colspan="2">Lab Allocation - Salaries</td>
                 <td align=right><div align="right">1,000.00 </div></td>
-                <td align=right><div align="right">4,000.00 </div></td>
+                <td align=right><div align="right">1,000.00 </div></td>
+                <td align=right><div align="right">1,000.00 </div></td>
+                <td align=right><div align="right">1,000.00 </div></td>
+                <td align=right><div align="right">1,000.00 </div></td>
                 <td  align="right"><div align="right">5,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2">Lab Allocation - Other - Utilities</td>
                 <td align=right><div align="right">100.00 </div></td>
-                <td align=right><div align="right">400.00 </div></td>
+                <td align=right><div align="right">100.00 </div></td>
+                <td align=right><div align="right">100.00 </div></td>
+                <td align=right><div align="right">100.00 </div></td>
+                <td align=right><div align="right">100.00 </div></td>
                 <td  align="right"><div align="right">500.00</div></td>
               </tr>
               <tr>
                 <td colspan="2">Lab Allocation - Other - M&amp;S</td>
                 <td align=right><div align="right">200.00 </div></td>
-                <td align=right><div align="right">800.00 </div></td>
+                <td align=right><div align="right">200.00 </div></td>
+                <td align=right><div align="right">200.00 </div></td>
+                <td align=right><div align="right">200.00 </div></td>
+                <td align=right><div align="right">200.00 </div></td>
                 <td  align="right"><div align="right">1,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2">Vacation</td>
                 <td align=right><div align="right">2,000.00 </div></td>
-                <td align=right><div align="right">8,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
                 <td  align="right"><div align="right">10,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2">Other</td>
                 <td align=right><div align="right">300.00 </div></td>
-                <td align=right><div align="right">1,200.00 </div></td>
+                <td align=right><div align="right">300.00 </div></td>
+                <td align=right><div align="right">300.00 </div></td>
+                <td align=right><div align="right">300.00 </div></td>
+                <td align=right><div align="right">300.00 </div></td>
                 <td  align="right"><div align="right">1,500.00</div></td>
               </tr>
             </tbody>
@@ -283,17 +397,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <th class="infoline" >&nbsp;</th>
               <td colspan="2" ><strong>Personnel Subtotal</strong></td>
               <td ><div align="right"><em>48,600.00 </em></div></td>
-              <td ><div align="right"><em>194,400.00 </em></div></td>
+              <td ><div align="right"><em>48,600.00 </em></div></td>
+              <td ><div align="right"><em>48,600.00 </em></div></td>
+              <td ><div align="right"><em>48,600.00 </em></div></td>
+              <td ><div align="right"><em>48,600.00 </em></div></td>
               <td ><div align="right"><em>243,000.00</em></div></td>
             </tr>
             <tr>
-              <td colspan="6" class="subhead" ><span class="subhead-left">Non-Personnel &nbsp;<a href="abud-nonpersbudget.html"><img src="../images/edit1.gif" alt="save" width="29" height="13" hspace="5" border="0"></a></span></td>
+              <td colspan="9" class="subhead" ><span class="subhead-left">Non-Personnel &nbsp;<a href="bud-nonpersbudget.html"><img src="../images/edit1.gif" alt="save" width="29" height="13" hspace="5" border="0"></a></span></td>
             </tr>
             <tr>
               <td class="tab-subhead"><a id="A55" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F55"></a></span></td>
               <td colspan="2" class="tab-subhead" >Equipment </td>
               <td  align="right" class="tab-subhead"><div align="right">9,000.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">36,000.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">9,000.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">9,000.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">9,000.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">9,000.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>45,000.00</strong></div></td>
             </tr>
             <tbody id="G55" style="display: none;">
@@ -301,13 +421,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td rowspan="2" class="infoline" >&nbsp;</td>
                 <td colspan="2"  align="left" >Equipment - Not MTDC</td>
                 <td align=right><div align="right">7,000.00 </div></td>
-                <td align=right><div align="right">28,000.00 </div></td>
+                <td align=right><div align="right">7,000.00 </div></td>
+                <td align=right><div align="right">7,000.00 </div></td>
+                <td align=right><div align="right">7,000.00 </div></td>
+                <td align=right><div align="right">7,000.00 </div></td>
                 <td  align="right"><div align="right">35,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  align="left" >Reactor Use</td>
                 <td align=right><div align="right">2,000.00 </div></td>
-                <td align=right><div align="right">8,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
                 <td  align="right"><div align="right">10,000.00</div></td>
               </tr>
             </tbody>
@@ -315,7 +441,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td class="tab-subhead"><a id="A56" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F56"></a></span></td>
               <td colspan="2" class="tab-subhead" >Travel </td>
               <td  align="right" class="tab-subhead"><div align="right">2,500.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">10,000.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">2,500.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">2,500.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">2,500.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">2,500.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>12,500.00</strong></div></td>
             </tr>
             <tbody id="G56" style="display: none;">
@@ -323,13 +452,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td rowspan="2" class="infoline" >&nbsp;</td>
                 <td colspan="2"  align="left" >Travel - Professional Development</td>
                 <td align=right><div align="right">2,000.00 </div></td>
-                <td align=right><div align="right">8,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
+                <td align=right><div align="right">2,000.00 </div></td>
                 <td  align="right"><div align="right">10,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2" class="datacell-top">Travel - Expenses</td>
                 <td align=right><div align="right">500.00 </div></td>
-                <td align=right><div align="right">2,000.00 </div></td>
+                <td align=right><div align="right">500.00 </div></td>
+                <td align=right><div align="right">500.00 </div></td>
+                <td align=right><div align="right">500.00 </div></td>
+                <td align=right><div align="right">500.00 </div></td>
                 <td  align="right"><div align="right">2,500.00</div></td>
               </tr>
             </tbody>
@@ -337,7 +472,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td class="tab-subhead"><a id="A57" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F57"></a></span></td>
               <td colspan="2" class="tab-subhead" >Participant Support </td>
               <td  align="right" class="tab-subhead"><div align="right">1,300.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">5,200.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">1,300.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">1,300.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">1,300.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">1,300.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>6,500.00</strong></div></td>
             </tr>
             <tbody id="G57" style="display: none;">
@@ -345,13 +483,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td rowspan="2" class="infoline" >&nbsp;</td>
                 <td colspan="2"  align="left" > Participant Subsistence</td>
                 <td align=right><div align="right">1,000.00 </div></td>
-                <td align=right><div align="right">4,000.00 </div></td>
+                <td align=right><div align="right">1,000.00 </div></td>
+                <td align=right><div align="right">1,000.00 </div></td>
+                <td align=right><div align="right">1,000.00 </div></td>
+                <td align=right><div align="right">1,000.00 </div></td>
                 <td  align="right"><div align="right">5,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  align="left" > Participant Tuition</td>
                 <td align=right><div align="right">300.00 </div></td>
-                <td align=right><div align="right">1,200.00 </div></td>
+                <td align=right><div align="right">300.00 </div></td>
+                <td align=right><div align="right">300.00 </div></td>
+                <td align=right><div align="right">300.00 </div></td>
+                <td align=right><div align="right">300.00 </div></td>
                 <td  align="right"><div align="right">1,500.00</div></td>
               </tr>
             </tbody>
@@ -359,7 +503,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td class="tab-subhead"><a id="A58" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F58"></a></span></td>
               <td colspan="2" class="tab-subhead" >Other</td>
               <td  align="right" class="tab-subhead"><div align="right">6,500.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">26,000.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">6,500.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">6,500.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">6,500.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">6,500.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>32,500.00</strong></div></td>
             </tr>
             <tbody id="G58" style="display: none;">
@@ -367,13 +514,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td rowspan="2" class="infoline" >&nbsp;</td>
                 <td colspan="2"  align="left" >Materials &amp; Services</td>
                 <td align=right><div align="right">5,000.00 </div></td>
-                <td align=right><div align="right">20,000.00 </div></td>
-                <td  align="right"><div align="right">25,000.00</div></td>
+                <td align=right><div align="right">5,000.00 </div></td>
+                <td align=right><div align="right">5,000.00 </div></td>
+                <td align=right><div align="right">5,000.00 </div></td>
+                <td align=right><div align="right">5,000.00 </div></td>
+                <td  align="right"><div align="right">2,500.00</div></td>
               </tr>
               <tr>
                 <td colspan="2" class="datacell-top">Memberships &amp; Dues</td>
                 <td align=right><div align="right">1,500.00 </div></td>
-                <td align=right><div align="right">6,000.00 </div></td>
+                <td align=right><div align="right">1,500.00 </div></td>
+                <td align=right><div align="right">1,500.00 </div></td>
+                <td align=right><div align="right">1,500.00 </div></td>
+                <td align=right><div align="right">1,500.00 </div></td>
                 <td  align="right"><div align="right">7,500.00</div></td>
               </tr>
             </tbody>
@@ -381,7 +534,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td class="tab-subhead"><a id="A538" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align="absmiddle" id="F538"></a></span></td>
               <td colspan="2" class="tab-subhead" >Calculated Direct Cost</td>
               <td  align="right" class="tab-subhead"><div align="right">665.00</div></td>
-              <td  align="right" class="tab-subhead"><div align="right">2,660.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">665.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">665.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">665.00</div></td>
+              <td  align="right" class="tab-subhead"><div align="right">665.00</div></td>
               <td  align="right" class="tab-subhead"><div align="right"><strong>3,325.00</strong></div></td>
             </tr>
             <tbody id="G538" style="display: none;">
@@ -389,31 +545,46 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td rowspan="5" class="infoline" >&nbsp;</td>
                 <td colspan="2"  align="left" >Lab Allocation - Salaries</td>
                 <td align=right><div align="right">600.00 </div></td>
-                <td align=right><div align="right">2,400.00 </div></td>
+                <td align=right><div align="right">600.00 </div></td>
+                <td align=right><div align="right">600.00 </div></td>
+                <td align=right><div align="right">600.00 </div></td>
+                <td align=right><div align="right">600.00 </div></td>
                 <td  align="right"><div align="right">3,000.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  align="left" >Lab Allocation - Other - Utilities</td>
                 <td align=right><div align="right">50.00 </div></td>
-                <td align=right><div align="right">200.00 </div></td>
+                <td align=right><div align="right">50.00 </div></td>
+                <td align=right><div align="right">50.00 </div></td>
+                <td align=right><div align="right">50.00 </div></td>
+                <td align=right><div align="right">50.00 </div></td>
                 <td  align="right"><div align="right">250.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  align="left" >Lab Allocation - Other - M&amp;S</td>
                 <td align=right><div align="right">75.00 </div></td>
-                <td align=right><div align="right">300.00 </div></td>
+                <td align=right><div align="right">75.00 </div></td>
+                <td align=right><div align="right">75.00 </div></td>
+                <td align=right><div align="right">75.00 </div></td>
+                <td align=right><div align="right">75.00 </div></td>
                 <td  align="right"><div align="right">375.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  align="left" >Other</td>
                 <td align=right><div align="right">65.00 </div></td>
-                <td align=right><div align="right">260.00 </div></td>
+                <td align=right><div align="right">65.00 </div></td>
+                <td align=right><div align="right">65.00 </div></td>
+                <td align=right><div align="right">65.00 </div></td>
+                <td align=right><div align="right">65.00 </div></td>
                 <td  align="right"><div align="right">325.00</div></td>
               </tr>
               <tr>
                 <td colspan="2"  align="left" >Vacation</td>
                 <td align=right><div align="right">500.00 </div></td>
-                <td align=right><div align="right">2,000.00 </div></td>
+                <td align=right><div align="right">500.00 </div></td>
+                <td align=right><div align="right">500.00 </div></td>
+                <td align=right><div align="right">500.00 </div></td>
+                <td align=right><div align="right">500.00 </div></td>
                 <td  align="right"><div align="right">2,500.00</div></td>
               </tr>
             </tbody>
@@ -421,34 +592,54 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td class="infoline" >&nbsp;</td>
               <td colspan="2" ><strong>Non-Personnel Subtotal</strong></td>
               <td ><div align="right"><em>19,965.00</em></div></td>
-              <td ><div align="right"><em>79,860.00</em></div></td>
+              <td ><div align="right"><em>19,965.00</em></div></td>
+              <td ><div align="right"><em>19,965.00</em></div></td>
+              <td ><div align="right"><em>19,965.00</em></div></td>
+              <td ><div align="right"><em>19,965.00</em></div></td>
               <td ><div align="right"><em>99,825.00</em></div></td>
             </tr>
             <tr>
-              <td colspan="6" class="subhead" >Totals</td>
-            </tr>
-            <tr>
-              <td width="50" rowspan="3" align="left" class="infoline">&nbsp;</td>
+              <td colspan="9" class="subhead" >Totals</td>
+            </tr> <tr>
+              <td width="50" rowspan="4" align="left" class="infoline">&nbsp;</td>
               <td colspan="2" align="left" class="infoline"><strong>TOTAL DIRECT COSTS</strong></td>
               <td class="infoline"><div align="right"><strong>68,565.00 </strong></div></td>
-              <td class="infoline"><div align="right"><strong>274,260.00 </strong></div></td>
+              <td class="infoline"><div align="right"><strong>68,565.00 </strong></div></td>
+              <td class="infoline"><div align="right"><strong>68,565.00 </strong></div></td>
+              <td class="infoline"><div align="right"><strong>68,565.00 </strong></div></td> <td class="infoline"><div align="right"><strong>68,565.00 </strong></div></td>
               <td class="infoline"><div align="right"><strong>342,825.00</strong></div></td>
             </tr>
             <tr>
-              <td colspan="2" align="left" class="infoline"><strong>TOTAL F&amp;A COSTS </strong> <br>
+              <td colspan="2" align="left" class="infoline"><strong>TOTAL F&amp;A COSTS</strong> <br>
                 <span class="fineprint">F&amp;A Base</span></td>
-              <td class="infoline"><div align="right"><strong>30,974.00<br>
+              <td class="infoline"><div align="right"><strong>30,973.80<br>
                   <span class="fineprint">65,000.00</span> </strong></div></td>
-              <td class="infoline"><div align="right"><strong>123,895.00<br>
-                  <span class="fineprint">260,000.00</span> </strong></div></td>
+              <td class="infoline"><div align="right"><strong>30,973.80<br>
+                  <span class="fineprint">65,000.00</span> </strong></div></td>
+              <td class="infoline"><div align="right"><strong>30,973.80<br>
+                  <span class="fineprint">65,000.00</span> </strong></div></td> <td class="infoline"><div align="right"><strong>30,973.80<br>
+                  <span class="fineprint">65,000.00</span> </strong></div></td>
+              <td class="infoline"><div align="right"><strong>30,973.80<br>
+                  <span class="fineprint">65,000.00</span> </strong></div></td>
               <td class="infoline"><div align="right"><strong>154,869.00</strong><br>
                   <span class="fineprint">325,000.00</span> </div></td>
             </tr>
             <tr>
-              <td colspan="2" align="left" class="infoline"><strong>TOTAL COSTS </strong></td>
-              <td class="infoline"><div align="right"><strong>99,539.00 </strong></div></td>
-              <td class="infoline"><div align="right"><strong>398,155.00 </strong></div></td>
+              <td colspan="2" align="left" class="infoline"><strong>TOTAL COSTS</strong></td>
+              <td class="infoline"><div align="right"><strong>99,538.80</strong></div></td>
+              <td class="infoline"><div align="right"><strong>99,538.80</strong></div></td>
+              <td class="infoline"><div align="right"><strong>99,538.80</strong></div></td> <td class="infoline"><div align="right"><strong>99,538.80 </strong></div></td>
+              <td class="infoline"><div align="right"><strong>99,538.80</strong></div></td>
               <td class="infoline"><div align="right"><strong>497,694.00</strong> </div></td>
+            </tr>
+            <tr>
+              <td colspan="2" align="left" class="infoline"><strong>COST LIMITS</strong></td>
+              <td class="infoline"><div align="right"><strong></strong></div></td>
+              <td class="infoline"><div align="right"><strong>10,530.00</strong></div></td>
+              <td class="infoline"><div align="right"><strong></strong></div></td>
+              <td class="infoline"><div align="right"><strong>60,020.80 </strong></div></td>
+              <td class="infoline"><div align="right"><strong>47,159.86</strong></div></td>
+              <td class="infoline"><div align="right"><strong>107,357.06</strong> </div></td>
             </tr>
           </table>
         </div>
