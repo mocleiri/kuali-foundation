@@ -138,8 +138,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <tbody id="GBFN00" style="display:none;">
                         <!-- add line -->
                         <tr>
-                        	<th style="width:100px; text-align:right;">Comments:</th>
-                            <td style="text-align:left;">
+                          <th style="text-align:left;"><span style="width:100px; text-align:right;">Comments</span></th>
+                          <th width="20%" style="text-align:left;"><div align="center">Actions</div></th>
+                        </tr>
+                        <tr>
+                        	<td style="text-align:left;">
                             	
                                 <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
@@ -153,11 +156,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </table>
                                 
                             </td>
+                            <td style="text-align:left;"><div align="center">
+                              <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-save1.gif" alt="save">
+                              <input name="imageField2" type=image class="tinybutton" onClick="MM_openBrWindow('pop-notes-finhist.html','','scrollbars=yes,resizable=yes,width=600,height=480')" src="../images/tinybutton-viewhistory.gif" alt="view history">
+                            </div></td>
                         </tr>
                     </tbody>
                 </table>
             <!-- Subpanel: General -->
-                <table cellpadding="0" cellspacing="0">
+<table cellpadding="0" cellspacing="0">
                     <tr>
                     	<td colspan="16" class="tab-subhead1" style="text-align:left;">
                         	<a href="#" id="ABFN01" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN01" /></a> General
@@ -166,26 +173,25 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <tbody id="GBFN01" style="display:none;">
                         <!-- add line -->
                         <tr>
-                        	<th style="width:100px; text-align:right;">Comments:</th>
-                            <td style="text-align:left;">
-                            	
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="generalcomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea>
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom;">
-                                            <input name="x1" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
+                          <th style="text-align:left;"><span style="width:100px; text-align:right;">Comments</span></th>
+                          <th width="20%" style="text-align:left;"><div align="center">Actions</div></th>
                         </tr>
+                        <tr>
+                          <td style="text-align:left;"><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td style="border:none;"><textarea name="fiscalcomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea></td>
+                              <td style="border:none; width:20px; vertical-align:bottom;"><input name="x0" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                            </tr>
+                          </table></td>
+                          <td style="text-align:left;"><div align="center">
+                            <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-save1.gif" alt="save">
+                            <input name="imageField2" type=image class="tinybutton" onClick="MM_openBrWindow('pop-notes-genhist.html','','scrollbars=yes,resizable=yes,width=600,height=480')" src="../images/tinybutton-viewhistory.gif" alt="view history">
+                          </div></td>
+                       	</tr>
                     </tbody>
                 </table>
             <!-- Subpanel: Intellectual Property -->
-                <table cellpadding="0" cellspacing="0">
+              <table cellpadding="0" cellspacing="0">
                     <tr>
                     	<td colspan="16" class="tab-subhead1" style="text-align:left;">
                         	<a href="#" id="ABFN02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN02" /></a> Intellectual Property
@@ -194,26 +200,25 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <tbody id="GBFN02" style="display:none;">
                         <!-- add line -->
                         <tr>
-                        	<th style="width:100px; text-align:right;">Comments:</th>
-                            <td style="text-align:left;">
-                            	
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="intpropcomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea>
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom;">
-                                            <input name="x2" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
+                          <th style="text-align:left;"><span style="width:100px; text-align:right;">Comments</span></th>
+                          <th width="20%" style="text-align:left;"><div align="center">Actions</div></th>
                         </tr>
+                        <tr>
+                          <td style="text-align:left;"><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td style="border:none;"><textarea name="fiscalcomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea></td>
+                              <td style="border:none; width:20px; vertical-align:bottom;"><input name="x0" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                            </tr>
+                          </table></td>
+                          <td style="text-align:left;"><div align="center">
+                            <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-save1.gif" alt="save">
+                            <input name="imageField2" type=image class="tinybutton" onClick="MM_openBrWindow('pop-notes-inthist.html','','scrollbars=yes,resizable=yes,width=600,height=480')" src="../images/tinybutton-viewhistory.gif" alt="view history">
+                          </div></td>
+                       	</tr>
                     </tbody>
                 </table>
             <!-- Subpanel: Procurement -->
-                <table cellpadding="0" cellspacing="0">
+              <table cellpadding="0" cellspacing="0">
                     <tr>
                     	<td colspan="16" class="tab-subhead1" style="text-align:left;">
                         	<a href="#" id="ABFN03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN03" /></a> Procurement
@@ -222,26 +227,25 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <tbody id="GBFN03" style="display:none;">
                         <!-- add line -->
                         <tr>
-                        	<th style="width:100px; text-align:right;">Comments:</th>
-                            <td style="text-align:left;">
-                            	
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="procurementcomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea>
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom;">
-                                            <input name="x3" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
+                          <th style="text-align:left;"><span style="width:100px; text-align:right;">Comments</span></th>
+                          <th width="20%" style="text-align:left;"><div align="center">Actions</div></th>
                         </tr>
+                        <tr>
+                          <td style="text-align:left;"><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td style="border:none;"><textarea name="fiscalcomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea></td>
+                              <td style="border:none; width:20px; vertical-align:bottom;"><input name="x0" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                            </tr>
+                          </table></td>
+                          <td style="text-align:left;"><div align="center">
+                            <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-save1.gif" alt="save">
+                            <input name="imageField2" type=image class="tinybutton" onClick="MM_openBrWindow('pop-notes-prochist.html','','scrollbars=yes,resizable=yes,width=600,height=480')" src="../images/tinybutton-viewhistory.gif" alt="view history">
+                          </div></td>
+                       	</tr>
                     </tbody>
                 </table>
             <!-- Subpanel: Property  -->
-                <table cellpadding="0" cellspacing="0">
+              <table cellpadding="0" cellspacing="0">
                     <tr>
                     	<td colspan="16" class="tab-subhead1" style="text-align:left;">
                         	<a href="#" id="ABFN04" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="FBFN04" /></a> Property 
@@ -250,22 +254,21 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <tbody id="GBFN04" style="display:none;">
                         <!-- add line -->
                         <tr>
-                        	<th style="width:100px; text-align:right;">Comments:</th>
-                            <td style="text-align:left;">
-                            	
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                            <textarea name="propertycomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea>
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom;">
-                                            <input name="x4" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
+                          <th style="text-align:left;"><span style="width:100px; text-align:right;">Comments</span></th>
+                          <th width="20%" style="text-align:left;"><div align="center">Actions</div></th>
                         </tr>
+                        <tr>
+                          <td style="text-align:left;"><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td style="border:none;"><textarea name="fiscalcomments" style="width:100%; text-align:left;" rows="4">Lorem ipsum dolor sit amet...</textarea></td>
+                              <td style="border:none; width:20px; vertical-align:bottom;"><input name="x0" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                            </tr>
+                          </table></td>
+                          <td style="text-align:left;"><div align="center">
+                            <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-save1.gif" alt="save">
+                            <input name="imageField2" type=image class="tinybutton" onClick="MM_openBrWindow('pop-notes-prophist.html','','scrollbars=yes,resizable=yes,width=600,height=480')" src="../images/tinybutton-viewhistory.gif" alt="view history">
+                          </div></td>
+                       	</tr>
                     </tbody>
                 </table>
                 <p>
