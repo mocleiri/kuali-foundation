@@ -12,6 +12,7 @@
 <script language=javascript1.2 src="../scripts/my_explorer.js" type="text/javascript"></script>
 <script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js" type="text/javascript"></script>
 <script language=JavaScript src="../scripts/CalendarPopup.js" type="text/javascript"></script>
+  <script src="../BFN/jquery.js"></script>
 <script language=JavaScript type="text/JavaScript">
 <!--
 function MM_goToURL() { //v3.0
@@ -21,6 +22,25 @@ function MM_goToURL() { //v3.0
 function MM_openBrWindow(theURL,winName,features) { //v2.0
   window.open(theURL,winName,features);
 }
+//--></script>
+<script language=JavaScript type="text/JavaScript">
+<!--
+$(document).ready(function() {
+  $.viewRole = {
+    '0' : $([]),
+    'view1' : $('#view1')
+
+  };
+
+  $('#viewSelector').change(function() {
+    // hide all
+    $.each($.viewRole, function() { this.hide(); });
+    // show current
+    $.viewRole[$(this).val()].show();
+  });
+});
+
+
 //--></script>
 <style type="text/css">
 <!--
@@ -139,22 +159,27 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <th class="grid"><div align=right>*Person:</div></th>
                 <td nowrap class="grid"><label>Employee Search</label>
                   <label>
-                  <input type=image class="nobord" src="../images/searchicon.gif" alt="lookup">
-                  <br>
-                  Non-employee Search
-                  <input type=image class="nobord" src="../images/searchicon.gif" alt="lookup">
+                    <input type=image class="nobord" src="../images/searchicon.gif" alt="lookup">
+                    <br>
+                    Non-employee Search
+                    <input type=image class="nobord" src="../images/searchicon.gif" alt="lookup">
                   </label></td>
                 <th class="grid"><div align=right>*Proposal Role:</div></th>
                 <td class="grid"><label>
-                  <select name="asdf" id="asdf">
+                  <select id="viewSelector">
                     <option selected>select</option>
                     <option>PI/Contact</option>
                     <option>PI/Multiple</option>
-                    <option>Key Person</option>
+                    <option  value="view1">Key Person</option>
                     <option>Contact</option>
                   </select>
+                  <div style="display:none" id="view1"> *Key Person Role: <br>
+                    <input name="textarea" type="text" id="textarea" value="" size="16">
+                  </div>
                   </label></td>
               </tr>
+              <tbody style="display:block">
+              </tbody>
             </table>
             <p><br>
               <span><img src="../images/tinybutton-clear1.gif" alt="clear" width=40 height=15>&nbsp;<img src="../images/tinybutton-addpers.gif" alt="add personnel" width=83 height=15></span></p>
