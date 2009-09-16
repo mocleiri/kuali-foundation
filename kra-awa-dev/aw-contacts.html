@@ -133,13 +133,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               </tr>
               <tr>
                 <th scope="row">Add</th>
-                <td class="infoline"><select name="select" id="select">
-                    <option selected>select</option>
-                    <option>employee user name</option>
-                    <option>non-employee id</option>
-                  </select>
-                  <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
-                  <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image"></td>
+                <td class="infoline"><table style="border:none; width:100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td nowrap style="border:none">Employee User Name:</td>
+                      <td nowrap style="border:none;"><input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
+                        <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image"></td>
+                    </tr>
+                    <tr>
+                      <td nowrap style="border:none;">Non-employee ID:</td>
+                      <td nowrap style="border:none;"><input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
+                      <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image"></td>
+                    </tr>
+                  </table></td>
                 <td class="infoline">&nbsp;</td>
                 <td class="infoline"><div align="center">
                     <select name="select" id="select">
