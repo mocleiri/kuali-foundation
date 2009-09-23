@@ -88,16 +88,16 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <div id="workarea">
           
           
-<!-- Reviewer Actions -->  
-    <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
-        <tr>
-            <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Reviewer Actions</td>
-            <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A013e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F013e" ></a></span></td>
-            <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
-        </tr>
-    </table>
-    <div class="tab-container" align="center" id="G013e" style="display: none;">
-        <div class="h2-container">
+<!-- Reviewer Actions -->
+<table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+  <tr>
+    <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Reviewer Actions</td>
+    <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A013e" onClick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F013e" ></a></span></td>
+    <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+  </tr>
+</table>
+<div class="tab-container" align="center" id="G013e" style="display: none;">
+  <div class="h2-container">
         	<span class="subhead-left">
             	<h2>Add Reviewer Action</h2>
             </span>
@@ -437,6 +437,92 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </tbody>
         </table>
  
+                 
+                
+                
+        <table align="center" cellpadding="0" cellspacing="0" >
+        	<tr>
+            	<td colspan="7" class="tab-subhead1">
+                	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle;" id="C_adhocrev">
+                    <script type="text/javascript">
+						$(document).ready(function(){
+							// initial state
+								$("#D_adhocrev").hide(0);
+							// trigger
+								$("#C_adhocrev").toggle(
+									function()
+									{
+										$("#D_adhocrev").slideDown(400);
+										$("#C_adhocrev").attr("src","../images/tinybutton-hide.gif");
+									},
+									function()
+									{
+										$("#D_adhocrev").slideUp(200);
+										$("#C_adhocrev").attr("src","../images/tinybutton-show.gif");
+									}
+								);	
+						});
+					</script>
+                    Ad Hoc Reviewers (3)
+                </td>
+            </tr>
+            <tbody id="D_adhocrev">
+                <tr>
+                    <th>&nbsp;</th>
+                    <th scope=col>Reviewers Name</th>
+                    <th scope=col>Action Requested</th>
+                    <th scope=col>Recommended Disposition</th>
+                    <th>Recommended Review Status</th>
+                    <th>Date Review Completed</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <th width="2%"  scope="row">1</th>
+                    <td>Dr. John Smith</td>
+                    <td>Review</td>
+                    <td> &lt;value?&gt;</td>
+                    <td>Approved</td>
+                    <td>07/01/09</td>
+                    <td nowrap>
+                        <div align=center>
+                            <a href="#">
+                                <input name="x2" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="2%"  scope="row">2</th>
+                    <td>Department Chair</td>
+                    <td>FYI</td>
+                    <td>&lt;value?&gt;</td>
+                    <td>Approved</td>
+                    <td>07/10/09</td>
+                    <td nowrap>
+                        <div align=center>
+                            <a href="#">
+                                <input name="x3" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="2%"  scope="row">3</th>
+                    <td>Amber O'Banion</td>
+                    <td>Acknowledge</td>
+                    <td>&lt;value?&gt;</td>
+                    <td>Approved</td>
+                    <td>08/01/09</td>
+                    <td nowrap>
+                        <div align=center>
+                            <a href="#">
+                                <input name="x4" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         
         
         
@@ -475,180 +561,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         </table>
         
 
-                <!-- AD Hoc reviewers -->
-                <div class="h2-container"><span class="subhead-left">
-              <h2>Ad Hoc <span class="tabtable1-left">Reviewers</span></h2>
-              </span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-                
-                
-                <table cellpadding=0 cellspacing=0 summary="view/edit ad hoc recipients">
-              <tr>
-                <td colspan=4 class="tab-subhead">Person Requests:</td>
-              </tr>
-              <tr>
-                <th scope=col>&nbsp;</th>
-                <th scope=col><div align=left>
-                    <label for="action requested">*Action Requested</label>
-                  </div></th>
-                <th scope=col><div align=left>
-                    <label for=person>*Person</label>
-                  </div></th>
-                <th scope=col><div align=center>Actions</div></th>
-              </tr>
-              <tr>
-                <th scope=row><div align=center>Add:</div></th>
-                <td class="infoline"><select name="newAdHocRoutePerson.actionRequested" id="action requested">
-                  <option value=K selected>Select</option>
-                  <option value=K>Review</option>
-                  <option value=A>FYI</option>
-                  <option value=F>Acknowledge</option>
-                </select></td>
-                <td class="infoline"><span class="nowrap">
-                  <input name="incomeList[0].fin_object_cd232" size=30 value="" type=text id="person">
-                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
-                  </span><span class="fineprint"></span></td>
-                <td class="infoline"><div align=center>
-                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-add1.gif" alt="add">
-                  </div></td>
-              </tr>
-              <tr>
-                <th scope=row><div align=center>1</div></th>
-                <td><span class="infoline">
-                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
-                    <option value=K selected>Select</option>
-                    <option value=K>Review</option>
-                    <option value=A>FYI</option>
-                    <option value=F>Acknowledge</option>
-                  </select>
-                </span></td>
-                <td><input name="incomeList[0].fin_object_cd232" size=30 value=thrclark type=text id="person">
-                  <span class="nowrap">
-                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
-                  </span></td>
-                <td><div align=center>
-                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
-                  </div></td>
-              </tr>
-              <tr>
-                <th scope=row><div align=center>2</div></th>
-                <td><span class="infoline">
-                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
-                    <option value=K selected>Select</option>
-                    <option value=K>Review</option>
-                    <option value=A>FYI</option>
-                    <option value=F>Acknowledge</option>
-                  </select>
-                </span></td>
-                <td><input name="incomeList[0].fin_object_cd232" size=30 value="User ID" type=text id="person">
-                  <span class="nowrap">
-                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
-                  </span></td>
-                <td><div align=center>
-                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
-                  </div></td>
-              </tr>
-              <tr>
-                <th scope=row><div align=center>3</div></th>
-                <td><span class="infoline">
-                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
-                    <option value=K selected>Select</option>
-                    <option value=K>Review</option>
-                    <option value=A>FYI</option>
-                    <option value=F>Acknowledge</option>
-                  </select>
-                </span></td>
-                <td><input name="incomeList[0].fin_object_cd232" size=30 value=rkirkend type=text id="person">
-                  <span class="nowrap">
-                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
-                  </span></td>
-                <td><div align=center>
-                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
-                  </div></td>
-              </tr>
-            </table>
-                
-                
-                
-        <table align="center" cellpadding="0" cellspacing="0" >
-        	<tr>
-            	<td colspan="6" class="tab-subhead1">
-                	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle;" id="C_adhocrev">
-                    <script type="text/javascript">
-						$(document).ready(function(){
-							// initial state
-								$("#D_adhocrev").hide(0);
-							// trigger
-								$("#C_adhocrev").toggle(
-									function()
-									{
-										$("#D_adhocrev").slideDown(400);
-										$("#C_adhocrev").attr("src","../images/tinybutton-hide.gif");
-									},
-									function()
-									{
-										$("#D_adhocrev").slideUp(200);
-										$("#C_adhocrev").attr("src","../images/tinybutton-show.gif");
-									}
-								);	
-						});
-					</script>
-                    Ad Hoc Reviewers (3)
-                </td>
-            </tr>
-            <tbody id="D_adhocrev">
-                <tr>
-                    <th>&nbsp;</th>
-                    <th scope=col>Reviewers Name</th>
-                    <th scope=col>Recommended Disposition</th>
-                    <th>Recommended Review Status</th>
-                    <th>Date Review Completed</th>
-                    <th>Actions</th>
-                </tr>
-                <tr>
-                    <th width="2%"  scope="row">1</th>
-                    <td>Dr. John Smith</td>
-                    <td> &lt;value?&gt;</td>
-                    <td>Approved</td>
-                    <td>07/01/09</td>
-                    <td nowrap>
-                        <div align=center>
-                            <a href="#">
-                                <input name="x2" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th width="2%"  scope="row">2</th>
-                    <td>Department Chair</td>
-                    <td>&lt;value?&gt;</td>
-                    <td>Approved</td>
-                    <td>07/10/09</td>
-                    <td nowrap>
-                        <div align=center>
-                            <a href="#">
-                                <input name="x3" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th width="2%"  scope="row">3</th>
-                    <td>Amber O'Banion</td>
-                    <td>&lt;value?&gt;</td>
-                    <td>Approved</td>
-                    <td>08/01/09</td>
-                    <td nowrap>
-                        <div align=center>
-                            <a href="#">
-                                <input name="x4" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
+    
         
         </div>
     
@@ -1009,6 +922,101 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
             </tbody>
         </table>
+        
+        
+        
+           <!-- AD Hoc reviewers --><br>
+                <div class="h2-container"><span class="subhead-left">
+              <h2>Ad Hoc <span class="tabtable1-left">Reviewers</span></h2>
+              </span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+                
+                
+                <table cellpadding=0 cellspacing=0 summary="view/edit ad hoc recipients">
+              <tr>
+                <td colspan=4 class="tab-subhead">Person Requests:</td>
+              </tr>
+              <tr>
+                <th scope=col>&nbsp;</th>
+                <th scope=col><div align=left>
+                    <label for="action requested">*Action Requested</label>
+                  </div></th>
+                <th scope=col><div align=left>
+                    <label for=person>*Person</label>
+                  </div></th>
+                <th scope=col><div align=center>Actions</div></th>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>Add:</div></th>
+                <td class="infoline"><select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                  <option value=K selected>Select</option>
+                  <option value=K>Review</option>
+                  <option value=A>FYI</option>
+                  <option value=F>Acknowledge</option>
+                </select></td>
+                <td class="infoline"><span class="nowrap">
+                  <input name="incomeList[0].fin_object_cd232" size=30 value="" type=text id="person">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span><span class="fineprint"></span></td>
+                <td class="infoline"><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-add1.gif" alt="add">
+                  </div></td>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>1</div></th>
+                <td><span class="infoline">
+                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                    <option value=K selected>Select</option>
+                    <option value=K>Review</option>
+                    <option value=A>FYI</option>
+                    <option value=F>Acknowledge</option>
+                  </select>
+                </span></td>
+                <td><input name="incomeList[0].fin_object_cd232" size=30 value=thrclark type=text id="person">
+                  <span class="nowrap">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span></td>
+                <td><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
+                  </div></td>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>2</div></th>
+                <td><span class="infoline">
+                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                    <option value=K selected>Select</option>
+                    <option value=K>Review</option>
+                    <option value=A>FYI</option>
+                    <option value=F>Acknowledge</option>
+                  </select>
+                </span></td>
+                <td><input name="incomeList[0].fin_object_cd232" size=30 value="User ID" type=text id="person">
+                  <span class="nowrap">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span></td>
+                <td><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
+                  </div></td>
+              </tr>
+              <tr>
+                <th scope=row><div align=center>3</div></th>
+                <td><span class="infoline">
+                  <select name="newAdHocRoutePerson.actionRequested" id="action requested">
+                    <option value=K selected>Select</option>
+                    <option value=K>Review</option>
+                    <option value=A>FYI</option>
+                    <option value=F>Acknowledge</option>
+                  </select>
+                </span></td>
+                <td><input name="incomeList[0].fin_object_cd232" size=30 value=rkirkend type=text id="person">
+                  <span class="nowrap">
+                  <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
+                  </span></td>
+                <td><div align=center>
+                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-delete1.gif" alt="delete">
+                  </div></td>
+              </tr>
+            </table>
+                
         
         <!-- Submit -->
         <table style="padding:0px; border-spacing:0px; border-top:0px;" cellspacing="0" class="result-table">
