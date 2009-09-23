@@ -182,60 +182,40 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           
  <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Print Forms</td>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Print</td>
               <td class="tabtable2-mid"><a href="#" id="A125" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F125" ></a> </td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>        <div class="tab-container" align="center" id="G125" style="display: none;">
             <div class="h2-container"> <span class="subhead-left">
-              <h2>Print Forms</h2>
+              <h2>Print</h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             
                 <table  cellpadding="0" cellspacing="0"  summary="">
                     <tbody>
                         <tr>
-                            <td style="text-align:center; width:100px;"><input name="checkbox" type="checkbox" style="border:none;" id="CB01" class="selectme"></td>
+                            <th>Item</th>
+                            <th style="width:65px;">Action</th>
+                        </tr>
+                        <tr>
                             <td>Budget Summary by Period</td>
+                            <td style="text-align:center;"><input src="../images/tinybutton-print.gif" onclick="javascript: alert('This would print the associated item.'); return false" style="border:none;" alt="print" title="Print" type="image" /></td>
                         </tr>
                         <tr>
-                            <td style="text-align:center;"><input name="checkbox" type="checkbox" style="border:none;" id="CB02" class="selectme"></td>
-                            <td>Cost Sharing Summary by Period </td>
+                            <td>Budget Summary by Period - Cost Sharing</td>
+                            <td style="text-align:center;"><input src="../images/tinybutton-print.gif" onclick="javascript: alert('This would print the associated item.'); return false" style="border:none;" alt="print" title="Print" type="image" /></td>
                         </tr>
                         <tr>
-                            <td style="text-align:center;"><input name="checkbox" type="checkbox" style="border:none;" id="CB03" class="selectme"></td>
-                            <td>Cumulative Budget </td>
+                            <td>Cumulative Budget Summary</td>
+                            <td style="text-align:center;"><input src="../images/tinybutton-print.gif" onclick="javascript: alert('This would print the associated item.'); return false" style="border:none;" alt="print" title="Print" type="image" /></td>
                         </tr>
                         <tr>
-                            <td style="text-align:center;"><input name="checkbox" type="checkbox" style="border:none;" id="CB04" class="selectme"></td>
-                            <td>Budget Totals </td>
+                            <td>Budget Totals</td>
+                            <td style="text-align:center;"><input src="../images/tinybutton-print.gif" onclick="javascript: alert('This would print the associated item.'); return false" style="border:none;" alt="print" title="Print" type="image" /></td>
                         </tr>
                         <tr>
-                            <td style="text-align:center;"><input name="checkbox" type="checkbox" style="border:none;" id="CB05" class="selectme"></td>
-                            <td>Budget Salaries </td>
-                        </tr>
-                        <tr>
-                            <td class="infoline fineprint" style="text-align:center;">
-                                Select (<a href="#" id="selectall">all</a> | <a href="#" href="#" id="selectnone">none</a>)
-                                <script type="text/javascript">
-									$(document).ready(function(){
-									
-										// select all
-											$("#selectall").click(function()
-											{
-												$(".selectme").attr("checked","checked");
-											});
-										// select none
-											$("#selectnone").click(function()
-											{
-												$(".selectme").attr("checked","");
-											});
-										
-									});
-								</script>
-                            </td>
-                            <td class="infoline" style="text-align:center;">
-                                <input src="../images/tinybutton-printsel.gif" onclick="javascript: alert('This would print the selected documents.'); return false" style="border:none;" alt="print" title="Print Selected" type="image" />
-                            </td>
+                            <td>Budget Salaries</td>
+                            <td style="text-align:center;"><input src="../images/tinybutton-print.gif" onclick="javascript: alert('This would print the associated item.'); return false" style="border:none;" alt="print" title="Print" type="image" /></td>
                         </tr>
                     </tbody>
                 </table>
