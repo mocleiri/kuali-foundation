@@ -202,8 +202,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       <tr>
                         <th width="50">&nbsp;</th>
                         <th>*Lead Unit</th>
-                        <th> Unit Name</th>
-                        <th> <label for="unit number">Unit Number</label></th>
+                        <th> Unit ID</th>
+                        <th> <label for="unit number">* Unit Number</label></th>
                         <th width="90">Actions</th>
                       </tr>
                       <tr>
@@ -211,8 +211,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <td class="infoline"><div align=center>
                             <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_0" class="nobord">
                           </div></td>
-                        <td class="infoline"><div align=left> (select)
-                            <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image">
+                        <td class="infoline"><div align=left>
+                          <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
+                          <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image">
                           </div>
                           <span class="fineprint"></span></td>
                         <td class="infoline"><div align="center">
@@ -225,8 +226,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <td><div align=center>
                             <input name="RadioGroup1" type="radio"class="nobord" id="RadioGroup1_1" value="radio" checked>
                           </div></td>
-                        <td>Pediatrics
-                          <input name="image6" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                        <td>375547 - Pediatrics
+                        <input name="image6" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
                         <td><div align="center"> 375547 </div></td>
                         <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                       </tr>
@@ -235,8 +236,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <td><div align=center>
                             <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_2"class="nobord">
                           </div></td>
-                        <td>Oncology
-                          <input name="image7" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                        <td>823462 - Oncology
+                        <input name="image7" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
                         <td><div align="center"> 823462 </div></td>
                         <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                       </tr>
@@ -292,32 +293,33 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <tbody id="G666" style="display: none;">
                       <tr>
                         <th width="50">&nbsp;</th>
-                        <th> Unit Name</th>
-                        <th> <label for="unit number">Unit Number</label></th>
+                        <th> Unit ID</th>
+                        <th> <label for="unit number">* Unit Number</label></th>
                         <th width="90">Actions</th>
                       </tr>
                       <tr>
                         <th scope="row"><div align="center">Add:</div></th>
-                        <td class="infoline"><div align=left> (select)
-                            <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image">
-                          </div>
+                        <td class="infoline"><div align=left>
+                          <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
+                          <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image">
+                        </div>
                           <span class="fineprint"></span></td>
                         <td class="infoline"><div align="center">
-                            <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
-                            <span class="fineprint"></span></div></td>
+                          <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
+                          <span class="fineprint"></span></div></td>
                         <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                       </tr>
                       <tr>
                         <th scope="row"><div align="center">1</div></th>
-                        <td>Pediatrics
-                          <input name="image8" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                        <td>375547 - Pediatrics
+                          <input name="image6" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
                         <td><div align="center"> 375547 </div></td>
                         <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                       </tr>
                       <tr>
                         <th  scope="row"><div align="center">2</div></th>
-                        <td>Oncology
-                          <input name="image9" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                        <td>823462 - Oncology
+                          <input name="image7" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
                         <td><div align="center"> 823462 </div></td>
                         <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                       </tr>
@@ -373,32 +375,33 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <tbody id="G728" style="display: none;">
                       <tr>
                         <th width="50">&nbsp;</th>
-                        <th> Unit Name</th>
-                        <th> <label for="unit number">Unit Number</label></th>
+                        <th> Unit ID</th>
+                        <th> <label for="unit number">* Unit Number</label></th>
                         <th width="90">Actions</th>
                       </tr>
                       <tr>
                         <th scope="row"><div align="center">Add:</div></th>
-                        <td class="infoline"><div align=left> (select)
-                            <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image">
-                          </div>
+                        <td class="infoline"><div align=left>
+                          <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
+                          <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image">
+                        </div>
                           <span class="fineprint"></span></td>
                         <td class="infoline"><div align="center">
-                            <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
-                            <span class="fineprint"></span></div></td>
+                          <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
+                          <span class="fineprint"></span></div></td>
                         <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                       </tr>
                       <tr>
                         <th scope="row"><div align="center">1</div></th>
-                        <td>Pediatrics
-                          <input name="image11" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                        <td>375547 - Pediatrics
+                          <input name="image6" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
                         <td><div align="center"> 375547 </div></td>
                         <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                       </tr>
                       <tr>
                         <th  scope="row"><div align="center">2</div></th>
-                        <td>Oncology
-                          <input name="image12" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
+                        <td>823462 - Oncology
+                          <input name="image7" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
                         <td><div align="center"> 823462 </div></td>
                         <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                       </tr>
@@ -600,6 +603,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <tr>
               <th scope="row">Add</th>
               <td class="infoline"><span class="nobord">
+                *Employee User Name:
                 <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
                 <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image">
                 </span></td>
@@ -624,19 +628,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td>Pediatrics
                 <input name="image19" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
               <td><div align="center">
-                  <select name="select" id="select">
-                    <option>accountant</option>
-                    <option>admin assistant</option>
-                    <option>business manager</option>
-                  </select>
-                </div></td>
+                  business manager
+              </div></td>
               <td><div align="center"> 123-456-7890 </div></td>
               <td><div align="center"><a href="mailto:"> agodfrey@universe.edu </a></div></td>
               <td><div align="center">
-                  <label>
-                    <input name="radio" type="radio" class="nobord" id="radio" value="radio" checked>
+                <label>
+                    <input name="checkbox" type="checkbox"class="nobord" id="checkbox" checked>
                   </label>
-                </div></td>
+              </div></td>
               <td><div align=center> <a href="#"><img src="../images/tinybutton-delete2.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
             </tr>
             <tr>
@@ -646,17 +646,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td>Pediatrics
                 <input name="image20" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
               <td><div align="center">
-                  <select name="select" id="select">
-                    <option selected>accountant</option>
-                    <option>admin assistant</option>
-                    <option>business manager</option>
-                  </select>
-                </div></td>
+                  accountant
+              </div></td>
               <td><div align="center">123-456-7890 </div></td>
               <td><div align="center"><a href="mailto:">mcaffee@universe.edu </a></div></td>
               <td><div align="center">
-                  <input type="radio" name="radio" id="radio2" value="radio" class="nobord">
-                </div></td>
+                <input name="checkbox" type="checkbox"class="nobord" id="checkbox" checked>
+              </div></td>
               <td><div align=center> <a href="#"><img src="../images/tinybutton-delete2.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
             </tr>
             <tr>
@@ -666,17 +662,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td>Pediatrics
                 <input name="image21" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
               <td><div align="center">
-                  <select name="select" id="select">
-                    <option>accountant</option>
-                    <option selected>admin assistant</option>
-                    <option>business manager</option>
-                  </select>
-                </div></td>
+                  admin assistant
+              </div></td>
               <td><div align="center">123-456-7890 </div></td>
               <td><div align="center"><a href="mailto:">jcoltrane@universe.edu </a></div></td>
               <td><div align="center">
-                  <input type="radio" name="radio" id="radio3" value="radio" class="nobord">
-                </div></td>
+                <input name="checkbox" type="checkbox"class="nobord" id="checkbox" checked>
+              </div></td>
               <td><div align=center> <a href="#"><img src="../images/tinybutton-delete2.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
             </tr>
             <tr>
@@ -695,8 +687,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td><div align="center">123-456-7890 </div></td>
               <td><div align="center"><a href="mailto:">cbirdparker@universe.edu </a></div></td>
               <td><div align="center">
-                  <input type="radio" name="radio" id="radio4" value="radio" class="nobord">
-                </div></td>
+                <input type="checkbox" name="checkbox"class="nobord" id="checkbox">
+              </div></td>
               <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
             </tr>
             <tr>
@@ -715,8 +707,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td><div align="center">123-456-7890 </div></td>
               <td><div align="center"><a href="mailto:">galbright@universe.edu </a></div></td>
               <td><div align="center">
-                  <input type="radio" name="radio" id="radio5" value="radio" class="nobord">
-                </div></td>
+                <input type="checkbox" name="checkbox"class="nobord" id="checkbox">
+              </div></td>
               <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
             </tr>
           </table>
@@ -752,6 +744,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <tr>
               <th scope="row">Add</th>
               <td class="infoline"><span class="nobord">
+                *Non-employee ID:
                 <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
                 <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image">
                 </span></td>
@@ -969,6 +962,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <tr>
               <th scope="row">Add</th>
               <td class="infoline"><span class="nobord">
+                *Employee User Name:
                 <input id="unit number" name="newExpenseLine.account.accountNumber" size=12 value="" onBlur="loadAccountInfo(expCoaCode, this.value, 'newExpenseLineAccountDiv'); expAccountCode=this.value;" type=text>
                 <input tabindex="32767" name="methodToCall.performLookup.(!!org.kuali.module.chart.bo.Account!!).(((chartOfAccounts.chartOfAccountsCode:newSourceLine.chartOfAccountsCode,accountNumber:newSourceLine.accountNumber))).((#newSourceLine.chartOfAccountsCode:chartOfAccounts.chartOfAccountsCode#)).((&lt;&gt;))" src="../images/searchicon.gif" class="tinybutton" valign="middle" border="0" type="image">
                 </span></td>
