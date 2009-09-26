@@ -418,3 +418,21 @@
 	{
 		text-align:right;
 	}
+	
+	
+	
+	.paneme td, .paneme th, .paneme tr
+	{
+		border-collapse:collapse;
+		border:1px solid #939393;
+	}
+	.paneme td, .paneme th
+	{
+		padding:3px;
+	}
+	.panemelabel
+	{
+		background-color:#CCC;
+		text-align:right;
+	}
+	
