@@ -7,6 +7,6 @@
 
 kupdate reg standard true false Oracle9i
 buildsvnwebapp reg
-kmail kc.dev@kuali.org "weekly kra reg build completed" "weekly kra reg build completed, it's ok to test on it."
+kmail 'kc.dev@kuali.org,kcqa@kuali.org' "weekly kra reg build completed" "weekly kra reg build completed, it's ok to test on it."
 
 kend 0
