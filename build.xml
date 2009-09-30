@@ -5,8 +5,8 @@
 	
 	<target name="init-base-properties">
 		<property file="${generated.properties.file}" />
-		<property file="${application.working.directory}/build.properties" />
 		<property file="${working.directory}/build.properties" />
+		<property file="${application.working.directory}/build.properties" />
 		<property file="${application.deploy.directory}/build.properties" />
 		<condition property="import.into.mysql">
 			<equals arg1="${datasource.ojb.platform}" arg2="MySQL" />
@@ -72,9 +72,7 @@
        <copy file="${application.deploy.directory}/${application.java.project}/target/${maven.war.filename}" tofile="${application.deploy.directory}/${application}-${build.environment}.war" overwrite="true" verbose="true" />
     </target>
 
-    <target name="dist-war" depends="init-properties,dist-ant,dist-maven">
-    	<echo message="${appserver.url}" />
-    </target>
+    <target name="dist-war" depends="init-properties,dist-ant,dist-maven" />
 
 	<target name="check-modularization" depends="init-properties">
 		<trycatch property="has.error">
