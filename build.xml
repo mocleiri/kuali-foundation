@@ -72,7 +72,9 @@
        <copy file="${application.deploy.directory}/${application.java.project}/target/${maven.war.filename}" tofile="${application.deploy.directory}/${application}-${build.environment}.war" overwrite="true" verbose="true" />
     </target>
 
-    <target name="dist-war" depends="init-properties,dist-ant,dist-maven" />
+    <target name="dist-war" depends="init-properties,dist-ant,dist-maven">
+    	<echo message="${appserver.url}" />
+    </target>
 
 	<target name="check-modularization" depends="init-properties">
 		<trycatch property="has.error">
