@@ -187,12 +187,22 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </th>
                     <td>
                     	<input type="text" style="width:75px;" value="13:05" />
-                    </td>
+                    	<label>
+                    	  <select name="select" id="select">
+                    	    <option>am</option>
+                    	    <option selected>pm</option>
+                  	      </select>
+               	    </label></td>
                     <th style="text-align:right;">
                     	End Time:
                     </th>
                     <td>
-                    	<input type="text" style="width:75px;" value="14:35" />
+                    	<input type="text" style="width:75px;" value="14:35" /><label>
+                    	  <select name="select" id="select">
+                    	    <option>am</option>
+                    	    <option selected>pm</option>
+                  	      </select>
+               	    </label>
                     </td>
                 </tr>
                 
@@ -242,16 +252,56 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </div>
             <table cellpadding=0 cellspacing="0"  summary="">
                 <tr>
-                    <th style="width:15px;">&nbsp;</th>
-                    <th style="width:70px;">Protocol No</th>
-                    <th style="width:115px;">PI</th>
-                    <th>Protocol Title</th>
-                    <th style="width:75px;">Submission Type</th>
-                    <th style="width:75px;">Sub. Type Qualifier</th>
-                    <th style="width:80px;">Sub. Review Type</th>
-                    <th style="width:75px;">Submission Status</th>
-                    <th style="width:75px;">Submission Date</th>
-                    <th style="width:45px;">Action</th>
+                    <th>&nbsp;</th>
+                    <th><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="border:none; background:none; text-align:right"><img src="../images/sort-arrows.gif" width="15" height="16" alt="sort"></td>
+                      <td style="border:none; background:none">Protocol No</td>
+                      </tr>
+              </table></th>
+                    <th><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none; background:none; text-align:right"><img src="../images/sort-arrows.gif" width="15" height="16" alt="sort"></td>
+                          <td style="border:none; background:none">PI</td>
+                      </tr>
+                </table></th>
+                    <th><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none; background:none; text-align:right"><img src="../images/sort-arrows.gif" width="15" height="16" alt="sort"></td>
+                          <td style="border:none; background:none">Protocol Title</td>
+                      </tr>
+                  </table></th>
+                    <th><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none; background:none; text-align:right"><img src="../images/sort-arrows.gif" width="15" height="16" alt="sort"></td>
+                          <td style="border:none; background:none">Submission Type</td>
+                      </tr>
+                  </table></th>
+                    <th ><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none; background:none; text-align:right"><img src="../images/sort-arrows.gif" width="15" height="16" alt="sort"></td>
+                          <td style="border:none; background:none">Sub. Type Qualifier</td>
+                      </tr>
+                  </table></th>
+                    <th><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none; background:none; text-align:right"><img src="../images/sort-arrows.gif" width="15" height="16" alt="sort"></td>
+                          <td style="border:none; background:none">Sub. Review Type</td>
+                      </tr>
+                  </table></th>
+                    <th><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none; background:none; text-align:right"><img src="../images/sort-arrows.gif" width="15" height="16" alt="sort"></td>
+                          <td style="border:none; background:none">Submission Status</td>
+                      </tr>
+                  </table></th>
+                    <th><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none; background:none; text-align:right"><img src="../images/sort-arrows.gif" width="15" height="16" alt="sort"></td>
+                          <td style="border:none; background:none">Submission Date</td>
+                      </tr>
+    </table></th>
+                    <th>Action</th>
                 </tr>
                 <tr>
                     <th>
@@ -260,13 +310,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td>
                     	0807000004
                     </td>
-                    <td>
+                    <td nowrap>
                     	Cartwright, Hoss
-                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                        <input src="../images/book_open.png" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
                     </td>
                     <td>
                     	Super Duper Protocol for Nano Research
-                    </td>
+                  </td>
                     <td>
                     	Amendment
                     </td>
@@ -293,13 +343,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td>
                     	0807000004
                     </td>
-                    <td>
+                    <td nowrap>
                     	Oakley, Annie
-                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
-                    </td>
+                    <input src="../images/book_open.png" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" /></td>
                     <td>
                     	Normal Duper Protocol for Nano Research
-                    </td>
+                  </td>
                     <td>
                     	Amendment
                     </td>
@@ -326,13 +375,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td>
                     	0807000004
                     </td>
-                    <td>
+                    <td nowrap>
                     	Silverheels, Jay
-                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
-                    </td>
+                    <input src="../images/book_open.png" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" /></td>
                     <td>
                     	Less Duper Protocol for Nano Research
-                    </td>
+                  </td>
                     <td>
                     	Amendment
                     </td>
@@ -359,13 +407,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td>
                     	0807000004
                     </td>
-                    <td>
+                    <td nowrap>
                     	Wayne, John
-                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
-                    </td>
+                    <input src="../images/book_open.png" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" /></td>
                     <td>
                     	Not Duper Protocol for Nano Research
-                    </td>
+                  </td>
                     <td>
                     	Amendment
                     </td>
@@ -431,7 +478,16 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </select>
                         
                     </td>
-                    <td class="infoline" style="text-align:center;"><input type="text" style="width:97%;" value="" /></td>
+                    <td class="infoline" style="text-align:center;">     <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none;">
+                                    <textarea name="z" style="width:100%; text-align:left;" rows="1"></textarea>
+                                </td>
+                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table></td>
                     <td class="infoline" style="text-align:center;">
                     	<input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the Other Action to the list.'); return false" class="tinybutton" alt="add" title="Add" type="image" />
                     </td>
