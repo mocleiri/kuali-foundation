@@ -5,7 +5,7 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
+kdailytag $APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION
 
 ##
 # Args to kupdate

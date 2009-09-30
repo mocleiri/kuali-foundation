@@ -65,6 +65,8 @@ function ksetprops {
 	typeset database_user=$DATABASE_APPLICATION_CODE$environment
 	typeset schema="`echo $database_user | tr a-z A-Z`"
 	typeset database_password=$environment"174"$DATABASE_APPLICATION_CODE
+	typeset rice_database_user=$APPLICATION_INFRASTRUCTURE_DATABASE_PREFIX$APPLICATION_INFRASTRUCTURE_DATABASE_VERSION$environment
+	typeset rice_database_password=$environment"174"$APPLICATION_INFRASTRUCTURE_DATABASE_PREFIX$APPLICATION_INFRASTRUCTURE_DATABASE_VERSION
 	kexec "echo \"working.directory=$BASE_DIRECTORY\" > $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.working.directory=$APPLICATION_DIRECTORY\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.deploy.directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE\" >> $ANT_PROPERTIES_FILE"
@@ -72,10 +74,6 @@ function ksetprops {
 	kexec "echo \"impex.properties.file=$IMPEX_PROPERTIES_FILE\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.java.project=$APPLICATION_JAVA_PROJECT\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"application.database.project=$APPLICATION_DATABASE_PROJECT\" >> $ANT_PROPERTIES_FILE"
-	if [[ -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
-	then
-		kexec "echo \"infrastructure.database.project=$INFRASTRUCTURE_DATABASE_PROJECT\" >> $ANT_PROPERTIES_FILE"
-	fi
 	kexec "echo \"application=$JAVA_APPLICATION_CODE\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"build.environment=$environment\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"build.version=$version\" >> $ANT_PROPERTIES_FILE"
@@ -83,6 +81,13 @@ function ksetprops {
 	kexec "echo \"datasource.ojb.platform=$database_platform\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"datasource.username=$database_user\" >> $ANT_PROPERTIES_FILE"
 	echo "datasource.password=$database_password" >> $ANT_PROPERTIES_FILE 
+	if [[ -n $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT ]]
+	then
+		kexec "echo \"infrastructure.database.project=$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT\" >> $ANT_PROPERTIES_FILE"
+	else
+		kexec "echo \"rice.datasource.username=$rice_database_user\" >> $ANT_PROPERTIES_FILE"
+		echo "rice.datasource.password=$rice_database_password" >> $ANT_PROPERTIES_FILE 
+	fi
     } >> $SCRIPT_LOG 2>&1
 }
 typeset -xf ksetprops
@@ -152,12 +157,12 @@ function kdailytag {
 	svn -q delete $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$new_build_version_path-$APPLICATION_JAVA_PROJECT -m daily-tag-removal
 	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$version $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$new_build_version_path -m kdailytag"
 	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$version $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$new_build_version_path -m kdailytag"
-	kexec "svn -q copy $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$APPLICATION_INFRASTRUCTURE_VERSION $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$new_build_version_path-$APPLICATION -m kdailytag"
+	kexec "svn -q copy $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION $SRCCTRL_URL/$INFRASTRUCTURE_JAVA_PROJECT/$new_build_version_path-$APPLICATION -m kdailytag"
 	
-	if [[ -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
+	if [[ -n $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT ]]
 	then
-		svn -q delete $SRCCTRL_URL/$INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION_DATABASE_PROJECT -m daily-tag-removal
-		kexec "svn -q copy $SRCCTRL_URL/$INFRASTRUCTURE_DATABASE_PROJECT/$APPLICATION_INFRASTRUCTURE_VERSION $SRCCTRL_URL/$INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION -m kdailytag"
+		svn -q delete $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION_DATABASE_PROJECT -m daily-tag-removal
+		kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT/$APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION -m kdailytag"
 	fi
 	
 	return 0
@@ -230,12 +235,12 @@ function kupdate {
         kant import -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 		kexec "rm -rf $APPLICATION_DATABASE_PROJECT"
 		
-		if [[ -n $INFRASTRUCTURE_DATABASE_PROJECT ]]
+		if [[ -n $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT ]]
 		then 
-			rm -rf $INFRASTRUCTURE_DATABASE_PROJECT
-			kcheckout $INFRASTRUCTURE_DATABASE_PROJECT $version-$APPLICATION $INFRASTRUCTURE_DATABASE_PROJECT
-        	kant import-no-empty-schema "-Doutput.dir=$BASE_DIRECTORY/$INFRASTRUCTURE_DATABASE_PROJECT -Dgenerated.properties.file=$ANT_PROPERTIES_FILE"
-			kexec "rm -rf $INFRASTRUCTURE_DATABASE_PROJECT"
+			rm -rf $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT
+			kcheckout $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT $version-$APPLICATION $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT
+        	kant import-no-empty-schema "-Doutput.dir=$BASE_DIRECTORY/$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT -Dgenerated.properties.file=$ANT_PROPERTIES_FILE"
+			kexec "rm -rf $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT"
 		fi
 	fi
 	
