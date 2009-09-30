@@ -207,7 +207,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <!-- Notes -->
         <table cellpadding=0 cellspacing="0" summary="view/add notes">
         	<tr>
-            	<td colspan="6" class="tab-subhead1">
+            	<td colspan="7" class="tab-subhead1">
                 	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle;" id="C_notes">
                     <script type="text/javascript">
 						$(document).ready(function(){
@@ -327,7 +327,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <!-- Attachments -->
         <table align="center" cellpadding="0" cellspacing="0" >
         	<tr>
-            	<td colspan="6" class="tab-subhead1">
+            	<td colspan="7" class="tab-subhead1">
                 	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle;" id="C_attachments">
                     <script type="text/javascript">
 						$(document).ready(function(){
@@ -358,6 +358,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <th scope=col>Uploaded By</th>
                     <th>Description</th>
                     <th>*File Name</th>
+                    <th scope=col><label for="restricted">Restricted?</label></th>
                     <th>Actions</th>
                 </tr>
                 <tr>
@@ -383,6 +384,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <input name="file" type="file" class="nobord" id="file" size="12">
                         </label>
                     </td>
+                    <td nowrap class="infoline"><label>
+                      <div align="center">
+                        <input name="checkbox" type="checkbox" class="nobord" id="restricted">
+                      </div>
+                      </label></td>
                     <td nowrap class="infoline">
                         <div align=center>
                             <a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a>
@@ -395,6 +401,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td> HUNTLEY,KEISHA Y</td>
                     <td>my description...</td>
                     <td>myDoc1.doc</td>
+                    <td><div align="center">
+                      <input name="checkbox2" type="checkbox" class="nobord" id="restricted">
+                    </div></td>
                     <td nowrap>
                         <div align=center>
                             <a href="#">
@@ -410,6 +419,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td> HUNTLEY,KEISHA Y</td>
                     <td>my description...</td>
                     <td>myDoc2.doc</td>
+                    <td><div align="center">
+                      <input name="checkbox3" type="checkbox" class="nobord" id="restricted">
+                    </div></td>
                     <td nowrap>
                         <div align=center>
                             <a href="#">
@@ -425,6 +437,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td> HUNTLEY,KEISHA Y</td>
                     <td>my description...</td>
                     <td>myDoc3.doc</td>
+                    <td nowrap><div align="center">
+                      <input name="checkbox3" type="checkbox" class="nobord" id="restricted">
+                    </div></td>
                     <td nowrap>
                         <div align=center>
                             <a href="#">
@@ -463,7 +478,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 								);	
 						});
 					</script>
-                    Ad Hoc Reviewers (3)
+                    Reviewer History (3)
                 </td>
             </tr>
             <tbody id="D_adhocrev">
@@ -693,7 +708,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <!-- Notes -->
         <table cellpadding=0 cellspacing="0" summary="view/add notes">
         	<tr>
-            	<td colspan="6" class="tab-subhead1">
+            	<td colspan="7" class="tab-subhead1">
                 	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle;" id="C_notes2">
                     <script type="text/javascript">
 						$(document).ready(function(){
@@ -813,7 +828,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <!-- Attachments -->
         <table align="center" cellpadding="0" cellspacing="0" >
         	<tr>
-            	<td colspan="6" class="tab-subhead1">
+            	<td colspan="7" class="tab-subhead1">
                 	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle;" id="C_attachments2">
                     <script type="text/javascript">
 						$(document).ready(function(){
@@ -844,6 +859,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <th scope=col>Uploaded By</th>
                     <th>Description</th>
                     <th>*File Name</th>
+                    <th scope=col><label for="restricted">Restricted?</label></th>
                     <th>Actions</th>
                 </tr>
                 <tr>
@@ -869,6 +885,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <input name="file" type="file" class="nobord" id="file" size="12">
                         </label>
                     </td>
+                    <td nowrap class="infoline"><label>
+                      <div align="center">
+                        <input name="checkbox" type="checkbox" class="nobord" id="restricted">
+                      </div>
+                      </label></td>
                     <td nowrap class="infoline">
                         <div align=center>
                             <a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a>
@@ -881,6 +902,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td> HUNTLEY,KEISHA Y</td>
                     <td>my description...</td>
                     <td>myDoc1.doc</td>
+                    <td><div align="center">
+                      <input name="checkbox2" type="checkbox" class="nobord" id="restricted">
+                    </div></td>
                     <td nowrap>
                         <div align=center>
                             <a href="#">
@@ -896,6 +920,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td> HUNTLEY,KEISHA Y</td>
                     <td>my description...</td>
                     <td>myDoc2.doc</td>
+                    <td><div align="center">
+                      <input name="checkbox3" type="checkbox" class="nobord" id="restricted">
+                    </div></td>
                     <td nowrap>
                         <div align=center>
                             <a href="#">
@@ -911,6 +938,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td> HUNTLEY,KEISHA Y</td>
                     <td>my description...</td>
                     <td>myDoc3.doc</td>
+                    <td nowrap><div align="center">
+                      <input name="checkbox3" type="checkbox" class="nobord" id="restricted">
+                    </div></td>
                     <td nowrap>
                         <div align=center>
                             <a href="#">
@@ -925,7 +955,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         
         
         
-           <!-- AD Hoc reviewers --><br>
+   <!-- AD Hoc reviewers --><br>
                 <div class="h2-container"><span class="subhead-left">
               <h2>Ad Hoc <span class="tabtable1-left">Reviewers</span></h2>
               </span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
