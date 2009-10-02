@@ -5,7 +5,7 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 # build number needs to be different for each project
-BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/JAVA_APPLICATION_CODE-build-number.txt; typeset -rx BUILD_NUMBER_FILE
+BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/$JAVA_APPLICATION_CODE-build-number.txt; typeset -rx BUILD_NUMBER_FILE
 
 kexport dba $APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION
 kdailytag $APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION
