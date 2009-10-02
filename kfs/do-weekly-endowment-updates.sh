@@ -4,6 +4,6 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-#kbranch standard endowment
+kbranch standard endowment
 
 kend 0
