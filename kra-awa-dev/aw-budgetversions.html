@@ -342,7 +342,7 @@
               </tr>
             </table>
             <!-- Panel Content Div -->
-            <div class="tab-container" align="center" id="G300" style="display: nonee;">
+            <div class="tab-container" align="center" id="G300" style="display: none;">
               
               <div class="h2-container">
                 <h2><span class="subhead-left">Budget Overview</span></h2>
@@ -780,12 +780,37 @@
             <table width="100%" cellpAdding="0"  cellspacing="0" class="tab" summary="">
               <tr>
                 <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle"><span class="tabtable1-left"> Budget Limits (000121-00005: 400100)</span></td>
-                <td class="tabtable2-mid"><a href="#" id="A300b" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F300b" vspace=6></a></td>
+                <td class="tabtable2-mid">
+                	<a href="#" id="A300b" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F300b" vspace=6></a>
+                </td>
                 <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
               </tr>
             </table>
             <!-- Panel Content Div -->
             <div class="tab-container" align="center" id="G300b" style="display: none;">
+              
+              <a href="#" id="groupcontrolA1">Show All</a>
+              <a href="#" id="groupcontrolA2">Hide All</a>
+				<script type="text/javascript">
+                    $(document).ready(function(){
+                        // show
+							$("#groupcontrolA1").click(
+								function()
+								{
+									$(".divgroupA").slideDown(400);
+									$(".controlgroupA").attr("src","../images/tinybutton-hide.gif");
+								}
+							);
+						// hide
+							$("#groupcontrolA2").click(
+								function()
+								{
+									$(".divgroupA").slideUp(400);
+									$(".controlgroupA").attr("src","../images/tinybutton-show.gif");
+								}
+							);
+                    });
+                </script>
               <!-- Personnel -->
               <div class="h2-container">
                 <h2><span class="subhead-left">Personnel</span></h2>
@@ -804,22 +829,33 @@
               <div class="h2-container" style="border-top:1px solid #E4E4E4;">
                 <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
                   <tr>
-                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1f"><img id="imgP1f" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
+                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;">
+                   	  <a href="#" id="controlP1f"><img id="imgP1f" class="controlgroupA" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
                       <script type="text/javascript">
                             $(document).ready(function(){
-                                $("#divP1f").hide();
-                                $("#controlP1f").toggle(
-                                    function()
-                                    {
-                                        $("#divP1f").slideDown(400);
-                                        $("#imgP1f").attr("src","../images/tinybutton-hide.gif");
-                                    },
-                                    function()
-                                    {
-                                        $("#divP1f").slideUp(200);
-                                        $("#imgP1f").attr("src","../images/tinybutton-show.gif");
-                                    }
-                                );	
+                                // initial state
+									$("#divP1f").hide();
+                                // control
+									$("#controlP1f").click(
+										function()
+										{
+											toggleState_divP1f();
+										}
+									);	
+								// function
+									function toggleState_divP1f()
+									{
+										if ( $("#imgP1f").attr("src") == "../images/tinybutton-show.gif" )
+										{
+											$("#divP1f").slideDown(400);
+											$("#imgP1f").attr("src","../images/tinybutton-hide.gif");
+										}
+										else
+										{
+											$("#divP1f").slideUp(200);
+											$("#imgP1f").attr("src","../images/tinybutton-show.gif");
+										}
+									}
                             });
                         </script>
                       Salary </td>
@@ -830,7 +866,7 @@
                   </tr>
                 </table>
               </div>
-              <div id="divP1f">
+              <div id="divP1f" class="divgroupA">
                 <table align="center" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="width:100px;">&nbsp;</td>
@@ -862,22 +898,32 @@
               <div class="h2-container" style="border-top:1px solid #E4E4E4;">
                 <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
                   <tr>
-                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1a"><img id="imgP1a" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
+                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1a"><img id="imgP1a" class="controlgroupA" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
                       <script type="text/javascript">
                             $(document).ready(function(){
-                                $("#divP1a").hide();
-                                $("#controlP1a").toggle(
-                                    function()
-                                    {
-                                        $("#divP1a").slideDown(400);
-                                        $("#imgP1a").attr("src","../images/tinybutton-hide.gif");
-                                    },
-                                    function()
-                                    {
-                                        $("#divP1a").slideUp(200);
-                                        $("#imgP1a").attr("src","../images/tinybutton-show.gif");
-                                    }
-                                );	
+                                // initial state
+									$("#divP1a").hide();
+                                // control
+									$("#controlP1a").click(
+										function()
+										{
+											toggleState_divP1a();
+										}
+									);	
+								// function
+									function toggleState_divP1a()
+									{
+										if ( $("#imgP1a").attr("src") == "../images/tinybutton-show.gif" )
+										{
+											$("#divP1a").slideDown(400);
+											$("#imgP1a").attr("src","../images/tinybutton-hide.gif");
+										}
+										else
+										{
+											$("#divP1a").slideUp(200);
+											$("#imgP1a").attr("src","../images/tinybutton-show.gif");
+										}
+									}
                             });
                         </script>
                       Fringe </td>
@@ -888,7 +934,7 @@
                   </tr>
                 </table>
               </div>
-              <div id="divP1a">
+              <div id="divP1a" class="divgroupA">
                 <table align="center" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="width:100px;">&nbsp;</td>
@@ -920,22 +966,32 @@
               <div class="h2-container" style="border-top:1px solid #E4E4E4;">
                 <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
                   <tr>
-                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1b"><img id="imgP1b" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
+                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1b"><img id="imgP1b" class="controlgroupA" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
                       <script type="text/javascript">
                             $(document).ready(function(){
-                                $("#divP1b").hide();
-                                $("#controlP1b").toggle(
-                                    function()
-                                    {
-                                        $("#divP1b").slideDown(400);
-                                        $("#imgP1b").attr("src","../images/tinybutton-hide.gif");
-                                    },
-                                    function()
-                                    {
-                                        $("#divP1b").slideUp(200);
-                                        $("#imgP1b").attr("src","../images/tinybutton-show.gif");
-                                    }
-                                );	
+                               // initial state
+									$("#divP1b").hide();
+                                // control
+									$("#controlP1b").click(
+										function()
+										{
+											toggleState_divP1b();
+										}
+									);	
+								// function
+									function toggleState_divP1b()
+									{
+										if ( $("#imgP1b").attr("src") == "../images/tinybutton-show.gif" )
+										{
+											$("#divP1b").slideDown(400);
+											$("#imgP1b").attr("src","../images/tinybutton-hide.gif");
+										}
+										else
+										{
+											$("#divP1b").slideUp(200);
+											$("#imgP1b").attr("src","../images/tinybutton-show.gif");
+										}
+									}
                             });
                         </script>
                       Calculated Direct Costs </td>
@@ -946,7 +1002,7 @@
                   </tr>
                 </table>
               </div>
-              <div id="divP1b">
+              <div id="divP1b" class="divgroupA">
                 <table align="center" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="width:100px;">&nbsp;</td>
@@ -1012,22 +1068,32 @@
               <div class="h2-container" style="border-top:1px solid #E4E4E4;">
                 <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
                   <tr>
-                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1c"><img id="imgP1c" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
+                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1c"><img id="imgP1c" class="controlgroupA" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
                       <script type="text/javascript">
                             $(document).ready(function(){
-                                $("#divP1c").hide();
-                                $("#controlP1c").toggle(
-                                    function()
-                                    {
-                                        $("#divP1c").slideDown(400);
-                                        $("#imgP1c").attr("src","../images/tinybutton-hide.gif");
-                                    },
-                                    function()
-                                    {
-                                        $("#divP1c").slideUp(200);
-                                        $("#imgP1c").attr("src","../images/tinybutton-show.gif");
-                                    }
-                                );	
+                                // initial state
+									$("#divP1c").hide();
+                                // control
+									$("#controlP1c").click(
+										function()
+										{
+											toggleState_divP1c();
+										}
+									);	
+								// function
+									function toggleState_divP1c()
+									{
+										if ( $("#imgP1c").attr("src") == "../images/tinybutton-show.gif" )
+										{
+											$("#divP1c").slideDown(400);
+											$("#imgP1c").attr("src","../images/tinybutton-hide.gif");
+										}
+										else
+										{
+											$("#divP1c").slideUp(200);
+											$("#imgP1c").attr("src","../images/tinybutton-show.gif");
+										}
+									}
                             });
                         </script>
                       Equipment </td>
@@ -1038,7 +1104,7 @@
                   </tr>
                 </table>
               </div>
-              <div id="divP1c">
+              <div id="divP1c" class="divgroupA">
                 <table align="center" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="width:100px;">42818</td>
@@ -1054,22 +1120,32 @@
               <div class="h2-container" style="border-top:1px solid #E4E4E4;">
                 <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
                   <tr>
-                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1d"><img id="imgP1d" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
+                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1d"><img id="imgP1d" class="controlgroupA" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
                       <script type="text/javascript">
                             $(document).ready(function(){
-                                $("#divP1d").hide();
-                                $("#controlP1d").toggle(
-                                    function()
-                                    {
-                                        $("#divP1d").slideDown(400);
-                                        $("#imgP1d").attr("src","../images/tinybutton-hide.gif");
-                                    },
-                                    function()
-                                    {
-                                        $("#divP1d").slideUp(200);
-                                        $("#imgP1d").attr("src","../images/tinybutton-show.gif");
-                                    }
-                                );	
+                                // initial state
+									$("#divP1d").hide();
+                                // control
+									$("#controlP1d").click(
+										function()
+										{
+											toggleState_divP1d();
+										}
+									);	
+								// function
+									function toggleState_divP1d()
+									{
+										if ( $("#imgP1d").attr("src") == "../images/tinybutton-show.gif" )
+										{
+											$("#divP1d").slideDown(400);
+											$("#imgP1d").attr("src","../images/tinybutton-hide.gif");
+										}
+										else
+										{
+											$("#divP1d").slideUp(200);
+											$("#imgP1d").attr("src","../images/tinybutton-show.gif");
+										}
+									}
                             });
                         </script>
                       Travel </td>
@@ -1080,7 +1156,7 @@
                   </tr>
                 </table>
               </div>
-              <div id="divP1d">
+              <div id="divP1d" class="divgroupA">
                 <table align="center" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="width:100px;">420050</td>
@@ -1104,22 +1180,32 @@
               <div class="h2-container" style="border-top:1px solid #E4E4E4;">
                 <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
                   <tr>
-                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1e"><img id="imgP1e" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
+                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1e"><img id="imgP1e" class="controlgroupA" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
                       <script type="text/javascript">
                             $(document).ready(function(){
-                                $("#divP1e").hide();
-                                $("#controlP1e").toggle(
-                                    function()
-                                    {
-                                        $("#divP1e").slideDown(400);
-                                        $("#imgP1e").attr("src","../images/tinybutton-hide.gif");
-                                    },
-                                    function()
-                                    {
-                                        $("#divP1e").slideUp(200);
-                                        $("#imgP1e").attr("src","../images/tinybutton-show.gif");
-                                    }
-                                );	
+                                // initial state
+									$("#divP1e").hide();
+                                // control
+									$("#controlP1e").click(
+										function()
+										{
+											toggleState_divP1e();
+										}
+									);	
+								// function
+									function toggleState_divP1e()
+									{
+										if ( $("#imgP1e").attr("src") == "../images/tinybutton-show.gif" )
+										{
+											$("#divP1e").slideDown(400);
+											$("#imgP1e").attr("src","../images/tinybutton-hide.gif");
+										}
+										else
+										{
+											$("#divP1e").slideUp(200);
+											$("#imgP1e").attr("src","../images/tinybutton-show.gif");
+										}
+									}
                             });
                         </script>
                       Participant Support </td>
@@ -1130,7 +1216,7 @@
                   </tr>
                 </table>
               </div>
-              <div id="divP1e">
+              <div id="divP1e" class="divgroupA">
                 <table align="center" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="width:100px;">422315</td>
@@ -1146,22 +1232,32 @@
               <div class="h2-container" style="border-top:1px solid #E4E4E4;">
                 <table style="width:100%; border-spacing:0px; border-collapse:collapse; border-top:1px solid #999999; border-bottom:none;" cellspacing="0">
                   <tr>
-                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1g"><img id="imgP1g" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
+                    <td colspan="2" style="background-color:#939393; font-weight:bold; color:#FFFFFF; border-left:none;"><a href="#" id="controlP1g"><img id="imgP1g" class="controlgroupA" src="../images/tinybutton-show.gif" style="border:none; width:45px; height:15px; vertical-align:top;" alt="hide/show" title="hide/show" /></a>
                       <script type="text/javascript">
                             $(document).ready(function(){
-                                $("#divP1g").hide();
-                                $("#controlP1g").toggle(
-                                    function()
-                                    {
-                                        $("#divP1g").slideDown(400);
-                                        $("#imgP1g").attr("src","../images/tinybutton-hide.gif");
-                                    },
-                                    function()
-                                    {
-                                        $("#divP1g").slideUp(200);
-                                        $("#imgP1g").attr("src","../images/tinybutton-show.gif");
-                                    }
-                                );	
+                                // initial state
+									$("#divP1g").hide();
+                                // control
+									$("#controlP1g").click(
+										function()
+										{
+											toggleState_divP1g();
+										}
+									);	
+								// function
+									function toggleState_divP1g()
+									{
+										if ( $("#imgP1g").attr("src") == "../images/tinybutton-show.gif" )
+										{
+											$("#divP1g").slideDown(400);
+											$("#imgP1g").attr("src","../images/tinybutton-hide.gif");
+										}
+										else
+										{
+											$("#divP1g").slideUp(200);
+											$("#imgP1g").attr("src","../images/tinybutton-show.gif");
+										}
+									}	
                             });
                         </script>
                       Other Direct </td>
@@ -1172,7 +1268,7 @@
                   </tr>
                 </table>
               </div>
-              <div id="divP1g">
+              <div id="divP1g" class="divgroupA">
                 <table align="center" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="width:100px;">420226</td>
@@ -1242,7 +1338,7 @@
                   </tr>
                   <tr>
                     <td colspan="2" style="text-align:right; font-weight:bold;" class="infoline">TOTAL COSTS</td>
-                    <td style="text-align:right; font-weight:bold; width:135px;" class="infoline">0.00</td>
+                    <td style="text-align:right; font-weight:bold; width:135px;" class="infoline"><input type="text" style="width:98%; text-align:right;" value="0.00" /></td>
                     <td style="text-align:right; font-weight:bold; width:135px;" class="infoline">$345,771.93</td>
                     <td style="text-align:right; font-weight:bold; width:135px;" class="infoline">$52,207.19</td>
                     <td style="text-align:right; font-weight:bold; width:135px;" class="infoline">$397,979.12</td>
