@@ -281,56 +281,76 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div class="h2-container"> <span class="subhead-left">
               <h2>Notes</h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a> </span> </div>
-            <table cellpAdding=0 cellspacing="0" summary="view/Add notes">
-              <tr>
-                <th scope=col>&nbsp;</th>
-                <th scope=col>Posted Timestamp</th>
-                <th scope=col>Author</th>
-                <th scope=col><div align="left"><label for="note topic">*Note Topic</label></div></th>
-                <th scope=col><div align=left>
-                    <label for="note text">Note Text</label>
-                  </div></th>
-                <th scope=col><div align=center>Actions</div></th>
-              </tr>
-              <tr>
-                <th scope=row><div align=center>Add:</div></th>
-                <td class="infoline">&nbsp;</td>
-                <td class="infoline">&nbsp;</td>
-                <td class="infoline"><input name="org_doc_nbr22" size=25 type=text alt="Description" id="note topic"></td>
-                <td height="30" nowrap class="infoline">
-                
-                    <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td style="border:none; background:none;"> <textarea name="z" style="width:99%; text-align:left;" rows="3"></textarea>
-                            </td>
-                            <td style="border:none; width:20px; vertical-align:bottom; background:none;">
-                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
-                            </td>
-                        </tr>
-                    </table>
-                
-                </td>
-                <td class="infoline"><div align=center>
-                    <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-add1.gif" alt="Add">
-                  </div></td>
-              </tr>
-              <tr>
-                <th scope=row>1</th>
-                <td>07/23/2007 20:07:23.523</td>
-                <td>thrclark</td>
-                <td>testing</td>
-                <td height="30">ma iustum et integrum? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae, et offendentes in rectitudinem tuam, et cadentes in asperitatem tuam. videlicet nesciunt, quod ubique sis, quem nullus circuminscribit locus, et solus es praesens etiam his, qui longe fiunt a te. convertantur ergo et quaerant te, quia non, sicut ipsi deseruerunt creatorem suum, ita tu deseruisti creaturam tuam. ipsi conve</td>
-                <td><div align="center"><a href="#"></a></div></td>
-              </tr>
-              <tr>
-                <th scope=row>2</th>
-                <td>07/24/2007 21:07:56.516</td>
-                <td>thrclark</td>
-                <td>testing 2</td>
-                <td height="30">ntum potuerunt valere, ut possent aestimare saeculum, quamquam eius dominum minime invenerint. quoniam magnus es, domine, et humilia respicis, excelsa autem a longe agnoscis: nec propinquas nisi obtritis corde, nec inveneris a superbis, nec si illi curiosa peritia numerent stellas et harenam, et dimetiantur sidereas plagas, et vestigent vias astrorum. mente sua enim quaerunt ista et ingenio, quod tu de</td>
-                <td><div align="center"></div></td>
-              </tr>
-            </table>
+            
+                <table cellpAdding=0 cellspacing="0" summary="view/Add notes">
+                    <tr>
+                        <th scope=col>&nbsp;</th>
+                        <th scope=col>Posted Timestamp</th>
+                        <th scope=col>Author</th>
+                        <th scope=col><div align="left"><label for="note topic">*Note Topic</label></div></th>
+                        <th scope=col>
+                            <div align=left>
+                            <label for="note text">Note Text</label>
+                            </div>
+                        </th>
+                        <th class="infoline">Restricted?</th>
+                        <th scope=col><div align=center>Actions</div></th>
+                    </tr>
+                    <tr>
+                        <th scope=row><div align=center>Add:</div></th>
+                        <td class="infoline">&nbsp;</td>
+                        <td class="infoline">&nbsp;</td>
+                        <td class="infoline"><input name="org_doc_nbr22" size=25 type=text alt="Description" id="note topic"></td>
+                        <td height="30" nowrap class="infoline">
+                        
+                            <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none; background:none;"> <textarea name="z" style="width:99%; text-align:left;" rows="3"></textarea>
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; background:none;">
+                                        <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                        <td class="infoline"><div style="text-align:center;"><input name="chkbx1" type="checkbox" alt="restricted"></div></td>
+                        <td class="infoline">
+                            <div align=center>
+                            <input name="imageField2" type=image class="tinybutton" src="../images/tinybutton-add1.gif" alt="Add">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope=row>1</th>
+                        <td>07/23/2007 20:07:23.523</td>
+                        <td>thrclark</td>
+                        <td>testing</td>
+                        <td height="30">
+                            Ma iustum et integrum? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, 
+                            atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes 
+                            se lenitati tuae, et offendentes in rectitudinem tuam, et cadentes in asperitatem tuam.idelicet nesciunt, quod ubique sis, quem nullus 
+                            circuminscribit locus, et solus es praesens etiam his, qui longe fiunt a te. convertantur ergo et quaerant te, quia non, sicut ipsi deseruerunt 
+                            creatorem suum, ita tu deseruisti creaturam tuam.
+                        </td>
+                        <td><div style="text-align:center;"><input name="chkbx1" type="checkbox" alt="restricted"></div></td>
+                        <td><div align="center"><a href="#"></a></div></td>
+                    </tr>
+                    <tr>
+                        <th scope=row>2</th>
+                        <td>07/24/2007 21:07:56.516</td>
+                        <td>thrclark</td>
+                        <td>testing 2</td>
+                        <td height="30">
+                            Ntum potuerunt valere, ut possent aestimare saeculum, quamquam eius dominum minime invenerint. quoniam magnus es, domine, et humilia respicis, 
+                            excelsa autem a longe agnoscis: nec propinquas nisi obtritis corde, nec inveneris a superbis, nec si illi curiosa peritia numerent stellas et 
+                            harenam, et dimetiantur sidereas plagas, et vestigent vias astrorum. mente sua enim quaerunt ista et ingenio, quod tu de.
+                        </td>
+                        <td><div style="text-align:center;"><input name="chkbx1" type="checkbox" alt="restricted"></div></td>
+                        <td><div align="center"></div></td>
+                    </tr>
+                </table>
+            
           </div>
           
           
