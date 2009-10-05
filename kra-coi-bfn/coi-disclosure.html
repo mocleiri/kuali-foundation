@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head> 
+<head>
 <title>Kuali</title>
 <LINK REL="SHORTCUT ICON" HREF="../images/icon.ico">
 <meta http-equiv=Content-Type content="text/html; charset=ISO-8859-1">
@@ -9,7 +9,6 @@
 <script language=javascript src="../scripts/my_bm_inc.js"></script>
 <script language=javascript1.2 src="../scripts/my_explorer.js"></script>
 <script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js"></script>
-<script language=JavaScript src="../scripts/CalendarPopup.js"></script>
 <script language=JavaScript type="text/JavaScript">
 <!--
 function MM_goToURL() { //v3.0
@@ -21,53 +20,92 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 }
 //-->
 </script>
+<script type="text/javascript" src="../scripts/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#yes1").click(
+function(){
+$(".finentities1").slideDown(500)
+$(".na1").slideUp(500)}
+)
+$("#no1").click(
+function(){
+$(".finentities1").slideUp(500)
+$(".na1").slideDown(500)}
+)
+$("#yes2").click(
+function(){
+$(".finentities2").slideDown(500)
+$(".na2").slideUp(500)}
+)
+$("#no2").click(
+function(){
+$(".finentities2").slideUp(500)
+$(".na2").slideDown(500)}
+)
+$("#yes3").click(
+function(){
+$(".finentities3").slideDown(500)
+$(".na3").slideUp(500)}
+)
+$("#no3").click(
+function(){
+$(".finentities3").slideUp(500)
+$(".na3").slideDown(500)}
+)
+$("#yes4").click(
+function(){
+$(".finentities4").slideDown(500)
+$(".na4").slideUp(500)}
+)
+$("#no4").click(
+function(){
+$(".finentities4").slideUp(500)
+$(".na4").slideDown(500)}
+)
+})
+</script>
 </head>
 <body>
 <form name="example"  method="post" action="">
 <div class="headerarea-kra" id="headerarea">
   <h1>COI - Disclosure <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
-    <div class="headerbox">
+  <div class="headerbox">
     <table cellpadding=0 cellspacing=0 summary="document header: general information" style="border-bottom:#A0A0A0; border-bottom-style:solid; border-bottom-width:1px">
-        <tr>
-          <th scope=row><div align=right>Document Id:</div></th>
-          <td>291607</td>
-          <th scope=row><div align=right>Status:</div></th>
-          <td>new</td>
-        </tr>
-        <tr>
-          <th scope=row><div align=right>Initiator:</div></th>
-          <td>&lt;user name&gt;</td>  <th scope=row><div align=right>Last Updated:</div></th>
-          <td>10:06 AM 03/30/2005</td>
-        </tr>
-        <tr>
-          <th class="bord-l" scope=row><div align=right>COI Name:</div></th>
-          <td class="datacell-l">COI A</td>
-          <th class="bord-l" scope=row><div align=right>Version:</div></th>
-          <td class="datacell-l">1</td>
-        </tr>
-      </table>
-  </div></div>
-  <!--TABBED TOP NAVIGATION-->
-  <div class="horz-links-bkgrnd" id="horz-links">
+      <tr>
+        <th scope=row><div align=right>Document Id:</div></th>
+        <td>291607</td>
+        <th scope=row><div align=right>Status:</div></th>
+        <td>new</td>
+      </tr>
+      <tr>
+        <th scope=row><div align=right>Initiator:</div></th>
+        <td>&lt;user name&gt;</td>
+        <th scope=row><div align=right>Last Updated:</div></th>
+        <td>10:06 AM 03/30/2005</td>
+      </tr>
+      <tr>
+        <th class="bord-l" scope=row><div align=right>COI Name:</div></th>
+        <td class="datacell-l">COI A</td>
+        <th class="bord-l" scope=row><div align=right>Version:</div></th>
+        <td class="datacell-l">1</td>
+      </tr>
+    </table>
+  </div>
+</div>
+<!--TABBED TOP NAVIGATION-->
+<div class="horz-links-bkgrnd" id="horz-links">
   <div id="tabs">
     <dl class="tabul">
-
-        <dt class="licurrent">
-        	<span class="tabright tabcurrent">
-        	<input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosure.html');return document.MM_returnValue" value="Disclosure">
-        	</span>
-        </dt>
-        <dt>
-            <span class="tabright">
-            <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosureactions.html');return document.MM_returnValue" value="Disclosure Actions">
-            </span>
-        </dt>
-        <dt>
-            <span class="tabright">
-            <input name="Submit" type="submit" onClick="javascript: alert('This would navigate to the as yet unbuilt COI Committee page.'); return false" value="Committee">
-            </span>
-        </dt>
-       
+      <dt class="licurrent"> <span class="tabright tabcurrent">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosure.html');return document.MM_returnValue" value="Disclosure">
+        </span> </dt>
+      <dt> <span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosureactions.html');return document.MM_returnValue" value="Disclosure Actions">
+        </span> </dt>
+      <dt> <span class="tabright">
+        <input name="Submit" type="submit" onClick="javascript: alert('This would navigate to the as yet unbuilt COI Committee page.'); return false" value="Committee">
+        </span> </dt>
     </dl>
   </div>
 </div>
@@ -89,13 +127,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     <td class="column-left">&nbsp;</td>
     <td><div  align="center">
         <div id="workarea">
-          
-          
-<!-- Document Overview -->  
+          <!-- Document Overview -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Document Overview</td>
-              
               <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A013" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F013" ></a></span></td>
               <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
@@ -124,12 +159,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               </tbody>
             </table>
           </div>
-          
-<!-- Reporter Details -->   
+          <!-- Reporter Details -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Reporter Details</td>
-              
               <td class="tabtable2-mid"><a href="#" id="A031b" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031b" ></a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
@@ -148,13 +181,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
               </tbody>
             </table>
-			</div>
-          
-<!-- Screening Questions -->   
+          </div>
+          <!-- Screening Questions -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Screening Questions </td>
-              
               <td class="tabtable2-mid"><a href="#" id="A031" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031" ></a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
@@ -163,171 +194,97 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div class="h2-container"><span class="subhead-left">
               <h2>Disclosure Form Questions</h2>
               </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-            <br>
-            <br>
             <table cellpadding=0 cellspacing="0" class="result-table" summary="">
               <tbody id="G5">
                 <tr>
                   <th width="3%">&nbsp;</th>
                   <th width="42%"> Question</th>
                   <th width="13%">*Answer</th>
-                  <th width="10%">Date</th>
-                  <th width="21%">Explanantion</th>
-                  <th width="21%">Financial Interests </th>
-                  <th width="11%">Actions</th>
+                  <th width="21%">Financial Entities </th>
                 </tr>
                 <tr>
                   <th scope="row"><div align="center"><span class="copybold">1</span></div></th>
-                  <td>During the past 12 months or in the next 12 months, did/will you, your spouse, or any of your dependent children, own or control equity that represented in total more than a 5% ownership interest in any organization in your field of academic interest or specialization? </td>
+                  <td>Do you hold a position (such as board member, scientific advisor, director, officer, partner, trustee or employee) with any single business entity that could reasonably appear to benefit by the proposed research? <a href="#">more...</a></td>
                   <td nowrap><label>
-                      <input name="RadioGroup20" type="radio" class="radio" id="RadioGroup1_20" value="radio" checked>
+                      <input name="RadioGroup1" type="radio" id="yes1" value="radio" class="nobord" />
                       yes</label>
                     <label> &nbsp;&nbsp;&nbsp;
-                      <input name="RadioGroup2" type="radio" class="radio" id="RadioGroup1_1" value="radio">
+                      <input type="radio" name="RadioGroup1" value="radio" id="no1" class="nobord" />
                       no</label></td>
-                  <td nowrap><div align="center"><span>
-                      <input name="date4" type="text" value="12/14/06" size="12">
-                      </span><img src="../images/cal.gif" alt="" width="16" height="16"></div></td>
-                  <td nowrap><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription"></textarea>
-                    <input name="image" type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea">
-                  </div></td>
-                  <td nowrap><div align="">
-                    <input type="checkbox" name="checkbox2" value="checkbox" class="nobord"> 
-                    Entity Name 1
-<br>
-<input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-Entity Name 2 <br>
-<input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-Entity Name 3<br>
-                  </div></td>
-                  <td nowrap><div align="center"><img src="../images/tinybutton-details.gif" alt="details" width="47" height="15" onClick="MM_openBrWindow('prop-ques-pop-ynq.html','','scrollbars=yes,resizable=yes,width=800,height=600')"></div></td>
+                  <td nowrap><div style="display:none" class="finentities1" >
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 1 <br>
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 2 <br>
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 3<br>
+                    </div>
+                    <div style="display:none"  align="center"class="na1"  > n/a </div></td>
                 </tr>
                 <tr>
                   <th scope="row"><div align="center"><span class="copybold">2</span></div></th>
-                  <td>During the past 12 months or in the next 12 months, did/will you, your spouse, or any of your dependent children serve as a director, officer, partner, employee, or agent, or in any managerial position in any organization(other than Dartmouth College) that might be affected by your sponsored activities? (You need not answer with respect to governmental committees or community, political academic, charitable, religious, social pr professional nonprofit organizations)</td>
-                  <td nowrap><label>
-                      <input name="RadioGroup3" type="radio" class="radio" id="RadioGroup1_7" value="radio">
+                  <td>Do you have an equity interest (such as stock, stock options, real estate, investment or other ownership) with any single business entity that could reasonably appear to benefit by the proposed research? <a href="#">more...</a></td>
+                 <td nowrap><label>
+                      <input name="RadioGroup2" type="radio" id="yes2" value="radio" class="nobord" />
                       yes</label>
                     <label> &nbsp;&nbsp;&nbsp;
-                      <input name="RadioGroup4" type="radio" class="radio" id="RadioGroup1_8" value="radio" checked>
-                      no<br>
-                    </label></td>
-                  <td nowrap><div align="center"><span>
-                      <input name="date" type="text" value="" size="12" disabled>
-                      </span><img src="../images/cal1.gif" alt="" width="16" height="16"></div></td>
-                  <td nowrap><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription" disabled ></textarea>
-                    <a href="#"><img src="../images/pencil_add1.png" alt="add" width=16 height=16 hspace=3 vspace=3 border=0 onClick="MM_openBrWindow('../global/expandedtext.html','','scrollbars=yes,resizable=yes,width=700,height=300')"></a></div></td>
-                  <td nowrap><select name=mytextarea size=5 multiple>
-                    <option name=one value=one> Select </option>
-                    <option name=two value=two> Entity Name 1</option>
-                    <option name=three value=three> Entity Name 2</option>
-                    <option name=four value=four> Entity Name 3</option>
-                  </select></td>
-                  <td nowrap><div align="center"><img src="../images/tinybutton-details.gif" alt="details" width="47" height="15" onClick="MM_openBrWindow('prop-ques-pop-ynq.html','','scrollbars=yes,resizable=yes,width=800,height=600')"></div></td>
+                      <input type="radio" name="RadioGroup2" value="radio" id="no2" class="nobord" />
+                      no</label></td>
+                  <td nowrap><div style="display:none" class="finentities2" >
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 1 <br>
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 2 <br>
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 3<br>
+                    </div>
+                    <div style="display:none"  align="center"class="na2"  > n/a </div></td>
                 </tr>
                 <tr>
                   <th  scope="row"><div align="center"><span class="copybold">3</span></div></th>
-                  <td>During the past 12 months or in the next 12 months, did/will you, your spouse, or any of your dependent children received income (cash or in kind, ignoring sponsored activity's reimbursement of reasonable expenses) related to your sponsored activities from organizations (other than Dartmouth College) where any such payment from any one organization exceeded $10,000 (per annum, if salary, fees or other continuing payments) or represented more than a 5% ownership interest for any one enterprise or entity when aggregated for you and such related individuals? (You may exclude income from activities resulting from your affiliations with governmental committies or community, political, academic, charitable, religious, social or professional nonprofit organizations) </td>
-                  <td nowrap><label>
-                      <input name="RadioGroup5" type="radio" class="radio" id="RadioGroup1_0" value="radio">
+                  <td>Do you receive income (such as consulting fees, honoraria, travel reimbursement, or other income) from any single business entity that could reasonably appear to benefit by the proposed research? <a href="#">more...</a></td>
+                 <td nowrap><label>
+                      <input name="RadioGroup3" type="radio" id="yes3" value="radio" class="nobord" />
                       yes</label>
                     <label> &nbsp;&nbsp;&nbsp;
-                      <input name="RadioGroup5" type="radio" class="radio" id="RadioGroup1_5" value="radio" checked>
+                      <input type="radio" name="RadioGroup3" value="radio" id="no3" class="nobord" />
                       no</label></td>
-                  <td nowrap><div align="center"><span>
-                      <input name="date" type="text" value="" size="12" disabled>
-                      </span><img src="../images/cal1.gif" alt="" width="16" height="16"></div></td>
-                  <td nowrap><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription" disabled ></textarea>
-                    <a href="#"><img src="../images/pencil_add1.png" alt="add" width=16 height=16 hspace=3 vspace=3 border=0 onClick="MM_openBrWindow('../global/expandedtext.html','','scrollbars=yes,resizable=yes,width=700,height=300')"></a></div></td>
-                  <td nowrap><select name=mytextarea size=5 multiple>
-                    <option name=one value=one> Select </option>
-                    <option name=two value=two> Entity Name 1</option>
-                    <option name=three value=three> Entity Name 2</option>
-                    <option name=four value=four> Entity Name 3</option>
-                  </select></td>
-                  <td nowrap><div align="center"><img src="../images/tinybutton-details.gif" alt="details" width="47" height="15" onClick="MM_openBrWindow('prop-ques-pop-ynq.html','','scrollbars=yes,resizable=yes,width=800,height=600')"></div></td>
+                  <td nowrap><div style="display:none" class="finentities3" >
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 1 <br>
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 2 <br>
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 3<br>
+                    </div>
+                    <div style="display:none"  align="center"class="na3"  > n/a </div></td>
                 </tr>
                 <tr>
                   <th  scope="row"><div align="center"><span class="copybold">4</span></div></th>
-                  <td>To your knowledge were/will any of your students or staff employed during the past 12 months or in the next 12 months in a company or organization outside the College in which you have a financial, personal, or professional interest? </td>
+                  <td>Do you have rights to a pending application or issued patent to an invention(s), license rights, or copyright for software that has a direct relationship to the project? <a href="#">more...</a></td>
                   <td nowrap><label>
-                      <input name="RadioGroup6" type="radio" class="radio" id="RadioGroup1_10" value="radio">
+                      <input name="RadioGroup4" type="radio" id="yes4" value="radio" class="nobord" />
                       yes</label>
                     <label> &nbsp;&nbsp;&nbsp;
-                      <input name="RadioGroup7" type="radio" class="radio" id="RadioGroup1_11" value="radio" checked>
+                      <input type="radio" name="RadioGroup4" value="radio" id="no4" class="nobord" />
                       no</label></td>
-                  <td nowrap><div align="center"><span>
-                      <input name="date4" type="text" value="" size="12" disabled>
-                      </span><img src="../images/cal1.gif" alt="" width="16" height="16"></div></td>
-                  <td nowrap><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription"></textarea>
-                    <a href="#"><img src="../images/pencil_add1.png" alt="add" width=16 height=16 hspace=3 vspace=3 border=0 onClick="MM_openBrWindow('../global/expandedtext.html','','scrollbars=yes,resizable=yes,width=700,height=300')"></a></div></td>
-                  <td nowrap><select name=mytextarea size=5 multiple>
-                    <option name=one value=one> Select </option>
-                    <option name=two value=two> Entity Name 1</option>
-                    <option name=three value=three> Entity Name 2</option>
-                    <option name=four value=four> Entity Name 3</option>
-                  </select></td>
-                  <td nowrap><div align="center"><img src="../images/tinybutton-details.gif" alt="details" width="47" height="15" onClick="MM_openBrWindow('prop-ques-pop-ynq.html','','scrollbars=yes,resizable=yes,width=800,height=600')"></div></td>
-                </tr>
-                <tr>
-                  <th  scope="row"><div align="center"><span class="copybold">5</span></div></th>
-                  <td>Are you an inventor/creator of intellectual property related to your sponsored activities that has been patented, licensed or transferred to any outside entity? </td>
-                  <td nowrap><label>
-                      <input name="RadioGroup8" type="radio" class="radio" id="RadioGroup1_10" value="radio">
-                      yes</label>
-                    <label> &nbsp;&nbsp;&nbsp;
-                      <input name="RadioGroup9" type="radio" class="radio" id="RadioGroup1_11" value="radio" checked>
-                      no</label></td>
-                  <td nowrap><div align="center"><span>
-                      <input name="date" type="text" value="" size="12" disabled>
-                      </span><img src="../images/cal1.gif" alt="" width="16" height="16"></div></td>
-                  <td nowrap><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription"></textarea>
-                    <a href="#"><img src="../images/pencil_add1.png" alt="add" width=16 height=16 hspace=3 vspace=3 border=0 onClick="MM_openBrWindow('../global/expandedtext.html','','scrollbars=yes,resizable=yes,width=700,height=300')"></a></div></td>
-                  <td nowrap><select name=mytextarea size=5 multiple>
-                    <option name=one value=one> Select </option>
-                    <option name=two value=two> Entity Name 1</option>
-                    <option name=three value=three> Entity Name 2</option>
-                    <option name=four value=four> Entity Name 3</option>
-                  </select></td>
-                  <td nowrap><div align="center"><img src="../images/tinybutton-details.gif" alt="details" width="47" height="15" onClick="MM_openBrWindow('prop-ques-pop-ynq.html','','scrollbars=yes,resizable=yes,width=800,height=600')"></div></td>
-                </tr>
-                <tr>
-                  <th  scope="row"><div align="center"><span class="copybold">6</span></div></th>
-                  <td>During the past 12 months or in the next 12 months, did/will you, your spouse, or any of your dependent children have an interest in any contract, sale, or other transaction to which Dartmouth College was/will be a party, or are there any other situation not identified by you above that you believe may create an actual or perceived conflict of interest? (Exclude your own or your spouse's employment obligations to the College)</td>
-                  <td nowrap><label>
-                      <input name="RadioGroup1" type="radio" class="radio" id="RadioGroup1_0" value="radio">
-                      yes</label>
-                    <label> &nbsp;&nbsp;&nbsp;
-                      <input name="RadioGroup1" type="radio" class="radio" id="RadioGroup1_1" value="radio" checked>
-                      no</label></td>
-                  <td nowrap><div align="center"><span>
-                      <input name="date4" type="text" value="" size="12" disabled>
-                      </span><img src="../images/cal1.gif" alt="" width="16" height="16"></div></td>
-                  <td nowrap><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription2" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription2" disabled ></textarea>
-                    <a href="#"><img src="../images/pencil_add1.png" alt="add" width=16 height=16 hspace=3 vspace=3 border=0 onClick="MM_openBrWindow('../global/expandedtext.html','','scrollbars=yes,resizable=yes,width=700,height=300')"></a></div></td>
-                  <td nowrap><select name=mytextarea size=5 multiple>
-                    <option name=one value=one> Select </option>
-                    <option name=two value=two> Entity Name 1</option>
-                    <option name=three value=three> Entity Name 2</option>
-                    <option name=four value=four> Entity Name 3</option>
-                  </select></td>
-                  <td nowrap><div align="center"><img src="../images/tinybutton-details.gif" alt="details" width="47" height="15" onClick="MM_openBrWindow('prop-ques-pop-ynq.html','','scrollbars=yes,resizable=yes,width=800,height=600')"></div></td>
+                                        <td nowrap><div style="display:none" class="finentities4" >
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 1 <br>
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 2 <br>
+                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
+                      Entity Name 3<br>
+                    </div>
+                    <div style="display:none"  align="center"class="na4"  > n/a </div></td>
                 </tr>
               </tbody>
             </table>
           </div>
-          
-<!-- 4.	Financial Interests Details  -->
+          <!-- 4.	Financial Interests Details  -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Financial Interests History</td>
-              
               <td class="tabtable2-mid"><a href="#" id="A04" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F04" ></a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
@@ -335,7 +292,7 @@ Entity Name 3<br>
           <div class="tab-container" align="center" id="G04" style="display: none;">
             <div class="h2-container">
               <h2><span class="subhead-left"> Financial Interests History</span></h2>
-              </div>
+            </div>
             <table cellpadding=0 cellspacing=0 class="grid" summary="">
               <tr>
                 <th width="35%" class="grid" style="width:245px; padding:2px; text-align:right;"> *Entity Name: </th>
@@ -346,22 +303,22 @@ Entity Name 3<br>
                 <td class="grid" style="padding:2px;"><input type="text" style="width:99%;" /></td>
                 <th class="grid" style="width:165px; padding:2px; text-align:right;"> *Type: </th>
                 <td class="grid" style="padding:2px;"><select>
-                  <option value="0" selected="selected">select</option>
-                  <option value="1">city or township government</option>
-                  <option value="2">label two</option>
-                  <option value="3">label three</option>
-                  <option value="4">label four</option>
-                </select></td>
+                    <option value="0" selected="selected">select</option>
+                    <option value="1">city or township government</option>
+                    <option value="2">label two</option>
+                    <option value="3">label three</option>
+                    <option value="4">label four</option>
+                  </select></td>
               </tr>
               <tr>
                 <th class="grid" style="padding:2px; text-align:right;"> Address 2: </th>
                 <td class="grid" style="padding:2px;"><input type="text" style="width:99%;" /></td>
                 <th class="grid" style="padding:2px; text-align:right;"> *Publicly/Privately Held: </th>
                 <td class="grid" style="padding:2px;"><select>
-                  <option value="0" selected="selected">select</option>
-                  <option value="1">publicly held</option>
-                  <option value="2">privately held</option>
-                </select></td>
+                    <option value="0" selected="selected">select</option>
+                    <option value="1">publicly held</option>
+                    <option value="2">privately held</option>
+                  </select></td>
               </tr>
               <tr>
                 <th class="grid" style="padding:2px; text-align:right;"> Address 3: </th>
@@ -380,44 +337,45 @@ Entity Name 3<br>
                 <td class="grid" style="padding:2px;"><input type="text" style="width:99%;" /></td>
                 <th class="grid" style="padding:2px; text-align:right;"> *Sponsor Code: </th>
                 <td class="grid" style="padding:2px;"><select>
-                  <option value="0" selected="selected">select</option>
-                  <option value="1">label one</option>
-                  <option value="2">label two</option>
-                </select></td>
+                    <option value="0" selected="selected">select</option>
+                    <option value="1">label one</option>
+                    <option value="2">label two</option>
+                  </select></td>
               </tr>
               <tr>
                 <th class="grid" style="padding:2px; text-align:right;"> *Postal Code: </th>
                 <td class="grid" style="padding:2px;"><input type="text" style="width:99%;" /></td>
                 <th class="grid" style="padding:2px; text-align:right;"> *Rolodex Code: </th>
                 <td class="grid" style="padding:2px;"><select>
-                  <option value="0" selected="selected">select</option>
-                  <option value="1">label one</option>
-                  <option value="2">label two</option>
-                </select></td>
+                    <option value="0" selected="selected">select</option>
+                    <option value="1">label one</option>
+                    <option value="2">label two</option>
+                  </select></td>
               </tr>
               <tr>
                 <th class="grid" style="padding:2px; text-align:right;"> *Country: </th>
                 <td class="grid" style="padding:2px;"><input type="text" style="width:99%;" /></td>
                 <th class="grid" style="padding:2px; text-align:right;"> *Organizational Code: </th>
                 <td class="grid" style="padding:2px;"><select>
-                  <option value="0" selected="selected">select</option>
-                  <option value="1">label one</option>
-                  <option value="2">label two</option>
-                </select></td>
+                    <option value="0" selected="selected">select</option>
+                    <option value="1">label one</option>
+                    <option value="2">label two</option>
+                  </select></td>
               </tr>
               <tr>
                 <th class="grid" style="padding:2px; text-align:right;"> *Entity Principal Business/Activity: </th>
                 <td class="grid" colspan="3" style="padding:2px;"><table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td style="border:none;"><textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea></td>
-                    <td style="border:none; width:22px; vertical-align:bottom; text-align:center;"><input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
-                  </tr>
-                </table></td>
+                    <tr>
+                      <td style="border:none;"><textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea></td>
+                      <td style="border:none; width:22px; vertical-align:bottom; text-align:center;"><input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" /></td>
+                    </tr>
+                  </table></td>
               </tr>
               <tr>
                 <td colspan="4" class="infoline"><div align="center"><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
-            </table><br>
+            </table>
+            <br>
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
                 <td colspan="2" nowrap class="subhead">Active Entities</td>
@@ -431,168 +389,164 @@ Entity Name 3<br>
                 <td class="tab-subhead1">Board of Directors</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-               
               </tr>
               <tbody id="G11" style="display: none;">
                 <tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
-                    <tbody>
-                      <tr>
-                        <td colspan="5" align=left ><strong>History of Changes</strong></td>
+                      <tbody>
+                        <tr>
+                          <td colspan="5" align=left ><strong>History of Changes</strong></td>
                         </tr>
-                      <tr>
-                        <th align=left>Questionnaire Name</th>
-                        <th align=left>Questionnaire Description</th>
-                        <th align=left>Last Update</th>
-                        <th align=left>Entity Disclosed Location</th>
-                        <th align=left>Actions</th>
-                      </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                      </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                      </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                      </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                      </tr>
-                    </tbody>
-                  </table></td>
+                        <tr>
+                          <th align=left>Questionnaire Name</th>
+                          <th align=left>Questionnaire Description</th>
+                          <th align=left>Last Update</th>
+                          <th align=left>Entity Disclosed Location</th>
+                          <th align=left>Actions</th>
+                        </tr>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        </tr>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        </tr>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        </tr>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
                 </tr>
               </tbody>
-                            <tr>
-                              <td nowrap class="tab-subhead1"><a href="#" id="A12" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F12"></a> </td>
+              <tr>
+                <td nowrap class="tab-subhead1"><a href="#" id="A12" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F12"></a></td>
                 <td class="tab-subhead1">My Startup Company</td>
                 <td class="tab-subhead1">Stockholder</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-               
               </tr>
               <tbody id="G12" style="display: none;">
                 <tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
-                    <tbody>
-                      <tr>
-                        <td colspan="5" align=left ><strong>History of Changes</strong></td>
-                      </tr>
-                      <tr>
-                        <th align=left>Questionnaire Name</th>
-                        <th align=left>Questionnaire Description</th>
-                        <th align=left>Last Update</th>
-                        <th align=left>Entity Disclosed Location</th>
-                        <th align=left>Actions</th>
+                      <tbody>
+                        <tr>
+                          <td colspan="5" align=left ><strong>History of Changes</strong></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <th align=left>Questionnaire Name</th>
+                          <th align=left>Questionnaire Description</th>
+                          <th align=left>Last Update</th>
+                          <th align=left>Entity Disclosed Location</th>
+                          <th align=left>Actions</th>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                    </tbody>
-                  </table></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
                 </tr>
-              </tbody>              
+              </tbody>
               <tr>
-                <td nowrap class="tab-subhead1"><a href="#" id="A13" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F13"></a> </td>
+                <td nowrap class="tab-subhead1"><a href="#" id="A13" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F13"></a></td>
                 <td class="tab-subhead1">Unlikely Ventures</td>
                 <td class="tab-subhead1">Consultant</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-               
               </tr>
               <tbody id="G13" style="display: none;">
                 <tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
-                    <tbody>
-                      <tr>
-                        <td colspan="5" align=left ><strong>History of Changes</strong></td>
-                      </tr>
-                      <tr>
-                        <th align=left>Questionnaire Name</th>
-                        <th align=left>Questionnaire Description</th>
-                        <th align=left>Last Update</th>
-                        <th align=left>Entity Disclosed Location</th>
-                        <th align=left>Actions</th>
+                      <tbody>
+                        <tr>
+                          <td colspan="5" align=left ><strong>History of Changes</strong></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <th align=left>Questionnaire Name</th>
+                          <th align=left>Questionnaire Description</th>
+                          <th align=left>Last Update</th>
+                          <th align=left>Entity Disclosed Location</th>
+                          <th align=left>Actions</th>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                    </tbody>
-                  </table></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
                 </tr>
               </tbody>
-              
             </table>
-           <br>
+            <br>
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
                 <td colspan="2" nowrap class="subhead">Inactive Entities</td>
@@ -606,57 +560,56 @@ Entity Name 3<br>
                 <td class="tab-subhead1">Board of Directors</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-activate.gif" alt="add" width=53 height=15 hspace=3 vspace=3 border=0></a></div></td>
-               
               </tr>
               <tbody id="G11w" style="display: none;">
                 <tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
-                    <tbody>
-                      <tr>
-                        <td colspan="5" align=left ><strong>History of Changes</strong></td>
+                      <tbody>
+                        <tr>
+                          <td colspan="5" align=left ><strong>History of Changes</strong></td>
                         </tr>
-                      <tr>
-                        <th align=left>Questionnaire Name</th>
-                        <th align=left>Questionnaire Description</th>
-                        <th align=left>Last Update</th>
-                        <th align=left>Entity Disclosed Location</th>
-                        <th align=left>Actions</th>
+                        <tr>
+                          <th align=left>Questionnaire Name</th>
+                          <th align=left>Questionnaire Description</th>
+                          <th align=left>Last Update</th>
+                          <th align=left>Entity Disclosed Location</th>
+                          <th align=left>Actions</th>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                    </tbody>
-                  </table></td>
+                      </tbody>
+                    </table></td>
                 </tr>
               </tbody>
-                            <tr>
-                              <td nowrap class="tab-subhead1"><a href="#" id="A12w" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F12w"></a> </td>
+              <tr>
+                <td nowrap class="tab-subhead1"><a href="#" id="A12w" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F12w"></a></td>
                 <td class="tab-subhead1">My Other Startup Company</td>
                 <td class="tab-subhead1">Stockholder</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
@@ -666,51 +619,51 @@ Entity Name 3<br>
                 <tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
-                    <tbody>
-                      <tr>
-                        <td colspan="5" align=left ><strong>History of Changes</strong></td>
-                      </tr>
-                      <tr>
-                        <th align=left>Questionnaire Name</th>
-                        <th align=left>Questionnaire Description</th>
-                        <th align=left>Last Update</th>
-                        <th align=left>Entity Disclosed Location</th>
-                        <th align=left>Actions</th>
+                      <tbody>
+                        <tr>
+                          <td colspan="5" align=left ><strong>History of Changes</strong></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <th align=left>Questionnaire Name</th>
+                          <th align=left>Questionnaire Description</th>
+                          <th align=left>Last Update</th>
+                          <th align=left>Entity Disclosed Location</th>
+                          <th align=left>Actions</th>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                    </tbody>
-                  </table></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
                 </tr>
-              </tbody>              
+              </tbody>
               <tr>
-                <td nowrap class="tab-subhead1"><a href="#" id="A13w" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F13w"></a> </td>
+                <td nowrap class="tab-subhead1"><a href="#" id="A13w" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F13w"></a></td>
                 <td class="tab-subhead1">Very Unlikely Ventures</td>
                 <td class="tab-subhead1">Consultant</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
@@ -720,60 +673,57 @@ Entity Name 3<br>
                 <tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
-                    <tbody>
-                      <tr>
-                        <td colspan="5" align=left ><strong>History of Changes</strong></td>
-                      </tr>
-                      <tr>
-                        <th align=left>Questionnaire Name</th>
-                        <th align=left>Questionnaire Description</th>
-                        <th align=left>Last Update</th>
-                        <th align=left>Entity Disclosed Location</th>
-                        <th align=left>Actions</th>
+                      <tbody>
+                        <tr>
+                          <td colspan="5" align=left ><strong>History of Changes</strong></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <th align=left>Questionnaire Name</th>
+                          <th align=left>Questionnaire Description</th>
+                          <th align=left>Last Update</th>
+                          <th align=left>Entity Disclosed Location</th>
+                          <th align=left>Actions</th>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                      <tr>
-                        <td align=left>Consultant</td>
-                        <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
-                        <td align=left>07/29/2009 03:59 PM crc</td>
-                        <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                        <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                         </tr>
-                    </tbody>
-                  </table></td>
+                        <tr>
+                          <td align=left>Consultant</td>
+                          <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
+                          <td align=left>07/29/2009 03:59 PM crc</td>
+                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
                 </tr>
               </tbody>
-             
             </table>
-           <br>
-           <p>&nbsp;</p>
+            <br>
+            <p>&nbsp;</p>
           </div>
-
-<!-- Notes and Attachments -->   
+          <!-- Notes and Attachments -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Notes and Attachments</td>
-              
               <td class="tabtable2-mid"><a href="#" id="A031d" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031d" ></a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
@@ -792,13 +742,11 @@ Entity Name 3<br>
                 </tr>
               </tbody>
             </table>
-			</div>
-
-<!-- Certification -->   
+          </div>
+          <!-- Certification -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Certification</td>
-              
               <td class="tabtable2-mid"><a href="#" id="A031c" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031c" ></a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
@@ -817,10 +765,7 @@ Entity Name 3<br>
                 </tr>
               </tbody>
             </table>
-			</div>
-
-
-          
+          </div>
           <table width="100%" border="0" cellpadding="0" cellspacing="0" class="b3" summary="">
             <tr>
               <td align="left" class="footer"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="bl3"></td>
