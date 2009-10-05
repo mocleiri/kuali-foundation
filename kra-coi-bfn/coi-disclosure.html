@@ -136,7 +136,7 @@ $(".na4").slideDown(500)}
             </tr>
           </table>
           <div class="tab-container" align="center" id="G013" style="display: none;">
-            <div class="h2-container">
+<div class="h2-container">
               <h2>Document Overview</h2>
             </div>
             <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
@@ -168,16 +168,85 @@ $(".na4").slideDown(500)}
             </tr>
           </table>
           <div class="tab-container" align="center" id="G031b" style="display: none;">
-            <div class="h2-container"><span class="subhead-left">
-              <h2>Header</h2>
+<div class="h2-container"><span class="subhead-left">
+              <h2>Reporter Details</h2>
               </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-            <table cellpadding=0 cellspacing="0" class="result-table" summary="">
-              <tbody id="G5">
+            <table cellspacing="0">
+              <tbody>
                 <tr>
-                  <th>1</th>
+                  <th> <div align="right">Name: </div></th>
+                  <td colspan="3">Brad Mehldau</td>
                 </tr>
                 <tr>
-                  <td>2</td>
+                  <th><div align="right">Address: </div></th>
+                  <td>1234 This Street, That City, MI 59896</td>
+                  <th><div align="right">Department: </div></th>
+                  <td >Chemistry</td>
+                </tr>
+                <tr>
+                  <th><div align="right">Phone Number: </div></th>
+                  <td>123-456-7890</td>
+                  <th><div align="right">Unit: </div></th>
+                  <td >Chemistry</td>
+                </tr>
+                <tr>
+                  <th><div align="right">Email Address: </div></th>
+                  <td>bmehld@university.edu</td>
+                  <th ><div align="right">College:</div></th>
+                  <td >College of Arts &amp; Sciences</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            <div class="h2-container"> <span class="subhead-left">
+              <h2>Projects</h2>
+            </span> <span class="subhead-right"> <span class="subhead"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"> </a> </span> </span> </div>
+          
+            <table cellspacing="0">
+              <tbody>
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Project ID</th>
+                  <th>Sponsor</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Funding Amount</th>
+                  <th>Actions</th>
+                </tr>
+                <tr>
+                  <th>1</th>
+                  <td>My Cool Project</td>
+                  <td>Proposal</td>
+                  <td><div align="center">000364</div></td>
+                  <td>NIH</td>
+                  <td><div align="center">10/16/2008</div></td>
+                  <td><div align="center">10/16/2010</div></td>
+                  <td><div align="right">124,000.00</div></td>
+                  <td><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th>2</th>
+                  <td>My Cool Project with a Longer Title</td>
+                  <td>Award</td>
+                  <td><div align="center">000272</div></td>
+                  <td>NIH</td>
+                  <td><div align="center">10/16/2008</div></td>
+                  <td><div align="center">10/16/2010</div></td>
+                  <td><div align="right">67,500.00</div></td>
+                  <td><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th>3</th>
+                  <td>My Other Project</td>
+                  <td>Protocol</td>
+                  <td><div align="center">000384</div></td>
+                  <td>NIH</td>
+                  <td><div align="center">10/16/2008</div></td>
+                  <td><div align="center">10/16/2010</div></td>
+                  <td><div align="right">14,750.00</div></td>
+                  <td><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
               </tbody>
             </table>
@@ -197,14 +266,15 @@ $(".na4").slideDown(500)}
             <table cellpadding=0 cellspacing="0" class="result-table" summary="">
               <tbody id="G5">
                 <tr>
-                  <th width="3%">&nbsp;</th>
-                  <th width="42%"> Question</th>
-                  <th width="13%">*Answer</th>
-                  <th width="21%">Financial Entities </th>
+                  <th>&nbsp;</th>
+                  <th> Question</th>
+                  <th>*Answer</th>
+                  <th>Financial Entities </th>
+                  <th>Actions</th>
                 </tr>
                 <tr>
                   <th scope="row"><div align="center"><span class="copybold">1</span></div></th>
-                  <td>Do you hold a position (such as board member, scientific advisor, director, officer, partner, trustee or employee) with any single business entity that could reasonably appear to benefit by the proposed research? <a href="#">more...</a></td>
+                  <td>Do you hold a position (such as board member, scientific advisor, director, officer, partner, trustee or employee) with any single business entity that could reasonably appear to benefit by the proposed research?</td>
                   <td nowrap><label>
                       <input name="RadioGroup1" type="radio" id="yes1" value="radio" class="nobord" />
                       yes</label>
@@ -212,18 +282,32 @@ $(".na4").slideDown(500)}
                       <input type="radio" name="RadioGroup1" value="radio" id="no1" class="nobord" />
                       no</label></td>
                   <td nowrap><div style="display:none" class="finentities1" >
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 1 <br>
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 2 <br>
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 3<br>
-                    </div>
+                      <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                          <td style="border:none;">Entity Name 1</td>
+                        </tr>
+                        <tr>
+                          <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                          <td style="border:none;">Entity Name 2</td>
+                        </tr>
+                        <tr>
+                          <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                          <td style="border:none;">Entity Name 3</td>
+                        </tr>
+                        <tr>
+                          <td style="border:none;">&nbsp;</td>
+                          <td style="border:none;"><a href="#">add entity...</a></td>
+                        </tr>
+                      </table>
+                    
+                      </div>
                     <div style="display:none"  align="center"class="na1"  > n/a </div></td>
+                  <td nowrap><div align="center"><a href="#"><img src="../images/tinybutton-details.gif" alt="add" width=47 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
                 <tr>
                   <th scope="row"><div align="center"><span class="copybold">2</span></div></th>
-                  <td>Do you have an equity interest (such as stock, stock options, real estate, investment or other ownership) with any single business entity that could reasonably appear to benefit by the proposed research? <a href="#">more...</a></td>
+                  <td>Do you have an equity interest (such as stock, stock options, real estate, investment or other ownership) with any single business entity that could reasonably appear to benefit by the proposed research?</td>
                  <td nowrap><label>
                       <input name="RadioGroup2" type="radio" id="yes2" value="radio" class="nobord" />
                       yes</label>
@@ -231,18 +315,32 @@ $(".na4").slideDown(500)}
                       <input type="radio" name="RadioGroup2" value="radio" id="no2" class="nobord" />
                       no</label></td>
                   <td nowrap><div style="display:none" class="finentities2" >
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 1 <br>
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 2 <br>
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 3<br>
+                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                        <td style="border:none;">Entity Name 1</td>
+                      </tr>
+                      <tr>
+                        <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                        <td style="border:none;">Entity Name 2</td>
+                      </tr>
+                      <tr>
+                        <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                        <td style="border:none;">Entity Name 3</td>
+                      </tr>
+                      <tr>
+                        <td style="border:none;">&nbsp;</td>
+                        <td style="border:none;"><a href="#">add entity...</a></td>
+                      </tr>
+                    </table>
+                   
                     </div>
                     <div style="display:none"  align="center"class="na2"  > n/a </div></td>
+                  <td nowrap><div align="center"><a href="#"><img src="../images/tinybutton-details.gif" alt="add" width=47 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
                 <tr>
                   <th  scope="row"><div align="center"><span class="copybold">3</span></div></th>
-                  <td>Do you receive income (such as consulting fees, honoraria, travel reimbursement, or other income) from any single business entity that could reasonably appear to benefit by the proposed research? <a href="#">more...</a></td>
+                  <td>Do you receive income (such as consulting fees, honoraria, travel reimbursement, or other income) from any single business entity that could reasonably appear to benefit by the proposed research?</td>
                  <td nowrap><label>
                       <input name="RadioGroup3" type="radio" id="yes3" value="radio" class="nobord" />
                       yes</label>
@@ -250,18 +348,32 @@ $(".na4").slideDown(500)}
                       <input type="radio" name="RadioGroup3" value="radio" id="no3" class="nobord" />
                       no</label></td>
                   <td nowrap><div style="display:none" class="finentities3" >
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 1 <br>
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 2 <br>
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 3<br>
+                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                        <td style="border:none;">Entity Name 1</td>
+                      </tr>
+                      <tr>
+                        <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                        <td style="border:none;">Entity Name 2</td>
+                      </tr>
+                      <tr>
+                        <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                        <td style="border:none;">Entity Name 3</td>
+                      </tr>
+                      <tr>
+                        <td style="border:none;">&nbsp;</td>
+                        <td style="border:none;"><a href="#">add entity...</a></td>
+                      </tr>
+                    </table>
+                    
                     </div>
                     <div style="display:none"  align="center"class="na3"  > n/a </div></td>
+                  <td nowrap><div align="center"><a href="#"><img src="../images/tinybutton-details.gif" alt="add" width=47 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
                 <tr>
                   <th  scope="row"><div align="center"><span class="copybold">4</span></div></th>
-                  <td>Do you have rights to a pending application or issued patent to an invention(s), license rights, or copyright for software that has a direct relationship to the project? <a href="#">more...</a></td>
+                  <td>Do you have rights to a pending application or issued patent to an invention(s), license rights, or copyright for software that has a direct relationship to the project?</td>
                   <td nowrap><label>
                       <input name="RadioGroup4" type="radio" id="yes4" value="radio" class="nobord" />
                       yes</label>
@@ -269,14 +381,28 @@ $(".na4").slideDown(500)}
                       <input type="radio" name="RadioGroup4" value="radio" id="no4" class="nobord" />
                       no</label></td>
                                         <td nowrap><div style="display:none" class="finentities4" >
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 1 <br>
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 2 <br>
-                      <input type="checkbox" name="checkbox2" value="checkbox" class="nobord">
-                      Entity Name 3<br>
+                                          <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                              <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                                              <td style="border:none;">Entity Name 1</td>
+                                            </tr>
+                                            <tr>
+                                              <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                                              <td style="border:none;">Entity Name 2</td>
+                                            </tr>
+                                            <tr>
+                                              <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
+                                              <td style="border:none;">Entity Name 3</td>
+                                            </tr>
+                                            <tr>
+                                              <td style="border:none;">&nbsp;</td>
+                                              <td style="border:none;"><a href="#">add entity...</a></td>
+                                            </tr>
+                                          </table>
+                                        
                     </div>
                     <div style="display:none"  align="center"class="na4"  > n/a </div></td>
+                                        <td nowrap><div align="center"><a href="#"><img src="../images/tinybutton-details.gif" alt="add" width=47 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
               </tbody>
             </table>
@@ -290,7 +416,7 @@ $(".na4").slideDown(500)}
             </tr>
           </table>
           <div class="tab-container" align="center" id="G04" style="display: none;">
-            <div class="h2-container">
+<div class="h2-container">
               <h2><span class="subhead-left"> Financial Interests History</span></h2>
             </div>
             <table cellpadding=0 cellspacing=0 class="grid" summary="">
@@ -391,7 +517,7 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G11" style="display: none;">
-                <tr>
+<tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
@@ -445,7 +571,7 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G12" style="display: none;">
-                <tr>
+<tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
@@ -499,7 +625,7 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G13" style="display: none;">
-                <tr>
+<tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
@@ -562,7 +688,7 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-activate.gif" alt="add" width=53 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G11w" style="display: none;">
-                <tr>
+<tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
@@ -616,7 +742,7 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-activate.gif" alt="add" width=53 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G12w" style="display: none;">
-                <tr>
+<tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
@@ -670,7 +796,7 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-activate.gif" alt="add" width=53 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G13w" style="display: none;">
-                <tr>
+<tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
@@ -729,7 +855,7 @@ $(".na4").slideDown(500)}
             </tr>
           </table>
           <div class="tab-container" align="center" id="G031d" style="display: none;">
-            <div class="h2-container"><span class="subhead-left">
+<div class="h2-container"><span class="subhead-left">
               <h2>Header</h2>
               </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             <table cellpadding=0 cellspacing="0" class="result-table" summary="">
@@ -752,7 +878,7 @@ $(".na4").slideDown(500)}
             </tr>
           </table>
           <div class="tab-container" align="center" id="G031c" style="display: none;">
-            <div class="h2-container"><span class="subhead-left">
+<div class="h2-container"><span class="subhead-left">
               <h2>Header</h2>
               </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             <table cellpadding=0 cellspacing="0" class="result-table" summary="">
