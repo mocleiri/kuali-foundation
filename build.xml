@@ -11,6 +11,9 @@
 		<condition property="import.into.mysql">
 			<equals arg1="${datasource.ojb.platform}" arg2="MySQL" />
 		</condition>
+		<condition property="rice.url" value="${appserver.url}/krkul-${build.environment}">
+			<equals arg1="rice.standalone" arg2="true" />
+		</condition>
 		<property name="maven.build.properties" value="build.properties" />
 	</target>
 	
