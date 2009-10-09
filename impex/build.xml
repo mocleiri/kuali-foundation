@@ -151,12 +151,16 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="| Generating SQL for YOUR Torque project!  |" />
 		<echo message="|                                          |" />
 		<echo message="+------------------------------------------+" />
+		<echo message="torque.schema.dir: ${torque.schema.dir}" />
+		<echo message="torque.sql.dir: ${torque.sql.dir}" />
 
 		<property name="torque.sql.absolute.dir" location="${torque.sql.dir}" />
 		<!-- above works around a problem with torque-data-dump getting passed a relative directory, and not working right if tbe process was started from a directory other than ant's basedir -->
 
 		<create-ddl-macro torque.sql.dir="${torque.sql.dir}" torque.schema.dir="${torque.schema.dir}" torque.sql.absolute.dir="${torque.sql.absolute.dir}" />
 
+		<echo message="import.two.schemas: ${import.two.schemas}"/>
+		<echo message="import.torque.database: ${import.torque.database}"/>
 		<!-- now create-ddl for the second schema, if defined -->
 		<if>
 			<isset property="import.two.schemas" />
@@ -316,7 +320,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="| Generating XML from JDBC connection !         |" />
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
-
+		<echo message="torque.schema.dir: ${torque.schema.dir}"/>
 		<property name="torque.schema.absolute.dir" location="${torque.schema.dir}" />
 		<!-- above works around a problem with torque-jdbc-transform getting passed a relative directory, and not working right if tbe process was started from a directory other than ant's basedir -->
 
