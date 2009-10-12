@@ -103,8 +103,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <th style="text-align:right; width:195px;">Disposition Recommendation:</th>
                   <td><select name="recommendations" id="recommendations">
                       <option value="0" selected>select</option>
-                      <option value="1">Approved</option>
-                      <option value="2">Disapproved</option>
+                      <option value="1">Best Practices Memo</option>
+                      <option value="2">No Further Action</option>
+                      <option>Disclosable Interests Eliminated</option>
+                      <option>Disclosable Interests Reduced</option>
+                      <option>Disclosable Interests Managed</option>
+                      <option>No Conflict Exists</option>
+                      <option>Exempt </option>
                     </select>
                     <script type="text/javascript">
 							$(document).ready(function(){
@@ -391,8 +396,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <th width="2%"  scope="row">1</th>
                   <td>Dr. John Smith</td>
                   <td>Review</td>
-                  <td>&lt;value?&gt;</td>
-                  <td>Approved</td>
+                  <td>Approve</td>
+                  <td>Disclosable Interests Eliminated </td>
                   <td>07/01/09</td>
                   <td nowrap><div align=center> <a href="#">
                       <input name="x2" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
@@ -401,9 +406,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <tr>
                   <th width="2%"  scope="row">2</th>
                   <td>Department Chair</td>
-                  <td>FYI</td>
-                  <td>&lt;value?&gt;</td>
-                  <td>Approved</td>
+                  <td>Review for the Dept Chair</td>
+                  <td>Approve</td>
+                  <td>No Conflict Exists </td>
                   <td>07/10/09</td>
                   <td nowrap><div align=center> <a href="#">
                       <input name="x3" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
@@ -413,8 +418,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <th width="2%"  scope="row">3</th>
                   <td>Amber O'Banion</td>
                   <td>Acknowledge</td>
-                  <td>&lt;value?&gt;</td>
-                  <td>Approved</td>
+                  <td>Disapprove</td>
+                  <td>Financial Interests Unmanagable</td>
                   <td>08/01/09</td>
                   <td nowrap><div align=center> <a href="#">
                       <input name="x4" src="../images/tinybutton-view.gif" onclick="javascript: alert('If this were not a mock, this button would download this attachment.'); return false" class="tinybutton" alt="download" type="image" />
@@ -471,7 +476,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <th style="text-align:right; width:125px;">Disposition:</th>
                   <td style="width:125px;"><select name="disposition" id="disposition">
                       <option value="0" selected>select</option>
->
+                      >
                       <option value="1">Best Practices Memo</option>
                       <option value="2">No Further Action</option>
                       <option>Disclosable Interests Eliminated</option>
@@ -757,7 +762,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <td class="infoline"><select name="newAdHocRoutePerson.actionRequested" id="action requested">
                     <option value=K selected>Select</option>
                     <option value=K>Review</option>
-                
                     <option value=F>Acknowledge</option>
                   </select></td>
                 <td class="infoline"><span class="nowrap">
@@ -776,7 +780,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <option value=K>Review</option>
                     <option value=F>Acknowledge</option>
                   </select>
-                </span></td>
+                  </span></td>
                 <td><input name="incomeList[0].fin_object_cd232" size=30 value=thrclark type=text id="person">
                   <span class="nowrap">
                   <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
@@ -793,7 +797,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <option value=K>Review</option>
                     <option value=F>Acknowledge</option>
                   </select>
-                </span></td>
+                  </span></td>
                 <td><input name="incomeList[0].fin_object_cd232" size=30 value="User ID" type=text id="person">
                   <span class="nowrap">
                   <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
@@ -810,7 +814,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <option value=K>Review</option>
                     <option value=F>Acknowledge</option>
                   </select>
-                </span></td>
+                  </span></td>
                 <td><input name="incomeList[0].fin_object_cd232" size=30 value=rkirkend type=text id="person">
                   <span class="nowrap">
                   <input name="imageField2" type=image class="tinybutton" src="../images/searchicon.gif" alt="person lookup">
