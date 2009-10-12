@@ -168,36 +168,133 @@ $(".na4").slideDown(500)}
             </tr>
           </table>
           <div class="tab-container" align="center" id="G031b" style="display: none;">
-<div class="h2-container"><span class="subhead-left">
-              <h2>Reporter Details</h2>
-              </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+
+			<div class="h2-container">
+            	<span class="subhead-left">
+              		<h2>Reporter Details</h2>
+              	</span>
+                <span class="subhead-right subhead">
+                	<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
+                </span>
+            </div>
             <table cellspacing="0">
-              <tbody>
-                <tr>
-                  <th> <div align="right">Name: </div></th>
-                  <td colspan="3">Brad Mehldau</td>
-                </tr>
-                <tr>
-                  <th><div align="right">Address: </div></th>
-                  <td>1234 This Street, That City, MI 59896</td>
-                  <th><div align="right">Department: </div></th>
-                  <td >Chemistry</td>
-                </tr>
-                <tr>
-                  <th><div align="right">Phone Number: </div></th>
-                  <td>123-456-7890</td>
-                  <th><div align="right">Unit: </div></th>
-                  <td >Chemistry</td>
-                </tr>
-                <tr>
-                  <th><div align="right">Email Address: </div></th>
-                  <td>bmehld@university.edu</td>
-                  <th ><div align="right">College:</div></th>
-                  <td >College of Arts &amp; Sciences</td>
-                </tr>
-              </tbody>
+                <tbody>
+                    <tr>
+                        <th style="width:155px;"><div align="right">Name:</div></th>
+                        <td>Brad Mehldau</td>
+                        <th style="width:110px;"><div align="right">Phone Number:</div></th>
+                        <td><input type="text" style="width:98%;" value="(123) 456-7890" /></td>
+                        <th style="width:130px;"><div align="right">E-mail:</div></th>
+                        <td colspan="3"><input type="text" style="width:98%;" value="Brad.Mehldau@Kuali.org" /></td>
+                    </tr>
+                    <tr>
+                        <th><div align="right">Street 1:</div></th>
+                        <td><input type="text" style="width:98%;" value="123 Main St." /></td>
+                        <th><div align="right">Street 2:</div></th>
+                        <td><input type="text" style="width:98%;" value="Ste. 504" /></td>
+                        <th><div align="right">State:</div></th>
+                        <td><input type="text" style="width:98%;" value="MI" /></td>
+                        <th style="width:35px;"><div align="right">Zip:</div></th>
+                        <td><input type="text" style="width:98%;" value="12345" /></td>
+                    </tr>
+                    <tr>
+                        <th><div align="right">Department:</div></th>
+                        <td>
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="Chemistry" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                        <th><div align="right">Unit:</div></th>
+                        <td>
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="Chemistry" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                        <th><div align="right">College:</div></th>
+                        <td colspan="3">
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="College of Arts &amp; Sciences" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><div align="right">Secondary Department:</div></th>
+                        <td>
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                        <th><div align="right">Secondary Unit:</div></th>
+                        <td>
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                        <th><div align="right">Secondary College:</div></th>
+                        <td colspan="3">
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                    </tr>
+                </tbody>
             </table>
             <br>
+            
             <div class="h2-container"> <span class="subhead-left">
               <h2>Projects</h2>
             </span> <span class="subhead-right"> <span class="subhead"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"> </a> </span> </span> </div>
@@ -205,6 +302,7 @@ $(".na4").slideDown(500)}
             <table cellspacing="0">
               <tbody>
                 <tr>
+                  <th>&nbsp;</th>
                   <th>&nbsp;</th>
                   <th>Title</th>
                   <th>Type</th>
@@ -217,6 +315,7 @@ $(".na4").slideDown(500)}
                 </tr>
                 <tr>
                   <th>1</th>
+                  <th><input type="radio" class="nobord" name="BFNproject" value="0" checked="checked" /></th>
                   <td>My Cool Project</td>
                   <td>Proposal</td>
                   <td><div align="center">000364</div></td>
@@ -228,7 +327,21 @@ $(".na4").slideDown(500)}
                 </tr>
                 <tr>
                   <th>2</th>
-                  <td>My Cool Project with a Longer Title</td>
+                  <th><input type="radio" class="nobord" name="BFNproject" value="0" /></th>
+                  <td>
+                  
+                  	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                My Cool Project with a Much Longer Ti...
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                  
+                  </td>
                   <td>Award</td>
                   <td><div align="center">000272</div></td>
                   <td>NIH</td>
@@ -239,13 +352,14 @@ $(".na4").slideDown(500)}
                 </tr>
                 <tr>
                   <th>3</th>
+                  <th><input type="radio" class="nobord" name="BFNproject" value="0" /></th>
                   <td>My Other Project</td>
                   <td>Protocol</td>
                   <td><div align="center">000384</div></td>
                   <td>NIH</td>
                   <td><div align="center">10/16/2008</div></td>
                   <td><div align="center">10/16/2010</div></td>
-                  <td><div align="right">14,750.00</div></td>
+                  <td><div align="right">N/A</div></td>
                   <td><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
               </tbody>
@@ -796,7 +910,7 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-activate.gif" alt="add" width=53 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G13w" style="display: none;">
-<tr>
+				<tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
