@@ -1084,34 +1084,34 @@ $(".na4").slideDown(500)}
                         	<td style="vertical-align:top;">
                             	<input type="checkbox" id="C_Certification" />
                                 <script type="text/javascript">
-								$(document).ready(function(){
-									// initial state
-										$("#D_Certification").hide(0);
-										$("#C_Certification").attr('checked', false);
-									// trigger
-										$("#C_Certification").click(
-											function()
+									$(document).ready(function(){
+										// initial state
+											$("#D_Certification").hide(0);
+											$("#C_Certification").attr('checked', false);
+										// trigger
+											$("#C_Certification").click(
+												function()
+												{
+													F_Certification();
+												}
+											);
+										// function
+											function F_Certification()
 											{
-												F_Certification();
+												if ($('#C_Certification').is(':checked'))
+												{
+													$("#D_Certification").slideDown(400);
+													$("#C_Certification").attr('checked', true);
+												}
+												else
+												{
+													$("#D_Certification").slideUp(200);
+													$("#C_Certification").attr('checked', false);
+												}
+		
 											}
-										);
-									// function
-										function F_Certification()
-										{
-											if ($('#C_Certification').is(':checked'))
-											{
-												$("#D_Certification").slideDown(400);
-												$("#C_Certification").attr('checked', true);
-											}
-											else
-											{
-												$("#D_Certification").slideUp(200);
-												$("#C_Certification").attr('checked', false);
-											}
-	
-										}
-								});
-							</script>
+									});
+								</script>
                             </td>
                             <td>
                             	I acknowledge that it is my responsibility to disclose any new SIGNIFICANT FINANCIAL INTERESTS obtained during the term of the above proposed project.
@@ -1129,7 +1129,27 @@ $(".na4").slideDown(500)}
                                                 <u><b>10/09/2009</b></u>
                                             </td>
                                             <td style="border:none; background:none; text-align:center;" rowspan="2">
-                                                <input src="../images/tinybutton-print.gif" onclick="javascript: alert('Please let Bart know what this button prints exactly.'); return false" style="border:none;" alt="print" title="Print" type="image" />
+                                                
+                                                <input id="BFNsubmit" src="../images/tinybutton-submit.gif" onclick="javascript: alert('Thank you for submitting your certification.'); return false" style="border:none;" alt="submit" title="Submit" type="image" />
+                                                <script type="text/javascript">
+													$(document).ready(function(){
+														// initial state
+															$("#BFNprint").hide(0);
+														// trigger
+															$("#BFNsubmit").click(
+																function()
+																{
+																	$("#BFNsubmit").hide(0);
+																	$("#BFNprint").slideDown(0);
+																	$("#C_Certification").attr("disabled", true);
+																}
+															);
+													});
+												</script>
+                                                
+                                                <input id="BFNprint" src="../images/tinybutton-print.gif" onclick="javascript: alert('This would print the Internal Disclosure.'); return false" style="border:none;" alt="print" title="Print" type="image" />
+                                                
+                                                
                                             </td>
                                         </tr>
                                         <tr>
