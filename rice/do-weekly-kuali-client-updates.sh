@@ -15,7 +15,7 @@ BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/$JAVA_APPLICATION_CODE-build-number.txt
 # 	4) deploy war (boolean)
 #   5) database platform ("Oracle9i" -- do not use an arbitrary value)
 ##
-kupdate reg standard true true MySQL
+kupdate reg standard true true MySQL false
 kpurge $LOGS_DIRECTORY 7
 
 kend 0

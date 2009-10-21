@@ -12,11 +12,11 @@ buildsvnwebapp dev2
 kexport stg trunk
 kdailytag trunk
 
-kupdate cnv standard true false Oracle9i
+kupdate cnv standard true false Oracle9i true
 buildsvnwebapp cnv
 runS2sScripts cnv
 
-kupdate dev standard true false Oracle9i
+kupdate dev standard true false Oracle9i true
 buildsvnwebapp dev
 runS2sScripts dev
 

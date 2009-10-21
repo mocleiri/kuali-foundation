@@ -15,8 +15,8 @@ kdailytag $APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION
 # 	4) deploy war (boolean)
 #   5) database platform ("Oracle9i" -- do not use an arbitrary value)
 ##
-kupdate cnv standard false true Oracle9i
-kupdate stg standard false true Oracle9i
+kupdate cnv standard false true Oracle9i false
+kupdate stg standard false true Oracle9i false
 
 kpurge $LOGS_DIRECTORY 7
 

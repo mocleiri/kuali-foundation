@@ -19,7 +19,7 @@ kdailytag $APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION
 #   5) database platform ("Oracle9i" -- do not use an arbitrary value)
 ##
 # uncomment this when we get a 101 cnv env setup
-kupdate cnv standard true true Oracle9i
+kupdate cnv standard true true Oracle9i false
 
 kpurge $LOGS_DIRECTORY 15
 

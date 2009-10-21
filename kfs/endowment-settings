@@ -1,3 +1,0 @@
-#!/bin/sh -x
-
-#APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT=rice-cfg-dbs/rice-kuali-client-db; typeset -rx APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT

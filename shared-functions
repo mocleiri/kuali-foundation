@@ -62,6 +62,7 @@ function ksetprops {
 	typeset environment=$1
 	typeset version=$2
 	typeset database_platform=$3
+	typeset rice_bundled=$4
 	typeset database_user=$DATABASE_APPLICATION_CODE$environment
 	typeset schema="`echo $database_user | tr a-z A-Z`"
 	typeset database_password=$environment"174"$DATABASE_APPLICATION_CODE
@@ -81,7 +82,7 @@ function ksetprops {
 	kexec "echo \"datasource.ojb.platform=$database_platform\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"datasource.username=$database_user\" >> $ANT_PROPERTIES_FILE"
 	echo "datasource.password=$database_password" >> $ANT_PROPERTIES_FILE 
-	if [[ -n $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT ]]
+	if [[ "$rice_bundled" = "true" ]]
 	then
 		kexec "echo \"infrastructure.database.project=$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT\" >> $ANT_PROPERTIES_FILE"
 	else
@@ -156,15 +157,11 @@ function kdailytag {
 	svn -q delete $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$new_build_version_path -m daily-tag-removal
 	svn -q delete $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$new_build_version_path -m daily-tag-removal
 	svn -q delete $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_JAVA_PROJECT/$new_build_version_path-$APPLICATION -m daily-tag-removal
+	svn -q delete $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION -m daily-tag-removal
 	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$version $SRCCTRL_URL/$APPLICATION_JAVA_PROJECT/$new_build_version_path -m kdailytag"
 	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$version $SRCCTRL_URL/$APPLICATION_DATABASE_PROJECT/$new_build_version_path -m kdailytag"
 	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_JAVA_PROJECT/$APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_JAVA_PROJECT/$new_build_version_path-$APPLICATION -m kdailytag"
-	
-	if [[ -n $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT ]]
-	then
-		svn -q delete $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION -m daily-tag-removal
-		kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT/$APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION -m kdailytag"
-	fi
+	kexec "svn -q copy $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT/$APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION $SRCCTRL_URL/$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT/$new_build_version_path-$APPLICATION -m kdailytag"
 	
 	return 0
     } >> $SCRIPT_LOG 2>&1
@@ -218,6 +215,7 @@ function kupdate {
 	typeset update_database=$3
 	typeset deploy_war=$4
 	typeset database_platform=$5
+	typeset rice_bundled=$6
 	typeset application_deploy_directory=$DEPLOY_BASE_DIRECTORY/$environment/$JAVA_APPLICATION_CODE
 	if [[ "$2" = "standard" ]]
 	then
@@ -227,7 +225,7 @@ function kupdate {
 	fi
 	klog "updating environment: $environment with version: $version, update_database: $update_database, and deploy_war: $deploy_war"
 
-	ksetprops $environment $version $database_platform
+	ksetprops $environment $version $database_platform $rice_bundled
 	
 	if [[ "$update_database" = "true" ]]
 	then
@@ -236,7 +234,7 @@ function kupdate {
         kant import -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 		kexec "rm -rf $APPLICATION_DATABASE_PROJECT"
 		
-		if [[ -n $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT ]]
+		if [[ "$rice_bundled" = "true" ]]
 		then 
 			rm -rf $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT
 			kcheckout $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT $version-$APPLICATION $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT
