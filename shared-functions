@@ -234,7 +234,7 @@ function kupdate {
         kant import -Dgenerated.properties.file=$ANT_PROPERTIES_FILE
 		kexec "rm -rf $APPLICATION_DATABASE_PROJECT"
 		
-		if [[ "$rice_bundled" = "true" && "$RICE_TABLES_IN_CLIENT_MDS" != ""]]
+		if [[ "$rice_bundled" = "true" && "$RICE_TABLES_IN_CLIENT_MDS" != "" ]]
 		then 
 			rm -rf $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT
 			kcheckout $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT $version-$APPLICATION $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT
