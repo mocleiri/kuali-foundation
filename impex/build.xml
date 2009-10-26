@@ -20,9 +20,6 @@
 <project name="kuali_db_impex" default="help" basedir=".">
 
 	<target name="help">
-		<property name="source.zip.location" location="${source.zip}" />
-		<property name="target.zip.location" location="${target.zip}" />
-
 		<echo>
 **********************************
 KFS Database Import/Export Utility
@@ -42,13 +39,12 @@ Setup:
        FIXME: several file locations in this help are different than what the process actually uses.
 
 Main Targets: 
-         import ==> Extracts the database schema and data from the archive given in ${source.zip.location} 
+         import ==> Extracts the database schema and data 
                     and installs it into the database specified by the import.xxx properties in 
-                    impex-build.properties.
+                    ${user.home}/impex-build.properties.
 
          export ==> Extracts the structure and data from the database and schema specified by 
-                    the export.xxx properties in impex-build.properties and packages it up 
-                    into ${target.zip.location}.
+                    the export.xxx properties in ${user.home}impex-build.properties.
 			
 Other Targets:
     Export Related:
