@@ -492,23 +492,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <tr>
                     <th><div align=right>Award ID:</div></th>
                     <td>000743-00005</td>
-                    <th><div align=right>
-                        <label for="label4">Account Type: </label>
-                      </div></th>
-                    <td><select name="x1">
-                        <option value="0">select</option>
-                        <option value="1" selected>Regular</option>
-                        <option value="2">Fabricated Equipment</option>
-                        <option value="3">Draper Fellowship</option>
-                        <option value="4">Core Grant Administration</option>
-                        <option value="5">Gift</option>
-                        <option value="6">Conversion Account</option>
-                        <option value="7">Off-campus account</option>
-                        <option value="8">SBIR</option>
-                        <option value="9">STTR</option>
-                        <option value="10">No Account</option>
-                        <option value="11">Service Facilities</option>
-                      </select></td>
+                    <th><div align="right">*Lead Unit ID:</div></th>
+                    <td><input name="sid" type=text onchange="dataChanged()" value="123456" size="16" id="sid"/>
+                      <input name="image2" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                    <input name="image2" type="image" class="nobord" src="../images/book_open.png" alt="inquiry"></td>
                   </tr>
                   <tr>
                     <th><div align=right>
@@ -516,20 +503,22 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </div></th>
                     <td>1</td>
                     <th><div align=right>
-                        <label for="basis of payment"></label>
-                        *Activity Type:</div></th>
-                    <td><select name="y1">
-                        <option value="0">select</option>
-                        <option value="1">Clinical Trial</option>
-                        <option value="2">Construction</option>
-                        <option value="3">Fellowship - Post-Doctoral</option>
-                        <option value="4">Fellowship - Pre-Doctoral</option>
-                        <option value="5">Instruction</option>
-                        <option value="6" selected>Organized Research</option>
-                        <option value="7">Other Research</option>
-                        <option value="8">Public Service</option>
-                        <option value="9">Student Service</option>
-                      </select></td>
+                      <label for="label4">Account Type: </label>
+                    </div></th>
+                    <td><select name="x1">
+                      <option value="0">select</option>
+                      <option value="1" selected>Regular</option>
+                      <option value="2">Fabricated Equipment</option>
+                      <option value="3">Draper Fellowship</option>
+                      <option value="4">Core Grant Administration</option>
+                      <option value="5">Gift</option>
+                      <option value="6">Conversion Account</option>
+                      <option value="7">Off-campus account</option>
+                      <option value="8">SBIR</option>
+                      <option value="9">STTR</option>
+                      <option value="10">No Account</option>
+                      <option value="11">Service Facilities</option>
+                    </select></td>
                   </tr>
                   <tr>
                     <th><div align=right>
@@ -537,26 +526,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       </div></th>
                     <td align=left valign=middle><input name="startDate432" type=text onchange="dataChanged()" value="300150" size=12 id="startDate43"/></td>
                     <th><div align=right>
-                        <label for="label7"></label>
-                        <label for="label">*Award Type:</label>
-                        <label for="basis of payment"></label>
-                      </div></th>
-                    <td><select name="z1">
-                        <option value="0">select</option>
-                        <option value="1">Budget Office WBS </option>
-                        <option value="2">Consortium Expenditures </option>
-                        <option value="3">Consortium Membership</option>
-                        <option value="4">Contract </option>
-                        <option value="5">Cooperative Agreement </option>
-                        <option value="6">Facilities Agreement</option>
-                        <option value="7">Fellowship </option>
-                        <option value="8">Gift </option>
-                        <option value="9" selected>Grant </option>
-                        <option value="10">Indefinite Delivery Contract </option>
-                        <option value="11">NIH Training Grant </option>
-                        <option value="12">Other Transaction Agreement </option>
-                        <option value="13">Student Financial Aid</option>
-                      </select></td>
+                      <label for="basis of payment"></label>
+                      *Activity Type:</div></th>
+                    <td><select name="y1">
+                      <option value="0">select</option>
+                      <option value="1">Clinical Trial</option>
+                      <option value="2">Construction</option>
+                      <option value="3">Fellowship - Post-Doctoral</option>
+                      <option value="4">Fellowship - Pre-Doctoral</option>
+                      <option value="5">Instruction</option>
+                      <option value="6" selected>Organized Research</option>
+                      <option value="7">Other Research</option>
+                      <option value="8">Public Service</option>
+                      <option value="9">Student Service</option>
+                    </select></td>
                   </tr>
                   <tr>
                     <th><div align=right>
@@ -571,8 +554,27 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <option>Closed </option>
                         <option>Hold </option>
                       </select></td>
-                    <th>&nbsp;</th>
-                    <td align=left valign=middle>&nbsp;</td>
+                    <th><div align=right>
+                      <label for="label7"></label>
+                      <label for="label">*Award Type:</label>
+                      <label for="basis of payment"></label>
+                    </div></th>
+                    <td><select name="z1">
+                      <option value="0">select</option>
+                      <option value="1">Budget Office WBS </option>
+                      <option value="2">Consortium Expenditures </option>
+                      <option value="3">Consortium Membership</option>
+                      <option value="4">Contract </option>
+                      <option value="5">Cooperative Agreement </option>
+                      <option value="6">Facilities Agreement</option>
+                      <option value="7">Fellowship </option>
+                      <option value="8">Gift </option>
+                      <option value="9" selected>Grant </option>
+                      <option value="10">Indefinite Delivery Contract </option>
+                      <option value="11">NIH Training Grant </option>
+                      <option value="12">Other Transaction Agreement </option>
+                      <option value="13">Student Financial Aid</option>
+                    </select></td>
                   </tr>
                   <tr>
                     <th><div align=right>
