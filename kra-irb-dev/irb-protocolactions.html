@@ -901,11 +901,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div id="G111a" style="display: none;padding-left:56px">
               <table cellpadding=0 cellspacing=0 summary="">
                 <tr>
-                  <th style="text-align:right; width:150px;">Committee ID:</th>
-                  <td><input name="textfield13" type=text id="textfield13" value=00001548>
-                    <input type=image class="nobord" src="../images/searchicon.gif" alt="lookup">
-                    <br>
-                    <span class="fineprint"> Purdue IRB</span></td>
+                  <th style="text-align:right; width:150px;">Committee:</th>
+                  <td><select name="comid" id="comid">
+                    <option value=0 selected=selected>select</option>
+                    <option value=3>First IRB</option>
+                    <option value=1>Second IRB</option>
+                    <option value=2>Third IRB</option>
+                  </select>
+                    <br></td>
                   <th style="text-align:right; width:150px;">Schedule Date:</th>
                   <td><select name="schid2" id="schid2">
                       <option value=0 selected=selected>select</option>
@@ -4195,8 +4198,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   </tr>
                   <tr>
                     <th style="width:150px; text-align:right;">FDA IND or IDE #:</th>
-                    <td>
-                    	&nbsp;
+                    <td>&nbsp;
+                    	
                     </td>
                     <th style="width:115px; text-align:right;">Billable:</th>
                     <td>
@@ -4205,18 +4208,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   </tr>
                   <tr>
                     <th style="text-align:right;">Reference ID1:</th>
-                    <td>
-                    	&nbsp;
+                    <td>&nbsp;
+                    	
                     </td>
                     <th style="text-align:right;">Reference ID2:</th>
-                    <td>
-                    	&nbsp;
+                    <td>&nbsp;
+                    	
                     </td>
                   </tr>
                   <tr>
                     <th style="text-align:right;">Summary/Keywords:</th>
-                    <td colspan="3">
-                    	&nbsp;
+                    <td colspan="3">&nbsp;
+                    	
                     </td>
                   </tr>
                 </table>
@@ -4572,8 +4575,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   </tr>
                   <tr>
                     <th style="width:150px; text-align:right;">FDA IND or IDE #:</th>
-                    <td>
-                    	&nbsp;
+                    <td>&nbsp;
+                    	
                     </td>
                     <th style="width:115px; text-align:right;">Billable:</th>
                     <td>
@@ -4582,18 +4585,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   </tr>
                   <tr>
                     <th style="text-align:right;">Reference ID1:</th>
-                    <td>
-                    	&nbsp;
+                    <td>&nbsp;
+                    	
                     </td>
                     <th style="text-align:right;">Reference ID2:</th>
-                    <td>
-                    	&nbsp;
+                    <td>&nbsp;
+                    	
                     </td>
                   </tr>
                   <tr>
                     <th style="text-align:right;">Summary/Keywords:</th>
-                    <td colspan="3">
-                    	&nbsp;
+                    <td colspan="3">&nbsp;
+                    	
                     </td>
                   </tr>
                 </table>
