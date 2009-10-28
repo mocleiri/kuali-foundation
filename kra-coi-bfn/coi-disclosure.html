@@ -67,7 +67,7 @@ $(".na4").slideDown(500)}
 </script>
 </head>
 <body>
-<form name="example"  method="post" action="">
+<form name="thisform"  method="post" action="">
 <div class="headerarea-kra" id="headerarea">
   <h1>COI - Disclosure <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
   <div class="headerbox">
@@ -340,347 +340,320 @@ $(".na4").slideDown(500)}
               </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
             <table cellpadding=0 cellspacing="0" class="result-table" summary="">
               <tbody id="G5">
-                <tr>
-                  <th>&nbsp;</th>
-                  <th>Question</th>
-                  <th>*Answer</th>
-                  <th>Financial Entities</th>
-                  <th>Actions</th>
-                </tr>
                 
+                <!-- Question 1 -->
                 <tr>
-                    <th style="vertical-align:top;" scope="row"><div align="center"><span class="copybold">1</span></div></th>
-                    <td style="vertical-align:top;">
+                    <th style="vertical-align:top;"><div align="center"><span class="copybold">1</span></div></th>
+                    <td style="vertical-align:top;" colspan="2">
                         Do you hold a position (such as board member, scientific advisor, director, officer, partner, trustee or employee) with any single business 
-                        entity that could reasonably appear to benefit by the proposed research?
-                    </td>
-                    <td style="vertical-align:top;" nowrap><label>
-                        <input name="RadioGroup1" type="radio" id="yes1" value="radio" class="nobord" />
-                        yes</label>
-                        <label> &nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="RadioGroup1" value="radio" id="no1" class="nobord" />
-                        no</label>
-                    </td>
-                    <td style="vertical-align:top;" nowrap>
-                  
-                        <div style="display:block" class="finentities1" >
-                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">3M Pharmaceuticals Division</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Abbott Laboratories</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Alanza Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Barakat Pharmaceutical Industries</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Berlex Laboratories, Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Bristol-Myers Squibb Company</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Ciron Drugs & Pharmaceuticals Pvt. Ltd.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Dow Pharma</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Eurocaps Soft Gels</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Glaxo Smithkline</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Kinetek Pharmaceuticals Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Moraceae Laboratories Pvt Ltd.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Sigma Pharmaceuticals Ptd Ltd</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Yamanouchi Pharma Technologies</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;">&nbsp;</td>
-                                    <td style="border:none;"><a href="#">add entity...</a></td>
-                                </tr>
-                            </table>
+                        entity that could reasonably appear to benefit by the proposed research? <a href="">(...more)</a>
+                        
+                        <div id="Tq1">
+                        <table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
+                            <tr>
+                                <td class="infoline" style="font-weight:bold; width:45px;">
+                                    Add:
+                                </td>
+                                <td class="infoline" style="text-align:center;">
+                                    <select name="CustomData" id="CustomData" style="width:98%;">
+                                        <option value="0" selected>select</option>
+                                        <option value="1">3M Pharmaceuticals Division</option>
+                                        <option value="2">Abbott Laboratories</option>
+                                        <option value="3">Ciron Drugs & Pharmaceuticals Pvt. Ltd.</option>
+                                        <option value="4">Dow Pharma</option>
+                                        <option value="5">Eurocaps Soft Gels</option>
+                                        <option value="6">Glaxo Smithkline</option>
+                                        <option value="7">Kinetek Pharmaceuticals Inc.</option>
+                                        <option value="8">Moraceae Laboratories Pvt Ltd.</option>
+                                        <option value="9">Sigma Pharmaceuticals Ptd Ltd</option>
+                                        <option value="0">Yamanouchi Pharma Technologies</option>
+                                        <option value="10">...add new financial entity</option>
+                                    </select>
+                                </td>
+                                <td class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                </td>
+                            </tr>
+                        </table>
                         </div>
                         
                     </td>
-                    <td style="vertical-align:top;" nowrap><div align="center"><a href="#"><img src="../images/tinybutton-details.gif" alt="add" width=47 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                    <td style="vertical-align:top; width:100px;" nowrap>
+                        <input type="radio" name="q1" class="nobord Cq1" value="0" /> yes
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="q1" class="nobord Cq1" value="1" checked="checked" /> no
+                        
+                        <script type="text/javascript">
+							$(document).ready(function(){
+								// initial state
+									Fq1();
+								// trigger
+									$(".Cq1").click(
+										function()
+										{
+											Fq1();
+										}
+									);	
+								// function
+									function Fq1()
+									{
+										if ( document.thisform.q1[0].checked == true )
+										{
+											$("#Tq1").slideDown(400);
+										}
+										else
+										{
+											$("#Tq1").slideUp(200);
+										}
+
+									}
+							});
+						</script>
+                        
+                    </td>
                 </tr>
                 
+                <!-- Question 2 -->
                 <tr>
-                    <th style="vertical-align:top;" scope="row"><div align="center"><span class="copybold">2</span></div></th>
-                    <td style="vertical-align:top;">
+                    <th style="vertical-align:top;"><div align="center"><span class="copybold">2</span></div></th>
+                    <td style="vertical-align:top;" colspan="2">
                         Do you have an equity interest (such as stock, stock options, real estate, investment or other ownership) with any single business entity that 
-                        could reasonably appear to benefit by the proposed research?
-                    </td>
-                    <td style="vertical-align:top;" nowrap><label>
-                        <input name="RadioGroup1" type="radio" id="yes1" value="radio" class="nobord" />
-                        yes</label>
-                        <label> &nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="RadioGroup1" value="radio" id="no1" class="nobord" />
-                        no</label>
-                    </td>
-                    <td style="vertical-align:top;" nowrap>
-                  
-                        <div style="display:block" class="finentities1" >
-                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">3M Pharmaceuticals Division</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Abbott Laboratories</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Alanza Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Barakat Pharmaceutical Industries</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Berlex Laboratories, Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Bristol-Myers Squibb Company</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Ciron Drugs & Pharmaceuticals Pvt. Ltd.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Dow Pharma</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Eurocaps Soft Gels</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Glaxo Smithkline</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Kinetek Pharmaceuticals Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Moraceae Laboratories Pvt Ltd.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Sigma Pharmaceuticals Ptd Ltd</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Yamanouchi Pharma Technologies</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;">&nbsp;</td>
-                                    <td style="border:none;"><a href="#">add entity...</a></td>
-                                </tr>
-                            </table>
+                    	could reasonably appear to benefit by the proposed research? <a href="">(...more)</a>
+                        
+                        <div id="Tq2">
+                        <table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
+                            <tr>
+                                <td class="infoline" style="font-weight:bold; width:45px;">
+                                    Add:
+                                </td>
+                                <td class="infoline" style="text-align:center;">
+                                    <select name="CustomData" id="CustomData" style="width:98%;">
+                                        <option value="0" selected>select</option>
+                                        <option value="1">3M Pharmaceuticals Division</option>
+                                        <option value="2">Abbott Laboratories</option>
+                                        <option value="3">Ciron Drugs & Pharmaceuticals Pvt. Ltd.</option>
+                                        <option value="4">Dow Pharma</option>
+                                        <option value="5">Eurocaps Soft Gels</option>
+                                        <option value="6">Glaxo Smithkline</option>
+                                        <option value="7">Kinetek Pharmaceuticals Inc.</option>
+                                        <option value="8">Moraceae Laboratories Pvt Ltd.</option>
+                                        <option value="9">Sigma Pharmaceuticals Ptd Ltd</option>
+                                        <option value="0">Yamanouchi Pharma Technologies</option>
+                                        <option value="10">...add new financial entity</option>
+                                    </select>
+                                </td>
+                                <td class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="infoline" style="font-weight:bold; width:45px;" rowspan="3">
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    Barakat Pharmaceutical Industries
+                                </td>
+                                <td style="text-align:center;">
+                                    <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the associated data row.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Berlex Laboratories, Inc.
+                                </td>
+                                <td style="text-align:center;">
+                                    <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the associated data row.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Bristol-Myers Squibb Company
+                                </td>
+                                <td style="text-align:center;">
+                                    <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the associated data row.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                </td>
+                            </tr>
+                        </table>
                         </div>
                         
                     </td>
-                    <td style="vertical-align:top;" nowrap><div align="center"><a href="#"><img src="../images/tinybutton-details.gif" alt="add" width=47 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                </tr>
-                
-               <tr>
-                    <th style="vertical-align:top;" scope="row"><div align="center"><span class="copybold">2</span></div></th>
-                    <td style="vertical-align:top;">
-                        Do you receive income (such as consulting fees, honoraria, travel reimbursement, or other income) from any single business entity that 
-                        could reasonably appear to benefit by the proposed research?
-                    </td>
-                    <td style="vertical-align:top;" nowrap><label>
-                        <input name="RadioGroup1" type="radio" id="yes1" value="radio" class="nobord" />
-                        yes</label>
-                        <label> &nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="RadioGroup1" value="radio" id="no1" class="nobord" />
-                        no</label>
-                    </td>
-                    <td style="vertical-align:top;" nowrap>
-                  
-                        <div style="display:block" class="finentities1" >
-                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">3M Pharmaceuticals Division</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Abbott Laboratories</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Alanza Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Barakat Pharmaceutical Industries</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Berlex Laboratories, Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Bristol-Myers Squibb Company</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Ciron Drugs & Pharmaceuticals Pvt. Ltd.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Dow Pharma</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Eurocaps Soft Gels</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Glaxo Smithkline</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Kinetek Pharmaceuticals Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Moraceae Laboratories Pvt Ltd.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Sigma Pharmaceuticals Ptd Ltd</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Yamanouchi Pharma Technologies</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;">&nbsp;</td>
-                                    <td style="border:none;"><a href="#">add entity...</a></td>
-                                </tr>
-                            </table>
-                        </div>
+                    <td style="vertical-align:top; width:100px;" nowrap>
+                        <input type="radio" name="q2" class="nobord Cq2" value="0" checked="checked" /> yes
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="q2" class="nobord Cq2" value="1" /> no
+                        
+                        <script type="text/javascript">
+							$(document).ready(function(){
+								// initial state
+									Fq2();
+								// trigger
+									$(".Cq2").click(
+										function()
+										{
+											Fq2();
+										}
+									);	
+								// function
+									function Fq2()
+									{
+										if ( document.thisform.q2[0].checked == true )
+										{
+											$("#Tq2").slideDown(400);
+										}
+										else
+										{
+											$("#Tq2").slideUp(200);
+										}
+
+									}
+							});
+						</script>
                         
                     </td>
-                    <td style="vertical-align:top;" nowrap><div align="center"><a href="#"><img src="../images/tinybutton-details.gif" alt="add" width=47 height=15 hspace=3 vspace=3 border=0></a></div></td>
                 </tr>
                 
+                <!-- Question 3 -->
                 <tr>
-                    <th style="vertical-align:top;" scope="row"><div align="center"><span class="copybold">2</span></div></th>
-                    <td style="vertical-align:top;">
-                        Do you have rights to a pending application or issued patent to an invention(s), license rights, or copyright for software that has a direct relationship to the project?
-                    </td>
-                    <td style="vertical-align:top;" nowrap><label>
-                        <input name="RadioGroup1" type="radio" id="yes1" value="radio" class="nobord" />
-                        yes</label>
-                        <label> &nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="RadioGroup1" value="radio" id="no1" class="nobord" />
-                        no</label>
-                    </td>
-                    <td style="vertical-align:top;" nowrap>
-                  
-                        <div style="display:block" class="finentities1" >
-                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">3M Pharmaceuticals Division</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Abbott Laboratories</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Alanza Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Barakat Pharmaceutical Industries</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Berlex Laboratories, Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Bristol-Myers Squibb Company</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Ciron Drugs & Pharmaceuticals Pvt. Ltd.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Dow Pharma</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Eurocaps Soft Gels</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Glaxo Smithkline</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Kinetek Pharmaceuticals Inc.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Moraceae Laboratories Pvt Ltd.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Sigma Pharmaceuticals Ptd Ltd</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;"><input type="checkbox" name="checkbox2" value="checkbox" class="nobord"></td>
-                                    <td style="border:none;">Yamanouchi Pharma Technologies</td>
-                                </tr>
-                                <tr>
-                                    <td style="border:none;">&nbsp;</td>
-                                    <td style="border:none;"><a href="#">add entity...</a></td>
-                                </tr>
-                            </table>
+                    <th style="vertical-align:top;"><div align="center"><span class="copybold">3</span></div></th>
+                    <td style="vertical-align:top;" colspan="2">
+                        Do you receive income (such as consulting fees, honoraria, travel reimbursement, or other income) from any single business entity that 
+                    	could reasonably appear to benefit by the proposed research? <a href="">(...more)</a>
+                        
+                        <div id="Tq3">
+                        <table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
+                            <tr>
+                                <td class="infoline" style="font-weight:bold; width:45px;">
+                                    Add:
+                                </td>
+                                <td class="infoline" style="text-align:center;">
+                                    <select name="CustomData" id="CustomData" style="width:98%;">
+                                        <option value="0" selected>select</option>
+                                        <option value="1">3M Pharmaceuticals Division</option>
+                                        <option value="2">Abbott Laboratories</option>
+                                        <option value="3">Ciron Drugs & Pharmaceuticals Pvt. Ltd.</option>
+                                        <option value="4">Dow Pharma</option>
+                                        <option value="5">Eurocaps Soft Gels</option>
+                                        <option value="6">Glaxo Smithkline</option>
+                                        <option value="7">Kinetek Pharmaceuticals Inc.</option>
+                                        <option value="8">Moraceae Laboratories Pvt Ltd.</option>
+                                        <option value="9">Sigma Pharmaceuticals Ptd Ltd</option>
+                                        <option value="0">Yamanouchi Pharma Technologies</option>
+                                        <option value="10">...add new financial entity</option>
+                                    </select>
+                                </td>
+                                <td class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                </td>
+                            </tr>
+                        </table>
                         </div>
                         
                     </td>
-                    <td style="vertical-align:top;" nowrap><div align="center"><a href="#"><img src="../images/tinybutton-details.gif" alt="add" width=47 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                    <td style="vertical-align:top; width:100px;" nowrap>
+                        <input type="radio" name="q3" class="nobord Cq3" value="0" /> yes
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="q3" class="nobord Cq3" value="1" checked="checked" /> no
+                        
+                        <script type="text/javascript">
+							$(document).ready(function(){
+								// initial state
+									Fq3();
+								// trigger
+									$(".Cq3").click(
+										function()
+										{
+											Fq3();
+										}
+									);	
+								// function
+									function Fq3()
+									{
+										if ( document.thisform.q3[0].checked == true )
+										{
+											$("#Tq3").slideDown(400);
+										}
+										else
+										{
+											$("#Tq3").slideUp(200);
+										}
+
+									}
+							});
+						</script>
+                        
+                    </td>
+                </tr>
+                
+                <!-- Question 4 -->
+                <tr>
+                    <th style="vertical-align:top;"><div align="center"><span class="copybold">4</span></div></th>
+                    <td style="vertical-align:top;" colspan="2">
+                        Do you have rights to a pending application or issued patent to an invention(s), license rights, or copyright for software that has a direct relationship to the project?
+                        <a href="">(...more)</a>
+                        
+                        <div id="Tq4">
+                        <table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
+                            <tr>
+                                <td class="infoline" style="font-weight:bold; width:45px;">
+                                    Add:
+                                </td>
+                                <td class="infoline" style="text-align:center;">
+                                    <select name="CustomData" id="CustomData" style="width:98%;">
+                                        <option value="0" selected>select</option>
+                                        <option value="1">3M Pharmaceuticals Division</option>
+                                        <option value="2">Abbott Laboratories</option>
+                                        <option value="3">Ciron Drugs & Pharmaceuticals Pvt. Ltd.</option>
+                                        <option value="4">Dow Pharma</option>
+                                        <option value="5">Eurocaps Soft Gels</option>
+                                        <option value="6">Glaxo Smithkline</option>
+                                        <option value="7">Kinetek Pharmaceuticals Inc.</option>
+                                        <option value="8">Moraceae Laboratories Pvt Ltd.</option>
+                                        <option value="9">Sigma Pharmaceuticals Ptd Ltd</option>
+                                        <option value="0">Yamanouchi Pharma Technologies</option>
+                                        <option value="10">...add new financial entity</option>
+                                    </select>
+                                </td>
+                                <td class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        </div>
+                        
+                    </td>
+                    <td style="vertical-align:top; width:100px;" nowrap>
+                        <input type="radio" name="q4" class="nobord Cq4" value="0" /> yes
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="q4" class="nobord Cq4" value="1" checked="checked" /> no
+                        
+                        <script type="text/javascript">
+							$(document).ready(function(){
+								// initial state
+									Fq4();
+								// trigger
+									$(".Cq4").click(
+										function()
+										{
+											Fq4();
+										}
+									);	
+								// function
+									function Fq4()
+									{
+										if ( document.thisform.q4[0].checked == true )
+										{
+											$("#Tq4").slideDown(400);
+										}
+										else
+										{
+											$("#Tq4").slideUp(200);
+										}
+
+									}
+							});
+						</script>
+                        
+                    </td>
                 </tr>
                 
               </tbody>
@@ -790,7 +763,7 @@ $(".na4").slideDown(500)}
               </tr>
               <tr>
                 <td width="50" nowrap class="tab-subhead1"><a href="#" id="A11" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F11"></a></td>
-                <td class="tab-subhead1"> L3 Communications</td>
+                <td class="tab-subhead1">Barakat Pharmaceutical Industries s</td>
                 <td class="tab-subhead1">Board of Directors</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
@@ -844,7 +817,7 @@ $(".na4").slideDown(500)}
               </tbody>
               <tr>
                 <td nowrap class="tab-subhead1"><a href="#" id="A12" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F12"></a></td>
-                <td class="tab-subhead1">My Startup Company</td>
+                <td class="tab-subhead1">Berlex Laboratories, Inc. </td>
                 <td class="tab-subhead1">Stockholder</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
@@ -898,7 +871,7 @@ $(".na4").slideDown(500)}
               </tbody>
               <tr>
                 <td nowrap class="tab-subhead1"><a href="#" id="A13" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F13"></a></td>
-                <td class="tab-subhead1">Unlikely Ventures</td>
+                <td class="tab-subhead1">Bristol-Myers Squibb Company </td>
                 <td class="tab-subhead1">Consultant</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
@@ -961,7 +934,7 @@ $(".na4").slideDown(500)}
               </tr>
               <tr>
                 <td width="50" nowrap class="tab-subhead1"><a href="#" id="A11w" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F11w"></a></td>
-                <td class="tab-subhead1"> L5 Communications</td>
+                <td class="tab-subhead1">Glaxo Smithkline</td>
                 <td class="tab-subhead1">Board of Directors</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-activate.gif" alt="add" width=53 height=15 hspace=3 vspace=3 border=0></a></div></td>
@@ -1015,7 +988,7 @@ $(".na4").slideDown(500)}
               </tbody>
               <tr>
                 <td nowrap class="tab-subhead1"><a href="#" id="A12w" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F12w"></a></td>
-                <td class="tab-subhead1">My Other Startup Company</td>
+                <td class="tab-subhead1">Dow Pharma</td>
                 <td class="tab-subhead1">Stockholder</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-activate.gif" alt="add" width=53 height=15 hspace=3 vspace=3 border=0></a></div></td>
@@ -1069,7 +1042,7 @@ $(".na4").slideDown(500)}
               </tbody>
               <tr>
                 <td nowrap class="tab-subhead1"><a href="#" id="A13w" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F13w"></a></td>
-                <td class="tab-subhead1">Very Unlikely Ventures</td>
+                <td class="tab-subhead1">Eurocaps Soft Gels</td>
                 <td class="tab-subhead1">Consultant</td>
                 <td class="tab-subhead1">07/29/2009 03:59 PM crc</td>
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-activate.gif" alt="add" width=53 height=15 hspace=3 vspace=3 border=0></a></div></td>
