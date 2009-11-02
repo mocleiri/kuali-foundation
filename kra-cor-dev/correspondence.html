@@ -25,14 +25,58 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 $(document).ready(function(){
 $("#no1").click(
 function(){
-$(".filename").slideDown(500)
-$(".browse").slideUp(500)}
+$(".filename1").slideDown(500)
+$(".browse1").slideUp(500)}
 )
 $("#yes1").click(
 function(){
-$(".filename").slideUp(500)
-$(".browse").slideDown(500)}
+$(".filename1").slideUp(500)
+$(".browse1").slideDown(500)}
+
 )
+
+
+$("#no2").click(
+function(){
+$(".filename2").slideDown(500)
+$(".browse2").slideUp(500)}
+)
+$("#yes2").click(
+function(){
+$(".filename2").slideUp(500)
+$(".browse2").slideDown(500)}
+
+)
+
+
+$("#no3").click(
+function(){
+$(".filename3").slideDown(500)
+$(".browse3").slideUp(500)}
+)
+$("#yes3").click(
+function(){
+$(".filename3").slideUp(500)
+$(".browse3").slideDown(500)}
+
+)
+
+
+$("#no4").click(
+function(){
+$(".filename4").slideDown(500)
+$(".browse4").slideUp(500)}
+)
+$("#yes4").click(
+function(){
+$(".filename4").slideUp(500)
+$(".browse4").slideDown(500)}
+
+)
+
+
+
+
 })
 </script>
 </head>
@@ -64,7 +108,7 @@ $(".browse").slideDown(500)}
             </tr>
           </table>
           <!-- TAB -->
-          <div class="tab-container" align=center id="G01" style="display: nonee;">
+          <div class="tab-container" align=center id="G01" style="display: none;">
             <div class="h2-container"><span class="subhead-left">
               <h2>Correspondance Templates</h2>
               </span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick=å"MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
@@ -75,7 +119,7 @@ $(".browse").slideDown(500)}
                 <td class="tab-subhead1">Approval Letter</td>
               </tr>
             </table>
-            <div id="G201sd" style="display: nonee; padding-left:56px">
+            <div id="G201sd" style="display: none; padding-left:56px">
               <div align="left"><br>
                 <strong>Default </strong><br>
                 <br>
@@ -87,12 +131,12 @@ $(".browse").slideDown(500)}
                     <th width="25%">Actions</th>
                   </tr>
                   <tr>
-                    <td><div align="center" class="filename">approveletter.xml</div>
-                      <div align="center" class="browse" style="display:none">
+                    <td><div align="center" class="filename1">approveletter.xml</div>
+                      <div align="center" class="browse1" style="display:none">
                         <input type="file" name="fileField" id="fileField" class="nobord">
                       </div></td>
-                    <td align="left" valign="middle" nowrap><div align="center" class="filename"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-replace.gif" alt="delete" width=49 height=15 hspace=3 vspace=3 border=0 id="yes1"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
-                      <div align="center" class="browse" style="display:none"><a href="#" id="no1"><img src="../images/tinybutton-upload.gif" width="46" height="15" alt="upload">  <img src="../images/tinybutton-cancel1.gif" width="40" height="15" alt="cancel"></a></div></td>
+                    <td align="left" valign="middle" nowrap><div align="center" class="filename1"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-replace.gif" alt="delete" width=49 height=15 hspace=3 vspace=3 border=0 id="yes1"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                      <div align="center" class="browse1" style="display:none"><a href="#" id="no1"><img src="../images/tinybutton-upload.gif" width="46" height="15" alt="upload">  <img src="../images/tinybutton-cancel1.gif" width="40" height="15" alt="cancel"></a></div></td>
                
                 </tbody>
               </table>
@@ -112,27 +156,41 @@ $(".browse").slideDown(500)}
                     <th width="5%">add</th>
                     <td align="left" valign="middle" class="infoline">(select) <img src="../images/searchicon.gif" alt="lookup" width="16" height="16" border="0" align="absmiddle"></td>
                     <td align="right" class="infoline"><label>
-                        <input type="file" name="fileField" id="fileField" class="nobord">
-                      </label></td>
+                        <div align="center">
+                          <input type="file" name="fileField" id="fileField" class="nobord">
+                        </div>
+                    </label></td>
                     <td width="25%" align="left" valign="middle" nowrap class="infoline"><div align="center"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></div></td>
                   </tr>
                   <tr>
                     <th>1</th>
                     <td align="left" valign="middle">0002</td>
-                    <td align="right">approveletter.xml</td>
-                    <td width="25%" align="left" valign="middle" nowrap><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-modify.gif" alt="modify" width=47 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <td><div align="center" class="filename2">approveletter123.xml</div>
+                      <div align="center" class="browse2" style="display:none">
+                        <input type="file" name="fileField" id="fileField" class="nobord">
+                      </div></td>
+                    <td align="left" valign="middle" nowrap><div align="center" class="filename2"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-replace.gif" alt="delete" width=49 height=15 hspace=3 vspace=3 border=0 id="yes2"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                      <div align="center" class="browse2" style="display:none"><a href="#" id="no2"><img src="../images/tinybutton-upload.gif" width="46" height="15" alt="upload">  <img src="../images/tinybutton-cancel1.gif" width="40" height="15" alt="cancel"></a></div></td>
                   </tr>
                   <tr>
                     <th>2</th>
                     <td align="left" valign="middle">CMK</td>
-                    <td align="right">approveletter2.xml</td>
-                    <td width="25%" align="left" valign="middle" nowrap><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-modify.gif" alt="modify" width=47 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <td><div align="center" class="filename3">approveletter234.xml</div>
+                      <div align="center" class="browse3" style="display:none">
+                        <input type="file" name="fileField" id="fileField" class="nobord">
+                      </div></td>
+                    <td align="left" valign="middle" nowrap><div align="center" class="filename3"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-replace.gif" alt="delete" width=49 height=15 hspace=3 vspace=3 border=0 id="yes3"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                      <div align="center" class="browse3" style="display:none"><a href="#" id="no3"><img src="../images/tinybutton-upload.gif" width="46" height="15" alt="upload">  <img src="../images/tinybutton-cancel1.gif" width="40" height="15" alt="cancel"></a></div></td>
                   </tr>
                   <tr>
                     <th>3</th>
                     <td align="left" valign="middle">Test Committtee</td>
-                    <td align="right">approveletter002.xml</td>
-                    <td width="25%" align="left" valign="middle" nowrap><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-modify.gif" alt="modify" width=47 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                        <td><div align="center" class="filename4">approveletter345.xml</div>
+                      <div align="center" class="browse4" style="display:none">
+                        <input type="file" name="fileField" id="fileField" class="nobord">
+                      </div></td>
+                    <td align="left" valign="middle" nowrap><div align="center" class="filename4"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-replace.gif" alt="delete" width=49 height=15 hspace=3 vspace=3 border=0 id="yes4"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                      <div align="center" class="browse4" style="display:none"><a href="#" id="no4"><img src="../images/tinybutton-upload.gif" width="46" height="15" alt="upload">  <img src="../images/tinybutton-cancel1.gif" width="40" height="15" alt="cancel"></a></div></td>
                   </tr>
                 </tbody>
               </table>
