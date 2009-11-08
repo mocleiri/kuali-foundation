@@ -23,7 +23,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <script type="text/javascript" src="../scripts/jquery.js"></script>
 </head>
 <body>
+
 <form name="thisform"  method="post" action="">
+
 <div class="headerarea-kra" id="headerarea">
   <h1>COI - Internal Disclosure Types <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
   <div class="headerbox">
@@ -49,6 +51,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     </table>
   </div>
 </div>
+
 <!--TABBED TOP NAVIGATION-->
 <div class="horz-links-bkgrnd" id="horz-links">
   <div id="tabs">
@@ -56,6 +59,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       <dt class="licurrent"> <span class="tabright tabcurrent">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosuretypes.html');return document.MM_returnValue" value="Internal Disclosure Types">
         </span> </dt>
+        <dt><span class="tabright ">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-questionsets.html');return document.MM_returnValue" value="Screening Question Sets">
+        </span></dt>
     </dl>
   </div>
 </div>
@@ -78,12 +84,37 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <td class="column-left">&nbsp;</td>
         <td>
     
-            <div id="workarea" align="center">
+     		<!-- Control Bubble -->
+            <table width="100%" cellpadding="0"  cellspacing="0" class="annotate-top" summary="">
+                <tr>
+                    <td class="annotate-t"><img src="../images/annotate-tl1.gif" alt="" width=12 height=24 align="absmiddle" class="annotate-t">Select Internal Disclosure Type:</td>
+                    <td class="annotate-t"><div align="right"><img src="../images/annotate-tr1.gif" alt="" width=12 height=24 align="absmiddle"></div></td>
+                </tr>
+            </table>
+            <div class="annotate-container">
+                Internal Disclosure Type:
+                <select id="period" >
+                    <option>select</option>
+                    <option selected>Proposal Disclosure</option>
+                    <option>Some Other Disclosure</option>
+                    <option>Yet Another Other Disclosure</option>
+                </select>
+                &nbsp;<img src="../images/tinybutton-updateview.gif" alt="update view" width="71" height="15" align="top">
+            </div>
+            <table width="100%" cellpadding="0"  cellspacing="0" class="annotate-top" summary="">
+                <tr>
+                    <td class="annotate-b"><img src="../images/annotate-bl1.gif" alt="" width=12 height=24></td>
+                    <td class="annotate-b"><div align="right"><img src="../images/annotate-br1.gif" alt="" width=12 height=24></div></td>
+                </tr>
+            </table>
+            <br />
             
+    
+            <div id="workarea" align="center">
                 <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
                     <tr>
                     <td class="tabtable1-left">
-                        <img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Internal Disclosure Types
+                        <img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Proposal Disclosure
                     </td>
                     <td class="tabtable1-mid">
                         <span class="tabtable2-mid">
@@ -100,7 +131,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 
                 <div class="tab-container" align="center" id="G013" style="display:block;">
                     <div class="h2-container">
-                        <h2>Internal Disclosure Types</h2>
+                        <h2>Internal Disclosure Type</h2>
                     </div>
                     
                     <!-- Internal Disclosure Types -->
@@ -110,7 +141,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 Internal Disclosure Name:
                             </th>
                             <td colspan="3">
-                                <input type="text" name="input01" value="" style="width:98%;" />
+                                
+                                
+                                <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <input type="text" name="input01" value="Proposal Disclosure" style="width:98%;" />
+                                        </td>
+                                        <td style="border:none; width:75px; vertical-align:bottom; text-align:center; background:none;">
+                                            <input src="../images/tinybutton-deactivate.gif" onclick="javascript: alert('This would deactivate this disclosure type.'); return false" style="border:none;" alt="deactivate" title="Deactivate" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                
                             </td>
                         </tr>
                         <tr>
@@ -194,36 +238,26 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             <td colspan="4" style="background-color:#939393; color:#FFF; font-weight:bold; text-align:left; height:20px;">
                                 Screening Questions
                             </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align:right; width:220px; font-weight:bold;" class="infoline">
-                                Create Screening Question Set:
-                            </td>
-                            <td colspan="2" class="infoline">
-                                <input type="text" style="width:98%;" value="" />
-                            </td>
-                            <td class="infoline" style="width:70px; text-align:center;">
-                                <input src="../images/tinybutton-create.gif" onclick="javascript: alert('This would add the new question set.'); return false" style="border:none;" alt="create" title="Create" type="image" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:right;">
+                        </tr><tr>
+                            <th style="text-align:right; width:205px;">
                                 Select Screening Question Set:
                             </th>
                             <td colspan="3">
                                 
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border:none;">
-                                             <select id="dd05" style="width:100%;">
-                                                <option value="0" selected="selected">select</option>
-                                                <option value="1">Questions about fish</option>
-                                                <option value="2">Deeply personal questions designed to make you uncomfortable</option>
-                                                <option value="3">Questions that have no real answers</option>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <select id="dd05" style="width:99%;">
+                                                <option value="0">select</option>
+                                                <option value="1">new</option>
+                                                <option value="2">Questions about fish</option>
+                                                <option value="3">Deeply personal questions designed to make you uncomfortable</option>
+                                                <option value="4">Questions that have no real answers</option>
+                                                <option value="4" selected>My Questions About Something</option>
                                             </select>
                                         </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
-                                            <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                        <td style="border:none; width:75px; vertical-align:top; background:none; text-align:center;">
+                                            <input src="../images/tinybutton-select.gif" onclick="javascript: alert('This would associate the selected question set with this disclosure type and display the set's questions below.'); return false" style="border:none;" alt="select" title="Select" type="image" />
                                         </td>
                                     </tr>
                                 </table>
@@ -231,60 +265,36 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             </td>
                         </tr>
                         <tr>
-                            <td rowspan="4" style="text-align:right; font-weight:bold;" class="infoline">
-                                Create Question for Set:
-                            </td>
-                            <td style="text-align:right; font-weight:bold; width:95px;" class="infoline">
-                                Question:
-                            </td>
-                            <td class="infoline">
-                                <input type="text" style="width:98%;" value="" />
-                            </td>
-                            <td rowspan="4" class="infoline" style="width:70px; text-align:center;">
-                                <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the new question to the selected set.'); return false" style="border:none;" alt="add" title="Add" type="image" />
-                            </td>
-                        </tr>
                         <tr>
-                            <td style="text-align:right; font-weight:bold;" class="infoline">
-                                Regulation:
-                            </td>
-                            <td class="infoline">
-                                <input type="text" style="width:98%;" value="" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align:right; font-weight:bold;" class="infoline">
-                                Explaination:
-                            </td>
-                            <td class="infoline">
-                                <input type="text" style="width:98%;" value="" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align:right; font-weight:bold;" class="infoline">
-                                Policy:
-                            </td>
-                            <td class="infoline">
-                                <input type="text" style="width:98%;" value="" />
+                            <th style="text-align:right;">
+                                1:
+                            </th>
+                            <td colspan="3">
+                                Do you hold a position (such as board member, scientific advisor, director, officer, partner, trustee or employee) with any single business entity that could reasonably appear to benefit by the proposed research?
                             </td>
                         </tr>
                         <tr>
                             <th style="text-align:right;">
-                                Add Question to Set:
+                                2:
                             </th>
                             <td colspan="3">
-                                
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none;">
-                                             <input type="text" value="" style="width:100%;" />
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
-                                            <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
+                                Do you have an equity interest (such as stock, stock options, real estate, investment or other ownership) with any single business entity that could reasonably appear to benefit by the proposed research?
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">
+                                3:
+                            </th>
+                            <td colspan="3">
+                                Do you receive income (such as consulting fees, honoraria, travel reimbursement, or other income) from any single business entity that could reasonably appear to benefit by the proposed research?
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right;">
+                                4:
+                            </th>
+                            <td colspan="3">
+                                Do you have rights to a pending application or issued patent to an invention(s), license rights, or copyright for software that has a direct relationship to the project?
                             </td>
                         </tr>
                     </table>
@@ -335,14 +345,30 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td style="text-align:right; font-weight:bold; width:125px;" class="infoline">
-                                    Add Person:
+                                    Add:
                                 </td>
                                 <td colspan="2" style="text-align:center;" class="infoline">
                                     
                                     <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
                                         <tr>
+                                            <td style="border:none; background:none; text-align:right; width:48px;">
+                                                <span class="fineprint">Type:</span>
+                                            </td>
+                                            <td style="border:none; background:none; text-align:right;">
+                                                <select style="width:99%;">
+                                                    <option value="0" selected="selected">select</option>
+                                                    <option value="1">college</option>
+                                                    <option value="2">department</option>
+                                                    <option value="3">person</option>
+                                                    <option value="4">role</option>
+                                                    <option value="5">unit</option>
+                                                </select>
+                                            </td>
+                                            <td style="border:none; background:none; text-align:right; width:48px;">
+                                                <span class="fineprint">Entity:</span>
+                                            </td>
                                             <td style="border:none; background:none;">
-                                                <input type="text" style="width:100%;" value="" />
+                                                <input type="text" style="width:99%;" value="" />
                                             </td>
                                             <td style="border:none; width:20px; vertical-align:bottom; text-align:center; background:none;">
                                                 <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
@@ -353,50 +379,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                                 <td style="width:70px; text-align:center;" class="infoline">
                                     <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the person to the distribution list.'); return false" style="border:none;" alt="add" title="Add" type="image" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:right; font-weight:bold;" class="infoline">
-                                    Add Role:
-                                </td>
-                                <td colspan="2" style="text-align:center;" class="infoline">
-                                    
-                                    <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td style="border:none; background:none;">
-                                                <input type="text" style="width:100%;" value="" />
-                                            </td>
-                                            <td style="border:none; width:20px; vertical-align:bottom; text-align:center; background:none;">
-                                                <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    
-                                </td>
-                                <td style="text-align:center;" class="infoline">
-                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the role to the distribution list.'); return false" style="border:none;" alt="add" title="Add" type="image" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:right; font-weight:bold;" class="infoline">
-                                    Add Department:
-                                </td>
-                                <td colspan="2" style="text-align:center;" class="infoline">
-                                    
-                                    <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td style="border:none; background:none;">
-                                                <input type="text" style="width:100%;" value="" />
-                                            </td>
-                                            <td style="border:none; width:20px; vertical-align:bottom; text-align:center; background:none;">
-                                                <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    
-                                </td>
-                                <td style="text-align:center;" class="infoline">
-                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the department to the distribution list.'); return false" style="border:none;" alt="add" title="Add" type="image" />
                                 </td>
                             </tr>
                             <tr>
@@ -619,7 +601,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <input src="../images/buttonsmall_cancel.gif" style="border:none;" alt="cancel" title="Cancel" type="image" />
                 <input src="../images/buttonsmall_deploy.gif" style="border:none;" alt="deploy" title="Deploy" type="image" />
                 <input src="../images/buttonsmall_printpreview.gif" style="border:none;" alt="print preview" title="Print Preview" type="image" />
-                <input src="../images/buttonsmall_deactivate.gif" style="border:none;" alt="deactivate" title="Deactivate" type="image" />
             </div>
 
         </td>
