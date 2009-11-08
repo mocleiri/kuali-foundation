@@ -136,93 +136,260 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         <h2>Screening Question Set</h2>
                     </div>
                     
-                    <!-- Screening Questions -->
-                    <!--<table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
+                    <!-- Screening Question Set -->
+                    <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
                        <tr>
-                            <td style="text-align:right; width:220px; font-weight:bold;" class="infoline">
-                                Create Screening Question Set:
+                            <td style="text-align:right; width:100px; font-weight:bold;" class="infoline">
+                                Set Name:
                             </td>
-                            <td colspan="2" class="infoline">
-                                <input type="text" style="width:98%;" value="" />
-                            </td>
-                            <td class="infoline" style="width:70px; text-align:center;">
-                                <input src="../images/tinybutton-create.gif" onclick="javascript: alert('This would add the new question set.'); return false" style="border:none;" alt="create" title="Create" type="image" />
+                            <td class="infoline">
+                                <input type="text" style="width:98%;" value="My Questions About Something" />
                             </td>
                         </tr>
+                    </table>
+                    
+                    <!-- Screening Question -->
+                    <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
                         <tr>
-                            <th style="text-align:right;">
-                                Select Screening Question Set:
+                            <td colspan="4" style="background-color:#939393; color:#FFF; font-weight:bold; text-align:left; height:20px;">
+                                Screening Questions
+                            </td>
+                        </tr>
+                        
+                        <!-- Add Screening Question -->
+                        <tr>
+                            <th style="width:50px; text-align:right; font-weight:bold;" class="infoline">
+                                Add:
                             </th>
-                            <td colspan="3">
-                             <select id="dd05" style="width:99%;">
-                                <option value="0" selected="selected">select</option>
-                                <option value="1">Questions about fish</option>
-                                <option value="2">Deeply personal questions designed to make you uncomfortable</option>
-                                <option value="3">Questions that have no real answers</option>
-                            	</select> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td rowspan="4" style="text-align:right; font-weight:bold;" class="infoline">
-                                Create Question for Set:
-                            </td>
-                            <td style="text-align:right; font-weight:bold; width:95px;" class="infoline">
-                                Question:
-                            </td>
-                            <td class="infoline">
-                                <input type="text" style="width:98%;" value="" />
-                            </td>
-                            <td rowspan="4" class="infoline" style="width:70px; text-align:center;">
-                                <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the new question to the selected set.'); return false" style="border:none;" alt="add" title="Add" type="image" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align:right; font-weight:bold;" class="infoline">
-                                Regulation:
-                            </td>
-                            <td class="infoline">
-                                <input type="text" style="width:98%;" value="" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align:right; font-weight:bold;" class="infoline">
-                                Explaination:
-                            </td>
-                            <td class="infoline">
-                                <input type="text" style="width:98%;" value="" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align:right; font-weight:bold;" class="infoline">
-                                Policy:
-                            </td>
-                            <td class="infoline">
-                                <input type="text" style="width:98%;" value="" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:right;">
-                                Add Question to Set:
-                            </th>
-                            <td colspan="3">
+                            <th class="infoline" style="padding:10px;">
                                 
-                                <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <table style="border-top:1px solid #939393; border-right:1px solid #939393; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border:none;">
-                                             <input type="text" value="" style="width:100%;" />
+                                        <th style="width:70px; text-align:right; font-weight:bold;" class="infoline">
+                                            Question:
+                                        </th>
+                                        <td style="" class="infoline">
+                                            <textarea style="width:98%;" rows="1"></textarea>
                                         </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
-                                            <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                        <td style="width:70px; text-align:center;" rowspan="4" class="infoline">
+                                            <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the new question to the currently selected set.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;" class="infoline">
+                                            Regulation:
+                                        </th>
+                                        <td style="" class="infoline">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;" class="infoline">
+                                            Explaination:
+                                        </th>
+                                        <td style="" class="infoline">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;" class="infoline">
+                                            Policy:
+                                        </th>
+                                        <td style="" class="infoline">
+                                            <textarea style="width:98%;" rows="1"></textarea>
                                         </td>
                                     </tr>
                                 </table>
                                 
-                            </td>
+                            </th>
                         </tr>
-                    </table>-->
-                    
-                    <i>[This is under development.  -BFN]</i>
-                    
+                        
+                        <!-- Screening Questions -->
+                        <tr>
+                            <th style="width:50px; text-align:right; font-weight:bold;">
+                                1:
+                            </th>
+                            <th style="padding:10px;">
+                                
+                                <table style="border-top:1px solid #939393; border-right:1px solid #939393; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Question:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1">Do you hold a position (such as board member, scientific advisor, director, officer, partner, trustee or employee) with any single business entity that could reasonably appear to benefit by the proposed research?</textarea>
+                                        </td>
+                                        <td style="width:70px; text-align:center;" rowspan="4">
+                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove this question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Regulation:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Explaination:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Policy:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="width:50px; text-align:right; font-weight:bold;">
+                                2:
+                            </th>
+                            <th style="padding:10px;">
+                                
+                                <table style="border-top:1px solid #939393; border-right:1px solid #939393; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Question:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1">Do you have an equity interest (such as stock, stock options, real estate, investment or other ownership) with any single business entity that could reasonably appear to benefit by the proposed research?</textarea>
+                                        </td>
+                                        <td style="width:70px; text-align:center;" rowspan="4">
+                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove this question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Regulation:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Explaination:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Policy:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="width:50px; text-align:right; font-weight:bold;">
+                                3:
+                            </th>
+                            <th style="padding:10px;">
+                                
+                                <table style="border-top:1px solid #939393; border-right:1px solid #939393; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Question:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1">Do you receive income (such as consulting fees, honoraria, travel reimbursement, or other income) from any single business entity that could reasonably appear to benefit by the proposed research?</textarea>
+                                        </td>
+                                        <td style="width:70px; text-align:center;" rowspan="4">
+                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove this question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Regulation:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Explaination:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Policy:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="width:50px; text-align:right; font-weight:bold;">
+                                4:
+                            </th>
+                            <th style="padding:10px;">
+                                
+                                <table style="border-top:1px solid #939393; border-right:1px solid #939393; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Question:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1">Do you have rights to a pending application or issued patent to an invention(s), license rights, or copyright for software that has a direct relationship to the project?</textarea>
+                                        </td>
+                                        <td style="width:70px; text-align:center;" rowspan="4">
+                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove this question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Regulation:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Explaination:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                            Policy:
+                                        </th>
+                                        <td style="">
+                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </th>
+                        </tr>
+                    </table>
                 </div>
                 
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="b3" summary="">
@@ -246,8 +413,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <input src="../images/buttonsmall_save.gif" style="border:none;" alt="save" title="Save" type="image" />
                 <input src="../images/buttonsmall_close.gif" style="border:none;" alt="close" title="Close" type="image" />
                 <input src="../images/buttonsmall_cancel.gif" style="border:none;" alt="cancel" title="Cancel" type="image" />
-                <input src="../images/buttonsmall_deploy.gif" style="border:none;" alt="deploy" title="Deploy" type="image" />
-                <input src="../images/buttonsmall_printpreview.gif" style="border:none;" alt="print preview" title="Print Preview" type="image" />
             </div>
 
         </td>
