@@ -9,7 +9,7 @@
 <script language=javascript src="../scripts/my_bm_inc.js"></script>
 <script language=javascript1.2 src="../scripts/my_explorer.js"></script>
 <script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js"></script>
-<script language=JavaScript src="../scripts/CalendarPopup.js"></script>
+<script type="text/javascript" src="../scripts/jquery.js"></script>
 <script language=JavaScript type="text/JavaScript">
 <!--
 function MM_goToURL() { //v3.0
@@ -21,6 +21,58 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 }
 //-->
 </script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#option1").click(
+		function() {
+			$(".red").slideUp(0);
+			$(".green").slideUp(0);
+            $(".blue").slideUp(0);
+			$(".yellow").slideUp(0);
+
+		}
+
+		);
+
+		$("#option2").click(
+		function() {
+			$(".red").slideUp(0);
+			$(".green").slideDown(0);
+            $(".blue").slideUp(0);
+			$(".yellow").slideUp(0);
+	
+		}
+
+		);
+
+		$("#option3").click(
+		function() {
+			$(".red").slideUp(0);
+			$(".green").slideUp(0);
+            $(".blue").slideDown(0);
+			$(".yellow").slideUp(0);
+	
+		}
+
+		);
+
+		$("#option4").click(
+		function() {
+			$(".red").slideUp(0);
+			$(".green").slideUp(0);
+            $(".blue").slideUp(0);
+			$(".yellow").slideDown(0);
+	
+		}
+
+		);
+
+	});
+</script>
+
+
 </head>
 <body>
 <form name="example"  method="post" action="">
@@ -94,13 +146,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </tr>
           </table>
           <!-- TAB -->
-          <div class="tab-container" align=center id="G01" style="display: nonee;">
-            <div class="h2-container"><span class="subhead-left">
-              <h2><span class="tabtable1-left-colspan">Batch</span> Details</h2>
-              </span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick=å"MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-            <!-- Submit for Review -->
-            <!-- Submit for Review  (Alternate Configuration)-->
-            <!-- Withdraw Protocol -->
+          <div class="tab-container" align=center id="G01" style="display: none;">
+         
+            <div class="h2-container">
+              <h2><span class="subhead-left">Batch History</span></h2>
+              <span class="subhead-right"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick=&aring;"MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
               <tbody>
                 <tr>
@@ -110,87 +160,550 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td width="30%" align="left" valign="middle">Test</td>
                 </tr>
                 <tr>
-                  <th  align="right">Run Date:</th>
-                  <td align="left" valign="middle">10/12/2009</td>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                </tr>
-                <tr>
-                  <th  align="right">Start Date:</th>
-                  <td align="left" valign="middle">01/01/2010</td>
-                  <th  align="right">End Date:</th>
-                  <td align="left" valign="middle">06/30/2010</td>
-                </tr>
-                <tr>
-                  <th  align="right">Uder ID:</th>
-                  <td align="left" valign="middle">CMK55</td>
-                  <th  align="right">Time:</th>
-                  <td align="left" valign="middle">11:17</td>
+                  <th  align="right">Batch Type:</th>
+                  <td align="left" valign="middle"><label>
+                      <select name="select" id="select">
+                        <option id="option1">select </option>
+                        <option id="option2">Protocol Renewal Reminders</option>
+                        <option id="option3">Reminder to IRB Notifications </option>
+                      </select>
+                      <br>
+                  </label></td>
+                  <th  align="right">Batch Run </th>
+                  <td align="left" valign="middle">from
+                    <label>
+                      <input name="textfield" type="text" id="textfield" size="10">
+                      <img src="../images/cal.gif" alt="calendar" width="16" height="16"> to
+                      <input name="textfield" type="text" id="textfield" size="10">
+                      <img src="../images/cal.gif" alt="calendar" width="16" height="16"></label></td>
                 </tr>
               </tbody>
             </table>
             <br>
+          
+          
+          
+          
+          
+          
+          
+          
+          <div  class="green" style="display:none">
+          
+          
+          
+          
+          
             <div class="h2-container">
-              <h2>Title?</h2>
-            </div>
-            <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
-              <tbody>
-                <tr>
-                  <th  align="right">&nbsp;</th>
-                  <th valign="middle">Protocol Number</th>
-                  <th>Title</th>
-                  <th valign="middle">Approval Date</th>
-                  <th valign="middle">Expiration </th>
-                  <th valign="middle">Description</th>
-                  <th valign="middle">Actions</th>
-                </tr>
-                <tr>
-                  <th >1</th>
-                  <td>0903000275</td>
-                  <td>My Title</td>
-                  <td><div align="center">10/12/2009</div></td>
-                  <td><div align="center">06/30/2010</div></td>
-                  <td>Renewal Reminder Letter</td>
-                  <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
-                </tr>
-                <tr>
-                  <th >2</th>
-                  <td>0903000465</td>
-                  <td>My Other Title</td>
-                  <td><div align="center">10/12/2009</div></td>
-                  <td><div align="center">06/30/2010</div></td>
-                  <td>Renewal Reminder Letter</td>
-                  <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
-                </tr>
-                <tr>
-                  <th >3</th>
-                  <td>0903000345</td>
-                  <td>My Title with a Different Name </td>
-                  <td><div align="center">10/12/2009</div></td>
-                  <td><div align="center">06/30/2010</div></td>
-                  <td>Renewal Reminder Letter</td>
-                  <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
-                </tr>
-                <tr>
-                  <th >4</th>
-                  <td>0903000886</td>
-                  <td>My Title with a Really Long Different Name </td>
-                  <td><div align="center">10/12/2009</div></td>
-                  <td><div align="center">06/30/2010</div></td>
-                  <td>Renewal Reminder Letter</td>
-                  <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
-                </tr>
-                <tr>
-                  <th >5</th>
-                  <td>0903000453</td>
-                  <td>My Title</td>
-                  <td><div align="center">10/12/2009</div></td>
-                  <td><div align="center">06/30/2010</div></td>
-                  <td>Renewal Reminder Letter</td>
-                  <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
-                </tr>
-              </tbody>
+              <h2><span class="subhead-left">Batch Type:  Protocol Renewal Reminders</span></h2>
+              <span class="subhead-right"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick=&aring;"MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A202e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F202e"></a></td>
+                <td class="tab-subhead1">ID: 0000004938</td>
+              </tr>
             </table>
+            <div id="G202e" style="display: none; padding-left:56px">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%"  align="right">Committee ID:</th>
+                    <td width="30%" align="left" valign="middle">Test</td>
+                    <th width="20%"  align="right">Committee Name:</th>
+                    <td width="30%" align="left" valign="middle">Test</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Run Date:</th>
+                    <td align="left" valign="middle">10/12/2009</td>
+                    <th  align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Start Date:</th>
+                    <td align="left" valign="middle">01/01/2010</td>
+                    <th  align="right">End Date:</th>
+                    <td align="left" valign="middle">06/30/2010</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Uder ID:</th>
+                    <td align="left" valign="middle">CMK55</td>
+                    <th  align="right">Time:</th>
+                    <td align="left" valign="middle">11:17</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th  align="right">&nbsp;</th>
+                    <th valign="middle">Protocol Number</th>
+                    <th>Title</th>
+                    <th valign="middle">Approval Date</th>
+                    <th valign="middle">Expiration </th>
+                    <th valign="middle">Description</th>
+                    <th valign="middle">Actions</th>
+                  </tr>
+                  <tr>
+                    <th >1</th>
+                    <td>0903000275</td>
+                    <td>My Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >2</th>
+                    <td>0903000465</td>
+                    <td>My Other Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >3</th>
+                    <td>0903000345</td>
+                    <td>My Title with a Different Name </td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >4</th>
+                    <td>0903000886</td>
+                    <td>My Title with a Really Long Different Name </td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >5</th>
+                    <td>0903000453</td>
+                    <td>My Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A202x" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F202x"></a></td>
+                <td class="tab-subhead1">ID: 0000004940</td>
+              </tr>
+            </table>
+            <div id="G202x" style="display: none; padding-left:56px">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%"  align="right">Committee ID:</th>
+                    <td width="30%" align="left" valign="middle">Test</td>
+                    <th width="20%"  align="right">Committee Name:</th>
+                    <td width="30%" align="left" valign="middle">Test</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Run Date:</th>
+                    <td align="left" valign="middle">10/12/2009</td>
+                    <th  align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Start Date:</th>
+                    <td align="left" valign="middle">01/01/2010</td>
+                    <th  align="right">End Date:</th>
+                    <td align="left" valign="middle">06/30/2010</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Uder ID:</th>
+                    <td align="left" valign="middle">CMK55</td>
+                    <th  align="right">Time:</th>
+                    <td align="left" valign="middle">11:17</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th  align="right">&nbsp;</th>
+                    <th valign="middle">Protocol Number</th>
+                    <th>Title</th>
+                    <th valign="middle">Approval Date</th>
+                    <th valign="middle">Expiration </th>
+                    <th valign="middle">Description</th>
+                    <th valign="middle">Actions</th>
+                  </tr>
+                  <tr>
+                    <th >1</th>
+                    <td>0903000275</td>
+                    <td>My Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >2</th>
+                    <td>0903000465</td>
+                    <td>My Other Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >3</th>
+                    <td>0903000345</td>
+                    <td>My Title with a Different Name </td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >4</th>
+                    <td>0903000886</td>
+                    <td>My Title with a Really Long Different Name </td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >5</th>
+                    <td>0903000453</td>
+                    <td>My Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+            
+            
+            
+            
+            
+            
+      
+            
+            
+            
+            
+            
+            
+            
+            <div  class="blue" style="display:none" >
+          
+          
+          
+          
+          
+            <div class="h2-container">
+              <h2><span class="subhead-left">Batch Type:  Reminder to IRB Notifications</span></h2>
+              <span class="subhead-right"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick=&aring;"MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201e"></a></td>
+                <td class="tab-subhead1">ID: 0000004938</td>
+              </tr>
+            </table>
+            <div id="G201e" style="display: none; padding-left:56px">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%"  align="right">Committee ID:</th>
+                    <td width="30%" align="left" valign="middle">Test</td>
+                    <th width="20%"  align="right">Committee Name:</th>
+                    <td width="30%" align="left" valign="middle">Test</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Run Date:</th>
+                    <td align="left" valign="middle">10/12/2009</td>
+                    <th  align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Start Date:</th>
+                    <td align="left" valign="middle">01/01/2010</td>
+                    <th  align="right">End Date:</th>
+                    <td align="left" valign="middle">06/30/2010</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Uder ID:</th>
+                    <td align="left" valign="middle">CMK55</td>
+                    <th  align="right">Time:</th>
+                    <td align="left" valign="middle">11:17</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th  align="right">&nbsp;</th>
+                    <th valign="middle">Protocol Number</th>
+                    <th>Title</th>
+                    <th valign="middle">Approval Date</th>
+                    <th valign="middle">Expiration </th>
+                    <th valign="middle">Description</th>
+                    <th valign="middle">Actions</th>
+                  </tr>
+                  <tr>
+                    <th >1</th>
+                    <td>0903000275</td>
+                    <td>My Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >2</th>
+                    <td>0903000465</td>
+                    <td>My Other Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >3</th>
+                    <td>0903000345</td>
+                    <td>My Title with a Different Name </td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >4</th>
+                    <td>0903000886</td>
+                    <td>My Title with a Really Long Different Name </td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >5</th>
+                    <td>0903000453</td>
+                    <td>My Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201x" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201x"></a></td>
+                <td class="tab-subhead1">ID: 0000004940</td>
+              </tr>
+            </table>
+            <div id="G201x" style="display: none; padding-left:56px">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%"  align="right">Committee ID:</th>
+                    <td width="30%" align="left" valign="middle">Test</td>
+                    <th width="20%"  align="right">Committee Name:</th>
+                    <td width="30%" align="left" valign="middle">Test</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Run Date:</th>
+                    <td align="left" valign="middle">10/12/2009</td>
+                    <th  align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Start Date:</th>
+                    <td align="left" valign="middle">01/01/2010</td>
+                    <th  align="right">End Date:</th>
+                    <td align="left" valign="middle">06/30/2010</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Uder ID:</th>
+                    <td align="left" valign="middle">CMK55</td>
+                    <th  align="right">Time:</th>
+                    <td align="left" valign="middle">11:17</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th  align="right">&nbsp;</th>
+                    <th valign="middle">Protocol Number</th>
+                    <th>Title</th>
+                    <th valign="middle">Approval Date</th>
+                    <th valign="middle">Expiration </th>
+                    <th valign="middle">Description</th>
+                    <th valign="middle">Actions</th>
+                  </tr>
+                  <tr>
+                    <th >1</th>
+                    <td>0903000275</td>
+                    <td>My Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >2</th>
+                    <td>0903000465</td>
+                    <td>My Other Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >3</th>
+                    <td>0903000345</td>
+                    <td>My Title with a Different Name </td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >4</th>
+                    <td>0903000886</td>
+                    <td>My Title with a Really Long Different Name </td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >5</th>
+                    <td>0903000453</td>
+                    <td>My Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201n" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201n"></a></td>
+                <td class="tab-subhead1">ID: 0000004947</td>
+              </tr>
+            </table>
+            <div id="G201n" style="display: none; padding-left:56px">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%"  align="right">Committee ID:</th>
+                    <td width="30%" align="left" valign="middle">Test</td>
+                    <th width="20%"  align="right">Committee Name:</th>
+                    <td width="30%" align="left" valign="middle">Test</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Run Date:</th>
+                    <td align="left" valign="middle">10/12/2009</td>
+                    <th  align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Start Date:</th>
+                    <td align="left" valign="middle">01/01/2010</td>
+                    <th  align="right">End Date:</th>
+                    <td align="left" valign="middle">06/30/2010</td>
+                  </tr>
+                  <tr>
+                    <th  align="right">Uder ID:</th>
+                    <td align="left" valign="middle">CMK55</td>
+                    <th  align="right">Time:</th>
+                    <td align="left" valign="middle">11:17</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th  align="right">&nbsp;</th>
+                    <th valign="middle">Protocol Number</th>
+                    <th>Title</th>
+                    <th valign="middle">Approval Date</th>
+                    <th valign="middle">Expiration </th>
+                    <th valign="middle">Description</th>
+                    <th valign="middle">Actions</th>
+                  </tr>
+                  <tr>
+                    <th >1</th>
+                    <td>0903000275</td>
+                    <td>My Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >2</th>
+                    <td>0903000465</td>
+                    <td>My Other Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >3</th>
+                    <td>0903000345</td>
+                    <td>My Title with a Different Name </td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >4</th>
+                    <td>0903000886</td>
+                    <td>My Title with a Really Long Different Name </td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                  <tr>
+                    <th >5</th>
+                    <td>0903000453</td>
+                    <td>My Title</td>
+                    <td><div align="center">10/12/2009</div></td>
+                    <td><div align="center">06/30/2010</div></td>
+                    <td>Renewal Reminder Letter</td>
+                    <td><div align="center"><a href="irb-meeting.html"><img src="../images/tinybutton-view.gif" alt="maintain" width="40" height="15" title="Maintain" /></a></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            
+            </div>
+            
+            
+            
+            
+            
+            
+            <!-- Submit for Review -->
+            <!-- Submit for Review  (Alternate Configuration)-->
+            <!-- Withdraw Protocol -->
+            <br>
             <!-- Data Analysis Only  -->
           </div>
           <table width="100%" cellpAdding=0 cellspacing=0 class="tab" summary="">
