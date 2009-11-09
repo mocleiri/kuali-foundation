@@ -92,8 +92,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <th scope=row><div align=right>Last Updated:</div></th>
         <td>10:06 AM 03/30/2005</td>
       </tr>
-      <tr>
-        <th class="bord-l" scope=row><div align=right>Protocol Type:</div></th>
+      <tr> <th class="bord-l" scope=row><div align=right>Committee ID:</div></th>
         <td class="datacell-l"></td>
         <th class="bord-l" scope=row><div align=right>Version:</div></th>
         <td class="datacell-l">1</td>
@@ -146,8 +145,43 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </tr>
           </table>
           <!-- TAB -->
-          <div class="tab-container" align=center id="G01" style="display: none;">
+          <div class="tab-container" align=center id="G01" style="display: nonee;">
          
+            <div class="h2-container">
+              <h2><span class="subhead-left"> Generate Batch Correspondance</span></h2>
+              <span class="subhead-right"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick=&aring;"MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <th width="20%"  align="right">Committee ID:</th>
+                  <td width="30%" align="left" valign="middle">Test</td>
+                  <th width="20%"  align="right">Committee Name:</th>
+                  <td width="30%" align="left" valign="middle">Test</td>
+                </tr>
+                <tr>
+                  <th  align="right">Batch Type:</th>
+                  <td align="left" valign="middle"><label>
+                    <select name="select" id="select">
+                      <option id="option7">select </option>
+                      <option id="option8">Protocol Renewal Reminders</option>
+                      <option id="option9">Reminder to IRB Notifications </option>
+                    </select>
+                    <br>
+                  </label></td>
+                  <th  align="right">Batch Run: </th>
+                  <td align="left" valign="middle" nowrap>from
+                    <label>
+                      <input name="textfield" type="text" id="textfield" size="10">
+                      <img src="../images/cal.gif" alt="calendar" width="16" height="16"> to
+                      <input name="textfield" type="text" id="textfield" size="10">
+                      <img src="../images/cal.gif" alt="calendar" width="16" height="16"></label></td>
+                </tr>
+                <tr>
+                  <td colspan="4"  align="right"><div align="center">&lt;submit&gt;</div></td>
+                </tr>
+              </tbody>
+            </table>
+            <p>&nbsp;</p>
             <div class="h2-container">
               <h2><span class="subhead-left">Batch History</span></h2>
               <span class="subhead-right"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick=&aring;"MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
@@ -163,14 +197,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <th  align="right">Batch Type:</th>
                   <td align="left" valign="middle"><label>
                       <select name="select" id="select">
-                        <option id="option1">select </option>
+                      
                         <option id="option2">Protocol Renewal Reminders</option>
                         <option id="option3">Reminder to IRB Notifications </option>
                       </select>
                       <br>
                   </label></td>
-                  <th  align="right">Batch Run </th>
-                  <td align="left" valign="middle">from
+                  <th  align="right">Batch Run: </th>
+                  <td align="left" valign="middle" nowrap>from
                     <label>
                       <input name="textfield" type="text" id="textfield" size="10">
                       <img src="../images/cal.gif" alt="calendar" width="16" height="16"> to
@@ -188,7 +222,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           
           
           
-          <div  class="green" style="display:none">
+          <div  class="green" style="">
           
           
           
@@ -200,35 +234,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
                 <td class="tab-subhead1" style="width:50px;"><a href="#" id="A202e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F202e"></a></td>
-                <td class="tab-subhead1">ID: 0000004938</td>
+                <td class="tab-subhead1">01/01/2010 through 06/30/2010</td>
               </tr>
             </table>
             <div id="G202e" style="display: none; padding-left:56px">
               <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
                 <tbody>
-                  <tr>
-                    <th width="20%"  align="right">Committee ID:</th>
-                    <td width="30%" align="left" valign="middle">Test</td>
-                    <th width="20%"  align="right">Committee Name:</th>
-                    <td width="30%" align="left" valign="middle">Test</td>
-                  </tr>
+                 
                   <tr>
                     <th  align="right">Run Date:</th>
                     <td align="left" valign="middle">10/12/2009</td>
-                    <th  align="right">&nbsp;</th>
-                    <td align="left" valign="middle">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th  align="right">Start Date:</th>
-                    <td align="left" valign="middle">01/01/2010</td>
-                    <th  align="right">End Date:</th>
-                    <td align="left" valign="middle">06/30/2010</td>
-                  </tr>
-                  <tr>
-                    <th  align="right">Uder ID:</th>
-                    <td align="left" valign="middle">CMK55</td>
                     <th  align="right">Time:</th>
                     <td align="left" valign="middle">11:17</td>
+                    </tr>
+                 
+                  <tr> <th  align="right">User ID:</th>
+                    <td align="left" valign="middle">CMK55</td>   <th  align="right">Batch ID:</th>
+                    <td align="left" valign="middle">00004364</td>
                   </tr>
                 </tbody>
               </table>
@@ -294,35 +316,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
                 <td class="tab-subhead1" style="width:50px;"><a href="#" id="A202x" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F202x"></a></td>
-                <td class="tab-subhead1">ID: 0000004940</td>
+                <td class="tab-subhead1">01/01/2010 through 06/30/2010</td>
               </tr>
             </table>
             <div id="G202x" style="display: none; padding-left:56px">
               <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
                 <tbody>
-                  <tr>
-                    <th width="20%"  align="right">Committee ID:</th>
-                    <td width="30%" align="left" valign="middle">Test</td>
-                    <th width="20%"  align="right">Committee Name:</th>
-                    <td width="30%" align="left" valign="middle">Test</td>
-                  </tr>
+                 
                   <tr>
                     <th  align="right">Run Date:</th>
                     <td align="left" valign="middle">10/12/2009</td>
-                    <th  align="right">&nbsp;</th>
-                    <td align="left" valign="middle">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th  align="right">Start Date:</th>
-                    <td align="left" valign="middle">01/01/2010</td>
-                    <th  align="right">End Date:</th>
-                    <td align="left" valign="middle">06/30/2010</td>
-                  </tr>
-                  <tr>
-                    <th  align="right">Uder ID:</th>
-                    <td align="left" valign="middle">CMK55</td>
                     <th  align="right">Time:</th>
                     <td align="left" valign="middle">11:17</td>
+                    </tr>
+                 
+                  <tr> <th  align="right">User ID:</th>
+                    <td align="left" valign="middle">CMK55</td>   <th  align="right">Batch ID:</th>
+                    <td align="left" valign="middle">00004364</td>
                   </tr>
                 </tbody>
               </table>
@@ -412,35 +422,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
                 <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201e"></a></td>
-                <td class="tab-subhead1">ID: 0000004938</td>
+                <td class="tab-subhead1">01/01/2010 through 06/30/2010</td>
               </tr>
             </table>
             <div id="G201e" style="display: none; padding-left:56px">
               <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
                 <tbody>
-                  <tr>
-                    <th width="20%"  align="right">Committee ID:</th>
-                    <td width="30%" align="left" valign="middle">Test</td>
-                    <th width="20%"  align="right">Committee Name:</th>
-                    <td width="30%" align="left" valign="middle">Test</td>
-                  </tr>
+                 
                   <tr>
                     <th  align="right">Run Date:</th>
                     <td align="left" valign="middle">10/12/2009</td>
-                    <th  align="right">&nbsp;</th>
-                    <td align="left" valign="middle">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th  align="right">Start Date:</th>
-                    <td align="left" valign="middle">01/01/2010</td>
-                    <th  align="right">End Date:</th>
-                    <td align="left" valign="middle">06/30/2010</td>
-                  </tr>
-                  <tr>
-                    <th  align="right">Uder ID:</th>
-                    <td align="left" valign="middle">CMK55</td>
                     <th  align="right">Time:</th>
                     <td align="left" valign="middle">11:17</td>
+                    </tr>
+                 
+                  <tr> <th  align="right">User ID:</th>
+                    <td align="left" valign="middle">CMK55</td>   <th  align="right">Batch ID:</th>
+                    <td align="left" valign="middle">00004364</td>
                   </tr>
                 </tbody>
               </table>
@@ -506,35 +504,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
                 <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201x" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201x"></a></td>
-                <td class="tab-subhead1">ID: 0000004940</td>
+                <td class="tab-subhead1">01/01/2010 through 06/30/2010</td>
               </tr>
             </table>
             <div id="G201x" style="display: none; padding-left:56px">
               <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
                 <tbody>
-                  <tr>
-                    <th width="20%"  align="right">Committee ID:</th>
-                    <td width="30%" align="left" valign="middle">Test</td>
-                    <th width="20%"  align="right">Committee Name:</th>
-                    <td width="30%" align="left" valign="middle">Test</td>
-                  </tr>
+                 
                   <tr>
                     <th  align="right">Run Date:</th>
                     <td align="left" valign="middle">10/12/2009</td>
-                    <th  align="right">&nbsp;</th>
-                    <td align="left" valign="middle">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th  align="right">Start Date:</th>
-                    <td align="left" valign="middle">01/01/2010</td>
-                    <th  align="right">End Date:</th>
-                    <td align="left" valign="middle">06/30/2010</td>
-                  </tr>
-                  <tr>
-                    <th  align="right">Uder ID:</th>
-                    <td align="left" valign="middle">CMK55</td>
                     <th  align="right">Time:</th>
                     <td align="left" valign="middle">11:17</td>
+                    </tr>
+                 
+                  <tr> <th  align="right">User ID:</th>
+                    <td align="left" valign="middle">CMK55</td>   <th  align="right">Batch ID:</th>
+                    <td align="left" valign="middle">00004364</td>
                   </tr>
                 </tbody>
               </table>
@@ -600,35 +586,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
                 <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201n" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201n"></a></td>
-                <td class="tab-subhead1">ID: 0000004947</td>
+                <td class="tab-subhead1">01/01/2010 through 06/30/2010</td>
               </tr>
             </table>
             <div id="G201n" style="display: none; padding-left:56px">
               <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
                 <tbody>
-                  <tr>
-                    <th width="20%"  align="right">Committee ID:</th>
-                    <td width="30%" align="left" valign="middle">Test</td>
-                    <th width="20%"  align="right">Committee Name:</th>
-                    <td width="30%" align="left" valign="middle">Test</td>
-                  </tr>
+                 
                   <tr>
                     <th  align="right">Run Date:</th>
                     <td align="left" valign="middle">10/12/2009</td>
-                    <th  align="right">&nbsp;</th>
-                    <td align="left" valign="middle">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th  align="right">Start Date:</th>
-                    <td align="left" valign="middle">01/01/2010</td>
-                    <th  align="right">End Date:</th>
-                    <td align="left" valign="middle">06/30/2010</td>
-                  </tr>
-                  <tr>
-                    <th  align="right">Uder ID:</th>
-                    <td align="left" valign="middle">CMK55</td>
                     <th  align="right">Time:</th>
                     <td align="left" valign="middle">11:17</td>
+                    </tr>
+                 
+                  <tr> <th  align="right">User ID:</th>
+                    <td align="left" valign="middle">CMK55</td>   <th  align="right">Batch ID:</th>
+                    <td align="left" valign="middle">00004364</td>
                   </tr>
                 </tbody>
               </table>
@@ -708,83 +682,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           </div>
           <table width="100%" cellpAdding=0 cellspacing=0 class="tab" summary="">
             <tr>
-              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Action</td>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Generate Correspondance</td>
               <td class="tabtable2-mid"><a id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" vspace=6></a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
             </tr>
           </table>
-          <div class="tab-container" align="center" id="G02" style="display: none;">
-            <div class="h2-container"> <span class="subhead-left">
-              <h2><span class="tabtable1-left-colspan">Action</span></h2>
-              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
-            <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
-              <tbody>
-                <tr>
-                  <th width="20%"  align="right">&nbsp;</th>
-                  <td width="30%" align="left" valign="middle">&nbsp;</td>
-                  <th width="20%"  align="right">&nbsp;</th>
-                  <td width="30%" align="left" valign="middle">&nbsp;</td>
-                </tr>
-                <tr>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                </tr>
-                <tr>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                </tr>
-                <tr>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                </tr>
-              </tbody>
+          <div class="tab-container" align="center" id="G02" style="display: nonee;">
+            <div class="h2-container">
+              <h2><span class="subhead-left">Generate Correspondence</span></h2>
+              <span class="subhead-right"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick=&aring;"MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <table cellpadding=0 cellspacing="0"  summary="">
+              <tr>
+                <th style="width:175px; text-align:right;">Generate Correspondence</th>
+                <td><input src="../images/tinybutton-submit.gif" onclick="javascript: alert('This would cause a PDF file to be created and displayed in a separate browser window.'); return false" style="border:none;" alt="submit" title="Submit" type="image" /></td>
+              </tr>
             </table>
-          </div>
-          <table width="100%" cellpAdding=0 cellspacing=0 class="tab" summary="">
-            <tr>
-              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Action</td>
-              <td class="tabtable2-mid"><a id="A03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F03" vspace=6></a></td>
-              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
-            </tr>
-          </table>
-          <div class="tab-container" align="center" id="G03" style="display: none;">
-            <div class="h2-container"> <span class="subhead-left">
-              <h2><span class="tabtable1-left-colspan">Action</span></h2>
-              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
-            <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
-              <tbody>
-                <tr>
-                  <th width="20%"  align="right">&nbsp;</th>
-                  <td width="30%" align="left" valign="middle">&nbsp;</td>
-                  <th width="20%"  align="right">&nbsp;</th>
-                  <td width="30%" align="left" valign="middle">&nbsp;</td>
-                </tr>
-                <tr>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                </tr>
-                <tr>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                </tr>
-                <tr>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                  <th  align="right">&nbsp;</th>
-                  <td align="left" valign="middle">&nbsp;</td>
-                </tr>
-              </tbody>
-            </table>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
           </div>
           <table width="100%" border="0" cellpAdding="0" cellspacing="0" class="b3" summary="">
             <tr>
