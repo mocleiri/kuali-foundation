@@ -143,7 +143,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 Set Name:
                             </td>
                             <td class="infoline">
-                                <input type="text" style="width:98%;" value="My Questions About Something" />
+                                
+                                <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <input type="text" name="input01" value="My Questions About Something" style="width:98%;" />
+                                        </td>
+                                        <td style="border:none; width:75px; vertical-align:bottom; text-align:center; background:none;">
+                                            <input src="../images/tinybutton-deactivate.gif" onclick="javascript: alert('This would deactivate this Question Set.'); return false" style="border:none;" alt="deactivate" title="Deactivate" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
                             </td>
                         </tr>
                     </table>
@@ -165,38 +176,53 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 
                                 <table style="border-top:1px solid #939393; border-right:1px solid #939393; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;" class="infoline">
+                                        <th style="width:70px; text-align:right; font-weight:bold; vertical-align:top; padding-top:15px;" class="infoline">
                                             Question:
                                         </th>
                                         <td style="" class="infoline">
-                                            <textarea style="width:98%;" rows="1"></textarea>
+                                            <textarea style="width:99%;" rows="2"></textarea>
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Regulation:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        <input type="text" style="width:99%;" value="" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Policy:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        <input type="text" style="width:99%;" value="" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Explaination:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        
+                                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                                                </td>
+                                                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
                                         </td>
-                                        <td style="width:70px; text-align:center;" rowspan="4" class="infoline">
+                                        <td style="width:70px; text-align:center;" class="infoline">
                                             <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the new question to the currently selected set.'); return false" style="border:none;" alt="add" title="Add" type="image" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;" class="infoline">
-                                            Regulation:
-                                        </th>
-                                        <td style="" class="infoline">
-                                            <textarea style="width:98%;" rows="1"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;" class="infoline">
-                                            Explaination:
-                                        </th>
-                                        <td style="" class="infoline">
-                                            <textarea style="width:98%;" rows="1"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;" class="infoline">
-                                            Policy:
-                                        </th>
-                                        <td style="" class="infoline">
-                                            <textarea style="width:98%;" rows="1"></textarea>
                                         </td>
                                     </tr>
                                 </table>
@@ -213,38 +239,53 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 
                                 <table style="border-top:1px solid #939393; border-right:1px solid #939393; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                        <th style="width:70px; text-align:right; font-weight:bold; vertical-align:top; padding-top:15px;" >
                                             Question:
                                         </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1">Do you hold a position (such as board member, scientific advisor, director, officer, partner, trustee or employee) with any single business entity that could reasonably appear to benefit by the proposed research?</textarea>
+                                        <td style="" >
+                                            <textarea style="width:99%;" rows="2">Do you hold a position (such as board member, scientific advisor, director, officer, partner, trustee or employee) with any single business entity that could reasonably appear to benefit by the proposed research?</textarea>
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Regulation:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        <input type="text" style="width:99%;" value="" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Policy:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        <input type="text" style="width:99%;" value="" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Explaination:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        
+                                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                                                </td>
+                                                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
                                         </td>
-                                        <td style="width:70px; text-align:center;" rowspan="4">
-                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove this question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Regulation:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Explaination:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Policy:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        <td style="width:70px; text-align:center;" >
+                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
                                         </td>
                                     </tr>
                                 </table>
@@ -259,38 +300,53 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 
                                 <table style="border-top:1px solid #939393; border-right:1px solid #939393; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                        <th style="width:70px; text-align:right; font-weight:bold; vertical-align:top; padding-top:15px;" >
                                             Question:
                                         </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1">Do you have an equity interest (such as stock, stock options, real estate, investment or other ownership) with any single business entity that could reasonably appear to benefit by the proposed research?</textarea>
+                                        <td style="" >
+                                            <textarea style="width:99%;" rows="2">Do you have an equity interest (such as stock, stock options, real estate, investment or other ownership) with any single business entity that could reasonably appear to benefit by the proposed research?</textarea>
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Regulation:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        <input type="text" style="width:99%;" value="" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Policy:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        <input type="text" style="width:99%;" value="" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Explaination:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        
+                                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                                                </td>
+                                                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
                                         </td>
-                                        <td style="width:70px; text-align:center;" rowspan="4">
-                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove this question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Regulation:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Explaination:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Policy:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        <td style="width:70px; text-align:center;" >
+                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
                                         </td>
                                     </tr>
                                 </table>
@@ -305,38 +361,53 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 
                                 <table style="border-top:1px solid #939393; border-right:1px solid #939393; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                        <th style="width:70px; text-align:right; font-weight:bold; vertical-align:top; padding-top:15px;" >
                                             Question:
                                         </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1">Do you receive income (such as consulting fees, honoraria, travel reimbursement, or other income) from any single business entity that could reasonably appear to benefit by the proposed research?</textarea>
+                                        <td style="" >
+                                            <textarea style="width:99%;" rows="2">Do you receive income (such as consulting fees, honoraria, travel reimbursement, or other income) from any single business entity that could reasonably appear to benefit by the proposed research?</textarea>
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Regulation:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        <input type="text" style="width:99%;" value="" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Policy:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        <input type="text" style="width:99%;" value="" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Explaination:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        
+                                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                                                </td>
+                                                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
                                         </td>
-                                        <td style="width:70px; text-align:center;" rowspan="4">
-                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove this question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Regulation:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Explaination:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Policy:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        <td style="width:70px; text-align:center;" >
+                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
                                         </td>
                                     </tr>
                                 </table>
@@ -351,38 +422,53 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 
                                 <table style="border-top:1px solid #939393; border-right:1px solid #939393; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
+                                        <th style="width:70px; text-align:right; font-weight:bold; vertical-align:top; padding-top:15px;" >
                                             Question:
                                         </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1">Do you have rights to a pending application or issued patent to an invention(s), license rights, or copyright for software that has a direct relationship to the project?</textarea>
+                                        <td style="" >
+                                            <textarea style="width:99%;" rows="2">Do you have rights to a pending application or issued patent to an invention(s), license rights, or copyright for software that has a direct relationship to the project?</textarea>
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Regulation:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        <input type="text" style="width:99%;" value="" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Policy:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        <input type="text" style="width:99%;" value="" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style=" width:70px; border:none; background:none; text-align:right; color:#000;" class="fineprint">
+                                                        Explaination:
+                                                    </td>
+                                                    <td style="border:none; vertical-align:top; background:none;">
+                                                        
+                                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                                                </td>
+                                                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
                                         </td>
-                                        <td style="width:70px; text-align:center;" rowspan="4">
-                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove this question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Regulation:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Explaination:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width:70px; text-align:right; font-weight:bold;">
-                                            Policy:
-                                        </th>
-                                        <td style="">
-                                            <textarea style="width:98%;" rows="1"></textarea>
+                                        <td style="width:70px; text-align:center;" >
+                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the question from the currently selected set.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
                                         </td>
                                     </tr>
                                 </table>
