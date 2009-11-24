@@ -43,7 +43,7 @@ function add_to_message {
 #if find a directory whose name begins with . don't do license processing
 #(e.g. .settings)
 #OR if directory is in ignore.dirs file, don't do license processing
-while [ $Directory != "/" ] && [ ! $First  ]; do
+while [[ $Directory != "/" && !$First ]]; do
     #echo "This is Directory: $Directory"
     #echo "This is First: $First"
   if [[ ${Directory#* } != $Directory ]]; then  #contains space
