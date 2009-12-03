@@ -256,7 +256,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<!-- ================================================================ -->
 
 	<target name="apply-ddl" description="==> inserts the generated sql " depends="inittasks">
-
+		<echo message="torque.schema.dir: ${torque.schema.dir}"/>
 		<apply-ddl-macro torque.schema.dir="${torque.schema.dir}" />
 
 		<if>
@@ -791,12 +791,17 @@ Please place the jar file for this class in the lib directory and try again.
 	</macrodef>
 
 	<target name="satellite-init" depends="inittasks">
-<echo message="data dir exists: ${data.dir.exists}"/>
+		<echo message="data dir exists: ${data.dir.exists}"/>
+		<echo message="torque schema dir: ${torque.schema.dir}"/>
+		<echo message="svn root and svn module: ${svnroot} and ${svn.module}"/>
+		<echo message="import.two.schemas: ${import.two.schemas}"/>
+		<echo message="svn root 2 and svn module 2: ${svnroot.2} and ${svn.module.2}"/>
 		<if>
 			<not>
 				<isset property="data.dir.exists" />
 			</not>
 			<then>
+				
 				<satellite-init-macro torque.schema.dir="${torque.schema.dir}" svnroot="${svnroot}" svn.module="${svn.module}" svn.base="${svn.base}" />
 			</then>
 		</if>
