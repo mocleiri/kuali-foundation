@@ -145,11 +145,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <th><div align="center">
                     <label for="exemption">Exemption #</label>
                   </div></th>
-                <th ><div align="center">Comments</div></th>
                 <th >Actions</th>
               </tr>
               <tr>
-                <th nowrap scope="row">add:</th>
+                <th rowspan="2">add:</th>
                 <td nowrap class="infoline"><div align="center">
                     <select name="specialReviewCode" onchange="dataChanged()" style="width:150px" id="type">
                       <option selected>select</option>
@@ -193,14 +192,29 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       <option>n/a</option>
                     </select>
                   </div></td>
-                <td nowrap class="infoline"><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription"></textarea>
-                    <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea">
-                  </div></td>
-                <td class="infoline"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                <td class="infoline" rowspan="2"><div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
-                <th scope="row"><div align="center">1</div></th>
+              	<th style="text-align:right;">
+                	comment:
+                </th>
+                <td colspan="6" class="infoline">
+                	
+                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="1"></textarea>
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+              </tr>
+              <tr>
+                <th rowspan="2"><div align="center">1</div></th>
                 <td><div align="center">
                     <div align="center">
                       <select name="specialReviewCode2" onchange="dataChanged()" style="width:150px" id="specialReviewCode">
@@ -247,14 +261,29 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       <option selected>n/a</option>
                     </select>
                     </span></div></td>
-                <td nowrap><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription"></textarea>
-                    <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea">
-                  </div></td>
-                <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                <td rowspan="2"><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
-                <th  scope="row"><div align="center">2</div></th>
+              	<th style="text-align:right;">
+                	comment:
+                </th>
+                <td colspan="6">
+                	
+                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="1"></textarea>
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+              </tr>
+              <tr>
+                <th rowspan="2"><div align="center">2</div></th>
                 <td><div align="center">
                     <select name="specialReviewCode3" onchange="dataChanged()" style="width:150px" id="specialReviewCode2">
                       <option>select</option>
@@ -301,14 +330,29 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       <option>n/a</option>
                     </select>
                     </span></div></td>
-                <td nowrap><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription"></textarea>
-                    <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea">
-                  </div></td>
-                <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                <td rowspan="2"><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
-                <th scope="row">3</th>
+              	<th style="text-align:right;">
+                	comment:
+                </th>
+                <td colspan="6">
+                	
+                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="1"></textarea>
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+              </tr>
+              <tr>
+                <th rowspan="2">3</th>
                 <td><div align="center">
                     <select name="specialReviewCode4" onchange="dataChanged()" style="width:150px" id="specialReviewCode3">
                       <option>select</option>
@@ -353,14 +397,29 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       <option selected>n/a</option>
                     </select>
                     </span></div></td>
-                <td nowrap><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription"></textarea>
-                    <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea">
-                  </div></td>
-                <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                <td rowspan="2"><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
-                <th scope="row"><div align="center">4</div></th>
+              	<th style="text-align:right;">
+                	comment:
+                </th>
+                <td colspan="6">
+                	
+                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="1"></textarea>
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+              </tr>
+              <tr>
+                <th rowspan="2"><div align="center">4</div></th>
                 <td><div align="center">
                     <select name="specialReviewCode5" onchange="dataChanged()" style="width:150px" id="specialReviewCode4">
                       <option>select</option>
@@ -405,14 +464,29 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       <option selected>n/a</option>
                     </select>
                     </span></div></td>
-                <td nowrap><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription"></textarea>
-                    <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea">
-                  </div></td>
-                <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                <td rowspan="2"><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tr>
-                <th  scope="row"><div align="center">5</div></th>
+              	<th style="text-align:right;">
+                	comment:
+                </th>
+                <td colspan="6">
+                	
+                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="1"></textarea>
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+              </tr>
+              <tr>
+                <th rowspan="2"><div align="center">5</div></th>
                 <td><div align="center">
                     <select name="specialReviewCode6" onchange="dataChanged()" style="width:150px" id="specialReviewCode5">
                       <option>select</option>
@@ -457,11 +531,26 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                       <option selected>n/a</option>
                     </select>
                     </span></div></td>
-                <td nowrap><div align="center">
-                    <textarea name="newPurchasingItemLine.itemDescription" tabindex="0" cols="20" rows="3" id="newPurchasingItemLine.itemDescription"></textarea>
-                    <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea">
-                  </div></td>
-                <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                <td rowspan="2"><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+              </tr>
+              <tr>
+              	<th style="text-align:right;">
+                	comment:
+                </th>
+                <td colspan="6">
+                	
+                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="1"></textarea>
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
               </tr>
             </table>
           </div>
