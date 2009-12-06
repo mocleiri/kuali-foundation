@@ -470,11 +470,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </table>
                     </div>
                     
-                    <!-- Certification -->
+                    <!-- Certification and Acknowledgement -->
                     <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
                         <tr>
                             <td colspan="3" style="background-color:#939393; color:#FFF; font-weight:bold; text-align:left; height:20px;">
-                                Certification
+                                Certification and Acknowledgement
                             </td>
                         </tr>
                         <tr>
@@ -501,7 +501,26 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </tr>
                         <tr>
                             <th style="text-align:right; width:50px;">
-                                Language:
+                                Certification:
+                            </th>
+                            <td colspan="2">
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="8"></textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align:right; width:50px;">
+                                Acknowledgement:
                             </th>
                             <td colspan="2">
                                 
@@ -519,46 +538,27 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                             </td>
                         </tr>
                     </table>
+                
+                </div>
                     
-                    <!-- Certification Acknowledgement  -->
-                    <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
+                
+                <div class="tab-container" align="center" id="G013" style="display:block;">
+                    <div class="h2-container">
+                        <h2>Notifications</h2>
+                    </div>
+                    
+                    <!-- Notifications -->
+                    <table class="datatable" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td colspan="3" style="background-color:#939393; color:#FFF; font-weight:bold; text-align:left; height:20px;">
-                                Certification Acknowledgement
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align:right; width:50px; font-weight:bold;" class="infoline">
-                                Select:
-                            </td>
-                            <td class="infoline">
-                                
-                                <table style="border:none; width:100%; background:none;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none; background:none;">
-                                            <input type="text" style="width:100%;" value="" />
-                                        </td>
-                                        <td style="border:none; width:20px; vertical-align:bottom; text-align:center; background:none;">
-                                            <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>   
-                                
-                            </td>
-                            <td class="infoline" style="width:70px; text-align:center;">
-                                <input src="../images/tinybutton-select.gif" onclick="javascript: alert('This would select the Certification Language specified.'); return false" style="border:none;" alt="select" title="Select" type="image" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:right; width:50px;">
-                                Language:
+                        	<th style="text-align:right;">
+                            	Messages:
                             </th>
-                            <td colspan="2">
-                                
+                            <td colspan="5">
+                            	
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
-                                            <textarea name="z" style="width:100%; text-align:left;" rows="8"></textarea>
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
                                         </td>
                                         <td style="border:none; background:none; width:20px; vertical-align:bottom;">
                                             <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
@@ -566,6 +566,358 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                     </tr>
                                 </table>
                                 
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width:125px; text-align:right;">
+                                Start:
+                            </th>
+                            <td>
+                                
+                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="" style="width:80px;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        	<th style="width:95px; text-align:right;">
+                                Recurrence:
+                            </th>
+                            <td>
+                                
+                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:left;">
+                                            <input type="radio" class="nobord" name="recurrence" value="0" checked="checked" /> No Recurrence
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:left;">
+                                            <input type="radio" class="nobord" name="recurrence" value="0" /> No end date
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:left;">
+                                            <input type="radio" class="nobord" name="recurrence" value="0" /> End after <input type="text" style="width:20px;" value="" name="occur" /> of occurrences
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:left;">
+                                            <input type="radio" class="nobord" name="recurrence" value="0" /> End by <input type="text" value="" style="width:80px;" name="endby" /> <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <th style="width:85px; text-align:right;">
+                                Frequency:
+                            </th>
+                            <td>
+                                
+                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:left;">
+                                            <input type="text" style="width:20px;" value="" name="days" /> days
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:left;">
+                                            <input type="text" style="width:20px;" value="" name="weeks" style="padding-top:3px; padding-bottom:3px;" /> weeks
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:left;">
+                                            <input type="text" style="width:20px;" value="" name="months" /> months
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                        	<th style="text-align:right;">
+                            	Future Messages:
+                            </th>
+                            <td colspan="5">
+                            	
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <!-- Recipients -->
+                    <table class="datatable" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td colspan="3" style="background-color:#939393; color:#FFF; font-weight:bold; text-align:left; height:20px;">
+                                Recipients
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width:60px;">
+                                Add:
+                            </th>
+                            <td>
+                                
+                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="" style="width:100%;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                            <td style="text-align:center; width:80px;">
+                                <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated recipient.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                1
+                            </th>
+                            <td>
+                                Niedner, Bart
+                            </td>
+                            <td style="text-align:center;">
+                                <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the associated recipient.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                2
+                            </th>
+                            <td>
+                                Clark, Tom
+                            </td>
+                            <td style="text-align:center;">
+                                <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the associated recipient.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                      
+                    <!-- Notification History -->
+                    <table class="datatable" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td colspan="5" style="background-color:#939393; color:#FFF; font-weight:bold; text-align:left; height:20px;">
+                                Notification History
+                            </td>
+                        </tr>
+                        <tr>
+                           	<th style="width:50px;">
+                                &nbsp;
+                            </th>
+                            <th style="width:100px;">
+                                Date
+                            </th>
+                            <th>
+                                Recipients
+                            </th>
+                            <th>
+                                Message
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                6
+                            </th>
+                            <td>
+                                11/15/2009
+                            </td>
+                            <td>
+                                Clark, Tom<br />
+                                Niedner, Bart
+                            </td>
+                            <td>
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis felis orci, sit amet interdum dui. Aenean semper bibendum fermentum. Duis scelerisque tincidunt diam ac tincidunt. Vivamus gravida ipsum magna, a suscipit ipsum. Etiam nec massa magna. Pellentesque risus mi, vehicula ac pretium vitae...
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="text-align:center; width:80px;">
+                                <input src="../images/tinybutton-resend.gif" onclick="javascript: alert('This would resend the associated message.'); return false" style="border:none;" alt="resend" title="Resend" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                5
+                            </th>
+                            <td>
+                                10/15/2009
+                            </td>
+                            <td>
+                                Clark, Tom<br />
+                                Niedner, Bart
+                            </td>
+                            <td>
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis felis orci, sit amet interdum dui. Aenean semper bibendum fermentum. Duis scelerisque tincidunt diam ac tincidunt. Vivamus gravida ipsum magna, a suscipit ipsum. Etiam nec massa magna. Pellentesque risus mi, vehicula ac pretium vitae...
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="text-align:center;">
+                                <input src="../images/tinybutton-resend.gif" onclick="javascript: alert('This would resend the associated message.'); return false" style="border:none;" alt="resend" title="Resend" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                4
+                            </th>
+                            <td>
+                                09/15/2009
+                            </td>
+                            <td>
+                                Benoit, Hatti<br />
+                                Clark, Tom<br />
+                                Niedner, Bart<br />
+                                Potter, Harry 
+                            </td>
+                            <td>
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis felis orci, sit amet interdum dui. Aenean semper bibendum fermentum. Duis scelerisque tincidunt diam ac tincidunt. Vivamus gravida ipsum magna, a suscipit ipsum. Etiam nec massa magna. Pellentesque risus mi, vehicula ac pretium vitae...
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="text-align:center;">
+                                <input src="../images/tinybutton-resend.gif" onclick="javascript: alert('This would resend the associated message.'); return false" style="border:none;" alt="resend" title="Resend" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                3
+                            </th>
+                            <td>
+                                08/15/2009
+                            </td>
+                            <td>
+                                Benoit, Hatti<br />
+                                Clark, Tom<br />
+                                Niedner, Bart<br />
+                                Potter, Harry 
+                            </td>
+                            <td>
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis felis orci, sit amet interdum dui. Aenean semper bibendum fermentum. Duis scelerisque tincidunt diam ac tincidunt. Vivamus gravida ipsum magna, a suscipit ipsum. Etiam nec massa magna. Pellentesque risus mi, vehicula ac pretium vitae...
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="text-align:center;">
+                                <input src="../images/tinybutton-resend.gif" onclick="javascript: alert('This would resend the associated message.'); return false" style="border:none;" alt="resend" title="Resend" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                2
+                            </th>
+                            <td>
+                                07/15/2009
+                            </td>
+                            <td>
+                                Benoit, Hatti<br />
+                                Clark, Tom<br />
+                                Niedner, Bart<br />
+                                Potter, Harry 
+                            </td>
+                            <td>
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis felis orci, sit amet interdum dui. Aenean semper bibendum fermentum. Duis scelerisque tincidunt diam ac tincidunt. Vivamus gravida ipsum magna, a suscipit ipsum. Etiam nec massa magna. Pellentesque risus mi, vehicula ac pretium vitae...
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="text-align:center;">
+                                <input src="../images/tinybutton-resend.gif" onclick="javascript: alert('This would resend the associated message.'); return false" style="border:none;" alt="resend" title="Resend" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                1
+                            </th>
+                            <td>
+                                06/15/2009
+                            </td>
+                            <td>
+                                Benoit, Hatti<br />
+                                Clark, Tom<br />
+                                Niedner, Bart<br />
+                                Potter, Harry 
+                            </td>
+                            <td>
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis felis orci, sit amet interdum dui. Aenean semper bibendum fermentum. Duis scelerisque tincidunt diam ac tincidunt. Vivamus gravida ipsum magna, a suscipit ipsum. Etiam nec massa magna. Pellentesque risus mi, vehicula ac pretium vitae...
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="text-align:center;">
+                                <input src="../images/tinybutton-resend.gif" onclick="javascript: alert('This would resend the associated message.'); return false" style="border:none;" alt="resend" title="Resend" type="image" />
                             </td>
                         </tr>
                     </table>
