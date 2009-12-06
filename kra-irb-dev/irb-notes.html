@@ -505,6 +505,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
               </table>
             </div>
+            
+            
             <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
               <tr>
                 <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Notes (2)</td>
@@ -518,17 +520,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </span> </div>
               <table cellpadding=0 cellspacing="0" summary="view/add notes">
                 <tr>
-                  <th scope=col style="width:50px;">&nbsp;</th>
-                  <th scope=col style="width:75px;">Restricted</th>
-                  <th scope=col style="width:105px;">Posted Timestamp</th>
-                  <th scope=col style="width:155px;">Author</th>
-                  <th scope=col style="width:185px;"><div align="left">
-                      <label for="note topic">*Note Type</label>
-                    </div></th>
-                  <th scope=col><div align=left>
-                      <label for="note text">Note Text</label>
-                    </div></th>
-                  
+                  <th scope=col style="width:40px;">&nbsp;</th>
+                  <th scope=col style="width:70px;">Restricted</th>
+                  <th scope=col style="width:80px;">Timestamp</th>
+                  <th scope=col style="width:140px;">Author</th>
+                  <th scope=col style="width:140px;">*Note Type</th>
+                  <th scope=col>*Note Text</th>
+                  <th style="width:50px;">Action</th>
                 </tr>
                 
                 <tr>
@@ -536,7 +534,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td class="infoline" style="text-align:center;"><input type="checkbox" class="nobord" name="restricted01" value="0" /></td>
                   <td class="infoline">&nbsp;</td>
                   <td class="infoline">&nbsp;</td>
-                  <td class="infoline"><input name="org_doc_nbr22" size=25 type=text alt="Description"></td>
+                  <td class="infoline"><input name="org_doc_nbr22" style="width:98%;" type=text alt="type"></td>
                   <td height="30" nowrap class="infoline">
                   
                   	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
@@ -551,6 +549,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </table>
                   
                   </td>
+                  <td style="text-align:center;" class="infoline">
+                  	<input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the new note.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                  </td>
                 </tr>
                 
                 <tr>
@@ -559,7 +560,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td>07/23/2007 20:07:23.523</td>
                   <td>thrclark</td>
                   <td>testing</td>
-                  <td>Ma iustum et integrum? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae, et offendentes in rectitudinem tuam, et cadentes in asperitatem tuam. videlicet nesciunt, quod ubique sis, quem nullus circuminscribit locus, et solus es praesens etiam his, qui longe fiunt a te. convertantur ergo et quaerant te, quia non, sicut ipsi deseruerunt creatorem suum, ita tu deseruisti creaturam tuam. ipsi conve.</td>
+                  <td>
+                  	
+                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="4">Ma iustum et integrum? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae, et offendentes in rectitudinem tuam, et cadentes in asperitatem tuam. videlicet nesciunt, quod ubique sis, quem nullus circuminscribit locus, et solus es praesens etiam his, qui longe fiunt a te. convertantur ergo et quaerant te, quia non, sicut ipsi deseruerunt creatorem suum, ita tu deseruisti creaturam tuam. ipsi conve.</textarea>
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                  </td>
+                  <td style="text-align:center;">
+                  	<input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the associated note.'); return false" style="border:none;" alt="update" title="Update" type="image" />
+                  </td>
                 </tr>
                 <tr>
                   <td colspan="6" style="padding:0px; border:none">
@@ -571,11 +588,53 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tbody id="G696b1" style="display:none">
-                                <td style="width:86px;">&nbsp;</td>
-                                <td style="width:116px;">07/22/2007 07:37:09.123</td>
-                                <td style="width:166px;">bniedner</td>
-                                <td style="width:196px;">testing</td>
-                                <td>Pa iustum et glorus? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae quem nullus circuminscribit locus, et solus es praesens etiam his, qui longe fiunt a te.</td>
+                                <tr>
+                                	<th style="width:75px;">&nbsp;</th>
+                                    <th style="width:80px; text-align:center;">Timestamp</th>
+                                    <th style="width:140px; text-align:center;">Author</th>
+                                    <th style="width:140px; text-align:center;">Note Type</th>
+                                    <th style="text-align:center;">Note Text</th>
+                                </tr>
+                                <tr>
+                                    <th style="text-align:center;">1</th>
+                                    <td>07/22/2007 07:37:09.123</td>
+                                    <td>bniedner</td>
+                                    <td>testing</td>
+                                    <td>
+                                    
+                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="border:none; background:none;">
+                                                    Pa iustum et glorus? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae quem nullus...
+                                                </td>
+                                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                                    <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    
+                                    </td>
+                                <tr>
+                                <tr>
+                                    <th style="text-align:center;">2</th>
+                                    <td>07/20/2007 07:37:09.123</td>
+                                    <td>bniedner</td>
+                                    <td>testing</td>
+                                    <td>
+                                    
+                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="border:none; background:none;">
+                                                    Sis iustum et glorus? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae quem nullus...
+                                                </td>
+                                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                                    <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    
+                                    </td>
+                                <tr>
                             </tbody>
                         </table>
                   
@@ -588,7 +647,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <td>08/23/2007 21:21:26.421</td>
                   <td>thrclark</td>
                   <td>testing</td>
-                  <td>Ma iustum et integrum? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae, et offendentes in rectitudinem tuam, et cadentes in asperitatem tuam. videlicet nesciunt, quod ubique sis, quem nullus circuminscribit locus, et solus es praesens etiam his, qui longe fiunt a te. convertantur ergo et quaerant te, quia non, sicut ipsi deseruerunt creatorem suum, ita tu deseruisti creaturam tuam. ipsi conve.</td>
+                  <td>
+                  
+                  	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="4">Ma iustum et integrum? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae, et offendentes in rectitudinem tuam, et cadentes in asperitatem tuam. videlicet nesciunt, quod ubique sis, quem nullus circuminscribit locus, et solus es praesens etiam his, qui longe fiunt a te. convertantur ergo et quaerant te, quia non, sicut ipsi deseruerunt creatorem suum, ita tu deseruisti creaturam tuam. ipsi conve.</textarea>
+                            </td>
+                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                  
+                  </td>
+                <td style="text-align:center;">
+                  	<input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the associated note.'); return false" style="border:none;" alt="update" title="Update" type="image" />
+                  </td>
                 </tr>
                 <tr>
                   <td colspan="6" style="padding:0px; border:none">
@@ -600,11 +675,53 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tbody id="G696b2" style="display:none">
-                                <td style="width:86px;">&nbsp;</td>
-                                <td style="width:116px;">07/04/2006 18:17:13.654</td>
-                                <td style="width:166px;">thrclark</td>
-                                <td style="width:196px;">testing</td>
-                                <td>Pa iustum et glorus? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae quem nullus circuminscribit locus, et solus es praesens etiam his, qui longe fiunt a te.</td>
+                                <!--<tr>
+                                	<th>&nbsp;</th>
+                                    <th style="text-align:center;">Timestamp</th>
+                                    <th style="text-align:center;">Author</th>
+                                    <th style="text-align:center;">Note Type</th>
+                                    <th style="text-align:center;">Note Text</th>
+                                </tr>-->
+                                <tr>
+                                    <th style="text-align:center; width:75px;">1</th>
+                                    <td style="width:91px;">07/22/2007 07:37:09.123</td>
+                                    <td style="width:151px;">bniedner</td>
+                                    <td style="width:151px;">testing</td>
+                                    <td>
+                                    
+                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="border:none; background:none;">
+                                                    Pa iustum et glorus? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae quem nullus...
+                                                </td>
+                                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                                    <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    
+                                    </td>
+                                <tr>
+                                <tr>
+                                    <th style="text-align:center;">2</th>
+                                    <td>07/20/2007 07:37:09.123</td>
+                                    <td>bniedner</td>
+                                    <td>testing</td>
+                                    <td>
+                                    
+                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="border:none; background:none;">
+                                                    Sis iustum et glorus? quo enim fugerunt, cum fugerent a facie tua? aut ubi tu non invenis eos? sed fugerunt, ut non viderent te videntem se, atque excaecati in te offenderent -- quia non deseris aliquid eorum, quae fecisti -- in te offenderent iniusti et iuste vexarentur, subtrahentes se lenitati tuae quem nullus...
+                                                </td>
+                                                <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                                    <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    
+                                    </td>
+                                <tr>
                             </tbody>
                         </table>
                   
