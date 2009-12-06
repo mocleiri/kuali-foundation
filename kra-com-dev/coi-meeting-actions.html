@@ -234,7 +234,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
         <tr>
             <td class="tabtable1-left">
-            	<img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Correspondence
+            	<img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle">Print
             </td>
             <td class="tabtable2-mid">
             	<span class="tabtable2-mid">
@@ -252,29 +252,33 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         
         <div class="h2-container">
         	<span class="subhead-left">
-        		<h2>Generate Correspondence</h2>
-       		</span>
-           	<span class="subhead-right">
-            	<span class="subhead">
-                	<a href="#">
-                    	<img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-coi/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')">
-                    </a>
-                </span>
+        		<h2>Print</h2>
+        	</span>
+            <span class="subhead-right">
+            	<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
             </span>
         </div>
-        <table cellpadding=0 cellspacing="0"  summary="">
-            <tr>
-                <th style="width:175px; text-align:right;">Generate Correspondence</th>
-                <td>
-                	<input src="../images/tinybutton-submit.gif" onclick="javascript: alert('This would cause a PDF file to be created and displayed in a separate browser window.'); return false" style="border:none;" alt="submit" title="Submit" type="image" />
-                </td>
-            </tr>
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td>Roster</td>
+                    <td style="text-align:center; width:190px;"><input name="d" type=radio class="nobord"></td>
+                </tr>
+                <tr>
+                    <td>Protocol List</td>
+                    <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
+                </tr>
+                <tr>
+                    <td class="infoline">&nbsp;</td>
+                    <td class="infoline" style="text-align:center;"><input class="nobord" type=image src="../images/tinybutton-printsel.gif" width=80 height=15 /></td>
+                </tr>
+            </tbody>
         </table>
         <br />
         
         <div class="h2-container">
         	<span class="subhead-left">
-        		<h2>View Correspondence</h2>
+        		<h2>View Printed</h2>
        		</span>
            	<span class="subhead-right">
             	<span class="subhead">
