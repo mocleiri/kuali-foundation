@@ -220,8 +220,10 @@ function kupdate {
 	if [[ "$2" = "standard" ]]
 	then
         typeset version=tags/build-`cat $BUILD_NUMBER_FILE`
+	    typeset rice_database_svn_path=$version-$APPLICATION
 	else
 		typeset version=$2
+        typeset rice_database_svn_path=$7
 	fi
 	klog "updating environment: $environment with version: $version, update_database: $update_database, and deploy_war: $deploy_war"
 
@@ -237,7 +239,7 @@ function kupdate {
 		if [[ "$rice_bundled" = "true" && "$RICE_TABLES_IN_CLIENT_MDS" = "" ]]
 		then 
 			rm -rf $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT
-			kcheckout $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT $version-$APPLICATION $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT
+			kcheckout $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT $rice_database_svn_path $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT
         	kant import-no-empty-schema "-Doutput.dir=$BASE_DIRECTORY/$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT -Dgenerated.properties.file=$ANT_PROPERTIES_FILE"
 			kexec "rm -rf $APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT"
 		fi
