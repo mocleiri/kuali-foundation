@@ -514,8 +514,10 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		</for>
 	</target>
 	
-	<target name="import" depends="check-import-properties,create-ddl,pre-import-sql,apply-ddl,dataxml-to-sql,apply-data-sql,apply-constraint-ddl,post-import-sql" description="==> Main Import Task">
-	</target>
+	<target name="import" 
+		depends="check-import-properties,create-ddl,pre-import-sql,apply-ddl,
+		dataxml-to-sql,apply-data-sql,apply-constraint-ddl,post-import-sql" 
+		description="==> Main Import Task"/>
 
 	<target name="export" depends="check-export-properties,jdbc-to-xml,export-data,doc" description="==> Main Export Task - doesn't work when using OCI JDBC connection">
 		<delete>
@@ -710,7 +712,7 @@ Please place the jar file for this class in the lib directory and try again.
           target: build              
          ================================= -->
 	<target name="build" depends="build-init">
-		<javac classpathref="compile-classpath" srcdir="src" destdir="build" debug="true" optimize="false" />
+		<javac classpathref="compile-classpath" srcdir="src" destdir="build" debug="true" optimize="false" target="1.5"/>
 		<copy todir="build">
 			<fileset dir="src">
 				<include name="**/*.vm" />
