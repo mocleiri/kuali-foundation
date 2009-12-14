@@ -681,20 +681,36 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           </div>
           <table width="100%" cellpAdding=0 cellspacing=0 class="tab" summary="">
             <tr>
-              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Generate Correspondance</td>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Print</td>
               <td class="tabtable2-mid"><a id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" vspace=6></a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
             </tr>
           </table>
           <div class="tab-container" align="center" id="G02" style="display: none;">
+            
             <div class="h2-container">
-              <h2><span class="subhead-left">Generate Correspondence</span></h2>
-              <span class="subhead-right"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick=&aring;"MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-            <table cellpadding=0 cellspacing="0"  summary="">
-              <tr>
-                <th style="width:175px; text-align:right;">Generate Correspondence</th>
-                <td><input src="../images/tinybutton-submit.gif" onclick="javascript: alert('This would cause a PDF file to be created and displayed in a separate browser window.'); return false" style="border:none;" alt="submit" title="Submit" type="image" /></td>
-              </tr>
+                <span class="subhead-left">
+                    <h2>Print</h2>
+                </span>
+                <span class="subhead-right">
+                    <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
+                </span>
+            </div>
+            <table cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td>Roster</td>
+                        <td style="text-align:center; width:190px;"><input name="d" type=radio class="nobord"></td>
+                    </tr>
+                    <tr>
+                        <td>Future Scheduled Meetings</td>
+                        <td style="text-align:center;"><input name="d" type=radio class="nobord"></td>
+                    </tr>
+                    <tr>
+                        <td class="infoline">&nbsp;</td>
+                        <td class="infoline" style="text-align:center;"><input class="nobord" type=image src="../images/tinybutton-printsel.gif" width=80 height=15 /></td>
+                    </tr>
+                </tbody>
             </table>
           
           </div>
