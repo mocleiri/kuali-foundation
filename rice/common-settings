@@ -1,8 +1,8 @@
 #!/bin/sh -x
 
 #set -x
-SEND_MAIL=true; typeset -x SEND_MAIL
-#SEND_MAIL=false; typeset -x SEND_MAIL
+#SEND_MAIL=true; typeset -x SEND_MAIL
+SEND_MAIL=false; typeset -x SEND_MAIL
 
 APPLICATION=rice; typeset -x APPLICATION
 #APPLICATION_CFG_MAIL_LIST=krice.dev.core@kuali.org; typeset -x APPLICATION_CFG_MAIL_LIST
