@@ -220,14 +220,17 @@ function kupdate {
 	if [[ "$2" = "standard" ]]
 	then
         typeset version=tags/build-`cat $BUILD_NUMBER_FILE`
+        typeset display_version=$version
 	    typeset rice_database_svn_path=$version-$APPLICATION
 	else
 		typeset version=$2
+		typeset currdate=`date +"%Y-%m-%d %H:%M:%S"`
+		typeset display_version="$2 ($currdate)"
         typeset rice_database_svn_path=$7
 	fi
 	klog "updating environment: $environment with version: $version, update_database: $update_database, and deploy_war: $deploy_war"
 
-	ksetprops $environment $version $database_platform $rice_bundled
+	ksetprops $environment "$display_version" $database_platform $rice_bundled
 	
 	if [[ "$update_database" = "true" ]]
 	then
