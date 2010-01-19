@@ -1,8 +1,8 @@
 #!/bin/sh -x
 
 #set -x
-#SEND_MAIL=true; typeset -x SEND_MAIL
-SEND_MAIL=false; typeset -x SEND_MAIL
+SEND_MAIL=true; typeset -x SEND_MAIL
+#SEND_MAIL=false; typeset -x SEND_MAIL
 
 APPLICATION=rice; typeset -x APPLICATION
 #APPLICATION_CFG_MAIL_LIST=krice.dev.core@kuali.org; typeset -x APPLICATION_CFG_MAIL_LIST
@@ -10,3 +10,8 @@ APPLICATION=rice; typeset -x APPLICATION
 APPLICATION_CFG_MAIL_LIST=caseyhb@email.arizona.edu; typeset -x APPLICATION_DEV_MAIL_LIST
 
 APPLICATION_JAVA_PROJECT=$APPLICATION; typeset -x APPLICATION_JAVA_PROJECT
+
+TOMCAT_DEPLOY_DIR=/usr/local/tomcat/; typeset -x TOMCAT_DEPLOY_DIR
+
+#These are taken from the j2ee scripts on wsa123
+J2EE_TARGET_DIR=/opt/ears; typeset -x J2EE_TARGET_DIR
