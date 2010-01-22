@@ -115,7 +115,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
     centralize them and clean up the targets.
   -->
 	<target name="inittasks">
-		
+
 		<path id="torque-classpath">
 			<pathelement location="kuali-impextasks.jar" />
 			<fileset dir="${torque.lib.dir}" includes="*.jar" />
@@ -139,7 +139,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<taskdef name="torque-sql" classpathref="torque-classpath" classname="org.kuali.core.db.torque.KualiTorqueSQLTask" />
 		<taskdef name="torque-sql-exec" classpathref="torque-classpath" classname="org.apache.torque.task.TorqueSQLExec" />
 	</target>
-	
+
 	<target name="create-ddl" description="==> generates the SQL for your project" depends="inittasks">
 
 		<echo message="+------------------------------------------+" />
@@ -337,14 +337,23 @@ Note: Due to java native library classloader issues, the export routine (and pos
 
 		<property name="torque.output.absolute.dir" location="${torque.schema.dir}" />
 		<!-- above works around a problem with torque-data-dump getting passed a relative directory, and not working right if tbe process was started from a directory other than ant's basedir -->
+		<!--
 		<delete>
 			<fileset dir="${torque.schema.dir}">
 				<include name="*.xml" />
 				<exclude name="schema.xml" />
 			</fileset>
 		</delete>
-
-		<torque-data-dump databaseDriver="${export.torque.database.driver}" databaseUrl="${export.torque.database.url}" databaseUser="${export.torque.database.user}" databaseSchema="${export.torque.database.schema}" databasePassword="${export.torque.database.password}" databaseType="${export.torque.database}" outputDirectory="${torque.output.absolute.dir}" />
+		-->
+		<torque-data-dump databaseDriver="${export.torque.database.driver}" 
+			databaseUrl="${export.torque.database.url}" 
+			databaseUser="${export.torque.database.user}" 
+			databaseSchema="${export.torque.database.schema}" 
+			databasePassword="${export.torque.database.password}" 
+			databaseType="${export.torque.database}"
+			excludedTables="${export.excluded.tables}"
+			startTableName="${export.start.table}"
+			outputDirectory="${torque.output.absolute.dir}" />
 
 		<!-- remove files for empty tables -->
 		<delete>
@@ -432,7 +441,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 			  	     below invokes a separate VM for each file -->
 			<foreach target="external-run-dataxml-load" inheritall="false" param="xmlDataFile" parallel="true" maxthreads="1">
 				<param name="import.torque.database" value="${import.torque.database}"/>
-				<param name="torque.schema.dir" value="@{torque.schema.dir}"/>					
+				<param name="torque.schema.dir" value="@{torque.schema.dir}"/>
 				<param name="torque.template.dataSql" value="${torque.template.dataSql}"/>
 				<path>
 					<fileset dir="@{torque.schema.dir}" excludes="${import.exclude.data.pattern}">
@@ -513,7 +522,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 			</sequential>
 		</for>
 	</target>
-	
+
 	<target name="import" 
 		depends="check-import-properties,create-ddl,pre-import-sql,apply-ddl,
 		dataxml-to-sql,apply-data-sql,apply-constraint-ddl,post-import-sql" 
@@ -618,7 +627,7 @@ Please place the jar file for this class in the lib directory and try again.
 			<sql driver="${import.torque.database.driver}" classpathref="torque-classpath" url="${import.torque.database.url}" userid="${import.torque.database.user}" password="${import.torque.database.password}" keepformat="true" delimitertype="row" delimiter="/" src="@{file}" />
 		</sequential>
 	</macrodef>
-	
+
 	<macrodef name="adminsql">
 		<attribute name="sql" />
 		<attribute name="onerror" default="abort" />
@@ -803,7 +812,7 @@ Please place the jar file for this class in the lib directory and try again.
 				<isset property="data.dir.exists" />
 			</not>
 			<then>
-				
+
 				<satellite-init-macro torque.schema.dir="${torque.schema.dir}" svnroot="${svnroot}" svn.module="${svn.module}" svn.base="${svn.base}" />
 			</then>
 		</if>
