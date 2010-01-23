@@ -18,7 +18,6 @@ kdailytag $APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION
 #   4) deploy war (boolean)
 #   5) database platform ("Oracle9i" -- do not use an arbitrary value)
 ##
-# uncomment this when we get a 101 cnv env setup
 kupdate cnv standard true true Oracle9i false
 
 . ~j2eemgr/kuali/rice/1.1.0-settings
