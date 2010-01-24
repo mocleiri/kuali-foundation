@@ -26,7 +26,7 @@
 		<loadfile property="impex-build.properties" srcfile="${impex.properties.file.template}"><filterchain><expandproperties /></filterchain></loadfile>
 		<delete file="${impex.properties.file}" />
 		<echo message="${impex-build.properties}" file="${impex.properties.file}" />
-		<echoproperies/>
+		<echoproperties/>
 	</target>
 	
 	<target name="export" depends="init-properties">
