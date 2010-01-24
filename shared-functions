@@ -80,7 +80,12 @@ function ksetprops {
 	kexec "echo \"build.version=$version\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"schema=$schema\" >> $ANT_PROPERTIES_FILE"
 	kexec "echo \"datasource.ojb.platform=$database_platform\" >> $ANT_PROPERTIES_FILE"
-	kexec "echo \"datasource.username=$database_user\" >> $ANT_PROPERTIES_FILE"
+	if [[ "${#database_user}" -gt 16]]
+	then
+		kexec "echo \"datasource.username=$ALTERNATE_DATABASE_USERNAME\" >> $ANT_PROPERTIES_FILE"
+	else
+		kexec "echo \"datasource.username=$database_user\" >> $ANT_PROPERTIES_FILE"
+	fi
 	echo "datasource.password=$database_password" >> $ANT_PROPERTIES_FILE 
 	if [[ "$rice_bundled" = "true" ]]
 	then
