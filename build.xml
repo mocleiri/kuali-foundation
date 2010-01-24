@@ -18,14 +18,15 @@
 	</target>
 	
 	<target name="init-mysql-properties" depends="init-base-properties" if="import.into.mysql">
+		<echo message="mysql.impex.properties.file: ${mysql.impex.properties.file}"/>	
 		<property file="${mysql.impex.properties.file}" />
 	</target>
 
 	<target name="init-properties" depends="init-mysql-properties">
 		<property file="${oracle.impex.properties.file}" />
 		<loadfile property="impex-build.properties" srcfile="${impex.properties.file.template}"><filterchain><expandproperties /></filterchain></loadfile>
-		<delete file="${impex.properties.file}" />
 		<echo message="${impex-build.properties}" file="${impex.properties.file}" />
+		<delete file="${impex.properties.file}" />
 	</target>
 	
 	<target name="export" depends="init-properties">
