@@ -26,3 +26,5 @@ CREATE TABLE $seq.Name
 /
 ALTER TABLE $seq.name auto_increment = $seq.nextVal
 /
+INSERT INTO $seq.name VALUES (NULL)
+/
