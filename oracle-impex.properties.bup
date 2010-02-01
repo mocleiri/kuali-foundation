@@ -1,0 +1,11 @@
+export.torque.database=oracle
+export.torque.database.driver=oracle.jdbc.OracleDriver
+export.torque.database.url=jdbc:oracle:thin:@esdbk02.uits.indiana.edu:1521:KUALI
+
+import.torque.database=${export.torque.database}
+driver.class=${export.torque.database.driver}
+datasource.url=${export.torque.database.url}
+import.admin.url=${import.torque.database.url}
+import.admin.user=kuluser_admin
+import.admin.password=
+oracle.usermaint.user=kulcfgusr

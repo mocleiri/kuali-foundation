@@ -1,0 +1,8 @@
+import.torque.database=mysql
+driver.class=com.mysql.jdbc.Driver
+import.torque.database.driver=com.mysql.jdbc.Driver
+import.admin.url=jdbc:mysql://esdbk01.uits.indiana.edu:3306
+datasource.url=${import.admin.url}/${schema}
+rice.server.datasource.url=${import.admin.url}/${rice.server.datasource.username}
+import.admin.user=
+import.admin.password=
