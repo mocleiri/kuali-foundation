@@ -221,7 +221,13 @@ public class KualiTorqueDataDumpTask extends Task {
     			int colCount = md.getColumnCount();
     			for ( int i = 1; i <= colCount; i++ ) {
 
-    				Object columnValue = rs.getObject( i );
+    				Object columnValue = null;
+    				try {
+    					columnValue = rs.getObject( i );
+    				} catch ( Exception ex ) {
+    					log( "Problem reading column " + columnNames[i] + " from " + tableName, Project.MSG_ERR );
+    					log( ex.getClass().getName() + " : " + ex.getMessage(), Project.MSG_ERR );
+    				}
     				if ( columnValue != null ) {
 	    				if ( columnTypes[i] == java.sql.Types.CLOB ) {
 	    					java.sql.Clob clob = (java.sql.Clob)columnValue;
