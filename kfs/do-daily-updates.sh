@@ -7,10 +7,10 @@
 kexport dba trunk
 kdailytag trunk
 
-typeset -x APPLICATION_SERVER_NAME=kuali23
+typeset -x APPLICATION_SERVER_NAME=$CNV_APPLICATION_SERVER_NAME
 kupdate cnv standard true true Oracle9i true
 
-typeset -x APPLICATION_SERVER_NAME=kuali2
+typeset -x APPLICATION_SERVER_NAME=$STG_APPLICATION_SERVER_NAME
 typeset -x APPLICATION_INFRASTRUCTURE_VERSION=1.0.1.1
 kupdate stg branches/release-3-0-1-1 true true Oracle9i true branches/rice-release-1-0-1-1-br
 

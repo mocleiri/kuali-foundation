@@ -4,7 +4,7 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-typeset -x APPLICATION_SERVER_NAME=kuali22
+typeset -x APPLICATION_SERVER_NAME=$REG_APPLICATION_SERVER_NAME
 kupdate reg standard true true MySQL false
 
 sh ~j2eemgr/kuali/kfs/do-weekly-endowment-updates.sh
