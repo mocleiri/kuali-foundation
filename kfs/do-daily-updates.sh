@@ -7,12 +7,9 @@
 kexport dba trunk
 kdailytag trunk
 
-typeset -x APPLICATION_SERVER_NAME=$CNV_APPLICATION_SERVER_NAME
-kupdate cnv standard true true Oracle9i true
+sh ~j2eemgr/kuali/kfs/cnv-redeploy-full.sh
 
-typeset -x APPLICATION_SERVER_NAME=$STG_APPLICATION_SERVER_NAME
-typeset -x APPLICATION_INFRASTRUCTURE_VERSION=1.0.1.1
-kupdate stg branches/release-3-0-1-1 true true Oracle9i true branches/rice-release-1-0-1-1-br
+sh ~j2eemgr/kuali/kfs/stg-redeploy-full.sh
 
 # take from trunk
 kupdate unt standard true false Oracle9i true
