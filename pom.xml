@@ -4,4 +4,17 @@
   <artifactId>xapool</artifactId>
   <version>1.5.0-patch3</version>
   <description>this is rice modified xapool</description>
+  
+  <scm>
+		<connection>scm:svn:https://test.kuali.org/svn/modified_source/xapool-1.5.0/trunk</connection>
+		<developerConnection>scm:svn:https://test.kuali.org/svn/modified_source/xapool-1.5.0/trunk</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://test.kuali.org/svn/modified_source/xapool-1.5.0/trunk</url>
+	</scm>
+	<distributionManagement>
+		<repository>
+			<id>ssh-repository</id>
+			<url>scp://test.kuali.org:/opt/m2/repository</url>
+		</repository>		
+	</distributionManagement>
 </project>
