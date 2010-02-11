@@ -4,6 +4,6 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-#kupdate dev2 branches/endowment-build-1290 false true Oracle9i true
+#kupdate dev2 branches/endowment-build-1304 false true Oracle9i true
 
 kend 0
