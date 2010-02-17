@@ -1,6 +1,7 @@
 #!/bin/sh
 
 . ~j2eemgr/kuali/rice/common-settings
+. ~j2eemgr/kuali/rice/common-functions
 . ~j2eemgr/kuali/rice/1.0-kc-settings
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
