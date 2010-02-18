@@ -7,7 +7,6 @@
 # build number needs to be different for each project
 BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/$JAVA_APPLICATION_CODE-build-number.txt; typeset -rx BUILD_NUMBER_FILE
 
-kdailytag $APPLICATION_INFRASTRUCTURE_VERSION
 kupdate stg standard true true Oracle9i false
 
 kend 0
