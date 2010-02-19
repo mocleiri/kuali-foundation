@@ -92,14 +92,19 @@ function ksetprops {
 	else
 		kexec "echo \"datasource.username=$database_user\" >> $ANT_PROPERTIES_FILE"
 	fi
-	echo "datasource.password=$database_password" >> $ANT_PROPERTIES_FILE 
+	#chb: debug	
+	#echo "datasource.password=$database_password" >> $ANT_PROPERTIES_FILE 
+	kexec "echo "datasource.password=$database_password" >> $ANT_PROPERTIES_FILE"
+	
 	if [[ "$rice_bundled" = "true" ]]
 	then
 		kexec "echo \"infrastructure.database.project=$APPLICATION_INFRASTRUCTURE_DATABASE_PROJECT\" >> $ANT_PROPERTIES_FILE"
 	else
 		kexec "echo \"rice.standalone=true\" >> $ANT_PROPERTIES_FILE"
 		kexec "echo \"rice.server.datasource.username=$rice_database_user\" >> $ANT_PROPERTIES_FILE"
-		echo "rice.server.datasource.password=$rice_database_password" >> $ANT_PROPERTIES_FILE 
+		#chb: debug	
+		#echo "rice.server.datasource.password=$rice_database_password" >> $ANT_PROPERTIES_FILE 
+		kexec "echo "rice.server.datasource.password=$rice_database_password" >> $ANT_PROPERTIES_FILE" 
 	fi
     } >> $SCRIPT_LOG 2>&1
 }
