@@ -4,6 +4,7 @@
 . ~j2eemgr/kuali/rice/1.0.1.1-kuali-client-settings
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
+. ~j2eemgr/kuali/rice/oracle-impex.properties
 # build number needs to be different for each project
 BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/$JAVA_APPLICATION_CODE-build-number.txt; typeset -rx BUILD_NUMBER_FILE
 
