@@ -20,7 +20,7 @@ runS2sScripts cnv
 buildsvnwebapp dev
 runS2sScripts dev
 
-buildsvnwebapp stg
+#buildsvnwebapp stg
 kpurge $LOGS_DIRECTORY 7
 
 kcend 0
