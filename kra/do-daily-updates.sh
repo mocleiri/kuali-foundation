@@ -18,7 +18,7 @@ runS2sScripts cnv
 
 #kupdate dev standard true false Oracle9i true
 buildsvnwebapp dev
-runS2sScripts dev
+#runS2sScripts dev
 
 #buildsvnwebapp stg
 kpurge $LOGS_DIRECTORY 7
