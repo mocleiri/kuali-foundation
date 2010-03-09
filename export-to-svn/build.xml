@@ -15,8 +15,8 @@
 	
 	<property file="ant-local.properties" />
 	<property file="ant.properties" />
-    <property name="drivers.dir" value="lib" />
-    <property name="checkout.dir" value="checkout" />
+    <property name="drivers.dir" location="lib" />
+    <property name="checkout.dir" location="checkout" />
 	
     <pathconvert property="temp.dir" targetos="unix">
         <path location="temp" />
