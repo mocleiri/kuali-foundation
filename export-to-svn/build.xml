@@ -48,8 +48,8 @@
 				<expandproperties />
 			</filterchain>
 		</loadfile>
-		<echo message="${temp.dir}/db-impex-build.properties" />
-		<echo file="${temp.dir}/db-impex-build.properties" message="${impex.properties}" />
+		<echo message="${temp.dir}/impex-build.properties" />
+		<echo file="${temp.dir}/impex-build.properties" message="${impex.properties}" />
 		<!-- run export command -->
 		<!-- need to run in a separate JVM due to the way that Clover finds its configuration files. -->
 		<java classname="org.apache.tools.ant.Main"
