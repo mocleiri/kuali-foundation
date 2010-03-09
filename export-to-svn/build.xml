@@ -41,8 +41,8 @@
 
 	<target name="export-db">
 		<!-- create impex-build.properties file -->
-		<property name="daily.export.dir" value="new_export"/>
-        <mkdir dir="${checkout.dir}/${daily.export.dir}"/>
+		<property name="daily.export.dir" location="${checkout.dir}/new_export"/>
+        <mkdir dir="${daily.export.dir}"/>
 		<loadfile property="impex.properties" srcfile="db-impex-build.properties">
 			<filterchain>
 				<expandproperties />
