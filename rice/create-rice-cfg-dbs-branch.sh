@@ -9,7 +9,7 @@
 #	APPLICATION_DATABASE_PROJECT=$APPLICATION"-cfg-dbs/rice-client-db"; typeset -x APPLICATION_DATABASE_PROJECT
 #	APPLICATION_INFRASTRUCTURE_VERSION=1.0.1.1; typeset -x APPLICATION_INFRASTRUCTURE_VERSION
 #	APPLICATION_SERVER_NAME=kuali11; typeset -x APPLICATION_SERVER_NAME
-SETTINGS_FILE=1.0.1.1-kuali-client-settings
+SETTINGS_FILE=1.1.0-kuali-client-settings
 
 . ~j2eemgr/kuali/rice/common-settings
 . ~j2eemgr/kuali/rice/$SETTINGS_FILE
