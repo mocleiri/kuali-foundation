@@ -14,7 +14,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -22,7 +21,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
-import org.apache.tools.ant.filters.TokenFilter.StringTokenizer;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.apache.xerces.dom.DocumentImpl;
@@ -54,6 +52,8 @@ public class KualiTorqueDataDumpTask extends Task {
 	private String tableName;
 	private String excludedTables;
 	private List<String> excludedTableList = new ArrayList<String>();
+	private String tableNameRegex = ".*";
+	private Pattern tableNameRegexPattern = Pattern.compile(tableNameRegex);
 	private String startTableName;
 	
 	/** The database connection used to retrieve the data to dump. */
@@ -307,9 +307,9 @@ public class KualiTorqueDataDumpTask extends Task {
 	 * @return The list of all the tables in a database.
 	 * @throws SQLException
 	 */
-	public List getTableNames(DatabaseMetaData dbMeta) throws SQLException {
+	public List<String> getTableNames(DatabaseMetaData dbMeta) throws SQLException {
 		log( "Getting table list..." );
-		List tables = new ArrayList();
+		List<String> tables = new ArrayList<String>();
 		ResultSet tableNames = null;
 		// these are the entity types we want from the database
 		String[] types = { "TABLE" }; // JHK: removed views from list
@@ -323,6 +323,9 @@ public class KualiTorqueDataDumpTask extends Task {
 					types ); // JHK: upper-cased schema name (required by Oracle)
 			while ( tableNames.next() ) {
 				String name = tableNames.getString( 3 );
+				if ( !tableNameRegexPattern.matcher( name ).matches() ) {
+					continue;
+				}
 				if ( startTableName != null && !startTableName.equals("") ) { 	
 					if ( name.compareTo(startTableName) < 0 ) {
 						continue;
@@ -388,6 +391,15 @@ public class KualiTorqueDataDumpTask extends Task {
 
 	public String getStartTableName() {
 		return startTableName;
+	}
+
+	public String getTableNameRegex() {
+		return tableNameRegex;
+	}
+
+	public void setTableNameRegex(String tableNameRegex) {
+		this.tableNameRegex = tableNameRegex;
+		tableNameRegexPattern = Pattern.compile(tableNameRegex);
 	}	
 	
 }
