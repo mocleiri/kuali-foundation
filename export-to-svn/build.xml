@@ -33,7 +33,7 @@
 	</target>
 
 	<target name="checkout-data" depends="init">
-        <svn username="${svn.username}" password="${svn.password}" failonerror="true">
+        <svn failonerror="true">
         	<checkout url="${svn.base}/${data.svn.module}/${data.svn.path}"
         		      destpath="${checkout.dir}/${data.svn.module}" />
         </svn>
@@ -59,15 +59,13 @@
 		    <classpath path="${java.class.path}" />
 		    <jvmarg value="-Xmx1g" />
 		    <arg value="-Duser.home=${temp.dir}" />
-		    <arg value="-Dsvn.username=${svn.username}" />
-		    <arg value="-Dsvn.password=${svn.password}" />
 		    <arg value="export" />
 		</java>		
 	</target>
 	
 	<target name="remove-svn-files">
 		<!-- find, and cvs remove deleted files -->
-		<svn username="${svn.username}" password="${svn.password}" failonerror="true">
+		<svn failonerror="true">
 			<delete force="true">
     			<fileset dir="${checkout.dir}/${data.svn.module}">
     				<include name="*.xml" />
