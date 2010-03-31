@@ -6,6 +6,9 @@
 . ~j2eemgr/kuali/shared-functions
 # build number needs to be different for each project
 BUILD_NUMBER_FILE=$APPLICATION_DIRECTORY/$JAVA_APPLICATION_CODE-build-number.txt; typeset -rx BUILD_NUMBER_FILE
+JDK_HOME=/opt/cm-tools/java/jdk6
+JAVA_HOME=/opt/cm-tools/java/jdk6
+PATH=$JAVA_HOME/bin:$PATH
 
 kexport dba $APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION
 kdailytag $APPLICATION_INFRASTRUCTURE_SRCCTRL_VERSION
