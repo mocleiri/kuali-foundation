@@ -1,7 +1,7 @@
 #!/bin/sh
 
 . ~j2eemgr/kuali/rice/common-settings
-. ~j2eemgr/kuali/rice/1.0.1.1-kuali-client-settings
+. ~j2eemgr/kuali/rice/1.1.0-kuali-client-settings
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 # build number needs to be different for each project
