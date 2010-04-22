@@ -185,6 +185,12 @@ public class KualiTorqueDataDumpTask extends Task {
         
         List<String> tableList = getTableNames( dbMetaData );
         for ( String tableName : tableList ) {
+        	
+        	if(tableName.contains("$")) {
+				log( "Skipping table: " + tableName);
+				continue;
+			}
+        	
         	//if ( !tableName.startsWith( "EN_DOC" ) ) continue;
         	System.out.println( "Processing: " + tableName );
             DocumentTypeImpl docType = new DocumentTypeImpl(null, "dataset", null, "data.dtd" );

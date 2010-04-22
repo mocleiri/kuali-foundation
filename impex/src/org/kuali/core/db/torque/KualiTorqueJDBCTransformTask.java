@@ -170,8 +170,12 @@ public class KualiTorqueJDBCTransformTask extends Task {
 
 			if ( processTables ) {
 				List<String> tableList = platform.getTableNames( dbMetaData, dbSchema );
-	
 				for ( String curTable : tableList ) {
+				    if(curTable.contains("$")) {
+                        log( "Skipping table: " + curTable);
+                        continue;
+                    }
+                    
 					log( "Processing table: " + curTable );
 	
 					Element table = doc.createElement( "table" );

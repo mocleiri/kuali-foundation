@@ -138,6 +138,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<taskdef name="torque-jdbc-transform" classpathref="torque-classpath" classname="org.kuali.core.db.torque.KualiTorqueJDBCTransformTask" />
 		<taskdef name="torque-sql" classpathref="torque-classpath" classname="org.kuali.core.db.torque.KualiTorqueSQLTask" />
 		<taskdef name="torque-sql-exec" classpathref="torque-classpath" classname="org.apache.torque.task.TorqueSQLExec" />
+		<taskdef name="torque-sql-loader" classpathref="torque-classpath" classname="org.kuali.core.db.torque.KualiTorqueSQLLoader" />
 	</target>
 	
 	<target name="create-ddl" description="==> generates the SQL for your project" depends="inittasks">
@@ -406,6 +407,101 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<!-- Generate SQL from XML data file                                  -->
 	<!-- ================================================================ -->
 
+	<target name="use-sqlloader-or-default">
+		<if>
+			<isset property="import.usesqlldr" />
+			<then>
+				<if>
+					<equals arg1="${import.usesqlldr}" arg2="true" />
+					<then>
+						<echo message="import.usesqlldr is set to true, using SQL*Loader" />
+						<antcall target="prepare-sqlloader" />
+						<antcall target="exec-sqlloader" />
+					</then>
+					<else>
+						<echo message="import.usesqlldr is set to false, writing and executing SQL" />
+						<antcall target="dataxml-to-sql" />
+						<antcall target="apply-data-sql" />
+					</else>
+				</if>
+			</then>
+			<else>
+				<echo message="Writing and executing SQL" />
+				<antcall target="dataxml-to-sql" />
+				<antcall target="apply-data-sql" />
+			</else>
+		</if>
+	</target>
+	
+	
+	
+	<target name="prepare-sqlloader" description="== prepares the files needed for SQL*Loader" depends="inittasks">
+		<echo message="+-----------------------------------------------+" />
+		<echo message="|                                               |" />
+		<echo message="| Preparing SQL*Loader data from XML !          |" />
+		<echo message="|                                               |" />
+		<echo message="+-----------------------------------------------+" />
+		
+		<mkdir dir="${torque.schema.dir}/sqlloader" />
+		<property name="torque.sqlloader.absolute.dir" location="${torque.schema.dir}/sqlloader" />
+		<torque-sql-loader outputDirectory="${torque.sqlloader.absolute.dir}" xmlFile="${torque.schema.dir}/schema.xml" targetDatabase="${import.torque.database}"> 
+			<fileset dir="${torque.schema.dir}" includes="*.xml" excludes="schema.xml" />
+		</torque-sql-loader>
+		
+		<if>
+			<isset property="import.two.schemas" />
+			<then>
+				<torque-sql-loader outputDirectory="${torque.sqlloader.absolute.dir}" xmlFile="${torque.schema.dir.2}/schema.xml" targetDatabase="${import.torque.database}"> 
+					<fileset dir="${torque.schema.dir.2}" includes="*.xml" excludes="schema.xml" />
+				</torque-sql-loader>
+			</then>
+		</if>
+	</target>
+	
+	<target name="exec-sqlloader" depends="inittasks">
+		<echo message="+-----------------------------------------------+" />
+		<echo message="|                                               |" />
+		<echo message="| Executing SQL*Loader !                        |" />
+		<echo message="|                                               |" />
+		<echo message="+-----------------------------------------------+" />
+		 
+		<propertyregex
+			property="import.torque.database.server"
+			input="${import.torque.database.url}"
+			regexp="(.*):@(.*):(.*):(.*)"
+			select="\2"
+		/>
+		
+		<propertyregex
+			property="import.torque.database.port"
+			input="${import.torque.database.url}"
+			regexp="(.*):@(.*):(.*):(.*)"
+			select="\3"
+		/>
+		
+		<propertyregex
+			property="import.torque.database.sid"
+			input="${import.torque.database.url}"
+			regexp="(.*):@(.*):(.*):(.*)"
+			select="\4"
+		/>
+
+		<exec executable="sqlldr" dir="${torque.schema.dir}/sqlloader" failonerror="false">
+			<arg line="${import.torque.database.user}/${import.torque.database.password}@(DESCRIPTION\=(ADDRESS\=(PROTOCOL\=TCP)(HOST\=${import.torque.database.server})(PORT\=${import.torque.database.port}))(CONNECT_DATA\=(SID\=${import.torque.database.sid})))"/>
+			<arg value="control=loader.ctl"/>
+		</exec>
+		
+		<if>
+			<isset property="import.two.schemas" />
+			<then>
+				<exec executable="sqlldr" dir="${torque.schema.dir}/sqlloader" failonerror="false">
+					<arg line="${import.torque.database.user}/${import.torque.database.password}@(DESCRIPTION\=(ADDRESS\=(PROTOCOL\=TCP)(HOST\=${import.torque.database.server})(PORT\=${import.torque.database.port}))(CONNECT_DATA\=(SID\=${import.torque.database.sid})))"/>
+					<arg value="control=loader.ctl"/>
+				</exec>
+			</then>
+		</if>
+	</target>
+	
 	<target name="dataxml-to-sql" description="==> generates sql from data xml" depends="inittasks">
 
 		<echo message="+-----------------------------------------------+" />
@@ -515,8 +611,8 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	</target>
 	
 	<target name="import" 
-		depends="check-import-properties,create-ddl,pre-import-sql,apply-ddl,
-		dataxml-to-sql,apply-data-sql,apply-constraint-ddl,post-import-sql" 
+		depends="check-import-properties,create-ddl,pre-import-sql,apply-ddl,use-sqlloader-or-default,
+		apply-constraint-ddl,post-import-sql" 
 		description="==> Main Import Task"/>
 
 	<target name="export" depends="check-export-properties,jdbc-to-xml,export-data,doc" description="==> Main Export Task - doesn't work when using OCI JDBC connection">
