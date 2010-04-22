@@ -175,7 +175,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			if ( processTables ) {
 				List<String> tableList = platform.getTableNames( dbMetaData, dbSchema );
 				for ( String curTable : tableList ) {
-					if ( !tableNameRegexPattern.matcher( curTable ).matches() ) {
+					if ( !tableNameRegexPattern.matcher( curTable ).matches() || curTable.contains("$") ) {
 						log( "Skipping table: " + curTable);
 						continue;
 					}
