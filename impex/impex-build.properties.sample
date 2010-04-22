@@ -82,6 +82,9 @@ import.torque.database.password=kuldemo
 # uncomment this to skip some of the larger (and mostly unnecessary) tables in the system
 # import.exclude.data.pattern=LD_LDGR_ENTR_T.xml,GL_BALANCE_T.xml,GL_ENTRY_T.xml,LD_LDGR_BAL_T.xml,GL_ACCT_BALANCES_T.xml
 
+export.excluded.tables=KRSB_MSG_PYLD_T,KRNS_LOOKUP_RSLT_T,KRIM_PND.*,.*_MT,KRSB_MSG_QUE_T
+export.start.table=
+
 
 # set if you want to use the ant script to set up the users and schemas for the import
 # see build.properties for the commands that will be executed

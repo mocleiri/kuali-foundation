@@ -13,8 +13,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
@@ -47,6 +50,11 @@ public class KualiTorqueDataDumpTask extends Task {
 	
 	private String databaseType;
 	private String tableName;
+	private String excludedTables;
+	private List<String> excludedTableList = new ArrayList<String>();
+	private String tableNameRegex = ".*";
+	private Pattern tableNameRegexPattern = Pattern.compile(tableNameRegex);
+	private String startTableName;
 	
 	/** The database connection used to retrieve the data to dump. */
 	private Connection conn;
@@ -219,7 +227,13 @@ public class KualiTorqueDataDumpTask extends Task {
     			int colCount = md.getColumnCount();
     			for ( int i = 1; i <= colCount; i++ ) {
 
-    				Object columnValue = rs.getObject( i );
+    				Object columnValue = null;
+    				try {
+    					columnValue = rs.getObject( i );
+    				} catch ( Exception ex ) {
+    					log( "Problem reading column " + columnNames[i] + " from " + tableName, Project.MSG_ERR );
+    					log( ex.getClass().getName() + " : " + ex.getMessage(), Project.MSG_ERR );
+    				}
     				if ( columnValue != null ) {
 	    				if ( columnTypes[i] == java.sql.Types.CLOB ) {
 	    					java.sql.Clob clob = (java.sql.Clob)columnValue;
@@ -299,17 +313,40 @@ public class KualiTorqueDataDumpTask extends Task {
 	 * @return The list of all the tables in a database.
 	 * @throws SQLException
 	 */
-	public List getTableNames(DatabaseMetaData dbMeta) throws SQLException {
+	public List<String> getTableNames(DatabaseMetaData dbMeta) throws SQLException {
 		log( "Getting table list..." );
-		List tables = new ArrayList();
+		List<String> tables = new ArrayList<String>();
 		ResultSet tableNames = null;
 		// these are the entity types we want from the database
 		String[] types = { "TABLE" }; // JHK: removed views from list
+		List<Pattern> exclusionPatterns = new ArrayList<Pattern>( excludedTableList.size() );
+		for ( String t : excludedTableList ) {
+			exclusionPatterns.add( Pattern.compile(t) );
+		}
+		
 		try {
 			tableNames = dbMeta.getTables( null, databaseSchema.toUpperCase(), tableName,
 					types ); // JHK: upper-cased schema name (required by Oracle)
 			while ( tableNames.next() ) {
 				String name = tableNames.getString( 3 );
+				if ( !tableNameRegexPattern.matcher( name ).matches() ) {
+					continue;
+				}
+				if ( startTableName != null && !startTableName.equals("") ) { 	
+					if ( name.compareTo(startTableName) < 0 ) {
+						continue;
+					}
+				}
+				boolean skip = false;
+				for ( Pattern p : exclusionPatterns ) {
+					if ( p.matcher(name).matches() ) {
+						skip = true;
+						break;
+					}
+				}
+				if ( skip ) {
+					continue;
+				}
 				tables.add( name );
 			}
 		} finally {
@@ -343,5 +380,32 @@ public class KualiTorqueDataDumpTask extends Task {
 
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
+	}
+
+	public void setExcludedTables(String excludedTables) {
+		this.excludedTables = excludedTables;
+		excludedTableList = Arrays.asList( StringUtils.split(excludedTables, ',') );
+	}
+
+	public String getExcludedTables() {
+		return excludedTables;
+	}
+
+	public void setStartTableName(String startTableName) {
+		this.startTableName = startTableName;
+	}
+
+	public String getStartTableName() {
+		return startTableName;
+	}
+
+	public String getTableNameRegex() {
+		return tableNameRegex;
+	}
+
+	public void setTableNameRegex(String tableNameRegex) {
+		this.tableNameRegex = tableNameRegex;
+		tableNameRegexPattern = Pattern.compile(tableNameRegex);
 	}	
+	
 }

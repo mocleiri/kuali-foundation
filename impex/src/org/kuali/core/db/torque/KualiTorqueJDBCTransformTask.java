@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
@@ -66,6 +67,9 @@ public class KualiTorqueJDBCTransformTask extends Task {
 
     private XMLSerializer xmlSerializer;
 
+	private String tableNameRegex = ".*";
+	private Pattern tableNameRegexPattern = Pattern.compile(tableNameRegex);
+    
     public String getDbSchema()
     {
         return dbSchema;
@@ -171,11 +175,10 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			if ( processTables ) {
 				List<String> tableList = platform.getTableNames( dbMetaData, dbSchema );
 				for ( String curTable : tableList ) {
-				    if(curTable.contains("$")) {
-                        log( "Skipping table: " + curTable);
-                        continue;
-                    }
-                    
+					if ( !tableNameRegexPattern.matcher( curTable ).matches() ) {
+						log( "Skipping table: " + curTable);
+						continue;
+					}
 					log( "Processing table: " + curTable );
 	
 					Element table = doc.createElement( "table" );
@@ -320,6 +323,10 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			if ( processViews ) {
 				List<String> viewNames = getViewNames( dbMetaData );
 				for ( String viewName : viewNames ) {
+					if ( !tableNameRegexPattern.matcher( viewName ).matches() ) {
+						log( "Skipping view: " + viewName);
+						continue;
+					}
 					Element view = doc.createElement( "view" );
 					view.setAttribute( "name", viewName );
 					/*
@@ -336,6 +343,10 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			if ( processSequences ) {
 				List<String> sequenceNames = getSequenceNames( dbMetaData );
 				for ( String sequenceName : sequenceNames ) {
+					if ( !tableNameRegexPattern.matcher( sequenceName ).matches() ) {
+						log( "Skipping sequence: " + sequenceName);
+						continue;
+					}
 					Element sequence = doc.createElement( "sequence" );
 					sequence.setAttribute( "name", sequenceName );
 					/*
@@ -607,4 +618,13 @@ public class KualiTorqueJDBCTransformTask extends Task {
     	public boolean unique;
     	public List<String> columns = new ArrayList( 10 );
     }
+
+	public String getTableNameRegex() {
+		return tableNameRegex;
+	}
+
+	public void setTableNameRegex(String tableNameRegex) {
+		this.tableNameRegex = tableNameRegex;
+		tableNameRegexPattern = Pattern.compile(tableNameRegex);
+	}
 }
