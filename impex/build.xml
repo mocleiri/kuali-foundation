@@ -261,7 +261,10 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<apply-ddl-macro torque.schema.dir="${torque.schema.dir}" />
 
 		<if>
-			<isset property="import.two.schemas" />
+			<and>
+				<equals arg1="${run.schema.sql.2}" arg2="true" />
+				<isset property="import.two.schemas" />
+			</and>
 			<then>
 				<apply-ddl-macro torque.schema.dir="${torque.schema.dir.2}" />
 			</then>
@@ -286,7 +289,10 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<apply-constraint-ddl-macro torque.schema.dir="${torque.schema.dir}" />
 
 		<if>
-			<isset property="import.two.schemas" />
+			<and>
+				<equals arg1="${run.schema.sql.2}" arg2="true" />
+				<isset property="import.two.schemas" />
+			</and>
 			<then>
 				<apply-constraint-ddl-macro torque.schema.dir="${torque.schema.dir.2}" />
 			</then>
@@ -441,6 +447,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="| Preparing SQL*Loader data from XML !          |" />
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
+		<echo message="torque.schema.dir: ${torque.schema.dir}"/>
 		
 		<mkdir dir="${torque.schema.dir}/sqlloader" />
 		<property name="torque.sqlloader.absolute.dir" location="${torque.schema.dir}/sqlloader" />
@@ -451,7 +458,10 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<if>
 			<isset property="import.two.schemas" />
 			<then>
-				<torque-sql-loader outputDirectory="${torque.sqlloader.absolute.dir}" xmlFile="${torque.schema.dir.2}/schema.xml" targetDatabase="${import.torque.database}"> 
+				<echo message="torque.schema.dir: ${torque.schema.dir.2}"/>
+				<mkdir dir="${torque.schema.dir.2}/sqlloader" />
+				<property name="torque.sqlloader.absolute.dir.2" location="${torque.schema.dir.2}/sqlloader" />
+				<torque-sql-loader outputDirectory="${torque.sqlloader.absolute.dir.2}" xmlFile="${torque.schema.dir.2}/schema.xml" targetDatabase="${import.torque.database}" truncateTable="${truncate.data.sql.2}"> 
 					<fileset dir="${torque.schema.dir.2}" includes="*.xml" excludes="schema.xml" />
 				</torque-sql-loader>
 			</then>
@@ -464,7 +474,8 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="| Executing SQL*Loader !                        |" />
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
-		 
+		<echo message="torque.schema.dir: ${torque.schema.dir}/sqlloader"/>
+		
 		<propertyregex
 			property="import.torque.database.server"
 			input="${import.torque.database.url}"
@@ -494,7 +505,8 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<if>
 			<isset property="import.two.schemas" />
 			<then>
-				<exec executable="sqlldr" dir="${torque.schema.dir}/sqlloader" failonerror="false">
+				<echo message="torque.schema.dir: ${torque.schema.dir.2}/sqlloader"/>
+				<exec executable="sqlldr" dir="${torque.schema.dir.2}/sqlloader" failonerror="false">
 					<arg line="${import.torque.database.user}/${import.torque.database.password}@(DESCRIPTION\=(ADDRESS\=(PROTOCOL\=TCP)(HOST\=${import.torque.database.server})(PORT\=${import.torque.database.port}))(CONNECT_DATA\=(SID\=${import.torque.database.sid})))"/>
 					<arg value="control=loader.ctl"/>
 				</exec>
@@ -510,26 +522,29 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
 
-		<dataxml-to-sql-macro torque.schema.dir="${torque.schema.dir}" />
+		<dataxml-to-sql-macro torque.schema.dir="${torque.schema.dir}" torque.template.dataSql="${torque.template.dataSql}" />
 
+		<condition property="torque.template.dataSql.use" value="${torque.template.dataSql.notruncate}"><equals arg1="${truncate.data.sql.2}" arg2="false" /></condition>
+		<property name="torque.template.dataSql.use" value="${torque.template.dataSql}" />
 		<if>
 			<isset property="import.two.schemas" />
 			<then>
-				<dataxml-to-sql-macro torque.schema.dir="${torque.schema.dir.2}" />
+				<dataxml-to-sql-macro torque.schema.dir="${torque.schema.dir.2}" torque.template.dataSql="${torque.template.dataSql.use}" />
 			</then>
 		</if>
 	</target>
 
 	<macrodef name="dataxml-to-sql-macro">
 		<attribute name="torque.schema.dir" />
+		<attribute name="torque.template.dataSql" />
 		<sequential>
 			<!-- due to the size of the data, there is no way to load it all at once.  Somewhere in the process,
 			  	     previously output data is not being purged from the VM (somewhere in Torque or Velocity).  So, the indirect way of creating the files
 			  	     below invokes a separate VM for each file -->
 			<foreach target="external-run-dataxml-load" inheritall="false" param="xmlDataFile" parallel="true" maxthreads="1">
 				<param name="import.torque.database" value="${import.torque.database}"/>
-				<param name="torque.schema.dir" value="@{torque.schema.dir}"/>					
-				<param name="torque.template.dataSql" value="${torque.template.dataSql}"/>
+				<param name="torque.schema.dir" value="@{torque.schema.dir}"/>
+				<param name="torque.template.dataSql" value="@{torque.template.dataSql}"/>
 				<path>
 					<fileset dir="@{torque.schema.dir}" excludes="${import.exclude.data.pattern}">
 						<include name="*.xml" />
@@ -875,6 +890,8 @@ Please place the jar file for this class in the lib directory and try again.
 		<!-- for automated updates, clear the datasql directory for consistency when tables emptied or removed -->
 		<delete dir="${torque.schema.dir}/datasql" failonerror="false" />
 		<delete dir="${torque.schema.dir.2}/datasql" failonerror="false" />
+		<delete dir="${torque.schema.dir}/sqlloader" failonerror="false" />
+		<delete dir="${torque.schema.dir.2}/sqlloader" failonerror="false" />
 		<antcall target="import" />
 	</target>
 

@@ -75,6 +75,9 @@ public class KualiTorqueSQLLoader extends Task{
     
     /** XML schema file. */
     protected String xmlFile;
+    
+    /** Control if table truncated on data load */
+    protected boolean truncateTable = true;
 	
     /** 
      * Writes a control file and data file based on input XML data such that when SQL*Loader
@@ -102,7 +105,12 @@ public class KualiTorqueSQLLoader extends Task{
 			ctrlfile.write("OPTIONS (ROWS=8192,BINDSIZE="+BINDSIZE+",READSIZE="+READSIZE+",ERRORS="+numErrors+getSilentString()+")\n");
 			ctrlfile.write("LOAD DATA\n");
             ctrlfile.write("INFILE '"+datFile+"' \"str "+getHexadecimalString()+"'"+TERMINATOR+"'\"\n");
-            ctrlfile.write("TRUNCATE\n");
+            if(truncateTable) {
+                ctrlfile.write("TRUNCATE\n");
+            }
+            else {
+                ctrlfile.write("APPEND\n");
+            }
             
             KualiXmlToAppData xmlParser = new KualiXmlToAppData(getTargetDatabase(), getTargetPackage());
             KualiDatabase ad = xmlParser.parseFile(xmlFile);
@@ -116,11 +124,11 @@ public class KualiTorqueSQLLoader extends Task{
                 String[] dataModelFiles = ds.getIncludedFiles();
                 
                 for(int j = 0; j < dataModelFiles.length; j++){
-                	System.out.println("Preparing " + dataModelFiles[j] + " for SQL*Loader!");
+                	log("Preparing " + dataModelFiles[j] + " for SQL*Loader!");
                 	String tableName = dataModelFiles[j].replace(".xml", "");
             		List columns = ad.getTable(tableName).getColumns();
             		if(columns.size() == 0)
-            			System.out.println("IGNORING: " + tableName + "... No columns in xml file");
+            			log("IGNORING: " + tableName + "... No columns in xml file");
             		else{
             			//If a line of data being interpreted passes the WHEN clause, that line of data will
             			//be inserted into the table with the name tableName
@@ -174,8 +182,8 @@ public class KualiTorqueSQLLoader extends Task{
 			infile.close();
 			
 		} catch (IOException e) {
-			System.out.println("IOException occured while writing " + controlFile + " and " + datFile);
-			e.printStackTrace(System.out);
+			log("IOException occured while writing " + controlFile + " and " + datFile + " : " + e.getMessage());
+			throw new BuildException(e);
 		} catch (EngineException e) {
 			throw new BuildException(e);
 		}
@@ -342,6 +350,19 @@ public class KualiTorqueSQLLoader extends Task{
     public void setXmlFile(String xmlFile)
     {
         this.xmlFile = getProject().resolveFile(xmlFile).toString();
+    }
+
+    public boolean isTruncateTable() {
+        return truncateTable;
+    }
+
+    /**
+     * Determines if tables should be truncated before load or data should be appended.
+     * 
+     * @param truncateTable
+     */
+    public void setTruncateTable(boolean truncateTable) {
+        this.truncateTable = truncateTable;
     }
     
     
