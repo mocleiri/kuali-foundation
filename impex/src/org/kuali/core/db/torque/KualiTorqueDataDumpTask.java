@@ -345,6 +345,7 @@ public class KualiTorqueDataDumpTask extends Task {
 					}
 				}
 				if ( skip ) {
+					log ("Skipping table " + name);
 					continue;
 				}
 				tables.add( name );

@@ -566,7 +566,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
     	//ArrayList<String> pkFields = new ArrayList<String>();
     	ResultSet indexInfo = null;
     	try {
-    		indexInfo = dbMeta.getIndexInfo( null, dbSchema, tableName, false, false );
+    		indexInfo = dbMeta.getIndexInfo( null, dbSchema, tableName, false, true );
     		// need to ensure that the PK is not returned as an index
     		pkInfo = dbMeta.getPrimaryKeys( null, dbSchema, tableName );
     		if ( pkInfo.next() ) {
