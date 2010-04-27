@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
@@ -159,7 +160,11 @@ public class KualiTorqueJDBCTransformTask extends Task {
 		Connection con = null;
 		try {
 			// Attempt to connect to a database.
-			con = DriverManager.getConnection( dbUrl, dbUser, dbPassword );
+			Properties p = new Properties();
+			p.setProperty("user", dbUser);
+			p.setProperty("password", dbPassword);
+			p.setProperty("oracle.jdbc.mapDateToTimestamp", "false"); // workaround for change in 11g JDBC driver
+			con = DriverManager.getConnection( dbUrl, p );
 			log( "DB connection established" );
 
 			Platform platform = PlatformFactory.getPlatformFor( dbType );
