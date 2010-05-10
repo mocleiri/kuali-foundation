@@ -7,8 +7,6 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-buildsvnwebapp dev2
-
 kexport stg trunk
 kdailytag trunk
 
@@ -16,9 +14,12 @@ kupdate cnv standard true false Oracle9i true
 buildsvnwebapp cnv
 runS2sScripts cnv
 
-#kupdate dev standard true false Oracle9i true
+kupdate dev standard true false Oracle9i true
 buildsvnwebapp dev
 #runS2sScripts dev
+
+kupdate dev2 standard true false Oracle9i true
+buildsvnwebapp dev2
 
 #buildsvnwebapp stg
 kpurge $LOGS_DIRECTORY 7
