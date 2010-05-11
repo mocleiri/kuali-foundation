@@ -260,6 +260,7 @@ IS
     EXCEPTION
         WHEN OTHERS THEN
             dbms_output.put_line('drop User - Exception:'||SUBSTR(SQLERRM,1,200));
+            Temp := restore_normal_password(UserID);
             IF DebugMode THEN
                 RAISE;
             ELSE
