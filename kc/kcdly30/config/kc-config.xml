@@ -2,7 +2,7 @@
 	<!-- App specific parameters -->
 	<param name="application.http.scheme">http</param>
 	<param name="application.host">test.kc.kuali.org</param>
-	<param name="http.port">8080</param>
+	<param name="http.port">80</param>
 	<param name="app.context.name">${app.code}-${environment}</param>
 
 	<!-- Database parameters -->
@@ -13,7 +13,7 @@
 	<param name="datasource.ojb.platform">Oracle9i</param>
 
 	<!-- For Embedded Mode -->
-	<param name="rice.app.url">http://test.kc.kuali.org:8090/kr-dly30</param>
+	<param name="rice.app.url">http://test.kc.kuali.org/kr-dly30</param>
 
 	<param name="kim.runmode">embedded</param>
 	<param name="kcb.runmode">embedded</param>

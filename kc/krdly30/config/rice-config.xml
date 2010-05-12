@@ -1,5 +1,5 @@
 <config>
-    <param name="http.port">8090</param>
+    <param name="http.port">80</param>
     <param name="application.host">test.kc.kuali.org</param>
 
 	<param name="plugin.dir">${user.home}/kuali/main/${environment}/rice_embedded/plugins</param>
