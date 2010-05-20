@@ -4,7 +4,7 @@
 . ~j2eemgr/kuali/shared-settings
 . ~j2eemgr/kuali/shared-functions
 
-kexport dba trunk
+# kexport dba trunk
 kdailytag trunk
 
 sh ~j2eemgr/kuali/kfs/cnv-redeploy-full.sh
