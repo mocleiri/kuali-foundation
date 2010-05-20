@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
@@ -500,7 +501,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
     public Map getForeignKeys(DatabaseMetaData dbMeta, String tableName)
         throws SQLException
     {
-        HashMap fks = new HashMap();
+        TreeMap fks = new TreeMap();
         ResultSet foreignKeys = null;
         try
         {

@@ -4,18 +4,18 @@
 
 	<taskdef resource="net/sf/antcontrib/antlib.xml">
 		<classpath>
-			<pathelement location="lib/ant-contrib-1.0b3.jar" />
+			<pathelement location="../lib/ant-contrib-1.0b3.jar" />
 		</classpath>
 	</taskdef>
     <typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
         <classpath>
-            <fileset dir="lib" includes="svn*.jar" />
+            <fileset dir="../lib" includes="svn*.jar" />
         </classpath>
     </typedef>
 	
 	<property file="ant-local.properties" />
 	<property file="ant.properties" />
-    <property name="drivers.dir" location="lib" />
+    <property name="drivers.dir" location="../drivers" />
     <property name="checkout.dir" location="checkout" />
 	
     <pathconvert property="temp.dir" targetos="unix">
