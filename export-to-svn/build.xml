@@ -68,8 +68,11 @@
 		<svn failonerror="true">
 			<delete force="true">
     			<fileset dir="${checkout.dir}/${data.svn.module}">
-    				<include name="*.xml" />
+    				<include name="data/*.txt" />
+    				<include name="formats/*.xml" />
+    				<include name="graphs/*.xml" />
     				<exclude name="schema.xml" />
+    				<exclude name=".#*" />
     				<present present="srconly" targetdir="${checkout.dir}/new_export" />
     			</fileset>
 			</delete>
@@ -81,8 +84,11 @@
         <!-- first, create 0-byte files with the correct names in the sandbox -->
 		<for param="f">
             <fileset dir="${checkout.dir}/new_export">
-                <include name="*.xml" />
+                <include name="data/*.txt" />
+                <include name="formats/*.xml" />
+                <include name="graphs/*.xml" />
                 <exclude name="schema.xml" />
+                <exclude name=".#*" />
                 <present present="srconly" targetdir="${checkout.dir}/${data.svn.module}" />
             </fileset>
 			<sequential>
@@ -104,8 +110,11 @@
 		<!-- copy files which are present in each directory and have changed -->
 		<copy todir="${checkout.dir}/${data.svn.module}" overwrite="true" verbose="true" failonerror="true">
 			<fileset dir="${checkout.dir}/new_export">
-				<include name="*.xml" />
+				<include name="data/*.txt" />
+				<include name="formats/*.xml" />
+				<include name="graphs/*.xml" />
 				<include name="schema.xml" />
+				<exclude name=".#*" />
 				<and>
 					<present present="both" targetdir="${checkout.dir}/${data.svn.module}" />
 					<different targetdir="${checkout.dir}/${data.svn.module}" ignorefiletimes="true" ignoreContents="false" />
