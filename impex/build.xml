@@ -54,19 +54,13 @@ Other Targets:
                                   Each tag in the file represents a table row.  Each column is an attribute of the tag.
          create-data-dtd      ==> Generates a single DTD file for the above data XML files.
          doc                  ==> Generates HTML cross-linked documentation for the database schema.
-         package-export       ==> Packages the export into a single zip file: ${target.zip}
 
     Import Related:			
-         unpack-export        ==> Unpacks the source zip file (${source.zip}) into the ${torque.schema.dir} directory.
          create-ddl           ==> Creates ${torque.schema.dir}/sql/schema.sql and 
                                   ${torque.schema.dir}/sql/schema-constraints.sql from the 
                                   ${torque.schema.dir}/schema.xml file.
-         dataxml-to-sql       ==> Creates SQL files (one per table) from the data XML files.  
-                                  This process runs in 5 threads to speed the process.  
-                                  (See: dataxml-file-to-sql-file and external-run-dataxml-load targets)
          apply-ddl            ==> Runs the ${torque.schema.dir}/sql/schema.sql into the database to 
                                   create all the tables, views, sequences, primary keys, and indexes.
-         apply-data-sql       ==> Runs all data SQL files into the database.
          apply-constraint-ddl ==> Runs the ${torque.schema.dir}/sql/schema-constraints.sql into 
                                   the database to create all foreign key constraints.
 			
@@ -130,9 +124,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 			</classpath>
 		</taskdef>
 		<taskdef name="torque-doc" classpathref="torque-classpath" classname="org.apache.torque.task.TorqueDocumentationTask" />
-
 		<taskdef name="torque-doc-desc" classpathref="torque-classpath" classname="org.apache.torque.task.TorqueMergeXMLDoc" />
-
 		<taskdef name="torque-jdbc-transform" classpathref="torque-classpath" classname="org.kuali.core.db.torque.KualiTorqueJDBCTransformTask" />
 		<taskdef name="torque-sql" classpathref="torque-classpath" classname="org.kuali.core.db.torque.KualiTorqueSQLTask" />
 	</target>
@@ -313,13 +305,13 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<!-- ================================================================ -->
 
 	<target name="jdbc-to-xml" description="==> jdbc to xml" depends="inittasks">
-
 		<echo message="+-----------------------------------------------+" />
 		<echo message="|                                               |" />
 		<echo message="| Generating XML from JDBC connection !         |" />
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
 		<echo message="torque.schema.dir: ${torque.schema.dir}"/>
+		<mkdir dir="${torque.schema.dir}" />
 		<property name="torque.schema.absolute.dir" location="${torque.schema.dir}" />
 		<!-- above works around a problem with torque-jdbc-transform getting passed a relative directory, and not working right if tbe process was started from a directory other than ant's basedir -->
 
@@ -521,8 +513,7 @@ Please place the jar file for this class in the lib directory and try again.
 	   Oracle-specific targets
 	-->
 
-	<target name="oracle-create-user" depends="inittasks">
-	</target>
+	<target name="oracle-create-user" depends="inittasks" />
 
 	<target name="oracle-create-app-user" depends="inittasks">
 		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.create_user( '${import.torque.database.user}_USER', 'USER', '${import.torque.database.password}_USER' ); END;" />
@@ -533,7 +524,7 @@ Please place the jar file for this class in the lib directory and try again.
 	</target>
 
 	<target name="oracle-drop-schema" depends="inittasks">
-		<adminsql sql="${oracle.drop.user.commands}" />
+		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.drop_user( '${import.torque.database.user}' ); END;" />
 	</target>
 
 	<target name="oracle-empty-schema" depends="inittasks">
@@ -554,22 +545,29 @@ Please place the jar file for this class in the lib directory and try again.
 	-->
 
 	<target name="mysql-create-user" depends="inittasks">
-		<adminsql sql="${mysql.create.user.commands}" onerror="continue" />
+		<adminsql sql="CREATE USER '${import.torque.database.user}'@'localhost' IDENTIFIED BY '${import.torque.database.password}'" onerror="continue" />
 	</target>
 
 	<target name="mysql-create-app-user" depends="inittasks">
-		<adminsql sql="${mysql.create.user.commands}" onerror="continue" />
+		<adminsql sql="CREATE USER '${import.torque.database.user}_user'@'localhost' IDENTIFIED BY '${import.torque.database.password}_user'" onerror="continue" />
+		<adminsql sql="GRANT ALL ON ${import.torque.database.schema}.* TO '${import.torque.database.user}_user'@'localhost' WITH GRANT OPTION" onerror="continue" />
 	</target>
 
 	<target name="mysql-create-schema" depends="inittasks">
-		<adminsql sql="${mysql.create.schema.commands}" onerror="continue" />
+		<adminsql sql="CREATE DATABASE IF NOT EXISTS ${import.torque.database.schema} DEFAULT CHARACTER SET 'utf8' DEFAULT COLLATE 'utf8_bin'" onerror="continue" />
+		<adminsql sql="GRANT ALL ON ${import.torque.database.schema}.* TO '${import.torque.database.user}'@'localhost' WITH GRANT OPTION" onerror="continue" />
 	</target>
 
 	<target name="mysql-drop-schema" depends="inittasks">
-		<adminsql sql="${mysql.drop.schema.commands}" />
+		<adminsql sql="DROP DATABASE IF EXISTS ${import.torque.database.schema}" />
 	</target>
 
-	<target name="mysql-empty-schema" depends="inittasks,mysql-drop-schema,mysql-create-schema" />
+	<target name="mysql-drop-app-user" depends="inittasks">
+		<adminsql sql="DROP USER ${import.torque.database.schema}_user" />
+	</target>
+	<target name="mysql-recreate-app-user" depends="mysql-drop-app-user,mysql-create-app-user" />
+
+	<target name="mysql-empty-schema" depends="mysql-drop-schema,mysql-create-schema" />
 
 	<target name="mysql-bootstrap" depends="inittasks" />
 

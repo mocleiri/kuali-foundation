@@ -174,7 +174,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			DatabaseMetaData dbMetaData = con.getMetaData();
 			
 			databaseNode = doc.createElement( "database" );
-			databaseNode.setAttribute( "name", "kfs" );
+			databaseNode.setAttribute( "name", "kuali" );
 			// JHK added naming method
 			databaseNode.setAttribute( "defaultJavaNamingMethod", "nochange" );
 
@@ -374,9 +374,9 @@ public class KualiTorqueJDBCTransformTask extends Task {
 		}
 	}
 
-	public List getViewNames(DatabaseMetaData dbMeta) throws SQLException {
+	public List<String> getViewNames(DatabaseMetaData dbMeta) throws SQLException {
 		log( "Getting view list..." );
-		List tables = new ArrayList();
+		List<String> tables = new ArrayList<String>();
 		ResultSet tableNames = null;
 		// these are the entity types we want from the database
 		String[] types = { "VIEW" }; // JHK: removed views from list
@@ -405,9 +405,9 @@ public class KualiTorqueJDBCTransformTask extends Task {
 				|| sequenceName.toUpperCase().endsWith( "_S" ) ;
 	}
 	
-	public List getSequenceNames(DatabaseMetaData dbMeta) throws SQLException {
+	public List<String> getSequenceNames(DatabaseMetaData dbMeta) throws SQLException {
 		log( "Getting sequence list..." );
-		List tables = new ArrayList();
+		List<String> tables = new ArrayList<String>();
 		ResultSet tableNames = null;
 		// these are the entity types we want from the database
 		String[] types = { "TABLE", "SEQUENCE" }; // JHK: removed views from list
@@ -427,15 +427,6 @@ public class KualiTorqueJDBCTransformTask extends Task {
 		log( "Found " + tables.size() + " sequences." );
 		return tables;
 	}
-//	for ( int i = 1; i <= tableNames.getMetaData().getColumnCount(); i++ ) {
-//		System.out.print( tableNames.getMetaData().getColumnName( i ) + "," );				
-//	}
-//	System.out.println();				
-//	for ( int i = 1; i <= tableNames.getMetaData().getColumnCount(); i++ ) {
-//		System.out.print( tableNames.getString( i ) + "," );				
-//	}
-//	System.out.println();				
-
 
     /**
      * Retrieves all the column names and types for a given table from
@@ -498,10 +489,10 @@ public class KualiTorqueJDBCTransformTask extends Task {
      * @return A list of foreign keys in <code>tableName</code>.
      * @throws SQLException
      */
-    public Map getForeignKeys(DatabaseMetaData dbMeta, String tableName)
+    public Map<String,Object[]> getForeignKeys(DatabaseMetaData dbMeta, String tableName)
         throws SQLException
     {
-        TreeMap fks = new TreeMap();
+        TreeMap<String,Object[]> fks = new TreeMap<String,Object[]>();
         ResultSet foreignKeys = null;
         try
         {
@@ -525,19 +516,19 @@ public class KualiTorqueJDBCTransformTask extends Task {
                     fkName = refTableName;
                 }
                 Object[] fk = (Object[]) fks.get(fkName);
-                List refs;
+                List<String[]> refs;
                 if (fk == null)
                 {
                     fk = new Object[3];
                     fk[0] = refTableName; //referenced table name
-                    refs = new ArrayList();
+                    refs = new ArrayList<String[]>();
                     fk[1] = refs;
                     fks.put(fkName, fk);
                     fk[2] = onDelete;
                 }
                 else
                 {
-                    refs = (ArrayList) fk[1];
+                    refs = (ArrayList<String[]>) fk[1];
                 }
                 String[] ref = new String[2];
                 ref[0] = foreignKeys.getString(8); //local column
@@ -622,7 +613,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
     private static class TableIndex {
     	public String name;
     	public boolean unique;
-    	public List<String> columns = new ArrayList( 10 );
+    	public List<String> columns = new ArrayList<String>( 10 );
     }
 
 	public String getTableNameRegex() {

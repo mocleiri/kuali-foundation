@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="db-impex-tools" basedir=".">
+<project name="clover" basedir=".">
 	
 	<!--
-	TODO: build workspace properties file before call to class
+	  build workspace properties file before call to class
 	  add DB information to file
 	  new batch job for creating all in one target
 	  	(input format, output format, import graph, export graph)
@@ -21,8 +21,6 @@
 	<property name="data.dir" location="${base.dir}/data"/>
 	<property name="connections.dir" location="connections"/>
 	<property name="drivers.dir" location="../drivers"/>
-    <property name="do.dumps" value="false" />
-	<property file="uc_dataset.properties" />	
 	
     <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="../lib/ant-contrib-1.0b3.jar" />
 	
@@ -136,6 +134,7 @@
           target: build              
          ================================= -->
     <target name="build" depends="" description="--> Builds all code">
+    	<mkdir dir="bin" />
         <javac srcdir="src" destdir="bin" includeantruntime="true">
         	<classpath>
         	    <path refid="compile.classpath" />
@@ -145,8 +144,7 @@
 	
 	<target name="jar" depends="build">
     	<jar destfile="kfs_data_export.jar">
-  			<fileset dir="bin">
-  			</fileset>  	
+  			<fileset dir="bin" />
     	</jar>    
 	</target>
 
@@ -171,10 +169,6 @@
 		data XML generation/parsing targets
 		
 		Start with the data export process
-		
-		TODO: delete zero-length files
-		
-		TODO: generate the db connection file as well
 	-->
 
 	<target name="init-clover-tasks">
@@ -208,20 +202,14 @@ FORMAT_DIR = ${formats.dir.safe}
 GRAPH_DIR = ${graphs.dir.safe}
 DATA_DIR = ${data.dir.safe}
 DUMP_DIR = ${data.dir.safe}
-OUTPUT_DUMPS = ${do.dumps}
 MAX_ERRORS = 0
-EXPORT_MODE_PRODUCTION = ${export.mode.production}
-EXPORT_MODE_TEST = ${export.mode.test}
-IMPORT_FISCAL_YEAR = ${import.fiscal.year}
     	</echo>		
 		<loadproperties srcfile="${db.config.file.safe}" />
 	</target>
 
-	<!-- TODO: parameterize db connection - also load file and use for tasks -->
-	
 	<target name="create-format-files" depends="create-clover-config-file">
 		<!-- clean out existing format files -->
-		<mkdir dir="anttest/formats" />
+		<mkdir dir="${export.dir}/formats" />
 		<delete>
 			<fileset dir="${export.dir}/formats">
     			<include name="*.xml"/>
@@ -241,7 +229,7 @@ IMPORT_FISCAL_YEAR = ${import.fiscal.year}
 
 	<target name="create-export-graph-files" depends="create-clover-config-file">
 		<!-- clean out existing format files -->
-		<mkdir dir="anttest/graphs" />
+		<mkdir dir="${export.dir}/graphs" />
 		<delete>
 			<fileset dir="${export.dir}/graphs">
     			<include name="*.xml"/>
@@ -261,7 +249,7 @@ IMPORT_FISCAL_YEAR = ${import.fiscal.year}
 
 	<target name="create-import-graph-files" depends="create-clover-config-file">
 		<!-- clean out existing format files -->
-		<mkdir dir="anttest/graphs" />
+		<mkdir dir="${export.dir}/graphs" />
 		<!-- create all new graph files -->
     	<create-table-import-graphs
     		driver="${dbDriver}"
@@ -276,8 +264,8 @@ IMPORT_FISCAL_YEAR = ${import.fiscal.year}
 	</target>	
 	
 	<target name="run-export-graphs" depends="create-clover-config-file">
-		<mkdir dir="anttest/data" />
-		<mkdir dir="anttest/dump" />
+		<mkdir dir="${export.dir}/data" />
+		<mkdir dir="${export.dir}/dump" />
 		<!-- clean out existing format files -->
 		<delete>
 			<fileset dir="${export.dir}">
@@ -305,9 +293,7 @@ IMPORT_FISCAL_YEAR = ${import.fiscal.year}
 		<!-- ================================= 
           target: export-data              
          ================================= -->
-    <target name="export-data" depends="create-format-files,create-export-graph-files,create-import-graph-files,run-export-graphs">
-
-    </target>
+    <target name="export-data" depends="create-format-files,create-export-graph-files,create-import-graph-files,run-export-graphs" />
 
 	<target name="empty-table">
 		<property name="db.config.file" value="${connections.dir}/${database.config}.cfg" />

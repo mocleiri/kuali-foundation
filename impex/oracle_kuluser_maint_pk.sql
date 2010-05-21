@@ -21,6 +21,8 @@ PACKAGE kuluser_maint_pk
     FUNCTION check_schema_name( UserID IN VARCHAR ) RETURN BOOLEAN;
     FUNCTION create_user( UserID IN VARCHAR, UserPassword IN VARCHAR DEFAULT NULL ) RETURN INTEGER;
     FUNCTION recreate_user( UserID IN VARCHAR ) RETURN INTEGER;
+    FUNCTION create_app_user( UserID IN VARCHAR, UserPassword IN VARCHAR DEFAULT NULL ) RETURN INTEGER;
+    FUNCTION recreate_app_user( UserID IN VARCHAR ) RETURN INTEGER;
     FUNCTION drop_user( UserID IN VARCHAR ) RETURN INTEGER;
     FUNCTION kill_user_sessions( UserID IN VARCHAR ) RETURN INTEGER;
     FUNCTION use_temp_password( UserID IN VARCHAR ) RETURN INTEGER;
@@ -37,7 +39,7 @@ IS
     WaitIntervalSeconds CONSTANT NUMBER  := 5;
     MaxWaitSeconds      CONSTANT NUMBER  := 60;
     ProtectedSchemaList CONSTANT VARCHAR2(4000) := '~SYS~SYSTEM~DBSNMP~OUTLN~DIP~TSMSYS~WMSYS~KULDBA~KULUSERMAINT~KULUSER_ADMIN~KULCFGUSR~';
-    AllowedSchemaPrefixList CONSTANT VARCHAR2(4000) := 'KUL,RICE,KR,KRA,KEW,KEM,KS,KFS,KMM';
+    AllowedSchemaPrefixList CONSTANT VARCHAR2(4000) := 'KUL,RICE,KR,KRA,KEW,KEM,KS,KFS,KMM,KC';
 
 	-- FOR NOW THIS NEEDS TO BE CHANGED TO TEMP02 FOR THE KUALI FOUNDATION DAILY UPDATE PROCESS
     TemporaryTablespace CONSTANT VARCHAR2(30) := 'TEMP';
@@ -193,7 +195,7 @@ IS
         END IF;
         EXECUTE IMMEDIATE CreateUserDDL;
         -- assign roles
-        EXECUTE IMMEDIATE 'GRANT kul_developer TO '||UserID;
+        EXECUTE IMMEDIATE 'GRANT kfs_role TO '||UserID;
         -- set default roles
         EXECUTE IMMEDIATE 'ALTER USER '||UserID||' DEFAULT ROLE ALL';
         IF PasswordHash THEN
@@ -212,6 +214,50 @@ IS
             END IF;
     END;
 
+ FUNCTION create_app_user( UserID IN VARCHAR, UserType IN VARCHAR, UserPassword IN VARCHAR DEFAULT NULL ) RETURN INTEGER
+    IS
+        UserPW VARCHAR2(30) := UserPassword;
+        PasswordHash BOOLEAN := FALSE;
+        CreateUserDDL VARCHAR2(4000);
+    BEGIN
+        IF UserPW IS NULL THEN
+            BEGIN
+                SELECT password_text
+                    INTO UserPW
+                    FROM kuluser_maint_pk_support_t
+                    WHERE user_id = UPPER( UserID );
+                PasswordHash := TRUE;
+            EXCEPTION
+                WHEN no_data_found THEN
+                    raise_application_error( -20000, 'No Password Provided and password not stored in support table.' );
+            END;
+        END IF;
+        -- create user
+        CreateUserDDL := 'CREATE USER '||UserID||' IDENTIFIED BY ';
+        IF PasswordHash THEN
+            CreateUserDDL := CreateUserDDL||'VALUES '''||UserPW||''' ';
+        ELSE
+            CreateUserDDL := CreateUserDDL||UserPW||' ';
+        END IF;
+        EXECUTE IMMEDIATE CreateUserDDL;
+	        -- assign roles
+	        EXECUTE IMMEDIATE 'GRANT kfs_user_role TO '||UserID;
+	        -- set default roles
+	        EXECUTE IMMEDIATE 'ALTER USER '||UserID||' DEFAULT ROLE ALL';
+        IF PasswordHash THEN
+            DELETE FROM kuluser_maint_pk_support_t
+                WHERE user_id = UPPER(UserID);
+            COMMIT;
+        END IF;
+        RETURN 0;
+    EXCEPTION
+        WHEN OTHERS THEN
+            IF DebugMode THEN
+                RAISE;
+            ELSE
+                RETURN 8;
+            END IF;
+    END;
     PROCEDURE save_user_password( UserID IN VARCHAR )
     IS
         UserPassword VARCHAR(30);
@@ -253,6 +299,8 @@ IS
             IF Result != 0 THEN
                 RETURN Result;
             END IF;
+            -- get the user's hashed password and store to the support table
+            save_user_password(UserID);
             -- drop the user
             EXECUTE IMMEDIATE 'DROP USER '||UserID||' CASCADE';
         END IF;
@@ -291,6 +339,28 @@ IS
             END IF;
     END;
 
+    FUNCTION recreate_app_user( UserID IN VARCHAR ) RETURN INTEGER
+    IS
+        Result INTEGER;
+    BEGIN
+        Result := drop_user(UserID);
+        IF Result != 0 THEN
+            RETURN Result;
+        END IF;
+        Result := create_app_user(UserID);
+        IF Result != 0 THEN
+            RETURN Result;
+        END IF;
+        RETURN 0;
+    EXCEPTION
+        WHEN OTHERS THEN
+            dbms_output.put_line('Recreate User - Exception:'||SUBSTR(SQLERRM,1,200));
+            IF DebugMode THEN
+                RAISE;
+            ELSE
+                RETURN 8;
+            END IF;
+    END;
 
     FUNCTION use_temp_password( UserID IN VARCHAR ) RETURN INTEGER
     IS
