@@ -516,11 +516,11 @@ Please place the jar file for this class in the lib directory and try again.
 	<target name="oracle-create-user" depends="inittasks" />
 
 	<target name="oracle-create-app-user" depends="inittasks">
-		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.create_user( '${import.torque.database.user}_USER', 'USER', '${import.torque.database.password}_USER' ); END;" />
+		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.create_app_user( '${import.torque.database.user}_USER', '${import.torque.database.password}_USER' ); END;" />
 	</target>
 
 	<target name="oracle-create-schema" depends="inittasks">
-		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.create_user( '${import.torque.database.user}', 'APP', '${import.torque.database.password}' ); END;" onerror="continue" />
+		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.create_user( '${import.torque.database.user}' '${import.torque.database.password}' ); END;" onerror="continue" />
 	</target>
 
 	<target name="oracle-drop-schema" depends="inittasks">
@@ -528,16 +528,16 @@ Please place the jar file for this class in the lib directory and try again.
 	</target>
 
 	<target name="oracle-empty-schema" depends="inittasks">
-		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.recreate_user( '${import.torque.database.user}', 'APP' ); END;" />
+		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.recreate_user( '${import.torque.database.user}' ); END;" />
 	</target>
 
 	<target name="oracle-recreate-app-user" depends="inittasks">
-		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.recreate_user( '${import.torque.database.user}_USER', 'USER' ); END;" />
+		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.recreate_app_user( '${import.torque.database.user}_USER' ); END;" />
 	</target>
 
 	<target name="oracle-bootstrap" depends="inittasks">
-		<bootstrapsql file="create_admin_user.sql" user="${oracle.usermaint.user}" password="${oracle.usermaint.password}" />
-		<bootstrapsql file="kuluser_maint_pk.sql" user="${oracle.usermaint.user}" password="${oracle.usermaint.password}" />
+		<bootstrapsql file="oracle_create_admin_user.sql" user="${oracle.usermaint.user}" password="${oracle.usermaint.password}" />
+		<bootstrapsql file="oracle_kuluser_maint_pk.sql" user="${oracle.usermaint.user}" password="${oracle.usermaint.password}" />
 	</target>
 
 	<!--
