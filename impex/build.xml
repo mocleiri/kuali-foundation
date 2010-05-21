@@ -741,8 +741,6 @@ EXPORT_MODE_TEST = ${export.mode.test}
     	</echo>
 	</target>
 
-	<!-- TODO: parameterize db connection - also load file and use for tasks -->
-
 	<target name="create-format-files" depends="create-clover-config-file">
 		<!-- clean out existing format files -->
 		<mkdir dir="${torque.schema.dir}/formats" />
@@ -1035,4 +1033,23 @@ END;
 /	
 		</sql>
 	</target>
+	
+	<target name="import-workflow" depends="inittasks" if="post.import.workflow.project">
+		<java classname="org.apache.tools.ant.Main"
+		      fork="true"
+		      failonerror="true">		    
+		    <classpath path="${java.class.path}" />
+		    <jvmarg value="-Xmx1g" />
+		    <arg value="-Duser.home=${user.home}" />
+			<arg value="-buildfile" />
+			<arg value="${post.import.workflow.ingester.launcher.ant.script}" />
+		    <arg value="-D${post.import.workflow.ingester.launcher.ant.xml.directory.property}=${post.import.workflow.xml.directory}" />
+		    <arg value="${post.import.workflow.ingester.launcher.ant.target}" />
+		</java>			
+	</target>
+	
+	<target name="run-liquibase-post-import" depends="inittasks">
+	
+	</target>
+	
 </project>

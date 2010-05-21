@@ -67,6 +67,22 @@ import.torque.database.user=kuldemo
 import.torque.database.schema=KULDEMO
 import.torque.database.password=kuldemo
 
+# after data import, have impex run liquibase scripts in this directory
+#post.import.liquibase.directory=
+
+# after liquibase import, ingest workflow XML from the specified location
+
+# project from which the workflow should be imported
+#post.import.workflow.project=
+# directory which contains the workflow XML - will be ingested in alpha order
+post.import.workflow.xml.directory=../../${post.import.workflow.project}/workflow
+# path to the ant script which launches the ingester
+post.import.workflow.ingester.launcher.ant.script=../../${post.import.workflow.project}/build.xml
+# target in the ant script which launches the ingester
+post.import.workflow.ingester.launcher.ant.target=import-workflow-xml
+# property name which must be passed in to identify the directory for the stib which launches the ingester
+post.import.workflow.ingester.launcher.ant.xml.directory.property=workflow.dir
+
 #
 # Uncomment these for a local MySQL database
 #
