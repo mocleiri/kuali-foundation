@@ -22,7 +22,7 @@ torque.project = kfs
 svnroot=https://test.kuali.org/svn/
 svn.module=rice-cfg-dbs
 # use this Rice source for running with an embedded rice database (normal for development)
-svn.base=rice-kuali-client-db/branches/rice-release-1-0-1-1-br/
+svn.base=rice-kuali-client-db/branches/rice-release-1-1-0-clover-br
 
 torque.schema.dir=../../${svn.module}
 torque.sql.dir=${torque.schema.dir}/sql

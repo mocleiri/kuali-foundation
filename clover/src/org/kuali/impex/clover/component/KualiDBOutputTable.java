@@ -35,13 +35,13 @@ import org.w3c.dom.Element;
  * <p>The import graph will still complete even if the underline schema has more fields than what's 
  * specified in the format file.  
  */
-public class UcDBOutputTable extends DBOutputTable {
+public class KualiDBOutputTable extends DBOutputTable {
 	
-	public static final String UC_COMPONENT_TYPE = "UC_DB_OUTPUT_TABLE";
+	public static final String UC_COMPONENT_TYPE = "KUL_DB_OUTPUT_TABLE";
 	public static final String USE_INPUT_META_ATTRIBUTE = "metadata";
 	
 	
-	public UcDBOutputTable(String id, String dbConnectionName, String dbTableName) {
+	public KualiDBOutputTable(String id, String dbConnectionName, String dbTableName) {
 		super(id, dbConnectionName, dbTableName);
 	}
 
@@ -50,12 +50,12 @@ public class UcDBOutputTable extends DBOutputTable {
 	 * @param dbConnectionName Name of Clover's database connection to be used for communicating with DB
 	 * @param sqlQuery set of sql queries
 	 */
-	public UcDBOutputTable(String id, String dbConnectionName, String[] sqlQuery) {
+	public KualiDBOutputTable(String id, String dbConnectionName, String[] sqlQuery) {
 		super(id, dbConnectionName, sqlQuery);
 	}
 	
 	@Deprecated
-	public UcDBOutputTable(String id, String dbConnectionName, String sqlQuery, String[] cloverFields) {
+	public KualiDBOutputTable(String id, String dbConnectionName, String sqlQuery, String[] cloverFields) {
 		super(id, dbConnectionName, sqlQuery, cloverFields );
 	}
 

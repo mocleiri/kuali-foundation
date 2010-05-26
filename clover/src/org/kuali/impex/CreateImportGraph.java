@@ -104,7 +104,7 @@ public class CreateImportGraph {
 		} else {
 			sb.append( "    <Edge fromNode=\"FIX_DELIM:0\" toNode=\"DB_OUTPUT:0\" id=\"TO_OUTPUT\"  metadata=\"OutputFileFormat\" />\r\n" );		
 		}
-		sb.append( "    <Node id=\"DB_OUTPUT\" type=\"UC_DB_OUTPUT_TABLE\" metadata=\"OutputFileFormat\" dbConnection=\"TargetDB\" dbTable=\"" ).append( tableName.toLowerCase() ).append( "\" batchMode=\"true\" errorAction=\"ROLLBACK\" />\r\n" );
+		sb.append( "    <Node id=\"DB_OUTPUT\" type=\"KUL_DB_OUTPUT_TABLE\" metadata=\"OutputFileFormat\" dbConnection=\"TargetDB\" dbTable=\"" ).append( tableName.toLowerCase() ).append( "\" batchMode=\"true\" errorAction=\"ROLLBACK\" />\r\n" );
 		sb.append( "  </Phase>\r\n" );
 		sb.append( "</Graph>\r\n" );
 		sb.append( "  \r\n" );

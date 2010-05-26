@@ -15,7 +15,7 @@
 	</requires>
 
 	<extension point-id="component">
-		<parameter id="className" value="org.kuali.impex.clover.component.DBOutputTable"/>
+		<parameter id="className" value="org.kuali.impex.clover.component.KualiDBOutputTable"/>
 		<parameter id="type" value="KUL_DB_OUTPUT_TABLE"/>
 	</extension>
 </plugin>

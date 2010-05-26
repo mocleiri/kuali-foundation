@@ -520,7 +520,7 @@ Please place the jar file for this class in the lib directory and try again.
 	</target>
 
 	<target name="oracle-create-schema" depends="inittasks">
-		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.create_user( '${import.torque.database.user}' '${import.torque.database.password}' ); END;" onerror="continue" />
+		<adminsql sql="DECLARE temp NUMBER; BEGIN temp := ${oracle.usermaint.user}.kuluser_maint_pk.create_user( '${import.torque.database.user}', '${import.torque.database.password}' ); END;" onerror="continue" />
 	</target>
 
 	<target name="oracle-drop-schema" depends="inittasks">

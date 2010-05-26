@@ -326,6 +326,7 @@ MAX_ERRORS = 0
 	</target>
 
 	<target name="build-clover-customizations" depends="" description="--> Builds all code">
+		<mkdir dir="bin" />
 		<javac srcdir="src" destdir="bin" includeantruntime="true">
 			<include name="org/kuali/impex/clover/component/**"/>
 			<classpath refid="compile.classpath" />
