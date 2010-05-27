@@ -96,10 +96,13 @@ Note: Due to java native library classloader issues, the export routine (and pos
 
 	<path id="torque-classpath">
 		<pathelement location="kuali-impextasks.jar" />
-		<fileset dir="lib" includes="*.jar" />
-		<fileset dir="../lib" includes="*.jar" />
-		<fileset dir="../clover/lib" includes="*.jar" />
-		<fileset dir="../drivers" includes="*.jar" />
+		<fileset dir="${basedir}/..">
+			<include name="lib/*.jar" />
+			<include name="impex/lib/*.jar" />
+			<include name="clover/lib/*.jar" />
+			<include name="drivers/*.jar" />
+			<include name="clover/plugins/**/*.jar" />
+		</fileset>
 	</path>
 
 	<!--
@@ -735,9 +738,6 @@ GRAPH_DIR = ${graphs.dir.safe}
 DATA_DIR = ${data.dir.safe}
 DUMP_DIR = ${data.dir.safe}
 OUTPUT_DUMPS = false
-EXPORT_MODE_PRODUCTION = ${export.mode.production}
-EXPORT_MODE_TEST = ${export.mode.test}
-    		
     	</echo>
 	</target>
 
@@ -1035,6 +1035,18 @@ END;
 	</target>
 	
 	<target name="import-workflow" depends="inittasks" if="post.import.workflow.project">
+		<!-- make a local copy of the workflow files -->
+		<delete dir="temp-workflow" quiet="true" />
+		<mkdir dir="temp-workflow" />
+		<mkdir dir="temp-workflow/pending" />
+		<!-- generate an absolute path to this directory -->
+		<property name="temp.workflow.dir" location="temp-workflow"/>		
+		<copy todir="temp-workflow/pending">
+			<fileset dir="${post.import.workflow.xml.directory}">
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+		
 		<java classname="org.apache.tools.ant.Main"
 		      fork="true"
 		      failonerror="true">		    
@@ -1043,8 +1055,12 @@ END;
 		    <arg value="-Duser.home=${user.home}" />
 			<arg value="-buildfile" />
 			<arg value="${post.import.workflow.ingester.launcher.ant.script}" />
-		    <arg value="-D${post.import.workflow.ingester.launcher.ant.xml.directory.property}=${post.import.workflow.xml.directory}" />
 		    <arg value="${post.import.workflow.ingester.launcher.ant.target}" />
+		    <arg value="-D${post.import.workflow.ingester.launcher.ant.xml.directory.property}=${temp.workflow.dir}" />
+			<arg value="-D${post.import.workflow.ingester.jdbc.url.property}=${import.torque.database.url}" />
+			<arg value="-D${post.import.workflow.ingester.username.property}=${import.torque.database.user}" />
+			<arg value="-D${post.import.workflow.ingester.password.property}=${import.torque.database.password}" />
+			<arg line="${post.import.workflow.ingester.additional.command.line}"/>
 		</java>			
 	</target>
 	
