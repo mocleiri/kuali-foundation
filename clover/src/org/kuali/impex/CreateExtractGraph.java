@@ -72,6 +72,7 @@ public class CreateExtractGraph {
 			while ( cols.next() ) {
 				pkMap.put(cols.getInt("ORDINAL_POSITION"), cols.getString("COLUMN_NAME").toLowerCase() );
 			}
+			cols.close();
 		}
 		sb.append( "    <Node id=\"SORT\" type=\"EXT_SORT\" sortKey=\"" );
 		for ( Map.Entry<Integer,String> col : pkMap.entrySet() ) {

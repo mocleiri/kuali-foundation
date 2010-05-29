@@ -54,7 +54,6 @@ public class CreateImportGraph {
 
 	public static StringBuffer getImportGraph( Connection con, String schemaName, String tableName, String inputFormatDir, String dataDir, boolean includeDebugDump, boolean truncateTable ) throws Exception {
 		System.out.println( "Dumping Database Table Import Graph: " + schemaName+  "." + tableName );
-		ResultSet cols = con.getMetaData().getColumns(null, schemaName.toUpperCase(), tableName, null);
 		StringBuffer sb = new StringBuffer( 2000 );
 		sb.append( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" );
 		sb.append( "<Graph name=\"Export " ).append( tableName ).append( "\" revision=\"1.0\">\r\n" );
@@ -82,6 +81,7 @@ public class CreateImportGraph {
 		sb.append( "      <attr name=\"transform\"><![CDATA[\r\n//#TL\r\n" );
 		sb.append( "    function transform() {\r\n" );
 		// loop over fields
+		ResultSet cols = con.getMetaData().getColumns(null, schemaName.toUpperCase(), tableName, null);
 		while ( cols.next() ) {
 			if ( ETLHelper.getCloverTypeFromJdbcType( cols.getInt( "DATA_TYPE" ) ).equals( "string") ) {
 				sb.append( "        $0.").append( cols.getString( "COLUMN_NAME" ).toLowerCase() )
@@ -92,6 +92,7 @@ public class CreateImportGraph {
 						.append( " := $" ).append( cols.getString( "COLUMN_NAME" ).toLowerCase() ).append( ";\r\n" );
 			}
 		}
+		cols.close();
 		sb.append( "   }\r\n" );
 		sb.append( "      ]]></attr>\r\n" );
 		sb.append( "    </Node>\r\n" );
