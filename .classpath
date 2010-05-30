@@ -36,7 +36,7 @@
 	<classpathentry kind="lib" path="clover/lib/poi-ooxml-3.5-beta4-20081128.jar"/>
 	<classpathentry kind="lib" path="clover/lib/tar.jar"/>
 	<classpathentry kind="lib" path="clover/lib/xmlbeans-2.3.0.jar"/>
-	<classpathentry kind="lib" path="lib/ant-1.7.0.jar"/>
+	<classpathentry kind="lib" path="lib/ant-1.7.1.jar"/>
 	<classpathentry kind="lib" path="lib/ant-contrib-1.0b3.jar"/>
 	<classpathentry kind="lib" path="lib/bcel-5.2.jar"/>
 	<classpathentry kind="lib" path="lib/ganymed.jar"/>
