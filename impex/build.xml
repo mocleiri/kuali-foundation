@@ -719,11 +719,6 @@ Please place the jar file for this class in the lib directory and try again.
 	</macrodef>
 
 	<target name="init-clover-tasks" depends="inittasks">
-		<!--
-		<taskdef name="create-table-formats" classname="org.kuali.impex.ant.CreateTableFormatsTask" classpathref="torque-classpath" />
-		<taskdef name="create-table-export-graphs" classname="org.kuali.impex.ant.CreateTableExportGraphsTask" classpathref="torque-classpath" />
-		<taskdef name="create-table-import-graphs" classname="org.kuali.impex.ant.CreateTableImportGraphsTask" classpathref="torque-classpath" />
-		-->
         <taskdef name="create-table-formats-and-graphs" classname="org.kuali.impex.ant.CreateTableFormatsAndGraphsTask" classpathref="torque-classpath" />
 		<taskdef name="run-graph" classname="org.kuali.impex.ant.GraphRunTask" classpathref="torque-classpath" />
 		<taskdef name="run-export-graphs" classname="org.kuali.impex.ant.RunExportGraphs" classpathref="torque-classpath" />
@@ -790,67 +785,12 @@ OUTPUT_DUMPS = false
     		userid="${export.torque.database.user}"
     		password="${export.torque.database.password}"
     		schemaname="${export.torque.database.schema}"
-    		exportbasedir="${torque.schema.dir}/formats"
+    		exportbasedir="${torque.schema.dir}"
     		createIfTableEmpty="false"
     		classpathref="torque-classpath"
             truncateTable="true"
     		/>
 	</target>
-	<!--
-	<target name="create-format-files" depends="create-clover-config-file">
-		<!- clean out existing format files ->
-		<mkdir dir="${torque.schema.dir}/formats" />
-		<delete>
-			<fileset dir="${torque.schema.dir}/formats">
-				<include name="*.xml"/>
-			</fileset>
-		</delete>
-		<!- create all new format files ->
-		<create-table-formats
-    		driver="${export.torque.database.driver}"
-    		url="${export.torque.database.url}"
-    		userid="${export.torque.database.user}"
-    		password="${export.torque.database.password}"
-    		schemaname="${export.torque.database.schema}"
-    		exportbasedir="${torque.schema.dir}/formats"
-    		createIfTableEmpty="false"
-    		classpathref="torque-classpath"
-    		/>
-	</target>
-
-	<target name="create-graph-files" depends="create-clover-config-file">
-		<!- clean out existing format files ->
-		<mkdir dir="${torque.schema.dir}/graphs" />
-		<delete>
-			<fileset dir="${torque.schema.dir}/graphs">
-				<include name="*.xml"/>
-			</fileset>
-		</delete>
-		<!- create all new graph files ->
-		<create-table-export-graphs
-    		driver="${export.torque.database.driver}"
-    		url="${export.torque.database.url}"
-    		userid="${export.torque.database.user}"
-    		password="${export.torque.database.password}"
-    		schemaname="${export.torque.database.schema}"
-    		exportbasedir="${torque.schema.dir}"
-            createIfTableEmpty="false"
-    		classpathref="torque-classpath"
-    		/>
-		<!- create all new graph files ->
-		<create-table-import-graphs
-    		driver="${export.torque.database.driver}"
-    		url="${export.torque.database.url}"
-    		userid="${export.torque.database.user}"
-    		password="${export.torque.database.password}"
-    		schemaname="${export.torque.database.schema}"
-    		exportbasedir="${torque.schema.dir}"
-            createIfTableEmpty="false"
-            truncateTable="true"
-    		classpathref="torque-classpath"
-    		/>
-	</target>
--->
 	
 	<target name="run-export-graphs" depends="create-clover-config-file">
 		<mkdir dir="${torque.schema.dir}/data" />

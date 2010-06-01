@@ -26,7 +26,7 @@ public class CreateTableFormatsAndGraphsTask extends EtlJdbcTask {
 	public void execute() throws BuildException {
 		Connection con = getConnection();
 		File graphDir = new File( getExportBaseDir(), getGraphDir() ); 
-		File formatDir = new File( getExportBaseDir(), getFormatDir() ); 
+		File formatDir = new File( getExportBaseDir(), "formats" ); 
 		graphDir.mkdirs();
 		formatDir.mkdirs();
 		try {
