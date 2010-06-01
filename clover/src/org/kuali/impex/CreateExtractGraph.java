@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -22,7 +23,8 @@ public class CreateExtractGraph {
 
 		Connection con = ETLHelper.connectToDatabase( args[0] );
 		
-		String graphString = createExportGraph( con, args[1], args[2], "", "", "data", "data", false, false, false );
+		List<FieldInfo> fields = DbMetadataToFormat.createFieldInfoFromMetadata(con, args[1], args[2]);
+		String graphString = createExportGraph( con, args[1], args[2], fields, "", "", "data", "data", false, false, false );
 			
 		con.close();
 		
@@ -34,9 +36,8 @@ public class CreateExtractGraph {
 		System.out.println( "Wrote to output file: "  + outFile.getAbsolutePath() );
 	}
 	
-	public static String createExportGraph( Connection con, String schema, String tableName, String inputFormatDir, String outputFormatDir, String dataDir, String dumpDir, boolean addKfsFields, boolean includeMappingTransformStep, boolean includeDebugDump ) throws SQLException {
+	public static String createExportGraph( Connection con, String schema, String tableName, List<FieldInfo> fieldInfo, String inputFormatDir, String outputFormatDir, String dataDir, String dumpDir, boolean addKfsFields, boolean includeMappingTransformStep, boolean includeDebugDump ) throws SQLException {
 		System.out.println( "Dumping Table Export Graph for: " + schema +  "." + tableName );
-		ResultSet cols;
 		StringBuffer sb = new StringBuffer( 2000 );
 		sb.append( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" );
 		sb.append( "<Graph name=\"Export " ).append( tableName ).append( "\" revision=\"1.0\">\r\n" );
@@ -66,13 +67,12 @@ public class CreateExtractGraph {
 		while ( pks.next() ) {
 			pkMap.put(pks.getInt("KEY_SEQ"), pks.getString("COLUMN_NAME").toLowerCase() );
 		}
+		pks.close();
 		// check if there are any PK fields - if not, use the entire table
 		if ( pkMap.isEmpty() ) {
-			cols = con.getMetaData().getColumns(null, schema.toUpperCase(), tableName, null);
-			while ( cols.next() ) {
-				pkMap.put(cols.getInt("ORDINAL_POSITION"), cols.getString("COLUMN_NAME").toLowerCase() );
+			for ( FieldInfo field : fieldInfo ) {
+				pkMap.put(field.getColumnPosition(), field.getColumnName().toLowerCase() );
 			}
-			cols.close();
 		}
 		sb.append( "    <Node id=\"SORT\" type=\"EXT_SORT\" sortKey=\"" );
 		for ( Map.Entry<Integer,String> col : pkMap.entrySet() ) {
@@ -92,15 +92,13 @@ public class CreateExtractGraph {
 			sb.append( "      <attr name=\"transform\"><![CDATA[\r\n//#TL\r\n" );
 			sb.append( "    function transform() {\r\n" );
 			// loop over fields
-			cols = con.getMetaData().getColumns(null, schema, tableName, null);
-			while ( cols.next() ) {
+			for ( FieldInfo field : fieldInfo ) {
 				if ( !addKfsFields 
-						|| !(cols.getString( "COLUMN_NAME" ).equalsIgnoreCase("OBJ_ID") || cols.getString( "COLUMN_NAME" ).equalsIgnoreCase("VER_NBR" ) ) ) {
-					sb.append( "        $0.").append( cols.getString( "COLUMN_NAME" ).toLowerCase() )
-							.append( " := $" ).append( cols.getString( "COLUMN_NAME" ).toLowerCase() ).append( ";\r\n" );
+						|| !(field.getColumnName().equalsIgnoreCase("OBJ_ID") || field.getColumnName().equalsIgnoreCase("VER_NBR" ) ) ) {
+					sb.append( "        $0.").append( field.getColumnName().toLowerCase() )
+							.append( " := $" ).append( field.getColumnName().toLowerCase() ).append( ";\r\n" );
 				}
 			}
-			cols.close();
 			if ( addKfsFields ) {
 				sb.append( "        $0.obj_id := sequence(ObjId,string).next;\r\n" );
 				sb.append( "        $0.ver_nbr := 1;\r\n" );
@@ -118,21 +116,19 @@ public class CreateExtractGraph {
 		sb.append( "      <attr name=\"transform\"><![CDATA[\r\n//#TL\r\n" );
 		sb.append( "    function transform() {\r\n" );
 		// loop over fields
-		cols = con.getMetaData().getColumns(null, schema, tableName, null);
-		while ( cols.next() ) {
+		for ( FieldInfo field : fieldInfo ) {
 			if ( !addKfsFields 
-					|| !(cols.getString( "COLUMN_NAME" ).equalsIgnoreCase("OBJ_ID") || cols.getString( "COLUMN_NAME" ).equalsIgnoreCase("VER_NBR" ) ) ) {
-				if ( ETLHelper.getCloverTypeFromJdbcType( cols.getInt( "DATA_TYPE" ) ).equals( "string") ) {
-					sb.append( "        $0.").append( cols.getString( "COLUMN_NAME" ).toLowerCase() )
-							.append( " := replace(nvl($" ).append( cols.getString( "COLUMN_NAME" ).toLowerCase() )
+					|| !(field.getColumnName().equalsIgnoreCase("OBJ_ID") || field.getColumnName().equalsIgnoreCase("VER_NBR" ) ) ) {
+				if ( field.getCloverFieldType().equals( "string") ) {
+					sb.append( "        $0.").append( field.getColumnName().toLowerCase() )
+							.append( " := replace(nvl($" ).append( field.getColumnName().toLowerCase() )
 							.append( ",\"\"),\"\\\\" ).append( ETLHelper.COLUMN_DELIMITER ).append( "\", \"" ).append( ETLHelper.COLUMN_DELIMITER_REPLACEMENT ).append( "\" );\r\n" );
 				} else {
-					sb.append( "        $0.").append( cols.getString( "COLUMN_NAME" ).toLowerCase() )
-							.append( " := $" ).append( cols.getString( "COLUMN_NAME" ).toLowerCase() ).append( ";\r\n" );
+					sb.append( "        $0.").append( field.getColumnName().toLowerCase() )
+							.append( " := $" ).append( field.getColumnName().toLowerCase() ).append( ";\r\n" );
 				}
 			}
 		}
-		cols.close();
 		if ( addKfsFields ) {
 			sb.append( "        $0.obj_id := $obj_id;\r\n" );
 			sb.append( "        $0.ver_nbr := $ver_nbr;\r\n" );

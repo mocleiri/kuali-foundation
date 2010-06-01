@@ -33,7 +33,8 @@ public class CreateTableFormatsTask extends EtlJdbcTask {
 				if ( !isCreateIfTableEmpty() && ETLHelper.isTableEmpty(con, getSchemaName(), tableName) ) {
 					continue;
 				}
-				String tableFormat = DbMetadataToFormat.extractTableMetadata(con, getSchemaName().toUpperCase(), tableName );
+				String tableFormat = DbMetadataToFormat.getFormatFile( getSchemaName().toUpperCase(), tableName, 
+						DbMetadataToFormat.createFieldInfoFromMetadata(con, getSchemaName().toUpperCase(), tableName ) );
 				
 				File outFile = new File( formatDir, tableName.toLowerCase() + ".fmt.xml" );
 				log( "Writing to output file: "  + outFile.getAbsolutePath() );

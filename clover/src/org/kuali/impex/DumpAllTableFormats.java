@@ -25,7 +25,8 @@ public class DumpAllTableFormats {
 			if ( !ETLHelper.isValidTableType(tableName) ) {
 				continue;
 			}
-			String tableFormat = DbMetadataToFormat.extractTableMetadata(con, schema, tableName );
+			String tableFormat = DbMetadataToFormat.getFormatFile( schema.toUpperCase(), tableName, 
+					DbMetadataToFormat.createFieldInfoFromMetadata(con, schema.toUpperCase(), tableName ) );
 			
 			File outFile = new File( destinationDirectory + "/" + tableName.toLowerCase() + ".fmt.xml" );
 			System.out.println( "Writing to output file: "  + outFile.getAbsolutePath() );

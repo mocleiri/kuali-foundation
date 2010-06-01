@@ -5,10 +5,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.tools.ant.BuildException;
 import org.kuali.impex.CreateImportGraph;
 import org.kuali.impex.ETLHelper;
+import org.kuali.impex.FieldInfo;
 
 
 public class CreateTableImportGraphsTask extends EtlJdbcTask {
@@ -43,7 +46,13 @@ public class CreateTableImportGraphsTask extends EtlJdbcTask {
 				if ( !isCreateIfTableEmpty() && ETLHelper.isTableEmpty(con, getSchemaName(), tableName) ) {
 					continue;
 				}
-				String exportGraph = CreateImportGraph.getImportGraph(con, getSchemaName().toUpperCase(), tableName, getFormatDir(), getDataDir(), isIncludeDebugDumps(), isTruncateTable()).toString();
+				ResultSet cols = con.getMetaData().getColumns(null, getSchemaName().toUpperCase(), tableName, null);
+				List<FieldInfo> fields = new ArrayList<FieldInfo>();
+				while ( cols.next() ) {
+					fields.add( new FieldInfo(cols.getString( "COLUMN_NAME" ),ETLHelper.getCloverTypeFromJdbcType( cols.getInt( "DATA_TYPE" ) ), cols.getInt("ORDINAL_POSITION")));
+				}
+				cols.close();
+				String exportGraph = CreateImportGraph.getImportGraph(getSchemaName().toUpperCase(), tableName, fields, getFormatDir(), getDataDir(), isIncludeDebugDumps(), isTruncateTable()).toString();
 				
 				File outFile = new File( graphDir, tableName.toLowerCase() + "_import.grf.xml" );
 				log( "Writing to output file: "  + outFile.getAbsolutePath() );

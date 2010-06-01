@@ -175,6 +175,7 @@
         <taskdef name="create-table-formats" classname="org.kuali.impex.ant.CreateTableFormatsTask" classpathref="runtime.classpath" />
         <taskdef name="create-table-export-graphs" classname="org.kuali.impex.ant.CreateTableExportGraphsTask" classpathref="runtime.classpath" />
         <taskdef name="create-table-import-graphs" classname="org.kuali.impex.ant.CreateTableImportGraphsTask" classpathref="runtime.classpath" />
+        <taskdef name="create-table-formats-and-graphs" classname="org.kuali.impex.ant.CreateTableFormatsAndGraphsTask" classpathref="runtime.classpath" />
         <taskdef name="run-graph" classname="org.kuali.impex.ant.GraphRunTask" classpathref="runtime.classpath" />
 	</target>
 	

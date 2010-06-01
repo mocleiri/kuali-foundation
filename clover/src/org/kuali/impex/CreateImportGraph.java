@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.Connection;
-import java.sql.ResultSet;
+import java.util.List;
 
 
 public class CreateImportGraph {
@@ -40,7 +40,9 @@ public class CreateImportGraph {
 		}
 		System.out.println("truncateTable=" + truncateTable );
 		
-		StringBuffer sb = getImportGraph( con, args[1], args[2], "", "", false, truncateTable );
+		List<FieldInfo> fields = DbMetadataToFormat.createFieldInfoFromMetadata(con, args[1], args[2]);
+		
+		StringBuffer sb = getImportGraph( args[1], args[2], fields, "", "", false, truncateTable );
 
 		con.close();
 
@@ -52,7 +54,7 @@ public class CreateImportGraph {
 		out.close();
 	}
 
-	public static StringBuffer getImportGraph( Connection con, String schemaName, String tableName, String inputFormatDir, String dataDir, boolean includeDebugDump, boolean truncateTable ) throws Exception {
+	public static StringBuffer getImportGraph( String schemaName, String tableName, List<FieldInfo> fieldInfo, String inputFormatDir, String dataDir, boolean includeDebugDump, boolean truncateTable ) throws Exception {
 		System.out.println( "Dumping Database Table Import Graph: " + schemaName+  "." + tableName );
 		StringBuffer sb = new StringBuffer( 2000 );
 		sb.append( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" );
@@ -81,18 +83,16 @@ public class CreateImportGraph {
 		sb.append( "      <attr name=\"transform\"><![CDATA[\r\n//#TL\r\n" );
 		sb.append( "    function transform() {\r\n" );
 		// loop over fields
-		ResultSet cols = con.getMetaData().getColumns(null, schemaName.toUpperCase(), tableName, null);
-		while ( cols.next() ) {
-			if ( ETLHelper.getCloverTypeFromJdbcType( cols.getInt( "DATA_TYPE" ) ).equals( "string") ) {
-				sb.append( "        $0.").append( cols.getString( "COLUMN_NAME" ).toLowerCase() )
-						.append( " := replace(nvl($" ).append( cols.getString( "COLUMN_NAME" ).toLowerCase() )
-						.append( ", \"\"), \"" ).append( ETLHelper.COLUMN_DELIMITER_REPLACEMENT ).append( "\", \"" ).append( ETLHelper.COLUMN_DELIMITER ).append( "\" );\r\n" );
+		for ( FieldInfo field : fieldInfo ) {
+			if ( field.getCloverFieldType().equals("string") ) {
+				sb.append( "        $0.").append( field.getColumnName().toLowerCase() )
+				.append( " := replace(nvl($" ).append( field.getColumnName().toLowerCase() )
+				.append( ", \"\"), \"" ).append( ETLHelper.COLUMN_DELIMITER_REPLACEMENT ).append( "\", \"" ).append( ETLHelper.COLUMN_DELIMITER ).append( "\" );\r\n" );
 			} else {
-				sb.append( "        $0.").append( cols.getString( "COLUMN_NAME" ).toLowerCase() )
-						.append( " := $" ).append( cols.getString( "COLUMN_NAME" ).toLowerCase() ).append( ";\r\n" );
+				sb.append( "        $0.").append( field.getColumnName().toLowerCase() )
+				.append( " := $" ).append( field.getColumnName().toLowerCase() ).append( ";\r\n" );
 			}
 		}
-		cols.close();
 		sb.append( "   }\r\n" );
 		sb.append( "      ]]></attr>\r\n" );
 		sb.append( "    </Node>\r\n" );
@@ -114,4 +114,5 @@ public class CreateImportGraph {
 
 		return sb;
 	}
+
 }
