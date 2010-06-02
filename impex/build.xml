@@ -334,7 +334,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	</target>
 
 	<target name="import"
-	        depends="check-import-properties,create-ddl,apply-ddl,pre-import-sql,import-data,import-data2,apply-constraint-ddl,post-import-sql"
+	        depends="check-import-properties,create-ddl,apply-ddl,pre-import-sql,import-data,import-data2,apply-constraint-ddl,post-import-sql,import-workflow"
 	        description="==> Main Import Task" />
 
 
