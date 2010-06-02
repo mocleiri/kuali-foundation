@@ -334,7 +334,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	</target>
 
 	<target name="import"
-	        depends="check-import-properties,create-ddl,apply-ddl,pre-import-sql,import-data,import-data2,apply-constraint-ddl,post-import-sql,import-workflow"
+	        depends="check-import-properties,create-ddl,apply-ddl,pre-import-sql,import-data,import-data2,run-liquibase-post-import,apply-constraint-ddl,post-import-sql,import-workflow"
 	        description="==> Main Import Task" />
 
 
@@ -1093,8 +1093,32 @@ END;
 		</java>			
 	</target>
 	
-	<target name="run-liquibase-post-import" depends="inittasks">
-	
+	<target name="run-liquibase-post-import" depends="inittasks" if="post.import.liquibase.project">
+    	<for param="file.name" keepgoing="false" parallel="false">
+    	    <path>
+    	    	  <!-- ensure that the files are run in name order -->
+    		    <sort>
+    		        <fileset dir="${post.import.liquibase.xml.directory}" includes="*.xml" />
+    		    	<rcmp:name />
+    	        </sort>
+    	    </path>
+    		<sequential>
+    		    <echo message="Running Liquibase ChangeLog: @{file.name}" />
+    			<java jar="../lib/liquibase-1.9.5.jar" 
+    					failonerror="true" 
+    					classpathref="torque-classpath" 
+    					fork="true"
+    					dir="${post.import.liquibase.xml.directory}">
+    				<arg value="--driver=${import.torque.database.driver}"/>
+    				<arg value="--url=${import.torque.database.url}"/>
+					<arg value="--username=${import.torque.database.user}"/>
+					<arg value="--password=${import.torque.database.password}"/>
+    				<arg value="--defaultSchemaName=${import.torque.database.schema}" />
+    				<arg value="--changeLogFile=@{file.name}" />
+    				<arg value="update" />
+    			</java>
+    		</sequential>
+    	</for>	
 	</target>
 	
 </project>
