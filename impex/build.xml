@@ -896,7 +896,7 @@ OUTPUT_DUMPS = false
 			pathrefid="graph.files.path"
 			/>
 		<fixcrlf srcdir="${torque.schema.dir}/data" includes="*.txt" eol="crlf" />
-		<run-graph propertyfile="${basedir}/cloveretl.properties">
+		<run-graph verbose="true" propertyfile="${basedir}/cloveretl.properties">
 			<fileset refid="graph.files" />
 		</run-graph>
 	</target>
