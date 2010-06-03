@@ -40,6 +40,9 @@
 		<fileset dir="${drivers.dir}">
     		<include name="*.jar"/>
 		</fileset>
+		<fileset dir="plugins/org.jetel.connection">
+    		<include name="*.jar"/>
+		</fileset>
 	</path>
 	
 	<!-- ================================= 
