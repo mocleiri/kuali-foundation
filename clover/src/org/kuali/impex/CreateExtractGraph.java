@@ -43,6 +43,7 @@ public class CreateExtractGraph {
 		sb.append( "<Graph name=\"Export " ).append( tableName ).append( "\" revision=\"1.0\">\r\n" );
 		sb.append( "  <Global>\r\n" );
 		sb.append( "    <Property fileURL=\"workspace.prm\" id=\"WorkspaceParameters\" />\r\n" );
+		sb.append( "    <Property id=\"WHERE_CLAUSE\" name=\"").append( tableName.toUpperCase() ).append( "_WHERE_CLAUSE\" value=\"\" />\r\n" );
 		sb.append( "    <!-- points to a properties file that contains the connection parameters for the database -->\r\n" );
 		sb.append( "    <Connection dbConfig=\"${DATABASE}\" id=\"SourceDB\" type=\"JDBC\" />\r\n" );
 		sb.append( "    <Metadata id=\"InputFileFormat\" fileURL=\"${FORMAT_DIR}" ).append( inputFormatDir ).append( '/' ).append( tableName.toLowerCase() ).append( ".fmt.xml\" />\r\n" );
@@ -56,7 +57,7 @@ public class CreateExtractGraph {
 		sb.append( "    <!-- With the default command below, the fields in the format file must be the same order as the columns in the database. -->\r\n" );
 		sb.append( "    <Node dbConnection=\"SourceDB\" id=\"INPUT\" type=\"DB_INPUT_TABLE\">\r\n" );
 		sb.append( "      <attr name=\"sqlQuery\">\r\n" );
-		sb.append( "        SELECT * FROM " ).append( tableName).append( "\r\n" );
+		sb.append( "        SELECT * FROM " ).append( tableName).append( "\r\n" ).append( "${" ).append( tableName.toUpperCase() ).append( "_WHERE_CLAUSE}\r\n" );
 		sb.append( "      </attr>\r\n" );
 		sb.append( "    </Node>\r\n" );
 		sb.append( "    <Edge fromNode=\"INPUT:0\" toNode=\"SORT:0\" id=\"SORT_INPUT\" metadata=\"InputFileFormat\" />\r\n" );
