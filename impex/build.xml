@@ -75,6 +75,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 
 	<property name="torque.contextProperties" value="build.properties" />
 	<property name="impex.properties.file" location="${user.home}/impex-build.properties" />
+	<property file="default.properties" />
 	<property file="${impex.properties.file}" />
 	<property file="build.properties" />
 	<property name="torque.lib.dir" value="${lib.dir}" />
@@ -752,6 +753,16 @@ defaultRowPrefetch=100
 		<pathconvert property="graphs.dir.safe" targetos="unix">
 			<path location="${torque.schema.dir}/graphs" />
 		</pathconvert>
+		<if>
+			<available file="${export.data.additional.where.clause.file}" type="file" />
+			<then>
+				<loadfile property="where-clauses" srcfile="${export.data.additional.where.clause.file}" />
+			</then>
+			<else>
+				<echo>Unable to find file: ${export.data.additional.where.clause.file}</echo>
+				<property name="where-clauses" value=""/>
+			</else>
+		</if>
 		<echo file="workspace.prm">
 DATABASE = export.cfg
 WORKSPACE = ${basedir.safe}
@@ -761,6 +772,7 @@ GRAPH_DIR = ${graphs.dir.safe}
 DATA_DIR = ${data.dir.safe}
 DUMP_DIR = ${data.dir.safe}
 OUTPUT_DUMPS = false
+${where-clauses}
     	</echo>
 	</target>
 
@@ -836,7 +848,7 @@ OUTPUT_DUMPS = false
             password="${export.torque.database.password}"
             schemaname="${export.torque.database.schema}"
             classpathref="torque-classpath"
-			graphExclusionRegex="${export.excluded.tables}"
+			graphExclusionRegex="${export.excluded.table.data.regex}"
     		>
 			<fileset refid="export-graph-fileset" />
 			<!--
