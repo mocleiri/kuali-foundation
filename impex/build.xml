@@ -33,22 +33,22 @@ Setup:
     3) The currently supported database types are
             Export: oracle
             Import: mysql, oracle
-    4) Copy the impex-build.properties.sample file into your home directory (${user.home}) 
+    4) Copy the impex-build.properties.sample file into your home directory (${user.home})
        as impex-build.properties.  Update the properties appropriately for your database instance and driver directory.
-			
+
        FIXME: several file locations in this help are different than what the process actually uses.
 
-Main Targets: 
-         import ==> Extracts the database schema and data 
-                    and installs it into the database specified by the import.xxx properties in 
+Main Targets:
+         import ==> Extracts the database schema and data
+                    and installs it into the database specified by the import.xxx properties in
                     ${user.home}/impex-build.properties.
 
-         export ==> Extracts the structure and data from the database and schema specified by 
+         export ==> Extracts the structure and data from the database and schema specified by
                     the export.xxx properties in ${user.home}impex-build.properties.
-			
+
 Other Targets:
     Export Related:
-         jdbc-to-xml          ==> Extracts the database schema given in the import.xxx parameters into 
+         jdbc-to-xml          ==> Extracts the database schema given in the import.xxx parameters into
                                   a single xml file (${torque.schema.dir}/schema.xml)
          export-data          ==> Exports all data from the specified schema into an XML file per table.
                                   Each tag in the file represents a table row.  Each column is an attribute of the tag.
@@ -56,22 +56,22 @@ Other Targets:
          doc                  ==> Generates HTML cross-linked documentation for the database schema.
          package-export       ==> Packages the export into a single zip file: ${target.zip}
 
-    Import Related:			
+    Import Related:
          unpack-export        ==> Unpacks the source zip file (${source.zip}) into the ${torque.schema.dir} directory.
-         create-ddl           ==> Creates ${torque.schema.dir}/sql/schema.sql and 
-                                  ${torque.schema.dir}/sql/schema-constraints.sql from the 
+         create-ddl           ==> Creates ${torque.schema.dir}/sql/schema.sql and
+                                  ${torque.schema.dir}/sql/schema-constraints.sql from the
                                   ${torque.schema.dir}/schema.xml file.
-         dataxml-to-sql       ==> Creates SQL files (one per table) from the data XML files.  
-                                  This process runs in 5 threads to speed the process.  
+         dataxml-to-sql       ==> Creates SQL files (one per table) from the data XML files.
+                                  This process runs in 5 threads to speed the process.
                                   (See: dataxml-file-to-sql-file and external-run-dataxml-load targets)
-         apply-ddl            ==> Runs the ${torque.schema.dir}/sql/schema.sql into the database to 
+         apply-ddl            ==> Runs the ${torque.schema.dir}/sql/schema.sql into the database to
                                   create all the tables, views, sequences, primary keys, and indexes.
          apply-data-sql       ==> Runs all data SQL files into the database.
-         apply-constraint-ddl ==> Runs the ${torque.schema.dir}/sql/schema-constraints.sql into 
+         apply-constraint-ddl ==> Runs the ${torque.schema.dir}/sql/schema-constraints.sql into
                                   the database to create all foreign key constraints.
-			
-Note: Due to java native library classloader issues, the export routine (and possibly import) does not work 
-      when using a type 3 JDBC driver which relies upon a native OS library (*.dll,*.so).  If you must use 
+
+Note: Due to java native library classloader issues, the export routine (and possibly import) does not work
+      when using a type 3 JDBC driver which relies upon a native OS library (*.dll,*.so).  If you must use
       such a driver, you must run the dependencies of the export and import tasks separately.
 		</echo>
 
@@ -97,7 +97,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<path id="torque-classpath">
 		<pathelement location="kuali-impextasks.jar" />
 		<fileset dir="${torque.lib.dir}" includes="*.jar" />
-		<fileset dir="${drivers.directory}" includes="${drivers.file.pattern}" /> 
+		<fileset dir="${drivers.directory}" includes="${drivers.file.pattern}" />
 	</path>
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
 		<classpath>
@@ -120,7 +120,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
     centralize them and clean up the targets.
   -->
 	<target name="inittasks">
-		
+
 		<taskdef resource="net/sf/antcontrib/antlib.xml">
 			<classpath>
 				<pathelement location="lib/ant-contrib-1.0b3.jar" />
@@ -327,13 +327,13 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<property name="torque.schema.absolute.dir" location="${torque.schema.dir}" />
 		<!-- above works around a problem with torque-jdbc-transform getting passed a relative directory, and not working right if tbe process was started from a directory other than ant's basedir -->
 
-		<torque-jdbc-transform  dbDriver="${export.torque.database.driver}" 
-							    dbPassword="${export.torque.database.password}" 
-								dbSchema="${export.torque.database.schema}" 
-								dbType="${export.torque.database}" 
-								dbUrl="${export.torque.database.url}" 
-								dbUser="${export.torque.database.user}" 
-								outputFile="${torque.schema.absolute.dir}/schema.xml" 
+		<torque-jdbc-transform  dbDriver="${export.torque.database.driver}"
+							    dbPassword="${export.torque.database.password}"
+								dbSchema="${export.torque.database.schema}"
+								dbType="${export.torque.database}"
+								dbUrl="${export.torque.database.url}"
+								dbUser="${export.torque.database.user}"
+								outputFile="${torque.schema.absolute.dir}/schema.xml"
 								tableNameRegex="${export.table.name.filter}"
 								/>
 		<copy file="database.dtd" todir="${torque.schema.dir}" />
@@ -360,11 +360,11 @@ Note: Due to java native library classloader issues, the export routine (and pos
 			</fileset>
 		</delete>
 		-->
-		<torque-data-dump databaseDriver="${export.torque.database.driver}" 
-			databaseUrl="${export.torque.database.url}" 
-			databaseUser="${export.torque.database.user}" 
-			databaseSchema="${export.torque.database.schema}" 
-			databasePassword="${export.torque.database.password}" 
+		<torque-data-dump databaseDriver="${export.torque.database.driver}"
+			databaseUrl="${export.torque.database.url}"
+			databaseUser="${export.torque.database.user}"
+			databaseSchema="${export.torque.database.schema}"
+			databasePassword="${export.torque.database.password}"
 			databaseType="${export.torque.database}"
 			excludedTables="${export.excluded.tables}"
 			tableNameRegex="${export.table.name.filter}"
@@ -456,9 +456,9 @@ Note: Due to java native library classloader issues, the export routine (and pos
 			</else>
 		</if>
 	</target>
-	
-	
-	
+
+
+
 	<target name="prepare-sqlloader" description="== prepares the files needed for SQL*Loader" depends="inittasks">
 		<echo message="+-----------------------------------------------+" />
 		<echo message="|                                               |" />
@@ -466,26 +466,26 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
 		<echo message="torque.schema.dir: ${torque.schema.dir}"/>
-		
+
 		<mkdir dir="${torque.schema.dir}/sqlloader" />
 		<property name="torque.sqlloader.absolute.dir" location="${torque.schema.dir}/sqlloader" />
-		<torque-sql-loader outputDirectory="${torque.sqlloader.absolute.dir}" xmlFile="${torque.schema.dir}/schema.xml" targetDatabase="${import.torque.database}"> 
+		<torque-sql-loader outputDirectory="${torque.sqlloader.absolute.dir}" xmlFile="${torque.schema.dir}/schema.xml" targetDatabase="${import.torque.database}">
 			<fileset dir="${torque.schema.dir}" includes="*.xml" excludes="schema.xml" />
 		</torque-sql-loader>
-		
+
 		<if>
 			<isset property="import.two.schemas" />
 			<then>
 				<echo message="torque.schema.dir: ${torque.schema.dir.2}"/>
 				<mkdir dir="${torque.schema.dir.2}/sqlloader" />
 				<property name="torque.sqlloader.absolute.dir.2" location="${torque.schema.dir.2}/sqlloader" />
-				<torque-sql-loader outputDirectory="${torque.sqlloader.absolute.dir.2}" xmlFile="${torque.schema.dir.2}/schema.xml" targetDatabase="${import.torque.database}" truncateTable="${truncate.data.sql.2}"> 
+				<torque-sql-loader outputDirectory="${torque.sqlloader.absolute.dir.2}" xmlFile="${torque.schema.dir.2}/schema.xml" targetDatabase="${import.torque.database}" truncateTable="${truncate.data.sql.2}">
 					<fileset dir="${torque.schema.dir.2}" includes="*.xml" excludes="schema.xml" />
 				</torque-sql-loader>
 			</then>
 		</if>
 	</target>
-	
+
 	<target name="exec-sqlloader" depends="inittasks">
 		<echo message="+-----------------------------------------------+" />
 		<echo message="|                                               |" />
@@ -493,21 +493,21 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		<echo message="|                                               |" />
 		<echo message="+-----------------------------------------------+" />
 		<echo message="torque.schema.dir: ${torque.schema.dir}/sqlloader"/>
-		
+
 		<propertyregex
 			property="import.torque.database.server"
 			input="${import.torque.database.url}"
 			regexp="(.*):@(.*):(.*):(.*)"
 			select="\2"
 		/>
-		
+
 		<propertyregex
 			property="import.torque.database.port"
 			input="${import.torque.database.url}"
 			regexp="(.*):@(.*):(.*):(.*)"
 			select="\3"
 		/>
-		
+
 		<propertyregex
 			property="import.torque.database.sid"
 			input="${import.torque.database.url}"
@@ -519,7 +519,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 			<arg line="${import.torque.database.user}/${import.torque.database.password}@(DESCRIPTION\=(ADDRESS\=(PROTOCOL\=TCP)(HOST\=${import.torque.database.server})(PORT\=${import.torque.database.port}))(CONNECT_DATA\=(SID\=${import.torque.database.sid})))"/>
 			<arg value="control=loader.ctl"/>
 		</exec>
-		
+
 		<if>
 			<isset property="import.two.schemas" />
 			<then>
@@ -531,7 +531,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 			</then>
 		</if>
 	</target>
-	
+
 	<target name="dataxml-to-sql" description="==> generates sql from data xml" depends="inittasks">
 
 		<echo message="+-----------------------------------------------+" />
@@ -559,7 +559,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 			<!-- due to the size of the data, there is no way to load it all at once.  Somewhere in the process,
 			  	     previously output data is not being purged from the VM (somewhere in Torque or Velocity).  So, the indirect way of creating the files
 			  	     below invokes a separate VM for each file -->
-			<foreach target="external-run-dataxml-load" inheritall="false" param="xmlDataFile" parallel="true" maxthreads="1">
+			<foreach target="external-run-dataxml-load" inheritall="false" param="xmlDataFile" parallel="true" maxthreads="${import.torque.threads}">
 				<param name="import.torque.database" value="${import.torque.database}"/>
 				<param name="torque.schema.dir" value="@{torque.schema.dir}"/>
 				<param name="torque.template.dataSql" value="@{torque.template.dataSql}"/>
@@ -643,9 +643,9 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		</for>
 	</target>
 
-	<target name="import" 
+	<target name="import"
 		depends="check-import-properties,create-ddl,pre-import-sql,apply-ddl,use-sqlloader-or-default,
-		apply-constraint-ddl,post-import-sql" 
+		apply-constraint-ddl,post-import-sql"
 		description="==> Main Import Task"/>
 
 	<target name="export" depends="check-export-properties,jdbc-to-xml,export-data,doc" description="==> Main Export Task - doesn't work when using OCI JDBC connection">
@@ -667,9 +667,9 @@ Note: Due to java native library classloader issues, the export routine (and pos
 		</condition>
 
 		<fail unless="import.properties.set">.
-			
-Import properties not set.  
-			
+
+Import properties not set.
+
 Please place an impex-build.properties in your home directory (${user.home}) with the properties in impex-build.properties.sample.
 		</fail>
 
@@ -680,9 +680,9 @@ Please place an impex-build.properties in your home directory (${user.home}) wit
 				</not>
 			</condition>
 			.
-			
-Unable to find import database driver class.  (${import.torque.database.driver}) 
-			
+
+Unable to find import database driver class.  (${import.torque.database.driver})
+
 Please place the jar file for this class in the lib directory and try again.
 		</fail>
 		<antcall target="test-${import.torque.database}-connection" />
@@ -709,10 +709,10 @@ Please place the jar file for this class in the lib directory and try again.
 		</condition>
 
 		<fail unless="export.properties.set">.
-			
-Export properties not set.  
-			
-Please place an impex-build.properties in your home directory (${user.home}) with the properties in impex-build.properties.sample 
+
+Export properties not set.
+
+Please place an impex-build.properties in your home directory (${user.home}) with the properties in impex-build.properties.sample
 properly set for your database instance.
 		</fail>
 
@@ -723,9 +723,9 @@ properly set for your database instance.
 				</not>
 			</condition>
 			.
-			
-Unable to find export database driver class.  (${export.torque.database.driver}) 
-			
+
+Unable to find export database driver class.  (${export.torque.database.driver})
+
 Please place the jar file for this class in the lib directory and try again.
 		</fail>
 	</target>
@@ -793,7 +793,7 @@ Please place the jar file for this class in the lib directory and try again.
 		<antcall target="${import.torque.database}-bootstrap" />
 	</target>
 
-	<!-- 
+	<!--
 	   Oracle-specific targets
 	-->
 
@@ -837,8 +837,8 @@ Please place the jar file for this class in the lib directory and try again.
 
 	<target name="mysql-bootstrap" depends="inittasks" />
 
-	<!-- ================================= 
-          target: build              
+	<!-- =================================
+          target: build
          ================================= -->
 	<target name="build" depends="build-init">
 		<javac classpathref="compile-classpath" srcdir="src" destdir="build" debug="true" optimize="false" target="1.5"/>
@@ -852,8 +852,8 @@ Please place the jar file for this class in the lib directory and try again.
 		</jar>
 	</target>
 
-	<!-- - - - - - - - - - - - - - - - - - 
-          target: build-init                      
+	<!-- - - - - - - - - - - - - - - - - -
+          target: build-init
          - - - - - - - - - - - - - - - - - -->
 	<target name="build-init">
 		<mkdir dir="build" />
@@ -929,6 +929,7 @@ Please place the jar file for this class in the lib directory and try again.
 		<echo message="svn root and svn module: ${svnroot} and ${svn.module}"/>
 		<echo message="import.two.schemas: ${import.two.schemas}"/>
 		<echo message="svn root 2 and svn module 2: ${svnroot.2} and ${svn.module.2}"/>
+		<echo message="Using ${import.torque.threads} threads"/>
 		<if>
 			<not>
 				<isset property="data.dir.exists" />
