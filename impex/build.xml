@@ -1076,6 +1076,9 @@ END;
 	</target>
 	
 	<target name="import-workflow" depends="inittasks" if="post.import.workflow.project">
+		<!-- generate an absolute path to this directory -->
+		<property name="temp.workflow.dir" location="${post.import.workflow.xml.directory}"/>		
+		
 		<java classname="org.apache.tools.ant.Main"
 		      fork="true"
 		      failonerror="true">		    
@@ -1085,7 +1088,7 @@ END;
 			<arg value="-buildfile" />
 			<arg value="${post.import.workflow.ingester.launcher.ant.script}" />
 		    <arg value="${post.import.workflow.ingester.launcher.ant.target}" />
-		    <arg value="-D${post.import.workflow.ingester.launcher.ant.xml.directory.property}=${post.import.workflow.xml.directory}" />
+		    <arg value="-D${post.import.workflow.ingester.launcher.ant.xml.directory.property}=${temp.workflow.dir}" />
 			<arg value="-D${post.import.workflow.ingester.jdbc.url.property}=${import.torque.database.url}" />
 			<arg value="-D${post.import.workflow.ingester.username.property}=${import.torque.database.user}" />
 			<arg value="-D${post.import.workflow.ingester.password.property}=${import.torque.database.password}" />
