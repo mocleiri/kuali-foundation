@@ -1076,18 +1076,6 @@ END;
 	</target>
 	
 	<target name="import-workflow" depends="inittasks" if="post.import.workflow.project">
-		<!-- make a local copy of the workflow files -->
-		<delete dir="temp-workflow" quiet="true" />
-		<mkdir dir="temp-workflow" />
-		<mkdir dir="temp-workflow/pending" />
-		<!-- generate an absolute path to this directory -->
-		<property name="temp.workflow.dir" location="temp-workflow"/>		
-		<copy todir="temp-workflow/pending">
-			<fileset dir="${post.import.workflow.xml.directory}">
-				<include name="*.xml" />
-			</fileset>
-		</copy>
-		
 		<java classname="org.apache.tools.ant.Main"
 		      fork="true"
 		      failonerror="true">		    
@@ -1097,7 +1085,7 @@ END;
 			<arg value="-buildfile" />
 			<arg value="${post.import.workflow.ingester.launcher.ant.script}" />
 		    <arg value="${post.import.workflow.ingester.launcher.ant.target}" />
-		    <arg value="-D${post.import.workflow.ingester.launcher.ant.xml.directory.property}=${temp.workflow.dir}" />
+		    <arg value="-D${post.import.workflow.ingester.launcher.ant.xml.directory.property}=${workflow.dir}" />
 			<arg value="-D${post.import.workflow.ingester.jdbc.url.property}=${import.torque.database.url}" />
 			<arg value="-D${post.import.workflow.ingester.username.property}=${import.torque.database.user}" />
 			<arg value="-D${post.import.workflow.ingester.password.property}=${import.torque.database.password}" />
