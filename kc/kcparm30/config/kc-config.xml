@@ -27,8 +27,8 @@
 	<!-- Will be the same as KC Client DB when running embedded mode -->
 	<!-- param name="server.datasource.url">jdbc:oracle:thin:@ec2-174-129-80-250.compute-1.amazonaws.com:1521:XE</param -->
 	<param name="server.datasource.url">${datasource.url}</param>
-	<param name="server.datasource.username">KRPARM30</param>
-	<param name="server.datasource.password">parm174kr</param>
+	<param name="server.datasource.username">KCPARM30</param>
+	<param name="server.datasource.password">parm174kc</param>
 	
 	<!-- S2S Configuration -->
 	<param name="s2s.keystore.location">/home/tomcat/kuali/main/shared/test_kra_kuali_org-006046700.jks</param>
