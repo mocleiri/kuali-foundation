@@ -89,11 +89,11 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<property name="delete.export.graph.files" value="true" />
 	<available file="plugins" property="plugins.exist" />
 	<property name="torque.output.dir" value="${torque.schema.dir}/output" /> <!-- default value--> 
+	<property name="torque.output.dir.2" value="${torque.schema.dir.2}/output" /> <!-- default value--> 
 
 	<condition property="import.two.schemas">
 		<and>
 			<isset property="torque.schema.dir.2" />
-			<isset property="torque.output.dir.2" />
 		</and>
 	</condition>
 
