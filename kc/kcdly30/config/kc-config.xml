@@ -89,6 +89,6 @@
         <param name="keystore.file">/home/tomcat/kuali/rice/shared/rice.keystore</param>
         <param name="keystore.password">r1c3pw</param>
 
-	<param name="log4j.settings.path">classpath:build.log4j.properties</param>
+	<param name="log4j.settings.path">/home/tomcat/kuali/main/shared/log4j_kc.properties</param>
 
 </config>
