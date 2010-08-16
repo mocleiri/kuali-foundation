@@ -34,5 +34,8 @@
 	<!-- Sample Application Flag -->
     <param name="sample.enabled">false</param>
     
+	<!-- workaround until Rice resolves KULRICE-4065 -->    
+    <param name="enable.nonproduction.data.unmasking">true</param> 
+    
     <param name="dev.mode">false</param>
 </config>
