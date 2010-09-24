@@ -29,6 +29,8 @@
 	<param name="server.datasource.username">KRWKLY30</param>
 	<param name="server.datasource.password">wkly174kr</param>
 	
+	<param name="rice.portal.links.showRiceServerConfig">true</param>
+	
 	<!-- S2S Configuration -->
 	<param name="s2s.keystore.location">/home/tomcat/kuali/main/shared/test_kra_kuali_org-006046700.jks</param>
 	<param name="s2s.keystore.password">kra_s2s_test</param>
