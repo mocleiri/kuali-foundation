@@ -38,4 +38,7 @@
     <param name="enable.nonproduction.data.unmasking">true</param> 
     
     <param name="dev.mode">false</param>
+    
+    <!-- hacky always go back to kc portal -->
+	<param name="rice.portal.logout.redirectUrl">${appserver.url}/kc-wkly30/logout.do</param>
 </config>
