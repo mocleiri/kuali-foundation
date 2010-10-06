@@ -1,0 +1,41 @@
+<config>
+    <param name="http.port">80</param>
+    <param name="application.host">test.kc.kuali.org</param>
+
+	<param name="plugin.dir">${user.home}/kuali/main/${environment}/rice_embedded/plugins</param>
+	
+	<param name="datasource.username">KRTRUNK</param>
+    <param name="datasource.password">trunk174kr</param>
+    <!-- param name="datasource.url">jdbc:oracle:thin:@ec2-174-129-80-250.compute-1.amazonaws.com:1521:XE</param -->
+    <param name="datasource.url">jdbc:oracle:thin:@db.kc.kuali.org:1521:KUALI</param>
+    <param name="datasource.ojb.platform">Oracle9i</param>
+	
+	<param name="attachment.dir.location">/opt/ears/</param>
+	<param name="data.xml.root.location">/opt/ears/${environment}/kew/xml</param>
+	
+	<!-- log4j settings -->
+	<param name="log4j.settings.reloadInterval">5</param>
+	<!-- param name="log4j.settings.path">classpath:log4j.properties</param -->
+	<param name="log4j.settings.path">/home/tomcat/kuali/rice/shared/log4j.properties</param>
+	
+	<!-- Keystore Configuration -->
+	<param name="keystore.alias">rice</param>
+	<param name="keystore.file">/home/tomcat/kuali/rice/shared/rice.keystore</param>
+	<param name="keystore.password">r1c3pw</param>
+
+	<param name="mail.relay.server">localhost</param>
+	<param name="mailing.list.batch">mailing.list.batch</param>
+	<param name="encryption.key">7IC64w6ksLU</param>
+
+	<!-- Dummy Login Filter - use if you don't want to go through CAS -->
+	<param name="filter.login.class">org.kuali.rice.kew.web.DummyLoginFilter</param>
+	<param name="filtermapping.login.1">/*</param>
+	
+	<!-- Sample Application Flag -->
+    <param name="sample.enabled">false</param>
+    
+	<!-- workaround until Rice resolves KULRICE-4065 -->    
+    <param name="enable.nonproduction.data.unmasking">true</param> 
+    
+    <param name="dev.mode">false</param>
+</config>
