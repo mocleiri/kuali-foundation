@@ -10,6 +10,9 @@
     <param name="datasource.url">jdbc:oracle:thin:@db.kc.kuali.org:1521:KUALI</param>
 	<param name="datasource.ojb.platform">Oracle9i</param>
 	
+	<!--  increase db pool -->
+	<param name="datasource.pool.maxSize">20</param>
+	
 	<param name="attachment.dir.location">/opt/ears/</param>
 	<param name="data.xml.root.location">/opt/ears/${environment}/kew/xml</param>
 	
