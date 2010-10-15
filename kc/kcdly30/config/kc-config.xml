@@ -12,9 +12,6 @@
 	<param name="datasource.password">dly174kc</param>
 	<param name="datasource.ojb.platform">Oracle9i</param>
 	
-	<!--  increase db pool -->
-	<param name="datasource.pool.maxSize">20</param>
-
 	<!-- For Embedded Mode -->
 	<param name="rice.app.url">http://test.kc.kuali.org/kr-dly30</param>
 

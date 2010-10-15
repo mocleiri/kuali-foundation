@@ -11,9 +11,6 @@
 	<param name="datasource.username">KCWKLY30</param>
 	<param name="datasource.password">wkly174kc</param>
 	<param name="datasource.ojb.platform">Oracle9i</param>
-	
-	<!--  increase db pool -->
-	<param name="datasource.pool.maxSize">20</param>
 
 	<!-- For Embedded Mode -->
 	<param name="rice.app.url">http://test.kc.kuali.org/kr-wkly30</param>
