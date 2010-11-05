@@ -1103,23 +1103,23 @@ END;
     	        </sort>
     	    </path>
     		<sequential>
+    			<!-- need to keep back-slashes out of the path -->
+    			<path id="driver.classpath.for.liquibase">
+    				<fileset dir="../drivers">
+    					<include name="*.jar" />
+    				</fileset>
+    			</path>
+    			<pathconvert refid="driver.classpath.for.liquibase"
+    						 property="driver.classpath.for.liquibase.string"
+    						 targetos="unix" />
     		    <echo message="Running Liquibase ChangeLog: @{file.name}" />
-    			<!--
-    			<updateDatabase changelogfile="@{file.name}"
-    							classpathref="torque-classpath"
-    							driver="${import.torque.database.driver}"
-    							url="${import.torque.database.url}"
-			    				username="${import.torque.database.user}"
-			    				password="${import.torque.database.password}"
-			    				defaultschemaname="${import.torque.database.schema}" />
-    			-->
     			<java jar="../lib/liquibase-1.9.5.jar" 
     					failonerror="true" 
     					classpathref="torque-classpath" 
     					fork="true"
     					dir="${post.import.liquibase.xml.directory}">
     				<arg value="--driver=${import.torque.database.driver}"/>
-    				<arg value="--classpath=${basedir}/../drivers/ojdbc6.jar:${basedir}/../drivers/mysql-connector-java-5.0.5-bin.jar" />
+    				<arg value="--classpath=${driver.classpath.for.liquibase.string}" />
     				<arg value="--url=${import.torque.database.url}"/>
 					<arg value="--username=${import.torque.database.user}"/>
 					<arg value="--password=${import.torque.database.password}"/>
