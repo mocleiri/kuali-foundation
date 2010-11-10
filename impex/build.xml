@@ -1110,8 +1110,7 @@ END;
     				</fileset>
     			</path>
     			<pathconvert refid="driver.classpath.for.liquibase"
-    						 property="driver.classpath.for.liquibase.string"
-    						 targetos="unix" />
+    						 property="driver.classpath.for.liquibase.string" />
     		    <echo message="Running Liquibase ChangeLog: @{file.name}" />
     			<java jar="../lib/liquibase-1.9.5.jar" 
     					failonerror="true" 
