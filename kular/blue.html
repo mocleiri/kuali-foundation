@@ -1,0 +1,883 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<script>var jsContextPath = "/kfs-ptd";</script>
+<title>KFS :: Internal Billing</title>
+<link href="css/kuali-blue.css" rel="stylesheet" type="text/css">
+<script src="jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script>
+		!window.jQuery && document.write('<script src="jquery-1.4.3.min.js"><\/script>');
+</script>
+<script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.3.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.3.css" media="screen" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+ <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+ <script>
+  $(document).ready(function() {
+    $("button").button();
+  });
+  </script>
+
+
+<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			*   Examples - images
+			*/
+
+	
+
+			/*
+			*   Examples - various
+			*/
+
+		
+			$("#various3").fancybox({
+				'width'				: '75%',
+				'height'			: '75%',
+				'autoScale'			: false,
+				'transitionIn'		: 'none',
+				'transitionOut'		: 'none',
+				'type'				: 'iframe'
+			});
+
+		
+		});
+	</script><script type="text/javascript">
+    $(document).ready(function() {
+
+
+        $("#overview").slideUp(000);
+        $("#accounting").slideUp(000);
+        $("#items").slideUp(000);
+        $("#notes").slideUp(000);
+        $("#show_accounting").toggle(
+
+        function() {
+            $("#accounting").slideUp(600);
+            $("#show_accounting").html("<img src='images/arrow-col.png' width='16' height='16' alt='collapse'>Accounting Lines");
+        }, function() {
+            $("#accounting").slideDown(600);
+            $("#show_accounting").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Accounting Lines");
+        }
+
+        );
+
+
+        $("#show_overview").toggle(
+
+        function() {
+            $("#overview").slideUp(600);
+            $("#show_overview").html("<img src='images/arrow-col.png' width='16' height='16' alt='collapse'>Document Overview");
+        }, function() {
+            $("#overview").slideDown(600);
+            $("#show_overview").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Document Overview");
+        }
+
+        );
+
+        $("#show_items").toggle(
+
+        function() {
+            $("#items").slideUp(600);
+            $("#show_items").html("<img src='images/arrow-col.png' width='16' height='16' alt='expand'>Items");
+        }, function() {
+            $("#items").slideDown(600);
+            $("#show_items").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Items");
+        }
+
+        );
+
+        $("#show_notes").toggle(
+
+        function() {
+            $("#notes").slideUp(600);
+            $("#show_notes").html("<img src='images/arrow-col.png' width='16' height='16' alt='expand'>Notes and Attachments (0)");
+        }, function() {
+            $("#notes").slideDown(600);
+            $("#show_notes").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Notes and Attachments (0)");
+        }
+
+        );
+
+
+
+    });
+</script>
+</head>
+<body onload="if ( !restoreScrollPosition() ) { jumpToAnchor('topOfForm'); }" onkeypress="return isReturnKeyAllowed('methodToCall.' , event);">
+<form name="KualiForm" id="kualiForm" method="post" action="/kfs-ptd/financialInternalBilling.do" enctype="multipart/form-data" onsubmit="return hasFormAlreadyBeenSubmitted();">
+  <a name="topOfForm"></a>
+  <div class="headerarea" id="headerarea">
+    <h1> Internal Billing</h1>
+    <!-- DOCUMENT INFO HEADER BOX -->
+    <div class="headerbox">
+      <table class="headerinfo" summary="document header: general information" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <th rowspan="1" colspan="1" scope="row" align="right"> Doc Nbr: </th>
+            <td> 5814 </td>
+            <th rowspan="1" colspan="1" scope="row" align="right"> Status: </th>
+            <td> INITIATED </td>
+          </tr>
+          <tr>
+            <th rowspan="1" colspan="1" scope="row" align="right"> Initiator: </th>
+            <td><a href="http://kfs.testdrive.kuali.org/kfs-ptd/kim/identityManagementPersonInquiry.do?businessObjectClassName=org.kuali.rice.kim.bo.impl.PersonImpl&amp;methodToCall=inquiry&amp;principalId=5729300245&amp;command=initiate" target="_blank" title="Person Inquiry">day</a></td>
+            <th rowspan="1" colspan="1" scope="row" align="right"> Created: </th>
+            <td> 10:31 AM 11/03/2010 </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="msg-excol">
+    <div class="left-errmsg"></div>
+    <div class="right">
+      <div class="excol">
+        <input name="asdf" src="images/tinybutton-expandall.gif" onclick="javascript: return expandAllTab(document, tabStatesSize); " class="tinybutton" title="show all panel content" alt="show all panel content" type="image">
+        <input name="asdf" src="images/tinybutton-collapseall.gif" onclick="javascript: return collapseAllTab(document, tabStatesSize); " class="tinybutton" title="hide all panel content" alt="hide all panel content" type="image">
+        <br>
+      </div>
+    </div>
+  </div>
+  <table width="100%" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td width="1%"><img src="images/pixel_clear.gif" alt="" height="20" width="20"></td>
+        <td><!-- if the section has errors, override and set isOpen to true --><!-- TAB -->
+          <div id="workarea"><br>
+            
+<br>
+            <div class="tab-new">
+              <h2><a href="#" id="show_overview"><img src="images/arrow-col.png" width="16" height="16" alt="collapse">Document Overview</a></h2>
+            </div>
+            <div class="tab-container" id="overview"><!-- DOC OVERVIEW TABLE -->
+              <h3>Document Overview</h3>
+              <table class="datatable" title="view/edit document overview information" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th rowspan="1" colspan="1" align="right" width="25%"><label for="document.documentHeader.documentDescription"><font color="">*</font>Description: </label></th>
+                    <td valign="middle" align="left"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="asdf" maxlength="40" size="" tabindex="0" onchange="" id="document.documentHeader.documentDescription"  class="" title="* Document Description" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" rowspan="1" align="right"><label for="document.documentHeader.organizationDocumentNumber">Org. Doc. #: </label></th>
+                    <td align="left" valign="middle"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="asdf" maxlength="10" size="" tabindex="0" onchange="" id="document.documentHeader.organizationDocumentNumber"  class="" title="Organization Document Number" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">Explanation:</th>
+                    <td valign="middle" align="left"><textarea name="document.documentHeader.explanation" tabindex="0" cols="40" rows="3" onkeyup="textLimit(this, 400);" id="document.documentHeader.explanation"  class="" title="Explanation"></textarea></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3>Financial Document Detail</h3>
+              <table class="datatable" summary="KFS Detail Section" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td width="25%" height="46" colspan="1" rowspan="1" align="right"><label for="document.documentHeader.financialDocumentTotalAmount">
+                      <div align="right">Total Amount: </div>
+                      </label></td>
+                    <td valign="middle" align="left">3456.47</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-new">
+              <h2><a href="#" id="show_accounting"><img src="images/arrow-col.png" width="16" height="16" alt="collapse">Accounting Lines</a></h2>
+            </div>
+            <div class="tab-container" id="accounting">
+              <table class="datatable" width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td style="padding:0px" colspan="10" ><h3 class="tableheader">Income </h3></td>
+                  </tr>
+                  <tr>
+                    <th class="infoline"></th>
+                    <th class="infoline"> *Chart</th>
+                    <th class="infoline"> *Account Number</th>
+                    <th class="infoline"> Sub-Account</th>
+                    <th class="infoline"> *Object</th>
+                    <th class="infoline"> Sub-Object</th>
+                    <th class="infoline"> Project</th>
+                    <th class="infoline"> Org Ref Id</th>
+                    <th class="infoline"> *Amount</th>
+                    <th class="infoline"> Actions</th>
+                  </tr>
+                  <tr>
+                    <th class="infoline"> add:</th>
+                    <td class="infoline" valign="top"><select id="newSourceLine.chartOfAccountsCode" name="newSourceLine.chartOfAccountsCode" title="Chart for New Income Line">
+                        <option value="" selected="selected"></option>
+                        <option value="BA">BA</option>
+                        <option value="BL">BL</option>
+                        <option value="EA">EA</option>
+                        <option value="FW">FW</option>
+                        <option value="HO">HO</option>
+                        <option value="IA">IA</option>
+                        <option value="IN">IN</option>
+                        <option value="IU">IU</option>
+                        <option value="KO">KO</option>
+                        <option value="NW">NW</option>
+                        <option value="SB">SB</option>
+                        <option value="SE">SE</option>
+                        <option value="UA">UA</option>
+                        <option value="QQ">QQ</option>
+                      </select>
+                      <br>
+                      <div id="newSourceLine.chart.finChartOfAccountDescription.div" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="7" size="10" id="newSourceLine.accountNumber" title="Account Number for New Income Line" type="text">
+                      <p style="display: inline" id="various3" href="lookup.html"><a id="various3" href="lookup.html"><img src="images/searchicon.gif" width="16" height="16" alt="lookup"></a></p>
+                      <div id="newSourceLine.account.accountName.div" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="5" size="5" id="newSourceLine.subAccountNumber" title="Sub-Account for New Income Line" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Sub-Account" title="Search Sub-Account" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="newSourceLine.subAccount.subAccountName.div" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="4" size="4" id="newSourceLine.financialObjectCode" title="Object for New Income Line" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Object" title="Search Object" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="newSourceLine.objectCode.financialObjectCodeName.div" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="3" size="3" id="newSourceLine.financialSubObjectCode" title="Sub-Object for New Income Line" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Sub-Object" title="Search Sub-Object" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="newSourceLine.subObjectCode.financialSubObjectCodeName.div" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="10" size="10" id="newSourceLine.projectCode" title="Project for New Income Line" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Project" title="Search Project" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="newSourceLine.project.name.div" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="8" size="10" id="newSourceLine.organizationReferenceId" title="Org Ref Id for New Income Line" type="text"></td>
+                    <td class="infoline" valign="top"><div align="right">
+                        <input name="asdf" maxlength="26" size="10" value="0.00" id="newSourceLine.amount" class="amount" title="Amount for New Income Line" type="text">
+                      </div></td>
+                    <td class="infoline" valign="top"><div style="text-align: center;">
+                        <input name="asdf" src="images/tinybutton-add1_002.gif" tabindex="0" class="tinybutton" title="Add Income Accounting Line" alt="Add Income Accounting Line" type="image">
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <th class="infoline"> 1</th>
+                    <td class="even" valign="top"><select id="document.sourceAccountingLine[0].chartOfAccountsCode" name="document.sourceAccountingLine[0].chartOfAccountsCode" title="Chart for Income Line 1">
+                        <option value=""></option>
+                        <option value="BA">BA</option>
+                        <option value="BL">BL</option>
+                        <option value="EA" selected="selected">EA</option>
+                        <option value="FW">FW</option>
+                        <option value="HO">HO</option>
+                        <option value="IA">IA</option>
+                        <option value="IN">IN</option>
+                        <option value="IU">IU</option>
+                        <option value="KO">KO</option>
+                        <option value="NW">NW</option>
+                        <option value="SB">SB</option>
+                        <option value="SE">SE</option>
+                        <option value="UA">UA</option>
+                        <option value="QQ">QQ</option>
+                      </select>
+                      <br>
+                      <div id="document.sourceAccountingLine[0].chart.finChartOfAccountDescription.div" class="fineprint">EAST</div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="7" size="10" value="0301000" id="document.sourceAccountingLine[0].accountNumber" title="Account Number for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].account.accountName.div" class="fineprint">NON-GENERAL FUND ACCOUNT</div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="5" size="5" id="document.sourceAccountingLine[0].subAccountNumber" title="Sub-Account for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subAccount.subAccountName.div" class="fineprint"></div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="4" size="4" value="0742" id="document.sourceAccountingLine[0].financialObjectCode" title="Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].objectCode.financialObjectCodeName.div" class="fineprint">SUM2 CR HR FEE APPL MUSIC</div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="3" size="3" id="document.sourceAccountingLine[0].financialSubObjectCode" title="Sub-Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subObjectCode.financialSubObjectCodeName.div" class="fineprint"></div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="10" size="10" id="document.sourceAccountingLine[0].projectCode" title="Project for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].project.name.div" class="fineprint"></div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="8" size="10" id="document.sourceAccountingLine[0].organizationReferenceId" title="Org Ref Id for Income Line 1" type="text"></td>
+                    <td class="even" valign="top"><div align="right">
+                        <input name="asdf" maxlength="26" size="10" value="456.00" id="document.sourceAccountingLine[0].amount" class="amount" title="Amount for Income Line 1" type="text">
+                      </div></td>
+                    <td class="even" valign="top"><div style="text-align: center;">
+                        <input name="asdf" src="images/tinybutton-delete1.gif" tabindex="0" class="tinybutton" title="Perform Balance Inquiry for Income Accounting Line 1" alt="Perform Balance Inquiry for Income Accounting Line 1" type="image">
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <th class="infoline"> 2</th>
+                    <td class="odd" valign="top"><select id="document.sourceAccountingLine[0].chartOfAccountsCode" name="document.sourceAccountingLine[0].chartOfAccountsCode" title="Chart for Income Line 1">
+                        <option value=""></option>
+                        <option value="BA">BA</option>
+                        <option value="BL">BL</option>
+                        <option value="EA" selected="selected">EA</option>
+                        <option value="FW">FW</option>
+                        <option value="HO">HO</option>
+                        <option value="IA">IA</option>
+                        <option value="IN">IN</option>
+                        <option value="IU">IU</option>
+                        <option value="KO">KO</option>
+                        <option value="NW">NW</option>
+                        <option value="SB">SB</option>
+                        <option value="SE">SE</option>
+                        <option value="UA">UA</option>
+                        <option value="QQ">QQ</option>
+                      </select>
+                      <br>
+                      <div id="document.sourceAccountingLine[0].chart.finChartOfAccountDescription.div" class="fineprint">EAST</div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="7" size="10" value="0301000" id="document.sourceAccountingLine[0].accountNumber" title="Account Number for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].account.accountName.div" class="fineprint">NON-GENERAL FUND ACCOUNT</div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="5" size="5" id="document.sourceAccountingLine[0].subAccountNumber" title="Sub-Account for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subAccount.subAccountName.div" class="fineprint"></div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="4" size="4" value="0742" id="document.sourceAccountingLine[0].financialObjectCode" title="Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].objectCode.financialObjectCodeName.div" class="fineprint">SUM2 CR HR FEE APPL MUSIC</div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="3" size="3" id="document.sourceAccountingLine[0].financialSubObjectCode" title="Sub-Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subObjectCode.financialSubObjectCodeName.div" class="fineprint"></div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="10" size="10" id="document.sourceAccountingLine[0].projectCode" title="Project for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].project.name.div" class="fineprint"></div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="8" size="10" id="document.sourceAccountingLine[0].organizationReferenceId" title="Org Ref Id for Income Line 1" type="text"></td>
+                    <td class="odd" valign="top"><div align="right">
+                        <input name="asdf" maxlength="26" size="10" value="456.00" id="document.sourceAccountingLine[0].amount" class="amount" title="Amount for Income Line 1" type="text">
+                      </div></td>
+                    <td class="odd" valign="top"><div style="text-align: center;">
+                        <input name="asdf" src="images/tinybutton-delete1.gif" tabindex="0" class="tinybutton" title="Perform Balance Inquiry for Income Accounting Line 1" alt="Perform Balance Inquiry for Income Accounting Line 1" type="image">
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <th class="infoline"> 3</th>
+                    <td class="even" valign="top"><select id="document.sourceAccountingLine[0].chartOfAccountsCode" name="document.sourceAccountingLine[0].chartOfAccountsCode" title="Chart for Income Line 1">
+                        <option value=""></option>
+                        <option value="BA">BA</option>
+                        <option value="BL">BL</option>
+                        <option value="EA" selected="selected">EA</option>
+                        <option value="FW">FW</option>
+                        <option value="HO">HO</option>
+                        <option value="IA">IA</option>
+                        <option value="IN">IN</option>
+                        <option value="IU">IU</option>
+                        <option value="KO">KO</option>
+                        <option value="NW">NW</option>
+                        <option value="SB">SB</option>
+                        <option value="SE">SE</option>
+                        <option value="UA">UA</option>
+                        <option value="QQ">QQ</option>
+                      </select>
+                      <br>
+                      <div id="document.sourceAccountingLine[0].chart.finChartOfAccountDescription.div" class="fineprint">EAST</div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="7" size="10" value="0301000" id="document.sourceAccountingLine[0].accountNumber" title="Account Number for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].account.accountName.div" class="fineprint">NON-GENERAL FUND ACCOUNT</div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="5" size="5" id="document.sourceAccountingLine[0].subAccountNumber" title="Sub-Account for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subAccount.subAccountName.div" class="fineprint"></div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="4" size="4" value="0742" id="document.sourceAccountingLine[0].financialObjectCode" title="Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].objectCode.financialObjectCodeName.div" class="fineprint">SUM2 CR HR FEE APPL MUSIC</div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="3" size="3" id="document.sourceAccountingLine[0].financialSubObjectCode" title="Sub-Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subObjectCode.financialSubObjectCodeName.div" class="fineprint"></div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="10" size="10" id="document.sourceAccountingLine[0].projectCode" title="Project for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].project.name.div" class="fineprint"></div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="8" size="10" id="document.sourceAccountingLine[0].organizationReferenceId" title="Org Ref Id for Income Line 1" type="text"></td>
+                    <td class="even" valign="top"><div align="right">
+                        <input name="asdf" maxlength="26" size="10" value="456.00" id="document.sourceAccountingLine[0].amount" class="amount" title="Amount for Income Line 1" type="text">
+                      </div></td>
+                    <td class="even" valign="top"><div style="text-align: center;">
+                        <input name="asdf" src="images/tinybutton-delete1.gif" tabindex="0" class="tinybutton" title="Perform Balance Inquiry for Income Accounting Line 1" alt="Perform Balance Inquiry for Income Accounting Line 1" type="image">
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <th class="infoline"> 4</th>
+                    <td class="odd" valign="top"><select id="document.sourceAccountingLine[0].chartOfAccountsCode" name="document.sourceAccountingLine[0].chartOfAccountsCode" title="Chart for Income Line 1">
+                        <option value=""></option>
+                        <option value="BA">BA</option>
+                        <option value="BL">BL</option>
+                        <option value="EA" selected="selected">EA</option>
+                        <option value="FW">FW</option>
+                        <option value="HO">HO</option>
+                        <option value="IA">IA</option>
+                        <option value="IN">IN</option>
+                        <option value="IU">IU</option>
+                        <option value="KO">KO</option>
+                        <option value="NW">NW</option>
+                        <option value="SB">SB</option>
+                        <option value="SE">SE</option>
+                        <option value="UA">UA</option>
+                        <option value="QQ">QQ</option>
+                      </select>
+                      <br>
+                      <div id="document.sourceAccountingLine[0].chart.finChartOfAccountDescription.div" class="fineprint">EAST</div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="7" size="10" value="0301000" id="document.sourceAccountingLine[0].accountNumber" title="Account Number for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].account.accountName.div" class="fineprint">NON-GENERAL FUND ACCOUNT</div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="5" size="5" id="document.sourceAccountingLine[0].subAccountNumber" title="Sub-Account for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subAccount.subAccountName.div" class="fineprint"></div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="4" size="4" value="0742" id="document.sourceAccountingLine[0].financialObjectCode" title="Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].objectCode.financialObjectCodeName.div" class="fineprint">SUM2 CR HR FEE APPL MUSIC</div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="3" size="3" id="document.sourceAccountingLine[0].financialSubObjectCode" title="Sub-Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subObjectCode.financialSubObjectCodeName.div" class="fineprint"></div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="10" size="10" id="document.sourceAccountingLine[0].projectCode" title="Project for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].project.name.div" class="fineprint"></div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="8" size="10" id="document.sourceAccountingLine[0].organizationReferenceId" title="Org Ref Id for Income Line 1" type="text"></td>
+                    <td class="odd" valign="top"><div align="right">
+                        <input name="asdf" maxlength="26" size="10" value="456.00" id="document.sourceAccountingLine[0].amount" class="amount" title="Amount for Income Line 1" type="text">
+                      </div></td>
+                    <td class="odd" valign="top"><div style="text-align: center;">
+                        <input name="asdf" src="images/tinybutton-delete1.gif" tabindex="0" class="tinybutton" title="Perform Balance Inquiry for Income Accounting Line 1" alt="Perform Balance Inquiry for Income Accounting Line 1" type="image">
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <td class="" colspan="8"></td>
+                    <td class="" style="border-left: 0px none;"><div align="right"><strong>Total:3,912.00</strong></div></td>
+                    <td class="" style="border-left: 0px none;" colspan="1"></td>
+                  </tr>
+                  <tr>
+                    <td style="padding:0px" colspan="10" ><h3 class="tableheader">Expense </h3></td>
+                  </tr>
+                  <tr>
+                    <th class="infoline"></th>
+                    <th class="infoline"> *Chart</th>
+                    <th class="infoline"> *Account Number</th>
+                    <th class="infoline"> Sub-Account</th>
+                    <th class="infoline"> *Object</th>
+                    <th class="infoline"> Sub-Object</th>
+                    <th class="infoline"> Project</th>
+                    <th class="infoline"> Org Ref Id</th>
+                    <th class="infoline"> *Amount</th>
+                    <th class="infoline"> Actions</th>
+                  </tr>
+                  <tr>
+                    <th class="infoline"> add:</th>
+                    <td class="infoline" valign="top"><select id="newTargetLine.chartOfAccountsCode2" name="newTargetLine.chartOfAccountsCode2" title="Chart for New Expense Line">
+                        <option value="" selected="selected"></option>
+                        <option value="BA">BA</option>
+                        <option value="BL">BL</option>
+                        <option value="EA">EA</option>
+                        <option value="FW">FW</option>
+                        <option value="HO">HO</option>
+                        <option value="IA">IA</option>
+                        <option value="IN">IN</option>
+                        <option value="IU">IU</option>
+                        <option value="KO">KO</option>
+                        <option value="NW">NW</option>
+                        <option value="SB">SB</option>
+                        <option value="SE">SE</option>
+                        <option value="UA">UA</option>
+                        <option value="QQ">QQ</option>
+                      </select>
+                      <br>
+                      <div id="newTargetLine.chart.finChartOfAccountDescription.div2" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="7" size="10" id="newTargetLine.accountNumber2" title="Account Number for New Expense Line" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="newTargetLine.account.accountName.div2" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="5" size="5" id="newTargetLine.subAccountNumber2" title="Sub-Account for New Expense Line" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Sub-Account" title="Search Sub-Account" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="newTargetLine.subAccount.subAccountName.div2" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="4" size="4" id="newTargetLine.financialObjectCode2" title="Object for New Expense Line" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Object" title="Search Object" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="newTargetLine.objectCode.financialObjectCodeName.div2" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="3" size="3" id="newTargetLine.financialSubObjectCode2" title="Sub-Object for New Expense Line" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Sub-Object" title="Search Sub-Object" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="newTargetLine.subObjectCode.financialSubObjectCodeName.div2" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="10" size="10" id="newTargetLine.projectCode2" title="Project for New Expense Line" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Project" title="Search Project" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="newTargetLine.project.name.div2" class="fineprint"></div></td>
+                    <td class="infoline" valign="top"><input name="asdf" maxlength="8" size="10" id="newTargetLine.organizationReferenceId2" title="Org Ref Id for New Expense Line" type="text"></td>
+                    <td class="infoline" valign="top"><div align="right">
+                        <input name="asdf" maxlength="26" size="10" value="0.00" id="newSourceLine.amount" class="amount" title="Amount for New Income Line" type="text">
+                      </div></td>
+                    <td class="infoline" valign="top"><div style="text-align: center;">
+                        <input name="asdf" src="images/tinybutton-add1_002.gif" tabindex="0" class="tinybutton" title="Add Income Accounting Line" alt="Add Income Accounting Line" type="image">
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <th class="infoline"> 1</th>
+                    <td class="even" valign="top"><select id="document.sourceAccountingLine[0].chartOfAccountsCode" name="document.sourceAccountingLine[0].chartOfAccountsCode" title="Chart for Income Line 1">
+                        <option value=""></option>
+                        <option value="BA">BA</option>
+                        <option value="BL">BL</option>
+                        <option value="EA" selected="selected">EA</option>
+                        <option value="FW">FW</option>
+                        <option value="HO">HO</option>
+                        <option value="IA">IA</option>
+                        <option value="IN">IN</option>
+                        <option value="IU">IU</option>
+                        <option value="KO">KO</option>
+                        <option value="NW">NW</option>
+                        <option value="SB">SB</option>
+                        <option value="SE">SE</option>
+                        <option value="UA">UA</option>
+                        <option value="QQ">QQ</option>
+                      </select>
+                      <br>
+                      <div id="document.sourceAccountingLine[0].chart.finChartOfAccountDescription.div" class="fineprint">EAST</div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="7" size="10" value="0301000" id="document.sourceAccountingLine[0].accountNumber" title="Account Number for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].account.accountName.div" class="fineprint">NON-GENERAL FUND ACCOUNT</div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="5" size="5" id="document.sourceAccountingLine[0].subAccountNumber" title="Sub-Account for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subAccount.subAccountName.div" class="fineprint"></div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="4" size="4" value="0742" id="document.sourceAccountingLine[0].financialObjectCode" title="Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].objectCode.financialObjectCodeName.div" class="fineprint">SUM2 CR HR FEE APPL MUSIC</div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="3" size="3" id="document.sourceAccountingLine[0].financialSubObjectCode" title="Sub-Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subObjectCode.financialSubObjectCodeName.div" class="fineprint"></div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="10" size="10" id="document.sourceAccountingLine[0].projectCode" title="Project for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].project.name.div" class="fineprint"></div></td>
+                    <td class="even" valign="top"><input name="asdf" maxlength="8" size="10" id="document.sourceAccountingLine[0].organizationReferenceId" title="Org Ref Id for Income Line 1" type="text"></td>
+                    <td class="even" valign="top"><div align="right">
+                        <input name="asdf" maxlength="26" size="10" value="456.00" id="document.sourceAccountingLine[0].amount" class="amount" title="Amount for Income Line 1" type="text">
+                      </div></td>
+                    <td class="even" valign="top"><div style="text-align: center;">
+                        <input name="asdf" src="images/tinybutton-delete1.gif" tabindex="0" class="tinybutton" title="Perform Balance Inquiry for Income Accounting Line 1" alt="Perform Balance Inquiry for Income Accounting Line 1" type="image">
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <th class="infoline"> 2</th>
+                    <td class="odd" valign="top"><select id="document.sourceAccountingLine[0].chartOfAccountsCode" name="document.sourceAccountingLine[0].chartOfAccountsCode" title="Chart for Income Line 1">
+                        <option value=""></option>
+                        <option value="BA">BA</option>
+                        <option value="BL">BL</option>
+                        <option value="EA" selected="selected">EA</option>
+                        <option value="FW">FW</option>
+                        <option value="HO">HO</option>
+                        <option value="IA">IA</option>
+                        <option value="IN">IN</option>
+                        <option value="IU">IU</option>
+                        <option value="KO">KO</option>
+                        <option value="NW">NW</option>
+                        <option value="SB">SB</option>
+                        <option value="SE">SE</option>
+                        <option value="UA">UA</option>
+                        <option value="QQ">QQ</option>
+                      </select>
+                      <br>
+                      <div id="document.sourceAccountingLine[0].chart.finChartOfAccountDescription.div" class="fineprint">EAST</div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="7" size="10" value="0301000" id="document.sourceAccountingLine[0].accountNumber" title="Account Number for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].account.accountName.div" class="fineprint">NON-GENERAL FUND ACCOUNT</div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="5" size="5" id="document.sourceAccountingLine[0].subAccountNumber" title="Sub-Account for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subAccount.subAccountName.div" class="fineprint"></div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="4" size="4" value="0742" id="document.sourceAccountingLine[0].financialObjectCode" title="Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].objectCode.financialObjectCodeName.div" class="fineprint">SUM2 CR HR FEE APPL MUSIC</div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="3" size="3" id="document.sourceAccountingLine[0].financialSubObjectCode" title="Sub-Object for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].subObjectCode.financialSubObjectCodeName.div" class="fineprint"></div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="10" size="10" id="document.sourceAccountingLine[0].projectCode" title="Project for Income Line 1" type="text">
+                      <input name="asdf" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Account Number" title="Search Account Number" tabindex="1000001" type="image" border="0">
+                      <br>
+                      <div id="document.sourceAccountingLine[0].project.name.div" class="fineprint"></div></td>
+                    <td class="odd" valign="top"><input name="asdf" maxlength="8" size="10" id="document.sourceAccountingLine[0].organizationReferenceId" title="Org Ref Id for Income Line 1" type="text"></td>
+                    <td class="odd" valign="top"><div align="right">
+                        <input name="asdf" maxlength="26" size="10" value="456.00" id="document.sourceAccountingLine[0].amount" class="amount" title="Amount for Income Line 1" type="text">
+                      </div></td>
+                    <td class="odd" valign="top"><div style="text-align: center;">
+                        <input name="asdf" src="images/tinybutton-delete1.gif" tabindex="0" class="tinybutton" title="Perform Balance Inquiry for Income Accounting Line 1" alt="Perform Balance Inquiry for Income Accounting Line 1" type="image">
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <td class="" colspan="8"></td>
+                    <td class="" style="border-left: 0px none;"><div align="right"><strong>Total:3,912.00</strong></div></td>
+                    <td class="" style="border-left: 0px none;" colspan="1"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <script type="text/javascript">
+	var kualiForm = document.forms['KualiForm'];
+	var kualiElements = kualiForm.elements;
+</script></div>
+            <div class="tab-new">
+              <h2><a href="#" id="show_items"><img src="images/arrow-col.png" width="16" height="16" alt="collapse">Items</a></h2>
+            </div>
+            <div class="tab-container" id="items">
+              <table class="datatable" summary="Items section" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td style="padding:0px"  colspan="9"><h3 class="tableheader">Items</h3></td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" rowspan="1" class="infoline"></th>
+                    <th colspan="1" rowspan="1" class="infoline"> Date </th>
+                    <th colspan="1" rowspan="1" class="infoline"> Stock# </th>
+                    <th colspan="1" rowspan="1" class="infoline"> Description </th>
+                    <th colspan="1" rowspan="1" class="infoline"><font color="">*</font>Quantity </th>
+                    <th colspan="1" rowspan="1" class="infoline"> UoM </th>
+                    <th colspan="1" rowspan="1" class="infoline"><font color="">*</font>Item Cost </th>
+                    <th colspan="1" rowspan="1" class="infoline"> Total </th>
+                    <th colspan="1" rowspan="1" class="infoline"> Actions </th>
+                  </tr>
+                  <tr>
+                    <th colspan="1" rowspan="1" class="infoline" scope="row"> add: </th>
+                    <td class="infoline"><input name="asdf" maxlength="22" size="10" id="newItem.itemServiceDate"  title="Item Service Date" type="text">
+                      <img src="images/cal.gif" id="newItem.itemServiceDate_datepicker" style="cursor: pointer;" alt="Date selector" title="Date selector" onmouseover="this.style.background='red';" onmouseout="this.style.background='';"><script type="text/javascript">
+Calendar.setup(
+{
+ inputField : "newItem.itemServiceDate", // ID of the input field
+ ifFormat : "%m/%d/%Y", // the date format
+ button : "newItem.itemServiceDate_datepicker" // ID of the button
+}
+);
+</script></td>
+                    <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="asdf" maxlength="9" size="11" tabindex="0" onchange="" id="newItem.itemStockNumber"  class="" title="Item Stock Number" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="asdf" maxlength="40" size="30" tabindex="0" onchange="" id="newItem.itemStockDescription"  class="" title="Item Stock Description" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="asdf" maxlength="22" size="10" tabindex="0" onchange="" id="newItem.itemQuantity"  class="" title="* Item Quantity" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="asdf" maxlength="2" size="2" tabindex="0" onchange="" id="newItem.unitOfMeasureCode"  class="" title="Unit Of Measure Code" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="asdf" maxlength="26" size="10" tabindex="0" value="0.00" onchange="" id="newItem.itemUnitAmount"  class="amount" title="* Item Unit Amount" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="infoline"><!-- no total until it's added --></td>
+                    <td class="infoline"><div align="center">
+                        <input name="asdf" src="images/tinybutton-add1_002.gif" class="tinybutton" title="Insert an Item" alt="Insert an Item" type="image">
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" rowspan="1" class="infoline" scope="row"> 1</th>
+                    <td class="even"><input name="document.item[0].itemServiceDate" maxlength="22" size="10" value="11/10/2010 12:00 AM" id="document.item[0].itemServiceDate"  title="Item Service Date" type="text">
+                      <span class="infoline"><img src="images/cal.gif" id="newItem.itemServiceDate_datepicker2" style="cursor: pointer;" alt="Date selector" title="Date selector" onmouseover="this.style.background='red';" onmouseout="this.style.background='';"></span><script type="text/javascript">
+      Calendar.setup(
+      {
+         inputField : "document.item[0].itemServiceDate", // ID of the input field
+         ifFormat : "%m/%d/%Y", // the date format
+         button : "document.item[0].itemServiceDate_datepicker" // ID of the button
+      }
+      );
+                      </script></td>
+                    <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[0].itemStockNumber" maxlength="9" size="11" tabindex="0" value="4567546" onchange="" onblur="" id="document.item[0].itemStockNumber"  class="" title="Item Stock Number" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[0].itemStockDescription" maxlength="40" size="30" tabindex="0" value="sdfg sdfg sdfg sdfg" onchange="" onblur="" id="document.item[0].itemStockDescription"  class="" title="Item Stock Description" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[0].itemQuantity" maxlength="22" size="10" tabindex="0" value="3" onchange="" onblur="" id="document.item[0].itemQuantity"  class="" title="* Item Quantity" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[0].unitOfMeasureCode" maxlength="2" size="2" tabindex="0" onchange="" onblur="" id="document.item[0].unitOfMeasureCode"  class="" title="Unit Of Measure Code" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[0].itemUnitAmount" maxlength="26" size="10" tabindex="0" value="34.00" onchange="" onblur="" id="document.item[0].itemUnitAmount"  class="amount" title="* Item Unit Amount" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="even"><div align="right">$102.00</div></td>
+                    <td class="even"><div align="center"><span style="text-align: center;">
+                        <input name="asdf2" src="images/tinybutton-delete1.gif" tabindex="0" class="tinybutton" title="Perform Balance Inquiry for Income Accounting Line 1" alt="Perform Balance Inquiry for Income Accounting Line 1" type="image">
+                        </span></div></td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" rowspan="1" class="infoline" scope="row"> 2</th>
+                    <td class="odd"><input name="document.item[1].itemServiceDate" maxlength="22" size="10" value="11/02/2010 12:00 AM" id="document.item[1].itemServiceDate"  title="Item Service Date" type="text">
+                      <span class="infoline"><img src="images/cal.gif" id="newItem.itemServiceDate_datepicker3" style="cursor: pointer;" alt="Date selector" title="Date selector" onmouseover="this.style.background='red';" onmouseout="this.style.background='';"></span><script type="text/javascript">
+      Calendar.setup(
+      {
+         inputField : "document.item[1].itemServiceDate", // ID of the input field
+         ifFormat : "%m/%d/%Y", // the date format
+         button : "document.item[1].itemServiceDate_datepicker" // ID of the button
+      }
+      );
+                      </script></td>
+                    <td class="odd"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[1].itemStockNumber" maxlength="9" size="11" tabindex="0" value="3685654" onchange="" onblur="" id="document.item[1].itemStockNumber"  class="" title="Item Stock Number" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="odd"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[1].itemStockDescription" maxlength="40" size="30" tabindex="0" value="d fhdfh df h" onchange="" onblur="" id="document.item[1].itemStockDescription"  class="" title="Item Stock Description" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="odd"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[1].itemQuantity" maxlength="22" size="10" tabindex="0" value="2" onchange="" onblur="" id="document.item[1].itemQuantity"  class="" title="* Item Quantity" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="odd"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[1].unitOfMeasureCode" maxlength="2" size="2" tabindex="0" onchange="" onblur="" id="document.item[1].unitOfMeasureCode"  class="" title="Unit Of Measure Code" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="odd"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[1].itemUnitAmount" maxlength="26" size="10" tabindex="0" value="275.00" onchange="" onblur="" id="document.item[1].itemUnitAmount"  class="amount" title="* Item Unit Amount" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="odd"><div align="right">$550.00</div></td>
+                    <td class="odd"><div align="center"><span style="text-align: center;">
+                        <input name="asdf3" src="images/tinybutton-delete1.gif" tabindex="0" class="tinybutton" title="Perform Balance Inquiry for Income Accounting Line 1" alt="Perform Balance Inquiry for Income Accounting Line 1" type="image">
+                        </span></div></td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" rowspan="1" class="infoline" scope="row"> 3</th>
+                    <td class="even"><input name="document.item[2].itemServiceDate" maxlength="22" size="10" value="11/03/2010 12:00 AM" id="document.item[2].itemServiceDate"  title="Item Service Date" type="text">
+                      <span class="infoline"><img src="images/cal.gif" id="newItem.itemServiceDate_datepicker4" style="cursor: pointer;" alt="Date selector" title="Date selector" onmouseover="this.style.background='red';" onmouseout="this.style.background='';"></span><script type="text/javascript">
+      Calendar.setup(
+      {
+         inputField : "document.item[2].itemServiceDate", // ID of the input field
+         ifFormat : "%m/%d/%Y", // the date format
+         button : "document.item[2].itemServiceDate_datepicker" // ID of the button
+      }
+      );
+                      </script></td>
+                    <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[2].itemStockNumber" maxlength="9" size="11" tabindex="0" value="4568458" onchange="" onblur="" id="document.item[2].itemStockNumber"  class="" title="Item Stock Number" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[2].itemStockDescription" maxlength="40" size="30" tabindex="0" value="fghkdhfgk efgh dh dfgh" onchange="" onblur="" id="document.item[2].itemStockDescription"  class="" title="Item Stock Description" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[2].itemQuantity" maxlength="22" size="10" tabindex="0" value="5" onchange="" onblur="" id="document.item[2].itemQuantity"  class="" title="* Item Quantity" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[2].unitOfMeasureCode" maxlength="2" size="2" tabindex="0" onchange="" onblur="" id="document.item[2].unitOfMeasureCode"  class="" title="Unit Of Measure Code" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <input name="document.item[2].itemUnitAmount" maxlength="26" size="10" tabindex="0" value="75.00" onchange="" onblur="" id="document.item[2].itemUnitAmount"  class="amount" title="* Item Unit Amount" type="text">
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="even"><div align="right">$375.00</div></td>
+                    <td class="even"><div align="center"><span style="text-align: center;">
+                        <input name="asdf4" src="images/tinybutton-delete1.gif" tabindex="0" class="tinybutton" title="Perform Balance Inquiry for Income Accounting Line 1" alt="Perform Balance Inquiry for Income Accounting Line 1" type="image">
+                        </span></div></td>
+                  </tr>
+                  <tr>
+                    <td class="" colspan="7"></td>
+                    <td class=""><div align="right"><strong>Total: $0.00</strong></div></td>
+                    <td class=""></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-new">
+              <h2><a href="#" id="show_notes"><img src="images/arrow-col.png" width="16" height="16" alt="collapse">Notes and Attachments (0)</a></h2>
+            </div>
+            <div class="tab-container" id="notes">
+              <table class="datatable" summary="view/add notes" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr class="infoline">
+                    <td style="padding:0px"  colspan="6" class=""><h3 class="tableheader">Notes and Attachments</h3></td>
+                  </tr>
+                  <tr class="infoline">
+                    <th colspan="1" rowspan="1" class="infoline"></th>
+                    <th rowspan="1" colspan="1"  class="infoline" scope="col" align="left"> Posted Timestamp </th>
+                    <th rowspan="1" colspan="1"  class="infoline"scope="col" align="left"> Author </th>
+                    <th rowspan="1" colspan="1"  class="infoline"scope="col" align="left"><label for="newNote.noteText"><font color="">*</font>Note Text </label></th>
+                    <th rowspan="1" colspan="1"  class="infoline"scope="col" align="left"><label for="attachmentFile">Attached File </label></th>
+                    <th rowspan="1" colspan="1"  class="infoline"scope="col"> Actions </th>
+                  </tr>
+                  <tr>
+                    <th colspan="1" rowspan="1" class="infoline" scope="row"> add: </th>
+                    <td class="infoline"></td>
+                    <td class="infoline"></td>
+                    <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      <textarea name="newNote.noteText2" tabindex="0" cols="50" rows="3" onkeyup="textLimit(this, 800);" id="newNote.noteText2"  class="" title="* Note Text"></textarea>
+                      <!-- error icon --><!-- datePicker icon --></td>
+                    <td class="infoline"><div align="center"><br>
+                        <input name="attachmentFile" size="30" value="" id="attachmentFile2" type="file">
+                        <br>
+                        <br>
+                        <input name="asdf5" src="images/tinygrey-cancel.gif" class="tinybutton" title="Cancel Attachment" alt="Cancel Attachment" type="image">
+                      </div></td>
+                    <td class="infoline"><div align="center">
+                        <input name="asdf5" src="images/tinybutton-add1_002.gif" class="tinybutton" title="Add a Note" alt="Add a Note" type="image">
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" rowspan="1" class="infoline" scope="row"> 1</th>
+                    <td class="even"> 11/04/2010 10:26 AM </td>
+                    <td class="even"> DAY, MAE U </td>
+                    <td class="even">sdfg sfg</td>
+                    <td class="even"><span class="even">
+                      <input name="methodToCall.downloadBOAttachment.attachment[0]" src="images/clip.gif" onclick="excludeSubmitRestriction=true" style="padding: 5px;" title="download attachment" alt="download attachment" type="image">
+                      asdf.html <span style="white-space: nowrap;"> (102 KB,  text/html) </span></span></td>
+                    <td class="even"></td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" rowspan="1" class="infoline" scope="row"> 2</th>
+                    <td class="odd"> 11/04/2010 10:26 AM </td>
+                    <td class="odd"> DAY, MAE U </td>
+                    <td class="odd">sdfg sdfg</td>
+                    <td class="odd"><input name="methodToCall.downloadBOAttachment.attachment[0]2" src="images/clip.gif" onclick="excludeSubmitRestriction=true" style="padding: 5px;" title="download attachment" alt="download attachment" type="image">
+                      aaaa.html <span style="white-space: nowrap;"> (104 KB,  text/html) </span></td>
+                    <td class="odd"></td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" rowspan="1" class="infoline" scope="row"> 3</th>
+                    <td class="even"> 11/04/2010 10:26 AM </td>
+                    <td class="even"> DAY, MAE U </td>
+                    <td class="even">ureytn ertbhyert b</td>
+                    <td class="even"><input name="methodToCall.downloadBOAttachment.attachment[0]3" src="images/clip.gif" onclick="excludeSubmitRestriction=true" style="padding: 5px;" title="download attachment" alt="download attachment" type="image">
+                      tinybutton-hide.gif <span style="white-space: nowrap;"> (480 bytes,  image/gif) </span></td>
+                    <td class="even"></td>
+                  </tr>
+                  <tr>
+                    <th rowspan="1" colspan="1" scope="row" class="infoline" > 4 </th>
+                    <td class="odd"> 11/04/2010 10:27 AM </td>
+                    <td class="odd"> DAY, MAE U </td>
+                    <td class="odd">fghj fghj fj rty</td>
+                    <td class="odd"><input name="methodToCall.downloadBOAttachment.attachment[0]4" src="images/clip.gif" onclick="excludeSubmitRestriction=true" style="padding: 5px;" title="download attachment" alt="download attachment" type="image">
+                      searchicon.gif <span style="white-space: nowrap;"> (405 bytes,  image/gif) </span></td>
+                    <td class="odd"></td>
+                  </tr>
+              </table>
+            </div>
+           
+            <div id="globalbuttons" class="globalbuttons">
+        
+              <button> submit</button>
+              <button> save</button>
+              <button>close</button>
+              <button>cancel</button>
+              <button>copy</button>
+              
+            </div>
+        <!-- footer -->
+            <p></p>
+          </div></td>
+        <td width="20"><img src="images/pixel_clear.gif" alt="" height="20" width="20"></td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- So that JS expandAllTab / collapseAllTab know the tabStates size. Subtract 1 because currentTabIndex = size + 1. -->
+</form>
+</body>
+</html>

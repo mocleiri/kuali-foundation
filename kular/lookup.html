@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<script>var jsContextPath = "/kfs-ptd";</script>
+<title>KFS :: Internal Billing</title>
+<link href="css/kuali-red.css" rel="stylesheet" type="text/css">
+<script src="jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script>
+		!window.jQuery && document.write('<script src="jquery-1.4.3.min.js"><\/script>');
+</script>
+<script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.3.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.3.css" media="screen" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+ <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+ <script>
+  $(document).ready(function() {
+    $("button").button();
+  });
+  </script>
+
+
+<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			*   Examples - images
+			*/
+
+	
+
+			/*
+			*   Examples - various
+			*/
+
+		
+			$("#various3").fancybox({
+				'width'				: '75%',
+				'height'			: '75%',
+				'autoScale'			: false,
+				'transitionIn'		: 'none',
+				'transitionOut'		: 'none',
+				'type'				: 'iframe'
+			});
+
+		
+		});
+	</script><script type="text/javascript">
+    $(document).ready(function() {
+
+
+        $("#overview").slideUp(000);
+        $("#accounting").slideUp(000);
+        $("#items").slideUp(000);
+        $("#notes").slideUp(000);
+        $("#show_accounting").toggle(
+
+        function() {
+            $("#accounting").slideUp(600);
+            $("#show_accounting").html("<img src='images/arrow-col.png' width='16' height='16' alt='collapse'>Accounting Lines");
+        }, function() {
+            $("#accounting").slideDown(600);
+            $("#show_accounting").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Accounting Lines");
+        }
+
+        );
+
+
+        $("#show_overview").toggle(
+
+        function() {
+            $("#overview").slideUp(600);
+            $("#show_overview").html("<img src='images/arrow-col.png' width='16' height='16' alt='collapse'>Document Overview");
+        }, function() {
+            $("#overview").slideDown(600);
+            $("#show_overview").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Document Overview");
+        }
+
+        );
+
+        $("#show_items").toggle(
+
+        function() {
+            $("#items").slideUp(600);
+            $("#show_items").html("<img src='images/arrow-col.png' width='16' height='16' alt='expand'>Items");
+        }, function() {
+            $("#items").slideDown(600);
+            $("#show_items").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Items");
+        }
+
+        );
+
+        $("#show_notes").toggle(
+
+        function() {
+            $("#notes").slideUp(600);
+            $("#show_notes").html("<img src='images/arrow-col.png' width='16' height='16' alt='expand'>Notes and Attachments (0)");
+        }, function() {
+            $("#notes").slideDown(600);
+            $("#show_notes").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Notes and Attachments (0)");
+        }
+
+        );
+
+
+
+    });
+</script>
+</head>
+<body onload="placeFocus();">
+<form name="KualiForm" id="kualiForm" method="post" action="/kfs-ptd/kr/lookup.do" enctype="" onsubmit="return hasFormAlreadyBeenSubmitted();">
+  
+  <!-- DOCUMENT INFO HEADER BOX --> 
+  
+  <script type="text/javascript">
+    var kualiForm = document.forms['KualiForm'];
+    var kualiElements = kualiForm.elements;
+    </script> 
+  <script type="text/javascript" src="lookup_files/DocumentTypeService.js"></script>
+  <div class="headerarea-small" id="headerarea-small">
+    <h1>Account Lookup</h1>
+  </div>
+
+
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td width="1%"><img src="images/pixel_clear.gif" alt="" height="1" width="1"></td>
+        <td><div id="lookup" align="center"><br>
+         
+            <table class="datatable-100" align="center" cellpadding="0" cellspacing="0">
+              
+              <!-- maintenanceViewMode = lookup, KualiForm.methodToCall = start -->
+              
+              <tbody>
+                <tr>
+                  <th class="grid" style="width: 50%;" align="right"> <label id="chartOfAccountsCode.label" for="chartOfAccountsCode"> Chart Code: </label>
+                  </th>
+                  <td class="grid" style="width: 50%;"><input name="chartOfAccountsCode" id="chartOfAccountsCode" size="2" maxlength="100" style="" class="" type="text">
+                    <input tabindex="1000001" name="methodToCall.performLookup.(!!org.kuali.kfs.coa.businessobject.Chart!!).(((chartOfAccountsCode:chartOfAccountsCode))).((#chartOfAccountsCode:chartOfAccountsCode#)).((&lt;&gt;)).(([])).((**)).((^^)).((&amp;&amp;)).((//)).((~~)).(::::;http://kfs.testdrive.kuali.org/kfs-ptd/kr/lookup.do;::::).anchor" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Chart Code" title="Search Chart Code" type="image" border="0"></td>
+                </tr>
+                <tr>
+                  <th class="grid" style="width: 50%;" align="right"> <label id="accountNumber.label" for="accountNumber"> Account Number: </label>
+                  </th>
+                  <td class="grid" style="width: 50%;"><input name="accountNumber" id="accountNumber" size="10" maxlength="100" style="" class="" type="text"></td>
+                </tr>
+                <tr>
+                  <th class="grid" style="width: 50%;" align="right"> <label id="accountName.label" for="accountName"> Account Name: </label>
+                  </th>
+                  <td class="grid" style="width: 50%;"><input name="accountName" id="accountName" size="40" maxlength="100" style="" class="" type="text"></td>
+                </tr>
+                <tr>
+                  <th class="grid" style="width: 50%;" align="right"> <label id="organizationCode.label" for="organizationCode"> Organization Code: </label>
+                  </th>
+                  <td class="grid" style="width: 50%;"><input name="organizationCode" id="organizationCode" size="4" maxlength="100" style="" class="" type="text">
+                    <span class="grid" style="width: 50%;">
+                    <input tabindex="1000001" name="methodToCall.performLookup.(!!org.kuali.kfs.coa.businessobject.Chart!!).(((chartOfAccountsCode:chartOfAccountsCode))).((#chartOfAccountsCode:chartOfAccountsCode#)).((&lt;&gt;)).(([])).((**)).((^^)).((&amp;&amp;)).((//)).((~~)).(::::;http://kfs.testdrive.kuali.org/kfs-ptd/kr/lookup.do;::::).anchor3" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Chart Code" title="Search Chart Code" type="image" border="0">
+                  </span></td>
+                </tr>
+                <tr>
+                  <th class="grid" style="width: 50%;" align="right"> <label id="accountTypeCode.label" for="accountTypeCode"> Account Type Code: </label>
+                  </th>
+                  <td class="grid" style="width: 50%;"><select id="accountTypeCode" name="accountTypeCode" style="">
+                      <option selected="selected" value=""></option>
+                      <option value="AI">AI - A-21 ACTIVITY IDENTIFIER</option>
+                      <option value="BS">BS - BALANCE SHEET ACCOUNT</option>
+                      <option value="DP">DP - DISTINGUISHED PROFESSORSHIP ACCOUNTS</option>
+                      <option value="DT">DT - DESKTOP COMPUTER ACCOUNTS</option>
+                      <option value="EM">EM - FINANCIAL AID IU/IUF ENDOWED MERIT-BASED</option>
+                      <option value="EN">EN - FINANCIAL AID IU/IUF ENDOWED NEED-BASED</option>
+                      <option value="EQ">EQ - EQUIPMENT ACCOUNTS</option>
+                      <option value="FC">FC - FACULTY COMPUTER EQUIP REPLACEMENT ACCTs</option>
+                      <option value="FM">FM - FELLOWSHIP MATCH</option>
+                      <option value="FN">FN - FINAID FEDERALLY FUNDED NEED-BASED</option>
+                      <option value="FR">FR - FEE REMISSION ACCOUNTS</option>
+                      <option value="GM">GM - FINANCIAL AID GENERAL FUND MERIT-BASED</option>
+                      <option value="GN">GN - FINANCIAL AID GENERAL FUND NEED-BASED</option>
+                      <option value="GS">GS - GRAD FEE SCHOLARSHIPS</option>
+                      <option value="MM">MM - FINANCIAL AID IU-IUF MATCH MERIT-BASED</option>
+                      <option value="MN">MN - FINANCIAL AID IU-IUF MATCH NEED-BASED</option>
+                      <option value="NA">NA - NOT APPLICABLE</option>
+                      <option value="ND">ND - C~G - Not Deferred Revenue Accounts</option>
+                      <option value="PM">PM - FINAID PRIVATE/EXTERNAL MERIT-BASED</option>
+                      <option value="PN">PN - FINAID PRIVATE/EXTERNAL NEED-BASED</option>
+                      <option value="R7">R7 - RENEWAL AND REPL FY07 SPECIAL FUNDING</option>
+                      <option value="RA">RA - REPORTING AUXILIARIES</option>
+                      <option value="RC">RC - RC ACCOUNTS</option>
+                      <option value="RE">RE - RESERVES ACCOUNTS</option>
+                      <option value="RM">RM - FINAID REPORTING AUXILIARIES-MERIT-BASED</option>
+                      <option value="RN">RN - FINAID REPORTING AUXILIARIES-NEED-BASED</option>
+                      <option value="S1">S1 - SUMMER I ACCOUNTS</option>
+                      <option value="S2">S2 - SUMMER II ACCOUNTS</option>
+                      <option value="S3">S3 - Summer Workshops</option>
+                      <option value="SI">SI - SPECIAL INSTITUTES FEE REMISSION</option>
+                      <option value="SM">SM - FINANCIAL AID STATE-FUNDED MERIT-BASED</option>
+                      <option value="SN">SN - FINANCIAL AID STATE-FUNDED NEED-BASED</option>
+                      <option value="TR">TR - CIBTRA-TRANSFER TRANSACTIONS</option>
+                      <option value="WS">WS - WORK STUDY</option>
+                    </select>
+                    <span class="grid" style="width: 50%;">
+                    <input tabindex="1000001" name="methodToCall.performLookup.(!!org.kuali.kfs.coa.businessobject.Chart!!).(((chartOfAccountsCode:chartOfAccountsCode))).((#chartOfAccountsCode:chartOfAccountsCode#)).((&lt;&gt;)).(([])).((**)).((^^)).((&amp;&amp;)).((//)).((~~)).(::::;http://kfs.testdrive.kuali.org/kfs-ptd/kr/lookup.do;::::).anchor2" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Chart Code" title="Search Chart Code" type="image" border="0">
+                    </span></td>
+                </tr>
+                <tr>
+                  <th class="grid" style="width: 50%;" align="right"> <label id="subFundGroupCode.label" for="subFundGroupCode"> Sub-Fund Group Code: </label>
+                  </th>
+                  <td class="grid" style="width: 50%;"><input name="subFundGroupCode" id="subFundGroupCode" size="8" maxlength="100" style="" class="" type="text">
+                    <span class="grid" style="width: 50%;">
+                    <input tabindex="1000001" name="methodToCall.performLookup.(!!org.kuali.kfs.coa.businessobject.Chart!!).(((chartOfAccountsCode:chartOfAccountsCode))).((#chartOfAccountsCode:chartOfAccountsCode#)).((&lt;&gt;)).(([])).((**)).((^^)).((&amp;&amp;)).((//)).((~~)).(::::;http://kfs.testdrive.kuali.org/kfs-ptd/kr/lookup.do;::::).anchor4" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Chart Code" title="Search Chart Code" type="image" border="0">
+                  </span></td>
+                </tr>
+                <tr>
+                  <th class="grid" style="width: 50%;" align="right"> <label id="accountFiscalOfficerUser.principalName.label" for="accountFiscalOfficerUser.principalName"> Fiscal Officer Principal Name: </label>
+                  </th>
+                  <td class="grid" style="width: 50%;"><input id="accountFiscalOfficerUser.principalName" name="accountFiscalOfficerUser.principalName" title="Principal Name" size="10" maxlength="40" style="" onblur="loadUserInfo( 'accountFiscalOfficerUser.principalName', 'accountFiscalOfficerSystemIdentifier', 'accountFiscalOfficerUser.name' );" type="text">
+                    <span class="grid" style="width: 50%;">
+                    <input tabindex="1000001" name="methodToCall.performLookup.(!!org.kuali.kfs.coa.businessobject.Chart!!).(((chartOfAccountsCode:chartOfAccountsCode))).((#chartOfAccountsCode:chartOfAccountsCode#)).((&lt;&gt;)).(([])).((**)).((^^)).((&amp;&amp;)).((//)).((~~)).(::::;http://kfs.testdrive.kuali.org/kfs-ptd/kr/lookup.do;::::).anchor5" src="images/searchicon.gif" class="tinybutton" valign="middle" alt="Search Chart Code" title="Search Chart Code" type="image" border="0">
+                    </span><br>
+                    <span id="accountFiscalOfficerUser.name.div">&nbsp;</span></td>
+                </tr>
+                <tr>
+                  <th class="grid" style="width: 50%;" align="right"> <label id="closed.label" for="closed"> Closed?: </label>
+                  </th>
+                  <td class="grid" style="width: 50%;"><input name="closed" value="Y" title="Closed? - Yes" type="radio">
+                    Yes
+                    <input checked="checked" name="closed" value="N" title="Closed? - No" type="radio">
+                    No
+                    <input name="closed" value="" title="Closed? - Both" type="radio">
+                    Both </td>
+                </tr>
+             
+              </tbody>
+            </table>
+            <div id="globalbuttons" class="globalbuttons">
+              <button> search</button>
+              <button> clear</button>
+              <button>cancel</button>
+            </div>
+        </div>
+          <br>
+          <br></td>
+        <td width="1%"><img src="images/pixel_clear.gif" alt="" height="1" width="1"></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <!-- lookup/inquiry footer --> 
+  
+  <!-- So that JS expandAllTab / collapseAllTab know the tabStates size. Subtract 1 because currentTabIndex = size + 1. -->
+</form>
+<div id="formComplete"></div>
+</body>
+</html>
