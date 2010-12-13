@@ -9,6 +9,13 @@
 <script language=javascript src="../scripts/my_bm_inc.js"></script>
 <script language=javascript1.2 src="../scripts/my_explorer.js"></script>
 <script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script>
+		!window.jQuery && document.write('<script src="jquery-1.4.3.min.js"><\/script>');
+	</script>
+<script type="text/javascript" src="fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox-1.3.4.css" media="screen" />
 <script language=JavaScript type="text/JavaScript">
 <!--
 function MM_goToURL() { //v3.0
@@ -20,7 +27,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 }
 //-->
 </script>
-<script type="text/javascript" src="../scripts/jquery.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 $("#yes1").click(
@@ -65,8 +71,26 @@ $(".na4").slideDown(500)}
 )
 })
 </script>
+<script>
+		!window.jQuery && document.write('<script src="jquery-1.4.3.min.js"><\/script>');
+	</script>
+<script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+<script type="text/javascript" >
+$(document).ready(function(){
+ $("#autostart").fancybox({
+  'width': 800,
+  'height': 700,
+  'type': 'iframe'
+ });
+
+});
+
+</script>
 </head>
 <body>
+<a href="coi-finanainterests-pop.html" id="autostart" style="display:none"></a>
 <form name="thisform"  method="post" action="">
 <div class="headerarea-kra" id="headerarea">
   <h1>COI - Disclosure <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
@@ -97,14 +121,9 @@ $(".na4").slideDown(500)}
 <div class="horz-links-bkgrnd" id="horz-links">
   <div id="tabs">
     <dl class="tabul">
-      <dt class="licurrent"> <span class="tabright tabcurrent">
+      <!--<dt class="licurrent"> <span class="tabright tabcurrent">-->
+      <dt> <span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosure.html');return document.MM_returnValue" value="Disclosure">
-        </span> </dt>
-      <dt> <span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosureactions.html');return document.MM_returnValue" value="Disclosure Actions">
-        </span> </dt>
-      <dt> <span class="tabright">
-        <input name="Submit" type="submit" onClick="javascript: alert('This would navigate to the as yet unbuilt COI Committee page.'); return false" value="Committee">
         </span> </dt>
       <dt> <span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-finanainterests.html');return document.MM_returnValue" value="Financial Interests">
@@ -115,14 +134,18 @@ $(".na4").slideDown(500)}
       <dt> <span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-certification.html');return document.MM_returnValue" value="Certification">
         </span> </dt>
+      <dt> <span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosureactions.html');return document.MM_returnValue" value="Disclosure Actions">
+        </span> </dt>
+      <!--      <dt> <span class="tabright">
+        <input name="Submit" type="submit" onClick="javascript: alert('This would navigate to the as yet unbuilt COI Committee page.'); return false" value="Committee">
+        </span> </dt>-->
     </dl>
   </div>
 </div>
-
-
 <div class="msg-excol">
   <div class="left-errmsg">
-    <div class=""><span class="excol"> </span></div>
+    <div class=""></div>
   </div>
   <div class="right">
     <div class="excol">
@@ -138,11 +161,11 @@ $(".na4").slideDown(500)}
     <td class="column-left">&nbsp;</td>
     <td><div  align="center">
         <div id="workarea"> 
-          <!-- Document Overview -->
-          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+          <!-- Document Overview --> 
+          <!--          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Document Overview</td>
-              <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A013" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F013" ></a></span></td>
+              <td class="tabtable1-mid"><a href="#" id="A013" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F013" ></a></td>
               <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
@@ -169,16 +192,16 @@ $(".na4").slideDown(500)}
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div>--> 
           <!-- Reporter Details -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Reporter Details</td>
-              <td class="tabtable2-mid"><a href="#" id="A031b" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031b" ></a></td>
-              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+              <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Reporter Details</td>
+              <td class="tabtable1-mid"><a href="#" id="A031b" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031b" ></a></td>
+              <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          <div class="tab-container" align="center" id="G031b" style="display: none;">
+          <div class="tab-container" align="center" id="G031b" style="display: nonee;">
             <div class="h2-container"> <span class="subhead-left">
               <h2>Reporter Details</h2>
               </span> <span class="subhead-right subhead"> <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a> </span> </div>
@@ -287,7 +310,7 @@ $(".na4").slideDown(500)}
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          <div class="tab-container" align="center" id="G031" style="display: none;">
+          <div class="tab-container" align="center" id="G031" style="display: nonee;">
             <div class="h2-container"><span class="subhead-left">
               <h2>Disclosure Form Questions</h2>
               </span><span class="subhead-right"> <span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
@@ -308,58 +331,49 @@ $(".na4").slideDown(500)}
                         </tr>
                         <tbody id="G6" style="display: none;">
                           <tr>
-                            <th align="right" scope="row" style="border:none">&nbsp;</th>
-                            <td colspan="8" style="padding:0px; border-left:none"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
+                            <td colspan="9" align="right" style="border:none" scope="row"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
                                 <tr>
                                   <td class="infoline" style="font-weight:bold; width:45px;"> Add: </td>
-                                  <td class="infoline" style="text-align:center;"><select name="CustomData2" id="CustomData2" style="width:98%;">
-                                      <option value="0" selected>select</option>
-                                      <option value="1">3M Pharmaceuticals Division</option>
-                                      <option value="2">Abbott Laboratories</option>
-                                      <option value="3">Ciron Drugs & Pharmaceuticals Pvt. Ltd.</option>
-                                      <option value="4">Dow Pharma</option>
-                                      <option value="5">Eurocaps Soft Gels</option>
-                                      <option value="6">Glaxo Smithkline</option>
-                                      <option value="7">Kinetek Pharmaceuticals Inc.</option>
-                                      <option value="8">Moraceae Laboratories Pvt Ltd.</option>
-                                      <option value="9">Sigma Pharmaceuticals Ptd Ltd</option>
-                                      <option value="0">Yamanouchi Pharma Technologies</option>
-                                      <option value="10">...add new financial entity</option>
-                                    </select></td>
+                                  <td nowrap class="infoline" style="text-align:center;"><div align="left">
+                              
+                                      <select>
+                                        <option value="0" selected>select</option>
+                                        <option value="1">3M Pharmaceuticals Division</option>
+                                        <option value="2">Abbott Laboratories</option>
+                                        <option value="3">Ciron Drugs & Pharmaceuticals Pvt. Ltd.</option>
+                                        <option value="4">Dow Pharma</option>
+                                        <option value="5">Eurocaps Soft Gels</option>
+                                        <option value="6">Glaxo Smithkline</option>
+                                        <option value="7">Kinetek Pharmaceuticals Inc.</option>
+                                        <option value="8">Moraceae Laboratories Pvt Ltd.</option>
+                                        <option value="9">Sigma Pharmaceuticals Ptd Ltd</option>
+                                        <option value="0">Yamanouchi Pharma Technologies</option>
+                                        <option value="op2" onclick="$('#autostart').trigger('click');">...add new financial entity</option>
+                                       
+                                      </select>
+                                    </div></td>
                                   <td class="infoline" style="text-align:center; width:85px;"><input src="../images/tinybutton-add1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
                                 </tr>
-                              </table></td>
-                          </tr>
-                        </tbody>
-                        <tr>
-                          <td align="right" class="tab-subhead1" scope="row"><div align="center"><a href="#" id="A7" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F7" vspace=0></a></div></td>
-                          <td colspan="8" class="tab-subhead1">Additional Questions
-                            <div align="center"></div></td>
-                        </tr>
-                        <tbody id="G7" style="display: none;">
-                          <tr>
-                            <th align="right" scope="row" style="border:none">&nbsp;</th>
-                            <td colspan="8" style="padding:0px; border:none"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
                                 <tr>
-                                  <th style="width:35%"><div align="left" style="font-weight:normal">Docebam in illis annis artem rhetoricam, et victoriosam?</div></th>
-                                  <td><span class="Qresponse">
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer" name="questionnaireHelper.answerHeaders[1].answers[0].answer" value="Y" type="radio">
-                                    Yes
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer" name="questionnaireHelper.answerHeaders[1].answers[0].answer" checked="checked" value="N" type="radio">
-                                    No </span></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Abbott Laboratories</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                                 <tr>
-                                  <th><div align="left" style="font-weight:normal">In illis annis, quo primum tempore in municipio, quo natus sum?</div></th>
-                                  <td nowrap class="" style="font-weight:bold; width:45px;"><textarea name="questionnaireHelper.answerHeaders[1].answers[1].answer" cols="50" rows="3" class="Qanswer" style="" tabindex="" title="Question Answer" onkeyup="textLimit(this, 1000);"></textarea>
-                                    <input name="methodToCall.updateTextArea.((`questionnaireHelper.answerHeaders[1].answers[1].answer:questionnaire:Question Answer:false:`))" src="../images/pencil_add.png" onclick="javascript: textAreaPop('questionnaireHelper.answerHeaders[1].answers[1].answer','questionnaire','Question Answer','88888888','false','');return false" class="tinybutton" title="" alt="Expand Text Area" type="image"></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Kinetek Pharmaceuticals Inc.</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                                 <tr>
-                                  <th><div align="left" style="font-weight:normal">Non vacant tempora, nec otiose volvuntur per sensus nostros: faciunt in animo mira opera?</div></th>
-                                  <td ><span class="Qresponse">
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer3" name="questionnaireHelper.answerHeaders[1].answers[0].answer" value="Y" type="radio">
-                                    Yes
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer3" name="questionnaireHelper.answerHeaders[1].answers[0].answer" checked="checked" value="N" type="radio">
-                                    No </span></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Moraceae Laboratories Pvt Ltd.</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                               </table></td>
                           </tr>
@@ -404,8 +418,8 @@ $(".na4").slideDown(500)}
                 <!-- Question 2 -->
                 <tr>
                   <th style="vertical-align:top;"><div align="center"><span class="copybold">2</span></div></th>
-                  <td style="vertical-align:top; padding:0px;"> <div style="padding:2px">Do you have an equity interest (such as stock, stock options, real estate, investment or other ownership) with any single business entity that 
-                    could reasonably appear to benefit by the proposed research? <a href="">(...more)</a></div>
+                  <td style="vertical-align:top; padding:0px;"><div style="padding:2px">Do you have an equity interest (such as stock, stock options, real estate, investment or other ownership) with any single business entity that 
+                      could reasonably appear to benefit by the proposed research? <a href="">(...more)</a></div>
                     <div id="Tq2">
                       <table style="width:100%; border:none" cellpadding=0 cellspacing="0"  summary="">
                         <tr>
@@ -415,11 +429,11 @@ $(".na4").slideDown(500)}
                         </tr>
                         <tbody id="G61" style="display: none;">
                           <tr>
-                            <th align="right" scope="row" style="border:none">&nbsp;</th>
-                            <td colspan="8" style="padding:0px; border-left:none"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
+                            <td colspan="9" align="right" style="border:none" scope="row"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
                                 <tr>
                                   <td class="infoline" style="font-weight:bold; width:45px;"> Add: </td>
-                                  <td class="infoline" style="text-align:center;"><select name="CustomData2" id="CustomData2" style="width:98%;">
+                                  <td nowrap class="infoline" style="text-align:center;"><div align="left">
+                                    <select name="select">
                                       <option value="0" selected>select</option>
                                       <option value="1">3M Pharmaceuticals Division</option>
                                       <option value="2">Abbott Laboratories</option>
@@ -431,42 +445,31 @@ $(".na4").slideDown(500)}
                                       <option value="8">Moraceae Laboratories Pvt Ltd.</option>
                                       <option value="9">Sigma Pharmaceuticals Ptd Ltd</option>
                                       <option value="0">Yamanouchi Pharma Technologies</option>
-                                      <option value="10">...add new financial entity</option>
-                                    </select></td>
+                                      <option value="op2" onclick="$('#autostart').trigger('click');">...add new financial entity</option>
+                                    </select>
+                                  </div></td>
                                   <td class="infoline" style="text-align:center; width:85px;"><input src="../images/tinybutton-add1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
                                 </tr>
-                              </table></td>
-                          </tr>
-                        </tbody>
-                        <tr>
-                          <td align="right" class="tab-subhead1" scope="row"><div align="center"><a href="#" id="A71" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F71" vspace=0></a></div></td>
-                          <td colspan="8" class="tab-subhead1">Additional Questions
-                            <div align="center"></div></td>
-                        </tr>
-                        <tbody id="G71" style="display: none;">
-                          <tr>
-                            <th align="right" scope="row" style="border:none">&nbsp;</th>
-                            <td colspan="8" style="padding:0px; border:none"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
                                 <tr>
-                                  <th style="width:35%"><div align="left" style="font-weight:normal">Docebam in illis annis artem rhetoricam, et victoriosam?</div></th>
-                                  <td><span class="Qresponse">
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer" name="questionnaireHelper.answerHeaders[1].answers[0].answer" value="Y" type="radio">
-                                    Yes
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer" name="questionnaireHelper.answerHeaders[1].answers[0].answer" checked="checked" value="N" type="radio">
-                                    No </span></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Abbott Laboratories</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                                 <tr>
-                                  <th><div align="left" style="font-weight:normal">In illis annis, quo primum tempore in municipio, quo natus sum?</div></th>
-                                  <td nowrap class="" style="font-weight:bold; width:45px;"><textarea name="questionnaireHelper.answerHeaders[1].answers[1].answer" cols="50" rows="3" class="Qanswer" style="" tabindex="" title="Question Answer" onkeyup="textLimit(this, 1000);"></textarea>
-                                    <input name="methodToCall.updateTextArea.((`questionnaireHelper.answerHeaders[1].answers[1].answer:questionnaire:Question Answer:false:`))" src="../images/pencil_add.png" onclick="javascript: textAreaPop('questionnaireHelper.answerHeaders[1].answers[1].answer','questionnaire','Question Answer','88888888','false','');return false" class="tinybutton" title="" alt="Expand Text Area" type="image"></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Kinetek Pharmaceuticals Inc.</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                                 <tr>
-                                  <th><div align="left" style="font-weight:normal">Non vacant tempora, nec otiose volvuntur per sensus nostros: faciunt in animo mira opera?</div></th>
-                                  <td ><span class="Qresponse">
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer3" name="questionnaireHelper.answerHeaders[1].answers[0].answer" value="Y" type="radio">
-                                    Yes
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer3" name="questionnaireHelper.answerHeaders[1].answers[0].answer" checked="checked" value="N" type="radio">
-                                    No </span></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Moraceae Laboratories Pvt Ltd.</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                               </table></td>
                           </tr>
@@ -474,7 +477,8 @@ $(".na4").slideDown(500)}
                         <tbody id="G8" style="display: none;">
                         </tbody>
                       </table>
-                    </div></td>  <td style="vertical-align:top; width:150px;" nowrap><input type="radio" name="q2" class="nobord Cq2" value="0"  />
+                    </div></td>
+                  <td style="vertical-align:top; width:150px;" nowrap><input type="radio" name="q2" class="nobord Cq2" value="0"  />
                     yes
                     &nbsp;&nbsp;&nbsp;
                     <input type="radio" name="q2" class="nobord Cq2" value="1" checked="checked" />
@@ -508,10 +512,10 @@ $(".na4").slideDown(500)}
                 </tr>
                 
                 <!-- Question 3 -->
-               <tr>
+                <tr>
                   <th style="vertical-align:top;"><div align="center"><span class="copybold">3</span></div></th>
-                  <td style="vertical-align:top; padding:0px;"> <div style="padding:2px"> Do you receive income (such as consulting fees, honoraria, travel reimbursement, or other income) from any single business entity that 
-                    could reasonably appear to benefit by the proposed research? <a href="">(...more)</a></div>
+                  <td style="vertical-align:top; padding:0px;"><div style="padding:2px"> Do you receive income (such as consulting fees, honoraria, travel reimbursement, or other income) from any single business entity that 
+                      could reasonably appear to benefit by the proposed research? <a href="">(...more)</a></div>
                     <div id="Tq3">
                       <table style="width:100%; border:none" cellpadding=0 cellspacing="0"  summary="">
                         <tr>
@@ -521,11 +525,11 @@ $(".na4").slideDown(500)}
                         </tr>
                         <tbody id="G62" style="display: none;">
                           <tr>
-                            <th align="right" scope="row" style="border:none">&nbsp;</th>
-                            <td colspan="8" style="padding:0px; border-left:none"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
+                            <td colspan="9" align="right" style="border:none" scope="row"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
                                 <tr>
                                   <td class="infoline" style="font-weight:bold; width:45px;"> Add: </td>
-                                  <td class="infoline" style="text-align:center;"><select name="CustomData2" id="CustomData2" style="width:98%;">
+                                  <td nowrap class="infoline" style="text-align:center;"><div align="left">
+                                    <select name="select2">
                                       <option value="0" selected>select</option>
                                       <option value="1">3M Pharmaceuticals Division</option>
                                       <option value="2">Abbott Laboratories</option>
@@ -537,42 +541,31 @@ $(".na4").slideDown(500)}
                                       <option value="8">Moraceae Laboratories Pvt Ltd.</option>
                                       <option value="9">Sigma Pharmaceuticals Ptd Ltd</option>
                                       <option value="0">Yamanouchi Pharma Technologies</option>
-                                      <option value="10">...add new financial entity</option>
-                                    </select></td>
+                                      <option value="op2" onclick="$('#autostart').trigger('click');">...add new financial entity</option>
+                                    </select>
+                                  </div></td>
                                   <td class="infoline" style="text-align:center; width:85px;"><input src="../images/tinybutton-add1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
                                 </tr>
-                              </table></td>
-                          </tr>
-                        </tbody>
-                        <tr>
-                          <td align="right" class="tab-subhead1" scope="row"><div align="center"><a href="#" id="A72" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F72" vspace=0></a></div></td>
-                          <td colspan="8" class="tab-subhead1">Additional Questions
-                            <div align="center"></div></td>
-                        </tr>
-                        <tbody id="G72" style="display: none;">
-                          <tr>
-                            <th align="right" scope="row" style="border:none">&nbsp;</th>
-                            <td colspan="8" style="padding:0px; border:none"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
                                 <tr>
-                                  <th style="width:35%"><div align="left" style="font-weight:normal">Docebam in illis annis artem rhetoricam, et victoriosam?</div></th>
-                                  <td><span class="Qresponse">
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer" name="questionnaireHelper.answerHeaders[1].answers[0].answer" value="Y" type="radio">
-                                    Yes
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer" name="questionnaireHelper.answerHeaders[1].answers[0].answer" checked="checked" value="N" type="radio">
-                                    No </span></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Abbott Laboratories</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                                 <tr>
-                                  <th><div align="left" style="font-weight:normal">In illis annis, quo primum tempore in municipio, quo natus sum?</div></th>
-                                  <td nowrap class="" style="font-weight:bold; width:45px;"><textarea name="questionnaireHelper.answerHeaders[1].answers[1].answer" cols="50" rows="3" class="Qanswer" style="" tabindex="" title="Question Answer" onkeyup="textLimit(this, 1000);"></textarea>
-                                    <input name="methodToCall.updateTextArea.((`questionnaireHelper.answerHeaders[1].answers[1].answer:questionnaire:Question Answer:false:`))" src="../images/pencil_add.png" onclick="javascript: textAreaPop('questionnaireHelper.answerHeaders[1].answers[1].answer','questionnaire','Question Answer','88888888','false','');return false" class="tinybutton" title="" alt="Expand Text Area" type="image"></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Kinetek Pharmaceuticals Inc.</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                                 <tr>
-                                  <th><div align="left" style="font-weight:normal">Non vacant tempora, nec otiose volvuntur per sensus nostros: faciunt in animo mira opera?</div></th>
-                                  <td ><span class="Qresponse">
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer3" name="questionnaireHelper.answerHeaders[1].answers[0].answer" value="Y" type="radio">
-                                    Yes
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer3" name="questionnaireHelper.answerHeaders[1].answers[0].answer" checked="checked" value="N" type="radio">
-                                    No </span></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Moraceae Laboratories Pvt Ltd.</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                               </table></td>
                           </tr>
@@ -580,7 +573,8 @@ $(".na4").slideDown(500)}
                         <tbody id="G8" style="display: none;">
                         </tbody>
                       </table>
-                    </div></td>  <td style="vertical-align:top; width:150px;" nowrap><input type="radio" name="q3" class="nobord Cq3" value="0" />
+                    </div></td>
+                  <td style="vertical-align:top; width:150px;" nowrap><input type="radio" name="q3" class="nobord Cq3" value="0" />
                     yes
                     &nbsp;&nbsp;&nbsp;
                     <input type="radio" name="q3" class="nobord Cq3" value="1" checked="checked" />
@@ -616,7 +610,7 @@ $(".na4").slideDown(500)}
                 <!-- Question 4 -->
                 <tr>
                   <th style="vertical-align:top;"><div align="center"><span class="copybold">3</span></div></th>
-                  <td style="vertical-align:top; padding:0px;"> <div style="padding:2px"> Do you have rights to a pending application or issued patent to an invention(s), license rights, or copyright for software that has a direct relationship to the project? <a href="">(...more)</a></div>
+                  <td style="vertical-align:top; padding:0px;"><div style="padding:2px"> Do you have rights to a pending application or issued patent to an invention(s), license rights, or copyright for software that has a direct relationship to the project? <a href="">(...more)</a></div>
                     <div id="Tq4">
                       <table style="width:100%; border:none" cellpadding=0 cellspacing="0"  summary="">
                         <tr>
@@ -626,11 +620,11 @@ $(".na4").slideDown(500)}
                         </tr>
                         <tbody id="G63" style="display: none;">
                           <tr>
-                            <th align="right" scope="row" style="border:none">&nbsp;</th>
-                            <td colspan="8" style="padding:0px; border-left:none"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
+                            <td colspan="9" align="right" style="border:none" scope="row"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
                                 <tr>
                                   <td class="infoline" style="font-weight:bold; width:45px;"> Add: </td>
-                                  <td class="infoline" style="text-align:center;"><select name="CustomData2" id="CustomData2" style="width:98%;">
+                                  <td nowrap class="infoline" style="text-align:center;"><div align="left">
+                                    <select name="select3">
                                       <option value="0" selected>select</option>
                                       <option value="1">3M Pharmaceuticals Division</option>
                                       <option value="2">Abbott Laboratories</option>
@@ -642,42 +636,31 @@ $(".na4").slideDown(500)}
                                       <option value="8">Moraceae Laboratories Pvt Ltd.</option>
                                       <option value="9">Sigma Pharmaceuticals Ptd Ltd</option>
                                       <option value="0">Yamanouchi Pharma Technologies</option>
-                                      <option value="10">...add new financial entity</option>
-                                    </select></td>
+                                      <option value="op2" onclick="$('#autostart').trigger('click');">...add new financial entity</option>
+                                    </select>
+                                  </div></td>
                                   <td class="infoline" style="text-align:center; width:85px;"><input src="../images/tinybutton-add1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
                                 </tr>
-                              </table></td>
-                          </tr>
-                        </tbody>
-                        <tr>
-                          <td align="right" class="tab-subhead1" scope="row"><div align="center"><a href="#" id="A73" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F73" vspace=0></a></div></td>
-                          <td colspan="8" class="tab-subhead1">Additional Questions
-                            <div align="center"></div></td>
-                        </tr>
-                        <tbody id="G73" style="display: none;">
-                          <tr>
-                            <th align="right" scope="row" style="border:none">&nbsp;</th>
-                            <td colspan="8" style="padding:0px; border:none"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
                                 <tr>
-                                  <th style="width:35%"><div align="left" style="font-weight:normal">Docebam in illis annis artem rhetoricam, et victoriosam?</div></th>
-                                  <td><span class="Qresponse">
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer" name="questionnaireHelper.answerHeaders[1].answers[0].answer" value="Y" type="radio">
-                                    Yes
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer" name="questionnaireHelper.answerHeaders[1].answers[0].answer" checked="checked" value="N" type="radio">
-                                    No </span></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Abbott Laboratories</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                                 <tr>
-                                  <th><div align="left" style="font-weight:normal">In illis annis, quo primum tempore in municipio, quo natus sum?</div></th>
-                                  <td nowrap class="" style="font-weight:bold; width:45px;"><textarea name="questionnaireHelper.answerHeaders[1].answers[1].answer" cols="50" rows="3" class="Qanswer" style="" tabindex="" title="Question Answer" onkeyup="textLimit(this, 1000);"></textarea>
-                                    <input name="methodToCall.updateTextArea.((`questionnaireHelper.answerHeaders[1].answers[1].answer:questionnaire:Question Answer:false:`))" src="../images/pencil_add.png" onclick="javascript: textAreaPop('questionnaireHelper.answerHeaders[1].answers[1].answer','questionnaire','Question Answer','88888888','false','');return false" class="tinybutton" title="" alt="Expand Text Area" type="image"></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Kinetek Pharmaceuticals Inc.</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                                 <tr>
-                                  <th><div align="left" style="font-weight:normal">Non vacant tempora, nec otiose volvuntur per sensus nostros: faciunt in animo mira opera?</div></th>
-                                  <td ><span class="Qresponse">
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer3" name="questionnaireHelper.answerHeaders[1].answers[0].answer" value="Y" type="radio">
-                                    Yes
-                                    <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer3" name="questionnaireHelper.answerHeaders[1].answers[0].answer" checked="checked" value="N" type="radio">
-                                    No </span></td>
+                                  <td class="infoline" style="font-weight:bold; width:45px;">&nbsp;</td>
+                                  <td style="text-align:center;"><div align="left">Moraceae Laboratories Pvt Ltd.</div></td>
+                                  <td style="text-align:center; width:85px;"><span class="infoline" style="text-align:center; width:85px;">
+                                    <input src="../images/tinybutton-delete1.gif" onClick="javascript: alert('This would add a data row for the indicated Financial Entity or redirect to allow a new Financial Entity to be entered.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                    </span></td>
                                 </tr>
                               </table></td>
                           </tr>
@@ -685,7 +668,8 @@ $(".na4").slideDown(500)}
                         <tbody id="G8" style="display: none;">
                         </tbody>
                       </table>
-                    </div></td>  <td style="vertical-align:top; width:150px;" nowrap><input type="radio" name="q4" class="nobord Cq4" value="0" />
+                    </div></td>
+                  <td style="vertical-align:top; width:150px;" nowrap><input type="radio" name="q4" class="nobord Cq4" value="0" />
                     yes
                     &nbsp;&nbsp;&nbsp;
                     <input type="radio" name="q4" class="nobord Cq4" value="1" checked="checked" />

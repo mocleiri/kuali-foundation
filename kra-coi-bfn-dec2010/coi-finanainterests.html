@@ -97,24 +97,25 @@ $(".na4").slideDown(500)}
 <div class="horz-links-bkgrnd" id="horz-links">
   <div id="tabs">
     <dl class="tabul">
-     <dt> <span class="tabright">
+      <!--<dt class="licurrent"> <span class="tabright tabcurrent">-->
+      <dt> <span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosure.html');return document.MM_returnValue" value="Disclosure">
-      </span></dt>
+        </span></dt>
       <dt> <span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosureactions.html');return document.MM_returnValue" value="Disclosure Actions">
-      </span></dt>
-      <dt> <span class="tabright">
-        <input name="Submit" type="submit" onClick="javascript: alert('This would navigate to the as yet unbuilt COI Committee page.'); return false" value="Committee">
-      </span></dt>
-   <dt class="licurrent"> <span class="tabright tabcurrent">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-finanainterests.html');return document.MM_returnValue" value="Financial Interests">
-      </span></dt>
+        </span></dt>
       <dt> <span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-notesattach.html');return document.MM_returnValue" value="Notes &amp; Attachments">
-      </span></dt>
+        </span></dt>
       <dt> <span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-certification.html');return document.MM_returnValue" value="Certification">
-      </span></dt>
+        </span></dt>
+      <dt> <span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-disclosureactions.html');return document.MM_returnValue" value="Disclosure Actions">
+        </span></dt>
+      <!--      <dt> <span class="tabright">
+        <input name="Submit" type="submit" onClick="javascript: alert('This would navigate to the as yet unbuilt COI Committee page.'); return false" value="Committee">
+        </span> </dt>-->
     </dl>
   </div>
 </div>
@@ -135,7 +136,7 @@ $(".na4").slideDown(500)}
   <tr>
     <td class="column-left">&nbsp;</td>
     <td><div  align="center">
-        <div id="workarea">
+        <div id="workarea"> 
           <!-- Document Overview --><!-- Reporter Details --><!-- Screening Questions --><!-- 4.	Financial Interests Details  -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
@@ -145,7 +146,7 @@ $(".na4").slideDown(500)}
             </tr>
           </table>
           <div class="tab-container" align="center" id="G04" style="display: nonee;">
-<div class="h2-container">
+            <div class="h2-container">
               <h2><span class="subhead-left">Add Financial Interest</span></h2>
             </div>
             <table cellpadding=0 cellspacing=0 class="grid" summary="">
@@ -246,50 +247,93 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G11" style="display: none;">
-<tr>
-                  <td align=left  style="padding:0px; border:none">&nbsp;</td>
-                  <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
-                      <tbody>
+                <tr>
+                  <th align=left  style="padding:0px; border:none">&nbsp;</th>
+                  <td colspan="4" align=left  style="padding:0px; border:none">
+                    <table style="width:100%; border:none" cellpadding=0 cellspacing="0"  summary="">
+                      <tr>
+                        <th width="50" align="right" class="" scope="row"><div align="left"><a href="#" id="A6" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F6" vspace=0></a>
+                          History of Changes
+                        </div>
+<div align="center"></div></th>
+                      </tr>
+                      <tbody id="G6" style="display: none;">
                         <tr>
-                          <td colspan="5" align=left ><strong>History of Changes</strong></td>
-                        </tr>
-                        <tr>
-                          <th align=left>Questionnaire Name</th>
-                          <th align=left>Questionnaire Description</th>
-                          <th align=left>Last Update</th>
-                          <th align=left>Entity Disclosed Location</th>
-                          <th align=left>Actions</th>
-                        </tr>
-                        <tr>
-                          <td align=left><img src="../images/exclamation.png" alt="attention" style="width:16px; height:16px; vertical-align:middle;"> Consultant</td>
-                          <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
-                          <td align=left>07/29/2009 03:59 PM crc</td>
-                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-complete.gif" alt="complete" width=60 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                        </tr>
-                        <tr>
-                          <td align=left>Consultant</td>
-                          <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
-                          <td align=left>07/29/2009 03:59 PM crc</td>
-                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                        </tr>
-                        <tr>
-                          <td align=left><img src="../images/exclamation.png" alt="attention" style="width:16px; height:16px; vertical-align:middle;"> Consultant</td>
-                          <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
-                          <td align=left>07/29/2009 03:59 PM crc</td>
-                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-complete.gif" alt="complete" width=60 height=15 hspace=3 vspace=3 border=0></a></div></td>
-                        </tr>
-                        <tr>
-                          <td align=left>Consultant</td>
-                          <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
-                          <td align=left>07/29/2009 03:59 PM crc</td>
-                          <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
-                          <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                          <td align="right" style="" scope="row"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
+                              <tr>
+                                <th align=left>Questionnaire Name</th>
+                                <th align=left>Questionnaire Description</th>
+                                <th align=left>Last Update</th>
+                                <th align=left>Entity Disclosed Location</th>
+                                <th align=left>Actions</th>
+                              </tr>
+                              <tr>
+                                <td align=left><img src="../images/exclamation.png" alt="attention" style="width:16px; height:16px; vertical-align:middle;"> Consultant</td>
+                                <td align=left>Docebam in illis annis artem rhetoricam, et victoriosam loquacitatem victus cupiditate vendebam. malebam tamen, domine, tu scis, bono</td>
+                                <td align=left>07/29/2009 03:59 PM crc</td>
+                                <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                                <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-complete.gif" alt="complete" width=60 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                              </tr>
+                              <tr>
+                                <td align=left>Consultant</td>
+                                <td align=left>ei, cura animam meam, quoniam peccavi tibi; neque ad licentiam peccandi abuti indulgentia tua, sed meminisse dominicae vocis: Ec</td>
+                                <td align=left>07/29/2009 03:59 PM crc</td>
+                                <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                                <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                              </tr>
+                              <tr>
+                                <td align=left><img src="../images/exclamation.png" alt="attention" style="width:16px; height:16px; vertical-align:middle;"> Consultant</td>
+                                <td align=left>aciam libero studio, non necessitate rei familiaris sectaris. quo magis mihi te oportet de illa credere, qui eam tam perfecte discere elaboravi, quam ex e</td>
+                                <td align=left>07/29/2009 03:59 PM crc</td>
+                                <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                                <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-complete.gif" alt="complete" width=60 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                              </tr>
+                              <tr>
+                                <td align=left>Consultant</td>
+                                <td align=left>i amoris, ubi proles etiam contra votum nascitur, quamvis iam nata cogat se diligi. Recolo etiam, cum mihi theatrici carminis certamen inire </td>
+                                <td align=left>07/29/2009 03:59 PM crc</td>
+                                <td align=left>2008 Annual Disclosure, IRB Protocol 090810</td>
+                                <td align=left><div align="center"><a href="#"><img src="../images/tinybutton-view.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                              </tr>
+                            </table></td>
                         </tr>
                       </tbody>
-                    </table></td>
+                      <tr>
+                        <th width="50" align="right" class="" scope="row"><div align="left"><a href="#" id="A7" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F7" vspace=0></a>
+                          Additional Questions</div>
+                        </th>
+                      </tr>
+                      <tbody id="G7" style="display: none;">
+                        <tr>
+                          <td align="right" scope="row"><table cellspacing="0" style="border-spacing:0px; border-top:solid 1px #999999; margin:5px;">
+                            <tr>
+                              <th style="width:35%"><div align="left" style="font-weight:normal">Docebam in illis annis artem rhetoricam, et victoriosam?</div></th>
+                              <td><span class="Qresponse">
+                                <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer" name="questionnaireHelper.answerHeaders[1].answers[0].answer" value="Y" type="radio">
+                                Yes
+                                <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer" name="questionnaireHelper.answerHeaders[1].answers[0].answer" checked="checked" value="N" type="radio">
+                                No </span></td>
+                              </tr>
+                            <tr>
+                              <th><div align="left" style="font-weight:normal">In illis annis, quo primum tempore in municipio, quo natus sum?</div></th>
+                              <td nowrap class="" style="font-weight:bold; width:45px;"><textarea name="questionnaireHelper.answerHeaders[1].answers[1].answer" cols="50" rows="3" class="Qanswer" style="" tabindex="" title="Question Answer" onkeyup="textLimit(this, 1000);"></textarea>
+                                <input name="methodToCall.updateTextArea.((`questionnaireHelper.answerHeaders[1].answers[1].answer:questionnaire:Question Answer:false:`))" src="../images/pencil_add.png" onclick="javascript: textAreaPop('questionnaireHelper.answerHeaders[1].answers[1].answer','questionnaire','Question Answer','88888888','false','');return false" class="tinybutton" title="" alt="Expand Text Area" type="image"></td>
+                              </tr>
+                            <tr>
+                              <th><div align="left" style="font-weight:normal">Non vacant tempora, nec otiose volvuntur per sensus nostros: faciunt in animo mira opera?</div></th>
+                              <td ><span class="Qresponse">
+                                <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer3" name="questionnaireHelper.answerHeaders[1].answers[0].answer" value="Y" type="radio">
+                                Yes
+                                <input class="QanswerYesNo" onclick="answerChanged(this)" style="border: medium none;" id="questionnaireHelper.answerHeaders[1].answers[0].answer3" name="questionnaireHelper.answerHeaders[1].answers[0].answer" checked="checked" value="N" type="radio">
+                                No </span></td>
+                              </tr>
+                          </table></td>
+                        </tr>
+                      </tbody>
+                      <tbody id="G8" style="display: none;">
+                      </tbody>
+                    </table>
+                   </td>
                 </tr>
               </tbody>
               <tr>
@@ -300,8 +344,8 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G12" style="display: none;">
-<tr>
-                  <td align=left  style="padding:0px; border:none">&nbsp;</td>
+                <tr>
+                  <th align=left  style="padding:0px; border:none">&nbsp;</th>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
                         <tr>
@@ -354,7 +398,7 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-deactivate.gif" alt="add" width=64 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-edit1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G13" style="display: none;">
-<tr>
+                <tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
@@ -417,7 +461,7 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-activate.gif" alt="add" width=53 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G11w" style="display: none;">
-<tr>
+                <tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
@@ -471,7 +515,7 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-activate.gif" alt="add" width=53 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G12w" style="display: none;">
-<tr>
+                <tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
@@ -525,7 +569,7 @@ $(".na4").slideDown(500)}
                 <td nowrap class="tab-subhead1"><div align="center"><a href="#"><img src="../images/tinybutton-activate.gif" alt="add" width=53 height=15 hspace=3 vspace=3 border=0></a></div></td>
               </tr>
               <tbody id="G13w" style="display: none;">
-				<tr>
+                <tr>
                   <td align=left  style="padding:0px; border:none">&nbsp;</td>
                   <td colspan="4" align=left  style="padding:0px; border:none"><table cellpadding=0 cellspacing=0 summary="" style=" width:100%">
                       <tbody>
@@ -572,7 +616,6 @@ $(".na4").slideDown(500)}
                 </tr>
               </tbody>
             </table>
-      
           </div>
           
           <!-- Notes and Attachments --><!-- Certification -->

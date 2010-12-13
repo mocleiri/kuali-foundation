@@ -37,209 +37,211 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       <li class="green"><a class="green" href="../kra_devref/maint.html">Maintenance</a></li> <li class="green"><a class="green" href="../kra_devref/admin.html">System Admin</a></li>
     </ul>
   </div>
-  <table width="100%"  cellspacing="0" cellpadding="0" >
-    <tr valign="top" bgcolor="#FFFFFF">
-      <td width="15" class="leftback-focus"><img src="../images-portal/pixel_clear.gif" alt="" width="15" height="15"></td>
-      <td class="content-33"><div class="portlet">
-          <div class="header"> <span class="left">
+  <table id="iframe_portlet_container_table" border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr bgcolor="#ffffff" valign="top">
+      <td class="leftback-focus" width="15">&nbsp;</td>
+      <td class="content" valign="top"><div class="portlet">
+          <div class="header">
             <div class="portlet-title">
               <h2 class="portlet-title">Pre-Award</h2>
             </div>
-          </span> <span class="right"><a href="#"><img src="../../images/my_cp_inf.gif" alt="help" width="15" height="14" hspace="3" vspace="4" border="0" align="absmiddle" onClick="MM_openBrWindow('../final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
-        <div class="body">
-          <table border="0" cellpadding="2" cellspacing="0" >
-              <tr>
-                <td nowrap>Proposal Development</td>
-                <td><a href="#"><img src="../../images/add.png" alt="add" width="16" height="16" border="0" align="absmiddle"></a> <img src="../../images/searchicon.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-              </tr>
-              <tr>
-                <td nowrap>Proposal Log</td>
-                <td><a href="#"><img src="../../images/add.png" alt="add" width="16" height="16" border="0" align="absmiddle"></a> <img src="../../images/searchicon.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-              </tr>
-              <tr>
-                <td nowrap>Institutional Proposal</td>
-                <td><a href="#"><img src="../../images/add.png" alt="add" width="16" height="16" border="0" align="absmiddle"></a> <img src="../../images/searchicon.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-              </tr>
-              <tr>
-                <td nowrap class="disabled-text">Negotiation</td>
-                <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" border="0" align="absmiddle"></td>
-              </tr>
-            </table>
-        </div>
-      </div>
-          <div class="portlet">
-            <div class="header"> <span class="left">
-              <div class="portlet-title">
-                <h2 class="portlet-title">Post-Award</h2>
-              </div>
-            </span> <span class="right"><a href="#"><img src="../../images/my_cp_inf.gif" alt="help" width="15" height="14" hspace="3" vspace="4" border="0" align="absmiddle" onClick="MM_openBrWindow('../final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
+          </div>
+          <div class="chan-contain">
             <div class="body">
-              <table border="0" cellpadding="2" cellspacing="0" >
-                <tr>
-                  <td nowrap class="">Awards</td>
-                  <td><a href="#"><img src="../../images/add.png" alt="add" width="16" height="16" border="0" align="absmiddle"></a> <img src="../../images/searchicon.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-                </tr>
-                <tr>
-                  <td nowrap class="disabled-text">Award Report Tracking</td>
-                  <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-                </tr>
-                <tr>  <td nowrap class="disabled-text">Subawards</td>
-                  <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-                </tr>
+              <table border="0" cellpadding="2" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td class="" nowrap="nowrap"> Proposal Development </td>
+                    <td><a class="portal_link" href="#" title="Proposal Development"><img src="../../images/add.png" alt="add" align="absmiddle" border="0" height="16" width="16"></a> <a class="portal_link" href="#" title="Proposal Log"><img src="../../images/searchicon.gif" alt="lookup" align="absmiddle" border="0" width="16"></a><a class="portal_link" href="#" title="Proposal Development"></a></td>
+                  </tr>
+                  <tr>
+                    <td class="" nowrap="nowrap">Proposal Log</td>
+                    <td><a class="portal_link" href="#" title="Proposal Log"><img src="../../images/add.png" alt="add" align="absmiddle" border="0" height="16" width="16"></a> <a class="portal_link" href="#" title="Proposal Log"><img src="../../images/searchicon.gif" alt="lookup" align="absmiddle" border="0" width="16"></a></td>
+                  </tr>
+                  <tr>
+                    <td class="" nowrap="nowrap">Institutional Proposal</td>
+                    <td><a class="portal_link" href="#" title="Institutional Proposal"><img src="../../images/add.png" alt="add" align="absmiddle" border="0" height="16" width="16"></a> <a class="portal_link" href="#" title="Institutional Proposal"><img src="../../images/searchicon.gif" alt="lookup" align="absmiddle" border="0" width="16"></a></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Negotiations</td>
+                    <td><img src="../../images/add1.png" alt="add" align="absmiddle" border="0" height="16" width="16"> <img src="../../images/searchicon1.gif" alt="lookup" align="absmiddle" height="16" width="16"></td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>
+        </div>
         <div class="portlet">
-            <div class="header"> <span class="left">
-              <div class="portlet-title">
-                <h2 class="portlet-title">Conflict of Interest</h2>
-              </div>
-            </span> <span class="right"><a href="#"><img src="../../images/my_cp_inf.gif" alt="help" width="15" height="14" hspace="3" vspace="4" border="0" align="absmiddle" onClick="MM_openBrWindow('../final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+          <div class="header">
+            <div class="portlet-title">
+              <h2 class="portlet-title">Post-Award</h2>
+            </div>
+          </div>
+          <div class="chan-contain">
             <div class="body">
-              <table border="0" cellpadding="2" cellspacing="0" >
-                <tr>
-                  <td nowrap class="disabled-text">Disclosure</td>
-                  <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-                </tr>
-                <tr>
-                  <td nowrap class="disabled-text">Financial Entity&nbsp; </td>
-                  <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-                </tr>
+              <table border="0" cellpadding="2" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Awards</td>
+                    <td><a class="portal_link" href="#" title="Award"><img src="../../images/add.png" alt="add" align="absmiddle" border="0" height="16" width="16"></a> <a class="portal_link" href="#" title="Award"><img src="../../images/searchicon.gif" alt="lookup" align="absmiddle" border="0" width="16"></a></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Award Report Tracking</td>
+                    <td><img src="../../images/add1.png" alt="add" align="absmiddle" border="0" height="16" width="16"> <img src="../../images/searchicon1.gif" alt="lookup" align="absmiddle" height="16" width="16"></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Subawards</td>
+                    <td><img src="../../images/add1.png" alt="add" align="absmiddle" border="0" height="16" width="16"> <img src="../../images/searchicon1.gif" alt="lookup" align="absmiddle" height="16" width="16"></td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>
-          <div class="portlet">
-            <div class="header"> <span class="left">
-              <div class="portlet-title">
-                <h2 class="portlet-title">Committee</h2>
-              </div>
-            </span> <span class="right"><a href="#"><img src="../../images/my_cp_inf.gif" alt="help" width="15" height="14" hspace="3" vspace="4" border="0" align="absmiddle" onClick="MM_openBrWindow('../final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+        </div>
+        <div class="portlet">
+          <div class="header">
+            <div class="portlet-title">
+              <h2 class="portlet-title">Post-Submission Compliance - Conflict of Interest</h2>
+            </div>
+          </div>
+          <div class="chan-contain">
             <div class="body">
-              <table border="0" cellpadding="2" cellspacing="0" >
-                <tr>
-                  <td nowrap class="disabled-text">Committee</td>
-                  <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-                </tr>
-                <tr>
-                  <td nowrap class="disabled-text">Schedules</td>
-                  <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-                </tr>
+              <table border="0" cellpadding="2" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td class="" nowrap="nowrap">Committee</td>
+                    <td><a class="portal_link" href="#" title="Create Committee"> <img src="../../images/add.png" alt="add" align="absmiddle" border="0" height="16" width="16"> </a> <a class="portal_link" href="#" title="Committee Lookup"> <img src="../../images/searchicon.gif" alt="lookup" align="absmiddle" border="0" height="16" width="16"> </a></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Protocol Submissions</td>
+                    <td><img src="../../images/pixel_clear.gif" alt="add" align="absmiddle" border="0" height="16" width="16"> <a class="portal_link" href="#" title="Protocol Submission Lookup"> <img src="../../images/searchicon.gif" alt="lookup" align="absmiddle" border="0" height="16" width="16"> </a></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Schedules</td>
+                    <td><img src="../../images/pixel_clear.gif" alt="add" align="absmiddle" border="0" height="16" width="16"> <a class="portal_link" href="#" title="Schedule Lookup"> <img src="../../images/searchicon.gif" alt="lookup" align="absmiddle" border="0" height="16" width="16"> </a></td>
+                  </tr>
+                </tbody>
               </table>
             </div>
-          </div>
-<div style="padding:10px;"><strong> DEVELOPER'S NOTE: with the exception of the top navigation, all links are disabled on this page</strong></div></td>
-      <td class="content-33"><div class="portlet">
-          <div class="header"> <span class="left">
-            <div class="portlet-title">
-              <h2 class="portlet-title">Human Participant</h2>
-            </div>
-          </span> <span class="right"><a href="#"><img src="../../images/my_cp_inf.gif" alt="help" width="15" height="14" hspace="3" vspace="4" border="0" align="absmiddle" onClick="MM_openBrWindow('../final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-          <div class="body"><strong>Actions </strong>
-            <table border="0" cellpadding="2" cellspacing="0" >
-              <tr>
-                <td nowrap class="disabled-text">Protocols</td>
-                <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-              </tr>
-              <tr>
-                <td nowrap class="disabled-text">Protocol Submissions</td>
-                <td><img src="../../images/pixel_clear.gif" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-              </tr>
-            </table>
-            <br>
-            <strong>Lists </strong>
-            <ul class="chan">
-              <li>New Submissions </li>
-              <li>Pending IRB Administrator Action </li>
-              <li>Soon to Expire </li>
-              <li>Expired </li>
-            </ul>
-          </div>
-        </div>
-        <div class="portlet">
-          <div class="header"> <span class="left">
-            <div class="portlet-title">
-              <h2 class="portlet-title">Animals</h2>
-            </div>
-          </span> <span class="right"><a href="#"><img src="../../images/my_cp_inf.gif" alt="help" width="15" height="14" hspace="3" vspace="4" border="0" align="absmiddle" onClick="MM_openBrWindow('../final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-          <div class="body"><strong>Actions </strong>
-            <table border="0" cellpadding="2" cellspacing="0" >
-              <tr>
-                <td nowrap class="disabled-text">Protocols</td>
-                <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-              </tr>
-              <tr>
-                <td nowrap class="disabled-text">Protocol Submissions</td>
-                <td><img src="../../images/pixel_clear.gif" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-              </tr>
-            </table>
-            <br>
-            <strong>Lists </strong>
-            <ul class="chan">
-              <li>New Submissions </li>
-              <li>Pending IRB Administrator Action </li>
-              <li>Soon to Expire </li>
-              <li>Expired </li>
-            </ul>
-          </div>
-        </div>
-        <div class="portlet">
-          <div class="header"> <span class="left">
-            <div class="portlet-title">
-              <h2 class="portlet-title">Safety</h2>
-            </div>
-          </span> <span class="right"><a href="#"><img src="../../images/my_cp_inf.gif" alt="help" width="15" height="14" hspace="3" vspace="4" border="0" align="absmiddle" onClick="MM_openBrWindow('../final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
-          <div class="body">
-            <table border="0" cellpadding="2" cellspacing="0" >
-              <tr>
-                <td nowrap class="disabled-text">Biosafety</td>
-                <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-              </tr>
-              <tr>
-                <td nowrap class="disabled-text">Chemical  Safety</td>
-                <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-              </tr>
-              <tr>
-                <td nowrap class="disabled-text">Radiation Safety</td>
-                <td><img src="../../images/add1.png" alt="add" width="16" height="16" border="0" align="absmiddle"> <img src="../../images/searchicon1.gif" alt="lookup" width="16" height="16" align="absmiddle"></td>
-              </tr>
-            </table>
           </div>
         </div></td>
-      <td class="content-33"><div class="portlet">
-          <div class="header"> <span class="left">
+      <td class="content" valign="top"><div class="portlet">
+          <div class="header">
             <div class="portlet-title">
-              <h2 class="portlet-title">Quick Links</h2>
+              <h2 class="portlet-title">Pre-Submission Compliance</h2>
             </div>
-          </span> <span class="right"><a href="#"><img src="../../images/my_cp_inf.gif" alt="help" width="15" height="14" hspace="3" vspace="4" border="0" align="absmiddle" onClick="MM_openBrWindow('../final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
-        <div class="body">
-            <ul class="chan">
-              <li><a href="#">Current Locks</a></li>
-              <li>Current &amp; Pending Support</li>
-              <li><a href="#">Grants.gov Opportunity Lookup</a></li>
-              <li><a href="#">Keyword Lookup</a></li>
-              <li><a href="#">Non-employee Lookup</a></li>
-              <li><a href="#">Sponsor Lookup</a></li><li>Unit Hierarchy</li>
-            </ul>
+          </div>
+          <div class="chan-contain">
+            <div class="body">
+              <p> <strong>Conflict of Interest</strong> </p>
+              <table border="0" cellpadding="2" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Disclosure</td>
+                    <td><img src="../../images/add1.png" alt="add" align="absmiddle" border="0" height="16" width="16"> <img src="../../images/searchicon1.gif" alt="lookup" align="absmiddle" height="16" width="16"></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Financial Entity</td>
+                    <td><img src="../../images/add1.png" alt="add" align="absmiddle" border="0" height="16" width="16"> <img src="../../images/searchicon1.gif" alt="lookup" align="absmiddle" height="16" width="16"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <p> <strong>Protocols</strong> </p>
+              <table border="0" cellpadding="2" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Animals</td>
+                    <td><img src="../../images/add1.png" alt="add" align="absmiddle" border="0" height="16" width="16"> <img src="../../images/searchicon1.gif" alt="lookup" align="absmiddle" height="16" width="16"></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Biosafety</td>
+                    <td><img src="../../images/add1.png" alt="add" align="absmiddle" border="0" height="16" width="16"> <img src="../../images/searchicon1.gif" alt="lookup" align="absmiddle" height="16" width="16"></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Chemical Safety</td>
+                    <td><img src="../../images/add1.png" alt="add" align="absmiddle" border="0" height="16" width="16"> <img src="../../images/searchicon1.gif" alt="lookup" align="absmiddle" height="16" width="16"></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Human Participants</td>
+                    <td><img src="../../images/add1.png" alt="add" align="absmiddle" border="0" height="16" width="16"> <img src="../../images/searchicon1.gif" alt="lookup" align="absmiddle" height="16" width="16"></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Radiation Safety</td>
+                    <td><img src="../../images/add1.png" alt="add" align="absmiddle" border="0" height="16" width="16"> <img src="../../images/searchicon1.gif" alt="lookup" align="absmiddle" height="16" width="16"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-      </div>
-          <div class="portlet">
-            <div class="header"> <span class="left">
-              <div class="portlet-title">
-                <h2 class="portlet-title">Workflow</h2>
-              </div>
-            </span> <span class="right"><a href="#"><img src="../../images/my_cp_inf.gif" alt="help" width="15" height="14" hspace="3" vspace="4" border="0" align="absmiddle" onClick="MM_openBrWindow('../final/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
+        <div class="portlet">
+          <div class="header">
+            <div class="portlet-title">
+              <h2 class="portlet-title">Post-Submission Compliance</h2>
+            </div>
+          </div>
+          <div class="chan-contain">
+            <div class="body">
+              <table border="0" cellpadding="2" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td class="" nowrap="nowrap">Committee</td>
+                    <td><a class="portal_link" href="#" title="Create Committee"> <img src="../../images/add.png" alt="add" align="absmiddle" border="0" height="16" width="16"> </a> <a class="portal_link" href="#" title="Committee Lookup"> <img src="../../images/searchicon.gif" alt="lookup" align="absmiddle" border="0" height="16" width="16"> </a></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Protocol Submissions</td>
+                    <td><img src="../../images/pixel_clear.gif" alt="add" align="absmiddle" border="0" height="16" width="16"> <a class="portal_link" href="#" title="Protocol Submission Lookup"> <img src="../../images/searchicon.gif" alt="lookup" align="absmiddle" border="0" height="16" width="16"> </a></td>
+                  </tr>
+                  <tr>
+                    <td class="disabled-text" nowrap="nowrap">Schedules</td>
+                    <td><img src="../../images/pixel_clear.gif" alt="add" align="absmiddle" border="0" height="16" width="16"> <a class="portal_link" href="#" title="Schedule Lookup"> <img src="../../images/searchicon.gif" alt="lookup" align="absmiddle" border="0" height="16" width="16"> </a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div></td>
+      <td class="content" valign="top"><div class="portlet">
+          <div class="header">
+            <div class="portlet-title">
+              <h2 class="portlet-title">Quicklinks</h2>
+            </div>
+          </div>
+          <div class="chan-contain">
             <div class="body">
               <ul class="chan">
-                <li><a href="#">Preferences </a></li>
-                <li><a href="#">Routing Report </a></li>
-                <li><a href="#">Rules</a> </li>
-                <li><a href="#">Rule QuickLinks </a></li>
-                <li><a href="#">Workgroup</a> </li>
+                <li> <a class="portal_link" href="#" title="Pessimistic Lock">Pessimistic Lock</a> </li>
+                <li>Current &amp; Pending Support</li>
+                <li> <a class="portal_link" href="#" title="Grants.gov Opportunity Lookup">Grants.gov Opportunity Lookup</a> </li>
+                <li> <a class="portal_link" href="#" title="Non-Employee Lookup">Non-Employee Lookup</a> </li>
+                <li> <a class="portal_link" href="#" title="Sponsor Lookup">Sponsor Lookup</a> </li>
+                <li>Change Password</li>
+                <li> <a class="portal_link" href="#" title="Keyword Lookup">Keyword Lookup</a> </li>
               </ul>
             </div>
-          </div></td>
+          </div>
+        </div>
+        <div class="portlet">
+          <div class="header">
+            <div class="portlet-title">
+              <h2 class="portlet-title">Workflow</h2>
+            </div>
+          </div>
+          <div class="chan-contain">
+            <div class="body">
+              <ul class="chan">
+                <li> <a class="portal_link" href="#" title="Workflow Services">Preferences</a> </li>
+                <li> <a class="portal_link" href="#" title="Workflow Services">Routing Report</a> </li>
+                <li> <a class="portal_link" href="#" title="Workflow Services">Rules</a> </li>
+                <li> <a class="portal_link" href="#" title="Workflow Services">Rule QuickLinks</a> </li>
+              </ul>
+            </div>
+          </div>
+        </div></td>
     </tr>
-  </table>
+  </tbody>
+</table>
   <div class="footerbevel"> &nbsp;</div>
   <div id="footer-copyright">
     <p>Copyright 2005-2008 The Kuali Foundation. All rights reserved.<br>
