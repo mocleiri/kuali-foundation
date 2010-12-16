@@ -1,0 +1,1345 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Kuali</title>
+<LINK REL="SHORTCUT ICON" HREF="../images/icon.ico">
+<meta http-equiv=Content-Type content="text/html; charset=ISO-8859-1">
+<link href="../css/kuali_application.css" rel=stylesheet type="text/css">
+<link href="../css/kuali.css" rel=stylesheet type="text/css">
+<script language=javascript src="../scripts/my_bm_inc.js"></script>
+<script language=javascript1.2 src="../scripts/my_explorer.js"></script>
+<script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js"></script>
+<script language=JavaScript type="text/JavaScript">
+<!--
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<script type="text/javascript" src="../scripts/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#no1").click(
+function(){
+$(".filename1").slideDown(500)
+$(".browse1").slideUp(500)}
+)
+$("#yes1").click(
+function(){
+$(".filename1").slideUp(500)
+$(".browse1").slideDown(500)}
+
+)
+
+
+$("#no2").click(
+function(){
+$(".filename2").slideDown(500)
+$(".browse2").slideUp(500)}
+)
+$("#yes2").click(
+function(){
+$(".filename2").slideUp(500)
+$(".browse2").slideDown(500)}
+
+)
+
+
+$("#no3").click(
+function(){
+$(".filename3").slideDown(500)
+$(".browse3").slideUp(500)}
+)
+$("#yes3").click(
+function(){
+$(".filename3").slideUp(500)
+$(".browse3").slideDown(500)}
+
+)
+
+
+$("#no4").click(
+function(){
+$(".filename4").slideDown(500)
+$(".browse4").slideUp(500)}
+)
+$("#yes4").click(
+function(){
+$(".filename4").slideUp(500)
+$(".browse4").slideDown(500)}
+
+)
+
+
+
+
+})
+</script>
+</head>
+<body>
+<form name="example"  method="post" action="">
+<div class="headerarea-kra" id="headerarea">
+  <h1>Correspondence <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 hspace="12" border=0 align=absmiddle onClick="MM_openBrWindow('../kra-cor-dev/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
+</div>
+<!--TABBED TOP NAVIGATION-->
+<div class="msg-excol">
+  <div class="left-errmsg">
+    <div class=""><span class="excol"> </span></div>
+  </div>
+  <div class="right">
+    <div class="excol"><br>
+    </div>
+  </div>
+</div>
+<table width="100%" cellpAdding="0" cellspacing="0">
+  <tr>
+    <td class="column-left"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
+    <td><div  align="center">
+        <div id="workarea">
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Correspondance Templates</td>
+              <td class="tabtable1-mid"><span class="tabtable2-mid"><a id="A01" onClick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F01" ></a></span></td>
+              <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <!-- TAB -->
+          <div class="tab-container" align=center id="G01" style="display: none;">
+            <div class="h2-container"><span class="subhead-left">
+              <h2>Correspondance Templates</h2>
+              </span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick=å"MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <!-- Submit for Review -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201sd" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201sd"></a></td>
+                <td class="tab-subhead1">Approval Letter</td>
+              </tr>
+            </table>
+            <div id="G201sd" style="display: none; padding-left:56px">
+              <div align="left"><br>
+                <strong>Default </strong><br>
+                <br>
+              </div>
+              <table class="" style="border-top-width: 1px;border-top-style: solid;border-top-color: #999999;"  cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th>File</th>
+                    <th width="25%">Actions</th>
+                  </tr>
+                  <tr>
+                    <td><div align="center" class="filename1">approveletter.xml</div>
+                      <div align="center" class="browse1" style="display:none">
+                        <input type="file" name="fileField" id="fileField" class="nobord">
+                      </div></td>
+                    <td align="left" valign="middle" nowrap><div align="center" class="filename1"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-replace.gif" alt="delete" width=49 height=15 hspace=3 vspace=3 border=0 id="yes1"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                      <div align="center" class="browse1" style="display:none"><a href="#" id="no1"><img src="../images/tinybutton-upload.gif" width="46" height="15" alt="upload">  <img src="../images/tinybutton-cancel1.gif" width="40" height="15" alt="cancel"></a></div></td>
+               
+                </tbody>
+              </table>
+              <div align="left"><br>
+                <strong>Customized  per Committee</strong><br>
+                <br>
+              </div>
+              <table class="" style="border-top-width: 1px;border-top-style: solid;border-top-color: #999999;"  cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th>&nbsp;</th>
+                    <th>Committee</th>
+                    <th>File</th>
+                    <th width="25%">Actions</th>
+                  </tr>
+                  <tr>
+                    <th width="5%">add</th>
+                    <td align="left" valign="middle" class="infoline">(select) <img src="../images/searchicon.gif" alt="lookup" width="16" height="16" border="0" align="absmiddle"></td>
+                    <td align="right" class="infoline"><label>
+                        <div align="center">
+                          <input type="file" name="fileField" id="fileField" class="nobord">
+                        </div>
+                    </label></td>
+                    <td width="25%" align="left" valign="middle" nowrap class="infoline"><div align="center"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></div></td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td align="left" valign="middle">0002</td>
+                        <td><div align="center" class="filename2">approveletter123.xml</div>
+                      <div align="center" class="browse2" style="display:none">
+                        <input type="file" name="fileField" id="fileField" class="nobord">
+                      </div></td>
+                    <td align="left" valign="middle" nowrap><div align="center" class="filename2"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-replace.gif" alt="delete" width=49 height=15 hspace=3 vspace=3 border=0 id="yes2"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                      <div align="center" class="browse2" style="display:none"><a href="#" id="no2"><img src="../images/tinybutton-upload.gif" width="46" height="15" alt="upload">  <img src="../images/tinybutton-cancel1.gif" width="40" height="15" alt="cancel"></a></div></td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td align="left" valign="middle">CMK</td>
+                        <td><div align="center" class="filename3">approveletter234.xml</div>
+                      <div align="center" class="browse3" style="display:none">
+                        <input type="file" name="fileField" id="fileField" class="nobord">
+                      </div></td>
+                    <td align="left" valign="middle" nowrap><div align="center" class="filename3"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-replace.gif" alt="delete" width=49 height=15 hspace=3 vspace=3 border=0 id="yes3"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                      <div align="center" class="browse3" style="display:none"><a href="#" id="no3"><img src="../images/tinybutton-upload.gif" width="46" height="15" alt="upload">  <img src="../images/tinybutton-cancel1.gif" width="40" height="15" alt="cancel"></a></div></td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td align="left" valign="middle">Test Committtee</td>
+                        <td><div align="center" class="filename4">approveletter345.xml</div>
+                      <div align="center" class="browse4" style="display:none">
+                        <input type="file" name="fileField" id="fileField" class="nobord">
+                      </div></td>
+                    <td align="left" valign="middle" nowrap><div align="center" class="filename4"><a href="#"><img src="../images/tinybutton-view.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-replace.gif" alt="delete" width=49 height=15 hspace=3 vspace=3 border=0 id="yes4"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                      <div align="center" class="browse4" style="display:none"><a href="#" id="no4"><img src="../images/tinybutton-upload.gif" width="46" height="15" alt="upload">  <img src="../images/tinybutton-cancel1.gif" width="40" height="15" alt="cancel"></a></div></td>
+                  </tr>
+                </tbody>
+              </table>
+              <br>
+            </div>
+            <!-- Submit for Review  (Alternate Configuration)-->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201mc" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201mc"></a></td>
+                <td class="tab-subhead1">Rejection Letter</td>
+              </tr>
+            </table>
+            <div id="G201mc" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Withdraw Protocol -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201e"></a></td>
+                <td class="tab-subhead1">Notice Of Deferral</td>
+              </tr>
+            </table>
+            <div id="G201e" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Modify Submission Request-->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201ap" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201ap"></a></td>
+                <td class="tab-subhead1">Substantive Revisions Required Letter</td>
+              </tr>
+            </table>
+            <div id="G201ap" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Assign to Committee and Schedule    -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A111a" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F111a"></a></td>
+                <td class="tab-subhead1">Expedited Approval Letter</td>
+              </tr>
+            </table>
+            <div id="G111a" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Assign Reviewers    -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A111yv" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F111yv"></a></td>
+                <td class="tab-subhead1">Specific Minor Revisions Letter</td>
+              </tr>
+            </table>
+            <div id="G111yv" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Assign to Agenda -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201qs" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201qs"></a></td>
+                <td class="tab-subhead1">Suspension notice</td>
+              </tr>
+            </table>
+            <div id="G201qs" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--  Grant Exemption    -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A111b" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F111b"></a></td>
+                <td class="tab-subhead1">Termination Notice</td>
+              </tr>
+            </table>
+            <div id="G111b" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--    Expedited Approval     -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A111h" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F111h"></a></td>
+                <td class="tab-subhead1"> Agenda Report</td>
+              </tr>
+            </table>
+            <div id="G111h" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Approve Action -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201qa" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201qa"></a></td>
+                <td class="tab-subhead1">Schedule Minutes</td>
+              </tr>
+            </table>
+            <div id="G201qa" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Grant Exemption -->
+            <!-- Enter Review Comments  -->
+            <!-- Record Committee Action -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201qd" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201qd"></a></td>
+                <td class="tab-subhead1">Schedule Optional Report #1</td>
+              </tr>
+            </table>
+            <div id="G201qd" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Notify IRB -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201zz" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201zz"></a></td>
+                <td class="tab-subhead1">Schedule Optional Report #2</td>
+              </tr>
+            </table>
+            <div id="G201zz" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Create Amendment -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201ad" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201ad"></a></td>
+                <td class="tab-subhead1">Protocol Optional Report #1</td>
+              </tr>
+            </table>
+            <div id="G201ad" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Modify Amendment Sections -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201vv" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201vv"></a></td>
+                <td class="tab-subhead1">Protocol Optional Report #2</td>
+              </tr>
+            </table>
+            <div id="G201vv" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Create Renewal with Amendment  -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201q" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201q"></a></td>
+                <td class="tab-subhead1">Committee Roster Report</td>
+              </tr>
+            </table>
+            <div id="G201q" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Create Renewal without Amendment  -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201r" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201r"></a></td>
+                <td class="tab-subhead1">Withdrawal Notice</td>
+              </tr>
+            </table>
+            <div id="G201r" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Request to Close -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A301b" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F301b"></a></td>
+                <td class="tab-subhead1">Grant Exemption Notice</td>
+              </tr>
+            </table>
+            <div id="G301b" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Request for Suspension  -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A301b4" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F301b4"></a></td>
+                <td class="tab-subhead1">Protocol Submission Report #1</td>
+              </tr>
+            </table>
+            <div id="G301b4" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Request to Close Enrollment  -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A301b3" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F301b3"></a></td>
+                <td class="tab-subhead1">Protocol Submission Report #2</td>
+              </tr>
+            </table>
+            <div id="G301b3" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Request to Re-open Enrollment  -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A301b2" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F301b2"></a></td>
+                <td class="tab-subhead1">Renewal Reminder Letter #1</td>
+              </tr>
+            </table>
+            <div id="G301b2" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Request for Data Analysis Only  -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A301b1" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F301b1"></a></td>
+                <td class="tab-subhead1">Renewal Reminder Letter #2</td>
+              </tr>
+            </table>
+            <div id="G301b1" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Delete Protocol, Amendment or Renewal   -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A301b5" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F301b5"></a></td>
+                <td class="tab-subhead1">Renewal Reminder Letter #3</td>
+              </tr>
+            </table>
+            <div id="G301b5" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--  Enter Risk Level    -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A111d" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F111d"></a></td>
+                <td class="tab-subhead1">Reminder to COI Notification #1</td>
+              </tr>
+            </table>
+            <div id="G111d" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Administrative Correction -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201ty" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201ty"></a></td>
+                <td class="tab-subhead1">Reminder to COI Notification #2</td>
+              </tr>
+            </table>
+            <div id="G201ty" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Close Enrollment -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201nz" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201nz"></a></td>
+                <td class="tab-subhead1">Reminder to COI Notification #3</td>
+              </tr>
+            </table>
+            <div id="G201nz" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- asdfasdf   -->
+            <!-- Close Enrollment -->
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <td class="tab-subhead1" style="width:50px;"><a href="#" id="A201vr" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201vr"></a></td>
+                <td class="tab-subhead1">Closure Notice</td>
+              </tr>
+            </table>
+            <div id="G201vr" style="display: none;">
+              <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                    <th width="20%" colspan="1" align="right">&nbsp;</th>
+                    <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                    <th colspan="1" align="right">&nbsp;</th>
+                    <td align="left" valign="middle">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Data Analysis Only  -->
+          </div>
+          <table width="100%" cellpAdding=0 cellspacing=0 class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>asdf</td>
+              <td class="tabtable2-mid"><a id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" vspace=6></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G02" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2><span class="tabtable1-left-colspan">asdf</span></h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-cor-dev/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
+            <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <th width="20%" colspan="1" align="right">&nbsp;</th>
+                  <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  <th width="20%" colspan="1" align="right">&nbsp;</th>
+                  <td width="30%" align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <table width="100%" cellpAdding=0 cellspacing=0 class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>asdf</td>
+              <td class="tabtable2-mid"><a id="A03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F03" vspace=6></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G03" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2><span class="tabtable1-left-colspan">asdf</span></h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-cor-dev/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
+            <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <th width="20%" colspan="1" align="right">&nbsp;</th>
+                  <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  <th width="20%" colspan="1" align="right">&nbsp;</th>
+                  <td width="30%" align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <table width="100%" cellpAdding=0 cellspacing=0 class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>asdf</td>
+              <td class="tabtable2-mid"><a id="A04" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F04" vspace=6></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G04" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2><span class="tabtable1-left-colspan">asdf</span></h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-cor-dev/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
+            <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <th width="20%" colspan="1" align="right">&nbsp;</th>
+                  <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  <th width="20%" colspan="1" align="right">&nbsp;</th>
+                  <td width="30%" align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <table width="100%" cellpAdding=0 cellspacing=0 class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>asdf</td>
+              <td class="tabtable2-mid"><a id="A05" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F05" vspace=6></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G05" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2><span class="tabtable1-left-colspan">asdf</span></h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-cor-dev/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
+            <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <th width="20%" colspan="1" align="right">&nbsp;</th>
+                  <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  <th width="20%" colspan="1" align="right">&nbsp;</th>
+                  <td width="30%" align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <table width="100%" cellpAdding=0 cellspacing=0 class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left-colspan"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>asdf</td>
+              <td class="tabtable2-mid"><a id="A06" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F06" vspace=6></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G06" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2><span class="tabtable1-left-colspan">asdf</span></h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-cor-dev/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span> </div>
+            <table class="datatable" summary="view/edit document overview information" cellpAdding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <th width="20%" colspan="1" align="right">&nbsp;</th>
+                  <td width="30%" align="left" valign="middle">&nbsp;</td>
+                  <th width="20%" colspan="1" align="right">&nbsp;</th>
+                  <td width="30%" align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                  <th colspan="1" align="right">&nbsp;</th>
+                  <td align="left" valign="middle">&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <table width="100%" border="0" cellpAdding="0" cellspacing="0" class="b3" summary="">
+            <tr>
+              <td align="left" class="footer"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="bl3"></td>
+              <td align="right" class="footer-right"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="br3"></td>
+            </tr>
+          </table>
+        </div>
+        <div align="right"><br>
+          * required </div>
+        <!-- GLOBAL NAV BUTTONS -->
+        <div class="globalbuttons"> <a href="#"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" border="0"><img src="../images/buttonsmall_edit.gif" alt="edit" width="39" height="18" border="0"></a> <a href="#"><img src="../images/buttonsmall_reload.gif" alt="reload" width="75" height="18" border="0"></a> <a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width="48" height="18" border="0"></a> <a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" border="0"></a> </div>
+      </div></td>
+    <td class="column-right"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
+  </tr>
+</table>
+</body>
+</html>
