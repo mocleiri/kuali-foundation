@@ -349,13 +349,13 @@
                                 Label:
                             </td>
                             <td class="content_white" style="text-align:left;">
-                                My First Rule
+                                <input type="text" style="width:100%;" value="My First Rule" />
                             </td>
                             <td class="content_grey" style="text-align:right; width:100px;">
                                 Module:
                             </td>
                             <td class="content_white" style="text-align:left;">
-                            	IRB
+                            	<input type="text" style="width:100%;" value="IRB" />
                             </td>
                         </tr>
                         <tr>
@@ -366,10 +366,10 @@
                             	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
-                                            Another description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac nisi a nulla...
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet enim in odio fringilla id dapibus ligula aliquet. Proin sed sodales elit. Nunc sagittis sapien a est sodales quis tempus neque dignissim. Nulla a ligula luctus ipsum pharetra facilisis. Etiam vel convallis eros. Maecenas nec quam sit amet risus viverra aliquam vitae eu lectus. Proin tempor eros at ipsum ultricies mattis. Quisque sit amet libero at metus fringilla facilisis. Vivamus lorem enim, commodo non vehicula et, eleifend sed lorem. Aliquam et dignissim ipsum. Phasellus at arcu ut sem dapibus scelerisque ut ac elit. In quam nisi, consectetur quis condimentum ac, accumsan at nunc. Morbi ultricies sollicitudin tortor, sit amet tincidunt metus euismod accumsan. </textarea>
                                         </td>
                                         <td style="border:none; background:none; width:20px; vertical-align:bottom;">
-                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                         </td>
                                     </tr>
                                 </table>
@@ -391,8 +391,8 @@
                     
                     <table class="content_table">  
                        <tr>
-                            <td class="content_grey" style="text-align:center;">
-                                &nbsp;
+                            <td class="content_grey" style="text-align:center;">&nbsp;
+                                
                             </td>
                             <td class="content_grey" style="text-align:center;;">
                                 Conditions
@@ -406,10 +406,13 @@
                                 1
                             </td>
                             <td class="content_white" style="text-align:left; width:50%;">
-                                [some contitions here.]
+                                [some contition(s) here.]<br />
+                                IF A<br />
+                                AND (B OR C)
                             </td>
                             <td class="content_white" style="text-align:left;">
-                               [some actions here.]
+                               [some action(s) here.]<br />
+                               THEN X
                             </td>
                         </tr>
                         <tr>
@@ -417,10 +420,14 @@
                                 2
                             </td>
                             <td class="content_white" style="text-align:left;">
-                                [some contitions here.]
+                                [some contition(s) here.]<br />
+                                (IF A AND B)<br />
+                                OR D 
                             </td>
                             <td class="content_white" style="text-align:left;">
-                               [some actions here.]
+                               [some action(s) here.]<br />
+                               THEN Y<br />
+                               AND THEN Z
                             </td>
                         </tr>
                     </table>
