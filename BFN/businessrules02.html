@@ -1,0 +1,620 @@
+<!--
+#########################################################################################
+#                                                                                       #
+#  U I   N E S T E D   S T R U C T U R A L   O U T L I N E                              #
+#                                                                                       #
+#  A "Page" contains one or more "Panels" and optionally a "Control Panel" at the top.  #
+#  A Panel contains one or more "Elements."                                             #
+#  An Element can optionally expand and contains one or more of the following:          #
+#	 [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#                                                                                       #
+#  A Sub-element can optionally expand and contains one or more of the following:       #
+#    [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#                                                                                       #
+#########################################################################################
+-->
+
+<!-- DOCUMENT HEAD -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Kuali Business Rules</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <link rel="shortcut icon" href="../images/icon.ico" />
+    <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="../BFN/new_kuali.css" rel=stylesheet type="text/css">
+    <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />
+    <!--<link href="questionnaire.css" rel="stylesheet" type="text/css" />-->
+    <!-- jQuery Library -->
+	<script type="text/javascript" src="../scripts/jquery.js"></script>
+    <!--<script type="text/javascript" src="jquery.treeview.js"></script>-->
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="pageheader">
+	<table class='header' cellpadding="0" border="0">
+    	<tr>
+        	<td align="left" valign="middle">
+            	<span class="pagetitle">
+                	Business Rules
+                	<input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this page.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                </span>
+            </td>
+            <td align="right">
+            	
+                <table class="headerdocsummary" cellpadding="0" border="0">
+                	<tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                    <tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                    <tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                </table>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- TOP NAVIGATION(TABNAV)-->
+<div class="horizontaltabs">
+	<table class="horizontaltabstable">
+    	<tr>
+            <!-- ACTIVE -->
+                <td class="tabactive1">&nbsp;</td>
+                <td class="tabactive2">
+                    <button type="submit" name="editor" value="editor" alt="Business Rules" onClick="window.location='businessrules01.html'">Business Rules</button>
+                </td>
+                <td class="tabactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+               <!-- <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" name="presentation" value="presentation" alt="Questionnaire Preview" onClick="window.location='questionnaire-preview.html'">Questionnaire Preview</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>-->
+            <!-- INACTIVE -->
+                <!--<td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='questionnaire-questionmanager.html'">Question Manager</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>-->
+        </tr>
+        <tr>
+            <!-- ACTIVE -->
+                <td class="tabactive4"></td>
+                <td class="tabactive5"></td>
+                <td class="tabactive6"></td>
+            <!-- INACTIVE -->
+                <!--<td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>-->
+            <!-- INACTIVE -->
+                <!--<td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>-->
+        </tr>
+    </table>
+</div>
+
+<!-- BEGIN PANEL CONTAINER -->
+<table class="panelcontainer" cellspacing="20"><tr><td>
+
+<!-- GLOBAL NAVIGATION CONTROLS -->
+<div class="globalnav">
+	<img src="../images/tinybutton1-siteindex.gif" alt="site index" />
+    <img src="../images/tinybutton-expandall.gif" alt="expand all" />
+    <img src="../images/tinybutton-collapseall.gif" alt="collapse all" />
+</div>
+
+<form name="questionnaireform" id="questionnaireform" method="post" action=""> 
+
+<!-- TOP PANEL HEAD -->
+<table class="paneltable">
+    <tr>
+        <td class="toppanelhead1">&nbsp;</td>
+        <td class="toppanelhead2">
+            Context (BFN: add 'Agenda' for each context)
+        </td>
+        <td class="toppanelhead3">
+            <img id="control_panelcontent01" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
+            <script type="text/javascript">
+				$(document).ready(function(){
+					// initial state
+						//$("#div_panelcontent01").hide(0);
+					// trigger
+						$("#control_panelcontent01").toggle(
+							function()
+							{
+								$("#div_panelcontent01").slideUp(200);
+								$("#control_panelcontent01").attr("src","../images/tinybutton-show.gif");
+								$("#control_panelcontent01").attr("alt","show");
+							},
+							function()
+							{
+								$("#div_panelcontent01").slideDown(400);
+								$("#control_panelcontent01").attr("src","../images/tinybutton-hide.gif");
+								$("#control_panelcontent01").attr("alt","hide");
+							}
+						);	
+				});
+			</script>
+        </td>
+        <td class="toppanelhead4">&nbsp;</td>
+        <td class="toppanelhead5">&nbsp;</td>
+    </tr>
+</table>
+         
+<!-- PANEL CONTENT -->
+<div id="div_panelcontent01">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+            
+            	<!-- Context -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                            Context
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                
+                <div id="content02">
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
+                            	
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Type
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Module
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Submodule
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Description
+                            </td>
+                            <td class="content_grey" style="text-align:center; width:70px;">
+                                Action
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="width:50px; text-align:right;">
+                                Add:
+                            </td>
+                            <td class="content_info" style="text-align:left;">
+                                <select style="width:100%;">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">Routing</option>
+                                    <option value="2">H</option>
+                                    <option value="3">J</option>
+                                    <option value="4">K</option>
+                                </select>
+                            </td>
+                            <td class="content_info" style="text-align:left;">
+                                <select style="width:100%;">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">IRB</option>
+                                    <option value="2">IACUC</option>
+                                    <option value="3">Conflict of Interest</option>
+                                    <option value="4">Proposals</option>
+                                </select>
+                            </td>
+                            <td class="content_info" style="text-align:left;">
+                                <select style="width:100%;">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">X</option>
+                                    <option value="2">Y</option>
+                                    <option value="3">Z</option>
+                                </select>
+                            </td>
+                            <td class="content_info" style="text-align:left;">
+                                <input type="text" style="width:100%;" />
+                            </td>
+                            <td class="content_info" style="text-align:center;">
+                            	<img id="control_newrule" src="../images/tinybutton-add1.gif" style="border:none;" alt="add" title="Add" type="image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="width:50px; text-align:center;">
+                                1
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                [type here]
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	IRB
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	[submodule here]
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Some description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac nisi a nulla...
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                            	<img id="control_editrule01" src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" type="image" />
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:center;">
+                                2
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                [type here]
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	[module here]
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	[submodule here]
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Another description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac nisi a nulla...
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                            	<img id="control_editrule02" src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+            	</div>
+                
+               
+                
+            
+            </td> 
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+<!-- MID PANEL HEAD -->
+<table class="paneltable">
+    <tr>
+        <td class="midpanelhead1">&nbsp;</td>
+        <td class="midpanelhead2">
+        	Rule Editor
+        </td>
+        <td class="midpanelhead3">
+        
+        </td>
+        <td class="midpanelhead4">&nbsp;</td>
+        <td class="midpanelhead5">&nbsp;</td>
+    </tr>
+</table>
+         
+<!-- PANEL CONTENT -->
+<div id="div_panelcontent02">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+                
+                <div id="div_noruleloaded">
+                	Please Add or Edit a Rule from above.
+                </div>
+                
+                <div id="div_newrule" style="display:none;">
+                	[New Rule here.  conditions and actions.]
+                </div>
+                <script type="text/javascript">
+					$(document).ready(function(){
+						// trigger
+							$("#control_newrule").click(
+								function()
+								{
+									$("#div_noruleloaded").slideUp(400);
+									$("#div_newrule").slideDown(400);
+									$("#div_rule01").slideUp(400);
+									$("#div_rule02").slideUp(400);
+								}
+							);	
+					});
+				</script>
+                
+                <div id="div_rule01" style="display:none;">
+                	
+                    
+                    <!-- Rules -->
+                    <table class="elementhead_table">
+                        <tr>
+                            <th class="elementhead_left">
+                            	Rule
+                            </th>
+                            <th class="elementhead_right">
+                                <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                            </th>
+                        </tr>
+                    </table>
+                    
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_grey" style="text-align:right; width:100px;">
+                                Label:
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                <input type="text" style="width:100%;" value="My First Rule" />
+                            </td>
+                            <td class="content_grey" style="text-align:right; width:100px;">
+                                Module:
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	<input type="text" style="width:100%;" value="IRB" />
+                            </td>
+                            <td class="content_grey" style="text-align:right; width:100px;">
+                                Action:
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	
+                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="" style="width:100%;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:right;">
+                                Description:
+                            </td>
+                            <td colspan="5" class="content_white" style="text-align:left;">
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet enim in odio fringilla id dapibus ligula aliquet. Proin sed sodales elit. Nunc sagittis sapien a est sodales quis tempus neque dignissim. Nulla a ligula luctus ipsum pharetra facilisis. Etiam vel convallis eros. Maecenas nec quam sit amet risus viverra aliquam vitae eu lectus. Proin tempor eros at ipsum ultricies mattis. Quisque sit amet libero at metus fringilla facilisis. Vivamus lorem enim, commodo non vehicula et, eleifend sed lorem. Aliquam et dignissim ipsum. Phasellus at arcu ut sem dapibus scelerisque ut ac elit. In quam nisi, consectetur quis condimentum ac, accumsan at nunc. Morbi ultricies sollicitudin tortor, sit amet tincidunt metus euismod accumsan. </textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <!-- Rules -->
+                    <table class="elementhead_table">
+                        <tr>
+                            <th class="elementhead_left">
+                            	Condition(s)
+                            </th>
+                            <th class="elementhead_right">
+                                <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                            </th>
+                        </tr>
+                    </table>
+                    
+                    <table class="content_table">  
+                       <tr>
+                            <td class="content_grey" style="text-align:center;;">
+                                Proposition(s)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_white" style="text-align:left;">
+                                
+                                <div style="padding:4px;">
+                                	<img id="control_prop04" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
+                                    T=4 AND (Name="Bart" OR (Name="Perter" AND X=4))
+									<script type="text/javascript">
+                                        $(document).ready(function(){
+                                            // initial state
+                                                $("#div_prop04").hide(0);
+                                            // trigger
+                                                $("#control_prop04").toggle(
+                                                    function()
+                                                    {
+                                                        $("#div_prop04").slideDown(200);
+                                                        $("#control_prop04").attr("src","../images/tinybutton-hide.gif");
+                                                        $("#control_prop04").attr("alt","hide");
+                                                    },
+                                                    function()
+                                                    {
+                                                        $("#div_prop04").slideUp(400);
+                                                        $("#control_prop04").attr("src","../images/tinybutton-show.gif");
+                                                        $("#control_prop04").attr("alt","show");
+                                                    }
+                                                );	
+                                        });
+                                    </script>
+                                     
+                                </div>
+                                
+                                <div id="div_prop04">
+                                
+                                	<div id="prop-A" style="border:1px solid #666; background-color:#E4E3E4; margin-left:5px; margin-top:5px; margin-right:5px; margin-bottom:-1px; padding:4px; font-weight:bold;">
+                                    	<img id="control_editprops" src="./images/tinybutton-edit.gif" alt="edit" style="width:60px; height:15px; border:none; vertical-align:bottom;" />
+                                        Conditions for 'My First rule'
+										<script type="text/javascript">
+                                            $(document).ready(function(){
+                                                // initial state
+                                                    $("#div_editprops").hide(0);
+                                                // trigger
+                                                    $("#control_editprops").toggle(
+                                                        function()
+                                                        {
+                                                            $("#div_viewprops").slideUp(400);
+															$("#div_editprops").slideDown(200);
+                                                            $("#control_editprops").attr("src","./images/tinybutton-view.gif");
+                                                            $("#control_editprops").attr("alt","view");
+                                                        },
+                                                        function()
+                                                        {
+                                                            $("#div_editprops").slideUp(400);
+															$("#div_viewprops").slideDown(200);
+                                                            $("#control_editprops").attr("src","./images/tinybutton-edit.gif");
+                                                            $("#control_editprops").attr("alt","edit");
+                                                        }
+                                                    );	
+                                            });
+                                        </script>
+                                    </div>
+                                    <div id="div_viewprops">
+                                        <div id="prop-A" style="border:1px solid #666; background:url(./images/black04.png); margin-left:5px; margin-top:0px; margin-right:5px; margin-bottom:5px; padding:4px;">
+                                            
+                                            T=4
+                                            <div style="z-index:99; position:relative; bottom:-4px; width:50px; text-align:center; border:1px solid #000; background-color:#FFC;">AND</div>
+                                            
+                                            <div id="prop-B" style="border:1px solid #666; background:url(./images/black04.png); margin-left:15px; margin-top:0px; margin-right:5px; margin-bottom:5px; padding:4px;">
+                                                
+                                                Name="Bart"<br />
+                                                <div style="z-index:99; position:relative; bottom:-4px; width:50px; text-align:center; border:1px solid #000; background-color:#FFC;">OR</div>
+                                                
+                                                <div id="prop-C" style="border:1px solid #666; background:url(./images/black04.png); margin-left:25px; margin-top:0px; margin-right:5px; margin-bottom:5px; padding:4px;">
+                                                    
+                                                    Name="Peter"<br />
+                                                    AND<br />
+                                                    X=4
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div id="div_editprops">
+                                        <div id="prop-A" style="border:1px solid #666; background:url(./images/black04.png); margin-left:5px; margin-top:0px; margin-right:5px; margin-bottom:5px; padding:4px;">
+                                            
+                                            [T] [=] [4] [and/or/and group/or group]
+                                            <div style="z-index:99; position:relative; bottom:-4px; width:125px; text-align:center; border:1px solid #000; background-color:#FFC;">[AND] [delete group]</div>
+                                            
+                                            <div id="prop-B" style="border:1px solid #666; background:url(./images/black04.png); margin-left:15px; margin-top:0px; margin-right:5px; margin-bottom:5px; padding:4px;">
+                                                
+                                                [Name]=[Bart] [and/or/and group/or group]<br />
+                                                <div style="z-index:99; position:relative; bottom:-4px; width:125px; text-align:center; border:1px solid #000; background-color:#FFC;">[OR] [delete group]</div>
+                                                
+                                                <div id="prop-C" style="border:1px solid #666; background:url(./images/black04.png); margin-left:25px; margin-top:0px; margin-right:5px; margin-bottom:5px; padding:4px;">
+                                                    
+                                                    [Name] [=] [Peter] [and/or/and group/or group]<br />
+                                                    [AND]<br />
+                                                    [X] [=] [4] [and/or/and group/or group]
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </div> 
+                <script type="text/javascript">
+					$(document).ready(function(){
+						// trigger
+							$("#control_editrule01").click(
+								function()
+								{
+									$("#div_noruleloaded").slideUp(400);
+									$("#div_newrule").slideUp(400);
+									$("#div_rule01").slideDown(400);
+									$("#div_rule02").slideUp(400);
+								}
+							);	
+					});
+				</script>
+                
+                <div id="div_rule02" style="display:none;">
+                	[A Second Rule here.  conditions and actions.]
+                </div>
+                <script type="text/javascript">
+					$(document).ready(function(){
+						// trigger
+							$("#control_editrule02").click(
+								function()
+								{
+									$("#div_noruleloaded").slideUp(400);
+									$("#div_rule01").slideUp(400);
+									$("#div_rule02").slideDown(400);
+								}
+							);	
+					});
+				</script>
+                
+            </td>
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+<!-- PANEL FOOT -->
+<table class="paneltable">
+    <tr>
+        <td class="panelfoot1">&nbsp;</td>
+        <td class="panelfoot2" colspan="3">&nbsp;</td>
+        <td class="panelfoot3">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- INSTRUCTIONAL NOTES -->        
+<div class="instructionalnotes">
+    * required
+</div>
+    
+<!-- GLOBAL DOCUMENT CONTROLS -->
+<div class="globaldocumentcontrols">
+    <a href="#"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_refresh.gif" alt="refresh" width="68" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_close.gif" alt="close" width="48" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0" /></a>
+</div>
+
+<!-- END PANEL CONTAINER -->
+</td></tr></table>
+
+</form>
+
+<!-- DOCUMENT FOOT -->
+</body>
+</html>

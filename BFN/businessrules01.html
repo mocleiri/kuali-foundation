@@ -581,7 +581,8 @@
                                 
                                 <div style="padding:4px;">
                                 	<img id="control_prop02" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
-                                    (L=0 AND T="Kenton") OR T=null 
+                                    (L=0 AND T="Kenton"<br />
+                                  	OR T=null 
 									<script type="text/javascript">
                                         $(document).ready(function(){
                                             // initial state
@@ -975,6 +976,81 @@
                                     </tr>
                                     
                                 </table>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:center;">
+                                4
+                            </td>
+                            <td class="content_white" style="text-align:left; vertical-align:top;">
+                                
+                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="Condition C" style="width:100%;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                
+                                <div style="padding:4px;">
+                                	<img id="control_prop04" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
+                                    T=4 AND (Name="Bart" OR (Name="Perter" AND X=4))
+									<script type="text/javascript">
+                                        $(document).ready(function(){
+                                            // initial state
+                                                $("#div_prop04").hide(0);
+                                            // trigger
+                                                $("#control_prop04").toggle(
+                                                    function()
+                                                    {
+                                                        $("#div_prop04").slideDown(200);
+                                                        $("#control_prop04").attr("src","../images/tinybutton-hide.gif");
+                                                        $("#control_prop04").attr("alt","hide");
+                                                    },
+                                                    function()
+                                                    {
+                                                        $("#div_prop04").slideUp(400);
+                                                        $("#control_prop04").attr("src","../images/tinybutton-show.gif");
+                                                        $("#control_prop04").attr("alt","show");
+                                                    }
+                                                );	
+                                        });
+                                    </script>
+                                     
+                                </div>
+                                
+                                <div id="div_prop04">
+                                
+                                	<div id="prop-A" style="border:1px solid #666; background:url(./images/black04.png); margin-left:5px; margin-top:5px; margin-right:5px; margin-bottom:5px; padding:4px;">
+                                    	
+                                        T=4
+                                        <div style="z-index:99; position:relative; bottom:-4px; width:50px; text-align:center; border:1px solid #000; background-color:#FFC;">AND</div>
+                                        
+                                        <div id="prop-B" style="border:1px solid #666; background:url(./images/black04.png); margin-left:15px; margin-top:0px; margin-right:5px; margin-bottom:5px; padding:4px;">
+                                        	
+                                            Name="Bart"<br />
+                                            <div style="z-index:99; position:relative; bottom:-4px; width:50px; text-align:center; border:1px solid #000; background-color:#FFC;">OR</div>
+                                            
+                                            <div id="prop-C" style="border:1px solid #666; background:url(./images/black04.png); margin-left:25px; margin-top:0px; margin-right:5px; margin-bottom:5px; padding:4px;">
+                                            	
+                                                Name="Peter"<br />
+                                                AND<br />
+                                                X=4
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
                                 
                             </td>
                         </tr>
