@@ -20,7 +20,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Kuali</title>
+    <title>Kuali Business Rules</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <link rel="shortcut icon" href="../images/icon.ico" />
     <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
@@ -128,7 +128,7 @@
     <tr>
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
-            Business Rules
+            Context (BFN: add 'Agenda' for each context)
         </td>
         <td class="toppanelhead3">
             <img id="control_panelcontent01" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
@@ -166,12 +166,12 @@
             <td class="panelcontent1">&nbsp;</td>
             <td class="panelcontent2" colspan="3">
             
-            	<!-- Rules -->
+            	<!-- Context -->
                 <table class="elementhead_table">
                     <tr>
                         <th class="elementhead_left">
                             <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
-                            Rules
+                            Context
                         </th>
                         <th class="elementhead_right">
                             <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
@@ -179,17 +179,20 @@
                     </tr>
                 </table>
                 
-                <div id="content01">
+                <div id="content02">
                     <table class="content_table">  
                        <tr>
                             <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
                             	
                             </td>
                             <td class="content_grey" style="text-align:center;">
-                                Label
+                                Type
                             </td>
                             <td class="content_grey" style="text-align:center;">
                                 Module
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Submodule
                             </td>
                             <td class="content_grey" style="text-align:center;">
                                 Description
@@ -203,7 +206,13 @@
                                 Add:
                             </td>
                             <td class="content_info" style="text-align:left;">
-                                <input type="text" style="width:100%;" />
+                                <select style="width:100%;">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">Routing</option>
+                                    <option value="2">H</option>
+                                    <option value="3">J</option>
+                                    <option value="4">K</option>
+                                </select>
                             </td>
                             <td class="content_info" style="text-align:left;">
                                 <select style="width:100%;">
@@ -212,6 +221,14 @@
                                     <option value="2">IACUC</option>
                                     <option value="3">Conflict of Interest</option>
                                     <option value="4">Proposals</option>
+                                </select>
+                            </td>
+                            <td class="content_info" style="text-align:left;">
+                                <select style="width:100%;">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">X</option>
+                                    <option value="2">Y</option>
+                                    <option value="3">Z</option>
                                 </select>
                             </td>
                             <td class="content_info" style="text-align:left;">
@@ -226,10 +243,13 @@
                                 1
                             </td>
                             <td class="content_white" style="text-align:left;">
-                                My First Rule
+                                [type here]
                             </td>
                             <td class="content_white" style="text-align:left;">
                             	IRB
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	[submodule here]
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
@@ -253,10 +273,13 @@
                                 2
                             </td>
                             <td class="content_white" style="text-align:left;">
-                                A Second Rule
+                                [type here]
                             </td>
                             <td class="content_white" style="text-align:left;">
-                            	IACUC
+                            	[module here]
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	[submodule here]
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
@@ -276,6 +299,8 @@
                         </tr>
                     </table>
             	</div>
+                
+               
                 
             
             </td> 
@@ -357,12 +382,29 @@
                             <td class="content_white" style="text-align:left;">
                             	<input type="text" style="width:100%;" value="IRB" />
                             </td>
+                            <td class="content_grey" style="text-align:right; width:100px;">
+                                Action:
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	
+                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="" style="width:100%;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
                         </tr>
                         <tr>
                             <td class="content_grey" style="text-align:right;">
                                 Description:
                             </td>
-                            <td colspan="3" class="content_white" style="text-align:left;">
+                            <td colspan="5" class="content_white" style="text-align:left;">
                             	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
@@ -381,7 +423,7 @@
                     <table class="elementhead_table">
                         <tr>
                             <th class="elementhead_left">
-                            	Condition/Action Set(s)
+                            	Condition(s)
                             </th>
                             <th class="elementhead_right">
                                 <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
@@ -391,49 +433,552 @@
                     
                     <table class="content_table">  
                        <tr>
-                            <td class="content_grey" style="text-align:center;">&nbsp;
+                            <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
                                 
                             </td>
-                            <td class="content_grey" style="text-align:center;;">
-                                Conditions
+                            <td class="content_grey" style="text-align:center;; width:225px;">
+                                Condition Name
                             </td>
-                            <td class="content_grey" style="text-align:center;">
-                                Actions
+                            <td class="content_grey" style="text-align:center;;">
+                                Proposition(s)
                             </td>
                         </tr>
+                        
                         <tr>
                             <td class="content_grey" style="text-align:center;">
                                 1
                             </td>
-                            <td class="content_white" style="text-align:left; width:50%;">
-                                [some contition(s) here.]<br />
-                                IF A<br />
-                                AND (B OR C)
+                            <td class="content_white" style="text-align:left; vertical-align:top;">
+                                
+                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="Condition A" style="width:100%;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
                             </td>
                             <td class="content_white" style="text-align:left;">
-                               [some action(s) here.]<br />
-                               THEN X
+                                
+                                <div style="padding:4px;">
+                                	<img id="control_prop03" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
+                                    N&lt;6 
+									<script type="text/javascript">
+                                        $(document).ready(function(){
+                                            // initial state
+                                                $("#table_prop03").hide(0);
+                                            // trigger
+                                                $("#control_prop03").toggle(
+                                                    function()
+                                                    {
+                                                        $("#table_prop03").slideDown(200);
+                                                        $("#control_prop03").attr("src","../images/tinybutton-hide.gif");
+                                                        $("#control_prop03").attr("alt","hide");
+                                                    },
+                                                    function()
+                                                    {
+                                                        $("#table_prop03").slideUp(400);
+                                                        $("#control_prop03").attr("src","../images/tinybutton-show.gif");
+                                                        $("#control_prop03").attr("alt","show");
+                                                    }
+                                                );	
+                                        });
+                                    </script>
+                                </div>
+                                
+                                <table id="table_prop03" class="content_table" style="" cellpadding="0" cellspacing="0">
+                                    
+                                    <tr>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Before
+                                        </td>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Data point
+                                        </td>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Operator
+                                        </td>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Value
+                                        </td>
+                                        <td class="content_grey" style="width:65px; text-align:center; border-top:1px solid #999;">
+                                        	After
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0" selected="selected"> </option>
+                                                <option value="1">(</option>
+                                            </select>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; text-align:right;">
+                                                        <input type="text" value="N" style="width:100%;" />
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            <select>
+                                                <option value="0" selected="selected">&lt;</option>
+                                                <option value="1">=</option>
+                                                <option value="2">&gt;</option>
+                                            </select>
+                                        </td>
+                                        <td class="content_white">
+                                            <input type="text" style="width:100%;" value="6" />
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0" selected="selected"> </option>
+                                                <option value="1">AND</option>
+                                                <option value="2">OR</option>
+                                                <option value="3">) AND</option>
+                                                <option value="4">) OR</option>
+                                            </select>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                                
                             </td>
                         </tr>
                         <tr>
                             <td class="content_grey" style="text-align:center;">
                                 2
                             </td>
-                            <td class="content_white" style="text-align:left;">
-                                [some contition(s) here.]<br />
-                                (IF A AND B)<br />
-                                OR D 
+                            <td class="content_white" style="text-align:left; vertical-align:top;">
+                                
+                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="Condition B" style="width:100%;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
                             </td>
                             <td class="content_white" style="text-align:left;">
-                               [some action(s) here.]<br />
-                               THEN Y<br />
-                               AND Z<br />
-                               AND W
+                                
+                                <div style="padding:4px;">
+                                	<img id="control_prop02" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
+                                    (L=0 AND T="Kenton") OR T=null 
+									<script type="text/javascript">
+                                        $(document).ready(function(){
+                                            // initial state
+                                                $("#table_prop02").hide(0);
+                                            // trigger
+                                                $("#control_prop02").toggle(
+                                                    function()
+                                                    {
+                                                        $("#table_prop02").slideDown(200);
+                                                        $("#control_prop02").attr("src","../images/tinybutton-hide.gif");
+                                                        $("#control_prop02").attr("alt","hide");
+                                                    },
+                                                    function()
+                                                    {
+                                                        $("#table_prop02").slideUp(400);
+                                                        $("#control_prop02").attr("src","../images/tinybutton-show.gif");
+                                                        $("#control_prop02").attr("alt","show");
+                                                    }
+                                                );	
+                                        });
+                                    </script>
+                                </div>
+                                
+                                <table id="table_prop02" class="content_table" style="" cellpadding="0" cellspacing="0">
+                                    
+                                    <tr>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Before
+                                        </td>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Data point
+                                        </td>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Operator
+                                        </td>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Value
+                                        </td>
+                                        <td class="content_grey" style="width:65px; text-align:center; border-top:1px solid #999;">
+                                        	After
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0"> </option>
+                                                <option value="1" selected="selected">(</option>
+                                            </select>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; text-align:right;">
+                                                        <input type="text" value="L" style="width:100%;" />
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            <select>
+                                                <option value="0"><</option>
+                                                <option value="1" selected="selected">=</option>
+                                                <option value="2">></option>
+                                            </select>
+                                        </td>
+                                        <td class="content_white">
+                                            <input type="text" style="width:100%;" value="0" />
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0"> </option>
+                                                <option value="1" selected="selected">AND</option>
+                                                <option value="2">OR</option>
+                                                <option value="3">) AND</option>
+                                                <option value="4">) OR</option>
+                                            </select>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr style="margin-top:2px;">
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0" selected="selected"> </option>
+                                                <option value="1">(</option>
+                                            </select>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; text-align:right;">
+                                                        <input type="text" value="T" style="width:100%;" />
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                        
+                                            <select>
+                                                <option value="1" selected="selected">=</option>
+                                                <option value="2">contains</option>
+                                            </select>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            <input type="text" style="width:100%;" value="Kenton" />
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0"> </option>
+                                                <option value="1">AND</option>
+                                                <option value="2">OR</option>
+                                                <option value="3">)</option>
+                                                <option value="4">) AND</option>
+                                                <option value="5" selected="selected">) OR</option>
+                                            </select>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0" selected="selected"> </option>
+                                                <option value="1">(</option>
+                                            </select>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; text-align:right;">
+                                                        <input type="text" value="T" style="width:100%;" />
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                        
+                                            <select>
+                                                <option value="1" selected="selected">=</option>
+                                                <option value="2">contains</option>
+                                            </select>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            <input type="text" style="width:100%;" value="null" />
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0" selected="selected"> </option>
+                                                <option value="1">AND</option>
+                                                <option value="2">OR</option>
+                                                <option value="3">)</option>
+                                                <option value="4">) AND</option>
+                                                <option value="5">) OR</option>
+                                            </select>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:center;">
+                                3
+                            </td>
+                            <td class="content_white" style="text-align:left; vertical-align:top;">
+                                
+                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="Condition C" style="width:100%;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                
+                                <div style="padding:4px;">
+                                	<img id="control_prop01" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
+                                    N>5 AND (T="Kenton" OR T="Bart")
+									<script type="text/javascript">
+                                        $(document).ready(function(){
+                                            // initial state
+                                                $("#table_prop01").hide(0);
+                                            // trigger
+                                                $("#control_prop01").toggle(
+                                                    function()
+                                                    {
+                                                        $("#table_prop01").slideDown(200);
+                                                        $("#control_prop01").attr("src","../images/tinybutton-hide.gif");
+                                                        $("#control_prop01").attr("alt","hide");
+                                                    },
+                                                    function()
+                                                    {
+                                                        $("#table_prop01").slideUp(400);
+                                                        $("#control_prop01").attr("src","../images/tinybutton-show.gif");
+                                                        $("#control_prop01").attr("alt","show");
+                                                    }
+                                                );	
+                                        });
+                                    </script>
+                                     
+                                </div>
+                                
+                                <table id="table_prop01" class="content_table" style="" cellpadding="0" cellspacing="0">
+                                    
+                                    <tr>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Before
+                                        </td>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Data point
+                                        </td>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Operator
+                                        </td>
+                                        <td class="content_grey" style="text-align:center; border-top:1px solid #999;">
+                                            Value
+                                        </td>
+                                        <td class="content_grey" style="width:65px; text-align:center; border-top:1px solid #999;">
+                                        	After
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0" selected="selected"> </option>
+                                                <option value="1">(</option>
+                                            </select>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; text-align:right;">
+                                                        <input type="text" value="N" style="width:100%;" />
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            <select>
+                                                <option value="0"><</option>
+                                                <option value="1">=</option>
+                                                <option value="2" selected="selected">></option>
+                                            </select>
+                                        </td>
+                                        <td class="content_white">
+                                            <input type="text" style="width:100%;" value="5" />
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0"> </option>
+                                                <option value="1" selected="selected">AND</option>
+                                                <option value="2">OR</option>
+                                                <option value="3">) AND</option>
+                                                <option value="4">) OR</option>
+                                            </select>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr style="margin-top:2px;">
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0"> </option>
+                                                <option value="1" selected="selected">(</option>
+                                            </select>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; text-align:right;">
+                                                        <input type="text" value="T" style="width:100%;" />
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                        
+                                            <select>
+                                                <option value="1" selected="selected">=</option>
+                                                <option value="2">contains</option>
+                                            </select>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            <input type="text" style="width:100%;" value="Kenton" />
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0"> </option>
+                                                <option value="1">AND</option>
+                                                <option value="2" selected="selected">OR</option>
+                                                <option value="3">)</option>
+                                                <option value="4">) AND</option>
+                                                <option value="5">) OR</option>
+                                            </select>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0" selected="selected"> </option>
+                                                <option value="1">(</option>
+                                            </select>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; text-align:right;">
+                                                        <input type="text" value="T" style="width:100%;" />
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                        
+                                            <select>
+                                                <option value="1" selected="selected">=</option>
+                                                <option value="2">contains</option>
+                                            </select>
+                                            
+                                        </td>
+                                        <td class="content_white">
+                                            <input type="text" style="width:100%;" value="Bart" />
+                                        </td>
+                                        <td class="content_white">
+                                            
+                                            <select>
+                                                <option value="0"> </option>
+                                                <option value="1">AND</option>
+                                                <option value="2">OR</option>
+                                                <option value="3" selected="selected">)</option>
+                                                <option value="4">) AND</option>
+                                                <option value="5">) OR</option>
+                                            </select>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                                
                             </td>
                         </tr>
                     </table>
-                    
-                    [conditions/actions sets]
                     
                 </div> 
                 <script type="text/javascript">
