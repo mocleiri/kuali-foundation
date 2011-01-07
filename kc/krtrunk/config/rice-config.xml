@@ -43,7 +43,7 @@
     <param name="dev.mode">false</param>
     
     <!-- hacky always go back to kc portal -->
-	<param name="rice.portal.logout.redirectUrl">${cas.url}/logout.do</param>
+	<param name="rice.portal.logout.redirectUrl">${cas.url}/logout</param>
 	
 	<!-- CAS Configuration -->
     <param name="cas.url">http://test.kc.kuali.org:8082/cas-trunk</param>
