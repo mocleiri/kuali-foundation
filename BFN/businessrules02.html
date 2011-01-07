@@ -442,7 +442,7 @@
                                 
                                 <div style="padding:4px;">
                                 	<img id="control_prop04" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
-                                    T=4 AND (Name="Bart" OR (Name="Perter" AND X=4))
+                                    T=4 AND (Name="Bart" OR (Name="Perter" AND X=4) OR (Name="Perter" AND X=3))
 									<script type="text/javascript">
                                         $(document).ready(function(){
                                             // initial state
@@ -515,6 +515,16 @@
                                                     
                                                 </div>
                                                 
+                                                <div style="z-index:99; position:relative; bottom:-4px; width:50px; text-align:center; border:1px solid #000; background-color:#FFC;">OR</div>
+                                                
+                                                <div id="prop-C" style="border:1px solid #666; background:url(./images/black04.png); margin-left:25px; margin-top:0px; margin-right:5px; margin-bottom:5px; padding:4px;">
+                                                    
+                                                    Name="Bill"<br />
+                                                    AND<br />
+                                                    X=3
+                                                    
+                                                </div>
+                                                
                                             </div>
                                             
                                         </div>
@@ -535,6 +545,16 @@
                                                     [Name] [=] [Peter] [and/or/and group/or group]<br />
                                                     [AND]<br />
                                                     [X] [=] [4] [and/or/and group/or group]
+                                                    
+                                                </div>
+                                                
+                                                <div style="z-index:99; position:relative; bottom:-4px; width:125px; text-align:center; border:1px solid #000; background-color:#FFC;">[OR] [delete group]</div>
+                                                
+                                                <div id="prop-C" style="border:1px solid #666; background:url(./images/black04.png); margin-left:25px; margin-top:0px; margin-right:5px; margin-bottom:5px; padding:4px;">
+                                                    
+                                                    [Name] [=] [Bill] [and/or/and group/or group]<br />
+                                                    [AND]<br />
+                                                    [X] [=] [3] [and/or/and group/or group]
                                                     
                                                 </div>
                                                 
