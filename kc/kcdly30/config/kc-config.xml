@@ -13,7 +13,7 @@
 	<param name="datasource.ojb.platform">Oracle9i</param>
 	
 	<!-- For Embedded Mode -->
-	<param name="rice.app.url">http://test.kc.kuali.org/kr-dly30</param>
+	<param name="rice.app.url">http://stg.kfs.kuali.org:8081/kr-stg/</param>
 
 	<param name="kim.runmode">embedded</param>
 	<param name="kcb.runmode">embedded</param>
@@ -25,9 +25,12 @@
 	<!-- Rice Server DB -->
 	<!-- Will be the same as KC Client DB when running embedded mode -->
 	<!-- param name="server.datasource.url">jdbc:oracle:thin:@ec2-174-129-80-250.compute-1.amazonaws.com:1521:XE</param -->
-	<param name="server.datasource.url">${datasource.url}</param>
-	<param name="server.datasource.username">KRDLY30</param>
-	<param name="server.datasource.password">dly174kr</param>
+	<param name="server.datasource.url">jdbc:mysql://test.db.kfs.kuali.org:3306/kr</param>
+	<param name="server.datasource.username">kr</param>
+	<param name="server.datasource.password">kr</param>
+	<param name="server.datasource.ojb.platform">MySQL</param>
+    <param name="server.datasource.platform">org.kuali.rice.core.database.platform.MySQLDatabasePlatform</param>
+	
 	
 	<param name="rice.portal.links.showRiceServerConfig">true</param>
 	<param name="rice.portal.logout.redirectUrl">${cas.url}/logout</param>
