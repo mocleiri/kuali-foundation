@@ -568,8 +568,21 @@
 	}
 	.content_info
 	{
-		background-image: url("../images/th-back1.gif"); no-repeat;
+		background-image: url("../images/th-back1.gif");
 		background-size: 100%;
+		background-position: bottom;
+		border-top: solid #939393 0px;
+		border-bottom: solid #939393 1px;
+		border-left: solid #939393 1px;
+		border-right: solid #939393 1px;
+		padding-top:3px;
+		padding-right:3px;
+		padding-left:3px;
+		padding-bottom:3px;
+	}
+	.content_info2
+	{
+		background-image: url("../images/th-back1.gif");
 		background-position: bottom;
 		border-top: solid #939393 0px;
 		border-bottom: solid #939393 1px;
