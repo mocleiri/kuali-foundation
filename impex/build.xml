@@ -86,6 +86,13 @@ Note: Due to java native library classloader issues, the export routine (and pos
 
 	<property name="source.zip" value="${torque.schema.dir}/${torque.project}-data.zip" />
 	<property name="target.zip" value="${torque.schema.dir}/${torque.project}-data.zip" />
+	<!-- 
+	default properties ... if these aren't loaded by the previous 
+	property imports then they will be set here to avoid need for 
+	excessive config.
+	-->
+	<property name="import.torque.threads" value="1"/>
+	
 
 	<condition property="import.two.schemas">
 		<and>
