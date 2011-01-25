@@ -59,4 +59,8 @@
         
     <param name="filter.caswrapper.class">org.jasig.cas.client.util.HttpServletRequestWrapperFilter</param>
     <param name="filtermapping.caswrapper.3">/*</param> 
+    
+        <!-- Putting KEW ingestion in a reasonable place -->
+        <param name="data.xml.root.location">${java.io.tmpdir}/kew/xml/</param>
+
 </config>
