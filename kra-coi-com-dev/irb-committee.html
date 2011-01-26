@@ -86,12 +86,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Committee</td>
-              <td class="tabtable1-mid"><span class="tabtable2-mid"><a href="#" id="A02" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" ></a></span> </td>
+              <td class="tabtable1-mid">&nbsp;</td>
               <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
           <!-- TAB -->
-          <div class="tab-container" align="center" id="G02" style="display: none;">
+          <div class="tab-container" align="center" id="G02" style="display: block;">
             <div class="h2-container"> <span class="subhead-left">
               <h2>Committee</h2>
               </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
@@ -124,77 +124,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
               </tr>
               <tr>
-                <th><div align="right">*Min Members for Quorum:</div></th>
-                <td><input name="startDate3" type=text onchange="dataChanged()" value="" size=12 /></td>
-                <th><div align="right">*Review Type:</div></th>
-                <td><select size=1 name="numberofreg" id="numberofreg" onChange="showDivs(this)">
-                    <option value=0 selected>select</option>
-                    <option value="01">Full</option>
-                    <option value="02">Expedited </option>
-                    <option value="03">Exempt</option>
-                    <option value="04">Limited/Single use</option>
-                    <option value="04">COI Review not required</option>
-                    <option value="04">Response</option>
-                    <option value="04">FYI</option>
-                   
-                  </select></td>
-              </tr>
-              <tr>
-                <th><div align="right">*Maximum Protocols:<br>
-                  </div></th>
-                <td><input name="startDate3" type=text onchange="dataChanged()" value="" size=12 /></td>
+                <th rowspan="2"><div align="right">*Min Members for Quorum:</div></th>
+                <td rowspan="2"><input name="startDate3" type=text onchange="dataChanged()" value="" size=12 /></td>
                 <th><div align="right">Committee Info Last Updated:</div></th>
                 <td>01/12/2009</td>
               </tr>
               <tr>
-                <th><div align="right">*Adv Submission Days:</div></th>
-                <td><input name="startDate3" type=text onchange="dataChanged()" value="" size=12 /></td>
                 <th><div align="right">Updated User:</div></th>
                 <td>khuntley</td>
               </tr>
             </table>
             <!--  <p>&nbsp;</p>
           <p><img src="images/committee.png" width="599" height="366"></p>-->
-          </div>
-          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
-            <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Area of Research</td>
-              <td class="tabtable2-mid"><a href="#" id="A125" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F125" ></a> </td>
-              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
-            </tr>
-          </table>
-          <div class="tab-container" align="center" id="G125" style="display: none;">
-            <div class="h2-container"> <span class="subhead-left">
-              <h2>Area of Resesarch</h2>
-              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
-            <table align=center cellpadding=0 cellspacing=0 summary="">
-              <!-- <tr>
-                        <td colspan="6" class="tab-subhead"><div align="left">Consultants</div></td>
-                      </tr> -->
-              <tr>
-                <th>&nbsp;</th>
-                <th>Code/Description</th>
-                <th width="20%">Actions</th>
-              </tr>
-              <tr>
-                <th width="5%" class="infoline">add:</th>
-                <td class="infoline">(select) <a href="#">
-                  <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                  </a></td>
-                <td class="infoline">&nbsp;</td>
-              </tr>
-              <tr>
-                <th>1</th>
-                <td><span> 37.01 Personal Awareness and Self- Improvement</span></td>
-                <td><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-              </tr>
-              <tr>
-                <th>2</th>
-                <td><span> 13.14 Teaching Englisg as a Second or Foreign Language</span></td>
-                <td><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
-              </tr>
-            </table>
-            <!--   <img src="images/areaofresearch.png" alt="" width="593" height="438">-->
           </div>
           <table width="100%" border="0" cellpadding="0" cellspacing="0" class="b3" summary="">
             <tr>
