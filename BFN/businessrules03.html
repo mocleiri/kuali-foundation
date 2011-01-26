@@ -534,15 +534,15 @@
             <!-- ACTIVE -->
                 <td class="tabactive1">&nbsp;</td>
                 <td class="tabactive2">
-                    <button type="submit" name="editor" value="editor" alt="Business Rules" onClick="window.location='businessrules01.html'">Business Rules</button>
+                    <button type="submit" name="editor" value="editor" alt="Business Rules" onClick="window.location='businessrules03.html'">Business Rules</button>
                 </td>
                 <td class="tabactive3">&nbsp;</td>
             <!-- INACTIVE -->
-               <!-- <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" name="presentation" value="presentation" alt="Questionnaire Preview" onClick="window.location='questionnaire-preview.html'">Questionnaire Preview</button>
+                    <button type="submit" name="presentation" value="presentation" alt="Questionnaire Preview" onClick="window.location='namespaceeditor.html'">Namespace Editor</button>
                 </td>
-                <td class="tabinactive3">&nbsp;</td>-->
+                <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <!--<td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
@@ -556,9 +556,9 @@
                 <td class="tabactive5"></td>
                 <td class="tabactive6"></td>
             <!-- INACTIVE -->
-                <!--<td class="tabinactive4"></td>
+                <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>-->
+                <td class="tabinactive6"></td>
             <!-- INACTIVE -->
                 <!--<td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
@@ -584,27 +584,27 @@
     <tr>
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
-            Namespace
+            Namespace: My Fabulous Dominion
         </td>
         <td class="toppanelhead3">
-            <img id="control_panelcontent01" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
+            <img id="control_panelcontent01" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none;" />
             <script type="text/javascript">
 				$(document).ready(function(){
 					// initial state
-						//$("#div_panelcontent01").hide(0);
+						$("#div_panelcontent01").hide(0);
 					// trigger
 						$("#control_panelcontent01").toggle(
-							function()
-							{
-								$("#div_panelcontent01").slideUp(200);
-								$("#control_panelcontent01").attr("src","../images/tinybutton-show.gif");
-								$("#control_panelcontent01").attr("alt","show");
-							},
 							function()
 							{
 								$("#div_panelcontent01").slideDown(400);
 								$("#control_panelcontent01").attr("src","../images/tinybutton-hide.gif");
 								$("#control_panelcontent01").attr("alt","hide");
+							},
+							function()
+							{
+								$("#div_panelcontent01").slideUp(200);
+								$("#control_panelcontent01").attr("src","../images/tinybutton-show.gif");
+								$("#control_panelcontent01").attr("alt","show");
 							}
 						);	
 				});
@@ -627,7 +627,7 @@
                     <tr>
                         <th class="elementhead_left">
                             <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
-                            My Namespace
+                            My Fabulous Dominion
                         </th>
                         <th class="elementhead_right">
                             <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
@@ -637,37 +637,23 @@
                 
                 <div id="content02">
                     <table class="content_table">  
-                       <tr>
-                            <td class="content_grey" style="font-weight:bold; text-align:right; width:90px;">
+                        <tr>
+                            <td class="content_grey" style="text-align:right; width:100px;">
                                 Name:
                             </td>
                             <td class="content_white" style="text-align:left;">
-                            	<input type="text" style="width:100%;" value="My Namespace" />
-                            </td>
-                            <td class="content_grey" style="font-weight:bold; text-align:right; width:230px;">
-                                Type:
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                            	<select style="width:100%;">
-                                    <option value="0">select</option>
-                                    <option value="1" selected="selected">Notification</option>
-                                    <option value="2">Routing</option>
-                                    <option value="3">Validation</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_grey" style="font-weight:bold; text-align:right;">
-                                Data Types:
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                            	<input type="text" style="width:100%;" value="" />
-                            </td>
-                            <td class="content_grey" style="font-weight:bold; text-align:right;">
-                                Some Other Namespace Thingy:
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                            	<input type="text" style="width:100%;" value="" />
+                                
+                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; text-align:right;">
+                                            <input type="text" value="My Fabulous Dominion" style="width:100%;" />
+                                        </td>
+                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
                             </td>
                         </tr>
                     </table>
@@ -687,24 +673,24 @@
         	Agenda
         </td>
         <td class="midpanelhead3">
-        	<img id="control_panelcontent02" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
+        	<img id="control_panelcontent02" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none;" />
             <script type="text/javascript">
 				$(document).ready(function(){
 					// initial state
-						//$("#div_panelcontent01").hide(0);
+						$("#div_panelcontent02").hide(0);
 					// trigger
 						$("#control_panelcontent02").toggle(
-							function()
-							{
-								$("#div_panelcontent02").slideUp(200);
-								$("#control_panelcontent02").attr("src","../images/tinybutton-show.gif");
-								$("#control_panelcontent02").attr("alt","show");
-							},
 							function()
 							{
 								$("#div_panelcontent02").slideDown(400);
 								$("#control_panelcontent02").attr("src","../images/tinybutton-hide.gif");
 								$("#control_panelcontent02").attr("alt","hide");
+							},
+							function()
+							{
+								$("#div_panelcontent02").slideUp(200);
+								$("#control_panelcontent02").attr("src","../images/tinybutton-show.gif");
+								$("#control_panelcontent02").attr("alt","show");
 							}
 						);	
 				});
@@ -745,15 +731,33 @@
                                 Action
                             </td>
                         </tr>
-                        
                         <tr>
-                            <td rowspan="3" class="content_white" style="text-align:left;">
+                            <td class="content_white" style="text-align:left;">
                                 
                                 <div >
                                 	
                                     <!-- Section Controls -->
                                 	<div style="padding-bottom:5px;">
 										<table width="100%" cellpadding="0" cellspacing="0" class="subelement" style="border-top:solid 1px #939393;">
+                                            <tr>
+                                                <td class="content_grey" style="text-align:right;">
+                                                   Agenda:
+                                                </td>
+                                                <td colspan="3" class="content_white" style="text-align:center;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none; text-align:right;">
+                                                                <input type="text" value="" style="width:100%;" />
+                                                            </td>
+                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td class="content_grey" style="text-align:right;">
                                                    Nodes:
@@ -791,8 +795,7 @@
                                                     
                                                 </td>
                                             </tr>
-                                        </table> 
-                                        
+                                        </table>
                                     </div>
                                     
                                     <!-- List -->
@@ -947,7 +950,7 @@
                                 </div>
                                 
                             </td>
-                            <td rowspan="3" class="content_white" style="text-align:center;">
+                            <td class="content_white" style="text-align:center;">
                             	<img src="../images/tinybutton-update.gif" style="border:none; width:48px; height:15px;" alt="edit" title="Edit" type="image" onclick="alert('This would save changes')" />
                             </td>
                         </tr>
@@ -969,24 +972,24 @@
         	Rule Editor
         </td>
         <td class="midpanelhead3">
-        	<img id="control_panelcontent03" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
+        	<img id="control_panelcontent03" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none;" />
             <script type="text/javascript">
 				$(document).ready(function(){
 					// initial state
-						//$("#div_panelcontent01").hide(0);
+						$("#div_panelcontent03").hide(0);
 					// trigger
 						$("#control_panelcontent03").toggle(
-							function()
-							{
-								$("#div_panelcontent03").slideUp(200);
-								$("#control_panelcontent03").attr("src","../images/tinybutton-show.gif");
-								$("#control_panelcontent03").attr("alt","show");
-							},
 							function()
 							{
 								$("#div_panelcontent03").slideDown(400);
 								$("#control_panelcontent03").attr("src","../images/tinybutton-hide.gif");
 								$("#control_panelcontent03").attr("alt","hide");
+							},
+							function()
+							{
+								$("#div_panelcontent03").slideUp(200);
+								$("#control_panelcontent03").attr("src","../images/tinybutton-show.gif");
+								$("#control_panelcontent03").attr("alt","show");
 							}
 						);	
 				});
@@ -1477,8 +1480,8 @@
                                                         <input type="text" style="width:200px;" value="Notify Chairman and Manager(s)" />
                                                         <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
                                                         <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the term and name of the group.'); return false" style="border:none; vertical-align:middle;" alt="update" title="Update" type="image" />
+                                                        <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the term and its children.'); return false" style="border:none; vertical-align:middle;" alt="remove" title="Remove" type="image" />
                                                         <input src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would update the term and save the group for reuse.'); return false" style="border:none; vertical-align:middle;" alt="save" title="Save" type="image" />
-                                                        <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete this term and all child propositions. Confirmation would be required.'); return false" style="border:none; vertical-align:middle;" alt="delete" title="Delete" type="image" />
                                                     </div>
                                                 </div>
                                                 
@@ -1551,8 +1554,8 @@
                                                             <input type="text" style="width:200px;" value="Peter's Project" />
                                                             <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
                                                             <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the term and name of the group.'); return false" style="border:none; vertical-align:middle;" alt="update" title="Update" type="image" />
+                                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the term and its children.'); return false" style="border:none; vertical-align:middle;" alt="remove" title="Remove" type="image" />
                                                             <input src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would update the term and save the group for reuse.'); return false" style="border:none; vertical-align:middle;" alt="save" title="Save" type="image" />
-                                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete this term and all child propositions. Confirmation would be required.'); return false" style="border:none; vertical-align:middle;" alt="delete" title="Delete" type="image" />
                                                         </div>
                                                     </div>
                                                     
@@ -1672,8 +1675,8 @@
                                                             <input type="text" style="width:200px;" value="Bill's Project" />
                                                             <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
                                                             <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the term and name of the group.'); return false" style="border:none; vertical-align:middle;" alt="update" title="Update" type="image" />
+                                                            <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the term and its children.'); return false" style="border:none; vertical-align:middle;" alt="remove" title="Remove" type="image" />
                                                             <input src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would update the term and save the group for reuse.'); return false" style="border:none; vertical-align:middle;" alt="save" title="Save" type="image" />
-                                                            <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete this term and all child propositions. Confirmation would be required.'); return false" style="border:none; vertical-align:middle;" alt="delete" title="Delete" type="image" />
                                                         </div>
                                                     </div>
                                                     
