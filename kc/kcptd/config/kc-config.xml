@@ -12,7 +12,7 @@
 	<param name="datasource.password">ptd174kc</param>
 	<param name="datasource.ojb.platform">Oracle9i</param>
 
-	<!-- For Embedded Mode -->
+	<!-- For Embedded Mode 
 	<param name="rice.app.url">https://testdrive.kc.kuali.org/kr-ptd</param>
 
 	<param name="kim.runmode">embedded</param>
@@ -21,6 +21,7 @@
 	<param name="ken.runmode">embedded</param>
 	
 	<param name="dev.mode">false</param>
+	-->
 	
 	<!-- Rice Server DB -->
 	<!-- Will be the same as KC Client DB when running embedded mode -->
@@ -28,9 +29,6 @@
 	<param name="server.datasource.url">${datasource.url}</param>
 	<param name="server.datasource.username">KRPTD</param>
 	<param name="server.datasource.password">ptd174kr</param>
-	
-	<param name="rice.portal.links.showRiceServerConfig">true</param>
-	<param name="rice.portal.logout.redirectUrl">${rice.app.url}/logout.do</param>
 	
 	<!-- S2S Configuration -->
 	<param name="s2s.keystore.location">/home/tomcat/kuali/main/shared/test_kra_kuali_org-006046700.jks</param>
