@@ -402,11 +402,11 @@ Please place the jar file for this class in the lib directory and try again.
 		<antcall target="test-${import.torque.database}-connection" />
 	</target>
 
-	<target name="test-oracle-connection">
+	<target name="test-oracle-connection" depends="inittasks">
 		<sql driver="${import.torque.database.driver}" password="${import.torque.database.password}" url="${import.torque.database.url}" userid="${import.torque.database.user}" onerror="abort" classpathref="torque-classpath">SELECT dummy FROM dual</sql>
 	</target>
 
-	<target name="test-mysql-connection">
+	<target name="test-mysql-connection" depends="inittasks">
 		<sql driver="${import.torque.database.driver}" password="${import.torque.database.password}" url="${import.torque.database.url}" userid="${import.torque.database.user}" onerror="abort" classpathref="torque-classpath">SELECT 1</sql>
 	</target>
 
