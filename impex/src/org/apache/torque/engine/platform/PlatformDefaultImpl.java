@@ -31,6 +31,7 @@ import java.util.Map;
 
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
+import org.apache.torque.engine.database.model.TypeMap;
 
 
 /**
@@ -156,7 +157,25 @@ public class PlatformDefaultImpl implements Platform
 	public String getViewDefinition( Connection con, String schema, String viewName) {
 		throw new UnsupportedOperationException("getViewDefinition");
 	}
+	
+	public String getColumnDefaultValue( String columnType, String defValue ) {
+		defValue = defValue.trim();
+
+		if ( defValue.startsWith( "'" ) &&
+				defValue.endsWith( "'" ) ) {
+			defValue = defValue.substring( 1, defValue.length() - 1 );
+		}
+		
+		if ( defValue.equals( "NULL" ) ) {
+			defValue = "";
+		}
+		return defValue;
+	}
     
+	public String getTorqueColumnType( Integer jdbcType ) {
+		return TypeMap.getTorqueType( jdbcType ).getName();
+	}
+	
     /**
      * Retrieves a list of the columns composing the primary key for a given
      * table.
@@ -189,6 +208,24 @@ public class PlatformDefaultImpl implements Platform
         return pk;
     }
 	
+    protected List<String> getObjectsOfType( DatabaseMetaData dbMeta, String databaseSchema, String[] databaseEntityTypes ) throws SQLException {
+		List<String> objects = new ArrayList<String>();
+		ResultSet objectNames = null;
+		// these are the entity types we want from the database
+		try {
+			objectNames = dbMeta.getTables( null, databaseSchema, null, databaseEntityTypes );
+			while ( objectNames.next() ) {
+				String name = objectNames.getString( 3 );
+				objects.add( name );
+			}
+		} finally {
+			if ( objectNames != null ) {
+				objectNames.close();
+			}
+		}
+		return objects;
+    }
+    
     /**
 	 * Get all the table names in the current database that are not system
 	 * tables.
@@ -199,23 +236,24 @@ public class PlatformDefaultImpl implements Platform
 	 * @throws SQLException
 	 */
 	public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
-		System.out.println( "Getting table list..." );
-		List<String> tables = new ArrayList<String>();
-		ResultSet tableNames = null;
-		// these are the entity types we want from the database
-		String[] types = { "TABLE" }; // JHK: removed views from list
-		try {
-			tableNames = dbMeta.getTables( null, databaseSchema, null, types );
-			while ( tableNames.next() ) {
-				String name = tableNames.getString( 3 );
-				tables.add( name );
-			}
-		} finally {
-			if ( tableNames != null ) {
-				tableNames.close();
-			}
-		}
-		System.out.println( "Found " + tables.size() + " tables." );
-		return tables;
-	}	
+		return getObjectsOfType(dbMeta, databaseSchema, new String[] { "TABLE" } );
+	}
+
+	public List<String> getViewNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+		return getObjectsOfType(dbMeta, databaseSchema, new String[] { "VIEW" } );
+	}
+
+	public List<String> getSequenceNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+		return getObjectsOfType(dbMeta, databaseSchema, new String[] { "SEQUENCE" } );
+	}
+	
+	protected boolean isSequence( String sequenceName ) {
+		return sequenceName.toUpperCase().startsWith( "SEQ_" ) 
+				|| sequenceName.toUpperCase().startsWith( "SEQUENCE_" ) 
+				|| sequenceName.toUpperCase().endsWith( "_SEQ" ) 
+				|| sequenceName.toUpperCase().endsWith( "_SEQUENCE" )
+				|| sequenceName.toUpperCase().endsWith( "_ID" )
+				|| sequenceName.toUpperCase().endsWith( "_S" ) ;
+	}
+	
 }

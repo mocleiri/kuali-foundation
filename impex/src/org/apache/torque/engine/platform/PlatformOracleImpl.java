@@ -24,6 +24,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.torque.engine.database.model.Domain;
@@ -93,13 +94,27 @@ public class PlatformOracleImpl extends PlatformDefaultImpl
         return "";
     }
 
+    protected boolean isSpecialTable( String tableName ) {
+    	return tableName.contains( "$" );
+    }
+    
     @Override
     public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException {
     	return super.getPrimaryKeys( dbMeta, dbSchema.toUpperCase(), tableName );
     }
-    
+
+    @Override
     public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
-    	return super.getTableNames( dbMeta, databaseSchema.toUpperCase() );
+		List<String> tables = super.getTableNames(dbMeta, databaseSchema);
+		// filter out special tables
+		Iterator<String> tableIterator = tables.iterator();
+		while ( tableIterator.hasNext() ) {
+			String tableName = tableIterator.next();
+			if ( isSpecialTable(tableName) ) { 
+				tableIterator.remove();
+			}
+		}
+		return tables;
     }
     
 	@Override
@@ -154,6 +169,5 @@ public class PlatformOracleImpl extends PlatformDefaultImpl
 			return "";
 		}
 	}
-
 
 }

@@ -20,9 +20,13 @@ package org.apache.torque.engine.platform;
  */
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
@@ -52,6 +56,7 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl
         setSchemaDomainMapping(new Domain(SchemaType.NUMERIC, "DECIMAL"));
         setSchemaDomainMapping(new Domain(SchemaType.LONGVARCHAR, "MEDIUMTEXT"));
         setSchemaDomainMapping(new Domain(SchemaType.DATE, "DATETIME"));
+        setSchemaDomainMapping(new Domain(SchemaType.TIMESTAMP, "DATETIME"));
         setSchemaDomainMapping(new Domain(SchemaType.BINARY, "BLOB"));
         setSchemaDomainMapping(new Domain(SchemaType.VARBINARY, "MEDIUMBLOB"));
         setSchemaDomainMapping(new Domain(SchemaType.LONGVARBINARY, "LONGBLOB"));
@@ -89,6 +94,21 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl
 		return defaultValue;
 	}
 
+	@Override
+	public List<String> getTableNames(DatabaseMetaData dbMeta,
+			String databaseSchema) throws SQLException {
+		List<String> tables = super.getTableNames(dbMeta, databaseSchema);
+		// filter out sequences
+		Iterator<String> tableIterator = tables.iterator();
+		while ( tableIterator.hasNext() ) {
+			String tableName = tableIterator.next();
+			if ( isSequence(tableName) ) { 
+				tableIterator.remove();
+			}
+		}
+		return tables;
+	}
+	
 	@Override
 	public Long getSequenceNextVal(Connection con, String schema, String sequenceName) {
 		try {
@@ -132,4 +152,58 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl
 		}
 	}
 	
+	public List<String> getSequenceNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+		List<String> tables = getTableNames(dbMeta, databaseSchema);
+		// filter out tables
+		Iterator<String> tableIterator = tables.iterator();
+		while ( tableIterator.hasNext() ) {
+			String tableName = tableIterator.next();
+			if ( !isSequence(tableName.toUpperCase()) ) { 
+				tableIterator.remove();
+			}
+		}
+		return tables;
+	}
+	
+	@Override
+	public String getTorqueColumnType(Integer jdbcType) {
+		if ( jdbcType == Types.TIMESTAMP ) {
+			return "DATE";
+		}
+		if ( jdbcType == Types.LONGVARCHAR ) {
+			return "CLOB";
+		}
+		if ( jdbcType == Types.LONGVARBINARY ) {
+			return "BLOB";
+		}
+		return super.getTorqueColumnType(jdbcType);
+	}
+	
+	@Override
+	public String getColumnDefaultValue(String columnType, String defValue) {
+		defValue = super.getColumnDefaultValue(columnType, defValue);
+		if ( defValue.equals("0") ) {
+			if ( columnType.equals( "NUMERIC" ) 
+					|| columnType.equals( "DECIMAL" )
+					|| columnType.equals( "TINYINT" )
+					|| columnType.equals( "SMALLINT" )
+					|| columnType.equals( "INTEGER" )
+					|| columnType.equals( "REAL" )
+					|| columnType.equals( "DOUBLE" )
+					|| columnType.equals( "FLOAT" )
+					|| columnType.equals( "BIGINT" )
+					) {
+				defValue = "";
+			}
+		}
+		if ( defValue.startsWith( "0000-" ) ) {
+			if ( columnType.equals( "DATE" ) 
+					|| columnType.equals( "DATETIME" )
+					|| columnType.equals( "TIMESTAMP" )
+					) {
+				defValue = "";
+			}
+		}
+		return defValue;
+	}
 }

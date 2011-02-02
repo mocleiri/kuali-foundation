@@ -102,13 +102,20 @@ public interface Platform
     
     String filterInvalidDefaultValues( String defaultValue );
     
-	public boolean isSpecialDefault( String defaultValue );
+	boolean isSpecialDefault( String defaultValue );
     
 	String getViewDefinition( Connection con, String schema, String viewName);
 	
 	Long getSequenceNextVal( Connection con, String schema, String sequenceName );
 
-	public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException;
+	List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException;
 	
-	public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;
+	List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;
+	
+	List<String> getSequenceNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;	
+
+	List<String> getViewNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;
+	
+	String getColumnDefaultValue( String columnType, String defValue );
+	String getTorqueColumnType( Integer jdbcType );
 }

@@ -987,11 +987,6 @@ END;
 		</sql>
 	</target>
 
-	<target name="update-data-import-jar">
-		<ant dir="${data.impex.project.dir}" target="jar" />
-		<copy file="${data.impex.project.dir}/kfs_data_export.jar" todir="lib" overwrite="true"/>
-	</target>
-
 	<target name="setup-app-user" depends="inittasks">
 		<!--
 			Run as table owner user
