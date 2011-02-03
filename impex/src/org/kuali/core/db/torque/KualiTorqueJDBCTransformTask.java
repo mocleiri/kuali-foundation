@@ -22,7 +22,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
-import org.apache.torque.engine.database.model.TypeMap;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.apache.xerces.dom.DocumentImpl;
@@ -144,6 +143,18 @@ public class KualiTorqueJDBCTransformTask extends Task {
         log("Torque - JDBCToXMLSchema finished");
     }
 
+    protected List<String> upperCaseList( List<String> sourceList ) {
+    	ArrayList<String> newList = new ArrayList<String>( sourceList.size() );
+    	for ( String item : sourceList ) {
+    		if ( item != null ) {
+    			newList.add( item.toUpperCase() );
+    		} else {
+    			newList.add( null );
+    		}
+    	}
+    	return newList;
+    }
+    
 	/**
 	 * Generates an XML database schema from JDBC metadata.
 	 * 
@@ -177,6 +188,8 @@ public class KualiTorqueJDBCTransformTask extends Task {
 
 			if ( processTables ) {
 				List<String> tableList = platform.getTableNames( dbMetaData, dbSchema );
+				// ensure all are upper case before exporting
+				tableList = upperCaseList(tableList);
 				// ensure sorting is consistent (not DB-dependent)
 				Collections.sort(tableList);
 				for ( String curTable : tableList ) {
@@ -234,11 +247,10 @@ public class KualiTorqueJDBCTransformTask extends Task {
 						//							TypeMap.getTorqueType( type ).getName() );
 	
 						if ( size > 0 &&
-								(jdbcType.intValue() == Types.CHAR ||
-										jdbcType.intValue() == Types.VARCHAR ||
-										jdbcType.intValue() == Types.LONGVARCHAR ||
-										jdbcType.intValue() == Types.DECIMAL || jdbcType
-										.intValue() == Types.NUMERIC) ) {
+								(jdbcType.intValue() == Types.CHAR
+								|| jdbcType.intValue() == Types.VARCHAR
+								|| jdbcType.intValue() == Types.DECIMAL 
+								|| jdbcType.intValue() == Types.NUMERIC) ) {
 							column.setAttribute( "size", String.valueOf( size ) );
 						}
 	
@@ -325,6 +337,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
 				log( "Getting view list..." );
 				List<String> viewNames = platform.getViewNames( dbMetaData, dbSchema );
 				log( "Found " + viewNames.size() + " views." );
+				viewNames = upperCaseList(viewNames);
 				Collections.sort( viewNames );
 				for ( String viewName : viewNames ) {
 					if ( !tableNameRegexPattern.matcher( viewName ).matches() ) {
@@ -348,6 +361,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
 				log( "Getting sequence list..." );
 				List<String> sequenceNames = platform.getSequenceNames( dbMetaData, dbSchema );
 				log( "Found " + sequenceNames.size() + " sequences." );
+				sequenceNames = upperCaseList(sequenceNames);
 				Collections.sort( sequenceNames );
 				for ( String sequenceName : sequenceNames ) {
 					if ( !tableNameRegexPattern.matcher( sequenceName ).matches() ) {

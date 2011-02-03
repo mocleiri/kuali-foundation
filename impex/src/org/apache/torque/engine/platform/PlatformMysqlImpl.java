@@ -153,12 +153,12 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl
 	}
 	
 	public List<String> getSequenceNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
-		List<String> tables = getTableNames(dbMeta, databaseSchema);
+		List<String> tables = super.getTableNames(dbMeta, databaseSchema);
 		// filter out tables
 		Iterator<String> tableIterator = tables.iterator();
 		while ( tableIterator.hasNext() ) {
 			String tableName = tableIterator.next();
-			if ( !isSequence(tableName.toUpperCase()) ) { 
+			if ( !isSequence(tableName) ) { 
 				tableIterator.remove();
 			}
 		}
