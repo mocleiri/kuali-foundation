@@ -540,7 +540,7 @@
             <!-- INACTIVE -->
                 <td class="tabactive1">&nbsp;</td>
                 <td class="tabactive2">
-                    <button type="submit" name="presentation" value="presentation" alt="Questionnaire Preview" onClick="window.location='namespaceeditor.html'">Context Editor</button>
+                    <button type="submit" name="presentation" value="presentation" alt="Context View" onClick="window.location='namespaceeditor.html'">Context View</button>
                 </td>
                 <td class="tabactive3">&nbsp;</td>
             <!-- INACTIVE -->
@@ -568,7 +568,8 @@
 </div>
 
 <!-- BEGIN PANEL CONTAINER -->
-<table class="panelcontainer" cellspacing="20"><tr><td>
+<form name="form" id="form" method="post" action="">
+<table class="panelcontainer" cellspacing="20"><tr><td> 
 
 <!-- GLOBAL NAVIGATION CONTROLS -->
 <div class="globalnav">
@@ -577,99 +578,44 @@
     <img src="../images/tinybutton-collapseall.gif" alt="collapse all" />
 </div>
 
-<form name="questionnaireform" id="questionnaireform" method="post" action=""> 
+<!-- CONTROL PANEL ("Bubble") -->
+<table class="controlpaneltable">
+    <tr>
+        <td class="controlpanel1">&nbsp;</td>
+        <td class="controlpanel2">
+            Context
+        </td>
+        <td class="controlpanel3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td class="controlpanel4">&nbsp;</td>
+        <td class="controlpanel5">
+        
+            <div class="annotate-container" style="width:350px; margin:auto;">
+                <b>Name:</b>
+                <input type="text" value="My Fabulous Dominion" style="width:250px;" />
+                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+            </div>
+            
+        </td>
+        <td class="controlpanel6">&nbsp;</td>
+    </tr>
+    <tr>
+        <td class="controlpanel7">&nbsp;</td>
+        <td class="controlpanel8">&nbsp;</td>
+        <td class="controlpanel9">&nbsp;</td>
+    </tr>
+</table>
 
-<!-- TOP PANEL HEADL: Context -->
+<!-- TOP PANEL HEAD: Agendas -->
 <table class="paneltable">
     <tr>
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
-            Context
+            Agendas
         </td>
         <td class="toppanelhead3">
-            <img id="control_panelcontent01" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none;" />
-            <script type="text/javascript">
-				$(document).ready(function(){
-					// initial state
-						$("#div_panelcontent01").hide(0);
-					// trigger
-						$("#control_panelcontent01").toggle(
-							function()
-							{
-								$("#div_panelcontent01").slideDown(400);
-								$("#control_panelcontent01").attr("src","../images/tinybutton-hide.gif");
-								$("#control_panelcontent01").attr("alt","hide");
-							},
-							function()
-							{
-								$("#div_panelcontent01").slideUp(200);
-								$("#control_panelcontent01").attr("src","../images/tinybutton-show.gif");
-								$("#control_panelcontent01").attr("alt","show");
-							}
-						);	
-				});
-			</script>
-        </td>
-        <td class="toppanelhead4">&nbsp;</td>
-        <td class="toppanelhead5">&nbsp;</td>
-    </tr>
-</table>
-         
-<!-- PANEL CONTENT: Context -->
-<div id="div_panelcontent01">
-    <table class="paneltable">
-        <tr>
-            <td class="panelcontent1">&nbsp;</td>
-            <td class="panelcontent2" colspan="3">
-            
-            	<table class="elementhead_table">
-                    <tr>
-                        <th class="elementhead_left">
-                            <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
-                            My Fabulous Dominion
-                        </th>
-                        <th class="elementhead_right">
-                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
-                        </th>
-                    </tr>
-                </table>
-                <table class="content_table">  
-                   <tr>
-                        <td class="content_grey" style="text-align:right; width:100px;">
-                            Name:
-                        </td>
-                        <td class="content_white" style="text-align:left;">
-                        	
-                            <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td style="border:none; background:none; text-align:right;">
-                                        <input type="text" value="My Fabulous Dominion" style="width:100%;" />
-                                    </td>
-                                    <td style="border:none; width:20px; vertical-align:top; background:none;">
-                                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                        </td>
-                    </tr>
-                </table>
-                
-            </td> 
-            <td class="panelcontent3">&nbsp;</td>
-        </tr>
-    </table>
-</div>
-
-<!-- MID PANEL HEAD: Agendas -->
-<table class="paneltable">
-    <tr>
-        <td class="midpanelhead1">&nbsp;</td>
-        <td class="midpanelhead2">
-        	Agendas
-        </td>
-        <td class="midpanelhead3">
-        	<img id="control_panelcontent02" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none;" />
+            <img id="control_panelcontent02" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none;" />
             <script type="text/javascript">
 				$(document).ready(function(){
 					// initial state
@@ -692,8 +638,8 @@
 				});
 			</script>
         </td>
-        <td class="midpanelhead4">&nbsp;</td>
-        <td class="midpanelhead5">&nbsp;</td>
+        <td class="toppanelhead4">&nbsp;</td>
+        <td class="toppanelhead5">&nbsp;</td>
     </tr>
 </table>
 
@@ -717,8 +663,27 @@
                 </table>
                 <table class="content_table">  
                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            1
+                        </td>
                         <td class="content_white" style="text-align:left;">
-                            [list agendas here]
+                            Agenda Number One
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            2
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                            A Second Agenda
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            3
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                            Agenda The Third
                         </td>
                     </tr>
                 </table>
@@ -785,8 +750,27 @@
                 </table>
                 <table class="content_table">  
                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            1
+                        </td>
                         <td class="content_white" style="text-align:left;">
-                            [list rules here]
+                            Rule A
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            2
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                            Rule B
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            3
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                            Rule C
                         </td>
                     </tr>
                 </table>
@@ -853,10 +837,173 @@
                 </table>
                 <table class="content_table">  
                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            1
+                        </td>
                         <td class="content_white" style="text-align:left;">
-                            [list terms here]
+                            Proposal ID
                         </td>
                     </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            2
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                            Budget ID
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            3
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                            Budget Version Status
+                        </td>
+                    </tr>
+                </table>
+                
+            </td> 
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+<!-- MID PANEL HEAD: Functions -->
+<table class="paneltable">
+    <tr>
+        <td class="midpanelhead1">&nbsp;</td>
+        <td class="midpanelhead2">
+        	Functions
+        </td>
+        <td class="midpanelhead3">
+        	<img id="control_panelcontent045" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none;" />
+            <script type="text/javascript">
+				$(document).ready(function(){
+					// initial state
+						$("#div_panelcontent045").hide(0);
+					// trigger
+						$("#control_panelcontent045").toggle(
+							function()
+							{
+								$("#div_panelcontent045").slideDown(400);
+								$("#control_panelcontent045").attr("src","../images/tinybutton-hide.gif");
+								$("#control_panelcontent045").attr("alt","hide");
+							},
+							function()
+							{
+								$("#div_panelcontent045").slideUp(200);
+								$("#control_panelcontent045").attr("src","../images/tinybutton-show.gif");
+								$("#control_panelcontent045").attr("alt","show");
+							}
+						);	
+				});
+			</script>
+        </td>
+        <td class="midpanelhead4">&nbsp;</td>
+        <td class="midpanelhead5">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- PANEL CONTENT: Functions -->
+<div id="div_panelcontent045">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+            
+            	<table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                            Functions
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                <table class="content_table">  
+                   
+                   <tr>
+                        <td rowspan="4" class="content_grey" style="text-align:center; width:30px;">
+                            1
+                        </td>
+                        <td rowspan="4" class="content_white" style="text-align:left;">
+                            GetProposalBudgetValue()
+                        </td>
+                        <td class="content_grey" style="text-align:left;">
+                        	Parameters
+                        </td>
+                        <td class="content_grey" style="text-align:left;">
+                        	Default Term or Value
+                        </td>
+                        <td class="content_grey" style="text-align:left;">
+                        	Valid Values
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_white" style="text-align:left;">
+                        	Proposal ID
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                        	&lt;Term: Proposal ID&gt;
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                        	Lookup: Proposals (return ID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_white" style="text-align:left;">
+                        	Budget ID
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                        	&lt;Budget ID&gt;
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                        	
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_white" style="text-align:left;">
+                        	FinalBudgetVersion
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                        	&lt;True&gt;
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                        	True or False
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td rowspan="2" class="content_grey" style="text-align:center; width:30px;">
+                            2
+                        </td>
+                        <td rowspan="2" class="content_white" style="text-align:left;">
+                            GetProposalSecretCode()
+                        </td>
+                        <td class="content_grey" style="text-align:left;">
+                        	Parameters
+                        </td>
+                        <td class="content_grey" style="text-align:left;">
+                        	Default Term or Value
+                        </td>
+                        <td class="content_grey" style="text-align:left;">
+                        	Valid Values
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_white" style="text-align:left;">
+                        	Proposal ID
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                        	&lt;Term: Proposal ID&gt;
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                        	Lookup: Proposals (return ID)
+                        </td>
+                    </tr>
+                    
                 </table>
                 
             </td> 
@@ -921,8 +1068,95 @@
                 </table>
                 <table class="content_table">  
                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            1
+                        </td>
                         <td class="content_white" style="text-align:left;">
-                            [list actions here]
+                            Do this thing.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            2
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                            Do that thing.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content_grey" style="text-align:center; width:30px;">
+                            3
+                        </td>
+                        <td class="content_white" style="text-align:left;">
+                            Do both things.
+                        </td>
+                    </tr>
+                </table>
+                
+            </td> 
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+<!-- MID PANEL HEAD: Events -->
+<table class="paneltable">
+    <tr>
+        <td class="midpanelhead1">&nbsp;</td>
+        <td class="midpanelhead2">
+        	Events
+        </td>
+        <td class="midpanelhead3">
+        	<img id="control_panelcontent055" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none;" />
+            <script type="text/javascript">
+				$(document).ready(function(){
+					// initial state
+						$("#div_panelcontent055").hide(0);
+					// trigger
+						$("#control_panelcontent055").toggle(
+							function()
+							{
+								$("#div_panelcontent055").slideDown(400);
+								$("#control_panelcontent055").attr("src","../images/tinybutton-hide.gif");
+								$("#control_panelcontent055").attr("alt","hide");
+							},
+							function()
+							{
+								$("#div_panelcontent055").slideUp(200);
+								$("#control_panelcontent055").attr("src","../images/tinybutton-show.gif");
+								$("#control_panelcontent055").attr("alt","show");
+							}
+						);	
+				});
+			</script>
+        </td>
+        <td class="midpanelhead4">&nbsp;</td>
+        <td class="midpanelhead5">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- PANEL CONTENT: Events -->
+<div id="div_panelcontent055">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+            
+            	<table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                            Events
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                <table class="content_table">  
+                   <tr>
+                        <td class="content_white" style="text-align:left;">
+                            [list events here]
                         </td>
                     </tr>
                 </table>
@@ -957,7 +1191,6 @@
 
 <!-- END PANEL CONTAINER -->
 </td></tr></table>
-
 </form>
 
 <!-- DOCUMENT FOOT -->

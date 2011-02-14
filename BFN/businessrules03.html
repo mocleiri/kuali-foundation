@@ -540,7 +540,7 @@
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" name="presentation" value="presentation" alt="Questionnaire Preview" onClick="window.location='namespaceeditor.html'">Context Editor</button>
+                    <button type="submit" name="presentation" value="presentation" alt="Context View" onClick="window.location='namespaceeditor.html'">Context View</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
@@ -568,6 +568,7 @@
 </div>
 
 <!-- BEGIN PANEL CONTAINER -->
+<form name="form" id="form" method="post" action=""> 
 <table class="panelcontainer" cellspacing="20"><tr><td>
 
 <!-- GLOBAL NAVIGATION CONTROLS -->
@@ -577,9 +578,7 @@
     <img src="../images/tinybutton-collapseall.gif" alt="collapse all" />
 </div>
 
-<form name="questionnaireform" id="questionnaireform" method="post" action=""> 
-
-<!-- CONTROL PANEL -->
+<!-- CONTROL PANEL ("Bubble") -->
 <table class="controlpaneltable">
     <tr>
         <td class="controlpanel1">&nbsp;</td>
@@ -790,6 +789,42 @@
                                             </tr>
                                             <tr>
                                                 <td class="content_grey" style="text-align:right;">
+                                                   Active Date:
+                                                </td>
+                                                <td class="content_white" style="text-align:center;">
+                                                    
+                                                    <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none; text-align:right;">
+                                                                <input type="text" value="31/12/2009" style="width:80px;" />
+                                                            </td>
+                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                                <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                
+                                                </td>
+                                                <td class="content_grey" style="text-align:right;">
+                                                    Inactive Date:
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    
+                                                    <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none; text-align:right;">
+                                                                <input type="text" value="31/12/2010" style="width:80px;" />
+                                                            </td>
+                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                                <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:right;">
                                                    Nodes:
                                                 </td>
                                                 <td class="content_white" style="text-align:center;">
@@ -800,12 +835,12 @@
                                                     &nbsp;&nbsp;&nbsp;&nbsp;<input src="../images/tinybutton-refresh.gif" onclick="javascript: alert('This would refresh the hierarchies for non-script browsers.'); return false;" style="border:none;" alt="refresh" title="Refresh" type="image" />
                                                 </td>
                                                 <td class="content_grey" style="text-align:right;">
-                                                    Add:
+                                                    New Node(s):
                                                 </td>
                                                 <td class="content_white" style="text-align:left;">
                                                     <select>
-                                                    	<option>rule(s)</option>
-                                                        <option>subagenda(s)</option>
+                                                    	<option>add rule(s)</option>
+                                                        <option>insert agenda(s)</option>
                                                     </select>
                                                     <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the lookup dialog.  Search could be made.  Multiple returns would be allowed.  Results would be added as root-level questions at the end of this hierarchy.'); return false;" align="top" alt="search " title="Search " style="border:none;" type="image" />
                                                 </td>
@@ -853,12 +888,12 @@
                                                                                     <i>none</i>
                                                                                     
                                                                                 </td>
-                                                                                <th style="text-align:right;">Add:</th>
+                                                                                <th style="text-align:right;">New Node(s):</th>
                                                                                 <td style="text-align:left;">
                                                                                     
                                                                                     <select>
-                                                                                        <option>rule(s)</option>
-                                                                                        <option>subagenda(s)</option>
+                                                                                        <option>add rule(s)</option>
+                                                                                        <option>insert agenda(s)</option>
                                                                                     </select>
                                                                                     <select>
                                                                                         <option>as sibling</option>
@@ -877,6 +912,73 @@
                                                     </div>
                                                 </div>
                                                 
+                                                </li>
+                                                <li>
+                                                    
+                                                    <div>
+                                                        <a id="listcontrol04" style="margin-left:2px;">[Next] <span style='padding:2px;; border:1px solid #999; background-color:#eeeeee;'>"Agenda K"</span></a>
+                                                        <div class="hierarchydetail" id="listcontent04" style="margin-top:5px;">
+                                                            <table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="subelementheader" align="left">
+                                                                            <input src="./images/tinybutton-explode.gif" onclick="javascript: alert('This would explode this agenda into the rules and agendas which comprise it.'); return false;" style="border:none; padding:2px; vertical-align:middle;" alt="explode" title="Explode" type="image" /> "Agenda K"
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="subelementcontent">
+                                                                            
+                                                                            <table cellpadding="0" cellspacing="0" class="elementtable" width="100%">
+                                                                                <tr>
+                                                                                    <th style="text-align:right; width:75px;">Node:</th>
+                                                                                    <td colspan="3">
+                                                                                        <!--<input name="x" src="../images/arrow-up.gif" onclick="javascript: alert('This would move this node and its children up within its sibling group.'); return false;" style="border:none;" alt="move up" title="Move Up" type="image" />-->
+                                                                                        <input src="../images/arrow-down.gif" onclick="javascript: alert('This would move this node and its children down within its sibling group.'); return false;" style="border:none;" alt="move down" title="Move Down" type="image" />
+                                                                                        <input src="../images/tinybutton-removenode.gif" onclick="javascript: alert('This would ask for confirmation before removing this node and its children.'); return false;" style="border:none;" alt="remove node" title="Remove Node" type="image" />
+                                                                                        <input src="../images/tinybutton-cutnode.gif" onclick="javascript: alert('This would cut this node and its children.  Node would not be removed until you paste it.'); return false;" style="border:none;" alt="cut node" title="Cut Node" type="image" />
+                                                                                        <input src="../images/tinybutton-copynode.gif" onclick="javascript: alert('This would copy this node and its children.'); return false;" style="border:none;" alt="copy node" title="Copy Node" type="image" />
+                                                                                        <input src="../images/tinybutton-pastenode.gif" onclick="javascript: alert('This would paste your previously copied or cut node and its children under this node.'); return false;" style="border:none;" alt="paste node" title="Paste Node" type="image" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th style="text-align:right;">Evaluate:</th>
+                                                                                    <td style="text-align:left; width:150px;">
+                                                                                        
+                                                                                        <select name="CustomData">
+                                                                                            <option value="0">select</option>
+                                                                                            <option value="1" selected="selected">Next</option>
+                                                                                            <option value="2">Previous is True</option>
+                                                                                            <option value="3">Previous is False</option>
+                                                                                        </select>
+                                                                                        
+                                                                                    </td>
+                                                                                    <th style="text-align:right;">Name:</th>
+                                                                                    <td style="text-align:left;">
+                                                                                        
+                                                                                        <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                                                            <tr>
+                                                                                                <td style="border:none; background:none; text-align:right;">
+                                                                                                    <input type="text" value="Agenda K" style="width:100%;" />
+                                                                                                </td>
+                                                                                                <td style="width:60px; border:none; background:none; text-align:center;">
+                                                                                                    <input src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would collapse and save the node and its children as a named agenda for reuse in another agenda.'); return false" align="top" alt="save " title="Save " style="border:none;" type="image" />
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                        
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                    
+                                                                        </td> 
+                                                                    </tr> 
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    
                                                 </li>
                                                 <li class="closed">
                                                 	
@@ -909,6 +1011,23 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
+                                                                                    <th style="text-align:right; width:75px;">Save As:</th>
+                                                                                    <td colspan="3">
+                                                                                        
+                                                                                    	<table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                                                            <tr>
+                                                                                                <td style="border:none; background:none; text-align:right;">
+                                                                                                    <input type="text" value="" style="width:100%;" />
+                                                                                                </td>
+                                                                                                <td style="width:60px; border:none; background:none; text-align:center;">
+                                                                                                    <input src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would collapse and save the node and its children as a named agenda for reuse in another agenda.'); return false" align="top" alt="save " title="Save " style="border:none;" type="image" />
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                        
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
                                                                                     <th style="text-align:right;">Evaluate:</th>
                                                                                     <td style="text-align:left; width:150px;">
                                                                                         
@@ -920,12 +1039,12 @@
                                                                                         </select>
                                                                                         
                                                                                     </td>
-                                                                                    <th style="text-align:right;">Add:</th>
+                                                                                    <th style="text-align:right;">New Node(s):</th>
                                                                                     <td style="text-align:left;">
                                                                                     
                                                                                         <select>
-                                                                                            <option>rule(s)</option>
-                                                                                            <option>subagenda(s)</option>
+                                                                                            <option>add rule(s)</option>
+                                                                                            <option>insert agenda(s)</option>
                                                                                         </select>
                                                                                         <select>
                                                                                             <option>as sibling</option>
@@ -953,7 +1072,6 @@
                                                         <li>[False] Rule D</li>
                                                     </ul>
                                                 </li>
-                                                <li>[Next] Rule K</li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -1273,7 +1391,7 @@
                                 <td class="content_grey" style="text-align:right; width:100px;">
                                     Label:
                                 </td>
-                                <td class="content_white" style="text-align:left;">
+                                <td colspan="3" class="content_white" style="text-align:left;">
                                     <input type="text" style="width:100%;" value="My First Rule" />
                                 </td>
                                 <td class="content_grey" style="text-align:right; width:100px;">
@@ -1282,7 +1400,9 @@
                                 <td class="content_white" style="text-align:left;">
                                     Notification
                                 </td>
-                                <td class="content_grey" style="text-align:right; width:100px;">
+                            </tr>
+                            <tr>
+                                <td class="content_grey" style="text-align:right;">
                                     Action:
                                 </td>
                                 <td class="content_white" style="text-align:left;">
@@ -1294,6 +1414,40 @@
                                             </td>
                                             <td style="border:none; width:20px; vertical-align:top; background:none;">
                                                 <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                </td>
+                                <td class="content_grey" style="text-align:right; width:100px;">
+                                    Active Date:
+                                </td>
+                                <td class="content_white" style="text-align:left; width:125px;">
+                                   
+                                   	<table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none; text-align:right;">
+                                                <input type="text" value="31/12/2009" style="width:80px;" />
+                                            </td>
+                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                   
+                                </td>
+                                <td class="content_grey" style="text-align:right; width:100px;">
+                                    Inactive Date:
+                                </td>
+                                <td class="content_white" style="text-align:left; width:125px;">
+                                   
+                                   	<table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none; text-align:right;">
+                                                <input type="text" value="31/12/2010" style="width:80px;" />
+                                            </td>
+                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
                                             </td>
                                         </tr>
                                     </table>
@@ -1426,33 +1580,407 @@
                                                 </script>
                                                 
                                                 <img src="../images/pencil_add.png" style="border:none; width:16px height:16px;" alt="edit" class="editbutton" /> T=4
+                                                
                                                 <div class="div_editbutton">
-                                                    <input type="text" style="width:150px;" value="T" />
-                                                    <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; vertical-align:middle;" type="image" />
-                                                    <select>
-                                                        <option value="1">Contains text value</option>
-                                                        <option value="2">Matches text</option>
-                                                        <option value="3">Less than number</option>
-                                                        <option value="4">Less than or equals number</option>
-                                                        <option value="5" selected="selected">Equals number</option>
-                                                        <option value="6">Greater than or equals number</option>
-                                                        <option value="7">Greater than number</option>
-                                                        <option value="8">Before date</option>
-                                                        <option value="9">After date</option>
+                                                    
+                                                    <select id="control_proptype01">
+                                                        <option value="1" selected="selected">Proposition</option>
+                                                        <option value="2">Custom Function</option>
                                                     </select>
-                                                    <input type="text" style="width:150px;" value="4" />
-                                                    <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; vertical-align:middle;" type="image" />
-                                                    <select>
-                                                        <option value="0" selected="selected">(empty)</option>
-                                                        <option value="1">and</option>
-                                                        <option value="2">or</option>
-                                                        <option value="3">and group</option>
-                                                        <option value="4">or group</option>
-                                                        <option value="5">replace node with saved condition</option>
-                                                        <option value="6">or saved condition</option>
-                                                        <option value="7">and saved condition</option>
-                                                    </select>
-                                                    <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the proposition.'); return false" style="border:none; vertical-align:middle;" alt="update" title="Update" type="image" />
+                                                    <script type="text/javascript">
+														$(document).ready(function(){
+															// initial state
+																whichproptype01();
+															// trigger
+																$("#control_proptype01").change(
+																	function()
+																	{
+																		whichproptype01();
+																	}
+																);
+															// function
+																function whichproptype01()
+																{
+																	var $ndx=$('#control_proptype01')[0].selectedIndex; 
+																	if($ndx>0)
+																	{
+																		$("#div_proptype01A").slideUp(200);
+																		$("#div_proptype01B").slideDown(400);
+																	}else{ 
+																		$("#div_proptype01B").slideUp(200);
+																		$("#div_proptype01A").slideDown(400);
+																	}
+																		
+																}
+														});
+													</script>
+                                                    
+                                                    <div id="div_proptype01A">
+                                                        <input type="text" style="width:150px;" value="T" />
+                                                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; vertical-align:middle;" type="image" />
+                                                        <select>
+                                                            <option value="1">Contains text value</option>
+                                                            <option value="2">Matches text</option>
+                                                            <option value="3">Less than number</option>
+                                                            <option value="4">Less than or equals number</option>
+                                                            <option value="5" selected="selected">Equals number</option>
+                                                            <option value="6">Greater than or equals number</option>
+                                                            <option value="7">Greater than number</option>
+                                                            <option value="8">Before date</option>
+                                                            <option value="9">After date</option>
+                                                        </select>
+                                                        <input type="text" style="width:150px;" value="4" />
+                                                        <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; vertical-align:middle;" type="image" />
+                                                        <select>
+                                                            <option value="0" selected="selected">(empty)</option>
+                                                            <option value="1">and</option>
+                                                            <option value="2">or</option>
+                                                            <option value="3">and group</option>
+                                                            <option value="4">or group</option>
+                                                            <option value="5">replace node with saved condition</option>
+                                                            <option value="6">or saved condition</option>
+                                                            <option value="7">and saved condition</option>
+                                                        </select>
+                                                        <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the proposition.'); return false" style="border:none; vertical-align:middle;" alt="update" title="Update" type="image" />
+                                               		</div>
+                                                    
+                                                    <div id="div_proptype01B">
+                                                        
+                                                        <div style="margin-top:2px;">
+                                                            <table width="100%" cellpadding="0" cellspacing="0" class="subelement">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th colspan="2" class="subelementheader" align="left" style="padding:3px; border-right:1px solid #999;">
+                                                                            <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the proposition.'); return false" style="border:none; vertical-align:middle;" alt="update" title="Update" type="image" />
+                                                                            Custom Function
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th style="text-align:right; width:50px; background-color:#C3C3C3; border-left:1px solid #999; padding-right:3px;">Name:</th>
+                                                                        <td style="padding:2px; border-right:1px solid #999;">
+                                                                            <input type="text" style="width:99%; margin-left:3px; margin-right:3px;" value="Color The World Happy" />
+                                                                        </td>
+                                                                    </tr>
+                                                                        <td colspan="2" class="subelementcontent">
+                                                                            
+                                                                            
+                                                                            <div style="text-align:left; background-color:#C3C3C3; font-weight:bold; padding:4px; border:1px solid #999; border-bottom:none;">
+                                                                            	Conditions
+                                                                            </div>
+                                                                            <table class="elementtable" width="100%">
+                                                                                <tr>
+                                                                                    <th style="text-align:center;">1</th>
+                                                                                    <td style="text-align:left;">:COST_SHARE_AMOUNT</td>
+                                                                                    <td style="text-align:left;">
+                                                                                    	<select>
+                                                                                            <option value="0">equals</option>
+                                                                                            <option value="1" selected="selected">less than</option>
+                                                                                            <option value="2">greater than</option>
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td style="text-align:left;">
+                                                                                    	<input type="text" style="width:99%; text-align:right;" value="5,000,000" />
+                                                                                    </td>
+                                                                                    <td>
+                                                                                    	<input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove this condition.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                                                                        <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update this condition.'); return false" style="border:none;" alt="update" title="Update" type="image" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th style="text-align:center;">2</th>
+                                                                                    <td style="text-align:left;">:TOTAL_INDIRECT_COST</td>
+                                                                                    <td style="text-align:left;">
+                                                                                    	<select>
+                                                                                            <option value="0">equals</option>
+                                                                                            <option value="1">less than</option>
+                                                                                            <option value="2" selected="selected">greater than</option>
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td style="text-align:left;">
+                                                                                    	<input type="text" style="width:99%; text-align:right;" value="10,000" />
+                                                                                    </td>
+                                                                                    <td>
+                                                                                    	<input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove this condition.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                                                                        <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update this condition.'); return false" style="border:none;" alt="update" title="Update" type="image" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th style="text-align:center;">3</th>
+                                                                                    <td style="text-align:left;">:COLOR_OF_MY_SHORTS</td>
+                                                                                    <td style="text-align:left;">
+                                                                                    	<select>
+                                                                                            <option value="0">contains</option>
+                                                                                            <option value="1" selected="selected">does not contain</option>
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td style="text-align:left;">
+                                                                                    	<input type="text" style="width:99%;" value="blue" />
+                                                                                    </td>
+                                                                                    <td>
+                                                                                    	<input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove this condition.'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                                                                        <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update this condition.'); return false" style="border:none;" alt="update" title="Update" type="image" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                            
+                                                                            <div style="text-align:left; background-color:#C3C3C3; font-weight:bold; padding:4px; border-left:1px solid #999; border-right:1px solid #999; border-bottom:1px solid #999;">
+                                                                            	<img id="control_columnproptyp" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
+                                                                                Columns
+                                                                                <script type="text/javascript">
+                                                                                    $(document).ready(function(){
+                                                                                        // initial state
+                                                                                            $("#div_columnproptyp").hide(0);
+                                                                                        // trigger
+                                                                                            $("#control_columnproptyp").toggle(
+                                                                                                function()
+                                                                                                {
+                                                                                                    $("#div_columnproptyp").slideDown(200);
+                                                                                                    $("#control_columnproptyp").attr("src","../images/tinybutton-hide.gif");
+                                                                                                    $("#control_columnproptyp").attr("alt","hide");
+                                                                                                },
+                                                                                                function()
+                                                                                                {
+                                                                                                    $("#div_columnproptyp").slideUp(400);
+                                                                                                    $("#control_columnproptyp").attr("src","../images/tinybutton-show.gif");
+                                                                                                    $("#control_columnproptyp").attr("alt","show");
+                                                                                                }
+                                                                                            );	
+                                                                                    });
+                                                                                </script>
+                                                                            </div>
+                                                                            <div id="div_columnproptyp" style="overflow:auto; height:100px;">
+                                                                                <table class="elementtable" style="width:100%; border-top:none;">
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; width:200px; border-top:none;">:TOTAL_INDIRECT_COST</td>
+                                                                                        <td style="text-align:left; border-top:none;">Total indirect cost of the Proposal</td>
+                                                                                        <td style="width:75px; border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left;">:COST_SHARE_AMOUNT</td>
+                                                                                        <td style="text-align:left; border-top:none;">Cost Sharing amount</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left;">:UNDERRECOVERY_AMOUNT</td>
+                                                                                        <td style="text-align:left; border-top:none;">Underrecovery Amount</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left;">:TOTAL_COST_INITIAL</td>
+                                                                                        <td style="text-align:left; border-top:none;">Total cost initial period</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left;">:TOTAL_DIRECT_COST_LIMIT</td>
+                                                                                        <td style="text-align:left; border-top:none;">Total direct cost of the Proposal for a period</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left;">:CFDA_NUMBER</td>
+                                                                                        <td style="text-align:left; border-top:none;">CFDA Number</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left;">:OPPORTUNITY_ID</td>
+                                                                                        <td style="text-align:left; border-top:none;">Opportunity ID</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                            
+                                                                            <div style="text-align:left; background-color:#C3C3C3; font-weight:bold; padding:4px; border-left:1px solid #999; border-right:1px solid #999; border-bottom:1px solid #999;">
+                                                                            	<img id="control_ynqproptyp" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
+                                                                                YNQ
+                                                                                <script type="text/javascript">
+                                                                                    $(document).ready(function(){
+                                                                                        // initial state
+                                                                                            $("#div_ynqproptyp").hide(0);
+                                                                                        // trigger
+                                                                                            $("#control_ynqproptyp").toggle(
+                                                                                                function()
+                                                                                                {
+                                                                                                    $("#div_ynqproptyp").slideDown(200);
+                                                                                                    $("#control_ynqproptyp").attr("src","../images/tinybutton-hide.gif");
+                                                                                                    $("#control_ynqproptyp").attr("alt","hide");
+                                                                                                },
+                                                                                                function()
+                                                                                                {
+                                                                                                    $("#div_ynqproptyp").slideUp(400);
+                                                                                                    $("#control_ynqproptyp").attr("src","../images/tinybutton-show.gif");
+                                                                                                    $("#control_ynqproptyp").attr("alt","show");
+                                                                                                }
+                                                                                            );	
+                                                                                    });
+                                                                                </script>
+                                                                            </div>
+                                                                            <div id="div_ynqproptyp" style="overflow:auto; height:100px;">
+                                                                                <table class="elementtable" style="width:100%; border-top:none;">
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; width:30px; border-top:none;">I1</td>
+                                                                                        <td style="text-align:left; border-top:none;">Is there space change on this proposal</td>
+                                                                                        <td style="width:75px; border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">G6</td>
+                                                                                        <td style="text-align:left; border-top:none;">Historical Sites Are Affected</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">H1</td>
+                                                                                        <td style="text-align:left; border-top:none;">Project involves the International Cooperative activities?</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">G9</td>
+                                                                                        <td style="text-align:left; border-top:none;">This Project is in Violation of an Environmental Compliance Regulation</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">J4</td>
+                                                                                        <td style="text-align:left; border-top:none;">Project Requires Inter-Government Review for Activities that affect State or Local Government or possible National Security Implicat...</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">G3</td>
+                                                                                        <td style="text-align:left; border-top:none;">Hazardous Materials are Used or Produced</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">H2</td>
+                                                                                        <td style="text-align:left; border-top:none;">Human Anatomical Substances Are Used</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                            
+                                                                            <div style="text-align:left; background-color:#C3C3C3; font-weight:bold; padding:4px; border-left:1px solid #999; border-right:1px solid #999; border-bottom:1px solid #999;">
+                                                                            	<img id="control_questproptyp" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
+                                                                                Questionnaire
+                                                                                <script type="text/javascript">
+                                                                                    $(document).ready(function(){
+                                                                                        // initial state
+                                                                                            $("#div_questproptyp").hide(0);
+                                                                                        // trigger
+                                                                                            $("#control_questproptyp").toggle(
+                                                                                                function()
+                                                                                                {
+                                                                                                    $("#div_questproptyp").slideDown(200);
+                                                                                                    $("#control_questproptyp").attr("src","../images/tinybutton-hide.gif");
+                                                                                                    $("#control_questproptyp").attr("alt","hide");
+                                                                                                },
+                                                                                                function()
+                                                                                                {
+                                                                                                    $("#div_questproptyp").slideUp(400);
+                                                                                                    $("#control_questproptyp").attr("src","../images/tinybutton-show.gif");
+                                                                                                    $("#control_questproptyp").attr("alt","show");
+                                                                                                }
+                                                                                            );	
+                                                                                    });
+                                                                                </script>
+                                                                            </div>
+                                                                            <div id="div_questproptyp" style="overflow:auto; height:100px;">
+                                                                                <table class="elementtable" style="width:100%; border-top:none;">
+                                                                                    <tr>
+                                                                                        <td style="text-align:left;border-top:none;">66: Are you requesting any funds for Budget Period 1?</td>
+                                                                                        <td style="width:75px; border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">67: Are you requesting any funds for Budget Period 2?</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">68: Are you requesting any funds for Budget Period 3?</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">69: Are you requesting any funds for Budget Period 4?</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">70: Are you requesting any funds for Budget Period 5?</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">71: Will there be any UNDERGRADUATE trainees?</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">72: How many are FULL TERM Undergraduate Trainees?  Enter 0 (zero) if none.</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                            
+                                                                            <div style="text-align:left; background-color:#C3C3C3; font-weight:bold; padding:4px; border-left:1px solid #999; border-right:1px solid #999; border-bottom:1px solid #999;">
+                                                                            	<img id="control_funcproptyp" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
+                                                                                Functions
+                                                                                <script type="text/javascript">
+                                                                                    $(document).ready(function(){
+                                                                                        // initial state
+                                                                                            $("#div_funcproptyp").hide(0);
+                                                                                        // trigger
+                                                                                            $("#control_funcproptyp").toggle(
+                                                                                                function()
+                                                                                                {
+                                                                                                    $("#div_funcproptyp").slideDown(200);
+                                                                                                    $("#control_funcproptyp").attr("src","../images/tinybutton-hide.gif");
+                                                                                                    $("#control_funcproptyp").attr("alt","hide");
+                                                                                                },
+                                                                                                function()
+                                                                                                {
+                                                                                                    $("#div_funcproptyp").slideUp(400);
+                                                                                                    $("#control_funcproptyp").attr("src","../images/tinybutton-show.gif");
+                                                                                                    $("#control_funcproptyp").attr("alt","show");
+                                                                                                }
+                                                                                            );	
+                                                                                    });
+                                                                                </script>
+                                                                            </div>
+                                                                            <div id="div_funcproptyp"  style="overflow:auto; height:100px;">
+                                                                                <table class="elementtable" style="width:100%; border-top:none;">
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; width:200px; border-top:none;">ACTIVITY TYPE</td>
+                                                                                        <td style="text-align:left; border-top:none;">Enim dolor augue tincidunt lacus purus dictumst, odio platea cursus amet massa dignissim quis! Nunc quis facilisis rhoncus rhoncus porta.</td>
+                                                                                        <td style="width:75px; border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">ALL PROPOSALS</td>
+                                                                                        <td style="text-align:left; border-top:none;">Platea dictumst! Dolor pellentesque ultricies aliquet natoque.</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">COMPLETE PROPOSAL NARRATIVES</td>
+                                                                                        <td style="text-align:left; border-top:none;">Rhoncus integer, porta placerat sociis aliquam sagittis, urna ac porttitor, tempor a</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">COST ELEMENT</td>
+                                                                                        <td style="text-align:left; border-top:none;">Tincidunt odio! Turpis elit etiam parturient egestas enim</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">COST ELEMENT LIMIT</td>
+                                                                                        <td style="text-align:left; border-top:none;">Lectus tempor nascetur lundium.</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="text-align:left; border-top:none;">COST ELEMENT PERIOD LIMIT</td>
+                                                                                        <td style="text-align:left; border-top:none;">Cras eu augue. Ultrices scelerisque? Ultrices augue, dictumst ultricies! Risus elit nisi arcu, eu. Scelerisque.</td>
+                                                                                        <td style="border-top:none;"><input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add this condition.'); return false" style="border:none;" alt="add" title="Add" type="image" /></td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                    
+                                                                        </td> 
+                                                                    </tr> 
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        
+                                               		</div>
+                                                    
                                                 </div>
                                                 
                                                 <div style="z-index:99; position:relative; bottom:-4px; width:450px; text-align:left; border:1px solid #000; background-color:#FFC; margin-bottom:3px; padding:2px;">
@@ -2245,8 +2773,7 @@
 </div>
 
 <!-- END PANEL CONTAINER -->
-</td></tr></table>
-
+</td></tr></table> 
 </form>
 
 <!-- DOCUMENT FOOT -->
