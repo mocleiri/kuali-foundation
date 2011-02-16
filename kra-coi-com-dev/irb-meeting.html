@@ -9,9 +9,8 @@
 <script language=javascript src="../scripts/my_bm_inc.js"></script>
 <script language=javascript1.2 src="../scripts/my_explorer.js"></script>
 <script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js"></script>
-<script type="text/javascript" src="../scripts/webtoolkit.scrollabletable.js"></script>
-<script type="text/javascript" src="../scripts/jquery.js"></script>
-<script type="text/javascript" src="../scripts/webtoolkit.jscrollable.js"></script>
+<script language=JavaScript src="../scripts/CalendarPopup.js"></script>
+<script language=JavaScript src="ccl_addEvent.js"></script>
 <script language=JavaScript type="text/JavaScript">
 <!--
 function MM_goToURL() { //v3.0
@@ -23,69 +22,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 }
 //-->
 </script>
-
-
-<script type="text/javascript">
-jQuery(document).ready(function(){
-jQuery('table.t1').Scrollable(100,null)
-
-
-$(".alltabs").slideUp(001);
-
-
-$("#showred").toggle(
-function(){
-$(".red").slideDown(600)
-$("#showred").html("<img src='../images/tinybutton-hide.gif' alt='show/hide panel' width=45 height=15 border=0>")
-},
-function(){
-$(".red").slideUp(600)
-$("#showred").html("<img src='../images/tinybutton-show.gif' alt='show/hide panel' width=45 height=15 border=0>")}
-)
-$("#showgreen").toggle(
-function(){
-$(".green").slideDown(600)
-$("#showgreen").html("<img src='../images/tinybutton-hide.gif' alt='show/hide panel' width=45 height=15 border=0>")
-},
-function(){
-$(".green").slideUp(600)
-$("#showgreen").html("<img src='../images/tinybutton-show.gif' alt='show/hide panel' width=45 height=15 border=0>")}
-)
-$("#showblue").toggle(
-function(){
-$(".blue").slideDown(600)
-$("#showblue").html("<img src='../images/tinybutton-hide.gif' alt='show/hide panel' width=45 height=15 border=0>")
-},
-function(){
-$(".blue").slideUp(600)
-$("#showblue").html("<img src='../images/tinybutton-show.gif' alt='show/hide panel' width=45 height=15 border=0>")}
-)
-$("#showyellow").toggle(
-function(){
-$(".yellow").slideDown(600)
-$("#showyellow").html("<img src='../images/tinybutton-hide.gif' alt='show/hide panel' width=45 height=15 border=0>")
-},
-function(){
-$(".yellow").slideUp(600)
-$("#showyellow").html("<img src='../images/tinybutton-show.gif' alt='show/hide panel' width=45 height=15 border=0>")}
-)
-$("#showorange").toggle(
-function(){
-$(".orange").slideDown(600)
-$("#showorange").html("<img src='../images/tinybutton-hide.gif' alt='show/hide panel' width=45 height=15 border=0>")
-},
-function(){
-$(".orange").slideUp(600)
-$("#showorange").html("<img src='../images/tinybutton-show.gif' alt='show/hide panel' width=45 height=15 border=0>")}
-)
-})
-</script>
- 
-    
-    
-    
-    
-    
 </head>
 <body onResize="window.location.href = window.location.href;">
 <div class="headerarea-kra" id="headerarea">
@@ -144,12 +80,14 @@ $("#showorange").html("<img src='../images/tinybutton-show.gif' alt='show/hide p
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Meeting Details</td>
-              <td class="tabtable1-mid"><span id="showgreen"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0></span></td>
+              <td class="tabtable1-mid"><a href="#" id="A02" onclick="rend(this, false)">
+                    	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F02" >
+                    </a></td>
               <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          <div class="tab-container green alltabs" align="center">
-            <!-- Panel: Meeting Details -->
+          <div class="tab-container" align="center" id="G02" style="display: none;">
+                      <!-- Panel: Meeting Details -->
             <div class="h2-container"> <span class="subhead-left">
               <h2>Meeting Details</h2>
               </span> <span class="subhead-right"> <span class="subhead"> <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a> </span> </span> </div>
@@ -220,11 +158,13 @@ $("#showorange").html("<img src='../images/tinybutton-show.gif' alt='show/hide p
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >COI Disclosures</td>
-              <td class="tabtable2-mid"><span id="showblue"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0></span></td>
+              <td class="tabtable2-mid"><a href="#" id="A03" onclick="rend(this, false)">
+                    	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F03" >
+                    </a></span></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          <div class="tab-container blue alltabs" align="center" >
+             <div class="tab-container" align="center" id="G03" style="display: none;">
             <!-- Panel: Protocols Submitted -->
             <div class="h2-container"> <span class="subhead-left">
               <h2>Protocols Submitted</h2>
@@ -250,7 +190,7 @@ $("#showorange").html("<img src='../images/tinybutton-show.gif' alt='show/hide p
                 <td class="infoline"><div align="center"><img src="../images/sort-arrows.gif" width="15" height="16" alt="sort"></div></td>
                 <td class="infoline">&nbsp;</td>
               </tr>
-              <tbody style="height:200px;overflow-y:scroll; overflow-x:hidden;">
+              <tbody style="height:;overflow-y:scroll; overflow-x:hidden;">
                 <tr>
                   <th> 1 </th>
                   <td> 0807000004 </td>
@@ -302,11 +242,13 @@ $("#showorange").html("<img src='../images/tinybutton-show.gif' alt='show/hide p
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Other Actions</td>
-              <td class="tabtable2-mid"><span id="showred"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0></span></td>
+              <td class="tabtable2-mid"><a href="#" id="A04" onclick="rend(this, false)">
+                    	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F04" >
+                    </a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          <div class="tab-container red alltabs" align="center">
+             <div class="tab-container" align="center" id="G04" style="display: none;">
             <!-- Panel: Other Actions -->
             <div class="h2-container"> <span class="subhead-left">
               <h2>Other Actions</h2>
@@ -372,11 +314,13 @@ $("#showorange").html("<img src='../images/tinybutton-show.gif' alt='show/hide p
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Attendance</td>
-              <td class="tabtable2-mid"><span id="showyellow"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0></span></td>
+              <td class="tabtable2-mid"><a href="#" id="A05" onclick="rend(this, false)">
+                    	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F05" >
+                    </a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          <div class="tab-container yellow alltabs" align="center">
+              <div class="tab-container" align="center" id="G05" style="display: none;">
             <!-- Panel: Attendance -->
             <div class="h2-container"> <span class="subhead-left">
               <h2>Attendance</h2>
@@ -623,11 +567,13 @@ $("#showorange").html("<img src='../images/tinybutton-show.gif' alt='show/hide p
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Minutes</td>
-              <td class="tabtable2-mid"><span id="showorange"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0></span></td>
+              <td class="tabtable2-mid"><a href="#" id="A06" onclick="rend(this, false)">
+                    	<img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F06" >
+                    </a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          <div class="tab-container orange alltabs" align="center">
+             <div class="tab-container" align="center" id="G06" style="display: none;">
             <!-- Panel: Minutes -->
             <div class="h2-container"> <span class="subhead-left">
               <h2>Minutes</h2>

@@ -14,14 +14,12 @@
 <script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.3.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.3.css" media="screen" />
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
- <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
- <script>
+<link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script>
   $(document).ready(function() {
     $("button").button();
   });
   </script>
-
-
 <script type="text/javascript">
 		$(document).ready(function() {
 			/*
@@ -50,10 +48,15 @@
     $(document).ready(function() {
 
 
-        $("#overview").slideUp(000);
-        $("#accounting").slideUp(000);
-        $("#items").slideUp(000);
-        $("#notes").slideUp(000);
+        $("#overview-outside").slideUp(100);
+		
+		 $("#overview1").slideUp(100);
+		 $("#overview2").slideUp(100);
+		
+		
+        $("#accounting").slideUp(100);
+        $("#items").slideUp(100);
+        $("#notes").slideUp(100);
         $("#show_accounting").toggle(
 
         function() {
@@ -67,17 +70,49 @@
         );
 
 
-        $("#show_overview").toggle(
+
+  $("#show_overview-outside").toggle(
 
         function() {
-            $("#overview").slideUp(600);
-            $("#show_overview").html("<img src='images/arrow-col.png' width='16' height='16' alt='collapse'>Document Overview");
+            $("#overview-outside").slideUp(600);
+            $("#show_overview-outside").html("<img src='images/arrow-col.png' width='16' height='16' alt='collapse'>Document Overview");
         }, function() {
-            $("#overview").slideDown(600);
-            $("#show_overview").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Document Overview");
+            $("#overview-outside").slideDown(600);
+            $("#show_overview-outside").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Document Overview");
         }
 
         );
+
+
+        $("#show_overview1").toggle(
+
+        function() {
+            $("#overview1").slideUp(600);
+            $("#show_overview").html("<img src='images/arrow-col.png' width='16' height='16' alt='collapse'>Nested Set 1");
+        }, function() {
+            $("#overview1").slideDown(600);
+            $("#show_overview1").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Nested Set 1");
+        }
+
+        );
+		
+		
+		
+		
+        $("#show_overview2").toggle(
+
+        function() {
+            $("#overview2").slideUp(600);
+            $("#show_overview").html("<img src='images/arrow-col.png' width='16' height='16' alt='collapse'>Nested Set 2");
+        }, function() {
+            $("#overview2").slideDown(600);
+            $("#show_overview2").html("<img src='images/arrow-exp.png' width='16' height='16' alt='expand'>Nested Set 2");
+        }
+
+        );
+		
+		
+		
 
         $("#show_items").toggle(
 
@@ -148,26 +183,39 @@
       <tr>
         <td width="1%"><img src="images/pixel_clear.gif" alt="" height="20" width="20"></td>
         <td><!-- if the section has errors, override and set isOpen to true --><!-- TAB -->
+          
           <div id="workarea"><br>
-            
-<br>
+            <br>
             <div class="tab-new">
-              <h2><a href="#" id="show_overview"><img src="images/arrow-col.png" width="16" height="16" alt="collapse">Document Overview</a></h2>
+              <h2><a href="#" id="show_overview-outside"><img src="images/arrow-col.png" width="16" height="16" alt="collapse">Document Overview</a></h2>
             </div>
-            <div class="tab-container" id="overview"><!-- DOC OVERVIEW TABLE -->
-              <h3>Document Overview</h3>
+            
+            
+            
+            <div id="overview-outside">
+            
+            
+            <div class="tab-newh3">
+              <h2><a href="#" id="show_overview1"><img src="images/arrow-col.png" width="16" height="16" alt="collapse">Nested Set 1</a></h2>
+            </div>
+            <div class="tab-container" id="overview1"><!-- DOC OVERVIEW TABLE -->
+              <h4>Document Overview</h4>
               <table class="datatable" title="view/edit document overview information" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
                 <tbody>
                   <tr>
                     <th rowspan="1" colspan="1" align="right" width="25%"><label for="document.documentHeader.documentDescription"><font color="">*</font>Description: </label></th>
                     <td valign="middle" align="left"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="asdf" maxlength="40" size="" tabindex="0" onchange="" id="document.documentHeader.documentDescription"  class="" title="* Document Description" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                   </tr>
                   <tr>
                     <th colspan="1" rowspan="1" align="right"><label for="document.documentHeader.organizationDocumentNumber">Org. Doc. #: </label></th>
                     <td align="left" valign="middle"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="asdf" maxlength="10" size="" tabindex="0" onchange="" id="document.documentHeader.organizationDocumentNumber"  class="" title="Organization Document Number" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                   </tr>
                   <tr>
@@ -176,7 +224,7 @@
                   </tr>
                 </tbody>
               </table>
-              <h3>Financial Document Detail</h3>
+              <h4>Financial Document Detail</h4>
               <table class="datatable" summary="KFS Detail Section" cellpadding="0" cellspacing="0">
                 <tbody>
                   <tr>
@@ -188,6 +236,59 @@
                 </tbody>
               </table>
             </div>
+            
+            
+            
+            
+                        <div class="tab-newh3">
+              <h2><a href="#" id="show_overview2"><img src="images/arrow-col.png" width="16" height="16" alt="collapse">Nested Set 2</a>
+            </h2></div>
+            <div class="tab-container" id="overview2"><!-- DOC OVERVIEW TABLE -->
+              <h4>Document Overview</h4>
+              <table class="datatable" title="view/edit document overview information" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th rowspan="1" colspan="1" align="right" width="25%"><label for="document.documentHeader.documentDescription"><font color="">*</font>Description: </label></th>
+                    <td valign="middle" align="left"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
+                      <input name="asdf" maxlength="40" size="" tabindex="0" onchange="" id="document.documentHeader.documentDescription"  class="" title="* Document Description" type="text">
+                      
+                      <!-- error icon --><!-- datePicker icon --></td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" rowspan="1" align="right"><label for="document.documentHeader.organizationDocumentNumber">Org. Doc. #: </label></th>
+                    <td align="left" valign="middle"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
+                      <input name="asdf" maxlength="10" size="" tabindex="0" onchange="" id="document.documentHeader.organizationDocumentNumber"  class="" title="Organization Document Number" type="text">
+                      
+                      <!-- error icon --><!-- datePicker icon --></td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" align="right">Explanation:</th>
+                    <td valign="middle" align="left"><textarea name="document.documentHeader.explanation" tabindex="0" cols="40" rows="3" onkeyup="textLimit(this, 400);" id="document.documentHeader.explanation"  class="" title="Explanation"></textarea></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h4>Financial Document Detail</h4>
+              <table class="datatable" summary="KFS Detail Section" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td width="25%" height="46" colspan="1" rowspan="1" align="right"><label for="document.documentHeader.financialDocumentTotalAmount">
+                      <div align="right">Total Amount: </div>
+                      </label></td>
+                    <td valign="middle" align="left">3456.47</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            
+            
+            </div>
+            
+            
+            
+            
             <div class="tab-new">
               <h2><a href="#" id="show_accounting"><img src="images/arrow-col.png" width="16" height="16" alt="collapse">Accounting Lines</a></h2>
             </div>
@@ -195,7 +296,7 @@
               <table class="datatable" width="100%" border="0" cellpadding="0" cellspacing="0">
                 <tbody>
                   <tr>
-                    <td style="padding:0px" colspan="10" ><h3 class="tableheader">Income </h3></td>
+                    <td style="padding:0px" colspan="10" ><h4 class="tableheader">Income </h4></td>
                   </tr>
                   <tr>
                     <th class="infoline"></th>
@@ -459,7 +560,7 @@
                     <td class="" style="border-left: 0px none;" colspan="1"></td>
                   </tr>
                   <tr>
-                    <td style="padding:0px" colspan="10" ><h3 class="tableheader">Expense </h3></td>
+                    <td style="padding:0px" colspan="10" ><h4 class="tableheader">Expense </h4></td>
                   </tr>
                   <tr>
                     <th class="infoline"></th>
@@ -638,7 +739,7 @@
               <table class="datatable" summary="Items section" cellpadding="0" cellspacing="0">
                 <tbody>
                   <tr>
-                    <td style="padding:0px"  colspan="9"><h3 class="tableheader">Items</h3></td>
+                    <td style="padding:0px"  colspan="9"><h4 class="tableheader">Items</h4></td>
                   </tr>
                   <tr>
                     <th colspan="1" rowspan="1" class="infoline"></th>
@@ -664,19 +765,29 @@ Calendar.setup(
 );
 </script></td>
                     <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="asdf" maxlength="9" size="11" tabindex="0" onchange="" id="newItem.itemStockNumber"  class="" title="Item Stock Number" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="asdf" maxlength="40" size="30" tabindex="0" onchange="" id="newItem.itemStockDescription"  class="" title="Item Stock Description" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="asdf" maxlength="22" size="10" tabindex="0" onchange="" id="newItem.itemQuantity"  class="" title="* Item Quantity" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="asdf" maxlength="2" size="2" tabindex="0" onchange="" id="newItem.unitOfMeasureCode"  class="" title="Unit Of Measure Code" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="asdf" maxlength="26" size="10" tabindex="0" value="0.00" onchange="" id="newItem.itemUnitAmount"  class="amount" title="* Item Unit Amount" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="infoline"><!-- no total until it's added --></td>
                     <td class="infoline"><div align="center">
@@ -696,19 +807,29 @@ Calendar.setup(
       );
                       </script></td>
                     <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[0].itemStockNumber" maxlength="9" size="11" tabindex="0" value="4567546" onchange="" onblur="" id="document.item[0].itemStockNumber"  class="" title="Item Stock Number" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[0].itemStockDescription" maxlength="40" size="30" tabindex="0" value="sdfg sdfg sdfg sdfg" onchange="" onblur="" id="document.item[0].itemStockDescription"  class="" title="Item Stock Description" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[0].itemQuantity" maxlength="22" size="10" tabindex="0" value="3" onchange="" onblur="" id="document.item[0].itemQuantity"  class="" title="* Item Quantity" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[0].unitOfMeasureCode" maxlength="2" size="2" tabindex="0" onchange="" onblur="" id="document.item[0].unitOfMeasureCode"  class="" title="Unit Of Measure Code" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[0].itemUnitAmount" maxlength="26" size="10" tabindex="0" value="34.00" onchange="" onblur="" id="document.item[0].itemUnitAmount"  class="amount" title="* Item Unit Amount" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="even"><div align="right">$102.00</div></td>
                     <td class="even"><div align="center"><span style="text-align: center;">
@@ -728,19 +849,29 @@ Calendar.setup(
       );
                       </script></td>
                     <td class="odd"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[1].itemStockNumber" maxlength="9" size="11" tabindex="0" value="3685654" onchange="" onblur="" id="document.item[1].itemStockNumber"  class="" title="Item Stock Number" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="odd"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[1].itemStockDescription" maxlength="40" size="30" tabindex="0" value="d fhdfh df h" onchange="" onblur="" id="document.item[1].itemStockDescription"  class="" title="Item Stock Description" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="odd"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[1].itemQuantity" maxlength="22" size="10" tabindex="0" value="2" onchange="" onblur="" id="document.item[1].itemQuantity"  class="" title="* Item Quantity" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="odd"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[1].unitOfMeasureCode" maxlength="2" size="2" tabindex="0" onchange="" onblur="" id="document.item[1].unitOfMeasureCode"  class="" title="Unit Of Measure Code" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="odd"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[1].itemUnitAmount" maxlength="26" size="10" tabindex="0" value="275.00" onchange="" onblur="" id="document.item[1].itemUnitAmount"  class="amount" title="* Item Unit Amount" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="odd"><div align="right">$550.00</div></td>
                     <td class="odd"><div align="center"><span style="text-align: center;">
@@ -760,19 +891,29 @@ Calendar.setup(
       );
                       </script></td>
                     <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[2].itemStockNumber" maxlength="9" size="11" tabindex="0" value="4568458" onchange="" onblur="" id="document.item[2].itemStockNumber"  class="" title="Item Stock Number" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[2].itemStockDescription" maxlength="40" size="30" tabindex="0" value="fghkdhfgk efgh dh dfgh" onchange="" onblur="" id="document.item[2].itemStockDescription"  class="" title="Item Stock Description" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[2].itemQuantity" maxlength="22" size="10" tabindex="0" value="5" onchange="" onblur="" id="document.item[2].itemQuantity"  class="" title="* Item Quantity" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[2].unitOfMeasureCode" maxlength="2" size="2" tabindex="0" onchange="" onblur="" id="document.item[2].unitOfMeasureCode"  class="" title="Unit Of Measure Code" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="even"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <input name="document.item[2].itemUnitAmount" maxlength="26" size="10" tabindex="0" value="75.00" onchange="" onblur="" id="document.item[2].itemUnitAmount"  class="amount" title="* Item Unit Amount" type="text">
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="even"><div align="right">$375.00</div></td>
                     <td class="even"><div align="center"><span style="text-align: center;">
@@ -794,7 +935,7 @@ Calendar.setup(
               <table class="datatable" summary="view/add notes" cellpadding="0" cellspacing="0">
                 <tbody>
                   <tr class="infoline">
-                    <td style="padding:0px"  colspan="6" class=""><h3 class="tableheader">Notes and Attachments</h3></td>
+                    <td style="padding:0px"  colspan="6" class=""><h4 class="tableheader">Notes and Attachments</h4></td>
                   </tr>
                   <tr class="infoline">
                     <th colspan="1" rowspan="1" class="infoline"></th>
@@ -809,7 +950,9 @@ Calendar.setup(
                     <td class="infoline"></td>
                     <td class="infoline"></td>
                     <td class="infoline"><!-- Do not remove session check in this tag file since it is used by other type of files (not MD or TD) -->
+                      
                       <textarea name="newNote.noteText2" tabindex="0" cols="50" rows="3" onkeyup="textLimit(this, 800);" id="newNote.noteText2"  class="" title="* Note Text"></textarea>
+                      
                       <!-- error icon --><!-- datePicker icon --></td>
                     <td class="infoline"><div align="center"><br>
                         <input name="attachmentFile" size="30" value="" id="attachmentFile2" type="file">
@@ -860,17 +1003,14 @@ Calendar.setup(
                   </tr>
               </table>
             </div>
-           
             <div id="globalbuttons" class="globalbuttons">
-        
               <button> submit</button>
               <button> save</button>
               <button>close</button>
               <button>cancel</button>
               <button>copy</button>
-              
             </div>
-        <!-- footer -->
+            <!-- footer -->
             <p></p>
           </div></td>
         <td width="20"><img src="images/pixel_clear.gif" alt="" height="20" width="20"></td>

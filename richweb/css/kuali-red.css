@@ -600,12 +600,12 @@ img.helpicon
 {
 	display:inline;
 	color: #FFF;
-	fontt-size: 1em;
+
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-size: 1.2em;
 }
 
-#workarea div.tab-container h3
+#workarea div.tab-container h4
 {
 	color:#900;
 	font-weight:bold;
@@ -637,7 +637,7 @@ img.helpicon
 	_width: 100%;
 	max_width: 100%;
 	padding-bottom: 20px;
-	padding-left: 20px;
+	padding-left: 40px;
 	margin: 0px;
 }
 
@@ -1114,6 +1114,59 @@ div.tab-new a {
 
 div.tab-new img { margin-right:6px
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+div.tab-newh3 {
+	background-color:#333;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	border: 1px solid #999;
+	padding: 8px;
+	margin-bottom: 8px;
+	background-position: 0px;
+	margin-left: 20px;
+}
+
+
+
+div.tab-newh3 a {
+	color:#FFF;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+div.tab-newh3 img { margin-right:6px
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
