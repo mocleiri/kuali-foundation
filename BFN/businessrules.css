@@ -1,0 +1,96 @@
+/* CSS Document */
+
+.rootrule
+{
+	border:1px solid #666;
+	background-image:none;
+	background-color:#D9D9D9;
+}
+
+.whentrue
+{
+	border:1px solid #666;
+	background-image:url(./images/black15.png);
+	margin:10px;
+	margin-left:25px;
+	background-color:none;
+}
+
+.whenfalse
+{
+	border:1px solid #666;
+	background-image:url(./images/black15.png);
+	margin:10px;
+	margin-left:25px;
+	background-color:none;
+}
+
+.selectfirsttrue
+{
+	border:1px solid #666;
+	background-image:url(./images/black15.png);
+	margin:10px;
+	background-color:none;
+}
+
+.firstwhentrue
+{
+	border:1px solid #666;
+	background-image:url(./images/blue50.png);
+	margin:10px;
+	margin-left:25px;
+	background-color:#fff;
+}
+
+.firstwhenfalse
+{
+	border:1px solid #666;
+	background-image:url(./images/red50.png);
+	margin:10px;
+	margin-left:25px;
+	background-color:#fff;
+}
+
+.firstselectfirsttrue
+{
+	border:1px solid #666;
+	background-image:url(./images/black10.png);
+	margin:10px;
+	background-color:#fff;
+}
+
+.arule
+{
+	border:1px solid #666;
+	background-image:none;
+	margin:10px;
+	background-color:#EEE;
+	padding:3px;
+}
+
+.agendaarrow
+{
+	font-size:80%;
+	color:#FFF;
+	font-weight:bold;
+	margin-left:-6px;
+}
+
+.agendaarrow img
+{
+	width:16px;
+	height:16px;
+	vertical-align:top;
+	margin-top:-3px;
+}
+
+.rulecontrol
+{
+	/*font-weight:bold;*/
+	cursor:pointer;
+}
+
+.rulecontrol:hover
+{
+	color:#F00;
+}
