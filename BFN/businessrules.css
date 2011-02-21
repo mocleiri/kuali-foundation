@@ -68,6 +68,15 @@
 	padding:3px;
 }
 
+.anagenda
+{
+	border:1px solid #666;
+	background-image:none;
+	margin:10px;
+	background-color:#EEE;
+	padding:3px;
+}
+
 .agendaarrow
 {
 	font-size:80%;
