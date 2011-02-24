@@ -214,7 +214,7 @@ IS
             END IF;
     END;
 
- FUNCTION create_app_user( UserID IN VARCHAR, UserType IN VARCHAR, UserPassword IN VARCHAR DEFAULT NULL ) RETURN INTEGER
+ FUNCTION create_app_user( UserID IN VARCHAR, UserPassword IN VARCHAR DEFAULT NULL ) RETURN INTEGER
     IS
         UserPW VARCHAR2(30) := UserPassword;
         PasswordHash BOOLEAN := FALSE;
