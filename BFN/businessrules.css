@@ -103,3 +103,30 @@
 {
 	color:#F00;
 }
+
+.table_agenda
+{
+	border:none;
+	white-space:0px;
+	width:99%;
+}
+
+.table_agenda td
+{
+	 height:25px;
+	 margin:0px;
+	 padding:0px;
+	 vertical-align:top;
+}
+
+.table_agenda img
+{
+	 margin:0px;
+	 padding:0px;
+}
+
+td.agendacontent
+{
+	 padding-top:6px;
+	 height:19px;
+}

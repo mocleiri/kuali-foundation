@@ -833,207 +833,443 @@
                                         </table>
                                     </div>
                                     
-                                    <!-- Hierarchy -->
-                                    <div id="agendahierarchy">
+                                    <!-- Agenda Area -->
+                                    <div id="agendaarea" style="min-height:500px; padding-top:6px;">
                                     
-                                    	<!-- Root Rule -->
-                                        <div class="rootrule">
-                                            
-                                            <div class="arule">
-                                            	My Rootin' Tootin' Rule
-                                            </div>
-                                            
-                                            <!-- When True -->
-                                            <div class="firstwhentrue" style="margin-bottom:0px;">
-                                            	
-                                                <!-- arrow -->
-                                                <div class="agendaarrow">
-                                                	<img src="../images/arrow_right_white2.png" alt="when true" /> When True
-                                                </div>
-                                                
-                                            	<div class="arule">
-                                                    <span id="control_rule01" class="rulecontrol">Some Silly Rule</span>
-                                                    <script type="text/javascript">
-														$(document).ready(function(){
-															// initial state
-																$("#div_rule01").hide(0);
-															// trigger
-																$("#control_rule01").toggle(
-																	function()
-																	{
-																		$("#div_rule01").slideDown(400);
-																		//$("#control_rule01").html("hide");
-																	},
-																	function()
-																	{
-																		$("#div_rule01").slideUp(200);
-																		//$("#control_rule01").html("show");
-																	}
-																);	
-														});
-													</script>
-                                                    <div id="div_rule01" style="margin-top:2px;">
-                                                        <table width="100%" cellpadding="0" cellspacing="0" class="subelement">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="subelementheader" align="left">
-                                                                        <a href="#" class="hidedetail"><img src="../images/tinybutton-hide.gif" align="absmiddle" border="0" width="45" height="15"></a>
-                                                                        <input src="../images/tinybutton-edit1.gif" onclick="javascript: alert('This would load the rule into the Rule Editor.'); return false;" style="border:none; padding:2px; vertical-align:middle;" alt="edit" title="Edit" type="image" /> Rule B
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="subelementcontent">
-                                                                        
-                                                                        <table cellpadding="0" cellspacing="0" class="elementtable" width="100%">
-                                                                            <tr>
-                                                                                <th style="text-align:right; width:75px;">Node:</th>
-                                                                                <td colspan="3">
-                                                                                    <input name="x" src="../images/arrow-up.gif" onclick="javascript: alert('This would move this node and its children up within its sibling group.'); return false;" style="border:none;" alt="move up" title="Move Up" type="image" />
-                                                                                    <input src="../images/arrow-down.gif" onclick="javascript: alert('This would move this node and its children down within its sibling group.'); return false;" style="border:none;" alt="move down" title="Move Down" type="image" />
-                                                                                    <input src="../images/tinybutton-removenode.gif" onclick="javascript: alert('This would ask for confirmation before removing this node and its children.'); return false;" style="border:none;" alt="remove node" title="Remove Node" type="image" />
-                                                                                    <input src="../images/tinybutton-cutnode.gif" onclick="javascript: alert('This would cut this node and its children.  Node would not be removed until you paste it.'); return false;" style="border:none;" alt="cut node" title="Cut Node" type="image" />
-                                                                                    <input src="../images/tinybutton-copynode.gif" onclick="javascript: alert('This would copy this node and its children.'); return false;" style="border:none;" alt="copy node" title="Copy Node" type="image" />
-                                                                                    <input src="../images/tinybutton-pastenode.gif" onclick="javascript: alert('This would paste your previously copied or cut node and its children under this node.'); return false;" style="border:none;" alt="paste node" title="Paste Node" type="image" />
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <th style="text-align:right; width:75px;">Save As:</th>
-                                                                                <td colspan="3">
-                                                                                    
-                                                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
-                                                                                        <tr>
-                                                                                            <td style="border:none; background:none; text-align:right;">
-                                                                                                <input type="text" value="" style="width:100%;" />
-                                                                                            </td>
-                                                                                            <td style="width:60px; border:none; background:none; text-align:center;">
-                                                                                                <input src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would collapse and save the node and its children as a named agenda for reuse in another agenda.'); return false" align="top" alt="save " title="Save " style="border:none;" type="image" />
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                    
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <th style="text-align:right;">Evaluate:</th>
-                                                                                <td style="text-align:left; width:150px;">
-                                                                                    
-                                                                                    <select name="CustomData">
-                                                                                        <option value="0">select</option>
-                                                                                        <option value="1" selected="selected">Next</option>
-                                                                                        <option value="2">Previous is True</option>
-                                                                                        <option value="3">Previous is False</option>
-                                                                                    </select>
-                                                                                    
-                                                                                </td>
-                                                                                <th style="text-align:right;">New Node(s):</th>
-                                                                                <td style="text-align:left;">
-                                                                                
-                                                                                    <select>
-                                                                                        <option>add rule(s)</option>
-                                                                                        <option>insert agenda(s)</option>
-                                                                                    </select>
-                                                                                    <select>
-                                                                                        <option>as sibling</option>
-                                                                                        <option>as child</option>
-                                                                                    </select>
-                                                                                    <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the lookup dialog.  Search could be made for a Business Rule OR a saved Agenda.  Only single returns would be allowed.  Results could be added as siblings or children.'); return false;" align="top" alt="search " title="Search " style="border:none; margin-left:3px;" type="image" />
-                                                                                    
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                
-                                                                    </td> 
-                                                                </tr> 
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="arule">
-                                                    An Extra Silly Rule
-                                                </div>
-                                                
-                                                <!-- When True -->
-                                                <div class="whentrue" style="margin-bottom:0px;">
-                                                
-                                                    <!-- arrow -->
-                                                    <div class="agendaarrow">
-                                                        <img src="../images/arrow_right_white2.png" alt="when true" /> When True
+                                    	<script type="text/javascript">
+											$(document).ready(function(){	
+												
+												<!-- Agenda Detail -->
+												$(".control_agendadetail").toggle(
+													function()
+													{
+														//$(this).next().slideDown(500);
+														$(this).next().slideDown(500);
+													},function(){
+														//$(this).next().slideUp(500);
+														$(this).next().slideUp(500);
+													}
+												);
+													
+											});
+										</script>
+                                    
+                                        <!-- FIRST NODE -->
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width:9px; background-image:url('./images/agendagraphics/straight.png');">
+                                                    <img src="./images/agendagraphics/top.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px; background-image:url('./images/agendagraphics/gray-top-left.png');">
+                                                    <img src="./images/clear.png" alt="" style="width:1px; height:1px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/gray-top-center.png');" class="agendacontent">
+                                                    
+                                                    <a href="#" class="control_agendadetail">Animal Expenses Included.  Reminder to include Animal special review</a>
+                                                    <div style="border:1px solid #333; background-color:#EBEBEB; margin:10px; padding:5px; display:none;">
+                                                    	Stuff about the node here.<br />
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum odio accumsan lacus suscipit quis semper sem rutrum. Pellentesque 
+                                                        sed sem a nisi eleifend pharetra vitae sit amet eros. Integer mollis pretium quam nec viverra. Integer sed elit ante, quis tristique ante. 
                                                     </div>
                                                     
-                                                    <div class="arule">
-                                                        Stop The Press
+                                                </td>
+                                                <td style="width:9px; background-image:url('./images/agendagraphics/gray-top-right.png');">
+                                                    <img src="./images/agendagraphics/clear.png" alt="" style="width:1px; height:1px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                           	<tr>
+                                                <td style="width:9px; background-image:url('./images/agendagraphics/straight.png');">
+                                                    <img src="./images/agendagraphics/tee.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px; background-image:url('./images/agendagraphics/gray-left-BG.png');">
+                                                    <img src="./images/agendagraphics/gray-middle-left.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/gray-middle-center.png');" class="agendacontent">
+                                                    
+                                                    <a href="#" class="control_agendadetail">Animal Purchase No Animal Care</a>
+                                                    <div style="border:1px solid #333; background-color:#EBEBEB; margin:10px; padding:5px; display:none;">
+                                                    	Stuff about the node here.<br />
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum odio accumsan lacus suscipit quis semper sem rutrum. Pellentesque 
+                                                        sed sem a nisi eleifend pharetra vitae sit amet eros. Integer mollis pretium quam nec viverra. Integer sed elit ante, quis tristique ante. 
                                                     </div>
                                                     
-                                                    <div class="arule">
-                                                        Claim Ignorance
+                                                </td>
+                                                <td style="width:9px; background-image:url('./images/agendagraphics/gray-right-BG.png');">
+                                                    <img src="./images/agendagraphics/gray-middle-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width:9px; background-image:url('./images/agendagraphics/straight.png');">
+                                                    <img src="./images/agendagraphics/tee.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px; background-image:url('./images/agendagraphics/gray-bottom-left.png'); background-position:bottom;">
+                                                    <img src="./images/agendagraphics/gray-middle-left.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/gray-bottom-center.png'); background-position:bottom;" class="agendacontent">
+                                                    
+                                                    <a href="#" class="control_agendadetail">All proposals require unit approval</a>
+                                                    <div style="border:1px solid #333; background-color:#EBEBEB; margin:10px; padding:5px; display:none;">
+                                                    	Stuff about the node here.<br />
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum odio accumsan lacus suscipit quis semper sem rutrum. Pellentesque 
+                                                        sed sem a nisi eleifend pharetra vitae sit amet eros. Integer mollis pretium quam nec viverra. Integer sed elit ante, quis tristique ante. 
                                                     </div>
                                                     
-                                                </div>
-                                                
-                                                <!-- When False -->
-                                                <div class="firstwhenfalse" style="margin-top:0px; border-top:0px;">
-                                                
-                                                    <!-- arrow -->
-                                                    <div class="agendaarrow";>
-                                                        <span style="margin-left:16px;">When False</span>
-                                                    </div>
-                                                    
-                                                    <div class="arule">
-                                                        Call Mother
-                                                    </div>
-                                                    
-                                                    <!-- Select First True -->
-                                                    <div class="firstselectfirsttrue">
-                                                    
-                                                        <div class="arule">
-                                                            Call Ex-girlfriend
-                                                        </div>
-                                                        
-                                                        <div class="anagenda ui-corner-all">
-                                                            "Destroy Evidence Agenda"
-                                                        </div>
-                                                    
-                                                    </div>
-                                                    
-                                                </div>
-                                            
-                                            </div>
-                                            
-                                            <!-- When False -->
-                                            <div class="firstwhenfalse" style="margin-top:0px; border-top:0px;">
-                                            
-                                            	<!-- arrow -->
-                                                <div class="agendaarrow">
-                                                    <span style="margin-left:16px;">When False</span>
-                                                </div>
-                                                
-                                                <div class="arule">
-                                                    Purchase Dozen Roses
-                                                </div>
-                                                
-                                                <div class="arule">
-                                                    Purchase Fancy Dinner
-                                                </div>
-                                            
-                                            </div>
-                                            
-                                            <!-- Select First True -->
-                                            <div class="firstselectfirsttrue">
-                                            
-                                            	<div class="anagenda ui-corner-all">
-                                                    "Meditate Agenda"
-                                                </div>
-                                                
-                                                <div class="anagenda ui-corner-all">
-                                                    "Bar Hop Agenda"
-                                                </div>
-                                            
-                                            </div>
-                                            
-                                        </div>
+                                                </td>
+                                                <td style="width:9px; vertical-align:bottom; background-image:url('./images/agendagraphics/gray-right-BG.png');">
+                                                    <img src="./images/agendagraphics/gray-bottom-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <!-- SPACER -->
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="height:12px; width:9px;">
+                                                    <img src="./images/agendagraphics/vspace-extension.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                                <td style="height:12px;">
+                                                	<img src="./images/agendagraphics/vspace-blank.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <!-- When TRUE -->
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/top.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whentrue-left.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:300px; background-image:url('./images/agendagraphics/whentrue-center.png');" class="agendacontent">
+                                                    <strong>When TRUE</strong> (All proposals require unit approval)
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whentrue-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/continue.png');">&nbsp;</td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/continue-end.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/tee.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/tee-left.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/top.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/first.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/gray-middle-center.png');" class="agendacontent">
+                                                    Cost Element Limit in Budget Version - no funds allowed
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/gray-middle-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                           	<tr>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/tee.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/gray-middle-left.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/gray-middle-center.png');" class="agendacontent">
+                                                    Animal Purchase No Animal Care
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/gray-middle-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                           	<tr>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/bottom.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/gray-bottom-left.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/gray-bottom-center.png'); background-position:bottom;" class="agendacontent">
+                                                    Animal Purchase Care Plan
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/gray-bottom-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <!-- SPACER -->
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="height:12px; width:9px;">
+                                                    <img src="./images/agendagraphics/vspace-extension.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                                <td style="height:12px; width:9px;">
+                                                    <img src="./images/agendagraphics/vspace-extension.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                                <td style="height:12px;">
+                                                	<img src="./images/agendagraphics/vspace-blank.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <!-- When FALSE -->
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/bottom.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whenfalse-left.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:300px; background-image:url('./images/agendagraphics/whenfalse-center.png');" class="agendacontent">
+                                                    <strong>When FALSE</strong> (All proposals require unit approval)
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whenfalse-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/continue.png');">&nbsp;</td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/continue-end.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/top.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/first.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/gray-middle-center.png');" class="agendacontent">
+                                                    Research Assistant in budget must have Tuition
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/gray-middle-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                           	<tr>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/tee.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/gray-bottom-left.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/gray-bottom-center.png'); background-position:bottom;" class="agendacontent">
+                                                    Animal Care Cost Element in Budget Version
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/gray-bottom-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <!-- SPACER -->
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="height:12px; width:9px;">
+                                                    <img src="./images/agendagraphics/vspace-extension.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                                <td style="height:12px; width:9px;">
+                                                    <img src="./images/agendagraphics/vspace-blank.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                                <td style="height:12px; width:9px;">
+                                                    <img src="./images/agendagraphics/vspace-blank.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                                <td style="height:12px; width:9px;">
+                                                    <img src="./images/agendagraphics/vspace-extension.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                                <td style="height:12px;">
+                                                	<img src="./images/agendagraphics/vspace-blank.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <!-- FIRST TRUE -->
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                           	<tr>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/tee.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/firsttrue-left.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:300px; background-image:url('./images/agendagraphics/firsttrue-center.png');" class="agendacontent">
+                                                    <strong>FIRST TRUE</strong>
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/firsttrue-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/continue.png');">&nbsp;</td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/continue-end.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/top.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/first.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/gray-middle-center.png');" class="agendacontent">
+                                                    M&amp;S expense limit in Budget version function
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/gray-middle-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/whitespace.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/straight.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/bottom.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/gray-bottom-left.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                                <td style="background-image:url('./images/agendagraphics/gray-bottom-center.png'); background-position:bottom;" class="agendacontent">
+                                                    Stipend on NIH Research warning - generally not allowed
+                                                </td>
+                                                <td style="width:9px;">
+                                                    <img src="./images/agendagraphics/gray-bottom-right.png" alt="" style="width:9px; height:25px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <!-- SPACER -->
+                                        <table class="table_agenda" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="height:12px; width:9px;">
+                                                    <img src="./images/agendagraphics/vspace-extension.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                                <td style="height:12px; width:9px;">
+                                                    <img src="./images/agendagraphics/vspace-blank.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                                <td style="height:12px; width:9px;">
+                                                    <img src="./images/agendagraphics/vspace-blank.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                                <td style="height:12px; width:9px;">
+                                                    <img src="./images/agendagraphics/vspace-extension.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                                <td style="height:12px;">
+                                                	<img src="./images/agendagraphics/vspace-blank.png" alt="" style="width:9px; height:12px;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                     
                                     </div>
                                     

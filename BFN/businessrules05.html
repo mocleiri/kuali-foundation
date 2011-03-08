@@ -836,201 +836,66 @@
                                     <!-- Hierarchy -->
                                     <div id="agendahierarchy">
                                     
-                                    	<!-- Root Rule -->
-                                        <div class="rootrule">
+                                    	<!-- Root Rules -->
+                                        <div style="padding-top:10px; position:relative;">
                                             
-                                            <div class="arule">
-                                            	My Rootin' Tootin' Rule
+                                            <div style="border:1px solid #666; background-color:#FCC; padding:5px;">
+                                            	My Rootin' Tootin' Rule<br />
+                                                My Boot Scootin' Rule<br />
+                                                My Tequila Shootin' Rule
                                             </div>
                                             
-                                            <!-- When True -->
-                                            <div class="firstwhentrue" style="margin-bottom:0px;">
-                                            	
-                                                <!-- arrow -->
-                                                <div class="agendaarrow">
-                                                	<img src="../images/arrow_right_white2.png" alt="when true" /> When True
-                                                </div>
-                                                
-                                            	<div class="arule">
-                                                    <span id="control_rule01" class="rulecontrol">Some Silly Rule</span>
-                                                    <script type="text/javascript">
-														$(document).ready(function(){
-															// initial state
-																$("#div_rule01").hide(0);
-															// trigger
-																$("#control_rule01").toggle(
-																	function()
-																	{
-																		$("#div_rule01").slideDown(400);
-																		//$("#control_rule01").html("hide");
-																	},
-																	function()
-																	{
-																		$("#div_rule01").slideUp(200);
-																		//$("#control_rule01").html("show");
-																	}
-																);	
-														});
-													</script>
-                                                    <div id="div_rule01" style="margin-top:2px;">
-                                                        <table width="100%" cellpadding="0" cellspacing="0" class="subelement">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="subelementheader" align="left">
-                                                                        <a href="#" class="hidedetail"><img src="../images/tinybutton-hide.gif" align="absmiddle" border="0" width="45" height="15"></a>
-                                                                        <input src="../images/tinybutton-edit1.gif" onclick="javascript: alert('This would load the rule into the Rule Editor.'); return false;" style="border:none; padding:2px; vertical-align:middle;" alt="edit" title="Edit" type="image" /> Rule B
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="subelementcontent">
-                                                                        
-                                                                        <table cellpadding="0" cellspacing="0" class="elementtable" width="100%">
-                                                                            <tr>
-                                                                                <th style="text-align:right; width:75px;">Node:</th>
-                                                                                <td colspan="3">
-                                                                                    <input name="x" src="../images/arrow-up.gif" onclick="javascript: alert('This would move this node and its children up within its sibling group.'); return false;" style="border:none;" alt="move up" title="Move Up" type="image" />
-                                                                                    <input src="../images/arrow-down.gif" onclick="javascript: alert('This would move this node and its children down within its sibling group.'); return false;" style="border:none;" alt="move down" title="Move Down" type="image" />
-                                                                                    <input src="../images/tinybutton-removenode.gif" onclick="javascript: alert('This would ask for confirmation before removing this node and its children.'); return false;" style="border:none;" alt="remove node" title="Remove Node" type="image" />
-                                                                                    <input src="../images/tinybutton-cutnode.gif" onclick="javascript: alert('This would cut this node and its children.  Node would not be removed until you paste it.'); return false;" style="border:none;" alt="cut node" title="Cut Node" type="image" />
-                                                                                    <input src="../images/tinybutton-copynode.gif" onclick="javascript: alert('This would copy this node and its children.'); return false;" style="border:none;" alt="copy node" title="Copy Node" type="image" />
-                                                                                    <input src="../images/tinybutton-pastenode.gif" onclick="javascript: alert('This would paste your previously copied or cut node and its children under this node.'); return false;" style="border:none;" alt="paste node" title="Paste Node" type="image" />
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <th style="text-align:right; width:75px;">Save As:</th>
-                                                                                <td colspan="3">
-                                                                                    
-                                                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
-                                                                                        <tr>
-                                                                                            <td style="border:none; background:none; text-align:right;">
-                                                                                                <input type="text" value="" style="width:100%;" />
-                                                                                            </td>
-                                                                                            <td style="width:60px; border:none; background:none; text-align:center;">
-                                                                                                <input src="../images/tinybutton-save1.gif" onclick="javascript: alert('This would collapse and save the node and its children as a named agenda for reuse in another agenda.'); return false" align="top" alt="save " title="Save " style="border:none;" type="image" />
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                    
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <th style="text-align:right;">Evaluate:</th>
-                                                                                <td style="text-align:left; width:150px;">
-                                                                                    
-                                                                                    <select name="CustomData">
-                                                                                        <option value="0">select</option>
-                                                                                        <option value="1" selected="selected">Next</option>
-                                                                                        <option value="2">Previous is True</option>
-                                                                                        <option value="3">Previous is False</option>
-                                                                                    </select>
-                                                                                    
-                                                                                </td>
-                                                                                <th style="text-align:right;">New Node(s):</th>
-                                                                                <td style="text-align:left;">
-                                                                                
-                                                                                    <select>
-                                                                                        <option>add rule(s)</option>
-                                                                                        <option>insert agenda(s)</option>
-                                                                                    </select>
-                                                                                    <select>
-                                                                                        <option>as sibling</option>
-                                                                                        <option>as child</option>
-                                                                                    </select>
-                                                                                    <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the lookup dialog.  Search could be made for a Business Rule OR a saved Agenda.  Only single returns would be allowed.  Results could be added as siblings or children.'); return false;" align="top" alt="search " title="Search " style="border:none; margin-left:3px;" type="image" />
-                                                                                    
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                
-                                                                    </td> 
-                                                                </tr> 
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="arule">
-                                                    An Extra Silly Rule
-                                                </div>
-                                                
-                                                <!-- When True -->
-                                                <div class="whentrue" style="margin-bottom:0px;">
-                                                
-                                                    <!-- arrow -->
-                                                    <div class="agendaarrow">
-                                                        <img src="../images/arrow_right_white2.png" alt="when true" /> When True
-                                                    </div>
-                                                    
-                                                    <div class="arule">
-                                                        Stop The Press
-                                                    </div>
-                                                    
-                                                    <div class="arule">
-                                                        Claim Ignorance
-                                                    </div>
-                                                    
-                                                </div>
-                                                
-                                                <!-- When False -->
-                                                <div class="firstwhenfalse" style="margin-top:0px; border-top:0px;">
-                                                
-                                                    <!-- arrow -->
-                                                    <div class="agendaarrow";>
-                                                        <span style="margin-left:16px;">When False</span>
-                                                    </div>
-                                                    
-                                                    <div class="arule">
-                                                        Call Mother
-                                                    </div>
-                                                    
-                                                    <!-- Select First True -->
-                                                    <div class="firstselectfirsttrue">
-                                                    
-                                                        <div class="arule">
-                                                            Call Ex-girlfriend
-                                                        </div>
-                                                        
-                                                        <div class="anagenda ui-corner-all">
-                                                            "Destroy Evidence Agenda"
-                                                        </div>
-                                                    
-                                                    </div>
-                                                    
-                                                </div>
+                                        </div>
+                                        
+                                        <!-- When True -->
+                                        <div style="padding-top:10px; position:relative;">
                                             
+                                            <div style="border:1px solid #333; background-color:#FFC; width:300px; z-index:99; padding:5px; float:left;" class="ui-corner-all">
+                                            	<b>When TRUE:</b> <span style='font-size:80%'> My Tequila Shootin' Rule</span>
                                             </div>
                                             
-                                            <!-- When False -->
-                                            <div class="firstwhenfalse" style="margin-top:0px; border-top:0px;">
-                                            
-                                            	<!-- arrow -->
-                                                <div class="agendaarrow">
-                                                    <span style="margin-left:16px;">When False</span>
-                                                </div>
-                                                
-                                                <div class="arule">
-                                                    Purchase Dozen Roses
-                                                </div>
-                                                
-                                                <div class="arule">
-                                                    Purchase Fancy Dinner
-                                                </div>
-                                            
+                                            <div style="border:1px solid #666; background-color:#FCF; margin-left:100px; margin-top:15px; padding:5px; padding-top:15px;">
+                                            	Some Silly Rule<br />
+                                                An Extra Silly Rule
                                             </div>
                                             
-                                            <!-- Select First True -->
-                                            <div class="firstselectfirsttrue">
+                                        </div>
+                                        
+                                        <!-- When False -->
+                                        <div style="padding-top:10px; position:relative;">
                                             
-                                            	<div class="anagenda ui-corner-all">
-                                                    "Meditate Agenda"
-                                                </div>
-                                                
-                                                <div class="anagenda ui-corner-all">
-                                                    "Bar Hop Agenda"
-                                                </div>
+                                            <div style="border:1px solid #333; background-color:#FFC; width:300px; z-index:99; padding:5px; float:left;" class="ui-corner-all">
+                                            	<b>When FALSE:</b> <span style='font-size:80%'> My Tequila Shootin' Rule</span>
+                                            </div>
                                             
+                                            <div style="border:1px solid #666; background-color:#CFF; margin-left:100px; margin-top:15px; padding:5px; padding-top:15px;">
+                                            	Purchase Dozen Roses<br />
+                                                Purchase Fancy Dinner
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <!-- FIRST TRUE -->
+                                        <div style="padding-top:10px; position:relative;">
+                                            
+                                            <div style="border:1px solid #333; background-color:#FFC; width:300px; z-index:99; padding:5px; float:left;" class="ui-corner-all">
+                                            	<b>FIRST TRUE</b>
+                                            </div>
+                                            
+                                            <div style="border:1px solid #666; background-color:#FCC; margin-left:100px; margin-top:15px; padding:5px; padding-top:15px;">
+                                            	Purchase Dozen Roses<br />
+                                                Purchase Fancy Dinner
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <!-- Root Rules -->
+                                        <div style="padding-top:10px; position:relative;">
+                                            
+                                            <div style="border:1px solid #666; background-color:#FCC; padding:5px;">
+                                            	Rule of Rage<br />
+                                                "Enter Negotiations Agenda"<br />
+                                                Find Acceptance Rule
                                             </div>
                                             
                                         </div>
