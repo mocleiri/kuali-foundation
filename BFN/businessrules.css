@@ -77,6 +77,14 @@
 	padding:3px;
 }
 
+.agendanode
+{
+	border:1px solid #666;
+	background-image:none;
+	background-color:#EEE;
+	padding:3px;
+}
+
 .agendaarrow
 {
 	font-size:80%;
@@ -129,4 +137,38 @@ td.agendacontent
 {
 	 padding-top:6px;
 	 height:19px;
+}
+
+.agenda_businessrule
+{
+	white-space:0px;
+	padding:0px;
+	border:none;
+	border-collapse:collapse;
+}
+
+.agenda_businessrule td
+{
+	vertical-align:middle;
+	background-color:#FFF;
+	padding:2px;
+	border: 1px solid #666;	
+	border-collapse:collapse;
+}
+
+.agenda_businessrule th
+{
+	vertical-align:middle;
+	background-color:#E4E4E4;
+	padding:2px;
+	border: 1px solid #666;	
+	border-collapse:collapse;	
+}
+
+.agenda_businessruleheading
+{
+	background-color:#666;
+	padding:2px;
+	border: 1px solid #666;	
+	border-collapse:collapse;	
 }
