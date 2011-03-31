@@ -172,3 +172,10 @@ td.agendacontent
 	border: 1px solid #666;	
 	border-collapse:collapse;	
 }
+
+.hilitepart
+{
+	border:1px solid #F00;
+	background-color:#FFC;
+	padding:2px;
+}
