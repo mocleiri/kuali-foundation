@@ -97,4 +97,5 @@
 
 	<param name="log4j.settings.path">/home/tomcat/kuali/main/shared/log4j_kc.properties</param>
 	<param name="kfs.accountcreation.webservice.endpoint">http://stg.kfs.kuali.org:8080/kfs-stg/remoting/accountCreationServiceSOAP</param>
+	<param name="shared.rice">true</param>
 </config>
