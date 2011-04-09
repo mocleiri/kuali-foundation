@@ -255,4 +255,8 @@ public class PlatformOracleImpl extends PlatformDefaultImpl
 		}
 	}
 
+	@Override
+	public int getMaxCommentLength() {
+		return 4000;
+	}
 }

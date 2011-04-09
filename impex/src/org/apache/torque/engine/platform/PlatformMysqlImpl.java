@@ -206,4 +206,14 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl
 		}
 		return defValue;
 	}
+	
+	@Override
+	public boolean supportsCommentInColumnDefinition() {
+		return true;
+	}
+
+	@Override
+	public int getMaxCommentLength() {
+		return 255;
+	}
 }

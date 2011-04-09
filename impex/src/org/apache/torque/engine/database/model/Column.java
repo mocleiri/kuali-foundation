@@ -146,6 +146,7 @@ public class Column
         }
         //Name
         name = attrib.getValue("name");
+        comment = attrib.getValue("zz_comment");
 
         javaName = attrib.getValue("javaName");
         javaType = attrib.getValue("javaType");
@@ -203,7 +204,7 @@ public class Column
                 && !inheritanceType.equals("false"));
 
         this.inputValidator = attrib.getValue("inputValidator");
-        description = attrib.getValue("description");
+        description = attrib.getValue("zz_comment");
 
         isProtected = ("true".equals(attrib.getValue("protected")));
     }
@@ -1125,7 +1126,7 @@ public class Column
 
     public String getSqlString()
     {
-        List resultList = new ArrayList();
+        List<String> resultList = new ArrayList<String>();
         resultList.add(getName());
 
         String type = getDomain().getSqlType();
@@ -1145,10 +1146,10 @@ public class Column
             if (TypeMap.isTextType(getDomain().getType()) && !getPlatform().isSpecialDefault( defaultStr ) ) {
                 // TODO: Properly SQL-escape the text.
                 resultList.add(
-                        new StringBuffer()
+                        new StringBuilder()
                         .append('\'')
                         .append(getDefaultValue())
-                        .append('\''));
+                        .append('\'').toString());
             } else {
                 resultList.add(getDefaultValue());
             }
@@ -1170,6 +1171,11 @@ public class Column
             {
                 resultList.add(getNotNullString());
             }
+        }
+        if ( getPlatform().supportsCommentInColumnDefinition() ) {
+        	if ( StringUtils.isNotEmpty(getComment())) {
+        		resultList.add( "COMMENT '" + StringUtils.left( getComment(), getPlatform().getMaxCommentLength() ) + "'" );
+        	}
         }
         return StringUtils.join(resultList.iterator(), ' ');
     }
@@ -1252,5 +1258,8 @@ public class Column
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	public boolean hasComment() {
+		return StringUtils.isNotBlank(comment);
 	}
 }

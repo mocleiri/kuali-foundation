@@ -119,6 +119,7 @@ public class Table implements IDMethod
         name = attrib.getValue("name");
         javaName = attrib.getValue("javaName");
         idMethod = attrib.getValue("idMethod");
+        comment = attrib.getValue("zz_comment");
 
         // retrieves the method for converting from specified name to
         // a java name.
@@ -141,7 +142,7 @@ public class Table implements IDMethod
         heavyIndexing = "true".equals(attrib.getValue("heavyIndexing"))
                 || (!"false".equals(attrib.getValue("heavyIndexing"))
                 && getDatabase().isHeavyIndexing());
-        description = attrib.getValue("description");
+        description = attrib.getValue("zz_comment");
         enterface = attrib.getValue("interface");
     }
 
@@ -1170,5 +1171,9 @@ public class Table implements IDMethod
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	
+	public boolean hasComment() {
+		return StringUtils.isNotBlank(comment);
 	}
 }

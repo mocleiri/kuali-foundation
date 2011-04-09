@@ -27,4 +27,7 @@ $generator.parse("$basepath/unique.vm", '', "table", $tbl)
 $generator.parse("$basepath/index.vm", '', "table", $tbl)
 ) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_bin
 /
-
+#if( $table.hasComment() )
+ALTER TABLE $table.Name COMMENT = '$table.Comment'
+/
+#end

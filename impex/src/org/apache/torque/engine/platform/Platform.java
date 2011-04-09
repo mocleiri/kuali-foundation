@@ -120,4 +120,7 @@ public interface Platform
 	
 	String getColumnDefaultValue( String columnType, String defValue );
 	String getTorqueColumnType( Integer jdbcType );
+	boolean supportsCommentInColumnDefinition();
+	
+	int getMaxCommentLength();
 }

@@ -42,8 +42,7 @@ import org.apache.torque.engine.database.model.TypeMap;
  * @author <a href="mailto:mpoeschl@marmot.at">Martin Poeschl</a>
  * @version $Id: PlatformDefaultImpl.java,v 1.1.6.2 2008-04-18 17:04:37 jkeller Exp $
  */
-public class PlatformDefaultImpl implements Platform
-{
+public class PlatformDefaultImpl implements Platform {
     private Map<SchemaType,Domain> schemaDomainMap;
 
     /**
@@ -317,5 +316,11 @@ public class PlatformDefaultImpl implements Platform
         }
         return columns;
 	}
+	public boolean supportsCommentInColumnDefinition() {
+		return false;
+	}
 	
+	public int getMaxCommentLength() {
+		return 255;
+	}
 }
