@@ -113,7 +113,7 @@ Java class or method name.
   javaNamingMethod (nochange|underscore|underscoreOmitSchema|javaname) #IMPLIED
   heavyIndexing (true|false) #IMPLIED
   description CDATA #IMPLIED
-  comment CDATA #IMPLIED
+  zz_comment CDATA #IMPLIED
 >
 
 <!ELEMENT id-method-parameter EMPTY>
@@ -148,7 +148,7 @@ Java class or method name.
   inputValidator CDATA #IMPLIED
   javaNamingMethod (nochange|underscore|javaname) #IMPLIED
   description CDATA #IMPLIED
-  comment CDATA #IMPLIED
+  zz_comment CDATA #IMPLIED
 >
 
 <!ELEMENT inheritance EMPTY>
