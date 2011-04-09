@@ -81,6 +81,7 @@ public class Table implements IDMethod
     private boolean heavyIndexing;
     private boolean forReferenceOnly;
     private Map options;
+    private String comment;
 
     /**
      * Default Constructor
@@ -998,48 +999,14 @@ public class Table implements IDMethod
               .append(name)
               .append('\"');
 
-        if (javaName != null)
+        if ( StringUtils.isNotBlank(comment))
         {
-            result.append(" javaName=\"")
-                  .append(javaName)
+            result.append(" comment=\"")
+                  .append(comment)
                   .append('\"');
         }
 
-        if (idMethod != null)
-        {
-            result.append(" idMethod=\"")
-                  .append(idMethod)
-                  .append('\"');
-        }
-
-        if (skipSql)
-        {
-            result.append(" skipSql=\"")
-                  .append(new Boolean(skipSql))
-                  .append('\"');
-        }
-
-        if (abstractValue)
-        {
-            result.append(" abstract=\"")
-                  .append(new Boolean(abstractValue))
-                  .append('\"');
-        }
-
-        if (baseClass != null)
-        {
-            result.append(" baseClass=\"")
-                  .append(baseClass)
-                  .append('\"');
-        }
-
-        if (basePeer != null)
-        {
-            result.append(" basePeer=\"")
-                  .append(basePeer)
-                  .append('\"');
-        }
-
+        
         result.append(">\n");
 
         if (columnList != null)
@@ -1196,4 +1163,12 @@ public class Table implements IDMethod
     {
         return options;
     }
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 }

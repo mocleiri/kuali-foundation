@@ -23,12 +23,14 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
 import org.apache.torque.engine.database.model.TypeMap;
@@ -208,15 +210,18 @@ public class PlatformDefaultImpl implements Platform
         return pk;
     }
 	
-    protected List<String> getObjectsOfType( DatabaseMetaData dbMeta, String databaseSchema, String[] databaseEntityTypes ) throws SQLException {
-		List<String> objects = new ArrayList<String>();
+    protected List<DatabaseObjectInformation> getObjectsOfType( DatabaseMetaData dbMeta, String databaseSchema, String[] databaseEntityTypes ) throws SQLException {
+		List<DatabaseObjectInformation> objects = new ArrayList<DatabaseObjectInformation>();
 		ResultSet objectNames = null;
 		// these are the entity types we want from the database
 		try {
 			objectNames = dbMeta.getTables( null, databaseSchema, null, databaseEntityTypes );
 			while ( objectNames.next() ) {
-				String name = objectNames.getString( 3 );
-				objects.add( name );
+				DatabaseObjectInformation obj = new DatabaseObjectInformation();
+				obj.setName( objectNames.getString( 3 ) );
+				obj.setType( objectNames.getString(4) );
+				obj.setComment(objectNames.getString(5) );
+				objects.add( obj );
 			}
 		} finally {
 			if ( objectNames != null ) {
@@ -235,15 +240,15 @@ public class PlatformDefaultImpl implements Platform
 	 * @return The list of all the tables in a database.
 	 * @throws SQLException
 	 */
-	public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+	public List<DatabaseObjectInformation> getTables(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
 		return getObjectsOfType(dbMeta, databaseSchema, new String[] { "TABLE" } );
 	}
 
-	public List<String> getViewNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+	public List<DatabaseObjectInformation> getViews(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
 		return getObjectsOfType(dbMeta, databaseSchema, new String[] { "VIEW" } );
 	}
 
-	public List<String> getSequenceNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+	public List<DatabaseObjectInformation> getSequences(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
 		return getObjectsOfType(dbMeta, databaseSchema, new String[] { "SEQUENCE" } );
 	}
 	
@@ -254,6 +259,55 @@ public class PlatformDefaultImpl implements Platform
 				|| sequenceName.toUpperCase().endsWith( "_SEQUENCE" )
 				|| sequenceName.toUpperCase().endsWith( "_ID" )
 				|| sequenceName.toUpperCase().endsWith( "_S" ) ;
+	}
+	
+	public List<DatabaseColumnInformation> getColumns(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException {
+        List<DatabaseColumnInformation> columns = new ArrayList<DatabaseColumnInformation>();
+        ResultSet columnSet = null;
+        try {
+            columnSet = dbMeta.getColumns(null, dbSchema, tableName, null);
+            while (columnSet.next()) {
+                DatabaseColumnInformation col = new DatabaseColumnInformation();
+                col.setName( columnSet.getString(4) );
+                col.setSqlType( new Integer(columnSet.getString(5)) );
+                col.setSize( new Integer(columnSet.getInt(7)) );
+                col.setDecimalDigits( new Integer(columnSet.getInt(9)) );
+                col.setNullType( new Integer(columnSet.getInt(11)) );
+                col.setDefValue( columnSet.getString(13) );
+                col.setComment( columnSet.getString(12) );
+                columns.add(col);
+            }
+        } finally {
+            if (columnSet != null) {
+                columnSet.close();
+            }
+        }
+        // now, post-process the columns to prepare for the export
+        for ( DatabaseColumnInformation col : columns ) {
+        	col.setExportColumnType( getTorqueColumnType( col.getSqlType() ) );
+			if ( col.getSize() != null && col.getSize() > 0 &&
+					(  col.getSqlType() == Types.CHAR
+					|| col.getSqlType() == Types.VARCHAR
+					|| col.getSqlType() == Types.DECIMAL 
+					|| col.getSqlType() == Types.NUMERIC) ) {
+				col.setExportSize( String.valueOf( col.getSize() ) );
+			}
+
+			if ( col.getDecimalDigits() != null && col.getDecimalDigits() > 0 &&
+					(  col.getSqlType() == Types.DECIMAL 
+					|| col.getSqlType() == Types.NUMERIC) ) {
+				col.setExportScale( String.valueOf( col.getDecimalDigits() ) );
+			}
+			
+			if ( col.getNullType() != null && col.getNullType() == DatabaseMetaData.columnNoNulls ) {
+				col.setNotNull(true);
+			}
+        	
+			if ( StringUtils.isNotEmpty( col.getDefValue() ) ) {
+				col.setExportDefaultValue( getColumnDefaultValue( col.getExportColumnType(), col.getDefValue() ) );
+			}
+        }
+        return columns;
 	}
 	
 }

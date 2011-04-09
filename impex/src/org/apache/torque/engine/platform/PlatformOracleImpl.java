@@ -104,13 +104,13 @@ public class PlatformOracleImpl extends PlatformDefaultImpl
     }
 
     @Override
-    public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
-		List<String> tables = super.getTableNames(dbMeta, databaseSchema);
+    public List<DatabaseObjectInformation> getTables(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+		List<DatabaseObjectInformation> tables = super.getTables(dbMeta, databaseSchema);
 		// filter out special tables
-		Iterator<String> tableIterator = tables.iterator();
+		Iterator<DatabaseObjectInformation> tableIterator = tables.iterator();
 		while ( tableIterator.hasNext() ) {
-			String tableName = tableIterator.next();
-			if ( isSpecialTable(tableName) ) { 
+			DatabaseObjectInformation table = tableIterator.next();
+			if ( isSpecialTable(table.getName()) ) { 
 				tableIterator.remove();
 			}
 		}

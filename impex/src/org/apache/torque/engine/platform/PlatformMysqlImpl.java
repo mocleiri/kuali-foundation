@@ -95,14 +95,14 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl
 	}
 
 	@Override
-	public List<String> getTableNames(DatabaseMetaData dbMeta,
+	public List<DatabaseObjectInformation> getTables(DatabaseMetaData dbMeta,
 			String databaseSchema) throws SQLException {
-		List<String> tables = super.getTableNames(dbMeta, databaseSchema);
+		List<DatabaseObjectInformation> tables = super.getTables(dbMeta, databaseSchema);
 		// filter out sequences
-		Iterator<String> tableIterator = tables.iterator();
+		Iterator<DatabaseObjectInformation> tableIterator = tables.iterator();
 		while ( tableIterator.hasNext() ) {
-			String tableName = tableIterator.next();
-			if ( isSequence(tableName) ) { 
+			DatabaseObjectInformation table = tableIterator.next();
+			if ( isSequence(table.getName()) ) { 
 				tableIterator.remove();
 			}
 		}
@@ -152,13 +152,13 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl
 		}
 	}
 	
-	public List<String> getSequenceNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
-		List<String> tables = super.getTableNames(dbMeta, databaseSchema);
+	public List<DatabaseObjectInformation> getSequences(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+		List<DatabaseObjectInformation> tables = super.getTables(dbMeta, databaseSchema);
 		// filter out tables
-		Iterator<String> tableIterator = tables.iterator();
+		Iterator<DatabaseObjectInformation> tableIterator = tables.iterator();
 		while ( tableIterator.hasNext() ) {
-			String tableName = tableIterator.next();
-			if ( !isSequence(tableName) ) { 
+			DatabaseObjectInformation sequence = tableIterator.next();
+			if ( !isSequence(sequence.getName()) ) { 
 				tableIterator.remove();
 			}
 		}

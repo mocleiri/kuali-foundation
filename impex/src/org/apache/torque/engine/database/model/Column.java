@@ -74,6 +74,7 @@ public class Column
     private boolean isEnumeratedClasses;
     private List inheritanceList;
     private boolean needsTransactionInPostgres;
+    private String comment;
 
     /** generate is... setters for boolean columns if true */
     private boolean correctGetters = false;
@@ -707,11 +708,6 @@ public class Column
         StringBuffer result = new StringBuffer();
         result.append("    <column name=\"").append(name).append('"');
 
-        if (javaName != null)
-        {
-            result.append(" javaName=\"").append(javaName).append('"');
-        }
-
         if (isPrimaryKey)
         {
             result.append(" primaryKey=\"").append(isPrimaryKey).append('"');
@@ -743,10 +739,11 @@ public class Column
             result.append(" default=\"").append(domain.getDefaultValue()).append('"');
         }
 
-        if (isInheritance())
+        if ( StringUtils.isNotBlank(comment))
         {
-            result.append(" inheritance=\"").append(inheritanceType)
-                .append('"');
+            result.append(" comment=\"")
+                  .append(comment)
+                  .append('\"');
         }
 
         // Close the column.
@@ -1248,4 +1245,12 @@ public class Column
     {
         return options;
     }
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 }

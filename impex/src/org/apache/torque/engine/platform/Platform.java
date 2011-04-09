@@ -110,11 +110,13 @@ public interface Platform
 
 	List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException;
 	
-	List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;
+	List<DatabaseObjectInformation> getTables(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;
 	
-	List<String> getSequenceNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;	
+	List<DatabaseObjectInformation> getSequences(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;	
 
-	List<String> getViewNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;
+	List<DatabaseObjectInformation> getViews(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;
+	
+	List<DatabaseColumnInformation> getColumns( DatabaseMetaData dbMeta, String dbSchema, String tableName ) throws SQLException;
 	
 	String getColumnDefaultValue( String columnType, String defValue );
 	String getTorqueColumnType( Integer jdbcType );

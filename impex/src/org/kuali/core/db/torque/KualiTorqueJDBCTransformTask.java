@@ -7,7 +7,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,6 +21,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.apache.torque.engine.platform.DatabaseColumnInformation;
+import org.apache.torque.engine.platform.DatabaseObjectInformation;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.apache.xerces.dom.DocumentImpl;
@@ -187,27 +188,31 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			databaseNode.setAttribute( "defaultJavaNamingMethod", "nochange" );
 
 			if ( processTables ) {
-				List<String> tableList = platform.getTableNames( dbMetaData, dbSchema );
-				// ensure all are upper case before exporting
-				tableList = upperCaseList(tableList);
+				List<DatabaseObjectInformation> tableList = platform.getTables( dbMetaData, dbSchema );
 				// ensure sorting is consistent (not DB-dependent)
 				Collections.sort(tableList);
-				for ( String curTable : tableList ) {
-					if ( !tableNameRegexPattern.matcher( curTable ).matches() ) {
-						log( "Skipping table: " + curTable);
+				for ( DatabaseObjectInformation curTable : tableList ) {
+					String tableName = curTable.getName();
+					// ensure all are upper case before exporting
+					tableName = tableName.toUpperCase();
+					if ( !tableNameRegexPattern.matcher( tableName ).matches() ) {
+						log( "Skipping table: " + tableName);
 						continue;
 					}
-					log( "Processing table: " + curTable );
+					log( "Processing table: " + tableName );
 	
 					Element table = doc.createElement( "table" );
-					table.setAttribute( "name", curTable.toUpperCase() );
+					table.setAttribute( "name", tableName.toUpperCase() );
+					if ( StringUtils.isNotBlank( curTable.getComment() ) ) {
+						table.setAttribute( "comment", curTable.getComment() );
+					}
 	
 					// Add Columns.
 					// TableMap tblMap = dbMap.getTable(curTable);
 	
-					List columns = getColumns( dbMetaData, curTable );
-					List<String> primKeys = platform.getPrimaryKeys( dbMetaData, dbSchema, curTable );
-					Map<String,Object[]> foreignKeys = getForeignKeys( dbMetaData, curTable );
+					List<DatabaseColumnInformation> columns = platform.getColumns( dbMetaData, dbSchema, tableName );
+					List<String> primKeys = platform.getPrimaryKeys( dbMetaData, dbSchema, tableName );
+					Map<String,Object[]> foreignKeys = getForeignKeys( dbMetaData, tableName );
 	
 					// Set the primary keys.
 					primaryKeys = new HashMap<String,String>();
@@ -217,70 +222,37 @@ public class KualiTorqueJDBCTransformTask extends Task {
 						primaryKeys.put( curPrimaryKey, curPrimaryKey );
 					}
 	
-					for ( int j = 0; j < columns.size(); j++ ) {
-						List col = (List)columns.get( j );
-						String name = (String)col.get( 0 );
-						Integer jdbcType = ((Integer)col.get( 1 ));
-						int size = ((Integer)col.get( 2 )).intValue();
-						int scale = ((Integer)col.get( 5 )).intValue();
-	
-						// From DatabaseMetaData.java
-						//
-						// Indicates column might not allow NULL values. Huh?
-						// Might? Boy, that's a definitive answer.
-						/* int columnNoNulls = 0; */
-	
-						// Indicates column definitely allows NULL values.
-						/* int columnNullable = 1; */
-	
-						// Indicates NULLABILITY of column is unknown.
-						/* int columnNullableUnknown = 2; */
-	
-						Integer nullType = (Integer)col.get( 3 );
-						String defValue = (String)col.get( 4 );
-	
+					for ( DatabaseColumnInformation col : columns ) {	
 						Element column = doc.createElement( "column" );
-						column.setAttribute( "name", name );
-	
-						;
-						column.setAttribute( "type", platform.getTorqueColumnType( jdbcType ) );
-						//							TypeMap.getTorqueType( type ).getName() );
-	
-						if ( size > 0 &&
-								(jdbcType.intValue() == Types.CHAR
-								|| jdbcType.intValue() == Types.VARCHAR
-								|| jdbcType.intValue() == Types.DECIMAL 
-								|| jdbcType.intValue() == Types.NUMERIC) ) {
-							column.setAttribute( "size", String.valueOf( size ) );
+						column.setAttribute( "name", col.getName() );
+						column.setAttribute( "type", col.getExportColumnType() );
+						if ( StringUtils.isNotBlank( col.getExportSize() )) {
+							column.setAttribute( "size", col.getExportSize() );
+						}
+						if ( StringUtils.isNotBlank( col.getExportScale() )) {
+							column.setAttribute( "scale", col.getExportScale() );
 						}
 	
-						if ( scale > 0 &&
-								(jdbcType.intValue() == Types.DECIMAL || jdbcType
-										.intValue() == Types.NUMERIC) ) {
-							column.setAttribute( "scale", String.valueOf( scale ) );
-						}
-	
-						if ( primaryKeys.containsKey( name ) ) {
+						if ( primaryKeys.containsKey( col.getName() ) ) {
 							column.setAttribute( "primaryKey", "true" );
 							// JHK: protect MySQL from excessively long column in the PK
-							//System.out.println( curTable + "." + name + " / " + size );
-							if ( column.getAttribute( "size" ) != null 
-									&& size > 765 ) {
-								log( "updating column " + curTable + "." + name + " length from " + size + " to 255" );
+							// (When using UTF-8, each character may take up to 3 bytes, hence the 765
+							if ( StringUtils.isNotBlank( col.getExportSize() ) && col.getSize() > 765 ) {
+								log( "updating column " + tableName + "." + col.getName() + " length from " + col.getSize() + " to 255" );
 								column.setAttribute( "size", "255" );
 							}
 						} else {
-							if ( nullType.intValue() == DatabaseMetaData.columnNoNulls ) {
+							if ( col.isNotNull() ) {
 								column.setAttribute( "required", "true" );
 							}
 						}
-	
 						
-						if ( StringUtils.isNotEmpty( defValue ) ) {
-							defValue = platform.getColumnDefaultValue( platform.getTorqueColumnType( jdbcType ), defValue );
-							if ( StringUtils.isNotEmpty( defValue ) ) {
-								column.setAttribute( "default", defValue );
-							}
+						if ( StringUtils.isNotEmpty( col.getExportDefaultValue() ) ) {
+							column.setAttribute( "default", col.getExportDefaultValue() );
+						}
+
+						if ( StringUtils.isNotBlank( col.getComment() ) ) {
+							column.setAttribute( "comment", col.getComment() );
 						}
 						table.appendChild( column );
 					}
@@ -310,7 +282,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
 						table.appendChild( fk );
 					}
 					
-					List<TableIndex> indexes = getIndexes( dbMetaData, curTable );
+					List<TableIndex> indexes = getIndexes( dbMetaData, tableName );
 					Collections.sort( indexes, new Comparator<TableIndex>() {
 						public int compare(TableIndex o1, TableIndex o2) { return o1.name.compareTo(o2.name); }
 					} );
@@ -335,49 +307,49 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			}
 			if ( processViews ) {
 				log( "Getting view list..." );
-				List<String> viewNames = platform.getViewNames( dbMetaData, dbSchema );
+				List<DatabaseObjectInformation> viewNames = platform.getViews( dbMetaData, dbSchema );
 				log( "Found " + viewNames.size() + " views." );
-				viewNames = upperCaseList(viewNames);
 				Collections.sort( viewNames );
-				for ( String viewName : viewNames ) {
+				for ( DatabaseObjectInformation view : viewNames ) {
+					String viewName = view.getName().toUpperCase();
 					if ( !tableNameRegexPattern.matcher( viewName ).matches() ) {
 						log( "Skipping view: " + viewName);
 						continue;
 					}
-					Element view = doc.createElement( "view" );
-					view.setAttribute( "name", viewName.toUpperCase() );
+					Element viewElement = doc.createElement( "view" );
+					viewElement.setAttribute( "name", viewName.toUpperCase() );
 					/*
 					 * <view name="" viewdefinition="" />
 					 * 
 					 */
 					String definition = platform.getViewDefinition( dbMetaData.getConnection(), dbSchema, viewName );
 					definition = definition.replaceAll( "\0", "" );
-					view.setAttribute( "viewdefinition", definition );
-					databaseNode.appendChild( view );
+					viewElement.setAttribute( "viewdefinition", definition );
+					databaseNode.appendChild( viewElement );
 				}
 			}
 			
 			if ( processSequences ) {
 				log( "Getting sequence list..." );
-				List<String> sequenceNames = platform.getSequenceNames( dbMetaData, dbSchema );
-				log( "Found " + sequenceNames.size() + " sequences." );
-				sequenceNames = upperCaseList(sequenceNames);
-				Collections.sort( sequenceNames );
-				for ( String sequenceName : sequenceNames ) {
+				List<DatabaseObjectInformation> sequences = platform.getSequences( dbMetaData, dbSchema );
+				log( "Found " + sequences.size() + " sequences." );
+				Collections.sort( sequences );
+				for ( DatabaseObjectInformation sequence : sequences ) {
+					String sequenceName = sequence.getName().toUpperCase();
 					if ( !tableNameRegexPattern.matcher( sequenceName ).matches() ) {
 						log( "Skipping sequence: " + sequenceName);
 						continue;
 					}
-					Element sequence = doc.createElement( "sequence" );
-					sequence.setAttribute( "name", sequenceName.toUpperCase() );
+					Element sequenceElement = doc.createElement( "sequence" );
+					sequenceElement.setAttribute( "name", sequenceName.toUpperCase() );
 					/*
 					 * <view name="" nextval="" />
 					 * 
 					 */
 					Long nextVal = platform.getSequenceNextVal( dbMetaData.getConnection(), dbSchema, sequenceName );
-					sequence.setAttribute( "nextval", nextVal.toString() );
+					sequenceElement.setAttribute( "nextval", nextVal.toString() );
 					
-					databaseNode.appendChild( sequence );
+					databaseNode.appendChild( sequenceElement );
 				}
 				doc.appendChild( databaseNode );
 			}
@@ -388,59 +360,6 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			}
 		}
 	}
-
-    /**
-     * Retrieves all the column names and types for a given table from
-     * JDBC metadata.  It returns a List of Lists.  Each element
-     * of the returned List is a List with:
-     *
-     * element 0 => a String object for the column name.
-     * element 1 => an Integer object for the column type.
-     * element 2 => size of the column.
-     * element 3 => null type.
-     *
-     * @param dbMeta JDBC metadata.
-     * @param tableName Table from which to retrieve column information.
-     * @return The list of columns in <code>tableName</code>.
-     * @throws SQLException
-     */
-    public List<List<Object>> getColumns(DatabaseMetaData dbMeta, String tableName)
-            throws SQLException
-    {
-        List<List<Object>> columns = new ArrayList<List<Object>>();
-        ResultSet columnSet = null;
-        try
-        {
-            columnSet = dbMeta.getColumns(null, dbSchema, tableName, null);
-            while (columnSet.next())
-            {
-                String name = columnSet.getString(4);
-                Integer sqlType = new Integer(columnSet.getString(5));
-                Integer size = new Integer(columnSet.getInt(7));
-                Integer decimalDigits = new Integer(columnSet.getInt(9));
-                Integer nullType = new Integer(columnSet.getInt(11));
-                String defValue = columnSet.getString(13);
-
-                List<Object> col = new ArrayList<Object>(6);
-                col.add(name);
-                col.add(sqlType);
-                col.add(size);
-                col.add(nullType);
-                col.add(defValue);
-                col.add(decimalDigits);
-                columns.add(col);
-            }
-        }
-        finally
-        {
-            if (columnSet != null)
-            {
-                columnSet.close();
-            }
-        }
-        return columns;
-    }
-
 
     /**
      * Retrieves a list of foreign key columns for a given table.
