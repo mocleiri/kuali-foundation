@@ -204,7 +204,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
 					Element table = doc.createElement( "table" );
 					table.setAttribute( "name", tableName.toUpperCase() );
 					if ( StringUtils.isNotBlank( curTable.getComment() ) ) {
-						table.setAttribute( "comment", curTable.getComment() );
+						table.setAttribute( "zz_comment", curTable.getComment() );
 					}
 	
 					// Add Columns.
@@ -252,7 +252,7 @@ public class KualiTorqueJDBCTransformTask extends Task {
 						}
 
 						if ( StringUtils.isNotBlank( col.getComment() ) ) {
-							column.setAttribute( "comment", col.getComment() );
+							column.setAttribute( "zz_comment", col.getComment() );
 						}
 						table.appendChild( column );
 					}
@@ -307,10 +307,10 @@ public class KualiTorqueJDBCTransformTask extends Task {
 			}
 			if ( processViews ) {
 				log( "Getting view list..." );
-				List<DatabaseObjectInformation> viewNames = platform.getViews( dbMetaData, dbSchema );
-				log( "Found " + viewNames.size() + " views." );
-				Collections.sort( viewNames );
-				for ( DatabaseObjectInformation view : viewNames ) {
+				List<DatabaseObjectInformation> views = platform.getViews( dbMetaData, dbSchema );
+				log( "Found " + views.size() + " views." );
+				Collections.sort( views );
+				for ( DatabaseObjectInformation view : views ) {
 					String viewName = view.getName().toUpperCase();
 					if ( !tableNameRegexPattern.matcher( viewName ).matches() ) {
 						log( "Skipping view: " + viewName);
@@ -318,6 +318,9 @@ public class KualiTorqueJDBCTransformTask extends Task {
 					}
 					Element viewElement = doc.createElement( "view" );
 					viewElement.setAttribute( "name", viewName.toUpperCase() );
+					if ( StringUtils.isNotBlank( view.getComment() ) ) {
+						viewElement.setAttribute( "zz_comment", view.getComment() );
+					}
 					/*
 					 * <view name="" viewdefinition="" />
 					 * 
@@ -342,6 +345,9 @@ public class KualiTorqueJDBCTransformTask extends Task {
 					}
 					Element sequenceElement = doc.createElement( "sequence" );
 					sequenceElement.setAttribute( "name", sequenceName.toUpperCase() );
+					if ( StringUtils.isNotBlank( sequence.getComment() ) ) {
+						sequenceElement.setAttribute( "zz_comment", sequence.getComment() );
+					}
 					/*
 					 * <view name="" nextval="" />
 					 * 

@@ -24,8 +24,10 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
@@ -102,19 +104,102 @@ public class PlatformOracleImpl extends PlatformDefaultImpl
     public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException {
     	return super.getPrimaryKeys( dbMeta, dbSchema.toUpperCase(), tableName );
     }
+    
+    protected Map<String,String> getTableToCommentMap( DatabaseMetaData dbMeta, String dbSchema ) throws SQLException {
+    	Map<String,String> commentsByTable = new HashMap<String, String>();
+    	// pull the comments for the tables
+    	PreparedStatement ps = null;
+    	ResultSet rs = null;
+    	try {
+	    	ps = dbMeta.getConnection().prepareStatement("select table_name, comments from all_tab_comments\n" + 
+	    			"WHERE owner = ?");
+	    	ps.setString(1,dbSchema);
+	    	rs = ps.executeQuery();
+	    	while ( rs.next() ) {
+	    		commentsByTable.put( rs.getString(1), rs.getString(2));
+	    	}
+    	} finally {
+    		if ( rs != null ) {
+    			rs.close();
+    		}
+    		if ( ps != null ) {
+    			ps.close();
+    		}
+    	}
+    	return commentsByTable;
+    }
 
     @Override
-    public List<DatabaseObjectInformation> getTables(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
-		List<DatabaseObjectInformation> tables = super.getTables(dbMeta, databaseSchema);
+    public List<DatabaseObjectInformation> getTables(DatabaseMetaData dbMeta, String dbSchema) throws SQLException {
+		List<DatabaseObjectInformation> tables = super.getTables(dbMeta, dbSchema);
+
+    	Map<String,String> commentsByTable = getTableToCommentMap(dbMeta, dbSchema);
+		
 		// filter out special tables
 		Iterator<DatabaseObjectInformation> tableIterator = tables.iterator();
 		while ( tableIterator.hasNext() ) {
 			DatabaseObjectInformation table = tableIterator.next();
 			if ( isSpecialTable(table.getName()) ) { 
 				tableIterator.remove();
+			} else {
+				// pull the comment for the table
+				table.setComment( commentsByTable.get( table.getName() ) );
 			}
 		}
 		return tables;
+    }
+    
+    @Override
+    public List<DatabaseObjectInformation> getViews(DatabaseMetaData dbMeta, String dbSchema) throws SQLException {
+    	List<DatabaseObjectInformation> views = super.getViews(dbMeta, dbSchema);
+    	Map<String,String> commentsByTable = getTableToCommentMap(dbMeta, dbSchema);
+    	for ( DatabaseObjectInformation view : views ) {
+    		view.setComment( commentsByTable.get( view.getName() ));
+    	}
+    	
+    	return views;
+    }
+    
+    @Override
+    public List<DatabaseObjectInformation> getSequences(
+    		DatabaseMetaData dbMeta, String dbSchema) throws SQLException {
+    	List<DatabaseObjectInformation> sequences = super.getSequences(dbMeta, dbSchema);
+    	Map<String,String> commentsByTable = getTableToCommentMap(dbMeta, dbSchema);
+    	for ( DatabaseObjectInformation sequence : sequences ) {
+    		sequence.setComment( commentsByTable.get( sequence.getName() ));
+    	}
+    	return sequences;
+    }
+    
+    @Override
+    public List<DatabaseColumnInformation> getColumns(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException {
+    	List<DatabaseColumnInformation> columns = super.getColumns(dbMeta, dbSchema, tableName);
+    	// pull the comments for the columns
+    	PreparedStatement ps = null;
+    	ResultSet rs = null;
+    	try {
+	    	ps = dbMeta.getConnection().prepareStatement("select column_name, comments from all_col_comments\n" + 
+	    			"WHERE owner = ?\n" + 
+	    			"  AND table_name = ?");
+	    	ps.setString(1,dbSchema);
+	    	ps.setString(2,tableName);
+	    	Map<String,String> commentsByColumn = new HashMap<String, String>();
+	    	rs = ps.executeQuery();
+	    	while ( rs.next() ) {
+	    		commentsByColumn.put( rs.getString(1), rs.getString(2));
+	    	}
+	    	for ( DatabaseColumnInformation col : columns ) {
+	    		col.setComment( commentsByColumn.get(col.getName()));
+	    	}
+    	} finally {
+    		if ( rs != null ) {
+    			rs.close();
+    		}
+    		if ( ps != null ) {
+    			ps.close();
+    		}
+    	}
+    	return columns;
     }
     
 	@Override

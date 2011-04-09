@@ -267,6 +267,14 @@ public class PlatformDefaultImpl implements Platform
         try {
             columnSet = dbMeta.getColumns(null, dbSchema, tableName, null);
             while (columnSet.next()) {
+//            	System.err.println( "*************************" );
+//            	System.err.println( "COLUMN: " + columnSet.getString(4) );
+//            	for ( int i = 1; i <= 12/*columnSet.getMetaData().getColumnCount()*/; i++ ) {
+//            		if ( i != 13 ) {
+//            			System.err.println( columnSet.getMetaData().getColumnName(i) + ":" + columnSet.getObject(i) );
+//            		}
+//            	}
+            	
                 DatabaseColumnInformation col = new DatabaseColumnInformation();
                 col.setName( columnSet.getString(4) );
                 col.setSqlType( new Integer(columnSet.getString(5)) );
