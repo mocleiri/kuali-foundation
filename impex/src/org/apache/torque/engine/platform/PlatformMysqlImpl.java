@@ -25,8 +25,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
@@ -94,16 +96,45 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl
 		return defaultValue;
 	}
 
+    protected Map<String,String> getTableToCommentMap( DatabaseMetaData dbMeta, String dbSchema ) throws SQLException {
+    	Map<String,String> commentsByTable = new HashMap<String, String>();
+    	// pull the comments for the tables
+    	PreparedStatement ps = null;
+    	ResultSet rs = null;
+    	try {
+	    	ps = dbMeta.getConnection().prepareStatement("select table_name, table_comment from information_schema.tables\n" + 
+	    			"WHERE table_schema = ?");
+	    	ps.setString(1,dbSchema);
+	    	rs = ps.executeQuery();
+	    	while ( rs.next() ) {
+	    		commentsByTable.put( rs.getString(1), rs.getString(2));
+	    	}
+    	} finally {
+    		if ( rs != null ) {
+    			rs.close();
+    		}
+    		if ( ps != null ) {
+    			ps.close();
+    		}
+    	}
+    	return commentsByTable;
+    }
+	
+	
 	@Override
 	public List<DatabaseObjectInformation> getTables(DatabaseMetaData dbMeta,
-			String databaseSchema) throws SQLException {
-		List<DatabaseObjectInformation> tables = super.getTables(dbMeta, databaseSchema);
+			String dbSchema) throws SQLException {
+		List<DatabaseObjectInformation> tables = super.getTables(dbMeta, dbSchema);
+    	Map<String,String> commentsByTable = getTableToCommentMap(dbMeta, dbSchema);
 		// filter out sequences
 		Iterator<DatabaseObjectInformation> tableIterator = tables.iterator();
 		while ( tableIterator.hasNext() ) {
 			DatabaseObjectInformation table = tableIterator.next();
 			if ( isSequence(table.getName()) ) { 
 				tableIterator.remove();
+			} else {
+				// pull the comment for the table
+				table.setComment( commentsByTable.get( table.getName() ) );
 			}
 		}
 		return tables;
