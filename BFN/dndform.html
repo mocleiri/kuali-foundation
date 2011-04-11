@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>DnD Form Sandbox</title>
+
+<head>
+
+    <!--<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>-->
+    
+    <!-- jQuery Library -->
+	<!--<script type="text/javascript" src="../scripts/jquery.js"></script>-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.treeview.js"></script>
+    
+    <!-- jQuery UI -->
+    <link type="text/css" href="css/smoothness/jquery-ui-1.8.9.custom.css" rel="stylesheet" />	
+	<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.9.custom.min.js"></script>
+    
+    
+    <style>
+		.eligabledroppables { background-color:#FFC; }
+	</style>
+    
+
+</head>
+<body>
+    
+    <script> 
+		$(function() {
+			$( ".draggable" ).draggable({ appendTo: "body", helper: "clone" });
+			$( ".droppable" ).droppable({
+				activeClass: "eligabledroppables",
+				drop: function( event, ui ) {
+					$(this).html(ui.draggable.clone());
+				}
+			});
+		});
+	</script>
+      
+ 
+    <span class="draggable">someFunction()</span><br />
+    <span class="draggable">someOtherFunction()</span><br /><br />
+     
+    <div class="droppable" style="border:1px solid #666; width:150px; height:150px;"></div><br />
+    <div class="droppable" style="border:1px solid #666; width:150px; height:150px;"></div>
+     
+
+    
+</body>
+</html>

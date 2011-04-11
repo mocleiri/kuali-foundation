@@ -175,7 +175,117 @@ td.agendacontent
 
 .hilitepart
 {
-	border:1px solid #F00;
-	background-color:#FFC;
+	border:1px solid #900;
+	background-color:#F0E68C;
 	padding:2px;
+}
+
+.statementbox
+{
+	border:1px solid #CCC;
+	background-color:#F7F7F7;
+	padding:2px;
+}
+
+.connector
+{
+	z-index:99; 
+	position:relative; 
+	bottom:-4px; 
+	width:450px; 
+	text-align:left; 
+	border:1px solid #000; 
+	background-color:#FFE4E1; 
+	margin-bottom:3px; 
+	padding:5px;
+}
+
+.functioneditor
+{
+	white-space:0px;
+	padding:0px;
+	border:none;
+	border-collapse:collapse;
+	width:100%;
+}
+
+.functioneditor td
+{
+	vertical-align:middle;
+	background-color:#FFF;
+	padding:4px;
+	border: 1px solid #666;	
+	border-collapse:collapse;
+}
+
+.functioneditor th
+{
+	vertical-align:middle;
+	background-color:#E4E4E4;
+	padding:2px;
+	border: 1px solid #666;	
+	border-collapse:collapse;	
+}
+
+.functioneditorheading
+{
+	background-color:#666;
+	padding:2px;
+	border: 1px solid #666;	
+	border-collapse:collapse;	
+}
+
+.eligabledroppables
+{
+	background-color:#FFC;
+	background-image:none;
+}
+
+td.eligabledroppables
+{
+	background-color:#FFC;
+	background-image:none;
+}
+
+.columnbox
+{
+	padding:2px;
+	border:1px solid #666;
+	background-color:#F3F3F3;
+	cursor:move;
+}
+
+.columnlist
+{
+	white-space:0px;
+	padding:0px;
+	border:none;
+	border-collapse:collapse;
+	width:100%;
+}
+
+.columnlist td
+{
+	vertical-align:middle;
+	background-color:#FFF;
+	padding:8px;
+	border: 1px solid #666;	
+	border-collapse:collapse;
+}
+
+.columnlist th
+{
+	vertical-align:middle;
+	background-color:#E4E4E4;
+	padding:2px;
+	border: 1px solid #666;	
+	border-collapse:collapse;	
+}
+
+.columnlistheading
+{
+	background-color:#666;
+	padding:2px;
+	border: 1px solid #666;	
+	border-collapse:collapse;	
 }

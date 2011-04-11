@@ -23,15 +23,13 @@
     <title>Kuali Business Rules</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <link rel="shortcut icon" href="../images/icon.ico" />
-    <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
-    <link href="../BFN/new_kuali.css" rel=stylesheet type="text/css">
-    <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />
-    <link href="questionnaire.css" rel="stylesheet" type="text/css" />
-    <link href="businessrules.css" rel="stylesheet" type="text/css" />
+    
         
     <!-- jQuery Library -->
-	<script type="text/javascript" src="../scripts/jquery.js"></script>
+	<!--<script type="text/javascript" src="../scripts/jquery.js"></script>-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
     <script type="text/javascript" src="jquery.treeview.js"></script>
+	
     <!-- jQuery Document Ready -->
 	<script type="text/javascript">
 		$(document).ready(function(){	
@@ -555,8 +553,25 @@
         });
     </script>
     
+    <!-- FancyBox -->
+    <script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+ 	<!--<link rel="stylesheet" href="style.css" />-->
+    
+    <!-- CSS  -->
+    <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="../BFN/new_kuali.css" rel=stylesheet type="text/css">
+    <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />
+    <link href="questionnaire.css" rel="stylesheet" type="text/css" />
+    <link href="businessrules.css" rel="stylesheet" type="text/css" />
+    
+    
 </head>
 <body>
+
+    
+
 
 <!-- PAGE HEADER -->
 <div class="pageheader">
@@ -1356,7 +1371,7 @@
                                                 <td style="background-image:url('./images/agendagraphics/gray-middle-center.png');" class="agendacontent">
                                                     
                                                     <span class="agendanode control_agendadetail">
-                                                    	<a href="#">Sub-Agenda: Clever Animal Naming Process</a>
+                                                    	<a href="#"><img src="./images/subagenda12.png" alt="subagenda" style="width:12px; height:12px; border:none; vertical-align:text-top;" /> Clever Animal Naming Process</a>
                                                     </span>
                                                     <div style="border:1px solid #333; background-image:url('./images/black05.png'); margin:10px; padding:5px; display:none;">
                                                     	
@@ -1868,8 +1883,25 @@
                                 <td class="content_grey" style="text-align:right; width:100px;">
                                     Label:
                                 </td>
-                                <td colspan="3" class="content_white" style="text-align:left;">
-                                    <input type="text" style="width:100%;" value="My First Rule" />
+                                <td class="content_white" style="text-align:left;">
+                                    <input type="text" style="width:99%;" value="My First Rule" />
+                                </td>
+                                <td class="content_grey" style="text-align:right; width:100px;">
+                                    Owner:
+                                </td>
+                                <td class="content_white" style="text-align:left; width:150px;">
+                                   
+                                   	<table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none; text-align:right;">
+                                                <input type="text" value="Bart Niedner" style="width:99%;" />
+                                            </td>
+                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                   
                                 </td>
                                 <td class="content_grey" style="text-align:right; width:100px;">
                                     Type:
@@ -1884,7 +1916,7 @@
                                 </td>
                                 <td class="content_white" style="text-align:left;">
                                     
-                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                    <table style="border:none; background:none; width:99%" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td style="border:none; background:none; text-align:right;">
                                                 <input type="text" value="Achieve World Peace" style="width:100%;" />
@@ -1980,18 +2012,22 @@
                            <tr>
                                 <td class="content_white" style="text-align:left;">
                                     
-                                    <div style="padding:4px;">
-                                        <img id="control_prop01" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:bottom;" />
+                                    <!-- Master Statement -->
+                                    <div style="padding:4px; height:20px;">
+                                        <img id="control_prop01" src="../images/tinybutton-show.gif" alt="show" style="width:45px; height:15px; border:none; vertical-align:top;" />
                                         <span id="part_T4">T=4</span>
+                                        <span id="part_Connector1_1B" class="statementbox ui-corner-all" style="display:none">AND "Chairman or Manager(s)"</span>
                                         <span id="part_Connector1">AND
                                         (
                                         	<span id="part_NameBart">Name="Bart"</span>
-                                        	<span id="part_Connector2">OR
+                                        	<span id="part_Connector2_1C" class="statementbox ui-corner-all" style="display:none">OR "Peter's Project"</span>
+                                            <span id="part_Connector2">OR
                                         	(
                                             	<span id="part_NamePeter">Name="Peter"</span>
                                         		<span id="part_Connector3">AND</span>
                                         		<span id="part_X4">isBartSilly()=True</span>
                                         	)</span>
+                                            <span id="part_Connector4_1D" class="statementbox ui-corner-all" style="display:none">OR <i>"unnamed"</i></span>
                                             <span id="part_Connector4">OR
                                             (
                                         		<span id="part_NameBill">Name="Bill"</span>
@@ -2022,10 +2058,18 @@
                                                         function()
                                                         {
                                                             $("#part_Connector1").addClass("hilitepart ui-corner-all");
+															$("#part_Connector1_1B").removeClass("statementbox");
+															$("#part_Connector1_1B").addClass("hilitepart");
+															$("#part_Connector2_1C").removeClass("statementbox");
+															$("#part_Connector4_1D").removeClass("statementbox");
                                                         },
 														function()
                                                         {
                                                             $("#part_Connector1").removeClass("hilitepart ui-corner-all");
+															$("#part_Connector1_1B").removeClass("hilitepart");
+															$("#part_Connector1_1B").addClass("statementbox");
+															$("#part_Connector2_1C").addClass("statementbox");
+															$("#part_Connector4_1D").addClass("statementbox");
                                                         }
                                                     );
 													
@@ -2034,10 +2078,14 @@
                                                         function()
                                                         {
                                                             $("#part_Connector2").addClass("hilitepart ui-corner-all");
+															$("#part_Connector2_1C").removeClass("statementbox");
+															$("#part_Connector2_1C").addClass("hilitepart");
                                                         },
 														function()
                                                         {
                                                             $("#part_Connector2").removeClass("hilitepart ui-corner-all");
+															$("#part_Connector2_1C").removeClass("hilitepart");
+															$("#part_Connector2_1C").addClass("statementbox");
                                                         }
                                                     );
 													
@@ -2053,19 +2101,23 @@
                                                         }
                                                     );
 													
-												// hilite_Connector1
+												// hilite_Connector4
 													$("#hilite_Connector4").hover(
                                                         function()
                                                         {
                                                             $("#part_Connector4").addClass("hilitepart ui-corner-all");
+															$("#part_Connector4_1D").removeClass("statementbox");
+															$("#part_Connector4_1D").addClass("hilitepart");
                                                         },
 														function()
                                                         {
                                                             $("#part_Connector4").removeClass("hilitepart ui-corner-all");
+															$("#part_Connector4_1D").removeClass("hilitepart");
+															$("#part_Connector4_1D").addClass("statementbox");
                                                         }
                                                     );
 													
-												// hilite_Connector1
+												// hilite_Connector5
 													$("#hilite_Connector5").hover(
                                                         function()
                                                         {
@@ -2155,6 +2207,7 @@
                                     
                                     <div id="div_prop01" style="display:none;">
                                     	
+                                        <!-- 'Propositions' header -->
                                         <div id="prop-A" style="border:1px solid #666; background-color:#E4E3E4; margin-left:5px; margin-top:5px; margin-right:5px; margin-bottom:-1px; padding:4px; font-weight:bold;">
                                             Proposition(s)
                                             <span style="font-weight:normal; margin-left:15px;">
@@ -2284,7 +2337,7 @@
                                                 </div>
                                                 
                                                 <!-- AND "Chairman or Manager(s)" -->
-                                                <div class="ui-corner-all" style="z-index:99; position:relative; bottom:-4px; width:450px; text-align:left; border:1px solid #000; background-color:#FFC; margin-bottom:3px; padding:5px;">
+                                                <div class="connector ui-corner-all">
                                                     
                                                     <!-- box collapse -->
                                                     <img id="control_1B" class="propgroupfolder" src="./images/folderminus.gif" style="border:none; width:15px height:11px; float:right; margin:3px;" alt="close" />
@@ -2302,12 +2355,16 @@
 																			$("#div_1B").slideUp(400);
 																			$("#control_1B").attr("src","./images/folderplus.gif");
 																			$("#control_1B").attr("alt","open");
+																			$("#part_Connector1").slideUp(200);
+																			$("#part_Connector1_1B").slideDown(200);
 																		}
 																		else
 																		{
 																			$("#div_1B").slideDown(400);
 																			$("#control_1B").attr("src","./images/folderminus.gif");
 																			$("#control_1B").attr("alt","close");
+																			$("#part_Connector1").slideDown(200);
+																			$("#part_Connector1_1B").slideUp(200);
 																		}
 																	}
 																);
@@ -2412,7 +2469,7 @@
                                                     </div>
                                                     
                                                     <!-- OR "Peter's Project" -->
-                                                    <div class="ui-corner-all" style="z-index:99; position:relative; bottom:-4px; width:450px; text-align:left; border:1px solid #000; background-color:#FFC; margin-bottom:3px; padding:5px;">
+                                                    <div class="connector ui-corner-all">
                                                         
                                                         <!-- box collapse -->
                                                         <img id="control_1C" class="propgroupfolder" src="./images/folderminus.gif" style="border:none; width:15px height:11px; float:right; margin:3px;" alt="close" />
@@ -2430,12 +2487,16 @@
                                                                                 $("#div_1C").slideUp(400);
                                                                                 $("#control_1C").attr("src","./images/folderplus.gif");
                                                                                 $("#control_1C").attr("alt","open");
+																				$("#part_Connector2").slideUp(200);
+																				$("#part_Connector2_1C").slideDown(200);
                                                                             }
                                                                             else
                                                                             {
                                                                                 $("#div_1C").slideDown(400);
                                                                                 $("#control_1C").attr("src","./images/folderminus.gif");
                                                                                 $("#control_1C").attr("alt","close");
+																				$("#part_Connector2").slideDown(200);
+																				$("#part_Connector2_1C").slideUp(200);
                                                                             }
                                                                         }
                                                                     );
@@ -2476,9 +2537,8 @@
                                                                         <td>
                                                                             <select id="control_proptype01">
                                                                                 <option value="1" selected="selected">Term</option>
-                                                                                <option value="2">YNQ</option>
-                                                                                <option value="2">Questionaire</option>
-                                                                                <option value="2">Custom Term</option>
+                                                                                <option value="2">Value</option>
+                                                                                <option value="2">Custom Function</option>
                                                                             </select>
                                                                             <input type="text" style="width:150px;" value="Name" />
                                                                             <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; vertical-align:middle;" type="image" />
@@ -2493,15 +2553,10 @@
                                                                         </th>
                                                                         <td>
                                                                             <select>
-                                                                                <option value="1">Contains text value</option>
-                                                                                <option value="2" selected="selected">Matches text</option>
-                                                                                <option value="3">Less than number</option>
-                                                                                <option value="4">Less than or equals number</option>
-                                                                                <option value="5">Equals number</option>
-                                                                                <option value="6">Greater than or equals number</option>
-                                                                                <option value="7">Greater than number</option>
-                                                                                <option value="8">Before date</option>
-                                                                                <option value="9">After date</option>
+                                                                                <option value="1">Contains text</option>
+                                                                                <option value="2">Does not contain text</option>
+                                                                                <option value="3" selected="selected">Matches text</option>
+                                                                                <option value="4">Does not match text</option>
                                                                             </select>
                                                                         </td>
                                                                     </tr>
@@ -2511,18 +2566,17 @@
                                                                         </th>
                                                                         <td>
                                                                             <select id="control_proptype01">
-                                                                                <option value="1" selected="selected">Term</option>
-                                                                                <option value="2">YNQ</option>
-                                                                                <option value="2">Questionaire</option>
-                                                                                <option value="2">Custom Term</option>
+                                                                                <option value="1">Term</option>
+                                                                                <option value="2" selected="selected">Value</option>
+                                                                                <option value="2">Custom Function</option>
                                                                             </select>
                                                                             <input type="text" style="width:150px;" value="Peter" />
-                                                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; vertical-align:middle;" type="image" />
+                                                                            <!--<input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; vertical-align:middle;" type="image" />-->
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th style="text-align:right;">
-                                                                            Continue:
+                                                                            ...Continue:
                                                                         </th>
                                                                         <td>
                                                                             <select>
@@ -2570,14 +2624,323 @@
                                                                             Left Operand:
                                                                         </th>
                                                                         <td>
-                                                                            <select id="control_proptype01">
+                                                                            <select id="control_proptype012">
                                                                                 <option value="1">Term</option>
-                                                                                <option value="2">YNQ</option>
-                                                                                <option value="2">Questionaire</option>
-                                                                                <option value="2" selected="selected">Custom Term</option>
+                                                                                <option value="2">Value</option>
+                                                                                <option value="2" selected="selected">Custom Function</option>
                                                                             </select>
-                                                                            isBartSilly()
-                                                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; vertical-align:middle;" type="image" />
+                                                                            
+                                                                            <a id="various1" href="#inline1" title="Function Editor"><img src="./images/tinybutton-functioneditor.gif" alt="function editor" style="border:none; width:80px; height:15px; vertical-align:middle;" /></a>
+																			<script type="text/javascript">
+                                                                                $(document).ready(function() {
+                                                                                    
+                                                                                    /* FancyBox */
+																					$("#various1").fancybox({
+                                                                                        'overlayShow'	: true,
+																						'transitionIn'	: 'elastic',
+																						'transitionOut'	: 'elastic',
+																						'overlayOpacity' : '0.25',
+																						'autoDimensions' : 'true'
+                                                                                    });
+																					
+																					/* jQuery UI Droppable */
+																					$( ".draggable" ).draggable({ appendTo: "body", helper: "clone" });
+																					$( ".droppable" ).droppable({
+																						activeClass: "eligabledroppables",
+																						drop: function( event, ui ) {
+																							$(this).html(ui.draggable.clone());
+																						}
+																					});
+																					
+																				});
+																			</script>
+                                                                            
+                                                                            <div style="display: none;">
+                                                                                <div id="inline1" style="width:800px; overflow:auto;">
+                                                                                    <table class="functioneditor" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <th colspan="3" style="text-align:left; background-color:#BBB;">
+                                                                                                Function Editor: isBartSilly()
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th style="text-align:right;">
+                                                                                                Name:
+                                                                                            </th>
+                                                                                            <td>
+                                                                                            	<input type="text" style="width:150px;" value="isBartSilly()" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th style="text-align:right;">
+                                                                                                Description:
+                                                                                            </th>
+                                                                                            <td>
+                                                                                            	
+                                                                                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                                                    <tr>
+                                                                                                        <td style="border:none; background:none;">
+                                                                                                            <textarea name="z" style="width:99%; text-align:left;" rows="2"></textarea>
+                                                                                                        </td>
+                                                                                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                                                                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                                
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                    
+                                                                                    <table class="functioneditor" cellspacing="0" style="margin-top:5px;">
+                                                                                        <tr>
+                                                                                        	<th style="text-align:center;" colspan="5">
+                                                                                                Properties
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                        	<th style="width:25px;">
+                                                                                                1
+                                                                                            </th>
+                                                                                            <td style="width:245px;" class="droppable">
+                                                                                                <span class="draggable columnbox ui-corner-all" style="z-index:100000;">COST_SHARE_AMOUNT</span>
+                                                                                            </td>
+                                                                                            <td style="width:170px;">
+                                                                                                <select style="width:100%;">
+                                                                                                    <option value="1">Contains text</option>
+                                                                                                    <option value="2">Matches text</option>
+                                                                                                    <option value="3">Less than</option>
+                                                                                                    <option value="4" selected="selected">Less than or equals</option>
+                                                                                                    <option value="5">Equals</option>
+                                                                                                    <option value="6">Greater than or equals</option>
+                                                                                                    <option value="7">Greater than</option>
+                                                                                                    <option value="8">Before date</option>
+                                                                                                    <option value="9">After date</option>
+                                                                                                </select>
+                                                                                            </td>
+                                                                                            <td class="droppable">
+                                                                                                10,000
+                                                                                            </td>
+                                                                                            <td style="width:70px; text-align:center;">
+                                                                                                <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the associated property of this function..'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                        	<th>
+                                                                                                2
+                                                                                            </th>
+                                                                                            <td class="droppable">
+                                                                                                Name()
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <select style="width:100%;">
+                                                                                                    <option value="1">Contains text</option>
+                                                                                                    <option value="2" selected="selected">Matches text</option>
+                                                                                                    <option value="3">Less than</option>
+                                                                                                    <option value="4">Less than or equals</option>
+                                                                                                    <option value="5">Equals</option>
+                                                                                                    <option value="6">Greater than or equals</option>
+                                                                                                    <option value="7">Greater than</option>
+                                                                                                    <option value="8">Before date</option>
+                                                                                                    <option value="9">After date</option>
+                                                                                                </select>
+                                                                                            </td>
+                                                                                            <td class="droppable">
+                                                                                                <input type="text" style="width:99%;" value="Bart" />
+                                                                                            </td>
+                                                                                            <td style="text-align:center;">
+                                                                                                <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the associated property of this function..'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                        	<th>
+                                                                                                3
+                                                                                            </th>
+                                                                                            <td class="droppable">
+                                                                                                <span class="draggable columnbox ui-corner-all" style="z-index:100000;">Giggles_Per_Hour</span>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <select style="width:100%;">
+                                                                                                    <option value="1">Contains text</option>
+                                                                                                    <option value="2">Matches text</option>
+                                                                                                    <option value="3">Less than</option>
+                                                                                                    <option value="4">Less than or equals</option>
+                                                                                                    <option value="5">Equals</option>
+                                                                                                    <option value="6" selected="selected">Greater than or equals</option>
+                                                                                                    <option value="7">Greater than</option>
+                                                                                                    <option value="8">Before date</option>
+                                                                                                    <option value="9">After date</option>
+                                                                                                </select>
+                                                                                            </td>
+                                                                                            <td class="droppable">
+                                                                                                <input type="text" style="width:99%;" value="43" />
+                                                                                            </td>
+                                                                                            <td style="text-align:center;">
+                                                                                                <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the associated property of this function..'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                        	<th>
+                                                                                                4
+                                                                                            </th>
+                                                                                            <td class="droppable">
+                                                                                               <span class="draggable columnbox ui-corner-all" style="z-index:100000;">TOTAL_INDIRECT_COST</span>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <select style="width:100%;">
+                                                                                                    <option value="1">Contains text</option>
+                                                                                                    <option value="2">Matches text</option>
+                                                                                                    <option value="3">Less than</option>
+                                                                                                    <option value="4" selected="selected">Less than or equals</option>
+                                                                                                    <option value="5">Equals</option>
+                                                                                                    <option value="6">Greater than or equals</option>
+                                                                                                    <option value="7">Greater than</option>
+                                                                                                    <option value="8">Before date</option>
+                                                                                                    <option value="9">After date</option>
+                                                                                                </select>
+                                                                                            </td>
+                                                                                            <td class="droppable">
+                                                                                                <span class="draggable columnbox ui-corner-all" style="z-index:100000;">UNDERECOVERY_AMOUNT</span>
+                                                                                            </td>
+                                                                                            <td style="text-align:center;">
+                                                                                                <input src="../images/tinybutton-remove.gif" onclick="javascript: alert('This would remove the associated property of this function..'); return false" style="border:none;" alt="remove" title="Remove" type="image" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                        	<th>
+                                                                                                
+                                                                                            </th>
+                                                                                            <td class="droppable infoline">
+                                                                                               
+                                                                                            </td>
+                                                                                            <td class="infoline">
+                                                                                                <select style="width:100%;">
+                                                                                                    <option value="1">Contains text</option>
+                                                                                                    <option value="2">Matches text</option>
+                                                                                                    <option value="3">Less than</option>
+                                                                                                    <option value="4" selected="selected">Less than or equals</option>
+                                                                                                    <option value="5">Equals</option>
+                                                                                                    <option value="6">Greater than or equals</option>
+                                                                                                    <option value="7">Greater than</option>
+                                                                                                    <option value="8">Before date</option>
+                                                                                                    <option value="9">After date</option>
+                                                                                                </select>
+                                                                                            </td>
+                                                                                            <td class="droppable infoline">
+                                                                                                
+                                                                                            </td>
+                                                                                            <td style="text-align:center;" class="infoline">
+                                                                                                <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the associated property to this function..'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                    
+                                                                                    <div id="tabs" style="margin-top:5px; height:300px;">
+                                                                                        
+                                                                                        <ul>
+                                                                                            <li><a href="#tabs-1">Columns</a></li>
+                                                                                            <li><a href="#tabs-2">YNQ</a></li>
+                                                                                            <li><a href="#tabs-3">Questionnaire</a></li>
+                                                                                            <li><a href="#tabs-4">Functions</a></li>
+                                                                                        </ul>
+                                                                                        
+                                                                                        <div id="tabs-1">
+                                                                                        	
+                                                                                            <table class="columnlist" cellspacing="0">
+                                                                                                <tr>
+                                                                                                    <th style="text-align:center; width:200px; border-bottom:none;">
+                                                                                                        Column Name
+                                                                                                    </th>
+                                                                                                    <th style="text-align:center; border-bottom:none;">
+                                                                                                        Description
+                                                                                                    </th>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                            <div style="height:220px; overflow:auto; border-bottom:1px solid #666; border-collapse:collapse;">
+                                                                                                <table class="columnlist" cellspacing="0">
+                                                                                                    <tr>
+                                                                                                        <td style="width:200px;">
+                                                                                                            <span class="draggable columnbox ui-corner-all" style="z-index:100000;">TOTAL_INDIRECT_COSTS</span>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            Total indirect cost of the Proposal
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <span class="draggable columnbox ui-corner-all" style="z-index:100000;">COST_SHARE_AMOUNT</span>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            Cost Sharing amount
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <span class="draggable columnbox ui-corner-all" style="z-index:100000;">Column A</span>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            Some column.
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <span class="draggable columnbox ui-corner-all" style="z-index:100000;">Column B</span>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            Some column.
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <span class="draggable columnbox ui-corner-all" style="z-index:100000;">Column C</span>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            Some column.
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <span class="draggable columnbox ui-corner-all" style="z-index:100000;">Column D</span>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            Some column.
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <span class="draggable columnbox ui-corner-all" style="z-index:100000;">Column E</span>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            Some column.
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                        <td>
+                                                                                                            <span class="draggable columnbox ui-corner-all" style="z-index:100000;">Column F</span>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            Some column.
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                            
+                                                                                        </div>
+                                                                                        
+                                                                                        <div id="tabs-2">YNQ stuff here.</div>
+                                                                                        
+                                                                                        <div id="tabs-3">Questionnaire stuff here.</div>
+                                                                                        
+                                                                                        <div id="tabs-4">Function stuff here.</div>
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <br />
+                                                                            isBartSilly()<br />
+                                                                            par 1 = value a<br />
+                                                                            par 2 > value b
+                                                                            
                                                                         </td>
                                                                         <td rowspan="4">
                                                                             <input src="../images/tinybutton-update.gif" onclick="javascript: alert('This would update the proposition.'); return false" style="border:none; vertical-align:middle;" alt="update" title="Update" type="image" />
@@ -2588,7 +2951,10 @@
                                                                             Operator:
                                                                         </th>
                                                                         <td>
-                                                                            =
+                                                                            <select>
+                                                                                <option value="1">Equals</option>
+                                                                                <option value="2">Does not equal</option>
+                                                                            </select>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -2596,14 +2962,13 @@
                                                                             Right Operand:
                                                                         </th>
                                                                         <td>
-                                                                            <select id="control_proptype01">
-                                                                                <option value="1" selected="selected">Term</option>
-                                                                                <option value="2">YNQ</option>
-                                                                                <option value="2">Questionaire</option>
-                                                                                <option value="2">Custom Term</option>
+                                                                            <select id="control_proptype012">
+                                                                                <option value="1">Term</option>
+                                                                                <option value="2" selected="selected">Value</option>
+                                                                                <option value="2">Custom Function</option>
                                                                             </select>
                                                                             <input type="text" style="width:150px;" value="True" />
-                                                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; vertical-align:middle;" type="image" />
+                                                                            <!--<input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; vertical-align:middle;" type="image" />-->
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -2630,7 +2995,7 @@
                                                     </div>
                                                 
                                                 	<!-- OR Name="Bill" AND X=3 -->
-                                                    <div class="ui-corner-all" style="z-index:99; position:relative; bottom:-4px; width:450px; text-align:left; border:1px solid #000; background-color:#FFC; margin-bottom:3px; padding:5px;">
+                                                    <div class="connector ui-corner-all">
                                                         
                                                         <!-- box collapse -->
                                                         <img id="control_1D" class="propgroupfolder" src="./images/folderminus.gif" style="border:none; width:15px height:11px; float:right; margin:3px;" alt="close" />
@@ -2648,19 +3013,23 @@
                                                                                 $("#div_1D").slideUp(400);
                                                                                 $("#control_1D").attr("src","./images/folderplus.gif");
                                                                                 $("#control_1D").attr("alt","open");
+																				$("#part_Connector4").slideUp(200);
+																				$("#part_Connector4_1D").slideDown(200);
                                                                             }
                                                                             else
                                                                             {
                                                                                 $("#div_1D").slideDown(400);
                                                                                 $("#control_1D").attr("src","./images/folderminus.gif");
                                                                                 $("#control_1D").attr("alt","close");
+																				$("#part_Connector4").slideDown(200);
+																				$("#part_Connector4_1D").slideUp(200);
                                                                             }
                                                                         }
                                                                     );
                                                             });
                                                         </script>
                                                         
-                                                        <a href="#" class="editbutton" id="hilite_Connector4" /><b>OR</b><span style="margin-left:15px;">Name="Bill" AND X=3</span></a>
+                                                        <a href="#" class="editbutton" id="hilite_Connector4" /><b>OR</b><span style="margin-left:15px;"><i>"unnamed"</i></span></a>
                                                         <div class="div_editbutton" style="padding:5px; display:none;">
                                                             <select>
                                                                 <option value="1">AND</option>
