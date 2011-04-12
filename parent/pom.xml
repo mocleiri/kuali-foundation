@@ -134,9 +134,9 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:svn:https://test.kuali.org/svn/student/deploymentlab/trunk/pom/parent</connection>
-    <developerConnection>scm:svn:https://test.kuali.org/svn/student/deploymentlab/trunk/pom/parent</developerConnection>
-    <url>https://test.kuali.org/svn/student/deploymentlab/trunk/pom/parent</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/parent</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/parent</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/pom/trunk/parent</url>
   </scm>
   <build>
     <extensions>
