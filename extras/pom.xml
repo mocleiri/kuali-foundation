@@ -21,7 +21,7 @@
   <artifactId>kuali-extras</artifactId>
   <version>1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Kuali Common</name>
+  <name>Kuali Extras</name>
   <description>Provides reasonable defaults for common items</description>
   <url>http://${kuali.site.hostname}/${project.artifactId}/${project.version}/</url>
   <properties>
