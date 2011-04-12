@@ -89,9 +89,9 @@
     </repository>
   </repositories>
   <scm>
-    <connection>scm:svn:https://test.kuali.org/svn/student/deploymentlab/trunk/pom/common</connection>
-    <developerConnection>scm:svn:https://test.kuali.org/svn/student/deploymentlab/trunk/pom/common</developerConnection>
-    <url>https://test.kuali.org/svn/student/deploymentlab/trunk/pom/common</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/extras</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/extras</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/pom/trunk/extras</url>
   </scm>
   <build>
     <pluginManagement>
