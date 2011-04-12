@@ -302,7 +302,7 @@
             <artifactId>maven-clover2-plugin</artifactId>
             <executions>
               <execution>
-                <id>clover-instrument</id>
+                <id>generate-clover-info</id>
                 <phase>pre-site</phase>
                 <goals>
                   <goal>instrument</goal>
