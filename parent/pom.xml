@@ -246,6 +246,14 @@
             <encoding>${project.build.sourceEncoding}</encoding>
             <source>${kuali.compile.source}</source>
           </configuration>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
@@ -310,6 +318,14 @@
               </plugin>
             </reportPlugins>
           </configuration>
+          <executions>
+            <execution>
+              <id>attach-descriptor</id>
+              <goals>
+                <goal>attach-descriptor</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -344,7 +360,7 @@
           </configuration>
           <executions>
             <execution>
-              <id>generate-scm-info</id>
+              <id>generate-svn-info</id>
               <goals>
                 <goal>revision</goal>
               </goals>
@@ -451,14 +467,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
