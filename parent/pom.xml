@@ -9,7 +9,8 @@
   express or implied. See the License for the specific language governing
   permissions and limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali</groupId>
   <artifactId>kuali</artifactId>
@@ -51,7 +52,7 @@
 
     <!-- This profile provides basic quality control for official Kuali artifacts (GPG signature, attached sources/javadocs etc.)-->
     <kuali.release.profiles>kuali-release</kuali.release.profiles>
-    <kuali.release.use.maven.profile>true</kuali.release.use.maven.profile>
+    <kuali.release.use.maven.profile>false</kuali.release.use.maven.profile>
     <kuali.release.goals>deploy site-deploy</kuali.release.goals>
     <kuali.release.prepare.goals>clean verify</kuali.release.prepare.goals>
 
@@ -424,12 +425,36 @@
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-site-plugin</artifactId>
             <executions>
               <execution>
                 <id>attach-descriptor</id>
                 <goals>
                   <goal>attach-descriptor</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
                 </goals>
               </execution>
             </executions>
