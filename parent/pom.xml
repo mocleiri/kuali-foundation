@@ -55,7 +55,8 @@
     <kuali.release.use.profile>false</kuali.release.use.profile>
 
     <!-- These goals constitute the default release process (publish signed artifacts and required technical doc's) -->
-    <kuali.release.goals>deploy site-deploy cloudfront:updateoriginbucket</kuali.release.goals>
+    <kuali.release.goals>deploy site-deploy</kuali.release.goals>
+    <kuali.release.prepare.goals>clean verify</kuali.release.prepare.goals>
 
     <!-- This is used in the licenses section as well as the jar/war plugins -->
     <kuali.ecl.license.url>http://maven.kuali.org/external/org/opensource/ecl/2.0/ecl-2.0.txt</kuali.ecl.license.url>
@@ -283,10 +284,11 @@
             <releaseVersion>${kuali.release.version}</releaseVersion>
             <username>${kuali.release.username}</username>
             <password>${kuali.release.password}</password>
+            <goals>${kuali.release.goals}</goals>
+            <preparationGoals>${kuali.release.prepare.goals}</preparationGoals>
           </configuration>
           <!-- 
           <configuration>
-            <goals>${kuali.release.goals}</goals>
             <dryRun>${kuali.release.dryrun}</dryRun>
             <arguments>${kuali.release.arguments}</arguments>
             <useReleaseProfile>${kuali.release.use.profile}</useReleaseProfile>
