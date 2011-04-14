@@ -170,15 +170,6 @@
             <serverId>${kuali.site.server.id}</serverId>
             <recurse>${kuali.site.bucket.recurse}</recurse>
           </configuration>
-          <executions>
-            <execution>
-              <id>update-s3-bucket-indexes</id>
-              <phase>site-deploy</phase>
-              <goals>
-                <goal>updateoriginbucket</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -253,15 +244,6 @@
             <bucket>${kuali.site.bucket}</bucket>
             <hostname>${kuali.site.hostname}</hostname>
           </configuration>
-          <executions>
-            <execution>
-              <id>kuali-site-properties</id>
-              <phase>pre-site</phase>
-              <goals>
-                <goal>updatesiteproperties</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -366,10 +348,28 @@
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-kualisite-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>site-kuali-properties</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>updatesiteproperties</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-cloudfront-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>update-s3-bucket-indexes</id>
+            <phase>site-deploy</phase>
+            <goals>
+              <goal>updateoriginbucket</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
