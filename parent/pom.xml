@@ -11,18 +11,19 @@
   permissions and limitations under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali</groupId>
   <artifactId>kuali</artifactId>
-  <version>85</version>
+  <version>85-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>The Kuali Foundation</name>
   <description>
-    Kuali is a community of universities, colleges, businesses, and other organizations that have partnered to 
-    build and sustain open-source administrative software for higher education, by higher education. Kuali software 
-    is designed to meet the needs of all sizes of institutions, from land-grant research universities to community 
-    colleges. The members of the Kuali Community share a common vision of open, modular, and distributed systems for 
+    Kuali is a community of universities, colleges, businesses, and other organizations that have partnered
+    to build and sustain open-source administrative software for higher education, by higher education. Kuali software
+    is designed to meet the needs of all sizes of institutions, from land-grant research universities to community
+    colleges. The members of the Kuali Community share a common vision of open, modular, and distributed systems for
     their software requirements. Kuali software is released under the Educational Community License.
   </description>
   <licenses>
@@ -390,7 +391,8 @@
       <id>sonatype-oss-release</id>
       <properties>
         <kuali.nexus.sonatype.url>https://oss.sonatype.org</kuali.nexus.sonatype.url>
-        <kuali.nexus.sonatype.description>Releasing ${project.artifactId} version ${project.version}</kuali.nexus.sonatype.description>
+        <kuali.nexus.sonatype.description>Releasing ${project.artifactId} version ${project.version}
+        </kuali.nexus.sonatype.description>
         <kuali.nexus.sonatype.phase>deploy</kuali.nexus.sonatype.phase>
         <kuali.nexus.sonatype.automatic>true</kuali.nexus.sonatype.automatic>
         <kuali.nexus.sonatype.promote.auto.select.override>true</kuali.nexus.sonatype.promote.auto.select.override>
@@ -398,7 +400,8 @@
 
         <kuali.repository.release.id>sonatype-nexus-staging</kuali.repository.release.id>
         <kuali.repository.release.name>Sonatype Nexus Release Repository</kuali.repository.release.name>
-        <kuali.repository.release.url>${kuali.nexus.sonatype.url}/service/local/staging/deploy/maven2/</kuali.repository.release.url>
+        <kuali.repository.release.url>${kuali.nexus.sonatype.url}/service/local/staging/deploy/maven2/
+        </kuali.repository.release.url>
 
         <!-- These are for reference only.  Not currently publishing snapshots to Sonatype's Nexus instance 
         <kuali.repository.snapshot.id>sonatype-nexus-snapshots</kuali.repository.snapshot.id>
@@ -415,7 +418,8 @@
               <nexusUrl>${kuali.nexus.sonatype.url}</nexusUrl>
               <serverAuthId>${kuali.repository.release.id}</serverAuthId>
               <automatic>${kuali.nexus.sonatype.automatic}</automatic>
-              <promoteAutoSelectOverride>${kuali.nexus.sonatype.promote.auto.select.override}</promoteAutoSelectOverride>
+              <promoteAutoSelectOverride>${kuali.nexus.sonatype.promote.auto.select.override}
+              </promoteAutoSelectOverride>
               <description>${kuali.nexus.sonatype.description}</description>
               <targetRepositoryId>${kuali.nexus.sonatype.release.repository.id}</targetRepositoryId>
             </configuration>
