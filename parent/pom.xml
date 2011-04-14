@@ -9,7 +9,8 @@
   express or implied. See the License for the specific language governing
   permissions and limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali</groupId>
   <artifactId>kuali</artifactId>
@@ -51,6 +52,7 @@
 
     <!-- This profile provides basic quality control for official Kuali artifacts (GPG signature, attached sources/javadocs etc.)-->
     <kuali.release.arguments>-Pkuali-release</kuali.release.arguments>
+    <kuali.release.use.profile>true</kuali.release.use.profile>
 
     <!-- These goals constitute the default release process (publish signed artifacts and required technical doc's) -->
     <kuali.release.goals>deploy site-deploy cloudfront:updateoriginbucket</kuali.release.goals>
@@ -164,6 +166,15 @@
             <serverId>${kuali.site.server.id}</serverId>
             <recurse>${kuali.site.bucket.recurse}</recurse>
           </configuration>
+          <executions>
+            <execution>
+              <id>update-s3-bucket-indexes</id>
+              <phase>site-deploy</phase>
+              <goals>
+                <goal>updateoriginbucket</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -184,6 +195,17 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>1.2</version>
+          <configuration>
+            <passphrase>${kuali.gpg.passphrase}</passphrase>
+          </configuration>
+          <executions>
+            <execution>
+              <id>sign-artifacts</id>
+              <goals>
+                <goal>sign</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -235,6 +257,15 @@
             <bucket>${kuali.site.bucket}</bucket>
             <hostname>${kuali.site.hostname}</hostname>
           </configuration>
+          <executions>
+            <execution>
+              <id>kuali-site-properties</id>
+              <phase>pre-site</phase>
+              <goals>
+                <goal>updatesiteproperties</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -245,16 +276,18 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
           <version>2.1</version>
+          <!-- 
           <configuration>
             <goals>${kuali.release.goals}</goals>
             <dryRun>${kuali.release.dryrun}</dryRun>
             <arguments>${kuali.release.arguments}</arguments>
-            <useReleaseProfile>false</useReleaseProfile>
+            <useReleaseProfile>${kuali.release.use.profile}</useReleaseProfile>
             <developmentVersion>${kuali.development.version}</developmentVersion>
             <releaseVersion>${kuali.release.version}</releaseVersion>
             <username>${kuali.release.username}</username>
             <password>${kuali.release.password}</password>
           </configuration>
+           -->
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -301,6 +334,14 @@
               </entry>
             </entries>
           </configuration>
+          <executions>
+            <execution>
+              <id>svn-info</id>
+              <goals>
+                <goal>revision</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -336,15 +377,10 @@
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-kualisite-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>kuali-site-properties</id>
-            <phase>pre-site</phase>
-            <goals>
-              <goal>updatesiteproperties</goal>
-            </goals>
-          </execution>
-        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>maven-cloudfront-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
@@ -378,8 +414,7 @@
               <nexusUrl>${kuali.nexus.sonatype.url}</nexusUrl>
               <serverAuthId>${kuali.repository.release.id}</serverAuthId>
               <automatic>${kuali.nexus.sonatype.automatic}</automatic>
-              <promoteAutoSelectOverride>${kuali.nexus.sonatype.promote.auto.select.override}
-              </promoteAutoSelectOverride>
+              <promoteAutoSelectOverride>${kuali.nexus.sonatype.promote.auto.select.override}</promoteAutoSelectOverride>
               <description>${kuali.nexus.sonatype.description}</description>
               <targetRepositoryId>${kuali.nexus.sonatype.release.repository.id}</targetRepositoryId>
             </configuration>
@@ -388,7 +423,7 @@
       </build>
     </profile>
     <profile>
-      <id>kuali-release</id>
+      <id>release</id>
       <build>
         <plugins>
           <plugin>
@@ -401,41 +436,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <configuration>
-              <passphrase>${kuali.gpg.passphrase}</passphrase>
-            </configuration>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>attach-sources</id>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -452,14 +452,6 @@
           <plugin>
             <groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
             <artifactId>maven-svn-revision-number-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>svn-info</id>
-                <goals>
-                  <goal>revision</goal>
-                </goals>
-              </execution>
-            </executions>
           </plugin>
         </plugins>
       </build>
