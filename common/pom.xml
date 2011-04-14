@@ -137,20 +137,6 @@
           </configuration>
           <executions>
             <execution>
-              <configuration>
-                <aggregate>true</aggregate>
-              </configuration>
-              <id>generate-aggregated-source-xref</id>
-              <phase>pre-site</phase>
-              <goals>
-                <goal>jxr</goal>
-                <goal>test-jxr</goal>
-              </goals>
-            </execution>
-            <execution>
-              <configuration>
-                <aggregate>false</aggregate>
-              </configuration>
               <id>generate-source-xref</id>
               <phase>pre-site</phase>
               <goals>
