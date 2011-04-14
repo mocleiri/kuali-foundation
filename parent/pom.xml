@@ -52,9 +52,14 @@
 
     <!-- This profile provides basic quality control for official Kuali artifacts (GPG signature, attached sources/javadocs etc.)-->
     <kuali.release.profiles>kuali-release</kuali.release.profiles>
+    <!-- This is "false" because their profile forks the maven process when attaching sources, we want "jar-no-fork" -->
     <kuali.release.use.maven.profile>false</kuali.release.use.maven.profile>
     <kuali.release.goals>deploy site-deploy</kuali.release.goals>
     <kuali.release.prepare.goals>clean verify</kuali.release.prepare.goals>
+
+    <kuali.svn.prefix>svn</kuali.svn.prefix>
+    <kuali.svn.depth>empty</kuali.svn.depth>
+    <kuali.svn.verbose>false</kuali.svn.verbose>
 
     <!-- This is used in the licenses section as well as the jar/war plugins -->
     <kuali.ecl.license.url>http://maven.kuali.org/external/org/opensource/ecl/2.0/ecl-2.0.txt</kuali.ecl.license.url>
@@ -197,14 +202,6 @@
           <configuration>
             <passphrase>${kuali.gpg.passphrase}</passphrase>
           </configuration>
-          <executions>
-            <execution>
-              <id>sign-artifacts</id>
-              <goals>
-                <goal>sign</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -246,14 +243,6 @@
             <encoding>${project.build.sourceEncoding}</encoding>
             <source>${kuali.compile.source}</source>
           </configuration>
-          <executions>
-            <execution>
-              <id>attach-javadocs</id>
-              <goals>
-                <goal>jar</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
@@ -318,27 +307,11 @@
               </plugin>
             </reportPlugins>
           </configuration>
-          <executions>
-            <execution>
-              <id>attach-descriptor</id>
-              <goals>
-                <goal>attach-descriptor</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
           <version>2.1.2</version>
-          <executions>
-            <execution>
-              <id>attach-sources</id>
-              <goals>
-                <goal>jar-no-fork</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -350,22 +323,14 @@
           <artifactId>maven-svn-revision-number-plugin</artifactId>
           <version>1.6</version>
           <configuration>
-            <verbose>true</verbose>
+            <verbose>${kuali.svn.verbose}</verbose>
             <entries>
               <entry>
-                <prefix>svn</prefix>
-                <depth>empty</depth>
+                <prefix>${kuali.svn.prefix}</prefix>
+                <depth>${kuali.svn.empty}</depth>
               </entry>
             </entries>
           </configuration>
-          <executions>
-            <execution>
-              <id>generate-svn-info</id>
-              <goals>
-                <goal>revision</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -463,22 +428,62 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-site-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-descriptor</id>
+                <goals>
+                  <goal>attach-descriptor</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
           <plugin>
             <groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
             <artifactId>maven-svn-revision-number-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-svn-info</id>
+                <goals>
+                  <goal>revision</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
