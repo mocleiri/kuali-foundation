@@ -9,7 +9,8 @@
   express or implied. See the License for the specific language governing
   permissions and limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali</groupId>
   <artifactId>kuali</artifactId>
@@ -51,7 +52,7 @@
 
     <!-- This profile provides basic quality control for official Kuali artifacts (GPG signature, attached sources/javadocs etc.)-->
     <kuali.release.arguments>-Pkuali-release</kuali.release.arguments>
-    <kuali.release.use.profile>true</kuali.release.use.profile>
+    <kuali.release.use.profile>false</kuali.release.use.profile>
 
     <!-- These goals constitute the default release process (publish signed artifacts and required technical doc's) -->
     <kuali.release.goals>deploy site-deploy cloudfront:updateoriginbucket</kuali.release.goals>
@@ -275,6 +276,14 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
           <version>2.1</version>
+          <configuration>
+            <arguments>${kuali.release.arguments}</arguments>
+            <useReleaseProfile>${kuali.release.use.profile}</useReleaseProfile>
+            <developmentVersion>${kuali.development.version}</developmentVersion>
+            <releaseVersion>${kuali.release.version}</releaseVersion>
+            <username>${kuali.release.username}</username>
+            <password>${kuali.release.password}</password>
+          </configuration>
           <!-- 
           <configuration>
             <goals>${kuali.release.goals}</goals>
@@ -425,7 +434,7 @@
       </build>
     </profile>
     <profile>
-      <id>release</id>
+      <id>kuali-release</id>
       <build>
         <plugins>
           <plugin>
@@ -441,12 +450,37 @@
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-site-plugin</artifactId>
             <executions>
               <execution>
                 <id>attach-descriptor</id>
                 <goals>
                   <goal>attach-descriptor</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
                 </goals>
               </execution>
             </executions>
