@@ -332,14 +332,6 @@
               </entry>
             </entries>
           </configuration>
-          <executions>
-            <execution>
-              <id>svn-info</id>
-              <goals>
-                <goal>revision</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
