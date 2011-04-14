@@ -9,8 +9,7 @@
   express or implied. See the License for the specific language governing
   permissions and limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali</groupId>
@@ -115,17 +114,6 @@
             <licenseLocation>${kuali.clover.license.location}</licenseLocation>
             <historyDir>${kuali.clover.history.dir}</historyDir>
           </configuration>
-          <executions>
-            <execution>
-              <id>generate-clover-info</id>
-              <phase>pre-site</phase>
-              <goals>
-                <goal>instrument</goal>
-                <goal>aggregate</goal>
-                <goal>save-history</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -135,16 +123,6 @@
             <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
             <aggregate>${kuali.reporting.aggregate}</aggregate>
           </configuration>
-          <executions>
-            <execution>
-              <id>generate-source-xref</id>
-              <phase>pre-site</phase>
-              <goals>
-                <goal>jxr</goal>
-                <goal>test-jxr</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -306,10 +284,43 @@
       <plugin>
         <groupId>com.atlassian.maven.plugins</groupId>
         <artifactId>maven-clover2-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-clover-info</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>instrument</goal>
+              <goal>aggregate</goal>
+              <goal>save-history</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-source-xref</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>jxr</goal>
+              <goal>test-jxr</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>test-jar</id>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
