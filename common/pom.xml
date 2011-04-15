@@ -15,7 +15,7 @@
   <parent>
     <groupId>org.kuali</groupId>
     <artifactId>kuali</artifactId>
-    <version>98</version>
+    <version>97</version>
   </parent>
   <groupId>org.kuali</groupId>
   <artifactId>kuali-common</artifactId>
