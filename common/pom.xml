@@ -23,7 +23,6 @@
   <packaging>pom</packaging>
   <name>Kuali Common</name>
   <description>Provides reasonable defaults for common items</description>
-  <url>http://${kuali.site.hostname}/${project.artifactId}/${project.version}/</url>
   <properties>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
     <!-- Explicitly set build timestamp as a custom property.  The maven-resource-plugin is not filtering values correctly without this -->
