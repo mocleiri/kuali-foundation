@@ -17,6 +17,11 @@
     <kuali.slf4j.version>1.6.1</kuali.slf4j.version>
     <kuali.cglib.version>2.2</kuali.cglib.version>
   </properties>
+  <scm>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-spring-util</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-spring-util</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/kuali-spring-util</url>
+  </scm>
   <dependencies>
     <dependency>
       <groupId>org.springframework</groupId>
