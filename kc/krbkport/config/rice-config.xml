@@ -4,13 +4,13 @@
 
 	<param name="plugin.dir">${user.home}/kuali/main/${environment}/rice_embedded/plugins</param>
 	
-	<param name="datasource.username">KRDLY30</param>
-    <param name="datasource.password">dly174kr</param>
+	<param name="datasource.username">KRBKPORT</param>
+    <param name="datasource.password">bkport174kr</param>
     <!-- param name="datasource.url">jdbc:oracle:thin:@ec2-174-129-80-250.compute-1.amazonaws.com:1521:XE</param -->
     <param name="datasource.url">jdbc:oracle:thin:@db.kc.kuali.org:1521:KUALI</param>
-	<param name="datasource.ojb.platform">Oracle9i</param>
-	
-	<!--  increase db pool -->
+    <param name="datasource.ojb.platform">Oracle9i</param>
+    
+    <!--  increase db pool -->
 	<param name="datasource.pool.maxSize">20</param>
 	
 	<param name="attachment.dir.location">/opt/ears/</param>
@@ -36,17 +36,17 @@
 	
 	<!-- Sample Application Flag -->
     <param name="sample.enabled">false</param>
-
+    
 	<!-- workaround until Rice resolves KULRICE-4065 -->    
     <param name="enable.nonproduction.data.unmasking">true</param> 
-
+    
     <param name="dev.mode">false</param>
     
     <!-- hacky always go back to kc portal -->
 	<param name="rice.portal.logout.redirectUrl">${cas.url}/logout</param>
 	
 	<!-- CAS Configuration -->
-    <param name="cas.url">http://test.kc.kuali.org:8080/cas-dly30</param>
+    <param name="cas.url">http://test.kc.kuali.org:8087/cas-bkport</param>
     <param name="filter.login.class">org.jasig.cas.client.authentication.AuthenticationFilter</param>
     <param name="filter.login.casServerLoginUrl">${cas.url}/login</param>
     <param name="filter.login.serverName">${appserver.url}</param>

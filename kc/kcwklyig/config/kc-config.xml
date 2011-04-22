@@ -8,8 +8,8 @@
 	<!-- Database parameters -->
 	<!-- param name="datasource.url">jdbc:oracle:thin:@ec2-174-129-80-250.compute-1.amazonaws.com:1521:XE</param -->
 	<param name="datasource.url">jdbc:mysql://db.kc.kuali.org:3306/kcdly30</param>
-	<param name="datasource.username">kcdly30</param>
-	<param name="datasource.password">dly174kc</param>
+	<param name="datasource.username">kcwklyig</param>
+	<param name="datasource.password">wkly174kc</param>
 	<param name="datasource.ojb.platform">MySQL</param>
 	
 	<!-- For Embedded Mode -->
