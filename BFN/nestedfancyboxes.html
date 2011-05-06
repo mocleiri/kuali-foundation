@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Nested FancyBoxes</title>
+
+	<!-- jQuery Library -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    
+    <!-- FancyBox -->
+    <script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+    
+    <script language="javascript" type="text/javascript">
+		function open_FB1(){
+			$("#FB_control_1").fancybox({
+                'overlayShow'	: true,
+                'transitionIn'	: 'fade',
+                'transitionOut'	: 'fade',
+                'overlayOpacity' : '0.25',
+                'autoDimensions' : 'true'
+            }).trigger('click');
+		}
+		function open_FB2(){
+			$("#FB_control_2").fancybox({
+                'overlayShow'	: true,
+                'transitionIn'	: 'fade',
+                'transitionOut'	: 'fade',
+                'overlayOpacity' : '0.25',
+                'autoDimensions' : 'true',
+                'onClosed': function() { window.setTimeout('open_FB1()',300); } 
+                }).trigger('click');
+		}
+		function open_FB3(){
+			$("#FB_control_3").fancybox({
+                'overlayShow'	: true,
+                'transitionIn'	: 'fade',
+                'transitionOut'	: 'fade',
+                'overlayOpacity' : '0.25',
+                'autoDimensions' : 'true',
+                'onClosed': function() { window.setTimeout('open_FB2()',300); } 
+                }).trigger('click');
+		}
+	</script>
+
+</head>
+<body>
+
+<!-- Main Page -->
+	<h3>Bart's Nested FancyBoxes Sandbox</h3>
+    <p><a id="FB_control_1" href="#FB_content_1" title="FancyBox 1">Open FB1</a></p>
+
+<!-- FB1 -->
+	<script type="text/javascript">
+        $(document).ready(function() {
+            
+            /* FancyBox */
+            $("#FB_control_1").fancybox({
+                'overlayShow'	: true,
+                'transitionIn'	: 'fade',
+                'transitionOut'	: 'fade',
+                'overlayOpacity' : '0.25',
+                'autoDimensions' : 'true'
+            });
+            
+        });
+    </script>
+    <div style="display:none;">
+        <div id="FB_content_1" style="width:300px; overflow:auto;">
+        
+            Breadcrums: <strong>FB1</strong>.<br />
+            <a id="FB_control_2" href="#FB_content_2" title="FancyBox 2">Open FB2</a>
+            
+        </div>
+    </div>
+    
+<!-- FB2 --> 
+    <script type="text/javascript">
+        $(document).ready(function() {
+			
+            /* FancyBox */
+            $("#FB_control_2").fancybox({
+                'overlayShow'	: true,
+                'transitionIn'	: 'fade',
+                'transitionOut'	: 'fade',
+                'overlayOpacity' : '0.25',
+                'autoDimensions' : 'true',
+                'onClosed': function() { window.setTimeout('open_FB1()',300); } 
+                });
+			
+        });
+			
+    </script>
+    <div style="display:none;">
+        <div id="FB_content_2" style="width:400px; overflow:auto;">
+        
+            Breadcrums: FB1 > <strong>FB2</strong>.<br />
+            Closing this should automatically open FB1.<br />
+            <a id="FB_control_3" href="#FB_content_3" title="FancyBox 3">Open FB3</a>
+            
+        </div>
+    </div>
+    
+<!-- FB3 --> 
+    <script type="text/javascript">
+        $(document).ready(function() {
+			
+            /* FancyBox */
+            $("#FB_control_3").fancybox({
+                'overlayShow'	: true,
+                'transitionIn'	: 'fade',
+                'transitionOut'	: 'fade',
+                'overlayOpacity' : '0.25',
+                'autoDimensions' : 'true',
+                'onClosed': function() { window.setTimeout('open_FB2()',300); } 
+                });
+			
+        });
+			
+    </script>
+    <div style="display:none;">
+        <div id="FB_content_3" style="width:500px; overflow:auto;">
+        
+            Breadcrums: FB1 > FB2 > <strong>FB3</strong>.<br />
+            Closing this should automatically open FB2.<br />
+            <a id="FB_control_4" href="#FB_content_4" title="FancyBox 4">Open FB4</a>
+            
+        </div>
+    </div>
+    
+<!-- FB4 --> 
+    <script type="text/javascript">
+        $(document).ready(function() {
+			
+            /* FancyBox */
+            $("#FB_control_4").fancybox({
+                'overlayShow'	: true,
+                'transitionIn'	: 'fade',
+                'transitionOut'	: 'fade',
+                'overlayOpacity' : '0.25',
+                'autoDimensions' : 'true',
+                'onClosed': function() { window.setTimeout('open_FB3()',300); } 
+                });
+			
+        });
+			
+    </script>
+    <div style="display:none;">
+        <div id="FB_content_4" style="width:600px; overflow:auto;">
+        
+            Breadcrums: FB1 > FB2 > FB3 > <strong>FB4</strong>.<br />
+            Closing this should automatically open FB3.
+            
+        </div>
+    </div>
+    
+</body>
+</html>

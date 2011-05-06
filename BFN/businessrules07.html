@@ -2237,6 +2237,7 @@
                                         </div>
                                         
                                         <div id="div_viewprops">
+                                        
                                             <div id="prop-A" style="border:1px solid #666; background:url(./images/black04.png); margin-left:5px; margin-top:0px; margin-right:5px; margin-bottom:5px; padding:4px;">
                                             	
                                                 <!-- All Details -->
@@ -2630,6 +2631,8 @@
                                                                                 <option value="2" selected="selected">Custom Function</option>
                                                                             </select>
                                                                             
+                                                                            <p><a id="test01" href="http://www.resourceforge.com" title="test">test</a></p>
+                                                                            
                                                                             <a id="various1" href="#inline1" title="Function Editor"><img src="./images/tinybutton-functioneditor.gif" alt="function editor" style="border:none; width:80px; height:15px; vertical-align:middle;" /></a>
 																			<script type="text/javascript">
                                                                                 $(document).ready(function() {
@@ -2656,8 +2659,15 @@
 																			</script>
                                                                             
                                                                             <div style="display: none;">
-                                                                                <div id="inline1" style="width:800px; overflow:auto;">                                                                                    
+                                                                                <div id="inline1" style="width:800px; overflow:auto;">
+                                                                                
+                                                                                	
                                                                                     
+                                                                                    <a id="various2" href="#inline2" title="Function Editor"><img src="./images/tinybutton-functioneditor.gif" alt="function editor" style="border:none; width:80px; height:15px; vertical-align:middle;" /></a>
+																						
+                                                                                        
+                                                                                        
+                                                                                
                                                                                     <table class="functioneditor" cellspacing="0">
                                                                                         <tr>
                                                                                             <th colspan="3" style="text-align:left; background-color:#BBB;">
@@ -2857,7 +2867,9 @@
                                                                                                     </th>
                                                                                                 </tr>
                                                                                             </table>
+                                                                                            
                                                                                             <div style="height:220px; overflow:auto; border-bottom:1px solid #666; border-collapse:collapse;">
+                                                                                            
                                                                                                 <table class="columnlist" cellspacing="0">
                                                                                                     <tr>
                                                                                                         <td style="width:200px;">
@@ -2915,6 +2927,7 @@
                                                                                                             Some column.
                                                                                                         </td>
                                                                                                     </tr>
+                                                                                                    <tr>
                                                                                                         <td>
                                                                                                             <span class="draggable columnbox ui-corner-all" style="z-index:100000;">Column F</span>
                                                                                                         </td>
@@ -2923,6 +2936,7 @@
                                                                                                         </td>
                                                                                                     </tr>
                                                                                                 </table>
+                                                                                                
                                                                                             </div>
                                                                                             
                                                                                         </div>
@@ -2934,6 +2948,32 @@
                                                                                         <div id="tabs-4">Function stuff here.</div>
                                                                                     </div>
                                                                                     
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            
+                                                                            <script type="text/javascript">
+																				$(document).ready(function() {
+																					
+																					/* FancyBox */
+																					$("#various2").fancybox({
+																						'overlayShow'	: true,
+																						'transitionIn'	: 'elastic',
+																						'transitionOut'	: 'elastic',
+																						'overlayOpacity' : '0.25',
+																						'autoDimensions' : 'true',
+																						
+																						'onClosed': function() { window.setTimeout('open2()',100); } 
+    																					}).trigger('click');
+																					
+																				});
+																				function open2(){
+																					$("a#various1").fancybox().trigger('click');
+																				}
+																			</script>
+                                                                            <div style="display: none;">
+                                                                                <div id="inline2" style="width:300px; overflow:auto;">
+                                                                                    Yo!
                                                                                 </div>
                                                                             </div>
                                                                             
