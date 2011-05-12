@@ -35,6 +35,10 @@
     <url>http://www.kuali.org/</url>
   </organization>
   <inceptionYear>2004</inceptionYear>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.kuali.org</url>
+  </issueManagement>
   <developers>
     <developer>
       <id>kuali</id>
