@@ -21,6 +21,7 @@
   <version>11-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Kuali Common</name>
+  
   <properties>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
     <!-- Explicitly set build timestamp as a custom property.  The maven-resource-plugin is not filtering values correctly without this -->
