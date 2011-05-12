@@ -286,7 +286,7 @@
         <executions>
           <execution>
             <id>generate-clover-info</id>
-            <phase>pre-site</phase>
+            <phase>${kuali.clover.generate.info.phase}</phase>
             <goals>
               <goal>instrument</goal>
               <goal>aggregate</goal>
