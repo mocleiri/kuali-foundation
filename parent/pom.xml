@@ -13,7 +13,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali</groupId>
   <artifactId>kuali</artifactId>
-  <version>99-SNAPSHOT</version>
+  <version>99</version>
   <packaging>pom</packaging>
   <name>The Kuali Foundation</name>
   <description>
@@ -142,9 +142,9 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/parent</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/parent</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/pom/trunk/parent</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/pom/tags/kuali-99</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/tags/kuali-99</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/pom/tags/kuali-99</url>
   </scm>
   <build>
     <extensions>
