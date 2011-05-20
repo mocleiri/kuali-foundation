@@ -195,7 +195,8 @@ td.agendacontent
 	width:450px; 
 	text-align:left; 
 	border:1px solid #000; 
-	background-color:#FFE4E1; 
+	/*background-color:#FFE4E1;*/
+	background-color:#CCC; 
 	margin-bottom:3px; 
 	padding:5px;
 }

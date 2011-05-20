@@ -1286,7 +1286,7 @@
                                                 </td>
                                                 <td style="background-image:url('./images/agendagraphics/gray-bottom-center.png'); background-position:bottom;" class="agendacontent">
                                                     <div style="float:right; width:15px; border:none;">
-                                                    	<img id="opengroup_02" src="./images/showblock.gif" alt='closed' style="width:15px; height:11px; border:none; cursor:pointer;" />
+                                                    	<img id="opengroup_02" src="./images/showblock.gif" alt='expand' title='expand group' style="width:15px; height:11px; border:none; cursor:pointer;" />
                                                         <script type="text/javascript">
 															$(document).ready(function(){	
 																$("#opengroup_02").click(
@@ -1358,7 +1358,7 @@
                                                 </td>
                                                 <td style="background-image:url('./images/agendagraphics/gray-middle-center.png');" class="agendacontent">
                                                     <div style="float:right; width:15px; border:none;">
-                                                    	<img id="closegroup_02" src="./images/hideblock.gif" alt='opened' style="width:15px; height:11px; border:none; cursor:pointer;" />
+                                                    	<img id="closegroup_02" src="./images/hideblock.gif" alt='collapse' title='collapse group' style="width:15px; height:11px; border:none; cursor:pointer;" />
                                                         <script type="text/javascript">
 															$(document).ready(function(){	
 																$("#closegroup_02").click(
@@ -2237,7 +2237,7 @@
                                         </script>
                                     </div>
                                     
-                                    <div id="div_prop01" style="display:none;">
+                                    <div id="div_prop01" style="display:none; margin-left:20px;">
                                     	
                                         <!-- 'Propositions' header -->
                                         <div id="prop-A" style="border:1px solid #666; background-color:#E4E3E4; margin-left:5px; margin-top:5px; margin-right:5px; margin-bottom:-1px; padding:4px; font-weight:bold;">
@@ -2253,7 +2253,19 @@
 															function()
 															{
 																$(".propbox").slideUp(400);
-																$(".propgroupfolder").attr("src","./images/folderplus.gif");
+																$(".propgroupfolder").attr("src","./images/showblock.gif");
+																$(".propgroupfolder").attr("alt","expand");
+																$(".propgroupfolder").attr("title","expand group");
+																
+																$("#part_Connector1").slideUp(200);
+																$("#part_Connector1_1B").slideDown(200);
+																
+																$("#part_Connector2").slideUp(200);
+																$("#part_Connector2_1C").slideDown(200);
+																
+																$("#part_Connector4").slideUp(200);
+																$("#part_Connector4_1D").slideDown(200);
+																
 															}
 														);
 													// expand
@@ -2261,7 +2273,19 @@
 															function()
 															{
 																$(".propbox").slideDown(400);
-																$(".propgroupfolder").attr("src","./images/folderminus.gif");
+																$(".propgroupfolder").attr("src","./images/hideblock.gif");
+																$(".propgroupfolder").attr("alt","collapse");
+																$(".propgroupfolder").attr("title","collapse group");
+																
+																$("#part_Connector1").slideDown(200);
+																$("#part_Connector1_1B").slideUp(200);
+																
+																$("#part_Connector2").slideDown(200);
+																$("#part_Connector2_1C").slideUp(200);
+																
+																$("#part_Connector4").slideDown(200);
+																$("#part_Connector4_1D").slideUp(200);
+																
 															}
 														);
 												});
@@ -2290,7 +2314,7 @@
                                                 </script>
                                                 
                                                 <!-- T=4 -->
-                                                <a href="#" class="editbutton" id="hilite_T4">T=4</a>
+                                                <a href="#" class="editbutton detailpanelcontrol" id="hilite_T4"><img src="./images/blankdetail.gif" alt="open" style="margin-left:-25px; width:11px; height:11px;" /><span style='margin-left:13px;'>T=4</span></a>
                                                 <div class="div_editbutton" style="margin:10px; margin-top:2px; padding:0px; display:none;">
                                                     <table class="agenda_businessrule" cellspacing="0">
                                                         <tr>
@@ -2373,7 +2397,7 @@
                                                 <div class="connector ui-corner-all">
                                                     
                                                     <!-- box collapse -->
-                                                    <img id="control_1B" class="propgroupfolder" src="./images/folderminus.gif" style="border:none; width:15px height:11px; float:right; margin:3px;" alt="close" />
+                                                    <img id="control_1B" class="propgroupfolder" src="./images/hideblock.gif" style="border:none; width:15px height:11px; float:right; margin:3px;" alt="collapse" title="collapse group" />
                                                     <script type="text/javascript">
 														$(document).ready(function(){
 															// initial state
@@ -2386,16 +2410,18 @@
 																		if( x == "block" )
 																		{
 																			$("#div_1B").slideUp(400);
-																			$("#control_1B").attr("src","./images/folderplus.gif");
-																			$("#control_1B").attr("alt","open");
+																			$("#control_1B").attr("src","./images/showblock.gif");
+																			$("#control_1B").attr("alt","expand");
+																			$("#control_1B").attr("title","expand group");
 																			$("#part_Connector1").slideUp(200);
 																			$("#part_Connector1_1B").slideDown(200);
 																		}
 																		else
 																		{
 																			$("#div_1B").slideDown(400);
-																			$("#control_1B").attr("src","./images/folderminus.gif");
-																			$("#control_1B").attr("alt","close");
+																			$("#control_1B").attr("src","./images/hideblock.gif");
+																			$("#control_1B").attr("alt","collapse");
+																			$("#control_1B").attr("title","collapse group");
 																			$("#part_Connector1").slideDown(200);
 																			$("#part_Connector1_1B").slideUp(200);
 																		}
@@ -2404,7 +2430,7 @@
 														});
 													</script>
                                                     
-                                                    <a href="#" class="editbutton" id="hilite_Connector1" /><b>AND</b><span style="margin-left:15px;">"Chairman or Manager(s)"</span></a>
+                                                    <a href="#" class="editbutton detailpanelcontrol" id="hilite_Connector1" /><img src="./images/blankdetail.gif" alt="open" style="margin-left:-25px; width:11px; height:11px;" /><span style='margin-left:13px;'><b>AND</b></span><span style="margin-left:15px;">"Chairman or Manager(s)"</span></a>
                                                     <div class="div_editbutton" style="padding:5px; display:none;">
                                                         <select>
                                                             <option value="1" selected="selected">AND</option>
@@ -2422,7 +2448,7 @@
                                                 <div id="div_1B" class="propbox" style="border:1px solid #666; background:url(./images/black04.png); margin-left:38px; margin-top:-3px; margin-right:5px; margin-bottom:5px; padding:4px; padding-top:6px;">
                                                 	
                                                     <!-- Name ="Bart" -->
-                                                    <a href="#" class="editbutton" id="hilite_NameBart" />Name="Bart"</a>
+                                                    <a href="#" class="editbutton detailpanelcontrol" id="hilite_NameBart" title="show details" /><img src="./images/blankdetail.gif" alt="open" style="margin-left:-25px; width:11px; height:11px;" /><span style='margin-left:13px;'>Name="Bart"</span></a>
                                                 	<div class="div_editbutton" style="margin:10px; margin-top:2px; padding:0px; display:none;">
                                                         <table class="agenda_businessrule" cellspacing="0">
                                                             <tr>
@@ -2505,7 +2531,7 @@
                                                     <div class="connector ui-corner-all">
                                                         
                                                         <!-- box collapse -->
-                                                        <img id="control_1C" class="propgroupfolder" src="./images/folderminus.gif" style="border:none; width:15px height:11px; float:right; margin:3px;" alt="close" />
+                                                        <img id="control_1C" class="propgroupfolder" src="./images/hideblock.gif" style="border:none; width:15px height:11px; float:right; margin:3px;" alt="collapse" title="collapse group" />
                                                         <script type="text/javascript">
                                                             $(document).ready(function(){
                                                                 // initial state
@@ -2514,20 +2540,22 @@
                                                                     $("#control_1C").click(
                                                                         function()
                                                                         {
-                                                                            var x = $("#div_1C").css("display");
-                                                                            if( x == "block" )
+                                                                            var x = $(this).parent().next().css("display");
+																			if( x == "block" )
                                                                             {
-                                                                                $("#div_1C").slideUp(400);
-                                                                                $("#control_1C").attr("src","./images/folderplus.gif");
-                                                                                $("#control_1C").attr("alt","open");
+                                                                                $(this).parent().next().slideUp(400);
+                                                                                $(this).attr("src","./images/showblock.gif");
+                                                                                $(this).attr("alt","expand");
+                                                                                $(this).attr("title","expand group");
 																				$("#part_Connector2").slideUp(200);
 																				$("#part_Connector2_1C").slideDown(200);
                                                                             }
                                                                             else
                                                                             {
-                                                                                $("#div_1C").slideDown(400);
-                                                                                $("#control_1C").attr("src","./images/folderminus.gif");
-                                                                                $("#control_1C").attr("alt","close");
+                                                                                $(this).parent().next().slideDown(400);
+                                                                                $(this).attr("src","./images/hideblock.gif");
+                                                                                $(this).attr("alt","collapse");
+                                                                                $(this).attr("title","collapse group");
 																				$("#part_Connector2").slideDown(200);
 																				$("#part_Connector2_1C").slideUp(200);
                                                                             }
@@ -2536,7 +2564,44 @@
                                                             });
                                                         </script>
                                                         
-                                                        <a href="#" class="editbutton" id="hilite_Connector2" /><b>OR</b><span style="margin-left:15px;">"Peter's Project"</span></a>
+                                                        <script type="text/javascript">
+                                                            $(document).ready(function(){
+                                                                
+																$(".detailpanelcontrol").mouseover(function()
+																	{
+																		if( $("img",this).attr("src") == "./images/blankdetail.gif" )
+																		{
+																			$("img",this).attr("src","./images/showdetail.gif");
+																		}
+																	}
+																);
+																
+																$(".detailpanelcontrol").mouseleave(function()
+																	{
+																		if( $("img",this).attr("src") == "./images/showdetail.gif" )
+																		{
+																			$("img",this).attr("src","./images/blankdetail.gif");
+																		}
+																	}
+																);
+																
+																$(".detailpanelcontrol").toggle(function()
+																	{
+																		$("img",this).attr("src","./images/hidedetail.gif");
+																		$("img",this).attr("alt","close");
+																		$(this).attr("title","hide details");
+																	},function()
+																	{
+																		$("img",this).attr("src","./images/blankdetail.gif");
+																		$("img",this).attr("alt","open");
+																		$(this).attr("title","show details");
+																	}
+																);
+																
+                                                            });
+                                                        </script>
+                                                        
+                                                        <a href="#" class="editbutton detailpanelcontrol" id="hilite_Connector2" title="show details" /><img src="./images/blankdetail.gif" alt="open" style="margin-left:-25px; width:11px; height:11px;" /><span style='margin-left:13px;'><b>OR</b></span><span style="margin-left:15px;">"Peter's Project"</span></a>
                                                         <div class="div_editbutton" style="padding:5px; display:none;">
                                                             <select>
                                                                 <option value="1">AND</option>
@@ -2555,7 +2620,7 @@
                                                         
                                                         <!-- Name="Peter" -->
                                                         <div>
-                                                            <a href="#" class="editbutton" id="hilite_NamePeter" />Name="Peter"</a>
+                                                            <a href="#" class="editbutton detailpanelcontrol" id="hilite_NamePeter" title="show details" /><img src="./images/blankdetail.gif" alt="open" style="margin-left:-25px; width:11px; height:11px;" /><span style='margin-left:13px;'>Name="Peter"</span></a>
                                                             <div class="div_editbutton" style="margin:10px; margin-top:2px; padding:0px; display:none;">
                                                                 <table class="agenda_businessrule" cellspacing="0">
                                                                     <tr>
@@ -2626,11 +2691,10 @@
                                                                     </tr>
                                                                 </table>
                                                             </div>
-                                                            
                                                         </div>
                                                         
                                                         <!-- AND -->
-                                                        <a href="#" class="editbutton" id="hilite_Connector3" /><b>And</b></a>
+                                                        <a href="#" class="editbutton detailpanelcontrol" id="hilite_Connector3" title="show details" /><img src="./images/blankdetail.gif" alt="open" style="margin-left:-25px; width:11px; height:11px;" /><span style='margin-left:13px;'><b>And</b></span></a>
                                                         <div class="div_editbutton" style="padding:5px; display:none;">
                                                             <select>
                                                                 <option value="1" selected="selected">AND</option>
@@ -2644,7 +2708,7 @@
                                                         
                                                         <!-- isBartSilly()=True -->
                                                         <div>
-                                                            <a href="#" class="editbutton" id="hilite_X4" />isBartSilly()=True</a>
+                                                            <a href="#" class="editbutton detailpanelcontrol" id="hilite_X4" title="show details" /><img src="./images/blankdetail.gif" alt="open" style="margin-left:-25px; width:11px; height:11px;" /><span style='margin-left:13px;'>isBartSilly()=True</span></a>
                                                             <div class="div_editbutton" style="margin:10px; margin-top:2px; padding:0px; display:none;">
                                                                 <table class="agenda_businessrule" cellspacing="0">
                                                                     <tr>
@@ -3036,7 +3100,7 @@
                                                     <div class="connector ui-corner-all">
                                                         
                                                         <!-- box collapse -->
-                                                        <img id="control_1D" class="propgroupfolder" src="./images/folderminus.gif" style="border:none; width:15px height:11px; float:right; margin:3px;" alt="close" />
+                                                        <img id="control_1D" class="propgroupfolder" src="./images/hideblock.gif" style="border:none; width:15px height:11px; float:right; margin:3px;" alt="collapse" title="collapse group" />
                                                         <script type="text/javascript">
                                                             $(document).ready(function(){
                                                                 // initial state
@@ -3049,16 +3113,18 @@
                                                                             if( x == "block" )
                                                                             {
                                                                                 $("#div_1D").slideUp(400);
-                                                                                $("#control_1D").attr("src","./images/folderplus.gif");
-                                                                                $("#control_1D").attr("alt","open");
+                                                                                $("#control_1D").attr("src","./images/showblock.gif");
+                                                                                $("#control_1D").attr("alt","expand");
+                                                                                $("#control_1D").attr("title","expand group");
 																				$("#part_Connector4").slideUp(200);
 																				$("#part_Connector4_1D").slideDown(200);
                                                                             }
                                                                             else
                                                                             {
                                                                                 $("#div_1D").slideDown(400);
-                                                                                $("#control_1D").attr("src","./images/folderminus.gif");
-                                                                                $("#control_1D").attr("alt","close");
+                                                                                $("#control_1D").attr("src","./images/hideblock.gif");
+                                                                                $("#control_1D").attr("alt","collapse");
+                                                                                $("#control_1D").attr("title","collapse group");
 																				$("#part_Connector4").slideDown(200);
 																				$("#part_Connector4_1D").slideUp(200);
                                                                             }
@@ -3067,7 +3133,7 @@
                                                             });
                                                         </script>
                                                         
-                                                        <a href="#" class="editbutton" id="hilite_Connector4" /><b>OR</b><span style="margin-left:15px;"><i>"unnamed"</i></span></a>
+                                                        <a href="#" class="editbutton detailpanelcontrol" id="hilite_Connector4" /><img src="./images/blankdetail.gif" alt="open" style="margin-left:-25px; width:11px; height:11px;" /><span style='margin-left:13px;'><b>OR</b></span><span style="margin-left:15px;"><i>"unnamed"</i></span></a>
                                                         <div class="div_editbutton" style="padding:5px; display:none;">
                                                             <select>
                                                                 <option value="1">AND</option>
@@ -3086,7 +3152,7 @@
                                                         
                                                         <!-- Name="Bill" -->
                                                         <div>
-                                                            <a href="#" class="editbutton" id="hilite_NameBill" />Name="Bill"</a>
+                                                            <a href="#" class="editbutton detailpanelcontrol" id="hilite_NameBill" /><img src="./images/blankdetail.gif" alt="open" style="margin-left:-25px; width:11px; height:11px;" /><span style='margin-left:13px;'>Name="Bill"</span></a>
                                                             <div class="div_editbutton" style="margin:10px; margin-top:2px; padding:0px; display:none;">
                                                                 <table class="agenda_businessrule" cellspacing="0">
                                                                     <tr>
@@ -3164,11 +3230,10 @@
                                                                     </tr>
                                                                 </table>
                                                             </div>
-                                                            
                                                         </div>
                                                         
                                                         <!-- AND -->
-                                                        <a href="#" class="editbutton" id="hilite_Connector5" /><b>And</b></a>
+                                                        <a href="#" class="editbutton detailpanelcontrol" id="hilite_Connector5" /><img src="./images/blankdetail.gif" alt="open" style="margin-left:-25px; width:11px; height:11px;" /><span style='margin-left:13px;'><b>And</b></span></a>
                                                         <div class="div_editbutton" style="padding:5px; display:none;">
                                                             <select>
                                                                 <option value="1" selected="selected">AND</option>
@@ -3182,7 +3247,7 @@
                                                         
                                                         <!-- X=3 -->
                                                         <div>
-                                                            <a href="#" class="editbutton" id="hilite_X3" />X=3</a>
+                                                            <a href="#" class="editbutton detailpanelcontrol" id="hilite_X3" /><img src="./images/blankdetail.gif" alt="open" style="margin-left:-25px; width:11px; height:11px;" /><span style='margin-left:13px;'>X=3</span></a>
                                                             <div class="div_editbutton" style="margin:10px; margin-top:2px; padding:0px; display:none;">
                                                                 <table class="agenda_businessrule" cellspacing="0">
                                                                     <tr>
@@ -3260,7 +3325,6 @@
                                                                     </tr>
                                                                 </table>
                                                             </div>
-                                                            
                                                         </div>
                                                         
                                                     </div>
