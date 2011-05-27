@@ -14,7 +14,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali</groupId>
   <artifactId>kuali</artifactId>
-  <version>100</version>
+  <version>101-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>The Kuali Foundation</name>
   <description>
@@ -143,9 +143,9 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/pom/tags/kuali-100</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/tags/kuali-100</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/pom/tags/kuali-100</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/parent</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/parent</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/pom/trunk/parent</url>
   </scm>
   <build>
     <extensions>
