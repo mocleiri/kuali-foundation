@@ -313,7 +313,7 @@
             <entries>
               <entry>
                 <prefix>${kuali.svn.prefix}</prefix>
-                <depth>${kuali.svn.empty}</depth>
+                <depth>${kuali.svn.depth}</depth>
               </entry>
             </entries>
           </configuration>
