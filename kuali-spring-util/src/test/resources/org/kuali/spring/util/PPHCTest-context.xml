@@ -20,7 +20,7 @@
     <property name="locations">
       <list>
         <value>classpath:org/kuali/spring/util/simple.properties</value>
-        <value>classpath:org/kuali/spring/util/simple.properties</value>
+        <value>${props}</value>
       </list>
     </property>
   </bean>
