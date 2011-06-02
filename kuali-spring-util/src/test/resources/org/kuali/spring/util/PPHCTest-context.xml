@@ -16,10 +16,11 @@
                       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 
-  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:ignoreResourceNotFound="false">
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:ignoreResourceNotFound="true">
     <property name="locations">
       <list>
-        <value>${props}</value>
+        <value>classpath:org/kuali/spring/util/simple.properties</value>
+        <value>classpath:org/kuali/spring/util/${kuali.env}.properties</value>
       </list>
     </property>
   </bean>

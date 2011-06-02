@@ -7,8 +7,8 @@
       <param name="ConversionPattern" value="%-5p %c{1} - %m%n" />
     </layout>
   </appender>
-  <logger name="org.springframework.util">
-    <level value="info" />
+  <logger name="org.springframework">
+    <level value="debug" />
   </logger>
   <logger name="org.kuali.spring">
     <level value="debug" />
