@@ -8,13 +8,19 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.util.Assert;
 
+/**
+ * This class provides a simple mechanism for enabling Spring to create proxied
+ * objects. By default a NoOp CallBack will be associated with the proxy object
+ * (not very useful) but you can inject any custom CallBack as desired.
+ */
 public class SimpleProxyFactoryBean implements FactoryBean<Object> {
 	public static final Callback DEFAULT_CALLBACK = NoOp.INSTANCE;
+	public static final boolean DEFAULT_IS_COPY_SOURCE_BEAN_PROPERTIES = true;
 
 	Callback callback = DEFAULT_CALLBACK;
 	String classname;
 	Object sourceBean;
-	boolean copySourceBeanProperties = true;
+	boolean copySourceBeanProperties = DEFAULT_IS_COPY_SOURCE_BEAN_PROPERTIES;
 
 	public SimpleProxyFactoryBean() {
 		this(null, DEFAULT_CALLBACK);
