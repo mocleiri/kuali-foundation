@@ -19,7 +19,6 @@
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:ignoreResourceNotFound="false">
     <property name="locations">
       <list>
-        <value>classpath:org/kuali/spring/util/simple.properties</value>
         <value>${props}</value>
       </list>
     </property>
