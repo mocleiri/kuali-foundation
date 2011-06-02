@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.kuali</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>10</version>
+    <version>13</version>
   </parent>
   <groupId>org.kuali.spring</groupId>
   <artifactId>kuali-spring-util</artifactId>
