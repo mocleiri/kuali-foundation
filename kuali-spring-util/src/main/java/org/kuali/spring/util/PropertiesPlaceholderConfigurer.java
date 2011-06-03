@@ -1,5 +1,7 @@
 package org.kuali.spring.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.kuali.spring.util.event.DefaultVisitListener;
@@ -20,15 +22,25 @@ public class PropertiesPlaceholderConfigurer extends PlaceholderConfigurer {
 	private PropertiesResolver resolver = new PropertiesResolver();
 	private Properties properties;
 	private String nullValue;
+	private List<String> skipNames;
 
-	protected boolean currentBeanIsMe(String currentBean, ConfigurableListableBeanFactory beanFactoryToProcess) {
-		if (!currentBean.equals(getBeanName())) {
+	protected boolean isSkip(String currentBeanName) {
+		if (skipNames == null) {
 			return false;
+		} else {
+			return skipNames.contains(currentBeanName);
 		}
-		if (!beanFactoryToProcess.equals(getBeanFactory())) {
-			return false;
+	}
+
+	public void setSkipName(String skipName) {
+		addSkipName(skipName);
+	}
+
+	protected synchronized void addSkipName(String skipName) {
+		if (skipNames == null) {
+			skipNames = new ArrayList<String>();
 		}
-		return true;
+		skipNames.add(skipName);
 	}
 
 	protected BeanDefinitionVisitor getBeanDefinitionVisitor(StringValueResolver valueResolver) {
@@ -43,8 +55,7 @@ public class PropertiesPlaceholderConfigurer extends PlaceholderConfigurer {
 		BeanDefinitionVisitor visitor = getBeanDefinitionVisitor(valueResolver);
 		String[] beanNames = beanFactory.getBeanDefinitionNames();
 		for (String curName : beanNames) {
-			// Skip processing our own bean definition
-			if (currentBeanIsMe(curName, beanFactory)) {
+			if (isSkip(curName)) {
 				continue;
 			}
 			BeanDefinition bd = beanFactory.getBeanDefinition(curName);
@@ -75,10 +86,12 @@ public class PropertiesPlaceholderConfigurer extends PlaceholderConfigurer {
 
 		processBeans(beanFactoryToProcess, valueResolver);
 
-		// New in Spring 2.5: resolve placeholders in alias target names and aliases as well.
+		// New in Spring 2.5: resolve placeholders in alias target names and
+		// aliases as well.
 		beanFactoryToProcess.resolveAliases(valueResolver);
 
-		// New in Spring 3.0: resolve placeholders in embedded values such as annotation attributes.
+		// New in Spring 3.0: resolve placeholders in embedded values such as
+		// annotation attributes.
 		beanFactoryToProcess.addEmbeddedValueResolver(valueResolver);
 
 	}
@@ -121,6 +134,14 @@ public class PropertiesPlaceholderConfigurer extends PlaceholderConfigurer {
 
 	public void setNullValue(String nullValue) {
 		this.nullValue = nullValue;
+	}
+
+	public List<String> getSkipNames() {
+		return skipNames;
+	}
+
+	public void setSkipNames(List<String> skipNames) {
+		this.skipNames = skipNames;
 	}
 
 }
