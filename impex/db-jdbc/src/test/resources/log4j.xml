@@ -8,13 +8,13 @@
     </layout>
   </appender>
   <logger name="org.kuali.db.jdbc">
-    <level value="debug" />
+    <level value="info" />
   </logger>
   <logger name="org.springframework">
-    <level value="debug" />
+    <level value="info" />
   </logger>
   <logger name="org.kuali.spring.util">
-    <level value="debug" />
+    <level value="info" />
   </logger>
   <root>
     <priority value="info" />

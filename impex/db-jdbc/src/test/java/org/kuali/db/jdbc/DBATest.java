@@ -2,6 +2,8 @@ package org.kuali.db.jdbc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.spring.util.PropertiesPlaceholderConfigurer;
+import org.kuali.spring.util.PropertyLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,5 +17,12 @@ public class DBATest {
 
 	@Test
 	public void importTest() {
+		PropertyLogger plogger = (PropertyLogger) applicationContext.getBean("kuali.plogger");
+		System.out.println(plogger.isFlattenPropertyValues());
+		PropertiesPlaceholderConfigurer pphc = (PropertiesPlaceholderConfigurer) applicationContext
+				.getBean("kuali.pconfigurer");
+		PropertyLogger plogger2 = pphc.getLoader().getPlogger();
+		System.out.println(plogger2.isFlattenPropertyValues());
+
 	}
 }
