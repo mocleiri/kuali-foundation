@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[2.5.2.201102280943-SR3]]></pluginVersion>
+	<pluginVersion><![CDATA[2.6.0.201104111100-PATCH]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
-	<enableImports><![CDATA[false]]></enableImports>
+	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
 		<config>src/main/resources/org/kuali/db/jdbc/dba.xml</config>
 		<config>src/test/resources/org/kuali/db/jdbc/dba-test.xml</config>
