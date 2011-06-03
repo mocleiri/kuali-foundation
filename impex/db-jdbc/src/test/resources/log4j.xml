@@ -10,11 +10,11 @@
   <logger name="org.kuali.db.jdbc">
     <level value="debug" />
   </logger>
-  <logger name="org.springframework.util">
-    <level value="info" />
+  <logger name="org.springframework">
+    <level value="debug" />
   </logger>
   <logger name="org.kuali.spring.util">
-    <level value="info" />
+    <level value="debug" />
   </logger>
   <root>
     <priority value="info" />
