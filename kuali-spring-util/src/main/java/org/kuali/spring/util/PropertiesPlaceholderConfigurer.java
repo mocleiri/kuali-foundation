@@ -1,6 +1,5 @@
 package org.kuali.spring.util;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
