@@ -32,17 +32,6 @@ public class PropertiesPlaceholderConfigurer extends PlaceholderConfigurer {
 		}
 	}
 
-	public void setSkipName(String skipName) {
-		addSkipName(skipName);
-	}
-
-	protected synchronized void addSkipName(String skipName) {
-		if (skipNames == null) {
-			skipNames = new ArrayList<String>();
-		}
-		skipNames.add(skipName);
-	}
-
 	protected BeanDefinitionVisitor getBeanDefinitionVisitor(StringValueResolver valueResolver) {
 		EnhancedBeanDefinitionVisitor visitor = new EnhancedBeanDefinitionVisitor();
 		visitor.setValueResolver(valueResolver);
