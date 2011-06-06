@@ -22,7 +22,7 @@
     p:ignoreResourceNotFound="true">
     <property name="locations">
       <list>
-        <value>classpath:org/kuali/db/jdbc/default-dba-properties.xml</value>
+        <value>classpath:org/kuali/db/jdbc/dba-properties.xml</value>
         <value>classpath:kualidba.properties</value>
         <value>classpath:kualidba.xml</value>
         <value>${kuali.dba.properties}</value>
