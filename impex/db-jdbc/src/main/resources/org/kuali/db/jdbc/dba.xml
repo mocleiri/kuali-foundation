@@ -16,6 +16,8 @@
 
   <import resource="classpath:org/kuali/spring/util/default-property-handler-wiring.xml" />
 
+  <bean id="kuali.plogger" class="org.kuali.spring.util.PropertyLogger" p:flattenPropertyValues="true" />
+
   <bean id="kuali.ploader" class="org.kuali.spring.util.PropertiesLoader" p:plogger-ref="kuali.plogger"
     p:ignoreResourceNotFound="true">
     <property name="locations">
