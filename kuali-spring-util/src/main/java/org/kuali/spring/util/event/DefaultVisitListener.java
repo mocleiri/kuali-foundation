@@ -43,7 +43,7 @@ public class DefaultVisitListener implements VisitListener {
 			String name = event.getPropertyValue().getName();
 			String oldValue = plogger.getLogEntry(name, event.getOldValue() + "");
 			String newValue = plogger.getLogEntry(name, event.getNewValue() + "");
-			logger.info(name + " updated [{}]->[{}]", oldValue, newValue);
+			logger.info("Property '" + name + "' updated [{}]->[{}]", oldValue, newValue);
 		}
 	}
 
