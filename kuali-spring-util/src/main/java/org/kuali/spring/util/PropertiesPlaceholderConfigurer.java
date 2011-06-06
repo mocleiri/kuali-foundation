@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.spring.util.event.DefaultVisitListener;
-import org.kuali.spring.util.event.VisitListener;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionVisitor;
@@ -34,7 +33,8 @@ public class PropertiesPlaceholderConfigurer extends PlaceholderConfigurer {
 	protected BeanDefinitionVisitor getBeanDefinitionVisitor(StringValueResolver valueResolver) {
 		EnhancedBeanDefinitionVisitor visitor = new EnhancedBeanDefinitionVisitor();
 		visitor.setValueResolver(valueResolver);
-		VisitListener listener = new DefaultVisitListener();
+		DefaultVisitListener listener = new DefaultVisitListener();
+		listener.setPlogger(loader.getPlogger());
 		visitor.addListener(listener);
 		return visitor;
 	}
