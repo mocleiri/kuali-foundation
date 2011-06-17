@@ -16,8 +16,6 @@
 
   <import resource="classpath:org/kuali/spring/util/default-property-handler-wiring.xml" />
 
-  <bean id="kuali.plogger" class="org.kuali.spring.util.PropertyLogger" p:flattenPropertyValues="true" />
-
   <bean id="kuali.ploader" class="org.kuali.spring.util.PropertiesLoader" p:plogger-ref="kuali.plogger"
     p:ignoreResourceNotFound="true">
     <property name="locations">
@@ -29,8 +27,6 @@
       </list>
     </property>
   </bean>
-  <bean id="kuali.pconfigurer" class="org.kuali.spring.util.PropertiesPlaceholderConfigurer" p:loader-ref="kuali.ploader"
-    p:converter-ref="kuali.pconverter" p:resolver-ref="kuali.presolver" p:skipNames="kuali.ploader" />
 
   <bean id="kuali.jdbc.transaction.drop" class="org.kuali.db.jdbc.Transaction" p:sqlCommand="${kuali.jdbc.sql.drop}" />
   <bean id="kuali.jdbc.transaction.initialize" class="org.kuali.db.jdbc.Transaction" p:sqlCommand="${kuali.jdbc.sql.initialize}" />

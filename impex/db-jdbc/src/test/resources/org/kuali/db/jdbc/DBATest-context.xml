@@ -16,4 +16,7 @@
 
   <import resource="classpath:org/kuali/db/jdbc/dba.xml" />
 
+  <bean id="kuali.plogger" class="org.kuali.spring.util.PropertyLogger" p:flattenPropertyValues="true"
+    p:maskPropertyValues="false" />
+
 </beans>
