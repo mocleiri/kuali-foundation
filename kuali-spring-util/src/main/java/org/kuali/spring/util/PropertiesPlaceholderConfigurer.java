@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.spring.util.event.DefaultVisitListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionVisitor;
@@ -14,6 +16,7 @@ import org.springframework.util.StringValueResolver;
  * 
  */
 public class PropertiesPlaceholderConfigurer extends PlaceholderConfigurer {
+	private final Logger logger = LoggerFactory.getLogger(PropertiesPlaceholderConfigurer.class);
 
 	private PropertiesLoader loader = new PropertiesLoader();
 	private PropertiesConverter converter = new PropertiesConverter();
@@ -44,7 +47,10 @@ public class PropertiesPlaceholderConfigurer extends PlaceholderConfigurer {
 		String[] beanNames = beanFactory.getBeanDefinitionNames();
 		for (String curName : beanNames) {
 			if (isSkip(curName)) {
+				logger.info("Skipping placeholder processing on bean '" + curName + '"');
 				continue;
+			} else {
+				logger.info("Processing placeholders on bean '" + curName + '"');
 			}
 			BeanDefinition bd = beanFactory.getBeanDefinition(curName);
 			try {
