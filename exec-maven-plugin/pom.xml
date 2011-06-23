@@ -90,6 +90,7 @@
     <mavenVersion>2.0.6</mavenVersion>
   </properties>
 
+        <!-- 
   <build>
     <plugins>
       <plugin>
@@ -109,7 +110,6 @@
           <settingsFile>src/it/settings.xml</settingsFile>
           <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
         </configuration>
-        <!-- 
         <executions>
           <execution>
             <id>integration-test</id>
@@ -119,8 +119,8 @@
             </goals>
           </execution>
         </executions>
-         -->
       </plugin>
     </plugins>
   </build>
+         -->
 </project>
