@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+  <name>Maven HTTP Plugin</name>
+  <description>Allows interacting with the HTTP protocol from Maven</description>
+  <groupId>org.kuali.maven.plugins</groupId>
+  <artifactId>maven-http-plugin</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <goalPrefix>http</goalPrefix>
+  <isolatedRealm>false</isolatedRealm>
+  <inheritedByDefault>true</inheritedByDefault>
+  <mojos>
+    <mojo>
+      <goal>wait</goal>
+      <description>Repeatedly contact the specified HTTP URL until a valid HTTP response code is returned or the maximum wait timeout is
+exceeded, whichever comes first.</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <executePhase>validate</executePhase>
+      <implementation>org.kuali.maven.plugins.WaitMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>false</threadSafe>
+      <parameters>
+        <parameter>
+          <name>dateFormat</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The format to use when displaying dates in the log messages</description>
+        </parameter>
+        <parameter>
+          <name>httpSuccessCodes</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Comma separated list of HTTP status codes that represent success</description>
+        </parameter>
+        <parameter>
+          <name>requestTimeout</name>
+          <type>int</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The maximum number of milliseconds to wait for an individual HTTP request to complete</description>
+        </parameter>
+        <parameter>
+          <name>sleepInterval</name>
+          <type>int</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The number of milliseconds to sleep in between HTTP requests</description>
+        </parameter>
+        <parameter>
+          <name>timeout</name>
+          <type>int</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The maximum number of seconds to wait for the url to respond correctly</description>
+        </parameter>
+        <parameter>
+          <name>url</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The url to contact</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <dateFormat implementation="java.lang.String" default-value="yyyy-MM-dd HH:mm:ss z">${http.dateFormat}</dateFormat>
+        <httpSuccessCodes implementation="java.lang.String" default-value="200,302,304">${http.successCodes}</httpSuccessCodes>
+        <requestTimeout implementation="int" default-value="3000">${http.requestTimeout}</requestTimeout>
+        <sleepInterval implementation="int" default-value="3000">${http.sleepInterval}</sleepInterval>
+        <timeout implementation="int" default-value="180">${http.timeout}</timeout>
+        <url implementation="java.lang.String" default-value="http://localhost">${http.url}</url>
+      </configuration>
+    </mojo>
+  </mojos>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <type>jar</type>
+      <version>2.0.6</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <type>jar</type>
+      <version>1.8.3</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <type>jar</type>
+      <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <type>jar</type>
+      <version>3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <type>jar</type>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <type>jar</type>
+      <version>1.6.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <type>jar</type>
+      <version>1.6.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <type>jar</type>
+      <version>1.6.1</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <type>jar</type>
+      <version>1.2.16</version>
+    </dependency>
+  </dependencies>
+</plugin>
