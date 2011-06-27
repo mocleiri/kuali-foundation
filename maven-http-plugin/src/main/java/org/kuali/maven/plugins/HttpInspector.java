@@ -1,9 +1,7 @@
 package org.kuali.maven.plugins;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -18,15 +16,10 @@ import org.slf4j.LoggerFactory;
 
 public class HttpInspector {
 	private final Logger logger = LoggerFactory.getLogger(HttpInspector.class);
-	String dateFormat = "yyyy-MM-dd HH:mm:ss z";
 	List<Integer> successCodes = new ArrayList<Integer>();
 	int requestTimeout = 3000;
 	int sleepInterval = 3000;
 	int timeout = 180;
-
-	public void setDateFormat(String dateFormat) {
-		this.dateFormat = dateFormat;
-	}
 
 	protected boolean isSuccess(int resultCode) {
 		for (int successCode : successCodes) {
@@ -37,30 +30,28 @@ public class HttpInspector {
 		return false;
 	}
 
-	protected String getMsg(String msg, SimpleDateFormat sdf) {
-		return getMsg(msg, -1, sdf);
+	protected String getMsg(String msg) {
+		return getMsg(msg, -1);
 	}
 
-	protected String getMsg(String msg, long l, SimpleDateFormat sdf) {
+	protected String getMsg(String msg, long l) {
 		StringBuilder sb = new StringBuilder();
-		if (l != -1) {
-			sb.append(l + " - ");
-		}
 		sb.append(msg);
-		sb.append(" - ");
-		sb.append(sdf.format(new Date()));
+		if (l == -1) {
+			return sb.toString();
+		}
+		sb.append(" - (Timeout in " + l + "s)");
 		return sb.toString();
 	}
 
 	public boolean wait(String url) {
 		HttpClient client = getHttpClient();
-		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
 		long now = System.currentTimeMillis();
 		long end = now + (timeout * 1000);
-		logger.info(getMsg("Determining status for '" + url + "'", sdf));
+		logger.info(getMsg("Determining status for '" + url + "'"));
 		for (;;) {
 			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
-			boolean success = doRequest(client, url, secondsRemaining, sdf);
+			boolean success = doRequest(client, url, secondsRemaining);
 			if (success) {
 				return true;
 			}
@@ -81,7 +72,7 @@ public class HttpInspector {
 		return client;
 	}
 
-	protected boolean doRequest(HttpClient client, String url, long secondsRemaining, SimpleDateFormat sdf) {
+	protected boolean doRequest(HttpClient client, String url, long secondsRemaining) {
 		try {
 			HttpMethod method = new GetMethod(url);
 			client.executeMethod(method);
@@ -89,14 +80,14 @@ public class HttpInspector {
 			String statusText = method.getStatusText();
 			boolean success = isSuccess(statusCode);
 			if (success) {
-				logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'", sdf));
+				logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'"));
 				return true;
 			} else {
 				logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'",
-						secondsRemaining, sdf));
+						secondsRemaining));
 			}
 		} catch (IOException e) {
-			logger.info(getMsg("Status for '" + url + "' is '" + e.getMessage() + "'", secondsRemaining, sdf));
+			logger.info(getMsg("Status for '" + url + "' is '" + e.getMessage() + "'", secondsRemaining));
 		}
 		return false;
 	}
@@ -135,10 +126,6 @@ public class HttpInspector {
 
 	public Logger getLogger() {
 		return logger;
-	}
-
-	public String getDateFormat() {
-		return dateFormat;
 	}
 
 	public List<Integer> getSuccessCodes() {

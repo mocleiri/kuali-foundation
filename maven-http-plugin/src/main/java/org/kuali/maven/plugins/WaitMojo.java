@@ -55,13 +55,6 @@ public class WaitMojo extends AbstractMojo {
 	 */
 	private String httpSuccessCodes;
 
-	/**
-	 * The format to use when displaying dates in the log messages
-	 * 
-	 * @parameter expression="${http.dateFormat}" default-value="yyyy-MM-dd HH:mm:ss z"
-	 */
-	private String dateFormat;
-
 	protected HttpInspector getHttpInspector() throws MojoExecutionException {
 		HttpInspector inspector = new HttpInspector();
 		try {
@@ -117,14 +110,6 @@ public class WaitMojo extends AbstractMojo {
 
 	public void setSleepInterval(int sleepInterval) {
 		this.sleepInterval = sleepInterval;
-	}
-
-	public String getDateFormat() {
-		return dateFormat;
-	}
-
-	public void setDateFormat(String dateFormat) {
-		this.dateFormat = dateFormat;
 	}
 
 	public String getHttpSuccessCodes() {
