@@ -53,38 +53,50 @@ public class HttpInspector {
 	}
 
 	public boolean wait(String url) {
+		HttpClient client = getHttpClient();
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
 		long now = System.currentTimeMillis();
 		long end = now + (timeout * 1000);
+		logger.info(getMsg("Determining status for '" + url + "'", sdf));
+		for (;;) {
+			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
+			boolean success = doRequest(client, url, secondsRemaining, sdf);
+			if (success) {
+				return true;
+			}
+			sleep(sleepInterval);
+			if (System.currentTimeMillis() > end) {
+				logger.info("Timed out waiting for response from '" + url + "'");
+				return false;
+			}
+		}
+	}
+
+	protected HttpClient getHttpClient() {
 		HttpClient client = new HttpClient();
 		HttpClientParams clientParams = client.getParams();
 		HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
 		clientParams.setParameter(HttpMethodParams.RETRY_HANDLER, retryHandler);
 		clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, requestTimeout);
-		logger.info(getMsg("Determining status for '" + url + "'", sdf));
-		for (;;) {
-			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
-			try {
-				HttpMethod method = new GetMethod(url);
-				client.executeMethod(method);
-				int statusCode = method.getStatusCode();
-				String statusText = method.getStatusText();
-				boolean success = isSuccess(statusCode);
-				if (success) {
-					logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'", sdf));
-					return true;
-				} else {
-					logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'",
-							secondsRemaining, sdf));
-				}
-			} catch (IOException e) {
-				logger.info(getMsg("Status for '" + url + "' is '" + e.getMessage() + "'", secondsRemaining, sdf));
+		return client;
+	}
+
+	protected boolean doRequest(HttpClient client, String url, long secondsRemaining, SimpleDateFormat sdf) {
+		try {
+			HttpMethod method = new GetMethod(url);
+			client.executeMethod(method);
+			int statusCode = method.getStatusCode();
+			String statusText = method.getStatusText();
+			boolean success = isSuccess(statusCode);
+			if (success) {
+				logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'", sdf));
+				return true;
+			} else {
+				logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'",
+						secondsRemaining, sdf));
 			}
-			sleep(sleepInterval);
-			if (System.currentTimeMillis() > end) {
-				logger.info("Timed out waiting for response from '" + url + "'");
-				break;
-			}
+		} catch (IOException e) {
+			logger.info(getMsg("Status for '" + url + "' is '" + e.getMessage() + "'", secondsRemaining, sdf));
 		}
 		return false;
 	}
