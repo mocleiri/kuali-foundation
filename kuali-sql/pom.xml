@@ -21,12 +21,28 @@
   <version>1.0.0-SNAPSHOT</version>
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
-    <sql.oracle.defaultTablespace>users</sql.oracle.defaultTablespace>
-    <sql.oracle.temporaryTablespace>temp</sql.oracle.temporaryTablespace>
-    <sql.oracle.quota>UNLIMITED</sql.oracle.quota>
-    <sql.oracle.error.userDoesNotExist>-01918</sql.oracle.error.userDoesNotExist>
   </properties>
   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.0-alpha-2</version>
+        <executions>
+          <execution>
+            <phase>none</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+            </goals>
+            <configuration>
+              <files>
+                <file>src/main/resources/org/kuali/sql/sql.properties</file>
+              </files>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
