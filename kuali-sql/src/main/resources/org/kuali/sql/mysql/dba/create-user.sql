@@ -1,5 +1,2 @@
-GRANT ALL ON ${sql.database}.*
-TO '${sql.username}'@'%'
-IDENTIFIED BY '${sql.password}'
-WITH GRANT OPTION
+CREATE USER '${sql.username}'@'%' IDENTIFIED BY '${sql.password}'
 /
