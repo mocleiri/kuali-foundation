@@ -26,7 +26,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.Reader;
 import java.io.StringReader;
@@ -43,6 +45,7 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
@@ -724,6 +727,12 @@ public class SqlExecMojo extends AbstractMojo {
 		return resources;
 	}
 
+	protected void copy(Resource resource, File file) throws IOException {
+		InputStream in = resource.getInputStream();
+		OutputStream out = new FileOutputStream(file);
+		IOUtils.copyLarge(in, out);
+	}
+
 	/**
 	 * Add user input of srcFiles to transaction list.
 	 * 
@@ -744,6 +753,13 @@ public class SqlExecMojo extends AbstractMojo {
 			String basename = FileUtils.basename(filename);
 			String extension = FileUtils.extension(filename);
 			File sourceFile = FileUtils.createTempFile(basename, extension, null);
+
+			try {
+				copy(resource, sourceFile);
+			} catch (IOException e) {
+				throw new MojoExecutionException("Error copying resource " + resource + "to a temp file", e);
+			}
+
 			File targetFile = FileUtils.createTempFile(basename, extension, null);
 			if (!getLog().isDebugEnabled()) {
 				targetFile.deleteOnExit();
