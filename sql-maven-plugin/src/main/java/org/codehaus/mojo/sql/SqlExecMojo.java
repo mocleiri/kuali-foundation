@@ -53,8 +53,6 @@ import org.apache.maven.settings.Settings;
 import org.apache.maven.shared.filtering.MavenFileFilter;
 import org.apache.maven.shared.filtering.MavenFileFilterRequest;
 import org.apache.maven.shared.filtering.MavenFilteringException;
-import org.codehaus.plexus.interpolation.Interpolator;
-import org.codehaus.plexus.interpolation.RegexBasedInterpolator;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
@@ -396,7 +394,7 @@ public class SqlExecMojo extends AbstractMojo {
 	/**
 	 * SQL transactions to perform
 	 */
-	private Vector transactions = new Vector();
+	private Vector<Transaction> transactions = new Vector<Transaction>();
 
 	/**
 	 * @component role="org.apache.maven.shared.filtering.MavenFileFilter"
@@ -416,8 +414,8 @@ public class SqlExecMojo extends AbstractMojo {
 	/**
 	 * Interpolator especially for braceless expressions
 	 */
-	private Interpolator interpolator = new RegexBasedInterpolator(
-			"\\$([^\\s;)]+?)", "(?=[\\s;)])");
+	// private Interpolator interpolator = new
+	// RegexBasedInterpolator("\\$([^\\s;)]+?)", "(?=[\\s;)])");
 
 	/**
 	 * Add a SQL transaction to execute
@@ -568,10 +566,8 @@ public class SqlExecMojo extends AbstractMojo {
 			return true;
 		}
 
-		if (!forceMojoExecution && project != null
-				&& "pom".equals(project.getPackaging())) {
-			getLog().info(
-					"Skipping sql execution for project with packaging type 'pom'");
+		if (!forceMojoExecution && project != null && "pom".equals(project.getPackaging())) {
+			getLog().info("Skipping sql execution for project with packaging type 'pom'");
 			return true;
 		}
 
@@ -621,17 +617,14 @@ public class SqlExecMojo extends AbstractMojo {
 			PrintStream out = System.out;
 			try {
 				if (outputFile != null) {
-					getLog().debug(
-							"Opening PrintStream to output file " + outputFile);
-					out = new PrintStream(new BufferedOutputStream(
-							new FileOutputStream(outputFile.getAbsolutePath(),
-									append)));
+					getLog().debug("Opening PrintStream to output file " + outputFile);
+					out = new PrintStream(new BufferedOutputStream(new FileOutputStream(outputFile.getAbsolutePath(),
+							append)));
 				}
 
 				// Process all transactions
-				for (Enumeration e = transactions.elements(); e
-						.hasMoreElements();) {
-					Transaction t = (Transaction) e.nextElement();
+				for (Enumeration<Transaction> e = transactions.elements(); e.hasMoreElements();) {
+					Transaction t = e.nextElement();
 
 					t.runTransaction(out);
 
@@ -648,8 +641,7 @@ public class SqlExecMojo extends AbstractMojo {
 		} catch (IOException e) {
 			throw new MojoExecutionException(e.getMessage(), e);
 		} catch (SQLException e) {
-			if (!autocommit && conn != null
-					&& ON_ERROR_ABORT.equalsIgnoreCase(getOnError())) {
+			if (!autocommit && conn != null && ON_ERROR_ABORT.equalsIgnoreCase(getOnError())) {
 				try {
 					conn.rollback();
 				} catch (SQLException ex) {
@@ -671,13 +663,10 @@ public class SqlExecMojo extends AbstractMojo {
 		}
 
 		getLog().info(
-				getSuccessfulStatements() + " of " + getTotalStatements()
-						+ " SQL statements executed successfully");
+				getSuccessfulStatements() + " of " + getTotalStatements() + " SQL statements executed successfully");
 
-		if (ON_ERROR_ABORT_AFTER.equalsIgnoreCase(getOnError())
-				&& totalStatements != successfulStatements) {
-			throw new MojoExecutionException(
-					"Some SQL statements failed to execute");
+		if (ON_ERROR_ABORT_AFTER.equalsIgnoreCase(getOnError()) && totalStatements != successfulStatements) {
+			throw new MojoExecutionException("Some SQL statements failed to execute");
 		}
 
 	}
@@ -704,8 +693,7 @@ public class SqlExecMojo extends AbstractMojo {
 		}
 
 		for (int j = 0; j < includedFiles.length; j++) {
-			createTransaction().setSrc(
-					new File(fileset.getBasedir(), includedFiles[j]));
+			createTransaction().setSrc(new File(fileset.getBasedir(), includedFiles[j]));
 		}
 	}
 
@@ -724,15 +712,13 @@ public class SqlExecMojo extends AbstractMojo {
 		request.setFiltering(enableFiltering);
 		for (int i = 0; files != null && i < files.length; ++i) {
 			if (files[i] != null && !files[i].exists()) {
-				throw new MojoExecutionException(files[i].getPath()
-						+ " not found.");
+				throw new MojoExecutionException(files[i].getPath() + " not found.");
 			}
 
 			File sourceFile = files[i];
 			String basename = FileUtils.basename(sourceFile.getName());
 			String extension = FileUtils.extension(sourceFile.getName());
-			File targetFile = FileUtils.createTempFile(basename, extension,
-					null);
+			File targetFile = FileUtils.createTempFile(basename, extension, null);
 			if (!getLog().isDebugEnabled()) {
 				targetFile.deleteOnExit();
 			}
@@ -772,8 +758,7 @@ public class SqlExecMojo extends AbstractMojo {
 			this.settingsKey = getUrl();
 		}
 
-		if ((getUsername() == null || getPassword() == null)
-				&& (settings != null)) {
+		if ((getUsername() == null || getPassword() == null) && (settings != null)) {
 			Server server = this.settings.getServer(this.settingsKey);
 
 			if (server != null) {
@@ -812,8 +797,7 @@ public class SqlExecMojo extends AbstractMojo {
 	 *             if there is problem getting connection with valid url
 	 * 
 	 */
-	private Connection getConnection() throws MojoExecutionException,
-			SQLException {
+	private Connection getConnection() throws MojoExecutionException, SQLException {
 		getLog().debug("connecting to " + getUrl());
 		Properties info = new Properties();
 		info.put("user", getUsername());
@@ -827,14 +811,12 @@ public class SqlExecMojo extends AbstractMojo {
 		Driver driverInstance = null;
 
 		try {
-			Class dc = Class.forName(getDriver());
+			Class<?> dc = Class.forName(getDriver());
 			driverInstance = (Driver) dc.newInstance();
 		} catch (ClassNotFoundException e) {
-			throw new MojoExecutionException("Driver class not found: "
-					+ getDriver(), e);
+			throw new MojoExecutionException("Driver class not found: " + getDriver(), e);
 		} catch (Exception e) {
-			throw new MojoExecutionException("Failure loading driver: "
-					+ getDriver(), e);
+			throw new MojoExecutionException("Failure loading driver: " + getDriver(), e);
 		}
 
 		Connection conn = driverInstance.connect(getUrl(), info);
@@ -860,12 +842,9 @@ public class SqlExecMojo extends AbstractMojo {
 		if (!StringUtils.isEmpty(this.driverProperties)) {
 			String[] tokens = StringUtils.split(this.driverProperties, ",");
 			for (int i = 0; i < tokens.length; ++i) {
-				String[] keyValueTokens = StringUtils.split(tokens[i].trim(),
-						"=");
+				String[] keyValueTokens = StringUtils.split(tokens[i].trim(), "=");
 				if (keyValueTokens.length != 2) {
-					throw new MojoExecutionException(
-							"Invalid JDBC Driver properties: "
-									+ this.driverProperties);
+					throw new MojoExecutionException("Invalid JDBC Driver properties: " + this.driverProperties);
 				}
 
 				properties.setProperty(keyValueTokens[0], keyValueTokens[1]);
@@ -886,8 +865,7 @@ public class SqlExecMojo extends AbstractMojo {
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	private void runStatements(Reader reader, PrintStream out)
-			throws SQLException, IOException {
+	private void runStatements(Reader reader, PrintStream out) throws SQLException, IOException {
 		String line;
 
 		if (enableBlockMode) {
@@ -938,12 +916,9 @@ public class SqlExecMojo extends AbstractMojo {
 				}
 			}
 
-			if ((delimiterType.equals(DelimiterType.NORMAL) && SqlSplitter
-					.containsSqlEnd(line, delimiter) > 0)
-					|| (delimiterType.equals(DelimiterType.ROW) && line.trim()
-							.equals(delimiter))) {
-				execSQL(sql.substring(0, sql.length() - delimiter.length()),
-						out);
+			if ((delimiterType.equals(DelimiterType.NORMAL) && SqlSplitter.containsSqlEnd(line, delimiter) > 0)
+					|| (delimiterType.equals(DelimiterType.ROW) && line.trim().equals(delimiter))) {
+				execSQL(sql.substring(0, sql.length() - delimiter.length()), out);
 				sql.setLength(0); // clean buffer
 			}
 		}
@@ -1030,8 +1005,7 @@ public class SqlExecMojo extends AbstractMojo {
 	 * @throws SQLException
 	 *             on SQL problems.
 	 */
-	private void printResultSet(ResultSet rs, PrintStream out)
-			throws SQLException {
+	private void printResultSet(ResultSet rs, PrintStream out) throws SQLException {
 		if (rs != null) {
 			getLog().debug("Processing new result set.");
 			ResultSetMetaData md = rs.getMetaData();
@@ -1046,8 +1020,7 @@ public class SqlExecMojo extends AbstractMojo {
 						columnValue = columnValue.trim();
 
 						if (",".equals(outputDelimiter)) {
-							columnValue = StringEscapeUtils
-									.escapeCsv(columnValue);
+							columnValue = StringEscapeUtils.escapeCsv(columnValue);
 						}
 					}
 
@@ -1069,8 +1042,7 @@ public class SqlExecMojo extends AbstractMojo {
 						columnValue = columnValue.trim();
 
 						if (",".equals(outputDelimiter)) {
-							columnValue = StringEscapeUtils
-									.escapeCsv(columnValue);
+							columnValue = StringEscapeUtils.escapeCsv(columnValue);
 						}
 					}
 
@@ -1093,7 +1065,7 @@ public class SqlExecMojo extends AbstractMojo {
 	 * several files or blocks of statements to be executed using the same JDBC
 	 * connection and commit operation in between.
 	 */
-	private class Transaction implements Comparable {
+	private class Transaction implements Comparable<Transaction> {
 		private File tSrcFile = null;
 
 		private String tSqlCommand = "";
@@ -1115,8 +1087,7 @@ public class SqlExecMojo extends AbstractMojo {
 		/**
          *
          */
-		private void runTransaction(PrintStream out) throws IOException,
-				SQLException {
+		private void runTransaction(PrintStream out) throws IOException, SQLException {
 			if (tSqlCommand.length() != 0) {
 				getLog().info("Executing commands");
 
@@ -1131,8 +1102,7 @@ public class SqlExecMojo extends AbstractMojo {
 				if (StringUtils.isEmpty(encoding)) {
 					reader = new FileReader(tSrcFile);
 				} else {
-					reader = new InputStreamReader(
-							new FileInputStream(tSrcFile), encoding);
+					reader = new InputStreamReader(new FileInputStream(tSrcFile), encoding);
 				}
 
 				try {
@@ -1143,8 +1113,7 @@ public class SqlExecMojo extends AbstractMojo {
 			}
 		}
 
-		public int compareTo(Object object) {
-			Transaction transaction = (Transaction) object;
+		public int compareTo(Transaction transaction) {
 
 			if (transaction.tSrcFile == null) {
 				if (this.tSrcFile == null) {
@@ -1224,8 +1193,7 @@ public class SqlExecMojo extends AbstractMojo {
 		} else if (FILE_SORTING_DSC.equalsIgnoreCase(orderFile)) {
 			this.orderFile = FILE_SORTING_DSC;
 		} else {
-			throw new IllegalArgumentException(orderFile
-					+ " is not a valid value for orderFile, only '"
+			throw new IllegalArgumentException(orderFile + " is not a valid value for orderFile, only '"
 					+ FILE_SORTING_ASC + "' or '" + FILE_SORTING_DSC + "'.");
 		}
 	}
@@ -1268,10 +1236,8 @@ public class SqlExecMojo extends AbstractMojo {
 		} else if (ON_ERROR_ABORT_AFTER.equalsIgnoreCase(action)) {
 			this.onError = ON_ERROR_ABORT_AFTER;
 		} else {
-			throw new IllegalArgumentException(action
-					+ " is not a valid value for onError, only '"
-					+ ON_ERROR_ABORT + "', '" + ON_ERROR_ABORT_AFTER
-					+ "', or '" + ON_ERROR_CONTINUE + "'.");
+			throw new IllegalArgumentException(action + " is not a valid value for onError, only '" + ON_ERROR_ABORT
+					+ "', '" + ON_ERROR_ABORT_AFTER + "', or '" + ON_ERROR_CONTINUE + "'.");
 		}
 	}
 
@@ -1307,11 +1273,11 @@ public class SqlExecMojo extends AbstractMojo {
 		this.sqlCommand = sqlCommand;
 	}
 
-	public Vector getTransactions() {
+	public Vector<Transaction> getTransactions() {
 		return transactions;
 	}
 
-	public void setTransactions(Vector transactions) {
+	public void setTransactions(Vector<Transaction> transactions) {
 		this.transactions = transactions;
 	}
 
