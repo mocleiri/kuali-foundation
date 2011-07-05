@@ -56,6 +56,9 @@ import org.apache.maven.shared.filtering.MavenFilteringException;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 
 /**
  * Executes SQL against a database.
@@ -205,6 +208,14 @@ public class SqlExecMojo extends AbstractMojo {
 	 * @parameter
 	 */
 	private File[] srcFiles;
+
+	/**
+	 * List of resources containing SQL statements
+	 * 
+	 * @since 1.5
+	 * @parameter
+	 */
+	private String[] resourceLocations;
 
 	/**
 	 * File(s) containing SQL statements to load.
@@ -597,6 +608,8 @@ public class SqlExecMojo extends AbstractMojo {
 
 		addFileSetToTransactions();
 
+		addResourcesToTransactions();
+
 		sortTransactions();
 
 		try {
@@ -694,6 +707,59 @@ public class SqlExecMojo extends AbstractMojo {
 
 		for (int j = 0; j < includedFiles.length; j++) {
 			createTransaction().setSrc(new File(fileset.getBasedir(), includedFiles[j]));
+		}
+	}
+
+	protected Resource[] getResources(String[] locations) throws MojoExecutionException {
+		ResourceLoader loader = new DefaultResourceLoader();
+		Resource[] resources = new Resource[locations.length];
+		for (int i = 0; i < locations.length; i++) {
+			String location = locations[i];
+			Resource resource = loader.getResource(location);
+			if (!resource.exists()) {
+				throw new MojoExecutionException("Resource " + location + " was not found");
+			}
+			resources[i] = resource;
+		}
+		return resources;
+	}
+
+	/**
+	 * Add user input of srcFiles to transaction list.
+	 * 
+	 * @throws MojoExecutionException
+	 */
+	private void addResourcesToTransactions() throws MojoExecutionException {
+		String[] locations = getResourceLocations();
+		Resource[] resources = getResources(locations);
+
+		MavenFileFilterRequest request = new MavenFileFilterRequest();
+		request.setEncoding(encoding);
+		request.setMavenSession(mavenSession);
+		request.setMavenProject(project);
+		request.setFiltering(enableFiltering);
+		for (int i = 0; i < resources.length; i++) {
+			Resource resource = resources[i];
+			String filename = resource.getFilename();
+			String basename = FileUtils.basename(filename);
+			String extension = FileUtils.extension(filename);
+			File sourceFile = FileUtils.createTempFile(basename, extension, null);
+			File targetFile = FileUtils.createTempFile(basename, extension, null);
+			if (!getLog().isDebugEnabled()) {
+				targetFile.deleteOnExit();
+				sourceFile.deleteOnExit();
+			}
+
+			request.setFrom(sourceFile);
+			request.setTo(targetFile);
+
+			try {
+				fileFilter.copyFile(request);
+			} catch (MavenFilteringException e) {
+				throw new MojoExecutionException(e.getMessage());
+			}
+
+			createTransaction().setSrc(targetFile);
 		}
 	}
 
@@ -1283,5 +1349,13 @@ public class SqlExecMojo extends AbstractMojo {
 
 	public void setFileFilter(MavenFileFilter filter) {
 		this.fileFilter = filter;
+	}
+
+	public String[] getResourceLocations() {
+		return resourceLocations;
+	}
+
+	public void setResourceLocations(String[] resourceLocations) {
+		this.resourceLocations = resourceLocations;
 	}
 }
