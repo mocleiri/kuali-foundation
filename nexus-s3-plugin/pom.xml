@@ -54,6 +54,25 @@
       these dependencies. The ITset of requirements in this POM are put in between "#ITSet BEGINS" and "#ITSet ENDS" pair of
       comments.
     -->
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk</artifactId>
+      <version>1.2.3</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.codehaus.jackson</groupId>
+          <artifactId>jackson-core-asl</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.mail</groupId>
+          <artifactId>mail</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
 
     <!-- Main plugin API, pulling in what is needed -->
     <dependency>
