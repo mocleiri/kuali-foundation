@@ -34,7 +34,10 @@ public class S3Get {
 
 	protected String getURL(String host, String bucket, String item) throws Exception {
 		String awsAccessKeyId = "AKIAJFD5IM7IPVVUEBNA";
-		String awsSecretAccessKey = "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";
+		String awsSecretAccessKey = System.getProperty("aws.secret");
+		if (awsSecretAccessKey == null) {
+			throw new Exception("Please specify AWS Secret Key using -Daws.secret=XYZ");
+		}
 		Mac mac = getMac(awsSecretAccessKey);
 		long expires = getExpiresTimestamp();
 		String data = getData(bucket, item, expires);
