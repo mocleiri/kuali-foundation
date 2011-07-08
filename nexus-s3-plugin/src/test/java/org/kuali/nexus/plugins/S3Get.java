@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -42,17 +44,27 @@ public class S3Get {
 		long expires = getExpiresTimestamp();
 		String data = getData(bucket, item, expires);
 		String signature = getSignature(mac, data);
-		return getURL(host, item, awsAccessKeyId, signature, expires);
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("AWSAccessKeyId", awsAccessKeyId);
+		params.put("Signature", signature);
+		params.put("Expires", expires + "");
+		return getURL(host, item, params);
 	}
 
-	protected String getURL(String host, String item, String awsAccessKeyId, String signature, long expires)
-			throws UnsupportedEncodingException {
+	protected String getURL(String host, String item, Map<String, String> params) throws UnsupportedEncodingException {
 		StringBuilder sb = new StringBuilder();
 		sb.append(host);
 		sb.append(item);
-		sb.append("?AWSAccessKeyId=" + awsAccessKeyId);
-		sb.append("&Signature=" + URLEncoder.encode(signature, UTF8));
-		sb.append("&Expires=" + expires);
+		int count = 0;
+		for (Map.Entry<String, String> pair : params.entrySet()) {
+			if (count == 0) {
+				sb.append("?");
+			} else {
+				sb.append("&");
+			}
+			sb.append(pair.getKey() + "=" + URLEncoder.encode(pair.getValue(), UTF8));
+			count++;
+		}
 		return sb.toString();
 	}
 
