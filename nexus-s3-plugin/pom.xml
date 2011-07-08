@@ -88,13 +88,12 @@
     <!-- #ITSet BEGINS -->
     <!-- Nexus IT setup (dependencies below are needed if you have extensive ITs and you want to use Nexus Environment) -->
     <!-- There are plugins connected to this dependency, see below! -->
-    <!-- 
     <dependency>
       <groupId>org.sonatype.nexus</groupId>
       <artifactId>nexus-test-harness-launcher</artifactId>
       <scope>test</scope>
       <version>${nexus-version}</version>
-    </dependency> -->
+    </dependency>
     <!-- #ITSet ENDS -->
 
   </dependencies>
@@ -102,7 +101,6 @@
   <!-- #ITSet BEGINS -->
   <!-- Nexus IT setup (dependencies below are needed if you have extensive ITs and you want to use Nexus Environment) -->
   <!-- There are plugins and dependencies connected to this import, see below and above! -->
-  <!-- 
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -114,7 +112,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-   -->
   <!-- #ITSet ENDS -->
 
   <build>
@@ -148,7 +145,6 @@
       <!-- #ITSet BEGINS -->
       <!-- Nexus IT setup (dependencies below are needed if you have extensive ITs and you want to use Nexus Environment) -->
       <!-- There are dependencies connected to this set of plugin, see above! -->
-      <!-- 
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
         <artifactId>nexus-test-environment-maven-plugin</artifactId>
@@ -161,7 +157,10 @@
           </execution>
         </executions>
         <configuration>
+          <!-- 
           <nexusVersion>${nexus-version}</nexusVersion>
+           -->
+          <nexusVersion>1.4.0</nexusVersion>
         </configuration>
       </plugin>
 
@@ -177,7 +176,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin> -->
+      </plugin> 
       <!-- #ITSet ENDS -->
 
     </plugins>

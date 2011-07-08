@@ -7,7 +7,6 @@ import org.sonatype.plugin.Managed;
 
 @Managed
 @Singleton
-public interface VirusScanner
-{
-    boolean hasVirus( StorageFileItem file );
+public interface VirusScanner {
+	boolean hasVirus(StorageFileItem file);
 }

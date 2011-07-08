@@ -9,23 +9,18 @@ import org.sonatype.nexus.proxy.repository.ProxyRepository;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.repository.RequestProcessor;
 
-public class VirusScannerRepositoryCustomizer
-    implements RepositoryCustomizer
-{
-    @Inject
-    private @Named( "virusScanner" )
-    RequestProcessor virusScannerRequestProcessor;
+public class VirusScannerRepositoryCustomizer implements RepositoryCustomizer {
+	@Inject
+	private @Named("virusScanner")
+	RequestProcessor virusScannerRequestProcessor;
 
-    public boolean isHandledRepository( Repository repository )
-    {
-        // handle proxy reposes only
-        return repository.getRepositoryKind().isFacetAvailable( ProxyRepository.class );
-    }
+	public boolean isHandledRepository(Repository repository) {
+		// handle proxy repo's only
+		return repository.getRepositoryKind().isFacetAvailable(ProxyRepository.class);
+	}
 
-    public void configureRepository( Repository repository )
-        throws ConfigurationException
-    {
-        repository.getRequestProcessors().put( "virusScanner", virusScannerRequestProcessor );
-    }
+	public void configureRepository(Repository repository) throws ConfigurationException {
+		repository.getRequestProcessors().put("virusScanner", virusScannerRequestProcessor);
+	}
 
 }

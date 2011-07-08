@@ -4,20 +4,16 @@ import org.sonatype.nexus.proxy.item.StorageFileItem;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.plexus.appevents.AbstractEvent;
 
-public class InfectedItemFoundEvent
-    extends AbstractEvent<Repository>
-{
-    private final StorageFileItem file;
+public class InfectedItemFoundEvent extends AbstractEvent<Repository> {
+	private final StorageFileItem file;
 
-    public InfectedItemFoundEvent( Repository component, StorageFileItem file )
-    {
-        super( component );
+	public InfectedItemFoundEvent(Repository component, StorageFileItem file) {
+		super(component);
 
-        this.file = file;
-    }
+		this.file = file;
+	}
 
-    public StorageFileItem getInfectedFile()
-    {
-        return file;
-    }
+	public StorageFileItem getInfectedFile() {
+		return file;
+	}
 }
