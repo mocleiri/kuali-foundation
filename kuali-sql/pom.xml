@@ -18,14 +18,14 @@
   <description>General purpose library of SQL statements</description>
   <groupId>org.kuali.db.sql</groupId>
   <artifactId>kuali-sql</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
   </properties>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/kuali-sql-1.0.1</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/kuali-sql-1.0.1</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/pom/tags/kuali-sql-1.0.1</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-sql</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-sql</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/pom/trunk/kuali-sql</url>
   </scm>
   <developers>
     <developer>
