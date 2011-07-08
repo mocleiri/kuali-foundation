@@ -39,8 +39,10 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -714,17 +716,25 @@ public class SqlExecMojo extends AbstractMojo {
 	}
 
 	protected Resource[] getResources(String[] locations) throws MojoExecutionException {
+		if (locations == null || locations.length == 0) {
+			return new Resource[] {};
+		}
 		ResourceLoader loader = new DefaultResourceLoader();
-		Resource[] resources = new Resource[locations.length];
+		List<Resource> resources = new ArrayList<Resource>();
 		for (int i = 0; i < locations.length; i++) {
 			String location = locations[i];
+			// Skip it if the location is empty
+			if (StringUtils.isEmpty(location)) {
+				continue;
+			}
 			Resource resource = loader.getResource(location);
 			if (!resource.exists()) {
+				// The location was not empty, but we couldn't find it
 				throw new MojoExecutionException("Resource " + location + " was not found");
 			}
-			resources[i] = resource;
+			resources.add(resource);
 		}
-		return resources;
+		return resources.toArray(new Resource[resources.size()]);
 	}
 
 	protected void copy(Resource resource, File file) throws IOException {
