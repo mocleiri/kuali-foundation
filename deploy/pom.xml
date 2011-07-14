@@ -20,7 +20,6 @@
   </parent>
   <artifactId>deploy</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
   <name>Kuali Application Deployment</name>
   <description>
     This POM makes use of the maven-exec-plugin to deploy live instances of Kuali Applications to
