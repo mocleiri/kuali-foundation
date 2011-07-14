@@ -71,6 +71,7 @@
         <executions>
           <execution>
             <id>get</id>
+            <phase>package</phase>
             <goals>
               <goal>get</goal>
             </goals>
@@ -85,6 +86,7 @@
           </execution>
           <execution>
             <id>copy</id>
+            <phase>package</phase>
             <goals>
               <goal>copy</goal>
             </goals>
