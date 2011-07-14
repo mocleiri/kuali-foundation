@@ -77,11 +77,11 @@
               <goal>get</goal>
             </goals>
             <configuration>
+              <repositoryUrl>${deploy.repositoryUrl}</repositoryUrl>
               <groupId>${deploy.groupId}</groupId>
               <artifactId>${deploy.artifactId}</artifactId>
               <version>${deploy.version}</version>
               <packaging>${deploy.packaging}</packaging>
-              <repositoryUrl>${deploy.repositoryUrl}</repositoryUrl>
               <transitive>false</transitive>
             </configuration>
           </execution>
