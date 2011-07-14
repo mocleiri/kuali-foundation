@@ -59,7 +59,8 @@
     <deploy.groupId>org.kuali.rice</deploy.groupId>
     <deploy.artifactId>rice-sampleapp</deploy.artifactId>
     <deploy.version>2.0.0-m7-SNAPSHOT</deploy.version>
-    <deploy.type>war</deploy.type>
+    <deploy.packaging>war</deploy.packaging>
+    <deploy.filename>ROOT.war</deploy.filename>
   </properties>
   <build>
     <plugins>
@@ -68,6 +69,20 @@
         <artifactId>maven-dependency-plugin</artifactId>
         <version>2.3</version>
         <executions>
+          <execution>
+            <id>get</id>
+            <goals>
+              <goal>get</goal>
+            </goals>
+            <configuration>
+              <groupId>${deploy.groupId}</groupId>
+              <artifactId>${deploy.artifactId}</artifactId>
+              <version>${deploy.version}</version>
+              <packaging>${deploy.packaging}</packaging>
+              <repoId>kuali.nexus</repoId>
+              <transitive>false</transitive>
+            </configuration>
+          </execution>
           <execution>
             <id>copy</id>
             <goals>
@@ -79,11 +94,11 @@
                   <groupId>${deploy.groupId}</groupId>
                   <artifactId>${deploy.artifactId}</artifactId>
                   <version>${deploy.version}</version>
-                  <type>${deploy.type}</type>
-                  <destFileName>ROOT.war</destFileName>
+                  <type>${deploy.packaging}</type>
+                  <destFileName>${deploy.filename}</destFileName>
                 </artifactItem>
               </artifactItems>
-              <outputDirectory>${project.build.directory}/wars</outputDirectory>
+              <outputDirectory>${project.build.directory}</outputDirectory>
             </configuration>
           </execution>
         </executions>
