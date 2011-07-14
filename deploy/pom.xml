@@ -55,6 +55,7 @@
     <url>http://svn.kuali.org/repos/foundation/trunk/deploy</url>
   </scm>
   <properties>
+    <maven.test.skip>true</maven.test.skip>
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <deploy.groupId>org.kuali.rice</deploy.groupId>
     <deploy.artifactId>rice-sampleapp</deploy.artifactId>
