@@ -61,6 +61,7 @@
     <deploy.version>2.0.0-m7-SNAPSHOT</deploy.version>
     <deploy.packaging>war</deploy.packaging>
     <deploy.filename>ROOT.war</deploy.filename>
+    <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
   </properties>
   <build>
     <plugins>
@@ -80,7 +81,7 @@
               <artifactId>${deploy.artifactId}</artifactId>
               <version>${deploy.version}</version>
               <packaging>${deploy.packaging}</packaging>
-              <repoId>kuali.nexus</repoId>
+              <repositoryUrl>${deploy.repositoryUrl}</repositoryUrl>
               <transitive>false</transitive>
             </configuration>
           </execution>
