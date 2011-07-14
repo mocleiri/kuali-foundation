@@ -34,7 +34,7 @@
     5 - Copy a new WAR file into the environment
     6 - Reset the remote database
     7 - Perform any cleanup necessary (by default, it removes the old Tomcat logs and the old Tomcat "work" directory)
-    8 - Restart Tomcat
+    8 - Restart the remote Tomcat instance
   </description>
   <repositories>
     <repository>
