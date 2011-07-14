@@ -58,7 +58,7 @@
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <deploy.groupId>org.kuali.rice</deploy.groupId>
     <deploy.artifactId>rice-sampleapp</deploy.artifactId>
-    <deploy.version>2.0.0-m7-20110714.171737-4</deploy.version>
+    <deploy.version>2.0.0-m7-SNAPSHOT</deploy.version>
     <deploy.packaging>war</deploy.packaging>
     <deploy.filename>ROOT.war</deploy.filename>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
