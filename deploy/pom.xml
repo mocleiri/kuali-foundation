@@ -290,7 +290,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>start-remote-tomcat-rice</id>
+            <id>start-remote-tomcat</id>
             <phase>package</phase>
             <goals>
               <goal>exec</goal>
