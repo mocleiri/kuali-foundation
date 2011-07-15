@@ -46,7 +46,7 @@
               <goal>checkin</goal>
             </goals>
             <configuration>
-              <message>Added via Maven</message>
+              <message>Added via Maven ${kuali.build.timestamp}</message>
             </configuration>
           </execution>
           <execution>
@@ -56,7 +56,7 @@
               <goal>checkin</goal>
             </goals>
             <configuration>
-              <message>Checked in via Maven</message>
+              <message>Checked in via Maven ${kuali.build.timestamp}</message>
             </configuration>
           </execution>
           <execution>
@@ -66,7 +66,7 @@
               <goal>remove</goal>
             </goals>
             <configuration>
-              <message>Removed via Maven</message>
+              <message>Removed via Maven ${kuali.build.timestamp}</message>
             </configuration>
           </execution>
         </executions>
