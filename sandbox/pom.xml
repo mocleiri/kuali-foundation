@@ -31,9 +31,9 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
+        <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-scm-plugin</artifactId>
-        <version>1.5</version>
+        <version>1.5-SNAPSHOT</version>
       </plugin>
     </plugins>
   </build>
