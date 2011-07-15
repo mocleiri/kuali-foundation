@@ -58,19 +58,29 @@
     <maven.test.skip>true</maven.test.skip>
     <kuali.testjar.phase>none</kuali.testjar.phase>
 
-    <deploy.groupId>org.kuali.rice</deploy.groupId>
-    <deploy.artifactId>rice-sampleapp</deploy.artifactId>
-    <deploy.version>2.0.0-m7-SNAPSHOT</deploy.version>
-    <deploy.local.config.file>${project.build.directory}/classes/rice/sample-app-config.xml</deploy.local.config.file>
     <deploy.remote.user>root</deploy.remote.user>
 
     <deploy.packaging>war</deploy.packaging>
     <deploy.filename>ROOT.war</deploy.filename>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
     <deploy.scp.path>/usr/bin/scp</deploy.scp.path>
-    <deploy.auth>/home/ubuntu/kr-key.pem</deploy.auth>
   </properties>
   <profiles>
+    <profile>
+      <id>rice</id>
+      <properties>
+        <deploy.auth>/home/ubuntu/kr-key.pem</deploy.auth>
+      </properties>
+    </profile>
+    <profile>
+      <id>sample-app</id>
+      <properties>
+        <deploy.groupId>org.kuali.rice</deploy.groupId>
+        <deploy.artifactId>rice-sampleapp</deploy.artifactId>
+        <deploy.version>2.0.0-m7-SNAPSHOT</deploy.version>
+        <deploy.local.config.file>${project.build.directory}/classes/rice/sample-app-config.xml</deploy.local.config.file>
+      </properties>
+    </profile>
     <profile>
       <id>dev</id>
       <properties>
