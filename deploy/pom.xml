@@ -65,10 +65,6 @@
     <!-- <local.war.file>${project.build.directory}/${local.filename}</local.war.file> -->
     <local.war.file>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/sampleapp/target/${deploy.artifactId}-${deploy.version}.war</local.war.file>
     <impex.dir>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/db/impex/master</impex.dir>
-    <impex.username>RICEDEV</impex.username>
-    <impex.password>RICEDEV</impex.password>
-    <impex.dba.password>gw570229</impex.dba.password>
-    <impex.url>jdbc:oracle:thin:@deploy.rice.kuali.org:1521:KS</impex.url>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
     <scp.path>/usr/bin/scp</scp.path>
     <ssh.path>/usr/bin/ssh</ssh.path>
@@ -102,9 +98,10 @@
         <remote.config.file>${remote.tomcat.home}/kuali/main/dev/${local.config.filename}</remote.config.file>
         <remote.hostname>deploy.rice.kuali.org</remote.hostname>
         <remote.public.url>http://dev.rice.kuali.org</remote.public.url>
+        <impex.username>RICEDEV</impex.username>
+        <impex.password>RICEDEV</impex.password>
+        <impex.dba.password>gw570229</impex.dba.password>
         <impex.url>jdbc:oracle:thin:@deploy.rice.kuali.org:1521:KS</impex.url>
-        <impex.username>RICE</impex.username>
-        <impex.password>RICE</impex.password>
       </properties>
     </profile>
   </profiles>
