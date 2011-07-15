@@ -86,8 +86,8 @@
       <properties>
         <deploy.environment.name>dev</deploy.environment.name>
         <remote.tomcat.user>deploy</remote.tomcat.user>
-        <remote.tomcat.home>/usr/local/tomcat_${deploy.remote.tomcat.user}</remote.tomcat.home>
-        <remote.config.file>${deploy.remote.tomcat.home}/kuali/main/dev/${local.config.filename}</remote.config.file>
+        <remote.tomcat.home>/usr/local/tomcat_${remote.tomcat.user}</remote.tomcat.home>
+        <remote.config.file>${remote.tomcat.home}/kuali/main/dev/${local.config.filename}</remote.config.file>
         <remote.hostname>deploy.rice.kuali.org</remote.hostname>
         <remote.public.url>http://dev.rice.kuali.org</remote.public.url>
         <impex.url>jdbc:oracle:thin:@deploy.rice.kuali.org:1521:KS</impex.url>
