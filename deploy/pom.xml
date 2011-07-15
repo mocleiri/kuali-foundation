@@ -55,6 +55,10 @@
     <url>http://svn.kuali.org/repos/foundation/trunk/deploy</url>
   </scm>
   <properties>
+    <scp.path>/usr/bin/scp</scp.path>
+    <ssh.path>/usr/bin/ssh</ssh.path>
+    <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
+    <mvn.path>/opt/java/apache-maven-3.0.3/bin/mvn</mvn.path>
     <maven.test.skip>true</maven.test.skip>
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <remote.user>root</remote.user>
@@ -65,10 +69,6 @@
     <!-- <local.war.file>${project.build.directory}/${local.filename}</local.war.file> -->
     <local.war.file>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/sampleapp/target/${deploy.artifactId}-${deploy.version}.war</local.war.file>
     <impex.dir>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/db/impex/master</impex.dir>
-    <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
-    <scp.path>/usr/bin/scp</scp.path>
-    <ssh.path>/usr/bin/ssh</ssh.path>
-    <mvn.path>/opt/java/apache-maven-3.0.3/bin/mvn</mvn.path>
   </properties>
   <profiles>
     <profile>

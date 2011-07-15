@@ -1,5 +1,5 @@
 <config>
-  <param name="appserver.url">http://dev.rice.kuali.org</param>
+  <param name="appserver.url">${remote.public.url}</param>
   <param name="app.context.name" />
   <param name="app.code" />
   <param name="externalizable.help.url">/kr/static/help/</param>
@@ -7,7 +7,7 @@
   <param name="kr.externalizable.images.url">${externalizable.images.url}</param>
   <param name="travel.externalizable.images.url">${externalizable.images.url}</param>
   <param name="application.url">${appserver.url}</param>
-  <param name="datasource.url">jdbc:oracle:thin:@localhost:1521:KS</param>
-  <param name="datasource.username">RICE</param>
-  <param name="datasource.password">RICE</param>
+  <param name="datasource.url">${impex.url}</param>
+  <param name="datasource.username">${impex.username}</param>
+  <param name="datasource.password">${impex.password}</param>
 </config>
