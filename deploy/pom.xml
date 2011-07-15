@@ -58,6 +58,8 @@
     <maven.test.skip>true</maven.test.skip>
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <remote.user>root</remote.user>
+    <remote.war.file>${remote.tomcat.home}/webapps/ROOT.war</remote.war.file>
+    <remote.war.dir>${remote.tomcat.home}/webapps/ROOT</remote.war.dir>
     <deploy.packaging>war</deploy.packaging>
     <deploy.filename>ROOT.war</deploy.filename>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
@@ -188,6 +190,24 @@
                 <successCode>0</successCode>
                 <successCode>1</successCode>
               </successCodes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>remove-remote-war-dir</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${ssh.path}</executable>
+              <arguments>
+                <argument>-i</argument>
+                <argument>${deploy.auth}</argument>
+                <argument>${remote.user}@${remote.hostname}</argument>
+                <argument>rm</argument>
+                <argument>-rf</argument>
+                <argument>${remote.war.dir}</argument>
+              </arguments>
             </configuration>
           </execution>
           <execution>
