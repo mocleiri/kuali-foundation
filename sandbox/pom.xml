@@ -37,4 +37,9 @@
       </plugin>
     </plugins>
   </build>
+  <scm>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/sandbox</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/sandbox</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/sandbox</url>
+  </scm>
 </project>
