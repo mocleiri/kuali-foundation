@@ -24,6 +24,9 @@
       </snapshots>
     </repository>
   </repositories>
+  <properties>
+    <kuali.testjar.phase>none</kuali.testjar.phase>
+  </properties>
   <build>
     <plugins>
       <plugin>
