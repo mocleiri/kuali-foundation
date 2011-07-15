@@ -34,34 +34,39 @@
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-scm-plugin</artifactId>
         <version>1.5-SNAPSHOT</version>
-      <!-- 
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-scm-plugin</artifactId>
-        <version>1.4</version>
-       -->
+        <configuration>
+          <includes>**/src/main/resources/*.xml,**/src/main/resources/*.txt</includes>
+        </configuration>
         <executions>
           <execution>
-            <id>add-commit</id>
+            <id>add</id>
             <phase>process-resources</phase>
             <goals>
               <goal>add</goal>
               <goal>checkin</goal>
             </goals>
             <configuration>
-              <message>SCM via maven</message>
-              <includes>**/src/main/resources/*.xml,**/src/main/resources/*.txt</includes>
+              <message>Added via Maven</message>
             </configuration>
           </execution>
           <execution>
-            <id>remove-commit</id>
+            <id>checkin</id>
             <phase>process-resources</phase>
             <goals>
-              <goal>remove</goal>
               <goal>checkin</goal>
             </goals>
             <configuration>
-              <message>SCM via maven</message>
-              <includes>**/src/main/resources/*.xml,**/src/main/resources/*.txt</includes>
+              <message>Checked in via Maven</message>
+            </configuration>
+          </execution>
+          <execution>
+            <id>remove</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>remove</goal>
+            </goals>
+            <configuration>
+              <message>Removed via Maven</message>
             </configuration>
           </execution>
         </executions>
