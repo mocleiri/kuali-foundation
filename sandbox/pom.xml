@@ -30,17 +30,15 @@
   </properties>
   <build>
     <plugins>
-      <!-- 
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-scm-plugin</artifactId>
         <version>1.5-SNAPSHOT</version>
-      </plugin>
-       -->
-      <plugin>
+      <!-- 
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-scm-plugin</artifactId>
         <version>1.4</version>
+       -->
         <executions>
           <execution>
             <id>add-commit</id>
