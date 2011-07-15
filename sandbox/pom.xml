@@ -30,10 +30,30 @@
   </properties>
   <build>
     <plugins>
+      <!-- 
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-scm-plugin</artifactId>
         <version>1.5-SNAPSHOT</version>
+      </plugin>
+       -->
+      <plugin>
+        <groupId>org.apach.maven.plugins</groupId>
+        <artifactId>maven-scm-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>add</goal>
+              <goal>checkin</goal>
+            </goals>
+            <configuration>
+              <message>Automated Impex update</message>
+              <includes>**/src/main/resources/*.xml,**/src/main/resources/*.txt</includes>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
