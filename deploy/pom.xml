@@ -68,7 +68,7 @@
     <deploy.filename>ROOT.war</deploy.filename>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
     <deploy.scp.path>/usr/bin/scp</deploy.scp.path>
-    <deploy.auth>/home/tomcat/kr-key.pem</deploy.auth>
+    <deploy.auth>/home/ubuntu/kr-key.pem</deploy.auth>
   </properties>
   <profiles>
     <profile>
