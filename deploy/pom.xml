@@ -63,6 +63,8 @@
     <deploy.packaging>war</deploy.packaging>
     <deploy.filename>ROOT.war</deploy.filename>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
+    <deploy.scp.path>/usr/bin/scp</deploy.scp.path>
+    <deploy.auth>/home/tomcat/kr-key.pem</deploy.auth>
   </properties>
   <profiles>
     <profile>
@@ -148,6 +150,26 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-local-config-file-to-remote</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${deploy.scp.path}</executable>
+              <arguments>
+                <argument>-i</argument>
+                <argument>${deploy.auth}</argument>
+                <argument>${deploy.local.config.file}</argument>
+                <argument>${deploy.remote.user}@${deploy.remote.hostname}:${deploy.remote.config.file}</argument>
+              </arguments>
+            </configuration>
+          </execution>
     </plugins>
   </build>
 </project>
