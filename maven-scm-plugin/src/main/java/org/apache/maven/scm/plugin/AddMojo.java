@@ -48,7 +48,7 @@ public class AddMojo extends AbstractScmMojo {
 			checkResult(result);
 
 			for (ScmFile addedFile : result.getAddedFiles()) {
-				getLog().info("Added " + addedFile);
+				getLog().info("Added " + addedFile.getPath());
 			}
 
 		} catch (IOException e) {
