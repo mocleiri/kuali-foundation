@@ -57,7 +57,7 @@
   <properties>
     <maven.test.skip>true</maven.test.skip>
     <kuali.testjar.phase>none</kuali.testjar.phase>
-    <deploy.remote.user>root</deploy.remote.user>
+    <remote.user>root</remote.user>
     <deploy.packaging>war</deploy.packaging>
     <deploy.filename>ROOT.war</deploy.filename>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
@@ -179,8 +179,8 @@
               <arguments>
                 <argument>-i</argument>
                 <argument>${deploy.auth}</argument>
-                <argument>${deploy.local.config.file}</argument>
-                <argument>${deploy.remote.user}@${deploy.remote.hostname}:${deploy.remote.config.file}</argument>
+                <argument>${local.config.file}</argument>
+                <argument>${remote.user}@${remote.hostname}:${remote.config.file}</argument>
               </arguments>
             </configuration>
           </execution>
