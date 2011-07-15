@@ -8,6 +8,7 @@
   </parent>
   <groupId>org.kuali.sandbox</groupId>
   <artifactId>sandbox</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Kuali Sandbox</name>
   <description>Kuali Sandbox</description>
