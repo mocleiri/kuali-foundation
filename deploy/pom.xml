@@ -61,7 +61,8 @@
     <remote.war.file>${remote.tomcat.home}/webapps/ROOT.war</remote.war.file>
     <remote.war.dir>${remote.tomcat.home}/webapps/ROOT</remote.war.dir>
     <deploy.packaging>war</deploy.packaging>
-    <deploy.filename>ROOT.war</deploy.filename>
+    <local.filename>ROOT.war</local.filename>
+    <local.war.file>${project.build.directory}/${deploy.filename}</local.war.file>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
     <scp.path>/usr/bin/scp</scp.path>
     <ssh.path>/usr/bin/ssh</ssh.path>
@@ -160,7 +161,7 @@
                   <artifactId>${deploy.artifactId}</artifactId>
                   <version>${deploy.version}</version>
                   <type>${deploy.packaging}</type>
-                  <destFileName>${deploy.filename}</destFileName>
+                  <destFileName>${local.filename}</destFileName>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${project.build.directory}</outputDirectory>
@@ -223,6 +224,22 @@
                 <argument>${deploy.auth}</argument>
                 <argument>${local.config.file}</argument>
                 <argument>${remote.user}@${remote.hostname}:${remote.config.file}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-local-war-file-to-remote</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${scp.path}</executable>
+              <arguments>
+                <argument>-i</argument>
+                <argument>${deploy.auth}</argument>
+                <argument>${local.war.file}</argument>
+                <argument>${remote.user}@${remote.hostname}:${remote.war.file}</argument>
               </arguments>
             </configuration>
           </execution>
