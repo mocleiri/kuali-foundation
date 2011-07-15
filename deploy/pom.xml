@@ -63,7 +63,7 @@
     <deploy.packaging>war</deploy.packaging>
     <local.filename>ROOT.war</local.filename>
     <!-- <local.war.file>${project.build.directory}/${local.filename}</local.war.file> -->
-    <local.war.file>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/sampleapp/target/rice-sampleapp-2.0.0-m7-SNAPSHOT.war</local.war.file>
+    <local.war.file>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/sampleapp/target/${deploy.artifact}-${deploy.version}.war</local.war.file>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
     <scp.path>/usr/bin/scp</scp.path>
     <ssh.path>/usr/bin/ssh</ssh.path>
