@@ -62,7 +62,7 @@
     <remote.war.dir>${remote.tomcat.home}/webapps/ROOT</remote.war.dir>
     <deploy.packaging>war</deploy.packaging>
     <local.filename>ROOT.war</local.filename>
-    <local.war.file>${project.build.directory}/${deploy.filename}</local.war.file>
+    <local.war.file>${project.build.directory}/${local.filename}</local.war.file>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
     <scp.path>/usr/bin/scp</scp.path>
     <ssh.path>/usr/bin/ssh</ssh.path>
