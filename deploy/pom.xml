@@ -62,6 +62,8 @@
     <maven.test.skip>true</maven.test.skip>
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <remote.user>root</remote.user>
+    <remote.tomcat.shutdown>${remote.tomcat.home}/bin/forced-shutdown.sh</remote.tomcat.shutdown>
+    <remote.tomcat.cleanup>${remote.tomcat.home}/bin/cleanup.sh</remote.tomcat.cleanup>
     <remote.war.file>${remote.tomcat.home}/webapps/ROOT.war</remote.war.file>
     <remote.war.dir>${remote.tomcat.home}/webapps/ROOT</remote.war.dir>
     <deploy.packaging>war</deploy.packaging>
@@ -94,7 +96,6 @@
         <deploy.environment.name>dev</deploy.environment.name>
         <remote.tomcat.user>deploy</remote.tomcat.user>
         <remote.tomcat.home>/usr/local/tomcat_${remote.tomcat.user}</remote.tomcat.home>
-        <remote.tomcat.shutdown>${remote.tomcat.home}/bin/forced-shutdown.sh</remote.tomcat.shutdown>
         <remote.config.file>${remote.tomcat.home}/kuali/main/dev/${local.config.filename}</remote.config.file>
         <remote.hostname>deploy.rice.kuali.org</remote.hostname>
         <remote.public.url>http://dev.rice.kuali.org</remote.public.url>
@@ -264,6 +265,26 @@
                 <argument>-Dimpex.password=${impex.password}</argument>
                 <argument>-Dimpex.dba.password=${impex.dba.password}</argument>
                 <argument>-Dimpex.url=${impex.url}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>cleanup-remote-tomcat</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>$ssh.path}</executable>
+              <arguments>
+                <argument>-i</argument>
+                <argument>${deploy.auth}</argument>
+                <argument>${remote.user}@${remote.hostname}</argument>
+                <argument>su</argument>
+                <argument>--login</argument>
+                <argument>${remote.tomcat.user}</argument>
+                <argument>--command</argument>
+                <argument>${remote.tomcat.cleanup}</argument>
               </arguments>
             </configuration>
           </execution>
