@@ -57,9 +57,7 @@
   <properties>
     <maven.test.skip>true</maven.test.skip>
     <kuali.testjar.phase>none</kuali.testjar.phase>
-
     <deploy.remote.user>root</deploy.remote.user>
-
     <deploy.packaging>war</deploy.packaging>
     <deploy.filename>ROOT.war</deploy.filename>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
@@ -78,21 +76,23 @@
         <deploy.groupId>org.kuali.rice</deploy.groupId>
         <deploy.artifactId>rice-sampleapp</deploy.artifactId>
         <deploy.version>2.0.0-m7-SNAPSHOT</deploy.version>
-        <deploy.local.config.file>${project.build.directory}/classes/rice/sample-app-config.xml</deploy.local.config.file>
+        <local.config.file.dir>${project.build.directory}/classes/rice</local.config.file.dir>
+        <local.config.filename>sample-app-config.xml</local.config.filename>
+        <local.config.file>${local.config.file.dir}/${local.config.filename}</local.config.file>
       </properties>
     </profile>
     <profile>
       <id>dev</id>
       <properties>
         <deploy.environment.name>dev</deploy.environment.name>
-        <deploy.remote.tomcat.user>deploy</deploy.remote.tomcat.user>
-        <deploy.remote.tomcat.home>/usr/local/tomcat_${deploy.remote.tomcat.user}</deploy.remote.tomcat.home>
-        <deploy.remote.config.file>${deploy.remote.tomcat.home}/kuali/main/dev/sample-app-config.xml</deploy.remote.config.file>
-        <deploy.remote.hostname>deploy.rice.kuali.org</deploy.remote.hostname>
-        <deploy.remote.public.url>http://dev.rice.kuali.org</deploy.remote.public.url>
-        <deploy.impex.url>jdbc:oracle:thin:@deploy.rice.kuali.org:1521:KS</deploy.impex.url>
-        <deploy.impex.username>RICE</deploy.impex.username>
-        <deploy.impex.password>RICE</deploy.impex.password>
+        <remote.tomcat.user>deploy</remote.tomcat.user>
+        <remote.tomcat.home>/usr/local/tomcat_${deploy.remote.tomcat.user}</remote.tomcat.home>
+        <remote.config.file>${deploy.remote.tomcat.home}/kuali/main/dev/${local.config.filename}</remote.config.file>
+        <remote.hostname>deploy.rice.kuali.org</remote.hostname>
+        <remote.public.url>http://dev.rice.kuali.org</remote.public.url>
+        <impex.url>jdbc:oracle:thin:@deploy.rice.kuali.org:1521:KS</impex.url>
+        <impex.username>RICE</impex.username>
+        <impex.password>RICE</impex.password>
       </properties>
     </profile>
   </profiles>
