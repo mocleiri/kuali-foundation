@@ -21,10 +21,12 @@ package org.apache.maven.scm.plugin;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.scm.ScmException;
+import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.command.remove.RemoveScmResult;
 import org.apache.maven.scm.repository.ScmRepository;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Mark a set of files for deletion.
@@ -51,6 +53,10 @@ public class RemoveMojo extends AbstractScmMojo {
 			ScmRepository repository = getScmRepository();
 			RemoveScmResult result = getScmManager().remove(repository, getFileSet(), message);
 			checkResult(result);
+			List<ScmFile> removedFiles = result.getRemovedFiles();
+			for (ScmFile removedFile : removedFiles) {
+				getLog().info("Removed " + removedFile.getPath());
+			}
 		} catch (IOException e) {
 			throw new MojoExecutionException("Cannot run remove command : " + e.getMessage(), e);
 		} catch (ScmException e) {
