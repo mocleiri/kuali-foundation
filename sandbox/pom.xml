@@ -69,6 +69,16 @@
               <message>Removed via Maven ${kuali.build.timestamp}</message>
             </configuration>
           </execution>
+          <execution>
+            <id>checkin-2</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>checkin</goal>
+            </goals>
+            <configuration>
+              <message>Checked in via Maven ${kuali.build.timestamp}</message>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
