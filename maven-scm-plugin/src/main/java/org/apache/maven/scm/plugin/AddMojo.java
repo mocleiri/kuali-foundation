@@ -21,46 +21,42 @@ package org.apache.maven.scm.plugin;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.scm.ScmException;
+import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.command.add.AddScmResult;
 import org.apache.maven.scm.repository.ScmRepository;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Add a file set to the project.
- *
+ * 
  * @author <a href="julien.henry@capgemini.com">Julien Henry</a>
  * @version $Id: AddMojo.java 685670 2008-08-13 20:25:56Z vsiveton $
  * @goal add
  * @aggregator
  */
-public class AddMojo
-    extends AbstractScmMojo
-{
-    /** {@inheritDoc} */
-    public void execute()
-        throws MojoExecutionException
-    {
-        super.execute();
+public class AddMojo extends AbstractScmMojo {
+	/** {@inheritDoc} */
+	public void execute() throws MojoExecutionException {
+		super.execute();
 
-        try
-        {
-            ScmRepository repository = getScmRepository();
+		try {
+			ScmRepository repository = getScmRepository();
 
-            AddScmResult result = getScmManager().add( repository, getFileSet() );
+			AddScmResult result = getScmManager().add(repository, getFileSet());
 
-            checkResult( result );
+			checkResult(result);
 
-            getLog().info( "" + result.getAddedFiles().size() + "files successfully added." );
+			List<ScmFile> addedFiles = result.getAddedFiles();
+			for (ScmFile addedFile : addedFiles) {
+				getLog().info("Added " + addedFile);
+			}
 
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Cannot run add command : ", e );
-        }
-        catch ( ScmException e )
-        {
-            throw new MojoExecutionException( "Cannot run add command : ", e );
-        }
-    }
+		} catch (IOException e) {
+			throw new MojoExecutionException("Cannot run add command : ", e);
+		} catch (ScmException e) {
+			throw new MojoExecutionException("Cannot run add command : ", e);
+		}
+	}
 }
