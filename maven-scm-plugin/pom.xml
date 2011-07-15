@@ -35,7 +35,7 @@
   <packaging>maven-plugin</packaging>
 
   <name>Maven SCM Plugin</name>
-  <description>Maven Plugin that allows accessing different SCMs.</description>
+  <description>Kuali version of the maven-scm-plugin that supports removing files from SCM.  The 1.6-SNAPSHOT version of the maven-scm-plugin at Apache has this ability but their 1.6-SNAPSHOT version hasn't been released yet.  As soon as they do, the Kuali version of this plugin can be abandoned in favor of the one from Apache</description>
 
   <prerequisites>
     <maven>2.0.6</maven>
