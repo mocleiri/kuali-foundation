@@ -26,7 +26,6 @@ import org.apache.maven.scm.command.add.AddScmResult;
 import org.apache.maven.scm.repository.ScmRepository;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Add a file set to the project.
@@ -48,8 +47,7 @@ public class AddMojo extends AbstractScmMojo {
 
 			checkResult(result);
 
-			List<ScmFile> addedFiles = result.getAddedFiles();
-			for (ScmFile addedFile : addedFiles) {
+			for (ScmFile addedFile : result.getAddedFiles()) {
 				getLog().info("Added " + addedFile);
 			}
 
