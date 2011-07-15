@@ -64,7 +64,32 @@
     <deploy.filename>ROOT.war</deploy.filename>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
   </properties>
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <properties>
+        <deploy.environment.name>dev</deploy.environment.name>
+        <deploy.remote.tomcat.user>deploy</deploy.remote.tomcat.user>
+        <deploy.remote.tomcat.home>/usr/local/tomcat_${deploy.remote.tomcat.user}</deploy.remote.tomcat.home>
+        <deploy.remote.config.file>${deploy.remote.tomcat.home}/kuali/main/dev/sample-app-config.xml</deploy.remote.config.file>
+        <deploy.remote.hostname>deploy.rice.kuali.org</deploy.remote.hostname>
+        <deploy.remote.public.url>http://dev.rice.kuali.org</deploy.remote.public.url>
+        <deploy.impex.url>jdbc:oracle:thin:@deploy.rice.kuali.org:1521:KS</deploy.impex.url>
+        <deploy.impex.username>RICE</deploy.impex.username>
+        <deploy.impex.password>RICE</deploy.impex.password>
+      </properties>
+    </profile>
+  </profiles>
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
