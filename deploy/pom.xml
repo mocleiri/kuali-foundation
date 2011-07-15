@@ -61,7 +61,8 @@
     <deploy.packaging>war</deploy.packaging>
     <deploy.filename>ROOT.war</deploy.filename>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
-    <deploy.scp.path>/usr/bin/scp</deploy.scp.path>
+    <scp.path>/usr/bin/scp</scp.path>
+    <ssh.path>/usr/bin/ssh</ssh.path>
   </properties>
   <profiles>
     <profile>
@@ -87,6 +88,7 @@
         <deploy.environment.name>dev</deploy.environment.name>
         <remote.tomcat.user>deploy</remote.tomcat.user>
         <remote.tomcat.home>/usr/local/tomcat_${remote.tomcat.user}</remote.tomcat.home>
+        <remote.tomcat.shutdown>${remote.tomcat.home}/bin/forced-shutdown.sh</remote.tomcat.shutdown>
         <remote.config.file>${remote.tomcat.home}/kuali/main/dev/${local.config.filename}</remote.config.file>
         <remote.hostname>deploy.rice.kuali.org</remote.hostname>
         <remote.public.url>http://dev.rice.kuali.org</remote.public.url>
@@ -169,13 +171,33 @@
         <artifactId>exec-maven-plugin</artifactId>
         <executions>
           <execution>
+            <id>stop-remote-tomcat</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${ssh.path}</executable>
+              <arguments>
+                <argument>-i</argument>
+                <argument>${deploy.auth}</argument>
+                <argument>${remote.user}@${remote.hostname}</argument>
+                <argument>${remote.tomcat.shutdown}</argument>
+              </arguments>
+              <successCodes>
+                <successCode>0</successCode>
+                <successCode>1</successCode>
+              </successCodes>
+            </configuration>
+          </execution>
+          <execution>
             <id>copy-local-config-file-to-remote</id>
             <phase>package</phase>
             <goals>
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>${deploy.scp.path}</executable>
+              <executable>${scp.path}</executable>
               <arguments>
                 <argument>-i</argument>
                 <argument>${deploy.auth}</argument>
