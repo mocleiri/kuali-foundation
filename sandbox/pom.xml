@@ -43,13 +43,26 @@
         <version>1.4</version>
         <executions>
           <execution>
+            <id>add-commit</id>
             <phase>process-resources</phase>
             <goals>
               <goal>add</goal>
               <goal>checkin</goal>
             </goals>
             <configuration>
-              <message>Automated Impex update</message>
+              <message>SCM via maven</message>
+              <includes>**/src/main/resources/*.xml,**/src/main/resources/*.txt</includes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>remove-commit</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>remove</goal>
+              <goal>checkin</goal>
+            </goals>
+            <configuration>
+              <message>SCM via maven</message>
               <includes>**/src/main/resources/*.xml,**/src/main/resources/*.txt</includes>
             </configuration>
           </execution>
