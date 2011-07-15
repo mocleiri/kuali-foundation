@@ -69,7 +69,7 @@
               <goal>checkin</goal>
             </goals>
             <configuration>
-              <message>Comitted via Maven ${kuali.build.timestamp}</message>
+              <message>Committed via Maven ${kuali.build.timestamp}</message>
             </configuration>
           </execution>
         </executions>
