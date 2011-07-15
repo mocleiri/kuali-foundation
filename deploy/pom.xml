@@ -63,6 +63,7 @@
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <remote.user>root</remote.user>
     <remote.tomcat.shutdown>${remote.tomcat.home}/bin/forced-shutdown.sh</remote.tomcat.shutdown>
+    <remote.tomcat.startup>${remote.tomcat.home}/bin/startup.sh</remote.tomcat.startup>
     <remote.tomcat.cleanup>${remote.tomcat.home}/bin/cleanup.sh</remote.tomcat.cleanup>
     <remote.war.file>${remote.tomcat.home}/webapps/ROOT.war</remote.war.file>
     <remote.war.dir>${remote.tomcat.home}/webapps/ROOT</remote.war.dir>
@@ -288,6 +289,27 @@
               </arguments>
             </configuration>
           </execution>
+          <execution>
+            <id>start-remote-tomcat-rice</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${ssh.path}</executable>
+              <arguments>
+                <argument>-i</argument>
+                <argument>${deploy.auth}</argument>
+                <argument>${remote.user}@${remote.hostname}</argument>
+                <argument>su</argument>
+                <argument>--login</argument>
+                <argument>${remote.tomcat.user}</argument>
+                <argument>--command</argument>
+                <argument>${remote.tomcat.startup}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
         </executions>
       </plugin>
     </plugins>
