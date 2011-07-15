@@ -275,7 +275,7 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>$ssh.path}</executable>
+              <executable>${ssh.path}</executable>
               <arguments>
                 <argument>-i</argument>
                 <argument>${deploy.auth}</argument>
