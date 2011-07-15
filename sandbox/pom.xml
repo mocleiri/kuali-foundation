@@ -43,20 +43,16 @@
             <phase>process-resources</phase>
             <goals>
               <goal>add</goal>
-              <goal>checkin</goal>
             </goals>
-            <configuration>
-              <message>Added via Maven ${kuali.build.timestamp}</message>
-            </configuration>
           </execution>
           <execution>
-            <id>checkin</id>
+            <id>commit-1</id>
             <phase>process-resources</phase>
             <goals>
               <goal>checkin</goal>
             </goals>
             <configuration>
-              <message>Checked in via Maven ${kuali.build.timestamp}</message>
+              <message>Committed via Maven ${kuali.build.timestamp}</message>
             </configuration>
           </execution>
           <execution>
@@ -65,18 +61,15 @@
             <goals>
               <goal>remove</goal>
             </goals>
-            <configuration>
-              <message>Removed via Maven ${kuali.build.timestamp}</message>
-            </configuration>
           </execution>
           <execution>
-            <id>checkin-2</id>
+            <id>commit-2</id>
             <phase>process-resources</phase>
             <goals>
               <goal>checkin</goal>
             </goals>
             <configuration>
-              <message>Checked in via Maven ${kuali.build.timestamp}</message>
+              <message>Comitted via Maven ${kuali.build.timestamp}</message>
             </configuration>
           </execution>
         </executions>
