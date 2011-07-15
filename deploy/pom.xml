@@ -64,9 +64,15 @@
     <local.filename>ROOT.war</local.filename>
     <!-- <local.war.file>${project.build.directory}/${local.filename}</local.war.file> -->
     <local.war.file>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/sampleapp/target/${deploy.artifact}-${deploy.version}.war</local.war.file>
+    <impex.dir>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/db/impex/master</impex.dir>
+    <impex.username>RICEDEV</impex.username>
+    <impex.password>RICEDEV</impex.password>
+    <impex.dba.password>gw570229</impex.dba.password>
+    <impex.url>jdbc:oracle:thin:@deploy.rice.kuali.org:1521:KS</impex.url>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
     <scp.path>/usr/bin/scp</scp.path>
     <ssh.path>/usr/bin/ssh</ssh.path>
+    <mvn.path>/opt/java/apache-maven-3.0.3/bin/mvn</mvn.path>
   </properties>
   <profiles>
     <profile>
@@ -241,6 +247,26 @@
                 <argument>${deploy.auth}</argument>
                 <argument>${local.war.file}</argument>
                 <argument>${remote.user}@${remote.hostname}:${remote.war.file}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>reset-remote-database</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${mvn.path}</executable>
+              <workingDirectory>${impex.dir}</workingDirectory>
+              <arguments>
+                <argument>clean</argument>
+                <argument>install</argument>
+                <argument>-Pdb,oracle</argument>
+                <argument>-Dimpex.username=${impex.username}</argument>
+                <argument>-Dimpex.password=${impex.password}</argument>
+                <argument>-Dimpex.dba.password=${impex.dba.password}</argument>
+                <argument>-Dimpex.url=${impex.url}</argument>
               </arguments>
             </configuration>
           </execution>
