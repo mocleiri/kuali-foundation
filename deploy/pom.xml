@@ -63,7 +63,7 @@
     <deploy.packaging>war</deploy.packaging>
     <local.filename>ROOT.war</local.filename>
     <!-- <local.war.file>${project.build.directory}/${local.filename}</local.war.file> -->
-    <local.war.file>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/sampleapp/target/${deploy.artifact}-${deploy.version}.war</local.war.file>
+    <local.war.file>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/sampleapp/target/${deploy.artifactId}-${deploy.version}.war</local.war.file>
     <impex.dir>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/db/impex/master</impex.dir>
     <impex.username>RICEDEV</impex.username>
     <impex.password>RICEDEV</impex.password>
