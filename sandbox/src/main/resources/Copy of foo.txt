@@ -1,0 +1,1 @@
+http://ci.rice.kuali.org/view/Other/job/maven-scm-plugin-publish/
