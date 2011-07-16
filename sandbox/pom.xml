@@ -33,7 +33,7 @@
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-scm-plugin</artifactId>
-        <version>1.5-SNAPSHOT</version>
+        <version>1.5</version>
         <configuration>
           <includes>**/src/main/resources/*.xml,**/src/main/resources/*.txt</includes>
         </configuration>
