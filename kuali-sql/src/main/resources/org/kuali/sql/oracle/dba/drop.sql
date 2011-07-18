@@ -1,8 +1,0 @@
-BEGIN
-EXECUTE IMMEDIATE 'DROP USER ${sql.username} CASCADE';
-EXCEPTION WHEN OTHERS THEN
-IF SQLCODE != ${sql.oracle.error.userDoesNotExist} THEN
-RAISE;
-END IF;
-END;
-/
