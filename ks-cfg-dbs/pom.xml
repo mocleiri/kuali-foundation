@@ -348,7 +348,7 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.kuali.maven.impex</groupId>
+        <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-impex-plugin</artifactId>
         <version>1.0.17</version>
         <dependencies>
@@ -512,7 +512,7 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.kuali.maven.impex</groupId>
+            <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>maven-impex-plugin</artifactId>
             <executions>
               <execution>
@@ -586,7 +586,7 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.kuali.maven.impex</groupId>
+            <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>maven-impex-plugin</artifactId>
             <executions>
               <execution>
@@ -693,7 +693,7 @@
             </dependencies>
           </plugin>
           <plugin>
-            <groupId>org.kuali.maven.impex</groupId>
+            <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>maven-impex-plugin</artifactId>
             <configuration>
               <forceMojoExecution>true</forceMojoExecution>
