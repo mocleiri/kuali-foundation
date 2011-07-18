@@ -879,7 +879,7 @@
             <executions>
               <execution>
                 <id>add</id>
-                <phase>process-resources</phase>
+                <phase>${scm.phase}</phase>
                 <goals>
                   <goal>add</goal>
                   <goal>checkin</goal>
@@ -891,7 +891,7 @@
               </execution>
               <execution>
                 <id>remove</id>
-                <phase>process-resources</phase>
+                <phase>${scm.phase}</phase>
                 <goals>
                   <goal>remove</goal>
                   <goal>checkin</goal>
