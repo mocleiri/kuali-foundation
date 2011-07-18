@@ -2,6 +2,7 @@ package org.apache.torque.mojo;
 
 import java.io.File;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -14,9 +15,15 @@ import org.kuali.core.db.torque.SetUtils;
 import org.kuali.core.db.torque.Utils;
 
 /**
- * @goal remove-old-data-files
+ * This mojo identifies data files that are present on the file system but are not present in schema.xml. This can
+ * happen if a table is removed from the schema.
+ * 
+ * It sets a project property called "impex.data.invalid". This property is a comma delimited list of filenames that
+ * have no match in the db schema.
+ * 
+ * @goal id-invalid-data-files
  */
-public class RemoveOldDataFilesMojo extends BaseMojo {
+public class IdentifyInvalidDataFiles extends BaseMojo {
 	private static final String FS = System.getProperty("file.separator");
 
 	/**
@@ -55,15 +62,28 @@ public class RemoveOldDataFilesMojo extends BaseMojo {
 	protected void executeMojo() throws MojoExecutionException, MojoFailureException {
 		Utils utils = new Utils();
 		try {
+			getLog().info("Examining " + dataDir.getAbsolutePath());
 			Database db = utils.getDatabase(schemaXMLFile, targetDatabase);
 			DirectoryScanner ds = getDirectoryScanner();
 			Set<File> existing = getExistingFiles(ds);
 			Set<File> allowed = getDatabaseFiles(db);
-			Set<File> illegal = SetUtils.difference(existing, allowed);
-			for (File file : illegal) {
-				getLog().info("Removing " + file.getAbsolutePath());
+			Set<File> invalid = SetUtils.difference(existing, allowed);
+			getLog().info(existing.size() + " data files currently exist");
+			getLog().info(invalid.size() + " of those are invalid");
+			StringBuilder sb = new StringBuilder();
+			int count = 0;
+			for (File file : invalid) {
+				if (count != 0) {
+					sb.append(",");
+				}
+				sb.append(file.getName());
+				getLog().info("Marked for removal: " + file.getName());
+				count++;
 			}
-
+			Properties properties = getProject().getProperties();
+			properties.setProperty("impex.data.dir", dataDir.getAbsolutePath());
+			properties.setProperty("impex.data.invalid", sb.toString());
+			properties.setProperty("impex.data.excludes", dataDirExcludes);
 		} catch (Exception e) {
 			throw new MojoExecutionException("Error executing mojo", e);
 		}
