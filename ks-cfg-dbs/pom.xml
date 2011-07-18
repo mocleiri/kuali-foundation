@@ -881,8 +881,10 @@
                 <phase>${scm.phase}</phase>
                 <goals>
                   <goal>add</goal>
+                  <goal>checkin</goal>
                 </goals>
                 <configuration>
+                  <message>Automated Impex update</message>
                   <includes>**/src/main/impex/*.xml,**/src/main/impex/*.dtd</includes>
                 </configuration>
               </execution>
@@ -891,20 +893,11 @@
                 <phase>${scm.phase}</phase>
                 <goals>
                   <goal>remove</goal>
-                </goals>
-                <configuration>
-                  <includes>${impex.data.invalid}</includes>
-                </configuration>
-              </execution>
-              <execution>
-                <id>commit</id>
-                <phase>${scm.phase}</phase>
-                <goals>
                   <goal>checkin</goal>
                 </goals>
                 <configuration>
                   <message>Automated Impex update</message>
-                  <includes>**/src/main/impex/*.xml,**/src/main/impex/*.dtd</includes>
+                  <includes>${impex.data.invalid}</includes>
                 </configuration>
               </execution>
             </executions>
