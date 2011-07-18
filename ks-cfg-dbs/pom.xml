@@ -24,6 +24,11 @@
       </snapshots>
     </repository>
   </repositories>
+  <scm>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/sandbox/student/ks-cfg-dbs</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/sandbox/student/ks-cfg-dbs</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/sandbox/student/ks-cfg-dbs</url>
+  </scm>
   <properties>
     <kuali.clover.generate.info.phase>none</kuali.clover.generate.info.phase>
     <ks.impex.sql.plugin.escapeProcessing>false</ks.impex.sql.plugin.escapeProcessing>
