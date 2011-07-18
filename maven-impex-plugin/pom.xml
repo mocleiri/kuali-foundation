@@ -14,6 +14,9 @@
   <packaging>maven-plugin</packaging>
   <name>Maven Impex Plugin</name>
   <description>Maven plugin for converting database agnostic XML files into platform specific SQL files and for examining proprietary databases via JDBC to generate database agnostic XML files</description>
+  <properties>
+    <impex.version>1.0.22-SNAPSHOT</impex.version>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.kuali.maven.mojo</groupId>
@@ -23,17 +26,17 @@
     <dependency>
       <groupId>org.kuali.db.impex</groupId>
       <artifactId>torque-generator</artifactId>
-      <version>${project.version}</version>
+      <version>${impex.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.db.impex</groupId>
       <artifactId>jdbc-support</artifactId>
-      <version>${project.version}</version>
+      <version>${impex.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.db.impex</groupId>
       <artifactId>torque-templates</artifactId>
-      <version>${project.version}</version>
+      <version>${impex.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
