@@ -837,6 +837,7 @@
       <!-- This profile commits any Impex changes to SCM -->
       <id>update-scm</id>
       <modules>
+        <module>ks-standalone-db</module>
         <module>ks-embedded-db</module>
       </modules>
       <build>
