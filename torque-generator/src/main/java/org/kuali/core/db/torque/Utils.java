@@ -99,13 +99,33 @@ public class Utils {
 
 	}
 
+	public void verifyExists(String location, ResourceLoader loader) throws FileNotFoundException {
+		Resource resource = loader.getResource(location);
+		if (!resource.exists()) {
+			throw new FileNotFoundException("Unable to locate " + location);
+		}
+	}
+
 	public void verifyExists(List<String> locations) throws FileNotFoundException {
 		ResourceLoader loader = new DefaultResourceLoader();
 		for (String location : locations) {
-			Resource resource = loader.getResource(location);
-			if (!resource.exists()) {
-				throw new FileNotFoundException("Unable to locate " + location);
-			}
+			verifyExists(location, loader);
+		}
+	}
+
+	public Database getDatabase(String schemaXMLResource, String targetDatabase) throws IOException {
+		if (!isFileOrResource(schemaXMLResource)) {
+			throw new IOException("Unable to locate " + schemaXMLResource);
+		}
+
+		// Get an xml parser for schema.xml
+		KualiXmlToAppData xmlParser = new KualiXmlToAppData(targetDatabase, "");
+
+		// Parse schema.xml into a database object
+		try {
+			return xmlParser.parseResource(schemaXMLResource);
+		} catch (Exception e) {
+			throw new IOException("Error parsing: " + schemaXMLResource, e);
 		}
 	}
 
