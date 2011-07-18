@@ -80,11 +80,8 @@ public class IdentifyInvalidDataFiles extends BaseMojo {
 				getLog().info("Marked for removal: " + file.getName());
 				count++;
 			}
-			if (count > 0) {
-				Properties properties = getProject().getProperties();
-				properties.setProperty("impex.data.invalid", sb.toString());
-				properties.setProperty("scm.remove.phase", "process-resources");
-			}
+			Properties properties = getProject().getProperties();
+			properties.setProperty("impex.data.invalid", sb.toString());
 		} catch (Exception e) {
 			throw new MojoExecutionException("Error executing mojo", e);
 		}
