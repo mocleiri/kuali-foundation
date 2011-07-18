@@ -8,8 +8,8 @@
   </parent>
   <groupId>org.kuali.db.impex</groupId>
   <artifactId>impex</artifactId>
-  <packaging>pom</packaging>
   <version>1.0.22-SNAPSHOT</version>
+  <packaging>pom</packaging>
   <name>Impex</name>
   <description></description>
   <properties>

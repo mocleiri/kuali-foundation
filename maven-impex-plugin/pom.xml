@@ -19,17 +19,17 @@
       <version>1.0.0</version>
     </dependency>
     <dependency>
-      <groupId>org.kuali.maven.impex</groupId>
+      <groupId>org.kuali.db.impex</groupId>
       <artifactId>torque-generator</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.kuali.maven.impex</groupId>
+      <groupId>org.kuali.db.impex</groupId>
       <artifactId>jdbc-support</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.kuali.maven.impex</groupId>
+      <groupId>org.kuali.db.impex</groupId>
       <artifactId>torque-templates</artifactId>
       <version>${project.version}</version>
     </dependency>

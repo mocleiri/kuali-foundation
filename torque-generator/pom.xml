@@ -18,7 +18,7 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.kuali.maven.impex</groupId>
+      <groupId>org.kuali.db.impex</groupId>
       <artifactId>jdbc-support</artifactId>
       <version>${project.version}</version>
     </dependency>
