@@ -113,10 +113,9 @@
       <version>3.0.3.RELEASE</version>
     </dependency>
   </dependencies>
-
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/pom/tags/maven-impex-plugin-1.0.22</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/tags/maven-impex-plugin-1.0.22</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/pom/tags/maven-impex-plugin-1.0.22</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-impex-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-impex-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/maven-impex-plugin</url>
   </scm>
 </project>
