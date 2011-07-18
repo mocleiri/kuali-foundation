@@ -107,9 +107,11 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		try {
 			File file = new File(FilenameUtils.getFullPath(getSchemaXMLFile().getCanonicalPath()));
 			File parentDirectory = file.getParentFile();
-			boolean mkdirs = parentDirectory.mkdirs();
-			if (!mkdirs) {
-				throw new BuildException("Unable to create " + parentDirectory.getAbsolutePath());
+			if (!parentDirectory.exists()) {
+				boolean mkdirs = parentDirectory.mkdirs();
+				if (!mkdirs) {
+					throw new BuildException("Unable to create " + parentDirectory.getAbsolutePath());
+				}
 			}
 			out = new PrintWriter(new FileOutputStream(getSchemaXMLFile()));
 			OutputFormat format = new OutputFormat(Method.XML, getEncoding(), true);
