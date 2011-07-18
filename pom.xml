@@ -39,7 +39,6 @@
     <module>jdbc-support</module>
     <module>torque-generator</module>
     <module>torque-templates</module>
-    <module>maven-impex-plugin</module>
   </modules>
   <repositories>
     <repository>
