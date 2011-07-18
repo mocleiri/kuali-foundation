@@ -31,6 +31,7 @@
   </scm>
   <properties>
     <scm.phase>none</scm.phase>
+    <scm.remove.phase>none</scm.remove.phase>
     <kuali.clover.generate.info.phase>none</kuali.clover.generate.info.phase>
     <ks.impex.sql.plugin.escapeProcessing>false</ks.impex.sql.plugin.escapeProcessing>
     <ks.impex.sql.plugin.orderFile>ascending</ks.impex.sql.plugin.orderFile>
@@ -335,7 +336,7 @@
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-scm-plugin</artifactId>
-        <version>1.5</version>
+        <version>1.6-SNAPSHOT</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -878,7 +879,7 @@
             <executions>
               <execution>
                 <id>add</id>
-                <phase>${scm.phase}</phase>
+                <phase>process-resources</phase>
                 <goals>
                   <goal>add</goal>
                   <goal>checkin</goal>
@@ -890,7 +891,7 @@
               </execution>
               <execution>
                 <id>remove</id>
-                <phase>${scm.phase}</phase>
+                <phase>process-resources</phase>
                 <goals>
                   <goal>remove</goal>
                   <goal>checkin</goal>
