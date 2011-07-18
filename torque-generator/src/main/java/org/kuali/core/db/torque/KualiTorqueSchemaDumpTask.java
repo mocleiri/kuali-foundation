@@ -17,7 +17,6 @@ import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.cxf.helpers.FileUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.torque.engine.database.model.TypeMap;
@@ -106,7 +105,12 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	protected void serialize() throws BuildException {
 		Writer out = null;
 		try {
-			FileUtils.mkDir(new File(FilenameUtils.getFullPath(getSchemaXMLFile().getCanonicalPath())));
+			File file = new File(FilenameUtils.getFullPath(getSchemaXMLFile().getCanonicalPath()));
+			File parentDirectory = file.getParentFile();
+			boolean mkdirs = parentDirectory.mkdirs();
+			if (!mkdirs) {
+				throw new BuildException("Unable to create " + parentDirectory.getAbsolutePath());
+			}
 			out = new PrintWriter(new FileOutputStream(getSchemaXMLFile()));
 			OutputFormat format = new OutputFormat(Method.XML, getEncoding(), true);
 			XMLSerializer xmlSerializer = new XMLSerializer(out, format);
@@ -118,7 +122,8 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
-	protected Map<String, String> getPrimaryKeys(Platform platform, DatabaseMetaData dbMetaData, String curTable) throws SQLException {
+	protected Map<String, String> getPrimaryKeys(Platform platform, DatabaseMetaData dbMetaData, String curTable)
+			throws SQLException {
 		List<String> primKeys = platform.getPrimaryKeys(dbMetaData, schema, curTable);
 
 		// Set the primary keys.
@@ -144,7 +149,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 		column.setAttribute("type", TypeMap.getTorqueType(type).getName());
 
-		if (size > 0 && (type.intValue() == Types.CHAR || type.intValue() == Types.VARCHAR || type.intValue() == Types.LONGVARCHAR || type.intValue() == Types.DECIMAL || type.intValue() == Types.NUMERIC)) {
+		if (size > 0
+				&& (type.intValue() == Types.CHAR || type.intValue() == Types.VARCHAR
+						|| type.intValue() == Types.LONGVARCHAR || type.intValue() == Types.DECIMAL || type.intValue() == Types.NUMERIC)) {
 			column.setAttribute("size", String.valueOf(size));
 		}
 
@@ -378,7 +385,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	public boolean isSequence(String sequenceName) {
-		return sequenceName.toUpperCase().startsWith("SEQ_") || sequenceName.toUpperCase().startsWith("SEQUENCE_") || sequenceName.toUpperCase().endsWith("_SEQ") || sequenceName.toUpperCase().endsWith("_SEQUENCE") || sequenceName.toUpperCase().endsWith("_ID") || sequenceName.toUpperCase().endsWith("_S");
+		return sequenceName.toUpperCase().startsWith("SEQ_") || sequenceName.toUpperCase().startsWith("SEQUENCE_")
+				|| sequenceName.toUpperCase().endsWith("_SEQ") || sequenceName.toUpperCase().endsWith("_SEQUENCE")
+				|| sequenceName.toUpperCase().endsWith("_ID") || sequenceName.toUpperCase().endsWith("_S");
 	}
 
 	public List<String> getSequenceNames(DatabaseMetaData dbMeta) throws SQLException {
@@ -485,7 +494,8 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return fk;
 	}
 
-	protected void addForeignKey(Map<String, ForeignKey> fks, String fkName, String refTableName, String onDelete, ResultSet foreignKeys) throws SQLException {
+	protected void addForeignKey(Map<String, ForeignKey> fks, String fkName, String refTableName, String onDelete,
+			ResultSet foreignKeys) throws SQLException {
 		ForeignKey fk = (ForeignKey) fks.get(fkName);
 		if (fk == null) {
 			fk = getNewKualiForeignKey(refTableName, onDelete);
