@@ -58,7 +58,7 @@
     <dependency>
       <groupId>org.kuali.student.db</groupId>
       <artifactId>ks-rice-db</artifactId>
-      <version>1.2-SNAPSHOT</version>
+      <version>1.2-M4</version>
       <scope>test</scope>
     </dependency>
     <dependency>
