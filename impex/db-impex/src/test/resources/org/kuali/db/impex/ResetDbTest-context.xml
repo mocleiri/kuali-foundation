@@ -15,23 +15,7 @@
                            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 
-  <bean id="org.kuali.impex.system.properties.mode.override.test" class="java.lang.Integer">
-    <constructor-arg type="java.lang.String" value="2" />
-  </bean>
-
-  <bean id="org.kuali.impex.property.configurer.test" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <property name="locations">
-      <list>
-        <value>classpath:org/kuali/db/impex/properties.xml</value>
-        <value>classpath:org/kuali/db/impex/test-properties.xml</value>
-      </list>
-    </property>
-    <property name="systemPropertiesMode">
-      <ref bean="org.kuali.impex.system.properties.mode.override.test" />
-    </property>
-  </bean>
-
-  <import resource="classpath:org/kuali/db/jdbc/dba-beans.xml" />
+  <import resource="classpath:org/kuali/db/jdbc/dba.xml" />
   <import resource="classpath:org/kuali/db/impex/beans.xml" />
 
 </beans>
