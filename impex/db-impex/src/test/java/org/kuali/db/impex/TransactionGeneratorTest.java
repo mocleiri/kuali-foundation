@@ -1,6 +1,7 @@
 package org.kuali.db.impex;
 
 import org.junit.Test;
+import org.kuali.db.jdbc.Transaction;
 
 public class TransactionGeneratorTest {
 
@@ -18,5 +19,8 @@ public class TransactionGeneratorTest {
 		tg.setSuffix(".sql");
 		tg.setConstraintsSuffix("-constraints");
 		tg.generate();
+		for (Transaction t : tg.getTransactions()) {
+			System.out.println(t.getResourceLocation());
+		}
 	}
 }
