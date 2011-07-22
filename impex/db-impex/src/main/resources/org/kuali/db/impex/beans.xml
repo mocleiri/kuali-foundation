@@ -14,20 +14,19 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-  <bean id="org.kuali.impex.metadata" class="org.kuali.db.impex.ImpexMetadata" p:platform="${org.kuali.impex.platform}"
-    p:schemaLocation="${org.kuali.impex.database}" />
+  <bean id="impex.metadata" class="org.kuali.db.impex.ImpexMetadata" p:platform="${impex.platform}"
+    p:schemaLocation="${impex.database}" />
 
-  <bean id="org.kuali.impex.schemaParser" class="org.kuali.db.impex.SchemaParser" init-method="parse">
+  <bean id="impex.schemaParser" class="org.kuali.db.impex.SchemaParser" init-method="parse">
     <property name="impexMetadata">
-      <ref bean="org.kuali.impex.metadata" />
+      <ref bean="impex.metadata" />
     </property>
   </bean>
 
-  <bean id="org.kuali.impex.transactionGenerator" class="org.kuali.db.impex.TransactionGenerator" init-method="generate"
-    p:suffix="${org.kuali.impex.resource.suffix}" p:constraintsSuffix="${org.kuali.impex.ddl.constraints.suffix}"
-    p:prefix="${org.kuali.impex.resource.prefix}">
+  <bean id="impex.transactionGenerator" class="org.kuali.db.impex.TransactionGenerator" init-method="generate"
+    p:suffix="${impex.resource.suffix}" p:constraintsSuffix="${impex.ddl.constraints.suffix}" p:prefix="${impex.resource.prefix}">
     <property name="parser">
-      <ref bean="org.kuali.impex.schemaParser" />
+      <ref bean="impex.schemaParser" />
     </property>
   </bean>
 </beans>
