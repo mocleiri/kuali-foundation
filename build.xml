@@ -81,6 +81,11 @@ Note: Due to java native library classloader issues, the export routine (and pos
 
 	</target>
 
+	<!--
+    Do forward declarations of all of our tasks to
+    centralize them and clean up the targets.
+  -->
+	<target name="inittasks">
 	<property name="impex.dir" value="impex" />
     <property name="build.properties" value="build.properties"/>
     <property name="impex.contextProperties" value="${build.properties}"/>
@@ -92,22 +97,16 @@ Note: Due to java native library classloader issues, the export routine (and pos
     The default.properties file will map old properties to the new ones along
     with setting the correct defaults.
     -->
-	<property resource="org/apache/torque/default.properties">
-		<classpath>
-			<path refid="torque-classpath" />
-		</classpath>
-	</property>
     <path id="torque-classpath">
         <pathelement location="${impex.dir}/kuali-impextasks.jar" />
         <fileset dir="${lib.dir}" includes="**/*.jar" />
         <fileset dir="${drivers.directory}" includes="${drivers.file.pattern}" />
     </path>
-
-	<!--
-    Do forward declarations of all of our tasks to
-    centralize them and clean up the targets.
-  -->
-	<target name="inittasks">
+	<property resource="org/apache/torque/default.properties">
+		<classpath>
+			<path refid="torque-classpath" />
+		</classpath>
+	</property>
 		<mkdir dir="${torque.schema.dir}" />
 		<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 			<classpath>
@@ -510,7 +509,7 @@ Please place the jar file for this class in the lib directory and try again.
 		>SELECT dummy FROM dual</sql>		
 	</target>
 
-	<target name="test-mysql-connection">
+	<target name="test-mysql-connection" depends="inittasks">
 		<sql driver="${import.torque.database.driver}"
 		     password="${import.torque.database.password}"
 		     url="${import.torque.database.url}"
