@@ -89,7 +89,8 @@ Note: Due to java native library classloader issues, the export routine (and pos
 	<property name="impex.dir" value="impex" />
     <property name="build.properties" value="build.properties"/>
     <property name="impex.contextProperties" value="${build.properties}"/>
-	<property file="${user.home}/impex-build.properties" />
+	<property name="impex.build.properties"  value="${user.home}/impex-build.properties" />
+	<property file="${impex.build.properties}" />
     <property file="${build.properties}" />
     <property name="lib.dir" value="${impex.dir}/lib"/>
 
