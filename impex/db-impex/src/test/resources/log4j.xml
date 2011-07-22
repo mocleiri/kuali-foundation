@@ -9,6 +9,6 @@
   </appender>
   <root>
     <priority value="debug" />
-    <appender-ref ref="console" />
+    <appender-ref ref="info" />
   </root>
 </log4j:configuration>
