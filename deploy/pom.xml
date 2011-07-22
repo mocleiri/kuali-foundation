@@ -266,6 +266,8 @@
                 <argument>-Dimpex.password=${impex.password}</argument>
                 <argument>-Dimpex.dba.password=${impex.dba.password}</argument>
                 <argument>-Dimpex.url=${impex.url}</argument>
+                <argument>-Dimpex.dba.url=${impex.url}</argument>
+                <argument>-X</argument>
               </arguments>
             </configuration>
           </execution>
