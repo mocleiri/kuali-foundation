@@ -25,7 +25,7 @@
 
   <properties>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
-    <!-- Explicitly set build timestamp as a custom property. The maven-resource-plugin is not filtering values correctly 
+    <!-- Explicitly set build timestamp as a custom property. The maven-resource-plugin is not filtering values correctly
       without this -->
     <kuali.build.timestamp>${maven.build.timestamp}</kuali.build.timestamp>
 
@@ -53,14 +53,14 @@
     <kuali.javadoc.exclude.package.names />
     <kuali.javadoc.maxmemory>512m</kuali.javadoc.maxmemory>
     <!-- Uncomment this to troubleshoot heap issues when generating javadoc -->
-    <!-- <kuali.javadoc.additional.joption>-J-XX:MaxPermSize=256m -J-verbose:gc -J-XX:+PrintGCDetails -J-XX:+PrintGCDateStamps 
+    <!-- <kuali.javadoc.additional.joption>-J-XX:MaxPermSize=256m -J-verbose:gc -J-XX:+PrintGCDetails -J-XX:+PrintGCDateStamps
       -J-XX:+PrintHeapAtGC -J-XX:+PrintTenuringDistribution -J-Xloggc:${project.build.directory}/javadoc-heap.log</kuali.javadoc.additional.joption> -->
-    <!-- Setting this to true will generate javadoc.sh in target/site/apidocs. This allows you to see the exact javadoc command 
+    <!-- Setting this to true will generate javadoc.sh in target/site/apidocs. This allows you to see the exact javadoc command
       being issued during the build -->
     <kuali.javadoc.debug>false</kuali.javadoc.debug>
-    <!-- These 2 should be "aggregate" and "test-aggregate", but with the latest version of the relevant tools (Maven 3.0.1, 
+    <!-- These 2 should be "aggregate" and "test-aggregate", but with the latest version of the relevant tools (Maven 3.0.1,
       maven-site-plugin 3.0-beta-3 and
-      maven-javadoc-plugin 2.7), those 2 reports cause a heap error regardless of how large the heap is set. I set the overall 
+      maven-javadoc-plugin 2.7), those 2 reports cause a heap error regardless of how large the heap is set. I set the overall
       heap to 4 gb's with a MaxPermGen
       of 512m before switching back to "javadoc" and "test-javadoc" -->
     <kuali.javadoc.report.1>javadoc</kuali.javadoc.report.1>
@@ -112,7 +112,12 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>findbugs-maven-plugin</artifactId>
-          <version>2.3.1</version>
+          <version>2.3.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>2.6</version>
         </plugin>
         <plugin>
           <groupId>com.atlassian.maven.plugins</groupId>
@@ -170,7 +175,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
-          <version>2.4</version>
+          <version>2.5</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -181,7 +186,7 @@
               <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <!-- Version is included here only because it does not inherit correctly from the pluginManagement section 
+                <!-- Version is included here only because it does not inherit correctly from the pluginManagement section
                   of the parent pom -->
                 <version>${kuali.javadoc.plugin.version}</version>
                 <configuration>
@@ -222,7 +227,7 @@
               <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <!-- Version is included here only because it does not inherit correctly from the pluginManagement section 
+                <!-- Version is included here only because it does not inherit correctly from the pluginManagement section
                   of the parent pom -->
                 <version>2.3</version>
                 <configuration>
