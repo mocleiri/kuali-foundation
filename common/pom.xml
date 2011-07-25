@@ -9,7 +9,8 @@
   express or implied. See the License for the specific language governing
   permissions and limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali</groupId>
@@ -24,7 +25,8 @@
 
   <properties>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
-    <!-- Explicitly set build timestamp as a custom property.  The maven-resource-plugin is not filtering values correctly without this -->
+    <!-- Explicitly set build timestamp as a custom property. The maven-resource-plugin is not filtering values correctly 
+      without this -->
     <kuali.build.timestamp>${maven.build.timestamp}</kuali.build.timestamp>
 
     <!-- Default Clover config -->
@@ -51,18 +53,22 @@
     <kuali.javadoc.exclude.package.names />
     <kuali.javadoc.maxmemory>512m</kuali.javadoc.maxmemory>
     <!-- Uncomment this to troubleshoot heap issues when generating javadoc -->
-    <!-- <kuali.javadoc.additional.joption>-J-XX:MaxPermSize=256m -J-verbose:gc -J-XX:+PrintGCDetails -J-XX:+PrintGCDateStamps -J-XX:+PrintHeapAtGC -J-XX:+PrintTenuringDistribution -J-Xloggc:${project.build.directory}/javadoc-heap.log</kuali.javadoc.additional.joption> -->
-    <!-- Setting this to true will generate javadoc.sh in target/site/apidocs.  This allows you to see the exact javadoc command being issued during the build -->
+    <!-- <kuali.javadoc.additional.joption>-J-XX:MaxPermSize=256m -J-verbose:gc -J-XX:+PrintGCDetails -J-XX:+PrintGCDateStamps 
+      -J-XX:+PrintHeapAtGC -J-XX:+PrintTenuringDistribution -J-Xloggc:${project.build.directory}/javadoc-heap.log</kuali.javadoc.additional.joption> -->
+    <!-- Setting this to true will generate javadoc.sh in target/site/apidocs. This allows you to see the exact javadoc command 
+      being issued during the build -->
     <kuali.javadoc.debug>false</kuali.javadoc.debug>
-    <!-- These 2 should be "aggregate" and "test-aggregate", but with the latest version of the relevant tools (Maven 3.0.1, maven-site-plugin 3.0-beta-3 and 
-         maven-javadoc-plugin 2.7), those 2 reports cause a heap error regardless of how large the heap is set.  I set the overall heap to 4 gb's with a MaxPermGen 
-         of 512m before switching back to "javadoc" and "test-javadoc" -->
+    <!-- These 2 should be "aggregate" and "test-aggregate", but with the latest version of the relevant tools (Maven 3.0.1, 
+      maven-site-plugin 3.0-beta-3 and
+      maven-javadoc-plugin 2.7), those 2 reports cause a heap error regardless of how large the heap is set. I set the overall 
+      heap to 4 gb's with a MaxPermGen
+      of 512m before switching back to "javadoc" and "test-javadoc" -->
     <kuali.javadoc.report.1>javadoc</kuali.javadoc.report.1>
     <kuali.javadoc.report.2>test-javadoc</kuali.javadoc.report.2>
     <!-- Once the heap issue with aggregate and test-aggregate is worked out, set this to false -->
     <kuali.javadoc.aggregate>${kuali.reporting.aggregate}</kuali.javadoc.aggregate>
 
-    <!-- Placeholders for javadoc link locations.  Override these in child poms as needed -->
+    <!-- Placeholders for javadoc link locations. Override these in child poms as needed -->
     <kuali.javadoc.link.1>http://download.oracle.com/javase/6/docs/api/</kuali.javadoc.link.1>
     <kuali.javadoc.link.2>${kuali.javadoc.link.1}</kuali.javadoc.link.2>
     <kuali.javadoc.link.3>${kuali.javadoc.link.1}</kuali.javadoc.link.3>
@@ -74,7 +80,7 @@
     <kuali.javadoc.link.9>${kuali.javadoc.link.1}</kuali.javadoc.link.9>
     <kuali.javadoc.link.10>${kuali.javadoc.link.1}</kuali.javadoc.link.10>
 
-    <!--  -->
+    <!-- -->
     <kuali.testjar.phase>package</kuali.testjar.phase>
   </properties>
   <repositories>
@@ -175,7 +181,8 @@
               <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <!-- Version is included here only because it does not inherit correctly from the pluginManagement section of the parent pom -->
+                <!-- Version is included here only because it does not inherit correctly from the pluginManagement section 
+                  of the parent pom -->
                 <version>${kuali.javadoc.plugin.version}</version>
                 <configuration>
                   <excludePackageNames>${kuali.javadoc.exclude.package.names}</excludePackageNames>
@@ -215,7 +222,8 @@
               <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <!-- Version is included here only because it does not inherit correctly from the pluginManagement section of the parent pom -->
+                <!-- Version is included here only because it does not inherit correctly from the pluginManagement section 
+                  of the parent pom -->
                 <version>2.3</version>
                 <configuration>
                   <dependencyLocationsEnabled>${kuali.reporting.dependency.locations}</dependencyLocationsEnabled>
@@ -259,9 +267,9 @@
                   <aggregate>${kuali.reporting.aggregate}</aggregate>
                 </configuration>
               </plugin>
-              <!-- Included here as a default only until Maven 3.1 is out which will support 'mixins'.  
-                   This plugin only generates output if the project is a maven plugin.  
-                   For projects that are not maven plugins it does nothing. -->
+              <!-- Included here as a default only until Maven 3.1 is out which will support 'mixins'.
+                This plugin only generates output if the project is a maven plugin.
+                For projects that are not maven plugins it does nothing. -->
               <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
