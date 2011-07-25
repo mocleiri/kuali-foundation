@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jalopy vendor="TRIEMAX">
+ <profile name="kuali" parent="default">
+  <java>
+   <general>
+    <compliance>
+     <version>16</version>
+    </compliance>
+   </general>
+   <printer>
+    <braces>
+     <insert>
+      <doWhile>true</doWhile>
+      <for>true</for>
+      <ifElse>true</ifElse>
+      <singleIf>true</singleIf>
+      <switch>true</switch>
+      <while>true</while>
+     </insert>
+    </braces>
+    <comments>
+     <javadoc>
+      <wrap>
+       <lineLength>120</lineLength>
+      </wrap>
+     </javadoc>
+     <separator>
+      <length>120</length>
+     </separator>
+     <wrap>
+      <lineLength>120</lineLength>
+     </wrap>
+    </comments>
+    <wrapping>
+     <general>
+      <lineLength>120</lineLength>
+     </general>
+    </wrapping>
+   </printer>
+  </java>
+ </profile>
  <profile name="default">
   <html>
    <output>
@@ -257,13 +296,13 @@
       <lineBreakLeft>false</lineBreakLeft>
      </initializer>
      <insert>
-      <doWhile>true</doWhile>
-      <for>true</for>
-      <ifElse>true</ifElse>
-      <singleIf>true</singleIf>
+      <doWhile>false</doWhile>
+      <for>false</for>
+      <ifElse>false</ifElse>
+      <singleIf>false</singleIf>
       <singleLine>false</singleLine>
-      <switch>true</switch>
-      <while>true</while>
+      <switch>false</switch>
+      <while>false</while>
      </insert>
      <method>
       <indentSizeBeforeLeft>1</indentSizeBeforeLeft>
@@ -442,7 +481,7 @@
        </after>
        <inline>true</inline>
        <keepNewline>false</keepNewline>
-       <lineLength>120</lineLength>
+       <lineLength>80</lineLength>
       </wrap>
      </javadoc>
      <keepFirstColumnAsIs>false</keepFirstColumnAsIs>
@@ -475,7 +514,7 @@
       <insertMethodRecursive>false</insertMethodRecursive>
       <insertMethods>false</insertMethods>
       <insertRecursive>false</insertRecursive>
-      <length>120</length>
+      <length>80</length>
       <methodTemplate>//~ ${fill.character}*</methodTemplate>
       <template>//~ ${description} ${fill.character}*</template>
       <text>
@@ -493,7 +532,7 @@
       </text>
      </separator>
      <wrap>
-      <lineLength>120</lineLength>
+      <lineLength>80</lineLength>
       <minSpace>20</minSpace>
       <multiLine>false</multiLine>
       <singleLine>false</singleLine>
@@ -982,7 +1021,7 @@
       <keepLinebreakCallArgs>false</keepLinebreakCallArgs>
       <keepLinebreakConcat>false</keepLinebreakConcat>
       <keepLinebreakDeclParams>false</keepLinebreakDeclParams>
-      <lineLength>120</lineLength>
+      <lineLength>80</lineLength>
       <strictlyObeyKeepLinebreak>false</strictlyObeyKeepLinebreak>
      </general>
      <implements>whenNecessary</implements>
@@ -1042,12 +1081,12 @@
 46b8ac40180774aa6f79554bd6afab850e1c8587ed68d28164c5babdb47f17476e8b112efc397850a318109c971eeb782864c65550edba1f09d354743b9523a4
 5a9df69a11d5027b4998d9606dc5eb6e627656ec0af7d28caa4638e6bf5a89b70faf03d22b54016932b277cb0b551faa6e9fc6221ea5ebbf0655e82f5e416e6e
 1f13c42c260505a68e47f2ec73856b322efeb96d422efc7df16ed64eb8bcb1b8de12a570c430bee4603fb8b0d94bfeb285c71bee6ab1ee77c584c8189e1c8c2d
+1f13c42c260505a68e47f2ec73856b322efeb96d422efc7df16ed64eb8bcb1b8de12a570c430bee4603fb8b0d94bfeb285c71bee6ab1ee77c584c8189e1c8c2d
 745de194281ebe686a0ad07b863115858e50079c2bfe5b20796a8583987984606f8f6704f0c09217f6e00956a325f2da779a624e90215ebd394829a98b354e4e
-6b4c727ff9b1218d51137a9ab896cbc291814b0a50e5d4792ec808496c2c898aec92df7a248a2b94793696f98785a2ea1cd447316e9297435d0178d968d29bff
 745de194281ebe686a0ad07b863115858e50079c2bfe5b20796a8583987984606f8f6704f0c09217f6e00956a325f2da779a624e90215ebd394829a98b354e4e
-603839632819bb39b5dc685530916a01b269b312fcb9c3f031d5f75e1435e840bae098fca5e724131b439afef32d7faff70d1a5e831fb241f60391f439d72a59
 745de194281ebe686a0ad07b863115858e50079c2bfe5b20796a8583987984606f8f6704f0c09217f6e00956a325f2da779a624e90215ebd394829a98b354e4e
-5a9df69a11d5027b4998d9606dc5eb6e627656ec0af7d28caa4638e6bf5a89b70faf03d22b54016932b277cb0b551faa6e9fc6221ea5ebbf0655e82f5e416e6e]]></local>
+1d17a9d3c496a5fbb96b611d7a88edc1efe3ef077a64379df0d17a0b0cb4a2df781ed611bdb275c572cee0ad24e633cad7619fa97c866a54e3326c3a498924d7
+46b8ac40180774aa6f79554bd6afab850e1c8587ed68d28164c5babdb47f17476e8b112efc397850a318109c971eeb782864c65550edba1f09d354743b9523a4]]></local>
     <name>Sun</name>
     <version><![CDATA[492855a61053419754cb355a73bddfa5a8563406e88aa9f0a38beb03d5f648ff8bf2a453003176daab20733356366f103edfd6bee9f6342e944df3f2dcb1028a
 39f33e92b0732287cbd94f7e6f30c21433cac9b51e48ec650b1abe8ea0b07ace5ac3018b9763c2d32987d3f425bc97cc36ea4b625f943bc11891889cec8b8235
