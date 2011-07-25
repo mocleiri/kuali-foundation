@@ -33,147 +33,122 @@ import org.codehaus.plexus.util.cli.StreamConsumer;
 
 /**
  * Pull the project source from the configured scm and execute the configured goals.
- *
+ * 
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
  * @version $Id: BootstrapMojo.java 733515 2009-01-11 20:37:15Z dantran $
  * @goal bootstrap
  * @requiresProject false
  */
-public class BootstrapMojo
-    extends CheckoutMojo
-{
-    /**
-     * The goals to run on the clean checkout of a project for the bootstrap goal.
-     * If none are specified, then the default goal for the project is executed.
-     * Multiple goals should be comma separated.
-     *
-     * @parameter expression="${goals}"
-     */
-    private String goals;
+public class BootstrapMojo extends CheckoutMojo {
+	/**
+	 * The goals to run on the clean checkout of a project for the bootstrap goal. If none are specified, then the
+	 * default goal for the project is executed. Multiple goals should be comma separated.
+	 * 
+	 * @parameter expression="${goals}"
+	 */
+	private String goals;
 
-    /**
-     * A list of profiles to run with the goals.
-     * Multiple profiles must be comma separated with no spaces.
-     *
-     * @parameter expression="${profiles}"
-     */
-    private String profiles;
+	/**
+	 * A list of profiles to run with the goals. Multiple profiles must be comma separated with no spaces.
+	 * 
+	 * @parameter expression="${profiles}"
+	 */
+	private String profiles;
 
-    /**
-     * The subdirectory (under the project directory) in which to run the goals.
-     * The project directory is the same as the checkout directory in most cases,
-     * but for some SCMs, it is a subdirectory of the checkout directory.
-     *
-     * @parameter expression="${goalsDirectory}" default-value=""
-     */
-    private String goalsDirectory;
+	/**
+	 * The subdirectory (under the project directory) in which to run the goals. The project directory is the same as
+	 * the checkout directory in most cases, but for some SCMs, it is a subdirectory of the checkout directory.
+	 * 
+	 * @parameter expression="${goalsDirectory}" default-value=""
+	 */
+	private String goalsDirectory;
 
-    /** {@inheritDoc} */
-    public void execute()
-        throws MojoExecutionException
-    {
-        super.execute();
+	/** {@inheritDoc} */
+	public void execute() throws MojoExecutionException {
+		super.execute();
 
-        if ( this.getCheckoutResult() != null )
-        {
-            
-            ScmResult checkoutResult = this.getCheckoutResult();
-            
-            //At the time of useExport feature is requested only SVN and and CVS have export command implemented
-            // we will deal with this as more user using this feature specially clearcase where we need to 
-            // add relativePathProjectDirectory support to ExportScmResult
-            String relativePathProjectDirectory = "";
-            if ( checkoutResult instanceof CheckOutScmResult )
-            {
-                relativePathProjectDirectory = ( (CheckOutScmResult) checkoutResult).getRelativePathProjectDirectory();
-            }
+		if (this.getCheckoutResult() != null) {
 
-            runGoals( relativePathProjectDirectory );
-        }
-    }
+			ScmResult checkoutResult = this.getCheckoutResult();
 
-    /**
-     * @param relativePathProjectDirectory the project directory's path relative to the checkout
-     *                                     directory; or "" if they are the same
-     * @throws MojoExecutionException if any
-     */
-    private void runGoals( String relativePathProjectDirectory )
-        throws MojoExecutionException
-    {
-        Commandline cl = new Commandline();
-        try
-        {
-            cl.addSystemEnvironment();
-        }
-        catch ( Exception e )
-        {
-            throw new MojoExecutionException( "Can't add system environment variables to mvn command line.", e );
-        }
-        cl.addEnvironment( "MAVEN_TERMINATE_CMD", "on" );
-        cl.setExecutable( "mvn" );
-        cl.setWorkingDirectory( determineWorkingDirectoryPath( this.getCheckoutDirectory(),
-                                                               relativePathProjectDirectory, goalsDirectory ) );
+			// At the time of useExport feature is requested only SVN and and CVS have export command implemented
+			// we will deal with this as more user using this feature specially clearcase where we need to
+			// add relativePathProjectDirectory support to ExportScmResult
+			String relativePathProjectDirectory = "";
+			if (checkoutResult instanceof CheckOutScmResult) {
+				relativePathProjectDirectory = ((CheckOutScmResult) checkoutResult).getRelativePathProjectDirectory();
+			}
 
-        if ( this.goals != null )
-        {
-            String[] tokens = StringUtils.split( this.goals, ", " );
+			runGoals(relativePathProjectDirectory);
+		}
+	}
 
-            for ( int i = 0; i < tokens.length; ++i )
-            {
-                cl.createArg().setValue( tokens[i] );
-            }
-        }
+	/**
+	 * @param relativePathProjectDirectory
+	 *            the project directory's path relative to the checkout directory; or "" if they are the same
+	 * @throws MojoExecutionException
+	 *             if any
+	 */
+	private void runGoals(String relativePathProjectDirectory) throws MojoExecutionException {
+		Commandline cl = new Commandline();
+		try {
+			cl.addSystemEnvironment();
+		} catch (Exception e) {
+			throw new MojoExecutionException("Can't add system environment variables to mvn command line.", e);
+		}
+		cl.addEnvironment("MAVEN_TERMINATE_CMD", "on");
+		cl.setExecutable("mvn");
+		cl.setWorkingDirectory(determineWorkingDirectoryPath(this.getCheckoutDirectory(), relativePathProjectDirectory,
+				goalsDirectory));
 
-        if ( ! StringUtils.isEmpty( this.profiles ) )
-        {
-            cl.createArg().setValue( "-P" + this.profiles );
-        }
+		if (this.goals != null) {
+			String[] tokens = StringUtils.split(this.goals, ", ");
 
-        StreamConsumer consumer = new DefaultConsumer();
+			for (int i = 0; i < tokens.length; ++i) {
+				cl.createArg().setValue(tokens[i]);
+			}
+		}
 
-        try
-        {
-            int result = CommandLineUtils.executeCommandLine( cl, consumer, consumer );
+		if (!StringUtils.isEmpty(this.profiles)) {
+			cl.createArg().setValue("-P" + this.profiles);
+		}
 
-            if ( result != 0 )
-            {
-                throw new MojoExecutionException( "Result of mvn execution is: \'" + result + "\'. Release failed." );
-            }
-        }
-        catch ( CommandLineException e )
-        {
-            throw new MojoExecutionException( "Can't run goal " + goals, e );
-        }
-    }
+		StreamConsumer consumer = new DefaultConsumer();
 
-    /**
-     * Determines the path of the working directory. By default, this is the checkout directory. For some SCMs,
-     * the project root directory is not the checkout directory itself, but a SCM-specific subdirectory. The
-     * build can furthermore optionally be executed in a subdirectory of this project directory, in case.
-     *
-     * @param checkoutDirectory
-     * @param relativePathProjectDirectory
-     * @param goalsDirectory
-     * @return
-     */
-    protected String determineWorkingDirectoryPath( File checkoutDirectory, String relativePathProjectDirectory,
-                                                    String goalsDirectory )
-    {
-        File projectDirectory;
-        if ( StringUtils.isNotEmpty( relativePathProjectDirectory ) )
-        {
-            projectDirectory = new File( checkoutDirectory, relativePathProjectDirectory );
-        }
-        else
-        {
-            projectDirectory = checkoutDirectory;
-        }
+		try {
+			int result = CommandLineUtils.executeCommandLine(cl, consumer, consumer);
 
-        if ( StringUtils.isEmpty( goalsDirectory ) )
-        {
-            return projectDirectory.getPath();
-        }
+			if (result != 0) {
+				throw new MojoExecutionException("Result of mvn execution is: \'" + result + "\'. Release failed.");
+			}
+		} catch (CommandLineException e) {
+			throw new MojoExecutionException("Can't run goal " + goals, e);
+		}
+	}
 
-        return new File( projectDirectory, goalsDirectory ).getPath();
-    }
+	/**
+	 * Determines the path of the working directory. By default, this is the checkout directory. For some SCMs, the
+	 * project root directory is not the checkout directory itself, but a SCM-specific subdirectory. The build can
+	 * furthermore optionally be executed in a subdirectory of this project directory, in case.
+	 * 
+	 * @param checkoutDirectory
+	 * @param relativePathProjectDirectory
+	 * @param goalsDirectory
+	 * @return
+	 */
+	protected String determineWorkingDirectoryPath(File checkoutDirectory, String relativePathProjectDirectory,
+			String goalsDirectory) {
+		File projectDirectory;
+		if (StringUtils.isNotEmpty(relativePathProjectDirectory)) {
+			projectDirectory = new File(checkoutDirectory, relativePathProjectDirectory);
+		} else {
+			projectDirectory = checkoutDirectory;
+		}
+
+		if (StringUtils.isEmpty(goalsDirectory)) {
+			return projectDirectory.getPath();
+		}
+
+		return new File(projectDirectory, goalsDirectory).getPath();
+	}
 }

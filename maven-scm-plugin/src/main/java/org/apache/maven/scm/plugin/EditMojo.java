@@ -28,36 +28,27 @@ import java.io.IOException;
 
 /**
  * Edit/lock a set of files.
- *
+ * 
  * @author <a href="dantran@apache.org">Dan Tran</a>
  * @version $Id: EditMojo.java 685542 2008-08-13 13:28:43Z vsiveton $
  * @goal edit
  * @aggregator
  */
-public class EditMojo
-    extends AbstractScmMojo
-{
-    /** {@inheritDoc} */
-    public void execute()
-        throws MojoExecutionException
-    {
-        super.execute();
+public class EditMojo extends AbstractScmMojo {
+	/** {@inheritDoc} */
+	public void execute() throws MojoExecutionException {
+		super.execute();
 
-        try
-        {
-            ScmRepository repository = getScmRepository();
+		try {
+			ScmRepository repository = getScmRepository();
 
-            EditScmResult result = getScmManager().edit( repository, getFileSet() );
+			EditScmResult result = getScmManager().edit(repository, getFileSet());
 
-            checkResult( result );
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Cannot run edit command : ", e );
-        }
-        catch ( ScmException e )
-        {
-            throw new MojoExecutionException( "Cannot run edit command : ", e );
-        }
-    }
+			checkResult(result);
+		} catch (IOException e) {
+			throw new MojoExecutionException("Cannot run edit command : ", e);
+		} catch (ScmException e) {
+			throw new MojoExecutionException("Cannot run edit command : ", e);
+		}
+	}
 }

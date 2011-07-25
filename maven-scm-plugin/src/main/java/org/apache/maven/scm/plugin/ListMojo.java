@@ -31,80 +31,63 @@ import org.apache.maven.scm.repository.ScmRepository;
 
 /**
  * Get the list of project files.
- *
+ * 
  * @author <a href="evenisse@apache.org">Emmanuel Venisse</a>
  * @version $Id: ListMojo.java 1055646 2011-01-05 21:22:58Z olamy $
  * @goal list
  * @aggregator
  */
-public class ListMojo
-    extends AbstractScmMojo
-{
-    /**
-     * The version type (branch/tag/revision) of scmVersion.
-     *
-     * @parameter expression="${scmVersionType}"
-     */
-    private String scmVersionType;
+public class ListMojo extends AbstractScmMojo {
+	/**
+	 * The version type (branch/tag/revision) of scmVersion.
+	 * 
+	 * @parameter expression="${scmVersionType}"
+	 */
+	private String scmVersionType;
 
-    /**
-     * The version (revision number/branch name/tag name).
-     *
-     * @parameter expression="${scmVersion}"
-     */
-    private String scmVersion;
+	/**
+	 * The version (revision number/branch name/tag name).
+	 * 
+	 * @parameter expression="${scmVersion}"
+	 */
+	private String scmVersion;
 
-    /**
-     * Use recursive mode.
-     *
-     * @parameter expression="${recursive}" default-value="true"
-     */
-    private boolean recursive = true;
+	/**
+	 * Use recursive mode.
+	 * 
+	 * @parameter expression="${recursive}" default-value="true"
+	 */
+	private boolean recursive = true;
 
-    /** {@inheritDoc} */
-    public void execute()
-        throws MojoExecutionException
-    {
-        super.execute();
+	/** {@inheritDoc} */
+	public void execute() throws MojoExecutionException {
+		super.execute();
 
-        try
-        {
-            ScmRepository repository = getScmRepository();
-            ListScmResult result = getScmManager().list( repository, getFileSet(), recursive,
-                                                         getScmVersion( scmVersionType, scmVersion ) );
+		try {
+			ScmRepository repository = getScmRepository();
+			ListScmResult result = getScmManager().list(repository, getFileSet(), recursive,
+					getScmVersion(scmVersionType, scmVersion));
 
-            checkResult( result );
+			checkResult(result);
 
-            if ( result.getFiles() != null )
-            {
-                for ( ScmFile scmFile : result.getFiles() )
-                {
-                    getLog().info( scmFile.getPath() );
-                }
-            }
-        }
-        catch ( ScmException e )
-        {
-            throw new MojoExecutionException( "Cannot run list command : ", e );
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Cannot run list command : ", e );
-        }
-    }
+			if (result.getFiles() != null) {
+				for (ScmFile scmFile : result.getFiles()) {
+					getLog().info(scmFile.getPath());
+				}
+			}
+		} catch (ScmException e) {
+			throw new MojoExecutionException("Cannot run list command : ", e);
+		} catch (IOException e) {
+			throw new MojoExecutionException("Cannot run list command : ", e);
+		}
+	}
 
-    public ScmFileSet getFileSet()
-        throws IOException
-    {
-        if ( getIncludes() != null || getExcludes() != null )
-        {
-            return new ScmFileSet( getWorkingDirectory(), getIncludes(), getExcludes() );
-        }
-        else
-        {
-            return new ScmFileSet( getWorkingDirectory(), new File( "." ) );
-        }
-    }
+	public ScmFileSet getFileSet() throws IOException {
+		if (getIncludes() != null || getExcludes() != null) {
+			return new ScmFileSet(getWorkingDirectory(), getIncludes(), getExcludes());
+		} else {
+			return new ScmFileSet(getWorkingDirectory(), new File("."));
+		}
+	}
 
 }
-

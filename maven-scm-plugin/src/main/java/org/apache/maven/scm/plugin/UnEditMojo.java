@@ -28,36 +28,27 @@ import java.io.IOException;
 
 /**
  * Unedit/unlock a set of files.
- *
+ * 
  * @author <a href="dantran@apache.org">Dan Tran</a>
  * @version $Id: UnEditMojo.java 685542 2008-08-13 13:28:43Z vsiveton $
  * @goal unedit
  * @aggregator
  */
-public class UnEditMojo
-    extends AbstractScmMojo
-{
-    /** {@inheritDoc} */
-    public void execute()
-        throws MojoExecutionException
-    {
-        super.execute();
+public class UnEditMojo extends AbstractScmMojo {
+	/** {@inheritDoc} */
+	public void execute() throws MojoExecutionException {
+		super.execute();
 
-        try
-        {
-            ScmRepository repository = getScmRepository();
+		try {
+			ScmRepository repository = getScmRepository();
 
-            UnEditScmResult result = getScmManager().unedit( repository, getFileSet() );
+			UnEditScmResult result = getScmManager().unedit(repository, getFileSet());
 
-            checkResult( result );
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Cannot run unedit command : ", e );
-        }
-        catch ( ScmException e )
-        {
-            throw new MojoExecutionException( "Cannot run unedit command : ", e );
-        }
-    }
+			checkResult(result);
+		} catch (IOException e) {
+			throw new MojoExecutionException("Cannot run unedit command : ", e);
+		} catch (ScmException e) {
+			throw new MojoExecutionException("Cannot run unedit command : ", e);
+		}
+	}
 }

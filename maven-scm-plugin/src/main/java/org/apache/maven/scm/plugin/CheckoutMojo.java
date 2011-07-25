@@ -31,137 +31,113 @@ import org.codehaus.plexus.util.FileUtils;
 
 /**
  * Get a fresh copy of the latest source from the configured scm url.
- *
+ * 
  * @author <a href="evenisse@apache.org">Emmanuel Venisse</a>
  * @version $Id: CheckoutMojo.java 928132 2010-03-27 03:39:51Z dantran $
  * @goal checkout
  * @requiresProject false
  */
-public class CheckoutMojo
-    extends AbstractScmMojo
-{
-    /**
-     * Use Export instead of checkout
-     *
-     * @parameter expression="${useExport}" defaultValue="false";
-     */
-    private boolean useExport;
-    
-    /**
-     * The directory to checkout the sources to for the bootstrap and checkout goals.
-     *
-     * @parameter expression="${checkoutDirectory}" default-value="${project.build.directory}/checkout"
-     */
-    private File checkoutDirectory;
+public class CheckoutMojo extends AbstractScmMojo {
+	/**
+	 * Use Export instead of checkout
+	 * 
+	 * @parameter expression="${useExport}" defaultValue="false";
+	 */
+	private boolean useExport;
 
-    /**
-     * Skip checkout if checkoutDirectory exists.
-     *
-     * @parameter expression="${skipCheckoutIfExists}" default-value="false"
-     */
-    private boolean skipCheckoutIfExists = false;
+	/**
+	 * The directory to checkout the sources to for the bootstrap and checkout goals.
+	 * 
+	 * @parameter expression="${checkoutDirectory}" default-value="${project.build.directory}/checkout"
+	 */
+	private File checkoutDirectory;
 
-    /**
-     * The version type (branch/tag/revision) of scmVersion.
-     *
-     * @parameter expression="${scmVersionType}"
-     */
-    private String scmVersionType;
+	/**
+	 * Skip checkout if checkoutDirectory exists.
+	 * 
+	 * @parameter expression="${skipCheckoutIfExists}" default-value="false"
+	 */
+	private boolean skipCheckoutIfExists = false;
 
-    /**
-     * The version (revision number/branch name/tag name).
-     *
-     * @parameter expression="${scmVersion}"
-     */
-    private String scmVersion;
+	/**
+	 * The version type (branch/tag/revision) of scmVersion.
+	 * 
+	 * @parameter expression="${scmVersionType}"
+	 */
+	private String scmVersionType;
 
-    /**
-     * allow extended mojo (ie BootStrap ) to see checkout result
-     */
-    private ScmResult checkoutResult;
+	/**
+	 * The version (revision number/branch name/tag name).
+	 * 
+	 * @parameter expression="${scmVersion}"
+	 */
+	private String scmVersion;
 
-    /** {@inheritDoc} */
-    public void execute()
-        throws MojoExecutionException
-    {
-        super.execute();
+	/**
+	 * allow extended mojo (ie BootStrap ) to see checkout result
+	 */
+	private ScmResult checkoutResult;
 
-        //skip checkout if checkout directory is already created. See SCM-201
-        checkoutResult = null;
-        if ( !getCheckoutDirectory().isDirectory() || !this.skipCheckoutIfExists )
-        {
-            checkoutResult = checkout();
-        }
-    }
+	/** {@inheritDoc} */
+	public void execute() throws MojoExecutionException {
+		super.execute();
 
-    protected File getCheckoutDirectory()
-    {
-        return this.checkoutDirectory;
-    }
+		// skip checkout if checkout directory is already created. See SCM-201
+		checkoutResult = null;
+		if (!getCheckoutDirectory().isDirectory() || !this.skipCheckoutIfExists) {
+			checkoutResult = checkout();
+		}
+	}
 
-    public void setCheckoutDirectory( File checkoutDirectory )
-    {
-        this.checkoutDirectory = checkoutDirectory;
-    }
+	protected File getCheckoutDirectory() {
+		return this.checkoutDirectory;
+	}
 
-    protected ScmResult checkout()
-        throws MojoExecutionException
-    {
-        try
-        {
-            ScmRepository repository = getScmRepository();
+	public void setCheckoutDirectory(File checkoutDirectory) {
+		this.checkoutDirectory = checkoutDirectory;
+	}
 
-            this.prepareOutputDirectory( getCheckoutDirectory() );
-            
-            ScmResult result = null;
-            
-            ScmFileSet fileSet = new ScmFileSet( getCheckoutDirectory().getAbsoluteFile() );
-            if ( useExport )
-            {
-                result = getScmManager().export( repository,fileSet, getScmVersion( scmVersionType, scmVersion ) );
-            }
-            else
-            {
-                result = getScmManager().checkOut( repository,fileSet , getScmVersion( scmVersionType, scmVersion ) );
-            }
+	protected ScmResult checkout() throws MojoExecutionException {
+		try {
+			ScmRepository repository = getScmRepository();
 
-            checkResult( result );
-            
-           
-            handleExcludesIncludesAfterCheckoutAndExport( this.checkoutDirectory );
+			this.prepareOutputDirectory(getCheckoutDirectory());
 
-            return result;
-        }
-        catch ( ScmException e )
-        {
-            throw new MojoExecutionException( "Cannot run checkout command : ", e );
-        }
-    }
+			ScmResult result = null;
 
-    private void prepareOutputDirectory( File ouputDirectory )
-        throws MojoExecutionException
-    {
-        try
-        {
-            this.getLog().info( "Removing " + ouputDirectory );
+			ScmFileSet fileSet = new ScmFileSet(getCheckoutDirectory().getAbsoluteFile());
+			if (useExport) {
+				result = getScmManager().export(repository, fileSet, getScmVersion(scmVersionType, scmVersion));
+			} else {
+				result = getScmManager().checkOut(repository, fileSet, getScmVersion(scmVersionType, scmVersion));
+			}
 
-            FileUtils.deleteDirectory( getCheckoutDirectory() );
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Cannot remove " + ouputDirectory );
-        }
-        
-        if ( !getCheckoutDirectory().mkdirs() )
-        {
-            throw new MojoExecutionException( "Cannot create " + ouputDirectory );
-        }
-    }
-    
-    protected ScmResult getCheckoutResult()
-    {
-        return checkoutResult;
-    }
-    
+			checkResult(result);
+
+			handleExcludesIncludesAfterCheckoutAndExport(this.checkoutDirectory);
+
+			return result;
+		} catch (ScmException e) {
+			throw new MojoExecutionException("Cannot run checkout command : ", e);
+		}
+	}
+
+	private void prepareOutputDirectory(File ouputDirectory) throws MojoExecutionException {
+		try {
+			this.getLog().info("Removing " + ouputDirectory);
+
+			FileUtils.deleteDirectory(getCheckoutDirectory());
+		} catch (IOException e) {
+			throw new MojoExecutionException("Cannot remove " + ouputDirectory);
+		}
+
+		if (!getCheckoutDirectory().mkdirs()) {
+			throw new MojoExecutionException("Cannot create " + ouputDirectory);
+		}
+	}
+
+	protected ScmResult getCheckoutResult() {
+		return checkoutResult;
+	}
 
 }

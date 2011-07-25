@@ -30,89 +30,78 @@ import java.io.IOException;
 
 /**
  * Update the local working copy with the latest source from the configured scm url.
- *
+ * 
  * @author <a href="evenisse@apache.org">Emmanuel Venisse</a>
  * @version $Id: UpdateMojo.java 685670 2008-08-13 20:25:56Z vsiveton $
  * @goal update
  * @aggregator
  */
-public class UpdateMojo
-    extends AbstractScmMojo
-{
-    /**
-     * The version type (branch/tag/revision) of scmVersion.
-     *
-     * @parameter expression="${scmVersionType}"
-     */
-    private String scmVersionType;
+public class UpdateMojo extends AbstractScmMojo {
+	/**
+	 * The version type (branch/tag/revision) of scmVersion.
+	 * 
+	 * @parameter expression="${scmVersionType}"
+	 */
+	private String scmVersionType;
 
-    /**
-     * The version (revision number/branch name/tag name).
-     *
-     * @parameter expression="${scmVersion}"
-     */
-    private String scmVersion;
+	/**
+	 * The version (revision number/branch name/tag name).
+	 * 
+	 * @parameter expression="${scmVersion}"
+	 */
+	private String scmVersion;
 
-    /**
-     * The project property where to store the revision name.
-     *
-     * @parameter expression="${revisionKey}" default-value="scm.revision"
-     */
-    private String revisionKey;
+	/**
+	 * The project property where to store the revision name.
+	 * 
+	 * @parameter expression="${revisionKey}" default-value="scm.revision"
+	 */
+	private String revisionKey;
 
-    /**
-     * The maven project.
-     *
-     * @parameter expression="${project}"
-     * @required
-     * @readonly
-     */
-    private MavenProject project;
+	/**
+	 * The maven project.
+	 * 
+	 * @parameter expression="${project}"
+	 * @required
+	 * @readonly
+	 */
+	private MavenProject project;
 
-    /**
-     * Run Changelog after update.
-     *
-     * @parameter expression="${runChangelog}" default-value="false"
-     */
-    private boolean runChangelog = false;
+	/**
+	 * Run Changelog after update.
+	 * 
+	 * @parameter expression="${runChangelog}" default-value="false"
+	 */
+	private boolean runChangelog = false;
 
-    /** {@inheritDoc} */
-    public void execute()
-        throws MojoExecutionException
-    {
-        super.execute();
+	/** {@inheritDoc} */
+	public void execute() throws MojoExecutionException {
+		super.execute();
 
-        try
-        {
-            ScmRepository repository = getScmRepository();
+		try {
+			ScmRepository repository = getScmRepository();
 
-            UpdateScmResult result = getScmManager().update( repository, getFileSet(),
-                                                             getScmVersion( scmVersionType, scmVersion ),
-                                                             runChangelog );
+			UpdateScmResult result = getScmManager().update(repository, getFileSet(),
+					getScmVersion(scmVersionType, scmVersion), runChangelog);
 
-            checkResult( result );
+			checkResult(result);
 
-            if ( result instanceof UpdateScmResultWithRevision )
-            {
-                String revision = ( (UpdateScmResultWithRevision) result ).getRevision();
+			if (result instanceof UpdateScmResultWithRevision) {
+				String revision = ((UpdateScmResultWithRevision) result).getRevision();
 
-                getLog().info( "Storing revision in '" + revisionKey + "' project property." );
+				getLog().info("Storing revision in '" + revisionKey + "' project property.");
 
-                if ( project.getProperties() != null ) // Remove the test when we'll use plugin-test-harness 1.0-alpha-2
-                {
-                    project.getProperties().put( revisionKey, revision );
-                }
+				if (project.getProperties() != null) // Remove the test when we'll use plugin-test-harness 1.0-alpha-2
+				{
+					project.getProperties().put(revisionKey, revision);
+				}
 
-                getLog().info( "Project at revision " + revision );
-            }
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Cannot run update command : ", e );
-        }
-        catch ( ScmException e )
-        {
-            throw new MojoExecutionException( "Cannot run update command : ", e );
-        }
-    }
+				getLog().info("Project at revision " + revision);
+			}
+		} catch (IOException e) {
+			throw new MojoExecutionException("Cannot run update command : ", e);
+		} catch (ScmException e) {
+			throw new MojoExecutionException("Cannot run update command : ", e);
+		}
+	}
 }

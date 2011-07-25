@@ -31,75 +31,65 @@ import java.io.IOException;
 /**
  * Updates all projects in a multi project build. This is useful for users who have adopted the flat project structure
  * where the aggregator project is a sibling of the sub projects rather than sitting in the parent directory.
- *
+ * 
  * @goal update-subprojects
  * @version $Id: UpdateSubprojectsMojo.java 685542 2008-08-13 13:28:43Z vsiveton $
  */
-public class UpdateSubprojectsMojo
-    extends AbstractScmMojo
-{
-    /**
-     * The version type (branch/tag/revision) of scmVersion.
-     *
-     * @parameter expression="${scmVersionType}"
-     */
-    private String scmVersionType;
+public class UpdateSubprojectsMojo extends AbstractScmMojo {
+	/**
+	 * The version type (branch/tag/revision) of scmVersion.
+	 * 
+	 * @parameter expression="${scmVersionType}"
+	 */
+	private String scmVersionType;
 
-    /**
-     * The version (revision number/branch name/tag name).
-     *
-     * @parameter expression="${scmVersion}"
-     */
-    private String scmVersion;
+	/**
+	 * The version (revision number/branch name/tag name).
+	 * 
+	 * @parameter expression="${scmVersion}"
+	 */
+	private String scmVersion;
 
-    /**
-     * The project property where to store the revision name.
-     *
-     * @parameter expression="${revisionKey}" default-value="scm.revision"
-     */
-    private String revisionKey;
+	/**
+	 * The project property where to store the revision name.
+	 * 
+	 * @parameter expression="${revisionKey}" default-value="scm.revision"
+	 */
+	private String revisionKey;
 
-    /**
-     * The maven project.
-     *
-     * @parameter expression="${project}"
-     * @required
-     * @readonly
-     */
-    private MavenProject project;
+	/**
+	 * The maven project.
+	 * 
+	 * @parameter expression="${project}"
+	 * @required
+	 * @readonly
+	 */
+	private MavenProject project;
 
-    /** {@inheritDoc} */
-    public void execute()
-        throws MojoExecutionException
-    {
-        super.execute();
+	/** {@inheritDoc} */
+	public void execute() throws MojoExecutionException {
+		super.execute();
 
-        try
-        {
-            ScmRepository repository = getScmRepository();
+		try {
+			ScmRepository repository = getScmRepository();
 
-            UpdateScmResult result =
-                getScmManager().update( repository, getFileSet(), getScmVersion( scmVersionType, scmVersion ) );
+			UpdateScmResult result = getScmManager().update(repository, getFileSet(),
+					getScmVersion(scmVersionType, scmVersion));
 
-            checkResult( result );
+			checkResult(result);
 
-            if ( result instanceof UpdateScmResultWithRevision )
-            {
-                getLog().info( "Storing revision in '" + revisionKey + "' project property." );
+			if (result instanceof UpdateScmResultWithRevision) {
+				getLog().info("Storing revision in '" + revisionKey + "' project property.");
 
-                if ( project.getProperties() != null ) // Remove the test when we'll use plugin-test-harness 1.0-alpha-2
-                {
-                    project.getProperties().put( revisionKey, ( (UpdateScmResultWithRevision) result ).getRevision() );
-                }
-            }
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Cannot run update command : ", e );
-        }
-        catch ( ScmException e )
-        {
-            throw new MojoExecutionException( "Cannot run update command : ", e );
-        }
-    }
+				if (project.getProperties() != null) // Remove the test when we'll use plugin-test-harness 1.0-alpha-2
+				{
+					project.getProperties().put(revisionKey, ((UpdateScmResultWithRevision) result).getRevision());
+				}
+			}
+		} catch (IOException e) {
+			throw new MojoExecutionException("Cannot run update command : ", e);
+		} catch (ScmException e) {
+			throw new MojoExecutionException("Cannot run update command : ", e);
+		}
+	}
 }

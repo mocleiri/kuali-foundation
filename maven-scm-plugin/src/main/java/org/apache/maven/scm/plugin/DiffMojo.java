@@ -30,88 +30,74 @@ import java.io.IOException;
 
 /**
  * Display the difference of the working copy with the latest copy in the configured scm url.
- *
+ * 
  * @author <a href="evenisse@apache.org">Emmanuel Venisse</a>
  * @version $Id: DiffMojo.java 685670 2008-08-13 20:25:56Z vsiveton $
  * @goal diff
  * @aggregator
  */
-public class DiffMojo
-    extends AbstractScmMojo
-{
-    /**
-     * The version type (branch/tag/revision) of scmVersion.
-     *
-     * @parameter expression="${startScmVersionType}"
-     */
-    private String startScmVersionType;
+public class DiffMojo extends AbstractScmMojo {
+	/**
+	 * The version type (branch/tag/revision) of scmVersion.
+	 * 
+	 * @parameter expression="${startScmVersionType}"
+	 */
+	private String startScmVersionType;
 
-    /**
-     * The version (revision number/branch name/tag name).
-     *
-     * @parameter expression="${startScmVersion}"
-     */
-    private String startScmVersion;
+	/**
+	 * The version (revision number/branch name/tag name).
+	 * 
+	 * @parameter expression="${startScmVersion}"
+	 */
+	private String startScmVersion;
 
-    /**
-     * The version type (branch/tag/revision) of scmVersion.
-     *
-     * @parameter expression="${endScmVersionType}"
-     */
-    private String endScmVersionType;
+	/**
+	 * The version type (branch/tag/revision) of scmVersion.
+	 * 
+	 * @parameter expression="${endScmVersionType}"
+	 */
+	private String endScmVersionType;
 
-    /**
-     * The version (revision number/branch name/tag name).
-     *
-     * @parameter expression="${startScmVersion}"
-     */
-    private String endScmVersion;
+	/**
+	 * The version (revision number/branch name/tag name).
+	 * 
+	 * @parameter expression="${startScmVersion}"
+	 */
+	private String endScmVersion;
 
-    /**
-     * Output file name.
-     *
-     * @parameter expression="${outputFile}"
-     * default-value="${project.artifactId}.diff"
-     */
-    private File outputFile;
+	/**
+	 * Output file name.
+	 * 
+	 * @parameter expression="${outputFile}" default-value="${project.artifactId}.diff"
+	 */
+	private File outputFile;
 
-    /** {@inheritDoc} */
-    public void execute()
-        throws MojoExecutionException
-    {
-        super.execute();
+	/** {@inheritDoc} */
+	public void execute() throws MojoExecutionException {
+		super.execute();
 
-        try
-        {
-            ScmRepository repository = getScmRepository();
+		try {
+			ScmRepository repository = getScmRepository();
 
-            DiffScmResult result = getScmManager().diff( repository, getFileSet(),
-                                                         getScmVersion( startScmVersionType, startScmVersion ),
-                                                         getScmVersion( endScmVersionType, endScmVersion ) );
+			DiffScmResult result = getScmManager().diff(repository, getFileSet(),
+					getScmVersion(startScmVersionType, startScmVersion),
+					getScmVersion(endScmVersionType, endScmVersion));
 
-            checkResult( result );
+			checkResult(result);
 
-            getLog().info( result.getPatch() );
+			getLog().info(result.getPatch());
 
-            try
-            {
-                if ( outputFile != null )
-                {
-                    FileUtils.fileWrite( outputFile.getAbsolutePath(), result.getPatch() );
-                }
-            }
-            catch ( IOException e )
-            {
-                throw new MojoExecutionException( "Can't write patch file.", e );
-            }
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Cannot run diff command : ", e );
-        }
-        catch ( ScmException e )
-        {
-            throw new MojoExecutionException( "Cannot run diff command : ", e );
-        }
-    }
+			try {
+				if (outputFile != null) {
+					FileUtils.fileWrite(outputFile.getAbsolutePath(), result.getPatch());
+				}
+			} catch (IOException e) {
+				throw new MojoExecutionException("Can't write patch file.", e);
+			}
+		} catch (IOException e) {
+			throw new MojoExecutionException("Cannot run diff command : ", e);
+		} catch (ScmException e) {
+			throw new MojoExecutionException("Cannot run diff command : ", e);
+		}
+	}
 }

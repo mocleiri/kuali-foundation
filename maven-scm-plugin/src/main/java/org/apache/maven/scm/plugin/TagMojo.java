@@ -32,127 +32,111 @@ import java.util.Date;
 
 /**
  * Tag the project.
- *
+ * 
  * @author <a href="evenisse@apache.org">Emmanuel Venisse</a>
  * @author <a href="saden1@gmil.com">Sharmarke Aden</a>
  * @version $Id: TagMojo.java 757186 2009-03-22 13:23:00Z olamy $
  * @goal tag
  * @aggregator
  */
-public class TagMojo
-    extends AbstractScmMojo
-{
-    /**
-     * The tag name.
-     *
-     * @parameter expression="${tag}"
-     * @required
-     */
-    private String tag;
+public class TagMojo extends AbstractScmMojo {
+	/**
+	 * The tag name.
+	 * 
+	 * @parameter expression="${tag}"
+	 * @required
+	 */
+	private String tag;
 
-    /**
-     * The message applied to the tag creation.
-     *
-     * @parameter expression="${message}"
-     */
-    private String message;
+	/**
+	 * The message applied to the tag creation.
+	 * 
+	 * @parameter expression="${message}"
+	 */
+	private String message;
 
-    /**
-     * Set the timestamp format.
-     *
-     * @parameter expression="${timestampFormat}" default-value="yyyyMMddHHmmss"
-     */
-    private String timestampFormat;
+	/**
+	 * Set the timestamp format.
+	 * 
+	 * @parameter expression="${timestampFormat}" default-value="yyyyMMddHHmmss"
+	 */
+	private String timestampFormat;
 
-    /**
-     * Use timestamp tagging.
-     *
-     * @parameter expression="${addTimestamp}" default-value="false"
-     */
-    private boolean addTimestamp;
+	/**
+	 * Use timestamp tagging.
+	 * 
+	 * @parameter expression="${addTimestamp}" default-value="false"
+	 */
+	private boolean addTimestamp;
 
-    /**
-     * Define the timestamp position (end or begin).
-     *
-     * @parameter expression="${timestampPosition}" default-value="end"
-     */
-    private String timestampPosition;
+	/**
+	 * Define the timestamp position (end or begin).
+	 * 
+	 * @parameter expression="${timestampPosition}" default-value="end"
+	 */
+	private String timestampPosition;
 
-    /**
-     * Timestamp tag prefix.
-     *
-     * @parameter expression="${timestampPrefix}" default-value="-"
-     */
-    private String timestampPrefix;
-    
-    /**
-     * currently only implemented with svn scm. Enable a workaround to prevent issue 
-     * due to svn client > 1.5.0 (http://jira.codehaus.org/browse/SCM-406)
-     *      
-     * 
-     * @parameter expression="${remoteTagging}" default-value="true"
-     * @since 1.2
-     */    
-    private boolean remoteTagging;    
+	/**
+	 * Timestamp tag prefix.
+	 * 
+	 * @parameter expression="${timestampPrefix}" default-value="-"
+	 */
+	private String timestampPrefix;
 
-    /** {@inheritDoc} */
-    public void execute()
-        throws MojoExecutionException
-    {
-        super.execute();
+	/**
+	 * currently only implemented with svn scm. Enable a workaround to prevent issue due to svn client > 1.5.0
+	 * (http://jira.codehaus.org/browse/SCM-406)
+	 * 
+	 * 
+	 * @parameter expression="${remoteTagging}" default-value="true"
+	 * @since 1.2
+	 */
+	private boolean remoteTagging;
 
-        try
-        {
-            SimpleDateFormat dateFormat = null;
-            String tagTimestamp = "";
-            String finalTag = tag;
+	/** {@inheritDoc} */
+	public void execute() throws MojoExecutionException {
+		super.execute();
 
-            if ( addTimestamp )
-            {
-                try
-                {
-                    getLog().info( "Using timestamp pattern '" + timestampFormat + "'" );
-                    dateFormat = new SimpleDateFormat( timestampFormat );
-                    tagTimestamp = dateFormat.format( new Date() );
-                    getLog().info( "Using timestamp '" + tagTimestamp + "'" );
-                }
-                catch ( IllegalArgumentException e )
-                {
-                    String msg = "The timestamp format '" + timestampFormat + "' is invalid.";
-                    getLog().error( msg, e );
-                    throw new MojoExecutionException( msg, e );
-                }
+		try {
+			SimpleDateFormat dateFormat = null;
+			String tagTimestamp = "";
+			String finalTag = tag;
 
-                if ( "end".equals( timestampPosition ) )
-                {
-                    finalTag += timestampPrefix + tagTimestamp;
-                }
-                else
-                {
-                    finalTag = tagTimestamp + timestampPrefix + finalTag;
-                }
-            }
+			if (addTimestamp) {
+				try {
+					getLog().info("Using timestamp pattern '" + timestampFormat + "'");
+					dateFormat = new SimpleDateFormat(timestampFormat);
+					tagTimestamp = dateFormat.format(new Date());
+					getLog().info("Using timestamp '" + tagTimestamp + "'");
+				} catch (IllegalArgumentException e) {
+					String msg = "The timestamp format '" + timestampFormat + "' is invalid.";
+					getLog().error(msg, e);
+					throw new MojoExecutionException(msg, e);
+				}
 
-            ScmRepository repository = getScmRepository();
-            ScmProvider provider = getScmManager().getProviderByRepository( repository );
+				if ("end".equals(timestampPosition)) {
+					finalTag += timestampPrefix + tagTimestamp;
+				} else {
+					finalTag = tagTimestamp + timestampPrefix + finalTag;
+				}
+			}
 
-            finalTag = provider.sanitizeTagName( finalTag );
-            getLog().info( "Final Tag Name: '" + finalTag + "'" );
+			ScmRepository repository = getScmRepository();
+			ScmProvider provider = getScmManager().getProviderByRepository(repository);
 
-            ScmTagParameters scmTagParameters = new ScmTagParameters( message);
-            scmTagParameters.setRemoteTagging( remoteTagging );
-            
-            TagScmResult result = provider.tag( repository, getFileSet(), finalTag, scmTagParameters);
+			finalTag = provider.sanitizeTagName(finalTag);
+			getLog().info("Final Tag Name: '" + finalTag + "'");
 
-            checkResult( result );
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Cannot run tag command : ", e );
-        }
-        catch ( ScmException e )
-        {
-            throw new MojoExecutionException( "Cannot run tag command : ", e );
-        }
-    }
+			ScmTagParameters scmTagParameters = new ScmTagParameters(message);
+			scmTagParameters.setRemoteTagging(remoteTagging);
+
+			TagScmResult result = provider.tag(repository, getFileSet(), finalTag, scmTagParameters);
+
+			checkResult(result);
+		} catch (IOException e) {
+			throw new MojoExecutionException("Cannot run tag command : ", e);
+		} catch (ScmException e) {
+			throw new MojoExecutionException("Cannot run tag command : ", e);
+		}
+	}
 }
