@@ -1,6 +1,22 @@
 package org.codehaus.mojo.exec;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.maven.model.Build;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.plexus.util.StringUtils;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+
 public class ExecEclipseMojo extends ExecMojo {
+    private static final String FS = System.getProperty("file.separator");
 
     // C:/eclipse/3.6.2/r11/eclipse/eclipse.exe
     // -nosplash
@@ -28,14 +44,13 @@ public class ExecEclipseMojo extends ExecMojo {
 
     /**
      * 
-     * @parameter expression="${eclipse.application}"
-     *            default-value="-application org.eclipse.jdt.core.JavaCodeFormatter"
+     * @parameter expression="${eclipse.application}" default-value="org.eclipse.jdt.core.JavaCodeFormatter"
      * @required
      */
     private String application;
 
     /**
-     * Full path to the Eclipse "org.eclipse.jdt.core.prefs" file
+     * Path to the Eclipse "org.eclipse.jdt.core.prefs" file. Supports "classpath:" style notation
      * 
      * @parameter expression="${eclipse.configPath}"
      * @required
@@ -51,6 +66,86 @@ public class ExecEclipseMojo extends ExecMojo {
      * @parameter expression="${eclipse.verbose}" default-value="-verbose"
      */
     private String verbose;
+
+    /**
+     * @parameter expression="${eclipse.formatSource}" default-value="true"
+     */
+    private String formatSource;
+
+    /**
+     * @parameter expression="${eclipse.formatTestSource}" default-value="true"
+     */
+    private String formatTestSource;
+
+    @Override
+    public void execute() throws MojoExecutionException {
+        super.setExecutable(eclipseExecutable);
+        super.setArguments(getEclipseArguments());
+
+        super.execute();
+    }
+
+    protected String getAbsolutePath(String relativeDir) {
+        File basedir = project.getBasedir();
+        String path = basedir.getAbsolutePath();
+        if ((!path.endsWith(FS)) && (!relativeDir.startsWith(FS))) {
+            path += FS;
+        }
+        return path + relativeDir;
+    }
+
+    protected String getAbsolutePathSourceDirectory() {
+        return getAbsolutePath(project.getBuild().getSourceDirectory());
+    }
+
+    protected String getAbsolutePathTestSourceDirectory() {
+        return getAbsolutePath(project.getBuild().getTestSourceDirectory());
+    }
+
+    protected List<String> getEclipseArguments() throws MojoExecutionException {
+        List<String> args = new ArrayList<String>();
+        args.add("-application");
+        args.add(application);
+        args.add("-vm");
+        args.add(vm);
+        args.add("-config");
+        args.add(getConfigAbsolutePath());
+        addIfNotEmpty(args, nosplash);
+        addIfNotEmpty(args, verbose);
+        args.add(getAbsolutePathSourceDirectory());
+        return args;
+    }
+
+    protected String getConfigAbsolutePath() throws MojoExecutionException {
+        File file = new File(configPath);
+        if (file.exists()) {
+            return file.getAbsolutePath();
+        }
+        ResourceLoader loader = new DefaultResourceLoader();
+        Resource resource = loader.getResource(configPath);
+        if (!resource.exists()) {
+            throw new MojoExecutionException("Unable to locate " + configPath);
+        }
+        OutputStream out = null;
+        try {
+            File temp = File.createTempFile("eclipse", "prefs");
+            out = new FileOutputStream(temp);
+            IOUtils.copy(resource.getInputStream(), out);
+            return temp.getAbsolutePath();
+        } catch (IOException e) {
+            throw new MojoExecutionException("Error copying resource " + configPath, e);
+        } finally {
+            IOUtils.closeQuietly(out);
+        }
+
+    }
+
+    protected void addIfNotEmpty(List<String> list, String s) {
+        if (StringUtils.isEmpty(s)) {
+            return;
+        }
+        list.add(s);
+    }
 
     public String getEclipseExecutable() {
         return eclipseExecutable;
@@ -98,6 +193,22 @@ public class ExecEclipseMojo extends ExecMojo {
 
     public void setVerbose(String verbose) {
         this.verbose = verbose;
+    }
+
+    public String getFormatSource() {
+        return formatSource;
+    }
+
+    public void setFormatSource(String formatSource) {
+        this.formatSource = formatSource;
+    }
+
+    public String getFormatTestSource() {
+        return formatTestSource;
+    }
+
+    public void setFormatTestSource(String formatTestSource) {
+        this.formatTestSource = formatTestSource;
     }
 
 }
