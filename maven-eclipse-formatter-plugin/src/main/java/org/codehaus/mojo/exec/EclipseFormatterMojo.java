@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.tools.ant.DirectoryScanner;
 import org.codehaus.plexus.util.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -19,8 +20,10 @@ import org.springframework.core.io.ResourceLoader;
  * 
  * @author Jeff Caddel
  * @goal format
+ * @aggregator
  */
 public class EclipseFormatterMojo extends ExecMojo {
+    private static final String FS = System.getProperty("file.separator");
 
     /**
      * Full path to the Eclipse executable
@@ -64,36 +67,43 @@ public class EclipseFormatterMojo extends ExecMojo {
     private String verbose;
 
     /**
-     * @parameter expression="${eclipse.formatSource}" default-value="true"
+     * @parameter
      */
-    private boolean formatSource;
+    private String[] includes = new String[] { "**/src/main/java", "**/src/test/java" };
 
     /**
-     * @parameter expression="${eclipse.formatTestSource}" default-value="true"
+     * @parameter
      */
-    private boolean formatTestSource;
+    private String[] excludes = new String[] {};
 
-    protected boolean skipExecution() {
-        String packaging = project.getPackaging();
-        if ("pom".equalsIgnoreCase(packaging)) {
-            getLog().info("Skip execution for project with packaging of type 'pom'");
-            return true;
+    protected List<File> getSourceDirectories() {
+        DirectoryScanner scanner = new DirectoryScanner();
+        scanner.setBasedir(project.getBasedir());
+        scanner.setIncludes(includes);
+        scanner.setExcludes(excludes);
+        getLog().info("Scanning for source directories: " + project.getBasedir());
+        scanner.scan();
+        String[] includedDirs = scanner.getIncludedDirectories();
+        List<File> dirs = new ArrayList<File>();
+        for (String includedDir : includedDirs) {
+            File file = new File(project.getBasedir().getAbsolutePath() + FS + includedDir);
+            dirs.add(file);
         }
-        if (!sourceDirExists() && !testSourceDirExists()) {
-            getLog().info("Skip execution. No source to format");
-            return true;
-        }
-        return false;
+        getLog().info("Located " + dirs.size() + " source directories");
+        return dirs;
     }
 
     @Override
     public void execute() throws MojoExecutionException {
-        if (skipExecution()) {
+        List<File> dirs = getSourceDirectories();
+
+        if (dirs.size() == 0) {
+            getLog().info("No directories containing source code were located");
             return;
         }
 
         super.setExecutable(quote(eclipseExecutable));
-        super.setArguments(getEclipseArguments());
+        super.setArguments(getEclipseArguments(dirs));
 
         super.execute();
     }
@@ -106,7 +116,7 @@ public class EclipseFormatterMojo extends ExecMojo {
         return new File(project.getBuild().getTestSourceDirectory()).exists();
     }
 
-    protected List<String> getEclipseArguments() throws MojoExecutionException {
+    protected List<String> getEclipseArguments(List<File> dirs) throws MojoExecutionException {
         List<String> args = new ArrayList<String>();
         args.add("-application");
         args.add(quote(application));
@@ -116,11 +126,8 @@ public class EclipseFormatterMojo extends ExecMojo {
         args.add(quote(getConfigAbsolutePath()));
         addIfNotEmpty(args, nosplash);
         addIfNotEmpty(args, verbose);
-        if (formatSource && sourceDirExists()) {
-            args.add(quote(project.getBuild().getSourceDirectory()));
-        }
-        if (formatSource && testSourceDirExists()) {
-            args.add(quote(project.getBuild().getTestSourceDirectory()));
+        for (File dir : dirs) {
+            args.add(quote(dir.getAbsolutePath()));
         }
         return args;
     }
@@ -208,20 +215,20 @@ public class EclipseFormatterMojo extends ExecMojo {
         this.verbose = verbose;
     }
 
-    public boolean isFormatSource() {
-        return formatSource;
+    public String[] getIncludes() {
+        return includes;
     }
 
-    public void setFormatSource(boolean formatSource) {
-        this.formatSource = formatSource;
+    public void setIncludes(String[] includes) {
+        this.includes = includes;
     }
 
-    public boolean isFormatTestSource() {
-        return formatTestSource;
+    public String[] getExcludes() {
+        return excludes;
     }
 
-    public void setFormatTestSource(boolean formatTestSource) {
-        this.formatTestSource = formatTestSource;
+    public void setExcludes(String[] excludes) {
+        this.excludes = excludes;
     }
 
 }
