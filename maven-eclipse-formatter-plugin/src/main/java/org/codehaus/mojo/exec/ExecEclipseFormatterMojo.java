@@ -14,7 +14,13 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-public class ExecEclipseMojo extends ExecMojo {
+/**
+ * A plugin for executing the Eclipse formatter from the command line
+ * 
+ * @author Jeff Caddel
+ * @goal format
+ */
+public class ExecEclipseFormatterMojo extends ExecMojo {
     private static final String FS = System.getProperty("file.separator");
 
     // C:/eclipse/3.6.2/r11/eclipse/eclipse.exe
@@ -104,20 +110,24 @@ public class ExecEclipseMojo extends ExecMojo {
     protected List<String> getEclipseArguments() throws MojoExecutionException {
         List<String> args = new ArrayList<String>();
         args.add("-application");
-        args.add(application);
+        args.add(quote(application));
         args.add("-vm");
-        args.add(vm);
+        args.add(quote(vm));
         args.add("-config");
-        args.add(getConfigAbsolutePath());
+        args.add(quote(getConfigAbsolutePath()));
         addIfNotEmpty(args, nosplash);
         addIfNotEmpty(args, verbose);
         if (formatSource) {
-            args.add(getAbsolutePathSourceDirectory());
+            args.add(quote(getAbsolutePathSourceDirectory()));
         }
         if (formatTestSource) {
-            args.add(getAbsolutePathTestSourceDirectory());
+            args.add(quote(getAbsolutePathTestSourceDirectory()));
         }
         return args;
+    }
+
+    protected String quote(String s) {
+        return '"' + s + '"';
     }
 
     protected String getConfigAbsolutePath() throws MojoExecutionException {
