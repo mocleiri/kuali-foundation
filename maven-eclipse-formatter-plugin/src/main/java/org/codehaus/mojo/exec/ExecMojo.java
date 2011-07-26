@@ -510,7 +510,7 @@ public class ExecMojo extends AbstractExecMojo {
     //
 
     protected int executeCommandLine(Executor exec, CommandLine commandLine, Map enviro, OutputStream out,
-            OutputStream err) throws ExecuteException, IOException {
+            OutputStream err) throws IOException {
         exec.setStreamHandler(new PumpStreamHandler(out, err, System.in));
         return exec.execute(commandLine, enviro);
     }
@@ -559,8 +559,7 @@ public class ExecMojo extends AbstractExecMojo {
         Toolchain tc = null;
 
         try {
-            if (session != null) // session is null in tests..
-            {
+            if (session != null) { // session is null in tests..
                 ToolchainManager toolchainManager = (ToolchainManager) session.getContainer().lookup(
                         ToolchainManager.ROLE);
 

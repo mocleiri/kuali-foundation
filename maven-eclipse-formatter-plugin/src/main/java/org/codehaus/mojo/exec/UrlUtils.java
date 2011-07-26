@@ -28,7 +28,7 @@ import java.util.BitSet;
 /**
  * Utility for dealing with URLs in pre-JDK 1.4.
  */
-public class UrlUtils {
+public final class UrlUtils {
     private static final BitSet UNRESERVED = new BitSet(Byte.MAX_VALUE - Byte.MIN_VALUE + 1);
 
     private static final int RADIX = 16;
