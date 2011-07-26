@@ -3,7 +3,6 @@
     "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
     "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
-  <module name="NewlineAtEndOfFile" />
   <module name="Translation" />
   <module name="FileLength" />
   <module name="FileTabCharacter">
@@ -27,7 +26,9 @@
     <module name="LineLength">
       <property name="max" value="125" />
     </module>
-    <module name="MethodLength" />
+    <module name="MethodLength">
+      <property name="max" value="255" />
+    </module>
     <module name="ParameterNumber" />
     <module name="EmptyForIteratorPad" />
     <module name="MethodParamPad" />
@@ -49,12 +50,10 @@
     <module name="EqualsHashCode" />
     <module name="IllegalInstantiation" />
     <module name="InnerAssignment" />
-    <module name="MagicNumber" />
     <module name="MissingSwitchDefault" />
     <module name="RedundantThrows" />
     <module name="SimplifyBooleanExpression" />
     <module name="SimplifyBooleanReturn" />
-    <module name="FinalClass" />
     <module name="HideUtilityClassConstructor" />
     <module name="InterfaceIsType" />
     <module name="VisibilityModifier" />
