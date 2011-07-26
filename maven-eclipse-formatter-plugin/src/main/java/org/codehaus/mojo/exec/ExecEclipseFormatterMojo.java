@@ -118,10 +118,12 @@ public class ExecEclipseFormatterMojo extends ExecMojo {
         addIfNotEmpty(args, nosplash);
         addIfNotEmpty(args, verbose);
         if (formatSource) {
-            args.add(quote(getAbsolutePathSourceDirectory()));
+            // args.add(quote(getAbsolutePathSourceDirectory()));
+            args.add(quote(project.getBuild().getSourceDirectory()));
         }
         if (formatTestSource) {
-            args.add(quote(getAbsolutePathTestSourceDirectory()));
+            // args.add(quote(getAbsolutePathTestSourceDirectory()));
+            args.add(quote(project.getBuild().getTestSourceDirectory()));
         }
         return args;
     }

@@ -71,7 +71,6 @@ public class ExecMojo extends AbstractExecMojo {
      * PATH for the execution to work.
      * 
      * @parameter expression="${exec.executable}"
-     * @required
      * @since 1.0
      */
     private String executable;
