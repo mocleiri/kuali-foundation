@@ -33,146 +33,125 @@ import java.io.File;
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
  * @version $Id: CheckoutMojoTest.java 1069164 2011-02-09 23:00:06Z bentmann $
  */
-public class CheckoutMojoTest
-    extends AbstractMojoTestCase
-{
+public class CheckoutMojoTest extends AbstractMojoTestCase {
     File checkoutDir;
 
     File repository;
 
-    protected void setUp()
-        throws Exception
-    {
+    protected void setUp() throws Exception {
         super.setUp();
 
-        checkoutDir = getTestFile( "target/checkout" );
+        checkoutDir = getTestFile("target/checkout");
 
-        repository = getTestFile( "target/repository" );
+        repository = getTestFile("target/repository");
 
-        FileUtils.forceDelete( checkoutDir );
+        FileUtils.forceDelete(checkoutDir);
     }
 
-    public void testSkipCheckoutWhenCheckoutDirectoryExistsAndSkip()
-        throws Exception
-    {
-        FileUtils.forceDelete( checkoutDir );
+    public void testSkipCheckoutWhenCheckoutDirectoryExistsAndSkip() throws Exception {
+        FileUtils.forceDelete(checkoutDir);
         checkoutDir.mkdirs();
 
-        CheckoutMojo mojo = (CheckoutMojo) lookupMojo( "checkout", getTestFile(
-            "src/test/resources/mojos/checkout/checkoutWhenCheckoutDirectoryExistsAndSkip.xml" ) );
+        CheckoutMojo mojo = (CheckoutMojo) lookupMojo("checkout",
+                getTestFile("src/test/resources/mojos/checkout/checkoutWhenCheckoutDirectoryExistsAndSkip.xml"));
 
-        mojo.setCheckoutDirectory( checkoutDir );
+        mojo.setCheckoutDirectory(checkoutDir);
 
         mojo.execute();
 
-        assertEquals( 0, checkoutDir.listFiles().length );
+        assertEquals(0, checkoutDir.listFiles().length);
     }
 
-    public void testSkipCheckoutWithConnectionUrl()
-        throws Exception
-    {
-        if ( !ScmTestCase.isSystemCmd( SvnScmTestUtils.SVNADMIN_COMMAND_LINE ) )
-        {
-            System.err.println( "'" + SvnScmTestUtils.SVNADMIN_COMMAND_LINE
-                + "' is not a system command. Ignored " + getName() + "." );
+    public void testSkipCheckoutWithConnectionUrl() throws Exception {
+        if (!ScmTestCase.isSystemCmd(SvnScmTestUtils.SVNADMIN_COMMAND_LINE)) {
+            System.err.println("'" + SvnScmTestUtils.SVNADMIN_COMMAND_LINE + "' is not a system command. Ignored "
+                    + getName() + ".");
             return;
         }
 
-        FileUtils.forceDelete( checkoutDir );
-        
-        SvnScmTestUtils.initializeRepository( repository );
+        FileUtils.forceDelete(checkoutDir);
 
-        CheckoutMojo mojo = (CheckoutMojo) lookupMojo( "checkout", getTestFile(
-            "src/test/resources/mojos/checkout/checkoutWithConnectionUrl.xml" ) );
-        mojo.setWorkingDirectory( new File( getBasedir() ) );
+        SvnScmTestUtils.initializeRepository(repository);
+
+        CheckoutMojo mojo = (CheckoutMojo) lookupMojo("checkout",
+                getTestFile("src/test/resources/mojos/checkout/checkoutWithConnectionUrl.xml"));
+        mojo.setWorkingDirectory(new File(getBasedir()));
 
         String connectionUrl = mojo.getConnectionUrl();
-        connectionUrl = StringUtils.replace( connectionUrl, "${basedir}", getBasedir() );
-        connectionUrl = StringUtils.replace( connectionUrl, "\\", "/" );
-        mojo.setConnectionUrl( connectionUrl );
+        connectionUrl = StringUtils.replace(connectionUrl, "${basedir}", getBasedir());
+        connectionUrl = StringUtils.replace(connectionUrl, "\\", "/");
+        mojo.setConnectionUrl(connectionUrl);
 
-        mojo.setCheckoutDirectory( checkoutDir );
+        mojo.setCheckoutDirectory(checkoutDir);
 
         mojo.execute();
     }
 
-    public void testSkipCheckoutWithoutConnectionUrl()
-        throws Exception
-    {
-        FileUtils.forceDelete( checkoutDir );
-        
-        checkoutDir.mkdirs();
-        CheckoutMojo mojo = (CheckoutMojo) lookupMojo( "checkout", getTestFile(
-            "src/test/resources/mojos/checkout/checkoutWithoutConnectionUrl.xml" ) );
+    public void testSkipCheckoutWithoutConnectionUrl() throws Exception {
+        FileUtils.forceDelete(checkoutDir);
 
-        try
-        {
+        checkoutDir.mkdirs();
+        CheckoutMojo mojo = (CheckoutMojo) lookupMojo("checkout",
+                getTestFile("src/test/resources/mojos/checkout/checkoutWithoutConnectionUrl.xml"));
+
+        try {
             mojo.execute();
 
-            fail( "mojo execution must fail." );
-        }
-        catch ( MojoExecutionException e )
-        {
-            assertTrue( true );
+            fail("mojo execution must fail.");
+        } catch (MojoExecutionException e) {
+            assertTrue(true);
         }
     }
 
-    public void testUseExport()
-        throws Exception
-    {
-        FileUtils.forceDelete( checkoutDir );
-        
+    public void testUseExport() throws Exception {
+        FileUtils.forceDelete(checkoutDir);
+
         checkoutDir.mkdirs();
 
-        CheckoutMojo mojo = (CheckoutMojo) lookupMojo( "checkout", getTestFile(
-            "src/test/resources/mojos/checkout/checkoutUsingExport.xml" ) );
+        CheckoutMojo mojo = (CheckoutMojo) lookupMojo("checkout",
+                getTestFile("src/test/resources/mojos/checkout/checkoutUsingExport.xml"));
 
-        mojo.setCheckoutDirectory( checkoutDir );
+        mojo.setCheckoutDirectory(checkoutDir);
 
         mojo.execute();
 
-        assertTrue( checkoutDir.listFiles().length > 0  );
-        assertFalse( new File( checkoutDir, ".svn" ).exists() );    
+        assertTrue(checkoutDir.listFiles().length > 0);
+        assertFalse(new File(checkoutDir, ".svn").exists());
     }
-    
-    public void testExcludeInclude()
-        throws Exception
-    {
-        FileUtils.forceDelete( checkoutDir );
-        
+
+    public void testExcludeInclude() throws Exception {
+        FileUtils.forceDelete(checkoutDir);
+
         checkoutDir.mkdirs();
 
-        SvnScmTestUtils.initializeRepository( repository );
+        SvnScmTestUtils.initializeRepository(repository);
 
-        CheckoutMojo mojo = (CheckoutMojo) lookupMojo(
-                                                       "checkout",
-                                                       getTestFile( "src/test/resources/mojos/checkout/checkoutWithExcludesIncludes.xml" ) );
+        CheckoutMojo mojo = (CheckoutMojo) lookupMojo("checkout",
+                getTestFile("src/test/resources/mojos/checkout/checkoutWithExcludesIncludes.xml"));
 
-        mojo.setCheckoutDirectory( checkoutDir );
+        mojo.setCheckoutDirectory(checkoutDir);
 
         mojo.execute();
 
-        assertTrue( checkoutDir.listFiles().length > 0 );
-        assertTrue( new File( checkoutDir, ".svn").exists() );
-        assertTrue( new File( checkoutDir, "pom.xml" ).exists() );
-        assertFalse( new File( checkoutDir, "readme.txt" ).exists() );
-        assertFalse( new File( checkoutDir, "src/test" ).exists() );
-        assertTrue( new File( checkoutDir, "src/main/java" ).exists() );
-        assertTrue( new File( checkoutDir, "src/main/java/.svn" ).exists() );
-        assertTrue( new File( checkoutDir, "src/main/.svn" ).exists() );
+        assertTrue(checkoutDir.listFiles().length > 0);
+        assertTrue(new File(checkoutDir, ".svn").exists());
+        assertTrue(new File(checkoutDir, "pom.xml").exists());
+        assertFalse(new File(checkoutDir, "readme.txt").exists());
+        assertFalse(new File(checkoutDir, "src/test").exists());
+        assertTrue(new File(checkoutDir, "src/main/java").exists());
+        assertTrue(new File(checkoutDir, "src/main/java/.svn").exists());
+        assertTrue(new File(checkoutDir, "src/main/.svn").exists());
     }
 
-    public void testEncryptedPasswordFromSettings()
-        throws Exception
-    {
-        File pom = getTestFile( "src/test/resources/mojos/checkout/checkoutEncryptedPasswordFromSettings.xml" );
-        CheckoutMojo mojo = (CheckoutMojo) lookupMojo( "checkout", pom );
-        ScmProviderRepositoryWithHost repo =
-            (ScmProviderRepositoryWithHost) mojo.getScmRepository().getProviderRepository();
+    public void testEncryptedPasswordFromSettings() throws Exception {
+        File pom = getTestFile("src/test/resources/mojos/checkout/checkoutEncryptedPasswordFromSettings.xml");
+        CheckoutMojo mojo = (CheckoutMojo) lookupMojo("checkout", pom);
+        ScmProviderRepositoryWithHost repo = (ScmProviderRepositoryWithHost) mojo.getScmRepository()
+                .getProviderRepository();
 
-        assertEquals( "testuser", repo.getUser() );
-        assertEquals( "testpass", repo.getPassword() );
-        assertEquals( "testphrase", repo.getPassphrase() );
+        assertEquals("testuser", repo.getUser());
+        assertEquals("testpass", repo.getPassword());
+        assertEquals("testphrase", repo.getPassphrase());
     }
 
 }

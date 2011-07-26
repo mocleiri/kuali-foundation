@@ -32,123 +32,102 @@ import java.io.File;
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
  * @version $Id: ChangeLogMojoTest.java 687713 2008-08-21 11:12:33Z vsiveton $
  */
-public class ChangeLogMojoTest
-    extends AbstractMojoTestCase
-{
+public class ChangeLogMojoTest extends AbstractMojoTestCase {
     File repository;
 
-    protected void setUp()
-        throws Exception
-    {
+    protected void setUp() throws Exception {
         super.setUp();
 
-        repository = getTestFile( "target/repository" );
+        repository = getTestFile("target/repository");
 
-        FileUtils.forceDelete( repository );
+        FileUtils.forceDelete(repository);
 
-        if ( !ScmTestCase.isSystemCmd( SvnScmTestUtils.SVNADMIN_COMMAND_LINE ) )
-        {
-            System.err.println( "'" + SvnScmTestUtils.SVNADMIN_COMMAND_LINE
-                + "' is not a system command. Ignored setUp." );
+        if (!ScmTestCase.isSystemCmd(SvnScmTestUtils.SVNADMIN_COMMAND_LINE)) {
+            System.err.println("'" + SvnScmTestUtils.SVNADMIN_COMMAND_LINE
+                    + "' is not a system command. Ignored setUp.");
             return;
         }
 
-        SvnScmTestUtils.initializeRepository( repository );
+        SvnScmTestUtils.initializeRepository(repository);
     }
 
-    public void testChangeLog()
-        throws Exception
-    {
-        if ( !ScmTestCase.isSystemCmd( SvnScmTestUtils.SVN_COMMAND_LINE ) )
-        {
-            System.err.println( "'" + SvnScmTestUtils.SVN_COMMAND_LINE
-                + "' is not a system command. Ignored " + getName() + "." );
+    public void testChangeLog() throws Exception {
+        if (!ScmTestCase.isSystemCmd(SvnScmTestUtils.SVN_COMMAND_LINE)) {
+            System.err.println("'" + SvnScmTestUtils.SVN_COMMAND_LINE + "' is not a system command. Ignored "
+                    + getName() + ".");
             return;
         }
 
-        ChangeLogMojo mojo = (ChangeLogMojo) lookupMojo( "changelog", getTestFile(
-            "src/test/resources/mojos/changelog/changelog.xml" ) );
+        ChangeLogMojo mojo = (ChangeLogMojo) lookupMojo("changelog",
+                getTestFile("src/test/resources/mojos/changelog/changelog.xml"));
 
         String connectionUrl = mojo.getConnectionUrl();
-        connectionUrl = StringUtils.replace( connectionUrl, "${basedir}", getBasedir() );
-        connectionUrl = StringUtils.replace( connectionUrl, "\\", "/" );
-        mojo.setConnectionUrl( connectionUrl );
-        mojo.setWorkingDirectory( new File( getBasedir() ) );
-        mojo.setConnectionType( "connection" );
+        connectionUrl = StringUtils.replace(connectionUrl, "${basedir}", getBasedir());
+        connectionUrl = StringUtils.replace(connectionUrl, "\\", "/");
+        mojo.setConnectionUrl(connectionUrl);
+        mojo.setWorkingDirectory(new File(getBasedir()));
+        mojo.setConnectionType("connection");
 
         mojo.execute();
     }
 
-    public void testChangeLogWithParameters()
-        throws Exception
-    {
-        if ( !ScmTestCase.isSystemCmd( SvnScmTestUtils.SVN_COMMAND_LINE ) )
-        {
-            System.err.println( "'" + SvnScmTestUtils.SVN_COMMAND_LINE
-                + "' is not a system command. Ignored " + getName() + "." );
+    public void testChangeLogWithParameters() throws Exception {
+        if (!ScmTestCase.isSystemCmd(SvnScmTestUtils.SVN_COMMAND_LINE)) {
+            System.err.println("'" + SvnScmTestUtils.SVN_COMMAND_LINE + "' is not a system command. Ignored "
+                    + getName() + ".");
             return;
         }
 
-        ChangeLogMojo mojo = (ChangeLogMojo) lookupMojo( "changelog", getTestFile(
-            "src/test/resources/mojos/changelog/changelogWithParameters.xml" ) );
+        ChangeLogMojo mojo = (ChangeLogMojo) lookupMojo("changelog",
+                getTestFile("src/test/resources/mojos/changelog/changelogWithParameters.xml"));
 
         String connectionUrl = mojo.getConnectionUrl();
-        connectionUrl = StringUtils.replace( connectionUrl, "${basedir}", getBasedir() );
-        connectionUrl = StringUtils.replace( connectionUrl, "\\", "/" );
-        mojo.setConnectionUrl( connectionUrl );
-        mojo.setWorkingDirectory( new File( getBasedir() ) );
-        mojo.setConnectionType( "connection" );
+        connectionUrl = StringUtils.replace(connectionUrl, "${basedir}", getBasedir());
+        connectionUrl = StringUtils.replace(connectionUrl, "\\", "/");
+        mojo.setConnectionUrl(connectionUrl);
+        mojo.setWorkingDirectory(new File(getBasedir()));
+        mojo.setConnectionType("connection");
 
         mojo.execute();
     }
 
-    public void testChangeLogWithBadUserDateFormat()
-        throws Exception
-    {
-        ChangeLogMojo mojo = (ChangeLogMojo) lookupMojo( "changelog", getTestFile(
-            "src/test/resources/mojos/changelog/changelogWithBadUserDateFormat.xml" ) );
+    public void testChangeLogWithBadUserDateFormat() throws Exception {
+        ChangeLogMojo mojo = (ChangeLogMojo) lookupMojo("changelog",
+                getTestFile("src/test/resources/mojos/changelog/changelogWithBadUserDateFormat.xml"));
 
         String connectionUrl = mojo.getConnectionUrl();
-        connectionUrl = StringUtils.replace( connectionUrl, "${basedir}", getBasedir() );
-        connectionUrl = StringUtils.replace( connectionUrl, "\\", "/" );
-        mojo.setConnectionUrl( connectionUrl );
-        mojo.setWorkingDirectory( new File( getBasedir() ) );
-        mojo.setConnectionType( "connection" );
+        connectionUrl = StringUtils.replace(connectionUrl, "${basedir}", getBasedir());
+        connectionUrl = StringUtils.replace(connectionUrl, "\\", "/");
+        mojo.setConnectionUrl(connectionUrl);
+        mojo.setWorkingDirectory(new File(getBasedir()));
+        mojo.setConnectionType("connection");
 
-        try
-        {
+        try {
             mojo.execute();
 
-            fail( "mojo execution must fail." );
-        }
-        catch ( MojoExecutionException e )
-        {
-            assertTrue( true );
+            fail("mojo execution must fail.");
+        } catch (MojoExecutionException e) {
+            assertTrue(true);
         }
     }
 
-    public void testChangeLogWithBadConnectionUrl()
-        throws Exception
-    {
-        ChangeLogMojo mojo = (ChangeLogMojo) lookupMojo( "changelog", getTestFile(
-            "src/test/resources/mojos/changelog/changelogWithBadConnectionUrl.xml" ) );
+    public void testChangeLogWithBadConnectionUrl() throws Exception {
+        ChangeLogMojo mojo = (ChangeLogMojo) lookupMojo("changelog",
+                getTestFile("src/test/resources/mojos/changelog/changelogWithBadConnectionUrl.xml"));
 
         String connectionUrl = mojo.getConnectionUrl();
-        connectionUrl = StringUtils.replace( connectionUrl, "${basedir}", getBasedir() );
-        connectionUrl = StringUtils.replace( connectionUrl, "\\", "/" );
-        mojo.setConnectionUrl( connectionUrl );
-        mojo.setWorkingDirectory( new File( getBasedir() ) );
-        mojo.setConnectionType( "connection" );
+        connectionUrl = StringUtils.replace(connectionUrl, "${basedir}", getBasedir());
+        connectionUrl = StringUtils.replace(connectionUrl, "\\", "/");
+        mojo.setConnectionUrl(connectionUrl);
+        mojo.setWorkingDirectory(new File(getBasedir()));
+        mojo.setConnectionType("connection");
 
-        try
-        {
+        try {
             mojo.execute();
 
-            fail( "mojo execution must fail." );
-        }
-        catch ( MojoExecutionException e )
-        {
-            assertTrue( true );
+            fail("mojo execution must fail.");
+        } catch (MojoExecutionException e) {
+            assertTrue(true);
         }
     }
 }

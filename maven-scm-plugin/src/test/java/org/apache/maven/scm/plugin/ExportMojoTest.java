@@ -24,75 +24,63 @@ import org.codehaus.plexus.util.FileUtils;
 /**
  * @version $Id: ExportMojoTest.java 687713 2008-08-21 11:12:33Z vsiveton $
  */
-public class ExportMojoTest
-    extends AbstractMojoTestCase
-{
+public class ExportMojoTest extends AbstractMojoTestCase {
     File exportDir;
 
     File repository;
 
-    protected void setUp()
-        throws Exception
-    {
+    protected void setUp() throws Exception {
         super.setUp();
 
-        exportDir = getTestFile( "target/export" );
+        exportDir = getTestFile("target/export");
 
-        repository = getTestFile( "target/repository" );
+        repository = getTestFile("target/repository");
 
-        FileUtils.forceDelete( exportDir );
+        FileUtils.forceDelete(exportDir);
     }
 
-    public void testExport()
-        throws Exception
-    {
-        SvnScmTestUtils.initializeRepository( repository );
+    public void testExport() throws Exception {
+        SvnScmTestUtils.initializeRepository(repository);
 
-        ExportMojo mojo = (ExportMojo) lookupMojo( "export", getTestFile( "src/test/resources/mojos/export/export.xml" ) );
+        ExportMojo mojo = (ExportMojo) lookupMojo("export", getTestFile("src/test/resources/mojos/export/export.xml"));
 
-        mojo.setExportDirectory( exportDir.getAbsoluteFile() );
+        mojo.setExportDirectory(exportDir.getAbsoluteFile());
 
         mojo.execute();
 
-        assertTrue( exportDir.listFiles().length > 0 );
-        assertFalse( new File( exportDir, ".svn" ).exists() );
+        assertTrue(exportDir.listFiles().length > 0);
+        assertFalse(new File(exportDir, ".svn").exists());
     }
 
-    public void testSkipExportIfExists()
-        throws Exception
-    {
+    public void testSkipExportIfExists() throws Exception {
         exportDir.mkdirs();
 
-        ExportMojo mojo = (ExportMojo) lookupMojo(
-                                                   "export",
-                                                   getTestFile( "src/test/resources/mojos/export/exportWhenExportDirectoryExistsAndSkip.xml" ) );
+        ExportMojo mojo = (ExportMojo) lookupMojo("export",
+                getTestFile("src/test/resources/mojos/export/exportWhenExportDirectoryExistsAndSkip.xml"));
 
-        mojo.setExportDirectory( exportDir );
+        mojo.setExportDirectory(exportDir);
 
         mojo.execute();
 
-        assertEquals( 0, exportDir.listFiles().length );
+        assertEquals(0, exportDir.listFiles().length);
     }
 
-    public void testExcludeInclude()
-        throws Exception
-    {
-        SvnScmTestUtils.initializeRepository( repository );
-        
+    public void testExcludeInclude() throws Exception {
+        SvnScmTestUtils.initializeRepository(repository);
+
         exportDir.mkdirs();
 
-        ExportMojo mojo = (ExportMojo) lookupMojo(
-                                                       "export",
-                                                       getTestFile( "src/test/resources/mojos/export/exportWithExcludesIncludes.xml" ) );
+        ExportMojo mojo = (ExportMojo) lookupMojo("export",
+                getTestFile("src/test/resources/mojos/export/exportWithExcludesIncludes.xml"));
 
-        mojo.setExportDirectory( exportDir );
+        mojo.setExportDirectory(exportDir);
 
         mojo.execute();
 
-        assertTrue( exportDir.listFiles().length > 0 );
-        assertTrue( new File( exportDir, "pom.xml" ).exists() );
-        assertFalse( new File( exportDir, "readme.txt" ).exists() );
-        assertFalse( new File( exportDir, "src/test" ).exists() );
+        assertTrue(exportDir.listFiles().length > 0);
+        assertTrue(new File(exportDir, "pom.xml").exists());
+        assertFalse(new File(exportDir, "readme.txt").exists());
+        assertFalse(new File(exportDir, "src/test").exists());
     }
 
 }

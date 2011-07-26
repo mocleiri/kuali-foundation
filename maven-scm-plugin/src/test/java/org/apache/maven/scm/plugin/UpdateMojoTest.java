@@ -31,54 +31,47 @@ import java.io.File;
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
  * @version $Id: UpdateMojoTest.java 687713 2008-08-21 11:12:33Z vsiveton $
  */
-public class UpdateMojoTest
-    extends AbstractMojoTestCase
-{
+public class UpdateMojoTest extends AbstractMojoTestCase {
     File checkoutDir;
 
     File repository;
 
-    protected void setUp()
-        throws Exception
-    {
+    protected void setUp() throws Exception {
         super.setUp();
 
-        checkoutDir = getTestFile( "target/checkout" );
+        checkoutDir = getTestFile("target/checkout");
 
-        repository = getTestFile( "target/repository" );
+        repository = getTestFile("target/repository");
 
-        FileUtils.forceDelete( checkoutDir );
+        FileUtils.forceDelete(checkoutDir);
     }
 
-    public void testSkipCheckoutWithConnectionUrl()
-        throws Exception
-    {
-        if ( !ScmTestCase.isSystemCmd( SvnScmTestUtils.SVNADMIN_COMMAND_LINE ) )
-        {
-            System.err.println( "'" + SvnScmTestUtils.SVNADMIN_COMMAND_LINE
-                + "' is not a system command. Ignored " + getName() + "." );
+    public void testSkipCheckoutWithConnectionUrl() throws Exception {
+        if (!ScmTestCase.isSystemCmd(SvnScmTestUtils.SVNADMIN_COMMAND_LINE)) {
+            System.err.println("'" + SvnScmTestUtils.SVNADMIN_COMMAND_LINE + "' is not a system command. Ignored "
+                    + getName() + ".");
             return;
         }
 
-        SvnScmTestUtils.initializeRepository( repository );
+        SvnScmTestUtils.initializeRepository(repository);
 
-        CheckoutMojo checkoutMojo = (CheckoutMojo) lookupMojo( "checkout", getTestFile(
-            "src/test/resources/mojos/checkout/checkoutWithConnectionUrl.xml" ) );
+        CheckoutMojo checkoutMojo = (CheckoutMojo) lookupMojo("checkout",
+                getTestFile("src/test/resources/mojos/checkout/checkoutWithConnectionUrl.xml"));
 
         String connectionUrl = checkoutMojo.getConnectionUrl();
-        connectionUrl = StringUtils.replace( connectionUrl, "${basedir}", getBasedir() );
-        connectionUrl = StringUtils.replace( connectionUrl, "\\", "/" );
-        checkoutMojo.setConnectionUrl( connectionUrl );
+        connectionUrl = StringUtils.replace(connectionUrl, "${basedir}", getBasedir());
+        connectionUrl = StringUtils.replace(connectionUrl, "\\", "/");
+        checkoutMojo.setConnectionUrl(connectionUrl);
 
         checkoutMojo.execute();
 
-        UpdateMojo updateMojo = (UpdateMojo) lookupMojo( "update", getTestFile(
-            "src/test/resources/mojos/update/updateWithConnectionUrl.xml" ) );
+        UpdateMojo updateMojo = (UpdateMojo) lookupMojo("update",
+                getTestFile("src/test/resources/mojos/update/updateWithConnectionUrl.xml"));
 
         connectionUrl = updateMojo.getConnectionUrl();
-        connectionUrl = StringUtils.replace( connectionUrl, "${basedir}", getBasedir() );
-        connectionUrl = StringUtils.replace( connectionUrl, "\\", "/" );
-        updateMojo.setConnectionUrl( connectionUrl );
+        connectionUrl = StringUtils.replace(connectionUrl, "${basedir}", getBasedir());
+        connectionUrl = StringUtils.replace(connectionUrl, "\\", "/");
+        updateMojo.setConnectionUrl(connectionUrl);
 
         updateMojo.execute();
 

@@ -29,23 +29,17 @@ import java.io.File;
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
  * @version $Id: StatusMojoTest.java 687713 2008-08-21 11:12:33Z vsiveton $
  */
-public class StatusMojoTest
-    extends AbstractMojoTestCase
-{
-    public void testStatusMojo()
-        throws Exception
-    {
-        if ( !ScmTestCase.isSystemCmd( SvnScmTestUtils.SVN_COMMAND_LINE ) )
-        {
-            System.err.println( "'" + SvnScmTestUtils.SVN_COMMAND_LINE
-                + "' is not a system command. Ignored " + getName() + "." );
+public class StatusMojoTest extends AbstractMojoTestCase {
+    public void testStatusMojo() throws Exception {
+        if (!ScmTestCase.isSystemCmd(SvnScmTestUtils.SVN_COMMAND_LINE)) {
+            System.err.println("'" + SvnScmTestUtils.SVN_COMMAND_LINE + "' is not a system command. Ignored "
+                    + getName() + ".");
             return;
         }
 
-        StatusMojo mojo =
-            (StatusMojo) lookupMojo( "status", getTestFile( "src/test/resources/mojos/status/status.xml" ) );
+        StatusMojo mojo = (StatusMojo) lookupMojo("status", getTestFile("src/test/resources/mojos/status/status.xml"));
 
-        mojo.setWorkingDirectory( new File( getBasedir() ) );
+        mojo.setWorkingDirectory(new File(getBasedir()));
         mojo.execute();
     }
 }

@@ -31,115 +31,101 @@ import java.io.File;
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
  * @version $Id: TagMojoTest.java 687713 2008-08-21 11:12:33Z vsiveton $
  */
-public class TagMojoTest
-    extends AbstractMojoTestCase
-{
+public class TagMojoTest extends AbstractMojoTestCase {
     File checkoutDir;
 
     File repository;
 
-    protected void setUp()
-        throws Exception
-    {
+    protected void setUp() throws Exception {
         super.setUp();
 
-        checkoutDir = getTestFile( "target/checkout" );
+        checkoutDir = getTestFile("target/checkout");
 
-        FileUtils.forceDelete( checkoutDir );
+        FileUtils.forceDelete(checkoutDir);
 
-        repository = getTestFile( "target/repository" );
+        repository = getTestFile("target/repository");
 
-        FileUtils.forceDelete( repository );
+        FileUtils.forceDelete(repository);
 
-        if ( !ScmTestCase.isSystemCmd( SvnScmTestUtils.SVNADMIN_COMMAND_LINE ) )
-        {
-            System.err.println( "'" + SvnScmTestUtils.SVNADMIN_COMMAND_LINE
-                + "' is not a system command. Ignored setUp." );
+        if (!ScmTestCase.isSystemCmd(SvnScmTestUtils.SVNADMIN_COMMAND_LINE)) {
+            System.err.println("'" + SvnScmTestUtils.SVNADMIN_COMMAND_LINE
+                    + "' is not a system command. Ignored setUp.");
             return;
         }
 
-        SvnScmTestUtils.initializeRepository( repository );
+        SvnScmTestUtils.initializeRepository(repository);
 
-        CheckoutMojo checkoutMojo = (CheckoutMojo) lookupMojo( "checkout", getTestFile(
-            "src/test/resources/mojos/checkout/checkoutWithConnectionUrl.xml" ) );
-        checkoutMojo.setWorkingDirectory( new File( getBasedir() ) );
+        CheckoutMojo checkoutMojo = (CheckoutMojo) lookupMojo("checkout",
+                getTestFile("src/test/resources/mojos/checkout/checkoutWithConnectionUrl.xml"));
+        checkoutMojo.setWorkingDirectory(new File(getBasedir()));
 
         String connectionUrl = checkoutMojo.getConnectionUrl();
-        connectionUrl = StringUtils.replace( connectionUrl, "${basedir}", getBasedir() );
-        connectionUrl = StringUtils.replace( connectionUrl, "\\", "/" );
-        checkoutMojo.setConnectionUrl( connectionUrl );
+        connectionUrl = StringUtils.replace(connectionUrl, "${basedir}", getBasedir());
+        connectionUrl = StringUtils.replace(connectionUrl, "\\", "/");
+        checkoutMojo.setConnectionUrl(connectionUrl);
 
-        checkoutMojo.setCheckoutDirectory( checkoutDir );
+        checkoutMojo.setCheckoutDirectory(checkoutDir);
 
         checkoutMojo.execute();
     }
 
-    public void testTag()
-        throws Exception
-    {
-        if ( !ScmTestCase.isSystemCmd( SvnScmTestUtils.SVNADMIN_COMMAND_LINE ) )
-        {
-            System.err.println( "'" + SvnScmTestUtils.SVNADMIN_COMMAND_LINE
-                + "' is not a system command. Ignored " + getName() + "." );
+    public void testTag() throws Exception {
+        if (!ScmTestCase.isSystemCmd(SvnScmTestUtils.SVNADMIN_COMMAND_LINE)) {
+            System.err.println("'" + SvnScmTestUtils.SVNADMIN_COMMAND_LINE + "' is not a system command. Ignored "
+                    + getName() + ".");
             return;
         }
 
-        TagMojo mojo = (TagMojo) lookupMojo( "tag", getTestFile( "src/test/resources/mojos/tag/tag.xml" ) );
-        mojo.setWorkingDirectory( checkoutDir );
+        TagMojo mojo = (TagMojo) lookupMojo("tag", getTestFile("src/test/resources/mojos/tag/tag.xml"));
+        mojo.setWorkingDirectory(checkoutDir);
 
         String connectionUrl = mojo.getConnectionUrl();
-        connectionUrl = StringUtils.replace( connectionUrl, "${basedir}", getBasedir() );
-        connectionUrl = StringUtils.replace( connectionUrl, "\\", "/" );
-        mojo.setConnectionUrl( connectionUrl );
+        connectionUrl = StringUtils.replace(connectionUrl, "${basedir}", getBasedir());
+        connectionUrl = StringUtils.replace(connectionUrl, "\\", "/");
+        mojo.setConnectionUrl(connectionUrl);
 
         mojo.execute();
 
-        if ( !ScmTestCase.isSystemCmd( SvnScmTestUtils.SVN_COMMAND_LINE ) )
-        {
-            System.err.println( "'" + SvnScmTestUtils.SVN_COMMAND_LINE
-                + "' is not a system command. Ignored " + getName() + "." );
+        if (!ScmTestCase.isSystemCmd(SvnScmTestUtils.SVN_COMMAND_LINE)) {
+            System.err.println("'" + SvnScmTestUtils.SVN_COMMAND_LINE + "' is not a system command. Ignored "
+                    + getName() + ".");
             return;
         }
 
-        CheckoutMojo checkoutMojo =
-            (CheckoutMojo) lookupMojo( "checkout", getTestFile( "src/test/resources/mojos/tag/checkout.xml" ) );
-        checkoutMojo.setWorkingDirectory( new File( getBasedir() ) );
+        CheckoutMojo checkoutMojo = (CheckoutMojo) lookupMojo("checkout",
+                getTestFile("src/test/resources/mojos/tag/checkout.xml"));
+        checkoutMojo.setWorkingDirectory(new File(getBasedir()));
 
         connectionUrl = checkoutMojo.getConnectionUrl();
-        connectionUrl = StringUtils.replace( connectionUrl, "${basedir}", getBasedir() );
-        connectionUrl = StringUtils.replace( connectionUrl, "\\", "/" );
-        checkoutMojo.setConnectionUrl( connectionUrl );
+        connectionUrl = StringUtils.replace(connectionUrl, "${basedir}", getBasedir());
+        connectionUrl = StringUtils.replace(connectionUrl, "\\", "/");
+        checkoutMojo.setConnectionUrl(connectionUrl);
 
-        File tagCheckoutDir = getTestFile( "target/tags/mytag" );
-        if ( tagCheckoutDir.exists() )
-        {
-            FileUtils.deleteDirectory( tagCheckoutDir );
+        File tagCheckoutDir = getTestFile("target/tags/mytag");
+        if (tagCheckoutDir.exists()) {
+            FileUtils.deleteDirectory(tagCheckoutDir);
         }
-        checkoutMojo.setCheckoutDirectory( tagCheckoutDir );
+        checkoutMojo.setCheckoutDirectory(tagCheckoutDir);
 
-        assertFalse( new File( tagCheckoutDir, "pom.xml" ).exists() );
+        assertFalse(new File(tagCheckoutDir, "pom.xml").exists());
         checkoutMojo.execute();
-        assertTrue( new File( tagCheckoutDir, "pom.xml" ).exists() );
+        assertTrue(new File(tagCheckoutDir, "pom.xml").exists());
     }
 
-    public void testTagWithTimestamp()
-        throws Exception
-    {
-        if ( !ScmTestCase.isSystemCmd( SvnScmTestUtils.SVN_COMMAND_LINE ) )
-        {
-            System.err.println( "'" + SvnScmTestUtils.SVN_COMMAND_LINE
-                + "' is not a system command. Ignored " + getName() + "." );
+    public void testTagWithTimestamp() throws Exception {
+        if (!ScmTestCase.isSystemCmd(SvnScmTestUtils.SVN_COMMAND_LINE)) {
+            System.err.println("'" + SvnScmTestUtils.SVN_COMMAND_LINE + "' is not a system command. Ignored "
+                    + getName() + ".");
             return;
         }
 
-        TagMojo mojo =
-            (TagMojo) lookupMojo( "tag", getTestFile( "src/test/resources/mojos/tag/tagWithTimestamp.xml" ) );
-        mojo.setWorkingDirectory( checkoutDir );
+        TagMojo mojo = (TagMojo) lookupMojo("tag", getTestFile("src/test/resources/mojos/tag/tagWithTimestamp.xml"));
+        mojo.setWorkingDirectory(checkoutDir);
 
         String connectionUrl = mojo.getConnectionUrl();
-        connectionUrl = StringUtils.replace( connectionUrl, "${basedir}", getBasedir() );
-        connectionUrl = StringUtils.replace( connectionUrl, "\\", "/" );
-        mojo.setConnectionUrl( connectionUrl );
+        connectionUrl = StringUtils.replace(connectionUrl, "${basedir}", getBasedir());
+        connectionUrl = StringUtils.replace(connectionUrl, "\\", "/");
+        mojo.setConnectionUrl(connectionUrl);
 
         mojo.execute();
     }

@@ -26,39 +26,28 @@ import org.apache.maven.plugin.testing.AbstractMojoTestCase;
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
  * @version $Id: ValidateMojoTest.java 483105 2006-12-06 15:07:54Z evenisse $
  */
-public class ValidateMojoTest
-    extends AbstractMojoTestCase
-{
-    public void testValidateWithoutScmUrl()
-        throws Exception
-    {
-        ValidateMojo mojo = (ValidateMojo) lookupMojo( "validate", getTestFile(
-            "src/test/resources/mojos/validate/validateWithoutScmUrl.xml" ) );
+public class ValidateMojoTest extends AbstractMojoTestCase {
+    public void testValidateWithoutScmUrl() throws Exception {
+        ValidateMojo mojo = (ValidateMojo) lookupMojo("validate",
+                getTestFile("src/test/resources/mojos/validate/validateWithoutScmUrl.xml"));
         mojo.execute();
     }
 
-    public void testValidateWithValidScmUrls()
-        throws Exception
-    {
-        ValidateMojo mojo = (ValidateMojo) lookupMojo( "validate", getTestFile(
-            "src/test/resources/mojos/validate/validateWithValidScmUrls.xml" ) );
+    public void testValidateWithValidScmUrls() throws Exception {
+        ValidateMojo mojo = (ValidateMojo) lookupMojo("validate",
+                getTestFile("src/test/resources/mojos/validate/validateWithValidScmUrls.xml"));
         mojo.execute();
     }
 
-    public void testValidateWithInvalidScmUrls()
-        throws Exception
-    {
-        ValidateMojo mojo = (ValidateMojo) lookupMojo( "validate", getTestFile(
-            "src/test/resources/mojos/validate/validateWithInvalidScmUrls.xml" ) );
-        try
-        {
+    public void testValidateWithInvalidScmUrls() throws Exception {
+        ValidateMojo mojo = (ValidateMojo) lookupMojo("validate",
+                getTestFile("src/test/resources/mojos/validate/validateWithInvalidScmUrls.xml"));
+        try {
             mojo.execute();
 
-            fail( "mojo execution must fail." );
-        }
-        catch ( MojoExecutionException e )
-        {
-            assertTrue( true );
+            fail("mojo execution must fail.");
+        } catch (MojoExecutionException e) {
+            assertTrue(true);
         }
     }
 }
