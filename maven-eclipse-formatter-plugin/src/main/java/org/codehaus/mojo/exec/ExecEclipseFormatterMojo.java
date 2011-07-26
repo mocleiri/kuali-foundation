@@ -82,8 +82,25 @@ public class ExecEclipseFormatterMojo extends ExecMojo {
      */
     private boolean formatTestSource;
 
+    protected boolean skipExecution() {
+        String packaging = project.getPackaging();
+        if ("pom".equalsIgnoreCase(packaging)) {
+            getLog().info("Skip execution for project with packaging of type 'pom'");
+            return true;
+        }
+        if (!sourceDirExists() && !testSourceDirExists()) {
+            getLog().info("Skip execution. No source to format");
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void execute() throws MojoExecutionException {
+        if (skipExecution()) {
+            return;
+        }
+
         super.setExecutable(quote(eclipseExecutable));
         super.setArguments(getEclipseArguments());
 
@@ -107,6 +124,14 @@ public class ExecEclipseFormatterMojo extends ExecMojo {
         return getAbsolutePath(project.getBuild().getTestSourceDirectory());
     }
 
+    protected boolean sourceDirExists() {
+        return new File(project.getBuild().getSourceDirectory()).exists();
+    }
+
+    protected boolean testSourceDirExists() {
+        return new File(project.getBuild().getTestSourceDirectory()).exists();
+    }
+
     protected List<String> getEclipseArguments() throws MojoExecutionException {
         List<String> args = new ArrayList<String>();
         args.add("-application");
@@ -117,12 +142,10 @@ public class ExecEclipseFormatterMojo extends ExecMojo {
         args.add(quote(getConfigAbsolutePath()));
         addIfNotEmpty(args, nosplash);
         addIfNotEmpty(args, verbose);
-        if (formatSource) {
-            // args.add(quote(getAbsolutePathSourceDirectory()));
+        if (formatSource && sourceDirExists()) {
             args.add(quote(project.getBuild().getSourceDirectory()));
         }
-        if (formatTestSource) {
-            // args.add(quote(getAbsolutePathTestSourceDirectory()));
+        if (formatSource && testSourceDirExists()) {
             args.add(quote(project.getBuild().getTestSourceDirectory()));
         }
         return args;
