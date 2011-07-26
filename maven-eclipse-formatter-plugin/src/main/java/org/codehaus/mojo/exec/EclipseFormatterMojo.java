@@ -106,6 +106,10 @@ public class EclipseFormatterMojo extends ExecMojo {
         if (dirs.size() == 0) {
             getLog().info("No directories containing source code were located");
             return;
+        } else {
+            for (File dir : dirs) {
+                getLog().info("Formatting src in: " + dir.getAbsolutePath());
+            }
         }
 
         super.setExecutable(quote(eclipseExecutable));
