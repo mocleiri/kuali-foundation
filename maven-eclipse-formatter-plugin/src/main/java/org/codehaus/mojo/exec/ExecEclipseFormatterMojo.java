@@ -21,15 +21,6 @@ import org.springframework.core.io.ResourceLoader;
  * @goal format
  */
 public class ExecEclipseFormatterMojo extends ExecMojo {
-    private static final String FS = System.getProperty("file.separator");
-
-    // C:/eclipse/3.6.2/r11/eclipse/eclipse.exe
-    // -nosplash
-    // -vm "C:/Program Files/Java/jdk1.6.0_21/bin/java.exe"
-    // -application org.eclipse.jdt.core.JavaCodeFormatter
-    // -verbose
-    // -config C:/eclipse/3.6.2/r11/eclipse/ws/maven-scm-plugin/.settings/org.eclipse.jdt.core.prefs
-    // C:/eclipse/3.6.2/r11/eclipse/ws/maven-eclipse-formatter-plugin/src/main/java/org/codehaus/mojo/exec
 
     /**
      * Full path to the Eclipse executable
@@ -57,7 +48,7 @@ public class ExecEclipseFormatterMojo extends ExecMojo {
     /**
      * Path to the Eclipse "org.eclipse.jdt.core.prefs" file. Supports "classpath:" style notation
      * 
-     * @parameter expression="${eclipse.configPath}"
+     * @parameter expression="${eclipse.configPath}" default-value="classpath:eclipse.prefs"
      * @required
      */
     private String configPath;
@@ -105,23 +96,6 @@ public class ExecEclipseFormatterMojo extends ExecMojo {
         super.setArguments(getEclipseArguments());
 
         super.execute();
-    }
-
-    protected String getAbsolutePath(String relativeDir) {
-        File basedir = project.getBasedir();
-        String path = basedir.getAbsolutePath();
-        if ((!path.endsWith(FS)) && (!relativeDir.startsWith(FS))) {
-            path += FS;
-        }
-        return path + relativeDir;
-    }
-
-    protected String getAbsolutePathSourceDirectory() {
-        return getAbsolutePath(project.getBuild().getSourceDirectory());
-    }
-
-    protected String getAbsolutePathTestSourceDirectory() {
-        return getAbsolutePath(project.getBuild().getTestSourceDirectory());
     }
 
     protected boolean sourceDirExists() {
