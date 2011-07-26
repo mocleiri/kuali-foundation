@@ -84,7 +84,7 @@ public class ExecEclipseFormatterMojo extends ExecMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        super.setExecutable(eclipseExecutable);
+        super.setExecutable(quote(eclipseExecutable));
         super.setArguments(getEclipseArguments());
 
         super.execute();
