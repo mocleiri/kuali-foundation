@@ -15,12 +15,12 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 /**
- * A plugin for executing the Eclipse formatter from the command line
+ * A plugin for executing the Eclipse java source code formatter
  * 
  * @author Jeff Caddel
  * @goal format
  */
-public class ExecEclipseFormatterMojo extends ExecMojo {
+public class EclipseFormatterMojo extends ExecMojo {
 
     /**
      * Full path to the Eclipse executable
