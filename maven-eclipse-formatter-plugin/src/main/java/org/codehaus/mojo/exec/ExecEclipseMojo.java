@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.maven.model.Build;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -70,12 +69,12 @@ public class ExecEclipseMojo extends ExecMojo {
     /**
      * @parameter expression="${eclipse.formatSource}" default-value="true"
      */
-    private String formatSource;
+    private boolean formatSource;
 
     /**
      * @parameter expression="${eclipse.formatTestSource}" default-value="true"
      */
-    private String formatTestSource;
+    private boolean formatTestSource;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -112,7 +111,12 @@ public class ExecEclipseMojo extends ExecMojo {
         args.add(getConfigAbsolutePath());
         addIfNotEmpty(args, nosplash);
         addIfNotEmpty(args, verbose);
-        args.add(getAbsolutePathSourceDirectory());
+        if (formatSource) {
+            args.add(getAbsolutePathSourceDirectory());
+        }
+        if (formatTestSource) {
+            args.add(getAbsolutePathTestSourceDirectory());
+        }
         return args;
     }
 
@@ -195,19 +199,19 @@ public class ExecEclipseMojo extends ExecMojo {
         this.verbose = verbose;
     }
 
-    public String getFormatSource() {
+    public boolean isFormatSource() {
         return formatSource;
     }
 
-    public void setFormatSource(String formatSource) {
+    public void setFormatSource(boolean formatSource) {
         this.formatSource = formatSource;
     }
 
-    public String getFormatTestSource() {
+    public boolean isFormatTestSource() {
         return formatTestSource;
     }
 
-    public void setFormatTestSource(String formatTestSource) {
+    public void setFormatTestSource(boolean formatTestSource) {
         this.formatTestSource = formatTestSource;
     }
 
