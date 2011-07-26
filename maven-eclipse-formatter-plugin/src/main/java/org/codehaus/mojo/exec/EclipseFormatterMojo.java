@@ -36,7 +36,7 @@ public class EclipseFormatterMojo extends ExecMojo {
     private String eclipseExecutable;
 
     /**
-     * Full path to a Java VM. This gets filled in by using the system property "java.home" unless a value is supplied
+     * Full path to a Java VM. This gets filled in using the system property "java.home" unless a value is supplied
      * here.
      * 
      * @parameter expression="${eclipse.vm}"
