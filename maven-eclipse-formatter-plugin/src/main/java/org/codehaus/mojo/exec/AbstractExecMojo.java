@@ -34,9 +34,7 @@ import org.codehaus.plexus.util.cli.CommandLineUtils;
  * @author Philippe Jacot (PJA)
  * @author Jerome Lacoste
  */
-public abstract class AbstractExecMojo
-    extends AbstractMojo
-{
+public abstract class AbstractExecMojo extends AbstractMojo {
     /**
      * The enclosing project.
      * 
@@ -89,39 +87,31 @@ public abstract class AbstractExecMojo
      * Collects the project artifacts in the specified List and the project specific classpath (build output and build
      * test output) Files in the specified List, depending on the plugin classpathScope value.
      * 
-     * @param artifacts the list where to collect the scope specific artifacts
-     * @param theClasspathFiles the list where to collect the scope specific output directories
+     * @param artifacts
+     *            the list where to collect the scope specific artifacts
+     * @param theClasspathFiles
+     *            the list where to collect the scope specific output directories
      */
-    protected void collectProjectArtifactsAndClasspath( List artifacts, List theClasspathFiles )
-    {
+    protected void collectProjectArtifactsAndClasspath(List artifacts, List theClasspathFiles) {
 
-        if ( "compile".equals( classpathScope ) )
-        {
-            artifacts.addAll( project.getCompileArtifacts() );
-            theClasspathFiles.add( new File( project.getBuild().getOutputDirectory() ) );
-        }
-        else if ( "test".equals( classpathScope ) )
-        {
-            artifacts.addAll( project.getTestArtifacts() );
-            theClasspathFiles.add( new File( project.getBuild().getTestOutputDirectory() ) );
-            theClasspathFiles.add( new File( project.getBuild().getOutputDirectory() ) );
-        }
-        else if ( "runtime".equals( classpathScope ) )
-        {
-            artifacts.addAll( project.getRuntimeArtifacts() );
-            theClasspathFiles.add( new File( project.getBuild().getOutputDirectory() ) );
-        }
-        else if ( "system".equals( classpathScope ) )
-        {
-            artifacts.addAll( project.getSystemArtifacts() );
-        }
-        else
-        {
-            throw new IllegalStateException( "Invalid classpath scope: " + classpathScope );
+        if ("compile".equals(classpathScope)) {
+            artifacts.addAll(project.getCompileArtifacts());
+            theClasspathFiles.add(new File(project.getBuild().getOutputDirectory()));
+        } else if ("test".equals(classpathScope)) {
+            artifacts.addAll(project.getTestArtifacts());
+            theClasspathFiles.add(new File(project.getBuild().getTestOutputDirectory()));
+            theClasspathFiles.add(new File(project.getBuild().getOutputDirectory()));
+        } else if ("runtime".equals(classpathScope)) {
+            artifacts.addAll(project.getRuntimeArtifacts());
+            theClasspathFiles.add(new File(project.getBuild().getOutputDirectory()));
+        } else if ("system".equals(classpathScope)) {
+            artifacts.addAll(project.getSystemArtifacts());
+        } else {
+            throw new IllegalStateException("Invalid classpath scope: " + classpathScope);
         }
 
-        getLog().debug( "Collected project artifacts " + artifacts );
-        getLog().debug( "Collected project classpath " + theClasspathFiles );
+        getLog().debug("Collected project artifacts " + artifacts);
+        getLog().debug("Collected project classpath " + theClasspathFiles);
     }
 
     /**
@@ -130,24 +120,17 @@ public abstract class AbstractExecMojo
      * ESCAPE_CHAR.
      * 
      * @return Array of String representing the arguments
-     * @throws MojoExecutionException for wrong formatted arguments
+     * @throws MojoExecutionException
+     *             for wrong formatted arguments
      */
-    protected String[] parseCommandlineArgs()
-        throws MojoExecutionException
-    {
-        if ( commandlineArgs == null )
-        {
+    protected String[] parseCommandlineArgs() throws MojoExecutionException {
+        if (commandlineArgs == null) {
             return null;
-        }
-        else
-        {
-            try
-            {
-                return CommandLineUtils.translateCommandline( commandlineArgs );
-            }
-            catch ( Exception e )
-            {
-                throw new MojoExecutionException( e.getMessage() );
+        } else {
+            try {
+                return CommandLineUtils.translateCommandline(commandlineArgs);
+            } catch (Exception e) {
+                throw new MojoExecutionException(e.getMessage());
             }
         }
     }
@@ -155,26 +138,22 @@ public abstract class AbstractExecMojo
     /**
      * @return true of the mojo has command line arguments
      */
-    protected boolean hasCommandlineArgs()
-    {
-        return ( commandlineArgs != null );
+    protected boolean hasCommandlineArgs() {
+        return (commandlineArgs != null);
     }
 
     /**
      * Register compile and compile tests source roots if necessary
      */
-    protected void registerSourceRoots()
-    {
-        if ( sourceRoot != null )
-        {
-            getLog().info( "Registering compile source root " + sourceRoot );
-            project.addCompileSourceRoot( sourceRoot.toString() );
+    protected void registerSourceRoots() {
+        if (sourceRoot != null) {
+            getLog().info("Registering compile source root " + sourceRoot);
+            project.addCompileSourceRoot(sourceRoot.toString());
         }
 
-        if ( testSourceRoot != null )
-        {
-            getLog().info( "Registering compile test source root " + testSourceRoot );
-            project.addTestCompileSourceRoot( testSourceRoot.toString() );
+        if (testSourceRoot != null) {
+            getLog().info("Registering compile test source root " + testSourceRoot);
+            project.addTestCompileSourceRoot(testSourceRoot.toString());
         }
     }
 
@@ -183,8 +162,7 @@ public abstract class AbstractExecMojo
      * 
      * @return true to skip
      */
-    protected boolean isSkip()
-    {
+    protected boolean isSkip() {
         return skip;
     }
 }
