@@ -35,20 +35,20 @@ import java.io.IOException;
  * @aggregator
  */
 public class EditMojo extends AbstractScmMojo {
-	/** {@inheritDoc} */
-	public void execute() throws MojoExecutionException {
-		super.execute();
+    /** {@inheritDoc} */
+    public void execute() throws MojoExecutionException {
+        super.execute();
 
-		try {
-			ScmRepository repository = getScmRepository();
+        try {
+            ScmRepository repository = getScmRepository();
 
-			EditScmResult result = getScmManager().edit(repository, getFileSet());
+            EditScmResult result = getScmManager().edit(repository, getFileSet());
 
-			checkResult(result);
-		} catch (IOException e) {
-			throw new MojoExecutionException("Cannot run edit command : ", e);
-		} catch (ScmException e) {
-			throw new MojoExecutionException("Cannot run edit command : ", e);
-		}
-	}
+            checkResult(result);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Cannot run edit command : ", e);
+        } catch (ScmException e) {
+            throw new MojoExecutionException("Cannot run edit command : ", e);
+        }
+    }
 }

@@ -36,25 +36,25 @@ import java.io.IOException;
  * @aggregator
  */
 public class AddMojo extends AbstractScmMojo {
-	/** {@inheritDoc} */
-	public void execute() throws MojoExecutionException {
-		super.execute();
+    /** {@inheritDoc} */
+    public void execute() throws MojoExecutionException {
+        super.execute();
 
-		try {
-			ScmRepository repository = getScmRepository();
+        try {
+            ScmRepository repository = getScmRepository();
 
-			AddScmResult result = getScmManager().add(repository, getFileSet());
+            AddScmResult result = getScmManager().add(repository, getFileSet());
 
-			checkResult(result);
+            checkResult(result);
 
-			for (ScmFile addedFile : result.getAddedFiles()) {
-				getLog().info("Added " + addedFile.getPath());
-			}
+            for (ScmFile addedFile : result.getAddedFiles()) {
+                getLog().info("Added " + addedFile.getPath());
+            }
 
-		} catch (IOException e) {
-			throw new MojoExecutionException("Cannot run add command : ", e);
-		} catch (ScmException e) {
-			throw new MojoExecutionException("Cannot run add command : ", e);
-		}
-	}
+        } catch (IOException e) {
+            throw new MojoExecutionException("Cannot run add command : ", e);
+        } catch (ScmException e) {
+            throw new MojoExecutionException("Cannot run add command : ", e);
+        }
+    }
 }

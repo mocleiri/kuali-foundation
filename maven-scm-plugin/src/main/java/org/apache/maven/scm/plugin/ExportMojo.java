@@ -34,80 +34,80 @@ import org.codehaus.plexus.util.FileUtils;
  * @requiresProject false
  */
 public class ExportMojo extends AbstractScmMojo {
-	/**
-	 * The version type (branch/tag/revision) of scmVersion.
-	 * 
-	 * @parameter expression="${scmVersionType}"
-	 */
-	private String scmVersionType;
+    /**
+     * The version type (branch/tag/revision) of scmVersion.
+     * 
+     * @parameter expression="${scmVersionType}"
+     */
+    private String scmVersionType;
 
-	/**
-	 * The version (revision number/branch name/tag name).
-	 * 
-	 * @parameter expression="${scmVersion}"
-	 */
-	private String scmVersion;
+    /**
+     * The version (revision number/branch name/tag name).
+     * 
+     * @parameter expression="${scmVersion}"
+     */
+    private String scmVersion;
 
-	/**
-	 * The directory to export the sources to.
-	 * 
-	 * @parameter expression="${exportDirectory}" default-value="${project.build.directory}/export
-	 * @required
-	 */
-	private File exportDirectory;
+    /**
+     * The directory to export the sources to.
+     * 
+     * @parameter expression="${exportDirectory}" default-value="${project.build.directory}/export
+     * @required
+     */
+    private File exportDirectory;
 
-	/**
-	 * Skip export if exportDirectory exists.
-	 * 
-	 * @parameter expression="${skipExportIfExists}" default-value="false"
-	 */
-	private boolean skipExportIfExists = false;
+    /**
+     * Skip export if exportDirectory exists.
+     * 
+     * @parameter expression="${skipExportIfExists}" default-value="false"
+     */
+    private boolean skipExportIfExists = false;
 
-	/** {@inheritDoc} */
-	public void execute() throws MojoExecutionException {
-		super.execute();
+    /** {@inheritDoc} */
+    public void execute() throws MojoExecutionException {
+        super.execute();
 
-		if (this.skipExportIfExists && this.exportDirectory.isDirectory()) {
-			return;
-		}
+        if (this.skipExportIfExists && this.exportDirectory.isDirectory()) {
+            return;
+        }
 
-		export();
-	}
+        export();
+    }
 
-	protected File getExportDirectory() {
-		return this.exportDirectory;
-	}
+    protected File getExportDirectory() {
+        return this.exportDirectory;
+    }
 
-	public void setExportDirectory(File exportDirectory) {
-		this.exportDirectory = exportDirectory;
-	}
+    public void setExportDirectory(File exportDirectory) {
+        this.exportDirectory = exportDirectory;
+    }
 
-	protected void export() throws MojoExecutionException {
-		try {
-			ScmRepository repository = getScmRepository();
+    protected void export() throws MojoExecutionException {
+        try {
+            ScmRepository repository = getScmRepository();
 
-			try {
-				if (this.exportDirectory.exists()) {
-					this.getLog().info("Removing " + this.exportDirectory);
+            try {
+                if (this.exportDirectory.exists()) {
+                    this.getLog().info("Removing " + this.exportDirectory);
 
-					FileUtils.deleteDirectory(this.exportDirectory);
-				}
-			} catch (IOException e) {
-				throw new MojoExecutionException("Cannot remove " + getExportDirectory());
-			}
+                    FileUtils.deleteDirectory(this.exportDirectory);
+                }
+            } catch (IOException e) {
+                throw new MojoExecutionException("Cannot remove " + getExportDirectory());
+            }
 
-			if (!this.exportDirectory.mkdirs()) {
-				throw new MojoExecutionException("Cannot create " + this.exportDirectory);
-			}
+            if (!this.exportDirectory.mkdirs()) {
+                throw new MojoExecutionException("Cannot create " + this.exportDirectory);
+            }
 
-			ExportScmResult result = getScmManager().export(repository,
-					new ScmFileSet(this.exportDirectory.getAbsoluteFile()), getScmVersion(scmVersionType, scmVersion));
+            ExportScmResult result = getScmManager().export(repository,
+                    new ScmFileSet(this.exportDirectory.getAbsoluteFile()), getScmVersion(scmVersionType, scmVersion));
 
-			checkResult(result);
+            checkResult(result);
 
-			handleExcludesIncludesAfterCheckoutAndExport(this.exportDirectory);
-		} catch (ScmException e) {
-			throw new MojoExecutionException("Cannot run export command : ", e);
-		}
-	}
+            handleExcludesIncludesAfterCheckoutAndExport(this.exportDirectory);
+        } catch (ScmException e) {
+            throw new MojoExecutionException("Cannot run export command : ", e);
+        }
+    }
 }

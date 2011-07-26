@@ -36,54 +36,54 @@ import org.apache.maven.scm.repository.ScmRepository;
  */
 public class CheckLocalModificationsMojo extends AbstractScmMojo {
 
-	/**
-	 * Custom error message
-	 * 
-	 * @parameter expression="${scm.checkLocalModification.errorMessage}"
-	 *            default-value="The build will stop as there is local modifications";
-	 */
-	private String errorMessage;
+    /**
+     * Custom error message
+     * 
+     * @parameter expression="${scm.checkLocalModification.errorMessage}"
+     *            default-value="The build will stop as there is local modifications";
+     */
+    private String errorMessage;
 
-	/**
-	 * Custom error message
-	 * 
-	 * @parameter expression="${scm.checkLocalModification.skip}" default-value="false";
-	 */
-	private boolean skip;
+    /**
+     * Custom error message
+     * 
+     * @parameter expression="${scm.checkLocalModification.skip}" default-value="false";
+     */
+    private boolean skip;
 
-	/**
-	 * current directory
-	 * 
-	 * @parameter default-value="${basedir}";
-	 * @readonly
-	 */
-	private File baseDirectory;
+    /**
+     * current directory
+     * 
+     * @parameter default-value="${basedir}";
+     * @readonly
+     */
+    private File baseDirectory;
 
-	public void execute() throws MojoExecutionException {
-		if (skip) {
-			getLog().info("check-local-modification execution has been skipped");
-			return;
-		}
-		super.execute();
+    public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("check-local-modification execution has been skipped");
+            return;
+        }
+        super.execute();
 
-		StatusScmResult result = null;
+        StatusScmResult result = null;
 
-		try {
-			ScmRepository repository = getScmRepository();
-			result = getScmManager().status(repository, new ScmFileSet(baseDirectory));
-		} catch (ScmException e) {
-			throw new MojoExecutionException(e.getMessage(), e);
-		}
+        try {
+            ScmRepository repository = getScmRepository();
+            result = getScmManager().status(repository, new ScmFileSet(baseDirectory));
+        } catch (ScmException e) {
+            throw new MojoExecutionException(e.getMessage(), e);
+        }
 
-		if (!result.isSuccess()) {
-			throw new MojoExecutionException("Unable to check for local modifications :" + result.getProviderMessage());
-		}
+        if (!result.isSuccess()) {
+            throw new MojoExecutionException("Unable to check for local modifications :" + result.getProviderMessage());
+        }
 
-		if (!result.getChangedFiles().isEmpty()) {
-			getLog().error(errorMessage);
-			throw new MojoExecutionException(errorMessage);
-		}
+        if (!result.getChangedFiles().isEmpty()) {
+            getLog().error(errorMessage);
+            throw new MojoExecutionException(errorMessage);
+        }
 
-	}
+    }
 
 }

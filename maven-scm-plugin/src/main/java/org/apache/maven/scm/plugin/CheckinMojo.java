@@ -36,55 +36,55 @@ import java.io.IOException;
  * @aggregator
  */
 public class CheckinMojo extends AbstractScmMojo {
-	/**
-	 * Commit log.
-	 * 
-	 * @parameter expression="${message}"
-	 */
-	private String message;
+    /**
+     * Commit log.
+     * 
+     * @parameter expression="${message}"
+     */
+    private String message;
 
-	/**
-	 * The configured scm url to use.
-	 * 
-	 * @parameter expression="${connectionType}" default-value="developerConnection"
-	 */
-	private String connectionType;
+    /**
+     * The configured scm url to use.
+     * 
+     * @parameter expression="${connectionType}" default-value="developerConnection"
+     */
+    private String connectionType;
 
-	/**
-	 * The version type (branch/tag/revision) of scmVersion.
-	 * 
-	 * @parameter expression="${scmVersionType}"
-	 */
-	private String scmVersionType;
+    /**
+     * The version type (branch/tag/revision) of scmVersion.
+     * 
+     * @parameter expression="${scmVersionType}"
+     */
+    private String scmVersionType;
 
-	/**
-	 * The version (revision number/branch name/tag name).
-	 * 
-	 * @parameter expression="${scmVersion}"
-	 */
-	private String scmVersion;
+    /**
+     * The version (revision number/branch name/tag name).
+     * 
+     * @parameter expression="${scmVersion}"
+     */
+    private String scmVersion;
 
-	/** {@inheritDoc} */
-	public void execute() throws MojoExecutionException {
-		super.execute();
+    /** {@inheritDoc} */
+    public void execute() throws MojoExecutionException {
+        super.execute();
 
-		setConnectionType(connectionType);
+        setConnectionType(connectionType);
 
-		try {
-			ScmRepository repository = getScmRepository();
+        try {
+            ScmRepository repository = getScmRepository();
 
-			CheckInScmResult result = getScmManager().checkIn(repository, getFileSet(),
-					getScmVersion(scmVersionType, scmVersion), message);
+            CheckInScmResult result = getScmManager().checkIn(repository, getFileSet(),
+                    getScmVersion(scmVersionType, scmVersion), message);
 
-			checkResult(result);
+            checkResult(result);
 
-			for (ScmFile checkedInFile : result.getCheckedInFiles()) {
-				getLog().info("Checked in " + checkedInFile.getPath());
-			}
-		} catch (IOException e) {
-			throw new MojoExecutionException("Cannot run checkin command : ", e);
-		} catch (ScmException e) {
-			throw new MojoExecutionException("Cannot run checkin command : ", e);
-		}
-	}
+            for (ScmFile checkedInFile : result.getCheckedInFiles()) {
+                getLog().info("Checked in " + checkedInFile.getPath());
+            }
+        } catch (IOException e) {
+            throw new MojoExecutionException("Cannot run checkin command : ", e);
+        } catch (ScmException e) {
+            throw new MojoExecutionException("Cannot run checkin command : ", e);
+        }
+    }
 }

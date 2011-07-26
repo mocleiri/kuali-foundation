@@ -35,60 +35,60 @@ import java.util.List;
  * @requiresProject false
  */
 public class ValidateMojo extends AbstractScmMojo {
-	/**
-	 * The scm connection url.
-	 * 
-	 * @parameter expression="${scmConnection}" default-value="${project.scm.connection}"
-	 */
-	private String scmConnection;
+    /**
+     * The scm connection url.
+     * 
+     * @parameter expression="${scmConnection}" default-value="${project.scm.connection}"
+     */
+    private String scmConnection;
 
-	/**
-	 * The scm connection url for developers.
-	 * 
-	 * @parameter expression="${scmDeveloperConnection}" default-value="${project.scm.developerConnection}"
-	 */
-	private String scmDeveloperConnection;
+    /**
+     * The scm connection url for developers.
+     * 
+     * @parameter expression="${scmDeveloperConnection}" default-value="${project.scm.developerConnection}"
+     */
+    private String scmDeveloperConnection;
 
-	/** {@inheritDoc} */
-	public void execute() throws MojoExecutionException {
-		super.execute();
+    /** {@inheritDoc} */
+    public void execute() throws MojoExecutionException {
+        super.execute();
 
-		// check connectionUrl provided with cli
-		try {
-			validateConnection(getConnectionUrl(), "connectionUrl");
-		} catch (NullPointerException e) {
-			// nothing to do. connectionUrl isn't defined
-		}
+        // check connectionUrl provided with cli
+        try {
+            validateConnection(getConnectionUrl(), "connectionUrl");
+        } catch (NullPointerException e) {
+            // nothing to do. connectionUrl isn't defined
+        }
 
-		// check scm connection
-		if (scmConnection != null) {
-			validateConnection(scmConnection, "project.scm.connection");
-		}
+        // check scm connection
+        if (scmConnection != null) {
+            validateConnection(scmConnection, "project.scm.connection");
+        }
 
-		// Check scm developerConnection
-		if (scmDeveloperConnection != null) {
-			validateConnection(scmDeveloperConnection, "project.scm.developerConnection");
-		}
+        // Check scm developerConnection
+        if (scmDeveloperConnection != null) {
+            validateConnection(scmDeveloperConnection, "project.scm.developerConnection");
+        }
 
-	}
+    }
 
-	private void validateConnection(String connectionString, String type) throws MojoExecutionException {
-		List<String> messages = getScmManager().validateScmRepository(connectionString);
+    private void validateConnection(String connectionString, String type) throws MojoExecutionException {
+        List<String> messages = getScmManager().validateScmRepository(connectionString);
 
-		if (!messages.isEmpty()) {
-			getLog().error("Validation of scm url connection (" + type + ") failed :");
+        if (!messages.isEmpty()) {
+            getLog().error("Validation of scm url connection (" + type + ") failed :");
 
-			Iterator<String> iter = messages.iterator();
+            Iterator<String> iter = messages.iterator();
 
-			while (iter.hasNext()) {
-				getLog().error(iter.next().toString());
-			}
+            while (iter.hasNext()) {
+                getLog().error(iter.next().toString());
+            }
 
-			getLog().error("The invalid scm url connection: '" + connectionString + "'.");
+            getLog().error("The invalid scm url connection: '" + connectionString + "'.");
 
-			throw new MojoExecutionException("Command failed. Bad Scm URL.");
-		} else {
-			getLog().info(type + " scm connection string is valid.");
-		}
-	}
+            throw new MojoExecutionException("Command failed. Bad Scm URL.");
+        } else {
+            getLog().info(type + " scm connection string is valid.");
+        }
+    }
 }

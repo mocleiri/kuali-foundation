@@ -37,52 +37,52 @@ import java.io.IOException;
  * @aggregator
  */
 public class BranchMojo extends AbstractScmMojo {
-	/**
-	 * The branch name.
-	 * 
-	 * @parameter expression="${branch}"
-	 * @required
-	 */
-	private String branch;
+    /**
+     * The branch name.
+     * 
+     * @parameter expression="${branch}"
+     * @required
+     */
+    private String branch;
 
-	/**
-	 * The message applied to the tag creation.
-	 * 
-	 * @parameter expression="${message}"
-	 */
-	private String message;
+    /**
+     * The message applied to the tag creation.
+     * 
+     * @parameter expression="${message}"
+     */
+    private String message;
 
-	/**
-	 * currently only implemented with svn scm. Enable a workaround to prevent issue due to svn client > 1.5.0
-	 * (http://jira.codehaus.org/browse/SCM-406)
-	 * 
-	 * 
-	 * @parameter expression="${remoteBranching}" default-value="true"
-	 * @since 1.3
-	 */
-	private boolean remoteBranching;
+    /**
+     * currently only implemented with svn scm. Enable a workaround to prevent issue due to svn client > 1.5.0
+     * (http://jira.codehaus.org/browse/SCM-406)
+     * 
+     * 
+     * @parameter expression="${remoteBranching}" default-value="true"
+     * @since 1.3
+     */
+    private boolean remoteBranching;
 
-	/** {@inheritDoc} */
-	public void execute() throws MojoExecutionException {
-		super.execute();
+    /** {@inheritDoc} */
+    public void execute() throws MojoExecutionException {
+        super.execute();
 
-		try {
-			ScmRepository repository = getScmRepository();
-			ScmProvider provider = getScmManager().getProviderByRepository(repository);
+        try {
+            ScmRepository repository = getScmRepository();
+            ScmProvider provider = getScmManager().getProviderByRepository(repository);
 
-			String finalBranch = provider.sanitizeTagName(branch);
-			getLog().info("Final Branch Name: '" + finalBranch + "'");
+            String finalBranch = provider.sanitizeTagName(branch);
+            getLog().info("Final Branch Name: '" + finalBranch + "'");
 
-			ScmBranchParameters scmBranchParameters = new ScmBranchParameters(message);
-			scmBranchParameters.setRemoteBranching(remoteBranching);
+            ScmBranchParameters scmBranchParameters = new ScmBranchParameters(message);
+            scmBranchParameters.setRemoteBranching(remoteBranching);
 
-			BranchScmResult result = provider.branch(repository, getFileSet(), finalBranch, scmBranchParameters);
+            BranchScmResult result = provider.branch(repository, getFileSet(), finalBranch, scmBranchParameters);
 
-			checkResult(result);
-		} catch (IOException e) {
-			throw new MojoExecutionException("Cannot run branch command : ", e);
-		} catch (ScmException e) {
-			throw new MojoExecutionException("Cannot run branch command : ", e);
-		}
-	}
+            checkResult(result);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Cannot run branch command : ", e);
+        } catch (ScmException e) {
+            throw new MojoExecutionException("Cannot run branch command : ", e);
+        }
+    }
 }

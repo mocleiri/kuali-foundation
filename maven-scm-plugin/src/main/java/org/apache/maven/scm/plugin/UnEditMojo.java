@@ -35,20 +35,20 @@ import java.io.IOException;
  * @aggregator
  */
 public class UnEditMojo extends AbstractScmMojo {
-	/** {@inheritDoc} */
-	public void execute() throws MojoExecutionException {
-		super.execute();
+    /** {@inheritDoc} */
+    public void execute() throws MojoExecutionException {
+        super.execute();
 
-		try {
-			ScmRepository repository = getScmRepository();
+        try {
+            ScmRepository repository = getScmRepository();
 
-			UnEditScmResult result = getScmManager().unedit(repository, getFileSet());
+            UnEditScmResult result = getScmManager().unedit(repository, getFileSet());
 
-			checkResult(result);
-		} catch (IOException e) {
-			throw new MojoExecutionException("Cannot run unedit command : ", e);
-		} catch (ScmException e) {
-			throw new MojoExecutionException("Cannot run unedit command : ", e);
-		}
-	}
+            checkResult(result);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Cannot run unedit command : ", e);
+        } catch (ScmException e) {
+            throw new MojoExecutionException("Cannot run unedit command : ", e);
+        }
+    }
 }

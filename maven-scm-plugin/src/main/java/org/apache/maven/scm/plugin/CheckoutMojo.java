@@ -38,106 +38,106 @@ import org.codehaus.plexus.util.FileUtils;
  * @requiresProject false
  */
 public class CheckoutMojo extends AbstractScmMojo {
-	/**
-	 * Use Export instead of checkout
-	 * 
-	 * @parameter expression="${useExport}" defaultValue="false";
-	 */
-	private boolean useExport;
+    /**
+     * Use Export instead of checkout
+     * 
+     * @parameter expression="${useExport}" defaultValue="false";
+     */
+    private boolean useExport;
 
-	/**
-	 * The directory to checkout the sources to for the bootstrap and checkout goals.
-	 * 
-	 * @parameter expression="${checkoutDirectory}" default-value="${project.build.directory}/checkout"
-	 */
-	private File checkoutDirectory;
+    /**
+     * The directory to checkout the sources to for the bootstrap and checkout goals.
+     * 
+     * @parameter expression="${checkoutDirectory}" default-value="${project.build.directory}/checkout"
+     */
+    private File checkoutDirectory;
 
-	/**
-	 * Skip checkout if checkoutDirectory exists.
-	 * 
-	 * @parameter expression="${skipCheckoutIfExists}" default-value="false"
-	 */
-	private boolean skipCheckoutIfExists = false;
+    /**
+     * Skip checkout if checkoutDirectory exists.
+     * 
+     * @parameter expression="${skipCheckoutIfExists}" default-value="false"
+     */
+    private boolean skipCheckoutIfExists = false;
 
-	/**
-	 * The version type (branch/tag/revision) of scmVersion.
-	 * 
-	 * @parameter expression="${scmVersionType}"
-	 */
-	private String scmVersionType;
+    /**
+     * The version type (branch/tag/revision) of scmVersion.
+     * 
+     * @parameter expression="${scmVersionType}"
+     */
+    private String scmVersionType;
 
-	/**
-	 * The version (revision number/branch name/tag name).
-	 * 
-	 * @parameter expression="${scmVersion}"
-	 */
-	private String scmVersion;
+    /**
+     * The version (revision number/branch name/tag name).
+     * 
+     * @parameter expression="${scmVersion}"
+     */
+    private String scmVersion;
 
-	/**
-	 * allow extended mojo (ie BootStrap ) to see checkout result
-	 */
-	private ScmResult checkoutResult;
+    /**
+     * allow extended mojo (ie BootStrap ) to see checkout result
+     */
+    private ScmResult checkoutResult;
 
-	/** {@inheritDoc} */
-	public void execute() throws MojoExecutionException {
-		super.execute();
+    /** {@inheritDoc} */
+    public void execute() throws MojoExecutionException {
+        super.execute();
 
-		// skip checkout if checkout directory is already created. See SCM-201
-		checkoutResult = null;
-		if (!getCheckoutDirectory().isDirectory() || !this.skipCheckoutIfExists) {
-			checkoutResult = checkout();
-		}
-	}
+        // skip checkout if checkout directory is already created. See SCM-201
+        checkoutResult = null;
+        if (!getCheckoutDirectory().isDirectory() || !this.skipCheckoutIfExists) {
+            checkoutResult = checkout();
+        }
+    }
 
-	protected File getCheckoutDirectory() {
-		return this.checkoutDirectory;
-	}
+    protected File getCheckoutDirectory() {
+        return this.checkoutDirectory;
+    }
 
-	public void setCheckoutDirectory(File checkoutDirectory) {
-		this.checkoutDirectory = checkoutDirectory;
-	}
+    public void setCheckoutDirectory(File checkoutDirectory) {
+        this.checkoutDirectory = checkoutDirectory;
+    }
 
-	protected ScmResult checkout() throws MojoExecutionException {
-		try {
-			ScmRepository repository = getScmRepository();
+    protected ScmResult checkout() throws MojoExecutionException {
+        try {
+            ScmRepository repository = getScmRepository();
 
-			this.prepareOutputDirectory(getCheckoutDirectory());
+            this.prepareOutputDirectory(getCheckoutDirectory());
 
-			ScmResult result = null;
+            ScmResult result = null;
 
-			ScmFileSet fileSet = new ScmFileSet(getCheckoutDirectory().getAbsoluteFile());
-			if (useExport) {
-				result = getScmManager().export(repository, fileSet, getScmVersion(scmVersionType, scmVersion));
-			} else {
-				result = getScmManager().checkOut(repository, fileSet, getScmVersion(scmVersionType, scmVersion));
-			}
+            ScmFileSet fileSet = new ScmFileSet(getCheckoutDirectory().getAbsoluteFile());
+            if (useExport) {
+                result = getScmManager().export(repository, fileSet, getScmVersion(scmVersionType, scmVersion));
+            } else {
+                result = getScmManager().checkOut(repository, fileSet, getScmVersion(scmVersionType, scmVersion));
+            }
 
-			checkResult(result);
+            checkResult(result);
 
-			handleExcludesIncludesAfterCheckoutAndExport(this.checkoutDirectory);
+            handleExcludesIncludesAfterCheckoutAndExport(this.checkoutDirectory);
 
-			return result;
-		} catch (ScmException e) {
-			throw new MojoExecutionException("Cannot run checkout command : ", e);
-		}
-	}
+            return result;
+        } catch (ScmException e) {
+            throw new MojoExecutionException("Cannot run checkout command : ", e);
+        }
+    }
 
-	private void prepareOutputDirectory(File ouputDirectory) throws MojoExecutionException {
-		try {
-			this.getLog().info("Removing " + ouputDirectory);
+    private void prepareOutputDirectory(File ouputDirectory) throws MojoExecutionException {
+        try {
+            this.getLog().info("Removing " + ouputDirectory);
 
-			FileUtils.deleteDirectory(getCheckoutDirectory());
-		} catch (IOException e) {
-			throw new MojoExecutionException("Cannot remove " + ouputDirectory);
-		}
+            FileUtils.deleteDirectory(getCheckoutDirectory());
+        } catch (IOException e) {
+            throw new MojoExecutionException("Cannot remove " + ouputDirectory);
+        }
 
-		if (!getCheckoutDirectory().mkdirs()) {
-			throw new MojoExecutionException("Cannot create " + ouputDirectory);
-		}
-	}
+        if (!getCheckoutDirectory().mkdirs()) {
+            throw new MojoExecutionException("Cannot create " + ouputDirectory);
+        }
+    }
 
-	protected ScmResult getCheckoutResult() {
-		return checkoutResult;
-	}
+    protected ScmResult getCheckoutResult() {
+        return checkoutResult;
+    }
 
 }

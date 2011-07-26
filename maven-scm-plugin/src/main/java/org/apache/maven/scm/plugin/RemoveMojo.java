@@ -39,35 +39,35 @@ import java.util.List;
  */
 public class RemoveMojo extends AbstractScmMojo {
 
-	/**
-	 * The commit message.
-	 * 
-	 * @parameter expression="${message}"
-	 */
-	private String message;
+    /**
+     * The commit message.
+     * 
+     * @parameter expression="${message}"
+     */
+    private String message;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void execute() throws MojoExecutionException {
-		super.execute();
-		try {
-			ScmRepository repository = getScmRepository();
-			ScmFileSet fileSet = getFileSet();
-			List<File> files = fileSet.getFileList();
-			if (files == null || files.size() == 0) {
-				getLog().info("No files to remove.  Skipping execution");
-				return;
-			}
-			RemoveScmResult result = getScmManager().remove(repository, getFileSet(), message);
-			checkResult(result);
-			for (ScmFile removedFile : result.getRemovedFiles()) {
-				getLog().info("Removed " + removedFile.getPath());
-			}
-		} catch (IOException e) {
-			throw new MojoExecutionException("Cannot run remove command : " + e.getMessage(), e);
-		} catch (ScmException e) {
-			throw new MojoExecutionException("Cannot run remove command : " + e.getMessage(), e);
-		}
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public void execute() throws MojoExecutionException {
+        super.execute();
+        try {
+            ScmRepository repository = getScmRepository();
+            ScmFileSet fileSet = getFileSet();
+            List<File> files = fileSet.getFileList();
+            if (files == null || files.size() == 0) {
+                getLog().info("No files to remove.  Skipping execution");
+                return;
+            }
+            RemoveScmResult result = getScmManager().remove(repository, getFileSet(), message);
+            checkResult(result);
+            for (ScmFile removedFile : result.getRemovedFiles()) {
+                getLog().info("Removed " + removedFile.getPath());
+            }
+        } catch (IOException e) {
+            throw new MojoExecutionException("Cannot run remove command : " + e.getMessage(), e);
+        } catch (ScmException e) {
+            throw new MojoExecutionException("Cannot run remove command : " + e.getMessage(), e);
+        }
+    }
 }

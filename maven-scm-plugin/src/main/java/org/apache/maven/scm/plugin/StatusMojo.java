@@ -39,54 +39,54 @@ import org.codehaus.plexus.util.StringUtils;
  * @aggregator
  */
 public class StatusMojo extends AbstractScmMojo {
-	/** {@inheritDoc} */
-	public void execute() throws MojoExecutionException {
-		super.execute();
+    /** {@inheritDoc} */
+    public void execute() throws MojoExecutionException {
+        super.execute();
 
-		try {
-			ScmRepository repository = getScmRepository();
+        try {
+            ScmRepository repository = getScmRepository();
 
-			StatusScmResult result = getScmManager().status(repository, getFileSet());
+            StatusScmResult result = getScmManager().status(repository, getFileSet());
 
-			checkResult(result);
+            checkResult(result);
 
-			File baseDir = getFileSet().getBasedir();
+            File baseDir = getFileSet().getBasedir();
 
-			// Determine the maximum length of the status column
-			int maxLen = 0;
+            // Determine the maximum length of the status column
+            int maxLen = 0;
 
-			for (ScmFile file : result.getChangedFiles()) {
-				maxLen = Math.max(maxLen, file.getStatus().toString().length());
-			}
+            for (ScmFile file : result.getChangedFiles()) {
+                maxLen = Math.max(maxLen, file.getStatus().toString().length());
+            }
 
-			for (ScmFile file : result.getChangedFiles()) {
-				// right align all of the statuses
-				getLog().info(
-						StringUtils.leftPad(file.getStatus().toString(), maxLen) + " status for "
-								+ getRelativePath(baseDir, file.getPath()));
-			}
-		} catch (IOException e) {
-			throw new MojoExecutionException("Cannot run status command : ", e);
-		} catch (ScmException e) {
-			throw new MojoExecutionException("Cannot run status command : ", e);
-		}
-	}
+            for (ScmFile file : result.getChangedFiles()) {
+                // right align all of the statuses
+                getLog().info(
+                        StringUtils.leftPad(file.getStatus().toString(), maxLen) + " status for "
+                                + getRelativePath(baseDir, file.getPath()));
+            }
+        } catch (IOException e) {
+            throw new MojoExecutionException("Cannot run status command : ", e);
+        } catch (ScmException e) {
+            throw new MojoExecutionException("Cannot run status command : ", e);
+        }
+    }
 
-	/**
-	 * Formats the filename so that it is a relative directory from the base.
-	 * 
-	 * @param baseDir
-	 * @param path
-	 * @return The relative path
-	 */
-	protected String getRelativePath(File baseDir, String path) {
-		if (path.equals(baseDir.getAbsolutePath())) {
-			return ".";
-		} else if (path.indexOf(baseDir.getAbsolutePath()) == 0) {
-			// the + 1 gets rid of a leading file separator
-			return path.substring(baseDir.getAbsolutePath().length() + 1);
-		} else {
-			return path;
-		}
-	}
+    /**
+     * Formats the filename so that it is a relative directory from the base.
+     * 
+     * @param baseDir
+     * @param path
+     * @return The relative path
+     */
+    protected String getRelativePath(File baseDir, String path) {
+        if (path.equals(baseDir.getAbsolutePath())) {
+            return ".";
+        } else if (path.indexOf(baseDir.getAbsolutePath()) == 0) {
+            // the + 1 gets rid of a leading file separator
+            return path.substring(baseDir.getAbsolutePath().length() + 1);
+        } else {
+            return path;
+        }
+    }
 }
