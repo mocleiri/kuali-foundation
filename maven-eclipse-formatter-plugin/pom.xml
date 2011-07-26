@@ -13,7 +13,7 @@
   <packaging>maven-plugin</packaging>
 
   <name>Maven Eclipse Formatter Plugin</name>
-  <description>Maven Plugin for invoking the Eclipse formatter via the command line</description>
+  <description>Maven Plugin for invoking the Eclipse java source code formatter</description>
 
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-eclipse-formatter-plugin</connection>
