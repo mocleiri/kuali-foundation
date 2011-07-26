@@ -53,8 +53,7 @@ public class UrlUtils {
     }
 
     public static URL getURL(File file) throws MalformedURLException {
-        // with JDK 1.4+, code would be: return new URL( file.toURI().toASCIIString() );
-        URL url = file.toURL();
+        URL url = new URL(file.toURI().toASCIIString());
         // encode any characters that do not comply with RFC 2396
         // this is primarily to handle Windows where the user's home directory contains spaces
         try {
