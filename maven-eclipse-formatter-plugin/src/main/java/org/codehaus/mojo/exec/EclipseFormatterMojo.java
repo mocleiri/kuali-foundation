@@ -144,7 +144,7 @@ public class EclipseFormatterMojo extends ExecMojo {
         args.add(quote(application));
         args.add("-vm");
         String binary = getJavaBinary();
-        getLog().info("Using Java VM: '" + binary + "'");
+        getLog().info("Using Java VM: " + binary);
         args.add(quote(getJavaBinary()));
         args.add("-config");
         args.add(quote(getConfigAbsolutePath()));
