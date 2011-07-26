@@ -448,7 +448,7 @@ public abstract class AbstractScmMojo extends AbstractMojo {
 
         FileSet fileset = new FileSet();
         fileset.setDirectory(checkoutDirectory.getAbsolutePath());
-        fileset.setIncludes(excludes);// revert the order to do the delete
+        fileset.setIncludes(excludes); // revert the order to do the delete
         fileset.setExcludes(includes);
         fileset.setUseDefaultExcludes(false);
 
