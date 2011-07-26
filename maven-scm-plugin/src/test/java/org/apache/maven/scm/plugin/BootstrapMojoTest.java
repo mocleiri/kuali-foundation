@@ -40,6 +40,9 @@ public class BootstrapMojoTest extends AbstractMojoTestCase {
     BootstrapMojo bootstrapMojo;
 
     protected void setUp() throws Exception {
+        if (true)
+            System.out.println("foo");
+
         super.setUp();
 
         checkoutDir = getTestFile("target/checkout");
