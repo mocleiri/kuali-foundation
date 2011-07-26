@@ -83,7 +83,6 @@ public class EclipseFormatterMojo extends ExecMojo {
         scanner.setBasedir(project.getBasedir());
         scanner.setIncludes(includes);
         scanner.setExcludes(excludes);
-        getLog().info("Scanning for source directories: " + project.getBasedir());
         scanner.scan();
         String[] includedDirs = scanner.getIncludedDirectories();
         List<File> dirs = new ArrayList<File>();
@@ -91,7 +90,6 @@ public class EclipseFormatterMojo extends ExecMojo {
             File file = new File(project.getBasedir().getAbsolutePath() + FS + includedDir);
             dirs.add(file);
         }
-        getLog().info("Located " + dirs.size() + " source directories");
         return dirs;
     }
 
@@ -101,14 +99,16 @@ public class EclipseFormatterMojo extends ExecMojo {
         if (!file.exists()) {
             throw new MojoExecutionException(eclipseExecutable + " does not exist");
         }
+        getLog().info("Scanning for source directories underneath: " + project.getBasedir());
         List<File> dirs = getSourceDirectories();
 
         if (dirs.size() == 0) {
             getLog().info("No directories containing source code were located");
             return;
         } else {
+            getLog().info("Located the following " + dirs.size() + " source directories:");
             for (File dir : dirs) {
-                getLog().info("Formatting src in: " + dir.getAbsolutePath());
+                getLog().info(dir.getAbsolutePath());
             }
         }
 
