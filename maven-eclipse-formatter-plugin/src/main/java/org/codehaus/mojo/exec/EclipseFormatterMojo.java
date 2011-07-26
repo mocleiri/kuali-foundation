@@ -97,6 +97,10 @@ public class EclipseFormatterMojo extends ExecMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        File file = new File(eclipseExecutable);
+        if (!file.exists()) {
+            throw new MojoExecutionException(eclipseExecutable + " does not exist");
+        }
         List<File> dirs = getSourceDirectories();
 
         if (dirs.size() == 0) {
