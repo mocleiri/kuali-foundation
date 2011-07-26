@@ -25,6 +25,8 @@ import org.springframework.core.io.ResourceLoader;
 public class EclipseFormatterMojo extends ExecMojo {
     private static final String FS = System.getProperty("file.separator");
 
+    private String[] binaries = new String[] { "javaw.exe", "java.exe", "java" };
+
     /**
      * Full path to the Eclipse executable
      * 
@@ -34,10 +36,10 @@ public class EclipseFormatterMojo extends ExecMojo {
     private String eclipseExecutable;
 
     /**
-     * Full path to a Java vm
+     * Full path to a Java VM. This gets filled in by using the system property "java.home" unless a value is supplied
+     * here.
      * 
-     * @parameter expression="${eclipse.vm}" default-value="${env.JAVA_HOME}/bin/java"
-     * @required
+     * @parameter expression="${eclipse.vm}"
      */
     private String vm;
 
@@ -116,12 +118,28 @@ public class EclipseFormatterMojo extends ExecMojo {
         return new File(project.getBuild().getTestSourceDirectory()).exists();
     }
 
+    protected String getJavaBinary() throws MojoExecutionException {
+        if (!StringUtils.isEmpty(vm)) {
+            return vm;
+        }
+        String javaHome = System.getProperty("java.home");
+        String binaryHome = javaHome + FS + "bin";
+        for (String binary : binaries) {
+            File file = new File(binaryHome + FS + binary);
+            if (file.exists()) {
+                return file.getAbsolutePath();
+            }
+        }
+        throw new MojoExecutionException(
+                "No Java VM location was supplied, and we could not locate one using the System property 'java.home'");
+    }
+
     protected List<String> getEclipseArguments(List<File> dirs) throws MojoExecutionException {
         List<String> args = new ArrayList<String>();
         args.add("-application");
         args.add(quote(application));
         args.add("-vm");
-        args.add(quote(vm));
+        args.add(quote(getJavaBinary()));
         args.add("-config");
         args.add(quote(getConfigAbsolutePath()));
         addIfNotEmpty(args, nosplash);
@@ -229,6 +247,14 @@ public class EclipseFormatterMojo extends ExecMojo {
 
     public void setExcludes(String[] excludes) {
         this.excludes = excludes;
+    }
+
+    public String[] getBinaries() {
+        return binaries;
+    }
+
+    public void setBinaries(String[] binaries) {
+        this.binaries = binaries;
     }
 
 }
