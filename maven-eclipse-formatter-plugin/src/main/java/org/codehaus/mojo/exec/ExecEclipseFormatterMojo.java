@@ -167,7 +167,7 @@ public class ExecEclipseFormatterMojo extends ExecMojo {
         }
         OutputStream out = null;
         try {
-            File temp = File.createTempFile("eclipse", "prefs");
+            File temp = File.createTempFile("eclipse.prefs.", null);
             out = new FileOutputStream(temp);
             IOUtils.copy(resource.getInputStream(), out);
             return temp.getAbsolutePath();
