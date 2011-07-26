@@ -36,7 +36,7 @@ public class EclipseFormatterMojo extends ExecMojo {
     /**
      * Full path to a Java vm
      * 
-     * @parameter expression="${eclipse.vm}"
+     * @parameter expression="${eclipse.vm}" default-value="${env.JAVA_HOME}/bin/java"
      * @required
      */
     private String vm;
