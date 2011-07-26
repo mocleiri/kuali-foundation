@@ -51,12 +51,12 @@ public class EclipseFormatterMojo extends ExecMojo {
     private String application;
 
     /**
-     * Path to the Eclipse "org.eclipse.jdt.core.prefs" file. Supports "classpath:" style notation
+     * Pointer to an Eclipse "org.eclipse.jdt.core.prefs" file. Supports "classpath:" style notation
      * 
-     * @parameter expression="${eclipse.configPath}" default-value="classpath:eclipse.prefs"
+     * @parameter expression="${eclipse.formatterPreferences}" default-value="classpath:eclipse.prefs"
      * @required
      */
-    private String configPath;
+    private String formatterPreferences;
 
     /**
      * @parameter expression="${eclipse.nosplash}" default-value="-nosplash"
@@ -155,14 +155,14 @@ public class EclipseFormatterMojo extends ExecMojo {
     }
 
     protected String getConfigAbsolutePath() throws MojoExecutionException {
-        File file = new File(configPath);
+        File file = new File(formatterPreferences);
         if (file.exists()) {
             return file.getAbsolutePath();
         }
         ResourceLoader loader = new DefaultResourceLoader();
-        Resource resource = loader.getResource(configPath);
+        Resource resource = loader.getResource(formatterPreferences);
         if (!resource.exists()) {
-            throw new MojoExecutionException("Unable to locate " + configPath);
+            throw new MojoExecutionException("Unable to locate " + formatterPreferences);
         }
         OutputStream out = null;
         try {
@@ -171,7 +171,7 @@ public class EclipseFormatterMojo extends ExecMojo {
             IOUtils.copy(resource.getInputStream(), out);
             return temp.getAbsolutePath();
         } catch (IOException e) {
-            throw new MojoExecutionException("Error copying resource " + configPath, e);
+            throw new MojoExecutionException("Error copying resource " + formatterPreferences, e);
         } finally {
             IOUtils.closeQuietly(out);
         }
@@ -207,14 +207,6 @@ public class EclipseFormatterMojo extends ExecMojo {
 
     public void setApplication(String application) {
         this.application = application;
-    }
-
-    public String getConfigPath() {
-        return configPath;
-    }
-
-    public void setConfigPath(String configPath) {
-        this.configPath = configPath;
     }
 
     public String getNosplash() {
@@ -255,6 +247,14 @@ public class EclipseFormatterMojo extends ExecMojo {
 
     public void setBinaries(String[] binaries) {
         this.binaries = binaries;
+    }
+
+    public String getFormatterPreferences() {
+        return formatterPreferences;
+    }
+
+    public void setFormatterPreferences(String formatterPreferences) {
+        this.formatterPreferences = formatterPreferences;
     }
 
 }
