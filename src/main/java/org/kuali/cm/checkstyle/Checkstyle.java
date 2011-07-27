@@ -3,9 +3,10 @@ package org.kuali.cm.checkstyle;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.apache.commons.io.IOUtils;
@@ -17,30 +18,49 @@ import org.springframework.core.io.ResourceLoader;
 public class Checkstyle {
 
     public static void main(String[] args) {
+        new Checkstyle().execute();
+    }
+
+    protected void execute() {
         try {
-            Checkstyle cs = new Checkstyle();
-            List<Error> errors = cs.getErrorObjects(cs.getErrors());
+            List<Error> errors = getErrorObjects(getErrors());
             Map<String, String> issues = new TreeMap<String, String>();
             Map<String, String> files = new TreeMap<String, String>();
             for (Error e : errors) {
-                String msg = cs.translate(e.getMsg());
+                String msg = translate(e.getMsg());
                 String src = e.getSrc();
                 issues.put(msg, msg);
                 files.put(src, src);
-                // System.out.println(e.getSrc() + "=" + e.getMsg());
             }
             for (String key : issues.keySet()) {
                 System.out.println(key);
             }
+            Properties props = getCheckStyleProps();
+            Map<String, String> map = getReverseMap(props);
+            System.out.println();
             System.out.println("Files: " + files.size() + " Issues: " + issues.size());
         } catch (Throwable t) {
             t.printStackTrace();
         }
     }
 
-    protected Map<String, String> getCheckStyleMapping() {
-        Map<String, String> map = new HashMap<String, String>();
+    protected Map<String, String> getReverseMap(Properties props) {
+        Map<String, String> map = new TreeMap<String, String>();
+        Set<String> names = props.stringPropertyNames();
+        for (String name : names) {
+            String value = props.getProperty(name);
+            map.put(value, name);
+        }
         return map;
+    }
+
+    protected Properties getCheckStyleProps() throws IOException {
+        String location = "classpath:checkstyle.properties";
+        ResourceLoader loader = new DefaultResourceLoader();
+        Resource resource = loader.getResource(location);
+        Properties props = new Properties();
+        props.load(resource.getInputStream());
+        return props;
     }
 
     protected String translate(String msg) {
@@ -48,7 +68,7 @@ public class Checkstyle {
             return "must be private and have accessor methods.";
         }
         if (msg.contains("must match pattern '^[a-z][a-zA-Z0-9]*$'.")) {
-            // return "must match pattern '^[a-z][a-zA-Z0-9]*$'.";
+            return "must match pattern '^[a-z][a-zA-Z0-9]*$'.";
         }
         if (msg.contains("must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.")) {
             return "must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.";
