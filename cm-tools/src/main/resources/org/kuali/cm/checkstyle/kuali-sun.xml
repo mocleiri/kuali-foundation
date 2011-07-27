@@ -155,6 +155,7 @@
       <property name="severity" value="error" />
     </module>
     <module name="ConstantName">
+      <property name="format" value="(^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$)|log|logger" />
       <property name="severity" value="error" />
     </module>
     <module name="TypeName">
