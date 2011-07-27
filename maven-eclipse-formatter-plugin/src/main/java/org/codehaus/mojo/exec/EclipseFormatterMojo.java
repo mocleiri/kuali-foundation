@@ -29,7 +29,7 @@ public class EclipseFormatterMojo extends ExecMojo {
      * Binaries representing a Java VM. Default values are "javaw.exe", "java.exe", and "java". This list is searched in
      * order, stopping as soon as one is found.
      * 
-     * @parameter expression="${eclipse.javaBinaries}"
+     * @parameter
      */
     private String[] javaBinaries = new String[] { "javaw.exe", "java.exe", "java" };
 
