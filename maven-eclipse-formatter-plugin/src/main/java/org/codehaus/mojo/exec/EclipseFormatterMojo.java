@@ -59,21 +59,23 @@ public class EclipseFormatterMojo extends ExecMojo {
     private String formatterPreferences;
 
     /**
-     * @parameter expression="${eclipse.nosplash}" default-value="-nosplash"
+     * Any arguments specified here are passed to the Eclipse binary as additional command line arguments. Default
+     * values are "-nosplash -verbose"
      */
-    private String nosplash;
+    private String[] args = new String[] { "-nosplash", "-verbose" };
 
     /**
-     * @parameter expression="${eclipse.verbose}" default-value="-verbose"
-     */
-    private String verbose;
-
-    /**
+     * Regular expressions for directories containing Java source code. Default values are &#042;&#042;/src/main/java
+     * and &#042;&#042;/src/test/java. The Eclipse formatter will recursively inspect any directories matching these
+     * patterns for *.java files
+     * 
      * @parameter
      */
     private String[] includes = new String[] { "**/src/main/java", "**/src/test/java" };
 
     /**
+     * Regular expressions for directories to exclude from scanning for Java source code
+     * 
      * @parameter
      */
     private String[] excludes = new String[] {};
@@ -152,8 +154,9 @@ public class EclipseFormatterMojo extends ExecMojo {
         args.add(quote(getJavaBinary()));
         args.add("-config");
         args.add(quote(getConfigAbsolutePath()));
-        addIfNotEmpty(args, nosplash);
-        addIfNotEmpty(args, verbose);
+        for (String arg : args) {
+            addIfNotEmpty(args, arg);
+        }
         for (File dir : dirs) {
             args.add(quote(dir.getAbsolutePath()));
         }
@@ -219,22 +222,6 @@ public class EclipseFormatterMojo extends ExecMojo {
         this.application = application;
     }
 
-    public String getNosplash() {
-        return nosplash;
-    }
-
-    public void setNosplash(String nosplash) {
-        this.nosplash = nosplash;
-    }
-
-    public String getVerbose() {
-        return verbose;
-    }
-
-    public void setVerbose(String verbose) {
-        this.verbose = verbose;
-    }
-
     public String[] getIncludes() {
         return includes;
     }
@@ -265,6 +252,14 @@ public class EclipseFormatterMojo extends ExecMojo {
 
     public void setFormatterPreferences(String formatterPreferences) {
         this.formatterPreferences = formatterPreferences;
+    }
+
+    public String[] getArgs() {
+        return args;
+    }
+
+    public void setArgs(String[] args) {
+        this.args = args;
     }
 
 }
