@@ -71,7 +71,7 @@ public class EclipseFormatterMojo extends ExecMojo {
      * 
      * @parameter
      */
-    private String[] args = new String[] { "-nosplash", "-verbose" };
+    private String[] eclipseArgs = new String[] { "-nosplash", "-verbose" };
 
     /**
      * Regular expressions for directories that contain Java source code to format. Default values are
@@ -158,20 +158,20 @@ public class EclipseFormatterMojo extends ExecMojo {
     }
 
     protected List<String> getEclipseArguments(List<File> dirs) throws MojoExecutionException {
-        List<String> eclipseArgs = new ArrayList<String>();
-        eclipseArgs.add("-application");
-        eclipseArgs.add(quote(application));
-        eclipseArgs.add("-vm");
-        eclipseArgs.add(quote(getJavaBinary()));
-        eclipseArgs.add("-config");
-        eclipseArgs.add(quote(getConfigAbsolutePath()));
-        for (String arg : args) {
-            addIfNotEmpty(eclipseArgs, arg);
+        List<String> args = new ArrayList<String>();
+        args.add("-application");
+        args.add(quote(application));
+        args.add("-vm");
+        args.add(quote(getJavaBinary()));
+        args.add("-config");
+        args.add(quote(getConfigAbsolutePath()));
+        for (String arg : eclipseArgs) {
+            addIfNotEmpty(args, arg);
         }
         for (File dir : dirs) {
-            eclipseArgs.add(quote(dir.getAbsolutePath()));
+            args.add(quote(dir.getAbsolutePath()));
         }
-        return eclipseArgs;
+        return args;
     }
 
     protected String quote(String s) {
@@ -265,12 +265,12 @@ public class EclipseFormatterMojo extends ExecMojo {
         this.formatterPreferences = formatterPreferences;
     }
 
-    public String[] getArgs() {
-        return args;
+    public String[] getEclipseArgs() {
+        return eclipseArgs;
     }
 
-    public void setArgs(String[] args) {
-        this.args = args;
+    public void setEclipseArgs(String[] args) {
+        this.eclipseArgs = args;
     }
 
 }
