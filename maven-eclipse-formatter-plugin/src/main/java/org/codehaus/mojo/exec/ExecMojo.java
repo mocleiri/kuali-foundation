@@ -107,9 +107,6 @@ public class ExecMojo extends AbstractExecMojo {
     /**
      * Exit codes to be resolved as successful execution for non-compliant applications (applications not returning 0
      * for success).
-     * 
-     * @parameter
-     * @since 1.1.1
      */
     private List successCodes;
 
