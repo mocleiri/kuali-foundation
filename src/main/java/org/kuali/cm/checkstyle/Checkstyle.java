@@ -48,7 +48,7 @@ public class Checkstyle {
             return "must be private and have accessor methods.";
         }
         if (msg.contains("must match pattern '^[a-z][a-zA-Z0-9]*$'.")) {
-            return "must match pattern '^[a-z][a-zA-Z0-9]*$'.";
+            // return "must match pattern '^[a-z][a-zA-Z0-9]*$'.";
         }
         if (msg.contains("must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.")) {
             return "must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.";
