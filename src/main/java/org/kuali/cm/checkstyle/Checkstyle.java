@@ -3,7 +3,10 @@ package org.kuali.cm.checkstyle;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -17,13 +20,70 @@ public class Checkstyle {
         try {
             Checkstyle cs = new Checkstyle();
             List<Error> errors = cs.getErrorObjects(cs.getErrors());
-            System.out.println(errors.size());
+            Map<String, String> issues = new TreeMap<String, String>();
+            Map<String, String> files = new TreeMap<String, String>();
             for (Error e : errors) {
-                System.out.println(e.getSrc() + "=" + e.getMsg());
+                String msg = cs.translate(e.getMsg());
+                String src = e.getSrc();
+                issues.put(msg, msg);
+                files.put(src, src);
+                // System.out.println(e.getSrc() + "=" + e.getMsg());
             }
+            for (String key : issues.keySet()) {
+                System.out.println(key);
+            }
+            System.out.println("Files: " + files.size() + " Issues: " + issues.size());
         } catch (Throwable t) {
             t.printStackTrace();
         }
+    }
+
+    protected Map<String, String> getCheckStyleMapping() {
+        Map<String, String> map = new HashMap<String, String>();
+        return map;
+    }
+
+    protected String translate(String msg) {
+        if (msg.contains("must be private and have accessor methods.")) {
+            return "must be private and have accessor methods.";
+        }
+        if (msg.contains("must match pattern '^[a-z][a-zA-Z0-9]*$'.")) {
+            return "must match pattern '^[a-z][a-zA-Z0-9]*$'.";
+        }
+        if (msg.contains("must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.")) {
+            return "must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.";
+        }
+        if (msg.contains("must match pattern '^[a-z_][a-zA-Z0-9]*$'.")) {
+            return "must match pattern '^[a-z_][a-zA-Z0-9]*$'.";
+        }
+        if (msg.contains("must match pattern '^[A-Z][a-zA-Z0-9]*$'.")) {
+            return "must match pattern '^[A-Z][a-zA-Z0-9]*$'.";
+        }
+        if (msg.contains("Method length is")) {
+            return "Method length is";
+        }
+        if (msg.contains("File length is")) {
+            return "File length is";
+        }
+        if (msg.contains("construct must use '{}'s.")) {
+            return "construct must use '{}'s.";
+        }
+        if (msg.contains("is not preceded with whitespace.")) {
+            return "is not preceded with whitespace.";
+        }
+        if (msg.contains("is not followed by whitespace.")) {
+            return "is not followed by whitespace.";
+        }
+        if (msg.contains("should be on a new line.")) {
+            return "should be on a new line.";
+        }
+        if (msg.contains("should be on the same line.")) {
+            return "should be on the same line.";
+        }
+        if (msg.contains("Got an exception -")) {
+            return "Got an exception -";
+        }
+        return msg;
     }
 
     protected List<Error> getErrorObjects(List<String> errors) {
