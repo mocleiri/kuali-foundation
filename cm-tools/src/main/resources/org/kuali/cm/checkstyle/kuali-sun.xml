@@ -30,8 +30,6 @@
     <!--
       <module name="AvoidInlineConditionals" />
       <module name="FinalParameters" />
-    -->
-    <!--
       <module name="JavadocMethod">
       <property name="severity" value="info" />
       </module>
