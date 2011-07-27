@@ -7,8 +7,7 @@
   on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
   express or implied. See the License for the specific language governing permissions
   and limitations under the License. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <name>Kuali CM Tools</name>
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -19,14 +18,14 @@
   <description>Configuration Management Tools</description>
   <groupId>org.kuali.cm</groupId>
   <artifactId>cm-tools</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
   </properties>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/pom/trunk/cm-tools</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/cm-tools-1.0</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/cm-tools-1.0</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/pom/tags/cm-tools-1.0</url>
   </scm>
   <developers>
     <developer>
