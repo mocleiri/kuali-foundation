@@ -4,31 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Index {
-	List<String> columns = new ArrayList<String>();
-	String name;
-	boolean unique;
+    List<String> columns = new ArrayList<String>();
+    String name;
+    boolean unique;
 
-	public List<String> getColumns() {
-		return columns;
-	}
+    public List<String> getColumns() {
+        return columns;
+    }
 
-	public void setColumns(List<String> columns) {
-		this.columns = columns;
-	}
+    public void setColumns(List<String> columns) {
+        this.columns = columns;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public boolean isUnique() {
-		return unique;
-	}
+    public boolean isUnique() {
+        return unique;
+    }
 
-	public void setUnique(boolean unique) {
-		this.unique = unique;
-	}
+    public void setUnique(boolean unique) {
+        this.unique = unique;
+    }
 }

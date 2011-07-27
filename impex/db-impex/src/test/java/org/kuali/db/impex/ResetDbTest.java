@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration
 public class ResetDbTest {
 
-	@Test
-	public void test() {
-	}
+    @Test
+    public void test() {
+    }
 }

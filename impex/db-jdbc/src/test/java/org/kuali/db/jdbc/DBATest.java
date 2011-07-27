@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration
 public class DBATest {
 
-	@Test
-	public void importTest() {
-	}
+    @Test
+    public void importTest() {
+    }
 }

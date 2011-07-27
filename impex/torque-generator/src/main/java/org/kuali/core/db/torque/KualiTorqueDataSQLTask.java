@@ -23,152 +23,154 @@ import org.springframework.util.StringUtils;
  * data XML file
  */
 public class KualiTorqueDataSQLTask extends TorqueDataModelTask {
-	PrettyPrint prettyPrint;
-	Utils utils = new Utils();
+    PrettyPrint prettyPrint;
+    Utils utils = new Utils();
 
-	/**
-	 * The DTD itself.
-	 */
-	protected File dataDTD;
+    /**
+     * The DTD itself.
+     */
+    protected File dataDTD;
 
-	/**
-	 * Database object representing the information from schema.xml
-	 */
-	protected Database database;
+    /**
+     * Database object representing the information from schema.xml
+     */
+    protected Database database;
 
-	/**
-	 * Get a list of File objects from the directory and filenames passed in
-	 */
-	protected List<File> getFiles(File srcDir, String[] filenames) {
-		List<File> files = new ArrayList<File>();
-		for (int i = 0; i < filenames.length; i++) {
-			files.add(new File(srcDir, filenames[i]));
-		}
-		return files;
-	}
+    /**
+     * Get a list of File objects from the directory and filenames passed in
+     */
+    protected List<File> getFiles(File srcDir, String[] filenames) {
+        List<File> files = new ArrayList<File>();
+        for (int i = 0; i < filenames.length; i++) {
+            files.add(new File(srcDir, filenames[i]));
+        }
+        return files;
+    }
 
-	/**
-	 * Cycle through the filesets to generate a list of file objects
-	 */
-	protected List<File> getFiles(List<FileSet> fileSets, Project project) {
-		List<File> files = new ArrayList<File>();
-		for (FileSet fileSet : fileSets) {
-			DirectoryScanner ds = fileSet.getDirectoryScanner(project);
-			File srcDir = fileSet.getDir(project);
-			files.addAll(getFiles(srcDir, ds.getIncludedFiles()));
-		}
-		return files;
-	}
+    /**
+     * Cycle through the filesets to generate a list of file objects
+     */
+    protected List<File> getFiles(List<FileSet> fileSets, Project project) {
+        List<File> files = new ArrayList<File>();
+        for (FileSet fileSet : fileSets) {
+            DirectoryScanner ds = fileSet.getDirectoryScanner(project);
+            File srcDir = fileSet.getDir(project);
+            files.addAll(getFiles(srcDir, ds.getIncludedFiles()));
+        }
+        return files;
+    }
 
-	/**
-	 * Extract table names from schema.xml
-	 */
-	protected Set<String> getTableNamesFromSchemaXML(Database database) {
-		List<?> tables = database.getTables();
-		Set<String> tablenames = new TreeSet<String>();
-		for (Object object : tables) {
-			Table table = (Table) object;
-			tablenames.add(table.getName());
-		}
-		return tablenames;
-	}
+    /**
+     * Extract table names from schema.xml
+     */
+    protected Set<String> getTableNamesFromSchemaXML(Database database) {
+        List<?> tables = database.getTables();
+        Set<String> tablenames = new TreeSet<String>();
+        for (Object object : tables) {
+            Table table = (Table) object;
+            tablenames.add(table.getName());
+        }
+        return tablenames;
+    }
 
-	/**
-	 * Extract table names from files on the file system
-	 */
-	protected Set<String> getTableNamesFromFiles(List<File> files) {
-		Set<String> tablenames = new TreeSet<String>();
-		for (File file : files) {
-			String filename = file.getName();
-			int pos = filename.indexOf(".xml");
-			String tablename = filename.substring(0, pos);
-			tablenames.add(tablename);
-		}
-		return tablenames;
-	}
+    /**
+     * Extract table names from files on the file system
+     */
+    protected Set<String> getTableNamesFromFiles(List<File> files) {
+        Set<String> tablenames = new TreeSet<String>();
+        for (File file : files) {
+            String filename = file.getName();
+            int pos = filename.indexOf(".xml");
+            String tablename = filename.substring(0, pos);
+            tablenames.add(tablename);
+        }
+        return tablenames;
+    }
 
-	/**
-	 * Initialize a Velocity context that can generate SQL from XML data files
-	 */
-	public Context initControlContext() throws Exception {
-		if (getFilesets().isEmpty()) {
-			throw new BuildException("You must specify a fileset of XML data files!");
-		}
+    /**
+     * Initialize a Velocity context that can generate SQL from XML data files
+     */
+    public Context initControlContext() throws Exception {
+        if (getFilesets().isEmpty()) {
+            throw new BuildException("You must specify a fileset of XML data files!");
+        }
 
-		// Get an xml parser for schema.xml
-		KualiXmlToAppData xmlParser = new KualiXmlToAppData(getTargetDatabase(), "");
+        // Get an xml parser for schema.xml
+        KualiXmlToAppData xmlParser = new KualiXmlToAppData(getTargetDatabase(), "");
 
-		// Parse schema.xml into a database object
-		Database database = xmlParser.parseResource(getXmlFile());
-		setDatabase(database);
+        // Parse schema.xml into a database object
+        Database database = xmlParser.parseResource(getXmlFile());
+        setDatabase(database);
 
-		// Locate the DTD
-		if (!getDataDTD().exists()) {
-			throw new BuildException("Could not find the DTD for " + database.getName());
-		}
+        // Locate the DTD
+        if (!getDataDTD().exists()) {
+            throw new BuildException("Could not find the DTD for " + database.getName());
+        }
 
-		// These are the XML data files
-		List<File> files = getFiles(getFilesets(), getProject());
+        // These are the XML data files
+        List<File> files = getFiles(getFilesets(), getProject());
 
-		// Resolve table information from the data XML files with table information from schema.xml
-		Set<String> schemaTables = getTableNamesFromSchemaXML(database);
-		Set<String> fileTables = getTableNamesFromFiles(files);
-		Set<String> missingFiles = SetUtils.difference(schemaTables, fileTables);
-		Set<String> intersection = SetUtils.intersection(schemaTables, fileTables);
-		Set<String> extraFiles = SetUtils.difference(fileTables, schemaTables);
+        // Resolve table information from the data XML files with table information from schema.xml
+        Set<String> schemaTables = getTableNamesFromSchemaXML(database);
+        Set<String> fileTables = getTableNamesFromFiles(files);
+        Set<String> missingFiles = SetUtils.difference(schemaTables, fileTables);
+        Set<String> intersection = SetUtils.intersection(schemaTables, fileTables);
+        Set<String> extraFiles = SetUtils.difference(fileTables, schemaTables);
 
-		log("Total tables: " + database.getTables().size());
-		log("Tables with data XML files: " + intersection.size());
-		log("Tables without data XML files: " + missingFiles.size());
-		if (extraFiles.size() > 0) {
-			log("There are files that have no corresponding entry in schema.xml: " + extraFiles.size(), Project.MSG_WARN);
-		}
+        log("Total tables: " + database.getTables().size());
+        log("Tables with data XML files: " + intersection.size());
+        log("Tables without data XML files: " + missingFiles.size());
+        if (extraFiles.size() > 0) {
+            log("There are files that have no corresponding entry in schema.xml: " + extraFiles.size(),
+                    Project.MSG_WARN);
+        }
 
-		// Setup the Velocity context
-		VelocityContext context = new VelocityContext();
-		context.put("xmlfiles", files);
-		context.put("task", this);
-		context.put("targetDatabase", getTargetDatabase());
-		return context;
-	}
+        // Setup the Velocity context
+        VelocityContext context = new VelocityContext();
+        context.put("xmlfiles", files);
+        context.put("task", this);
+        context.put("targetDatabase", getTargetDatabase());
+        return context;
+    }
 
-	public void onBeforeGenerate(File file) {
-		prettyPrint = new PrettyPrint("[INFO] Generating: " + getTargetDatabase() + "/" + StringUtils.replace(file.getName(), ".xml", ".sql"));
-		utils.left(prettyPrint);
-	}
+    public void onBeforeGenerate(File file) {
+        prettyPrint = new PrettyPrint("[INFO] Generating: " + getTargetDatabase() + "/"
+                + StringUtils.replace(file.getName(), ".xml", ".sql"));
+        utils.left(prettyPrint);
+    }
 
-	public void onAfterGenerate(File file) {
-		utils.right(prettyPrint);
-		prettyPrint = null;
-	}
+    public void onAfterGenerate(File file) {
+        utils.right(prettyPrint);
+        prettyPrint = null;
+    }
 
-	/**
-	 * Parse a data XML file. This method gets invoked from the Velocity template - sql/load/Control.vm
-	 */
-	public List<?> getData(File file) {
-		try {
-			XmlToData dataXmlParser = new XmlToData(getDatabase(), getDataDTD().getAbsolutePath());
-			List<?> newData = dataXmlParser.parseFile(file.getAbsolutePath());
-			return newData;
-		} catch (Exception e) {
-			throw new BuildException(e);
-		}
-	}
+    /**
+     * Parse a data XML file. This method gets invoked from the Velocity template - sql/load/Control.vm
+     */
+    public List<?> getData(File file) {
+        try {
+            XmlToData dataXmlParser = new XmlToData(getDatabase(), getDataDTD().getAbsolutePath());
+            List<?> newData = dataXmlParser.parseFile(file.getAbsolutePath());
+            return newData;
+        } catch (Exception e) {
+            throw new BuildException(e);
+        }
+    }
 
-	public Database getDatabase() {
-		return database;
-	}
+    public Database getDatabase() {
+        return database;
+    }
 
-	public void setDatabase(Database database) {
-		this.database = database;
-	}
+    public void setDatabase(Database database) {
+        this.database = database;
+    }
 
-	public File getDataDTD() {
-		return dataDTD;
-	}
+    public File getDataDTD() {
+        return dataDTD;
+    }
 
-	public void setDataDTD(File dataDTD) {
-		this.dataDTD = dataDTD;
-	}
+    public void setDataDTD(File dataDTD) {
+        this.dataDTD = dataDTD;
+    }
 
 }

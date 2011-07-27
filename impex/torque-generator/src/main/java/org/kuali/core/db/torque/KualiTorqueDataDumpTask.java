@@ -310,7 +310,7 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 
     /**
      * Convert a List to a Set
-     *
+     * 
      * @param list
      * @return
      */

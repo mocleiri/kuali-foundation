@@ -1,22 +1,16 @@
 package org.apache.torque.engine.database.transform;
 
 /*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE
+ * file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 import java.io.BufferedInputStream;
@@ -56,156 +50,157 @@ import org.xml.sax.helpers.DefaultHandler;
  * @version $Id: XmlToData.java,v 1.1 2007-10-21 07:57:26 abyrne Exp $
  */
 public class XmlToData extends DefaultHandler implements EntityResolver {
-	/** Logging class from commons.logging */
-	private static Log log = LogFactory.getLog(XmlToData.class);
-	private Database database;
-	private List<Object> data;
-	private File dtdFile;
+    /** Logging class from commons.logging */
+    private static Log log = LogFactory.getLog(XmlToData.class);
+    private Database database;
+    private List<Object> data;
+    private File dtdFile;
 
-	private static SAXParserFactory saxFactory;
+    private static SAXParserFactory saxFactory;
 
-	static {
-		saxFactory = SAXParserFactory.newInstance();
-		saxFactory.setValidating(true);
-	}
+    static {
+        saxFactory = SAXParserFactory.newInstance();
+        saxFactory.setValidating(true);
+    }
 
-	/**
-	 * Default custructor
-	 */
-	public XmlToData(Database database, String dtdFilePath) throws MalformedURLException, IOException {
-		this.database = database;
-		this.dtdFile = new File(dtdFilePath);
-	}
+    /**
+     * Default custructor
+     */
+    public XmlToData(Database database, String dtdFilePath) throws MalformedURLException, IOException {
+        this.database = database;
+        this.dtdFile = new File(dtdFilePath);
+    }
 
-	/**
+    /**
      *
      */
-	public List<?> parseFile(String xmlFile) throws Exception {
-		data = new ArrayList<Object>();
+    public List<?> parseFile(String xmlFile) throws Exception {
+        data = new ArrayList<Object>();
 
-		SAXParser parser = saxFactory.newSAXParser();
+        SAXParser parser = saxFactory.newSAXParser();
 
-		Reader r = new BufferedReader(new FileReader(xmlFile));
-		try {
-			InputSource is = new InputSource(r);
-			is.setSystemId(dtdFile.getAbsolutePath());
-			parser.parse(is, this);
-		} finally {
-			r.close();
-		}
-		return data;
-	}
+        Reader r = new BufferedReader(new FileReader(xmlFile));
+        try {
+            InputSource is = new InputSource(r);
+            is.setSystemId(dtdFile.getAbsolutePath());
+            parser.parse(is, this);
+        } finally {
+            r.close();
+        }
+        return data;
+    }
 
-	/**
-	 * Handles opening elements of the xml file.
-	 */
-	public void startElement(String uri, String localName, String rawName, Attributes attributes) throws SAXException {
-		try {
-			if (rawName.equals("dataset")) {
-				// ignore <dataset> for now.
-			} else {
-				Table table = database.getTableByJavaName(rawName);
+    /**
+     * Handles opening elements of the xml file.
+     */
+    public void startElement(String uri, String localName, String rawName, Attributes attributes) throws SAXException {
+        try {
+            if (rawName.equals("dataset")) {
+                // ignore <dataset> for now.
+            } else {
+                Table table = database.getTableByJavaName(rawName);
 
-				if (table == null) {
-					throw new SAXException("Table '" + rawName + "' unknown");
-				}
-				List<ColumnValue> columnValues = new ArrayList<ColumnValue>();
-				for (int i = 0; i < attributes.getLength(); i++) {
-					Column col = table.getColumnByJavaName(attributes.getQName(i));
+                if (table == null) {
+                    throw new SAXException("Table '" + rawName + "' unknown");
+                }
+                List<ColumnValue> columnValues = new ArrayList<ColumnValue>();
+                for (int i = 0; i < attributes.getLength(); i++) {
+                    Column col = table.getColumnByJavaName(attributes.getQName(i));
 
-					if (col == null) {
-						throw new SAXException("Column " + attributes.getQName(i) + " in table " + rawName + " unknown.");
-					}
+                    if (col == null) {
+                        throw new SAXException("Column " + attributes.getQName(i) + " in table " + rawName
+                                + " unknown.");
+                    }
 
-					String value = attributes.getValue(i);
-					columnValues.add(new ColumnValue(col, value));
-				}
-				data.add(new DataRow(table, columnValues));
-			}
-		} catch (Exception e) {
-			throw new SAXException(e);
-		}
-	}
+                    String value = attributes.getValue(i);
+                    columnValues.add(new ColumnValue(col, value));
+                }
+                data.add(new DataRow(table, columnValues));
+            }
+        } catch (Exception e) {
+            throw new SAXException(e);
+        }
+    }
 
-	/**
-	 * called by the XML parser
-	 * 
-	 * @return an InputSource for the database.dtd file
-	 */
-	public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
-		try {
-			File systemIdFile = new File(systemId);
-			if (dtdFile.equals(systemIdFile)) {
-				log.debug("Resolver: -> used " + dtdFile.getPath());
-				return new InputSource(new BufferedInputStream(new FileInputStream(dtdFile)));
-			} else {
-				log.debug("Resolver: -> used " + systemId);
-				return getInputSource(systemId);
-			}
-		} catch (IOException e) {
-			throw new SAXException(e);
-		}
-	}
+    /**
+     * called by the XML parser
+     * 
+     * @return an InputSource for the database.dtd file
+     */
+    public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
+        try {
+            File systemIdFile = new File(systemId);
+            if (dtdFile.equals(systemIdFile)) {
+                log.debug("Resolver: -> used " + dtdFile.getPath());
+                return new InputSource(new BufferedInputStream(new FileInputStream(dtdFile)));
+            } else {
+                log.debug("Resolver: -> used " + systemId);
+                return getInputSource(systemId);
+            }
+        } catch (IOException e) {
+            throw new SAXException(e);
+        }
+    }
 
-	/**
-	 * get an InputSource for an URL String
-	 * 
-	 * @param urlString
-	 * @return an InputSource for the URL String
-	 */
-	public InputSource getInputSource(String urlString) throws IOException {
-		URL url = new URL(urlString);
-		InputSource src = new InputSource(url.openStream());
-		return src;
-	}
+    /**
+     * get an InputSource for an URL String
+     * 
+     * @param urlString
+     * @return an InputSource for the URL String
+     */
+    public InputSource getInputSource(String urlString) throws IOException {
+        URL url = new URL(urlString);
+        InputSource src = new InputSource(url.openStream());
+        return src;
+    }
 
-	/**
+    /**
      *
      */
-	public class DataRow {
-		private Table table;
-		private List<ColumnValue> columnValues;
+    public class DataRow {
+        private Table table;
+        private List<ColumnValue> columnValues;
 
-		public DataRow(Table table, List<ColumnValue> columnValues) {
-			this.table = table;
-			this.columnValues = columnValues;
-		}
+        public DataRow(Table table, List<ColumnValue> columnValues) {
+            this.table = table;
+            this.columnValues = columnValues;
+        }
 
-		public Table getTable() {
-			return table;
-		}
+        public Table getTable() {
+            return table;
+        }
 
-		public List<?> getColumnValues() {
-			return columnValues;
-		}
-	}
+        public List<?> getColumnValues() {
+            return columnValues;
+        }
+    }
 
-	/**
+    /**
      *
      */
-	public class ColumnValue {
-		private Column col;
-		private String val;
+    public class ColumnValue {
+        private Column col;
+        private String val;
 
-		public ColumnValue(Column col, String val) {
-			this.col = col;
-			this.val = val;
-		}
+        public ColumnValue(Column col, String val) {
+            this.col = col;
+            this.val = val;
+        }
 
-		public Column getColumn() {
-			return col;
-		}
+        public Column getColumn() {
+            return col;
+        }
 
-		public String getValue() {
-			return val;
-		}
+        public String getValue() {
+            return val;
+        }
 
-		public String getEscapedValue() {
-			StringBuffer sb = new StringBuffer();
-			sb.append("'");
-			sb.append(StringUtils.replace(val, "'", "''"));
-			sb.append("'");
-			return sb.toString();
-		}
-	}
+        public String getEscapedValue() {
+            StringBuffer sb = new StringBuffer();
+            sb.append("'");
+            sb.append(StringUtils.replace(val, "'", "''"));
+            sb.append("'");
+            return sb.toString();
+        }
+    }
 }

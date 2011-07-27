@@ -8,58 +8,58 @@ import org.apache.torque.engine.platform.Platform;
 import org.apache.xerces.dom.DocumentImpl;
 
 public class TableHelper {
-	Set<String> tableNames;
-	Connection connection;
-	Platform platform;
-	DatabaseMetaData dbMetaData;
-	int rowCount;
-	DocumentImpl document;
+    Set<String> tableNames;
+    Connection connection;
+    Platform platform;
+    DatabaseMetaData dbMetaData;
+    int rowCount;
+    DocumentImpl document;
 
-	public Connection getConnection() {
-		return connection;
-	}
+    public Connection getConnection() {
+        return connection;
+    }
 
-	public void setConnection(Connection connection) {
-		this.connection = connection;
-	}
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
 
-	public Platform getPlatform() {
-		return platform;
-	}
+    public Platform getPlatform() {
+        return platform;
+    }
 
-	public void setPlatform(Platform platform) {
-		this.platform = platform;
-	}
+    public void setPlatform(Platform platform) {
+        this.platform = platform;
+    }
 
-	public DatabaseMetaData getDbMetaData() {
-		return dbMetaData;
-	}
+    public DatabaseMetaData getDbMetaData() {
+        return dbMetaData;
+    }
 
-	public void setDbMetaData(DatabaseMetaData dbMetaData) {
-		this.dbMetaData = dbMetaData;
-	}
+    public void setDbMetaData(DatabaseMetaData dbMetaData) {
+        this.dbMetaData = dbMetaData;
+    }
 
-	public int getRowCount() {
-		return rowCount;
-	}
+    public int getRowCount() {
+        return rowCount;
+    }
 
-	public void setRowCount(int rowCount) {
-		this.rowCount = rowCount;
-	}
+    public void setRowCount(int rowCount) {
+        this.rowCount = rowCount;
+    }
 
-	public DocumentImpl getDocument() {
-		return document;
-	}
+    public DocumentImpl getDocument() {
+        return document;
+    }
 
-	public void setDocument(DocumentImpl document) {
-		this.document = document;
-	}
+    public void setDocument(DocumentImpl document) {
+        this.document = document;
+    }
 
-	public Set<String> getTableNames() {
-		return tableNames;
-	}
+    public Set<String> getTableNames() {
+        return tableNames;
+    }
 
-	public void setTableNames(Set<String> tableNames) {
-		this.tableNames = tableNames;
-	}
+    public void setTableNames(Set<String> tableNames) {
+        this.tableNames = tableNames;
+    }
 }

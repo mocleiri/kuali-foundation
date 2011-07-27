@@ -338,9 +338,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
     /**
      * Generates an XML database schema from JDBC metadata.
-     *
+     * 
      * @throws Exception
-     * a generic exception.
+     *             a generic exception.
      */
     protected void generateXML(final Platform platform) throws Exception {
 
@@ -428,11 +428,11 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
      * Retrieves all the column names and types for a given table from JDBC metadata. It returns a List of Lists. Each
      * element of the returned List is a List with: element 0 => a String object for the column name. element 1 => an
      * Integer object for the column type. element 2 => size of the column. element 3 => null type.
-     *
+     * 
      * @param dbMeta
-     * JDBC metadata.
+     *            JDBC metadata.
      * @param tableName
-     * Table from which to retrieve column information.
+     *            Table from which to retrieve column information.
      * @return The list of columns in <code>tableName</code>.
      * @throws SQLException
      */
@@ -510,11 +510,11 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
     /**
      * Retrieves a list of foreign key columns for a given table.
-     *
+     * 
      * @param dbMeta
-     * JDBC metadata.
+     *            JDBC metadata.
      * @param tableName
-     * Table from which to retrieve FK information.
+     *            Table from which to retrieve FK information.
      * @return A list of foreign keys in <code>tableName</code>.
      * @throws SQLException
      */

@@ -1,22 +1,16 @@
 package org.apache.torque.engine.database.model;
 
 /*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE
+ * file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 import java.sql.Types;
@@ -29,18 +23,17 @@ import org.apache.commons.logging.LogFactory;
 // I don't know if the peer system deals
 // with the recommended mappings.
 //
-//import java.sql.Date;
-//import java.sql.Time;
-//import java.sql.Timestamp;
+// import java.sql.Date;
+// import java.sql.Time;
+// import java.sql.Timestamp;
 
 /**
- * A class that maps JDBC types to their corresponding
- * Java object types, and Java native types. Used
- * by Column.java to perform object/native mappings.
- *
- * These are the official SQL type to Java type mappings.
- * These don't quite correspond to the way the peer
- * system works so we'll have to make some adjustments.
+ * A class that maps JDBC types to their corresponding Java object types, and Java native types. Used by Column.java to
+ * perform object/native mappings.
+ * 
+ * These are the official SQL type to Java type mappings. These don't quite correspond to the way the peer system works
+ * so we'll have to make some adjustments.
+ * 
  * <pre>
  * -------------------------------------------------------
  * SQL Type      | Java Type            | Peer Type
@@ -64,29 +57,24 @@ import org.apache.commons.logging.LogFactory;
  * DATE          | java.sql.Date        | java.util.Date
  * TIME          | java.sql.Time        | java.util.Date
  * TIMESTAMP     | java.sql.Timestamp   | java.util.Date
- *
+ * 
  * -------------------------------------------------------
  * A couple variations have been introduced to cover cases
  * that may arise, but are not covered above
  * BOOLEANCHAR   | boolean OR Boolean   | String
  * BOOLEANINT    | boolean OR Boolean   | Integer
  * </pre>
- *
+ * 
  * @author <a href="mailto:jvanzyl@apache.org">Jason van Zyl</a>
  * @author <a href="mailto:mpoeschl@marmot.at>Martin Poeschl</a>
  * @version $Id: TypeMap.java,v 1.1 2007-10-21 07:57:27 abyrne Exp $
  */
-public class TypeMap
-{
+public class TypeMap {
     /** Logging class from commons.logging */
     private static Log log = LogFactory.getLog(Column.class);
 
-    private static final SchemaType[] TEXT_TYPES =
-    {
-        SchemaType.CHAR, SchemaType.VARCHAR, SchemaType.LONGVARCHAR,
-        SchemaType.CLOB, SchemaType.DATE, SchemaType.TIME,
-        SchemaType.TIMESTAMP, SchemaType.BOOLEANCHAR
-    };
+    private static final SchemaType[] TEXT_TYPES = { SchemaType.CHAR, SchemaType.VARCHAR, SchemaType.LONGVARCHAR,
+            SchemaType.CLOB, SchemaType.DATE, SchemaType.TIME, SchemaType.TIMESTAMP, SchemaType.BOOLEANCHAR };
 
     public static final String CHAR_OBJECT_TYPE = "\"\"";
     public static final String VARCHAR_OBJECT_TYPE = "\"\"";
@@ -102,10 +90,10 @@ public class TypeMap
     public static final String REAL_OBJECT_TYPE = "new Float(0)";
     public static final String FLOAT_OBJECT_TYPE = "new Double(0)";
     public static final String DOUBLE_OBJECT_TYPE = "new Double(0)";
-    public static final String BINARY_OBJECT_TYPE = "new Object()"; //?
-    public static final String VARBINARY_OBJECT_TYPE = "new Object()"; //?
-    public static final String LONGVARBINARY_OBJECT_TYPE = "new Object()"; //?
-    public static final String BLOB_OBJECT_TYPE = "new Object()"; //?
+    public static final String BINARY_OBJECT_TYPE = "new Object()"; // ?
+    public static final String VARBINARY_OBJECT_TYPE = "new Object()"; // ?
+    public static final String LONGVARBINARY_OBJECT_TYPE = "new Object()"; // ?
+    public static final String BLOB_OBJECT_TYPE = "new Object()"; // ?
     public static final String DATE_OBJECT_TYPE = "new Date()";
     public static final String TIME_OBJECT_TYPE = "new Date()";
     public static final String TIMESTAMP_OBJECT_TYPE = "new Date()";
@@ -215,13 +203,10 @@ public class TypeMap
     private static boolean isInitialized = false;
 
     /**
-     * Initializes the SQL to Java map so that it
-     * can be used by client code.
+     * Initializes the SQL to Java map so that it can be used by client code.
      */
-    public static synchronized void initialize()
-    {
-        if (!isInitialized)
-        {
+    public static synchronized void initialize() {
+        if (!isInitialized) {
             // Create JDBC -> Java object mappings.
             jdbcToJavaObjectMap = new Hashtable();
 
@@ -285,10 +270,8 @@ public class TypeMap
             jdbcToJavaNativeObjectMap.put(SchemaType.REAL, REAL_NATIVE_OBJECT_TYPE);
             jdbcToJavaNativeObjectMap.put(SchemaType.FLOAT, FLOAT_NATIVE_OBJECT_TYPE);
             jdbcToJavaNativeObjectMap.put(SchemaType.DOUBLE, DOUBLE_NATIVE_OBJECT_TYPE);
-            jdbcToJavaNativeObjectMap.put(SchemaType.BOOLEANCHAR,
-                                          BOOLEANCHAR_NATIVE_OBJECT_TYPE);
-            jdbcToJavaNativeObjectMap.put(SchemaType.BOOLEANINT,
-                                          BOOLEANINT_NATIVE_OBJECT_TYPE);
+            jdbcToJavaNativeObjectMap.put(SchemaType.BOOLEANCHAR, BOOLEANCHAR_NATIVE_OBJECT_TYPE);
+            jdbcToJavaNativeObjectMap.put(SchemaType.BOOLEANINT, BOOLEANINT_NATIVE_OBJECT_TYPE);
 
             // Create JDBC -> Village asX() mappings.
             jdbcToVillageMethodMap = new Hashtable();
@@ -317,25 +300,17 @@ public class TypeMap
             jdbcToVillageMethodMap.put(SchemaType.BOOLEANCHAR, BOOLEANCHAR_VILLAGE_METHOD);
             jdbcToVillageMethodMap.put(SchemaType.BOOLEANINT, BOOLEANINT_VILLAGE_METHOD);
 
-
             jdbcToVillageObjectMethodMap = new Hashtable();
             jdbcToVillageObjectMethodMap.put(SchemaType.BIT, BIT_VILLAGE_OBJECT_METHOD);
-            jdbcToVillageObjectMethodMap.put(SchemaType.TINYINT,
-                                             TINYINT_VILLAGE_OBJECT_METHOD);
-            jdbcToVillageObjectMethodMap.put(SchemaType.SMALLINT,
-                                             SMALLINT_VILLAGE_OBJECT_METHOD);
-            jdbcToVillageObjectMethodMap.put(SchemaType.INTEGER,
-                                             INTEGER_VILLAGE_OBJECT_METHOD);
-            jdbcToVillageObjectMethodMap.put(SchemaType.BIGINT,
-                                             BIGINT_VILLAGE_OBJECT_METHOD);
+            jdbcToVillageObjectMethodMap.put(SchemaType.TINYINT, TINYINT_VILLAGE_OBJECT_METHOD);
+            jdbcToVillageObjectMethodMap.put(SchemaType.SMALLINT, SMALLINT_VILLAGE_OBJECT_METHOD);
+            jdbcToVillageObjectMethodMap.put(SchemaType.INTEGER, INTEGER_VILLAGE_OBJECT_METHOD);
+            jdbcToVillageObjectMethodMap.put(SchemaType.BIGINT, BIGINT_VILLAGE_OBJECT_METHOD);
             jdbcToVillageObjectMethodMap.put(SchemaType.REAL, REAL_VILLAGE_OBJECT_METHOD);
             jdbcToVillageObjectMethodMap.put(SchemaType.FLOAT, FLOAT_VILLAGE_OBJECT_METHOD);
-            jdbcToVillageObjectMethodMap.put(SchemaType.DOUBLE,
-                                             DOUBLE_VILLAGE_OBJECT_METHOD);
-            jdbcToVillageObjectMethodMap.put(SchemaType.BOOLEANCHAR,
-                                             BOOLEANCHAR_VILLAGE_OBJECT_METHOD);
-            jdbcToVillageObjectMethodMap.put(SchemaType.BOOLEANINT,
-                                             BOOLEANINT_VILLAGE_OBJECT_METHOD);
+            jdbcToVillageObjectMethodMap.put(SchemaType.DOUBLE, DOUBLE_VILLAGE_OBJECT_METHOD);
+            jdbcToVillageObjectMethodMap.put(SchemaType.BOOLEANCHAR, BOOLEANCHAR_VILLAGE_OBJECT_METHOD);
+            jdbcToVillageObjectMethodMap.put(SchemaType.BOOLEANINT, BOOLEANINT_VILLAGE_OBJECT_METHOD);
 
             // Create JDBC -> ParameterParser getX() mappings.
             jdbcToPPMethodMap = new Hashtable();
@@ -366,8 +341,7 @@ public class TypeMap
             torqueTypeToJdbcTypeMap = new Hashtable();
 
             Iterator iter = SchemaType.iterator();
-            while (iter.hasNext())
-            {
+            while (iter.hasNext()) {
                 SchemaType type = (SchemaType) iter.next();
                 torqueTypeToJdbcTypeMap.put(type, type);
             }
@@ -405,121 +379,107 @@ public class TypeMap
 
     /**
      * Report whether this object has been initialized.
-     *
+     * 
      * @return true if this object has been initialized
      */
-    public static boolean isInitialized()
-    {
+    public static boolean isInitialized() {
         return isInitialized;
     }
 
     /**
-     * Return a Java object which corresponds to the
-     * JDBC type provided. Use in MapBuilder generation.
-     *
-     * @param jdbcType the JDBC type
+     * Return a Java object which corresponds to the JDBC type provided. Use in MapBuilder generation.
+     * 
+     * @param jdbcType
+     *            the JDBC type
      * @return name of the Object
      */
-    public static String getJavaObject(SchemaType jdbcType)
-    {
+    public static String getJavaObject(SchemaType jdbcType) {
         // Make sure the we are initialized.
-        if (!isInitialized)
-        {
+        if (!isInitialized) {
             initialize();
         }
         return (String) jdbcToJavaObjectMap.get(jdbcType);
     }
 
     /**
-     * Return native java type which corresponds to the
-     * JDBC type provided. Use in the base object class generation.
-     *
-     * @param jdbcType the JDBC type
+     * Return native java type which corresponds to the JDBC type provided. Use in the base object class generation.
+     * 
+     * @param jdbcType
+     *            the JDBC type
      * @return name of the native java type
      */
-    public static String getJavaNative(SchemaType jdbcType)
-    {
+    public static String getJavaNative(SchemaType jdbcType) {
         // Make sure the we are initialized.
-        if (!isInitialized)
-        {
+        if (!isInitialized) {
             initialize();
         }
         return (String) jdbcToJavaNativeMap.get(jdbcType);
     }
 
     /**
-     * Return native java type which corresponds to the
-     * JDBC type provided. Use in the base object class generation.
-     *
-     * @param jdbcType the JDBC type
+     * Return native java type which corresponds to the JDBC type provided. Use in the base object class generation.
+     * 
+     * @param jdbcType
+     *            the JDBC type
      * @return name of the Object
      */
-    public static String getJavaNativeObject(SchemaType jdbcType)
-    {
+    public static String getJavaNativeObject(SchemaType jdbcType) {
         // Make sure the we are initialized.
-        if (!isInitialized)
-        {
+        if (!isInitialized) {
             initialize();
         }
         String s = (String) jdbcToJavaNativeObjectMap.get(jdbcType);
-        if (s == null)
-        {
+        if (s == null) {
             s = (String) jdbcToJavaNativeMap.get(jdbcType);
         }
         return s;
     }
 
     /**
-     * Return Village asX() method which corresponds to the
-     * JDBC type provided. Use in the Peer class generation.
-     *
-     * @param jdbcType the JDBC type
+     * Return Village asX() method which corresponds to the JDBC type provided. Use in the Peer class generation.
+     * 
+     * @param jdbcType
+     *            the JDBC type
      * @return name of the Village asX() method
      */
-    public static String getVillageMethod(SchemaType jdbcType)
-    {
+    public static String getVillageMethod(SchemaType jdbcType) {
         // Make sure the we are initialized.
-        if (!isInitialized)
-        {
+        if (!isInitialized) {
             initialize();
         }
         return (String) jdbcToVillageMethodMap.get(jdbcType);
     }
 
     /**
-     * Return Village asX() method which corresponds to the
-     * JDBC type provided. Use in the Peer class generation.
-     *
-     * @param jdbcType the JDBC type
+     * Return Village asX() method which corresponds to the JDBC type provided. Use in the Peer class generation.
+     * 
+     * @param jdbcType
+     *            the JDBC type
      * @return name of the Village asX() method
      */
-    public static String getVillageObjectMethod(SchemaType jdbcType)
-    {
+    public static String getVillageObjectMethod(SchemaType jdbcType) {
         // Make sure the we are initialized.
-        if (!isInitialized)
-        {
+        if (!isInitialized) {
             initialize();
         }
         String s = (String) jdbcToVillageObjectMethodMap.get(jdbcType);
-        if (s == null)
-        {
+        if (s == null) {
             s = (String) jdbcToVillageMethodMap.get(jdbcType);
         }
         return s;
     }
 
     /**
-     * Return ParameterParser getX() method which corresponds to the
-     * JDBC type provided. Use in the Object class generation.
-     *
-     * @param jdbcType the JDBC type
+     * Return ParameterParser getX() method which corresponds to the JDBC type provided. Use in the Object class
+     * generation.
+     * 
+     * @param jdbcType
+     *            the JDBC type
      * @return name of the ParameterParser getX() method
      */
-    public static String getPPMethod(SchemaType jdbcType)
-    {
+    public static String getPPMethod(SchemaType jdbcType) {
         // Make sure the we are initialized.
-        if (!isInitialized)
-        {
+        if (!isInitialized) {
             initialize();
         }
         return (String) jdbcToPPMethodMap.get(jdbcType);
@@ -527,94 +487,83 @@ public class TypeMap
 
     /**
      * Returns the correct jdbc type for torque added types
-     *
-     * @param type the torque added type
+     * 
+     * @param type
+     *            the torque added type
      * @return name of the the correct jdbc type
-     * @deprecated the type conversion is handled by the platform package
-     *             (since torque 3.2)
+     * @deprecated the type conversion is handled by the platform package (since torque 3.2)
      */
-    public static SchemaType getJdbcType(SchemaType type)
-    {
+    public static SchemaType getJdbcType(SchemaType type) {
         // Make sure the we are initialized.
-        if (!isInitialized)
-        {
+        if (!isInitialized) {
             initialize();
         }
         return (SchemaType) torqueTypeToJdbcTypeMap.get(type);
     }
 
     /**
-     * Returns Torque type constant corresponding to JDBC type code.
-     * Used by the Torque JDBC task.
-     *
-     * @param sqlType the SQL type
+     * Returns Torque type constant corresponding to JDBC type code. Used by the Torque JDBC task.
+     * 
+     * @param sqlType
+     *            the SQL type
      * @return Torque type constant
      */
-    public static SchemaType getTorqueType(Integer sqlType)
-    {
+    public static SchemaType getTorqueType(Integer sqlType) {
         // Make sure the we are initialized.
-        if (!isInitialized)
-        {
+        if (!isInitialized) {
             initialize();
         }
         SchemaType st = (SchemaType) jdbcToTorqueTypeMap.get(sqlType);
-        if (st == null)
-        {
+        if (st == null) {
             st = SchemaType.VARCHAR;
-            log.warn("SchemaType for JdbcType '" + sqlType
-                    + "' is not defined: Defaulting to '" + st + '\'');
+            log.warn("SchemaType for JdbcType '" + sqlType + "' is not defined: Defaulting to '" + st + '\'');
         }
         return st;
     }
 
     /**
-     * Returns true if the type is boolean in the java
-     * object and a numeric (1 or 0) in the db.
-     *
-     * @param type The type to check.
+     * Returns true if the type is boolean in the java object and a numeric (1 or 0) in the db.
+     * 
+     * @param type
+     *            The type to check.
      * @return true if the type is BOOLEANINT
      */
-    public static boolean isBooleanInt(SchemaType type)
-    {
+    public static boolean isBooleanInt(SchemaType type) {
         return SchemaType.BOOLEANINT.equals(type);
     }
 
     /**
-     * Returns true if the type is boolean in the
-     * java object and a String "Y" or "N" in the db.
-     *
-     * @param type The type to check.
+     * Returns true if the type is boolean in the java object and a String "Y" or "N" in the db.
+     * 
+     * @param type
+     *            The type to check.
      * @return true if the type is BOOLEANCHAR
      */
-    public static boolean isBooleanChar(SchemaType type)
-    {
+    public static boolean isBooleanChar(SchemaType type) {
         return SchemaType.BOOLEANCHAR.equals(type);
     }
 
     /**
-     * Returns true if the type is boolean in the
-     * java object and a Bit "1" or "0" in the db.
-     *
-     * @param type The type to check.
+     * Returns true if the type is boolean in the java object and a Bit "1" or "0" in the db.
+     * 
+     * @param type
+     *            The type to check.
      * @return true if the type is BIT
      */
-    public static boolean isBit(SchemaType type)
-    {
+    public static boolean isBit(SchemaType type) {
         return SchemaType.BIT.equals(type);
     }
 
     /**
      * Returns true if values for the type need to be quoted.
-     *
-     * @param type The type to check.
+     * 
+     * @param type
+     *            The type to check.
      * @return true if values for the type need to be quoted.
      */
-    public static final boolean isTextType(SchemaType type)
-    {
-        for (int i = 0; i < TEXT_TYPES.length; i++)
-        {
-            if (type.equals(TEXT_TYPES[i]))
-            {
+    public static final boolean isTextType(SchemaType type) {
+        for (int i = 0; i < TEXT_TYPES.length; i++) {
+            if (type.equals(TEXT_TYPES[i])) {
                 return true;
             }
         }
