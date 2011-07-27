@@ -87,7 +87,7 @@ public class EclipseFormatterMojo extends ExecMojo {
      * 
      * @parameter
      */
-    private String[] excludes = new String[] {};
+    private String[] excludes = new String[] { "**/.settings", "**/.svn" };
 
     protected List<File> getSourceDirectories() {
         DirectoryScanner scanner = new DirectoryScanner();
