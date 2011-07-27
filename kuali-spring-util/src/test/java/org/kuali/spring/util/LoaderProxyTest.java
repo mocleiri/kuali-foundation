@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration
 public class LoaderProxyTest {
 
-	@Test
-	public void proxyTest() {
-	}
+    @Test
+    public void proxyTest() {
+    }
 }

@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
 public class ComplexImportTest {
-	@Test
-	public void importTest() {
-	}
+    @Test
+    public void importTest() {
+    }
 }

@@ -10,12 +10,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
 public class PPHCTest {
-	@Autowired
-	private ApplicationContext applicationContext;
+    @Autowired
+    private ApplicationContext applicationContext;
 
-	@Test
-	public void importTest() {
-		String name = (String) applicationContext.getBean("name");
-		System.out.println(name);
-	}
+    @Test
+    public void importTest() {
+        String name = (String) applicationContext.getBean("name");
+        System.out.println(name);
+    }
 }
