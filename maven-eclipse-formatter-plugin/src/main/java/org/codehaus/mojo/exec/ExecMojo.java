@@ -62,35 +62,23 @@ public class ExecMojo extends AbstractExecMojo {
     /**
      * The executable. Can be a full path or a the name executable. In the latter case, the executable must be in the
      * PATH for the execution to work.
-     * 
-     * @parameter expression="${exec.executable}"
-     * @since 1.0
      */
     private String executable;
 
     /**
      * The current working directory. Optional. If not specified, basedir will be used.
-     * 
-     * @parameter expression="${exec.workingdir}
-     * @since 1.0
      */
     private File workingDirectory;
 
     /**
      * Program standard and error output will be redirected to the file specified by this optional field. If not
      * specified the standard maven logging is used.
-     * 
-     * @parameter expression="${exec.outputFile}"
-     * @since 1.1-beta-2
      */
     private File outputFile;
 
     /**
-     * Can be of type <code>&lt;argument&gt;</code> or <code>&lt;classpath&gt;</code> Can be overriden using "exec.args"
-     * env. variable
-     * 
-     * @parameter
-     * @since 1.0
+     * Can be of type <code>&lt;argument&gt;</code> or <code>&lt;classpath&gt;</code> Can be overridden using
+     * "exec.args" env. variable
      */
     private List arguments;
 
@@ -104,9 +92,6 @@ public class ExecMojo extends AbstractExecMojo {
 
     /**
      * Environment variables to pass to the executed program.
-     * 
-     * @parameter
-     * @since 1.1-beta-2
      */
     private Map environmentVariables = new HashMap();
 
@@ -131,9 +116,6 @@ public class ExecMojo extends AbstractExecMojo {
     /**
      * If set to true the classpath and the main class will be written to a MANIFEST.MF file and wrapped into a jar.
      * Instead of '-classpath/-cp CLASSPATH mainClass' the exec plugin executes '-jar maven-exec.jar'.
-     * 
-     * @parameter expression="${exec.longClasspath}" default-value="false"
-     * @since 1.1.2
      */
     private boolean longClasspath;
 
