@@ -1,10 +1,10 @@
 package org.kuali.cm.checkstyle;
 
-import java.util.List;
+import java.util.Set;
 
 public class SourceFile {
     String name;
-    List<String> violations;
+    Set<String> violations;
 
     public String getName() {
         return name;
@@ -14,11 +14,11 @@ public class SourceFile {
         this.name = name;
     }
 
-    public List<String> getViolations() {
+    public Set<String> getViolations() {
         return violations;
     }
 
-    public void setViolations(List<String> violations) {
+    public void setViolations(Set<String> violations) {
         this.violations = violations;
     }
 }

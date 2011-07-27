@@ -3,9 +3,12 @@ package org.kuali.cm.checkstyle;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.apache.commons.io.IOUtils;
@@ -28,12 +31,13 @@ public class Checkstyle {
             Properties props = getCheckStyleProps();
             for (Error e : errors) {
                 String msg = translate(e.getMsg());
+                String src = e.getSrc();
                 issues.put(msg, msg);
-                SourceFile sf = files.get(e.getSrc());
+                SourceFile sf = files.get(src);
                 if (sf == null) {
                     sf = new SourceFile();
-                    sf.setName(e.getSrc());
-                    List<String> violations = new ArrayList<String>();
+                    sf.setName(src);
+                    Set<String> violations = new HashSet<String>();
                     sf.setViolations(violations);
                     files.put(e.getSrc(), sf);
                 }
@@ -44,9 +48,46 @@ public class Checkstyle {
             }
             System.out.println();
             System.out.println("Files: " + files.size() + " Issues: " + issues.size());
+            String xml = toXML(files.values());
+            System.out.println(xml);
         } catch (Throwable t) {
             t.printStackTrace();
         }
+    }
+
+    protected String toXML(Collection<SourceFile> c) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<?xml version=\"1.0\"?>\n");
+        sb.append("<!DOCTYPE suppressions PUBLIC ");
+        sb.append("\"-//Puppy Crawl//DTD Suppressions 1.0//EN\" ");
+        sb.append("\"http://www.puppycrawl.com/dtds/suppressions_1_0.dtd\">\n");
+        sb.append("<suppressions>\n");
+        for (SourceFile sf : c) {
+            sb.append(toXML(sf));
+        }
+        sb.append("</suppressions>\n");
+        return sb.toString();
+    }
+
+    protected String toXML(SourceFile sf) {
+        String file = sf.getName();
+        Set<String> violations = sf.getViolations();
+        StringBuilder sb = new StringBuilder();
+        sb.append("  <suppress ");
+        sb.append("checks=\"");
+        int count = 0;
+        for (String violation : violations) {
+            if (count != 0) {
+                sb.append("|");
+            }
+            sb.append(violation);
+            count++;
+        }
+        sb.append('"');
+        sb.append(" files=\"" + file + "\"");
+        sb.append("/>\n");
+        return sb.toString();
     }
 
     protected List<String> getCheckStyleNames(String msg, Properties props) {
@@ -56,6 +97,9 @@ public class Checkstyle {
             if (value.equals(msg)) {
                 names.add(key);
             }
+        }
+        if (names.size() == 0) {
+            System.out.println(msg);
         }
         return names;
     }
