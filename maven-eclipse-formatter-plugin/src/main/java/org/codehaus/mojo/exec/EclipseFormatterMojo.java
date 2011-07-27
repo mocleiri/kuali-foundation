@@ -110,14 +110,26 @@ public class EclipseFormatterMojo extends ExecMojo {
         if (!file.exists()) {
             throw new MojoExecutionException(eclipseBinary + " does not exist");
         }
-        getLog().info("Scanning for source directories underneath: " + project.getBasedir());
+        getLog().info("Eclipse Location: " + file.getAbsolutePath());
+        getLog().info("Java VM: " + getJavaBinary());
+        getLog().info("Scanning directory: " + project.getBasedir());
+        StringBuilder sb = new StringBuilder();
+        for (String include : includes) {
+            sb.append(include + " ");
+        }
+        getLog().info("Includes: " + sb.toString());
+        sb = new StringBuilder();
+        for (String exclude : excludes) {
+            sb.append(exclude + " ");
+        }
+        getLog().info("Excludes: " + sb.toString());
         List<File> dirs = getSourceDirectories();
 
         if (dirs.size() == 0) {
             getLog().info("No directories containing source code were located");
             return;
         } else {
-            getLog().info("Located the following " + dirs.size() + " source directories:");
+            getLog().info("Located " + dirs.size() + " source directories:");
             for (File dir : dirs) {
                 getLog().info(dir.getAbsolutePath());
             }
@@ -150,8 +162,6 @@ public class EclipseFormatterMojo extends ExecMojo {
         eclipseArgs.add("-application");
         eclipseArgs.add(quote(application));
         eclipseArgs.add("-vm");
-        String binary = getJavaBinary();
-        getLog().info("Using Java VM: " + binary);
         eclipseArgs.add(quote(getJavaBinary()));
         eclipseArgs.add("-config");
         eclipseArgs.add(quote(getConfigAbsolutePath()));
