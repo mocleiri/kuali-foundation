@@ -71,16 +71,16 @@ public class EclipseFormatterMojo extends ExecMojo {
     private String[] args = new String[] { "-nosplash", "-verbose" };
 
     /**
-     * Regular expressions for directories containing Java source code. Default values are &#042;&#042;/src/main/java
-     * and &#042;&#042;/src/test/java. The Eclipse formatter will recursively inspect any directories matching these
-     * patterns for *.java files
+     * Regular expressions for directories containing Java source code to format. Default values are
+     * &#042;&#042;/src/main/java and &#042;&#042;/src/test/java. The Eclipse formatter will recursively inspect any
+     * directories matching these patterns for *.java files
      * 
      * @parameter
      */
     private String[] includes = new String[] { "**/src/main/java", "**/src/test/java" };
 
     /**
-     * Regular expressions for directories to exclude from scanning for Java source code
+     * Regular expressions for directories to exclude from the formatting process.
      * 
      * @parameter
      */
