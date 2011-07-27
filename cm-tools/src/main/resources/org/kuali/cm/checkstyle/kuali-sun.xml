@@ -3,11 +3,11 @@
     "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
     "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
-  <module name="JavadocPackage">
+  <!--
+    <module name="JavadocPackage">
     <property name="allowLegacy" value="true" />
     <property name="severity" value="info" />
-  </module>
-  <!--
+    </module>
     <module name="NewlineAtEndOfFile">
     <property name="severity" value="info" />
     </module>
@@ -31,34 +31,38 @@
       <module name="AvoidInlineConditionals" />
       <module name="FinalParameters" />
     -->
-    <module name="JavadocMethod">
+    <!--
+      <module name="JavadocMethod">
       <property name="severity" value="info" />
-    </module>
-    <module name="JavadocType">
+      </module>
+      <module name="JavadocType">
       <property name="severity" value="info" />
-    </module>
-    <module name="JavadocVariable">
+      </module>
+      <module name="JavadocVariable">
       <property name="severity" value="info" />
-    </module>
-    <module name="JavadocStyle">
+      </module>
+      <module name="JavadocStyle">
       <property name="severity" value="info" />
-    </module>
+      </module>
+    -->
     <module name="ModifierOrder">
       <property name="severity" value="info" />
     </module>
     <module name="RedundantModifier">
       <property name="severity" value="info" />
     </module>
-    <module name="HiddenField">
+    <!--
+      <module name="HiddenField">
       <property name="severity" value="info" />
-    </module>
-    <module name="DesignForExtension">
+      </module>
+      <module name="DesignForExtension">
       <property name="severity" value="info" />
-    </module>
+      </module>
+      <module name="TodoComment">
+      <property name="severity" value="info" />
+      </module>
+    -->
     <module name="HideUtilityClassConstructor">
-      <property name="severity" value="info" />
-    </module>
-    <module name="TodoComment">
       <property name="severity" value="info" />
     </module>
     <module name="FinalClass">
