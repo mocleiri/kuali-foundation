@@ -25,6 +25,12 @@ import org.springframework.core.io.ResourceLoader;
 public class EclipseFormatterMojo extends ExecMojo {
     private static final String FS = System.getProperty("file.separator");
 
+    /**
+     * Binaries representing a Java VM. Default values are "javaw.exe", "java.exe", and "java". It will search for
+     * binaries in the order specified, stopping as soon as one is found.
+     * 
+     * @parameter expression="${eclipse.java.binaries}"
+     */
     private String[] binaries = new String[] { "javaw.exe", "java.exe", "java" };
 
     /**
@@ -145,22 +151,22 @@ public class EclipseFormatterMojo extends ExecMojo {
     }
 
     protected List<String> getEclipseArguments(List<File> dirs) throws MojoExecutionException {
-        List<String> args = new ArrayList<String>();
-        args.add("-application");
-        args.add(quote(application));
-        args.add("-vm");
+        List<String> eclipseArgs = new ArrayList<String>();
+        eclipseArgs.add("-application");
+        eclipseArgs.add(quote(application));
+        eclipseArgs.add("-vm");
         String binary = getJavaBinary();
         getLog().info("Using Java VM: " + binary);
-        args.add(quote(getJavaBinary()));
-        args.add("-config");
-        args.add(quote(getConfigAbsolutePath()));
+        eclipseArgs.add(quote(getJavaBinary()));
+        eclipseArgs.add("-config");
+        eclipseArgs.add(quote(getConfigAbsolutePath()));
         for (String arg : args) {
-            addIfNotEmpty(args, arg);
+            addIfNotEmpty(eclipseArgs, arg);
         }
         for (File dir : dirs) {
-            args.add(quote(dir.getAbsolutePath()));
+            eclipseArgs.add(quote(dir.getAbsolutePath()));
         }
-        return args;
+        return eclipseArgs;
     }
 
     protected String quote(String s) {
