@@ -1,6 +1,6 @@
 package org.kuali.cm.checkstyle;
 
-public class Error {
+public class Error implements Comparable<Error> {
     String src;
     String msg;
 
@@ -18,5 +18,10 @@ public class Error {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    @Override
+    public int compareTo(Error o) {
+        return src.compareTo(o.getSrc());
     }
 }

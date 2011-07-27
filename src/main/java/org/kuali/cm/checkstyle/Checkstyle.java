@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -26,12 +27,17 @@ public class Checkstyle {
     protected void execute() {
         try {
             List<Error> errors = getErrorObjects(getErrors());
+            Collections.sort(errors);
             Map<String, String> issues = new TreeMap<String, String>();
             Map<String, SourceFile> files = new TreeMap<String, SourceFile>();
             Properties props = getCheckStyleProps();
             for (Error e : errors) {
                 String msg = translate(e.getMsg());
                 String src = e.getSrc();
+                if (src.equals("EmailMessageDeliverer.java")) {
+                    // System.out.println();
+                }
+                // System.out.println(src + "->" + msg);
                 issues.put(msg, msg);
                 SourceFile sf = files.get(src);
                 if (sf == null) {
@@ -39,15 +45,16 @@ public class Checkstyle {
                     sf.setName(src);
                     Set<String> violations = new HashSet<String>();
                     sf.setViolations(violations);
-                    files.put(e.getSrc(), sf);
+                    files.put(src, sf);
                 }
-                sf.getViolations().addAll(getCheckStyleNames(msg, props));
+                List<String> names = getCheckStyleNames(msg, props);
+                sf.getViolations().addAll(names);
             }
             for (String key : issues.keySet()) {
-                System.out.println(key);
+                // System.out.println(key);
             }
-            System.out.println();
-            System.out.println("Files: " + files.size() + " Issues: " + issues.size());
+            // System.out.println();
+            // System.out.println("Files: " + files.size() + " Issues: " + issues.size());
             String xml = toXML(files.values());
             System.out.println(xml);
         } catch (Throwable t) {
@@ -75,6 +82,7 @@ public class Checkstyle {
         Set<String> violations = sf.getViolations();
         StringBuilder sb = new StringBuilder();
         sb.append("  <suppress ");
+        sb.append("files=\"" + file + "\" ");
         sb.append("checks=\"");
         int count = 0;
         for (String violation : violations) {
@@ -85,7 +93,6 @@ public class Checkstyle {
             count++;
         }
         sb.append('"');
-        sb.append(" files=\"" + file + "\"");
         sb.append("/>\n");
         return sb.toString();
     }
@@ -94,12 +101,16 @@ public class Checkstyle {
         List<String> names = new ArrayList<String>();
         for (String key : props.stringPropertyNames()) {
             String value = props.getProperty(key);
-            if (value.equals(msg)) {
+            if (value.trim().equals(msg.trim())) {
+                int pos = key.indexOf(".");
+                if (pos != -1) {
+                    key = key.substring(0, pos);
+                }
                 names.add(key);
             }
         }
         if (names.size() == 0) {
-            System.out.println(msg);
+            throw new RuntimeException("Unknown message " + msg);
         }
         return names;
     }
