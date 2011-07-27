@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import java.util.TreeMap;
 
 import org.apache.commons.io.IOUtils;
@@ -25,18 +24,24 @@ public class Checkstyle {
         try {
             List<Error> errors = getErrorObjects(getErrors());
             Map<String, String> issues = new TreeMap<String, String>();
-            Map<String, String> files = new TreeMap<String, String>();
+            Map<String, SourceFile> files = new TreeMap<String, SourceFile>();
+            Properties props = getCheckStyleProps();
             for (Error e : errors) {
                 String msg = translate(e.getMsg());
-                String src = e.getSrc();
                 issues.put(msg, msg);
-                files.put(src, src);
+                SourceFile sf = files.get(e.getSrc());
+                if (sf == null) {
+                    sf = new SourceFile();
+                    sf.setName(e.getSrc());
+                    List<String> violations = new ArrayList<String>();
+                    sf.setViolations(violations);
+                    files.put(e.getSrc(), sf);
+                }
+                sf.getViolations().addAll(getCheckStyleNames(msg, props));
             }
             for (String key : issues.keySet()) {
                 System.out.println(key);
             }
-            Properties props = getCheckStyleProps();
-            Map<String, String> map = getReverseMap(props);
             System.out.println();
             System.out.println("Files: " + files.size() + " Issues: " + issues.size());
         } catch (Throwable t) {
@@ -44,14 +49,15 @@ public class Checkstyle {
         }
     }
 
-    protected Map<String, String> getReverseMap(Properties props) {
-        Map<String, String> map = new TreeMap<String, String>();
-        Set<String> names = props.stringPropertyNames();
-        for (String name : names) {
-            String value = props.getProperty(name);
-            map.put(value, name);
+    protected List<String> getCheckStyleNames(String msg, Properties props) {
+        List<String> names = new ArrayList<String>();
+        for (String key : props.stringPropertyNames()) {
+            String value = props.getProperty(key);
+            if (value.equals(msg)) {
+                names.add(key);
+            }
         }
-        return map;
+        return names;
     }
 
     protected Properties getCheckStyleProps() throws IOException {
