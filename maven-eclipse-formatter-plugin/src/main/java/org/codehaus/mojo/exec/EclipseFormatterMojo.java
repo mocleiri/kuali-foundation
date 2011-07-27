@@ -3,6 +3,7 @@ package org.codehaus.mojo.exec;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -189,15 +190,18 @@ public class EclipseFormatterMojo extends ExecMojo {
             throw new MojoExecutionException("Unable to locate " + formatterPreferences);
         }
         OutputStream out = null;
+        InputStream in = null;
         try {
             File temp = File.createTempFile("eclipse.prefs.", null);
             out = new FileOutputStream(temp);
-            IOUtils.copy(resource.getInputStream(), out);
+            in = resource.getInputStream();
+            IOUtils.copy(in, out);
             return temp.getAbsolutePath();
         } catch (IOException e) {
             throw new MojoExecutionException("Error copying resource " + formatterPreferences, e);
         } finally {
             IOUtils.closeQuietly(out);
+            IOUtils.closeQuietly(in);
         }
 
     }
