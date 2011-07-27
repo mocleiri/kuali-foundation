@@ -3,29 +3,87 @@
     "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
     "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
-  <module name="JavadocPackage">
+  <!--
+    <module name="JavadocPackage">
     <property name="allowLegacy" value="true" />
-  </module>
-  <module name="NewlineAtEndOfFile" />
+    </module>
+    <module name="NewlineAtEndOfFile" />
+    <module name="RegexpSingleline">
+    <property name="format" value="\s+$" />
+    <property name="message" value="Line has trailing spaces." />
+    </module>
+  -->
   <module name="Translation" />
   <module name="FileLength" />
   <module name="FileTabCharacter">
     <property name="eachLine" value="true" />
   </module>
-  <module name="RegexpSingleline">
-    <property name="format" value="\s+$" />
-    <property name="message" value="Line has trailing spaces." />
-  </module>
   <module name="TreeWalker">
     <property name="cacheFile" value="${checkstyle.cache.file}" />
-    <module name="JavadocMethod" />
-    <module name="JavadocType" />
-    <module name="JavadocVariable" />
-    <module name="JavadocStyle" />
+
+    <!--
+      <module name="JavadocMethod" />
+      <module name="JavadocType" />
+      <module name="JavadocVariable" />
+      <module name="JavadocStyle" />
+      <module name="ModifierOrder" />
+      <module name="RedundantModifier" />
+      <module name="AvoidInlineConditionals" />
+      <module name="HiddenField" />
+      <module name="DesignForExtension" />
+      <module name="HideUtilityClassConstructor" />
+      <module name="FinalParameters" />
+      <module name="TodoComment" />
+
+      <module name="FinalClass" />
+    -->
+
+    <!-- Begin Modified rules -->
+    <!-- Downgraded to "info" -->
+    <module name="ArrayTypeStyle">
+      <property name="severity" value="info" />
+    </module>
+    <module name="MagicNumber">
+      <property name="severity" value="info" />
+    </module>
+    <module name="RedundantImport">
+      <property name="severity" value="info" />
+    </module>
+    <module name="RedundantThrows">
+      <property name="severity" value="info" />
+    </module>
+
+    <!-- Downgraded to "warning" -->
+    <module name="EmptyBlock">
+      <property name="severity" value="warning" />
+    </module>
+    <module name="NeedBraces">
+      <property name="severity" value="warning" />
+    </module>
+    <module name="LineLength">
+      <property name="max" value="120" />
+      <property name="severity" value="warning" />
+    </module>
+    <module name="UnusedImports">
+      <property name="severity" value="warning" />
+    </module>
+
+    <!-- Modified but still error level severity -->
+    <module name="MemberName">
+      <property name="format" value="^[a-z_][a-zA-Z0-9]*$" />
+    </module>
+    <module name="VisibilityModifier">
+      <property name="packageAllowed" value="true" />
+      <property name="protectedAllowed" value="true" />
+    </module>
+    <module name="NoWhitespaceAfter">
+      <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS" />
+    </module>
+    <!-- End Modified rules -->
+
     <module name="ConstantName" />
     <module name="LocalFinalVariableName" />
     <module name="LocalVariableName" />
-    <module name="MemberName" />
     <module name="MethodName" />
     <module name="PackageName" />
     <module name="ParameterName" />
@@ -33,47 +91,28 @@
     <module name="TypeName" />
     <module name="AvoidStarImport" />
     <module name="IllegalImport" />
-    <module name="RedundantImport" />
-    <module name="UnusedImports" />
-    <module name="LineLength" />
     <module name="MethodLength" />
     <module name="ParameterNumber" />
     <module name="EmptyForIteratorPad" />
     <module name="MethodParamPad" />
-    <module name="NoWhitespaceAfter" />
     <module name="NoWhitespaceBefore" />
     <module name="OperatorWrap" />
     <module name="ParenPad" />
     <module name="TypecastParenPad" />
     <module name="WhitespaceAfter" />
     <module name="WhitespaceAround" />
-    <module name="ModifierOrder" />
-    <module name="RedundantModifier" />
     <module name="AvoidNestedBlocks" />
-    <module name="EmptyBlock" />
     <module name="LeftCurly" />
-    <module name="NeedBraces" />
     <module name="RightCurly" />
-    <module name="AvoidInlineConditionals" />
     <module name="DoubleCheckedLocking" />
     <module name="EmptyStatement" />
     <module name="EqualsHashCode" />
-    <module name="HiddenField" />
     <module name="IllegalInstantiation" />
     <module name="InnerAssignment" />
-    <module name="MagicNumber" />
     <module name="MissingSwitchDefault" />
-    <module name="RedundantThrows" />
     <module name="SimplifyBooleanExpression" />
     <module name="SimplifyBooleanReturn" />
-    <module name="DesignForExtension" />
-    <module name="FinalClass" />
-    <module name="HideUtilityClassConstructor" />
     <module name="InterfaceIsType" />
-    <module name="VisibilityModifier" />
-    <module name="ArrayTypeStyle" />
-    <module name="FinalParameters" />
-    <module name="TodoComment" />
     <module name="UpperEll" />
   </module>
 </module>
