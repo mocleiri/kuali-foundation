@@ -21,6 +21,16 @@
     <url>http://svn.kuali.org/repos/foundation/trunk/maven-eclipse-formatter-plugin</url>
   </scm>
 
+  <developers>
+    <developer>
+      <id>jcaddel</id>
+      <name>Jeff Caddel</name>
+      <organization>rSmart</organization>
+      <timezone>-7</timezone>
+      <email>jcaddel(at)kuali.org</email>
+    </developer>
+  </developers>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.ant</groupId>
