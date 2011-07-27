@@ -3,17 +3,17 @@ package org.kuali.spring.proxy;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
  */
 public class TraceCallback implements MethodInterceptor {
-    private static final Logger logger = LoggerFactory.getLogger(TraceCallback.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TraceCallback.class);
     private static final Object MUTEX = new Object();
     long counter = 0;
     private static final int LANGUAGE_MODIFIERS = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE
@@ -29,13 +29,13 @@ public class TraceCallback implements MethodInterceptor {
         synchronized (MUTEX) {
             interceptCount = this.counter++;
         }
-        if (logger.isTraceEnabled()) {
-            logger.trace("Method Invocation Id=" + interceptCount + " Invoking {} parameters={}",
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("Method Invocation Id=" + interceptCount + " Invoking {} parameters={}",
                     getString(context.getMethod()), context.getArgs());
         }
         Object result = context.getMethodProxy().invokeSuper(context.getObject(), context.getArgs());
-        if (logger.isTraceEnabled()) {
-            logger.trace("Method Invocation Id={} Result=[{}]", interceptCount, result);
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("Method Invocation Id={} Result=[{}]", interceptCount, result);
         }
         return result;
     }
@@ -74,8 +74,9 @@ public class TraceCallback implements MethodInterceptor {
             Class<?>[] params = method.getParameterTypes();
             for (int j = 0; j < params.length; j++) {
                 sb.append(getTypeName(params[j]));
-                if (j < (params.length - 1))
+                if (j < (params.length - 1)) {
                     sb.append(",");
+                }
             }
             sb.append(")");
             Class<?>[] exceptions = method.getExceptionTypes();
@@ -83,8 +84,9 @@ public class TraceCallback implements MethodInterceptor {
                 sb.append(" throws ");
                 for (int k = 0; k < exceptions.length; k++) {
                     sb.append(exceptions[k].getName());
-                    if (k < (exceptions.length - 1))
+                    if (k < (exceptions.length - 1)) {
                         sb.append(",");
+                    }
                 }
             }
             return sb.toString();

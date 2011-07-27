@@ -8,13 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SystemUtils {
-    final static Logger logger = LoggerFactory.getLogger(SystemUtils.class);
+    final static Logger LOGGER = LoggerFactory.getLogger(SystemUtils.class);
 
     public static Map<String, String> getEnvironmentIgnoreExceptions() {
         try {
             return System.getenv();
         } catch (Throwable e) {
-            logger.warn("Unable to access environment.  {}", e.getMessage());
+            LOGGER.warn("Unable to access environment.  {}", e.getMessage());
             return new HashMap<String, String>();
         }
     }
@@ -23,7 +23,7 @@ public class SystemUtils {
         try {
             return System.getProperties();
         } catch (Throwable e) {
-            logger.warn("Unable to access system properties.  {}", e.getMessage());
+            LOGGER.warn("Unable to access system properties.  {}", e.getMessage());
             return new Properties();
         }
     }
@@ -32,7 +32,7 @@ public class SystemUtils {
         try {
             return System.getProperty(key);
         } catch (Throwable e) {
-            logger.warn("Unable to access system property '{}': {}", key, e.getMessage());
+            LOGGER.warn("Unable to access system property '{}': {}", key, e.getMessage());
             return null;
         }
     }
@@ -41,7 +41,7 @@ public class SystemUtils {
         try {
             return System.getenv(key);
         } catch (Throwable e) {
-            logger.warn("Unable to access environment property '{}': {}", key, e.getMessage());
+            LOGGER.warn("Unable to access environment property '{}': {}", key, e.getMessage());
             return null;
         }
     }

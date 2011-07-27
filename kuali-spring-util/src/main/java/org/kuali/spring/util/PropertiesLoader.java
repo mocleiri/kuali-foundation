@@ -19,7 +19,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.PropertiesPersister;
 
 public class PropertiesLoader {
-    private static final Logger logger = LoggerFactory.getLogger(PropertiesLoader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesLoader.class);
 
     public static final String DEFAULT_ENVIRONMENT_PROPERTY_PREFIX = "env.";
     public static final boolean DEFAULT_IS_USE_ENVIRONMENT_PROPERTY_PREFIX = false;
@@ -107,7 +107,7 @@ public class PropertiesLoader {
         }
 
         // Proceed with loading
-        logger.info("Loading properties from {}", location);
+        LOGGER.info("Loading properties from {}", location);
         InputStream is = null;
         try {
             is = location.getInputStream();
@@ -153,7 +153,7 @@ public class PropertiesLoader {
      */
     protected Properties handleResourceNotFound(Resource location) {
         if (isIgnoreResourceNotFound()) {
-            logger.info("Ignoring properties from {}.  Resource not found", location);
+            LOGGER.info("Ignoring properties from {}.  Resource not found", location);
             return new Properties();
         } else {
             throw new PropertiesLoadException("Resource not found: " + location);
@@ -332,19 +332,19 @@ public class PropertiesLoader {
 
         switch (result.getType()) {
         case ADD:
-            logger.debug("Add " + source + " property {}=[{}]", key, plogger.getLogValue(key, newValue));
+            LOGGER.debug("Add " + source + " property {}=[{}]", key, plogger.getLogValue(key, newValue));
             return;
         case OVERRIDE:
-            logger.info(source + " property override for '" + key + "' [{}]->[{}]",
+            LOGGER.info(source + " property override for '" + key + "' [{}]->[{}]",
                     plogger.getLogValue(key, currentValue), plogger.getLogValue(key, newValue));
             return;
         case EXISTING_PROPERTY_WINS:
-            logger.debug("The existing value for '" + key + "' is not being overridden by the " + source
+            LOGGER.debug("The existing value for '" + key + "' is not being overridden by the " + source
                     + " value. Existing:[{}] New:[{}]", plogger.getLogValue(key, currentValue),
                     plogger.getLogValue(key, newValue));
             return;
         default:
-            logger.trace("Merge property result: {} for {}", result.getType(), key);
+            LOGGER.trace("Merge property result: {} for {}", result.getType(), key);
             return;
 
         }
@@ -353,7 +353,7 @@ public class PropertiesLoader {
 
     public Properties loadResourceProperties() throws IOException {
         if (getLocations() == null || getLocations().length == 0) {
-            logger.info("No resource property locations to load from");
+            LOGGER.info("No resource property locations to load from");
             return new Properties();
         }
         Properties result = new Properties();
@@ -402,10 +402,6 @@ public class PropertiesLoader {
 
     public void setEnvironmentPropertyPrefix(String environmentPropertyPrefix) {
         this.environmentPropertyPrefix = environmentPropertyPrefix;
-    }
-
-    public Logger getLogger() {
-        return logger;
     }
 
     public void setPropertiesPersister(PropertiesPersister propertiesPersister) {

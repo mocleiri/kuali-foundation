@@ -2,9 +2,6 @@ package org.kuali.spring.util;
 
 public class PropertiesLoadException extends RuntimeException {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 1L;
 
     public PropertiesLoadException() {

@@ -70,15 +70,15 @@ import org.springframework.util.StringUtils;
  */
 public class PlaceholderStringResolver {
 
-    private static final Logger logger = LoggerFactory.getLogger(PlaceholderStringResolver.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlaceholderStringResolver.class);
 
-    private static final Map<String, String> wellKnownSimplePrefixes = new HashMap<String, String>(4);
+    private static final Map<String, String> WELL_KNOWN_SIMPLE_PREFIXES = new HashMap<String, String>(4);
     public static final boolean DEFAULT_IS_IGNORE_UNRESOLVABLE_PLACEHOLDERS = false;
 
     static {
-        wellKnownSimplePrefixes.put("}", "{");
-        wellKnownSimplePrefixes.put("]", "[");
-        wellKnownSimplePrefixes.put(")", "(");
+        WELL_KNOWN_SIMPLE_PREFIXES.put("}", "{");
+        WELL_KNOWN_SIMPLE_PREFIXES.put("]", "[");
+        WELL_KNOWN_SIMPLE_PREFIXES.put(")", "(");
     }
 
     PropertyLogger plogger = new PropertyLogger();
@@ -110,7 +110,7 @@ public class PlaceholderStringResolver {
         this.placeholderPrefix = placeholderPrefix;
         this.placeholderSuffix = placeholderSuffix;
 
-        String simplePrefixForSuffix = wellKnownSimplePrefixes.get(this.placeholderSuffix);
+        String simplePrefixForSuffix = WELL_KNOWN_SIMPLE_PREFIXES.get(this.placeholderSuffix);
         if (simplePrefixForSuffix != null && this.placeholderPrefix.endsWith(simplePrefixForSuffix)) {
             this.simplePrefix = simplePrefixForSuffix;
         } else {
@@ -196,7 +196,7 @@ public class PlaceholderStringResolver {
             // If we are not ignoring unresolved placeholder's, we are done
             throw new IllegalArgumentException("Could not resolve a value for " + placeholderText);
         } else {
-            logger.trace("Ignoring unresolvable placeholder: '" + placeholderText + "'");
+            LOGGER.trace("Ignoring unresolvable placeholder: '" + placeholderText + "'");
         }
     }
 
@@ -285,7 +285,7 @@ public class PlaceholderStringResolver {
      * We would end up with a stack overflow error without this check
      */
     protected void circularReferenceCheck(String placeholderText, Set<String> resolving) {
-        logger.trace("Adding '{}' to the list of placeholders being resolved", placeholderText);
+        LOGGER.trace("Adding '{}' to the list of placeholders being resolved", placeholderText);
         boolean added = resolving.add(placeholderText);
 
         if (!added) {
@@ -324,7 +324,7 @@ public class PlaceholderStringResolver {
         placeholder.setValue(value);
 
         // The Placeholder is now resolved, remove it from the set
-        logger.trace("Removing '{}' from the list of placeholders being resolved", phs.getText());
+        LOGGER.trace("Removing '{}' from the list of placeholders being resolved", phs.getText());
         resolving.remove(phs.getText());
     }
 
@@ -340,7 +340,7 @@ public class PlaceholderStringResolver {
         // Locate the first occurrence of our prefix
         int startIndex = text.indexOf(this.placeholderPrefix);
         if (startIndex == -1) {
-            logger.trace("Skip parsing.  No placeholders found in [{}]", text);
+            LOGGER.trace("Skip parsing.  No placeholders found in [{}]", text);
         }
 
         // Storage for the placeholders we find

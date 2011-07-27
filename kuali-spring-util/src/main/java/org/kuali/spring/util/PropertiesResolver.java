@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.ObjectUtils;
 
 public class PropertiesResolver extends PlaceholderStringResolver {
-    private static final Logger logger = LoggerFactory.getLogger(PropertiesResolver.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesResolver.class);
     public static final boolean DEFAULT_IS_SORT = true;
     boolean sort = DEFAULT_IS_SORT;
 
@@ -107,7 +107,7 @@ public class PropertiesResolver extends PlaceholderStringResolver {
 
         // Emit an info level message when a key is resolved to a new value
         if (!key.equals(resolvedKey)) {
-            logger.info("Resolved key [{}]->[{}]", key, resolvedKey);
+            LOGGER.info("Resolved key [{}]->[{}]", key, resolvedKey);
         }
 
         // Obtain a value for the key
@@ -120,10 +120,10 @@ public class PropertiesResolver extends PlaceholderStringResolver {
 
         // Emit an info level message when a value gets resolved to something new
         if (!value.equals(resolvedValue)) {
-            logger.info("Resolved value for '" + resolvedKey + "'  [{}]->[{}]",
+            LOGGER.info("Resolved value for '" + resolvedKey + "'  [{}]->[{}]",
                     plogger.getLogValue(resolvedKey, value), plogger.getLogValue(resolvedKey, resolvedValue));
         }
-        logger.debug("Adding resolved property {}=[{}]", resolvedKey, plogger.getLogValue(resolvedKey, resolvedValue));
+        LOGGER.debug("Adding resolved property {}=[{}]", resolvedKey, plogger.getLogValue(resolvedKey, resolvedValue));
         // Store the resolved key/value pair
         ctx.getResolvedProperties().setProperty(resolvedKey, resolvedValue);
     }
@@ -161,7 +161,7 @@ public class PropertiesResolver extends PlaceholderStringResolver {
         // Check the values
         if (ObjectUtils.nullSafeEquals(existingValue, resolvedValue)) {
             // The values are the same, just emit a warning and proceed
-            logger.warn("Duplicate property detected for '" + resolvedKey + "'.  '" + rawKey + "' resolved to '"
+            LOGGER.warn("Duplicate property detected for '" + resolvedKey + "'.  '" + rawKey + "' resolved to '"
                     + resolvedKey + "' which already has a value. Both values are the same: [{}]",
                     plogger.getLogValue(resolvedKey, existingValue));
             return;
