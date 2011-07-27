@@ -126,14 +126,6 @@ public class EclipseFormatterMojo extends ExecMojo {
         super.execute();
     }
 
-    protected boolean sourceDirExists() {
-        return new File(project.getBuild().getSourceDirectory()).exists();
-    }
-
-    protected boolean testSourceDirExists() {
-        return new File(project.getBuild().getTestSourceDirectory()).exists();
-    }
-
     protected String getJavaBinary() throws MojoExecutionException {
         if (!StringUtils.isEmpty(vm)) {
             return vm;
