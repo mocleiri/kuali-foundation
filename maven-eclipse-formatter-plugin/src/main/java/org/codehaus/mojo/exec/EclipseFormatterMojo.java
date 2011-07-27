@@ -26,20 +26,20 @@ public class EclipseFormatterMojo extends ExecMojo {
     private static final String FS = System.getProperty("file.separator");
 
     /**
-     * Binaries representing a Java VM. Default values are "javaw.exe", "java.exe", and "java". It will search for
-     * binaries in the order specified, stopping as soon as one is found.
+     * Binaries representing a Java VM. Default values are "javaw.exe", "java.exe", and "java". This list is searched in
+     * order, stopping as soon as one is found.
      * 
-     * @parameter expression="${eclipse.java.binaries}"
+     * @parameter expression="${eclipse.javaBinaries}"
      */
-    private String[] binaries = new String[] { "javaw.exe", "java.exe", "java" };
+    private String[] javaBinaries = new String[] { "javaw.exe", "java.exe", "java" };
 
     /**
-     * Full path to the Eclipse executable
+     * Full path to the Eclipse executable binary
      * 
-     * @parameter expression="${eclipse.executable}"
+     * @parameter expression="${eclipse.binary}"
      * @required
      */
-    private String eclipseExecutable;
+    private String eclipseBinary;
 
     /**
      * Full path to a Java VM. This gets filled in using the system property "java.home" unless a value is supplied
@@ -50,6 +50,7 @@ public class EclipseFormatterMojo extends ExecMojo {
     private String vm;
 
     /**
+     * This is the name of the Eclipse application that performs the formatting
      * 
      * @parameter expression="${eclipse.application}" default-value="org.eclipse.jdt.core.JavaCodeFormatter"
      * @required
@@ -67,11 +68,13 @@ public class EclipseFormatterMojo extends ExecMojo {
     /**
      * Any arguments specified here are passed to the Eclipse binary as additional command line arguments. Default
      * values are "-nosplash -verbose"
+     * 
+     * @parameter
      */
     private String[] args = new String[] { "-nosplash", "-verbose" };
 
     /**
-     * Regular expressions for directories containing Java source code to format. Default values are
+     * Regular expressions for directories that contain Java source code to format. Default values are
      * &#042;&#042;/src/main/java and &#042;&#042;/src/test/java. The Eclipse formatter will recursively inspect any
      * directories matching these patterns for *.java files
      * 
@@ -103,9 +106,9 @@ public class EclipseFormatterMojo extends ExecMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        File file = new File(eclipseExecutable);
+        File file = new File(eclipseBinary);
         if (!file.exists()) {
-            throw new MojoExecutionException(eclipseExecutable + " does not exist");
+            throw new MojoExecutionException(eclipseBinary + " does not exist");
         }
         getLog().info("Scanning for source directories underneath: " + project.getBasedir());
         List<File> dirs = getSourceDirectories();
@@ -120,7 +123,7 @@ public class EclipseFormatterMojo extends ExecMojo {
             }
         }
 
-        super.setExecutable(quote(eclipseExecutable));
+        super.setExecutable(quote(eclipseBinary));
         super.setArguments(getEclipseArguments(dirs));
 
         super.execute();
@@ -132,7 +135,7 @@ public class EclipseFormatterMojo extends ExecMojo {
         }
         String javaHome = System.getProperty("java.home");
         String binaryHome = javaHome + FS + "bin";
-        for (String binary : binaries) {
+        for (String binary : javaBinaries) {
             File file = new File(binaryHome + FS + binary);
             if (file.exists()) {
                 return file.getAbsolutePath();
@@ -196,12 +199,12 @@ public class EclipseFormatterMojo extends ExecMojo {
         list.add(s);
     }
 
-    public String getEclipseExecutable() {
-        return eclipseExecutable;
+    public String getEclipseBinary() {
+        return eclipseBinary;
     }
 
-    public void setEclipseExecutable(String eclipseExecutable) {
-        this.eclipseExecutable = eclipseExecutable;
+    public void setEclipseBinary(String eclipseExecutable) {
+        this.eclipseBinary = eclipseExecutable;
     }
 
     public String getVm() {
@@ -236,12 +239,12 @@ public class EclipseFormatterMojo extends ExecMojo {
         this.excludes = excludes;
     }
 
-    public String[] getBinaries() {
-        return binaries;
+    public String[] getJavaBinaries() {
+        return javaBinaries;
     }
 
-    public void setBinaries(String[] binaries) {
-        this.binaries = binaries;
+    public void setJavaBinaries(String[] binaries) {
+        this.javaBinaries = binaries;
     }
 
     public String getFormatterPreferences() {
