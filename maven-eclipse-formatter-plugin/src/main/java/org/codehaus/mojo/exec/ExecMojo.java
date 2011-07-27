@@ -55,7 +55,6 @@ import org.codehaus.plexus.util.cli.CommandLineUtils;
  * 
  * @author Jerome Lacoste <jerome@coffeebreaks.org>
  * @version $Id: ExecMojo.java 12386 2010-07-16 22:10:38Z rfscholte $
- * @requiresDependencyResolution test
  * @since 1.0
  */
 public class ExecMojo extends AbstractExecMojo {
