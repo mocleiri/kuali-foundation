@@ -39,7 +39,7 @@
     -->
 
     <!-- Begin Modified rules -->
-    <!-- Downgraded to "info" -->
+    <!-- Reduced to "info" -->
     <module name="ArrayTypeStyle">
       <property name="severity" value="info" />
     </module>
@@ -52,23 +52,37 @@
     <module name="RedundantThrows">
       <property name="severity" value="info" />
     </module>
+    <module name="LineLength">
+      <property name="max" value="120" />
+      <property name="severity" value="info" />
+    </module>
 
-    <!-- Downgraded to "warning" -->
+    <!-- Reduced to "warning" -->
     <module name="EmptyBlock">
+      <property name="option" value="text" />
+      <property name="tokens" value="LITERAL_CATCH" />
       <property name="severity" value="warning" />
     </module>
     <module name="NeedBraces">
       <property name="severity" value="warning" />
     </module>
-    <module name="LineLength">
-      <property name="max" value="120" />
-      <property name="severity" value="warning" />
-    </module>
     <module name="UnusedImports">
       <property name="severity" value="warning" />
     </module>
+    <module name="ParameterNumber">
+      <property name="max" value="7" />
+      <property name="severity" value="warning" />
+    </module>
+    <module name="MethodLength">
+      <property name="max" value="150" />
+      <property name="severity" value="warning" />
+    </module>
+    <module name="LineLength">
+      <property name="max" value="255" />
+      <property name="severity" value="warning" />
+    </module>
 
-    <!-- Modified but still error level severity -->
+    <!-- Modified, but still error level -->
     <module name="MemberName">
       <property name="format" value="^[a-z_][a-zA-Z0-9]*$" />
     </module>
@@ -78,6 +92,20 @@
     </module>
     <module name="NoWhitespaceAfter">
       <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS" />
+    </module>
+    <module name="LineLength">
+      <property name="max" value="1024" />
+    </module>
+    <module name="ParameterNumber">
+      <property name="max" value="10" />
+    </module>
+    <module name="MethodLength">
+      <property name="max" value="300" />
+    </module>
+    <module name="EmptyBlock">
+      <property name="option" value="stmt" />
+      <property name="tokens"
+        value="LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_IF, LITERAL_FOR, LITERAL_TRY, LITERAL_WHILE, INSTANCE_INIT, STATIC_INIT" />
     </module>
     <!-- End Modified rules -->
 
@@ -91,8 +119,6 @@
     <module name="TypeName" />
     <module name="AvoidStarImport" />
     <module name="IllegalImport" />
-    <module name="MethodLength" />
-    <module name="ParameterNumber" />
     <module name="EmptyForIteratorPad" />
     <module name="MethodParamPad" />
     <module name="NoWhitespaceBefore" />
