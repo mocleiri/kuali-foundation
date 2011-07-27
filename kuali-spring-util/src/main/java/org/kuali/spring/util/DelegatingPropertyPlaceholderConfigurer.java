@@ -7,21 +7,21 @@ import org.springframework.util.Assert;
 
 public class DelegatingPropertyPlaceholderConfigurer extends ConfigurablePropertyPlaceholderConfigurer {
 
-	ConfigurablePropertyPlaceholderConfigurer delegate;
+    ConfigurablePropertyPlaceholderConfigurer delegate;
 
-	@Override
-	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		Assert.notNull(delegate);
-		BeanUtils.copyProperties(this, delegate);
-		delegate.postProcessBeanFactory(beanFactory);
-	}
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        Assert.notNull(delegate);
+        BeanUtils.copyProperties(this, delegate);
+        delegate.postProcessBeanFactory(beanFactory);
+    }
 
-	public ConfigurablePropertyPlaceholderConfigurer getDelegate() {
-		return delegate;
-	}
+    public ConfigurablePropertyPlaceholderConfigurer getDelegate() {
+        return delegate;
+    }
 
-	public void setDelegate(ConfigurablePropertyPlaceholderConfigurer delegate) {
-		this.delegate = delegate;
-	}
+    public void setDelegate(ConfigurablePropertyPlaceholderConfigurer delegate) {
+        this.delegate = delegate;
+    }
 
 }

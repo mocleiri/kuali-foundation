@@ -14,35 +14,35 @@ import org.springframework.core.PriorityOrdered;
  */
 public abstract class PlaceholderConfigurer implements BeanFactoryAware, BeanFactoryPostProcessor, PriorityOrdered {
 
-	private int order = Ordered.LOWEST_PRECEDENCE; // default: same as non-Ordered
+    private int order = Ordered.LOWEST_PRECEDENCE; // default: same as non-Ordered
 
-	private BeanFactory beanFactory;
+    private BeanFactory beanFactory;
 
-	protected abstract void processPlaceholders(ConfigurableListableBeanFactory beanFactory);
+    protected abstract void processPlaceholders(ConfigurableListableBeanFactory beanFactory);
 
-	@Override
-	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		try {
-			processPlaceholders(beanFactory);
-		} catch (Exception e) {
-			throw new BeanInitializationException("Could not complete placeholder configuration", e);
-		}
-	}
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        try {
+            processPlaceholders(beanFactory);
+        } catch (Exception e) {
+            throw new BeanInitializationException("Could not complete placeholder configuration", e);
+        }
+    }
 
-	public void setOrder(int order) {
-		this.order = order;
-	}
+    public void setOrder(int order) {
+        this.order = order;
+    }
 
-	public int getOrder() {
-		return this.order;
-	}
+    public int getOrder() {
+        return this.order;
+    }
 
-	public BeanFactory getBeanFactory() {
-		return beanFactory;
-	}
+    public BeanFactory getBeanFactory() {
+        return beanFactory;
+    }
 
-	public void setBeanFactory(BeanFactory beanFactory) {
-		this.beanFactory = beanFactory;
-	}
+    public void setBeanFactory(BeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
+    }
 
 }
