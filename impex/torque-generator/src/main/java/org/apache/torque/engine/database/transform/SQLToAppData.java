@@ -129,7 +129,7 @@ public class SQLToAppData {
     private void create() throws ParseException {
         next();
         if (token.getStr().toUpperCase().equals("TABLE")) {
-            create_Table();
+            createTable();
         }
     }
 
@@ -139,7 +139,7 @@ public class SQLToAppData {
      * @throws ParseException
      *             error parsing the input file
      */
-    private void create_Table() throws ParseException {
+    private void createTable() throws ParseException {
         next();
         String tableName = token.getStr(); // name of the table
         next();
@@ -151,7 +151,7 @@ public class SQLToAppData {
         Table tbl = new Table(tableName);
         // tbl.setIdMethod("none");
         while (!token.getStr().equals(";")) {
-            create_Table_Column(tbl);
+            createTableColumn(tbl);
         }
 
         if (tbl.getPrimaryKey().size() == 1) {
@@ -168,7 +168,7 @@ public class SQLToAppData {
      * @throws ParseException
      *             error parsing the input file
      */
-    private void create_Table_Column(Table tbl) throws ParseException {
+    private void createTableColumn(Table tbl) throws ParseException {
         // The token should be the first item
         // which is the name of the column or
         // PRIMARY/FOREIGN/UNIQUE
@@ -177,13 +177,13 @@ public class SQLToAppData {
         }
 
         if (token.getStr().toUpperCase().equals("PRIMARY")) {
-            create_Table_Column_Primary(tbl);
+            createTableColumnPrimary(tbl);
         } else if (token.getStr().toUpperCase().equals("FOREIGN")) {
-            create_Table_Column_Foreign(tbl);
+            createTableColumnForeign(tbl);
         } else if (token.getStr().toUpperCase().equals("UNIQUE")) {
-            create_Table_Column_Unique(tbl);
+            createTableColumnUnique(tbl);
         } else {
-            create_Table_Column_Data(tbl);
+            createTableColumnData(tbl);
         }
     }
 
@@ -193,7 +193,7 @@ public class SQLToAppData {
      * @throws ParseException
      *             error parsing the input file
      */
-    private void create_Table_Column_Primary(Table tbl) throws ParseException {
+    private void createTableColumnPrimary(Table tbl) throws ParseException {
         next();
         if (!token.getStr().toUpperCase().equals("KEY")) {
             err("KEY expected");
@@ -234,7 +234,7 @@ public class SQLToAppData {
      * @throws ParseException
      *             error parsing the input file
      */
-    private void create_Table_Column_Unique(Table tbl) throws ParseException {
+    private void createTableColumnUnique(Table tbl) throws ParseException {
         next();
         if (!token.getStr().toUpperCase().equals("(")) {
             err("( expected");
@@ -264,7 +264,7 @@ public class SQLToAppData {
      * @throws ParseException
      *             error parsing the input file
      */
-    private void create_Table_Column_Foreign(Table tbl) throws ParseException {
+    private void createTableColumnForeign(Table tbl) throws ParseException {
         next();
         if (!token.getStr().toUpperCase().equals("KEY")) {
             err("KEY expected");
@@ -327,7 +327,7 @@ public class SQLToAppData {
      * @throws ParseException
      *             error parsing the input file
      */
-    private void create_Table_Column_Data(Table tbl) throws ParseException {
+    private void createTableColumnData(Table tbl) throws ParseException {
         String columnSize = null;
         String columnPrecision = null;
         String columnDefault = null;
