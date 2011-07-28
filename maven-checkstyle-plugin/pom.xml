@@ -35,7 +35,7 @@
   <packaging>maven-plugin</packaging>
 
   <name>Maven Checkstyle Plugin</name>
-  <description>Generates a report on violations of code style and optionally fails the build if violations are detected.</description>
+  <description>Publishing a Kuali version of this plugin in order to upgrade the dependency on checkstyle to 5.4 (was 5.0)</description>
   <inceptionYear>2005</inceptionYear>
 
   <contributors>
