@@ -42,11 +42,9 @@
       <module name="JavadocStyle">
       <property name="severity" value="info" />
       </module>
-    -->
-    <module name="ModifierOrder">
+      <module name="ModifierOrder">
       <property name="severity" value="info" />
-    </module>
-    <!--
+      </module>
       <module name="RedundantModifier">
       <property name="severity" value="info" />
       </module>
@@ -59,10 +57,10 @@
       <module name="TodoComment">
       <property name="severity" value="info" />
       </module>
-    -->
-    <module name="HideUtilityClassConstructor">
+      <module name="HideUtilityClassConstructor">
       <property name="severity" value="info" />
-    </module>
+      </module>
+    -->
     <module name="FinalClass">
       <property name="severity" value="info" />
     </module>
@@ -111,7 +109,7 @@
       <property name="severity" value="warning" />
     </module>
     <module name="NeedBraces">
-      <property name="severity" value="error" />
+      <property name="severity" value="warning" />
     </module>
     <module name="ParameterNumber">
       <property name="max" value="7" />
@@ -171,10 +169,10 @@
       <property name="severity" value="error" />
     </module>
     <module name="InnerAssignment">
-      <property name="severity" value="error" />
+      <property name="severity" value="warning" />
     </module>
     <module name="OperatorWrap">
-      <property name="severity" value="error" />
+      <property name="severity" value="warning" />
     </module>
     <module name="LocalFinalVariableName">
       <property name="severity" value="error" />
@@ -189,10 +187,10 @@
       <property name="severity" value="error" />
     </module>
     <module name="ParenPad">
-      <property name="severity" value="error" />
+      <property name="severity" value="warning" />
     </module>
     <module name="UpperEll">
-      <property name="severity" value="info" />
+      <property name="severity" value="warning" />
     </module>
     <module name="InterfaceIsType">
       <property name="severity" value="error" />
@@ -201,16 +199,26 @@
       <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS" />
       <property name="severity" value="error" />
     </module>
-    <module name="PackageName" />
-    <module name="IllegalImport" />
+    <module name="PackageName">
+      <property name="severity" value="error" />
+    </module>
+    <module name="IllegalImport">
+      <property name="severity" value="error" />
+    </module>
     <module name="EmptyForIteratorPad">
-      <property name="severity" value="info" />
+      <property name="severity" value="warning" />
     </module>
     <module name="MethodParamPad">
       <property name="severity" value="warning" />
     </module>
-    <module name="NoWhitespaceBefore" />
-    <module name="TypecastParenPad" />
-    <module name="IllegalInstantiation" />
+    <module name="NoWhitespaceBefore">
+      <property name="severity" value="warning" />
+    </module>
+    <module name="TypecastParenPad">
+      <property name="severity" value="warning" />
+    </module>
+    <module name="IllegalInstantiation">
+      <property name="severity" value="warning" />
+    </module>
   </module>
 </module>
