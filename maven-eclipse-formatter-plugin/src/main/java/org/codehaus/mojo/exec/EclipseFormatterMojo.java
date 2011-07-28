@@ -145,7 +145,7 @@ public class EclipseFormatterMojo extends ExecMojo {
 		}
 		showDirs(dirs);
 
-		super.setExecutable(quote(eclipseBinary));
+		super.setExecutable(eclipseBinaryFile.getAbsolutePath());
 		super.setArguments(getEclipseArguments(javaBinary, dirs));
 
 		super.execute();
