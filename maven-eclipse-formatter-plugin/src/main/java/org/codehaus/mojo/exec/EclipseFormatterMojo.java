@@ -182,22 +182,18 @@ public class EclipseFormatterMojo extends ExecMojo {
 	protected List<String> getEclipseArguments(File javaBinary, List<File> dirs) throws MojoExecutionException {
 		List<String> args = new ArrayList<String>();
 		args.add("-application");
-		args.add(quote(application));
+		args.add(application);
 		args.add("-vm");
-		args.add(quote(javaBinary.getAbsolutePath()));
+		args.add(javaBinary.getAbsolutePath());
 		args.add("-config");
-		args.add(quote(getConfigAbsolutePath()));
+		args.add(getConfigAbsolutePath());
 		for (String arg : eclipseArgs) {
 			addIfNotEmpty(args, arg);
 		}
 		for (File dir : dirs) {
-			args.add(quote(dir.getAbsolutePath()));
+			args.add(dir.getAbsolutePath());
 		}
 		return args;
-	}
-
-	protected String quote(String s) {
-		return '"' + s + '"';
 	}
 
 	protected String getConfigAbsolutePath() throws MojoExecutionException {
