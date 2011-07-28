@@ -1,6 +1,0 @@
-<config>
-  <param name="application.url">http://localhost</param>
-  <param name="datasource.url">jdbc:oracle:thin:@localhost:1521:XE</param>
-  <param name="datasource.username">RICE</param>
-  <param name="datasource.password">RICE</param>
-</config>
