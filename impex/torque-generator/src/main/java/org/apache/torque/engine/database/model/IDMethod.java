@@ -20,6 +20,9 @@ package org.apache.torque.engine.database.model;
  * @version $Id: IDMethod.java,v 1.1 2007-10-21 07:57:27 abyrne Exp $
  */
 public interface IDMethod {
+
+    void empty();
+
     /**
      * Key generation via database-specific ID method. For example, this would be auto-increment for MySQL, sequence for
      * Oracle, etc.

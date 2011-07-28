@@ -40,8 +40,8 @@ public class SetUtils {
     }
 
     /**
-	 * 
-	 */
+     * Return the symDifference
+     */
     public static <T> Set<T> symDifference(Set<T> a, Set<T> b) {
         Set<T> tmpA = union(a, b);
         Set<T> tmpB = intersection(a, b);

@@ -58,6 +58,7 @@ public class KualiTorqueSQLTask extends TorqueDataModelTask {
         return suffix;
     }
 
+    @Override
     protected DatabaseParser getDatabaseParser() {
         return new KualiXmlToAppData(getTargetDatabase(), getTargetPackage());
     }
@@ -74,7 +75,7 @@ public class KualiTorqueSQLTask extends TorqueDataModelTask {
 
         // Produce the sql -> database map
         Properties sqldbmap = new Properties();
-        Properties sqldbmap_c = new Properties();
+        Properties sqldbmap2 = new Properties();
 
         // Check to see if the sqldbmap has already been created.
         File file = new File(getSqlDbMap());
@@ -88,12 +89,12 @@ public class KualiTorqueSQLTask extends TorqueDataModelTask {
         Iterator<String> i = getDataModelDbMap().keySet().iterator();
 
         while (i.hasNext()) {
-            String dataModelName = (String) i.next();
+            String dataModelName = i.next();
 
             String databaseName;
 
             if (getDatabase() == null) {
-                databaseName = (String) getDataModelDbMap().get(dataModelName);
+                databaseName = getDataModelDbMap().get(dataModelName);
             } else {
                 databaseName = getDatabase();
             }
@@ -101,11 +102,11 @@ public class KualiTorqueSQLTask extends TorqueDataModelTask {
             String sqlFile = dataModelName + getSuffix() + ".sql";
             sqldbmap.setProperty(sqlFile, databaseName);
             sqlFile = dataModelName + getSuffix() + "-constraints.sql";
-            sqldbmap_c.setProperty(sqlFile, databaseName);
+            sqldbmap2.setProperty(sqlFile, databaseName);
         }
 
         sqldbmap.store(new FileOutputStream(getSqlDbMap()), "Sqlfile -> Database map");
-        sqldbmap_c.store(new FileOutputStream(getSqlDbMap() + "-constraints"), "Sqlfile -> Database map");
+        sqldbmap2.store(new FileOutputStream(getSqlDbMap() + "-constraints"), "Sqlfile -> Database map");
     }
 
     public void onBeforeGenerate() {
@@ -124,6 +125,7 @@ public class KualiTorqueSQLTask extends TorqueDataModelTask {
      * @return the context
      * @throws Exception
      */
+    @Override
     public Context initControlContext() throws Exception {
         super.initControlContext();
 

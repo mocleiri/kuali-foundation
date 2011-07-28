@@ -19,14 +19,12 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.collections.map.ListOrderedMap;
 import org.apache.commons.lang.StringUtils;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.torque.engine.EngineException;
-
 import org.xml.sax.Attributes;
 
 /**
@@ -879,6 +877,7 @@ public class Table implements IDMethod {
      * 
      * @return XML representation of this table
      */
+    @Override
     public String toString() {
         StringBuffer result = new StringBuffer();
 
@@ -1043,5 +1042,10 @@ public class Table implements IDMethod {
      */
     public Map getOptions() {
         return options;
+    }
+
+    @Override
+    public void empty() {
+
     }
 }

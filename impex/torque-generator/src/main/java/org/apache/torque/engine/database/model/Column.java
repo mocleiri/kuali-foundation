@@ -703,13 +703,11 @@ public class Column {
         // Check for scale on size attribute if no scale attribute
         if (scale == null) {
             scale = getSize();
-            if (scale == null) // No scale or size attribute set.
-            {
+            if (scale == null) { // No scale or size attribute set.
                 return scale;
             }
             int cLoc = scale.indexOf(',');
-            if (cLoc < 0) // Size did not have "P,S" format
-            {
+            if (cLoc < 0) { // Size did not have "P,S" format
                 return null;
             }
             scale = scale.substring(cLoc + 1);

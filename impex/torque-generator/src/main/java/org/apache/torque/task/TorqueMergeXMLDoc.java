@@ -83,9 +83,9 @@ public class TorqueMergeXMLDoc extends Task {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder;
         documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        Document XMLdocument = documentBuilder.parse(file);
-        XMLdocument.getDocumentElement().normalize();
-        return XMLdocument;
+        Document xmlDocument = documentBuilder.parse(file);
+        xmlDocument.getDocumentElement().normalize();
+        return xmlDocument;
     }
 
     /**
