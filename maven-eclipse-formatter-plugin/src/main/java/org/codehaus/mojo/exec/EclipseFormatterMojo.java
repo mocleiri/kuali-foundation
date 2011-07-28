@@ -15,6 +15,7 @@ import org.codehaus.plexus.util.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import static org.codehaus.plexus.util.StringUtils.isEmpty;
 
 /**
  * A plugin for executing the Eclipse java source code formatter
@@ -24,257 +25,278 @@ import org.springframework.core.io.ResourceLoader;
  * @aggregator
  */
 public class EclipseFormatterMojo extends ExecMojo {
-    private static final String FS = System.getProperty("file.separator");
+	private static final String FS = System.getProperty("file.separator");
 
-    /**
-     * Binaries representing a Java VM. Default values are "javaw.exe", "java.exe", and "java". This list is searched in
-     * order, stopping as soon as one is found.
-     * 
-     * @parameter
-     */
-    private String[] javaBinaries = new String[] { "javaw.exe", "java.exe", "java" };
+	/**
+	 * Binaries representing a Java VM. Default values are "javaw.exe", "java.exe", and "java". This list is searched in
+	 * order, stopping as soon as one is found.
+	 * 
+	 * @parameter
+	 */
+	private String[] javaBinaries = new String[] { "javaw.exe", "java.exe", "java" };
 
-    /**
-     * Full path to the Eclipse executable binary
-     * 
-     * @parameter expression="${eclipse.binary}"
-     * @required
-     */
-    private String eclipseBinary;
+	/**
+	 * Full path to the Eclipse executable binary
+	 * 
+	 * @parameter expression="${eclipse.binary}"
+	 * @required
+	 */
+	private String eclipseBinary;
 
-    /**
-     * Full path to a Java VM. This gets filled in using the system property "java.home" unless a value is supplied
-     * here.
-     * 
-     * @parameter expression="${eclipse.vm}"
-     */
-    private String vm;
+	/**
+	 * Full path to a Java VM. This gets filled in using the system property "java.home" unless a value is supplied
+	 * here.
+	 * 
+	 * @parameter expression="${eclipse.vm}"
+	 */
+	private String vm;
 
-    /**
-     * This is the name of the Eclipse application that performs the formatting
-     * 
-     * @parameter expression="${eclipse.application}" default-value="org.eclipse.jdt.core.JavaCodeFormatter"
-     * @required
-     */
-    private String application;
+	/**
+	 * This is the name of the Eclipse application that performs the formatting
+	 * 
+	 * @parameter expression="${eclipse.application}" default-value="org.eclipse.jdt.core.JavaCodeFormatter"
+	 * @required
+	 */
+	private String application;
 
-    /**
-     * Pointer to an Eclipse "org.eclipse.jdt.core.prefs" file. Supports "classpath:" style notation
-     * 
-     * @parameter expression="${eclipse.formatterPreferences}" default-value="classpath:eclipse.prefs"
-     * @required
-     */
-    private String formatterPreferences;
+	/**
+	 * Pointer to an Eclipse "org.eclipse.jdt.core.prefs" file. Supports "classpath:" style notation
+	 * 
+	 * @parameter expression="${eclipse.formatterPreferences}" default-value="classpath:eclipse.prefs"
+	 * @required
+	 */
+	private String formatterPreferences;
 
-    /**
-     * Any arguments specified here are passed to the Eclipse binary as additional command line arguments. Default
-     * values are "-nosplash -verbose"
-     * 
-     * @parameter
-     */
-    private String[] eclipseArgs = new String[] { "-nosplash", "-verbose" };
+	/**
+	 * Any arguments specified here are passed to the Eclipse binary as additional command line arguments. Default
+	 * values are "-nosplash -verbose"
+	 * 
+	 * @parameter
+	 */
+	private String[] eclipseArgs = new String[] { "-nosplash", "-verbose" };
 
-    /**
-     * Regular expressions for directories that contain Java source code to format. Default values are
-     * &#042;&#042;/src/main/java and &#042;&#042;/src/test/java. The Eclipse formatter will recursively inspect any
-     * directories matching these patterns for *.java files
-     * 
-     * @parameter
-     */
-    private String[] includes = new String[] { "**/src/main/java", "**/src/test/java" };
+	/**
+	 * Regular expressions for directories that contain Java source code to format. Default value is
+	 * &#042;&#042;/src/main/java. The Eclipse formatter will recursively inspect any directories matching these
+	 * patterns for *.java files
+	 * 
+	 * @parameter
+	 */
+	private String[] includes = new String[] { "**/src/main/java" };
 
-    /**
-     * Regular expressions for directories to exclude from the formatting process.
-     * 
-     * @parameter
-     */
-    private String[] excludes = new String[] { "**/.settings", "**/.svn" };
+	/**
+	 * Regular expressions for directories to exclude from the process that scans for *.java files
+	 * 
+	 * @parameter
+	 */
+	private String[] excludes = new String[] { "**/.settings", "**/.svn" };
 
-    protected List<File> getSourceDirectories() {
-        DirectoryScanner scanner = new DirectoryScanner();
-        scanner.setBasedir(project.getBasedir());
-        scanner.setIncludes(includes);
-        scanner.setExcludes(excludes);
-        scanner.scan();
-        String[] includedDirs = scanner.getIncludedDirectories();
-        List<File> dirs = new ArrayList<File>();
-        for (String includedDir : includedDirs) {
-            File file = new File(project.getBasedir().getAbsolutePath() + FS + includedDir);
-            dirs.add(file);
-        }
-        return dirs;
-    }
+	protected List<File> getSourceDirectories() {
+		DirectoryScanner scanner = new DirectoryScanner();
+		scanner.setBasedir(project.getBasedir());
+		scanner.setIncludes(includes);
+		scanner.setExcludes(excludes);
+		scanner.scan();
+		String[] includedDirs = scanner.getIncludedDirectories();
+		List<File> dirs = new ArrayList<File>();
+		for (String includedDir : includedDirs) {
+			File file = new File(project.getBasedir().getAbsolutePath() + FS + includedDir);
+			dirs.add(file);
+		}
+		return dirs;
+	}
 
-    @Override
-    public void execute() throws MojoExecutionException {
-        File file = new File(eclipseBinary);
-        if (!file.exists()) {
-            throw new MojoExecutionException(eclipseBinary + " does not exist");
-        }
-        getLog().info("Eclipse Location: " + file.getAbsolutePath());
-        getLog().info("Java VM: " + getJavaBinary());
-        getLog().info("Scanning directory: " + project.getBasedir());
-        StringBuilder sb = new StringBuilder();
-        for (String include : includes) {
-            sb.append(include + " ");
-        }
-        getLog().info("Includes: " + sb.toString());
-        sb = new StringBuilder();
-        for (String exclude : excludes) {
-            sb.append(exclude + " ");
-        }
-        getLog().info("Excludes: " + sb.toString());
-        List<File> dirs = getSourceDirectories();
+	protected void showDirs(List<File> srcDirs) {
+		getLog().info("Located " + srcDirs.size() + " source directories:");
+		for (File dir : srcDirs) {
+			getLog().info(dir.getAbsolutePath());
+		}
+	}
 
-        if (dirs.size() == 0) {
-            getLog().info("No directories containing source code were located");
-            return;
-        } else {
-            getLog().info("Located " + dirs.size() + " source directories:");
-            for (File dir : dirs) {
-                getLog().info(dir.getAbsolutePath());
-            }
-        }
+	protected void showConfig(File eclipseBinary, File javaBinary) {
+		getLog().info("Eclipse Location: " + eclipseBinary.getAbsolutePath());
+		getLog().info("Java VM: " + javaBinary.getAbsolutePath());
+		getLog().info("Scanning directory: " + project.getBasedir());
+		StringBuilder sb = new StringBuilder();
+		for (String include : includes) {
+			sb.append(include + " ");
+		}
+		getLog().info("Includes: " + sb.toString());
+		sb = new StringBuilder();
+		for (String exclude : excludes) {
+			sb.append(exclude + " ");
+		}
+		getLog().info("Excludes: " + sb.toString());
+	}
 
-        super.setExecutable(quote(eclipseBinary));
-        super.setArguments(getEclipseArguments(dirs));
+	@Override
+	public void execute() throws MojoExecutionException {
+		if (!fileExists(eclipseBinary)) {
+			throw new MojoExecutionException(eclipseBinary + " does not exist");
+		}
+		File eclipseBinaryFile = new File(eclipseBinary);
+		File javaBinary = getJavaBinary();
+		showConfig(eclipseBinaryFile, javaBinary);
 
-        super.execute();
-    }
+		List<File> dirs = getSourceDirectories();
+		if (dirs.size() == 0) {
+			getLog().info("No directories containing source code were located");
+			return;
+		}
+		showDirs(dirs);
 
-    protected String getJavaBinary() throws MojoExecutionException {
-        if (!StringUtils.isEmpty(vm)) {
-            return vm;
-        }
-        String javaHome = System.getProperty("java.home");
-        String binaryHome = javaHome + FS + "bin";
-        for (String binary : javaBinaries) {
-            File file = new File(binaryHome + FS + binary);
-            if (file.exists()) {
-                return file.getAbsolutePath();
-            }
-        }
-        throw new MojoExecutionException(
-                "No Java VM location was supplied, and we could not locate one using the System property 'java.home'");
-    }
+		super.setExecutable(quote(eclipseBinary));
+		super.setArguments(getEclipseArguments(javaBinary, dirs));
 
-    protected List<String> getEclipseArguments(List<File> dirs) throws MojoExecutionException {
-        List<String> args = new ArrayList<String>();
-        args.add("-application");
-        args.add(quote(application));
-        args.add("-vm");
-        args.add(quote(getJavaBinary()));
-        args.add("-config");
-        args.add(quote(getConfigAbsolutePath()));
-        for (String arg : eclipseArgs) {
-            addIfNotEmpty(args, arg);
-        }
-        for (File dir : dirs) {
-            args.add(quote(dir.getAbsolutePath()));
-        }
-        return args;
-    }
+		super.execute();
+	}
 
-    protected String quote(String s) {
-        return '"' + s + '"';
-    }
+	protected boolean fileExists(String filename) {
+		return new File(filename).exists();
+	}
 
-    protected String getConfigAbsolutePath() throws MojoExecutionException {
-        File file = new File(formatterPreferences);
-        if (file.exists()) {
-            return file.getAbsolutePath();
-        }
-        ResourceLoader loader = new DefaultResourceLoader();
-        Resource resource = loader.getResource(formatterPreferences);
-        if (!resource.exists()) {
-            throw new MojoExecutionException("Unable to locate " + formatterPreferences);
-        }
-        OutputStream out = null;
-        InputStream in = null;
-        try {
-            File temp = File.createTempFile("eclipse.prefs.", null);
-            out = new FileOutputStream(temp);
-            in = resource.getInputStream();
-            IOUtils.copy(in, out);
-            return temp.getAbsolutePath();
-        } catch (IOException e) {
-            throw new MojoExecutionException("Error copying resource " + formatterPreferences, e);
-        } finally {
-            IOUtils.closeQuietly(out);
-            IOUtils.closeQuietly(in);
-        }
+	protected File getJavaBinary() throws MojoExecutionException {
+		// They provided us with a VM, and we found a file in the location they specified
+		if (!isEmpty(vm) && fileExists(vm)) {
+			return new File(vm);
+		}
 
-    }
+		// They asked us to use a specific VM, but it doesn't exist
+		if (!isEmpty(vm) && !fileExists(vm)) {
+			throw new MojoExecutionException(vm + " does not exist");
+		}
 
-    protected void addIfNotEmpty(List<String> list, String s) {
-        if (StringUtils.isEmpty(s)) {
-            return;
-        }
-        list.add(s);
-    }
+		// They did not specify a VM, attempt to locate one
+		String javaHome = System.getProperty("java.home");
+		String binaryHome = javaHome + FS + "bin";
+		for (String binary : javaBinaries) {
+			File file = new File(binaryHome + FS + binary);
+			if (file.exists()) {
+				return file;
+			}
+		}
+		throw new MojoExecutionException(
+				"No Java VM location was supplied, and we could not locate one using the System property 'java.home'");
+	}
 
-    public String getEclipseBinary() {
-        return eclipseBinary;
-    }
+	protected List<String> getEclipseArguments(File javaBinary, List<File> dirs) throws MojoExecutionException {
+		List<String> args = new ArrayList<String>();
+		args.add("-application");
+		args.add(quote(application));
+		args.add("-vm");
+		args.add(quote(javaBinary.getAbsolutePath()));
+		args.add("-config");
+		args.add(quote(getConfigAbsolutePath()));
+		for (String arg : eclipseArgs) {
+			addIfNotEmpty(args, arg);
+		}
+		for (File dir : dirs) {
+			args.add(quote(dir.getAbsolutePath()));
+		}
+		return args;
+	}
 
-    public void setEclipseBinary(String eclipseExecutable) {
-        this.eclipseBinary = eclipseExecutable;
-    }
+	protected String quote(String s) {
+		return '"' + s + '"';
+	}
 
-    public String getVm() {
-        return vm;
-    }
+	protected String getConfigAbsolutePath() throws MojoExecutionException {
+		File file = new File(formatterPreferences);
+		if (file.exists()) {
+			return file.getAbsolutePath();
+		}
+		ResourceLoader loader = new DefaultResourceLoader();
+		Resource resource = loader.getResource(formatterPreferences);
+		if (!resource.exists()) {
+			throw new MojoExecutionException("Unable to locate " + formatterPreferences);
+		}
+		OutputStream out = null;
+		InputStream in = null;
+		try {
+			File temp = File.createTempFile("eclipse.prefs.", null);
+			temp.deleteOnExit();
+			out = new FileOutputStream(temp);
+			in = resource.getInputStream();
+			IOUtils.copy(in, out);
+			return temp.getAbsolutePath();
+		} catch (IOException e) {
+			throw new MojoExecutionException("Error copying resource " + formatterPreferences, e);
+		} finally {
+			IOUtils.closeQuietly(out);
+			IOUtils.closeQuietly(in);
+		}
 
-    public void setVm(String vm) {
-        this.vm = vm;
-    }
+	}
 
-    public String getApplication() {
-        return application;
-    }
+	protected void addIfNotEmpty(List<String> list, String s) {
+		if (StringUtils.isEmpty(s)) {
+			return;
+		}
+		list.add(s);
+	}
 
-    public void setApplication(String application) {
-        this.application = application;
-    }
+	public String getEclipseBinary() {
+		return eclipseBinary;
+	}
 
-    public String[] getIncludes() {
-        return includes;
-    }
+	public void setEclipseBinary(String eclipseExecutable) {
+		this.eclipseBinary = eclipseExecutable;
+	}
 
-    public void setIncludes(String[] includes) {
-        this.includes = includes;
-    }
+	public String getVm() {
+		return vm;
+	}
 
-    public String[] getExcludes() {
-        return excludes;
-    }
+	public void setVm(String vm) {
+		this.vm = vm;
+	}
 
-    public void setExcludes(String[] excludes) {
-        this.excludes = excludes;
-    }
+	public String getApplication() {
+		return application;
+	}
 
-    public String[] getJavaBinaries() {
-        return javaBinaries;
-    }
+	public void setApplication(String application) {
+		this.application = application;
+	}
 
-    public void setJavaBinaries(String[] binaries) {
-        this.javaBinaries = binaries;
-    }
+	public String[] getIncludes() {
+		return includes;
+	}
 
-    public String getFormatterPreferences() {
-        return formatterPreferences;
-    }
+	public void setIncludes(String[] includes) {
+		this.includes = includes;
+	}
 
-    public void setFormatterPreferences(String formatterPreferences) {
-        this.formatterPreferences = formatterPreferences;
-    }
+	public String[] getExcludes() {
+		return excludes;
+	}
 
-    public String[] getEclipseArgs() {
-        return eclipseArgs;
-    }
+	public void setExcludes(String[] excludes) {
+		this.excludes = excludes;
+	}
 
-    public void setEclipseArgs(String[] args) {
-        this.eclipseArgs = args;
-    }
+	public String[] getJavaBinaries() {
+		return javaBinaries;
+	}
+
+	public void setJavaBinaries(String[] binaries) {
+		this.javaBinaries = binaries;
+	}
+
+	public String getFormatterPreferences() {
+		return formatterPreferences;
+	}
+
+	public void setFormatterPreferences(String formatterPreferences) {
+		this.formatterPreferences = formatterPreferences;
+	}
+
+	public String[] getEclipseArgs() {
+		return eclipseArgs;
+	}
+
+	public void setEclipseArgs(String[] args) {
+		this.eclipseArgs = args;
+	}
 
 }
