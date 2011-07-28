@@ -8,16 +8,16 @@
 
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>maven-eclipse-formatter-plugin</artifactId>
-  <version>1.1</version>
+  <version>1.2-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
   <name>Maven Eclipse Formatter Plugin</name>
   <description>Maven Plugin for invoking the Eclipse java source code formatter</description>
 
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-eclipse-formatter-plugin-1.1</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-eclipse-formatter-plugin-1.1</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/tags/maven-eclipse-formatter-plugin-1.1</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-eclipse-formatter-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-eclipse-formatter-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/maven-eclipse-formatter-plugin</url>
   </scm>
 
   <developers>
