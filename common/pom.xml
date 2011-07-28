@@ -18,7 +18,7 @@
   </parent>
   <groupId>org.kuali</groupId>
   <artifactId>kuali-common</artifactId>
-  <version>17</version>
+  <version>18-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Kuali Common</name>
 
@@ -83,9 +83,9 @@
     </repository>
   </repositories>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/pom/tags/kuali-common-17</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/tags/kuali-common-17</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/pom/tags/kuali-common-17</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/common</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/common</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/pom/trunk/common</url>
   </scm>
   <build>
     <pluginManagement>
