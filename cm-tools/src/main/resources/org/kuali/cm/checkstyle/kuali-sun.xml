@@ -46,10 +46,10 @@
     <module name="ModifierOrder">
       <property name="severity" value="info" />
     </module>
-    <module name="RedundantModifier">
-      <property name="severity" value="info" />
-    </module>
     <!--
+      <module name="RedundantModifier">
+      <property name="severity" value="info" />
+      </module>
       <module name="HiddenField">
       <property name="severity" value="info" />
       </module>
@@ -87,7 +87,7 @@
     <module name="LineLength">
       <property name="id" value="lineInfo" />
       <property name="max" value="120" />
-      <property name="severity" value="info" />
+      <property name="severity" value="warning" />
     </module>
     <module name="LineLength">
       <property name="id" value="lineError" />
