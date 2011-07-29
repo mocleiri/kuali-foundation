@@ -122,6 +122,7 @@
     </module>
     <module name="AvoidStarImport">
       <property name="allowStaticMemberImports" value="true" />
+      <property name="severity" value="error" />
     </module>
     <module name="WhitespaceAfter">
       <property name="severity" value="error" />
