@@ -4,7 +4,7 @@ import java.util.Set;
 
 public class SourceFile {
 	String name;
-	Set<Violation> violations;
+	Set<String> violations;
 
 	public String getName() {
 		return name;
@@ -14,11 +14,11 @@ public class SourceFile {
 		this.name = name;
 	}
 
-	public Set<Violation> getViolations() {
+	public Set<String> getViolations() {
 		return violations;
 	}
 
-	public void setViolations(Set<Violation> violations) {
+	public void setViolations(Set<String> violations) {
 		this.violations = violations;
 	}
 

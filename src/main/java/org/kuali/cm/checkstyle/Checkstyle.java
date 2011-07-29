@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,29 @@ public class Checkstyle {
 	}
 
 	protected Set<SourceFile> getSourceFiles(Set<String> msgs, List<Error> errors, Set<String> files, Properties props) {
-		return null;
+		Map<String, SourceFile> map = new HashMap<String, SourceFile>();
+		for (String file : files) {
+			getSourceFile(file, map, errors, props);
+		}
+		return new HashSet<SourceFile>(map.values());
+	}
+
+	protected SourceFile getSourceFile(String file, Map<String, SourceFile> map, List<Error> errors, Properties props) {
+		SourceFile sf = map.get(file);
+		if (sf == null) {
+			sf = new SourceFile();
+			sf.setViolations(new HashSet<String>());
+			sf.setName(file);
+			map.put(file, sf);
+		}
+		for (Error error : errors) {
+			if (!error.getSrc().equals(file)) {
+				continue;
+			}
+			Set<String> names = getCheckStyleNames(error.getMsg(), props);
+			sf.getViolations().addAll(names);
+		}
+		return sf;
 	}
 
 	protected void execute() {
@@ -79,6 +102,9 @@ public class Checkstyle {
 				showSet(msgs);
 				throw new RuntimeException("There are unknown messages");
 			}
+			Set<SourceFile> set = getSourceFiles(msgs, errors, files, props);
+			String s = toXML(set);
+			System.out.println(s);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -116,17 +142,17 @@ public class Checkstyle {
 
 	protected String toXML(SourceFile sf) {
 		String file = sf.getName();
-		Set<Violation> violations = sf.getViolations();
+		Set<String> violations = sf.getViolations();
 		StringBuilder sb = new StringBuilder();
 		sb.append("  <suppress ");
 		sb.append("files=\"" + file + "\" ");
 		sb.append("checks=\"");
 		int count = 0;
-		for (Violation violation : violations) {
+		for (String violation : violations) {
 			if (count != 0) {
 				sb.append("|");
 			}
-			sb.append(violation.getName());
+			sb.append(violation);
 			count++;
 		}
 		sb.append('"');
@@ -134,8 +160,8 @@ public class Checkstyle {
 		return sb.toString();
 	}
 
-	protected List<String> getCheckStyleNames(String msg, Properties props) {
-		List<String> names = new ArrayList<String>();
+	protected Set<String> getCheckStyleNames(String msg, Properties props) {
+		Set<String> names = new HashSet<String>();
 		for (String key : props.stringPropertyNames()) {
 			String value = props.getProperty(key);
 			if (value.trim().equals(msg.trim())) {
@@ -145,9 +171,6 @@ public class Checkstyle {
 				}
 				names.add(key);
 			}
-		}
-		if (names.size() == 0) {
-			throw new RuntimeException("Unknown message " + msg);
 		}
 		return names;
 	}
@@ -265,7 +288,7 @@ public class Checkstyle {
 		int pos = s.indexOf(".java");
 		String msg = s.substring(pos);
 		pos = msg.indexOf("]") + 1;
-		return msg.substring(pos).trim();
+		return translate(msg.substring(pos).trim());
 	}
 
 	protected List<String> getErrors() throws IOException {
