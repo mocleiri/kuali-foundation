@@ -1,5 +1,7 @@
 package org.kuali.cm.checkstyle;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -104,7 +106,7 @@ public class Checkstyle {
 			}
 			Set<SourceFile> set = getSourceFiles(msgs, errors, files, props);
 			String s = toXML(set);
-			System.out.println(s);
+			IOUtils.copy(new ByteArrayInputStream(s.getBytes()), new FileOutputStream("c:/temp/checkstyle.xml"));
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -126,6 +128,8 @@ public class Checkstyle {
 	}
 
 	protected String toXML(Collection<SourceFile> c) {
+		List<SourceFile> list = new ArrayList<SourceFile>(c);
+		Collections.sort(list);
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("<?xml version=\"1.0\"?>\n");
@@ -133,7 +137,7 @@ public class Checkstyle {
 		sb.append("\"-//Puppy Crawl//DTD Suppressions 1.0//EN\" ");
 		sb.append("\"http://www.puppycrawl.com/dtds/suppressions_1_0.dtd\">\n");
 		sb.append("<suppressions>\n");
-		for (SourceFile sf : c) {
+		for (SourceFile sf : list) {
 			sb.append(toXML(sf));
 		}
 		sb.append("</suppressions>\n");
@@ -143,12 +147,13 @@ public class Checkstyle {
 	protected String toXML(SourceFile sf) {
 		String file = sf.getName();
 		Set<String> violations = sf.getViolations();
+		List<String> violationList = new ArrayList<String>(violations);
 		StringBuilder sb = new StringBuilder();
 		sb.append("  <suppress ");
 		sb.append("files=\"" + file + "\" ");
 		sb.append("checks=\"");
 		int count = 0;
-		for (String violation : violations) {
+		for (String violation : violationList) {
 			if (count != 0) {
 				sb.append("|");
 			}

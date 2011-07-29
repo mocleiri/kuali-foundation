@@ -2,7 +2,7 @@ package org.kuali.cm.checkstyle;
 
 import java.util.Set;
 
-public class SourceFile {
+public class SourceFile implements Comparable<SourceFile> {
 	String name;
 	Set<String> violations;
 
@@ -20,6 +20,11 @@ public class SourceFile {
 
 	public void setViolations(Set<String> violations) {
 		this.violations = violations;
+	}
+
+	@Override
+	public int compareTo(SourceFile o) {
+		return name.compareTo(o.getName());
 	}
 
 }
