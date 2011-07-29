@@ -148,7 +148,7 @@
   <suppress files="BusinessObjectDaoOjb.java" checks="EqualsAvoidNull|LineLength|RedundantThrows"/>
   <suppress files="BusinessObjectDaoProxy.java" checks="LineLength|LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|StaticVariableName"/>
   <suppress files="BusinessObjectDictionaryService.java" checks="MissingDeprecated"/>
-  <suppress files="BusinessObjectDictionaryServiceImpl.java" checks="ArrayTypeStyle|EmptyStatement|LineLength|LocalFinalVariableName|LocalVariableName|MethodName|MissingDeprecated|MissingOverride|ParameterName|StaticVariableName"/>
+  <suppress files="BusinessObjectDictionaryServiceImpl.java" checks="ArrayTypeStyle|EmptyBlock|LineLength|LocalFinalVariableName|LocalVariableName|MethodName|MissingDeprecated|MissingOverride|ParameterName|StaticVariableName"/>
   <suppress files="BusinessObjectEntry.java" checks="MissingDeprecated|UnusedImports"/>
   <suppress files="BusinessObjectEntryMapper.java" checks="MissingDeprecated"/>
   <suppress files="BusinessObjectMetaDataService.java" checks="MissingDeprecated"/>
@@ -175,8 +175,8 @@
   <suppress files="ClearDatabaseLifecycle.java" checks="IllegalInstantiation"/>
   <suppress files="ClearFYIAction.java" checks="LineLength|UnusedImports"/>
   <suppress files="ClientAppDocHandlerRedirectAction.java" checks="LineLength"/>
-  <suppress files="ClientValidationUtils.java" checks="EmptyStatement|EqualsAvoidNull|LineLength|MagicNumber"/>
-  <suppress files="CloneUtils.java" checks="ConstantName|EmptyStatement|EqualsAvoidNull|IllegalInstantiation|UnusedImports"/>
+  <suppress files="ClientValidationUtils.java" checks="EmptyBlock|EqualsAvoidNull|LineLength|MagicNumber"/>
+  <suppress files="CloneUtils.java" checks="ConstantName|EmptyBlock|EqualsAvoidNull|IllegalInstantiation|UnusedImports"/>
   <suppress files="CodeTranslator.java" checks="ConstantName"/>
   <suppress files="CollectionDefinition.java" checks="LineLength"/>
   <suppress files="CollectionDefinitionConstraintProvider.java" checks="LineLength|NeedBraces"/>
@@ -228,7 +228,7 @@
   <suppress files="ControlDefinition.java" checks="MissingDeprecated"/>
   <suppress files="ControlDefinitionBase.java" checks="EqualsHashCode|LineLength|MissingDeprecated"/>
   <suppress files="CopiedObject.java" checks="ArrayTypeStyle|LineLength|MagicNumber|NeedBraces"/>
-  <suppress files="CoreConfigurer.java" checks="EmptyStatement|LineLength"/>
+  <suppress files="CoreConfigurer.java" checks="EmptyBlock|LineLength"/>
   <suppress files="CoreConstants.java" checks="LineLength"/>
   <suppress files="CoreResourceLoader.java" checks="EqualsAvoidNull|IllegalInstantiation"/>
   <suppress files="Country.java" checks="FinalClass"/>
@@ -237,7 +237,7 @@
   <suppress files="County.java" checks="FinalClass"/>
   <suppress files="CountyService.java" checks="RedundantThrows"/>
   <suppress files="CredentialsSourceFactory.java" checks="LineLength"/>
-  <suppress files="Criteria.java" checks="EmptyStatement|LineLength|LocalFinalVariableName|LocalVariableName|MagicNumber|MethodName|ParameterName|StaticVariableName"/>
+  <suppress files="Criteria.java" checks="EmptyBlock|LineLength|LocalFinalVariableName|LocalVariableName|MagicNumber|MethodName|ParameterName|StaticVariableName"/>
   <suppress files="CriteriaLookupServiceOjbImpl.java" checks="FinalClass|LineLength"/>
   <suppress files="CriteriaSupportUtils.java" checks="EqualsAvoidNull"/>
   <suppress files="CurrencyControlDefinition.java" checks="MissingDeprecated"/>
@@ -290,8 +290,8 @@
   <suppress files="DisplayParameters.java" checks="FileTabCharacter"/>
   <suppress files="DistributedSession.java" checks="ArrayTypeStyle|LineLength|LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|RightCurly|StaticVariableName"/>
   <suppress files="DocHandlerForm.java" checks="NoWhitespaceBefore|WhitespaceAround"/>
-  <suppress files="DocSearchCriteriaDTO.java" checks="EmptyStatement|LineLength|MissingDeprecated|OperatorWrap|notsure"/>
-  <suppress files="DocSearchCriteriaDTOLookupableHelperServiceImpl.java" checks="EmptyStatement|EqualsAvoidNull|LineLength|MagicNumber|MethodLength|UnusedImports"/>
+  <suppress files="DocSearchCriteriaDTO.java" checks="EmptyBlock|LineLength|MissingDeprecated|OperatorWrap|notsure"/>
+  <suppress files="DocSearchCriteriaDTOLookupableHelperServiceImpl.java" checks="EmptyBlock|EmptyStatement|EqualsAvoidNull|LineLength|MagicNumber|MethodLength|UnusedImports"/>
   <suppress files="DocSearchDTO.java" checks="LineLength"/>
   <suppress files="DocSearchUtils.java" checks="LineLength"/>
   <suppress files="Document.java" checks="UnusedImports"/>
@@ -327,11 +327,11 @@
   <suppress files="DocumentMessageExceptionHandler.java" checks="UnusedImports"/>
   <suppress files="DocumentOperationAction.java" checks="EqualsAvoidNull|LineLength|MethodLength"/>
   <suppress files="DocumentPresentationControllerBase.java" checks="LineLength"/>
-  <suppress files="DocumentRouteHeaderDAOJpaImpl.java" checks="EmptyStatement|MagicNumber|MissingSwitchDefault"/>
+  <suppress files="DocumentRouteHeaderDAOJpaImpl.java" checks="EmptyBlock|MagicNumber|MissingSwitchDefault"/>
   <suppress files="DocumentRouteHeaderDAOOjbImpl.java" checks="EmptyBlock"/>
   <suppress files="DocumentRouteHeaderValue.java" checks="ConstantName|LineLength|RedundantThrows|SimplifyBooleanReturn|UnusedImports"/>
   <suppress files="DocumentRouteHeaderValueContent.java" checks="FileTabCharacter|LineLength"/>
-  <suppress files="DocumentRouteHeaderValueLookupableHelperServiceImpl.java" checks="EmptyStatement|EqualsAvoidNull|LineLength|MagicNumber|MethodLength|UnusedImports|WhitespaceAfter|WhitespaceAround"/>
+  <suppress files="DocumentRouteHeaderValueLookupableHelperServiceImpl.java" checks="EmptyBlock|EmptyStatement|EqualsAvoidNull|LineLength|MagicNumber|MethodLength|UnusedImports|WhitespaceAfter|WhitespaceAround"/>
   <suppress files="DocumentRouteLevelChange.java" checks="ParameterNumber"/>
   <suppress files="DocumentRuleBase.java" checks="LineLength|MagicNumber"/>
   <suppress files="DocumentSearchContext.java" checks="UnusedImports"/>
@@ -351,7 +351,7 @@
   <suppress files="DocumentServiceImpl.java" checks="LineLength|LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|RedundantThrows|StaticVariableName"/>
   <suppress files="DocumentStatusTransition.java" checks="AvoidStarImport"/>
   <suppress files="DocumentType.java" checks="LineLength|MissingDeprecated|RightCurly|UnusedImports|notsure"/>
-  <suppress files="DocumentTypeAndNodeOrStatePermissionTypeServiceImpl.java" checks="EmptyStatement"/>
+  <suppress files="DocumentTypeAndNodeOrStatePermissionTypeServiceImpl.java" checks="EmptyBlock"/>
   <suppress files="DocumentTypeAndRelationshipToNoteAuthorPermissionTypeService.java" checks="LineLength"/>
   <suppress files="DocumentTypeDAOJpaImpl.java" checks="LineLength"/>
   <suppress files="DocumentTypeDAOOjbImpl.java" checks="LineLength"/>
@@ -366,7 +366,7 @@
   <suppress files="DocumentTypeXmlExporter.java" checks="LineLength|MemberName|VisibilityModifier"/>
   <suppress files="DocumentTypeXmlParser.java" checks="LineLength|MagicNumber|MethodLength|NeedBraces|RedundantThrows|RightCurly|VisibilityModifier"/>
   <suppress files="DocumentViewHelperServiceImpl.java" checks="LineLength"/>
-  <suppress files="DynamicTransitionEngine.java" checks="AvoidStarImport|EmptyStatement|LineLength"/>
+  <suppress files="DynamicTransitionEngine.java" checks="AvoidStarImport|EmptyBlock|LineLength"/>
   <suppress files="EDLConfigurer.java" checks="UnusedImports"/>
   <suppress files="EDLControllerChain.java" checks="NeedBraces"/>
   <suppress files="EDLControllerFactory.java" checks="LineLength"/>
@@ -382,15 +382,15 @@
   <suppress files="EDocLitePostProcessor.java" checks="LocalFinalVariableName|LocalVariableName|MethodName|NeedBraces|ParameterName|StaticVariableName"/>
   <suppress files="EDocLiteServiceImpl.java" checks="MagicNumber|WhitespaceAfter|WhitespaceAround"/>
   <suppress files="EDocLiteXmlExporter.java" checks="WhitespaceAfter|WhitespaceAround"/>
-  <suppress files="EDocLiteXmlParser.java" checks="EmptyStatement|MagicNumber"/>
+  <suppress files="EDocLiteXmlParser.java" checks="EmptyBlock|MagicNumber"/>
   <suppress files="EasySSLProtocolSocketFactory.java" checks="RedundantThrows"/>
   <suppress files="EditablePropertiesHistoryHolder.java" checks="MagicNumber|MissingDeprecated"/>
-  <suppress files="EditorController.java" checks="EmptyStatement"/>
+  <suppress files="EditorController.java" checks="EmptyBlock"/>
   <suppress files="EdlDataExporter.java" checks="RedundantThrows"/>
   <suppress files="EdlServiceLocator.java" checks="UnusedImports"/>
   <suppress files="EmailMessageDeliverer.java" checks="LineLength|LocalFinalVariableName|LocalVariableName|MethodName|NeedBraces|NoWhitespaceBefore|ParameterName|StaticVariableName|WhitespaceAround"/>
   <suppress files="EmailNode.java" checks="WhitespaceAfter|WhitespaceAround"/>
-  <suppress files="EmailServiceImpl.java" checks="EmptyStatement|EqualsAvoidNull|LocalFinalVariableName|LocalVariableName|MemberName|MethodName|ParameterName|StaticVariableName|UnusedImports"/>
+  <suppress files="EmailServiceImpl.java" checks="EmptyBlock|EqualsAvoidNull|LocalFinalVariableName|LocalVariableName|MemberName|MethodName|ParameterName|StaticVariableName|UnusedImports"/>
   <suppress files="EmbeddedLifeCycle.java" checks="RedundantImport"/>
   <suppress files="EmplId.java" checks="MissingDeprecated|UnusedImports"/>
   <suppress files="EmployeeAttribute.java" checks="LineLength|LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|StaticVariableName"/>
@@ -430,7 +430,7 @@
   <suppress files="FieldLevelValidationPattern.java" checks="MissingDeprecated"/>
   <suppress files="FieldOverrideForListElementInsertImpl.java" checks="LineLength"/>
   <suppress files="FieldRestriction.java" checks="SimplifyBooleanReturn"/>
-  <suppress files="FieldUtils.java" checks="EmptyStatement|EqualsAvoidNull|LineLength|MagicNumber|MethodLength|NeedBraces|ParameterNumber"/>
+  <suppress files="FieldUtils.java" checks="EmptyBlock|EqualsAvoidNull|LineLength|MagicNumber|MethodLength|NeedBraces|ParameterNumber"/>
   <suppress files="FileControlDefinition.java" checks="LocalFinalVariableName|LocalVariableName|MethodName|MissingDeprecated|ParameterName|StaticVariableName"/>
   <suppress files="FileXmlDoc.java" checks="NeedBraces"/>
   <suppress files="FiscalOfficer.java" checks="NeedBraces"/>
@@ -466,7 +466,7 @@
   <suppress files="GroupInquirableImpl.java" checks="AvoidStarImport|MemberName"/>
   <suppress files="GroupInternalService.java" checks="RedundantImport"/>
   <suppress files="GroupInternalServiceImpl.java" checks="NeedBraces|RedundantImport"/>
-  <suppress files="GroupLookupableHelperServiceImpl.java" checks="EmptyStatement|EqualsAvoidNull|LineLength|LocalFinalVariableName|LocalVariableName|MagicNumber|MethodName|ParameterName|StaticVariableName"/>
+  <suppress files="GroupLookupableHelperServiceImpl.java" checks="EmptyBlock|EqualsAvoidNull|LineLength|LocalFinalVariableName|LocalVariableName|MagicNumber|MethodName|ParameterName|StaticVariableName"/>
   <suppress files="GroupMember.java" checks="FinalClass"/>
   <suppress files="GroupMemberQueryResults.java" checks="FinalClass"/>
   <suppress files="GroupQueryResults.java" checks="FinalClass"/>
@@ -474,7 +474,7 @@
   <suppress files="GroupServiceBase.java" checks="UnusedImports"/>
   <suppress files="GroupServiceImpl.java" checks="MagicNumber|NeedBraces|RedundantThrows"/>
   <suppress files="GroupXmlExporter.java" checks="EqualsAvoidNull|IllegalInstantiation|MemberName"/>
-  <suppress files="GroupXmlParser.java" checks="EmptyStatement|EqualsAvoidNull|RedundantThrows"/>
+  <suppress files="GroupXmlParser.java" checks="EmptyBlock|EqualsAvoidNull|RedundantThrows"/>
   <suppress files="HeaderField.java" checks="MissingDeprecated"/>
   <suppress files="HeaderNavigation.java" checks="MissingDeprecated"/>
   <suppress files="HibernateImmutableValueUserType.java" checks="RedundantThrows"/>
@@ -492,7 +492,7 @@
   <suppress files="HiddenGenerator.java" checks="LineLength"/>
   <suppress files="HierarchicalConfigParser.java" checks="EqualsAvoidNull|IllegalInstantiation|NeedBraces|RedundantThrows"/>
   <suppress files="HierarchicalNamedRuleSelector.java" checks="LineLength|LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|StaticVariableName"/>
-  <suppress files="HierarchyRoutingNode.java" checks="EmptyStatement|LineLength|MemberName|RedundantImport|SimplifyBooleanExpression|UnusedImports|WhitespaceAfter|WhitespaceAround"/>
+  <suppress files="HierarchyRoutingNode.java" checks="EmptyBlock|LineLength|MemberName|RedundantImport|SimplifyBooleanExpression|UnusedImports|WhitespaceAfter|WhitespaceAround"/>
   <suppress files="History.java" checks="EqualsAvoidNull|MagicNumber"/>
   <suppress files="HotDeployer.java" checks="MagicNumber"/>
   <suppress files="HtmlData.java" checks="MissingDeprecated|NeedBraces"/>
@@ -510,7 +510,7 @@
   <suppress files="IdentityManagementPersonDocumentRule.java" checks="LineLength"/>
   <suppress files="IdentityManagementPersonInquiry.java" checks="LineLength"/>
   <suppress files="IdentityManagementRoleDocument.java" checks="LineLength|MagicNumber"/>
-  <suppress files="IdentityManagementRoleDocumentAction.java" checks="EmptyStatement|LineLength"/>
+  <suppress files="IdentityManagementRoleDocumentAction.java" checks="EmptyBlock|LineLength"/>
   <suppress files="IdentityManagementRoleDocumentForm.java" checks="LineLength"/>
   <suppress files="IdentityManagementRoleDocumentRule.java" checks="LineLength"/>
   <suppress files="IdentityManagementRoleInquiry.java" checks="LineLength"/>
@@ -528,8 +528,8 @@
   <suppress files="InactiveRecordsHidingUtils.java" checks="IllegalInstantiation"/>
   <suppress files="IncidentReportForm.java" checks="LineLength|MagicNumber|NeedBraces"/>
   <suppress files="IngesterAction.java" checks="RedundantThrows"/>
-  <suppress files="IngesterController.java" checks="EmptyStatement"/>
-  <suppress files="InlineRequestsRouteModule.java" checks="EmptyStatement"/>
+  <suppress files="IngesterController.java" checks="EmptyBlock"/>
+  <suppress files="InlineRequestsRouteModule.java" checks="EmptyBlock"/>
   <suppress files="Inquirable.java" checks="MissingDeprecated"/>
   <suppress files="InquirableImpl.java" checks="LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|StaticVariableName|VisibilityModifier"/>
   <suppress files="Inquiry.java" checks="RightCurly"/>
@@ -559,7 +559,7 @@
   <suppress files="KCBInitializer.java" checks="LineLength|RedundantThrows"/>
   <suppress files="KCBNotificationService.java" checks="NeedBraces"/>
   <suppress files="KCBServiceNames.java" checks="FinalClass"/>
-  <suppress files="KEWActionListMessageDeliverer.java" checks="EmptyStatement|LineLength|LocalFinalVariableName|LocalVariableName|MagicNumber|MethodName|ParameterName|StaticVariableName"/>
+  <suppress files="KEWActionListMessageDeliverer.java" checks="EmptyBlock|LineLength|LocalFinalVariableName|LocalVariableName|MagicNumber|MethodName|ParameterName|StaticVariableName"/>
   <suppress files="KEWConfigurer.java" checks="RedundantImport"/>
   <suppress files="KEWConstants.java" checks="LineLength|LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|StaticVariableName|VisibilityModifier"/>
   <suppress files="KEWModuleService.java" checks="LineLength|SimplifyBooleanExpression"/>
@@ -638,10 +638,10 @@
   <suppress files="KualiInquiryAction.java" checks="LineLength|RedundantThrows"/>
   <suppress files="KualiInteger.java" checks="LocalFinalVariableName|LocalVariableName|MagicNumber|MethodName|ParameterName|StaticVariableName|VisibilityModifier"/>
   <suppress files="KualiIntegerCurrencyFormatter.java" checks="NeedBraces"/>
-  <suppress files="KualiLookupAction.java" checks="EmptyStatement|EqualsAvoidNull|RedundantThrows"/>
+  <suppress files="KualiLookupAction.java" checks="EmptyBlock|EqualsAvoidNull|RedundantThrows"/>
   <suppress files="KualiLookupableHelperServiceImpl.java" checks="LineLength|MethodLength"/>
   <suppress files="KualiLookupableImpl.java" checks="LineLength"/>
-  <suppress files="KualiMaintainableImpl.java" checks="EmptyStatement|EqualsAvoidNull|LineLength|MissingDeprecated|NeedBraces|SimplifyBooleanReturn"/>
+  <suppress files="KualiMaintainableImpl.java" checks="EmptyBlock|EqualsAvoidNull|LineLength|MissingDeprecated|NeedBraces|SimplifyBooleanReturn"/>
   <suppress files="KualiMaintenanceDocumentAction.java" checks="EmptyBlock|LineLength|LocalFinalVariableName|LocalVariableName|MethodLength|MethodName|NeedBraces|ParameterName|RightCurly|StaticVariableName"/>
   <suppress files="KualiMaintenanceForm.java" checks="LineLength|NeedBraces"/>
   <suppress files="KualiMultipleValueLookupAction.java" checks="EqualsAvoidNull"/>
@@ -708,14 +708,14 @@
   <suppress files="MaintainableSectionDefinition.java" checks="LineLength|MissingDeprecated"/>
   <suppress files="MaintainableSubSectionHeaderDefinition.java" checks="MissingDeprecated"/>
   <suppress files="MaintenanceDocumentAttributeValueReader.java" checks="NeedBraces|RedundantThrows"/>
-  <suppress files="MaintenanceDocumentBase.java" checks="EmptyStatement|LineLength|MagicNumber|NeedBraces|SimplifyBooleanReturn|UnusedImports"/>
+  <suppress files="MaintenanceDocumentBase.java" checks="EmptyBlock|LineLength|MagicNumber|NeedBraces|SimplifyBooleanReturn|UnusedImports"/>
   <suppress files="MaintenanceDocumentDaoOjb.java" checks="LineLength"/>
   <suppress files="MaintenanceDocumentDaoProxy.java" checks="LineLength|LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|StaticVariableName"/>
   <suppress files="MaintenanceDocumentDictionaryService.java" checks="MissingDeprecated"/>
   <suppress files="MaintenanceDocumentDictionaryServiceImpl.java" checks="LineLength|LocalFinalVariableName|LocalVariableName|MethodName|MissingDeprecated|ParameterName|RightCurly|StaticVariableName"/>
   <suppress files="MaintenanceDocumentEntry.java" checks="LineLength|MagicNumber|MissingDeprecated|UnusedImports"/>
   <suppress files="MaintenanceDocumentEntryMapper.java" checks="MissingDeprecated"/>
-  <suppress files="MaintenanceDocumentPropertySerializibilityEvaluator.java" checks="EmptyStatement|LineLength"/>
+  <suppress files="MaintenanceDocumentPropertySerializibilityEvaluator.java" checks="EmptyBlock|LineLength"/>
   <suppress files="MaintenanceDocumentRestrictionsBase.java" checks="LineLength|RedundantImport"/>
   <suppress files="MaintenanceDocumentRule.java" checks="LineLength"/>
   <suppress files="MaintenanceDocumentRuleBase.java" checks="EqualsAvoidNull|LineLength|LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|RightCurly|SimplifyBooleanExpression|SimplifyBooleanReturn|StaticVariableName"/>
@@ -756,7 +756,7 @@
   <suppress files="MustOccurConstraintProcessor.java" checks="LineLength|NeedBraces|RedundantThrows"/>
   <suppress files="MyColumns.java" checks="UnusedImports"/>
   <suppress files="MySQLDatabasePlatform.java" checks="EmptyBlock"/>
-  <suppress files="NamespacePermissionTypeServiceImpl.java" checks="EmptyStatement"/>
+  <suppress files="NamespacePermissionTypeServiceImpl.java" checks="EmptyBlock"/>
   <suppress files="NetworkIdWorkflowEDLConfigComponent.java" checks="EqualsAvoidNull|SimplifyBooleanExpression"/>
   <suppress files="Node.java" checks="RedundantThrows"/>
   <suppress files="NodeGraphSearchCriteria.java" checks="LineLength"/>
@@ -765,7 +765,7 @@
   <suppress files="NodeType.java" checks="ConstantName|FinalClass"/>
   <suppress files="Note.java" checks="LineLength|MissingDeprecated|notsure"/>
   <suppress files="NoteAction.java" checks="EqualsAvoidNull|IllegalInstantiation"/>
-  <suppress files="NoteConfigComponent.java" checks="EmptyStatement|EqualsAvoidNull|IllegalInstantiation|LineLength|MethodLength|WhitespaceAfter|WhitespaceAround"/>
+  <suppress files="NoteConfigComponent.java" checks="EmptyBlock|EqualsAvoidNull|IllegalInstantiation|LineLength|MethodLength|WhitespaceAfter|WhitespaceAround"/>
   <suppress files="NoteDaoJpa.java" checks="RedundantThrows"/>
   <suppress files="NoteDaoOjb.java" checks="LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|RedundantThrows|StaticVariableName"/>
   <suppress files="NoteDaoProxy.java" checks="LineLength|LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|RedundantThrows|StaticVariableName"/>
@@ -822,7 +822,7 @@
   <suppress files="OrchestrationConfig.java" checks="NeedBraces"/>
   <suppress files="OrmUtils.java" checks="IllegalInstantiation"/>
   <suppress files="OutboxItemActionListExtension.java" checks="WhitespaceAfter|WhitespaceAround"/>
-  <suppress files="PackagePersistableBusinessObjectClassExposer.java" checks="EmptyStatement"/>
+  <suppress files="PackagePersistableBusinessObjectClassExposer.java" checks="EmptyBlock"/>
   <suppress files="ParameterEvaluatorServiceImpl.java" checks="LineLength"/>
   <suppress files="ParameterPermissionTypeServiceImpl.java" checks="LineLength"/>
   <suppress files="ParameterQueryResults.java" checks="FinalClass"/>
@@ -837,7 +837,7 @@
   <suppress files="PercentageFormatter.java" checks="NeedBraces"/>
   <suppress files="PerformLookupComponent.java" checks="MagicNumber"/>
   <suppress files="PermissionContract.java" checks="WhitespaceBefore"/>
-  <suppress files="PermissionInquirableImpl.java" checks="EmptyStatement"/>
+  <suppress files="PermissionInquirableImpl.java" checks="EmptyBlock"/>
   <suppress files="PermissionLookupableHelperServiceImpl.java" checks="ConstantName|LineLength"/>
   <suppress files="PermissionLookupableImpl.java" checks="LineLength"/>
   <suppress files="PermissionService.java" checks="LineLength|RedundantThrows"/>
@@ -894,7 +894,7 @@
   <suppress files="PostalCodeService.java" checks="RedundantThrows"/>
   <suppress files="PredicateFactoryLookup.java" checks="FinalClass"/>
   <suppress files="PreferencesAction.java" checks="UnusedImports"/>
-  <suppress files="PreferencesServiceImpl.java" checks="EmptyStatement|MagicNumber"/>
+  <suppress files="PreferencesServiceImpl.java" checks="EmptyBlock|MagicNumber"/>
   <suppress files="PrerequisiteConstraintProcessor.java" checks="LineLength|NeedBraces|RedundantThrows"/>
   <suppress files="PresentationControllerBase.java" checks="LineLength"/>
   <suppress files="PrimaryDataSourceFactoryBean.java" checks="LineLength"/>
@@ -946,7 +946,7 @@
   <suppress files="ResourceFacadeImpl.java" checks="NeedBraces|RedundantImport"/>
   <suppress files="ResourceLoaderUtil.java" checks="UnusedImports"/>
   <suppress files="ResponsibilityContract.java" checks="WhitespaceBefore"/>
-  <suppress files="ResponsibilityInquirableImpl.java" checks="EmptyStatement|MemberName"/>
+  <suppress files="ResponsibilityInquirableImpl.java" checks="EmptyBlock|MemberName"/>
   <suppress files="ResponsibilityInternalServiceImpl.java" checks="LineLength"/>
   <suppress files="ResponsibilityLookupableHelperServiceImpl.java" checks="ConstantName"/>
   <suppress files="ResponsibilityLookupableImpl.java" checks="LineLength"/>
@@ -1040,7 +1040,7 @@
   <suppress files="RuleDelegationLookupableHelperServiceImpl.java" checks="EqualsAvoidNull|LineLength|MethodLength|WhitespaceAfter|WhitespaceAround"/>
   <suppress files="RuleDelegationLookupableImpl.java" checks="LineLength"/>
   <suppress files="RuleDelegationService.java" checks="ParameterNumber"/>
-  <suppress files="RuleDelegationServiceImpl.java" checks="EmptyStatement|LineLength|NeedBraces|ParameterNumber"/>
+  <suppress files="RuleDelegationServiceImpl.java" checks="EmptyBlock|LineLength|NeedBraces|ParameterNumber"/>
   <suppress files="RuleDelegationXmlExporter.java" checks="MemberName|UnusedImports"/>
   <suppress files="RuleExpressionDef.java" checks="AvoidStarImport|EqualsHashCode|NeedBraces"/>
   <suppress files="RuleExtension.java" checks="EqualsHashCode|NeedBraces|UnusedImports"/>
@@ -1056,14 +1056,14 @@
   <suppress files="RuleRoutingAttribute.java" checks="LineLength|WhitespaceAfter|WhitespaceAround"/>
   <suppress files="RuleRoutingDefinition.java" checks="UnusedImports"/>
   <suppress files="RuleService.java" checks="ParameterNumber"/>
-  <suppress files="RuleServiceImpl.java" checks="ArrayTypeStyle|EmptyStatement|EqualsAvoidNull|LineLength|MagicNumber|NeedBraces|ParameterNumber|VisibilityModifier"/>
+  <suppress files="RuleServiceImpl.java" checks="ArrayTypeStyle|EmptyBlock|EqualsAvoidNull|LineLength|MagicNumber|NeedBraces|ParameterNumber|VisibilityModifier"/>
   <suppress files="RuleTemplate.java" checks="AvoidStarImport|LineLength"/>
   <suppress files="RuleTemplateAttribute.java" checks="WhitespaceAfter|WhitespaceAround"/>
   <suppress files="RuleTemplateOption.java" checks="AvoidStarImport"/>
   <suppress files="RuleTemplateServiceImpl.java" checks="EqualsAvoidNull"/>
   <suppress files="RuleTemplateXmlExporter.java" checks="MemberName"/>
-  <suppress files="RuleTemplateXmlParser.java" checks="EmptyStatement|LineLength|RedundantThrows"/>
-  <suppress files="RuleTreeSimplePropositionParameterNode.java" checks="EmptyStatement|MagicNumber"/>
+  <suppress files="RuleTemplateXmlParser.java" checks="EmptyBlock|LineLength|RedundantThrows"/>
+  <suppress files="RuleTreeSimplePropositionParameterNode.java" checks="EmptyBlock|MagicNumber"/>
   <suppress files="RuleXmlExporter.java" checks="LineLength|MemberName|OperatorWrap"/>
   <suppress files="RuleXmlParser.java" checks="LineLength|RedundantThrows"/>
   <suppress files="RunModeServiceExporter.java" checks="ConstantName"/>
@@ -1133,10 +1133,10 @@
   <suppress files="StackedLayoutManager.java" checks="LineLength|ParameterNumber"/>
   <suppress files="StandardDocSearchCriteriaManager.java" checks="LineLength"/>
   <suppress files="StandardDocumentSearchCriteriaProcessor.java" checks="AvoidStarImport|LineLength"/>
-  <suppress files="StandardDocumentSearchGenerator.java" checks="EmptyStatement|EqualsAvoidNull|FileLength|LineLength|MagicNumber|MissingDeprecated"/>
+  <suppress files="StandardDocumentSearchGenerator.java" checks="EmptyBlock|EqualsAvoidNull|FileLength|LineLength|MagicNumber|MissingDeprecated"/>
   <suppress files="StandardDocumentSearchResultProcessor.java" checks="IllegalInstantiation|VisibilityModifier"/>
-  <suppress files="StandardGenericXMLRuleAttribute.java" checks="EmptyStatement|LineLength|LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|StaticVariableName|WhitespaceAfter|WhitespaceAround"/>
-  <suppress files="StandardGenericXMLSearchableAttribute.java" checks="EmptyStatement|LineLength|LocalFinalVariableName|LocalVariableName|MethodLength|MethodName|ParameterName|StaticVariableName"/>
+  <suppress files="StandardGenericXMLRuleAttribute.java" checks="EmptyBlock|LineLength|LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|StaticVariableName|WhitespaceAfter|WhitespaceAround"/>
+  <suppress files="StandardGenericXMLSearchableAttribute.java" checks="EmptyBlock|LineLength|LocalFinalVariableName|LocalVariableName|MethodLength|MethodName|ParameterName|StaticVariableName"/>
   <suppress files="StandardSearchCriteriaField.java" checks="LocalFinalVariableName|LocalVariableName|MethodName|ParameterName|ParameterNumber|StaticVariableName"/>
   <suppress files="StandardWorkflowEngine.java" checks="LineLength|MagicNumber|RedundantThrows"/>
   <suppress files="State.java" checks="FinalClass"/>
@@ -1206,7 +1206,7 @@
   <suppress files="UIComponentsTestController.java" checks="EqualsAvoidNull"/>
   <suppress files="UITestController.java" checks="EqualsAvoidNull|MagicNumber"/>
   <suppress files="URLMonitor.java" checks="EmptyStatement|NeedBraces|UpperEll"/>
-  <suppress files="UiDocumentServiceImpl.java" checks="EmptyStatement|FileLength|LineLength|LocalFinalVariableName|LocalVariableName|MagicNumber|MethodName|ParameterName|StaticVariableName"/>
+  <suppress files="UiDocumentServiceImpl.java" checks="EmptyBlock|FileLength|LineLength|LocalFinalVariableName|LocalVariableName|MagicNumber|MethodName|ParameterName|StaticVariableName"/>
   <suppress files="UifBeanPropertyBindingResult.java" checks="UnusedImports"/>
   <suppress files="UifBindingErrorProcessor.java" checks="EqualsAvoidNull"/>
   <suppress files="UifBooleanEditor.java" checks="RedundantThrows"/>
@@ -1256,7 +1256,7 @@
   <suppress files="VendorHeader.java" checks="LocalFinalVariableName|LocalVariableName|MethodName|MissingDeprecated|ParameterName|StaticVariableName|notsure"/>
   <suppress files="VersioningPreprocessor.java" checks="IllegalInstantiation"/>
   <suppress files="View.java" checks="LineLength|UnusedImports"/>
-  <suppress files="ViewHelperServiceImpl.java" checks="EmptyStatement|LineLength"/>
+  <suppress files="ViewHelperServiceImpl.java" checks="EmptyBlock|LineLength"/>
   <suppress files="ViewTypeDictionaryIndex.java" checks="RedundantImport"/>
   <suppress files="WebRuleResponsibility.java" checks="EmptyStatement|EqualsAvoidNull"/>
   <suppress files="WebRuleUtils.java" checks="LineLength"/>
