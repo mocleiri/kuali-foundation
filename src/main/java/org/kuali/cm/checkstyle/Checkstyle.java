@@ -44,11 +44,6 @@ public class Checkstyle {
 		return map.keySet();
 	}
 
-	protected Set<SourceFile> getSourceFiles(Set<String> messages, Set<String> files, List<Error> errors) {
-		Set<SourceFile> set = new HashSet<SourceFile>();
-		return set;
-	}
-
 	protected Set<String> getUnmappedMessages(Properties props, Set<String> msgs) {
 		Map<String, String> unmapped = new TreeMap<String, String>();
 		for (String msg : msgs) {
@@ -101,7 +96,7 @@ public class Checkstyle {
 			Properties props = getCheckStyleProps();
 			Set<String> unmapped = getUnmappedMessages(props, msgs);
 			if (unmapped.size() > 0) {
-				showSet(msgs);
+				showSet(unmapped);
 				throw new RuntimeException("There are unknown messages");
 			}
 			Set<SourceFile> set = getSourceFiles(msgs, errors, files, props);
@@ -110,21 +105,6 @@ public class Checkstyle {
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
-	}
-
-	protected void execute2() {
-		/*
-		 * try { List<Error> errors = getErrorObjects(getErrors()); Set<String> messages = getUniqueMessages(errors);
-		 * Set<String> files = getUniqueFiles(errors); Map<String, String> issues = new TreeMap<String, String>();
-		 * Map<String, SourceFile> files = new TreeMap<String, SourceFile>(); Properties props = getCheckStyleProps();
-		 * for (Error e : errors) { String msg = translate(e.getMsg()); String src = e.getSrc(); issues.put(msg, msg);
-		 * SourceFile sf = files.get(src); if (sf == null) { sf = new SourceFile(); sf.setName(src); Set<String>
-		 * violations = new HashSet<String>(); sf.setViolations(violations); files.put(src, sf); } List<String> names =
-		 * getCheckStyleNames(msg, props); sf.getViolations().addAll(names); } for (String key : issues.keySet()) { //
-		 * System.out.println(key); } // System.out.println(); // System.out.println("Files: " + files.size() +
-		 * " Issues: " + issues.size()); String xml = toXML(files.values()); System.out.println(xml); } catch (Throwable
-		 * t) { t.printStackTrace(); }
-		 */
 	}
 
 	protected String toXML(Collection<SourceFile> c) {
