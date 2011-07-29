@@ -101,7 +101,8 @@ public class Checkstyle {
 			}
 			Set<SourceFile> set = getSourceFiles(msgs, errors, files, props);
 			String s = toXML(set);
-			IOUtils.copy(new ByteArrayInputStream(s.getBytes()), new FileOutputStream("c:/temp/checkstyle.xml"));
+			IOUtils.copy(new ByteArrayInputStream(s.getBytes()), new FileOutputStream(
+					"c:/temp/rice-legacy-suppressions.xml"));
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -128,6 +129,7 @@ public class Checkstyle {
 		String file = sf.getName();
 		Set<String> violations = sf.getViolations();
 		List<String> violationList = new ArrayList<String>(violations);
+		Collections.sort(violationList);
 		StringBuilder sb = new StringBuilder();
 		sb.append("  <suppress ");
 		sb.append("files=\"" + file + "\" ");
