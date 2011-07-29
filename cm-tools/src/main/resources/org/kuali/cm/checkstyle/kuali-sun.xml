@@ -60,6 +60,9 @@
       <module name="HideUtilityClassConstructor">
       <property name="severity" value="info" />
       </module>
+      <module name="DoubleCheckedLocking">
+      <property name="severity" value="warning" />
+      </module>
     -->
     <module name="FinalClass">
       <property name="severity" value="info" />
@@ -181,9 +184,6 @@
     </module>
     <module name="ParameterName">
       <property name="severity" value="error" />
-    </module>
-    <module name="DoubleCheckedLocking">
-      <property name="severity" value="warning" />
     </module>
     <module name="MissingSwitchDefault">
       <property name="severity" value="error" />
