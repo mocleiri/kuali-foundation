@@ -1,0 +1,1881 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Rice
+[INFO] Rice DB
+[INFO] Rice Clover
+[INFO] Rice Clover Master
+[INFO] Rice Impex
+[INFO] Rice Impex Master
+[INFO] Rice Core
+[INFO] Rice Core API
+[INFO] Rice KSB
+[INFO] Rice KSB API
+[INFO] Rice KEW
+[INFO] Rice KEW API
+[INFO] Rice API
+[INFO] Rice Core Framework
+[INFO] Rice KIM
+[INFO] Rice KIM API
+[INFO] Rice Shared Data
+[INFO] Rice Shared Data API
+[INFO] Rice KRAD
+[INFO] Rice KRAD Application Framework
+[INFO] Rice KEW Framework
+[INFO] Rice KRAD Web Framework
+[INFO] Rice Core Impl
+[INFO] Rice KNS
+[INFO] Rice Core Web
+[INFO] Rice KIM Framework
+[INFO] Rice KIM Impl
+[INFO] Rice Shared Data Impl
+[INFO] Rice Shared Data Framework
+[INFO] Rice Shared Data Web
+[INFO] Rice KEW Impl
+[INFO] Rice KSB Framework
+[INFO] Rice EDL
+[INFO] Rice EDL Framework
+[INFO] Rice Implementation
+[INFO] Rice KSB Impl
+[INFO] Rice EDL Impl
+[INFO] Rice KRMS
+[INFO] Rice KRMS API
+[INFO] Rice KRMS Framework
+[INFO] Rice KRMS Impl
+[INFO] Rice Web
+[INFO] Rice Development Tools
+[INFO] Rice Sample App
+[INFO] Rice Standalone Server
+[INFO] Rice Integration Test
+[INFO] Rice Integration Test Internal Tools
+[INFO] Rice Integration Test Core
+[INFO] Rice Integration Test KRAD
+[INFO] Rice Integration Test KSB
+[INFO] Rice Integration Test KIM
+[INFO] Rice Integration Test KEW
+[INFO] Rice Integration Test KEN
+[INFO] Rice Integration Test KCB
+[INFO] Rice Integration Test Impl
+[INFO] Rice Integration Test EDL
+[INFO] Rice Integration Test Shared Data
+[INFO] Rice Integration Test KRMS
+[INFO] Rice Client Contrib
+[INFO] Rice Distributions
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice DB 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-db ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Clover 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-clover ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Clover Master 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-clover-master ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Impex 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-impex ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Impex Master 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-impex-master ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Core 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-core ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Core API 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-core-api ---
+[INFO] 
+[INFO] There are 85 checkstyle errors.
+[ERROR] ConfigContext.java[39:47] Name 'initialized' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] ContextualConfigLock.java[62:null] 'if' construct must use '{}'s.
+[ERROR] FileXmlDoc.java[58:null] 'if' construct must use '{}'s.
+[ERROR] ZipXmlDoc.java[52:null] 'if' construct must use '{}'s.
+[ERROR] CopiedObject.java[228:null] 'if' construct must use '{}'s.
+[ERROR] CopiedObject.java[231:null] 'if' construct must use '{}'s.
+[ERROR] CopiedObject.java[240:null] 'if' construct must use '{}'s.
+[ERROR] CopiedObject.java[242:null] 'if' construct must use '{}'s.
+[ERROR] CollectionUtils.java[62:55] Line contains a tab character.
+[ERROR] CollectionUtils.java[85:55] Line contains a tab character.
+[ERROR] RiceConstants.java[53:88] ';' is not followed by whitespace.
+[ERROR] RiceUtilities.java[189:null] 'if' construct must use '{}'s.
+[ERROR] KualiInteger.java[24:32] Name 'ZERO' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KualiInteger.java[24:32] Variable 'ZERO' must be private and have accessor methods.
+[ERROR] BigDecimalFormatter.java[30:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] BigDecimalFormatter.java[75:null] 'if' construct must use '{}'s.
+[ERROR] BigDecimalFormatter.java[87:21] '{' is not followed by whitespace.
+[ERROR] BooleanFormatter.java[50:null] 'if' construct must use '{}'s.
+[ERROR] BooleanFormatter.java[65:null] 'if' construct must use '{}'s.
+[ERROR] CurrencyFormatter.java[54:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] CurrencyFormatter.java[173:null] 'if' construct must use '{}'s.
+[ERROR] DateViewTimestampObjectFormatter.java[29:null] 'if' construct must use '{}'s.
+[ERROR] EncryptionFormatter.java[29:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[142:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[173:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[176:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[178:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[191:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[202:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[270:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[301:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[307:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[312:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[357:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[410:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[453:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[455:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[464:null] 'for' construct must use '{}'s.
+[ERROR] Formatter.java[504:9] '}' should be on the same line.
+[ERROR] Formatter.java[509:9] '}' should be on the same line.
+[ERROR] Formatter.java[520:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[524:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[532:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[535:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[541:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[543:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[545:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[579:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[581:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[583:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[585:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[587:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[589:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[591:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[593:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[595:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[600:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[604:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[606:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[608:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[610:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[612:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[614:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[616:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[618:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[620:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[622:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[629:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[631:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[633:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[635:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[637:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[639:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[641:null] 'if' construct must use '{}'s.
+[ERROR] Formatter.java[643:null] 'if' construct must use '{}'s.
+[ERROR] IntegerFormatter.java[40:null] 'if' construct must use '{}'s.
+[ERROR] KualiIntegerCurrencyFormatter.java[34:null] 'if' construct must use '{}'s.
+[ERROR] LittleBooleanFormatter.java[26:null] 'if' construct must use '{}'s.
+[ERROR] LittleBooleanFormatter.java[40:null] 'if' construct must use '{}'s.
+[ERROR] LongFormatter.java[28:null] 'if' construct must use '{}'s.
+[ERROR] PercentageFormatter.java[80:null] 'if' construct must use '{}'s.
+[ERROR] PhoneNumberFormatter.java[44:null] 'if' construct must use '{}'s.
+[ERROR] PhoneNumberFormatter.java[61:null] 'if' construct must use '{}'s.
+[ERROR] PhoneNumberFormatter.java[63:null] 'if' construct must use '{}'s.
+[ERROR] PhoneNumberFormatter.java[70:null] 'if' construct must use '{}'s.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KSB 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-ksb ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KSB API 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-ksb-api ---
+[INFO] 
+[INFO] There are 13 checkstyle errors.
+[ERROR] RestServiceDefinition.java[195:null] 'if' construct must use '{}'s.
+[ERROR] ServiceBusExporter.java[28:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] ServiceRegistry.java[334:1] Line contains a tab character.
+[ERROR] ServiceRegistry.java[335:1] Line contains a tab character.
+[ERROR] ServiceRegistry.java[336:1] Line contains a tab character.
+[ERROR] ServiceRegistry.java[337:1] Line contains a tab character.
+[ERROR] ServiceRegistry.java[338:1] Line contains a tab character.
+[ERROR] ServiceRegistry.java[339:1] Line contains a tab character.
+[ERROR] ServiceRegistry.java[340:1] Line contains a tab character.
+[ERROR] ServiceRegistry.java[341:1] Line contains a tab character.
+[ERROR] ServiceRegistry.java[342:1] Line contains a tab character.
+[ERROR] ServiceRegistry.java[343:1] Line contains a tab character.
+[ERROR] ServiceRegistry.java[344:1] Line contains a tab character.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KEW 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-kew ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KEW API 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-kew-api ---
+[INFO] 
+[INFO] There are 3 checkstyle errors.
+[ERROR] WorkflowDocumentFactory.java[43:29] Name 'provider' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] WorkflowDocumentFactory.java[44:29] Name 'createMethod' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] WorkflowDocumentFactory.java[45:29] Name 'loadMethod' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice API 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-api ---
+[INFO] 
+[INFO] There are 27 checkstyle errors.
+[ERROR] DocumentLinkDTO.java[79:null] 'if' construct must use '{}'s.
+[ERROR] DocumentLinkDTO.java[82:null] 'if' construct must use '{}'s.
+[ERROR] DocumentLinkDTO.java[85:null] 'if' construct must use '{}'s.
+[ERROR] RouteHeaderDTO.java[299:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributeDefinitionDTO.java[58:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributeDefinitionDTO.java[80:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributeDefinitionDTO.java[98:null] 'if' construct must use '{}'s.
+[ERROR] InvalidActionTakenException.java[23:1] Line contains a tab character.
+[ERROR] InvalidActionTakenException.java[24:1] Line contains a tab character.
+[ERROR] LockingException.java[26:1] Line contains a tab character.
+[ERROR] LockingException.java[27:1] Line contains a tab character.
+[ERROR] PrincipalName.java[63:null] 'if' construct must use '{}'s.
+[ERROR] PrincipalName.java[65:null] 'if' construct must use '{}'s.
+[ERROR] PrincipalName.java[67:null] 'if' construct must use '{}'s.
+[ERROR] PrincipalName.java[71:null] 'if' construct must use '{}'s.
+[ERROR] PrincipalName.java[73:null] 'if' construct must use '{}'s.
+[ERROR] CodeTranslator.java[28:45] Name 'arLabels' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] CodeTranslator.java[29:45] Name 'atLabels' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] CodeTranslator.java[30:45] Name 'arStatusLabels' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] CodeTranslator.java[31:45] Name 'routeStatusLabels' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] CodeTranslator.java[32:46] Name 'activeIndicatorLabels' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] CodeTranslator.java[33:45] Name 'activationPolicyLabels' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] CodeTranslator.java[34:45] Name 'policyLabels' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] CodeTranslator.java[35:45] Name 'approvePolicyLabels' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KEWConstants.java[369:26] Name 'UNKNOWN_STATUS' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KEWConstants.java[369:26] Variable 'UNKNOWN_STATUS' must be private and have accessor methods.
+[ERROR] KRADConstants.java[60:32] Name 'KUALI_ACTION_CAN_EDIT__DOCUMENT_OVERVIEW' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Core Framework 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-core-framework ---
+[INFO] 
+[INFO] There are 15 checkstyle errors.
+[ERROR] Criteria.java[45:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] SqlBuilder.java[80:17] More than 7 parameters.
+[ERROR] SqlBuilder.java[92:17] More than 7 parameters.
+[ERROR] CompositePrimaryKeyBase.java[32:null] 'if' construct must use '{}'s.
+[ERROR] CompositePrimaryKeyBase.java[34:null] 'if' construct must use '{}'s.
+[ERROR] CompositePrimaryKeyBase.java[36:null] 'if' construct must use '{}'s.
+[ERROR] MetadataManager.java[245:21] ';' is not followed by whitespace.
+[ERROR] MetadataManager.java[362:5] Method length is 277 lines (max allowed is 150).
+[ERROR] HibernateKualiCharBooleanAIType.java[42:null] 'if' construct must use '{}'s.
+[ERROR] HibernateKualiCharBooleanAIType.java[44:null] 'if' construct must use '{}'s.
+[ERROR] HibernateKualiDecimalFieldType.java[99:null] 'if' construct must use '{}'s.
+[ERROR] HibernateKualiDecimalPercentageFieldType.java[83:null] 'else' construct must use '{}'s.
+[ERROR] OjbCharBooleanConversion4.java[23:27] Name 'S_TRUE' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] OjbCharBooleanConversion4.java[24:27] Name 'S_FALSE' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] OracleDatabasePlatform.java[142:null] 'if' construct must use '{}'s.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KIM 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-kim ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KIM API 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-kim-api ---
+[INFO] 
+[INFO] There are 26 checkstyle errors.
+[ERROR] EntityDefault.java[84:12] More than 7 parameters.
+[ERROR] StringToKimEntityNameInfoMapAdapter.java[37:null] 'if' construct must use '{}'s.
+[ERROR] StringToKimEntityNameInfoMapAdapter.java[55:null] 'if' construct must use '{}'s.
+[ERROR] StringToKimEntityNamePrincipalInfoMapAdapter.java[37:null] 'if' construct must use '{}'s.
+[ERROR] StringToKimEntityNamePrincipalInfoMapAdapter.java[55:null] 'if' construct must use '{}'s.
+[ERROR] PermissionContract.java[34:99] '{' is not preceded with whitespace.
+[ERROR] PermissionContract.java[34:100] '{' is not followed by whitespace.
+[ERROR] PermissionContract.java[55:1] Line contains a tab character.
+[ERROR] PermissionContract.java[62:1] Line contains a tab character.
+[ERROR] PermissionContract.java[63:1] Line contains a tab character.
+[ERROR] PermissionContract.java[65:1] Line contains a tab character.
+[ERROR] PermissionContract.java[66:1] Line contains a tab character.
+[ERROR] PermissionContract.java[67:1] Line contains a tab character.
+[ERROR] PermissionContract.java[68:1] Line contains a tab character.
+[ERROR] ResponsibilityContract.java[34:103] '{' is not preceded with whitespace.
+[ERROR] ResponsibilityContract.java[34:104] '{' is not followed by whitespace.
+[ERROR] ResponsibilityContract.java[55:1] Line contains a tab character.
+[ERROR] ResponsibilityContract.java[62:1] Line contains a tab character.
+[ERROR] ResponsibilityContract.java[63:1] Line contains a tab character.
+[ERROR] ResponsibilityContract.java[65:1] Line contains a tab character.
+[ERROR] ResponsibilityContract.java[66:1] Line contains a tab character.
+[ERROR] ResponsibilityContract.java[67:1] Line contains a tab character.
+[ERROR] ResponsibilityContract.java[68:1] Line contains a tab character.
+[ERROR] RoleResponsibilityAction.java[150:24] Name 'Id' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleUpdateService.java[94:10] More than 7 parameters.
+[ERROR] RoleUpdateService.java[107:17] More than 7 parameters.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Shared Data 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-shareddata ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Shared Data API 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-shareddata-api ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KRAD 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-krad ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KRAD Application Framework 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-krad-app-framework ---
+[INFO] 
+[INFO] There are 10 checkstyle errors.
+[ERROR] RicePersistenceUnitPostProcessor.java[21:36] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] AdHocRoutePersonId.java[61:null] 'if' construct must use '{}'s.
+[ERROR] AdHocRoutePersonId.java[63:null] 'if' construct must use '{}'s.
+[ERROR] AdHocRoutePersonId.java[65:null] 'if' construct must use '{}'s.
+[ERROR] NumericValueComparator.java[25:49] Name 'theInstance' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] TemporalValueComparator.java[22:50] Name 'theInstance' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] BeanPropertyComparator.java[139:null] 'if' construct must use '{}'s.
+[ERROR] BeanPropertyComparator.java[141:null] 'if' construct must use '{}'s.
+[ERROR] BeanPropertyComparator.java[143:null] 'if' construct must use '{}'s.
+[ERROR] UrlFactory.java[29:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KEW Framework 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-kew-framework ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KRAD Web Framework 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-krad-web-framework ---
+[INFO] 
+[INFO] There are 148 checkstyle errors.
+[ERROR] AttributeDefinitionMap.java[39:null] 'if' construct must use '{}'s.
+[ERROR] AdHocRouteWorkgroupId.java[61:null] 'if' construct must use '{}'s.
+[ERROR] AdHocRouteWorkgroupId.java[63:null] 'if' construct must use '{}'s.
+[ERROR] AdHocRouteWorkgroupId.java[65:null] 'if' construct must use '{}'s.
+[ERROR] ModuleConfiguration.java[113:null] 'if' construct must use '{}'s.
+[ERROR] AttributeDefinition.java[87:49] ';' is not followed by whitespace.
+[ERROR] DataDictionary.java[369:47] Variable 'persistenceStructureService' must be private and have accessor methods.
+[ERROR] DataDictionary.java[402:null] 'if' construct must use '{}'s.
+[ERROR] DataDictionary.java[404:null] 'else' construct must use '{}'s.
+[ERROR] DataDictionaryLocationConfigurer.java[44:null] 'if' construct must use '{}'s.
+[ERROR] DataDictionaryLocationConfigurer.java[46:null] 'else' construct must use '{}'s.
+[ERROR] ExternalizableAttributeDefinitionProxy.java[39:24] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KimDataDictionaryAttributeDefinition.java[34:1] Line contains a tab character.
+[ERROR] KimDataDictionaryAttributeDefinition.java[35:1] Line contains a tab character.
+[ERROR] AttributeDefinitionConstraintProvider.java[62:null] 'if' construct must use '{}'s.
+[ERROR] BaseConstraintProvider.java[35:null] 'if' construct must use '{}'s.
+[ERROR] BaseConstraintProvider.java[46:null] 'if' construct must use '{}'s.
+[ERROR] BaseConstraintProvider.java[51:null] 'if' construct must use '{}'s.
+[ERROR] CollectionDefinitionConstraintProvider.java[47:null] 'if' construct must use '{}'s.
+[ERROR] ComplexAttributeDefinitionConstraintProvider.java[45:null] 'if' construct must use '{}'s.
+[ERROR] DataObjectEntryConstraintProvider.java[44:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryObjectAttributeValueReader.java[79:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryObjectAttributeValueReader.java[131:null] 'if' construct must use '{}'s.
+[ERROR] BasePrerequisiteConstraintProcessor.java[65:null] 'if' construct must use '{}'s.
+[ERROR] CaseConstraintProcessor.java[70:null] 'if' construct must use '{}'s.
+[ERROR] CaseConstraintProcessor.java[89:null] 'if' construct must use '{}'s.
+[ERROR] CollectionSizeConstraintProcessor.java[93:null] 'if' construct must use '{}'s.
+[ERROR] CollectionSizeConstraintProcessor.java[105:null] 'if' construct must use '{}'s.
+[ERROR] CollectionSizeConstraintProcessor.java[109:null] 'if' construct must use '{}'s.
+[ERROR] CollectionSizeConstraintProcessor.java[113:null] 'else' construct must use '{}'s.
+[ERROR] DataTypeConstraintProcessor.java[63:null] 'if' construct must use '{}'s.
+[ERROR] DataTypeConstraintProcessor.java[66:null] 'if' construct must use '{}'s.
+[ERROR] DataTypeConstraintProcessor.java[72:13] switch without "default" clause.
+[ERROR] ExistenceConstraintProcessor.java[67:null] 'if' construct must use '{}'s.
+[ERROR] ExistenceConstraintProcessor.java[72:null] 'if' construct must use '{}'s.
+[ERROR] LengthConstraintProcessor.java[68:null] 'if' construct must use '{}'s.
+[ERROR] LengthConstraintProcessor.java[100:null] 'if' construct must use '{}'s.
+[ERROR] LengthConstraintProcessor.java[112:null] 'if' construct must use '{}'s.
+[ERROR] LengthConstraintProcessor.java[116:null] 'if' construct must use '{}'s.
+[ERROR] LengthConstraintProcessor.java[120:null] 'else' construct must use '{}'s.
+[ERROR] MandatoryElementConstraintProcessor.java[44:null] 'if' construct must use '{}'s.
+[ERROR] MandatoryElementConstraintProcessor.java[61:null] 'if' construct must use '{}'s.
+[ERROR] MustOccurConstraintProcessor.java[46:null] 'if' construct must use '{}'s.
+[ERROR] PrerequisiteConstraintProcessor.java[41:null] 'if' construct must use '{}'s.
+[ERROR] RangeConstraintProcessor.java[72:null] 'if' construct must use '{}'s.
+[ERROR] RangeConstraintProcessor.java[85:null] 'if' construct must use '{}'s.
+[ERROR] RangeConstraintProcessor.java[87:null] 'if' construct must use '{}'s.
+[ERROR] RangeConstraintProcessor.java[143:null] 'if' construct must use '{}'s.
+[ERROR] RangeConstraintProcessor.java[152:null] 'if' construct must use '{}'s.
+[ERROR] RangeConstraintProcessor.java[156:null] 'if' construct must use '{}'s.
+[ERROR] RangeConstraintProcessor.java[160:null] 'else' construct must use '{}'s.
+[ERROR] ValidCharactersConstraintProcessor.java[86:null] 'if' construct must use '{}'s.
+[ERROR] ValidCharactersConstraintProcessor.java[89:null] 'if' construct must use '{}'s.
+[ERROR] ValidCharactersConstraintProcessor.java[101:null] 'if' construct must use '{}'s.
+[ERROR] ValidCharactersConstraintProcessor.java[125:null] 'if' construct must use '{}'s.
+[ERROR] ValidCharactersConstraintProcessor.java[141:null] 'if' construct must use '{}'s.
+[ERROR] ValidCharactersConstraintProcessor.java[236:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationResult.java[48:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationResult.java[67:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationResult.java[70:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationResult.java[92:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationResult.java[104:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationResult.java[112:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationResult.java[123:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationResult.java[182:null] 'if' construct must use '{}'s.
+[ERROR] SingleAttributeValueReader.java[67:null] 'if' construct must use '{}'s.
+[ERROR] SingleAttributeValueReader.java[89:null] 'if' construct must use '{}'s.
+[ERROR] SingleAttributeValueReader.java[106:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[34:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[118:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[120:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[122:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[133:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[135:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[137:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[148:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[150:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[152:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[163:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[165:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[167:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[169:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[180:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[182:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[196:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[198:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[205:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[207:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[245:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[248:9] switch without "default" clause.
+[ERROR] ValidationUtils.java[254:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[272:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[274:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[281:null] 'if' construct must use '{}'s.
+[ERROR] ValidationUtils.java[283:null] 'if' construct must use '{}'s.
+[ERROR] DocumentAuthorizerBase.java[37:26] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] TransactionalDocumentPresentationControllerBase.java[27:24] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] MaintenanceDocumentBase.java[452:null] 'if' construct must use '{}'s.
+[ERROR] TransactionalDocumentBase.java[26:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] InquirableImpl.java[66:34] Name 'SUPER_CLASS_TRANSLATOR_LIST' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] InquirableImpl.java[66:34] Variable 'SUPER_CLASS_TRANSLATOR_LIST' must be private and have accessor methods.
+[ERROR] LookupableImpl.java[469:null] 'if' construct must use '{}'s.
+[ERROR] LookupUtils.java[248:24] Name 'from_DateValue' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] LookupUtils.java[251:24] Name 'to_DateValue' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] LookupUtils.java[252:52] ';' is not followed by whitespace.
+[ERROR] MaintenanceDocumentRuleBase.java[70:46] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] MaintenanceDocumentRuleBase.java[695:9] '}' should be on the same line.
+[ERROR] DataDictionaryService.java[0:null] Got an exception - java.lang.RuntimeException: Unable to get class information for @throws tag 'SourceException'.
+[ERROR] DocumentAuthorizerBase.java[38:26] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] CollectionGroupBuilder.java[153:20] More than 7 parameters.
+[ERROR] Group.java[95:13] '}' should be on the same line.
+[ERROR] TreeGroup.java[79:null] 'if' construct must use '{}'s.
+[ERROR] TreeGroup.java[190:null] 'if' construct must use '{}'s.
+[ERROR] TreeGroup.java[198:null] 'if' construct must use '{}'s.
+[ERROR] View.java[189:9] '}' should be on the same line.
+[ERROR] ComponentBase.java[1292:13] '}' should be on the same line.
+[ERROR] ComponentBase.java[1297:13] '}' should be on the same line.
+[ERROR] ComponentBase.java[1301:13] '}' should be on the same line.
+[ERROR] CollectionLayoutManager.java[71:17] More than 7 parameters.
+[ERROR] StackedLayoutManager.java[97:17] More than 7 parameters.
+[ERROR] TableLayoutManager.java[141:17] More than 7 parameters.
+[ERROR] CloneUtils.java[35:47] Name 'fieldCache' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] CloneUtils.java[36:45] Name 'internalFields' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] ComponentFactory.java[37:49] Name 'componentDefinitions' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] ComponentUtils.java[402:13] '}' should be on the same line.
+[ERROR] LookupInquiryUtils.java[153:9] '}' should be on the same line.
+[ERROR] LookupInquiryUtils.java[157:9] '}' should be on the same line.
+[ERROR] Inquiry.java[122:9] '}' should be on the same line.
+[ERROR] DataTypeUtil.java[36:null] 'if' construct must use '{}'s.
+[ERROR] DataTypeUtil.java[38:null] 'if' construct must use '{}'s.
+[ERROR] DataTypeUtil.java[40:null] 'if' construct must use '{}'s.
+[ERROR] DataTypeUtil.java[42:null] 'if' construct must use '{}'s.
+[ERROR] DataTypeUtil.java[44:null] 'if' construct must use '{}'s.
+[ERROR] PropertySerializerTrie.java[60:null] 'if' construct must use '{}'s.
+[ERROR] PropertySerializerTrie.java[81:null] 'if' construct must use '{}'s.
+[ERROR] KRADUtils.java[120:null] 'if' construct must use '{}'s.
+[ERROR] KRADUtils.java[131:null] 'if' construct must use '{}'s.
+[ERROR] ObjectUtils.java[179:null] 'if' construct must use '{}'s.
+[ERROR] ObjectUtils.java[181:null] 'else' construct must use '{}'s.
+[ERROR] ObjectUtils.java[568:13] '}' should be on the same line.
+[ERROR] ObjectUtils.java[616:13] '}' should be on the same line.
+[ERROR] UifCurrencyEditor.java[29:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] UifCurrencyEditor.java[41:null] 'if' construct must use '{}'s.
+[ERROR] UifEncryptionPropertyEditorWrapper.java[26:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] UifKnsFormatterPropertyEditor.java[26:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] UifPercentageEditor.java[46:null] 'if' construct must use '{}'s.
+[ERROR] UifViewBeanWrapper.java[35:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] IncidentReportForm.java[93:null] 'if' construct must use '{}'s.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Core Impl 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-core-impl ---
+[INFO] 
+[INFO] There are 12 checkstyle errors.
+[ERROR] Log4jLifeCycle.java[81:33] Inner assignments should be avoided.
+[ERROR] ModuleConfigurer.java[52:28] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] ConfigFactoryBean.java[28:26] Name 'CONFIG_OVERRIDE_LOCATION' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] ConfigFactoryBean.java[28:26] Variable 'CONFIG_OVERRIDE_LOCATION' must be private and have accessor methods.
+[ERROR] ConfigParserImpl.java[165:null] 'if' construct must use '{}'s.
+[ERROR] HierarchicalConfigParser.java[114:null] 'if' construct must use '{}'s.
+[ERROR] JAXBConfigImpl.java[460:28] Inner assignments should be avoided.
+[ERROR] XmlDigesterServiceImpl.java[76:null] 'if' construct must use '{}'s.
+[ERROR] StyleServiceImpl.java[70:null] 'if' construct must use '{}'s.
+[ERROR] StyleXmlParserImpl.java[48:49] Name 'DOCUMENT_BUILDER' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] Mailer.java[36:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] MailSenderFactoryBean.java[35:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KNS 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-kns ---
+[INFO] 
+[INFO] There are 118 checkstyle errors.
+[ERROR] ControlDefinitionBase.java[415:5] Definition of 'equals()' without corresponding definition of 'hashCode()'.
+[ERROR] FileControlDefinition.java[29:24] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] FixedPointValidationPattern.java[0:null] Got an exception - java.lang.RuntimeException: Unable to get class information for ValidationPatternException.
+[ERROR] MaintenanceDocumentAttributeValueReader.java[59:null] 'if' construct must use '{}'s.
+[ERROR] KualiInquirableImpl.java[176:5] Method length is 217 lines (max allowed is 150).
+[ERROR] KualiInquirableImpl.java[574:null] 'if' construct must use '{}'s.
+[ERROR] KualiInquirableImpl.java[588:null] 'if' construct must use '{}'s.
+[ERROR] KualiInquirableImpl.java[590:null] 'else' construct must use '{}'s.
+[ERROR] AbstractLookupableHelperServiceImpl.java[392:null] 'if' construct must use '{}'s.
+[ERROR] AbstractLookupableHelperServiceImpl.java[399:null] 'if' construct must use '{}'s.
+[ERROR] AbstractLookupableHelperServiceImpl.java[735:30] Name 'RESULTS_DEFAULT_MAX_COLUMN_LENGTH' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] AbstractLookupableHelperServiceImpl.java[820:null] 'if' construct must use '{}'s.
+[ERROR] AbstractLookupableHelperServiceImpl.java[824:null] 'else' construct must use '{}'s.
+[ERROR] AbstractLookupableHelperServiceImpl.java[1037:null] 'if' construct must use '{}'s.
+[ERROR] AbstractLookupableHelperServiceImpl.java[1049:null] 'if' construct must use '{}'s.
+[ERROR] AbstractLookupableHelperServiceImpl.java[1299:49] ';' is not followed by whitespace.
+[ERROR] HtmlData.java[183:null] 'if' construct must use '{}'s.
+[ERROR] HtmlData.java[278:null] 'if' construct must use '{}'s.
+[ERROR] HtmlData.java[280:null] 'else' construct must use '{}'s.
+[ERROR] HtmlData.java[494:null] 'if' construct must use '{}'s.
+[ERROR] KualiLookupableHelperServiceImpl.java[223:5] Method length is 175 lines (max allowed is 150).
+[ERROR] LookupUtils.java[242:25] More than 7 parameters.
+[ERROR] LookupUtils.java[284:25] More than 7 parameters.
+[ERROR] LookupUtils.java[360:27] Name 'BASE_LOOKUP_ACTION_URL' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] LookupUtils.java[361:27] Name 'BASE_MULTIPLE_VALUE_LOOKUP_ACTION_URL' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] LookupUtils.java[362:27] Name 'BASE_INQUIRY_ACTION_URL' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KualiMaintainableImpl.java[161:null] 'else' construct must use '{}'s.
+[ERROR] KualiMaintainableImpl.java[164:null] 'if' construct must use '{}'s.
+[ERROR] KualiMaintainableImpl.java[452:null] 'if' construct must use '{}'s.
+[ERROR] KualiMaintainableImpl.java[455:null] 'else' construct must use '{}'s.
+[ERROR] KualiMaintainableImpl.java[1335:null] 'if' construct must use '{}'s.
+[ERROR] MaintenanceDocumentRuleBase.java[81:46] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] MaintenanceDocumentRuleBase.java[756:9] '}' should be on the same line.
+[ERROR] KualiAddLineEvent.java[31:27] ';' is not followed by whitespace.
+[ERROR] PromptBeforeValidationBase.java[44:46] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] FieldUtils.java[130:5] Method length is 180 lines (max allowed is 150).
+[ERROR] FieldUtils.java[809:5] Method length is 155 lines (max allowed is 150).
+[ERROR] FieldUtils.java[809:25] More than 7 parameters.
+[ERROR] FieldUtils.java[1094:24] More than 7 parameters.
+[ERROR] FieldUtils.java[1127:24] More than 7 parameters.
+[ERROR] FieldUtils.java[1168:24] More than 7 parameters.
+[ERROR] FieldUtils.java[1388:null] 'if' construct must use '{}'s.
+[ERROR] FieldUtils.java[1415:26] More than 7 parameters.
+[ERROR] MaintenanceUtils.java[185:31] More than 7 parameters.
+[ERROR] MaintenanceUtils.java[248:30] More than 7 parameters.
+[ERROR] WebUtils.java[486:26] Name 'KEY_KUALI_FORM_IN_SESSION' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] WebUtils.java[486:26] Variable 'KEY_KUALI_FORM_IN_SESSION' must be private and have accessor methods.
+[ERROR] WebUtils.java[526:null] 'if' construct must use '{}'s.
+[ERROR] CellComparatorHelper.java[32:28] Name 'HREF_ENCLOSURE' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NullValueComparator.java[19:46] Name 'theInstance' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiAction.java[79:28] Name 'OUTPUT_ENCRYPTION_WARNING' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KualiAction.java[440:5] Method length is 212 lines (max allowed is 150).
+[ERROR] KualiAction.java[751:29] More than 7 parameters.
+[ERROR] KualiAction.java[773:29] More than 7 parameters.
+[ERROR] KualiAction.java[799:29] More than 7 parameters.
+[ERROR] KualiAction.java[827:27] More than 7 parameters.
+[ERROR] KualiDocumentActionBase.java[1:null] File length is 2,005 lines (max allowed is 2,000).
+[ERROR] KualiDocumentActionBase.java[657:29] More than 7 parameters.
+[ERROR] KualiDocumentActionBase.java[1611:9] '}' should be on the same line.
+[ERROR] KualiHelpAction.java[431:65] '&&' should be on a new line.
+[ERROR] KualiMaintenanceDocumentAction.java[162:5] Method length is 235 lines (max allowed is 150).
+[ERROR] KualiMaintenanceDocumentAction.java[256:26] Name 'TMP_NM' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KualiMaintenanceDocumentAction.java[257:23] Name 'START_INDEX' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KualiMaintenanceDocumentAction.java[304:null] 'if' construct must use '{}'s.
+[ERROR] KualiMaintenanceDocumentAction.java[332:13] '}' should be on the same line.
+[ERROR] KualiMaintenanceDocumentAction.java[531:null] 'if' construct must use '{}'s.
+[ERROR] InquiryForm.java[196:null] 'if' construct must use '{}'s.
+[ERROR] KualiDocumentFormBase.java[888:17] '}' should be on the same line.
+[ERROR] KualiExceptionIncidentForm.java[34:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KualiExceptionIncidentForm.java[119:null] 'else' construct must use '{}'s.
+[ERROR] KualiForm.java[42:33] Name 'literalPrefixAndDelimiter' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiForm.java[119:28] Name 'ENABLE_FIELD_LEVEL_HELP_IND' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KualiMaintenanceForm.java[556:null] 'for' construct must use '{}'s.
+[ERROR] KualiMaintenanceForm.java[564:null] 'if' construct must use '{}'s.
+[ERROR] KualiTableRenderFormMetadata.java[351:null] 'if' construct must use '{}'s.
+[ERROR] KualiTableRenderFormMetadata.java[357:null] 'if' construct must use '{}'s.
+[ERROR] KualiTableRenderFormMetadata.java[369:null] 'if' construct must use '{}'s.
+[ERROR] KualiTableRenderFormMetadata.java[371:null] 'if' construct must use '{}'s.
+[ERROR] KualiTableRenderFormMetadata.java[404:null] 'if' construct must use '{}'s.
+[ERROR] KualiTableRenderFormMetadata.java[406:null] 'else' construct must use '{}'s.
+[ERROR] KualiTableRenderFormMetadata.java[415:null] 'if' construct must use '{}'s.
+[ERROR] KualiTransactionalDocumentFormBase.java[35:1] Line contains a tab character.
+[ERROR] KualiTransactionalDocumentFormBase.java[36:1] Line contains a tab character.
+[ERROR] LookupForm.java[143:5] Method length is 199 lines (max allowed is 150).
+[ERROR] PojoPlugin.java[38:25] Name 'logger' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] PojoPropertyUtilsBean.java[56:null] 'if' construct must use '{}'s.
+[ERROR] PojoPropertyUtilsBean.java[62:null] 'if' construct must use '{}'s.
+[ERROR] PojoPropertyUtilsBean.java[208:null] 'if' construct must use '{}'s.
+[ERROR] PojoPropertyUtilsBean.java[217:13] Name 'indexOfINDEXED_DELIM' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PojoPropertyUtilsBean.java[218:13] Name 'indexOfMAPPED_DELIM' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PojoPropertyUtilsBean.java[304:null] 'if' construct must use '{}'s.
+[ERROR] PojoPropertyUtilsBean.java[321:21] Name 'indexOfINDEXED_DELIM' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PojoPropertyUtilsBean.java[322:21] Name 'indexOfMAPPED_DELIM' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PojoPropertyUtilsBean.java[365:null] 'if' construct must use '{}'s.
+[ERROR] PojoPropertyUtilsBean.java[404:13] switch without "default" clause.
+[ERROR] PojoPropertyUtilsBean.java[453:null] 'if' construct must use '{}'s.
+[ERROR] KNSHiddenTag.java[32:null] 'if' construct must use '{}'s.
+[ERROR] Column.java[171:null] 'if' construct must use '{}'s.
+[ERROR] Column.java[188:null] 'if' construct must use '{}'s.
+[ERROR] Field.java[185:19] Variable 'cellAlign' must be private and have accessor methods.
+[ERROR] Field.java[189:20] Variable 'fieldLevelHelpEnabled' must be private and have accessor methods.
+[ERROR] Field.java[191:20] Variable 'fieldLevelHelpDisabled' must be private and have accessor methods.
+[ERROR] Field.java[192:19] Variable 'fieldLevelHelpUrl' must be private and have accessor methods.
+[ERROR] Field.java[251:12] More than 7 parameters.
+[ERROR] Field.java[301:12] More than 7 parameters.
+[ERROR] Field.java[500:19] Name 'getTEXT_AREA' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] Field.java[507:19] Name 'getDROPDOWN_REFRESH' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] Field.java[514:19] Name 'getDROPDOWN_SCRIPT' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] Field.java[542:19] Name 'getSUB_SECTION_SEPARATOR' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] Field.java[549:19] Name 'getBLANK_SPACE' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] Field.java[732:19] Name 'getIMAGE_SUBMIT' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] Field.java[739:19] Name 'getLOOKUP_HIDDEN' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] Field.java[746:19] Name 'getLOOKUP_READONLY' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] Field.java[753:19] Name 'getWORKFLOW_WORKGROUP' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] FieldBridge.java[405:37] More than 7 parameters.
+[ERROR] SectionBridge.java[286:35] More than 7 parameters.
+[ERROR] SectionBridge.java[315:5] Method length is 475 lines (max allowed is 150).
+[ERROR] SectionBridge.java[315:35] More than 7 parameters.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Core Web 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-core-web ---
+[INFO] 
+[INFO] There are 4 checkstyle errors.
+[ERROR] ComponentInquirableImpl.java[46:null] 'if' construct must use '{}'s.
+[ERROR] ComponentInquirableImpl.java[48:null] 'if' construct must use '{}'s.
+[ERROR] ComponentInquirableImpl.java[87:null] 'if' construct must use '{}'s.
+[ERROR] ComponentInquirableImpl.java[89:null] 'if' construct must use '{}'s.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KIM Framework 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-kim-framework ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KIM Impl 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-kim-impl ---
+[INFO] 
+[INFO] There are 14 checkstyle errors.
+[ERROR] KimPermissionImpl.java[81:74] '}' is not preceded with whitespace.
+[ERROR] ReviewResponsibilityMaintainable.java[40:29] Name 'REVIEW_TEMPLATE' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] RoleServiceBase.java[92:29] Name 'DAO_ACTION_CACHE_PREFIX' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleServiceBase.java[92:29] Variable 'DAO_ACTION_CACHE_PREFIX' must be private and have accessor methods.
+[ERROR] RoleServiceBase.java[1542:37] Name 'ROLE_DAO_ACTION' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleServiceBase.java[1543:30] Name 'ROLE_ID' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleServiceBase.java[1544:30] Name 'PRINCIPAL_ID' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleServiceBase.java[1545:30] Name 'GROUP_ID' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleServiceBase.java[1546:30] Name 'MEMBER_TYPE_CODE' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleServiceImpl.java[519:18] '{' is not followed by whitespace.
+[ERROR] RoleServiceImpl.java[737:5] Method length is 167 lines (max allowed is 150).
+[ERROR] RoleUpdateServiceImpl.java[193:17] More than 7 parameters.
+[ERROR] RoleUpdateServiceImpl.java[240:17] More than 7 parameters.
+[ERROR] KimTypeInquirableImpl.java[24:28] Name 'KIM_TYPE_NAME' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Shared Data Impl 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-shareddata-impl ---
+[INFO] 
+[INFO] There are 1 checkstyle errors.
+[ERROR] CountryServiceImpl.java[59:null] 'else' construct must use '{}'s.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Shared Data Framework 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-shareddata-framework ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Shared Data Web 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-shareddata-web ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KEW Impl 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-kew-impl ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KSB Framework 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-ksb-framework ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice EDL 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-edl ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice EDL Framework 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-edl-framework ---
+[INFO] 
+[INFO] There are 5 checkstyle errors.
+[ERROR] EDocLitePostProcessor.java[184:26] Name '_urlstring' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] EDocLitePostProcessor.java[185:28] Name '_eventDoc' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] EDocLitePostProcessor.java[260:null] 'if' construct must use '{}'s.
+[ERROR] EDocLitePostProcessor.java[277:null] 'if' construct must use '{}'s.
+[ERROR] EDocLitePostProcessor.java[279:null] 'if' construct must use '{}'s.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Implementation 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-impl ---
+[INFO] 
+[INFO] There are 612 checkstyle errors.
+[ERROR] AOLInstantMessageDeliverer.java[33:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] AOLInstantMessageDeliverer.java[105:null] 'if' construct must use '{}'s.
+[ERROR] EmailMessageDeliverer.java[37:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] EmailMessageDeliverer.java[96:120] '{' is not preceded with whitespace.
+[ERROR] EmailMessageDeliverer.java[181:null] 'if' construct must use '{}'s.
+[ERROR] SMSMessageDeliverer.java[33:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] SMSMessageDeliverer.java[113:null] 'if' construct must use '{}'s.
+[ERROR] ConcurrentJob.java[45:28] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] MessageProcessingJob.java[118:23] Avoid nested blocks.
+[ERROR] MessageProcessingJob.java[122:22] Avoid nested blocks.
+[ERROR] EmailServiceImpl.java[0:null] Got an exception - java.lang.IllegalArgumentException: the name [auther] is not a valid Javadoc tag name
+[ERROR] MessageDelivererRegistryServiceImpl.java[38:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] MessageDeliveryServiceImpl.java[90:null] 'if' construct must use '{}'s.
+[ERROR] RecipientPreferenceServiceImpl.java[127:null] 'if' construct must use '{}'s.
+[ERROR] KCBConstants.java[29:31] Name 'MESSAGE_DELIVERY_TYPES' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationChannel.java[262:5] Definition of 'equals()' without corresponding definition of 'hashCode()'.
+[ERROR] NotificationDaoJpa.java[54:34] Name 'available_notifications' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NotificationDaoOjb.java[55:34] Name 'available_notifications' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NotificationMessegeDeliveryDaoJpa.java[71:18] Name 'criteria_STATUS' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NotificationMessegeDeliveryDaoJpa.java[75:18] Name 'criteria_UNDELIVERED' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NotificationMessegeDeliveryDaoOjb.java[72:18] Name 'criteria_STATUS' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NotificationMessegeDeliveryDaoOjb.java[76:18] Name 'criteria_UNDELIVERED' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KEWActionListMessageDeliverer.java[35:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] ConcurrentJob.java[53:28] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] NotificationAuthorizationServiceImpl.java[35:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NotificationChannelServiceImpl.java[58:null] 'if' construct must use '{}'s.
+[ERROR] NotificationMessageContentServiceImpl.java[143:5] Method length is 229 lines (max allowed is 150).
+[ERROR] NotificationMessageDeliveryResolverServiceImpl.java[50:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NotificationMessageDeliveryServiceImpl.java[38:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NotificationMessageDeliveryServiceImpl.java[78:null] 'if' construct must use '{}'s.
+[ERROR] NotificationServiceImpl.java[45:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NotificationServiceImpl.java[238:63] ';' is not followed by whitespace.
+[ERROR] NotificationServiceImpl.java[295:34] Name 'available_notifications' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NotificationWorkflowDocumentServiceImpl.java[37:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] SendNotificationServiceKewXmlImpl.java[27:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] ClassLoaderResourceResolver.java[25:28] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] ContentTypeResourceResolver.java[28:28] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] ContentTypeResourceResolver.java[48:null] 'if' construct must use '{}'s.
+[ERROR] NotificationConstants.java[30:31] Name 'XML_MESSAGE_CONSTANTS' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[33:null] Line is longer than 255 characters.
+[ERROR] NotificationConstants.java[34:null] Line is longer than 255 characters.
+[ERROR] NotificationConstants.java[48:31] Name 'CONTENT_TYPES' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[64:31] Name 'DELIVERY_TYPES' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[87:31] Name 'NOTIFICATION_DETAIL_VIEWS' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[102:31] Name 'NOTIFICATION_CONTROLLER_CONSTANTS' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[122:31] Name 'MESSAGE_DELIVERY_STATUS' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[139:31] Name 'MESSAGE_DELIVERY_TYPES' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[154:31] Name 'RECIPIENT_TYPES' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[170:31] Name 'PROCESSING_FLAGS' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[184:31] Name 'LOCKED_FLAG' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[200:31] Name 'RESPONSE_STATUSES' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[214:31] Name 'RESPONSE_MESSAGES' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[238:31] Name 'BO_PROPERTY_NAMES' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[275:31] Name 'KEW_CONSTANTS' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] NotificationConstants.java[298:31] Name 'NOTIFICATION_PRODUCERS' must match pattern '^[A-Z][a-zA-Z0-9]*$'.
+[ERROR] Util.java[82:16] Name 'system_user' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] XslSourceResolver.java[28:28] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] NotificationController.java[305:null] 'if' construct must use '{}'s.
+[ERROR] SendEventNotificationMessageController.java[318:5] Method length is 308 lines (max allowed is 150).
+[ERROR] SendNotificationMessageController.java[314:5] Method length is 239 lines (max allowed is 150).
+[ERROR] ActionItemActionListExtension.java[80:null] 'if' construct must use '{}'s.
+[ERROR] OutboxItemActionListExtension.java[35:88] ',' is not followed by whitespace.
+[ERROR] ActionListFilter.java[29:1] Line contains a tab character.
+[ERROR] ActionListFilter.java[30:1] Line contains a tab character.
+[ERROR] ActionListDAOJpaImpl.java[170:5] Method length is 266 lines (max allowed is 150).
+[ERROR] ActionListDAOOjbImpl.java[85:5] Method length is 476 lines (max allowed is 150).
+[ERROR] DefaultCustomActionListAttribute.java[31:30] Name 'DEFAULT_LEGAL_ACTIONS' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DisplayParameters.java[27:1] Line contains a tab character.
+[ERROR] DisplayParameters.java[28:1] Line contains a tab character.
+[ERROR] ActionListServiceImpl.java[54:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] ActionListAction.java[132:5] Method length is 210 lines (max allowed is 150).
+[ERROR] ActionListFilterForm.java[56:27] Name 'CREATE_DATE_FROM' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] ActionListFilterForm.java[57:27] Name 'CREATE_DATE_TO' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] ActionListFilterForm.java[58:27] Name 'LAST_ASSIGNED_DATE_FROM' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] ActionListFilterForm.java[59:27] Name 'LAST_ASSIGNED_DATE_TO' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] ActionListFilterForm.java[198:73] '{' is not preceded with whitespace.
+[ERROR] ActionRequestFactory.java[112:31] More than 7 parameters.
+[ERROR] ActionRequestFactory.java[119:31] More than 7 parameters.
+[ERROR] ActionRequestFactory.java[317:31] More than 7 parameters.
+[ERROR] ActionRequestFactory.java[385:27] ';' is not followed by whitespace.
+[ERROR] ActionRequestFactory.java[493:31] More than 7 parameters.
+[ERROR] ActionRequestFactory.java[560:31] More than 7 parameters.
+[ERROR] ActionRequestValue.java[95:null] Line is longer than 255 characters.
+[ERROR] ActionRequestValue.java[103:null] Line is longer than 255 characters.
+[ERROR] ActionRequestValue.java[105:null] Line is longer than 255 characters.
+[ERROR] ActionRequestValue.java[118:60] ';' is not followed by whitespace.
+[ERROR] ActionRequestValue.java[797:null] 'if' construct must use '{}'s.
+[ERROR] ActionRequestDAOJpaImpl.java[162:null] 'if' construct must use '{}'s.
+[ERROR] ActionRequestDAOOjbImpl.java[61:null] 'if' construct must use '{}'s.
+[ERROR] ActionRequestServiceImpl.java[476:38] Inner assignments should be avoided.
+[ERROR] ActionRequestServiceImpl.java[629:39] '{' is not followed by whitespace.
+[ERROR] ActionRequestServiceImpl.java[631:14] '}' is not followed by whitespace.
+[ERROR] NotificationSuppression.java[63:null] 'if' construct must use '{}'s.
+[ERROR] ActionSet.java[30:1] Line contains a tab character.
+[ERROR] ActionSet.java[31:1] Line contains a tab character.
+[ERROR] AdHocAction.java[52:12] More than 7 parameters.
+[ERROR] MoveDocumentAction.java[48:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] ReleaseWorkgroupAuthority.java[107:92] ';' is not followed by whitespace.
+[ERROR] ReturnToPreviousNodeAction.java[52:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RouteDocumentAction.java[110:13] '}' should be on the same line.
+[ERROR] SuperUserActionTakenEvent.java[43:26] Name 'AUTHORIZATION' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] SuperUserActionTakenEvent.java[43:26] Variable 'AUTHORIZATION' must be private and have accessor methods.
+[ERROR] ActionTakenValue.java[63:1] Line contains a tab character.
+[ERROR] ActionTakenValue.java[64:1] Line contains a tab character.
+[ERROR] XmlPollerServiceImpl.java[130:14] Name 'LOAD_TIME' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] XmlPollerServiceImpl.java[181:null] 'if' construct must use '{}'s.
+[ERROR] XmlPollerServiceImpl.java[185:null] 'if' construct must use '{}'s.
+[ERROR] XmlPollerServiceImpl.java[201:null] 'if' construct must use '{}'s.
+[ERROR] DocSearchCriteriaDTOLookupableHelperServiceImpl.java[110:5] Method length is 362 lines (max allowed is 150).
+[ERROR] DocSearchCriteriaDTOLookupableHelperServiceImpl.java[197:30] ';' is not followed by whitespace.
+[ERROR] DocSearchCriteriaDTOLookupableHelperServiceImpl.java[246:74] ';' is not followed by whitespace.
+[ERROR] DocSearchCriteriaDTOLookupableHelperServiceImpl.java[1001:5] Method length is 229 lines (max allowed is 150).
+[ERROR] DocumentRouteHeaderValueLookupableHelperServiceImpl.java[96:5] Method length is 169 lines (max allowed is 150).
+[ERROR] DocumentRouteHeaderValueLookupableHelperServiceImpl.java[110:30] ';' is not followed by whitespace.
+[ERROR] DocumentRouteHeaderValueLookupableHelperServiceImpl.java[158:70] ';' is not followed by whitespace.
+[ERROR] DocumentRouteHeaderValueLookupableHelperServiceImpl.java[377:14] '}' is not followed by whitespace.
+[ERROR] ThinClientKEWConfigurer.java[25:79] '{' is not preceded with whitespace.
+[ERROR] DocSearchCriteriaDTO.java[114:101] '&&' should be on a new line.
+[ERROR] DocSearchCriteriaDTO.java[117:87] '&&' should be on a new line.
+[ERROR] DocumentLookupCriteriaProcessorKEWAdapter.java[123:5] Method length is 159 lines (max allowed is 150).
+[ERROR] DocumentSearchServiceImpl.java[206:5] Method length is 164 lines (max allowed is 150).
+[ERROR] StandardDocumentSearchGenerator.java[1:null] File length is 2,036 lines (max allowed is 2,000).
+[ERROR] StandardDocumentSearchResultProcessor.java[351:23] Variable 'htmlValue' must be private and have accessor methods.
+[ERROR] StandardDocumentSearchResultProcessor.java[352:23] Variable 'userDisplayValue' must be private and have accessor methods.
+[ERROR] StandardSearchCriteriaField.java[49:12] More than 7 parameters.
+[ERROR] StandardSearchCriteriaField.java[56:18] More than 7 parameters.
+[ERROR] StandardSearchCriteriaField.java[200:19] Name 'getDROPDOWN_HIDE_EMPTY' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StandardGenericXMLSearchableAttribute.java[286:5] Method length is 173 lines (max allowed is 150).
+[ERROR] StandardGenericXMLSearchableAttribute.java[533:15] Name 'Field' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StandardGenericXMLSearchableAttribute.java[717:5] Method length is 186 lines (max allowed is 150).
+[ERROR] ApplicationDocumentStatusId.java[70:null] 'if' construct must use '{}'s.
+[ERROR] ApplicationDocumentStatusId.java[72:null] 'if' construct must use '{}'s.
+[ERROR] ApplicationDocumentStatusId.java[74:null] 'if' construct must use '{}'s.
+[ERROR] ApplicationDocumentStatusId.java[78:null] 'if' construct must use '{}'s.
+[ERROR] ApplicationDocumentStatusId.java[80:null] 'if' construct must use '{}'s.
+[ERROR] ApplicationDocumentStatusId.java[83:null] 'if' construct must use '{}'s.
+[ERROR] ApplicationDocumentStatusId.java[85:null] 'if' construct must use '{}'s.
+[ERROR] DocumentType.java[255:17] '}' should be on the same line.
+[ERROR] DocumentTypePolicyId.java[75:null] 'if' construct must use '{}'s.
+[ERROR] DocumentTypePolicyId.java[77:null] 'if' construct must use '{}'s.
+[ERROR] DocumentTypePolicyId.java[79:null] 'if' construct must use '{}'s.
+[ERROR] DocumentTypePolicyId.java[83:null] 'if' construct must use '{}'s.
+[ERROR] DocumentTypePolicyId.java[85:null] 'if' construct must use '{}'s.
+[ERROR] DocumentTypePolicyId.java[88:null] 'if' construct must use '{}'s.
+[ERROR] DocumentTypePolicyId.java[90:null] 'if' construct must use '{}'s.
+[ERROR] DocumentTypeSecurity.java[74:5] Method length is 218 lines (max allowed is 150).
+[ERROR] DocumentLinkDAOOjbImpl.java[33:null] 'if' construct must use '{}'s.
+[ERROR] DocumentLinkDAOOjbImpl.java[35:null] 'else' construct must use '{}'s.
+[ERROR] DocumentLinkDAOOjbImpl.java[39:null] 'if' construct must use '{}'s.
+[ERROR] DocumentOperationAction.java[192:5] Method length is 343 lines (max allowed is 150).
+[ERROR] RouteNodeDAOOjbImpl.java[45:33] Name 'Route_Node_State_ID' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] HierarchyRoutingNode.java[59:28] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] HierarchyRoutingNode.java[154:69] ';' is not followed by whitespace.
+[ERROR] IteratedRequestActivationNode.java[64:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] KRAMetaRuleNode.java[42:27] Name 'SUPPRESS_POLICY_ERRORS_KEY' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KRAMetaRuleNode.java[224:20] Variable 'inspected' must be private and have accessor methods.
+[ERROR] KRAMetaRuleNode.java[225:24] Variable 'isPast' must be private and have accessor methods.
+[ERROR] NodeJotter.java[112:34] Variable 'splitNodeInstance' must be private and have accessor methods.
+[ERROR] NodeJotter.java[113:34] Variable 'joinNodeInstance' must be private and have accessor methods.
+[ERROR] NodeType.java[50:31] Name 'typeList' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] NodeType.java[51:37] Name 'depthComparator' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] RequestsNode.java[227:20] Variable 'inspected' must be private and have accessor methods.
+[ERROR] RequestsNode.java[229:24] Variable 'isPast' must be private and have accessor methods.
+[ERROR] RoleNode.java[207:null] 'if' construct must use '{}'s.
+[ERROR] RoleNode.java[211:null] 'if' construct must use '{}'s.
+[ERROR] RoleNode.java[215:null] 'if' construct must use '{}'s.
+[ERROR] RouteNode.java[192:null] 'if' construct must use '{}'s.
+[ERROR] BranchServiceImpl.java[73:null] 'if' construct must use '{}'s.
+[ERROR] RouteNodeServiceImpl.java[30:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] SimpleJoinNode.java[26:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] Property.java[33:19] Variable 'scheme' must be private and have accessor methods.
+[ERROR] Property.java[38:19] Variable 'locator' must be private and have accessor methods.
+[ERROR] OrchestrationConfig.java[56:null] 'if' construct must use '{}'s.
+[ERROR] OrchestrationConfig.java[58:null] 'else' construct must use '{}'s.
+[ERROR] RouteContext.java[59:52] Name 'ROUTE_CONTEXT_STACK' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] SimulationEngine.java[496:54] ';' is not followed by whitespace.
+[ERROR] SimulationEngine.java[542:37] ';' is not followed by whitespace.
+[ERROR] SimulationEngine.java[552:13] '}' should be on the same line.
+[ERROR] WorkflowEngineFactoryImpl.java[58:9] switch without "default" clause.
+[ERROR] IdentityHelperServiceImpl.java[41:30] Name 'logger' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] DocumentAttributeIndexingQueueImpl.java[52:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] XmlPipelineLifeCycle.java[29:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] EmailNode.java[100:81] ';' is not followed by whitespace.
+[ERROR] EmailNode.java[101:67] ';' is not followed by whitespace.
+[ERROR] ActionListEmailServiceImpl.java[71:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StyleableEmailContentServiceImpl.java[69:28] Name 'DEFAULT_EMAIL_STYLESHEET_RESOURCE_LOC' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RouteDocumentMessageService.java[54:23] Variable 'documentId' must be private and have accessor methods.
+[ERROR] RouteDocumentMessageService.java[55:24] Variable 'runPostProcessor' must be private and have accessor methods.
+[ERROR] RouteDocumentMessageService.java[56:24] Variable 'shouldSearchAttributeIndex' must be private and have accessor methods.
+[ERROR] AttachmentServiceImpl.java[32:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] AttachmentServlet.java[74:39] '{' is not followed by whitespace.
+[ERROR] AttachmentServlet.java[83:60] '{' is not followed by whitespace.
+[ERROR] AttachmentServlet.java[88:55] '{' is not followed by whitespace.
+[ERROR] AttachmentServlet.java[106:29] '{' is not followed by whitespace.
+[ERROR] AttachmentServlet.java[113:25] '{' is not followed by whitespace.
+[ERROR] AttachmentServlet.java[119:21] '{' is not followed by whitespace.
+[ERROR] AttachmentServlet.java[124:32] '{' is not followed by whitespace.
+[ERROR] DefaultNotificationService.java[45:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] DefaultNotificationService.java[47:37] Name 'notificationPriorityComparator' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KCBNotificationService.java[46:null] 'if' construct must use '{}'s.
+[ERROR] PluginClassLoader.java[32:77] '{' is not followed by whitespace.
+[ERROR] DeleteEvent.java[25:1] Line contains a tab character.
+[ERROR] DeleteEvent.java[26:1] Line contains a tab character.
+[ERROR] DocumentRouteLevelChange.java[55:12] More than 7 parameters.
+[ERROR] PostProcessorRemoteAdapter.java[31:32] Variable 'postProcessor' must be private and have accessor methods.
+[ERROR] RoleServiceImpl.java[241:73] ';' is not followed by whitespace.
+[ERROR] DocumentRouteHeaderDAOJpaImpl.java[107:13] switch without "default" clause.
+[ERROR] DocumentRouteHeaderValue.java[222:52] Name 'legalActions' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] DocumentRouteHeaderValue.java[223:52] Name 'stateTransitionMap' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] DocumentRouteHeaderValueContent.java[35:1] Line contains a tab character.
+[ERROR] DocumentRouteHeaderValueContent.java[36:1] Line contains a tab character.
+[ERROR] WorkflowDocumentServiceImpl.java[150:37] More than 7 parameters.
+[ERROR] WorkflowDocumentServiceImpl.java[162:37] More than 7 parameters.
+[ERROR] WorkflowDocumentService.java[44:37] More than 7 parameters.
+[ERROR] WorkflowDocumentService.java[49:37] More than 7 parameters.
+[ERROR] RouteLogAction.java[70:51] Name 'ROUTE_LOG_ACTION_REQUEST_SORTER' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] RouteLogAction.java[368:35] Name '_importRouteNodeInstanceDTO' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] RouteModuleServiceImpl.java[70:100] ';' is not followed by whitespace.
+[ERROR] DocHandlerForm.java[23:82] '{' is not preceded with whitespace.
+[ERROR] AccumulatingBSFRuleExpression.java[82:null] 'if' construct must use '{}'s.
+[ERROR] RuleBaseValuesLookupableHelperServiceImpl.java[152:61] ';' is not followed by whitespace.
+[ERROR] RuleBaseValuesLookupableHelperServiceImpl.java[183:5] Method length is 242 lines (max allowed is 150).
+[ERROR] RuleBaseValuesLookupableHelperServiceImpl.java[287:74] ';' is not followed by whitespace.
+[ERROR] RuleBaseValuesLookupableHelperServiceImpl.java[294:39] ';' is not followed by whitespace.
+[ERROR] RuleBaseValuesLookupableHelperServiceImpl.java[485:5] Method length is 153 lines (max allowed is 150).
+[ERROR] RuleDelegationLookupableHelperServiceImpl.java[146:61] ';' is not followed by whitespace.
+[ERROR] RuleDelegationLookupableHelperServiceImpl.java[177:5] Method length is 212 lines (max allowed is 150).
+[ERROR] RuleDelegationLookupableHelperServiceImpl.java[184:43] ';' is not followed by whitespace.
+[ERROR] RuleDelegationLookupableHelperServiceImpl.java[273:74] ';' is not followed by whitespace.
+[ERROR] RuleTemplateAttribute.java[115:53] ';' is not followed by whitespace.
+[ERROR] BSFRuleExpression.java[110:null] 'if' construct must use '{}'s.
+[ERROR] RuleDAOJpaImpl.java[221:33] More than 7 parameters.
+[ERROR] RuleDAOJpaImpl.java[264:33] More than 7 parameters.
+[ERROR] RuleDAOOjbImpl.java[235:33] More than 7 parameters.
+[ERROR] RuleDAOOjbImpl.java[277:33] More than 7 parameters.
+[ERROR] RuleDelegationDAOJpaImpl.java[87:33] More than 7 parameters.
+[ERROR] RuleDelegationDAOJpaImpl.java[101:33] More than 7 parameters.
+[ERROR] RuleDelegationDAOOjbImpl.java[88:33] More than 7 parameters.
+[ERROR] RuleDelegationDAOOjbImpl.java[122:33] More than 7 parameters.
+[ERROR] RuleDelegationDAOOjbImpl.java[168:35] More than 7 parameters.
+[ERROR] RuleDelegationDAOOjbImpl.java[182:35] More than 7 parameters.
+[ERROR] RuleDAO.java[43:33] More than 7 parameters.
+[ERROR] RuleDAO.java[47:33] More than 7 parameters.
+[ERROR] RuleDelegationDAO.java[36:33] More than 7 parameters.
+[ERROR] RuleDelegationDAO.java[40:33] More than 7 parameters.
+[ERROR] GenericAttributeContent.java[55:35] Name 'attr_expr' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] GenericAttributeContent.java[72:null] 'if' construct must use '{}'s.
+[ERROR] HierarchicalNamedRuleSelector.java[51:16] Name 'stop_id' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] RuleExpressionDef.java[105:5] Definition of 'equals()' without corresponding definition of 'hashCode()'.
+[ERROR] RuleExpressionDef.java[107:null] 'if' construct must use '{}'s.
+[ERROR] RuleExpressionDef.java[109:null] 'if' construct must use '{}'s.
+[ERROR] RuleExtension.java[164:5] Definition of 'equals()' without corresponding definition of 'hashCode()'.
+[ERROR] RuleExtension.java[165:null] 'if' construct must use '{}'s.
+[ERROR] RuleExtension.java[167:null] 'if' construct must use '{}'s.
+[ERROR] RuleExtensionValue.java[123:5] Definition of 'equals()' without corresponding definition of 'hashCode()'.
+[ERROR] RuleExtensionValue.java[124:null] 'if' construct must use '{}'s.
+[ERROR] RuleExtensionValue.java[126:null] 'if' construct must use '{}'s.
+[ERROR] RuleImpl.java[60:null] 'if' construct must use '{}'s.
+[ERROR] RuleResponsibility.java[289:null] 'if' construct must use '{}'s.
+[ERROR] RuleResponsibility.java[291:null] 'if' construct must use '{}'s.
+[ERROR] RuleRoutingAttribute.java[49:76] ';' is not followed by whitespace.
+[ERROR] RuleRoutingAttribute.java[52:97] ';' is not followed by whitespace.
+[ERROR] RuleDelegationCacheProcessorImpl.java[33:null] 'if' construct must use '{}'s.
+[ERROR] RuleDelegationServiceImpl.java[61:null] 'if' construct must use '{}'s.
+[ERROR] RuleDelegationServiceImpl.java[91:33] More than 7 parameters.
+[ERROR] RuleDelegationServiceImpl.java[98:33] More than 7 parameters.
+[ERROR] RuleServiceImpl.java[320:null] 'if' construct must use '{}'s.
+[ERROR] RuleServiceImpl.java[950:33] More than 7 parameters.
+[ERROR] RuleServiceImpl.java[957:33] More than 7 parameters.
+[ERROR] RuleServiceImpl.java[1435:31] Variable 'rule' must be private and have accessor methods.
+[ERROR] RuleServiceImpl.java[1436:31] Variable 'parent' must be private and have accessor methods.
+[ERROR] RuleServiceImpl.java[1437:31] Variable 'delegation' must be private and have accessor methods.
+[ERROR] RuleDelegationService.java[43:33] More than 7 parameters.
+[ERROR] RuleDelegationService.java[47:33] More than 7 parameters.
+[ERROR] RuleService.java[60:33] More than 7 parameters.
+[ERROR] RuleService.java[64:33] More than 7 parameters.
+[ERROR] RoutingReportAction.java[108:5] Method length is 168 lines (max allowed is 150).
+[ERROR] RoutingReportAction.java[279:29] Variable 'ruleTemplate' must be private and have accessor methods.
+[ERROR] RoutingReportAction.java[280:26] Variable 'routeNode' must be private and have accessor methods.
+[ERROR] RoutingReportAction.java[420:61] ';' is not followed by whitespace.
+[ERROR] StandardGenericXMLRuleAttribute.java[92:22] Name 'OR' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StandardGenericXMLRuleAttribute.java[438:14] '}' is not followed by whitespace.
+[ERROR] StatsDaoJpaImpl.java[57:17] Name 'DocumentsRoutedReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDaoJpaImpl.java[91:17] Name 'NumActiveItemsReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDaoJpaImpl.java[98:17] Name 'NumInitiatedDocsByDocTypeReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDaoJpaImpl.java[122:17] Name 'NumUsersReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDaoJpaImpl.java[129:17] Name 'NumberOfDocTypesReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDAOOjbImpl.java[43:null] Line is longer than 255 characters.
+[ERROR] StatsDAOOjbImpl.java[46:17] Name 'NumActiveItemsReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDAOOjbImpl.java[62:17] Name 'NumberOfDocTypesReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDAOOjbImpl.java[78:17] Name 'DocumentsRoutedReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDAOOjbImpl.java[115:17] Name 'NumUsersReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDAOOjbImpl.java[131:17] Name 'NumInitiatedDocsByDocTypeReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDAO.java[24:17] Name 'NumActiveItemsReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDAO.java[26:17] Name 'DocumentsRoutedReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDAO.java[28:17] Name 'NumberOfDocTypesReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDAO.java[30:17] Name 'NumUsersReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsDAO.java[32:17] Name 'NumInitiatedDocsByDocTypeReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsServiceImpl.java[28:17] Name 'NumActiveItemsReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsServiceImpl.java[32:17] Name 'DocumentsRoutedReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsServiceImpl.java[36:17] Name 'NumberOfDocTypesReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsServiceImpl.java[40:17] Name 'NumUsersReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsServiceImpl.java[44:17] Name 'NumInitiatedDocsByDocTypeReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsService.java[29:17] Name 'NumActiveItemsReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsService.java[31:17] Name 'DocumentsRoutedReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsService.java[33:17] Name 'NumberOfDocTypesReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsService.java[35:17] Name 'NumUsersReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] StatsService.java[37:17] Name 'NumInitiatedDocsByDocTypeReport' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] SuperUserAction.java[401:null] 'if' construct must use '{}'s.
+[ERROR] SuperUserAction.java[403:null] 'if' construct must use '{}'s.
+[ERROR] SuperUserAction.java[405:null] 'if' construct must use '{}'s.
+[ERROR] SuperUserAction.java[408:null] 'if' construct must use '{}'s.
+[ERROR] SuperUserAction.java[410:null] 'if' construct must use '{}'s.
+[ERROR] SuperUserAction.java[412:null] 'if' construct must use '{}'s.
+[ERROR] UserOptionsDaoJpaImpl.java[69:null] 'if' construct must use '{}'s.
+[ERROR] UserOptionsDAOOjbImpl.java[71:null] 'if' construct must use '{}'s.
+[ERROR] UserOptionsId.java[45:null] 'if' construct must use '{}'s.
+[ERROR] UserOptionsId.java[47:null] 'if' construct must use '{}'s.
+[ERROR] UserOptionsId.java[49:null] 'if' construct must use '{}'s.
+[ERROR] UserOptionsServiceCache.java[171:29] Variable 'cachedServiceName' must be private and have accessor methods.
+[ERROR] UserOptionsServiceImpl.java[34:37] Name 'defaultProperties' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] ByteArrayDataSource.java[76:null] 'if' construct must use '{}'s.
+[ERROR] CachingInterceptor.java[45:24] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] ModuleContext.java[23:47] Name 'moduleContext' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] DocumentTypeXmlParser.java[96:17] Variable 'docTypeRouteNodes' must be private and have accessor methods.
+[ERROR] DocumentTypeXmlParser.java[340:13] '}' should be on the same line.
+[ERROR] DocumentTypeXmlParser.java[345:13] '}' should be on the same line.
+[ERROR] DocumentTypeXmlParser.java[440:5] Method length is 455 lines (max allowed is 150).
+[ERROR] DocumentTypeXmlParser.java[470:9] '}' should be on the same line.
+[ERROR] DocumentTypeXmlParser.java[494:9] '}' should be on the same line.
+[ERROR] DocumentTypeXmlParser.java[560:9] '}' should be on the same line.
+[ERROR] DocumentTypeXmlParser.java[585:9] '}' should be on the same line.
+[ERROR] DocumentTypeXmlParser.java[704:13] '}' should be on the same line.
+[ERROR] DocumentTypeXmlParser.java[1059:5] Method length is 155 lines (max allowed is 150).
+[ERROR] DocumentTypeXmlParser.java[1062:null] 'if' construct must use '{}'s.
+[ERROR] DocumentTypeXmlParser.java[1249:5] Method length is 170 lines (max allowed is 150).
+[ERROR] DocumentTypeXmlParser.java[1550:32] Variable 'branch' must be private and have accessor methods.
+[ERROR] DocumentTypeXmlParser.java[1551:27] Variable 'splitNodeStack' must be private and have accessor methods.
+[ERROR] DocumentTypeXmlParser.java[1565:27] Variable 'docNode' must be private and have accessor methods.
+[ERROR] DocumentTypeXmlParser.java[1567:30] Variable 'isStandard' must be private and have accessor methods.
+[ERROR] DocumentTypeXmlExporter.java[59:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] DocumentTypeXmlExporter.java[489:26] Variable 'splitNode' must be private and have accessor methods.
+[ERROR] DocumentTypeXmlExporter.java[490:26] Variable 'joinNode' must be private and have accessor methods.
+[ERROR] DocumentTypeXmlExporter.java[491:25] Variable 'joinNodeType' must be private and have accessor methods.
+[ERROR] GroupXmlExporter.java[35:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RuleAttributeXmlExporter.java[41:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RuleDelegationXmlExporter.java[42:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RuleTemplateXmlExporter.java[42:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RuleXmlExporter.java[53:45] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RuleXmlExporter.java[109:63] '&&' should be on a new line.
+[ERROR] TestGroupNamespaceURIFilter.java[75:9] '}' should be on the same line.
+[ERROR] TestGroupNamespaceURIFilter.java[100:9] '}' should be on the same line.
+[ERROR] KimEntityDefaultInfoCacheImpl.java[81:1] Line contains a tab character.
+[ERROR] KimEntityDefaultInfoCacheImpl.java[82:1] Line contains a tab character.
+[ERROR] KimDocumentAttributeDataBusinessObjectBase.java[52:88] '}' is not preceded with whitespace.
+[ERROR] KimDocumentRoleResponsibility.java[119:null] 'if' construct must use '{}'s.
+[ERROR] PersonDocumentAddress.java[77:94] '}' is not preceded with whitespace.
+[ERROR] PersonDocumentAffiliation.java[65:98] '}' is not preceded with whitespace.
+[ERROR] PersonDocumentAffiliation.java[88:null] 'if' construct must use '{}'s.
+[ERROR] PersonDocumentAffiliation.java[104:null] 'if' construct must use '{}'s.
+[ERROR] PersonDocumentAffiliation.java[144:null] 'if' construct must use '{}'s.
+[ERROR] PersonDocumentAffiliation.java[150:null] 'if' construct must use '{}'s.
+[ERROR] PersonDocumentEmail.java[50:92] '}' is not preceded with whitespace.
+[ERROR] PersonDocumentEmploymentInfo.java[78:97] '}' is not preceded with whitespace.
+[ERROR] PersonDocumentEmploymentInfo.java[82:99] '}' is not preceded with whitespace.
+[ERROR] PersonDocumentName.java[72:91] '}' is not preceded with whitespace.
+[ERROR] PersonDocumentPhone.java[65:92] '}' is not preceded with whitespace.
+[ERROR] IdentityManagementGroupDocument.java[317:null] 'if' construct must use '{}'s.
+[ERROR] GroupInternalServiceImpl.java[112:null] 'if' construct must use '{}'s.
+[ERROR] GroupInternalServiceImpl.java[114:null] 'if' construct must use '{}'s.
+[ERROR] GroupServiceImpl.java[859:null] 'if' construct must use '{}'s.
+[ERROR] ResponsibilityInquirableImpl.java[40:28] Name 'KIM_RESPONSIBILITY_REQUIRED_ATTRIBUTE_ID' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] ResponsibilityInquirableImpl.java[41:28] Name 'RESPONSIBILITY_ID' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] ResponsibilityLookupableHelperServiceImpl.java[218:89] Name 'respResultCache' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] IdentityManagementTypeAttributeTransactionalDocument.java[81:null] 'if' construct must use '{}'s.
+[ERROR] IdentityManagementTypeAttributeTransactionalDocument.java[94:null] 'if' construct must use '{}'s.
+[ERROR] IdentityManagementTypeAttributeTransactionalDocument.java[108:null] 'if' construct must use '{}'s.
+[ERROR] KimTypeAttributesHelper.java[70:null] 'if' construct must use '{}'s.
+[ERROR] KimTypeAttributesHelper.java[87:null] 'if' construct must use '{}'s.
+[ERROR] KimTypeAttributesHelper.java[112:null] 'if' construct must use '{}'s.
+[ERROR] KimTypeAttributesHelper.java[123:null] 'if' construct must use '{}'s.
+[ERROR] KimTypeAttributesHelper.java[126:null] 'if' construct must use '{}'s.
+[ERROR] KimTypeLookupableHelperServiceImpl.java[138:null] 'if' construct must use '{}'s.
+[ERROR] KimTypeLookupableHelperServiceImpl.java[144:9] '}' should be on the same line.
+[ERROR] KimTypeServiceBase.java[748:28] Name 'COMMA_SEPARATOR' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] GroupInquirableImpl.java[39:28] Name 'GROUP_NAME' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] GroupInquirableImpl.java[40:28] Name 'GROUP_ID' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] GroupInquirableImpl.java[41:28] Name 'NAMESPACE_CODE' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleInquirableImpl.java[40:28] Name 'ROLE_NAME' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleInquirableImpl.java[41:28] Name 'ROLE_ID' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleInquirableImpl.java[42:28] Name 'NAMESPACE_CODE' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleMemberInquirableImpl.java[31:28] Name 'ROLE_ID' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleMemberInquirableImpl.java[32:28] Name 'NAME' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleMemberInquirableImpl.java[33:28] Name 'NAME_TO_DISPLAY' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleMemberInquirableImpl.java[34:28] Name 'TEMPLATE_NAME' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleMemberInquirableImpl.java[35:28] Name 'NAMESPACE_CODE' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleMemberInquirableImpl.java[36:28] Name 'TEMPLATE_NAMESPACE_CODE' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleMemberInquirableImpl.java[37:28] Name 'DETAIL_OBJECTS' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleMemberInquirableImpl.java[38:28] Name 'ASSIGNED_TO_ROLES' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] RoleMemberInquirableImpl.java[39:28] Name 'ATTRIBUTE_DATA_ID' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] GroupLookupableHelperServiceImpl.java[86:27] Name 'KIM_TYPE_ID_PROPERTY_NAME' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PermissionLookupableHelperServiceImpl.java[231:81] Name 'permResultCache' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] GroupDocumentMemberRule.java[52:null] 'if' construct must use '{}'s.
+[ERROR] IdentityArchiveServiceImpl.java[266:100] Inner assignments should be avoided.
+[ERROR] PermissionServiceBase.java[50:96] ';' is not followed by whitespace.
+[ERROR] PersonServiceImpl.java[66:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PersonServiceImpl.java[323:null] 'if' construct must use '{}'s.
+[ERROR] PersonServiceImpl.java[677:70] '{' is not followed by whitespace.
+[ERROR] PersonServiceImpl.java[724:5] Method length is 171 lines (max allowed is 150).
+[ERROR] UiDocumentServiceImpl.java[1:null] File length is 3,109 lines (max allowed is 2,000).
+[ERROR] UiDocumentServiceImpl.java[2792:45] Name 'IdentityManagementGroupDocument' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KimCommonUtilsInternal.java[47:null] 'if' construct must use '{}'s.
+[ERROR] KimCommonUtilsInternal.java[69:null] 'if' construct must use '{}'s.
+[ERROR] KimCommonUtilsInternal.java[77:null] 'if' construct must use '{}'s.
+[ERROR] KimCommonUtilsInternal.java[79:null] 'if' construct must use '{}'s.
+[ERROR] KimCommonUtilsInternal.java[81:null] 'if' construct must use '{}'s.
+[ERROR] KimCommonUtilsInternal.java[87:null] 'else' construct must use '{}'s.
+[ERROR] IdentityManagementDocumentFormBase.java[54:null] 'if' construct must use '{}'s.
+[ERROR] DataDictionaryMap.java[47:17] The double-checked locking idiom is broken and should be avoided.
+[ERROR] InquiryMapBuilder.java[67:33] Name 'FieldDefinition' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] BusinessObjectAuthorizationServiceImpl.java[449:null] 'if' construct must use '{}'s.
+[ERROR] BusinessObjectAuthorizationServiceImpl.java[452:null] 'if' construct must use '{}'s.
+[ERROR] BusinessObjectAuthorizationServiceImpl.java[476:null] 'if' construct must use '{}'s.
+[ERROR] BusinessObjectAuthorizationServiceImpl.java[479:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationServiceImpl.java[42:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DictionaryValidationServiceImpl.java[147:5] Method length is 182 lines (max allowed is 150).
+[ERROR] MaintenanceDocumentDictionaryServiceImpl.java[48:46] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] MaintenanceDocumentDictionaryServiceImpl.java[312:21] '}' should be on the same line.
+[ERROR] MaintenanceDocumentDictionaryServiceImpl.java[330:21] '}' should be on the same line.
+[ERROR] MaintenanceDocumentDictionaryServiceImpl.java[535:17] '}' should be on the same line.
+[ERROR] SessionDocumentServiceImpl.java[49:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] BackdoorAction.java[92:45] Name 'KnsUserSession' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KualiRequestProcessor.java[74:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] JpaToDdl.java[158:36] Line contains a tab character.
+[ERROR] JpaToDdl.java[162:32] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[49:20] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[54:20] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[96:28] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[143:32] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[153:36] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[157:32] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[161:32] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[171:36] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[175:32] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[179:32] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[185:36] Line contains a tab character.
+[ERROR] JpaToOjbMetadata.java[189:32] Line contains a tab character.
+[ERROR] GlobalResourceLoaderServiceFactoryBean.java[42:null] 'if' construct must use '{}'s.
+[ERROR] AttachmentDaoJpa.java[31:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] AttachmentDaoOjb.java[28:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DocumentHeaderDaoJpa.java[28:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DocumentHeaderDaoOjb.java[27:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] LookupDaoOjb.java[534:null] 'if' construct must use '{}'s.
+[ERROR] LookupDaoOjb.java[541:null] 'if' construct must use '{}'s.
+[ERROR] LookupDaoOjb.java[546:null] 'if' construct must use '{}'s.
+[ERROR] LookupDaoOjb.java[551:null] 'if' construct must use '{}'s.
+[ERROR] LookupDaoOjb.java[556:null] 'if' construct must use '{}'s.
+[ERROR] LookupDaoOjb.java[597:null] 'if' construct must use '{}'s.
+[ERROR] LookupDaoOjb.java[602:null] 'if' construct must use '{}'s.
+[ERROR] LookupDaoOjb.java[606:null] 'if' construct must use '{}'s.
+[ERROR] LookupDaoOjb.java[610:null] 'if' construct must use '{}'s.
+[ERROR] LookupDaoOjb.java[614:null] 'if' construct must use '{}'s.
+[ERROR] NoteDaoOjb.java[36:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PersistedLookupMetadataDaoJpa.java[29:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PersistedLookupMetadataDaoOjb.java[26:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PersistenceDaoJpa.java[36:43] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] SessionDocumentDaoJpa.java[28:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] SessionDocumentDaoOjb.java[31:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] SequenceAccessorDaoJdbc.java[42:null] 'if' construct must use '{}'s.
+[ERROR] SequenceAccessorDaoJdbc.java[46:null] 'if' construct must use '{}'s.
+[ERROR] SequenceAccessorDaoJdbc.java[52:null] 'if' construct must use '{}'s.
+[ERROR] SequenceAccessorDaoJdbc.java[54:null] 'else' construct must use '{}'s.
+[ERROR] SequenceAccessorDaoJdbc.java[58:null] 'if' construct must use '{}'s.
+[ERROR] SequenceAccessorDaoJdbc.java[63:null] 'if' construct must use '{}'s.
+[ERROR] SequenceAccessorDaoJdbc.java[65:null] 'else' construct must use '{}'s.
+[ERROR] SequenceAccessorDaoJdbc.java[95:null] 'if' construct must use '{}'s.
+[ERROR] BusinessObjectDaoProxy.java[41:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DocumentHeaderDaoProxy.java[24:22] Name 'TMP_NM' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DocumentHeaderDaoProxy.java[25:19] Name 'START_INDEX' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] MaintenanceDocumentDaoProxy.java[28:22] Name 'TMP_NM' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] MaintenanceDocumentDaoProxy.java[29:19] Name 'START_INDEX' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NoteDaoProxy.java[28:22] Name 'TMP_NM' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] NoteDaoProxy.java[29:19] Name 'START_INDEX' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PersistedLookupMetadataDaoProxy.java[28:22] Name 'TMP_NM' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PersistedLookupMetadataDaoProxy.java[29:19] Name 'START_INDEX' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PersistenceDaoProxy.java[125:null] 'if' construct must use '{}'s.
+[ERROR] PersistenceDaoProxy.java[127:null] 'if' construct must use '{}'s.
+[ERROR] SessionDocumentDaoProxy.java[26:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] AttachmentServiceImpl.java[43:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] AttachmentServiceImpl.java[162:null] 'if' construct must use '{}'s.
+[ERROR] AttachmentServiceImpl.java[224:null] 'for' construct must use '{}'s.
+[ERROR] BusinessObjectDictionaryServiceImpl.java[54:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] BusinessObjectServiceImpl.java[305:13] '}' should be on the same line.
+[ERROR] BusinessObjectServiceImpl.java[323:null] 'else' construct must use '{}'s.
+[ERROR] BusinessObjectServiceImpl.java[464:71] Inner assignments should be avoided.
+[ERROR] ConfigurationServiceImpl.java[111:31] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DataObjectMetaDataServiceImpl.java[59:null] 'if' construct must use '{}'s.
+[ERROR] DataObjectMetaDataServiceImpl.java[65:null] 'if' construct must use '{}'s.
+[ERROR] DataObjectMetaDataServiceImpl.java[147:42] More than 7 parameters.
+[ERROR] DictionaryValidationServiceImpl.java[80:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DictionaryValidationServiceImpl.java[385:13] '}' should be on the same line.
+[ERROR] DictionaryValidationServiceImpl.java[597:17] '}' should be on the same line.
+[ERROR] DictionaryValidationServiceImpl.java[779:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationServiceImpl.java[831:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationServiceImpl.java[866:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationServiceImpl.java[870:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationServiceImpl.java[873:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationServiceImpl.java[885:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationServiceImpl.java[907:null] 'if' construct must use '{}'s.
+[ERROR] DictionaryValidationServiceImpl.java[930:null] 'if' construct must use '{}'s.
+[ERROR] DocumentHeaderServiceImpl.java[31:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DocumentServiceImpl.java[82:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] InactivateableFromToServiceImpl.java[158:17] '}' should be on the same line.
+[ERROR] KualiExceptionIncidentServiceImpl.java[40:20] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] MailServiceImpl.java[23:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] MaintenanceDocumentServiceImpl.java[186:9] '}' should be on the same line.
+[ERROR] ModuleServiceBase.java[68:null] 'if' construct must use '{}'s.
+[ERROR] ModuleServiceBase.java[97:null] 'if' construct must use '{}'s.
+[ERROR] ModuleServiceBase.java[100:null] 'if' construct must use '{}'s.
+[ERROR] ModuleServiceBase.java[160:null] 'if' construct must use '{}'s.
+[ERROR] ModuleServiceBase.java[255:null] 'if' construct must use '{}'s.
+[ERROR] ModuleServiceBase.java[282:null] 'if' construct must use '{}'s.
+[ERROR] ModuleServiceBase.java[294:null] 'if' construct must use '{}'s.
+[ERROR] ModuleServiceBase.java[309:null] 'if' construct must use '{}'s.
+[ERROR] ModuleServiceBase.java[400:null] 'if' construct must use '{}'s.
+[ERROR] PersistenceServiceImpl.java[31:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PersistenceServiceJpaImpl.java[46:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PersistenceServiceJpaImpl.java[117:13] '}' should be on the same line.
+[ERROR] PersistenceServiceOjbImpl.java[57:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] PersistenceServiceOjbImpl.java[391:13] '}' should be on the same line.
+[ERROR] PersistenceStructureServiceImpl.java[47:37] Variable 'referenceConversionMap' must be private and have accessor methods.
+[ERROR] PersistenceStructureServiceJpaImpl.java[55:37] Variable 'referenceConversionMap' must be private and have accessor methods.
+[ERROR] PersistenceStructureServiceJpaImpl.java[534:13] '}' should be on the same line.
+[ERROR] PersistenceStructureServiceOjbImpl.java[59:37] Variable 'referenceConversionMap' must be private and have accessor methods.
+[ERROR] PersistenceStructureServiceOjbImpl.java[577:13] '}' should be on the same line.
+[ERROR] PostProcessorServiceImpl.java[47:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] RiceApplicationConfigurationServiceImpl.java[42:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] SessionDocumentServiceImpl.java[51:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] JstlPropertyHolder.java[188:31] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] MemoryMonitor.java[69:43] Name 'tenuredGenPool' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] OjbCollectionAware.java[20:78] '{' is not preceded with whitespace.
+[ERROR] DataDictionaryQualifierResolver.java[114:null] 'if' construct must use '{}'s.
+[ERROR] DataDictionarySearchableAttribute.java[179:null] 'if' construct must use '{}'s.
+[ERROR] DataDictionarySearchableAttribute.java[195:null] 'if' construct must use '{}'s.
+[ERROR] DataDictionarySearchableAttribute.java[200:null] 'if' construct must use '{}'s.
+[ERROR] DataDictionarySearchableAttribute.java[348:null] 'if' construct must use '{}'s.
+[ERROR] KualiXmlAttributeHelper.java[45:24] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KualiXmlAttributeHelper.java[47:33] Name 'testVal' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiXmlAttributeHelper.java[47:57] ';' is not followed by whitespace.
+[ERROR] KualiXmlAttributeHelper.java[48:33] Name 'testVal2' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiXmlAttributeHelper.java[48:60] ';' is not followed by whitespace.
+[ERROR] KualiXmlAttributeHelper.java[50:33] Name 'cleanVal' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiXmlAttributeHelper.java[50:54] ';' is not followed by whitespace.
+[ERROR] KualiXmlAttributeHelper.java[51:33] Name 'ruledataVal' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiXmlAttributeHelper.java[55:34] Name 'xPathPattern' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiXmlAttributeHelper.java[56:34] Name 'termPattern' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiXmlAttributeHelper.java[57:34] Name 'cleanPattern' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiXmlAttributeHelper.java[58:34] Name 'targetPattern' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiXmlAttributeHelper.java[66:32] Name 'notFound' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiXmlAttributeHelper.java[88:5] Method length is 164 lines (max allowed is 150).
+[ERROR] KualiXmlAttributeHelper.java[134:66] '{' is not followed by whitespace.
+[ERROR] KualiXmlAttributeHelper.java[357:35] Name 'DDService' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KualiXmlAttributeHelper.java[400:9] '}' should be on the same line.
+[ERROR] KualiXmlAttributeHelper.java[433:46] ';' is not followed by whitespace.
+[ERROR] KualiXmlAttributeHelper.java[438:28] ';' is not followed by whitespace.
+[ERROR] QualifierResolverBase.java[34:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] KualiPostProcessor.java[44:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] WorkflowAttributePropertyResolutionServiceImpl.java[312:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributePropertyResolutionServiceImpl.java[315:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributePropertyResolutionServiceImpl.java[317:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributePropertyResolutionServiceImpl.java[320:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributePropertyResolutionServiceImpl.java[323:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributePropertyResolutionServiceImpl.java[326:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributePropertyResolutionServiceImpl.java[427:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributePropertyResolutionServiceImpl.java[429:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributePropertyResolutionServiceImpl.java[435:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributePropertyResolutionServiceImpl.java[494:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowAttributePropertyResolutionServiceImpl.java[496:null] 'if' construct must use '{}'s.
+[ERROR] WorkflowDocumentServiceImpl.java[50:44] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] LazyEndpoint.java[33:17] The double-checked locking idiom is broken and should be avoided.
+[ERROR] LazyEndpoint.java[34:52] Inner assignments should be avoided.
+[ERROR] RemoteService.java[52:17] The double-checked locking idiom is broken and should be avoided.
+[ERROR] RemoteService.java[53:54] Inner assignments should be avoided.
+[ERROR] ServiceConfigurationSerializationHandler.java[92:34] Name 'context' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] LazyRemoteServiceRegistryConnector.java[135:17] The double-checked locking idiom is broken and should be avoided.
+[ERROR] LazyRemoteServiceRegistryConnector.java[136:54] Inner assignments should be avoided.
+[ERROR] BAMParam.java[85:38] ';' is not followed by whitespace.
+[ERROR] MessageQueueDAOJpaImpl.java[104:null] 'if' construct must use '{}'s.
+[ERROR] MessageQueueDAOOjbImpl.java[133:null] 'if' construct must use '{}'s.
+[ERROR] DefaultExceptionServiceImpl.java[109:40] ';' is not followed by whitespace.
+[ERROR] KSBHttpInvokerRequestExecutor.java[152:28] ';' is not followed by whitespace.
+[ERROR] MessageProcessingException.java[18:1] Line contains a tab character.
+[ERROR] MessageProcessingException.java[19:1] Line contains a tab character.
+[ERROR] RunModeServiceExporter.java[41:40] Name 'runModeHierarchy' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] ResourceFacadeImpl.java[64:null] 'if' construct must use '{}'s.
+[ERROR] ResourceFacadeImpl.java[86:null] 'if' construct must use '{}'s.
+[ERROR] ResourceFacadeImpl.java[88:null] 'else' construct must use '{}'s.
+[ERROR] ResourceFacadeImpl.java[91:null] 'if' construct must use '{}'s.
+[ERROR] RESTConnector.java[45:null] 'if' construct must use '{}'s.
+[ERROR] ServiceExportManagerImpl.java[187:null] 'if' construct must use '{}'s.
+[ERROR] DelayedAsynchronousServiceCallProxy.java[122:40] ';' is not followed by whitespace.
+[ERROR] MessageSendingTransactionSynchronization.java[33:27] Name 'CALLED_TRANS_COMMITTED' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] MessageSendingTransactionSynchronization.java[33:27] Variable 'CALLED_TRANS_COMMITTED' must be private and have accessor methods.
+[ERROR] MessageSendingTransactionSynchronization.java[34:27] Name 'CALLED_TRANS_ROLLEDBACKED' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] MessageSendingTransactionSynchronization.java[34:27] Variable 'CALLED_TRANS_ROLLEDBACKED' must be private and have accessor methods.
+[ERROR] KSBDispatcherServlet.java[77:21] ';' is not followed by whitespace.
+[ERROR] MessageQueueAction.java[393:9] '}' should be on the same line.
+[ERROR] JavaSecurityManagementServiceImpl.java[52:28] Name 'CLIENT_KEY_GENERATOR_ALGORITHM' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] JavaSecurityManagementServiceImpl.java[53:28] Name 'CLIENT_SECURE_RANDOM_ALGORITHM' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] JavaSecurityManagementServiceImpl.java[54:25] Name 'CLIENT_KEY_PAIR_KEY_SIZE' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] JavaSecurityManagementServiceImpl.java[55:23] Name 'CLIENT_CERT_EXPIRATION_DAYS' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] CodeTranslator.java[26:45] Name 'routeQueueStatusLabels' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KSB Impl 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-ksb-impl ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice EDL Impl 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-edl-impl ---
+[INFO] 
+[INFO] There are 15 checkstyle errors.
+[ERROR] EDocLiteAssociation.java[67:31] ';' is not followed by whitespace.
+[ERROR] NoteConfigComponent.java[92:94] ';' is not followed by whitespace.
+[ERROR] NoteConfigComponent.java[239:5] Method length is 153 lines (max allowed is 150).
+[ERROR] WorkflowDocumentActions.java[102:60] ';' is not followed by whitespace.
+[ERROR] WorkflowDocumentState.java[174:9] '}' should be on the same line.
+[ERROR] WorkflowDocumentState.java[256:null] 'if' construct must use '{}'s.
+[ERROR] EDLControllerChain.java[75:null] 'if' construct must use '{}'s.
+[ERROR] EDLControllerChain.java[78:null] 'if' construct must use '{}'s.
+[ERROR] EDLGlobalConfigFactory.java[53:46] ';' is not followed by whitespace.
+[ERROR] EDLGlobalConfigFactory.java[65:52] ';' is not followed by whitespace.
+[ERROR] EDLServlet.java[77:74] ';' is not followed by whitespace.
+[ERROR] EDLServlet.java[106:63] '{' is not followed by whitespace.
+[ERROR] EDLXmlUtils.java[51:32] Name 'DOCUMENT_BUILDER' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] EDocLiteServiceImpl.java[98:49] ';' is not followed by whitespace.
+[ERROR] EDocLiteXmlExporter.java[102:42] '{' is not followed by whitespace.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KRMS 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-krms ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KRMS API 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-krms-api ---
+[INFO] 
+[INFO] There are 41 checkstyle errors.
+[ERROR] ResultEvent.java[22:32] Name 'RuleEvaluated' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] ResultEvent.java[23:32] Name 'PropositionEvaluated' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] ResultEvent.java[24:32] Name 'ActionExecuted' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] ResultEvent.java[25:32] Name 'TimingEvent' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] Term.java[27:60] Name 'treeMapComparator' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] Term.java[82:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[84:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[86:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[94:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[96:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[112:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[136:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[152:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[160:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[165:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[172:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[177:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[182:null] 'if' construct must use '{}'s.
+[ERROR] Term.java[184:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionException.java[17:25] Variable 'termResolverClassName' must be private and have accessor methods.
+[ERROR] TermResolutionException.java[18:36] Variable 'outputTerm' must be private and have accessor methods.
+[ERROR] TermResolutionException.java[19:41] Variable 'prereqs' must be private and have accessor methods.
+[ERROR] TermResolutionException.java[20:30] Variable 'parameterNames' must be private and have accessor methods.
+[ERROR] TermResolutionException.java[21:38] Variable 'parameters' must be private and have accessor methods.
+[ERROR] TermSpecification.java[28:null] 'if' construct must use '{}'s.
+[ERROR] TermSpecification.java[30:null] 'if' construct must use '{}'s.
+[ERROR] TermSpecification.java[32:null] 'if' construct must use '{}'s.
+[ERROR] TermSpecification.java[34:null] 'if' construct must use '{}'s.
+[ERROR] TermSpecification.java[69:null] 'if' construct must use '{}'s.
+[ERROR] TermSpecification.java[71:null] 'if' construct must use '{}'s.
+[ERROR] TermSpecification.java[73:null] 'if' construct must use '{}'s.
+[ERROR] TermSpecification.java[81:null] 'if' construct must use '{}'s.
+[ERROR] TermSpecification.java[83:null] 'if' construct must use '{}'s.
+[ERROR] ContextDefinition.java[355:null] 'if' construct must use '{}'s.
+[ERROR] TermDefinition.java[129:null] 'if' construct must use '{}'s.
+[ERROR] TermParameterDefinition.java[95:107] Name 'toBuilder' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] TermResolverDefinition.java[134:17] More than 7 parameters.
+[ERROR] TermResolverDefinition.java[166:31] More than 7 parameters.
+[ERROR] TermSpecificationDefinition.java[138:115] Name 'toBuilder' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] TermSpecificationDefinition.java[183:null] 'if' construct must use '{}'s.
+[ERROR] TermSpecificationDefinition.java[209:null] 'if' construct must use '{}'s.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KRMS Framework 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-krms-framework ---
+[INFO] 
+[INFO] There are 33 checkstyle errors.
+[ERROR] BasicAgenda.java[30:null] 'if' construct must use '{}'s.
+[ERROR] BasicContext.java[22:null] 'if' construct must use '{}'s.
+[ERROR] CollectionOfComparablesTermBasedProposition.java[40:null] 'if' construct must use '{}'s.
+[ERROR] CompoundProposition.java[69:null] 'if' construct must use '{}'s.
+[ERROR] CompoundProposition.java[88:null] 'if' construct must use '{}'s.
+[ERROR] EngineResultsImpl.java[37:null] 'if' construct must use '{}'s.
+[ERROR] ProviderBasedEngine.java[19:31] Name 'effectiveExecutionTimeTerm' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] ProviderBasedEngine.java[23:39] Name 'KLog' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] TermResolutionEngineImpl.java[43:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[45:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[61:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[190:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[197:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[202:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[242:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[244:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[403:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[405:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[407:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[432:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[434:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[436:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[468:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[495:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[503:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[507:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[509:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[532:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[534:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[536:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[554:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[558:null] 'if' construct must use '{}'s.
+[ERROR] TermResolutionEngineImpl.java[560:null] 'else' construct must use '{}'s.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice KRMS Impl 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-krms-impl ---
+[INFO] 
+[INFO] There are 40 checkstyle errors.
+[ERROR] LazyAction.java[62:17] The double-checked locking idiom is broken and should be avoided.
+[ERROR] LazyAction.java[63:42] Inner assignments should be avoided.
+[ERROR] LazyProposition.java[61:17] The double-checked locking idiom is broken and should be avoided.
+[ERROR] LazyProposition.java[62:52] Inner assignments should be avoided.
+[ERROR] RepositoryToEngineTranslatorImpl.java[83:null] 'if' construct must use '{}'s.
+[ERROR] RepositoryToEngineTranslatorImpl.java[87:null] 'if' construct must use '{}'s.
+[ERROR] SimplePropositionTypeService.java[157:null] 'if' construct must use '{}'s.
+[ERROR] ActionBoServiceImpl.java[200:null] 'if' construct must use '{}'s.
+[ERROR] KrmsAttributeDefinitionServiceImpl.java[71:null] 'if' construct must use '{}'s.
+[ERROR] KrmsAttributeDefinitionServiceImpl.java[168:null] 'if' construct must use '{}'s.
+[ERROR] RuleRepositoryServiceImpl.java[59:null] 'else' construct must use '{}'s.
+[ERROR] TermBoServiceImpl.java[164:null] 'for' construct must use '{}'s.
+[ERROR] AgendaEditor.java[47:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditor.java[91:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[75:45] '&&' should be on a new line.
+[ERROR] AgendaEditorController.java[117:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[139:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[144:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[384:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[390:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[396:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[445:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[465:null] 'while' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[472:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[486:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[508:null] 'while' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[515:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[542:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[554:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[566:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[592:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[620:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[628:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[639:null] 'if' construct must use '{}'s.
+[ERROR] AgendaEditorController.java[682:54] Name 'whenTrue' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] AgendaEditorController.java[683:54] Name 'whenFalse' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] AgendaEditorController.java[684:54] Name 'always' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] AgendaEditorController.java[689:56] Name 'linkedNodes' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] AgendaEditorController.java[694:56] Name 'children' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] AgendaEditorController.java[699:null] 'if' construct must use '{}'s.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Web 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-web ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Development Tools 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[WARNING] The POM for no.geosoft:filemonitor:jar:1.0-kuali is missing, no dependency information available
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-development-tools ---
+[INFO] 
+[INFO] There are 15 checkstyle errors.
+[ERROR] PostDataLoadEncryptionServlet.java[50:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[52:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[54:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[55:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[56:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[58:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[59:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[60:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[61:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[63:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[64:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[65:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[66:1] Line contains a tab character.
+[ERROR] PostDataLoadEncryptionServlet.java[108:null] Line is longer than 255 characters.
+[ERROR] URLMonitor.java[72:null] 'while' construct must use '{}'s.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Sample App 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-sampleapp ---
+[INFO] 
+[INFO] There are 10 checkstyle errors.
+[ERROR] AddressType.java[16:1] Line contains a tab character.
+[ERROR] AddressType.java[17:1] Line contains a tab character.
+[ERROR] VendorAddress.java[33:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] VendorDetail.java[33:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] VendorHeader.java[29:27] Name 'LOG' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] FiscalOfficer.java[83:null] 'if' construct must use '{}'s.
+[ERROR] FiscalOfficer.java[85:null] 'if' construct must use '{}'s.
+[ERROR] Constants.java[16:null] interfaces should describe a type and hence have methods.
+[ERROR] FiscalOfficerServiceImpl.java[39:31] Name 'FOI_SKIP' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] EmployeeAttribute.java[56:27] Name 'USERID_FORM_FIELDNAME' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Standalone Server 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-standalone ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test Internal Tools 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-internal-tools ---
+[INFO] 
+[INFO] There are 13 checkstyle errors.
+[ERROR] BaselineTestCase.java[84:null] 'if' construct must use '{}'s.
+[ERROR] BaseModuleTestCase.java[23:28] Name 'LOG' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[ERROR] BaseRiceTestCase.java[43:45] Name 'changedLogLevels' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] PerTestUnitTestData.java[29:40] '}' is not preceded with whitespace.
+[ERROR] UnitTestData.java[39:44] '}' is not preceded with whitespace.
+[ERROR] UnitTestData.java[41:40] '}' is not preceded with whitespace.
+[ERROR] UnitTestDataUtils.java[58:null] 'if' construct must use '{}'s.
+[ERROR] RemoteTestHarness.java[30:27] Name 'ENDPOINT_ROOT' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] RemoteTestHarness.java[31:27] Name 'ENDPOINT_PATH' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] RiceTestCase.java[63:30] Name 'SUITE_LIFE_CYCLES_RAN' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] RiceTestCase.java[64:30] Name 'SUITE_LIFE_CYCLES_FAILED' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] TestUtilities.java[103:9] Avoid nested blocks.
+[ERROR] TransactionalLifecycle.java[66:31] Name 'TRANSACTION_STATUS' must match pattern '^[a-z_][a-zA-Z0-9]*$'.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test Core 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-core ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test KRAD 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-krad ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test KSB 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-ksb ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test KIM 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-kim ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test KEW 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-kew ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test KEN 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-ken ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test KCB 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-kcb ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test Impl 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-impl ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test EDL 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-edl ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test Shared Data 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-shareddata ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Integration Test KRMS 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-it-krms ---
+[INFO] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Client Contrib 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-client-contrib ---
+[INFO] 
+[INFO] There are 20 checkstyle errors.
+[ERROR] AlwaysSucceedParameterEvaluatorImpl.java[22:62] Name 'instance' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] ParameterEvaluatorServiceImpl.java[141:null] Line is longer than 255 characters.
+[ERROR] KualiCasAuthenticationProvider.java[42:30] Name 'logger' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiCasAuthoritiesPopulatorImpl.java[31:30] Name 'logger' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiCasProxyTicketValidator.java[46:30] Name 'logger' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] KualiUserDetailsServiceImpl.java[31:30] Name 'logger' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] RolePermissionsXmlDTO.java[158:66] ';' is not followed by whitespace.
+[ERROR] RoleManagementServiceImpl.java[264:17] More than 7 parameters.
+[ERROR] RoleManagementServiceImpl.java[328:17] More than 7 parameters.
+[ERROR] DistributedSession.java[42:30] Name 'logger' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] DistributedSession.java[67:39] Name 'DST' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DistributedSession.java[81:39] Name 'DST' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DistributedSession.java[127:58] Name 'DST' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DistributedSession.java[140:34] Name 'DST' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DistributedSession.java[155:16] Name 'DST' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DistributedSession.java[178:34] Name 'DST' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] DistributedSession.java[199:9] '}' should be on the same line.
+[ERROR] DistributedSession.java[246:43] Name 'DST' must match pattern '^[a-z][a-zA-Z0-9]*$'.
+[ERROR] SessionIdGenerator.java[29:39] Name 'randomizer' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[ERROR] GlobalTimeoutHandler.java[29:30] Name 'logger' must match pattern '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.
+[WARNING] checkstyle:check violations detected but failOnViolation set to false
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rice Distributions 2.0.0-m7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.6:check (default-cli) @ rice-dist ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] Rice .............................................. SUCCESS [6.379s]
+[INFO] Rice DB ........................................... SUCCESS [0.552s]
+[INFO] Rice Clover ....................................... SUCCESS [0.556s]
+[INFO] Rice Clover Master ................................ SUCCESS [0.576s]
+[INFO] Rice Impex ........................................ SUCCESS [0.550s]
+[INFO] Rice Impex Master ................................. SUCCESS [0.543s]
+[INFO] Rice Core ......................................... SUCCESS [0.547s]
+[INFO] Rice Core API ..................................... SUCCESS [5.556s]
+[INFO] Rice KSB .......................................... SUCCESS [0.551s]
+[INFO] Rice KSB API ...................................... SUCCESS [1.348s]
+[INFO] Rice KEW .......................................... SUCCESS [0.560s]
+[INFO] Rice KEW API ...................................... SUCCESS [1.843s]
+[INFO] Rice API .......................................... SUCCESS [2.392s]
+[INFO] Rice Core Framework ............................... SUCCESS [3.707s]
+[INFO] Rice KIM .......................................... SUCCESS [0.561s]
+[INFO] Rice KIM API ...................................... SUCCESS [3.500s]
+[INFO] Rice Shared Data .................................. SUCCESS [0.632s]
+[INFO] Rice Shared Data API .............................. SUCCESS [1.219s]
+[INFO] Rice KRAD ......................................... SUCCESS [0.563s]
+[INFO] Rice KRAD Application Framework ................... SUCCESS [2.416s]
+[INFO] Rice KEW Framework ................................ SUCCESS [0.887s]
+[INFO] Rice KRAD Web Framework ........................... SUCCESS [9.799s]
+[INFO] Rice Core Impl .................................... SUCCESS [4.269s]
+[INFO] Rice KNS .......................................... SUCCESS [7.280s]
+[INFO] Rice Core Web ..................................... SUCCESS [1.664s]
+[INFO] Rice KIM Framework ................................ SUCCESS [1.246s]
+[INFO] Rice KIM Impl ..................................... SUCCESS [2.233s]
+[INFO] Rice Shared Data Impl ............................. SUCCESS [0.868s]
+[INFO] Rice Shared Data Framework ........................ SUCCESS [0.776s]
+[INFO] Rice Shared Data Web .............................. SUCCESS [0.562s]
+[INFO] Rice KEW Impl ..................................... SUCCESS [0.590s]
+[INFO] Rice KSB Framework ................................ SUCCESS [0.614s]
+[INFO] Rice EDL .......................................... SUCCESS [0.539s]
+[INFO] Rice EDL Framework ................................ SUCCESS [0.843s]
+[INFO] Rice Implementation ............................... SUCCESS [31.927s]
+[INFO] Rice KSB Impl ..................................... SUCCESS [1.034s]
+[INFO] Rice EDL Impl ..................................... SUCCESS [1.925s]
+[INFO] Rice KRMS ......................................... SUCCESS [0.558s]
+[INFO] Rice KRMS API ..................................... SUCCESS [2.036s]
+[INFO] Rice KRMS Framework ............................... SUCCESS [1.338s]
+[INFO] Rice KRMS Impl .................................... SUCCESS [1.458s]
+[INFO] Rice Web .......................................... SUCCESS [0.923s]
+[INFO] Rice Development Tools ............................ SUCCESS [0.855s]
+[INFO] Rice Sample App ................................... SUCCESS [1.638s]
+[INFO] Rice Standalone Server ............................ SUCCESS [0.719s]
+[INFO] Rice Integration Test ............................. SUCCESS [0.539s]
+[INFO] Rice Integration Test Internal Tools .............. SUCCESS [0.992s]
+[INFO] Rice Integration Test Core ........................ SUCCESS [0.963s]
+[INFO] Rice Integration Test KRAD ........................ SUCCESS [0.837s]
+[INFO] Rice Integration Test KSB ......................... SUCCESS [0.777s]
+[INFO] Rice Integration Test KIM ......................... SUCCESS [0.847s]
+[INFO] Rice Integration Test KEW ......................... SUCCESS [0.755s]
+[INFO] Rice Integration Test KEN ......................... SUCCESS [0.751s]
+[INFO] Rice Integration Test KCB ......................... SUCCESS [0.742s]
+[INFO] Rice Integration Test Impl ........................ SUCCESS [0.739s]
+[INFO] Rice Integration Test EDL ......................... SUCCESS [0.756s]
+[INFO] Rice Integration Test Shared Data ................. SUCCESS [0.782s]
+[INFO] Rice Integration Test KRMS ........................ SUCCESS [0.835s]
+[INFO] Rice Client Contrib ............................... SUCCESS [1.128s]
+[INFO] Rice Distributions ................................ SUCCESS [0.542s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2:11.307s
+[INFO] Finished at: Wed Jul 27 10:18:34 MST 2011
+[INFO] Final Memory: 39M/95M
+[INFO] ------------------------------------------------------------------------
