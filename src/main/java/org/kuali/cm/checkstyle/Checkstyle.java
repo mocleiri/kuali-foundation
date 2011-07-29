@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -101,8 +102,9 @@ public class Checkstyle {
 			}
 			Set<SourceFile> set = getSourceFiles(msgs, errors, files, props);
 			String s = toXML(set);
-			IOUtils.copy(new ByteArrayInputStream(s.getBytes()), new FileOutputStream(
-					"c:/temp/rice-legacy-suppressions.xml"));
+			String filename = "C:\\eclipse\\sts\\2.6.1\\ide\\ws\\cm-tools\\src\\main\\resources\\org\\kuali\\cm\\checkstyle\\rice-legacy-suppressions.xml";
+			OutputStream out = new FileOutputStream(filename);
+			IOUtils.copy(new ByteArrayInputStream(s.getBytes()), out);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
