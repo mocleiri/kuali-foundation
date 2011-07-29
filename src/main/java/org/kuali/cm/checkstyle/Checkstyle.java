@@ -65,8 +65,9 @@ public class Checkstyle {
 			Set<String> files = getUniqueFiles(errors);
 			Properties props = getCheckStyleProps();
 			Set<String> unmapped = getUnmappedMessages(props, msgs);
-			System.out.println(unmapped.size());
-			for (String msg : unmapped) {
+			List<String> unmappedList = new ArrayList<String>(unmapped);
+			System.out.println(unmappedList.size());
+			for (String msg : unmappedList) {
 				System.out.println(msg);
 			}
 
@@ -153,6 +154,15 @@ public class Checkstyle {
 	}
 
 	protected String translate(String msg) {
+		if (msg.contains("Unable to get class information for")) {
+			return "Unable to get class information for";
+		}
+		if (msg.contains("Line is longer than")) {
+			return "Line is longer than";
+		}
+		if (msg.contains("Instantiation of")) {
+			return "Instantiation of";
+		}
 		if (msg.contains("is a magic number.")) {
 			return "is a magic number.";
 		}
