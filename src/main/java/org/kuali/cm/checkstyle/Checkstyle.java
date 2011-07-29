@@ -58,6 +58,16 @@ public class Checkstyle {
 		return unmapped.keySet();
 	}
 
+	protected void showSet(Set<?> set) {
+		for (Object member : set) {
+			System.out.println(member);
+		}
+	}
+
+	protected Set<SourceFile> getSourceFiles(Set<String> msgs, List<Error> errors, Set<String> files, Properties props) {
+		return null;
+	}
+
 	protected void execute() {
 		try {
 			List<Error> errors = getErrorObjects(getErrors());
@@ -65,12 +75,10 @@ public class Checkstyle {
 			Set<String> files = getUniqueFiles(errors);
 			Properties props = getCheckStyleProps();
 			Set<String> unmapped = getUnmappedMessages(props, msgs);
-			List<String> unmappedList = new ArrayList<String>(unmapped);
-			System.out.println(unmappedList.size());
-			for (String msg : unmappedList) {
-				System.out.println(msg);
+			if (unmapped.size() > 0) {
+				showSet(msgs);
+				throw new RuntimeException("There are unknown messages");
 			}
-
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -131,7 +139,7 @@ public class Checkstyle {
 		for (String key : props.stringPropertyNames()) {
 			String value = props.getProperty(key);
 			if (value.trim().equals(msg.trim())) {
-				int pos = key.indexOf(".");
+				int pos = key.lastIndexOf(".");
 				if (pos != -1) {
 					key = key.substring(0, pos);
 				}
