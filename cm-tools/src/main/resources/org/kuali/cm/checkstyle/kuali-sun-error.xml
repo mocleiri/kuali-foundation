@@ -6,15 +6,15 @@
   <!--
     <module name="JavadocPackage">
     <property name="allowLegacy" value="true" />
-    <property name="severity" value="info" />
+    <property name="severity" value="error" />
     </module>
     <module name="NewlineAtEndOfFile">
-    <property name="severity" value="info" />
+    <property name="severity" value="error" />
     </module>
     <module name="RegexpSingleline">
     <property name="format" value="\s+$" />
     <property name="message" value="Line has trailing spaces." />
-    <property name="severity" value="info" />
+    <property name="severity" value="error" />
     </module>
   -->
   <module name="Translation" />
@@ -31,62 +31,62 @@
       <module name="AvoidInlineConditionals" />
       <module name="FinalParameters" />
       <module name="JavadocMethod">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
       </module>
       <module name="JavadocType">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
       </module>
       <module name="JavadocVariable">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
       </module>
       <module name="JavadocStyle">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
       </module>
       <module name="ModifierOrder">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
       </module>
       <module name="RedundantModifier">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
       </module>
       <module name="HiddenField">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
       </module>
       <module name="DesignForExtension">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
       </module>
       <module name="TodoComment">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
       </module>
       <module name="HideUtilityClassConstructor">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
       </module>
     -->
     <module name="FinalClass">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
     </module>
     <module name="ArrayTypeStyle">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
     </module>
     <module name="MagicNumber">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
       <property name="ignoreNumbers" value="-1, 0, 1, 2, 1024, 255" />
     </module>
     <module name="RedundantImport">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
     </module>
     <module name="RedundantThrows">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
     </module>
     <module name="SimplifyBooleanReturn">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
     </module>
     <module name="SimplifyBooleanExpression">
-      <property name="severity" value="info" />
+      <property name="severity" value="error" />
     </module>
     <module name="LineLength">
       <property name="id" value="lineInfo" />
       <property name="max" value="120" />
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="LineLength">
       <property name="id" value="lineError" />
@@ -94,23 +94,23 @@
       <property name="severity" value="error" />
     </module>
     <module name="UnusedImports">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="EmptyBlock">
       <property name="id" value="emptyBlock" />
       <property name="option" value="stmt" />
       <property name="tokens"
         value="LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_IF, LITERAL_FOR, LITERAL_TRY, LITERAL_WHILE, INSTANCE_INIT, STATIC_INIT" />
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="EmptyBlock">
       <property name="id" value="emptyCatchBlock" />
       <property name="option" value="text" />
       <property name="tokens" value="LITERAL_CATCH" />
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="NeedBraces">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="ParameterNumber">
       <property name="max" value="7" />
@@ -164,16 +164,16 @@
       <property name="severity" value="error" />
     </module>
     <module name="EmptyStatement">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="EqualsHashCode">
       <property name="severity" value="error" />
     </module>
     <module name="InnerAssignment">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="OperatorWrap">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="LocalFinalVariableName">
       <property name="severity" value="error" />
@@ -182,13 +182,13 @@
       <property name="severity" value="error" />
     </module>
     <module name="DoubleCheckedLocking">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="MissingSwitchDefault">
       <property name="severity" value="error" />
     </module>
     <module name="ParenPad">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="UpperEll">
       <property name="severity" value="error" />
@@ -207,19 +207,19 @@
       <property name="severity" value="error" />
     </module>
     <module name="EmptyForIteratorPad">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="MethodParamPad">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="NoWhitespaceBefore">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="TypecastParenPad">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="IllegalInstantiation">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
       <property name="classes" value="java.lang.Boolean" />
     </module>
     <module name="AnnotationUseStyle">
@@ -241,7 +241,7 @@
       <property name="severity" value="error" />
     </module>
     <module name="EqualsAvoidNull">
-      <property name="severity" value="warning" />
+      <property name="severity" value="error" />
     </module>
     <module name="StringLiteralEquality">
       <property name="severity" value="error" />
