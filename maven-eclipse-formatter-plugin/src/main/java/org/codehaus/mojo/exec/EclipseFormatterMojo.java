@@ -1,5 +1,7 @@
 package org.codehaus.mojo.exec;
 
+import static org.codehaus.plexus.util.StringUtils.isEmpty;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,7 +17,6 @@ import org.codehaus.plexus.util.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import static org.codehaus.plexus.util.StringUtils.isEmpty;
 
 /**
  * A plugin for executing the Eclipse java source code formatter
@@ -76,6 +77,14 @@ public class EclipseFormatterMojo extends ExecMojo {
     private String[] eclipseArgs = new String[] { "-nosplash", "-verbose" };
 
     /**
+     * Location on the file system that contains java source code.
+     * 
+     * @parameter expression="${eclipse.baseDirectory}" default-value="${project.basedir}"
+     * @required
+     */
+    private String baseDirectory;
+
+    /**
      * Regular expressions for directories that contain Java source code to format. Default value is
      * &#042;&#042;/src/main/java. The Eclipse formatter will recursively inspect any directories matching these
      * patterns for *.java files
@@ -93,7 +102,7 @@ public class EclipseFormatterMojo extends ExecMojo {
 
     protected List<File> getSourceDirectories() {
         DirectoryScanner scanner = new DirectoryScanner();
-        scanner.setBasedir(project.getBasedir());
+        scanner.setBasedir(baseDirectory);
         scanner.setIncludes(includes);
         scanner.setExcludes(excludes);
         scanner.scan();
@@ -293,6 +302,14 @@ public class EclipseFormatterMojo extends ExecMojo {
 
     public void setEclipseArgs(String[] args) {
         this.eclipseArgs = args;
+    }
+
+    public String getBaseDirectory() {
+        return baseDirectory;
+    }
+
+    public void setBaseDirectory(String baseDirectory) {
+        this.baseDirectory = baseDirectory;
     }
 
 }
