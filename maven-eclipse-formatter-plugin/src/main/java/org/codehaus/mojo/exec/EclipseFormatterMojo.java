@@ -109,7 +109,7 @@ public class EclipseFormatterMojo extends ExecMojo {
         String[] includedDirs = scanner.getIncludedDirectories();
         List<File> dirs = new ArrayList<File>();
         for (String includedDir : includedDirs) {
-            File file = new File(project.getBasedir().getAbsolutePath() + FS + includedDir);
+            File file = new File(scanner.getBasedir().getAbsolutePath() + FS + includedDir);
             dirs.add(file);
         }
         return dirs;
