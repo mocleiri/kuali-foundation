@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<!-- different big-int types -->
+	<property name="bigint.type" value="NUMBER" dbms="oracle"/>
+	<property name="bigint.type" value="java.sql.Types.BIGINT" dbms="mysql"/>
+	
+	<changeSet author="alubbers" id="ksen_lui-07-27-2011-drop-columns">
+		<dropColumn tableName="KSEN_LUI" columnName="LUI_CODE"/>
+		<dropColumn tableName="KSEN_LUI" columnName="STDY_SUBJ_AREA" />
+		<dropColumn tableName="KSEN_LUI" columnName="HAS_WTLST" />
+		<dropColumn tableName="KSEN_LUI" columnName="IS_WTLSTCHK_REQ" />
+		<dropColumn tableName="KSEN_LUI" columnName="STDY_TITLE" />
+		<dropColumn tableName="KSEN_LUI" columnName="WTLST_MAX" />
+	</changeSet>
+	
+	<changeSet author="alubbers" id="ksen_lui-07-27-2011-add-ref-url">
+		<addColumn tableName="KSEN_LUI">
+			<column name="REF_URL" type="java.sql.Types.VARCHAR(255)"/>
+			<column name="OFFIC_LUI_ID" type="java.sql.Types.VARCHAR(255)"/>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet author="alubbers" id="ksen_luilui_reltn-07-27-2011-add-foreign-keys">
+		<addForeignKeyConstraint constraintName="FKF07F59221343973C" baseTableName="KSEN_LUILUI_RELTN" baseColumnNames="RELATED_LUI_ID" referencedTableName="KSEN_LUI" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FKF07F592255882CA8" baseTableName="KSEN_LUILUI_RELTN" baseColumnNames="LUI_ID" referencedTableName="KSEN_LUI" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FKF07F59228D1000ED" baseTableName="KSEN_LUILUI_RELTN" baseColumnNames="RT_DESCR_ID" referencedTableName="KSEN_LUI_RICH_TEXT" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FKF07F592298517E2C" baseTableName="KSEN_LUILUI_RELTN" baseColumnNames="STATE_ID" referencedTableName="KSEN_COMM_STATE" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FKF07F5922B7C4E988" baseTableName="KSEN_LUILUI_RELTN" baseColumnNames="TYPE_ID" referencedTableName="KSEN_LUI_TYPE" referencedColumnNames="TYPE_KEY" />
+	</changeSet>
+	
+	<changeSet author="alubbers" id="ksen_lui-07-27-2011-add-foreign-keys">
+		<addForeignKeyConstraint constraintName="FKFD33EB28D1000ED" baseTableName="KSEN_LUI" baseColumnNames="RT_DESCR_ID" referencedTableName="KSEN_LUI_RICH_TEXT" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FKFD33EB298517E2C" baseTableName="KSEN_LUI" baseColumnNames="STATE_ID" referencedTableName="KSEN_COMM_STATE" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FKFD33EB2B7C4E988" baseTableName="KSEN_LUI" baseColumnNames="TYPE_ID" referencedTableName="KSEN_LUI_TYPE" referencedColumnNames="TYPE_KEY" />
+		<addForeignKeyConstraint constraintName="FKFD33EB2656AF27" baseTableName="KSEN_LUI" baseColumnNames="OFFIC_LUI_ID" referencedTableName="KSEN_LUI" referencedColumnNames="ID" />
+	</changeSet>
+	
+	<changeSet author="alubbers" id="ksen_lui_attr-07-27-2011-add-foreign-keys">
+		<addForeignKeyConstraint constraintName="FKDD9BAB5E6831FFE7" baseTableName="KSEN_LUI_ATTR" baseColumnNames="OWNER" referencedTableName="KSEN_LUILUI_RELTN" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FKDD9BAB5E9CEED1A1" baseTableName="KSEN_LUI_ATTR" baseColumnNames="OWNER" referencedTableName="KSEN_LUI_INSTR" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FKDD9BAB5EA1B912DE" baseTableName="KSEN_LUI_ATTR" baseColumnNames="OWNER" referencedTableName="KSEN_LUI_TYPE" referencedColumnNames="TYPE_KEY" />
+		<addForeignKeyConstraint constraintName="FKDD9BAB5EF0F1FBFB" baseTableName="KSEN_LUI_ATTR" baseColumnNames="OWNER" referencedTableName="KSEN_LUI" referencedColumnNames="ID" />
+	</changeSet>
+	
+	<changeSet author="alubbers" id="ksen_luilui_reltn_attr-07-27-2011-create">
+		<createTable tableName="KSEN_LUILUI_RELTN_ATTR">
+			<column name="ID" type="java.sql.Types.VARCHAR(255)">
+				<constraints nullable="false" primaryKey="true" primaryKeyTablespace="USERS"/>
+			</column>
+			<column name="OBJ_ID" type="java.sql.Types.VARCHAR(36)"/>
+			<column name="ATTR_KEY" type="java.sql.Types.VARCHAR(255)"/>
+			<column name="ATTR_VALUE" type="java.sql.Types.VARCHAR(2000)"/>
+			<column name="OWNER" type="java.sql.Types.VARCHAR(255)"/>
+		</createTable>
+		<addForeignKeyConstraint constraintName="FKA58E96EE6831FFE7" baseTableName="KSEN_LUILUI_RELTN_ATTR" baseColumnNames="OWNER" referencedTableName="KSEN_LUILUI_RELTN" referencedColumnNames="ID" />
+	</changeSet>
+	
+	<changeSet author="alubbers" id="ksen_lui_type_attr-07-27-2011-create">
+		<createTable tableName="KSEN_LUI_TYPE_ATTR">
+			<column name="ID" type="java.sql.Types.VARCHAR(255)">
+				<constraints nullable="false" primaryKey="true" primaryKeyTablespace="USERS"/>
+			</column>
+			<column name="OBJ_ID" type="java.sql.Types.VARCHAR(36)"/>
+			<column name="ATTR_KEY" type="java.sql.Types.VARCHAR(255)"/>
+			<column name="ATTR_VALUE" type="java.sql.Types.VARCHAR(2000)"/>
+			<column name="OWNER" type="java.sql.Types.VARCHAR(255)"/>
+		</createTable>
+		<addForeignKeyConstraint constraintName="FKFC6A7A89F0F1FBFB" baseTableName="KSEN_LUI_TYPE_ATTR" baseColumnNames="OWNER" referencedTableName="KSEN_LUI_TYPE" referencedColumnNames="TYPE_KEY" />
+	</changeSet>
+	
+	<changeSet author="alubbers" id="ksen_lui_ident-07-27-2011-create">
+		<createTable tableName="KSEN_LUI_IDENT">
+			<column name="ID" type="java.sql.Types.VARCHAR(255)">
+				<constraints nullable="false" primaryKey="true" primaryKeyTablespace="USERS"/>
+			</column>
+			<column name="OBJ_ID" type="java.sql.Types.VARCHAR(36)" />
+			<column name="VER_NBR" type="${bigint.type}(19)"/>
+			<column name="CREATEID" type="java.sql.Types.VARCHAR(255)" />
+			<column name="CREATETIME" type="java.sql.Types.TIMESTAMP" />
+			<column name="UPDATEID" type="java.sql.Types.VARCHAR(255)" />
+			<column name="UPDATETIME" type="java.sql.Types.TIMESTAMP" />
+			<column name="CD" type="java.sql.Types.VARCHAR(255)" /> 
+			<column name="DIVISION" type="java.sql.Types.VARCHAR(255)" /> 
+			<column name="LNG_NAME" type="java.sql.Types.VARCHAR(255)" /> 
+			<column name="SHRT_NAME" type="java.sql.Types.VARCHAR(255)" /> 
+			<column name="ST" type="java.sql.Types.VARCHAR(255)" /> 
+			<column name="SUFX_CD" type="java.sql.Types.VARCHAR(255)" /> 
+			<column name="TYPE" type="java.sql.Types.VARCHAR(255)" /> 
+			<column name="VARTN" type="java.sql.Types.VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	
+	<changeSet author="alubbers" id="ksen_lui_jn_lui_ident-07-27-2011-create">
+		<createTable tableName="KSEN_LUI_JN_LUI_IDENT">
+			<column name="LUI_ID" type="java.sql.Types.VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="ALT_LUI_ID" type="java.sql.Types.VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint constraintName="FK40FD27E33A82D447" baseTableName="KSEN_LUI_JN_LUI_IDENT" baseColumnNames="ALT_LUI_ID" referencedTableName="KSEN_LUI_IDENT" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FK40FD27E355882CA8" baseTableName="KSEN_LUI_JN_LUI_IDENT" baseColumnNames="LUI_ID" referencedTableName="KSEN_LUI" referencedColumnNames="ID" />
+	</changeSet>
+	
+	<changeSet author="alubbers" id="ksen_lui_ident_attr-07-27-2011-create">
+		<createTable tableName="KSEN_LUI_IDENT_ATTR">
+			<column name="ID" type="java.sql.Types.VARCHAR(255)">
+				<constraints nullable="false" primaryKey="true" primaryKeyTablespace="USERS"/>
+			</column>
+			<column name="OBJ_ID" type="java.sql.Types.VARCHAR(36)"/>
+			<column name="ATTR_KEY" type="java.sql.Types.VARCHAR(255)"/>
+			<column name="ATTR_VALUE" type="java.sql.Types.VARCHAR(2000)"/>
+			<column name="OWNER" type="java.sql.Types.VARCHAR(255)"/>
+		</createTable>
+		<addForeignKeyConstraint constraintName="FK3C63D6ADB1BE75EA" baseTableName="KSEN_LUI_IDENT_ATTR" baseColumnNames="OWNER" referencedTableName="KSEN_LUI_IDENT" referencedColumnNames="ID" />
+	</changeSet>
+	
+	<changeSet author="alubbers" id="ksen_lui_lucd-07-27-2011-create">
+		<createTable tableName="KSEN_LUI_LUCD">
+			<column name="ID" type="java.sql.Types.VARCHAR(255)">
+				<constraints nullable="false" primaryKey="true" primaryKeyTablespace="USERS"/>
+			</column>
+			<column name="OBJ_ID" type="java.sql.Types.VARCHAR(36)" />
+			<column name="VER_NBR" type="${bigint.type}(19)"/>
+			<column name="CREATEID" type="java.sql.Types.VARCHAR(255)" />
+			<column name="CREATETIME" type="java.sql.Types.TIMESTAMP" />
+			<column name="UPDATEID" type="java.sql.Types.VARCHAR(255)" />
+			<column name="UPDATETIME" type="java.sql.Types.TIMESTAMP" />
+			<column name="TYPE" type="java.sql.Types.VARCHAR(255)"/>
+			<column name="VALUE" type="java.sql.Types.VARCHAR(255)"/>
+			<column name="RT_DESCR_ID" type="java.sql.Types.VARCHAR(255)"/>
+			<column name="LUI_ID" type="java.sql.Types.VARCHAR(255)"/>
+		</createTable>
+		<addForeignKeyConstraint constraintName="FKDDA0AD1755882CA8" baseTableName="KSEN_LUI_LUCD" baseColumnNames="LUI_ID" referencedTableName="KSEN_LUI" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FKDDA0AD178D1000ED" baseTableName="KSEN_LUI_LUCD" baseColumnNames="RT_DESCR_ID" referencedTableName="KSEN_LUI_RICH_TEXT" referencedColumnNames="ID" />
+	</changeSet>
+	
+	<changeSet author="alubbers" id="ksen_lui_lucd_attr-07-27-2011-create">
+		<createTable tableName="KSEN_LUI_LUCD_ATTR">
+			<column name="ID" type="java.sql.Types.VARCHAR(255)">
+				<constraints nullable="false" primaryKey="true" primaryKeyTablespace="USERS"/>
+			</column>
+			<column name="OBJ_ID" type="java.sql.Types.VARCHAR(36)"/>
+			<column name="ATTR_KEY" type="java.sql.Types.VARCHAR(255)"/>
+			<column name="ATTR_VALUE" type="java.sql.Types.VARCHAR(2000)"/>
+			<column name="OWNER" type="java.sql.Types.VARCHAR(255)"/>
+		</createTable>
+		<addForeignKeyConstraint constraintName="FK95C7419C1170681" baseTableName="KSEN_LUI_LUCD_ATTR" baseColumnNames="OWNER" referencedTableName="KSEN_LUI_LUCD" referencedColumnNames="ID" />
+	</changeSet>
+	
+</databaseChangeLog>
