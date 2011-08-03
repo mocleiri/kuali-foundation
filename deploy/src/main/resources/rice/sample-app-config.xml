@@ -10,4 +10,5 @@
   <param name="datasource.url">${impex.url}</param>
   <param name="datasource.username">${impex.username}</param>
   <param name="datasource.password">${impex.password}</param>
+  <param name="encryption.key>foobarbaz123456789</param>
 </config>
