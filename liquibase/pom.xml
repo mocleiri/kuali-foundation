@@ -11,6 +11,9 @@
   <version>1.2-SNAPSHOT</version>
   <name>KS Embedded DB - Liquibase</name>
   <description>Kuali Student Embedded DB implemented via Liquibase</description>
+  <properties>
+    <db.name>KSLIQUIBASE</db.name>
+  </properties>
   <build>
     <pluginManagement>
       <plugins>
@@ -19,26 +22,59 @@
           <artifactId>liquibase-maven-plugin</artifactId>
           <version>2.0.3-SNAPSHOT</version>
           <configuration>
-            <changeLogFile>${project.basedir}/src/test/resources/simple.xml</changeLogFile>
-            <defaultSchemaName>KSLIQUIBASE</defaultSchemaName>
-            <username>KSLIQUIBASE</username>
-            <password>KSLIQUIBASE</password>
-            <driver>oracle.jdbc.driver.OracleDriver</driver>
-            <url>jdbc:oracle:thin:@deploy.ks.kuali.org:1521:KS</url>
+            <changeLogFile>simple.xml</changeLogFile>
+            <defaultSchemaName>${db.name}</defaultSchemaName>
+            <username>${db.name}</username>
+            <password>${db.name}</password>
             <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-            <dropFirst>false</dropFirst>
+            <dropFirst>true</dropFirst>
             <verbose>true</verbose>
             <logging>info</logging>
           </configuration>
+          <executions>
+            <execution>
+              <id>oracle</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>update</goal>
+              </goals>
+              <configuration>
+                <driver>oracle.jdbc.driver.OracleDriver</driver>
+                <url>jdbc:oracle:thin:@localhost:1521:XE</url>
+              </configuration>
+            </execution>
+            <execution>
+              <id>mysql</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>update</goal>
+              </goals>
+              <configuration>
+                <driver>com.mysql.jdbc.Driver</driver>
+                <url>jdbc:mysql://localhost/${db.name}</url>
+              </configuration>
+            </execution>
+          </executions>
           <dependencies>
             <dependency>
               <groupId>com.oracle</groupId>
               <artifactId>ojdbc14</artifactId>
               <version>10.2.0.3.0</version>
             </dependency>
+            <dependency>
+              <groupId>mysql</groupId>
+              <artifactId>mysql-connector-java</artifactId>
+              <version>5.1.13</version>
+            </dependency>
           </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.kuali.db.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
   </build>
 </project>
