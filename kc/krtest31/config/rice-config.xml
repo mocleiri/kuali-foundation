@@ -46,7 +46,7 @@
 	<param name="rice.portal.logout.redirectUrl">${cas.url}/logout</param>
 	
 	<!-- CAS Configuration -->
-    <param name="cas.url">http://test.kc.kuali.org:8088/cas-trunk</param>
+    <param name="cas.url">http://test.kc.kuali.org:8088/cas-test31</param>
     
     <param name="filter.logout.class">org.jasig.cas.client.session.SingleSignOutFilter</param>
     <param name="filtermapping.logout.1">/*</param>
