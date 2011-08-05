@@ -33,10 +33,60 @@
     <derby.driver>org.apache.derby.jdbc.EmbeddedDriver</derby.driver>
     <derby.dba.url>jdbc:derby:${project.build.directory}/derby/${sql.database};create=true</derby.dba.url>
     <derby.url>jdbc:derby:${sql.database}</derby.url>
+    <derby.version>10.8.1.2</derby.version>
   </properties>
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.1</version>
+          <executions>
+            <execution>
+              <id>start-derby</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>java</goal>
+              </goals>
+              <configuration>
+                <mainClass>org.apache.derby.drda.NetworkServerControl</mainClass>
+                <arguments>
+                  <argument>start</argument>
+                </arguments>
+                <includeProjectDependencies>false</includeProjectDependencies>
+                <includePluginDependencies>true</includePluginDependencies>
+              </configuration>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.derby</groupId>
+              <artifactId>derbyrun</artifactId>
+              <version>${derby.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.apache.derby</groupId>
+              <artifactId>derby</artifactId>
+              <version>${derby.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.apache.derby</groupId>
+              <artifactId>derbyclient</artifactId>
+              <version>${derby.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.apache.derby</groupId>
+              <artifactId>derbytools</artifactId>
+              <version>${derby.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.apache.derby</groupId>
+              <artifactId>derbynet</artifactId>
+              <version>${derby.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>properties-maven-plugin</artifactId>
@@ -125,7 +175,7 @@
             <dependency>
               <groupId>org.apache.derby</groupId>
               <artifactId>derby</artifactId>
-              <version>10.8.1.2</version>
+              <version>${derby.version}</version>
             </dependency>
             <dependency>
               <groupId>com.oracle</groupId>
@@ -142,6 +192,10 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>properties-maven-plugin</artifactId>
