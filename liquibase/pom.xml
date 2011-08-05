@@ -11,15 +11,107 @@
   <version>1.0-SNAPSHOT</version>
   <name>Liquibase POC Testing</name>
   <properties>
-    <db.name>LB</db.name>
+    <sql.database>LIQUIBASE</sql.database>
+    <sql.username>${sql.database}</sql.username>
+    <sql.password>${sql.database}</sql.password>
+    <oracle.driver>oracle.jdbc.driver.OracleDriver</oracle.driver>
+    <oracle.url>jdbc:oracle:thin:@localhost:1521:XE</oracle.url>
+    <oracle.dba.url>${oracle.url}</oracle.dba.url>
+    <mysql.driver>com.mysql.jdbc.Driver</mysql.driver>
+    <mysql.dba.url>jdbc:mysql://localhost</mysql.dba.url>
+    <mysql.url>${mysql.dba.url}/${sql.database}</mysql.url>
   </properties>
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+          <version>1.0-alpha-3-SNAPSHOT</version>
+          <executions>
+            <execution>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <urls>
+                  <url>classpath:org/kuali/sql/sql.properties</url>
+                </urls>
+              </configuration>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+              <groupId>org.kuali.db.sql</groupId>
+              <artifactId>kuali-sql</artifactId>
+              <version>1.0.2-SNAPSHOT</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>sql-maven-plugin</artifactId>
           <version>1.6</version>
+          <executions>
+            <execution>
+              <id>oracle</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>execute</goal>
+              </goals>
+              <configuration>
+                <driver>${oracle.driver}</driver>
+                <url>${oracle.dba.url}</url>
+                <username>system</username>
+                <password>gw570229</password>
+                <delimiter>/</delimiter>
+                <delimiterType>row</delimiterType>
+                <enableFiltering>true</enableFiltering>
+                <resourceLocations>
+                  <resourceLocation>classpath:org/kuali/sql/oracle/dba/drop.sql</resourceLocation>
+                  <resourceLocation>classpath:org/kuali/sql/oracle/dba/create.sql</resourceLocation>
+                </resourceLocations>
+              </configuration>
+            </execution>
+            <execution>
+              <id>mysql</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>execute</goal>
+              </goals>
+              <configuration>
+                <driver>${mysql.driver}</driver>
+                <url>${mysql.dba.url}</url>
+                <username>root</username>
+                <password>gw570229</password>
+                <delimiter>/</delimiter>
+                <delimiterType>row</delimiterType>
+                <enableFiltering>true</enableFiltering>
+                <resourceLocations>
+                  <resourceLocation>classpath:org/kuali/sql/mysql/dba/drop.sql</resourceLocation>
+                  <resourceLocation>classpath:org/kuali/sql/mysql/dba/create.sql</resourceLocation>
+                </resourceLocations>
+              </configuration>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+              <groupId>com.oracle</groupId>
+              <artifactId>ojdbc14</artifactId>
+              <version>10.2.0.3.0</version>
+            </dependency>
+            <dependency>
+              <groupId>mysql</groupId>
+              <artifactId>mysql-connector-java</artifactId>
+              <version>5.1.13</version>
+            </dependency>
+            <dependency>
+              <groupId>org.kuali.db.sql</groupId>
+              <artifactId>kuali-sql</artifactId>
+              <version>1.0.2-SNAPSHOT</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <groupId>org.kuali.db.liquibase</groupId>
@@ -27,12 +119,10 @@
           <version>2.0.3-SNAPSHOT</version>
           <configuration>
             <changeLogFile>simple.xml</changeLogFile>
-            <defaultSchemaName>${db.name}</defaultSchemaName>
-            <username>${db.name}</username>
-            <password>${db.name}</password>
+            <defaultSchemaName>${sql.database}</defaultSchemaName>
+            <username>${sql.username}</username>
+            <password>${sql.password}</password>
             <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-            <dropFirst>true</dropFirst>
-            <logging>info</logging>
           </configuration>
           <executions>
             <execution>
@@ -44,8 +134,8 @@
               </goals>
               <configuration>
                 <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-oracle.sql</migrationSqlOutputFile>
-                <driver>oracle.jdbc.driver.OracleDriver</driver>
-                <url>jdbc:oracle:thin:@localhost:1521:XE</url>
+                <driver>${oracle.driver}</driver>
+                <url>${oracle.url}</url>
               </configuration>
             </execution>
             <execution>
@@ -57,8 +147,8 @@
               </goals>
               <configuration>
                 <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-mysql.sql</migrationSqlOutputFile>
-                <driver>com.mysql.jdbc.Driver</driver>
-                <url>jdbc:mysql://localhost/${db.name}</url>
+                <driver>${mysql.driver}</driver>
+                <url>${mysql.url}</url>
               </configuration>
             </execution>
           </executions>
@@ -78,6 +168,14 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>sql-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.kuali.db.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
