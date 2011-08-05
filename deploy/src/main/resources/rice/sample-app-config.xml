@@ -11,4 +11,5 @@
   <param name="datasource.username">${impex.username}</param>
   <param name="datasource.password">${impex.password}</param>
   <param name="encryption.key">foobarbaz123456789</param>
+  <param name="keystore.file">/usr/local/tomcat_deploy/kuali/main/dev/rice.keystore</param>
 </config>
