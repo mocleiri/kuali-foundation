@@ -97,6 +97,7 @@
                 </resourceLocations>
               </configuration>
             </execution>
+            <!-- 
             <execution>
               <id>derby</id>
               <phase>process-resources</phase>
@@ -117,6 +118,7 @@
                 </resourceLocations>
               </configuration>
             </execution>
+             -->
           </executions>
           <dependencies>
             <dependency>
@@ -190,7 +192,7 @@
                 <changeLogFile>${project.basedir}/src/test/resources/derby.xml</changeLogFile>
                 <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-derby.sql</migrationSqlOutputFile>
                 <driver>${derby.driver}</driver>
-                <url>${derby.url}</url>
+                <url>${derby.dba.url}</url>
               </configuration>
             </execution>
           </executions>
