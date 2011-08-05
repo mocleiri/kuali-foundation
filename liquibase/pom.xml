@@ -106,8 +106,8 @@
               <configuration>
                 <driver>${derby.driver}</driver>
                 <url>${derby.dba.url}</url>
+                <enableAnonymousPassword>true</enableAnonymousPassword>
                 <username>root</username>
-                <password>gw570229</password>
                 <delimiter>/</delimiter>
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
