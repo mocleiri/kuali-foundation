@@ -20,6 +20,9 @@
     <mysql.driver>com.mysql.jdbc.Driver</mysql.driver>
     <mysql.dba.url>jdbc:mysql://localhost</mysql.dba.url>
     <mysql.url>${mysql.dba.url}/${sql.database}</mysql.url>
+    <derby.driver>org.apache.derby.jdbc.EmbeddedDriver</derby.driver>
+    <derby.dba.url>jdbc:derby:${project.build.directory}/derby/${sql.database};create=true</derby.dba.url>
+    <derby.url>jdbc:derby:${sql.database}</derby.url>
   </properties>
   <build>
     <pluginManagement>
@@ -94,8 +97,33 @@
                 </resourceLocations>
               </configuration>
             </execution>
+            <execution>
+              <id>derby</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>execute</goal>
+              </goals>
+              <configuration>
+                <driver>${derby.driver}</driver>
+                <url>${derby.dba.url}</url>
+                <username>root</username>
+                <password>gw570229</password>
+                <delimiter>/</delimiter>
+                <delimiterType>row</delimiterType>
+                <enableFiltering>true</enableFiltering>
+                <resourceLocations>
+                  <resourceLocation>classpath:org/kuali/sql/derby/validate.sql</resourceLocation>
+                  <resourceLocation>classpath:org/kuali/sql/derby/dba/create.sql</resourceLocation>
+                </resourceLocations>
+              </configuration>
+            </execution>
           </executions>
           <dependencies>
+            <dependency>
+              <groupId>org.apache.derby</groupId>
+              <artifactId>derby</artifactId>
+              <version>10.8.1.2</version>
+            </dependency>
             <dependency>
               <groupId>com.oracle</groupId>
               <artifactId>ojdbc14</artifactId>
@@ -118,7 +146,7 @@
           <artifactId>liquibase-maven-plugin</artifactId>
           <version>2.0.3-SNAPSHOT</version>
           <configuration>
-            <changeLogFile>simple.xml</changeLogFile>
+            <changeLogFile>${project.basedir}/src/test/resources/simple.xml</changeLogFile>
             <defaultSchemaName>${sql.database}</defaultSchemaName>
             <username>${sql.username}</username>
             <password>${sql.password}</password>
