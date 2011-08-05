@@ -31,7 +31,7 @@
     <mysql.dba.url>jdbc:mysql://localhost</mysql.dba.url>
     <mysql.url>${mysql.dba.url}/${sql.database}</mysql.url>
     <derby.driver>org.apache.derby.jdbc.EmbeddedDriver</derby.driver>
-    <derby.dba.url>jdbc:derby:${project.build.directory}/${sql.database};create=true</derby.dba.url>
+    <derby.dba.url>jdbc:derby:../../../target/${sql.database};create=true</derby.dba.url>
     <derby.url>jdbc:derby:${sql.database}</derby.url>
   </properties>
   <build>
@@ -116,6 +116,7 @@
                 <enableFiltering>true</enableFiltering>
                 <srcFiles>
                   <srcFile>../../main/resources/org/kuali/sql/derby/validate.sql</srcFile>
+                  <srcFile>../../main/resources/org/kuali/sql/derby/dba/create.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
