@@ -72,8 +72,8 @@
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <resourceLocations>
-                  <resourceLocation>classpath:org/kuali/sql/oracle/dba/drop.sql</resourceLocation>
-                  <resourceLocation>classpath:org/kuali/sql/oracle/dba/create.sql</resourceLocation>
+                  <resourceLocation>classpath:org/kuali/sql/oracle/drop.sql</resourceLocation>
+                  <resourceLocation>classpath:org/kuali/sql/oracle/create.sql</resourceLocation>
                 </resourceLocations>
               </configuration>
             </execution>
@@ -92,12 +92,11 @@
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <resourceLocations>
-                  <resourceLocation>classpath:org/kuali/sql/mysql/dba/drop.sql</resourceLocation>
-                  <resourceLocation>classpath:org/kuali/sql/mysql/dba/create.sql</resourceLocation>
+                  <resourceLocation>classpath:org/kuali/sql/mysql/drop.sql</resourceLocation>
+                  <resourceLocation>classpath:org/kuali/sql/mysql/create.sql</resourceLocation>
                 </resourceLocations>
               </configuration>
             </execution>
-            <!-- 
             <execution>
               <id>derby</id>
               <phase>process-resources</phase>
@@ -114,11 +113,10 @@
                 <enableFiltering>true</enableFiltering>
                 <resourceLocations>
                   <resourceLocation>classpath:org/kuali/sql/derby/validate.sql</resourceLocation>
-                  <resourceLocation>classpath:org/kuali/sql/derby/dba/create.sql</resourceLocation>
+                  <resourceLocation>classpath:org/kuali/sql/derby/create.sql</resourceLocation>
                 </resourceLocations>
               </configuration>
             </execution>
-             -->
           </executions>
           <dependencies>
             <dependency>
@@ -189,10 +187,9 @@
                 <goal>update</goal>
               </goals>
               <configuration>
-                <changeLogFile>${project.basedir}/src/test/resources/derby.xml</changeLogFile>
                 <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-derby.sql</migrationSqlOutputFile>
                 <driver>${derby.driver}</driver>
-                <url>${derby.dba.url}</url>
+                <url>${derby.url}</url>
               </configuration>
             </execution>
           </executions>
