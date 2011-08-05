@@ -75,8 +75,8 @@
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <srcFiles>
-                  <srcFile>src/main/resources/org/kuali/sql/oracle/dba/drop.sql</srcFile>
-                  <srcFile>src/main/resources/org/kuali/sql/oracle/dba/create.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/oracle/drop.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/oracle/create.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
@@ -95,8 +95,8 @@
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <srcFiles>
-                  <srcFile>src/main/resources/org/kuali/sql/mysql/dba/drop.sql</srcFile>
-                  <srcFile>src/main/resources/org/kuali/sql/mysql/dba/create.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/mysql/drop.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/mysql/create.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
@@ -116,7 +116,7 @@
                 <enableFiltering>true</enableFiltering>
                 <srcFiles>
                   <srcFile>src/main/resources/org/kuali/sql/derby/validate.sql</srcFile>
-                  <srcFile>src/main/resources/org/kuali/sql/derby/dba/create.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/derby/create.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
