@@ -17,12 +17,41 @@
     <artifactId>kuali-common</artifactId>
     <version>18</version>
   </parent>
-  <groupId>org.kuali.db.liquibase</groupId>
+  <groupId>org.kuali.db.sql</groupId>
   <artifactId>sql-test</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <properties>
+    <sql.database>TEST_DB</sql.database>
+    <sql.username>${sql.database}</sql.username>
+    <sql.password>${sql.database}</sql.password>
+    <oracle.driver>oracle.jdbc.driver.OracleDriver</oracle.driver>
+    <oracle.url>jdbc:oracle:thin:@localhost:1521:XE</oracle.url>
+    <oracle.dba.url>${oracle.url}</oracle.dba.url>
+    <mysql.driver>com.mysql.jdbc.Driver</mysql.driver>
+    <mysql.dba.url>jdbc:mysql://localhost</mysql.dba.url>
+    <mysql.url>${mysql.dba.url}/${sql.database}</mysql.url>
+  </properties>
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+          <version>1.0-alpha-3-SNAPSHOT</version>
+          <executions>
+            <execution>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <files>
+                  <file>../../main/resources/org/kuali/sql/sql.properties</file>
+                </files>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>sql-maven-plugin</artifactId>
@@ -43,8 +72,8 @@
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <srcFiles>
-                  <srcFile>../../main/src/main/resources/org/kuali/sql/oracle/dba/drop.sql</srcFile>
-                  <srcFile>../../main/src/main/resources/org/kuali/sql/oracle/dba/create.sql</srcFile>
+                  <srcFile>../../main/resources/org/kuali/sql/oracle/dba/drop.sql</srcFile>
+                  <srcFile>../../main/resources/org/kuali/sql/oracle/dba/create.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
@@ -63,8 +92,8 @@
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <srcFiles>
-                  <srcFile>../../main/src/main/resources/org/kuali/sql/mysql/dba/drop.sql</srcFile>
-                  <srcFile>../../main/src/main/resources/org/kuali/sql/mysql/dba/create.sql</srcFile>
+                  <srcFile>../../main/resources/org/kuali/sql/mysql/dba/drop.sql</srcFile>
+                  <srcFile>../../main/resources/org/kuali/sql/mysql/dba/create.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
@@ -84,5 +113,15 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>sql-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
   </build>
 </project>
