@@ -57,6 +57,9 @@
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>sql-maven-plugin</artifactId>
           <version>1.6</version>
+          <configuration>
+            <forceMojoExecution>true</forceMojoExecution>
+          </configuration>
           <executions>
             <execution>
               <id>oracle</id>
@@ -113,7 +116,6 @@
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <resourceLocations>
-                  <resourceLocation>classpath:org/kuali/sql/derby/validate.sql</resourceLocation>
                   <resourceLocation>classpath:org/kuali/sql/derby/create.sql</resourceLocation>
                 </resourceLocations>
               </configuration>
@@ -151,6 +153,7 @@
             <defaultSchemaName>${sql.database}</defaultSchemaName>
             <username>${sql.username}</username>
             <password>${sql.password}</password>
+            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
           </configuration>
           <executions>
             <execution>
