@@ -40,55 +40,6 @@
       <plugins>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
-          <artifactId>exec-maven-plugin</artifactId>
-          <version>1.1</version>
-          <executions>
-            <execution>
-              <id>start-derby</id>
-              <phase>process-resources</phase>
-              <goals>
-                <goal>java</goal>
-              </goals>
-              <configuration>
-                <mainClass>org.apache.derby.drda.NetworkServerControl</mainClass>
-                <arguments>
-                  <argument>start</argument>
-                </arguments>
-                <includeProjectDependencies>false</includeProjectDependencies>
-                <includePluginDependencies>true</includePluginDependencies>
-              </configuration>
-            </execution>
-          </executions>
-          <dependencies>
-            <dependency>
-              <groupId>org.apache.derby</groupId>
-              <artifactId>derbyrun</artifactId>
-              <version>${derby.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.apache.derby</groupId>
-              <artifactId>derby</artifactId>
-              <version>${derby.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.apache.derby</groupId>
-              <artifactId>derbyclient</artifactId>
-              <version>${derby.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.apache.derby</groupId>
-              <artifactId>derbytools</artifactId>
-              <version>${derby.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.apache.derby</groupId>
-              <artifactId>derbynet</artifactId>
-              <version>${derby.version}</version>
-            </dependency>
-          </dependencies>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
           <artifactId>properties-maven-plugin</artifactId>
           <version>1.0-alpha-3-SNAPSHOT</version>
           <executions>
@@ -159,13 +110,11 @@
               <configuration>
                 <driver>${derby.driver}</driver>
                 <url>${derby.dba.url}</url>
-                <username>root</username>
-                <password>gw570229</password>
+                <enableAnonymousPassword>true</enableAnonymousPassword>
                 <delimiter>/</delimiter>
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <srcFiles>
-                  <srcFile>src/main/resources/org/kuali/sql/derby/validate.sql</srcFile>
                   <srcFile>src/main/resources/org/kuali/sql/derby/create.sql</srcFile>
                 </srcFiles>
               </configuration>
@@ -192,10 +141,6 @@
       </plugins>
     </pluginManagement>
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>properties-maven-plugin</artifactId>
