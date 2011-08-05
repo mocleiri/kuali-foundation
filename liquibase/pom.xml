@@ -59,7 +59,7 @@
           <executions>
             <execution>
               <id>oracle</id>
-              <phase>process-resources</phase>
+              <phase>none</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -79,7 +79,7 @@
             </execution>
             <execution>
               <id>mysql</id>
-              <phase>process-resources</phase>
+              <phase>none</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
