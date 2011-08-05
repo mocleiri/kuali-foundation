@@ -60,7 +60,7 @@
           <executions>
             <execution>
               <id>oracle</id>
-              <phase>none</phase>
+              <phase>process-resources</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -80,7 +80,7 @@
             </execution>
             <execution>
               <id>mysql</id>
-              <phase>none</phase>
+              <phase>process-resources</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -100,7 +100,7 @@
             </execution>
             <execution>
               <id>derby</id>
-              <phase>none</phase>
+              <phase>process-resources</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -151,7 +151,6 @@
             <defaultSchemaName>${sql.database}</defaultSchemaName>
             <username>${sql.username}</username>
             <password>${sql.password}</password>
-            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
           </configuration>
           <executions>
             <execution>
