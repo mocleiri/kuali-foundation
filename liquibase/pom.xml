@@ -99,7 +99,7 @@
             </execution>
             <execution>
               <id>derby</id>
-              <phase>process-resources</phase>
+              <phase>none</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -189,8 +189,7 @@
               <configuration>
                 <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-derby.sql</migrationSqlOutputFile>
                 <driver>${derby.driver}</driver>
-                <url>${derby.url}</url>
-                <logging>finest</logging>
+                <url>${derby.dba.url}</url>
               </configuration>
             </execution>
           </executions>
