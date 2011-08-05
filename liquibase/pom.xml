@@ -190,6 +190,7 @@
                 <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-derby.sql</migrationSqlOutputFile>
                 <driver>${derby.driver}</driver>
                 <url>${derby.url}</url>
+                <logging>finest</logging>
               </configuration>
             </execution>
           </executions>
