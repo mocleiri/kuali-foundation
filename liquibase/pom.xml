@@ -187,6 +187,7 @@
                 <goal>update</goal>
               </goals>
               <configuration>
+                <changeLogFile>${project.basedir}/src/test/resources/derby.xml</changeLogFile>
                 <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-derby.sql</migrationSqlOutputFile>
                 <driver>${derby.driver}</driver>
                 <url>${derby.url}</url>
