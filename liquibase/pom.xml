@@ -179,6 +179,19 @@
                 <url>${mysql.url}</url>
               </configuration>
             </execution>
+            <execution>
+              <id>derby</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>updateSQL</goal>
+                <goal>update</goal>
+              </goals>
+              <configuration>
+                <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-derby.sql</migrationSqlOutputFile>
+                <driver>${derby.driver}</driver>
+                <url>${derby.url}</url>
+              </configuration>
+            </execution>
           </executions>
           <dependencies>
             <dependency>
