@@ -103,7 +103,7 @@
             </execution>
             <execution>
               <id>derby</id>
-              <phase>process-resources</phase>
+              <phase>none</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
