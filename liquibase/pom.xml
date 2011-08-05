@@ -6,17 +6,21 @@
     <artifactId>kuali-common</artifactId>
     <version>18</version>
   </parent>
-  <groupId>org.kuali.student.db</groupId>
-  <artifactId>ks-embedded-db</artifactId>
-  <version>1.2-SNAPSHOT</version>
-  <name>KS Embedded DB - Liquibase</name>
-  <description>Kuali Student Embedded DB implemented via Liquibase</description>
+  <groupId>org.kuali.db.liquibase</groupId>
+  <artifactId>liquibase-test</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Liquibase POC Testing</name>
   <properties>
-    <db.name>KSLIQUIBASE</db.name>
+    <db.name>LB</db.name>
   </properties>
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>sql-maven-plugin</artifactId>
+          <version>1.6</version>
+        </plugin>
         <plugin>
           <groupId>org.kuali.db.liquibase</groupId>
           <artifactId>liquibase-maven-plugin</artifactId>
@@ -28,7 +32,6 @@
             <password>${db.name}</password>
             <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
             <dropFirst>true</dropFirst>
-            <verbose>true</verbose>
             <logging>info</logging>
           </configuration>
           <executions>
@@ -36,9 +39,11 @@
               <id>oracle</id>
               <phase>process-resources</phase>
               <goals>
+                <goal>updateSQL</goal>
                 <goal>update</goal>
               </goals>
               <configuration>
+                <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-oracle.sql</migrationSqlOutputFile>
                 <driver>oracle.jdbc.driver.OracleDriver</driver>
                 <url>jdbc:oracle:thin:@localhost:1521:XE</url>
               </configuration>
@@ -47,9 +52,11 @@
               <id>mysql</id>
               <phase>process-resources</phase>
               <goals>
+                <goal>updateSQL</goal>
                 <goal>update</goal>
               </goals>
               <configuration>
+                <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-mysql.sql</migrationSqlOutputFile>
                 <driver>com.mysql.jdbc.Driver</driver>
                 <url>jdbc:mysql://localhost/${db.name}</url>
               </configuration>
