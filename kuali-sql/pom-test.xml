@@ -31,7 +31,7 @@
     <mysql.dba.url>jdbc:mysql://localhost</mysql.dba.url>
     <mysql.url>${mysql.dba.url}/${sql.database}</mysql.url>
     <derby.driver>org.apache.derby.jdbc.EmbeddedDriver</derby.driver>
-    <derby.dba.url>jdbc:derby:../../../target/${sql.database};create=true</derby.dba.url>
+    <derby.dba.url>jdbc:derby:${project.build.directory}/derby/${sql.database};create=true</derby.dba.url>
     <derby.url>jdbc:derby:${sql.database}</derby.url>
   </properties>
   <build>
@@ -49,7 +49,7 @@
               </goals>
               <configuration>
                 <files>
-                  <file>../../main/resources/org/kuali/sql/sql.properties</file>
+                  <file>src/main/resources/org/kuali/sql/sql.properties</file>
                 </files>
               </configuration>
             </execution>
@@ -75,8 +75,8 @@
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <srcFiles>
-                  <srcFile>../../main/resources/org/kuali/sql/oracle/dba/drop.sql</srcFile>
-                  <srcFile>../../main/resources/org/kuali/sql/oracle/dba/create.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/oracle/dba/drop.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/oracle/dba/create.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
@@ -95,8 +95,8 @@
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <srcFiles>
-                  <srcFile>../../main/resources/org/kuali/sql/mysql/dba/drop.sql</srcFile>
-                  <srcFile>../../main/resources/org/kuali/sql/mysql/dba/create.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/mysql/dba/drop.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/mysql/dba/create.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
@@ -115,8 +115,8 @@
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <srcFiles>
-                  <srcFile>../../main/resources/org/kuali/sql/derby/validate.sql</srcFile>
-                  <srcFile>../../main/resources/org/kuali/sql/derby/dba/create.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/derby/validate.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/derby/dba/create.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
