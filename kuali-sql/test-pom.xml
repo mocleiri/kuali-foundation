@@ -7,8 +7,7 @@
   on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
   express or implied. See the License for the specific language governing permissions
   and limitations under the License. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <name>Kuali Test SQL</name>
   <description>POM for invoking the sql-maven-plugin to test SQL</description>
   <modelVersion>4.0.0</modelVersion>
@@ -24,6 +23,10 @@
     <sql.database>TEST_DB</sql.database>
     <sql.username>${sql.database}</sql.username>
     <sql.password>${sql.database}</sql.password>
+    <db.phase>process-resources</db.phase>
+    <oracle.phase>${db.phase}</oracle.phase>
+    <mysql.phase>${db.phase}</mysql.phase>
+    <derby.phase>${db.phase}</derby.phase>
     <oracle.driver>oracle.jdbc.driver.OracleDriver</oracle.driver>
     <oracle.url>jdbc:oracle:thin:@localhost:1521:XE</oracle.url>
     <oracle.dba.url>${oracle.url}</oracle.dba.url>
@@ -32,7 +35,7 @@
     <mysql.url>${mysql.dba.url}/${sql.database}</mysql.url>
     <derby.driver>org.apache.derby.jdbc.EmbeddedDriver</derby.driver>
     <derby.dba.url>${derby.url};create=true</derby.dba.url>
-    <derby.url>jdbc:derby:${project.build.directory}/derby/${sql.database}</derby.url>
+    <derby.url>jdbc:derby:memory:${sql.database}</derby.url>
     <derby.version>10.8.1.2</derby.version>
   </properties>
   <build>
@@ -67,7 +70,7 @@
           <executions>
             <execution>
               <id>oracle-dba</id>
-              <phase>process-resources</phase>
+              <phase>${oracle.phase}</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -87,7 +90,7 @@
             </execution>
             <execution>
               <id>mysql-dba</id>
-              <phase>process-resources</phase>
+              <phase>${mysql.phase}</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -107,7 +110,7 @@
             </execution>
             <execution>
               <id>derby-dba</id>
-              <phase>process-resources</phase>
+              <phase>${derby.phase}</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -125,7 +128,7 @@
             </execution>
             <execution>
               <id>oracle</id>
-              <phase>process-resources</phase>
+              <phase>${oracle.phase}</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -142,7 +145,7 @@
             </execution>
             <execution>
               <id>mysql</id>
-              <phase>process-resources</phase>
+              <phase>${mysql.phase}</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -158,7 +161,7 @@
             </execution>
             <execution>
               <id>derby</id>
-              <phase>process-resources</phase>
+              <phase>${derby.phase}</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
