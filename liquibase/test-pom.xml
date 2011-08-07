@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali</groupId>
@@ -15,15 +14,18 @@
     <sql.database>LIQUIBASE</sql.database>
     <sql.username>${sql.database}</sql.username>
     <sql.password>${sql.database}</sql.password>
+    <oracle.phase>process-resources</oracle.phase>
+    <mysql.phase>process-resources</mysql.phase>
+    <derby.phase>process-resources</derby.phase>
     <oracle.driver>oracle.jdbc.driver.OracleDriver</oracle.driver>
-    <oracle.url>jdbc:oracle:thin:@localhost:1521:XE</oracle.url>
+    <oracle.url>jdbc:oracle:thin:@deploy.rice.kuali.org:1521:KS</oracle.url>
     <oracle.dba.url>${oracle.url}</oracle.dba.url>
     <mysql.driver>com.mysql.jdbc.Driver</mysql.driver>
     <mysql.dba.url>jdbc:mysql://localhost</mysql.dba.url>
     <mysql.url>${mysql.dba.url}/${sql.database}</mysql.url>
     <derby.driver>org.apache.derby.jdbc.EmbeddedDriver</derby.driver>
     <derby.dba.url>${derby.url};create=true</derby.dba.url>
-    <derby.url>jdbc:derby:${project.build.directory}/derby/${sql.database}</derby.url>
+    <derby.url>jdbc:derby:memory:${sql.database}</derby.url>
   </properties>
   <build>
     <pluginManagement>
@@ -59,11 +61,14 @@
           <version>1.6</version>
           <configuration>
             <forceMojoExecution>true</forceMojoExecution>
+            <delimiter>/</delimiter>
+            <delimiterType>row</delimiterType>
+            <enableFiltering>true</enableFiltering>
           </configuration>
           <executions>
             <execution>
               <id>oracle</id>
-              <phase>process-resources</phase>
+              <phase>${oracle.phase}</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -72,9 +77,6 @@
                 <url>${oracle.dba.url}</url>
                 <username>system</username>
                 <password>gw570229</password>
-                <delimiter>/</delimiter>
-                <delimiterType>row</delimiterType>
-                <enableFiltering>true</enableFiltering>
                 <resourceLocations>
                   <resourceLocation>classpath:org/kuali/sql/oracle/drop.sql</resourceLocation>
                   <resourceLocation>classpath:org/kuali/sql/oracle/create.sql</resourceLocation>
@@ -83,7 +85,7 @@
             </execution>
             <execution>
               <id>mysql</id>
-              <phase>process-resources</phase>
+              <phase>${mysql.phase}</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -92,9 +94,6 @@
                 <url>${mysql.dba.url}</url>
                 <username>root</username>
                 <password>gw570229</password>
-                <delimiter>/</delimiter>
-                <delimiterType>row</delimiterType>
-                <enableFiltering>true</enableFiltering>
                 <resourceLocations>
                   <resourceLocation>classpath:org/kuali/sql/mysql/drop.sql</resourceLocation>
                   <resourceLocation>classpath:org/kuali/sql/mysql/create.sql</resourceLocation>
@@ -103,7 +102,7 @@
             </execution>
             <execution>
               <id>derby</id>
-              <phase>none</phase>
+              <phase>${derby.phase}</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
@@ -111,10 +110,6 @@
                 <driver>${derby.driver}</driver>
                 <url>${derby.dba.url}</url>
                 <enableAnonymousPassword>true</enableAnonymousPassword>
-                <username>root</username>
-                <delimiter>/</delimiter>
-                <delimiterType>row</delimiterType>
-                <enableFiltering>true</enableFiltering>
                 <resourceLocations>
                   <resourceLocation>classpath:org/kuali/sql/derby/create.sql</resourceLocation>
                 </resourceLocations>
@@ -145,9 +140,9 @@
           </dependencies>
         </plugin>
         <plugin>
-          <groupId>org.kuali.db.liquibase</groupId>
+          <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>liquibase-maven-plugin</artifactId>
-          <version>2.0.3-SNAPSHOT</version>
+          <version>2.0.4-SNAPSHOT</version>
           <configuration>
             <changeLogFile>${project.basedir}/src/test/resources/simple.xml</changeLogFile>
             <defaultSchemaName>${sql.database}</defaultSchemaName>
@@ -158,41 +153,38 @@
           <executions>
             <execution>
               <id>oracle</id>
-              <phase>process-resources</phase>
+              <phase>${oracle.phase}</phase>
               <goals>
                 <goal>updateSQL</goal>
                 <goal>update</goal>
               </goals>
               <configuration>
                 <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-oracle.sql</migrationSqlOutputFile>
-                <driver>${oracle.driver}</driver>
                 <url>${oracle.url}</url>
               </configuration>
             </execution>
             <execution>
               <id>mysql</id>
-              <phase>process-resources</phase>
+              <phase>${mysql.phase}</phase>
               <goals>
                 <goal>updateSQL</goal>
                 <goal>update</goal>
               </goals>
               <configuration>
                 <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-mysql.sql</migrationSqlOutputFile>
-                <driver>${mysql.driver}</driver>
                 <url>${mysql.url}</url>
               </configuration>
             </execution>
             <execution>
               <id>derby</id>
-              <phase>process-resources</phase>
+              <phase>${derby.phase}</phase>
               <goals>
                 <goal>updateSQL</goal>
                 <goal>update</goal>
               </goals>
               <configuration>
                 <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-derby.sql</migrationSqlOutputFile>
-                <driver>${derby.driver}</driver>
-                <url>${derby.dba.url}</url>
+                <url>${derby.url}</url>
               </configuration>
             </execution>
           </executions>
@@ -212,6 +204,11 @@
               <artifactId>mysql-connector-java</artifactId>
               <version>5.1.13</version>
             </dependency>
+            <dependency>
+              <groupId>org.kuali.db.liquibase</groupId>
+              <artifactId>liquibase-ext</artifactId>
+              <version>2.0.4-SNAPSHOT</version>
+            </dependency>
           </dependencies>
         </plugin>
       </plugins>
@@ -226,7 +223,7 @@
         <artifactId>sql-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.kuali.db.liquibase</groupId>
+        <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
       </plugin>
     </plugins>
