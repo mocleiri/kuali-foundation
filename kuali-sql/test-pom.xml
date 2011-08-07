@@ -44,7 +44,9 @@
 
     <derby.driver>org.apache.derby.jdbc.EmbeddedDriver</derby.driver>
     <derby.dir>${project.build.directory}/derby</derby.dir>
+    <!-- Create a db if it does not exist -->
     <derby.dba.url>${derby.url};create=true</derby.dba.url>
+    <!-- Connect to an existing db -->
     <derby.url>jdbc:derby:${derby.dir}/${sql.database}</derby.url>
     <derby.version>10.8.1.2</derby.version>
 
