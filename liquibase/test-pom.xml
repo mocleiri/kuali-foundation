@@ -39,10 +39,11 @@
     <h2.dir>${project.build.directory}/h2</h2.dir>
     <h2.base.url>jdbc:h2:tcp://localhost:${h2.port}/${h2.dir}/${sql.database}</h2.base.url>
     <!-- Create an H2 db, and keep it open until the JVM exits -->
-    <h2.dba.url>${h2.base.url};DB_CLOSE_DELAY=-1</h2.dba.url>
+    <h2.dba.url>${h2.base.url};DB_CLOSE_DELAY=-1;MODE=Oracle</h2.dba.url>
     <!-- Only connect if the db already exists -->
-    <h2.url>${h2.base.url};IFEXISTS=true</h2.url>
+    <h2.url>${h2.base.url};IFEXISTS=true;MODE=Oracle</h2.url>
     <h2.version>1.3.158</h2.version>
+    <liquibase.changeLogFile>${project.basedir}/src/test/resources/simple.xml</liquibase.changeLogFile>
   </properties>
   <build>
     <pluginManagement>
@@ -187,7 +188,7 @@
           <artifactId>liquibase-maven-plugin</artifactId>
           <version>2.0.4-SNAPSHOT</version>
           <configuration>
-            <changeLogFile>${project.basedir}/src/test/resources/simple.xml</changeLogFile>
+            <changeLogFile>${liquibase.changeLogFile}</changeLogFile>
             <username>${sql.username}</username>
             <password>${sql.password}</password>
             <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>

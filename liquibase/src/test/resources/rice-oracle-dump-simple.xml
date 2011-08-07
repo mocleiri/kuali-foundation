@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+  <changeSet author="jcaddel2 (generated)" id="1312753857712-1">
+    <createTable tableName="ACCT_DD_ATTR_DOC">
+      <column name="DOC_HDR_ID" type="VARCHAR2(14 BYTE)">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="ACCT_DD_ATTR_DOCP1" primaryKeyTablespace="USERS" />
+      </column>
+      <column name="OBJ_ID" type="VARCHAR2(36 BYTE)" />
+      <column name="VER_NBR" type="NUMBER(14,0)" />
+      <column name="ACCT_NUM" type="NUMBER(14,0)">
+        <constraints nullable="false" />
+      </column>
+      <column name="ACCT_OWNR" type="VARCHAR2(50 BYTE)">
+        <constraints nullable="false" />
+      </column>
+      <column name="ACCT_BAL" type="NUMBER(16,2)">
+        <constraints nullable="false" />
+      </column>
+      <column name="ACCT_OPN_DAT" type="DATE">
+        <constraints nullable="false" />
+      </column>
+      <column name="ACCT_STAT" type="VARCHAR2(30 BYTE)">
+        <constraints nullable="false" />
+      </column>
+      <column name="ACCT_UPDATE_DT_TM" type="DATE" />
+      <column name="ACCT_AWAKE" type="VARCHAR2(1 BYTE)" />
+    </createTable>
+  </changeSet>
+</databaseChangeLog>
