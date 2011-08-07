@@ -171,7 +171,7 @@
                 <url>${h2.dba.url}</url>
                 <enableAnonymousPassword>true</enableAnonymousPassword>
                 <srcFiles>
-                  <srcFile>src/main/resources/org/kuali/sql/h2/validate.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/h2/create.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
@@ -226,7 +226,6 @@
               <configuration>
                 <driver>${h2.driver}</driver>
                 <url>${h2.url}</url>
-                <enableAnonymousPassword>true</enableAnonymousPassword>
                 <srcFiles>
                   <srcFile>src/main/resources/org/kuali/sql/h2/validate.sql</srcFile>
                 </srcFiles>
