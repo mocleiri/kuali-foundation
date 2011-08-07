@@ -76,6 +76,7 @@
                   <argument>${h2.port}</argument>
                   <argument>-baseDir</argument>
                   <argument>${h2.dir}</argument>
+                  <argument>-trace</argument>
                 </arguments>
               </configuration>
             </execution>
