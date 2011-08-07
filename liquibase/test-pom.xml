@@ -19,12 +19,17 @@
     <mysql.phase>${db.phase}</mysql.phase>
     <derby.phase>${db.phase}</derby.phase>
     <h2.phase>${db.phase}</h2.phase>
+    <kuali.sql.version>1.0.2-SNAPSHOT</kuali.sql.version>
 
+    <oracle.dba.username>SYSTEM</oracle.dba.username>
+    <oracle.dba.password>CHANGE_ON_INSTALL</oracle.dba.password>
     <oracle.driver>oracle.jdbc.driver.OracleDriver</oracle.driver>
-    <oracle.url>jdbc:oracle:thin:@deploy.rice.kuali.org:1521:KS</oracle.url>
+    <oracle.url>jdbc:oracle:thin:@localhost:1521:XE</oracle.url>
     <oracle.dba.url>${oracle.url}</oracle.dba.url>
     <oracle.version>10.2.0.3.0</oracle.version>
 
+    <mysql.dba.username>root</mysql.dba.username>
+    <mysql.dba.password></mysql.dba.password>
     <mysql.driver>com.mysql.jdbc.Driver</mysql.driver>
     <mysql.dba.url>jdbc:mysql://localhost</mysql.dba.url>
     <mysql.url>${mysql.dba.url}/${sql.database}</mysql.url>
@@ -50,6 +55,31 @@
       <plugins>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.2</version>
+          <executions>
+            <execution>
+              <id>start-h2-embedded-server</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>java</goal>
+              </goals>
+              <configuration>
+                <mainClass>org.h2.tools.Server</mainClass>
+                <arguments>
+                  <argument>-tcp</argument>
+                  <argument>-tcpDaemon</argument>
+                  <argument>-tcpPort</argument>
+                  <argument>${h2.port}</argument>
+                  <argument>-baseDir</argument>
+                  <argument>${h2.dir}</argument>
+                </arguments>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
           <artifactId>properties-maven-plugin</artifactId>
           <version>1.0-alpha-3-SNAPSHOT</version>
           <executions>
@@ -69,7 +99,7 @@
             <dependency>
               <groupId>org.kuali.db.sql</groupId>
               <artifactId>kuali-sql</artifactId>
-              <version>1.0.2-SNAPSHOT</version>
+              <version>${kuali.sql.version}</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -93,8 +123,8 @@
               <configuration>
                 <driver>${oracle.driver}</driver>
                 <url>${oracle.dba.url}</url>
-                <username>system</username>
-                <password>gw570229</password>
+                <username>${oracle.dba.username}</username>
+                <password>${oracle.dba.password}</password>
                 <resourceLocations>
                   <resourceLocation>classpath:org/kuali/sql/oracle/drop.sql</resourceLocation>
                   <resourceLocation>classpath:org/kuali/sql/oracle/create.sql</resourceLocation>
@@ -110,8 +140,8 @@
               <configuration>
                 <driver>${mysql.driver}</driver>
                 <url>${mysql.dba.url}</url>
-                <username>root</username>
-                <password>gw570229</password>
+                <username>${mysql.dba.username}</username>
+                <password>${mysql.dba.password}</password>
                 <resourceLocations>
                   <resourceLocation>classpath:org/kuali/sql/mysql/drop.sql</resourceLocation>
                   <resourceLocation>classpath:org/kuali/sql/mysql/create.sql</resourceLocation>
@@ -127,9 +157,10 @@
               <configuration>
                 <driver>${derby.driver}</driver>
                 <url>${derby.dba.url}</url>
-                <enableAnonymousPassword>true</enableAnonymousPassword>
+                <username>${sql.username}</username>
+                <password>${sql.password}</password>
                 <resourceLocations>
-                  <resourceLocation>classpath:org/kuali/sql/derby/create.sql</resourceLocation>
+                  <resourceLocation>classpath:org/kuali/sql/derby/validate.sql</resourceLocation>
                 </resourceLocations>
               </configuration>
             </execution>
@@ -142,7 +173,8 @@
               <configuration>
                 <driver>${h2.driver}</driver>
                 <url>${h2.dba.url}</url>
-                <enableAnonymousPassword>true</enableAnonymousPassword>
+                <username>${sql.username}</username>
+                <password>${sql.password}</password>
                 <resourceLocations>
                   <resourceLocation>classpath:org/kuali/sql/h2/validate.sql</resourceLocation>
                 </resourceLocations>
@@ -173,7 +205,7 @@
             <dependency>
               <groupId>org.kuali.db.sql</groupId>
               <artifactId>kuali-sql</artifactId>
-              <version>1.0.2-SNAPSHOT</version>
+              <version>${kuali.sql.version}</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -183,7 +215,6 @@
           <version>2.0.4-SNAPSHOT</version>
           <configuration>
             <changeLogFile>${project.basedir}/src/test/resources/simple.xml</changeLogFile>
-            <defaultSchemaName>${sql.database}</defaultSchemaName>
             <username>${sql.username}</username>
             <password>${sql.password}</password>
             <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
@@ -271,6 +302,10 @@
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
         <artifactId>properties-maven-plugin</artifactId>
       </plugin>
       <plugin>
@@ -283,4 +318,11 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>${h2.version}</version>
+    </dependency>
+  </dependencies>
 </project>
