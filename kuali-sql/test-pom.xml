@@ -30,17 +30,22 @@
     <derby.phase>${db.phase}</derby.phase>
     <h2.phase>${db.phase}</h2.phase>
 
+    <oracle.dba.username>SYSTEM</oracle.dba.username>
+    <oracle.dba.password>CHANGE_ON_INSTALL</oracle.dba.password>
     <oracle.driver>oracle.jdbc.driver.OracleDriver</oracle.driver>
     <oracle.url>jdbc:oracle:thin:@localhost:1521:XE</oracle.url>
     <oracle.dba.url>${oracle.url}</oracle.dba.url>
 
+    <mysql.dba.username>root</mysql.dba.username>
+    <mysql.dba.password></mysql.dba.password>
     <mysql.driver>com.mysql.jdbc.Driver</mysql.driver>
     <mysql.dba.url>jdbc:mysql://localhost</mysql.dba.url>
     <mysql.url>${mysql.dba.url}/${sql.database}</mysql.url>
 
     <derby.driver>org.apache.derby.jdbc.EmbeddedDriver</derby.driver>
+    <derby.dir>${project.build.directory}/derby</derby.dir>
     <derby.dba.url>${derby.url};create=true</derby.dba.url>
-    <derby.url>jdbc:derby:memory:${sql.database}</derby.url>
+    <derby.url>jdbc:derby:${derby.dir}/${sql.database}</derby.url>
     <derby.version>10.8.1.2</derby.version>
 
     <h2.driver>org.h2.Driver</h2.driver>
@@ -76,7 +81,6 @@
                   <argument>${h2.port}</argument>
                   <argument>-baseDir</argument>
                   <argument>${h2.dir}</argument>
-                  <argument>-trace</argument>
                 </arguments>
               </configuration>
             </execution>
@@ -121,8 +125,8 @@
               <configuration>
                 <driver>${oracle.driver}</driver>
                 <url>${oracle.dba.url}</url>
-                <username>system</username>
-                <password>gw570229</password>
+                <username>${oracle.dba.username}</username>
+                <password>${oracle.dba.password}</password>
                 <srcFiles>
                   <srcFile>src/main/resources/org/kuali/sql/oracle/drop.sql</srcFile>
                   <srcFile>src/main/resources/org/kuali/sql/oracle/create.sql</srcFile>
@@ -138,8 +142,8 @@
               <configuration>
                 <driver>${mysql.driver}</driver>
                 <url>${mysql.dba.url}</url>
-                <username>root</username>
-                <password>gw570229</password>
+                <username>${mysql.dba.username}</username>
+                <password>${mysql.dba.password}</password>
                 <srcFiles>
                   <srcFile>src/main/resources/org/kuali/sql/mysql/drop.sql</srcFile>
                   <srcFile>src/main/resources/org/kuali/sql/mysql/create.sql</srcFile>
@@ -155,9 +159,10 @@
               <configuration>
                 <driver>${derby.driver}</driver>
                 <url>${derby.dba.url}</url>
-                <enableAnonymousPassword>true</enableAnonymousPassword>
+                <username>${sql.username}</username>
+                <password>${sql.password}</password>
                 <srcFiles>
-                  <srcFile>src/main/resources/org/kuali/sql/derby/create.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/derby/validate.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
@@ -168,11 +173,12 @@
                 <goal>execute</goal>
               </goals>
               <configuration>
+                <username>${sql.username}</username>
+                <password>${sql.password}</password>
                 <driver>${h2.driver}</driver>
                 <url>${h2.dba.url}</url>
-                <enableAnonymousPassword>true</enableAnonymousPassword>
                 <srcFiles>
-                  <srcFile>src/main/resources/org/kuali/sql/h2/create.sql</srcFile>
+                  <srcFile>src/main/resources/org/kuali/sql/h2/validate.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>
