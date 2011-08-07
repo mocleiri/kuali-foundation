@@ -46,12 +46,44 @@
     <h2.driver>org.h2.Driver</h2.driver>
     <h2.dba.url>${h2.url}</h2.dba.url>
     <h2.url>jdbc:h2:mem:${sql.database};DB_CLOSE_DELAY=-1</h2.url>
-    <!-- <h2.url>jdbc:h2:tcp://localhost/${project.build.directory}/h2/${sql.database};DB_CLOSE_DELAY=-1</h2.url>-->
+    <!-- <h2.url>jdbc:h2:tcp://localhost/${project.build.directory}/h2/${sql.database};DB_CLOSE_DELAY=-1</h2.url> -->
     <h2.version>1.3.158</h2.version>
   </properties>
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.1</version>
+          <executions>
+            <execution>
+              <phase>initialize</phase>
+              <goals>
+                <goal>java</goal>
+              </goals>
+              <configuration>
+                <mainClass>org.h2.tools.Server</mainClass>
+                <arguments>
+                  <argument>-tcp</argument>
+                  <argument>-tcpDaemon</argument>
+                  <argument>-tcpPort</argument>
+                  <argument>9092</argument>
+                  <argument>-tcpAllowOthers</argument>
+                  <argument>-baseDir</argument>
+                  <argument>${project.build.directory}/h2</argument>
+                </arguments>
+              </configuration>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+              <groupId>com.h2database</groupId>
+              <artifactId>h2</artifactId>
+              <version>1.3.158</version>
+            </dependency>
+          </dependencies>
+        </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>properties-maven-plugin</artifactId>
@@ -231,6 +263,10 @@
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
         <artifactId>properties-maven-plugin</artifactId>
       </plugin>
       <plugin>
@@ -239,4 +275,11 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.3.158</version>
+    </dependency>
+  </dependencies>
 </project>
