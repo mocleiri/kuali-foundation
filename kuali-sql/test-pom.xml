@@ -20,23 +20,34 @@
   <artifactId>sql-test</artifactId>
   <version>1.0-SNAPSHOT</version>
   <properties>
-    <sql.database>TEST_DB</sql.database>
+    <sql.database>TEST</sql.database>
     <sql.username>${sql.database}</sql.username>
     <sql.password>${sql.database}</sql.password>
+
     <db.phase>process-resources</db.phase>
     <oracle.phase>${db.phase}</oracle.phase>
     <mysql.phase>${db.phase}</mysql.phase>
     <derby.phase>${db.phase}</derby.phase>
+    <h2.phase>${db.phase}</h2.phase>
+
     <oracle.driver>oracle.jdbc.driver.OracleDriver</oracle.driver>
     <oracle.url>jdbc:oracle:thin:@localhost:1521:XE</oracle.url>
     <oracle.dba.url>${oracle.url}</oracle.dba.url>
+
     <mysql.driver>com.mysql.jdbc.Driver</mysql.driver>
     <mysql.dba.url>jdbc:mysql://localhost</mysql.dba.url>
     <mysql.url>${mysql.dba.url}/${sql.database}</mysql.url>
+
     <derby.driver>org.apache.derby.jdbc.EmbeddedDriver</derby.driver>
     <derby.dba.url>${derby.url};create=true</derby.dba.url>
     <derby.url>jdbc:derby:memory:${sql.database}</derby.url>
     <derby.version>10.8.1.2</derby.version>
+
+    <h2.driver>org.h2.Driver</h2.driver>
+    <h2.dba.url>${h2.url}</h2.dba.url>
+    <h2.url>jdbc:h2:mem:${sql.database};DB_CLOSE_DELAY=-1</h2.url>
+    <!-- <h2.url>jdbc:h2:tcp://localhost/${project.build.directory}/h2/${sql.database};DB_CLOSE_DELAY=-1</h2.url>-->
+    <h2.version>1.3.158</h2.version>
   </properties>
   <build>
     <pluginManagement>
@@ -175,6 +186,22 @@
                 </srcFiles>
               </configuration>
             </execution>
+            <execution>
+              <id>h2</id>
+              <phase>${h2.phase}</phase>
+              <goals>
+                <goal>execute</goal>
+              </goals>
+              <configuration>
+                <driver>${h2.driver}</driver>
+                <url>${h2.url}</url>
+                <delimiter>/</delimiter>
+                <delimiterType>row</delimiterType>
+                <srcFiles>
+                  <srcFile>src/main/resources/org/kuali/sql/h2/validate.sql</srcFile>
+                </srcFiles>
+              </configuration>
+            </execution>
           </executions>
           <dependencies>
             <dependency>
@@ -191,6 +218,11 @@
               <groupId>mysql</groupId>
               <artifactId>mysql-connector-java</artifactId>
               <version>5.1.13</version>
+            </dependency>
+            <dependency>
+              <groupId>com.h2database</groupId>
+              <artifactId>h2</artifactId>
+              <version>1.3.158</version>
             </dependency>
           </dependencies>
         </plugin>
