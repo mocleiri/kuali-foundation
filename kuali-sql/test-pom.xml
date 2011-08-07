@@ -151,6 +151,38 @@
               </configuration>
             </execution>
             <execution>
+              <id>derby-dba</id>
+              <phase>${derby.phase}</phase>
+              <goals>
+                <goal>execute</goal>
+              </goals>
+              <configuration>
+                <driver>${derby.driver}</driver>
+                <url>${derby.dba.url}</url>
+                <username>${sql.username}</username>
+                <password>${sql.password}</password>
+                <srcFiles>
+                  <srcFile>src/main/resources/org/kuali/sql/derby/validate.sql</srcFile>
+                </srcFiles>
+              </configuration>
+            </execution>
+            <execution>
+              <id>h2-dba</id>
+              <phase>${h2.phase}</phase>
+              <goals>
+                <goal>execute</goal>
+              </goals>
+              <configuration>
+                <username>${sql.username}</username>
+                <password>${sql.password}</password>
+                <driver>${h2.driver}</driver>
+                <url>${h2.dba.url}</url>
+                <srcFiles>
+                  <srcFile>src/main/resources/org/kuali/sql/h2/validate.sql</srcFile>
+                </srcFiles>
+              </configuration>
+            </execution>
+            <execution>
               <id>oracle</id>
               <phase>${oracle.phase}</phase>
               <goals>
