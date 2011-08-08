@@ -35,6 +35,41 @@
               <version>${oracle.version}</version>
             </dependency>
           </dependencies>
+          <executions>
+            <execution>
+              <id>liquibase-schema</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>generateChangeLog</goal>
+              </goals>
+              <configuration>
+                <types>tables,columns</types>
+                <changeLogFile>${project.build.directory}/liquibase/schema.xml</changeLogFile>
+              </configuration>
+            </execution>
+            <execution>
+              <id>liquibase-data</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>generateChangeLog</goal>
+              </goals>
+              <configuration>
+                <types>data</types>
+                <changeLogFile>${project.build.directory}/liquibase/data.xml</changeLogFile>
+              </configuration>
+            </execution>
+            <execution>
+              <id>liquibase-constraints</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>generateChangeLog</goal>
+              </goals>
+              <configuration>
+                <types>views, primaryKeys, uniqueConstraints, indexes, foreignKeys, sequences</types>
+                <changeLogFile>${project.build.directory}/liquibase/constraints.xml</changeLogFile>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
