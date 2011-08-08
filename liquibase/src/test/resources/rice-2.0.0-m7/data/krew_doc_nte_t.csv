@@ -1,0 +1,4 @@
+"DOC_NTE_ID","DOC_HDR_ID","AUTH_PRNCPL_ID","CRT_DT","TXT","VER_NBR"
+"2000","2213","admin","2008-09-16T13:05:00.0","Added this test note.","1"
+"2002","2219","admin","2008-09-16T14:02:36.0","This is a test note.","3"
+"2004","2219","user1","2008-09-16T14:25:58.0","Added a note at second node.","2"

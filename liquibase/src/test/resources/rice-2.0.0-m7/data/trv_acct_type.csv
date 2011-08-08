@@ -1,0 +1,4 @@
+"ACCT_TYPE","ACCT_TYPE_NAME","OBJ_ID","VER_NBR"
+"CAT","Clearing Account Type","NULL","0"
+"EAT","Expense Account Type","NULL","0"
+"IAT"," Income Account Type","NULL","0"
