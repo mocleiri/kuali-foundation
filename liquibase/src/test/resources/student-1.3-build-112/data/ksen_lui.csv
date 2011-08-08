@@ -1,0 +1,5 @@
+"ID","OBJ_ID","VER_NBR","CREATEID","CREATETIME","UPDATEID","UPDATETIME","ATP_ID","CLU_ID","EFF_DT","EXP_DT","MAX_SEATS","MIN_SEATS","NAME","REF_URL","RT_DESCR_ID","STATE_ID","TYPE_ID","OFFIC_LUI_ID"
+"Lui-1","NULL","0","NULL","NULL","NULL","NULL","NULL","cluId1","2011-01-01T00:00:00.0","2011-12-31T00:00:00.0","NULL","NULL","Lui one","NULL","Lui-1-Desc","kuali.lui.state.draft","kuali.lui.type.course.offering","NULL"
+"Lui-2","NULL","0","NULL","NULL","NULL","NULL","NULL","cluId2","2011-01-01T00:00:00.0","2011-12-31T00:00:00.0","NULL","NULL","Lui rwo","NULL","Lui-2-Desc","kuali.lui.state.draft","kuali.lui.type.activity.offering.lecture","NULL"
+"Lui-3","NULL","0","NULL","NULL","NULL","NULL","NULL","cluId3","2011-01-01T00:00:00.0","2011-12-31T00:00:00.0","NULL","NULL","Lui three","NULL","Lui-3-Desc","kuali.lui.state.draft","kuali.lui.type.course.offering","NULL"
+"Lui-4","NULL","0","NULL","NULL","NULL","NULL","NULL","cluId4","2011-01-01T00:00:00.0","2011-12-31T00:00:00.0","NULL","NULL","Lui four","NULL","Lui-4-Desc","kuali.lui.state.draft","kuali.lui.type.activity.offering.lecture","NULL"

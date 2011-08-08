@@ -1,0 +1,4 @@
+"TYPE_KEY","TYPE_DESC","EFF_DT","EXPIR_DT","NAME","OBJ_ID","VER_NBR"
+"kuali.proposal.type.course.create","A create course proposal type","2000-01-01T00:00:00.0","NULL","Create Course Proposal","644BEFA1E0A740418D85FDC10B93DC29","0"
+"kuali.proposal.type.course.modify","A modify course proposal type","2000-01-01T00:00:00.0","NULL","Modify Course Proposal","8F4456ECC6A140479018CCF4970A1C7E","0"
+"kuali.proposal.type.course.retire","A retire course proposal type","2000-01-01T00:00:00.0","NULL","Retire Course Proposal","9ADA9C5759BA40439240ED1C1A9B6EDF","0"

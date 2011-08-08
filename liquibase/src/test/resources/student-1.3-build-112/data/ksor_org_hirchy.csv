@@ -1,0 +1,3 @@
+"ID","DESCR","EFF_DT","EXPIR_DT","NAME","ROOT_ORG","OBJ_ID","VER_NBR"
+"kuali.org.hierarchy.Curriculum","Hierarchy used to Manage Curriculum","2000-01-01T00:00:00.0","NULL","Curriculum","141","2E85AD7DFB5D4205B5778ECF594BC809","0"
+"kuali.org.hierarchy.Main","Main Organizational Hierarchy","2000-01-01T00:00:00.0","NULL","Main","4","5CE044C1EFC2429A8C087EC1C357965C","0"
