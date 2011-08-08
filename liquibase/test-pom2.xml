@@ -21,80 +21,14 @@
           <artifactId>liquibase-maven-plugin</artifactId>
           <version>2.0.4-SNAPSHOT</version>
           <configuration>
+            <url>jdbc:oracle:thin:@localhost:1521:XE</url>
             <username>${sql.username}</username>
             <password>${sql.password}</password>
-            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
           </configuration>
-          <executions>
-            <execution>
-              <id>oracle</id>
-              <phase>process-resources</phase>
-              <goals>
-                <goal>updateSQL</goal>
-                <goal>update</goal>
-              </goals>
-              <configuration>
-                <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-oracle.sql</migrationSqlOutputFile>
-                <driver>${oracle.driver}</driver>
-                <url>${oracle.url}</url>
-              </configuration>
-            </execution>
-            <execution>
-              <id>mysql</id>
-              <phase>process-resources</phase>
-              <goals>
-                <goal>updateSQL</goal>
-                <goal>update</goal>
-              </goals>
-              <configuration>
-                <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-mysql.sql</migrationSqlOutputFile>
-                <driver>${mysql.driver}</driver>
-                <url>${mysql.url}</url>
-              </configuration>
-            </execution>
-            <execution>
-              <id>derby</id>
-              <phase>process-resources</phase>
-              <goals>
-                <goal>updateSQL</goal>
-                <goal>update</goal>
-              </goals>
-              <configuration>
-                <migrationSqlOutputFile>${project.build.directory}/liquibase/migrate-derby.sql</migrationSqlOutputFile>
-                <driver>${derby.driver}</driver>
-                <url>${derby.dba.url}</url>
-              </configuration>
-            </execution>
-          </executions>
-          <dependencies>
-            <dependency>
-              <groupId>org.apache.derby</groupId>
-              <artifactId>derby</artifactId>
-              <version>10.8.1.2</version>
-            </dependency>
-            <dependency>
-              <groupId>com.oracle</groupId>
-              <artifactId>ojdbc14</artifactId>
-              <version>10.2.0.3.0</version>
-            </dependency>
-            <dependency>
-              <groupId>mysql</groupId>
-              <artifactId>mysql-connector-java</artifactId>
-              <version>5.1.13</version>
-            </dependency>
-          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>properties-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.kuali.maven.plugins</groupId>
-        <artifactId>sql-maven-plugin</artifactId>
-      </plugin>
       <plugin>
         <groupId>org.kuali.db.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
