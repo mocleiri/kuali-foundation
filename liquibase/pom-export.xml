@@ -17,7 +17,6 @@
     <sql.password>RICE</sql.password>
     <oracle.url>jdbc:oracle:thin:@localhost:1521:XE</oracle.url>
     <mysql.url>jdbc:mysql://localhost/${sql.username}</mysql.url>
-    <jdbc.url>${${db.vendor}.url}</jdbc.url>
     <oracle.version>10.2.0.3.0</oracle.version>
     <mysql.version>5.1.13</mysql.version>
   </properties>
