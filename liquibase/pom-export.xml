@@ -13,6 +13,8 @@
   <name>Liquibase POC Testing</name>
   <properties>
     <oracle.version>10.2.0.3.0</oracle.version>
+    <sql.username>RICE</sql.username>
+    <sql.password>RICE</sql.password>
   </properties>
   <build>
     <pluginManagement>
