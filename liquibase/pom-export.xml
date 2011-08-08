@@ -92,6 +92,18 @@
   </build>
   <profiles>
     <profile>
+      <id>mysql</id>
+      <properties>
+        <jdbc.url>${mysql.url}</jdbc.url>
+      </properties>
+    </profile>
+    <profile>
+      <id>oracle</id>
+      <properties>
+        <jdbc.url>${oracle.url}</jdbc.url>
+      </properties>
+    </profile>
+    <profile>
       <id>student</id>
       <properties>
         <sql.username>KSEMBEDDED</sql.username>
