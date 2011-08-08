@@ -1,7 +1,0 @@
-"CHNL_ID","NM","DESC_TXT","SUBSCRB_IND","VER_NBR","OBJ_ID"
-"1","Kuali Rice Channel","This channel is used for sending out information about the Kuali Rice effort.","Y","1","NULL"
-"2","Library Events Channel","This channel is used for sending out information about Library Events.","Y","1","NULL"
-"3","Overdue Library Books","This channel is used for sending out information about your overdue books.","N","1","NULL"
-"4","Concerts Coming to Campus","This channel broadcasts any concerts coming to campus.","Y","1","NULL"
-"5","University Alerts","This channel broadcasts general announcements for the university.","N","1","NULL"
-"500","KEW","Builtin channel for KEW","N","1","NULL"
