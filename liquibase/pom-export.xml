@@ -43,7 +43,7 @@
                 <goal>generateChangeLog</goal>
               </goals>
               <configuration>
-                <types>tables,columns</types>
+                <types>tables, columns</types>
                 <changeLogFile>${project.build.directory}/liquibase/schema.xml</changeLogFile>
               </configuration>
             </execution>
