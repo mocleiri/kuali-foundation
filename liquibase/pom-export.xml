@@ -26,6 +26,13 @@
             <username>${sql.username}</username>
             <password>${sql.password}</password>
           </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>com.oracle</groupId>
+              <artifactId>ojdbc14</artifactId>
+              <version>${oracle.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -33,18 +40,6 @@
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
-        <dependencies>
-          <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc14</artifactId>
-            <version>${oracle.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.kuali.db.sql</groupId>
-            <artifactId>kuali-sql</artifactId>
-            <version>${kuali.sql.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
     </plugins>
   </build>
