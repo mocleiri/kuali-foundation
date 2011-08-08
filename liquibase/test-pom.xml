@@ -43,7 +43,7 @@
     <!-- Only connect if the db already exists -->
     <h2.url>${h2.base.url};IFEXISTS=true;MODE=Oracle</h2.url>
     <h2.version>1.3.158</h2.version>
-    <liquibase.changeLogFile>${project.basedir}/src/test/resources/rice-oracle-dump-simple.xml</liquibase.changeLogFile>
+    <liquibase.changeLogFile>${project.basedir}/src/test/resources/simple.xml</liquibase.changeLogFile>
   </properties>
   <build>
     <pluginManagement>
@@ -54,7 +54,7 @@
           <version>1.2</version>
           <executions>
             <execution>
-              <id>start-h2-embedded-server</id>
+              <id>h2-db</id>
               <phase>initialize</phase>
               <goals>
                 <goal>java</goal>
