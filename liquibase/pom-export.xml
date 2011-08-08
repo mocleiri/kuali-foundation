@@ -13,8 +13,8 @@
   <name>Liquibase POC Testing</name>
   <properties>
     <oracle.version>10.2.0.3.0</oracle.version>
-    <sql.username>KSEMBEDDED</sql.username>
-    <sql.password>KSEMBEDDED</sql.password>
+    <sql.username>RICE</sql.username>
+    <sql.password>RICE</sql.password>
   </properties>
   <build>
     <pluginManagement>
@@ -80,4 +80,20 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>student</id>
+      <properties>
+        <sql.username>KSEMBEDDED</sql.username>
+        <sql.password>KSEMBEDDED</sql.password>
+      </properties>
+    </profile>
+    <profile>
+      <id>rice</id>
+      <properties>
+        <sql.username>RICE</sql.username>
+        <sql.password>RICE</sql.password>
+      </properties>
+    </profile>
+  </profiles>
 </project>
