@@ -12,6 +12,7 @@
   <version>1.0-SNAPSHOT</version>
   <name>Liquibase POC Testing</name>
   <properties>
+    <oracle.version>10.2.0.3.0</oracle.version>
   </properties>
   <build>
     <pluginManagement>
