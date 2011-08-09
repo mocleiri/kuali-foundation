@@ -153,6 +153,25 @@
               </configuration>
             </execution>
             <execution>
+              <id>data</id>
+              <phase>${data.phase}</phase>
+              <goals>
+                <goal>execute</goal>
+              </goals>
+              <configuration>
+                <delimiter>;</delimiter>
+                <delimiterType>normal</delimiterType>
+                <enableFiltering>false</enableFiltering>
+                <driver>${jdbc.driver}</driver>
+                <url>${jdbc.url}</url>
+                <username>${sql.username}</username>
+                <password>${sql.password}</password>
+                <srcFiles>
+                  <srcFile>${sql.base}/data.sql</srcFile>
+                </srcFiles>
+              </configuration>
+            </execution>
+            <execution>
               <id>constraints</id>
               <phase>${constraints.phase}</phase>
               <goals>
@@ -221,7 +240,6 @@
       <properties>
         <kuali.app>student</kuali.app>
         <app.version>1.3-build-112</app.version>
-        <data.phase>none</data.phase>
       </properties>
     </profile>
     <profile>
@@ -229,7 +247,6 @@
       <properties>
         <kuali.app>rice</kuali.app>
         <app.version>2.0.0-m7</app.version>
-        <data.phase>none</data.phase>
       </properties>
     </profile>
     <profile>
