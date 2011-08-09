@@ -20,6 +20,12 @@
     <kuali.sql.version>1.0.2-SNAPSHOT</kuali.sql.version>
     <dba.phase>process-resources</dba.phase>
     <liquibase.phase>process-resources</liquibase.phase>
+    <schema.phase>${liquibase.phase}</schema.phase>
+    <data.phase>${liquibase.phase}</data.phase>
+    <constraints.phase>${liquibase.phase}</constraints.phase>
+    <liquibase.schema.output>${project.build.directory}/${db.vendor}/schema.sql</liquibase.schema.output>
+    <liquibase.data.output>${project.build.directory}/${db.vendor}/data.sql</liquibase.data.output>
+    <liquibase.constraints.output>${project.build.directory}/${db.vendor}/constraints.sql</liquibase.constraints.output>
 
     <oracle.dba.username>SYSTEM</oracle.dba.username>
     <oracle.dba.password>CHANGE_ON_INSTALL</oracle.dba.password>
@@ -159,20 +165,44 @@
           <artifactId>liquibase-maven-plugin</artifactId>
           <version>2.0.4-SNAPSHOT</version>
           <configuration>
-            <changeLogFile>${liquibase.changeLogFile}</changeLogFile>
             <username>${sql.username}</username>
             <password>${sql.password}</password>
             <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
           </configuration>
           <executions>
             <execution>
-              <id>sql</id>
-              <phase>${liquibase.phase}</phase>
+              <id>schema</id>
+              <phase>${schema.phase}</phase>
               <goals>
                 <goal>updateSQL</goal>
               </goals>
               <configuration>
-                <migrationSqlOutputFile>${liquibase.output}</migrationSqlOutputFile>
+                <changeLogFile>${liquibase.schema}</changeLogFile>
+                <migrationSqlOutputFile>${liquibase.schema.output}</migrationSqlOutputFile>
+                <url>${jdbc.url}</url>
+              </configuration>
+            </execution>
+            <execution>
+              <id>data</id>
+              <phase>${data.phase}</phase>
+              <goals>
+                <goal>updateSQL</goal>
+              </goals>
+              <configuration>
+                <changeLogFile>${liquibase.data}</changeLogFile>
+                <migrationSqlOutputFile>${liquibase.data.output}</migrationSqlOutputFile>
+                <url>${jdbc.url}</url>
+              </configuration>
+            </execution>
+            <execution>
+              <id>constraints</id>
+              <phase>${constraints.phase}</phase>
+              <goals>
+                <goal>updateSQL</goal>
+              </goals>
+              <configuration>
+                <changeLogFile>${liquibase.constraints}</changeLogFile>
+                <migrationSqlOutputFile>${liquibase.constraints.output}</migrationSqlOutputFile>
                 <url>${jdbc.url}</url>
               </configuration>
             </execution>
@@ -220,6 +250,14 @@
     </dependency>
   </dependencies>
   <profiles>
+    <profile>
+      <id>rice</id>
+      <properties>
+        <liquibase.schema>src/test/resources/${db.vendor}/rice-2.0.0-m7/schema.xml</liquibase.schema>
+        <liquibase.constraints>src/test/resources/${db.vendor}/rice-2.0.0-m7/constraints.xml</liquibase.constraints>
+        <data.phase>none</data.phase>
+      </properties>
+    </profile>
     <profile>
       <id>mysql</id>
       <properties>
