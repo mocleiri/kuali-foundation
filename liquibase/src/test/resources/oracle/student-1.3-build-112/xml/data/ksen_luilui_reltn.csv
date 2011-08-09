@@ -1,0 +1,3 @@
+"ID","OBJ_ID","VER_NBR","CREATEID","CREATETIME","UPDATEID","UPDATETIME","EFF_DT","EXP_DT","NAME","RT_DESCR_ID","LUI_ID","TYPE_ID","STATE_ID","RELATED_LUI_ID"
+"LUILUIREL-1","NULL","0","NULL","NULL","NULL","NULL","2011-01-01T00:00:00.0","2000-01-01T00:00:00.0","NULL","NULL","Lui-1","kuali.lui.lui.relation.associated","kuali.lui.lui.relation.state.active","Lui-2"
+"LUILUIREL-2","NULL","0","NULL","NULL","NULL","NULL","2011-01-01T00:00:00.0","2000-01-01T00:00:00.0","NULL","NULL","Lui-3","kuali.lui.lui.relation.associated","kuali.lui.lui.relation.state.active","Lui-4"

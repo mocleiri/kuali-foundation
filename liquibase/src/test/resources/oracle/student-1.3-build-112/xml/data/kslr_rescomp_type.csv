@@ -1,0 +1,8 @@
+"TYPE_KEY","TYPE_DESC","EFF_DT","EXPIR_DT","NAME","OBJ_ID","VER_NBR"
+"kuali.resultComponentType.certificate","This records an awarded certificate","2000-01-01T00:00:00.0","NULL","Certificate","BFE500B4290445B3B0D09A14D1AFE040","0"
+"kuali.resultComponentType.credit.degree.fixed","This records a single fixed number of credits that are awarded if the student passes the course.","2000-01-01T00:00:00.0","NULL","Credits, Fixed","7AECF0492B24496CA7FCDA083095E917","0"
+"kuali.resultComponentType.credit.degree.multiple","This records multiple numbers of credits that can be awarded for this course.","2000-01-01T00:00:00.0","NULL","Credits, Multiple","AE5F2B5E42D14478884A141637B5D920","0"
+"kuali.resultComponentType.credit.degree.range","This records a range of number of credits that can be awarded for this course.","2000-01-01T00:00:00.0","NULL","Credits, Variable","E3822A13EC1A42AF9305EEE1B3224FAB","0"
+"kuali.resultComponentType.degree","This records a degree is awarded if the student completes the program","2000-01-01T00:00:00.0","NULL","Degree","0E192F1BA58149169AFB1C4A53546B64","0"
+"kuali.resultComponentType.gpa","This records the overall GPA of a student in a program ","2000-01-01T00:00:00.0","NULL","Overall GPA ","A905E79D8BAC4A04A2610013490182AD","0"
+"kuali.resultComponentType.grade.finalGrade","This records that a final grade is a result for this course","2000-01-01T00:00:00.0","NULL","Final Grade","93923DA1E3874217B817D09C1BF3F20F","0"

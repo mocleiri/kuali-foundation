@@ -1,0 +1,7 @@
+"ID","OBJ_ID","VER_NBR","CREATEID","CREATETIME","UPDATEID","UPDATETIME","END_DT","IS_ALL_DAY","IS_DATE_RANGE","NAME","START_DT","MILESTONE_STATE_ID","MILESTONE_TYPE_ID","RT_DESCR_ID"
+"testDeleteId","NULL","0","NULL","NULL","NULL","NULL","NULL","0","0","testDeleteId","2011-11-01T00:00:00.0","kuali.milestone.state.Draft","kuali.atp.milestone.RegistrationPeriod","RICHTEXT-108"
+"testId","NULL","0","NULL","NULL","NULL","NULL","2011-07-20T00:00:00.0","0","1","testId","2011-07-10T00:00:00.0","kuali.milestone.state.Draft","kuali.atp.milestone.AdvanceRegistrationPeriod","RICHTEXT-105"
+"testId2","NULL","0","NULL","NULL","NULL","NULL","2011-10-01T00:00:00.0","0","1","testId2","2011-08-01T00:00:00.0","kuali.milestone.state.Draft","kuali.atp.milestone.RegistrationPeriod","RICHTEXT-106"
+"testId3","NULL","0","NULL","NULL","NULL","NULL","NULL","1","0","testId3","2011-11-01T00:00:00.0","kuali.milestone.state.Draft","kuali.atp.milestone.DropDate","RICHTEXT-107"
+"testKeyDate1","NULL","0","NULL","NULL","NULL","NULL","2001-09-20T00:00:00.0","0","1","testKeyDate1","2001-09-10T00:00:00.0","kuali.milestone.state.Draft","kuali.atp.milestone.AdvanceRegistrationPeriod","RICHTEXT-TRT-5"
+"testKeyDate2","NULL","0","NULL","NULL","NULL","NULL","2001-10-01T00:00:00.0","0","1","testKeyDate2","2001-08-01T00:00:00.0","kuali.milestone.state.Draft","kuali.atp.milestone.RegistrationPeriod","RICHTEXT-TRT-6"

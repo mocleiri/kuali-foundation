@@ -1,0 +1,6 @@
+"TYPE_KEY","OBJ_ID","VER_NBR","TYPE_DESC","EFF_DT","EXPIR_DT","NAME"
+"kuali.lui.lui.relation.associated","NULL","0","The first LUI is associated with the second LUI","NULL","NULL","Associated"
+"kuali.lui.type.activity.offering.lab","NULL","0","Student working on projects in a defined laboratory space. Instructors are on-hand for students to ask questions and guidance","NULL","NULL","Lab"
+"kuali.lui.type.activity.offering.lecture","NULL","0","Instructor presentation of course materials","NULL","NULL","Lecture"
+"kuali.lui.type.course.offering","NULL","0","An offering of a course for a particular term","NULL","NULL","Course Offering"
+"kuali.lui.type.registration.group","NULL","0","The collection of activity offerings of a single course that are grouped together for registration purposes","NULL","NULL","registration Group"

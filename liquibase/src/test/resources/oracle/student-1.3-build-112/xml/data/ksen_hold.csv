@@ -1,0 +1,3 @@
+"ID","OBJ_ID","VER_NBR","CREATEID","CREATETIME","UPDATEID","UPDATETIME","EFF_DT","IS_OVERRIDABLE","IS_WARNING","NAME","PERS_ID","RELEASED_DT","RT_DESCR_ID","STATE_ID","TYPE_ID","ISSUE_ID"
+"Hold-1","NULL","0","NULL","NULL","NULL","NULL","2011-01-01T00:00:00.0","1","0","Hold one","1","2011-12-31T00:00:00.0","RICHTEXT-Hold-301","kuali.hold.state.active","kuali.hold.type.student","Hold-Issue-1"
+"Hold-2","NULL","0","NULL","NULL","NULL","NULL","2011-01-01T00:00:00.0","1","0","Hold two","1","2011-12-31T00:00:00.0","RICHTEXT-Hold-401","kuali.hold.state.active","kuali.hold.type.instructor","Hold-Issue-1"
