@@ -55,7 +55,7 @@
               </goals>
               <configuration>
                 <types>tables, columns</types>
-                <changeLogFile>${liquibase.changeLogdir}/xml/schema.xml</changeLogFile>
+                <changeLogFile>${liquibase.changeLogDir}/xml/schema.xml</changeLogFile>
               </configuration>
             </execution>
             <execution>
@@ -66,8 +66,8 @@
               </goals>
               <configuration>
                 <types>data</types>
-                <changeLogFile>${liquibase.changeLogdir}/xml/data.xml</changeLogFile>
-                <dataDir>${liquibase.changeLogdir}/xml/data</dataDir>
+                <changeLogFile>${liquibase.changeLogDir}/xml/data.xml</changeLogFile>
+                <dataDir>${liquibase.changeLogDir}/xml/data</dataDir>
               </configuration>
             </execution>
             <execution>
@@ -78,7 +78,7 @@
               </goals>
               <configuration>
                 <types>views, primaryKeys, uniqueConstraints, indexes, foreignKeys, sequences</types>
-                <changeLogFile>${liquibase.changeLogdir}/xml/constraints.xml</changeLogFile>
+                <changeLogFile>${liquibase.changeLogDir}/xml/constraints.xml</changeLogFile>
               </configuration>
             </execution>
           </executions>
