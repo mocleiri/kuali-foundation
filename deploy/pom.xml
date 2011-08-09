@@ -85,7 +85,7 @@
       <properties>
         <deploy.groupId>org.kuali.rice</deploy.groupId>
         <deploy.artifactId>rice-sampleapp</deploy.artifactId>
-        <deploy.version>2.0.0-m7-SNAPSHOT</deploy.version>
+        <deploy.version>2.0.0-m8-SNAPSHOT</deploy.version>
         <local.config.file.dir>${project.build.directory}/classes/rice</local.config.file.dir>
         <local.config.filename>sample-app-config.xml</local.config.filename>
         <local.config.file>${local.config.file.dir}/${local.config.filename}</local.config.file>
