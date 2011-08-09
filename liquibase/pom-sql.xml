@@ -253,8 +253,8 @@
     <profile>
       <id>rice</id>
       <properties>
-        <liquibase.schema>src/test/resources/${db.vendor}/rice-2.0.0-m7/schema.xml</liquibase.schema>
-        <liquibase.constraints>src/test/resources/${db.vendor}/rice-2.0.0-m7/constraints.xml</liquibase.constraints>
+        <liquibase.schema>src/test/resources/${db.vendor}/rice-2.0.0-m7/xml/schema.xml</liquibase.schema>
+        <liquibase.constraints>src/test/resources/${db.vendor}/rice-2.0.0-m7/xml/constraints.xml</liquibase.constraints>
         <data.phase>none</data.phase>
       </properties>
     </profile>
