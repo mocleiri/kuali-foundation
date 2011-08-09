@@ -1,7 +1,0 @@
-"ID","OBJ_ID","VER_NBR","CREATEID","CREATETIME","UPDATEID","UPDATETIME","DESCR","EFFECTIVEDATE","EXPIRATIONDATE","NAME"
-"kuali.lpr.state.dropped.early","NULL","0","NULL","NULL","NULL","NULL","The student was registered but subsequently dropped the course or section within the normally allotted time period","NULL","NULL","Dropped"
-"kuali.lpr.state.dropped.late","NULL","0","NULL","NULL","NULL","NULL","The student was registered but subsequently dropped the course or section past the normally allotted time period, typically resulting in a special grade or mark to so indicate","NULL","NULL","Dropped Late"
-"kuali.lpr.state.not.paid","NULL","0","NULL","NULL","NULL","NULL","The student has registered for the course by has not paid the fee","NULL","NULL","Fee Not Paid"
-"kuali.lpr.state.planned","NULL","0","NULL","NULL","NULL","NULL","The student plans on taking this course or program","NULL","NULL","Planned"
-"kuali.lpr.state.registered","NULL","0","NULL","NULL","NULL","NULL","The student is officially registered for the course or section","NULL","NULL","Registered"
-"kuali.lpr.state.waitlisted","NULL","0","NULL","NULL","NULL","NULL","The student attempted to join but has been put on the waitlist","NULL","NULL","Waitlisted"

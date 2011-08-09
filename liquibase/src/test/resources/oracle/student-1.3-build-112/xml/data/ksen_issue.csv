@@ -1,3 +1,0 @@
-"ID","OBJ_ID","VER_NBR","CREATEID","CREATETIME","UPDATEID","UPDATETIME","NAME","ORG_ID","RT_DESCR_ID","STATE_ID","TYPE_ID"
-"Hold-Issue-1","NULL","0","NULL","NULL","NULL","NULL","Issue one","102","Issue-1-Desc","kuali.hold.issue.state.active","kuali.hold.issue.type.residency"
-"Hold-Issue-2","NULL","0","NULL","NULL","NULL","NULL","Issue two","102","Issue-2-Desc","kuali.hold.issue.state.active","kuali.hold.issue.type.residency"
