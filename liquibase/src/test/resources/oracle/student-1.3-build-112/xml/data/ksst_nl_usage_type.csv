@@ -1,6 +1,0 @@
-"TYPE_KEY","TYPE_DESC","EFF_DT","EXPIR_DT","NAME","OBJ_ID","VER_NBR"
-"KUALI.CATALOG","Kuali Catalog","2000-01-01T00:00:00.0","NULL","Kuali Catalog","NULL","0"
-"KUALI.RULE","Kuali Rule Edit","2000-01-01T00:00:00.0","NULL","Rule Edit","NULL","0"
-"KUALI.RULE.COMPOSITION","Kuali Rule Composition","2000-01-01T00:00:00.0","NULL","Rule Composition","NULL","0"
-"KUALI.RULE.EXAMPLE","Kuali Rule Example","2000-01-01T00:00:00.0","NULL","Rule Example","NULL","0"
-"KUALI.RULE.PREVIEW","Kuali Rule Preview","2000-01-01T00:00:00.0","NULL","Rule Preview","NULL","0"

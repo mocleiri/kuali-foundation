@@ -1,6 +1,0 @@
-"MSG_QUE_ID","DT","EXP_DT","PRIO","STAT_CD","RTRY_CNT","IP_NBR","SVC_NM","APPL_ID","SVC_MTHD_NM","APP_VAL_ONE","APP_VAL_TWO","VER_NBR"
-"61","2008-12-22T13:04:40.0","NULL","5","E","1","129.79.44.31","{TRAVEL}DocumentRoutingService","TRAVEL","invoke","2692","NULL","3"
-"62","2008-12-22T13:09:09.0","NULL","5","E","1","129.79.44.31","{TRAVEL}DocumentRoutingService","TRAVEL","invoke","2693","NULL","3"
-"63","2008-12-22T13:21:26.0","NULL","5","E","1","129.79.44.31","{TRAVEL}DocumentRoutingService","TRAVEL","invoke","2694","NULL","3"
-"2340","2008-08-11T16:43:51.0","NULL","4","E","1","129.79.44.31","{TRAVEL}BlanketApproveProcessorService","TRAVEL","doBlanketApproveWork","2120","NULL","3"
-"2487","2008-09-24T10:54:43.0","NULL","5","E","1","129.79.44.31","{TRAVEL}DocumentRoutingService","TRAVEL","invoke","2281","NULL","3"

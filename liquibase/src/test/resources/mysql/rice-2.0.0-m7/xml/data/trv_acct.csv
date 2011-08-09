@@ -1,8 +1,0 @@
-"ACCT_NUM","ACCT_NAME","ACCT_TYPE","ACCT_FO_ID","OBJ_ID","VER_NBR","SUB_ACCT","SUB_ACCT_NAME","CREATE_DT","SUBSIDIZED_PCT"
-"a1","a1","NULL","1","NULL","0","a1-sub","Sub Account for a1","2011-05-02T22:14:18.0","53.9658"
-"a14","a14","NULL","2","NULL","0","a14-sub","Sub Account for a14","2011-05-02T22:14:18.0","94.9345"
-"a2","a2","NULL","2","NULL","0","a2-sub","Sub Account for a2","2011-05-02T22:14:18.0","41.7323"
-"a3","a3","NULL","3","NULL","0","a3-sub","Sub Account for a3","2011-05-02T22:14:18.0","78.6249"
-"a6","a6","NULL","2","NULL","0","a6-sub","Sub Account for a6","2011-05-02T22:14:18.0","96.0077"
-"a8","a8","NULL","2","NULL","0","a8-sub","Sub Account for a8","2011-05-02T22:14:18.0","75.6053"
-"a9","a9","NULL","2","NULL","0","a9-sub","Sub Account for a9","2011-05-02T22:14:18.0","88.8299"
