@@ -11,7 +11,7 @@
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>Liquibase POC Testing</name>
-  <description>This pom demonstrates generating SQL for migrating a database using a Liquibase change log file</description>
+  <description>This pom demonstrates generating SQL for updating a database using a Liquibase change log file</description>
   <properties>
     <sql.database>LIQUIBASE</sql.database>
     <sql.username>${sql.database}</sql.username>
