@@ -259,7 +259,6 @@
       <properties>
         <kuali.app>student</kuali.app>
         <app.version>1.3-build-112</app.version>
-        <data.phase>none</data.phase>
       </properties>
     </profile>
     <profile>
