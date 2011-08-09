@@ -26,8 +26,10 @@
     <liquibase.schema.output>${project.build.directory}/${db.vendor}/${kuali.app}-${app.version}/sql/schema.sql</liquibase.schema.output>
     <liquibase.data.output>${project.build.directory}/${db.vendor}/${kuali.app}-${app.version}/sql/data.sql</liquibase.data.output>
     <liquibase.constraints.output>${project.build.directory}/${db.vendor}/${kuali.app}-${app.version}/sql/constraints.sql</liquibase.constraints.output>
-    <liquibase.schema>src/test/resources/${db.vendor}/${kuali.app}-${app.version}/xml/schema.xml</liquibase.schema>
-    <liquibase.constraints>src/test/resources/${db.vendor}/${kuali.app}-${app.version}/xml/constraints.xml</liquibase.constraints>
+    <liquibase.basedir>target/${db.vendor}/${kuali.app}-${app.version}</liquibase.basedir>
+    <liquibase.schema>${liquibase.basedir}/xml/schema.xml</liquibase.schema>
+    <liquibase.constraints>${liquibase.basedir}/xml/constraints.xml</liquibase.constraints>
+    <liquibase.data>${liquibase.basedir}/xml/data.xml</liquibase.data>
 
     <oracle.dba.username>SYSTEM</oracle.dba.username>
     <oracle.dba.password>CHANGE_ON_INSTALL</oracle.dba.password>
@@ -265,7 +267,6 @@
       <properties>
         <kuali.app>rice</kuali.app>
         <app.version>2.0.0-m7</app.version>
-        <data.phase>none</data.phase>
       </properties>
     </profile>
     <profile>
