@@ -11,6 +11,7 @@
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>Liquibase POC Testing</name>
+  <description>This pom demonstrates using Liquibase for exporting Kuali databases to change log XML files.</description>
   <properties>
     <db.vendor>oracle</db.vendor>
     <sql.username>RICE</sql.username>
@@ -46,7 +47,7 @@
           </dependencies>
           <executions>
             <execution>
-              <id>liquibase-schema</id>
+              <id>schema</id>
               <phase>process-resources</phase>
               <goals>
                 <goal>generateChangeLog</goal>
@@ -57,7 +58,7 @@
               </configuration>
             </execution>
             <execution>
-              <id>liquibase-data</id>
+              <id>data</id>
               <phase>process-resources</phase>
               <goals>
                 <goal>generateChangeLog</goal>
@@ -68,7 +69,7 @@
               </configuration>
             </execution>
             <execution>
-              <id>liquibase-constraints</id>
+              <id>constraints</id>
               <phase>process-resources</phase>
               <goals>
                 <goal>generateChangeLog</goal>
