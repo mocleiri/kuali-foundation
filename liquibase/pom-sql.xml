@@ -17,6 +17,7 @@
     <sql.password>${sql.database}</sql.password>
     <db.phase>process-resources</db.phase>
     <kuali.sql.version>1.0.2-SNAPSHOT</kuali.sql.version>
+    <dba.phase>process-resources</dba.phase>
 
     <oracle.dba.username>SYSTEM</oracle.dba.username>
     <oracle.dba.password>CHANGE_ON_INSTALL</oracle.dba.password>
