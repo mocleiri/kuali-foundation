@@ -67,7 +67,7 @@
               <configuration>
                 <types>data</types>
                 <changeLogFile>${liquibase.changeLogdir}/xml/data.xml</changeLogFile>
-                <changeLogFile>${liquibase.changeLogdir}/xml/data</changeLogFile>
+                <dataDir>${liquibase.changeLogdir}/xml/data</dataDir>
               </configuration>
             </execution>
             <execution>
