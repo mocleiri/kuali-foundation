@@ -23,7 +23,7 @@
     <data.phase>${sql.phase}</data.phase>
     <constraints.phase>${sql.phase}</constraints.phase>
     <dba.delimiter>/</dba.delimiter>
-    <liquibase.delimiter>/</liquibase.delimiter>
+    <liquibase.delimiter>;</liquibase.delimiter>
 
     <oracle.dba.username>SYSTEM</oracle.dba.username>
     <oracle.dba.password>CHANGE_ON_INSTALL</oracle.dba.password>
