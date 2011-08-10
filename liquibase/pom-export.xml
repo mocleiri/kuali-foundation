@@ -82,7 +82,7 @@
               </configuration>
             </execution>
             <execution>
-              <id>constraints</id>
+              <id>views</id>
               <phase>process-resources</phase>
               <goals>
                 <goal>generateChangeLog</goal>
