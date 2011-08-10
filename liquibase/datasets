@@ -1,3 +1,4 @@
+date
 mvn clean
 mvn process-resources -f pom-export.xml -Pstudent,oracle
 mvn process-resources -f pom-export.xml -Price,oracle
@@ -7,3 +8,4 @@ mvn process-resources -f pom-sql-gen.xml -Price,oracle
 mvn process-resources -f pom-sql-gen.xml -Price,mysql
 # mvn process-resources -f pom-sql-exec.xml -Price,oracle
 # mvn process-resources -f pom-sql-exec.xml -Price,mysql
+date
