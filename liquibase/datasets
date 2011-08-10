@@ -11,9 +11,11 @@ mvn process-resources -f pom-sql-gen.xml -Price,mysql
 mvn process-resources -f pom-sql-exec.xml -Price,mysql
 mvn process-resources -f pom-export.xml -Price,mysql -Dsql.username=LIQUIBASE -Dsql.password=LIQUIBASE -Dliquibase.changeLogDir=target/mysql/rice-2.0.0-m7/lb
 
+mvn process-resources -f pom-export.xml -Price,oracle
+mvn process-resources -f pom-sql-gen.xml -Price,oracle
+mvn process-resources -f pom-sql-exec.xml -Price,oracle
+mvn process-resources -f pom-export.xml -Price,oracle -Dsql.username=LIQUIBASE -Dsql.password=LIQUIBASE -Dliquibase.changeLogDir=target/mysql/rice-2.0.0-m7/lb
+
 # mvn process-resources -f pom-export.xml -Pstudent,oracle
-# mvn process-resources -f pom-export.xml -Price,oracle
 # mvn process-resources -f pom-sql-gen.xml -Pstudent,oracle
-# mvn process-resources -f pom-sql-gen.xml -Price,oracle
-# mvn process-resources -f pom-sql-exec.xml -Price,oracle
 date
