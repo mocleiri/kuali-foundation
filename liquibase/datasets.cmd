@@ -7,6 +7,6 @@ call mvn process-resources -f pom-export.xml -Price,mysql
 call mvn process-resources -f pom-sql-gen.xml -Pstudent,oracle
 call mvn process-resources -f pom-sql-gen.xml -Price,oracle
 call mvn process-resources -f pom-sql-gen.xml -Price,mysql
-call mvn process-resources -f pom-sql-exec.xml -Price,oracle
-call mvn process-resources -f pom-sql-exec.xml -Price,mysql
+rem call mvn process-resources -f pom-sql-exec.xml -Price,oracle
+rem call mvn process-resources -f pom-sql-exec.xml -Price,mysql
 echo %DATE% %TIME%
