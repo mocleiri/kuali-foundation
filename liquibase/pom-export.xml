@@ -16,7 +16,6 @@
     <liquibase.phase>process-resources</liquibase.phase>
     <data.phase>${liquibase.phase}</data.phase>
     <constraints.phase>${liquibase.phase}</constraints.phase>
-    <views.phase>${liquibase.phase}</views.phase>
     <schema.phase>${liquibase.phase}</schema.phase>
     <db.vendor>oracle</db.vendor>
     <sql.username>RICE</sql.username>
@@ -59,7 +58,7 @@
                 <goal>generateChangeLog</goal>
               </goals>
               <configuration>
-                <types>tables,columns,primaryKeys,uniqueConstraints,indexes,sequences</types>
+                <types>tables,columns,primaryKeys,uniqueConstraints,indexes,sequences,views</types>
                 <changeLogFile>${liquibase.changeLogDir}/xml/schema.xml</changeLogFile>
               </configuration>
             </execution>
@@ -84,17 +83,6 @@
               <configuration>
                 <types>foreignKeys</types>
                 <changeLogFile>${liquibase.changeLogDir}/xml/constraints.xml</changeLogFile>
-              </configuration>
-            </execution>
-            <execution>
-              <id>views</id>
-              <phase>${views.phase}</phase>
-              <goals>
-                <goal>generateChangeLog</goal>
-              </goals>
-              <configuration>
-                <types>views</types>
-                <changeLogFile>${liquibase.changeLogDir}/xml/views.xml</changeLogFile>
               </configuration>
             </execution>
           </executions>

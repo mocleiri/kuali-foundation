@@ -22,7 +22,6 @@
     <schema.phase>${sql.phase}</schema.phase>
     <data.phase>${sql.phase}</data.phase>
     <constraints.phase>${sql.phase}</constraints.phase>
-    <views.phase>${sql.phase}</views.phase>
     <dba.delimiter>/</dba.delimiter>
     <liquibase.delimiter>;</liquibase.delimiter>
 
@@ -194,26 +193,6 @@
                 <password>${sql.password}</password>
                 <srcFiles>
                   <srcFile>${sql.base}/constraints.sql</srcFile>
-                </srcFiles>
-              </configuration>
-            </execution>
-            <execution>
-              <id>views</id>
-              <phase>${views.phase}</phase>
-              <goals>
-                <goal>execute</goal>
-              </goals>
-              <configuration>
-                <keepFormat>true</keepFormat>
-                <delimiter>${liquibase.delimiter}</delimiter>
-                <delimiterType>row</delimiterType>
-                <enableFiltering>false</enableFiltering>
-                <driver>${jdbc.driver}</driver>
-                <url>${jdbc.url}</url>
-                <username>${sql.username}</username>
-                <password>${sql.password}</password>
-                <srcFiles>
-                  <srcFile>${sql.base}/views.sql</srcFile>
                 </srcFiles>
               </configuration>
             </execution>

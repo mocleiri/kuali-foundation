@@ -23,7 +23,6 @@
     <schema.phase>${liquibase.phase}</schema.phase>
     <data.phase>${liquibase.phase}</data.phase>
     <constraints.phase>${liquibase.phase}</constraints.phase>
-    <views.phase>${liquibase.phase}</views.phase>
     <liquibase.schema.output>${project.build.directory}/${db.vendor}/${kuali.app}-${app.version}/sql/schema.sql</liquibase.schema.output>
     <liquibase.views.output>${project.build.directory}/${db.vendor}/${kuali.app}-${app.version}/sql/views.sql</liquibase.views.output>
     <liquibase.data.output>${project.build.directory}/${db.vendor}/${kuali.app}-${app.version}/sql/data.sql</liquibase.data.output>
@@ -210,18 +209,6 @@
               <configuration>
                 <changeLogFile>${liquibase.constraints}</changeLogFile>
                 <migrationSqlOutputFile>${liquibase.constraints.output}</migrationSqlOutputFile>
-                <url>${jdbc.url}</url>
-              </configuration>
-            </execution>
-            <execution>
-              <id>views</id>
-              <phase>${views.phase}</phase>
-              <goals>
-                <goal>updateSQL</goal>
-              </goals>
-              <configuration>
-                <changeLogFile>${liquibase.views}</changeLogFile>
-                <migrationSqlOutputFile>${liquibase.views.output}</migrationSqlOutputFile>
                 <url>${jdbc.url}</url>
               </configuration>
             </execution>
