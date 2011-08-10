@@ -32,7 +32,7 @@
     <liquibase.schema>${liquibase.basedir}/xml/schema.xml</liquibase.schema>
     <liquibase.constraints>${liquibase.basedir}/xml/constraints.xml</liquibase.constraints>
     <liquibase.data>${liquibase.basedir}/xml/data.xml</liquibase.data>
-    <liquibase.views>${liquibase.basedir}/xml/views.xml</liquibase.data>
+    <liquibase.views>${liquibase.basedir}/xml/views.xml</liquibase.views>
 
     <oracle.dba.username>SYSTEM</oracle.dba.username>
     <oracle.dba.password>CHANGE_ON_INSTALL</oracle.dba.password>
