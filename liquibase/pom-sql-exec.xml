@@ -22,6 +22,8 @@
     <schema.phase>${sql.phase}</schema.phase>
     <data.phase>${sql.phase}</data.phase>
     <constraints.phase>${sql.phase}</constraints.phase>
+    <dba.delimiter>/</dba.delimiter>
+    <liquibase.delimiter>/</liquibase.delimiter>
 
     <oracle.dba.username>SYSTEM</oracle.dba.username>
     <oracle.dba.password>CHANGE_ON_INSTALL</oracle.dba.password>
@@ -120,7 +122,8 @@
                 <goal>execute</goal>
               </goals>
               <configuration>
-                <delimiter>/</delimiter>
+                <keepFormat>true</keepFormat>
+                <delimiter>${dba.delimiter}</delimiter>
                 <delimiterType>row</delimiterType>
                 <enableFiltering>true</enableFiltering>
                 <driver>${jdbc.driver}</driver>
@@ -140,7 +143,8 @@
                 <goal>execute</goal>
               </goals>
               <configuration>
-                <delimiter>;</delimiter>
+                <keepFormat>true</keepFormat>
+                <delimiter>${liquibase.delimiter}</delimiter>
                 <delimiterType>normal</delimiterType>
                 <enableFiltering>false</enableFiltering>
                 <driver>${jdbc.driver}</driver>
@@ -159,8 +163,9 @@
                 <goal>execute</goal>
               </goals>
               <configuration>
-                <delimiter>;</delimiter>
-                <delimiterType>normal</delimiterType>
+                <keepFormat>true</keepFormat>
+                <delimiter>${liquibase.delimiter}</delimiter>
+                <delimiterType>row</delimiterType>
                 <enableFiltering>false</enableFiltering>
                 <driver>${jdbc.driver}</driver>
                 <url>${jdbc.url}</url>
@@ -178,8 +183,9 @@
                 <goal>execute</goal>
               </goals>
               <configuration>
-                <delimiter>;</delimiter>
-                <delimiterType>normal</delimiterType>
+                <keepFormat>true</keepFormat>
+                <delimiter>${liquibase.delimiter}</delimiter>
+                <delimiterType>row</delimiterType>
                 <enableFiltering>false</enableFiltering>
                 <driver>${jdbc.driver}</driver>
                 <url>${jdbc.url}</url>
@@ -269,6 +275,7 @@
         <jdbc.url>${oracle.url}</jdbc.url>
         <dba.username>${oracle.dba.username}</dba.username>
         <dba.password>${oracle.dba.password}</dba.password>
+        <liquibase.delimiter>/</liquibase.delimiter>
       </properties>
     </profile>
     <profile>
