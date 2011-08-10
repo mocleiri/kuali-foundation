@@ -276,6 +276,7 @@
         <dba.username>${oracle.dba.username}</dba.username>
         <dba.password>${oracle.dba.password}</dba.password>
         <liquibase.delimiter>/</liquibase.delimiter>
+        <data.phase>none</data.phase>
       </properties>
     </profile>
     <profile>
