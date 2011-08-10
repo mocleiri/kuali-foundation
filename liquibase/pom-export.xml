@@ -114,12 +114,6 @@
       <properties>
         <db.vendor>mysql</db.vendor>
         <jdbc.url>${mysql.url}</jdbc.url>
-        <!-- 
-         MySQL only stores a parsed copy of the original CREATE VIEW sql
-         That parsed view contains hard coded schema references ie KSEMBEDDED.XYZ
-         This causes issues if you attempt to run the sql in a different schema
-         -->
-        <views.phase>none</views.phase>
       </properties>
     </profile>
     <profile>
