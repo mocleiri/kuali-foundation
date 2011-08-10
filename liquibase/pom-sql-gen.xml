@@ -292,6 +292,7 @@
         <jdbc.url>${mysql.url}</jdbc.url>
         <dba.username>${mysql.dba.username}</dba.username>
         <dba.password>${mysql.dba.password}</dba.password>
+        <liquibase.views>target/${db.vendor}/${kuali.app}-${app.version}/xml/views.xml</liquibase.views>
       </properties>
     </profile>
     <profile>
