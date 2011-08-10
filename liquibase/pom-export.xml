@@ -54,7 +54,7 @@
                 <goal>generateChangeLog</goal>
               </goals>
               <configuration>
-                <types>tables,columns,primaryKeys,views,uniqueConstraints,indexes,sequences</types>
+                <types>tables,columns,primaryKeys,uniqueConstraints,indexes,sequences</types>
                 <changeLogFile>${liquibase.changeLogDir}/xml/schema.xml</changeLogFile>
               </configuration>
             </execution>
@@ -79,6 +79,17 @@
               <configuration>
                 <types>foreignKeys</types>
                 <changeLogFile>${liquibase.changeLogDir}/xml/constraints.xml</changeLogFile>
+              </configuration>
+            </execution>
+            <execution>
+              <id>constraints</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>generateChangeLog</goal>
+              </goals>
+              <configuration>
+                <types>views</types>
+                <changeLogFile>${liquibase.changeLogDir}/xml/views.xml</changeLogFile>
               </configuration>
             </execution>
           </executions>
