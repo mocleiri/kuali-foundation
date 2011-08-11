@@ -257,4 +257,7 @@
       <property name="severity" value="error" />
     </module>
   </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="/org/kuali/cm/checkstyle/rice-legacy-suppressions.xml" />
+  </module>
 </module>
