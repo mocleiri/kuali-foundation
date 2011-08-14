@@ -60,6 +60,7 @@
     <liquibase.output>${project.build.directory}/liquibase/${db.vendor}.sql</liquibase.output>
     <dba.drop>classpath:org/kuali/sql/${db.vendor}/drop.sql</dba.drop>
     <dba.create>classpath:org/kuali/sql/${db.vendor}/create.sql</dba.create>
+    <liquibase.version>2.0.4-SNAPSHOT</liquibase.version>
   </properties>
   <build>
     <pluginManagement>
@@ -169,11 +170,17 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>liquibase-maven-plugin</artifactId>
-          <version>2.0.4-SNAPSHOT</version>
+          <version>${liquibase.version}</version>
           <configuration>
             <username>${sql.username}</username>
             <password>${sql.password}</password>
             <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+            <systemProperties>
+              <property>
+                <name>liquibase.delimiter.style</name>
+                <value>ROW</value>
+              </property>
+            </systemProperties>
           </configuration>
           <executions>
             <execution>
@@ -214,6 +221,11 @@
             </execution>
           </executions>
           <dependencies>
+            <dependency>
+              <groupId>org.kuali.db.liquibase</groupId>
+              <artifactId>liquibase-ext</artifactId>
+              <version>${liquibase.version}</version>
+            </dependency>
             <dependency>
               <groupId>com.h2database</groupId>
               <artifactId>h2</artifactId>

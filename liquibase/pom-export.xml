@@ -25,6 +25,7 @@
     <oracle.version>10.2.0.3.0</oracle.version>
     <mysql.version>5.1.13</mysql.version>
     <liquibase.changeLogDir>${project.build.directory}/${db.vendor}/${kuali.app}-${app.version}</liquibase.changeLogDir>
+    <liquibase.version>2.0.4-SNAPSHOT</liquibase.version>
   </properties>
   <build>
     <pluginManagement>
@@ -32,13 +33,24 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>liquibase-maven-plugin</artifactId>
-          <version>2.0.4-SNAPSHOT</version>
+          <version>${liquibase.version}</version>
           <configuration>
             <url>${jdbc.url}</url>
             <username>${sql.username}</username>
             <password>${sql.password}</password>
+            <systemProperties>
+              <property>
+                <name>liquibase.schema.exclude</name>
+                <value>true</value>
+              </property>
+            </systemProperties>
           </configuration>
           <dependencies>
+            <dependency>
+              <groupId>org.kuali.db.liquibase</groupId>
+              <artifactId>liquibase-ext</artifactId>
+              <version>${liquibase.version}</version>
+            </dependency>
             <dependency>
               <groupId>mysql</groupId>
               <artifactId>mysql-connector-java</artifactId>
