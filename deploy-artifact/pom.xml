@@ -38,7 +38,7 @@
                 <goal>deploy-file</goal>
               </goals>
               <configuration>
-                <file>${env.WORKSPACE}/target/upload.jar</file>
+                <file>${env.WORKSPACE}/upload.jar</file>
                 <url>s3://maven.kuali.org/external</url>
                 <repositoryId>kuali.external</repositoryId>
               </configuration>
