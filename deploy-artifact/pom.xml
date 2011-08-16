@@ -39,7 +39,7 @@
               </goals>
               <configuration>
                 <url>s3://maven.kuali.org/external</url>
-                <repositoryId>kuali.release</repositoryId>
+                <repositoryId>kuali.external</repositoryId>
               </configuration>
             </execution>
           </executions>
