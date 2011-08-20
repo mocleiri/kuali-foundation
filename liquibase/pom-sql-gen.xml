@@ -60,7 +60,7 @@
     <liquibase.output>${project.build.directory}/liquibase/${db.vendor}.sql</liquibase.output>
     <dba.drop>classpath:org/kuali/sql/${db.vendor}/drop.sql</dba.drop>
     <dba.create>classpath:org/kuali/sql/${db.vendor}/create.sql</dba.create>
-    <liquibase.version>2.1.0-SNAPSHOT</liquibase.version>
+    <liquibase.version>3.0.0-SNAPSHOT</liquibase.version>
   </properties>
   <build>
     <pluginManagement>
