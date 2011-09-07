@@ -110,9 +110,10 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>sql-maven-plugin</artifactId>
-          <version>1.6</version>
+          <version>1.7</version>
           <configuration>
             <forceMojoExecution>true</forceMojoExecution>
+            <executeTrailingSQL>false</executeTrailingSQL>
           </configuration>
           <executions>
             <execution>
