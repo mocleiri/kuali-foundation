@@ -8,7 +8,7 @@
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>sql-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.7-SNAPSHOT</version>
+  <version>1.7</version>
   <name>SQL Maven Plugin</name>
   <inceptionYear>2006</inceptionYear>
   <description>Execute SQL Statements</description>
@@ -16,9 +16,9 @@
     <maven>${mavenVersion}</maven>
   </prerequisites>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/sql-maven-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/sql-maven-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/sql-maven-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/sql-maven-plugin-1.7</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/sql-maven-plugin-1.7</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/sql-maven-plugin-1.7</url>
   </scm>
 
   <developers>
