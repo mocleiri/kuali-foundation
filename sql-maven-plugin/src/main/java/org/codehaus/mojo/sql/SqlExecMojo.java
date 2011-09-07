@@ -412,7 +412,8 @@ public class SqlExecMojo extends AbstractMojo {
     private boolean enableFiltering;
 
     /**
-     * Set to true if you want to execute SQL that appears without a delimiter at the end of a file
+     * Set to false to disable executing SQL that appears without a delimiter at the end of a file (is enabled by
+     * default for backwards compatibility)
      *
      * @parameter expression="${sql.executeTrailingSQL}" default-value="true"
      */
