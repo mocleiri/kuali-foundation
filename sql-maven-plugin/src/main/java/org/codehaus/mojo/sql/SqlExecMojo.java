@@ -416,6 +416,7 @@ public class SqlExecMojo extends AbstractMojo {
      * default for backwards compatibility)
      *
      * @parameter expression="${sql.executeTrailingSQL}" default-value="true"
+     * @since 1.7
      */
     private boolean executeTrailingSQL;
 
