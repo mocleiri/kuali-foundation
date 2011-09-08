@@ -82,6 +82,7 @@
               </goals>
               <configuration>
                 <types>data</types>
+                <flatten>true</flatten>
                 <changeLogFile>${liquibase.changeLogDir}/xml/data.xml</changeLogFile>
                 <dataDir>${liquibase.changeLogDir}/xml/data</dataDir>
               </configuration>
