@@ -71,5 +71,6 @@
 	<!-- KEW Ingestion Polling -->
 	<param name="rice.kew.xml.pipeline.lifecycle.enabled">true</param>
 	<param name="data.xml.root.location">${java.io.tmpdir}/kew/xml/</param>
+	<param name="dev.mode">false</param>
 
 </config>
