@@ -5,7 +5,7 @@
 # - Export the new DB to Liquibase change logs
 
 date
-mvn clean
+mvn clean -o
 cycle-rice mysql
 cycle-rice oracle
 date

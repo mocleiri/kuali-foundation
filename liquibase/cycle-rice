@@ -3,7 +3,7 @@
 #
 
 DB=$1
-mvn process-resources -f pom-export.xml -Price,$DB
-mvn process-resources -f pom-sql-gen.xml -Price,$DB
-mvn process-resources -f pom-sql-exec.xml -Price,$DB
-mvn process-resources -f pom-export.xml -Price,$DB -Dsql.username=LIQUIBASE -Dsql.password=LIQUIBASE -Dliquibase.changeLogDir=target/$DB/rice-2.0.0-m7/lb
+mvn process-resources -f pom-export.xml -Price,$DB -o
+mvn process-resources -f pom-sql-gen.xml -Price,$DB -o
+mvn process-resources -f pom-sql-exec.xml -Price,$DB -o
+mvn process-resources -f pom-export.xml -Price,$DB -o -Dsql.username=LIQUIBASE -Dsql.password=LIQUIBASE -Dliquibase.changeLogDir=target/$DB/rice-2.0.0-m7/lb

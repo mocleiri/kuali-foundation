@@ -24,7 +24,6 @@
     <data.phase>${liquibase.phase}</data.phase>
     <constraints.phase>${liquibase.phase}</constraints.phase>
     <liquibase.schema.output>${project.build.directory}/${db.vendor}/${kuali.app}-${app.version}/sql/schema.sql</liquibase.schema.output>
-    <liquibase.views.output>${project.build.directory}/${db.vendor}/${kuali.app}-${app.version}/sql/views.sql</liquibase.views.output>
     <liquibase.data.output>${project.build.directory}/${db.vendor}/${kuali.app}-${app.version}/sql/data.sql</liquibase.data.output>
     <liquibase.constraints.output>${project.build.directory}/${db.vendor}/${kuali.app}-${app.version}/sql/constraints.sql</liquibase.constraints.output>
     <liquibase.basedir>target/${db.vendor}/${kuali.app}-${app.version}</liquibase.basedir>
@@ -175,12 +174,13 @@
             <username>${sql.username}</username>
             <password>${sql.password}</password>
             <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+            <!-- 
             <systemProperties>
               <property>
                 <name>liquibase.delimiter.style</name>
                 <value>ROW</value>
               </property>
-            </systemProperties>
+            </systemProperties> -->
           </configuration>
           <executions>
             <execution>
@@ -291,7 +291,6 @@
         <jdbc.url>${mysql.url}</jdbc.url>
         <dba.username>${mysql.dba.username}</dba.username>
         <dba.password>${mysql.dba.password}</dba.password>
-        <liquibase.views>target/${db.vendor}/${kuali.app}-${app.version}/xml/views.xml</liquibase.views>
       </properties>
     </profile>
     <profile>
