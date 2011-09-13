@@ -72,5 +72,6 @@
 	<param name="xml.pipeline.lifecycle.enabled">true</param>
 	<param name="data.xml.root.location">${java.io.tmpdir}/kew/xml/</param>
 	<param name="dev.mode">false</param>
-
+	<param name="initialDelaySecs">60</param>
+	
 </config>
