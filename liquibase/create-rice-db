@@ -1,0 +1,8 @@
+#
+# Pass in the target database type eg "oracle" or "mysql"
+#
+
+DB=$1
+cd rice/master
+mvn clean install -Pdb,$DB -Dimpex.dba.password=gw570229
+cd ../..
