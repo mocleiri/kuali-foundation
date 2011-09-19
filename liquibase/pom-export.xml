@@ -38,6 +38,7 @@
             <url>${jdbc.url}</url>
             <username>${sql.username}</username>
             <password>${sql.password}</password>
+            <author>ci</author>
             <systemProperties>
               <property>
                 <name>liquibase.schema.exclude</name>
