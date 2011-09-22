@@ -650,3 +650,11 @@
 	{
 		text-align:right;
 	}
+	.buttonhighlite
+	{
+		border:1px solid #FF0000;
+	}
+	.fieldhighlite
+	{
+		background-color:#FFFF99;
+	}
