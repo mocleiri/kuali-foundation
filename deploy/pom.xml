@@ -36,6 +36,8 @@
     7 - Perform any cleanup necessary (by default, it removes the old Tomcat logs and the old Tomcat "work" directory)
     8 - Restart the remote Tomcat instance
   </description>
+  <build>
+  </build>
   <repositories>
     <repository>
       <id>kuali.nexus</id>
@@ -55,6 +57,11 @@
     <url>http://svn.kuali.org/repos/foundation/trunk/deploy</url>
   </scm>
   <properties>
+    <maven.failsafe.forkmode>once</maven.failsafe.forkmode>
+    <maven.failsafe.forkedProcessTimeoutInSeconds>7200</maven.failsafe.forkedProcessTimeoutInSeconds>
+    <maven.failsafe.useSystemClassLoader>true</maven.failsafe.useSystemClassLoader>
+    <maven.failsafe.skip>true</maven.failsafe.skip>
+    <maven.failsafe.includes>**/*Test.java</maven.failsafe.includes>
     <scp.path>/usr/bin/scp</scp.path>
     <ssh.path>/usr/bin/ssh</ssh.path>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
@@ -71,6 +78,7 @@
     <local.filename>ROOT.war</local.filename>
     <!-- <local.war.file>${project.build.directory}/${local.filename}</local.war.file> -->
     <local.war.file>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/sampleapp/target/${deploy.artifactId}-${deploy.version}.war</local.war.file>
+    <sampleapp.test.jar.file>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/sampleapp/target/${deploy.artifactId}-${deploy.version}-tests.jar</sampleapp.test.jar.file>
     <impex.dir>/opt/jenkins-home/jobs/rice-trunk-nightly/workspace/db/impex/master</impex.dir>
   </properties>
   <profiles>
@@ -328,6 +336,71 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>selenium-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>start-selenium-server</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>start-server</goal>
+            </goals>
+            <configuration>
+              <background>true</background>
+              <logOutput>true</logOutput>
+            </configuration>
+          </execution>
+          <execution>
+            <id>stop-selenium-server</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop-server</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${failsafe.plugin.version}</version>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <goals>
+              <goal>integration-test</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <skip>${maven.failsafe.skip}</skip>
+          <useSystemClassLoader>${maven.failsafe.useSystemClassLoader}</useSystemClassLoader>
+          <useFile>false</useFile>
+          <failIfNoTests>false</failIfNoTests>
+          <includes>
+            <include>${maven.failsafe.includes}</include>
+          </includes>
+          <forkMode>${maven.failsafe.forkmode}</forkMode>
+          <forkedProcessTimeoutInSeconds>${maven.failsafe.forkedProcessTimeoutInSeconds}</forkedProcessTimeoutInSeconds>
+          <reportFormat>plain</reportFormat>
+          <argLine>-Dalt.config.location="${build.alt.config.location}" -Xmx1024m -XX:MaxPermSize=512m
+            -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled</argLine>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.kuali.rice</groupId>
+            <artifactId>rice-sampleapp</artifactId>
+            <version>${deploy.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+          </dependency>
+          <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <scope>test</scope>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
