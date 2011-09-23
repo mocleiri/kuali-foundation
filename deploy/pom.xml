@@ -57,6 +57,7 @@
     <url>http://svn.kuali.org/repos/foundation/trunk/deploy</url>
   </scm>
   <properties>
+    <deploy.phase>package</deploy.phase>
     <maven.failsafe.forkmode>once</maven.failsafe.forkmode>
     <maven.failsafe.forkedProcessTimeoutInSeconds>7200</maven.failsafe.forkedProcessTimeoutInSeconds>
     <maven.failsafe.useSystemClassLoader>true</maven.failsafe.useSystemClassLoader>
@@ -189,7 +190,7 @@
         <executions>
           <execution>
             <id>stop-remote-tomcat</id>
-            <phase>package</phase>
+            <phase>${deploy.phase}</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -209,7 +210,7 @@
           </execution>
           <execution>
             <id>remove-remote-war-dir</id>
-            <phase>package</phase>
+            <phase>${deploy.phase}</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -227,7 +228,7 @@
           </execution>
           <execution>
             <id>copy-local-config-file-to-remote</id>
-            <phase>package</phase>
+            <phase>${deploy.phase}</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -243,7 +244,7 @@
           </execution>
           <execution>
             <id>copy-local-war-file-to-remote</id>
-            <phase>package</phase>
+            <phase>${deploy.phase}</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -259,7 +260,7 @@
           </execution>
           <execution>
             <id>reset-remote-database</id>
-            <phase>package</phase>
+            <phase>${deploy.phase}</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -280,7 +281,7 @@
           </execution>
           <execution>
             <id>cleanup-remote-tomcat</id>
-            <phase>package</phase>
+            <phase>${deploy.phase}</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -300,7 +301,7 @@
           </execution>
           <execution>
             <id>start-remote-tomcat</id>
-            <phase>package</phase>
+            <phase>${deploy.phase}</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -327,7 +328,7 @@
         <executions>
           <execution>
             <id>wait-for-tomcat-startup</id>
-            <phase>package</phase>
+            <phase>${deploy.phase}</phase>
             <goals>
               <goal>wait</goal>
             </goals>
