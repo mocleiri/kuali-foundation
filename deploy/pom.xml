@@ -389,8 +389,12 @@
           <useSystemClassLoader>${maven.failsafe.useSystemClassLoader}</useSystemClassLoader>
           <useFile>false</useFile>
           <failIfNoTests>false</failIfNoTests>
-          <includes>
+          <!--
+            <includes>
             <include>${maven.failsafe.includes}</include>
+            </includes> -->
+          <includes>
+            <include>**/FiscalOfficerInfoMaintenanceNewIT.java</include>
           </includes>
           <forkMode>${maven.failsafe.forkmode}</forkMode>
           <forkedProcessTimeoutInSeconds>${maven.failsafe.forkedProcessTimeoutInSeconds}</forkedProcessTimeoutInSeconds>
