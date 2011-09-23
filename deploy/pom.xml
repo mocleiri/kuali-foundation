@@ -55,7 +55,6 @@
     <url>http://svn.kuali.org/repos/foundation/trunk/deploy</url>
   </scm>
   <properties>
-    <project.build.testSourceDirectory>${project.basedir}/sampleapp/src/it/java</project.build.testSourceDirectory>
     <deploy.phase>package</deploy.phase>
     <maven.failsafe.forkmode>once</maven.failsafe.forkmode>
     <maven.failsafe.forkedProcessTimeoutInSeconds>7200</maven.failsafe.forkedProcessTimeoutInSeconds>
@@ -382,6 +381,7 @@
           </execution>
         </executions>
         <configuration>
+          <testSourceDirectory>/opt/jenkins-home/jobs/rice-trunk-deploy-sampleapp/workspace/sampleapp/src/it/java</testSourceDirectory>
           <encoding>UTF-8</encoding>
           <systemPropertyVariables>
             <remote.public.url>${remote.public.url}</remote.public.url>
