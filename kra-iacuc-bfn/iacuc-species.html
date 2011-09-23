@@ -23,13 +23,22 @@
     <title>IACUC - Species/Groups</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <link rel="shortcut icon" href="../images/icon.ico" />
+    
     <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
     <link href="../BFN/new_kuali.css" rel=stylesheet type="text/css">
-    <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />
-    <!--<link href="questionnaire.css" rel="stylesheet" type="text/css" />-->
+    
     <!-- jQuery Library -->
-	<script type="text/javascript" src="../scripts/jquery.js"></script>
-    <!--<script type="text/javascript" src="jquery.treeview.js"></script>-->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    
+    <!-- treeview -->
+    <!--<script type="text/javascript" src="jquery.treeview.js"></script>
+    <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />-->
+    
+    <!-- FancyBox -->
+    <script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+    
 </head>
 <body>
 
@@ -264,7 +273,7 @@
             <td class="panelcontent1">&nbsp;</td>
             <td class="panelcontent2" colspan="3">
             
-            	<!-- Context -->
+            	<!-- Panel -->
                 <table class="elementhead_table">
                     <tr>
                         <th class="elementhead_left">
@@ -307,7 +316,7 @@
                             <td class="content_grey" style="text-align:center; width:175px;">
                                 Exception*
                             </td>
-                            <td class="content_grey" style="text-align:center;">
+                            <td class="content_grey" style="text-align:center; min-width:100px;">
                                 Action
                             </td>
                         </tr>
@@ -484,13 +493,185 @@
                                     
                                 </div>
                             </td>
-                            <td class="content_info" style="text-align:center; width:100px;">
+                            <td class="content_info" style="text-align:center;">
                             	<img src="../images/tinybutton-add1.gif" style="border:none; cursor:pointer;" alt="add" title="Add" type="image" onClick="alert('This would add the indicated record.');" />
                             </td>
                         </tr>
                         <tr>
                             <td class="content_grey" style="width:50px; text-align:center;">
                                 1
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                <input type="text" style="width:100px;" value="Flying Salamanders" />
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                <select style="width:100%;">
+                                    <option value="88">Amphibian- Frog</option>
+                                    <option value="2">Amphibian- Other</option>
+                                    <option value="3" selected="selected">Amphibian- Salamander</option>
+                                    <option value="91">Amphibian- Toad</option>
+                                    <option value="5">Bird- Chicken For Agricultural Research</option>
+                                    <option value="6">Bird- Chicken For Biomedical Research/vet Teaching</option>
+                                    <option value="94">Bird- Cormorant</option>
+                                    <option value="8">Bird- Duck</option>
+                                    <option value="96">Bird- Finch</option>
+                                    <option value="97">Bird- Goose, Domestic</option>
+                                    <option value="98">Bird- Goose, Wild</option>
+                                    <option value="99">Bird- Loon</option>
+                                    <option value="13">Bird- Other</option>
+                                    <option value="14">Bird- Pheasant</option>
+                                    <option value="15">Bird- Quail</option>
+                                    <option value="16">Bird- Raptor</option>
+                                    <option value="17">Bird- Sparrow</option>
+                                    <option value="105">Bird- Starling</option>
+                                    <option value="106">Bird- Turkey</option>
+                                    <option value="32">Fish- Alewife</option>
+                                    <option value="120">Fish- Brienomyrus brachyistius</option>
+                                    <option value="121">Fish- Brienomyrus niger</option>
+                                    <option value="122">Fish- Goldfish</option>
+                                    <option value="36">Fish- Mormyrid Electric Fish</option>
+                                    <option value="37">Fish- Non-specific</option>
+                                    <option value="38">Fish- Other</option>
+                                    <option value="39">Fish- Salmon</option>
+                                    <option value="40">Fish- Striped Bass</option>
+                                    <option value="41">Fish- Tilapia</option>
+                                    <option value="129">Fish- Toadfishes</option>
+                                    <option value="130">Fish- Trout</option>
+                                    <option value="44">Fish- Walleye</option>
+                                    <option value="132">Fish- Zebra Fish</option>
+                                    <option value="20">Mammal- Alpaca</option>
+                                    <option value="133">Mammal- Baboon</option>
+                                    <option value="164">Mammal- Bat</option>
+                                    <option value="78">Mammal- Bear</option>
+                                    <option value="69">Mammal- Bovine For Agricultural Research</option>
+                                    <option value="70">Mammal- Bovine For Biomed Research/Vet Teaching</option>
+                                    <option value="110">Mammal- Cat</option>
+                                    <option value="147">Mammal- Chincillas</option>
+                                    <option value="166">Mammal- Deer</option>
+                                    <option value="111">Mammal- Dog</option>
+                                    <option value="25">Mammal- Donkey</option>
+                                    <option value="31">Mammal- Ferret</option>
+                                    <option value="80">Mammal- Fox</option>
+                                    <option value="61">Mammal- Gerbil</option>
+                                    <option value="47">Mammal- Gibbon</option>
+                                    <option value="158">Mammal- Goat For Agricultural Research</option>
+                                    <option value="159">Mammal- Goat For Biomed Research/Vet Teaching</option>
+                                    <option value="62">Mammal- Guinea Pig</option>
+                                    <option value="150">Mammal- Hamster</option>
+                                    <option value="26">Mammal- Horse For Agricultural Research</option>
+                                    <option value="27">Mammal- Horse For Biomed Research /Vet Teaching</option>
+                                    <option value="108">Mammal- Llama</option>
+                                    <option value="135">Mammal- Marmoset</option>
+                                    <option value="136">Mammal- Monkey, Cynomolgus</option>
+                                    <option value="137">Mammal- Monkey, Rhesus</option>
+                                    <option value="138">Mammal- Monkey, Squirrel</option>
+                                    <option value="64">Mammal- Mouse</option>
+                                    <option value="81">Mammal- Mouse, Deer</option>
+                                    <option value="169">Mammal- Mouse, White Footed</option>
+                                    <option value="28">Mammal- Mule/ Hinny</option>
+                                    <option value="152">Mammal- Naked Mole Rat</option>
+                                    <option value="109">Mammal- Other Camelide</option>
+                                    <option value="52">Mammal- Other Non-human Primate</option>
+                                    <option value="66">Mammal- Other Rodent</option>
+                                    <option value="83">Mammal- Other Wild Mammal</option>
+                                    <option value="30">Mammal- Pony for Agricultural Research</option>
+                                    <option value="54">Mammal- Rabbit</option>
+                                    <option value="171">Mammal- Raccoon</option>
+                                    <option value="154">Mammal- Rat</option>
+                                    <option value="160">Mammal- Sheep For Agricultural Research</option>
+                                    <option value="161">Mammal- Sheep For Biomed Research/Vet Teaching</option>
+                                    <option value="85">Mammal- Squirrel</option>
+                                    <option value="75">Mammal- Swine For Agricultural Research</option>
+                                    <option value="76">Mammal- Swine For Biomed Research/Vet Teaching</option>
+                                    <option value="86">Mammal- Vole</option>
+                                    <option value="87">Mammal- Wild Rat</option>
+                                    <option value="68">Mammal- Woodchuck</option>
+                                    <option value="140">Multiple Species</option>
+                                    <option value="55">Reptile- Anole</option>
+                                    <option value="56">Reptile- Lizard</option>
+                                    <option value="57">Reptile- Other</option>
+                                    <option value="145">Reptile- Snake</option>
+                                    <option value="146">Reptile- Turtle</option>
+                                </select>
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	<input type="text" style="width:100px;" />
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	<select style="width:100%;">
+                                    <option value="1" selected="selected">A</option>
+                                    <option value="2">B</option>
+                                    <option value="3">C</option>
+                                    <option value="4">D</option>
+                                    <option value="5">E</option>
+                                    <option value="6">None</option>
+                                </select>
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	<select style="width:100%;">
+                                    <option value="1" selected="selected">No</option>
+                                    <option value="2">Yes</option>
+                                </select>
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	<select style="width:100%;">
+                                    <option value="1">Eggs</option>
+                                    <option value="2">Embryos</option>
+                                    <option value="3" selected="selected">Animals</option>
+                                </select>
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                            	<input type="text" value="20" />
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                <select style="width:100%;" id="control_exception01">
+                                    <option value="0">select</option>
+                                    <option value="1" selected="selected">None</option>
+                                    <option value="2">Exception 1</option>
+                                    <option value="3">Exception 2</option>
+                                    <option value="4">Exception 3</option>
+                                    <option value="5">Exception 4</option>
+                                </select>
+								<script type="text/javascript">
+                                    $(document).ready(function(){
+                                        // trigger
+                                            $("#control_exception01").change(
+                                                function()
+                                                {
+                                                    var selectedIndex = $("#control_exception01")[0].selectedIndex;
+                                                    if(selectedIndex>1)
+                                                    {
+                                                        $("#div_exception01").slideDown(200);
+                                                    }
+                                                    else
+                                                    {
+                                                        $("#div_exception01").slideUp(200);
+                                                    }
+                                                }
+                                            );	
+                                    });
+                                </script>
+                                <div id="div_exception01" style="display:none;">
+                                    <strong>Description:*</strong>
+                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none;">
+                                                <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                            </td>
+                                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
+                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                            	<img src="../images/tinybutton-delete1.gif" style="border:none; cursor:pointer;" alt="delete" title="Delete" type="image" onClick="alert('This would remove the indicated record.');" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="width:50px; text-align:center;">
+                                2
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 <div class="text_edit01">Flying Frogs</div>
@@ -638,7 +819,7 @@
                             <td class="content_white" style="text-align:left;">
                                 <div class="text_edit01">None</div>
                                 <div class="field_edit01" style="display:none;">
-                                	<select style="width:100%;" id="control_exception01" class="fieldhighlite">
+                                	<select style="width:100%;" id="control_exception02" class="fieldhighlite">
                                         <option value="0">select</option>
                                         <option value="1" selected="selected">None</option>
                                         <option value="2">Exception 1</option>
@@ -649,23 +830,23 @@
                                     <script type="text/javascript">
                                         $(document).ready(function(){
                                             // trigger
-                                                $("#control_exception01").change(
+                                                $("#control_exception02").change(
                                                     function()
                                                     {
-                                                        var selectedIndex = $("#control_exception01")[0].selectedIndex;
+                                                        var selectedIndex = $("#control_exception02")[0].selectedIndex;
                                                         if(selectedIndex>1)
                                                         {
-                                                            $("#div_exception01").slideDown(200);
+                                                            $("#div_exception02").slideDown(200);
                                                         }
                                                         else
                                                         {
-                                                            $("#div_exception01").slideUp(200);
+                                                            $("#div_exception02").slideUp(200);
                                                         }
                                                     }
                                                 );	
                                         });
                                     </script>
-                                    <div id="div_exception01" style="display:none;">
+                                    <div id="div_exception02" style="display:none;">
                                         <strong>Description:*</strong>
                                         <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                             <tr>
@@ -709,7 +890,7 @@
                         </tr>
                         <tr>
                             <td class="content_grey" style="text-align:center;">
-                                2
+                                3
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 Tiny Flying Frogs
@@ -717,8 +898,8 @@
                             <td class="content_white" style="text-align:left;">
                                 Amphibian- Frog
                             </td>
-                            <td class="content_white" style="text-align:left;">
-                            	&nbsp;
+                            <td class="content_white" style="text-align:left;">&nbsp;
+                            	
                             </td>
                             <td class="content_white" style="text-align:left;">
                             	None
@@ -733,11 +914,242 @@
                             	200
                             </td>
                             <td class="content_white" style="text-align:left;">
-                                No
+                                None
                             </td>
                             <td class="content_white" style="text-align:center;">
-                            	<img id="edit01" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" />
+                                
+                                <!-- FancyBox -->
+                                <a id="FB_control_editspecies01" href="#FB_div_editspecies01" title="Edit Tiny Flying Frogs"><img id="edit03" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>
+								<script type="text/javascript">
+									$(document).ready(function() {
+										
+										$("#FB_control_editspecies01").fancybox();
+										
+									});
+								</script>
+                                <div style="display: none;">
+                                    <div id="FB_div_editspecies01" style="overflow:auto;">
+                                        <table class="content_table">  
+                                            <tr>
+                                                <th class="elementhead_left">
+                                                    <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                                    Edit Tiny Flying Frogs
+                                                </th>
+                                                <th class="elementhead_right">
+                                                    <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Group*
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	<input type="text" style="width:100%;" value="Tiny Flying Frogs" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Species*
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	<select style="width:100%;">
+                                                        <option value="88" selected="selected">Amphibian- Frog</option>
+                                                        <option value="2">Amphibian- Other</option>
+                                                        <option value="3">Amphibian- Salamander</option>
+                                                        <option value="91">Amphibian- Toad</option>
+                                                        <option value="5">Bird- Chicken For Agricultural Research</option>
+                                                        <option value="6">Bird- Chicken For Biomedical Research/vet Teaching</option>
+                                                        <option value="94">Bird- Cormorant</option>
+                                                        <option value="8">Bird- Duck</option>
+                                                        <option value="96">Bird- Finch</option>
+                                                        <option value="97">Bird- Goose, Domestic</option>
+                                                        <option value="98">Bird- Goose, Wild</option>
+                                                        <option value="99">Bird- Loon</option>
+                                                        <option value="13">Bird- Other</option>
+                                                        <option value="14">Bird- Pheasant</option>
+                                                        <option value="15">Bird- Quail</option>
+                                                        <option value="16">Bird- Raptor</option>
+                                                        <option value="17">Bird- Sparrow</option>
+                                                        <option value="105">Bird- Starling</option>
+                                                        <option value="106">Bird- Turkey</option>
+                                                        <option value="32">Fish- Alewife</option>
+                                                        <option value="120">Fish- Brienomyrus brachyistius</option>
+                                                        <option value="121">Fish- Brienomyrus niger</option>
+                                                        <option value="122">Fish- Goldfish</option>
+                                                        <option value="36">Fish- Mormyrid Electric Fish</option>
+                                                        <option value="37">Fish- Non-specific</option>
+                                                        <option value="38">Fish- Other</option>
+                                                        <option value="39">Fish- Salmon</option>
+                                                        <option value="40">Fish- Striped Bass</option>
+                                                        <option value="41">Fish- Tilapia</option>
+                                                        <option value="129">Fish- Toadfishes</option>
+                                                        <option value="130">Fish- Trout</option>
+                                                        <option value="44">Fish- Walleye</option>
+                                                        <option value="132">Fish- Zebra Fish</option>
+                                                        <option value="20">Mammal- Alpaca</option>
+                                                        <option value="133">Mammal- Baboon</option>
+                                                        <option value="164">Mammal- Bat</option>
+                                                        <option value="78">Mammal- Bear</option>
+                                                        <option value="69">Mammal- Bovine For Agricultural Research</option>
+                                                        <option value="70">Mammal- Bovine For Biomed Research/Vet Teaching</option>
+                                                        <option value="110">Mammal- Cat</option>
+                                                        <option value="147">Mammal- Chincillas</option>
+                                                        <option value="166">Mammal- Deer</option>
+                                                        <option value="111">Mammal- Dog</option>
+                                                        <option value="25">Mammal- Donkey</option>
+                                                        <option value="31">Mammal- Ferret</option>
+                                                        <option value="80">Mammal- Fox</option>
+                                                        <option value="61">Mammal- Gerbil</option>
+                                                        <option value="47">Mammal- Gibbon</option>
+                                                        <option value="158">Mammal- Goat For Agricultural Research</option>
+                                                        <option value="159">Mammal- Goat For Biomed Research/Vet Teaching</option>
+                                                        <option value="62">Mammal- Guinea Pig</option>
+                                                        <option value="150">Mammal- Hamster</option>
+                                                        <option value="26">Mammal- Horse For Agricultural Research</option>
+                                                        <option value="27">Mammal- Horse For Biomed Research /Vet Teaching</option>
+                                                        <option value="108">Mammal- Llama</option>
+                                                        <option value="135">Mammal- Marmoset</option>
+                                                        <option value="136">Mammal- Monkey, Cynomolgus</option>
+                                                        <option value="137">Mammal- Monkey, Rhesus</option>
+                                                        <option value="138">Mammal- Monkey, Squirrel</option>
+                                                        <option value="64">Mammal- Mouse</option>
+                                                        <option value="81">Mammal- Mouse, Deer</option>
+                                                        <option value="169">Mammal- Mouse, White Footed</option>
+                                                        <option value="28">Mammal- Mule/ Hinny</option>
+                                                        <option value="152">Mammal- Naked Mole Rat</option>
+                                                        <option value="109">Mammal- Other Camelide</option>
+                                                        <option value="52">Mammal- Other Non-human Primate</option>
+                                                        <option value="66">Mammal- Other Rodent</option>
+                                                        <option value="83">Mammal- Other Wild Mammal</option>
+                                                        <option value="30">Mammal- Pony for Agricultural Research</option>
+                                                        <option value="54">Mammal- Rabbit</option>
+                                                        <option value="171">Mammal- Raccoon</option>
+                                                        <option value="154">Mammal- Rat</option>
+                                                        <option value="160">Mammal- Sheep For Agricultural Research</option>
+                                                        <option value="161">Mammal- Sheep For Biomed Research/Vet Teaching</option>
+                                                        <option value="85">Mammal- Squirrel</option>
+                                                        <option value="75">Mammal- Swine For Agricultural Research</option>
+                                                        <option value="76">Mammal- Swine For Biomed Research/Vet Teaching</option>
+                                                        <option value="86">Mammal- Vole</option>
+                                                        <option value="87">Mammal- Wild Rat</option>
+                                                        <option value="68">Mammal- Woodchuck</option>
+                                                        <option value="140">Multiple Species</option>
+                                                        <option value="55">Reptile- Anole</option>
+                                                        <option value="56">Reptile- Lizard</option>
+                                                        <option value="57">Reptile- Other</option>
+                                                        <option value="145">Reptile- Snake</option>
+                                                        <option value="146">Reptile- Turtle</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Species Strain
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	<input type="text" style="width:100%;" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Pain Category
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	<select style="width:100%;">
+                                                        <option value="1">A</option>
+                                                        <option value="2">B</option>
+                                                        <option value="3">C</option>
+                                                        <option value="4">D</option>
+                                                        <option value="5">E</option>
+                                                        <option value="6" selected="selected">None</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    USDA Covered Type
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	<select style="width:100%;">
+                                                        <option value="1">No</option>
+                                                        <option value="2" selected="selected">Yes</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Count Type
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	<select style="width:100%;">
+                                                        <option value="1">Eggs</option>
+                                                        <option value="2" selected="selected">Embryos</option>
+                                                        <option value="3">Animals</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Count
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	<input type="text" value="200" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Exception*
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	<select style="width:100%;" id="control_exception03">
+                                                        <option value="0">select</option>
+                                                        <option value="1" selected="selected">None</option>
+                                                        <option value="2">Exception 1</option>
+                                                        <option value="3">Exception 2</option>
+                                                        <option value="4">Exception 3</option>
+                                                        <option value="5">Exception 4</option>
+                                                    </select>
+                                                    <script type="text/javascript">
+														$(document).ready(function(){
+															// trigger
+																$("#control_exception03").change(
+																	function()
+																	{
+																		var selectedIndex = $("#control_exception03")[0].selectedIndex;
+																		if(selectedIndex>1)
+																		{
+																			$("#div_exception03").slideDown(200);
+																		}
+																		else
+																		{
+																			$("#div_exception03").slideUp(200);
+																		}
+																	}
+																);	
+														});
+													</script>
+													<div id="div_exception03" style="display:none;">
+														<strong>Description:*</strong>
+														<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+															<tr>
+																<td style="border:none; background:none;">
+																	<textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+																</td>
+																<td style="border:none; background:none; width:20px; vertical-align:bottom;">
+																	<input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+																</td>
+															</tr>
+														</table>
+													</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p style="text-align:center;"><img src="../images/tinybutton-save1.gif" style="border:none; cursor:pointer;" alt="save" title="Save" type="image" onClick="alert('This would update the indicated record.'); parent.$.fancybox.close();" /></p>
+                                    </div>
+                                </div>
+                                
                                 <img src="../images/tinybutton-delete1.gif" style="border:none; cursor:pointer;" alt="delete" title="Delete" type="image" onClick="alert('This would remove the indicated record.');" />
+                                
                             </td>
                         </tr>
                     </table>
