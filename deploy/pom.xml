@@ -374,6 +374,9 @@
           </execution>
         </executions>
         <configuration>
+          <systemPropertyVariables>
+            <remote.public.url>${remote.public.url}</remote.public.url>
+          </systemPropertyVariables>
           <skip>${maven.failsafe.skip}</skip>
           <useSystemClassLoader>${maven.failsafe.useSystemClassLoader}</useSystemClassLoader>
           <useFile>false</useFile>
