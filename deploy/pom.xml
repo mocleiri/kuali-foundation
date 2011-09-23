@@ -16,7 +16,7 @@
   <parent>
     <groupId>org.kuali</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>15</version>
+    <version>18</version>
   </parent>
   <artifactId>deploy</artifactId>
   <version>1.0.0-SNAPSHOT</version>
@@ -55,7 +55,6 @@
     <url>http://svn.kuali.org/repos/foundation/trunk/deploy</url>
   </scm>
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <deploy.phase>package</deploy.phase>
     <maven.failsafe.forkmode>once</maven.failsafe.forkmode>
     <maven.failsafe.forkedProcessTimeoutInSeconds>7200</maven.failsafe.forkedProcessTimeoutInSeconds>
@@ -382,6 +381,7 @@
           </execution>
         </executions>
         <configuration>
+          <encoding>UTF-8</encoding>
           <systemPropertyVariables>
             <remote.public.url>${remote.public.url}</remote.public.url>
           </systemPropertyVariables>
