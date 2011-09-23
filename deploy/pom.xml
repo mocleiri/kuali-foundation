@@ -404,20 +404,20 @@
           <argLine>-Dalt.config.location="${build.alt.config.location}" -Xmx1024m -XX:MaxPermSize=512m
             -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled</argLine>
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.kuali.rice</groupId>
-            <artifactId>rice-sampleapp</artifactId>
-            <version>${deploy.version}</version>
-            <type>test-jar</type>
-          </dependency>
-          <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>2.6.0</version>
-          </dependency>
-        </dependencies>
       </plugin>
     </plugins>
+    <dependencies>
+      <dependency>
+        <groupId>org.kuali.rice</groupId>
+        <artifactId>rice-sampleapp</artifactId>
+        <version>${deploy.version}</version>
+        <type>test-jar</type>
+      </dependency>
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>2.6.0</version>
+      </dependency>
+    </dependencies>
   </build>
 </project>
