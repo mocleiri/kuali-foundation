@@ -23,13 +23,22 @@
     <title>COI - Financial Entities</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <link rel="shortcut icon" href="../images/icon.ico" />
+    
     <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
     <link href="../BFN/new_kuali.css" rel=stylesheet type="text/css">
-    <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />
-    <!--<link href="questionnaire.css" rel="stylesheet" type="text/css" />-->
+    
     <!-- jQuery Library -->
-	<script type="text/javascript" src="../scripts/jquery.js"></script>
-    <!--<script type="text/javascript" src="jquery.treeview.js"></script>-->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    
+    <!-- treeview -->
+    <!--<script type="text/javascript" src="jquery.treeview.js"></script>
+    <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />-->
+    
+    <!-- FancyBox -->
+    <script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+    
 </head>
 <body>
 
@@ -282,13 +291,13 @@
                             <td class="content_grey" style="text-align:center;">
                                 Entity
                             </td>
-                            <td class="content_grey" style="text-align:center;">
+                            <td class="content_grey" style="text-align:center; width:220px;">
                                 Relationship
                             </td>
-                            <td class="content_grey" style="text-align:center;">
+                            <td class="content_grey" style="text-align:center; width:220px;">
                                 Last Update
                             </td>
-                            <td class="content_grey" style="text-align:center; width:110px;">
+                            <td class="content_grey" style="text-align:center; width:220px;">
                                 Action
                             </td>
                         </tr>
@@ -297,7 +306,6 @@
                                 1
                             </td>
                             <td class="content_white">
-                                <img src="../images/tinybutton-history.gif" alt="view" style="width:47px; height:15px; border:none; cursor:pointer; vertical-align:middle;">
                                 <img src="../images/exclamation.png" alt="attention" style="width:16px; height:16px; vertical-align:middle;">
                                 Barakat Pharmaceutical Industries
                             </td>
@@ -308,13 +316,80 @@
                                 07/29/2009 03:59 PM crc
                             </td>
                             <td class="content_white" style="text-align:center;">
-                                <img src="../images/tinybutton-deactivate.gif" alt="deactivate" style="width:64px; height:15px; border:none; cursor:pointer;">
-                                <img src="../images/tinybutton-edit1.gif" alt="edit" style="width:40px; height:15px; border:none; cursor:pointer;">
-                                <!--<img src="../images/tinybutton-view1.gif" alt="view" style="width:40px; height:15px; border:none; cursor:pointer;">-->
+                                
+                                <!-- FancyBox: View Financial Entity -->
+                                <a id="FB_control_summaryview01" href="#FB_div_summaryview01" title="Barakat Pharmaceutical Industries Summary"><img src="../images/tinybutton-view.gif" alt="view" style="width:40px; height:15px; border:none;"></a>
+								<script type="text/javascript">
+									$(document).ready(function() {
+										
+										$("#FB_control_summaryview01").fancybox();
+										
+									});
+								</script>
+                                <div style="display: none;">
+                                    <div id="FB_div_summaryview01" style="overflow:auto;">
+                                        <table class="content_table">  
+                                            <tr>
+                                                <th class="elementhead_left">
+                                                    <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                                    Barakat Pharmaceutical Industries Summary
+                                                </th>
+                                                <th class="elementhead_right">
+                                                    <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th class="content_grey">
+                                                    label 
+                                                </th>
+                                                <th class="content_white">
+                                                    [field]
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                            
+                                <img src="../images/tinybutton-deactivate.gif" alt="deactivate" style="width:64px; height:15px; border:none; cursor:pointer;" onclick="alert('This would move the indicated record to Inactive Entities.')">
+                                <a href="coi-financialentity.html"><img src="../images/tinybutton-edit1.gif" alt="edit" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would check validation before navigating to the editable view of the indicated record.')"></a>
+                                
+                                <!-- FancyBox: View Financial Entity -->
+                                <a id="FB_control_history01" href="#FB_div_history01" title="Barakat Pharmaceutical Industries History"><img src="../images/tinybutton-history.gif" alt="history" style="width:47px; height:15px; border:none;"></a>
+								<script type="text/javascript">
+									$(document).ready(function() {
+										
+										$("#FB_control_history01").fancybox();
+										
+									});
+								</script>
+                                <div style="display: none;">
+                                    <div id="FB_div_history01" style="overflow:auto;">
+                                        <table class="content_table">  
+                                            <tr>
+                                                <th class="elementhead_left">
+                                                    <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                                    Barakat Pharmaceutical Industries History
+                                                </th>
+                                                <th class="elementhead_right">
+                                                    <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th class="content_grey">
+                                                    label 
+                                                </th>
+                                                <th class="content_white">
+                                                    [field]
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                
                             </td>
                         </tr>
                         
-                        <tbody id="tbody_01">
+                        <!--<table class="content_table">
                             <tr>
                                 <td class="content_white" colspan=2 style="width:50px; text-align:center;">&nbsp;
                                     
@@ -357,14 +432,13 @@
                                     <img src="../images/tinybutton-view1.gif" alt="view" style="width:40px; height:15px; border:none; cursor:pointer;">
                                 </td>
                             </tr>
-                        </tbody>
+                        </table>-->
                         
                         <tr>
                             <td class="content_grey" style="width:50px; text-align:center;">
                                 2
                             </td>
                             <td class="content_white">
-                                <img src="../images/tinybutton-history.gif" alt="view" style="width:47px; height:15px; border:none; cursor:pointer; vertical-align:middle;">
                                 <!--<img src="../images/exclamation.png" alt="attention" style="width:16px; height:16px; vertical-align:middle;">-->
                                 Berlex Laboratories, Inc. 
                             </td>
@@ -375,8 +449,10 @@
                                 07/29/2009 03:59 PM crc
                             </td>
                             <td class="content_white" style="text-align:center;">
-                                <img src="../images/tinybutton-deactivate.gif" alt="deactivate" style="width:64px; height:15px; border:none; cursor:pointer;">
-                                <img src="../images/tinybutton-edit1.gif" alt="edit" style="width:40px; height:15px; border:none; cursor:pointer;">
+                                <img src="../images/tinybutton-view.gif" alt="view" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of a read-only, summary view for the indicated record.')">
+                                <img src="../images/tinybutton-deactivate.gif" alt="deactivate" style="width:64px; height:15px; border:none; cursor:pointer;" onclick="alert('This would move the indicated record to Inactive Entities.')">
+                                <img src="../images/tinybutton-edit1.gif" alt="edit" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would navigate to the editable view of the indicated record.')">
+                                <img src="../images/tinybutton-history.gif" alt="history" style="width:47px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of versions for the indicated record.')">
                             </td>
                         </tr>
                         <tr>
@@ -384,7 +460,6 @@
                                 3
                             </td>
                             <td class="content_white">
-                                <img src="../images/tinybutton-history.gif" alt="view" style="width:47px; height:15px; border:none; cursor:pointer; vertical-align:middle;">
                                 <!--<img src="../images/exclamation.png" alt="attention" style="width:16px; height:16px; vertical-align:middle;">-->
                                 Bristol-Myers Squibb Company
                             </td>
@@ -395,8 +470,10 @@
                                 07/29/2009 03:59 PM crc
                             </td>
                             <td class="content_white" style="text-align:center;">
-                                <img src="../images/tinybutton-deactivate.gif" alt="deactivate" style="width:64px; height:15px; border:none; cursor:pointer;">
-                                <img src="../images/tinybutton-edit1.gif" alt="edit" style="width:40px; height:15px; border:none; cursor:pointer;">
+                                <img src="../images/tinybutton-view.gif" alt="view" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of a read-only, summary view for the indicated record.')">
+                                <img src="../images/tinybutton-deactivate.gif" alt="deactivate" style="width:64px; height:15px; border:none; cursor:pointer;" onclick="alert('This would move the indicated record to Inactive Entities.')">
+                                <img src="../images/tinybutton-edit1.gif" alt="edit" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would navigate to the editable view of the indicated record.')">
+                                <img src="../images/tinybutton-history.gif" alt="history" style="width:47px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of versions for the indicated record.')">
                             </td>
                         </tr>
                     </table>
@@ -443,13 +520,13 @@
                             <td class="content_grey" style="text-align:center;">
                                 Entity
                             </td>
-                            <td class="content_grey" style="text-align:center;">
+                            <td class="content_grey" style="text-align:center; width:220px;">
                                 Relationship
                             </td>
-                            <td class="content_grey" style="text-align:center;">
+                            <td class="content_grey" style="text-align:center; width:220px;">
                                 Last Update
                             </td>
-                            <td class="content_grey" style="text-align:center; width:110px;">
+                            <td class="content_grey" style="text-align:center; width:220px;">
                                 Action
                             </td>
                         </tr>
@@ -468,7 +545,10 @@
                                 07/29/2009 03:59 PM crc
                             </td>
                             <td class="content_white" style="text-align:center;">
-                                <img src="../images/tinybutton-activate.gif" alt="deactivate" style="width:53px; height:15px; border:none; cursor:pointer;">
+                                <img src="../images/tinybutton-view.gif" alt="view" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of a read-only, summary view for the indicated record.')">
+                                <img src="../images/tinybutton-activate.gif" alt="deactivate" style="width:53px; height:15px; border:none; cursor:pointer;" onclick="alert('This would move the indicated record to Active Entities.')">
+                                <img src="../images/tinybutton-edit1.gif" alt="edit" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would navigate to the editable view of the indicated record.')">
+                                <img src="../images/tinybutton-history.gif" alt="history" style="width:47px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of versions for the indicated record.')">
                             </td>
                         </tr>
                         <tr>
@@ -486,7 +566,10 @@
                                 07/29/2009 03:59 PM crc
                             </td>
                             <td class="content_white" style="text-align:center;">
-                                <img src="../images/tinybutton-activate.gif" alt="deactivate" style="width:53px; height:15px; border:none; cursor:pointer;">
+                                <img src="../images/tinybutton-view.gif" alt="view" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of a read-only, summary view for the indicated record.')">
+                                <img src="../images/tinybutton-activate.gif" alt="deactivate" style="width:53px; height:15px; border:none; cursor:pointer;" onclick="alert('This would move the indicated record to Active Entities.')">
+                                <img src="../images/tinybutton-edit1.gif" alt="edit" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would navigate to the editable view of the indicated record.')">
+                                <img src="../images/tinybutton-history.gif" alt="history" style="width:47px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of versions for the indicated record.')">
                             </td>
                         </tr>
                         <tr>
@@ -504,11 +587,13 @@
                                 07/29/2009 03:59 PM crc
                             </td>
                             <td class="content_white" style="text-align:center;">
-                                <img src="../images/tinybutton-activate.gif" alt="deactivate" style="width:53px; height:15px; border:none; cursor:pointer;">
+                                <img src="../images/tinybutton-view.gif" alt="view" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of a read-only, summary view for the indicated record.')">
+                                <img src="../images/tinybutton-activate.gif" alt="deactivate" style="width:53px; height:15px; border:none; cursor:pointer;" onclick="alert('This would move the indicated record to Active Entities.')">
+                                <img src="../images/tinybutton-edit1.gif" alt="edit" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would navigate to the editable view of the indicated record.')">
+                                <img src="../images/tinybutton-history.gif" alt="history" style="width:47px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of versions for the indicated record.')">
                             </td>
                         </tr>
                     </table>
-                    
             	</div>
                 
             </td>

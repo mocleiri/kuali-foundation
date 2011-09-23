@@ -1,0 +1,824 @@
+<!--
+#########################################################################################
+#                                                                                       #
+#  U I   N E S T E D   S T R U C T U R A L   O U T L I N E                              #
+#                                                                                       #
+#  A "Page" contains one or more "Panels" and optionally a "Control Panel" at the top.  #
+#  A Panel contains one or more "Elements."                                             #
+#  An Element can optionally expand and contains one or more of the following:          #
+#	 [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#                                                                                       #
+#  A Sub-element can optionally expand and contains one or more of the following:       #
+#    [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#                                                                                       #
+#########################################################################################
+-->
+
+<!-- DOCUMENT HEAD -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>COI - Financial Entity</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <link rel="shortcut icon" href="../images/icon.ico" />
+    
+    <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="../BFN/new_kuali.css" rel=stylesheet type="text/css">
+    
+    <!-- jQuery Library -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    
+    <!-- treeview -->
+    <!--<script type="text/javascript" src="jquery.treeview.js"></script>
+    <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />-->
+    
+    <!-- FancyBox -->
+    <script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+    
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="pageheader">
+	<table class='header' cellpadding="0" border="0">
+    	<tr>
+        	<td align="left" valign="middle">
+            	<span class="pagetitle">
+                	COI - Financial Entity
+                	<input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this page.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                </span>
+            </td>
+            <td align="right">
+            	
+                <table class="headerdocsummary" cellpadding="0" border="0">
+                	<tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                    <tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                    <tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                </table>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- TOP NAVIGATION(TABNAV)-->
+<div class="horizontaltabs">
+	<table class="horizontaltabstable">
+    	<tr>
+            <!-- ACTIVE -->
+                <td class="tabactive1">&nbsp;</td>
+                <td class="tabactive2">
+                    <button type="submit" name="editor" value="editor" alt="Business Rules" onClick="window.location='iacuc-species.html'">Financial Entity</button>
+                </td>
+                <td class="tabactive3">&nbsp;</td>
+        </tr>
+        <tr>
+            <!-- ACTIVE -->
+                <td class="tabactive4"></td>
+                <td class="tabactive5"></td>
+                <td class="tabactive6"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- BEGIN PANEL CONTAINER -->
+<table class="panelcontainer" cellspacing="20"><tr><td>
+
+<!-- GLOBAL NAVIGATION CONTROLS -->
+<div class="globalnav">
+	<img src="../images/tinybutton1-siteindex.gif" alt="site index" />
+    <img src="../images/tinybutton-expandall.gif" alt="expand all" />
+    <img src="../images/tinybutton-collapseall.gif" alt="collapse all" />
+</div>
+
+<form name="thisform" id="thisform" method="post" action="">
+
+<!-- TOP VERTICAL TAB HEAD -->
+<table class="paneltable">
+    <tr>
+        <td class="toppanelhead1">&nbsp;</td>
+        <td class="toppanelhead2">
+            Barakat Pharmaceutical Industries
+        </td>
+        <td class="toppanelhead3">
+            <!--<img id="control_panelcontent01" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none;" />
+            <script type="text/javascript">
+				$(document).ready(function(){
+					// trigger
+						$("#control_panelcontent01").toggle(
+							function()
+							{
+								$("#div_panelcontent01").slideDown(400);
+								$("#control_panelcontent01").attr("src","../images/tinybutton-hide.gif");
+								$("#control_panelcontent01").attr("alt","hide");
+							},
+							function()
+							{
+								$("#div_panelcontent01").slideUp(200);
+								$("#control_panelcontent01").attr("src","../images/tinybutton-show.gif");
+								$("#control_panelcontent01").attr("alt","show");
+							}
+						);	
+				});
+			</script>-->
+        </td>
+        <td class="toppanelhead4">&nbsp;</td>
+        <td class="toppanelhead5">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- PANEL CONTENT -->
+<div id="div_panelcontent01">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+                
+                <!-- Panel -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <img id="control_panelcontent06" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none; cursor:pointer;" />
+                            Financial Entity
+                            <script type="text/javascript">
+								$(document).ready(function(){
+									// trigger
+										$("#control_panelcontent06").toggle(
+											function()
+											{
+												$("#div_panelcontent06").slideUp(200);
+												$("#control_panelcontent06").attr("src","../images/tinybutton-show.gif");
+												$("#control_panelcontent06").attr("alt","show");
+											},
+											function()
+											{
+												$("#div_panelcontent06").slideDown(400);
+												$("#control_panelcontent06").attr("src","../images/tinybutton-hide.gif");
+												$("#control_panelcontent06").attr("alt","hide");
+											}
+										);	
+								});
+							</script>
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>                
+                <div id="div_panelcontent06">
+                    <table class="content_table">  
+                    	<tr>
+                            <td class="content_grey" style="width:110px;">
+                            	*Entity Name:
+                            </td>
+                            <td class="content_white" colspan="3">
+                                <input type="text" style="width:99%;" value="Barakat Pharmaceutical Industries" />
+                            </td>
+                            <td class="content_grey" style="width:140px;">
+                                *Type:
+                            </td>
+                            <td class="content_white" colspan="3">
+                                <select style="width:99%;">
+                                	<option value="">select</option>
+                                    <option value="2">A: State Government</option>
+                                    <option value="22">B: County Government</option>
+                                    <option value="1">C: City or Township Government</option>
+                                    <option value="23">D: Special District Governments</option>
+                                    <option value="24">E: Independent School District</option>
+                                    <option value="21">F: State-Controlled Institution of Higher Education</option>
+                                    <option value="3">Federal Government</option>
+                                    <option value="8">G: Native American Tribal Government (Federally Recognized)</option>
+                                    <option value="25">H: Public/Indian Housing Authority</option>
+                                    <option value="26">I: Native American Tribal Organization (other than Federally recognized)</option>
+                                    <option value="4">J: Nonprofit with 501C3 IRS status (other than Institution of Higher Education)</option>
+                                    <option value="5">K: Nonprofit without 501C3 IRS status (other than Institution of Higher Education)</option>
+                                    <option value="10">L: Private Institution of Higher Education</option>
+                                    <option value="9">M: Individual</option>
+                                    <option value="6">N: For-profit Organization (other than small business)</option>
+                                    <option value="11">O: Small Business</option>
+                                    <option value="7">P: Other </option>
+                                    <option value="14">P: Other (specify) - socially and economically disadvantaged</option>
+                                    <option value="15">P: Other (specify) - women owned</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey">
+                            	Sponsor Code:
+                            </td>
+                            <td class="content_white">
+                                
+                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none; text-align:right;">
+                                                <input type="text" value="" style="width:100%;" />
+                                            </td>
+                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                            </td>
+                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                <input name="x" src="../images/book_open.png" onclick="javascript: alert('This would show the direct inquiry dialog.'); return false" align="top" alt="Direct Inquiry" title="Direct Inquiry" style="border:none;" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                            </td>
+                            <td class="content_grey">
+                                Related To Organization Flag:
+                            </td>
+                            <td class="content_white">
+                                <input type="checkbox" class="nobord" name="CustomData" value="0" />
+                            </td>
+                            <td class="content_grey">
+                            	*Status Code:
+                            </td>
+                            <td class="content_white">
+                                <select style="width:99%;">
+                                    <option value="0">select</option>
+                                    <option value="1" selected="selected">active</option>
+                                    <option value="2">inactive</option>
+                                </select>
+                            </td>
+                            <td class="content_grey" style="width:150px;">
+                                *Public/Privately held:
+                            </td>
+                            <td class="content_white">
+                                <select style="width:99%;">
+                                    <option value="0">select</option>
+                                    <option value="1" selected="selected">public</option>
+                                    <option value="2">private</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey">
+                            	*Address Line 1:
+                            </td>
+                            <td class="content_white" colspan="3">
+                                <input type="text" style="width:99%;" value="" />
+                            </td>
+                            <td class="content_grey" rowspan="3">
+                                Relationship Description:
+                            </td>
+                            <td class="content_white" colspan="3" rowspan="3">
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey">
+                            	Address Line 2:
+                            </td>
+                            <td class="content_white" colspan="3">
+                                <input type="text" style="width:99%;" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey">
+                            	Address Line 3:
+                            </td>
+                            <td class="content_white" colspan="3">
+                                <input type="text" style="width:99%;" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey">
+                            	*City:
+                            </td>
+                            <td class="content_white" colspan="3">
+                                <input type="text" style="width:99%;" value="" />
+                            </td>
+                            <td class="content_grey" rowspan="3">
+                                Org Relation Description:
+                            </td>
+                            <td class="content_white" colspan="3" rowspan="3">
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey">
+                            	*State:
+                            </td>
+                            <td class="content_white" colspan="3">
+                                <select style="width:99%;">
+                                	<option value="">select</option>
+                                    <option value="AL">ALABAMA</option>
+                                    <option value="AK">ALASKA</option>
+                                    <option value="AS">AMERICAN SAMOA</option>
+                                    <option value="AZ">ARIZONA</option>
+                                    <option value="AR">ARKANSAS</option>
+                                    <option value="AA">ARMED FORCES AMERICAS (EXCEPT CANADA)</option>
+                                    <option value="AE">ARMED FORCES EURO/CANADA/AFRICA/MID EAST</option>
+                                    <option value="AP">ARMED FORCES PACIFIC</option>
+                                    <option value="CA">CALIFORNIA</option>
+                                    <option value="CO">COLORADO</option>
+                                    <option value="CT">CONNECTICUT</option>
+                                    <option value="DE">DELAWARE</option>
+                                    <option value="DC">DISTRICT OF COLUMBIA</option>
+                                    <option value="FM">FEDERATED STATES OF MICRONESIA</option>
+                                    <option value="FL">FLORIDA</option>
+                                    <option value="GA">GEORGIA</option>
+                                    <option value="GU">GUAM</option>
+                                    <option value="HI">HAWAII</option>
+                                    <option value="ID">IDAHO</option>
+                                    <option value="IL">ILLINOIS</option>
+                                    <option value="IN">INDIANA</option>
+                                    <option value="IA">IOWA</option>
+                                    <option value="KS">KANSAS</option>
+                                    <option value="KY">KENTUCKY</option>
+                                    <option value="LA">LOUISIANA</option>
+                                    <option value="ME">MAINE</option>
+                                    <option value="MH">MARSHALL ISLANDS</option>
+                                    <option value="MD">MARYLAND</option>
+                                    <option value="MA">MASSACHUSETTS</option>
+                                    <option value="MI">MICHIGAN</option>
+                                    <option value="MN">MINNESOTA</option>
+                                    <option value="MS">MISSISSIPPI</option>
+                                    <option value="MO">MISSOURI</option>
+                                    <option value="MT">MONTANA</option>
+                                    <option value="NE">NEBRASKA</option>
+                                    <option value="NV">NEVADA</option>
+                                    <option value="NH">NEW HAMPSHIRE</option>
+                                    <option value="NJ">NEW JERSEY</option>
+                                    <option value="NM">NEW MEXICO</option>
+                                    <option value="NY">NEW YORK</option>
+                                    <option value="NC">NORTH CAROLINA</option>
+                                    <option value="ND">NORTH DAKOTA</option>
+                                    <option value="MP">NORTHERN MARIANA ISLANDS</option>
+                                    <option value="OH">OHIO</option>
+                                    <option value="OK">OKLAHOMA</option>
+                                    <option value="OR">OREGON</option>
+                                    <option value="--">OUT OF COUNTRY</option>
+                                    <option value="PW">PALAU</option>
+                                    <option value="PA">PENNSYLVANIA</option>
+                                    <option value="PR">PUERTO RICO</option>
+                                    <option value="RI">RHODE ISLAND</option>
+                                    <option value="SC">SOUTH CAROLINA</option>
+                                    <option value="SD">SOUTH DAKOTA</option>
+                                    <option value="TN">TENNESSEE</option>
+                                    <option value="TX">TEXAS</option>
+                                    <option value="UT">UTAH</option>
+                                    <option value="VT">VERMONT</option>
+                                    <option value="VI">VIRGIN ISLANDS</option>
+                                    <option value="VA">VIRGINIA</option>
+                                    <option value="WA">WASHINGTON</option>
+                                    <option value="WV">WEST VIRGINIA</option>
+                                    <option value="WI">WISCONSIN</option>
+                                    <option value="WY">WYOMING</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey">
+                            	*Country Code:
+                            </td>
+                            <td class="content_white" colspan="3">
+                                <select style="width:99%;">
+                                	<option value="">select</option>
+                                    <option value="ALA">??land Islands</option>
+                                    <option value="AFG">Afghanistan</option>
+                                    <option value="ALB">Albania</option>
+                                    <option value="DZA">Algeria</option>
+                                    <option value="ASM">American Samoa</option>
+                                    <option value="AND">Andorra</option>
+                                    <option value="AGO">Angola</option>
+                                    <option value="AIA">Anguilla</option>
+                                    <option value="ATA">Antarctica</option>
+                                    <option value="ATG">Antigua and Barbuda</option>
+                                    <option value="ARG">Argentina</option>
+                                    <option value="ARM">Armenia</option>
+                                    <option value="ABW">Aruba</option>
+                                    <option value="AUS">Australia</option>
+                                    <option value="AUT">Austria</option>
+                                    <option value="AZE">Azerbaijan</option>
+                                    <option value="BHS">Bahamas</option>
+                                    <option value="BHR">Bahrain</option>
+                                    <option value="BGD">Bangladesh</option>
+                                    <option value="BRB">Barbados</option>
+                                    <option value="BLR">Belarus</option>
+                                    <option value="BEL">Belgium</option>
+                                    <option value="BLZ">Belize</option>
+                                    <option value="BEN">Benin</option>
+                                    <option value="BMU">Bermuda</option>
+                                    <option value="BTN">Bhutan</option>
+                                    <option value="BOL">Bolivia, Plurinational State Of</option>
+                                    <option value="BIH">Bosnia and Herzegovina</option>
+                                    <option value="BWA">Botswana</option>
+                                    <option value="BVT">Bouvet Island</option>
+                                    <option value="BRA">Brazil</option>
+                                    <option value="IOT">British Indian Ocean Territory</option>
+                                    <option value="BRN">Brunei Darussalam</option>
+                                    <option value="BGR">Bulgaria</option>
+                                    <option value="BFA">Burkina Faso</option>
+                                    <option value="BDI">Burundi</option>
+                                    <option value="CIV">C??te D&#39;Ivoire</option>
+                                    <option value="KHM">Cambodia</option>
+                                    <option value="CMR">Cameroon</option>
+                                    <option value="CAN">Canada</option>
+                                    <option value="CPV">Cape Verde</option>
+                                    <option value="CYM">Cayman Islands</option>
+                                    <option value="CAF">Central African Republic</option>
+                                    <option value="TCD">Chad</option>
+                                    <option value="CHL">Chile</option>
+                                    <option value="CHN">China</option>
+                                    <option value="CXR">Christmas Island</option>
+                                    <option value="CCK">Cocos (Keeling) Islands</option>
+                                    <option value="COL">Colombia</option>
+                                    <option value="COM">Comoros</option>
+                                    <option value="COG">Congo</option>
+                                    <option value="COD">Congo, The Democratic Republic Of The</option>
+                                    <option value="COK">Cook Islands</option>
+                                    <option value="CRI">Costa Rica</option>
+                                    <option value="HRV">Croatia</option>
+                                    <option value="CUB">Cuba</option>
+                                    <option value="CYP">Cyprus</option>
+                                    <option value="CZE">Czech Republic</option>
+                                    <option value="DNK">Denmark</option>
+                                    <option value="DJI">Djibouti</option>
+                                    <option value="DMA">Dominica</option>
+                                    <option value="DOM">Dominican Republic</option>
+                                    <option value="ECU">Ecuador</option>
+                                    <option value="EGY">Egypt</option>
+                                    <option value="SLV">El Salvador</option>
+                                    <option value="GNQ">Equatorial Guinea</option>
+                                    <option value="ERI">Eritrea</option>
+                                    <option value="EST">Estonia</option>
+                                    <option value="ETH">Ethiopia</option>
+                                    <option value="FLK">Falkland Islands (Malvinas)</option>
+                                    <option value="FRO">Faroe Islands</option>
+                                    <option value="FJI">Fiji</option>
+                                    <option value="FIN">Finland</option>
+                                    <option value="FRA">France</option>
+                                    <option value="GUF">French Guiana</option>
+                                    <option value="PYF">French Polynesia</option>
+                                    <option value="ATF">French Southern Territories</option>
+                                    <option value="GAB">Gabon</option>
+                                    <option value="GMB">Gambia</option>
+                                    <option value="GEO">Georgia</option>
+                                    <option value="DEU">Germany</option>
+                                    <option value="GHA">Ghana</option>
+                                    <option value="GIB">Gibraltar</option>
+                                    <option value="GRC">Greece</option>
+                                    <option value="GRL">Greenland</option>
+                                    <option value="GRD">Grenada</option>
+                                    <option value="GLP">Guadeloupe</option>
+                                    <option value="GUM">Guam</option>
+                                    <option value="GTM">Guatemala</option>
+                                    <option value="GGY">Guernsey</option>
+                                    <option value="GIN">Guinea</option>
+                                    <option value="GNB">Guinea-Bissau</option>
+                                    <option value="GUY">Guyana</option>
+                                    <option value="HTI">Haiti</option>
+                                    <option value="HMD">Heard and McDonald Islands</option>
+                                    <option value="VAT">Holy See (Vatican City State)</option>
+                                    <option value="HND">Honduras</option>
+                                    <option value="HKG">Hong Kong</option>
+                                    <option value="HUN">Hungary</option>
+                                    <option value="ISL">Iceland</option>
+                                    <option value="IND">India</option>
+                                    <option value="IDN">Indonesia</option>
+                                    <option value="IRN">Iran, Islamic Republic Of</option>
+                                    <option value="IRQ">Iraq</option>
+                                    <option value="IRL">Ireland</option>
+                                    <option value="IMN">Isle of Man</option>
+                                    <option value="ISR">Israel</option>
+                                    <option value="ITA">Italy</option>
+                                    <option value="JAM">Jamaica</option>
+                                    <option value="JPN">Japan</option>
+                                    <option value="JEY">Jersey</option>
+                                    <option value="JOR">Jordan</option>
+                                    <option value="KAZ">Kazakhstan</option>
+                                    <option value="KEN">Kenya</option>
+                                    <option value="KIR">Kiribati</option>
+                                    <option value="PRK">Korea, Democratic People&#39;s Republic Of</option>
+                                    <option value="KOR">Korea, Republic of</option>
+                                    <option value="KWT">Kuwait</option>
+                                    <option value="KGZ">Kyrgyzstan</option>
+                                    <option value="LAO">Lao People&#39;s Democratic Republic</option>
+                                    <option value="LVA">Latvia</option>
+                                    <option value="LBN">Lebanon</option>
+                                    <option value="LSO">Lesotho</option>
+                                    <option value="LBR">Liberia</option>
+                                    <option value="LBY">Libyan Arab Jamahiriya</option>
+                                    <option value="LIE">Liechtenstein</option>
+                                    <option value="LTU">Lithuania</option>
+                                    <option value="LUX">Luxembourg</option>
+                                    <option value="MAC">Macao</option>
+                                    <option value="MKD">Macedonia, the Fmr. Yugoslav Republic Of</option>
+                                    <option value="MDG">Madagascar</option>
+                                    <option value="MWI">Malawi</option>
+                                    <option value="MYS">Malaysia</option>
+                                    <option value="MDV">Maldives</option>
+                                    <option value="MLI">Mali</option>
+                                    <option value="MLT">Malta</option>
+                                    <option value="MHL">Marshall Islands</option>
+                                    <option value="MTQ">Martinique</option>
+                                    <option value="MRT">Mauritania</option>
+                                    <option value="MUS">Mauritius</option>
+                                    <option value="MYT">Mayotte</option>
+                                    <option value="MEX">Mexico</option>
+                                    <option value="FSM">Micronesia, Federated States Of</option>
+                                    <option value="MDA">Moldova, Republic of</option>
+                                    <option value="MCO">Monaco</option>
+                                    <option value="MNG">Mongolia</option>
+                                    <option value="MNE">Montenegro</option>
+                                    <option value="MSR">Montserrat</option>
+                                    <option value="MAR">Morocco</option>
+                                    <option value="MOZ">Mozambique</option>
+                                    <option value="MMR">Myanmar</option>
+                                    <option value="NAM">Namibia</option>
+                                    <option value="NRU">Nauru</option>
+                                    <option value="NPL">Nepal</option>
+                                    <option value="NLD">Netherlands</option>
+                                    <option value="ANT">Netherlands Antilles</option>
+                                    <option value="NCL">New Caledonia</option>
+                                    <option value="NZL">New Zealand</option>
+                                    <option value="NIC">Nicaragua</option>
+                                    <option value="NER">Niger</option>
+                                    <option value="NGA">Nigeria</option>
+                                    <option value="NIU">Niue</option>
+                                    <option value="NFK">Norfolk Island</option>
+                                    <option value="MNP">Northern Mariana Islands</option>
+                                    <option value="NOR">Norway</option>
+                                    <option value="OMN">Oman</option>
+                                    <option value="ZZZ">Other Countries</option>
+                                    <option value="PAK">Pakistan</option>
+                                    <option value="PLW">Palau</option>
+                                    <option value="PSE">Palestinian Territory, Occupied</option>
+                                    <option value="PAN">Panama</option>
+                                    <option value="PNG">Papua New Guinea</option>
+                                    <option value="PRY">Paraguay</option>
+                                    <option value="PER">Peru</option>
+                                    <option value="PHL">Philippines</option>
+                                    <option value="PCN">Pitcairn</option>
+                                    <option value="POL">Poland</option>
+                                    <option value="PRT">Portugal</option>
+                                    <option value="PRI">Puerto Rico</option>
+                                    <option value="QAT">Qatar</option>
+                                    <option value="REU">R??union</option>
+                                    <option value="ROU">Romania</option>
+                                    <option value="RUS">Russian Federation</option>
+                                    <option value="RWA">Rwanda</option>
+                                    <option value="BLM">Saint Barth??lemy</option>
+                                    <option value="KNA">Saint Kitts And Nevis</option>
+                                    <option value="LCA">Saint Lucia</option>
+                                    <option value="MAF">Saint Martin</option>
+                                    <option value="SPM">Saint Pierre And Miquelon</option>
+                                    <option value="VCT">Saint Vincent And The Grenedines</option>
+                                    <option value="WSM">Samoa</option>
+                                    <option value="SMR">San Marino</option>
+                                    <option value="STP">Sao Tome and Principe</option>
+                                    <option value="SAU">Saudi Arabia</option>
+                                    <option value="SEN">Senegal</option>
+                                    <option value="SRB">Serbia</option>
+                                    <option value="SYC">Seychelles</option>
+                                    <option value="SLE">Sierra Leone</option>
+                                    <option value="SGP">Singapore</option>
+                                    <option value="SVK">Slovakia</option>
+                                    <option value="SVN">Slovenia</option>
+                                    <option value="SLB">Solomon Islands</option>
+                                    <option value="SOM">Somalia</option>
+                                    <option value="ZAF">South Africa</option>
+                                    <option value="SGS">South Georgia and South Sandwich Islands</option>
+                                    <option value="ESP">Spain</option>
+                                    <option value="LKA">Sri Lanka</option>
+                                    <option value="SHN">St. Helena, Ascension, Tristan Da Cunha</option>
+                                    <option value="SDN">Sudan</option>
+                                    <option value="SUR">Suriname</option>
+                                    <option value="SJM">Svalbard And Jan Mayen</option>
+                                    <option value="SWZ">Swaziland</option>
+                                    <option value="SWE">Sweden</option>
+                                    <option value="CHE">Switzerland</option>
+                                    <option value="SYR">Syrian Arab Republic</option>
+                                    <option value="TWN">Taiwan, Province Of China</option>
+                                    <option value="TJK">Tajikistan</option>
+                                    <option value="TZA">Tanzania, United Republic of</option>
+                                    <option value="THA">Thailand</option>
+                                    <option value="TLS">Timor-Leste</option>
+                                    <option value="TGO">Togo</option>
+                                    <option value="TKL">Tokelau</option>
+                                    <option value="TON">Tonga</option>
+                                    <option value="TTO">Trinidad and Tobago</option>
+                                    <option value="TUN">Tunisia</option>
+                                    <option value="TUR">Turkey</option>
+                                    <option value="TKM">Turkmenistan</option>
+                                    <option value="TCA">Turks and Caicos Islands</option>
+                                    <option value="TUV">Tuvalu</option>
+                                    <option value="UGA">Uganda</option>
+                                    <option value="UKR">Ukraine</option>
+                                    <option value="ARE">United Arab Emirates</option>
+                                    <option value="GBR">United Kingdom</option>
+                                    <option value="USA">United States</option>
+                                    <option value="UMI">United States Minor Outlying Islands</option>
+                                    <option value="URY">Uruguay</option>
+                                    <option value="UZB">Uzbekistan</option>
+                                    <option value="VUT">Vanuatu</option>
+                                    <option value="VEN">Venezuela, Bolivarian Republic of</option>
+                                    <option value="VNM">Viet Nam</option>
+                                    <option value="VGB">Virgin Islands, British</option>
+                                    <option value="VIR">Virgin Islands, U.S.</option>
+                                    <option value="WLF">Wallis and Futuna</option>
+                                    <option value="ESH">Western Sahara</option>
+                                    <option value="YEM">Yemen</option>
+                                    <option value="ZMB">Zambia</option>
+                                    <option value="ZWE">Zimbabwe</option>
+								</select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey">
+                            	*Postal Code:
+                            </td>
+                            <td class="content_white" colspan="3">
+                                <input type="text" style="width:100px;" value="" />
+                            </td>
+                            <td class="content_grey" rowspan="3">
+                                Entity Principal Business/Activity:
+                            </td>
+                            <td class="content_white" colspan="3" rowspan="3">
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey">
+                            	Web Site 1:
+                            </td>
+                            <td class="content_white" colspan="3">
+                                <input type="text" style="width:99%;" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey">
+                            	Web Site 2:
+                            </td>
+                            <td class="content_white" colspan="3">
+                                <input type="text" style="width:99%;" value="" />
+                            </td>
+                        </tr>
+                    </table>
+            	</div>
+                
+                <!-- Panel -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <img id="control_panelcontent07" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none; cursor:pointer;" />
+                            Relationship Details
+                            <script type="text/javascript">
+								$(document).ready(function(){
+									// trigger
+										$("#control_panelcontent07").toggle(
+											function()
+											{
+												$("#div_panelcontent07").slideDown(400);
+												$("#control_panelcontent07").attr("src","../images/tinybutton-hide.gif");
+												$("#control_panelcontent07").attr("alt","hide");
+											},
+											function()
+											{
+												$("#div_panelcontent07").slideUp(200);
+												$("#control_panelcontent07").attr("src","../images/tinybutton-show.gif");
+												$("#control_panelcontent07").attr("alt","show");
+											}
+										);	
+								});
+							</script>
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>                
+                <div id="div_panelcontent07" style="display:none;">
+                    <table class="content_table">  
+                    	<tr>
+                            <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
+                            	
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Entity
+                            </td>
+                            <td class="content_grey" style="text-align:center; width:220px;">
+                                Relationship
+                            </td>
+                            <td class="content_grey" style="text-align:center; width:220px;">
+                                Last Update
+                            </td>
+                            <td class="content_grey" style="text-align:center; width:220px;">
+                                Action
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="width:50px; text-align:center;">
+                                1
+                            </td>
+                            <td class="content_white">
+                                <!--<img src="../images/exclamation.png" alt="attention" style="width:16px; height:16px; vertical-align:middle;">-->
+                                Glaxo Smithkline
+                            </td>
+                            <td class="content_white">
+                                Board of Directors
+                            </td>
+                            <td class="content_white">
+                                07/29/2009 03:59 PM crc
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                                <img src="../images/tinybutton-view.gif" alt="view" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of a read-only, summary view for the indicated record.')">
+                                <img src="../images/tinybutton-activate.gif" alt="deactivate" style="width:53px; height:15px; border:none; cursor:pointer;" onclick="alert('This would move the indicated record to Active Entities.')">
+                                <img src="../images/tinybutton-edit1.gif" alt="edit" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would navigate to the editable view of the indicated record.')">
+                                <img src="../images/tinybutton-history.gif" alt="history" style="width:47px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of versions for the indicated record.')">
+                            </td>
+                        </tr>
+                    </table>
+            	</div>
+                
+            </td>
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+<!-- PANEL FOOT -->
+<table class="paneltable">
+    <tr>
+        <td class="panelfoot1">&nbsp;</td>
+        <td class="panelfoot2" colspan="3">&nbsp;</td>
+        <td class="panelfoot3">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- INSTRUCTIONAL NOTES -->        
+<div class="instructionalnotes">
+    * required
+</div>
+    
+<!-- GLOBAL DOCUMENT CONTROLS -->
+<div class="globaldocumentcontrols">
+    <a href="coi-financialentities.html"><img src="../images/buttonsmall_return.gif" alt="return" width="53" height="18" hspace="5" border="0" onclick="alert('This would check validation before navigating to the list view of Financial Entities.')" /></a>
+    <a href="#"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_refresh.gif" alt="refresh" width="68" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_close.gif" alt="close" width="48" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0" /></a>
+</div>
+
+</form>
+
+<!-- END PANEL CONTAINER -->
+</td></tr></table>
+
+
+
+<!-- DOCUMENT FOOT -->
+</body>
+</html>
