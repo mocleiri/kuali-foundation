@@ -59,13 +59,13 @@
     <maven.failsafe.forkmode>once</maven.failsafe.forkmode>
     <maven.failsafe.forkedProcessTimeoutInSeconds>7200</maven.failsafe.forkedProcessTimeoutInSeconds>
     <maven.failsafe.useSystemClassLoader>true</maven.failsafe.useSystemClassLoader>
-    <maven.failsafe.skip>true</maven.failsafe.skip>
+    <maven.failsafe.skip>false</maven.failsafe.skip>
     <maven.failsafe.includes>**/*Test.java</maven.failsafe.includes>
     <scp.path>/usr/bin/scp</scp.path>
     <ssh.path>/usr/bin/ssh</ssh.path>
     <deploy.repositoryUrl>http://nexus.kuali.org/content/groups/public</deploy.repositoryUrl>
     <mvn.path>/opt/java/apache-maven-3.0.3/bin/mvn</mvn.path>
-    <maven.test.skip>true</maven.test.skip>
+    <maven.test.skip>false</maven.test.skip>
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <remote.user>root</remote.user>
     <remote.tomcat.shutdown>${remote.tomcat.home}/bin/forced-shutdown.sh</remote.tomcat.shutdown>
