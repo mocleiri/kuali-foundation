@@ -396,7 +396,7 @@
             <include>${maven.failsafe.includes}</include>
             </includes> -->
           <includes>
-            <include>**/LoginLogoutIt.java</include>
+            <include>**/LoginLogoutIT.java</include>
           </includes>
           <forkMode>${maven.failsafe.forkmode}</forkMode>
           <forkedProcessTimeoutInSeconds>${maven.failsafe.forkedProcessTimeoutInSeconds}</forkedProcessTimeoutInSeconds>
