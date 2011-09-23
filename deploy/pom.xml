@@ -115,6 +115,7 @@
     </profile>
   </profiles>
   <build>
+    <testSourceDirectory>/opt/jenkins-home/jobs/rice-trunk-deploy-sampleapp/workspace/sampleapp/src/it/java</testSourceDirectory>
     <pluginManagement>
       <plugins>
         <plugin>
