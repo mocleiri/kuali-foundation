@@ -409,6 +409,12 @@
   </build>
   <dependencies>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.9</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.kuali.rice</groupId>
       <artifactId>rice-sampleapp</artifactId>
       <version>${deploy.version}</version>
