@@ -363,7 +363,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>${failsafe.plugin.version}</version>
+        <version>2.9</version>
         <executions>
           <execution>
             <id>integration-test</id>
