@@ -55,7 +55,7 @@
     <url>http://svn.kuali.org/repos/foundation/trunk/deploy</url>
   </scm>
   <properties>
-    <project.build.testSourceDirectory>${project.basedir}/sampleapp/src/test/it</project.build.testSourceDirectory>
+    <project.build.testSourceDirectory>${project.basedir}/sampleapp/src/it/java</project.build.testSourceDirectory>
     <deploy.phase>package</deploy.phase>
     <maven.failsafe.forkmode>once</maven.failsafe.forkmode>
     <maven.failsafe.forkedProcessTimeoutInSeconds>7200</maven.failsafe.forkedProcessTimeoutInSeconds>
