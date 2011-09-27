@@ -1,9 +1,13 @@
 <project name="Tomcat Instance Manager">
 	<description>Manage the creating/removing of Tomcat instances on a Rice deployment server</description>
 
-	<property name="catalina.home" location="/usr/local/tomcat" />
+	<assert name="instance" execute="false" message="Must specify an instance eg 'ant create -Dinstance=1'" />
 
-	<target name="create-instance">
+	<property name="tomcat.user" value="tomcat${instance}" />
+	<property name="catalina.home" location="/usr/local/tomcat" />
+	<property name="catalina.base" value="/usr/local/tomcat${instance}" />
+
+	<target name="create">
 		<exec executable="useradd">
 			<arg value="-g" />
 			<arg value="tomcat" />
@@ -11,23 +15,11 @@
 		</exec>
 		<mkdir dir="${catalina.base}" />
 	</target>
-	<target name="remove-instance">
+	<target name="remove">
 		<exec executable="userdel">
 			<arg value="-rf" />
 			<arg value="${tomcat.user}" />
 		</exec>
 		<delete dir="${catalina.base}" />
-	</target>
-	<target name="create1">
-		<antcall target="create-instance">
-			<param name="tomcat.user" value="tomcat1" />
-			<param name="catalina.base" value="/usr/local/tomcat1" />
-		</antcall>
-	</target>
-	<target name="remove1">
-		<antcall target="remove-instance">
-			<param name="tomcat.user" value="tomcat1" />
-			<param name="catalina.base" value="/usr/local/tomcat1" />
-		</antcall>
 	</target>
 </project>
