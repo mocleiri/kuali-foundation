@@ -10,8 +10,19 @@
 			<arg value="${tomcat.user}" />
 		</exec>
 	</target>
+	<target name="remove-instance">
+		<exec executable="userdel">
+			<arg value="-rf" />
+			<arg value="${tomcat.user}" />
+		</exec>
+	</target>
 	<target name="create-tomcat1">
 		<antcall target="create-instance">
+			<param name="tomcat.user" value="tomcat1" />
+		</antcall>
+	</target>
+	<target name="remove-tomcat1">
+		<antcall target="remove-instance">
 			<param name="tomcat.user" value="tomcat1" />
 		</antcall>
 	</target>
