@@ -9,21 +9,25 @@
 			<arg value="tomcat" />
 			<arg value="${tomcat.user}" />
 		</exec>
+		<mkdir dir="${catalina.base}" />
 	</target>
 	<target name="remove-instance">
 		<exec executable="userdel">
 			<arg value="-rf" />
 			<arg value="${tomcat.user}" />
 		</exec>
+		<rmdir dir="${catalina.base}" />
 	</target>
-	<target name="create-tomcat1">
+	<target name="create1">
 		<antcall target="create-instance">
 			<param name="tomcat.user" value="tomcat1" />
+			<param name="catalina.base" value="/usr/local/tomcat1" />
 		</antcall>
 	</target>
-	<target name="remove-tomcat1">
+	<target name="remove1">
 		<antcall target="remove-instance">
 			<param name="tomcat.user" value="tomcat1" />
+			<param name="catalina.base" value="/usr/local/tomcat1" />
 		</antcall>
 	</target>
 </project>
