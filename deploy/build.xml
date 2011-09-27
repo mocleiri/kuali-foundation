@@ -12,13 +12,13 @@
       </and>
     </condition>
     <fail unless="instance.set">
-     Must specify an instance eg:
-     ant create -Dinstance=1
-     ant remove -Dinstance=1
+      Must specify an instance eg:
+      ant create -Dinstance=1
+      ant remove -Dinstance=1
     </fail>
   </target>
 
-  <target name="create">
+  <target name="create" depends="init">
     <exec executable="useradd">
       <arg value="-g" />
       <arg value="tomcat" />
@@ -26,7 +26,7 @@
     </exec>
     <mkdir dir="${catalina.base}" />
   </target>
-  <target name="remove">
+  <target name="remove" depends="init">
     <exec executable="userdel">
       <arg value="-rf" />
       <arg value="${tomcat.user}" />
