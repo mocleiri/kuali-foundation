@@ -19,18 +19,24 @@
     <if>
       <equals arg1="${instance}" arg2="1" />
       <then>
-        <echo message="instance = 1" />
+        <property name="tomcat.shutdown.port" value="8006" />
+        <property name="tomcat.http.port" value="8081" />
+        <property name="tomcat.https.port" value="8444" />
       </then>
       <elseif>
         <equals arg1="${instance}" arg2="2" />
         <then>
-          <echo message="instance = 2" />
+          <property name="tomcat.shutdown.port" value="8007" />
+          <property name="tomcat.http.port" value="8082" />
+          <property name="tomcat.https.port" value="8445" />
         </then>
       </elseif>
       <elseif>
         <equals arg1="${instance}" arg2="3" />
         <then>
-          <echo message="instance = 3" />
+          <property name="tomcat.shutdown.port" value="8008" />
+          <property name="tomcat.http.port" value="8083" />
+          <property name="tomcat.https.port" value="8446" />
         </then>
       </elseif>
       <else>
