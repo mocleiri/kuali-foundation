@@ -1,6 +1,6 @@
 <project name="Tomcat Instance Manager">
   <description>Manage the creating/removing of Tomcat instances on a Rice deployment server</description>
-
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
   <property name="tomcat.user" value="tomcat${instance}" />
   <property name="catalina.home" location="/usr/local/tomcat" />
   <property name="catalina.base" value="/usr/local/tomcat${instance}" />
@@ -16,6 +16,28 @@
       ant create -Dinstance=1
       ant remove -Dinstance=1
     </fail>
+    <if>
+      <equals arg1="${instance}" arg2="1" />
+      <then>
+        <echo message="instance = 1" />
+      </then>
+      <elseif>
+        <equals arg1="${instance}" arg2="2" />
+        <then>
+          <echo message="instance = 1" />
+        </then>
+      </elseif>
+      <elseif>
+        <equals arg1="${instance}" arg2="3" />
+        <then>
+          <echo message="instance = 1" />
+        </then>
+      </elseif>
+      <else>
+        <echo message="instance != 1 2 or 3" />
+      </else>
+    </if>
+
   </target>
 
   <target name="create" depends="init">
