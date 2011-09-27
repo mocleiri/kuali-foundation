@@ -16,7 +16,7 @@
 			<arg value="-rf" />
 			<arg value="${tomcat.user}" />
 		</exec>
-		<rmdir dir="${catalina.base}" />
+		<delete dir="${catalina.base}" />
 	</target>
 	<target name="create1">
 		<antcall target="create-instance">
