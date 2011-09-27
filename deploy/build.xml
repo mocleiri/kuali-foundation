@@ -11,7 +11,7 @@
 		</exec>
 	</target>
 	<target name="create-tomcat1">
-		<antcall target="create=instance">
+		<antcall target="create-instance">
 			<param name="tomcat.user" value="tomcat1" />
 		</antcall>
 	</target>
