@@ -25,6 +25,12 @@
       <arg value="${tomcat.user}" />
     </exec>
     <mkdir dir="${catalina.base}" />
+    <mkdir dir="${catalina.base}/common" />
+    <mkdir dir="${catalina.base}/logs" />
+    <mkdir dir="${catalina.base}/server" />
+    <mkdir dir="${catalina.base}/shared" />
+    <mkdir dir="${catalina.base}/temp" />
+    <mkdir dir="${catalina.base}/webapps" />
   </target>
   <target name="remove" depends="init">
     <exec executable="userdel">
