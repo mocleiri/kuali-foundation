@@ -21,7 +21,7 @@
     <copy todir="${catalina.base}/conf">
       <fileset dir="${catalina.home}/conf" />
     </copy>
-    <copy todir="${catalina.base}/conf">
+    <copy todir="${catalina.base}/logs">
       <fileset dir="${catalina.home}/logs" includes="*.jsp" />
     </copy>
   </target>
