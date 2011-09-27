@@ -6,7 +6,7 @@ if [ "$ENV" = "" ]; then
   exit
 fi
 
-cd trunk/db/impex/master
+cd ../rice-2.0/db/impex/master
 URL=jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLEDB
 ARGS=-Pdb,oracle
 ARGS="$ARGS -Dimpex.url=$URL"
@@ -18,3 +18,4 @@ ARGS="$ARGS -Dimpex.password=RICEENV$ENV"
 mvn clean install $ARGS
 
 cd
+cd deploy
