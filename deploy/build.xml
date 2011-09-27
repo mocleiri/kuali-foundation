@@ -1,0 +1,18 @@
+<project name="Tomcat Instance Manager">
+	<description>Manage the creating/removing of Tomcat instances on a Rice deployment server</description>
+
+	<property name="catalina.home" location="/usr/local/tomcat" />
+
+	<target name="create-instance">
+		<exec executable="useradd">
+			<arg value="-g" />
+			<arg value="tomcat" />
+			<arg value="${tomcat.user}" />
+		</exec>
+	</target>
+	<target name="create-tomcat1">
+		<antcall target="create=instance">
+			<param name="tomcat.user" value="tomcat1" />
+		</antcall>
+	</target>
+</project>
