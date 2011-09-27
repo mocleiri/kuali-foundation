@@ -5,6 +5,35 @@
   <property name="catalina.home" location="/usr/local/tomcat" />
   <property name="catalina.base" value="/usr/local/tomcat${instance}" />
 
+  <target name="create" depends="init">
+    <exec executable="useradd">
+      <arg value="-g" />
+      <arg value="tomcat" />
+      <arg value="${tomcat.user}" />
+    </exec>
+    <mkdir dir="${catalina.base}" />
+    <mkdir dir="${catalina.base}/common" />
+    <mkdir dir="${catalina.base}/logs" />
+    <mkdir dir="${catalina.base}/server" />
+    <mkdir dir="${catalina.base}/shared" />
+    <mkdir dir="${catalina.base}/temp" />
+    <mkdir dir="${catalina.base}/webapps" />
+    <copy todir="${catalina.base}/conf">
+      <fileset dir="${catalina.home}/conf" />
+    </copy>
+    <copy todir="${catalina.base}/conf">
+      <fileset dir="${catalina.home}/logs" includes="*.jsp" />
+    </copy>
+  </target>
+
+  <target name="remove" depends="init">
+    <exec executable="userdel">
+      <arg value="-rf" />
+      <arg value="${tomcat.user}" />
+    </exec>
+    <delete dir="${catalina.base}" />
+  </target>
+
   <target name="init">
     <condition property="instance.set">
       <and>
@@ -47,31 +76,4 @@
     </if>
   </target>
 
-  <target name="create" depends="init">
-    <exec executable="useradd">
-      <arg value="-g" />
-      <arg value="tomcat" />
-      <arg value="${tomcat.user}" />
-    </exec>
-    <mkdir dir="${catalina.base}" />
-    <mkdir dir="${catalina.base}/common" />
-    <mkdir dir="${catalina.base}/logs" />
-    <mkdir dir="${catalina.base}/server" />
-    <mkdir dir="${catalina.base}/shared" />
-    <mkdir dir="${catalina.base}/temp" />
-    <mkdir dir="${catalina.base}/webapps" />
-    <copy todir="${catalina.base}/conf">
-      <fileset dir="${catalina.home}/conf" />
-    </copy>
-    <copy todir="${catalina.base}/conf">
-      <fileset dir="${catalina.home}/logs" includes="*.jsp" />
-    </copy>
-  </target>
-  <target name="remove" depends="init">
-    <exec executable="userdel">
-      <arg value="-rf" />
-      <arg value="${tomcat.user}" />
-    </exec>
-    <delete dir="${catalina.base}" />
-  </target>
 </project>
