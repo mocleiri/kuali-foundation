@@ -6,12 +6,16 @@
   <property name="catalina.base" value="/usr/local/tomcat${instance}" />
 
   <target name="init">
-    <if>
-      <isset property="instance" />
-      <then>
-        <echo>foo</echo>
-      </then>
-    </if>
+    <condition property="instance.set">
+      <and>
+        <isset property="instance" />
+      </and>
+    </condition>
+    <fail unless="instance.set">
+     Must specify an instance eg:
+     ant create -Dinstance=1
+     ant remove -Dinstance=1
+    </fail>
   </target>
 
   <target name="create">
