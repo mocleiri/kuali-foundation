@@ -31,6 +31,11 @@
         <filter token="tomcat.https.port" value="${tomcat.https.port}" />
       </filterset>
     </copy>
+    <exec executable="chown">
+      <arg value="-R" />
+      <arg value="${tomcat.user}:tomcat" />
+      <arg value="${catalina.base}" />
+    </exec>
   </target>
 
   <target name="remove" depends="init">
