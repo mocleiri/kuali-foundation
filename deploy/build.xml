@@ -30,7 +30,6 @@
         <filter token="tomcat.http.port" value="${tomcat.http.port}" />
         <filter token="tomcat.https.port" value="${tomcat.https.port}" />
         <filter token="catalina.base" value="${catalina.base}" />
-        <filter token="user.home" value="${user.home}" />
       </filterset>
     </copy>
     <exec executable="chown">
