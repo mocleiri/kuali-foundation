@@ -24,20 +24,21 @@
       <elseif>
         <equals arg1="${instance}" arg2="2" />
         <then>
-          <echo message="instance = 1" />
+          <echo message="instance = 2" />
         </then>
       </elseif>
       <elseif>
         <equals arg1="${instance}" arg2="3" />
         <then>
-          <echo message="instance = 1" />
+          <echo message="instance = 3" />
         </then>
       </elseif>
       <else>
-        <echo message="instance != 1 2 or 3" />
+        <fail>
+          Instance must be 1, 2, or 3
+        </fail>
       </else>
     </if>
-
   </target>
 
   <target name="create" depends="init">
