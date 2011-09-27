@@ -1,7 +1,5 @@
 #!/bin/sh
 
-
-
 ENV=$1
 if [ "$ENV" = "" ]; then
   echo "Must pass in an environment eg 'db.sh 1'"
