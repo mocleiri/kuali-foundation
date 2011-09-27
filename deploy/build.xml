@@ -24,6 +24,13 @@
     <copy todir="${catalina.base}/logs">
       <fileset dir="${catalina.home}/logs" includes="*.jsp" />
     </copy>
+    <copy file="${catalina.base}/conf/server.xml.example" tofile="${catalina.base}/conf/server.xml" overwrite="true">
+      <filterset begintoken="${" endtoken="}">
+        <filter token="tomcat.shutdown.port" value="${tomcat.shutdown.port}" />
+        <filter token="tomcat.http.port" value="${tomcat.http.port}" />
+        <filter token="tomcat.https.port" value="${tomcat.https.port}" />
+      </filterset>
+    </copy>
   </target>
 
   <target name="remove" depends="init">
