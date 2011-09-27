@@ -60,6 +60,12 @@
     <mkdir dir="${catalina.base}/shared" />
     <mkdir dir="${catalina.base}/temp" />
     <mkdir dir="${catalina.base}/webapps" />
+    <copy todir="${catalina.base}/conf">
+      <fileset dir="${catalina.home}/conf" />
+    </copy>
+    <copy todir="${catalina.base}/conf">
+      <fileset dir="${catalina.home}/logs" includes="*.jsp" />
+    </copy>
   </target>
   <target name="remove" depends="init">
     <exec executable="userdel">
