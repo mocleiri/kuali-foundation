@@ -7,6 +7,9 @@
 	<property name="catalina.home" location="/usr/local/tomcat" />
 	<property name="catalina.base" value="/usr/local/tomcat${instance}" />
 
+	<target name="init">
+	</target>
+
 	<target name="create">
 		<exec executable="useradd">
 			<arg value="-g" />
