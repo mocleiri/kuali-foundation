@@ -566,6 +566,21 @@
 		padding-bottom:3px;
 		font-weight:bold;
 	}
+	.content_gradient
+	{
+		background-image: url("../images/gradientbg.png");
+		background-size: 100% 100%;
+		border-top: solid #939393 0px;
+		border-bottom: solid #939393 1px;
+		border-left: solid #939393 1px;
+		border-right: solid #939393 1px;
+		padding-top:3px;
+		padding-right:3px;
+		padding-left:3px;
+		padding-bottom:3px;
+		background-color:#c3c3c3;
+		font-weight:bold;
+	}
 	.content_info
 	{
 		background-image: url("../images/th-back1.gif");
