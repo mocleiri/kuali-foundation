@@ -5,6 +5,30 @@
   <property name="catalina.home" location="/usr/local/tomcat" />
   <property name="catalina.base" value="/usr/local/tomcat${instance}" />
 
+  <target name="removeall">
+    <antcall target="remove">
+      <param name="instance" value="1" />
+    </antcall>
+    <antcall target="remove">
+      <param name="instance" value="2" />
+    </antcall>
+    <antcall target="remove">
+      <param name="instance" value="3" />
+    </antcall>
+  </target>
+
+  <target name="createall">
+    <antcall target="create">
+      <param name="instance" value="1" />
+    </antcall>
+    <antcall target="create">
+      <param name="instance" value="2" />
+    </antcall>
+    <antcall target="create">
+      <param name="instance" value="3" />
+    </antcall>
+  </target>
+
   <target name="create" depends="init">
     <exec executable="useradd">
       <arg value="-g" />
