@@ -4618,33 +4618,33 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <tr>
                   <td style="background-color:#C3C3C3; font-weight:bold; height:35px;"><img id="Csequence01" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle;">
                     <script type="text/javascript">
-                                $(document).ready(function(){
-                                    // initial state
-                                        $("#Dsequence01").hide(0);
-                                    // trigger
-                                        $("#Csequence01").toggle(
-                                            function()
-                                            {
-                                                $("#Dsequence01").slideDown(700);
-                                                $("#Csequence01").attr("src","../images/tinybutton-hide.gif");
-												$(".sequence").addClass("compare");
-												$(".sequencea").addClass("comparea");
-												$(".sequencetd").css("color","#666666");
-												$(".changed").css({'color' : '#FF0000', 'font-weight' : 'bold'});
-                                            },
-                                            function()
-                                            {
-                                                $("#Dsequence01").slideUp(600);
-                                                $("#Csequence01").attr("src","../images/tinybutton-show.gif");
-												$(".sequence").removeClass("compare");
-												$(".sequencea").removeClass("comparea");
-												$(".sequencetd").css("color","#333333");
-												$(".changed").css({'color' : '#000000', 'font-weight' : 'normal'});
+						$(document).ready(function(){
+							// initial state
+								$("#Dsequence01").hide(0);
+							// trigger
+								$("#Csequence01").toggle(
+									function()
+									{
+										$("#Dsequence01").slideDown(700);
+										$("#Csequence01").attr("src","../images/tinybutton-hide.gif");
+										$(".sequence").addClass("compare");
+										$(".sequencea").addClass("comparea");
+										$(".sequencetd").css("color","#666666");
+										$(".changed").css({'color' : '#FF0000', 'font-weight' : 'bold'});
+									},
+									function()
+									{
+										$("#Dsequence01").slideUp(600);
+										$("#Csequence01").attr("src","../images/tinybutton-show.gif");
+										$(".sequence").removeClass("compare");
+										$(".sequencea").removeClass("comparea");
+										$(".sequencetd").css("color","#333333");
+										$(".changed").css({'color' : '#000000', 'font-weight' : 'normal'});
 
-                                            }
-                                        );	
-                                });
-                            </script>
+									}
+								);	
+						});
+					</script>
                     Compare to Previous Sequence</td>
                 </tr>
               </table>
