@@ -55,7 +55,7 @@ public class HttpInspector {
             if (result.equals(Result.SUCCESS)) {
                 return result;
             } else if (result.equals(Result.INVALID_HTTP_STATUS_CODE)) {
-                logger.info("Invalid http status code.  Expected [" + successCodes + "]");
+                logger.info("Invalid http status code.  Expected " + successCodes);
                 return result;
             }
             sleep(sleepInterval);
