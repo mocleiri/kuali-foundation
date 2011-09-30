@@ -22,18 +22,24 @@ import org.apache.maven.plugin.MojoFailureException;
 public class GetSVNRevisionNumberMojo extends AbstractMojo {
 
     /**
+     * The location of a MANIFEST.MF file to inspect
+     *
      * @parameter expression="${manifest.filename}"
      * @required
      */
     private String filename;
 
     /**
+     * The attribute the svn revision number is stored under in that file
+     *
      * @parameter expression="${manifest.attribute}" default-value="SVN-Revision";
      * @required
      */
     private String attribute;
 
     /**
+     * The prefix to use when storing the attribute as a system property
+     *
      * @parameter expression="${manifest.prefix}" default-value="manifest";
      */
     private String prefix;
@@ -46,8 +52,8 @@ public class GetSVNRevisionNumberMojo extends AbstractMojo {
             String revisionNumber = attributes.getValue(attribute);
             validate(revisionNumber);
             String key = prefix + "." + attribute;
-            getLog().info(key + "=" + revisionNumber);
             System.setProperty(key, revisionNumber);
+            getLog().info(key + "=" + revisionNumber);
         } catch (Exception e) {
             throw new MojoExecutionException("Error handling " + filename, e);
         }
