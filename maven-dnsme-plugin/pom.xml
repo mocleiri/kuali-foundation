@@ -1,24 +1,25 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>15</version>
+    <version>18</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
-  <artifactId>maven-http-plugin</artifactId>
-  <version>1.0.3-SNAPSHOT</version>
+  <artifactId>maven-dnsme-plugin</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <name>Maven HTTP Plugin</name>
-  <description>Tools for allowing Maven to interact with the HTTP protocol</description>
+  <name>Maven DNSME Plugin</name>
+  <description>Tools for allowing Maven to interact with DNS made easy</description>
   <properties>
     <kuali.slf4j.version>1.6.1</kuali.slf4j.version>
   </properties>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-http-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-http-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/maven-http-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-dnsme-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-dnsme-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/maven-dnsme-plugin</url>
   </scm>
   <dependencies>
     <dependency>
