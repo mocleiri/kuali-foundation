@@ -1,7 +1,0 @@
-<config>
-  <param name="application.url">http://localhost</param>
-  <param name="datasource.url">jdbc:mysql://localhost/rice</param>
-  <param name="datasource.username">RICE</param>
-  <param name="datasource.password">RICE</param>
-  <param name="datasource.ojb.platform">MySQL</param>
-</config>
