@@ -20,7 +20,7 @@
     <echo>Stopping ${tomcat.instance} on ${deploy.server}</echo>
     <exec executable="ssh">
       <arg value="-i" />
-      <arg value="${auth}" />
+      <arg value="${deploy.auth}" />
       <arg value="root@${deploy.server}" />
       <arg value="su" />
       <arg value="-" />
@@ -42,7 +42,7 @@
     <echo>Removing ${old.root.dir}</echo>
     <exec executable="ssh" failonerror="true">
       <arg value="-i" />
-      <arg value="${auth}" />
+      <arg value="${deploy.auth}" />
       <arg value="root@${deploy.server}" />
       <arg value="rm" />
       <arg value="-rf" />
@@ -50,7 +50,7 @@
     </exec>
     <exec executable="ssh" failonerror="true">
       <arg value="-i" />
-      <arg value="${auth}" />
+      <arg value="${deploy.auth}" />
       <arg value="root@${deploy.server}" />
       <arg value="su" />
       <arg value="-" />
@@ -74,7 +74,7 @@
     <echo>Copy ${config.file} to ${deploy.server}:${remote.config.file}</echo>
     <exec executable="scp" failonerror="true">
       <arg value="-i" />
-      <arg value="${auth}" />
+      <arg value="${deploy.auth}" />
       <arg value="${deploy.config}" />
       <arg value="root@${deploy.server}:${remote.config.file}" />
     </exec>
@@ -82,7 +82,7 @@
     <echo>Copy ${war.file} to ${deploy.server}:${remote.war.file}</echo>
     <exec executable="scp" failonerror="true">
       <arg value="-i" />
-      <arg value="${auth}" />
+      <arg value="${deploy.auth}" />
       <arg value="${deploy.war}" />
       <arg value="root@${deploy.server}:${remote.war.file}" />
     </exec>
@@ -90,8 +90,8 @@
   <target name="resetdb">
     <condition property="resetdb.properties">
       <and>
-        <isset property="impex.dir" />
         <isset property="db.vendor" />
+        <isset property="impex.dir" />
         <isset property="impex.database" />
         <isset property="impex.url" />
         <isset property="impex.username" />
@@ -131,7 +131,7 @@
     <echo>Start ${tomcat.instance} on ${deploy.server}</echo>
     <exec executable="ssh" failonerror="true">
       <arg value="-i" />
-      <arg value="${auth}" />
+      <arg value="${deploy.auth}" />
       <arg value="root@${deploy.server}" />
       <arg value="su" />
       <arg value="-" />
