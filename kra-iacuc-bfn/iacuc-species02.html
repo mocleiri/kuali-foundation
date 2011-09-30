@@ -295,9 +295,6 @@
                             <td class="content_grey" style="text-align:center; width:50px;">
                                 Count
                             </td>
-                            <td class="content_grey" style="text-align:center; width:80px;">
-                                Exceptions*
-                            </td>
                             <td class="content_grey" style="text-align:center; width:100px;">
                                 Action
                             </td>
@@ -305,7 +302,7 @@
                         
                         <!-- Add Line --> 
                         <tr>
-                            <td class="content_gradient" style="text-align:right;" rowspan="2">
+                            <td class="content_gradient" style="text-align:right;" rowspan="3">
                                 Add:
                             </td>
                             <td class="content_gradient" style="text-align:left;">
@@ -434,62 +431,32 @@
                             <td class="content_gradient" style="text-align:left">
                                 <input type="text" style="width:100%;" />
                             </td>
-                            <td class="content_gradient" style="text-align:center;">
-                                <input type="checkbox" class="nobord" id="control_exception01" value="0" />
-                                <!--<script type="text/javascript">
-									$(document).ready(function(){
-										// trigger
-											$("#control_exception01").change(
-												function()
-												{
-													if( $('#control_exception01').attr('checked') == true )
-													{
-														$("#div_exception").slideDown(200);
-													}
-													else
-													{
-														$("#div_exception").slideUp(200);
-													}
-												}
-											);	
-									});
-								</script>
-                                <div id="div_exception" style="display:none;">
-                                	<strong>Description:*</strong>
-                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td style="border:none; background:none;" colspan="2">
-                                                <select style="width:100%;">
-                                                    <option value="0" selected="selected">select</option>
-                                                    <option value="1">None</option>
-                                                    <option value="2">Exception 1</option>
-                                                    <option value="3">Exception 2</option>
-                                                    <option value="4">Exception 3</option>
-                                                    <option value="5">Exception 4</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="border:none; background:none;">
-                                                <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
-                                            </td>
-                                            <td style="border:none; background:none; width:20px; vertical-align:bottom;">
-                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    
-                                </div>-->
-                            </td>
-                            <td class="content_gradient" style="text-align:center;" rowspan="2">
-                            	<img src="../images/tinybutton-add1.gif" style="border:none; cursor:pointer;" alt="add" title="Add" type="image" onClick="alert('This would add the indicated record.  If Exceptions is checked the new record would show with the exceptions subpanel open and focus on the add line.');" />
+                            <td class="content_gradient" style="text-align:center;" rowspan="3">
+                            	<img src="../images/tinybutton-add1.gif" style="border:none; cursor:pointer;" alt="add" title="Add" type="image" onClick="alert('This would add the indicated record.');" />
                             </td>
                         </tr>
                         <tr>
                             <td class="content_gradient fineprint" style="text-align:right; border-right:none; color:#000;">
                                 Proceedures Summary:
                             </td>
-                            <td class="content_gradient" style="text-align:left; border-left:none;" colspan="7">
+                            <td class="content_gradient" style="text-align:left; border-left:none;" colspan="6">
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <input type="text" style="width:99%;" />
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_gradient fineprint" style="text-align:right; border-right:none; color:#000;">
+                                Exceptions:
+                            </td>
+                            <td class="content_gradient" style="text-align:left; border-left:none;" colspan="6">
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
@@ -514,8 +481,8 @@
                             <td class="content_white" style="text-align:left;">
                                 Amphibian- Salamander
                             </td>
-                            <td class="content_white" style="text-align:left">
-                                &nbsp;
+                            <td class="content_white" style="text-align:left">&nbsp;
+                                
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 A
@@ -528,39 +495,6 @@
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 20
-                            </td>
-                            <td class="content_white" style="text-align:left; border-right:none;">
-                                
-                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none; background:none; text-align:center;">
-                                            2
-                                        </td>
-                                        <td style="border:none; width:48px; vertical-align:top; background:none; text-align:right;">
-                                            <img id="control_hideshowexception01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" style="width:45px; height:15px; border:none; cursor:pointer;" align="top" />
-                                            <script type="text/javascript">
-												$(document).ready(function(){
-													// trigger
-														$("#control_hideshowexception01").toggle(
-															function()
-															{
-																$("#div_hideshowexception01").slideDown(400);
-																$("#control_hideshowexception01").attr("src","../images/tinybutton-hide.gif");
-																$("#td_hideshowexception01").css("border-bottom","1px solid #888888");
-															},
-															function()
-															{
-																$("#div_hideshowexception01").slideUp(200);
-																$("#control_hideshowexception01").attr("src","../images/tinybutton-show.gif");
-																$("#td_hideshowexception01").css("border-bottom","none");
-															}
-														);	
-												});
-											</script>
-                                        </td>
-                                    </tr>
-                                </table>
-                                
                             </td>
                             <td class="content_white" style="text-align:center;" rowspan="3">
                             	
@@ -762,7 +696,7 @@
                             <td class="content_white fineprint" style="text-align:right; border-right:none; color:#000; font-style:italic;">
                                 Proceedures Summary:
                             </td>
-                            <td class="content_white" style="text-align:left; border-left:none;" colspan="7">
+                            <td class="content_white" style="text-align:left; border-left:none;" colspan="6">
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
@@ -776,77 +710,23 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="content_gradient" id="td_hideshowexception01" style="text-align:left; padding:0px;; border-bottom:none; font-weight:normal;" colspan="8">
-                            
-                                <div id="div_hideshowexception01" style="border:none; padding:6px; display:none;">
-                                    <table class="content_table" style="border-top:1px solid #888;">  
-                                        <tr>
-                                            <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
-                                                
-                                            </td>
-                                            <td class="content_grey" style="text-align:center; width:100px;">
-                                                Category
-                                            </td>
-                                            <td class="content_grey" style="text-align:center;">
-                                                Exception Description
-                                            </td>
-                                            <td class="content_grey" style="text-align:center; width:50px;">
-                                                Action
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="content_gradient" style="text-align:right;">
-                                                Add:
-                                            </td>
-                                            <td class="content_gradient" style="text-align:left;">
-                                                <select style="width:99%;">
-                                                    <option value="0" selected="selected">select</option>
-                                                    <option value="1">exception 1</option>
-                                                    <option value="2">exception 2</option>
-                                                    <option value="2">exception 3</option>
-                                                    <option value="2">exception 4</option>
-                                                </select>
-                                            </td>
-                                            <td class="content_gradient" style="text-align:left;">
-                                                <input type="text" style="width:100%;" value="" />
-                                            </td>
-                                            <td class="content_gradient" style="text-align:center;">
-                                                <img src="../images/tinybutton-add1.gif" style="border:none; cursor:pointer;" alt="add" title="Add" type="image" onClick="alert('This would add the indicated record.');" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="content_grey" style="text-align:center;">
-                                                1
-                                            </td>
-                                            <td class="content_white">
-                                                exception 3
-                                            </td>
-                                            <td class="content_white">
-                                                Porttitor porta lorem egestas dictumst nec, lundium penatibus arcu lorem.
-                                            </td>
-                                            <td class="content_white" style="text-align:center;">
-                                                <img src="../images/tinybutton-delete1.gif" style="border:none; cursor:pointer;" alt="delete" title="Delete" type="image" onClick="alert('This would remove the indicated exception.');" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="content_grey" style="text-align:center; border-bottom:1px solid #888;">
-                                                2
-                                            </td>
-                                            <td class="content_white" style="border-bottom:1px solid #888;">
-                                                exception 4
-                                            </td>
-                                            <td class="content_white" style="border-bottom:1px solid #888;">
-                                                Diam et pulvinar dolor et nec.
-                                            </td>
-                                            <td class="content_white" style="text-align:center; border-bottom:1px solid #888;">
-                                                <img src="../images/tinybutton-delete1.gif" style="border:none; cursor:pointer;" alt="delete" title="Delete" type="image" onClick="alert('This would remove the indicated exception.');" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            
+                            <td class="content_white fineprint" style="text-align:right; border-right:none; color:#000; font-style:italic;">
+                                Exceptions:
+                            </td>
+                            <td class="content_white" style="text-align:left; border-left:none;" colspan="6">
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Some description of two separate exceptions.  Eu placerat dignissim porta in, mus dis etiam diam et, sed tristique. Ut dapibus, aliquet, magna ac, magnis placerat et elementum, risus diam scelerisque, dolor odio egestas ultrices tincidunt. Porttitor ac in, arcu in sit elit sociis ...
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
+                        
                         
                         <!-- 2 Flying Frogs -->
                         <tr>
@@ -859,8 +739,8 @@
                             <td class="content_white" style="text-align:left;">
                                 Amphibian- Frog
                             </td>
-                            <td class="content_white" style="text-align:left">
-                                &nbsp;
+                            <td class="content_white" style="text-align:left">&nbsp;
+                                
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 A
@@ -873,39 +753,6 @@
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 20
-                            </td>
-                            <td class="content_white" style="text-align:left; border-right:none;">
-                                
-                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none; background:none; text-align:center;">
-                                            0
-                                        </td>
-                                        <td style="border:none; width:48px; vertical-align:top; background:none; text-align:right;">
-                                            <img id="control_hideshowexception02" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" style="width:45px; height:15px; border:none; cursor:pointer;" align="top" />
-                                            <script type="text/javascript">
-												$(document).ready(function(){
-													// trigger
-														$("#control_hideshowexception02").toggle(
-															function()
-															{
-																$("#div_hideshowexception02").slideDown(400);
-																$("#control_hideshowexception02").attr("src","../images/tinybutton-hide.gif");
-																$("#td_hideshowexception02").css("border-bottom","1px solid #888888");
-															},
-															function()
-															{
-																$("#div_hideshowexception02").slideUp(200);
-																$("#control_hideshowexception02").attr("src","../images/tinybutton-show.gif");
-																$("#td_hideshowexception02").css("border-bottom","none");
-															}
-														);	
-												});
-											</script>
-                                        </td>
-                                    </tr>
-                                </table>
-                                
                             </td>
                             <td class="content_white" style="text-align:center;" rowspan="3">
                             	
@@ -1107,7 +954,7 @@
                             <td class="content_white fineprint" style="text-align:right; border-right:none; color:#000; font-style:italic;">
                                 Proceedures Summary:
                             </td>
-                            <td class="content_white" style="text-align:left; border-left:none;" colspan="7">
+                            <td class="content_white" style="text-align:left; border-left:none;" colspan="6">
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
@@ -1121,49 +968,23 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="content_gradient" id="td_hideshowexception02" style="text-align:left; padding:0px;; border-bottom:none; font-weight:normal;" colspan="8">
-                            
-                                <div id="div_hideshowexception02" style="border:none; padding:6px; display:none;">
-                                    <table class="content_table" style="border-top:1px solid #888;">  
-                                        <tr>
-                                            <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
-                                                
-                                            </td>
-                                            <td class="content_grey" style="text-align:center; width:100px;">
-                                                Category
-                                            </td>
-                                            <td class="content_grey" style="text-align:center;">
-                                                Exception Description
-                                            </td>
-                                            <td class="content_grey" style="text-align:center; width:50px;">
-                                                Action
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="content_gradient" style="text-align:right;">
-                                                Add:
-                                            </td>
-                                            <td class="content_gradient" style="text-align:left;">
-                                                <select style="width:99%;">
-                                                    <option value="0" selected="selected">select</option>
-                                                    <option value="1">exception 1</option>
-                                                    <option value="2">exception 2</option>
-                                                    <option value="2">exception 3</option>
-                                                    <option value="2">exception 4</option>
-                                                </select>
-                                            </td>
-                                            <td class="content_gradient" style="text-align:left;">
-                                                <input type="text" style="width:100%;" value="" />
-                                            </td>
-                                            <td class="content_gradient" style="text-align:center;">
-                                                <img src="../images/tinybutton-add1.gif" style="border:none; cursor:pointer;" alt="add" title="Add" type="image" onClick="alert('This would add the indicated record.');" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            
+                            <td class="content_white fineprint" style="text-align:right; border-right:none; color:#000; font-style:italic;">
+                                Exceptions:
+                            </td>
+                            <td class="content_white" style="text-align:left; border-left:none;" colspan="6">
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            None.
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
+                        
                         
                         <!-- 3 Tiny Flying Frogs -->
                         <tr>
@@ -1176,8 +997,8 @@
                             <td class="content_white" style="text-align:left;">
                                 Amphibian- Frog
                             </td>
-                            <td class="content_white" style="text-align:left">
-                                &nbsp;
+                            <td class="content_white" style="text-align:left">&nbsp;
+                                
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 None
@@ -1190,39 +1011,6 @@
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 200
-                            </td>
-                            <td class="content_white" style="text-align:left; border-right:none;">
-                                
-                                <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none; background:none; text-align:center;">
-                                            0
-                                        </td>
-                                        <td style="border:none; width:48px; vertical-align:top; background:none; text-align:right;">
-                                            <img id="control_hideshowexception03" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" style="width:45px; height:15px; border:none; cursor:pointer;" align="top" />
-                                            <script type="text/javascript">
-												$(document).ready(function(){
-													// trigger
-														$("#control_hideshowexception03").toggle(
-															function()
-															{
-																$("#div_hideshowexception03").slideDown(400);
-																$("#control_hideshowexception03").attr("src","../images/tinybutton-hide.gif");
-																$("#td_hideshowexception03").css("border-bottom","1px solid #888888");
-															},
-															function()
-															{
-																$("#div_hideshowexception03").slideUp(200);
-																$("#control_hideshowexception03").attr("src","../images/tinybutton-show.gif");
-																$("#td_hideshowexception03").css("border-bottom","none");
-															}
-														);	
-												});
-											</script>
-                                        </td>
-                                    </tr>
-                                </table>
-                                
                             </td>
                             <td class="content_white" style="text-align:center;" rowspan="3">
                             	
@@ -1424,7 +1212,7 @@
                             <td class="content_white fineprint" style="text-align:right; border-right:none; color:#000; font-style:italic;">
                                 Proceedures Summary:
                             </td>
-                            <td class="content_white" style="text-align:left; border-left:none;" colspan="7">
+                            <td class="content_white" style="text-align:left; border-left:none;" colspan="6">
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
@@ -1438,49 +1226,23 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="content_gradient" id="td_hideshowexception03" style="text-align:left; padding:0px;; border-bottom:none; font-weight:normal;" colspan="8">
-                            
-                                <div id="div_hideshowexception03" style="border:none; padding:6px; display:none;">
-                                    <table class="content_table" style="border-top:1px solid #888;">  
-                                        <tr>
-                                            <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
-                                                
-                                            </td>
-                                            <td class="content_grey" style="text-align:center; width:100px;">
-                                                Category
-                                            </td>
-                                            <td class="content_grey" style="text-align:center;">
-                                                Exception Description
-                                            </td>
-                                            <td class="content_grey" style="text-align:center; width:50px;">
-                                                Action
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="content_gradient" style="text-align:right;">
-                                                Add:
-                                            </td>
-                                            <td class="content_gradient" style="text-align:left;">
-                                                <select style="width:99%;">
-                                                    <option value="0" selected="selected">select</option>
-                                                    <option value="1">exception 1</option>
-                                                    <option value="2">exception 2</option>
-                                                    <option value="2">exception 3</option>
-                                                    <option value="2">exception 4</option>
-                                                </select>
-                                            </td>
-                                            <td class="content_gradient" style="text-align:left;">
-                                                <input type="text" style="width:100%;" value="" />
-                                            </td>
-                                            <td class="content_gradient" style="text-align:center;">
-                                                <img src="../images/tinybutton-add1.gif" style="border:none; cursor:pointer;" alt="add" title="Add" type="image" onClick="alert('This would add the indicated record.');" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            
+                            <td class="content_white fineprint" style="text-align:right; border-right:none; color:#000; font-style:italic;">
+                                Exceptions:
+                            </td>
+                            <td class="content_white" style="text-align:left; border-left:none;" colspan="6">
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            None.
+                                        </td>
+                                        <td style="border:none; background:none; width:20px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
+                        
                         
                     </table>
             	</div>

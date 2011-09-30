@@ -25,11 +25,15 @@
     <link rel="shortcut icon" href="../images/icon.ico" />
     <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
     <link href="../BFN/new_kuali.css" rel=stylesheet type="text/css">
-    <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />
-    <!--<link href="questionnaire.css" rel="stylesheet" type="text/css" />-->
+    
     <!-- jQuery Library -->
-	<script type="text/javascript" src="../scripts/jquery.js"></script>
-    <!--<script type="text/javascript" src="jquery.treeview.js"></script>-->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    
+    <!-- FancyBox -->
+    <script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+    
 </head>
 <body>
 
@@ -78,13 +82,7 @@
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">General</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Organization</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Protocol</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
@@ -96,19 +94,25 @@
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Correspondents</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Questionnaire</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Areas of Research</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Custom Data</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Funding Source</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Special Review</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Permissions</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
@@ -126,31 +130,19 @@
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='iacuc-justification.html'">Justification</button>
+                    <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='iacuc-justification.html'">The Three R's</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='iacuc-altsearch.html'">Alternate Search</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Notes & Attachments</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Other Identifiers</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Notes</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Others</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Protocol Actions</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
         </tr>
@@ -203,10 +195,6 @@
                 <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
                 <td class="tabinactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
         </tr>
     </table>
 </div>
@@ -228,7 +216,7 @@
     <tr>
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
-            Tab Heading
+            Proceedures
         </td>
         <td class="toppanelhead3">
             <img id="control_panelcontent01" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
@@ -404,55 +392,6 @@
     </table>
 </div>
 
-<!-- MID PANEL HEAD -->
-<table class="paneltable">
-    <tr>
-        <td class="midpanelhead1">&nbsp;</td>
-        <td class="midpanelhead2">
-            Tab Heading
-        </td>
-        <td class="midpanelhead3">
-            <img id="control_panelcontent02" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none;" />
-            <script type="text/javascript">
-				$(document).ready(function(){
-					// trigger
-						$("#control_panelcontent02").toggle(
-							function()
-							{
-								$("#div_panelcontent02").slideDown(400);
-								$("#control_panelcontent02").attr("src","../images/tinybutton-hide.gif");
-								$("#control_panelcontent02").attr("alt","hide");
-							},
-							function()
-							{
-								$("#div_panelcontent02").slideUp(200);
-								$("#control_panelcontent02").attr("src","../images/tinybutton-show.gif");
-								$("#control_panelcontent02").attr("alt","show");
-							}
-						);	
-				});
-			</script>
-        </td>
-        <td class="midpanelhead4">&nbsp;</td>
-        <td class="midpanelhead5">&nbsp;</td>
-    </tr>
-</table>
-         
-<!-- PANEL CONTENT -->
-<div id="div_panelcontent02" style="display:none;">
-    <table class="paneltable">
-        <tr>
-            <td class="panelcontent1">&nbsp;</td>
-            <td class="panelcontent2" colspan="3">
-                
-                [More stuff here]
-                
-            </td>
-            <td class="panelcontent3">&nbsp;</td>
-        </tr>
-    </table>
-</div>
-
 <!-- PANEL FOOT -->
 <table class="paneltable">
     <tr>
@@ -479,8 +418,6 @@
 
 <!-- END PANEL CONTAINER -->
 </td></tr></table>
-
-
 
 <!-- DOCUMENT FOOT -->
 </body>

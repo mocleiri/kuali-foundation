@@ -25,11 +25,15 @@
     <link rel="shortcut icon" href="../images/icon.ico" />
     <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
     <link href="../BFN/new_kuali.css" rel=stylesheet type="text/css">
-    <link rel="stylesheet" href="jquery.treeview.css" type="text/css" media="screen" />
-    <!--<link href="questionnaire.css" rel="stylesheet" type="text/css" />-->
+    
     <!-- jQuery Library -->
-	<script type="text/javascript" src="../scripts/jquery.js"></script>
-    <!--<script type="text/javascript" src="jquery.treeview.js"></script>-->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    
+    <!-- FancyBox -->
+    <script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+    
 </head>
 <body>
 
@@ -75,16 +79,10 @@
 <div class="horizontaltabs">
 	<table class="horizontaltabstable">
     	<tr>
-            <!-- INACTIVE -->
+           <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">General</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Organization</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Protocol</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
@@ -96,19 +94,25 @@
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Correspondents</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Questionnaire</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Areas of Research</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Custom Data</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Funding Source</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Special Review</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Permissions</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
@@ -126,31 +130,19 @@
             <!-- INACTIVE -->
                 <td class="tabactive1">&nbsp;</td>
                 <td class="tabactive2">
-                    <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='iacuc-justification.html'">Justification</button>
+                    <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='iacuc-justification.html'">The Three R's</button>
                 </td>
                 <td class="tabactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='iacuc-altsearch.html'">Alternate Search</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Notes & Attachments</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Other Identifiers</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Notes</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Others</button>
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Protocol Actions</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
         </tr>
@@ -203,10 +195,6 @@
                 <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
                 <td class="tabinactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
         </tr>
     </table>
 </div>
@@ -228,7 +216,7 @@
     <tr>
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
-            Tab Heading
+            Scientific Justification
         </td>
         <td class="toppanelhead3">
             <img id="control_panelcontent01" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
@@ -264,135 +252,75 @@
             <td class="panelcontent1">&nbsp;</td>
             <td class="panelcontent2" colspan="3">
             
-            	<!-- Context -->
+            	<!-- panel -->
                 <table class="elementhead_table">
                     <tr>
                         <th class="elementhead_left">
                             <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
-                            Label
+                            Principles
                         </th>
                         <th class="elementhead_right">
                             <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
                         </th>
                     </tr>
                 </table>
-                
                 <div id="content02">
                     <table class="content_table">  
                     	<tr>
-                            <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
-                            	
-                            </td>
-                            <td class="content_grey" style="text-align:center;">
-                                Label
-                            </td>
-                            <td class="content_grey" style="text-align:center;">
-                                Label
-                            </td>
-                            <td class="content_grey" style="text-align:center;">
-                                Label
-                            </td>
-                            <td class="content_grey" style="text-align:center;">
-                                Label
-                            </td>
-                            <td class="content_grey" style="text-align:center; width:70px;">
-                                Action
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_grey" style="width:50px; text-align:right;">
-                                Add:
-                            </td>
-                            <td class="content_info" style="text-align:left;">
-                                <select style="width:100%;">
-                                    <option value="0" selected="selected">select</option>
-                                    <option value="1">a</option>
-                                    <option value="2">b</option>
-                                    <option value="3">c</option>
-                                    <option value="4">d</option>
-                                </select>
-                            </td>
-                            <td class="content_info" style="text-align:left;">
-                                <select style="width:100%;">
-                                    <option value="0" selected="selected">select</option>
-                                    <option value="1">a</option>
-                                    <option value="2">b</option>
-                                    <option value="3">c</option>
-                                    <option value="4">d</option>
-                                </select>
-                            </td>
-                            <td class="content_info" style="text-align:left;">
-                                <select style="width:100%;">
-                                    <option value="0" selected="selected">select</option>
-                                    <option value="1">a</option>
-                                    <option value="2">b</option>
-                                    <option value="3">c</option>
-                                </select>
-                            </td>
-                            <td class="content_info" style="text-align:left;">
-                                <input type="text" style="width:100%;" />
-                            </td>
-                            <td class="content_info" style="text-align:center;">
-                            	<img id="control_newrule" src="../images/tinybutton-add1.gif" style="border:none;" alt="add" title="Add" type="image" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_grey" style="width:50px; text-align:center;">
-                                1
+                            <td class="content_grey" style="width:200px; text-align:right;">
+                                Principles of Reduction:
                             </td>
                             <td class="content_white" style="text-align:left;">
-                                Lorum
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                            	Lorum
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                            	Lorum
-                            </td>
-                            <td class="content_white" style="text-align:left;">
+                                
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac nisi a nulla...
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="4">Porttitor porta lorem egestas dictumst nec, lundium penatibus arcu lorem? Sagittis nisi sagittis lectus et penatibus egestas vut? Nunc enim etiam ultrices. Turpis et dis. Urna ut elit a lorem pulvinar turpis scelerisque dis montes magnis! Diam et pulvinar dolor et nec! Pulvinar penatibus cum integer nec lundium? Enim dolor vel! Risus porta dapibus vel a pellentesque etiam, mid dolor, integer et phasellus sit. Elit, sociis nunc scelerisque, vut placerat hac, amet, turpis a aliquet pulvinar sagittis cum? Vel massa cum, quis amet porttitor dictumst mus nec pid placerat ut, a dolor nunc. Lundium, in, tempor dolor rhoncus, adipiscing sit et sociis et mus est dignissim a adipiscing, montes purus facilisis etiam pid augue cursus tortor integer cras integer elit.</textarea>
                                         </td>
-                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
-                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                         </td>
                                     </tr>
                                 </table>
-                            </td>
-                            <td class="content_white" style="text-align:center;">
-                            	<img id="control_editrule01" src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" type="image" />
                                 
                             </td>
                         </tr>
                         <tr>
-                            <td class="content_grey" style="text-align:center;">
-                                2
+                            <td class="content_grey" style="text-align:right;">
+                                Principles of Refinement:
                             </td>
                             <td class="content_white" style="text-align:left;">
-                                Lorum
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                            	Lorum
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                            	Lorum
-                            </td>
-                            <td class="content_white" style="text-align:left;">
+                                
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac nisi a nulla...
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="4">Quis lorem turpis lundium porta! Ac urna, magna rhoncus, sit mus! Lectus in placerat mattis! Nunc, est. Duis enim! Eu natoque ut risus magnis et mattis porta enim duis, porta dis adipiscing eu enim nisi, ut mus mauris tincidunt, porta? Nascetur vel rhoncus, ultrices. Dictumst aliquet! Aenean purus mattis aenean placerat ut penatibus. Est facilisis! Lundium nunc in pulvinar nec nunc? Pulvinar ut et montes velit adipiscing lorem! Sociis penatibus porttitor in, sociis rhoncus dapibus ac eros, nec sit, nec lectus a mattis magna, pellentesque, dignissim! Placerat mid? Augue enim mattis. Ut placerat amet. Enim dapibus tempor eros turpis et penatibus dictumst pulvinar! Tortor pulvinar porta cum urna integer natoque! Turpis tincidunt phasellus, turpis platea ut enim. Elit urna.</textarea>
                                         </td>
-                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
-                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                         </td>
                                     </tr>
                                 </table>
+                                
                             </td>
-                            <td class="content_white" style="text-align:center;">
-                            	<img id="control_editrule02" src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" type="image" />
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:right;">
+                                Principles of Replacement:
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="4">Placerat non augue rhoncus scelerisque porta! Ut dolor ac ridiculus turpis rhoncus turpis nisi, vel! Eu placerat dignissim porta in, mus dis etiam diam et, sed tristique. Ut dapibus, aliquet, magna ac, magnis placerat et elementum, risus diam scelerisque, dolor odio egestas ultrices tincidunt. Porttitor ac in, arcu in sit elit sociis est placerat tristique nisi quis magna adipiscing! Auctor aliquet ac! Sagittis, nunc tristique ultrices vut. Vut placerat tristique ut? Facilisis pulvinar dignissim. Nisi a, elit sed urna elit amet sit. Phasellus! Adipiscing purus in phasellus sed aenean, pulvinar quis, eu turpis porta vel tincidunt integer ridiculus etiam, nunc penatibus urna dapibus ac mid. Rhoncus non, lorem ut a porttitor sociis, dictumst, aliquam nec, velit, porttitor magna tortor.</textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
                             </td>
                         </tr>
                     </table>
@@ -409,7 +337,7 @@
     <tr>
         <td class="midpanelhead1">&nbsp;</td>
         <td class="midpanelhead2">
-            Tab Heading
+            Alternative Search
         </td>
         <td class="midpanelhead3">
             <img id="control_panelcontent02" src="../images/tinybutton-show.gif" alt="hide" style="width:45px; height:15px; border:none;" />
@@ -445,7 +373,469 @@
             <td class="panelcontent1">&nbsp;</td>
             <td class="panelcontent2" colspan="3">
                 
-                [More stuff here]
+                <!-- panel -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                            Alternative Search Required?
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                <div id="content02">
+                    <table class="content_table">  
+                    	<tr>
+                            <td class="content_grey" style="width:630px; text-align:right;">
+                                Does the protocol involve proceedures which cause more than momentary pain and distress?
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                <select id="control_altsearch">
+                                    <option value="0">select</option>
+                                    <option value="1" selected="selected">Yes</option>
+                                    <option value="2">No</option>
+                                </select>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										// trigger
+											$("#control_altsearch").change(
+												function()
+												{
+													var x = $('#control_altsearch option:selected').val();
+													if( x==1 )
+													{
+														$("#div_altsearch").slideDown(200);
+													}
+													else
+													{
+														$("#div_altsearch").slideUp(200);
+													}
+												}
+											);	
+									});
+								</script>
+                                
+                            </td>
+                        </tr>
+                    </table>
+            	</div>
+                
+                <div id="div_altsearch">
+                    <!-- panel -->
+                    <table class="elementhead_table">
+                        <tr>
+                            <th class="elementhead_left">
+                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                Alternative Searches
+                            </th>
+                            <th class="elementhead_right">
+                                <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                            </th>
+                        </tr>
+                    </table>
+                    <div>
+                    
+                        <table class="content_table">
+                        
+                            <!-- header --> 
+                            <tr>
+                                <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
+                                    
+                                </td>
+                                <td class="content_grey" style="text-align:center; width:110px;">
+                                    Date*
+                                </td>
+                                <td class="content_grey" style="text-align:center; width:100px;">
+                                    Database(s)*
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Years*
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Keywords*
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Comments
+                                </td>
+                                <td class="content_grey" style="text-align:center; width:100px;">
+                                    Action
+                                </td>
+                            </tr>
+                            
+                            <!-- Add Line --> 
+                            <tr>
+                                <td class="content_gradient" style="text-align:right;">
+                                    Add:
+                                </td>
+                                <td class="content_gradient" style="text-align:center; min-width:100px;">
+                                    
+                                    <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none; text-align:right;">
+                                                <input type="text" value="" style="width:80px;" />
+                                            </td>
+                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                </td>
+                                <td class="content_gradient" style="text-align:left; width:100px;">
+                                    <input type="checkbox" class="nobord" name="CustomData" value="0" /> PubMed<br />
+                                    <input type="checkbox" class="nobord" name="CustomData" value="0" /> Poxnet<br />
+                                    <input type="checkbox" class="nobord" name="CustomData" value="0" /> ARIA<br />
+                                    <input type="checkbox" class="nobord" name="CustomData" value="0" /> Other
+                                </td>
+                                <td class="content_gradient" style="text-align:center;">
+                                    
+                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none;">
+                                                <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                            </td>
+                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                </td>
+                                <td class="content_gradient" style="text-align:center;">
+                                    
+                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none;">
+                                                <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                            </td>
+                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                </td>
+                                <td class="content_gradient" style="text-align:center;">
+                                    
+                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none;">
+                                                <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                            </td>
+                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                </td>
+                                <td class="content_gradient" style="text-align:center;">
+                                    <img src="../images/tinybutton-add1.gif" style="border:none; cursor:pointer;" alt="add" title="Add" type="image" onClick="alert('This would add the indicated record.');" />
+                                </td>
+                            </tr>
+                            
+                            <!-- 1 -->
+                            <tr>
+                                <td class="content_grey" style="text-align:center;">
+                                    1
+                                </td>
+                                <td class="content_white" style="text-align:left; border-left:none;">
+                                    09/06/2011
+                                </td>
+                                <td class="content_white" style="text-align:left;">
+                                    PubMed, Poxnet
+                                </td>
+                                <td class="content_white" style="text-align:left">
+                                    1986-2010
+                                </td>
+                                <td class="content_white" style="text-align:left;">
+                                    Slingshot Frogs
+                                </td>
+                                <td class="content_white" style="text-align:left;">
+                                    
+                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none;">
+                                                For a candybar I see nothing.
+                                            </td>
+                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                </td>
+                                <td class="content_white" style="text-align:center;">
+                                    
+                                    <!-- FancyBox -->
+                                    <a id="FB_control_altsearch01" href="#FB_div_altsearch01" title="Edit Alternative Search"><img id="edit03" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>
+                                    <script type="text/javascript">
+                                        $(document).ready(function() {
+                                            
+                                            $("#FB_control_altsearch01").fancybox();
+                                            
+                                        });
+                                    </script>
+                                    <div style="display: none;">
+                                        <div id="FB_div_altsearch01" style="overflow:auto;">
+                                            <table class="content_table">  
+                                                <tr>
+                                                    <th class="elementhead_left" colspan="2">
+                                                        <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                                        Edit Alternative Search
+                                                    	<span style="float:right;"><input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" /></span>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        *Date:
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left; width:350px;">
+                                                        
+                                                        <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none; text-align:right;">
+                                                                    <input type="text" value="09/06/2011" style="width:80px;" />
+                                                                </td>
+                                                                <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                                    <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        *Database(s):
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> PubMed<br />
+                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> Poxnet<br />
+                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" /> ARIA<br />
+                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" /> Other
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        *Years:
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        
+                                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="3">1986-2010</textarea>
+                                                                </td>
+                                                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        *Keywords:
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        
+                                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="3">Slingshot Frogs</textarea>
+                                                                </td>
+                                                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        Comments:
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        
+                                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="3">For a candybar I see nothing.</textarea>
+                                                                </td>
+                                                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <p style="text-align:center;"><img src="../images/tinybutton-save1.gif" style="border:none; cursor:pointer;" alt="save" title="Save" type="image" onClick="alert('This would update the indicated record.'); parent.$.fancybox.close();" /></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <img src="../images/tinybutton-delete1.gif" style="border:none; cursor:pointer;" alt="delete" title="Delete" type="image" onClick="alert('This would remove the indicated record.');" />
+                                </td>
+                            </tr>
+                            
+                            <!-- 2 -->
+                            <tr>
+                                <td class="content_grey" style="text-align:center;">
+                                    2
+                                </td>
+                                <td class="content_white" style="text-align:left; border-left:none;">
+                                    09/15/2011
+                                </td>
+                                <td class="content_white" style="text-align:left;">
+                                    PubMed, Poxnet, ARIA, Other
+                                </td>
+                                <td class="content_white" style="text-align:left">
+                                    1986-2010
+                                </td>
+                                <td class="content_white" style="text-align:left;">
+                                    Potato Cannon Salamanders
+                                </td>
+                                <td class="content_white" style="text-align:left;">
+                                    
+                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none;">
+                                                I also searched Salamander Monthly issues.
+                                            </td>
+                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                </td>
+                                <td class="content_white" style="text-align:center;">
+                                    
+                                    <!-- FancyBox -->
+                                    <a id="FB_control_altsearch02" href="#FB_div_altsearch02" title="Edit Alternative Search"><img src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>
+                                    <script type="text/javascript">
+                                        $(document).ready(function() {
+                                            
+                                            $("#FB_control_altsearch02").fancybox();
+                                            
+                                        });
+                                    </script>
+                                    <div style="display: none;">
+                                        <div id="FB_div_altsearch02" style="overflow:auto;">
+                                            <table class="content_table">  
+                                                <tr>
+                                                    <th class="elementhead_left" colspan="2">
+                                                        <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                                        Edit Alternative Search
+                                                    	<span style="float:right;"><input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" /></span>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        *Date:
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left; width:350px;">
+                                                        
+                                                        <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none; text-align:right;">
+                                                                    <input type="text" value="09/15/2011" style="width:80px;" />
+                                                                </td>
+                                                                <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                                    <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        *Database(s):
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> PubMed<br />
+                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> Poxnet<br />
+                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> ARIA<br />
+                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> Other
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        *Years:
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        
+                                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="3">1986-2010</textarea>
+                                                                </td>
+                                                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        *Keywords:
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        
+                                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="3">Potato Cannon Salamanders</textarea>
+                                                                </td>
+                                                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content_grey" style="text-align:right;">
+                                                        Comments:
+                                                    </td>
+                                                    <td class="content_white" style="text-align:left;">
+                                                        
+                                                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="border:none; background:none;">
+                                                                    <textarea name="z" style="width:100%; text-align:left;" rows="3">I also searched Salamander Monthly issues. </textarea>
+                                                                </td>
+                                                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <p style="text-align:center;"><img src="../images/tinybutton-save1.gif" style="border:none; cursor:pointer;" alt="save" title="Save" type="image" onClick="alert('This would update the indicated record.'); parent.$.fancybox.close();" /></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <img src="../images/tinybutton-delete1.gif" style="border:none; cursor:pointer;" alt="delete" title="Delete" type="image" onClick="alert('This would remove the indicated record.');" />
+                                </td>
+                            </tr>
+                            
+                        </table>
+                        
+                    </div>
+                </div>
                 
             </td>
             <td class="panelcontent3">&nbsp;</td>
