@@ -4,8 +4,7 @@
   <property name="impex.dba.username" value="master" />
   <property name="impex.dba.password" value="gw570229" />
 
-  <target name="fullreset" depends="stop,clean,copy,resetdb,start" />
-  <target name="resetdb" depends="stop,clean,resetdb,start" />
+  <target name="reset" depends="stop,clean,copy,resetdb,start" />
   <target name="restart" depends="stop,clean,start" />
   <target name="stop">
     <condition property="stop.properties">
