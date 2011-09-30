@@ -45,8 +45,9 @@ public class GetSVNRevisionNumberMojo extends AbstractMojo {
             Attributes attributes = manifest.getMainAttributes();
             String revisionNumber = attributes.getValue(attribute);
             validate(revisionNumber);
-            getLog().info(attribute + "=" + revisionNumber);
-            System.setProperty(prefix + "." + attribute, revisionNumber);
+            String key = "prefix" + "." + attribute;
+            getLog().info(key + "=" + revisionNumber);
+            System.setProperty(key, revisionNumber);
         } catch (Exception e) {
             throw new MojoExecutionException("Error handling " + filename, e);
         }
