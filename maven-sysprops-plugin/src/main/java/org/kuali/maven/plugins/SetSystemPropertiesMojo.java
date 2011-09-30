@@ -33,6 +33,7 @@ public class SetSystemPropertiesMojo extends AbstractMojo {
             for (String key : keys) {
                 String value = systemProperties.getProperty(key);
                 System.setProperty(key, value);
+                getLog().info("Setting " + key + "=" + value);
             }
         } catch (Exception e) {
             throw new MojoExecutionException("Unexpected error", e);
