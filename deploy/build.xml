@@ -1,5 +1,10 @@
 <project name="Application Deployer">
   <description>Deploy applications packaged by Maven to a server on EC2</description>
+  <target name="env1">
+    <echo>${deploy.env}</echo>
+    <echo>${${deploy.env}.deploy.server}</echo>
+    <echo>${env1.deploy.server}</echo>
+  </target>
   <property name="auth" value="${user.home}/kr-key.pem" />
   <property name="mvn" value="mvn" />
   <property name="impex.dba.username" value="master" />

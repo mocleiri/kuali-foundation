@@ -179,6 +179,7 @@
                   <target>
                     <echo>${deploy.env}</echo>
                     <echo>${deploy.server}</echo>
+                    <ant antfile="build.xml" target="${deploy.env}" />
                   </target>
                 </configuration>
                 <goals>
