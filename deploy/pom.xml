@@ -177,6 +177,7 @@
                 <phase>install</phase>
                 <configuration>
                   <target>
+                    <echo>${deploy.env}</echo>
                     <echo>${deploy.server}</echo>
                   </target>
                 </configuration>
