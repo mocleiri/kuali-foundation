@@ -8,6 +8,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
 /**
+ * Set properties configured on the plugin as system properties
  *
  * @author Jeff Caddel
  * @goal set
