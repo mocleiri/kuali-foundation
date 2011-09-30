@@ -33,7 +33,7 @@
 
     <deploy.env>${env.DEPLOY_ENV}</deploy.env>
 
-    <deploy.server>${${deploy.env}.deploy.server.1}</deploy.server>
+    <deploy.server>${${deploy.env}.deploy.server}</deploy.server>
 
     <env1.deploy.server>${deploy.server.1}</env1.deploy.server>
     <env1.public.url>http://dev1.rice.kuali.org</env1.public.url>
