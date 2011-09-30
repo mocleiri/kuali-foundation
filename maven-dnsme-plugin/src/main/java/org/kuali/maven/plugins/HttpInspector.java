@@ -1,10 +1,13 @@
 package org.kuali.maven.plugins;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodRetryHandler;
@@ -66,13 +69,53 @@ public class HttpInspector {
         }
     }
 
-    protected HttpClient getHttpClient() {
+    public HttpClient getHttpClient() {
         HttpClient client = new HttpClient();
         HttpClientParams clientParams = client.getParams();
         HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
         clientParams.setParameter(HttpMethodParams.RETRY_HANDLER, retryHandler);
         clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, requestTimeout);
         return client;
+    }
+
+    public Result doDNSMERequest(HttpClient client) {
+        try {
+            Api api = new Api();
+            String apiKey = api.getApiKey();
+            String requestDate = api.getHTTPDate(new Date());
+            String hash = api.getHMACSHA1Hash(requestDate);
+            String url = "http://api.sandbox.dnsmadeeasy.com/V1.2/domains/";
+            // String url = "http://api.dnsmadeeasy.com/V1.2/domains/";
+            HttpMethod method = new GetMethod(url);
+            Header header1 = new Header("x-dnsme-apiKey", apiKey);
+            Header header2 = new Header("x-dnsme-requestDate", requestDate);
+            Header header3 = new Header("x-dnsme-hmac", hash);
+            method.addRequestHeader(header1);
+            method.addRequestHeader(header2);
+            method.addRequestHeader(header3);
+
+            client.executeMethod(method);
+            int statusCode = method.getStatusCode();
+            String statusText = method.getStatusText();
+            InputStream in = method.getResponseBodyAsStream();
+            String s = getString(in);
+            in.close();
+            method.releaseConnection();
+            return Result.SUCCESS;
+        } catch (IOException e) {
+            return Result.IO_EXCEPTION;
+        }
+    }
+
+    protected String getString(InputStream in) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        byte[] buffer = new byte[1024];
+        int bytesRead = -1;
+        while ((bytesRead = in.read(buffer)) != -1) {
+            sb.append(new String(buffer, 0, bytesRead));
+        }
+        return sb.toString();
+
     }
 
     protected Result doRequest(HttpClient client, String url, long secondsRemaining) {

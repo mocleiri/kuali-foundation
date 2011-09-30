@@ -19,7 +19,7 @@ public class SimpleMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        TimeZone timeZone = TimeZone.getTimeZone("UTD");
+        TimeZone timeZone = TimeZone.getTimeZone("UTC");
         sdf.setTimeZone(timeZone);
         Date date = new Date(System.currentTimeMillis());
         getLog().info(sdf.format(date));
