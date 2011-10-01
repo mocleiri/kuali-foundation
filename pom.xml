@@ -196,7 +196,7 @@
       </build>
     </profile>
     <profile>
-      <id>localwar</id>
+      <id>local</id>
       <properties>
         <deploy.war>../../${deploy.app}/target/rice-${deploy.app}-${project.version}.war</deploy.war>
         <impex.dir>../../db/impex/master</impex.dir>
