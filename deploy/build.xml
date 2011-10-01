@@ -4,6 +4,16 @@
   <property name="impex.dba.username" value="master" />
   <property name="impex.dba.password" value="gw570229" />
 
+  <target name="env1">
+    <property name="deploy.server" value="${deploy.server.1}" />
+    <property name="public.url" value="http://dev1.rice.kuali.org" />
+    <property name="tomcat.instance" value="tomcat1" />
+    <property name="db.instance" value="RICEENV1" />
+    <property name="db.vendor" value="oracle" />
+    <property name="impex.url" value="${impex.oracle.url}" />
+    <property name="impex.dba.url" value="${impex.oracle.url}" />
+  </target>
+
   <target name="reset" depends="stop,clean,copy,resetdb,start" />
   <target name="restart" depends="stop,clean,start" />
   <target name="stop">

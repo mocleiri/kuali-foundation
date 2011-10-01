@@ -30,26 +30,7 @@
     <impex.oracle.url>jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE</impex.oracle.url>
     <impex.mysql.dba.url>jdbc:mysql://mysql.rice.kuali.org</impex.mysql.dba.url>
     <impex.mysql.url>${impex.mysql.dba.url}/${impex.database}</impex.mysql.url>
-
     <deploy.env>${env.DEPLOY_ENV}</deploy.env>
-
-    <deploy.server>${${deploy.env}.deploy.server}</deploy.server>
-
-    <env1.deploy.server>${deploy.server.1}</env1.deploy.server>
-    <env1.public.url>http://dev1.rice.kuali.org</env1.public.url>
-    <env1.tomcat.instance>tomcat1</env1.tomcat.instance>
-    <env1.db.instance>RICEENV1</env1.db.instance>
-    <env1.db.vendor>oracle</env1.db.vendor>
-    <env1.impex.url>${impex.oracle.url}</env1.impex.url>
-    <env1.impex.dba.url>${impex.oracle.url}</env1.impex.dba.url>
-
-    <env2.deploy.server>${deploy.server.1}</env2.deploy.server>
-    <env2.public.url>http://dev2.rice.kuali.org</env2.public.url>
-    <env2.tomcat.instance>tomcat2</env2.tomcat.instance>
-    <env2.db.instance>RICEENV2</env2.db.instance>
-    <env2.db.vendor>mysql</env2.db.vendor>
-    <env2.impex.dba.url>${impex.mysql.dba.url}</env2.impex.dba.url>
-    <env2.impex.url>${impex.mysql.url}</env2.impex.url>
   </properties>
   <build>
     <resources>
@@ -94,77 +75,6 @@
   </build>
   <profiles>
     <profile>
-      <id>env1</id>
-      <properties>
-        <deploy.env>env1</deploy.env>
-        <deploy.server>${deploy.server.1}</deploy.server>
-        <public.url>http://dev1.rice.kuali.org</public.url>
-        <tomcat.instance>tomcat1</tomcat.instance>
-        <db.instance>RICEENV1</db.instance>
-        <db.vendor>oracle</db.vendor>
-        <impex.url>${impex.oracle.url}</impex.url>
-        <impex.dba.url>${impex.oracle.url}</impex.dba.url>
-      </properties>
-    </profile>
-    <profile>
-      <id>env2</id>
-      <properties>
-      </properties>
-    </profile>
-    <profile>
-      <id>env3</id>
-      <properties>
-        <deploy.env>env3</deploy.env>
-        <deploy.server>${deploy.server.1}</deploy.server>
-        <public.url>http://env3.rice.kuali.org</public.url>
-        <tomcat.instance>tomcat3</tomcat.instance>
-        <db.instance>RICEENV3</db.instance>
-        <db.vendor>oracle</db.vendor>
-        <impex.url>${impex.oracle.url}</impex.url>
-        <impex.dba.url>${impex.oracle.url}</impex.dba.url>
-      </properties>
-    </profile>
-    <profile>
-      <id>env4</id>
-      <properties>
-        <deploy.env>env4</deploy.env>
-        <deploy.server>${deploy.server.2}</deploy.server>
-        <public.url>http://env4.rice.kuali.org</public.url>
-        <tomcat.instance>tomcat1</tomcat.instance>
-        <db.instance>RICEENV4</db.instance>
-        <db.vendor>oracle</db.vendor>
-        <impex.url>${impex.oracle.url}</impex.url>
-        <impex.dba.url>${impex.oracle.url}</impex.dba.url>
-      </properties>
-    </profile>
-    <profile>
-      <id>env5</id>
-      <properties>
-        <deploy.env>env5</deploy.env>
-        <deploy.server>${deploy.server.2}</deploy.server>
-        <public.url>http://env5.rice.kuali.org</public.url>
-        <tomcat.instance>tomcat2</tomcat.instance>
-        <db.instance>RICEENV5</db.instance>
-        <db.vendor>oracle</db.vendor>
-        <impex.url>${impex.oracle.url}</impex.url>
-        <impex.dba.url>${impex.oracle.url}</impex.dba.url>
-        <war.file>../../standalone/target/rice-standalone-${project.version}.war</war.file>
-      </properties>
-    </profile>
-    <profile>
-      <id>env6</id>
-      <properties>
-        <deploy.env>env6</deploy.env>
-        <deploy.server>${deploy.server.2}</deploy.server>
-        <public.url>http://demo.rice.kuali.org</public.url>
-        <tomcat.instance>tomcat3</tomcat.instance>
-        <db.instance>RICEENV6</db.instance>
-        <db.vendor>oracle</db.vendor>
-        <impex.url>${impex.oracle.url}</impex.url>
-        <impex.dba.url>${impex.oracle.url}</impex.dba.url>
-      </properties>
-    </profile>
-    <profile>
       <id>reset</id>
       <build>
         <plugins>
@@ -177,8 +87,6 @@
                 <phase>install</phase>
                 <configuration>
                   <target>
-                    <echo>${deploy.env}</echo>
-                    <echo>${deploy.server}</echo>
                     <ant antfile="build.xml" target="${deploy.env}" />
                   </target>
                 </configuration>
@@ -206,13 +114,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>localwar</id>
-      <properties>
-        <war.file>../../sampleapp/target/rice-sampleapp-${project.version}.war</war.file>
-        <impex.dir>../../db/impex/master</impex.dir>
-      </properties>
     </profile>
     <profile>
       <id>getwar</id>
