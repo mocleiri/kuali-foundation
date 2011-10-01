@@ -163,7 +163,7 @@
             <version>1.6</version>
             <executions>
               <execution>
-                <id>runant</id>
+                <id>antrun</id>
                 <phase>install</phase>
                 <configuration>
                   <target>
