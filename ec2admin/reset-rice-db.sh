@@ -1,4 +1,4 @@
-#!/bin/sh
+it#!/bin/sh
 
 ENV=$1
 if [ "$ENV" = "" ]; then

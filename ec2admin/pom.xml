@@ -18,6 +18,7 @@
     <artifactId>kuali-common</artifactId>
     <version>18</version>
   </parent>
+  <artifactId>org.kuali.ec2</artifactId>
   <artifactId>ec2-prep</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <name>EC2 Server Admin</name>
