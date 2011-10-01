@@ -31,6 +31,7 @@
     <impex.mysql.dba.url>jdbc:mysql://mysql.rice.kuali.org</impex.mysql.dba.url>
     <impex.mysql.url>${impex.mysql.dba.url}/${impex.database}</impex.mysql.url>
     <deploy.app>sampleapp</deploy.app>
+    <target>reset</target>
   </properties>
   <build>
     <resources>
