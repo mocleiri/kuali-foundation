@@ -7,7 +7,8 @@
 
   <target name="reset" depends="stop,clean,copy,resetdb,start" />
   <target name="restart" depends="stop,clean,start" />
-  <target name="copywar" depends="stop,clean,copy,start" />
+  <target name="waronly" depends="stop,clean,copywar,start" />
+  <target name="configonly" depends="stop,clean,copyconfig,start" />
   <target name="stop">
     <condition property="stop.properties">
       <and>
@@ -59,16 +60,16 @@
       <arg value="/usr/local/tomcat/bin/cleanup.sh" />
     </exec>
   </target>
-  <target name="copy">
-    <condition property="copy.properties">
+  <target name="copy" depends="copyconfig,copywar" />
+  <target name="copyconfig">
+    <condition property="copyconfig.properties">
       <and>
         <isset property="deploy.server" />
         <isset property="tomcat.instance" />
         <isset property="deploy.config" />
-        <isset property="deploy.war" />
       </and>
     </condition>
-    <fail unless="copy.properties">
+    <fail unless="copyconfig.properties">
       Properties not set correctly
     </fail>
     <property name="remote.config.file" value="/usr/local/${tomcat.instance}/conf/app-config.xml" />
@@ -79,6 +80,18 @@
       <arg value="${deploy.config}" />
       <arg value="root@${deploy.server}:${remote.config.file}" />
     </exec>
+  </target>
+  <target name="copywar">
+    <condition property="copywar.properties">
+      <and>
+        <isset property="deploy.server" />
+        <isset property="tomcat.instance" />
+        <isset property="deploy.war" />
+      </and>
+    </condition>
+    <fail unless="copywar.properties">
+      Properties not set correctly
+    </fail>
     <property name="remote.war.file" value="/usr/local/${tomcat.instance}/webapps/ROOT.war" />
     <echo>Copy ${deploy.war} to ${deploy.server}:${remote.war.file}</echo>
     <exec executable="scp" failonerror="true">
