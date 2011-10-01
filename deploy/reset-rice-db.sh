@@ -6,7 +6,7 @@ if [ "$ENV" = "" ]; then
   exit
 fi
 
-cd ../rice-2.0/db/impex/master
+cd impex/master
 URL=jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE
 ARGS=-Pdb,oracle
 ARGS="$ARGS -Dimpex.url=$URL"
