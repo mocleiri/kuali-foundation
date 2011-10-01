@@ -8,7 +8,7 @@ fi
 # User specific aliases and functions
 
 ENVIRONMENT=ec2
-ALT_CONFIG_LOCATION=$USER/kuali/main/$ENVIRONMENT/env-config.xml
+ALT_CONFIG_LOCATION=$HOME/kuali/main/$ENVIRONMENT/env-config.xml
 JAVA_HOME=/usr/java/default
 CATALINA_HOME=/usr/local/tomcat
 CATALINA_BASE=/usr/local/$USER
