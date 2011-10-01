@@ -203,7 +203,7 @@
       </properties>
     </profile>
     <profile>
-      <id>getwar</id>
+      <id>download</id>
       <properties>
         <deploy.groupId>org.kuali.rice</deploy.groupId>
         <deploy.artifactId>rice-sampleapp</deploy.artifactId>
