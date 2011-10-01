@@ -106,6 +106,7 @@
       Properties not set correctly
     </fail>
     <echo>Resetting ${db.instance} on ${impex.url}</echo>
+    <echo>Impex directory ${impex.dir}</echo>
     <exec executable="mvn" dir="${impex.dir}" failonerror="true">
       <arg value="clean" />
       <arg value="install" />
