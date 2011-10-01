@@ -97,7 +97,7 @@
             <version>1.6</version>
             <executions>
               <execution>
-                <id>reset</id>
+                <id>run-ant</id>
                 <phase>install</phase>
                 <configuration>
                   <target>
