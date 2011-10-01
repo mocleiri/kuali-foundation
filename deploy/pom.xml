@@ -36,9 +36,9 @@
     </repository>
   </repositories>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/deploy</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/deploy</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/deploy</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ec2admin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ec2admin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/ec2admin</url>
   </scm>
   <build>
     <pluginManagement>
