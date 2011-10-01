@@ -76,7 +76,7 @@
   </build>
   <profiles>
     <profile>
-      <id>update</id>
+      <id>deploy</id>
       <build>
         <plugins>
           <plugin>
