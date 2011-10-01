@@ -31,7 +31,7 @@
     <impex.mysql.dba.url>jdbc:mysql://mysql.rice.kuali.org</impex.mysql.dba.url>
     <impex.mysql.url>${impex.mysql.dba.url}/${impex.database}</impex.mysql.url>
     <deploy.app>sampleapp</deploy.app>
-    <target>reset</target>
+    <deploy.operation>reset</deploy.operation>
   </properties>
   <build>
     <resources>
@@ -155,7 +155,7 @@
       </properties>
     </profile>
     <profile>
-      <id>reset</id>
+      <id>update</id>
       <build>
         <plugins>
           <plugin>
@@ -167,7 +167,7 @@
                 <phase>install</phase>
                 <configuration>
                   <target>
-                    <ant antfile="build.xml" target="${target}" />
+                    <ant antfile="build.xml" target="${deploy.operation}" />
                   </target>
                 </configuration>
                 <goals>
