@@ -21,7 +21,7 @@
   <properties>
     <maven.test.skip>true</maven.test.skip>
     <config.resource>${deploy.env}-app-config.xml</config.resource>
-    <config.file>${project.build.directory}/classes/${config.resource}</config.file>
+    <deploy.config>${project.build.directory}/classes/${config.resource}</deploy.config>
     <impex.database>${db.instance}</impex.database>
     <impex.username>${db.instance}</impex.username>
     <impex.password>${db.instance}</impex.password>
@@ -198,7 +198,7 @@
     <profile>
       <id>localwar</id>
       <properties>
-        <war.file>../../${deploy.app}/target/rice-${deploy.app}-${project.version}.war</war.file>
+        <deploy.war>../../${deploy.app}/target/rice-${deploy.app}-${project.version}.war</deploy.war>
         <impex.dir>../../db/impex/master</impex.dir>
       </properties>
     </profile>
@@ -209,7 +209,7 @@
         <deploy.artifactId>rice-sampleapp</deploy.artifactId>
         <deploy.version>${project.version}</deploy.version>
         <deploy.type>war</deploy.type>
-        <war.file>${project.build.directory}/dependency/${deploy.artifactId}-${deploy.version}.${deploy.type}</war.file>
+        <deploy.war>${project.build.directory}/dependency/${deploy.artifactId}-${deploy.version}.${deploy.type}</deploy.war>
         <impex.dir>${project.build.directory}/checkout/db/impex/master</impex.dir>
       </properties>
       <build>
