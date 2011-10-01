@@ -162,11 +162,11 @@
             <version>1.6</version>
             <executions>
               <execution>
-                <id>reset</id>
+                <id>runant</id>
                 <phase>install</phase>
                 <configuration>
                   <target>
-                    <ant antfile="build.xml" target="reset" />
+                    <ant antfile="build.xml" target="${target}" />
                   </target>
                 </configuration>
                 <goals>
