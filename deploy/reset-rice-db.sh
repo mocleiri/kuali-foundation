@@ -17,5 +17,4 @@ ARGS="$ARGS -Dimpex.username=RICEENV$ENV"
 ARGS="$ARGS -Dimpex.password=RICEENV$ENV"
 mvn clean install $ARGS
 
-cd
-cd deploy
+cd ../..
