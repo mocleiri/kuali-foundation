@@ -37,7 +37,11 @@
       <arg value="tomcat" />
       <arg value="${tomcat.user}" />
     </exec>
-    <copy file="src/main/resources/bashrc.example" tofile="/home/${tomcat.user}/.bashrc" overwrite="true" />
+    <copy file="src/main/resources/bashrc.example" tofile="/home/${tomcat.user}/.bashrc" overwrite="true">
+      <filterset begintoken="${" endtoken="}">
+        <filter token="environment" value="${environment}" />
+      </filterset>
+    </copy>
     <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/kuali/main/${environment}/rice.keystore" overwrite="true" />
     <mkdir dir="${catalina.base}" />
     <mkdir dir="${catalina.base}/common" />
