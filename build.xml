@@ -72,7 +72,7 @@
       Properties not set correctly
     </fail>
     <property name="remote.config.file" value="/usr/local/${tomcat.instance}/conf/app-config.xml" />
-    <echo>Copy ${config.file} to ${deploy.server}:${remote.config.file}</echo>
+    <echo>Copy ${deploy.config} to ${deploy.server}:${remote.config.file}</echo>
     <exec executable="scp" failonerror="true">
       <arg value="-i" />
       <arg value="${deploy.auth}" />
@@ -80,7 +80,7 @@
       <arg value="root@${deploy.server}:${remote.config.file}" />
     </exec>
     <property name="remote.war.file" value="/usr/local/${tomcat.instance}/webapps/ROOT.war" />
-    <echo>Copy ${war.file} to ${deploy.server}:${remote.war.file}</echo>
+    <echo>Copy ${deploy.war} to ${deploy.server}:${remote.war.file}</echo>
     <exec executable="scp" failonerror="true">
       <arg value="-i" />
       <arg value="${deploy.auth}" />
