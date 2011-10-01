@@ -43,11 +43,6 @@
       </filterset>
     </copy>
     <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/kuali/main/${environment}/rice.keystore" overwrite="true" />
-    <exec executable="chown">
-      <arg value="-R" />
-      <arg value="${tomcat.user}:tomcat" />
-      <arg value="/home/${tomcat.user}" />
-    </exec>
     <mkdir dir="${catalina.base}" />
     <mkdir dir="${catalina.base}/common" />
     <mkdir dir="${catalina.base}/logs" />
@@ -73,6 +68,11 @@
       <arg value="-R" />
       <arg value="${tomcat.user}:tomcat" />
       <arg value="${catalina.base}" />
+    </exec>
+    <exec executable="chown">
+      <arg value="-R" />
+      <arg value="${tomcat.user}:tomcat" />
+      <arg value="/home/${tomcat.user}" />
     </exec>
   </target>
 
