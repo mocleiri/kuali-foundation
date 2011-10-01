@@ -49,7 +49,6 @@
           <artifactId>maven-antrun-plugin</artifactId>
           <version>1.6</version>
           <configuration>
-            <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath" />
             <target>
               <ant antfile="build.xml" target="${target}" />
             </target>
