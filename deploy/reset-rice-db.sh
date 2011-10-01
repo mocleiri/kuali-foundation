@@ -7,11 +7,11 @@ if [ "$ENV" = "" ]; then
 fi
 
 cd ../rice-2.0/db/impex/master
-URL=jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLEDB
+URL=jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE
 ARGS=-Pdb,oracle
 ARGS="$ARGS -Dimpex.url=$URL"
 ARGS="$ARGS -Dimpex.dba.url=$URL"
-ARGS="$ARGS -Dimpex.dba.username=oraclemaster"
+ARGS="$ARGS -Dimpex.dba.username=master"
 ARGS="$ARGS -Dimpex.dba.password=gw570229"
 ARGS="$ARGS -Dimpex.username=RICEENV$ENV"
 ARGS="$ARGS -Dimpex.password=RICEENV$ENV"
