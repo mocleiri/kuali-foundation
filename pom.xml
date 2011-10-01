@@ -31,7 +31,6 @@
     <impex.mysql.dba.url>jdbc:mysql://mysql.rice.kuali.org</impex.mysql.dba.url>
     <impex.mysql.url>${impex.mysql.dba.url}/${impex.database}</impex.mysql.url>
     <deploy.app>sampleapp</deploy.app>
-    <war.file>../../${deploy.app}/target/rice-${deploy.app}-${project.version}.war</war.file>
   </properties>
   <build>
     <resources>
@@ -198,7 +197,7 @@
     <profile>
       <id>localwar</id>
       <properties>
-        <war.file>../../sampleapp/target/rice-sampleapp-${project.version}.war</war.file>
+        <war.file>../../${deploy.app}/target/rice-${deploy.app}-${project.version}.war</war.file>
         <impex.dir>../../db/impex/master</impex.dir>
       </properties>
     </profile>
