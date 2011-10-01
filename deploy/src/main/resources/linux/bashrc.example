@@ -7,11 +7,14 @@ fi
 
 # User specific aliases and functions
 
+ENVIRONMENT=ec2
+ALT_CONFIG_LOCATION=$USER/kuali/main/$ENVIRONMENT/env-config.xml
 JAVA_HOME=/usr/java/default
 CATALINA_HOME=/usr/local/tomcat
 CATALINA_BASE=/usr/local/$USER
 CATALINA_OPTS="-Xmx2g"
-CATALINA_OPTS="$CATALINA_OPTS -Denvironment=ec2"
+CATALINA_OPTS="$CATALINA_OPTS -Denvironment=$ENVIRONMENT"
+CATALINA_OPTS="$CATALINA_OPTS -Dalt.config.location=$ALT_CONFIG_LOCATION"
 CATALINA_OPTS="$CATALINA_OPTS -XX:MaxPermSize=256m"
 CATALINA_OPTS="$CATALINA_OPTS -verbose:gc"
 CATALINA_OPTS="$CATALINA_OPTS -XX:+PrintGCDetails"
