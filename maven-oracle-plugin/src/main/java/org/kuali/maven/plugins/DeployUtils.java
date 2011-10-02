@@ -15,9 +15,9 @@ public class DeployUtils {
             String basedir = System.getProperty("user.home") + "/.oracle";
             File directory = new File(basedir);
             DeployUtils du = new DeployUtils();
-            List<Deployable> deployables = du.getDeployables(directory, "com.oracle");
-            for (Deployable deployable : deployables) {
-                System.out.println(du.getGAVString(deployable.getArtifact()));
+            List<Artifact> artifacts = du.getArtifacts(directory, "com.oracle");
+            for (Artifact artifact : artifacts) {
+                System.out.println(artifact);
             }
         } catch (Throwable t) {
             t.printStackTrace();
@@ -34,24 +34,23 @@ public class DeployUtils {
         return sb.toString();
     }
 
-    public List<Deployable> getDeployables(File directory, String groupId) {
+    public List<Artifact> getArtifacts(File directory, String groupId) {
         List<File> files = getFiles(directory);
-        List<Deployable> deployables = new ArrayList<Deployable>();
+        List<Artifact> artifacts = new ArrayList<Artifact>();
         for (File file : files) {
-            Deployable deployable = new Deployable();
             Artifact artifact = getArtifact(directory, file, groupId);
-            deployable.setFile(file);
-            deployable.setArtifact(artifact);
-            deployables.add(deployable);
+            artifacts.add(artifact);
         }
-        return deployables;
+        return artifacts;
     }
 
     protected Artifact getArtifact(File baseDirectory, File file, String groupId) {
         ArtifactHandler handler = new DefaultArtifactHandler("jar");
         String artifactId = getArtifactId(file);
         String version = getVersion(baseDirectory, file);
-        return new DefaultArtifact(groupId, artifactId, version, null, "jar", null, handler);
+        Artifact artifact = new DefaultArtifact(groupId, artifactId, version, null, "jar", null, handler);
+        artifact.setFile(file);
+        return artifact;
     }
 
     protected String getVersion(File baseDirectory, File file) {
