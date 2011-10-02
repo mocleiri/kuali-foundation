@@ -9,12 +9,12 @@ import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 
-public class DeployableUtils {
+public class DeployUtils {
     public static void main(String[] args) {
         try {
             String basedir = System.getProperty("user.home") + "/.oracle";
             File directory = new File(basedir);
-            DeployableUtils du = new DeployableUtils();
+            DeployUtils du = new DeployUtils();
             List<Deployable> deployables = du.getDeployables(directory, "com.oracle");
             for (Deployable deployable : deployables) {
                 System.out.println(du.getGAVString(deployable.getArtifact()));
