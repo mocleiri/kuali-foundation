@@ -35,7 +35,7 @@
             <groupId>${env.GROUP_ID}</groupId>
             <artifactId>${env.ARTIFACT_ID}</artifactId>
             <version>${env.VERSION}</version>
-            <file>${env.WORKSPACE}/upload.jar</file>
+            <file>${project.build.directory}/deploy/deploy.jar</file>
             <packaging>${env.PACKAGING}</packaging>
           </configuration>
         </plugin>
