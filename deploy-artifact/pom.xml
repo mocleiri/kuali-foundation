@@ -60,26 +60,26 @@
                 <requireProperty>
                   <property>deployment.groupId</property>
                   <message>You must provide a group id</message>
-                  <regex>^\d(.)*</regex>
-                  <regexMessage>Version must begin with a number</regexMessage>
+                  <regex>^\S+$</regex>
+                  <regexMessage>You must provide a group id</regexMessage>
                 </requireProperty>
                 <requireProperty>
                   <property>deployment.artifactId</property>
                   <message>You must provide an artifact id</message>
                   <regex>^\d(.)*</regex>
-                  <regexMessage>Version must begin with a number</regexMessage>
+                  <regexMessage>You must provide an artifact id</regexMessage>
                 </requireProperty>
                 <requireProperty>
                   <property>deployment.version</property>
                   <message>You must provide a version</message>
                   <regex>^\d(.)*</regex>
-                  <regexMessage>Version must begin with a number</regexMessage>
+                  <regexMessage>You must provide a version</regexMessage>
                 </requireProperty>
                 <requireProperty>
                   <property>deployment.file</property>
                   <message>You must provide a file</message>
                   <regex>^\d(.)*</regex>
-                  <regexMessage>Version must begin with a number</regexMessage>
+                  <regexMessage>You must provide a file</regexMessage>
                 </requireProperty>
               </rules>
               <fail>true</fail>
