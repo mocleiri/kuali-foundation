@@ -39,10 +39,7 @@ public class GenerateScriptMojo extends AbstractMojo {
         try {
             List<Artifact> artifacts = du.getArtifacts(new File(jdbcDriverDirectory), oracleGroupId);
             getLog().info("Located " + artifacts.size() + " artifacts");
-            for (Artifact artifact : artifacts) {
-                getLog().info(artifact + "");
-            }
-
+            getLog().info("Generating script to: " + scriptFile);
             String s = du.getShellScript(artifacts);
             out = new FileOutputStream(scriptFile);
             IOUtils.write(s, out);
