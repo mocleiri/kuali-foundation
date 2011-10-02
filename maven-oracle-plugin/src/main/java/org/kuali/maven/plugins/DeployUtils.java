@@ -28,7 +28,7 @@ public class DeployUtils {
         return getShellScript(artifacts);
     }
 
-    protected String getShellScript(List<Artifact> artifacts) throws IOException {
+    public String getShellScript(List<Artifact> artifacts) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append("#!/bin/sh\n");
         for (Artifact artifact : artifacts) {
