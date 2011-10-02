@@ -2,17 +2,11 @@ package org.kuali.maven.plugins;
 
 import java.io.File;
 
+import org.apache.maven.artifact.Artifact;
+
 public class Deployable {
-    GAV gav;
+    Artifact artifact;
     File file;
-
-    public GAV getGav() {
-        return gav;
-    }
-
-    public void setGav(GAV gav) {
-        this.gav = gav;
-    }
 
     public File getFile() {
         return file;
@@ -20,5 +14,13 @@ public class Deployable {
 
     public void setFile(File file) {
         this.file = file;
+    }
+
+    public Artifact getArtifact() {
+        return artifact;
+    }
+
+    public void setArtifact(Artifact artifact) {
+        this.artifact = artifact;
     }
 }

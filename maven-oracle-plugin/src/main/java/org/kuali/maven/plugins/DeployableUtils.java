@@ -4,6 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DefaultArtifact;
+import org.apache.maven.artifact.handler.manager.ArtifactHandlerManager;
+import org.apache.maven.artifact.handler.manager.DefaultArtifactHandlerManager;
+
 public class DeployableUtils {
     public static void main(String[] args) {
         try {
@@ -12,20 +17,20 @@ public class DeployableUtils {
             DeployableUtils du = new DeployableUtils();
             List<Deployable> deployables = du.getDeployables(directory, "com.oracle");
             for (Deployable deployable : deployables) {
-                System.out.println(du.getGAVString(deployable.getGav()));
+                System.out.println(du.getGAVString(deployable.getArtifact()));
             }
         } catch (Throwable t) {
             t.printStackTrace();
         }
     }
 
-    public String getGAVString(GAV gav) {
+    public String getGAVString(Artifact artifact) {
         StringBuilder sb = new StringBuilder();
-        sb.append(gav.getGroupId());
+        sb.append(artifact.getGroupId());
         sb.append(":");
-        sb.append(gav.getArtifactId());
+        sb.append(artifact.getArtifactId());
         sb.append(":");
-        sb.append(gav.getVersion());
+        sb.append(artifact.getVersion());
         return sb.toString();
     }
 
@@ -34,22 +39,19 @@ public class DeployableUtils {
         List<Deployable> deployables = new ArrayList<Deployable>();
         for (File file : files) {
             Deployable deployable = new Deployable();
-            GAV gav = getGAV(directory, file, groupId);
+            Artifact artifact = getArtifact(directory, file, groupId);
             deployable.setFile(file);
-            deployable.setGav(gav);
+            deployable.setArtifact(artifact);
             deployables.add(deployable);
         }
         return deployables;
     }
 
-    protected GAV getGAV(File baseDirectory, File file, String groupId) {
+    protected Artifact getArtifact(File baseDirectory, File file, String groupId) {
+        ArtifactHandlerManager manager = new DefaultArtifactHandlerManager();
         String artifactId = getArtifactId(file);
         String version = getVersion(baseDirectory, file);
-        GAV gav = new GAV();
-        gav.setGroupId(groupId);
-        gav.setArtifactId(artifactId);
-        gav.setVersion(version);
-        return gav;
+        return new DefaultArtifact(groupId, artifactId, version, null, "jar", null, null);
     }
 
     protected String getVersion(File baseDirectory, File file) {
