@@ -22,7 +22,7 @@ public class GenerateScriptMojo extends AbstractMojo {
         DeployUtils du = new DeployUtils();
         try {
             String s = du.getShellScript(jdbcDriverDirectory);
-            getLog().info(s);
+            getLog().info("\n" + s);
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected issue", e);
         }
