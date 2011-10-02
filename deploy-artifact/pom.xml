@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali</groupId>
@@ -23,39 +22,88 @@
       <timezone>-7</timezone>
     </developer>
   </developers>
+  <properties>
+    <deploy.phase>process-resources</deploy.phase>
+  </properties>
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.6</version>
-          <executions>
-            <execution>
-              <id>deploy-file-to-s3</id>
-              <phase>process-resources</phase>
-              <goals>
-                <goal>deploy-file</goal>
-              </goals>
-              <configuration>
-                <groupId>${env.GROUP_ID}</groupId>
-                <artifactId>${env.ARTIFACT_ID}</artifactId>
-                <version>${env.VERSION}</version>
-                <file>${env.WORKSPACE}/upload.jar</file>
-                <url>s3://maven.kuali.org/external</url>
-                <repositoryId>kuali.external</repositoryId>
-                <packaging>jar</packaging>
-              </configuration>
-            </execution>
-          </executions>
+          <configuration>
+            <groupId>${env.GROUP_ID}</groupId>
+            <artifactId>${env.ARTIFACT_ID}</artifactId>
+            <version>${env.VERSION}</version>
+            <file>${env.WORKSPACE}/upload.jar</file>
+            <packaging>${env.PACKAGING}</packaging>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-      </plugin>
-    </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>public</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>deploy-file-to-s3</id>
+                <phase>${deploy.phase}</phase>
+                <goals>
+                  <goal>deploy-file</goal>
+                </goals>
+                <configuration>
+                  <url>s3://maven.kuali.org/external</url>
+                  <repositoryId>kuali.external</repositoryId>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>private</id>
+      <properties>
+        <deploy.repository.id>nexus.private</deploy.repository.id>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>deploy-file-to-nexus1-private</id>
+                <phase>${deploy.phase}</phase>
+                <goals>
+                  <goal>deploy-file</goal>
+                </goals>
+                <configuration>
+                  <url>http://nexus1.kuali.org/content/repositories/hosted-private</url>
+                  <repositoryId>${deploy.repository.id}</repositoryId>
+                </configuration>
+              </execution>
+              <execution>
+                <id>deploy-file-to-nexus2-private</id>
+                <phase>${deploy.phase}</phase>
+                <goals>
+                  <goal>deploy-file</goal>
+                </goals>
+                <configuration>
+                  <url>http://nexus2.kuali.org/content/repositories/hosted-private</url>
+                  <repositoryId>${deploy.repository.id}</repositoryId>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
