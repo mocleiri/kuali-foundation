@@ -1,6 +1,7 @@
 package org.kuali.maven.plugins;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +17,30 @@ public class DeployUtils {
             File directory = new File(basedir);
             DeployUtils du = new DeployUtils();
             List<Artifact> artifacts = du.getArtifacts(directory, "com.oracle");
-            for (Artifact artifact : artifacts) {
-                System.out.println(artifact);
-            }
+            String s = du.getShellScript(artifacts);
+            System.out.println(s);
         } catch (Throwable t) {
             t.printStackTrace();
         }
+    }
+
+    protected String getShellScript(List<Artifact> artifacts) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        sb.append("#!/bin/sh\n");
+        for (Artifact artifact : artifacts) {
+            sb.append(getCommandLine(artifact) + "\n");
+        }
+        return sb.toString();
+    }
+
+    protected String getCommandLine(Artifact artifact) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        sb.append("mvn process-resources -Pprivate");
+        sb.append(" -Ddeployment.groupId=" + artifact.getGroupId());
+        sb.append(" -Ddeployment.artifactId=" + artifact.getArtifactId());
+        sb.append(" -Ddeployment.version=" + artifact.getVersion());
+        sb.append(" -Ddeployment.file=" + artifact.getFile().getCanonicalPath());
+        return sb.toString();
     }
 
     public String getGAVString(Artifact artifact) {
