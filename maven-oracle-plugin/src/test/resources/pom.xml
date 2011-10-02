@@ -18,10 +18,10 @@
         <version>${project.version}</version>
         <executions>
           <execution>
-            <id>test</id>
+            <id>genscript</id>
             <phase>initialize</phase>
             <goals>
-              <goal>deployjars</goal>
+              <goal>genscript</goal>
             </goals>
           </execution>
         </executions>
