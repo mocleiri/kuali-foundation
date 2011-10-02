@@ -23,7 +23,12 @@
     </developer>
   </developers>
   <properties>
-    <deploy.phase>process-resources</deploy.phase>
+    <deployment.groupId>${env.GROUP_ID}</deployment.groupId>
+    <deployment.artifactId>${env.ARTIFACT_ID}</deployment.artifactId>
+    <deployment.version>${env.VERSION}</deployment.version>
+    <deployment.file>${env.WORKSPACE}/deploy.file</deployment.file>
+    <deployment.packaging>${env.PACKAGING}</deployment.packaging>
+    <deployment.phase>process-resources</deployment.phase>
   </properties>
   <build>
     <pluginManagement>
@@ -32,11 +37,11 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-deploy-plugin</artifactId>
           <configuration>
-            <groupId>${env.GROUP_ID}</groupId>
-            <artifactId>${env.ARTIFACT_ID}</artifactId>
-            <version>${env.VERSION}</version>
-            <file>${env.WORKSPACE}/deploy.file</file>
-            <packaging>${env.PACKAGING}</packaging>
+            <groupId>${deployment.groupId}</groupId>
+            <artifactId>${deployment.artifactId}</artifactId>
+            <version>${deployment.version}</version>
+            <file>${deployment.file}</file>
+            <packaging>${deployment.packaging}</packaging>
           </configuration>
         </plugin>
       </plugins>
@@ -52,14 +57,14 @@
             <artifactId>maven-deploy-plugin</artifactId>
             <executions>
               <execution>
-                <id>deploy-file-to-s3</id>
+                <id>deploy-file-to-kuali-external</id>
                 <phase>${deploy.phase}</phase>
                 <goals>
                   <goal>deploy-file</goal>
                 </goals>
                 <configuration>
-                  <url>s3://maven.kuali.org/external</url>
                   <repositoryId>kuali.external</repositoryId>
+                  <url>s3://maven.kuali.org/external</url>
                 </configuration>
               </execution>
             </executions>
@@ -85,8 +90,8 @@
                   <goal>deploy-file</goal>
                 </goals>
                 <configuration>
-                  <url>http://nexus1.kuali.org/content/repositories/hosted-private</url>
                   <repositoryId>${deploy.repository.id}</repositoryId>
+                  <url>http://nexus1.kuali.org/content/repositories/hosted-private</url>
                 </configuration>
               </execution>
               <execution>
@@ -96,8 +101,8 @@
                   <goal>deploy-file</goal>
                 </goals>
                 <configuration>
-                  <url>http://nexus2.kuali.org/content/repositories/hosted-private</url>
                   <repositoryId>${deploy.repository.id}</repositoryId>
+                  <url>http://nexus2.kuali.org/content/repositories/hosted-private</url>
                 </configuration>
               </execution>
             </executions>
