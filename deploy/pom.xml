@@ -50,6 +50,7 @@
     <db.vendor>oracle</db.vendor>
     <impex.url>${impex.oracle.url}</impex.url>
     <impex.dba.url>${impex.oracle.url}</impex.dba.url>
+    <scm.impex.loc>https://test.kuali.org/svn/rice/trunk/db/impex/master</scm.impex.loc>
   </properties>
   <build>
     <resources>
@@ -225,10 +226,9 @@
       <properties>
         <deploy.groupId>org.kuali.rice</deploy.groupId>
         <deploy.artifactId>rice-sampleapp</deploy.artifactId>
-        <deploy.version>2.0.0-m8</deploy.version>
         <deploy.type>war</deploy.type>
         <deploy.war>${project.build.directory}/dependency/${deploy.artifactId}-${deploy.version}.${deploy.type}</deploy.war>
-        <impex.dir>${project.build.directory}/checkout/db/impex/master</impex.dir>
+        <impex.dir>${project.build.directory}/checkout/impex</impex.dir>
       </properties>
       <build>
         <plugins>
@@ -287,8 +287,8 @@
                 <phase>initialize</phase>
                 <configuration>
                   <target>
-                    <property name="manifest.svn.url" value="https://test.kuali.org/svn/rice/trunk/db@${manifest.SVN-Revision}" />
-                    <property name="checkout.dir" value="${project.build.directory}/checkout/db" />
+                    <property name="manifest.svn.url" value="${svn.impex.loc}@${manifest.SVN-Revision}" />
+                    <property name="checkout.dir" value="${project.build.directory}/checkout/impex" />
                     <echo>Checking out ${manifest.svn.url}</echo>
                     <exec executable="svn">
                       <arg value="checkout" />
