@@ -26,8 +26,7 @@
     <deployment.groupId>${env.GROUP_ID}</deployment.groupId>
     <deployment.artifactId>${env.ARTIFACT_ID}</deployment.artifactId>
     <deployment.version>${env.VERSION}</deployment.version>
-    <deployment.file>${env.WORKSPACE}/deploy.file</deployment.file>
-    <deployment.packaging>${env.PACKAGING}</deployment.packaging>
+    <deployment.file>${env.WORKSPACE}/deploy.jar</deployment.file>
     <deployment.phase>process-resources</deployment.phase>
   </properties>
   <build>
@@ -41,7 +40,6 @@
             <artifactId>${deployment.artifactId}</artifactId>
             <version>${deployment.version}</version>
             <file>${deployment.file}</file>
-            <packaging>${deployment.packaging}</packaging>
           </configuration>
         </plugin>
       </plugins>
