@@ -58,7 +58,7 @@
             <executions>
               <execution>
                 <id>deploy-file-to-kuali-external</id>
-                <phase>${deploy.phase}</phase>
+                <phase>${deployment.phase}</phase>
                 <goals>
                   <goal>deploy-file</goal>
                 </goals>
@@ -74,23 +74,22 @@
     </profile>
     <profile>
       <id>private</id>
-      <properties>
-        <deploy.repository.id>nexus.private</deploy.repository.id>
-      </properties>
       <build>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <configuration>
+              <repositoryId>nexus.private</repositoryId>
+            </configuration>
             <executions>
               <execution>
                 <id>deploy-file-to-nexus1-private</id>
-                <phase>${deploy.phase}</phase>
+                <phase>${deployment.phase}</phase>
                 <goals>
                   <goal>deploy-file</goal>
                 </goals>
                 <configuration>
-                  <repositoryId>${deploy.repository.id}</repositoryId>
                   <url>http://nexus1.kuali.org/content/repositories/hosted-private</url>
                 </configuration>
               </execution>
@@ -101,7 +100,6 @@
                   <goal>deploy-file</goal>
                 </goals>
                 <configuration>
-                  <repositoryId>${deploy.repository.id}</repositoryId>
                   <url>http://nexus2.kuali.org/content/repositories/hosted-private</url>
                 </configuration>
               </execution>
