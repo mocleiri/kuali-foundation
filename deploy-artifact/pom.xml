@@ -95,7 +95,7 @@
               </execution>
               <execution>
                 <id>deploy-file-to-nexus2-private</id>
-                <phase>${deploy.phase}</phase>
+                <phase>${deployment.phase}</phase>
                 <goals>
                   <goal>deploy-file</goal>
                 </goals>
