@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
-import org.apache.maven.artifact.handler.manager.ArtifactHandlerManager;
-import org.apache.maven.artifact.handler.manager.DefaultArtifactHandlerManager;
+import org.apache.maven.artifact.handler.ArtifactHandler;
+import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 
 public class DeployableUtils {
     public static void main(String[] args) {
@@ -48,10 +48,10 @@ public class DeployableUtils {
     }
 
     protected Artifact getArtifact(File baseDirectory, File file, String groupId) {
-        ArtifactHandlerManager manager = new DefaultArtifactHandlerManager();
+        ArtifactHandler handler = new DefaultArtifactHandler("jar");
         String artifactId = getArtifactId(file);
         String version = getVersion(baseDirectory, file);
-        return new DefaultArtifact(groupId, artifactId, version, null, "jar", null, null);
+        return new DefaultArtifact(groupId, artifactId, version, null, "jar", null, handler);
     }
 
     protected String getVersion(File baseDirectory, File file) {
