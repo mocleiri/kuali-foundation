@@ -44,6 +44,50 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-property</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireProperty>
+                  <property>deployment.groupId</property>
+                  <message>You must provide a group id</message>
+                  <regex>^\d(.)*</regex>
+                  <regexMessage>Version must begin with a number</regexMessage>
+                </requireProperty>
+                <requireProperty>
+                  <property>deployment.artifactId</property>
+                  <message>You must provide an artifact id</message>
+                  <regex>^\d(.)*</regex>
+                  <regexMessage>Version must begin with a number</regexMessage>
+                </requireProperty>
+                <requireProperty>
+                  <property>deployment.version</property>
+                  <message>You must provide a version</message>
+                  <regex>^\d(.)*</regex>
+                  <regexMessage>Version must begin with a number</regexMessage>
+                </requireProperty>
+                <requireProperty>
+                  <property>deployment.file</property>
+                  <message>You must provide a file</message>
+                  <regex>^\d(.)*</regex>
+                  <regexMessage>Version must begin with a number</regexMessage>
+                </requireProperty>
+              </rules>
+              <fail>true</fail>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
   <profiles>
     <profile>
