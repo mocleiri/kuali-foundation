@@ -14,14 +14,18 @@ public class DeployUtils {
     public static void main(String[] args) {
         try {
             String basedir = System.getProperty("user.home") + "/.oracle";
-            File directory = new File(basedir);
             DeployUtils du = new DeployUtils();
-            List<Artifact> artifacts = du.getArtifacts(directory, "com.oracle");
-            String s = du.getShellScript(artifacts);
-            System.out.println(s);
+            System.out.println(du.getShellScript(basedir));
         } catch (Throwable t) {
             t.printStackTrace();
         }
+    }
+
+    public String getShellScript(String basedir) throws IOException {
+        File directory = new File(basedir);
+        DeployUtils du = new DeployUtils();
+        List<Artifact> artifacts = du.getArtifacts(directory, "com.oracle");
+        return getShellScript(artifacts);
     }
 
     protected String getShellScript(List<Artifact> artifacts) throws IOException {
