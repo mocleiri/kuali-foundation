@@ -247,7 +247,7 @@
                     <requireProperty>
                       <property>deploy.version</property>
                       <message>You must provide a version to deploy</message>
-                      <regex>^\d+$</regex>
+                      <regex>^[0-9][A-Z0-9.-_]+</regex>
                       <regexMessage>Version must begin with a number</regexMessage>
                     </requireProperty>
                   </rules>
