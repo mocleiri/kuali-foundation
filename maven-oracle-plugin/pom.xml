@@ -20,6 +20,14 @@
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-oracle-plugin</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/trunk/maven-oracle-plugin</url>
   </scm>
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+  </build>
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
