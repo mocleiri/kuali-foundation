@@ -13,21 +13,32 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
 /**
+ * The Oracle JDBC driver download page groups drivers by release but the filenames do not contain the version. This
+ * mojo recursively inspects a directory containing Oracle JDBC drivers following the Oracle style naming convention and
+ * generates a shell script following the Maven style naming convention. The shell script can then be used to upload the
+ * JDBC drivers to a Maven repository.
+ * 
  * @author Jeff Caddel
  * @goal genscript
  */
 public class GenerateScriptMojo extends AbstractMojo {
     /**
+     * Directory on the file system containing Oracle JDBC drivers
+     * 
      * @parameter expression="${oracle.jdbcDriverDirectory}" default-value="${user.home}/.oracle"
      */
-    private String jdbcDriverDirectory;
+    private String jdbcDriverHome;
 
     /**
+     * File where the script will be created.
+     * 
      * @parameter expression="${oracle.scriptDirectory}" default-value="${project.build.directory}/deploy-jars.sh"
      */
     private String scriptFile;
 
     /**
+     * Default groupId for Oracle JDBC drivers
+     * 
      * @parameter expression="${oracle.groupId}" default-value="com.oracle"
      */
     private String oracleGroupId;
@@ -37,7 +48,7 @@ public class GenerateScriptMojo extends AbstractMojo {
         DeployUtils du = new DeployUtils();
         OutputStream out = null;
         try {
-            List<Artifact> artifacts = du.getArtifacts(new File(jdbcDriverDirectory), oracleGroupId);
+            List<Artifact> artifacts = du.getArtifacts(new File(jdbcDriverHome), oracleGroupId);
             getLog().info("Located " + artifacts.size() + " artifacts");
             getLog().info("Generating script to: " + scriptFile);
             String s = du.getShellScript(artifacts);
