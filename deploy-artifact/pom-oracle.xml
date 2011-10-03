@@ -28,7 +28,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-oracle-plugin</artifactId>
-          <version>1.0.0</version>
+          <version>1.0.1</version>
           <configuration>
             <scriptFile>./deploy-oracle-jars.sh</scriptFile>
           </configuration>
