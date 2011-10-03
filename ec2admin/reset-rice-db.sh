@@ -12,7 +12,6 @@ ARGS=-Pdb,oracle
 ARGS="$ARGS -Dimpex.url=$URL"
 ARGS="$ARGS -Dimpex.dba.url=$URL"
 ARGS="$ARGS -Dimpex.dba.username=master"
-ARGS="$ARGS -Dimpex.dba.password=gw570229"
 ARGS="$ARGS -Dimpex.username=RICEENV$ENV"
 ARGS="$ARGS -Dimpex.password=RICEENV$ENV"
 mvn clean install $ARGS
