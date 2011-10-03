@@ -96,6 +96,7 @@ public class HttpInspector {
 
             client.executeMethod(method);
             int statusCode = method.getStatusCode();
+            System.out.println("statusCode=" + statusCode);
             String statusText = method.getStatusText();
             InputStream in = method.getResponseBodyAsStream();
             String s = getString(in);
