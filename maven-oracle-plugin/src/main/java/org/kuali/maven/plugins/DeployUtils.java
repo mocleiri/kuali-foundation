@@ -3,6 +3,7 @@ package org.kuali.maven.plugins;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.maven.artifact.Artifact;
@@ -41,8 +42,8 @@ public class DeployUtils {
         StringBuilder sb = new StringBuilder();
         sb.append("mvn process-resources -Pprivate");
         sb.append(" -Ddeployment.groupId=" + artifact.getGroupId());
-        sb.append(" -Ddeployment.artifactId=" + artifact.getArtifactId());
         sb.append(" -Ddeployment.version=" + artifact.getVersion());
+        sb.append(" -Ddeployment.artifactId=" + artifact.getArtifactId());
         sb.append(" -Ddeployment.file=" + artifact.getFile().getCanonicalPath());
         return sb.toString();
     }
@@ -64,6 +65,7 @@ public class DeployUtils {
             Artifact artifact = getArtifact(directory, file, groupId);
             artifacts.add(artifact);
         }
+        Collections.sort(artifacts, new ArtifactComparator());
         return artifacts;
     }
 
