@@ -44,10 +44,8 @@
     </copy>
     <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/kuali/main/${environment}/rice.keystore" overwrite="true" />
     <mkdir dir="${catalina.base}" />
-    <mkdir dir="${catalina.base}/common" />
+    <mkdir dir="${catalina.base}/lib" />
     <mkdir dir="${catalina.base}/logs" />
-    <mkdir dir="${catalina.base}/server" />
-    <mkdir dir="${catalina.base}/shared" />
     <mkdir dir="${catalina.base}/temp" />
     <mkdir dir="${catalina.base}/webapps" />
     <copy todir="${catalina.base}/conf">
