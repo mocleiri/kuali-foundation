@@ -26,7 +26,7 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
+          <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-oracle-plugin</artifactId>
           <version>1.0.0</version>
           <configuration>
