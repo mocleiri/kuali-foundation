@@ -1,12 +1,9 @@
 package org.kuali.maven.plugins;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -43,22 +40,57 @@ public class GenerateScriptMojo extends AbstractMojo {
      */
     private String oracleGroupId;
 
+    /**
+     * A comma delimited list of versions to include. If a value is provided, only jars matching one of the versions
+     * will be included
+     * 
+     * @parameter expression="${oracle.includeVersions}"
+     */
+    private String includeVersions;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         DeployUtils du = new DeployUtils();
-        OutputStream out = null;
         try {
-            List<Artifact> artifacts = du.getArtifacts(new File(jdbcDriverHome), oracleGroupId);
+            List<Artifact> artifacts = du.getArtifacts(new File(jdbcDriverHome), oracleGroupId, includeVersions);
             getLog().info("Located " + artifacts.size() + " artifacts");
             getLog().info("Generating script to: " + scriptFile);
             String s = du.getShellScript(artifacts);
-            out = new FileOutputStream(scriptFile);
-            IOUtils.write(s, out);
+            du.write(scriptFile, s);
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected issue", e);
-        } finally {
-            IOUtils.closeQuietly(out);
         }
+    }
 
+    public String getJdbcDriverHome() {
+        return jdbcDriverHome;
+    }
+
+    public void setJdbcDriverHome(String jdbcDriverHome) {
+        this.jdbcDriverHome = jdbcDriverHome;
+    }
+
+    public String getScriptFile() {
+        return scriptFile;
+    }
+
+    public void setScriptFile(String scriptFile) {
+        this.scriptFile = scriptFile;
+    }
+
+    public String getOracleGroupId() {
+        return oracleGroupId;
+    }
+
+    public void setOracleGroupId(String oracleGroupId) {
+        this.oracleGroupId = oracleGroupId;
+    }
+
+    public String getIncludeVersions() {
+        return includeVersions;
+    }
+
+    public void setIncludeVersions(String includeVersions) {
+        this.includeVersions = includeVersions;
     }
 }

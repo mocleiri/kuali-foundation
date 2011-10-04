@@ -1,11 +1,16 @@
 package org.kuali.maven.plugins;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.ArtifactHandler;
@@ -16,17 +21,22 @@ public class DeployUtils {
         try {
             String basedir = System.getProperty("user.home") + "/.oracle";
             DeployUtils du = new DeployUtils();
-            System.out.println(du.getShellScript(basedir));
+            List<Artifact> artifacts = du.getArtifacts(new File(basedir), "com.oracle", "11.2.0.2");
+            String s = du.getShellScript(artifacts);
+            System.out.println(s);
         } catch (Throwable t) {
             t.printStackTrace();
         }
     }
 
-    public String getShellScript(String basedir) throws IOException {
-        File directory = new File(basedir);
-        DeployUtils du = new DeployUtils();
-        List<Artifact> artifacts = du.getArtifacts(directory, "com.oracle");
-        return getShellScript(artifacts);
+    public void write(String filename, String content) throws IOException {
+        OutputStream out = null;
+        try {
+            out = new FileOutputStream(filename);
+            IOUtils.write(content, out);
+        } finally {
+            IOUtils.closeQuietly(out);
+        }
     }
 
     public String getShellScript(List<Artifact> artifacts) throws IOException {
@@ -58,15 +68,39 @@ public class DeployUtils {
         return sb.toString();
     }
 
-    public List<Artifact> getArtifacts(File directory, String groupId) {
+    public List<Artifact> getArtifacts(File directory, String groupId, String includeVersions) {
         List<File> files = getFiles(directory);
         List<Artifact> artifacts = new ArrayList<Artifact>();
         for (File file : files) {
             Artifact artifact = getArtifact(directory, file, groupId);
             artifacts.add(artifact);
         }
+        trimArtifacts(artifacts, includeVersions);
         Collections.sort(artifacts, new ArtifactComparator());
         return artifacts;
+    }
+
+    protected boolean isMatch(String s, String[] tokens) {
+        for (String token : tokens) {
+            if (s.trim().equals(token)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected void trimArtifacts(List<Artifact> artifacts, String includeVersions) {
+        if (StringUtils.isEmpty(includeVersions)) {
+            return;
+        }
+        String[] versions = includeVersions.split(",");
+        Iterator<Artifact> itr = artifacts.iterator();
+        while (itr.hasNext()) {
+            Artifact artifact = itr.next();
+            if (!isMatch(artifact.getVersion(), versions)) {
+                itr.remove();
+            }
+        }
     }
 
     protected Artifact getArtifact(File baseDirectory, File file, String groupId) {
