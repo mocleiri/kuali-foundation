@@ -2,6 +2,8 @@ package org.apache.torque.mojo;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.torque.util.ChangeDetector;
+import org.kuali.core.db.torque.KualiTorqueSQLTask;
+import org.kuali.core.db.torque.StringFilter;
 
 /**
  * Generates platform specific SQL from database agnostic XML files.<br>
@@ -19,15 +21,29 @@ import org.apache.torque.util.ChangeDetector;
  * the data set is consistent and correct, all the relationships will get created correctly.<br>
  * <br>
  * The database platform to generate SQL for is determined by ${targetDatabase}. See also <code>impex:datasql</code>
- *
+ * 
  * @goal schemasql
  * @phase generate-sources
  */
 public class SchemaSqlMojo extends SqlMojoBase {
 
     /**
+     * Comma delimited list of regular expressions for table names to include
+     * 
+     * @parameter property="tableIncludes"
+     */
+    private String tableIncludes;
+
+    /**
+     * Comma delimited list of regular expressions for table names to exclude
+     * 
+     * @parameter property="tableExcludes"
+     */
+    private String tableExcludes;
+
+    /**
      * The directory in which the SQL will be generated.
-     *
+     * 
      * @parameter property="outputDir" expression="${outputDir}" default-value="${project.build.directory}/classes/sql"
      */
     @SuppressWarnings("unused")
@@ -35,25 +51,25 @@ public class SchemaSqlMojo extends SqlMojoBase {
 
     /**
      * The location where the report file will be generated.
-     *
+     * 
      * @parameter property="reportFile" expression="${reportFile}" default-value=
-     * "../../../reports/report.${project.artifactId}.sql.generation"
+     *            "../../../reports/report.${project.artifactId}.sql.generation"
      */
     @SuppressWarnings("unused")
     private String dummy2;
 
     /**
      * The location where the context property file for velocity will be generated.
-     *
+     * 
      * @parameter property="contextPropertiesPath" expression="${contextPropertiesPath}"
-     * default-value="${project.build.directory}/reports/context.sql.properties"
+     *            default-value="${project.build.directory}/reports/context.sql.properties"
      */
     @SuppressWarnings("unused")
     private String dummy3;
 
     /**
      * The suffix of the generated sql files.
-     *
+     * 
      * @parameter property="suffix" expression="${suffix}"
      */
     @SuppressWarnings("unused")
@@ -74,6 +90,9 @@ public class SchemaSqlMojo extends SqlMojoBase {
         validateConfiguration();
         generateContextProperties();
         configureTask();
+        KualiTorqueSQLTask task = (KualiTorqueSQLTask) super.getGeneratorTask();
+        task.setIncludes(StringFilter.getListFromCSV(tableIncludes));
+        task.setExcludes(StringFilter.getListFromCSV(tableExcludes));
         addTargetDatabaseToOutputDir();
         addTargetDatabaseToReportFile();
         showConfig();
@@ -86,5 +105,21 @@ public class SchemaSqlMojo extends SqlMojoBase {
         getLog().info("Generating SQL for " + getTargetDatabase() + " from schema XML files");
         getLog().info("------------------------------------------------------------------------");
         getAntTask().execute();
+    }
+
+    public String getTableIncludes() {
+        return tableIncludes;
+    }
+
+    public void setTableIncludes(String tableIncludes) {
+        this.tableIncludes = tableIncludes;
+    }
+
+    public String getTableExcludes() {
+        return tableExcludes;
+    }
+
+    public void setTableExcludes(String tableExcludes) {
+        this.tableExcludes = tableExcludes;
     }
 }
