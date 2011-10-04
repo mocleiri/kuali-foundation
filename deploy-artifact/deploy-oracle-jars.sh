@@ -18,6 +18,16 @@ mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.ver
 mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.2 -Ddeployment.artifactId=ojdbc14dms_g -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.2/ojdbc14dms_g.jar
 mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.2 -Ddeployment.artifactId=ons -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.2/ons.jar
 mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.2 -Ddeployment.artifactId=orai18n -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.2/orai18n.jar
+mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3.0 -Ddeployment.artifactId=classes12 -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3.0/classes12.jar
+mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3.0 -Ddeployment.artifactId=classes12_g -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3.0/classes12_g.jar
+mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3.0 -Ddeployment.artifactId=classes12dms -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3.0/classes12dms.jar
+mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3.0 -Ddeployment.artifactId=classes12dms_g -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3.0/classes12dms_g.jar
+mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3.0 -Ddeployment.artifactId=ojdbc14 -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3.0/ojdbc14.jar
+mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3.0 -Ddeployment.artifactId=ojdbc14_g -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3.0/ojdbc14_g.jar
+mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3.0 -Ddeployment.artifactId=ojdbc14dms -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3.0/ojdbc14dms.jar
+mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3.0 -Ddeployment.artifactId=ojdbc14dms_g -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3.0/ojdbc14dms_g.jar
+mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3.0 -Ddeployment.artifactId=ons -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3.0/ons.jar
+mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3.0 -Ddeployment.artifactId=orai18n -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3.0/orai18n.jar
 mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3 -Ddeployment.artifactId=classes12 -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3/classes12.jar
 mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3 -Ddeployment.artifactId=classes12_g -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3/classes12_g.jar
 mvn process-resources -Pprivate -Ddeployment.groupId=com.oracle -Ddeployment.version=10.2.0.3 -Ddeployment.artifactId=classes12dms -Ddeployment.file=/home/ubuntu/.oracle/10.2.0.3/classes12dms.jar
