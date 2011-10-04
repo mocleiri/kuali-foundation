@@ -21,7 +21,7 @@ public class DeployUtils {
         try {
             String basedir = System.getProperty("user.home") + "/.oracle";
             DeployUtils du = new DeployUtils();
-            List<Artifact> artifacts = du.getArtifacts(new File(basedir), "com.oracle", "11.2.0.2");
+            List<Artifact> artifacts = du.getArtifacts(new File(basedir), "com.oracle", "11.2.0.2, 11.2.0.1");
             String s = du.getShellScript(artifacts);
             System.out.println(s);
         } catch (Throwable t) {
@@ -68,21 +68,21 @@ public class DeployUtils {
         return sb.toString();
     }
 
-    public List<Artifact> getArtifacts(File directory, String groupId, String includeVersions) {
+    public List<Artifact> getArtifacts(File directory, String groupId, String versions) {
         List<File> files = getFiles(directory);
         List<Artifact> artifacts = new ArrayList<Artifact>();
         for (File file : files) {
             Artifact artifact = getArtifact(directory, file, groupId);
             artifacts.add(artifact);
         }
-        trimArtifacts(artifacts, includeVersions);
+        trimArtifacts(artifacts, versions);
         Collections.sort(artifacts, new ArtifactComparator());
         return artifacts;
     }
 
     protected boolean isMatch(String s, String[] tokens) {
         for (String token : tokens) {
-            if (s.trim().equals(token)) {
+            if (s.trim().equals(token.trim())) {
                 return true;
             }
         }

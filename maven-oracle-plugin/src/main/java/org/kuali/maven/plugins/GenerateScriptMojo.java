@@ -44,15 +44,15 @@ public class GenerateScriptMojo extends AbstractMojo {
      * A comma delimited list of versions to include. If a value is provided, only jars matching one of the versions
      * will be included
      * 
-     * @parameter expression="${oracle.includeVersions}"
+     * @parameter expression="${oracle.versions}"
      */
-    private String includeVersions;
+    private String versions;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         DeployUtils du = new DeployUtils();
         try {
-            List<Artifact> artifacts = du.getArtifacts(new File(jdbcDriverHome), oracleGroupId, includeVersions);
+            List<Artifact> artifacts = du.getArtifacts(new File(jdbcDriverHome), oracleGroupId, versions);
             getLog().info("Located " + artifacts.size() + " artifacts");
             getLog().info("Generating script to: " + scriptFile);
             String s = du.getShellScript(artifacts);
@@ -86,11 +86,11 @@ public class GenerateScriptMojo extends AbstractMojo {
         this.oracleGroupId = oracleGroupId;
     }
 
-    public String getIncludeVersions() {
-        return includeVersions;
+    public String getVersions() {
+        return versions;
     }
 
-    public void setIncludeVersions(String includeVersions) {
-        this.includeVersions = includeVersions;
+    public void setVersions(String includeVersions) {
+        this.versions = includeVersions;
     }
 }
