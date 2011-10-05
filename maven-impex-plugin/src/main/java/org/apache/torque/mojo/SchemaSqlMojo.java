@@ -10,8 +10,8 @@ import org.kuali.core.db.torque.StringFilter;
  * <br>
  * There are two types of SQL files created by this goal:<br>
  * <br>
- * Type 1: DDL statements for creating tables, primary keys, indexes, and unique constraints. Does not contain DDL for
- * enforcing relationships between tables.<br>
+ * Type 1: DDL statements for creating tables, primary keys, indexes, unique constraints, sequences, and views. Does not
+ * contain DDL for enforcing relationships between tables.<br>
  * Type 2: DDL statements for creating and enforcing relationships between tables<br>
  * <br>
  * This allows data to be imported into multiple tables concurrently. Running the first type of SQL file will create the
@@ -28,16 +28,43 @@ import org.kuali.core.db.torque.StringFilter;
 public class SchemaSqlMojo extends SqlMojoBase {
 
     /**
+     * Comma delimited list of regular expressions for view names to include
+     * 
+     * @parameter property="viewIncludes" expression="${viewIncludes}"
+     */
+    private String viewIncludes;
+
+    /**
+     * Comma delimited list of regular expressions for view names to exclude
+     * 
+     * @parameter property="viewExcludes" expression="${viewExcludes}"
+     */
+    private String viewExcludes;
+
+    /**
+     * Comma delimited list of regular expressions for sequence names to include
+     * 
+     * @parameter property="sequenceIncludes" expression="${sequenceIncludes}"
+     */
+    private String sequenceIncludes;
+
+    /**
+     * Comma delimited list of regular expressions for sequence names to exclude
+     * 
+     * @parameter property="sequenceExcludes" expression="${sequenceExcludes}"
+     */
+    private String sequenceExcludes;
+    /**
      * Comma delimited list of regular expressions for table names to include
      * 
-     * @parameter property="tableIncludes"
+     * @parameter property="tableIncludes" expression="${tableIncludes}"
      */
     private String tableIncludes;
 
     /**
      * Comma delimited list of regular expressions for table names to exclude
      * 
-     * @parameter property="tableExcludes"
+     * @parameter property="tableExcludes" expression="${tableExcludes}"
      */
     private String tableExcludes;
 
@@ -79,6 +106,12 @@ public class SchemaSqlMojo extends SqlMojoBase {
         getLog().info("Schema Dir: " + getSchemaDir());
         getLog().info("Includes: " + getSchemaIncludes());
         getLog().info("Excludes: " + getSchemaExcludes());
+        getLog().info("Table Includes: " + getTableIncludes());
+        getLog().info("Table Excludes: " + getTableExcludes());
+        getLog().info("View Includes: " + getViewIncludes());
+        getLog().info("View Excludes: " + getViewExcludes());
+        getLog().info("Sequence Includes: " + getSequenceIncludes());
+        getLog().info("Sequence Excludes: " + getSequenceExcludes());
     }
 
     /**
@@ -91,8 +124,12 @@ public class SchemaSqlMojo extends SqlMojoBase {
         generateContextProperties();
         configureTask();
         KualiTorqueSQLTask task = (KualiTorqueSQLTask) super.getGeneratorTask();
-        task.setIncludes(StringFilter.getListFromCSV(tableIncludes));
-        task.setExcludes(StringFilter.getListFromCSV(tableExcludes));
+        task.setTblIncludes(StringFilter.getListFromCSV(tableIncludes));
+        task.setTblExcludes(StringFilter.getListFromCSV(tableExcludes));
+        task.setvIncludes(StringFilter.getListFromCSV(viewIncludes));
+        task.setvExcludes(StringFilter.getListFromCSV(viewExcludes));
+        task.setsIncludes(StringFilter.getListFromCSV(sequenceIncludes));
+        task.setsExcludes(StringFilter.getListFromCSV(sequenceExcludes));
         addTargetDatabaseToOutputDir();
         addTargetDatabaseToReportFile();
         showConfig();
@@ -121,5 +158,37 @@ public class SchemaSqlMojo extends SqlMojoBase {
 
     public void setTableExcludes(String tableExcludes) {
         this.tableExcludes = tableExcludes;
+    }
+
+    public String getViewIncludes() {
+        return viewIncludes;
+    }
+
+    public void setViewIncludes(String viewIncludes) {
+        this.viewIncludes = viewIncludes;
+    }
+
+    public String getSequenceIncludes() {
+        return sequenceIncludes;
+    }
+
+    public void setSequenceIncludes(String sequenceIncludes) {
+        this.sequenceIncludes = sequenceIncludes;
+    }
+
+    public String getViewExcludes() {
+        return viewExcludes;
+    }
+
+    public void setViewExcludes(String viewExcludes) {
+        this.viewExcludes = viewExcludes;
+    }
+
+    public String getSequenceExcludes() {
+        return sequenceExcludes;
+    }
+
+    public void setSequenceExcludes(String sequenceExcludes) {
+        this.sequenceExcludes = sequenceExcludes;
     }
 }

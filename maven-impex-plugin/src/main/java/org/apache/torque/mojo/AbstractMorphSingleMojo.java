@@ -40,7 +40,7 @@ public abstract class AbstractMorphSingleMojo extends BaseMojo {
         if (morphNeeded) {
             return false;
         } else {
-            getLog().info("Skipping morph.  Nothing has changed");
+            getLog().info("Skipping morph.");
             return true;
         }
     }
@@ -48,7 +48,7 @@ public abstract class AbstractMorphSingleMojo extends BaseMojo {
     protected boolean isMorphNeeded() {
         // The file they asked to morph does not exist
         if (!getOldFile().exists()) {
-            getLog().debug("file:" + getOldFile().getAbsolutePath() + " does not exist");
+            getLog().info("file:" + getOldFile().getAbsolutePath() + " does not exist");
             return false;
         }
 
