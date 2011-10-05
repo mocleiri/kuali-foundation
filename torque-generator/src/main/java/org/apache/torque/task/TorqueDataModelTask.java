@@ -34,6 +34,9 @@ import org.apache.velocity.context.Context;
 import org.kuali.core.db.torque.DatabaseParser;
 import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.kuali.core.db.torque.StringFilter;
+import org.kuali.core.db.torque.pojo.KualiDatabase;
+import org.kuali.core.db.torque.pojo.Sequence;
+import org.kuali.core.db.torque.pojo.View;
 
 /**
  * A base torque task that uses either a single XML schema representing a data model, or a &lt;fileset&gt; of XML
@@ -44,8 +47,12 @@ import org.kuali.core.db.torque.StringFilter;
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  */
 public class TorqueDataModelTask extends TexenTask {
-    List<String> includes;
-    List<String> excludes;
+    List<String> tblIncludes;
+    List<String> tblExcludes;
+    List<String> vIncludes;
+    List<String> sIncludes;
+    List<String> vExcludes;
+    List<String> sExcludes;
 
     /**
      * XML that describes the database model, this is transformed into the application model object.
@@ -204,6 +211,17 @@ public class TorqueDataModelTask extends TexenTask {
         // Parse the file into a database
         Database database = databaseParser.parseResource(file.toString());
 
+        KualiDatabase kdb = (KualiDatabase) database;
+
+        // Filter out tables as needed
+        filterTables(database);
+
+        // Filter out views as needed
+        filterViews(kdb);
+
+        // Filter out sequences as needed
+        filterSequences(kdb);
+
         // Extract the filename
         database.setFileName(grokName(file.toString()));
 
@@ -220,12 +238,42 @@ public class TorqueDataModelTask extends TexenTask {
         return tables;
     }
 
+    protected void filterSequences(KualiDatabase database) {
+        StringFilter filter = new StringFilter(sIncludes, sExcludes);
+        Iterator<Sequence> itr = database.getSequences().iterator();
+        while (itr.hasNext()) {
+            Sequence sequence = itr.next();
+            String name = sequence.getName();
+            boolean remove = !filter.isInclude(name) || filter.isExclude(name);
+            if (remove) {
+                System.out.println("[INFO] Filtering out sequence " + name);
+                itr.remove();
+            }
+        }
+    }
+
+    protected void filterViews(KualiDatabase database) {
+        StringFilter filter = new StringFilter(vIncludes, vExcludes);
+        Iterator<View> itr = database.getViews().iterator();
+        while (itr.hasNext()) {
+            View view = itr.next();
+            String name = view.getName();
+            boolean remove = !filter.isInclude(name) || filter.isExclude(name);
+            if (remove) {
+                System.out.println("[INFO] Filtering out view " + name);
+                itr.remove();
+            }
+        }
+    }
+
     protected void filterTables(Database database) {
-        StringFilter filter = new StringFilter(includes, excludes);
+        StringFilter filter = new StringFilter(tblIncludes, tblExcludes);
         List<Table> tables = getTables(database);
         for (Table table : tables) {
             String name = table.getName();
-            if (!filter.isInclude(name)) {
+            boolean remove = !filter.isInclude(name) || filter.isExclude(name);
+            if (remove) {
+                System.out.println("[INFO] Filtering out table " + name);
                 database.removeTable(table);
             }
         }
@@ -416,19 +464,51 @@ public class TorqueDataModelTask extends TexenTask {
         this.filesets = filesets;
     }
 
-    public List<String> getIncludes() {
-        return includes;
+    public List<String> getTblIncludes() {
+        return tblIncludes;
     }
 
-    public void setIncludes(List<String> includes) {
-        this.includes = includes;
+    public void setTblIncludes(List<String> includes) {
+        this.tblIncludes = includes;
     }
 
-    public List<String> getExcludes() {
-        return excludes;
+    public List<String> getTblExcludes() {
+        return tblExcludes;
     }
 
-    public void setExcludes(List<String> excludes) {
-        this.excludes = excludes;
+    public void setTblExcludes(List<String> excludes) {
+        this.tblExcludes = excludes;
+    }
+
+    public List<String> getvIncludes() {
+        return vIncludes;
+    }
+
+    public void setvIncludes(List<String> vIncludes) {
+        this.vIncludes = vIncludes;
+    }
+
+    public List<String> getsIncludes() {
+        return sIncludes;
+    }
+
+    public void setsIncludes(List<String> sIncludes) {
+        this.sIncludes = sIncludes;
+    }
+
+    public List<String> getvExcludes() {
+        return vExcludes;
+    }
+
+    public void setvExcludes(List<String> vExcludes) {
+        this.vExcludes = vExcludes;
+    }
+
+    public List<String> getsExcludes() {
+        return sExcludes;
+    }
+
+    public void setsExcludes(List<String> sExcludes) {
+        this.sExcludes = sExcludes;
     }
 }

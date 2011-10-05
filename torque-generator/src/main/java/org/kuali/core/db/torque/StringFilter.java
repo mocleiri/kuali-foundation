@@ -38,6 +38,7 @@ public class StringFilter {
         super();
         this.includePatterns = includePatterns;
         this.excludePatterns = excludePatterns;
+        compilePatterns();
     }
 
     /**
@@ -54,6 +55,7 @@ public class StringFilter {
 
     public void setIncludePatterns(List<String> includePatterns) {
         this.includePatterns = includePatterns;
+        compilePatterns();
     }
 
     public List<String> getExcludePatterns() {
@@ -62,6 +64,7 @@ public class StringFilter {
 
     public void setExcludePatterns(List<String> excludePatterns) {
         this.excludePatterns = excludePatterns;
+        compilePatterns();
     }
 
     /**
@@ -112,7 +115,7 @@ public class StringFilter {
     /**
      * Return true if the string matches one or more of the exclude patterns
      */
-    protected boolean isExclude(String s) {
+    public boolean isExclude(String s) {
         return isMatch(s, excludes);
     }
 
