@@ -29,6 +29,9 @@
     <!-- jQuery Library -->
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
     
+	<!-- jQ MultiSelects -->
+    <script type="text/javascript" src="../scripts/jquery.multiselects.js" /></script>
+    
     <!-- FancyBox -->
     <script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 	<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.4.pack.js"></script>
@@ -100,6 +103,24 @@
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
+                    <button type="submit" name="editor" value="editor" alt="Business Rules" onClick="window.location='iacuc-species.html'">Species/Groups</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" name="presentation" value="presentation" alt="Questionnaire Preview" onClick="window.location='iacuc-proceedures.html'">Proceedures</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- ACTIVE -->
+                <td class="tabactive1">&nbsp;</td>
+                <td class="tabactive2">
+                    <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='iacuc-justification.html'">The Three R's</button>
+                </td>
+                <td class="tabactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
                     <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Custom Data</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
@@ -118,24 +139,6 @@
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" name="editor" value="editor" alt="Business Rules" onClick="window.location='iacuc-species.html'">Species/Groups</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" name="presentation" value="presentation" alt="Questionnaire Preview" onClick="window.location='iacuc-proceedures.html'">Proceedures</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabactive1">&nbsp;</td>
-                <td class="tabactive2">
-                    <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='iacuc-justification.html'">The Three R's</button>
-                </td>
-                <td class="tabactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
                     <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Notes & Attachments</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
@@ -147,18 +150,6 @@
                 <td class="tabinactive3">&nbsp;</td>
         </tr>
         <tr>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
             <!-- INACTIVE -->
                 <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
@@ -195,6 +186,18 @@
                 <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
                 <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
         </tr>
     </table>
 </div>
@@ -216,7 +219,7 @@
     <tr>
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
-            Scientific Justification
+            The Three R's
         </td>
         <td class="toppanelhead3">
             <img id="control_panelcontent01" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
@@ -483,18 +486,64 @@
                                     </table>
                                     
                                 </td>
-                                <td class="content_gradient" style="text-align:left; width:100px;">
-                                    <input type="checkbox" class="nobord" name="CustomData" value="0" /> PubMed<br />
-                                    <input type="checkbox" class="nobord" name="CustomData" value="0" /> Poxnet<br />
-                                    <input type="checkbox" class="nobord" name="CustomData" value="0" /> ARIA<br />
-                                    <input type="checkbox" class="nobord" name="CustomData" value="0" /> Other
+                                <td class="content_gradient" style="text-align:left;">
+                                
+                                    <script type="text/javascript">
+										$(document).ready(function() {
+											
+											$(function() {
+												var options = {
+													button_select: "#options_right",
+													button_deselect: "#options_left"
+												};
+												$("#select_left").multiSelect("#select_right", options);
+											});
+											
+										});
+									</script>
+                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none;">
+                                                
+                                                <div style="text-align:center;">
+                                                    <span class="fineprint">Available</span>
+                                                    <select name="left" id="select_left" multiple="multiple" style="width:120px; height:75px;">
+                                                        <option value="PubMed">PubMed</option>
+                                                        <option value="Poxnet">Poxnet</option>
+                                                        <option value="ARIA">ARIA</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
+                                                </div>
+                                                
+                                            </td>
+                                            <td style="border:none; background:none;">
+                                                
+                                                <div style="text-align:center; padding:3px;">
+                                                    <input id="options_right" type="button" title="add selected" value="&gt;" style="width:40px; margin-bottom:2px; margin-top:12px;">
+                                                    <input id="options_left" type="button" title="remove selected" value="&lt;"  style="width:40px; margin-bottom:2px;">
+                                                </div>
+                                                
+                                            </td>
+                                            <td style="border:none; background:none;">
+                                                
+                                                <div style="text-align:center;">
+                                                    <span class="fineprint">Selected</span>
+                                                    <select name="right" id="select_right" multiple="multiple" style="width:120px; height:75px;">
+                                                        
+                                                    </select>
+                                                </div>
+                                                
+                                            </td>
+                                        </tr>
+                                    </table>  
+                                    
                                 </td>
-                                <td class="content_gradient" style="text-align:center;">
+                                <td class="content_gradient" style="text-align:left;">
                                     
                                     <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td style="border:none; background:none;">
-                                                <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                                <textarea name="z" style="width:100%; text-align:left;" rows="5"></textarea>
                                             </td>
                                             <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
                                                 <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
@@ -508,7 +557,7 @@
                                     <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td style="border:none; background:none;">
-                                                <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                                <textarea name="z" style="width:100%; text-align:left;" rows="5"></textarea>
                                             </td>
                                             <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
                                                 <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
@@ -522,7 +571,7 @@
                                     <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td style="border:none; background:none;">
-                                                <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                                <textarea name="z" style="width:100%; text-align:left;" rows="5"></textarea>
                                             </td>
                                             <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
                                                 <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
@@ -612,12 +661,57 @@
                                                         *Database(s):
                                                     </td>
                                                     <td class="content_white" style="text-align:left;">
-                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> PubMed<br />
-                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> Poxnet<br />
-                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" /> ARIA<br />
-                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" /> Other
-                                                    </td>
-                                                </tr>
+                                                        
+														<script type="text/javascript">
+															$(document).ready(function() {
+																
+																$(function() {
+																	var options = {
+																		button_select: "#options_right2",
+																		button_deselect: "#options_left2"
+																	};
+																	$("#select_left2").multiSelect("#select_right2", options);
+																});
+																
+															});
+														</script>
+														<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+															<tr>
+																<td style="border:none; background:none;">
+																	
+																	<div style="text-align:center;">
+																		<span class="fineprint">Available</span>
+																		<select name="left" id="select_left2" multiple="multiple" style="width:130px; height:75px;">
+																			<option value="ARIA">ARIA</option>
+																			<option value="Other">Other</option>
+																		</select>
+																	</div> 
+																	
+																</td> 
+																<td style="border:none; background:none;">
+																	
+																	<div style="text-align:center; padding:3px;">
+																		<input id="options_right2" type="button" title="add selected" value="&gt;" style="width:40px; margin-bottom:2px; margin-top:12px;">
+																		<input id="options_left2" type="button" title="remove selected" value="&lt;"  style="width:40px; margin-bottom:2px;">
+																	</div> 
+																	
+																</td> 
+																<td style="border:none; background:none;">
+																	
+																	<div style="text-align:center;">
+																		<span class="fineprint">Selected</span>
+																		<select name="right" id="select_right2" multiple="multiple" style="width:130px; height:75px;">
+																			<option value="PubMed">PubMed</option>
+																			<option value="Poxnet">Poxnet</option>
+																		</select>
+																	</div>
+																	
+																</td>
+															</tr>
+														</table> 
+                                                        
+                                                    </td> 
+                                                </tr> 
                                                 <tr>
                                                     <td class="content_grey" style="text-align:right;">
                                                         *Years:
@@ -760,10 +854,56 @@
                                                         *Database(s):
                                                     </td>
                                                     <td class="content_white" style="text-align:left;">
-                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> PubMed<br />
-                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> Poxnet<br />
-                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> ARIA<br />
-                                                        <input type="checkbox" class="nobord" name="CustomData" value="0" checked="checked" /> Other
+                                                        
+                                                        <script type="text/javascript">
+															$(document).ready(function() {
+																
+																$(function() {
+																	var options = {
+																		button_select: "#options_right3",
+																		button_deselect: "#options_left3"
+																	};
+																	$("#select_left3").multiSelect("#select_right3", options);
+																});
+																
+															});
+														</script>
+														<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+															<tr>
+																<td style="border:none; background:none;">
+																	
+																	<div style="text-align:center;">
+																		<span class="fineprint">Available</span>
+																		<select name="left" id="select_left3" multiple="multiple" style="width:130px; height:75px;">
+																			
+																		</select>
+																	</div> 
+																	
+																</td> 
+																<td style="border:none; background:none;">
+																	
+																	<div style="text-align:center; padding:3px;">
+																		<input id="options_right3" type="button" title="add selected" value="&gt;" style="width:40px; margin-bottom:2px; margin-top:12px;">
+																		<input id="options_left3" type="button" title="remove selected" value="&lt;"  style="width:40px; margin-bottom:2px;">
+																	</div> 
+																	
+																</td> 
+																<td style="border:none; background:none;">
+																	
+																	<div style="text-align:center;">
+																		<span class="fineprint">Selected</span>
+																		<select name="right" id="select_right3" multiple="multiple" style="width:130px; height:75px;">
+																			<option value="PubMed">PubMed</option>
+																			<option value="Poxnet">Poxnet</option>
+                                                                            <option value="ARIA">ARIA</option>
+																			<option value="Other">Other</option>
+																		</select>
+																	</div>
+																	
+																</td>
+															</tr>
+														</table>
+                                                        
                                                     </td>
                                                 </tr>
                                                 <tr>

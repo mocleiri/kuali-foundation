@@ -28,6 +28,10 @@
     
     <!-- jQuery Library -->
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="jquery-1.4.3.min.js"></script>-->
+    
+	<!-- jQ MultiSelects -->
+    <script type="text/javascript" src="../scripts/jquery.multiselects.js" /></script>
     
     <!-- FancyBox -->
     <script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
@@ -100,24 +104,6 @@
             <!-- INACTIVE -->
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Custom Data</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Special Review</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Permissions</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
                     <button type="submit" name="editor" value="editor" alt="Business Rules" onClick="window.location='iacuc-species.html'">Species/Groups</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
@@ -131,6 +117,24 @@
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
                     <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='iacuc-justification.html'">The Three R's</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Custom Data</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Special Review</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Permissions</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
@@ -163,22 +167,22 @@
                 <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
                 <td class="tabinactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
             <!-- ACTIVE -->
                 <td class="tabactive4"></td>
                 <td class="tabactive5"></td>
                 <td class="tabactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
             <!-- INACTIVE -->
                 <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
@@ -257,7 +261,7 @@
                     <tr>
                         <th class="elementhead_left">
                             <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
-                            Label
+                            Procedures
                         </th>
                         <th class="elementhead_right">
                             <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
@@ -265,25 +269,31 @@
                     </tr>
                 </table>
                 
-                <div id="content02">
+                <div id="div_proceedures" style="border-bottom:1px solid #999;" >
                     <table class="content_table">  
                     	<tr>
                             <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
                             	
                             </td>
                             <td class="content_grey" style="text-align:center;">
-                                Label
+                                Group
                             </td>
                             <td class="content_grey" style="text-align:center;">
-                                Label
+                                Species
                             </td>
                             <td class="content_grey" style="text-align:center;">
-                                Label
+                                Procedure Category
                             </td>
                             <td class="content_grey" style="text-align:center;">
-                                Label
+                                Proceedure
                             </td>
-                            <td class="content_grey" style="text-align:center; width:70px;">
+                            <td class="content_grey" style="text-align:center;">
+                                Pain Category
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Count
+                            </td>
+                            <td class="content_grey" style="text-align:center; width:120px;">
                                 Action
                             </td>
                         </tr>
@@ -291,96 +301,489 @@
                             <td class="content_grey" style="width:50px; text-align:right;">
                                 Add:
                             </td>
-                            <td class="content_info" style="text-align:left;">
+                            <td class="content_gradient" style="text-align:left;">
                                 <select style="width:100%;">
                                     <option value="0" selected="selected">select</option>
-                                    <option value="1">a</option>
-                                    <option value="2">b</option>
-                                    <option value="3">c</option>
-                                    <option value="4">d</option>
+                                    <option value="1">Flying Salamanders</option>
+                                    <option value="2">Flying Frogs</option>
+                                    <option value="3">Tiny Flying Frogs</option>
                                 </select>
                             </td>
-                            <td class="content_info" style="text-align:left;">
-                                <select style="width:100%;">
-                                    <option value="0" selected="selected">select</option>
-                                    <option value="1">a</option>
-                                    <option value="2">b</option>
-                                    <option value="3">c</option>
-                                    <option value="4">d</option>
-                                </select>
-                            </td>
-                            <td class="content_info" style="text-align:left;">
-                                <select style="width:100%;">
-                                    <option value="0" selected="selected">select</option>
-                                    <option value="1">a</option>
-                                    <option value="2">b</option>
-                                    <option value="3">c</option>
-                                </select>
-                            </td>
-                            <td class="content_info" style="text-align:left;">
+                            <td class="content_gradient" style="text-align:left;">
                                 <input type="text" style="width:100%;" />
                             </td>
-                            <td class="content_info" style="text-align:center;">
-                            	<img id="control_newrule" src="../images/tinybutton-add1.gif" style="border:none;" alt="add" title="Add" type="image" />
+                            <td class="content_gradient" style="text-align:left;">
+                                <select style="width:100%;">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">drugs</option>
+                                    <option value="2">surgery</option>
+                                    <option value="3">food/fluid</option>
+                                    <option value="4">euthanasia</option>
+                                    <option value="5">hazardous agents</option>
+                                    <option value="6">non-surgical proceedures</option>
+                                    <option value="7">restraint</option>
+                                </select>
+                            </td>
+                            <td class="content_gradient" style="text-align:left;">
+                                <select style="width:100%;">
+                                    <option value="0" selected="selected">select</option>
+                                    <option value="1">paralytics</option>
+                                    <option value="2">anesthesia</option>
+                                    <option value="3">analgesics</option>
+                                </select>
+                            </td>
+                            <td class="content_gradient" style="text-align:left;">
+                                <input type="text" style="width:100%;" />
+                            </td>
+                            <td class="content_gradient" style="text-align:left;">
+                                <input type="text" style="width:100%;" />
+                            </td>
+                            <td class="content_gradient" style="text-align:center;">
+                            	<img id="control_newrule" src="../images/tinybutton-add1.gif" style="border:none;" alt="add" title="Add" type="image" onclick="alert('This add the indicated record.');" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="content_grey" style="width:50px; text-align:center;">
+                            <td class="content_grey" style="width:50px; text-align:center;" rowspan="2">
                                 1
                             </td>
-                            <td class="content_white" style="text-align:left;">
-                                Lorum
+                            <td class="content_white" style="text-align:left;" rowspan="2">
+                                Flying Salamanders
                             </td>
                             <td class="content_white" style="text-align:left;">
-                            	Lorum
+                            	Amphibian- Salamander
                             </td>
                             <td class="content_white" style="text-align:left;">
-                            	Lorum
+                            	drugs
                             </td>
                             <td class="content_white" style="text-align:left;">
-                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none; background:none;">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac nisi a nulla...
-                                        </td>
-                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
-                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
+                            	anesthesia
                             </td>
-                            <td class="content_white" style="text-align:center;">
-                            	<img id="control_editrule01" src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" type="image" />
+                            <td class="content_white" style="text-align:left;">
+                            	A
+                            </td>
+                            <td class="content_white" style="text-align:left;">
+                                20
+                            </td>
+                            <td class="content_white" style="text-align:center;" rowspan="2">
+                                
+                                <img id="control_showdetails01" src="../images/tinybutton-showdetails.gif" style="border:none;" alt="show details" title="Show Details" type="image" />
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										// trigger
+											$("#control_showdetails01").toggle(
+												function()
+												{
+													$("#div_showdetails01").slideDown(400);
+													$("#control_showdetails01").attr("src","../images/tinybutton-hidedetails2.gif");
+													$("#control_showdetails01").attr("alt","hide details");
+													$("#div_proceedures").css("border-bottom","none");
+												},
+												function()
+												{
+													$("#div_showdetails01").slideUp(200);
+													$("#control_showdetails01").attr("src","../images/tinybutton-showdetails.gif");
+													$("#control_showdetails01").attr("alt","show details");
+													$("#div_proceedures").css("border-bottom","1px solid #999");
+												}
+											);	
+									});
+								</script>
+                                
+                                <img src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" type="image" onclick="alert('This would open a FancyBox edit.');" />
                                 
                             </td>
                         </tr>
-                        <tr>
+                        <tr style="display:none;" id="div_showdetails01">
+                            <td class="content_white" style="text-align:left; padding:5px;" colspan="5">
+                                
+                                <!-- Locations -->
+                                <table class="elementhead_table">
+                                    <tr>
+                                        <th class="elementhead_left">
+                                            <img id="control_detail01_location" src="../images/tinybutton-hide.gif" alt="hide" style="cursor:pointer; width:45px; height:15px; border:none; vertical-align:top;" />
+                                            <script type="text/javascript">
+												$(document).ready(function(){
+													// trigger
+														$("#control_detail01_location").toggle(
+															function()
+															{
+																$("#div_detail01_location").slideUp(200);
+																$("#control_detail01_location").attr("src","../images/tinybutton-show.gif");
+																$("#control_detail01_location").attr("alt","show");
+															},
+															function()
+															{
+																$("#div_detail01_location").slideDown(400);
+																$("#control_detail01_location").attr("src","../images/tinybutton-hide.gif");
+																$("#control_detail01_location").attr("alt","hide");
+															}
+														);	
+												});
+											</script>
+                                            Location(s)
+                                        </th>
+                                    </tr>
+                                </table>
+                                <div id="div_detail01_location">
+                                    <table class="content_table">  
+                                        <tr>
+                                            <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
+                                                
+                                            </td>
+                                            <td class="content_grey" style="text-align:center;">
+                                                Type
+                                            </td>
+                                            <td class="content_grey" style="text-align:center;">
+                                                Name
+                                            </td>
+                                            <td class="content_grey" style="text-align:center;">
+                                                Room
+                                            </td>
+                                            <td class="content_grey" style="text-align:center;">
+                                                Description
+                                            </td>
+                                            <td class="content_grey" style="text-align:center; width:120px;">
+                                                Action
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="content_grey" style="width:50px; text-align:right;">
+                                                Add:
+                                            </td>
+                                            <td class="content_gradient" style="text-align:left;">
+                                                <select>
+                                                    <option value="0" selected="selected">Proposal Organization</option>
+                                                    <option value="1">Performing Organization</option>
+                                                    <option value="2">Other Organization</option>
+                                                    <option value="2">Performance Site</option>
+                                                </select>
+                                            </td>
+                                            <td class="content_gradient" style="text-align:left;">
+                                                <select>
+                                                    <option value="0" selected="selected">Location 1</option>
+                                                    <option value="1">Location 2</option>
+                                                </select>
+                                            </td>
+                                            <td class="content_gradient" style="text-align:left;">
+                                                <input type="text" style="width:99%;" value="" />
+                                            </td>
+                                            <td class="content_gradient" style="text-align:left;">
+                                                
+                                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none; background:none;">
+                                                            <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                        </td>
+                                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                
+                                            </td>
+                                            <td class="content_gradient" style="text-align:center;">
+                                                <img src="../images/tinybutton-add1.gif" style="border:none;" alt="add" title="Add" type="image" onclick="alert('This add the indicated record.');" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="content_grey" style="width:50px; text-align:center;">
+                                                1
+                                            </td>
+                                            <td class="content_white" style="text-align:left;">
+                                                Proposal Organization
+                                            </td>
+                                            <td class="content_white" style="text-align:left;">
+                                                Location 2
+                                            </td>
+                                            <td class="content_white" style="text-align:left;">
+                                                123
+                                            </td>
+                                            <td class="content_white" style="text-align:left;">
+                                                
+                                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none; background:none;">
+                                                            Neoclassical space with Beaux Arts details.
+                                                        </td>
+                                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                
+                                            </td>
+                                            <td class="content_gradient" style="text-align:center;">
+                                                <img src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" onclick="alert('This would open a FancyBox edit.');"  />
+                                                <img src="../images/tinybutton-delete1.gif" style="border:none;" alt="delete" title="Delete" onclick="alert('This remove the associated record.');" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="content_grey lastrow" style="width:50px; text-align:center;">
+                                                2
+                                            </td>
+                                            <td class="content_white lastrow" style="text-align:left;">
+                                                Other Organization
+                                            </td>
+                                            <td class="content_white" style="text-align:left;">
+                                                Location 3
+                                            </td>
+                                            <td class="content_white" style="text-align:left;">
+                                                456
+                                            </td>
+                                            <td class="content_white" style="text-align:left;">
+                                                
+                                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none; background:none;">
+                                                            Deconstructive Postmodern.
+                                                        </td>
+                                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                
+                                            </td>
+                                            <td class="content_gradient lastrow" style="text-align:center;">
+                                                <img src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" onclick="alert('This would open a FancyBox edit.');"  />
+                                                <img src="../images/tinybutton-delete1.gif" style="border:none;" alt="delete" title="Delete" onclick="alert('This remove the associated record.');" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <!-- Persons Responsible -->
+                                <table class="elementhead_table" style="margin-top:5px;">
+                                    <tr>
+                                        <th class="elementhead_left">
+                                            <img id="control_detail01_personnel" src="../images/tinybutton-hide.gif" alt="hide" style="cursor:pointer; width:45px; height:15px; border:none; vertical-align:top;" />
+                                            <script type="text/javascript">
+												$(document).ready(function(){
+													// trigger
+														$("#control_detail01_personnel").toggle(
+															function()
+															{
+																$("#div_detail01_personnel").slideUp(200);
+																$("#control_detail01_personnel").attr("src","../images/tinybutton-show.gif");
+																$("#control_detail01_personnel").attr("alt","show");
+															},
+															function()
+															{
+																$("#div_detail01_personnel").slideDown(400);
+																$("#control_detail01_personnel").attr("src","../images/tinybutton-hide.gif");
+																$("#control_detail01_personnel").attr("alt","hide");
+															}
+														);	
+												});
+											</script>
+                                            Persons Responsible
+                                        </th>
+                                    </tr>
+                                </table>
+                                <div id="div_detail01_personnel">
+                                    <table class="content_table">  
+                                        <tr>
+                                            <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
+                                                
+                                            </td>
+                                            <td class="content_grey" style="text-align:center;">
+                                                Name of Drug
+                                            </td>
+                                            <td class="content_grey" style="text-align:center;">
+                                                Route of Administration
+                                            </td>
+                                            <td class="content_grey" style="text-align:center;">
+                                                When Used
+                                            </td>
+                                            <td class="content_grey" style="text-align:center; width:120px;">
+                                                Action
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="content_grey" style="width:50px; text-align:right;">
+                                                Add:
+                                            </td>
+                                            <td class="content_gradient" style="text-align:left;">
+                                                
+                                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none; background:none;">
+                                                            <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                        </td>
+                                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                
+                                            </td>
+                                            <td class="content_gradient" style="text-align:left;">
+                                                
+                                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none; background:none;">
+                                                            <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                        </td>
+                                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                
+                                            </td>
+                                            <td class="content_gradient" style="text-align:left;">
+                                                
+                                                <table style="border:none; background:none; width:115px" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none; background:none; text-align:right;">
+                                                            <input type="text" value="" style="width:80px;" />
+                                                        </td>
+                                                        <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                            <input src="../images/cal.gif" onclick="javascript: alert('This would open the date selection dialog.'); return false" style="border:none; padding:2px;" alt="date selector" title="Date Selector" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                
+                                            </td>
+                                            <td class="content_gradient" style="text-align:center;">
+                                                <img src="../images/tinybutton-add1.gif" style="border:none;" alt="add" title="Add" type="image" onclick="alert('This add the indicated record.');" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="content_grey" style="width:50px; text-align:center;">
+                                                1
+                                            </td>
+                                            <td class="content_white" style="text-align:left;">
+                                                
+                                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none; background:none;">
+                                                            Beer
+                                                        </td>
+                                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                
+                                            </td>
+                                            <td class="content_white" style="text-align:left;">
+                                                
+                                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border:none; background:none;">
+                                                            Oral
+                                                        </td>
+                                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                
+                                            </td>
+                                            <td class="content_white" style="text-align:left;">
+                                                09/25/2010
+                                            </td>
+                                            <td class="content_gradient" style="text-align:center;">
+                                                <img src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" onclick="alert('This would open a FancyBox edit.');"  />
+                                                <img src="../images/tinybutton-delete1.gif" style="border:none;" alt="delete" title="Delete" onclick="alert('This remove the associated record.');" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                            </td>
+                        </tr>
+                    </table>
+            	</div>
+            
+            </td> 
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+<!-- MID PANEL HEAD -->
+<table class="paneltable">
+    <tr>
+        <td class="midpanelhead1">&nbsp;</td>
+        <td class="midpanelhead2">
+            Overview and Timeline
+        </td>
+        <td class="midpanelhead3">
+            <img id="control_panelcontent09" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
+            <script type="text/javascript">
+				$(document).ready(function(){
+					// trigger
+						$("#control_panelcontent09").toggle(
+							function()
+							{
+								$("#div_panelcontent09").slideUp(200);
+								$("#control_panelcontent09").attr("src","../images/tinybutton-show.gif");
+								$("#control_panelcontent09").attr("alt","show");
+							},
+							function()
+							{
+								$("#div_panelcontent09").slideDown(400);
+								$("#control_panelcontent09").attr("src","../images/tinybutton-hide.gif");
+								$("#control_panelcontent09").attr("alt","hide");
+							}
+						);	
+				});
+			</script>
+        </td>
+        <td class="midpanelhead4">&nbsp;</td>
+        <td class="midpanelhead5">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- PANEL CONTENT -->
+<div id="div_panelcontent09">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+            
+            	<!-- Context -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                            Overview and Timeline
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                
+                <div>
+                    <table class="content_table">  
+                    	<tr>
                             <td class="content_grey" style="text-align:center;">
-                                2
+                                Overview and Timeline
                             </td>
-                            <td class="content_white" style="text-align:left;">
-                                Lorum
+                            <td class="content_grey" style="text-align:center; width:60px;">
+                                Action
                             </td>
-                            <td class="content_white" style="text-align:left;">
-                            	Lorum
-                            </td>
-                            <td class="content_white" style="text-align:left;">
-                            	Lorum
-                            </td>
-                            <td class="content_white" style="text-align:left;">
+                        </tr>
+                        <tr>
+                        	<td class="content_white" style="text-align:left;">
+                                
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac nisi a nulla...
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="4">Ultrices ultrices turpis ultrices dis dis, hac sociis integer. Dis augue pulvinar mattis? Rhoncus aliquet pid et eu cursus duis in vut cum integer porttitor arcu porttitor placerat ac. Sit, dis purus in? Diam, magna placerat ac a enim hac nec tempor ac hac hac nec? Non aliquet, ac dis, nunc penatibus eros non sagittis eros tincidunt a dignissim sed. Adipiscing montes ac, magna massa aenean hac platea tincidunt proin pellentesque montes! Porta placerat augue egestas porttitor dis, tempor sed. Et ridiculus odio magna ac enim scelerisque cum, hac in proin. Odio et integer tristique! Enim. Natoque quis, urna. Scelerisque augue diam penatibus, risus aliquam augue, velit ut turpis lundium turpis vel. Turpis elementum odio! Et, rhoncus! Sed sit sed.</textarea>
                                         </td>
-                                        <td style="border:none; background:none; width:20px; vertical-align:bottom;">
-                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                         </td>
                                     </tr>
                                 </table>
+                                
                             </td>
                             <td class="content_white" style="text-align:center;">
-                            	<img id="control_editrule02" src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" type="image" />
+                            	<img id="control_editrule01" src="../images/tinybutton-save1.gif" style="border:none;" alt="save" title="Save" type="image"  onclick="alert('This would save changes to the record.');" />
                             </td>
                         </tr>
                     </table>

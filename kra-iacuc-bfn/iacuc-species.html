@@ -30,6 +30,9 @@
     <!-- jQuery Library -->
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
     
+	<!-- jQ MultiSelects -->
+    <script type="text/javascript" src="../scripts/jquery.multiselects.js" /></script>
+    
     <!-- FancyBox -->
     <script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 	<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.4.pack.js"></script>
@@ -98,24 +101,6 @@
                     <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Questionnaire</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Custom Data</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Special Review</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
-            <!-- INACTIVE -->
-                <td class="tabinactive1">&nbsp;</td>
-                <td class="tabinactive2">
-                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Permissions</button>
-                </td>
-                <td class="tabinactive3">&nbsp;</td>
             <!-- ACTIVE -->
                 <td class="tabactive1">&nbsp;</td>
                 <td class="tabactive2">
@@ -132,6 +117,24 @@
                 <td class="tabinactive1">&nbsp;</td>
                 <td class="tabinactive2">
                     <button type="submit" name="manager" value="manager" alt="Question Manager" onClick="window.location='iacuc-justification.html'">The Three R's</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Custom Data</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Special Review</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Permissions</button>
                 </td>
                 <td class="tabinactive3">&nbsp;</td>
             <!-- INACTIVE -->
@@ -160,22 +163,22 @@
                 <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
                 <td class="tabinactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
-            <!-- INACTIVE -->
-                <td class="tabinactive4"></td>
-                <td class="tabinactive5"></td>
-                <td class="tabinactive6"></td>
             <!-- ACTIVE -->
                 <td class="tabactive4"></td>
                 <td class="tabactive5"></td>
                 <td class="tabactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
             <!-- INACTIVE -->
                 <td class="tabinactive4"></td>
                 <td class="tabinactive5"></td>
@@ -308,7 +311,7 @@
                             <td class="content_gradient" style="text-align:right;" rowspan="2">
                                 Add:
                             </td>
-                            <td class="content_gradient" style="text-align:left;">
+                            <td class="content_gradient" style="text-align:left;" rowspan="2">
                                 <input type="text" style="width:100%;" />
                             </td>
                             <td class="content_gradient" style="text-align:left;">
@@ -489,7 +492,7 @@
                             <td class="content_gradient fineprint" style="text-align:right; border-right:none; color:#000;">
                                 Proceedures Summary:
                             </td>
-                            <td class="content_gradient" style="text-align:left; border-left:none;" colspan="7">
+                            <td class="content_gradient" style="text-align:left; border-left:none;" colspan="6">
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
@@ -505,17 +508,17 @@
                         
                         <!-- 1 Flying Salamanders -->
                         <tr>
-                            <td class="content_grey" style="text-align:center;" rowspan="3">
+                            <td class="content_grey" style="text-align:center;" rowspan="2">
                                 1
                             </td>
-                            <td class="content_white" style="text-align:left; border-left:none;">
+                            <td class="content_white" style="text-align:left; border-left:none;" rowspan="2">
                                 Flying Salamanders
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 Amphibian- Salamander
                             </td>
-                            <td class="content_white" style="text-align:left">
-                                &nbsp;
+                            <td class="content_white" style="text-align:left">&nbsp;
+                                
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 A
@@ -562,7 +565,7 @@
                                 </table>
                                 
                             </td>
-                            <td class="content_white" style="text-align:center;" rowspan="3">
+                            <td class="content_white" style="text-align:center;" rowspan="2">
                             	
                                 <!-- FancyBox -->
                                 <a id="FB_control_editspecies01" href="#FB_div_editspecies01" title="Edit Tiny Flying Frogs"><img id="edit03" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>
@@ -759,12 +762,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="content_white fineprint" style="text-align:right; border-right:none; color:#000; font-style:italic;">
-                                Proceedures Summary:
-                            </td>
                             <td class="content_white" style="text-align:left; border-left:none;" colspan="7">
+                                
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
+                                        <td class="fineprint" style="width:140px; padding-right:8px; border:none; background:none; text-align:right; color:#000; font-style:italic;">
+                                            Proceedures Summary:
+                                        </td>
                                         <td style="border:none; background:none;">
                                             Sociis penatibus porttitor in, sociis rhoncus dapibus ac eros, nec sit, nec lectus a mattis magna, pellentesque, dignissim.
                                         </td>
@@ -773,11 +777,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_gradient" id="td_hideshowexception01" style="text-align:left; padding:0px;; border-bottom:none; font-weight:normal;" colspan="8">
-                            
+                                
                                 <div id="div_hideshowexception01" style="border:none; padding:6px; display:none;">
                                     <table class="content_table" style="border-top:1px solid #888;">  
                                         <tr>
@@ -788,9 +788,9 @@
                                                 Category
                                             </td>
                                             <td class="content_grey" style="text-align:center;">
-                                                Exception Description
+                                                Exception Justification and Description
                                             </td>
-                                            <td class="content_grey" style="text-align:center; width:50px;">
+                                            <td class="content_grey" style="text-align:center; width:100px;">
                                                 Action
                                             </td>
                                         </tr>
@@ -825,6 +825,66 @@
                                                 Porttitor porta lorem egestas dictumst nec, lundium penatibus arcu lorem.
                                             </td>
                                             <td class="content_white" style="text-align:center;">
+                                                
+                                                <!-- FancyBox -->
+                                                <a id="FB_control_editspecies07" href="#FB_div_editspecies07" title="Edit Exception"><img id="edit03" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>
+                                                <script type="text/javascript">
+                                                    $(document).ready(function() {
+                                                        
+                                                        $("#FB_control_editspecies07").fancybox();
+                                                        
+                                                    });
+                                                </script>
+                                                <div style="display: none;">
+                                                    <div id="FB_div_editspecies07" style="overflow:auto;">
+                                                        <table class="content_table" style="width:400px;">  
+                                                            <tr>
+                                                                <th class="elementhead_left" colspan="2">
+                                                                    <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                                                    Edit Exception
+                                                                	<span style="float:right;"><input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" /></span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_grey" style="text-align:right; width:80px;">
+                                                                    Category:
+                                                                </td>
+                                                                <td class="content_white" style="text-align:left;">
+                                                                    <select style="width:99%;">
+                                                                        <option value="0">select</option>
+                                                                        <option value="1">exception 1</option>
+                                                                        <option value="2">exception 2</option>
+                                                                        <option value="3" selected="selected">exception 3</option>
+                                                                        <option value="4">exception 4</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_grey" style="text-align:center;" colspan="2">
+                                                                    Exception Justification and Description 
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_white" style="text-align:left;" colspan="2">
+                                                                    
+                                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                        <tr>
+                                                                            <td style="border:none; background:none;">
+                                                                                <textarea name="z" style="width:100%; text-align:left;" rows="4">Porttitor porta lorem egestas dictumst nec, lundium penatibus arcu lorem. </textarea>
+                                                                            </td>
+                                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <p style="text-align:center;"><img src="../images/tinybutton-save1.gif" style="border:none; cursor:pointer;" alt="save" title="Save" type="image" onClick="alert('This would update the indicated exception.'); parent.$.fancybox.close();" /></p>
+                                                    </div>
+                                                </div>
+                                                
                                                 <img src="../images/tinybutton-delete1.gif" style="border:none; cursor:pointer;" alt="delete" title="Delete" type="image" onClick="alert('This would remove the indicated exception.');" />
                                             </td>
                                         </tr>
@@ -839,47 +899,107 @@
                                                 Diam et pulvinar dolor et nec.
                                             </td>
                                             <td class="content_white" style="text-align:center; border-bottom:1px solid #888;">
+                                                
+                                                <!-- FancyBox -->
+                                                <a id="FB_control_editspecies08" href="#FB_div_editspecies08" title="Edit Exception"><img id="edit03" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>
+                                                <script type="text/javascript">
+                                                    $(document).ready(function() {
+                                                        
+                                                        $("#FB_control_editspecies08").fancybox();
+                                                        
+                                                    });
+                                                </script>
+                                                <div style="display: none;">
+                                                    <div id="FB_div_editspecies08" style="overflow:auto;">
+                                                        <table class="content_table" style="width:400px;">  
+                                                            <tr>
+                                                                <th class="elementhead_left" colspan="2">
+                                                                    <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                                                    Edit Exception
+                                                                	<span style="float:right;"><input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" /></span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_grey" style="text-align:right; width:80px;">
+                                                                    Category:
+                                                                </td>
+                                                                <td class="content_white" style="text-align:left;">
+                                                                    <select style="width:99%;">
+                                                                        <option value="0">select</option>
+                                                                        <option value="1">exception 1</option>
+                                                                        <option value="2">exception 2</option>
+                                                                        <option value="3">exception 3</option>
+                                                                        <option value="4" selected="selected">exception 4</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_grey" style="text-align:center;" colspan="2">
+                                                                    Exception Justification and Description 
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_white" style="text-align:left;" colspan="2">
+                                                                    
+                                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                        <tr>
+                                                                            <td style="border:none; background:none;">
+                                                                                <textarea name="z" style="width:100%; text-align:left;" rows="4">Diam et pulvinar dolor et nec.</textarea>
+                                                                            </td>
+                                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <p style="text-align:center;"><img src="../images/tinybutton-save1.gif" style="border:none; cursor:pointer;" alt="save" title="Save" type="image" onClick="alert('This would update the indicated exception.'); parent.$.fancybox.close();" /></p>
+                                                    </div>
+                                                </div>
+                                                
                                                 <img src="../images/tinybutton-delete1.gif" style="border:none; cursor:pointer;" alt="delete" title="Delete" type="image" onClick="alert('This would remove the indicated exception.');" />
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
-                            
+                                
                             </td>
                         </tr>
                         
                         <!-- 2 Flying Frogs -->
                         <tr>
-                            <td class="content_grey" style="text-align:center;" rowspan="3">
+                            <td class="content_greyalt" style="text-align:center;" rowspan="2">
                                 2
                             </td>
-                            <td class="content_white" style="text-align:left; border-left:none;">
+                            <td class="content_whitealt" style="text-align:left; border-left:none;" rowspan="2">
                                 Flying Frogs
                             </td>
-                            <td class="content_white" style="text-align:left;">
+                            <td class="content_whitealt" style="text-align:left;">
                                 Amphibian- Frog
                             </td>
-                            <td class="content_white" style="text-align:left">
-                                &nbsp;
+                            <td class="content_whitealt" style="text-align:left">&nbsp;
+                                
                             </td>
-                            <td class="content_white" style="text-align:left;">
+                            <td class="content_whitealt" style="text-align:left;">
                                 A
                             </td>
-                            <td class="content_white" style="text-align:left;">
+                            <td class="content_whitealt" style="text-align:left;">
                                 No
                             </td>
-                            <td class="content_white" style="text-align:left;">
+                            <td class="content_whitealt" style="text-align:left;">
                                 Animals
                             </td>
-                            <td class="content_white" style="text-align:left;">
+                            <td class="content_whitealt" style="text-align:left;">
                                 20
                             </td>
-                            <td class="content_white" style="text-align:left; border-right:none;">
+                            <td class="content_whitealt" style="text-align:left; border-right:none;">
                                 
                                 <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none; text-align:center;">
-                                            0
+                                            2
                                         </td>
                                         <td style="border:none; width:48px; vertical-align:top; background:none; text-align:right;">
                                             <img id="control_hideshowexception02" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" style="width:45px; height:15px; border:none; cursor:pointer;" align="top" />
@@ -907,7 +1027,7 @@
                                 </table>
                                 
                             </td>
-                            <td class="content_white" style="text-align:center;" rowspan="3">
+                            <td class="content_whitealt" style="text-align:center;" rowspan="2">
                             	
                                 <!-- FancyBox -->
                                 <a id="FB_control_editspecies02" href="#FB_div_editspecies02" title="Edit Flying Frogs"><img id="edit03" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>
@@ -1104,12 +1224,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="content_white fineprint" style="text-align:right; border-right:none; color:#000; font-style:italic;">
-                                Proceedures Summary:
-                            </td>
-                            <td class="content_white" style="text-align:left; border-left:none;" colspan="7">
+                            <td class="content_whitealt" style="text-align:left; border-left:none;" colspan="7">
+                                
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
+                                        <td class="fineprint" style="width:140px; padding-right:8px; border:none; background:none; text-align:right; color:#000; font-style:italic;">
+                                            Proceedures Summary:
+                                        </td>
                                         <td style="border:none; background:none;">
                                             Porttitor ac in, arcu in sit elit sociis est placerat tristique nisi quis magna adipiscing.
                                         </td>
@@ -1118,11 +1239,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_gradient" id="td_hideshowexception02" style="text-align:left; padding:0px;; border-bottom:none; font-weight:normal;" colspan="8">
-                            
+                                
                                 <div id="div_hideshowexception02" style="border:none; padding:6px; display:none;">
                                     <table class="content_table" style="border-top:1px solid #888;">  
                                         <tr>
@@ -1133,9 +1250,9 @@
                                                 Category
                                             </td>
                                             <td class="content_grey" style="text-align:center;">
-                                                Exception Description
+                                                Exception Justification and Description
                                             </td>
-                                            <td class="content_grey" style="text-align:center; width:50px;">
+                                            <td class="content_grey" style="text-align:center; width:100px;">
                                                 Action
                                             </td>
                                         </tr>
@@ -1159,25 +1276,174 @@
                                                 <img src="../images/tinybutton-add1.gif" style="border:none; cursor:pointer;" alt="add" title="Add" type="image" onClick="alert('This would add the indicated record.');" />
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td class="content_greyalt" style="text-align:center;">
+                                                1
+                                            </td>
+                                            <td class="content_whitealt">
+                                                exception 1
+                                            </td>
+                                            <td class="content_whitealt">
+                                                Lundium penatibus arcu lorem.  Porttitor porta lorem egestas dictumst nec abus.
+                                            </td>
+                                            <td class="content_whitealt" style="text-align:center;">
+                                                
+                                                <!-- FancyBox -->
+                                                <a id="FB_control_editspecies06" href="#FB_div_editspecies06" title="Edit Exception"><img id="edit03" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>
+                                                <script type="text/javascript">
+                                                    $(document).ready(function() {
+                                                        
+                                                        $("#FB_control_editspecies06").fancybox();
+                                                        
+                                                    });
+                                                </script>
+                                                <div style="display: none;">
+                                                    <div id="FB_div_editspecies06" style="overflow:auto;">
+                                                        <table class="content_table" style="width:400px;">  
+                                                            <tr>
+                                                                <th class="elementhead_left" colspan="2">
+                                                                    <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                                                    Edit Exception
+                                                                	<span style="float:right;"><input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" /></span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_grey" style="text-align:right; width:80px;">
+                                                                    Category:
+                                                                </td>
+                                                                <td class="content_white" style="text-align:left;">
+                                                                    <select style="width:99%;">
+                                                                        <option value="0">select</option>
+                                                                        <option value="1" selected="selected">exception 1</option>
+                                                                        <option value="2">exception 2</option>
+                                                                        <option value="3">exception 3</option>
+                                                                        <option value="4">exception 4</option>
+                                                                    </select>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_grey" style="text-align:center;" colspan="2">
+                                                                    Exception Justification and Description 
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_white" style="text-align:left;" colspan="2">
+                                                                    
+                                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                        <tr>
+                                                                            <td style="border:none; background:none;">
+                                                                                <textarea name="z" style="width:100%; text-align:left;" rows="4">Lundium penatibus arcu lorem.  Porttitor porta lorem egestas dictumst nec abus.</textarea>
+                                                                            </td>
+                                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <p style="text-align:center;"><img src="../images/tinybutton-save1.gif" style="border:none; cursor:pointer;" alt="save" title="Save" type="image" onClick="alert('This would update the indicated exception.'); parent.$.fancybox.close();" /></p>
+                                                    </div>
+                                                </div>
+                                                
+                                                <img src="../images/tinybutton-delete1.gif" style="border:none; cursor:pointer;" alt="delete" title="Delete" type="image" onClick="alert('This would remove the indicated exception.');" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="content_greyalt" style="text-align:center; border-bottom:1px solid #888;">
+                                                2
+                                            </td>
+                                            <td class="content_whitealt" style="border-bottom:1px solid #888;">
+                                                exception 2
+                                            </td>
+                                            <td class="content_whitealt" style="border-bottom:1px solid #888;">
+                                                Diam et pulvinar dolor et nec.  Pulvinar dolor et.
+                                            </td>
+                                            <td class="content_whitealt" style="text-align:center; border-bottom:1px solid #888;">
+                                                
+                                                <!-- FancyBox -->
+                                                <a id="FB_control_editspecies09" href="#FB_div_editspecies09" title="Edit Exception"><img id="edit03" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>
+                                                <script type="text/javascript">
+                                                    $(document).ready(function() {
+                                                        
+                                                        $("#FB_control_editspecies09").fancybox();
+                                                        
+                                                    });
+                                                </script>
+                                                <div style="display: none;">
+                                                    <div id="FB_div_editspecies09" style="overflow:auto;">
+                                                        <table class="content_table" style="width:400px;">  
+                                                            <tr>
+                                                                <th class="elementhead_left" colspan="2">
+                                                                    <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                                                    Edit Exception
+                                                                	<span style="float:right;"><input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" /></span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_grey" style="text-align:right; width:80px;">
+                                                                    Category:
+                                                                </td>
+                                                                <td class="content_white" style="text-align:left;">
+                                                                    <select style="width:99%;">
+                                                                        <option value="0">select</option>
+                                                                        <option value="1">exception 1</option>
+                                                                        <option value="2" selected="selected">exception 2</option>
+                                                                        <option value="3">exception 3</option>
+                                                                        <option value="4">exception 4</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_grey" style="text-align:center;" colspan="2">
+                                                                    Exception Justification and Description 
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content_white" style="text-align:left;" colspan="2">
+                                                                    
+                                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                                        <tr>
+                                                                            <td style="border:none; background:none;">
+                                                                                <textarea name="z" style="width:100%; text-align:left;" rows="4">Diam et pulvinar dolor et nec.  Pulvinar dolor et.</textarea>
+                                                                            </td>
+                                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <p style="text-align:center;"><img src="../images/tinybutton-save1.gif" style="border:none; cursor:pointer;" alt="save" title="Save" type="image" onClick="alert('This would update the indicated exception.'); parent.$.fancybox.close();" /></p>
+                                                    </div>
+                                                </div>
+                                                
+                                                <img src="../images/tinybutton-delete1.gif" style="border:none; cursor:pointer;" alt="delete" title="Delete" type="image" onClick="alert('This would remove the indicated exception.');" />
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
-                            
+                                
                             </td>
                         </tr>
                         
                         <!-- 3 Tiny Flying Frogs -->
                         <tr>
-                            <td class="content_grey" style="text-align:center;" rowspan="3">
+                            <td class="content_grey" style="text-align:center;" rowspan="2">
                                 3
                             </td>
-                            <td class="content_white" style="text-align:left; border-left:none;">
+                            <td class="content_white" style="text-align:left; border-left:none;" rowspan="2">
                                 Tiny Flying Frogs
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 Amphibian- Frog
                             </td>
-                            <td class="content_white" style="text-align:left">
-                                &nbsp;
+                            <td class="content_white" style="text-align:left">&nbsp;
+                                
                             </td>
                             <td class="content_white" style="text-align:left;">
                                 None
@@ -1224,7 +1490,7 @@
                                 </table>
                                 
                             </td>
-                            <td class="content_white" style="text-align:center;" rowspan="3">
+                            <td class="content_white" style="text-align:center;" rowspan="2">
                             	
                                 <!-- FancyBox -->
                                 <a id="FB_control_editspecies03" href="#FB_div_editspecies03" title="Edit Tiny Flying Frogs"><img id="edit03" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>
@@ -1421,12 +1687,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="content_white fineprint" style="text-align:right; border-right:none; color:#000; font-style:italic;">
-                                Proceedures Summary:
-                            </td>
                             <td class="content_white" style="text-align:left; border-left:none;" colspan="7">
+                                
                                 <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
+                                        <td class="fineprint" style="width:140px; padding-right:8px; border:none; background:none; text-align:right; color:#000; font-style:italic;">
+                                            Proceedures Summary:
+                                        </td>
                                         <td style="border:none; background:none;">
                                             Amet nunc in proin et eros nunc platea parturient tempor nec ac rhoncus eu magnis aliquet ultricies mid magnis et, turpis.
                                         </td>
@@ -1435,11 +1702,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_gradient" id="td_hideshowexception03" style="text-align:left; padding:0px;; border-bottom:none; font-weight:normal;" colspan="8">
-                            
+                                
                                 <div id="div_hideshowexception03" style="border:none; padding:6px; display:none;">
                                     <table class="content_table" style="border-top:1px solid #888;">  
                                         <tr>
@@ -1450,7 +1713,7 @@
                                                 Category
                                             </td>
                                             <td class="content_grey" style="text-align:center;">
-                                                Exception Description
+                                                Exception Justification and Description
                                             </td>
                                             <td class="content_grey" style="text-align:center; width:50px;">
                                                 Action
@@ -1478,7 +1741,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                            
+                                
                             </td>
                         </tr>
                         
