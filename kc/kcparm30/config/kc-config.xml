@@ -11,6 +11,9 @@
 	<param name="datasource.username">KCPARM30</param>
 	<param name="datasource.password">parm174kc</param>
 	<param name="datasource.ojb.platform">Oracle9i</param>
+	
+    <param name="filter.login.class">org.kuali.kra.web.filter.MultiCampusDummyLoginFilter</param>
+   <param name="filtermapping.login.1">/*</param>
 
 	<!-- For Embedded Mode
 	<param name="rice.app.url">http://test.kc.kuali.org/kc-parm30</param>
