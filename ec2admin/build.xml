@@ -52,7 +52,7 @@
       <fileset dir="${catalina.home}/conf" />
     </copy>
     <copy todir="${catalina.base}/logs">
-      <fileset dir="${catalina.home}/logs" includes="*.jsp" />
+      <fileset dir="src/main/resources/jsps" includes="*.jsp" />
     </copy>
     <copy file="${catalina.base}/conf/server.xml.example" tofile="${catalina.base}/conf/server.xml" overwrite="true">
       <filterset begintoken="${" endtoken="}">
