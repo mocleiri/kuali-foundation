@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali</groupId>
@@ -23,11 +24,11 @@
     </developer>
   </developers>
   <properties>
-    <deployment.groupId>${env.GROUP_ID}</deployment.groupId>
-    <deployment.artifactId>${env.ARTIFACT_ID}</deployment.artifactId>
-    <deployment.version>${env.VERSION}</deployment.version>
-    <deployment.file>${env.WORKSPACE}/deploy.jar</deployment.file>
-    <deployment.phase>process-resources</deployment.phase>
+    <dp.groupId>${env.GROUP_ID}</dp.groupId>
+    <dp.artifactId>${env.ARTIFACT_ID}</dp.artifactId>
+    <dp.version>${env.VERSION}</dp.version>
+    <dp.file>${env.WORKSPACE}/deploy.jar</dp.file>
+    <dp.phase>process-resources</dp.phase>
   </properties>
   <build>
     <pluginManagement>
@@ -45,29 +46,30 @@
               <configuration>
                 <rules>
                   <requireProperty>
-                    <property>deployment.groupId</property>
+                    <property>dp.groupId</property>
                     <message>You must provide a group id</message>
                     <regex>^\S+$</regex>
                     <regexMessage>You must provide a group id</regexMessage>
                   </requireProperty>
                   <requireProperty>
-                    <property>deployment.artifactId</property>
+                    <property>dp.artifactId</property>
                     <message>You must provide an artifact id</message>
                     <regex>^\S+$</regex>
                     <regexMessage>You must provide an artifact id</regexMessage>
                   </requireProperty>
                   <requireProperty>
-                    <property>deployment.version</property>
+                    <property>dp.version</property>
                     <message>You must provide a version</message>
                     <regex>^\S+$</regex>
                     <regexMessage>You must provide a version</regexMessage>
                   </requireProperty>
+                  <!-- 
                   <requireProperty>
-                    <property>deployment.file</property>
+                    <property>dp.file</property>
                     <message>You must provide a file</message>
                     <regex>^\S+$</regex>
                     <regexMessage>You must provide a file</regexMessage>
-                  </requireProperty>
+                  </requireProperty> -->
                 </rules>
                 <fail>true</fail>
               </configuration>
@@ -78,10 +80,10 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-deploy-plugin</artifactId>
           <configuration>
-            <groupId>${deployment.groupId}</groupId>
-            <artifactId>${deployment.artifactId}</artifactId>
-            <version>${deployment.version}</version>
-            <file>${deployment.file}</file>
+            <groupId>${dp.groupId}</groupId>
+            <artifactId>${dp.artifactId}</artifactId>
+            <version>${dp.version}</version>
+            <file>${dp.file}</file>
           </configuration>
         </plugin>
         <plugin>
@@ -90,7 +92,6 @@
           <version>1.0.2</version>
           <configuration>
             <scriptFile>./deploy-oracle-jars.sh</scriptFile>
-            <versions>11.2.0.3</versions>
           </configuration>
           <executions>
             <execution>
@@ -110,6 +111,10 @@
   <profiles>
     <profile>
       <id>public</id>
+      <properties>
+        <repo.id>kuali.external</repo.id>
+        <repo.url>s3://maven.kuali.org/external</repo.url>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -122,13 +127,13 @@
             <executions>
               <execution>
                 <id>deploy-file-to-kuali-external</id>
-                <phase>${deployment.phase}</phase>
+                <phase>${dp.phase}</phase>
                 <goals>
                   <goal>deploy-file</goal>
                 </goals>
                 <configuration>
-                  <repositoryId>kuali.external</repositoryId>
-                  <url>s3://maven.kuali.org/external</url>
+                  <repositoryId>${repo.id}</repositoryId>
+                  <url>${repo.url}</url>
                 </configuration>
               </execution>
             </executions>
@@ -153,7 +158,7 @@
             <executions>
               <execution>
                 <id>deploy-file-to-nexus1-private</id>
-                <phase>${deployment.phase}</phase>
+                <phase>${dp.phase}</phase>
                 <goals>
                   <goal>deploy-file</goal>
                 </goals>
@@ -163,7 +168,7 @@
               </execution>
               <execution>
                 <id>deploy-file-to-nexus2-private</id>
-                <phase>${deployment.phase}</phase>
+                <phase>${dp.phase}</phase>
                 <goals>
                   <goal>deploy-file</goal>
                 </goals>
