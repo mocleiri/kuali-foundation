@@ -51,10 +51,10 @@ public class DeployUtils {
     protected String getCommandLine(Artifact artifact) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append("mvn process-resources -Pprivate");
-        sb.append(" -Ddeployment.groupId=" + artifact.getGroupId());
-        sb.append(" -Ddeployment.version=" + artifact.getVersion());
-        sb.append(" -Ddeployment.artifactId=" + artifact.getArtifactId());
-        sb.append(" -Ddeployment.file=" + artifact.getFile().getCanonicalPath());
+        sb.append(" -Ddp.groupId=" + artifact.getGroupId());
+        sb.append(" -Ddp.version=" + artifact.getVersion());
+        sb.append(" -Ddp.artifactId=" + artifact.getArtifactId());
+        sb.append(" -Ddp.file=" + artifact.getFile().getCanonicalPath());
         return sb.toString();
     }
 
