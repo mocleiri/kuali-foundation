@@ -84,7 +84,7 @@
 
   <target name="installtomcat" depends="tomcatinit">
     <delete dir="/usr/local" />
-    <unzip src="${tomcat.zip}" dest="${catalina.home}">
+    <unzip src="${tomcat.zip}" dest="/usr/local">
       <patternset>
         <include name="**/*" />
         <exclude name="**/webapps/*" />
