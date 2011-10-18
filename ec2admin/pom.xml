@@ -42,6 +42,9 @@
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ec2admin</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/trunk/ec2admin</url>
   </scm>
+  <properties>
+    <kuali.testjar.phase>none</kuali.testjar.phase>
+  </properties>
   <build>
     <pluginManagement>
       <plugins>

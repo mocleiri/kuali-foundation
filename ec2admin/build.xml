@@ -3,7 +3,6 @@
   <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 
   <property name="environment" value="ec2" />
-  <property name="tomcat.version" value="7.0.22" />
 
   <target name="resetall">
     <antcall target="removeall" />
@@ -43,7 +42,7 @@
       <arg value="tomcat" />
       <arg value="${tomcat.user}" />
     </exec>
-    <copy file="src/main/resources/bashrc.example" tofile="/home/${tomcat.user}/.bashrc" overwrite="true">
+    <copy file="src/main/resources/.bashrc" tofile="/home/${tomcat.user}/.bashrc" overwrite="true">
       <filterset begintoken="${" endtoken="}">
         <filter token="environment" value="${environment}" />
       </filterset>
@@ -83,22 +82,39 @@
   </target>
 
   <target name="installtomcat" depends="tomcatinit">
+    <!-- Remove previous installation of this version (if any) -->
     <delete dir="${tomcat.dir}" />
+
+    <!-- Inflate the zip into /usr/local/apache-tomcat-[version] -->
     <unzip src="${tomcat.zip}" dest="/usr/local" />
+
+    <!-- Delete/recreate the webapps directory to remove the pre-installed apps -->
     <delete dir="${tomcat.dir}/webapps" />
     <mkdir dir="${tomcat.dir}/webapps" />
-    <copy todir="${tomcat.dir}/logs">
-      <fileset dir="src/main/resources/apache-tomcat/logs" />
-    </copy>
+
+    <!-- Clean up the bin directory, add some simple shell scripts, and make *.sh executable -->
+    <delete>
+      <fileset dir="${tomcat.dir}/bin" includes="*.bat" />
+    </delete>
     <copy todir="${tomcat.dir}/bin">
       <fileset dir="src/main/resources/apache-tomcat/root/bin" />
     </copy>
-    <copy todir="${tomcat.dir}/conf" overwrite="true">
-      <fileset dir="src/main/resources/apache-tomcat/${tomcat.version}/conf" />
+    <chmod dir="${tomcat.dir}/bin" perm="755" includes="*.sh" />
+
+    <!-- Copy in our utility JSP's -->
+    <copy todir="${tomcat.dir}/logs">
+      <fileset dir="src/main/resources/apache-tomcat/jsps" />
     </copy>
-    <copy todir="${tomcat.dir}/conf" overwrite="true">
-      <fileset dir="src/main/resources/apache-tomcat/${tomcat.version}/root/conf" />
-    </copy>
+
+    <!-- Copy in our modified versions of server.xml and web.xml -->
+    <property name="root.server.xml" value="src/main/resources/apache-tomcat/${tomcat.version}/root/conf/server.xml" />
+    <property name="root.web.xml" value="src/main/resources/apache-tomcat/${tomcat.version}/conf/web.xml" />
+
+    <copy file="${root.server.xml}" tofile="${tomcat.dir}/conf/server.xml" overwrite="true" />
+    <copy file="${root.web.xml}" tofile="${tomcat.dir}/conf/web.xml" overwrite="true" />
+
+    <!-- Final step is to symlink /usr/local/tomcat to the versioned tomcat directory -->
+    <symlink link="/usr/local/tomcat" resource="${tomcat.dir}" />
   </target>
 
   <target name="remove" depends="init">
@@ -116,10 +132,11 @@
       <and>
         <isset property="tomcat.zip" />
         <isset property="tomcat.dir" />
+        <isset property="tomcat.version" />
       </and>
     </condition>
     <fail unless="tomcat.set">
-      Must specify tomcat.dir and tomcat.zip
+      Must specify tomcat.dir, tomcat.zip, and tomcat.version
     </fail>
   </target>
 
