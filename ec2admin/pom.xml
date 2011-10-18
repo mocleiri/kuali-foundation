@@ -109,14 +109,23 @@
           </plugin>
           <plugin>
             <artifactId>maven-antrun-plugin</artifactId>
-            <configuration>
-              <target>
-                <ant antfile="build.xml" target="installtomcat">
-                  <param name="catalina.home" value="/usr/local/" />
-                  <param name="tomcat.zip" value="target/dependency/${tomcat.artifactId}-${tomcat.version}" />
-                </ant>
-              </target>
-            </configuration>
+            <executions>
+              <execution>
+                <id>unzip-tomcat</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target>
+                    <ant antfile="build.xml" target="installtomcat">
+                      <param name="catalina.home" value="/usr/local/" />
+                      <param name="tomcat.zip" value="target/dependency/${tomcat.artifactId}-${tomcat.version}" />
+                    </ant>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
