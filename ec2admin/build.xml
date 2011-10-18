@@ -82,6 +82,8 @@
   </target>
 
   <target name="installtomcat" depends="tomcatinit">
+    <symlink action="delete" link="/usr/local/tomcat" />
+
     <!-- Remove previous installation of this version (if any) -->
     <delete dir="${tomcat.dir}" />
 
