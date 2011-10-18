@@ -92,7 +92,6 @@
                 <phase>process-resources</phase>
                 <goals>
                   <goal>copy</goal>
-                  <goal>unpack</goal>
                 </goals>
                 <configuration>
                   <localRepositoryDirectory>target/repository</localRepositoryDirectory>
@@ -102,8 +101,6 @@
                       <artifactId>apache-tomcat</artifactId>
                       <version>${tomcat.version}</version>
                       <type>zip</type>
-                      <includes>**/*</includes>
-                      <excludes>**/webapps/*</excludes>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
