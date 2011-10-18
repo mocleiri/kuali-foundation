@@ -1,3 +1,3 @@
 #!/bin/sh
-mvn process-resources -Ppublic -Ddb.groupId=org.apache.tomcat -Ddb.version=6.0.33 -Ddb.artifactId=apache-tomcat -Ddb.file=/home/ubuntu/.tomcat/apache-tomcat-6.0.33.zip
-mvn process-resources -Ppublic -Ddb.groupId=org.apache.tomcat -Ddb.version=7.0.22 -Ddb.artifactId=apache-tomcat -Ddb.file=/home/ubuntu/.tomcat/apache-tomcat-7.0.22.zip
+mvn process-resources -Ppublic -Ddp.groupId=org.apache.tomcat -Ddp.version=6.0.33 -Ddp.artifactId=apache-tomcat -Ddp.file=/home/ubuntu/.tomcat/apache-tomcat-6.0.33.zip
+mvn process-resources -Ppublic -Ddp.groupId=org.apache.tomcat -Ddp.version=7.0.22 -Ddp.artifactId=apache-tomcat -Ddp.file=/home/ubuntu/.tomcat/apache-tomcat-7.0.22.zip
