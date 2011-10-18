@@ -81,7 +81,7 @@
       <properties>
         <tomcat.version>7.0.22</tomcat.version>
         <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
-        <tomcat.zip>target/dependency/${tomcat.artifactId}-${tomcat.version}</tomcat.zip>
+        <tomcat.zip>target/dependency/${tomcat.artifactId}-${tomcat.version}.zip</tomcat.zip>
       </properties>
       <build>
         <plugins>
