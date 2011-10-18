@@ -112,8 +112,8 @@
             <configuration>
               <target>
                 <ant antfile="build.xml" target="installtomcat">
-                  <param name="" value="" />
-                  <param name="" value="" />
+                  <param name="catalina.home" value="/usr/local/" />
+                  <param name="tomcat.zip" value="target/dependency/${tomcat.artifactId}-${tomcat.version}" />
                 </ant>
               </target>
             </configuration>
