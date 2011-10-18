@@ -87,6 +87,21 @@
     <unzip src="${tomcat.zip}" dest="/usr/local" />
     <delete dir="${tomcat.dir}/webapps" />
     <mkdir dir="${tomcat.dir}/webapps" />
+    <copy todir="${tomcat.dir}/logs">
+      <fileset dir="src/main/resources/apache-tomcat/jsps" />
+    </copy>
+    <copy todir="${tomcat.dir}/bin">
+      <fileset dir="src/main/resources/apache-tomcat/admin" />
+    </copy>
+    <copy todir="${tomcat.dir}/conf" overwrite="true">
+      <fileset dir="src/main/resources/apache-tomcat/${tomcat.version}/conf" />
+      <filterset begintoken="${" endtoken="}">
+        <filter token="tomcat.shutdown.port" value="${tomcat.shutdown.port}" />
+        <filter token="tomcat.http.port" value="${tomcat.http.port}" />
+        <filter token="tomcat.https.port" value="${tomcat.https.port}" />
+        <filter token="catalina.base" value="${catalina.base}" />
+      </filterset>
+    </copy>
   </target>
 
   <target name="remove" depends="init">
