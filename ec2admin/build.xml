@@ -93,6 +93,7 @@
     <copy todir="${tomcat.dir}/bin">
       <fileset dir="src/main/resources/apache-tomcat/root/bin" />
     </copy>
+    <chmod dir="${tomcat.dir}/bin" perm="755" includes="*.sh" />
     <copy todir="${tomcat.dir}/conf" overwrite="true">
       <fileset dir="src/main/resources/apache-tomcat/${tomcat.version}/conf" />
     </copy>
