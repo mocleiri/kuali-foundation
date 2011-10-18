@@ -1,5 +1,5 @@
 <project name="Tomcat Instance Manager">
-  <description>Manage the creating/removing of Tomcat instances on a ec2 deployment server</description>
+  <description>Manage the creating/removing of Tomcat instances on an ec2 deployment server</description>
   <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 
   <property name="environment" value="ec2" />
