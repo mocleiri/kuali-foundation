@@ -8,8 +8,9 @@
   <Service name="Catalina">
     <Connector port="${tomcat.http.port}" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="${tomcat.https.port}" />
     <Engine name="Catalina" defaultHost="localhost">
-      <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true" xmlValidation="false"
-        xmlNamespaceAware="false">
+      <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true">
+        
+        
         <Context docBase="${catalina.base}" path="/tomcat" />
         <Context docBase="${user.home}" path="/home" />
       </Host>
