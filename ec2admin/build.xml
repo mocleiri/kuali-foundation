@@ -83,7 +83,7 @@
   </target>
 
   <target name="installtomcat" depends="tomcatinit">
-    <delete dir="/usr/local" />
+    <delete dir="${tomcat.dir}" />
     <unzip src="${tomcat.zip}" dest="/usr/local">
       <patternset>
         <include name="**/*" />
@@ -106,10 +106,11 @@
     <condition property="tomcat.set">
       <and>
         <isset property="tomcat.zip" />
+        <isset property="tomcat.dir" />
       </and>
     </condition>
     <fail unless="tomcat.set">
-      Must specify tomcat.zip
+      Must specify tomcat.dir and tomcat.zip
     </fail>
   </target>
 
