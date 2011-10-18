@@ -85,7 +85,6 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
             <executions>
               <execution>
@@ -107,6 +106,17 @@
                 </configuration>
               </execution>
             </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <configuration>
+              <target>
+                <ant antfile="build.xml" target="installtomcat">
+                  <param name="" value="" />
+                  <param name="" value="" />
+                </ant>
+              </target>
+            </configuration>
           </plugin>
         </plugins>
       </build>
