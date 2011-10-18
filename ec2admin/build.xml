@@ -88,8 +88,8 @@
   </target>
 
   <target name="unziptomcat" depends="tomcatinit">
-    <delete dir="${catalina.home}" />
-    <unzip src="${tomcat.zip" dest="${catalina.home}">
+    <delete dir="/usr/local" />
+    <unzip src="${tomcat.zip}" dest="${catalina.home}">
       <patternset>
         <include name="**/*" />
         <exclude name="**/webapps/*" />
@@ -110,12 +110,11 @@
   <target name="tomcatinit">
     <condition property="tomcat.set">
       <and>
-        <isset property="catalina.home" />
         <isset property="tomcat.zip" />
       </and>
     </condition>
     <fail unless="tomcat.set">
-      Must specify catalina.home and tomcat.zip
+      Must specify tomcat.zip
     </fail>
   </target>
 
