@@ -18,8 +18,8 @@
             sb.append("<li>processors: " + processors + "</li>\n");
             sb.append("<li>mem: [used=" + nf.format(usedMemory / gigabyte) + "g");
             sb.append(", free=" + nf.format(totalFreeMemory / gigabyte) + "g");
-            sb.append(", max=" + nf.format(maxMemory / gigabyte) + "g");
             sb.append(", allocated=" + nf.format(allocatedMemory / gigabyte) + "g");
+            sb.append(", max=" + nf.format(maxMemory / gigabyte) + "g");
             sb.append("]</li>\n");
             String pathSeparatorKey = "path.separator";
             String lineSeparatorKey = "line.separator";
