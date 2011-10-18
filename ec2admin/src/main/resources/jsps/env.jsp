@@ -1,6 +1,9 @@
 <%@ page import="java.util.*,java.text.*"%>
 <%
 
+            NumberFormat nf = NumberFormat.getInstance();
+            nf.setMaximumFractionDigits(2);
+            nf.setMinimumFractionDigits(2);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z");
             StringBuilder sb = new StringBuilder();
             Runtime runtime = Runtime.getRuntime();
@@ -9,9 +12,6 @@
             double maxMemory = runtime.maxMemory();
             double totalMemory = runtime.totalMemory();
             double usedMemory = totalMemory - freeMemory;
-            NumberFormat nf = NumberFormat.getInstance();
-            nf.setMaximumFractionDigits(2);
-            nf.setMinimumFractionDigits(2);
             double gigabyte = 1024 * 1024 * 1024;
             sb.append("<li>time: " + sdf.format(new Date()) + "</li>\n");
             sb.append("<li>processors: " + processors + "</li>\n");
