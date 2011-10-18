@@ -5,11 +5,6 @@
   <property name="environment" value="ec2" />
   <property name="tomcat.version" value="7.0.22" />
 
-  <target name="installtomcat">
-    <antcall target="removetomcat" />
-    <antcall target="unziptomcat" />
-  </target>
-
   <target name="resetall">
     <antcall target="removeall" />
     <antcall target="createall" />
@@ -87,7 +82,7 @@
     </exec>
   </target>
 
-  <target name="unziptomcat" depends="tomcatinit">
+  <target name="installtomcat" depends="tomcatinit">
     <delete dir="/usr/local" />
     <unzip src="${tomcat.zip}" dest="${catalina.home}">
       <patternset>
