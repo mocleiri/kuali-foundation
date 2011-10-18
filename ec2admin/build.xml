@@ -82,14 +82,14 @@
     </exec>
   </target>
 
-  <target name="removetomcat" depends="init">
-    <property name="tomcat.user" value="tomcat${instance}" />
-    <property name="catalina.base" value="/usr/local/tomcat${instance}" />
-    <exec executable="userdel">
-      <arg value="-rf" />
-      <arg value="${tomcat.user}" />
-    </exec>
-    <delete dir="${catalina.base}" />
+  <target name="removetomcat" depends="tomcatinit">
+    <delete dir="${catalina.home}" />
+    <unzip src="${tomcat.zip" dest="${catalina.home}">
+      <patternset>
+        <include name="**/*" />
+        <exclude name="**/webapps/*" />
+      </patternset>
+    </unzip>
   </target>
 
   <target name="remove" depends="init">
