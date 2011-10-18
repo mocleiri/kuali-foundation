@@ -3,6 +3,7 @@
   <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 
   <property name="environment" value="ec2" />
+  <property name="tomcat.version" value="6.0.33" />
 
   <target name="resetall">
     <antcall target="removeall" />
@@ -60,7 +61,8 @@
     <copy todir="${catalina.base}/logs">
       <fileset dir="src/main/resources/jsps" includes="*.jsp" />
     </copy>
-    <copy file="${catalina.base}/conf/server.xml.example" tofile="${catalina.base}/conf/server.xml" overwrite="true">
+    <copy todir="${catalina.base}/conf" overwrite="true">
+      <fileset dir="src/main/resources/apache-tomcat/${tomcat.version}/conf" />
       <filterset begintoken="${" endtoken="}">
         <filter token="tomcat.shutdown.port" value="${tomcat.shutdown.port}" />
         <filter token="tomcat.http.port" value="${tomcat.http.port}" />
