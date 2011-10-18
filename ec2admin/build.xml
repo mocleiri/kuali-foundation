@@ -61,9 +61,6 @@
     <copy todir="${catalina.base}/logs">
       <fileset dir="src/main/resources/apache-tomcat/logs" />
     </copy>
-    <copy todir="${catalina.base}/bin">
-      <fileset dir="src/main/resources/apache-tomcat/bin" />
-    </copy>
     <copy todir="${catalina.base}/conf" overwrite="true">
       <fileset dir="src/main/resources/apache-tomcat/${tomcat.version}/conf" />
       <filterset begintoken="${" endtoken="}">
@@ -82,10 +79,6 @@
       <arg value="-R" />
       <arg value="${tomcat.user}:tomcat" />
       <arg value="/home/${tomcat.user}" />
-    </exec>
-    <exec executable="chmod">
-      <arg value="755" />
-      <arg value="${catalina.base}/bin/*.sh" />
     </exec>
   </target>
 
