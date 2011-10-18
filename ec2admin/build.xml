@@ -133,10 +133,11 @@
       <and>
         <isset property="tomcat.zip" />
         <isset property="tomcat.dir" />
+        <isset property="tomcat.version" />
       </and>
     </condition>
     <fail unless="tomcat.set">
-      Must specify tomcat.dir and tomcat.zip
+      Must specify tomcat.dir, tomcat.zip, and tomcat.version
     </fail>
   </target>
 
