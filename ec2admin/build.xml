@@ -94,13 +94,13 @@
     <mkdir dir="${tomcat.dir}/webapps" />
 
     <!-- Clean up the bin directory, add some simple shell scripts, and make *.sh executable -->
+    <delete>
+      <fileset dir="${tomcat.dir}/bin" includes="*.bat" />
+    </delete>
     <copy todir="${tomcat.dir}/bin">
       <fileset dir="src/main/resources/apache-tomcat/root/bin" />
     </copy>
     <chmod dir="${tomcat.dir}/bin" perm="755" includes="*.sh" />
-    <delete>
-      <fileset dir="${tomcat.dir}/bin" includes="*.bat" />
-    </delete>
 
     <!-- Copy in our utility JSP's -->
     <copy todir="${tomcat.dir}/logs">
