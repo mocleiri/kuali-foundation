@@ -1,4 +1,5 @@
-<%@ page import="java.util.*,java.text.*"%><%
+<%@ page import="java.util.*,java.text.*"%>
+<%
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z");
             StringBuilder sb = new StringBuilder();
@@ -7,14 +8,17 @@
             double freeMemory = runtime.freeMemory();
             double maxMemory = runtime.maxMemory();
             double totalMemory = runtime.totalMemory();
+            double usedMemory = totalMemory - freeMemory;
             NumberFormat nf = NumberFormat.getInstance();
             nf.setMaximumFractionDigits(2);
             nf.setMinimumFractionDigits(2);
             double gigabyte = 1024 * 1024 * 1024;
             sb.append("<li>time: " + sdf.format(new Date()) + "</li>\n");
             sb.append("<li>processors: " + processors + "</li>\n");
-            sb.append("<li>mem: [free=" + nf.format(freeMemory / gigabyte) + "g, max="
-                    + nf.format(maxMemory / gigabyte) + "g, total=" + nf.format(totalMemory / gigabyte) + "g]</li>\n");
+            sb.append("<li>mem: [used=" + nf.format(usedMemory / gigabyte) + "g");
+            sb.append(", free=" + nf.format(freeMemory / gigabyte) + "g");
+            sb.append(", max=" + nf.format(maxMemory / gigabyte) + "g");
+            sb.append("]</li>\n");
             String pathSeparatorKey = "path.separator";
             String lineSeparatorKey = "line.separator";
             String pathSeparator = System.getProperty(pathSeparatorKey);
