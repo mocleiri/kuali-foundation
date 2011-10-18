@@ -3,7 +3,7 @@
   <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 
   <property name="environment" value="ec2" />
-  <property name="tomcat.version" value="6.0.33" />
+  <property name="tomcat.version" value="7.0.22" />
 
   <target name="resetall">
     <antcall target="removeall" />
