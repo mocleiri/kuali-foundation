@@ -44,6 +44,10 @@
   </scm>
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
+    <tomcat.version>7.0.22</tomcat.version>
+    <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
+    <tomcat.zip>target/dependency/${tomcat.artifactId}-${tomcat.version}.zip</tomcat.zip>
+    <tomcat.dir>/usr/local/${tomcat.artifactId}-${tomcat.version}</tomcat.dir>
   </properties>
   <build>
     <pluginManagement>
@@ -81,12 +85,6 @@
   <profiles>
     <profile>
       <id>tomcat</id>
-      <properties>
-        <tomcat.version>7.0.22</tomcat.version>
-        <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
-        <tomcat.zip>target/dependency/${tomcat.artifactId}-${tomcat.version}.zip</tomcat.zip>
-        <tomcat.dir>/usr/local/${tomcat.artifactId}-${tomcat.version}</tomcat.dir>
-      </properties>
       <build>
         <plugins>
           <plugin>
