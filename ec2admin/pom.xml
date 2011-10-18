@@ -100,6 +100,9 @@
   <profiles>
     <profile>
       <id>tomcat</id>
+      <properties>
+        <tomcat.version>7.0.22</tomcat.version>
+      </properties>
       <build>
         <plugins>
           <plugin>
