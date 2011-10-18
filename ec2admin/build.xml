@@ -82,6 +82,16 @@
     </exec>
   </target>
 
+  <target name="removetomcat" depends="init">
+    <property name="tomcat.user" value="tomcat${instance}" />
+    <property name="catalina.base" value="/usr/local/tomcat${instance}" />
+    <exec executable="userdel">
+      <arg value="-rf" />
+      <arg value="${tomcat.user}" />
+    </exec>
+    <delete dir="${catalina.base}" />
+  </target>
+
   <target name="remove" depends="init">
     <property name="tomcat.user" value="tomcat${instance}" />
     <property name="catalina.base" value="/usr/local/tomcat${instance}" />
@@ -90,6 +100,18 @@
       <arg value="${tomcat.user}" />
     </exec>
     <delete dir="${catalina.base}" />
+  </target>
+
+  <target name="tomcatinit">
+    <condition property="tomcat.set">
+      <and>
+        <isset property="catalina.home" />
+        <isset property="tomcat.zip" />
+      </and>
+    </condition>
+    <fail unless="tomcat.set">
+      Must specify catalina.home and tomcat.zip
+    </fail>
   </target>
 
   <target name="init">
