@@ -43,7 +43,7 @@
       <arg value="tomcat" />
       <arg value="${tomcat.user}" />
     </exec>
-    <copy file="src/main/resources/bashrc.example" tofile="/home/${tomcat.user}/.bashrc" overwrite="true">
+    <copy file="src/main/resources/.bashrc" tofile="/home/${tomcat.user}/.bashrc" overwrite="true">
       <filterset begintoken="${" endtoken="}">
         <filter token="environment" value="${environment}" />
       </filterset>
