@@ -15,7 +15,8 @@
             double gigabyte = 1024 * 1024 * 1024;
             sb.append("<li>time: " + sdf.format(new Date()) + "</li>\n");
             sb.append("<li>processors: " + processors + "</li>\n");
-            sb.append("<li>mem: [used=" + nf.format(usedMemory / gigabyte) + "g");
+            sb.append("<li>mem: [allocated=" + nf.format(totalMemory / gigabyte) + "g");
+            sb.append(", used=" + nf.format(usedMemory / gigabyte) + "g");
             sb.append(", free=" + nf.format(freeMemory / gigabyte) + "g");
             sb.append(", max=" + nf.format(maxMemory / gigabyte) + "g");
             sb.append("]</li>\n");
