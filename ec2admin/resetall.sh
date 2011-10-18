@@ -1,4 +1,4 @@
 #!/bin/sh
 shutemdown.sh
-ant resetall
+mvn antrun:run -Dtarget=resetall
 startemup.sh
