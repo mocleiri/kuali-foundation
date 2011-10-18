@@ -84,12 +84,9 @@
 
   <target name="installtomcat" depends="tomcatinit">
     <delete dir="${tomcat.dir}" />
-    <unzip src="${tomcat.zip}" dest="/usr/local">
-      <patternset>
-        <include name="**/*" />
-        <exclude name="**/webapps/*" />
-      </patternset>
-    </unzip>
+    <unzip src="${tomcat.zip}" dest="/usr/local" />
+    <delete dir="${tomcat.dir}/webapps" />
+    <mkdir dir="${tomcat.dir}/webapps" />
   </target>
 
   <target name="remove" depends="init">
