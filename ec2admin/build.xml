@@ -59,7 +59,10 @@
       <fileset dir="${catalina.home}/conf" />
     </copy>
     <copy todir="${catalina.base}/logs">
-      <fileset dir="src/main/resources/jsps" includes="*.jsp" />
+      <fileset dir="src/main/resources/apache-tomcat/logs" />
+    </copy>
+    <copy todir="${catalina.base}/bin">
+      <fileset dir="src/main/resources/apache-tomcat/bin" />
     </copy>
     <copy todir="${catalina.base}/conf" overwrite="true">
       <fileset dir="src/main/resources/apache-tomcat/${tomcat.version}/conf" />
