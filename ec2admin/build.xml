@@ -1,5 +1,5 @@
 <project name="Tomcat Instance Manager">
-  <description>Manage the creating/removing of Tomcat instances on a Rice deployment server</description>
+  <description>Manage the creating/removing of Tomcat instances on a ec2 deployment server</description>
   <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 
   <property name="environment" value="ec2" />
@@ -59,7 +59,7 @@
       <fileset dir="${catalina.home}/conf" />
     </copy>
     <copy todir="${catalina.base}/logs">
-      <fileset dir="src/main/resources/jsps" includes="*.jsp" />
+      <fileset dir="src/main/resources/apache-tomcat/logs" />
     </copy>
     <copy todir="${catalina.base}/conf" overwrite="true">
       <fileset dir="src/main/resources/apache-tomcat/${tomcat.version}/conf" />
