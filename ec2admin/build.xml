@@ -82,6 +82,7 @@
   </target>
 
   <target name="installtomcat" depends="tomcatinit">
+    <!-- Remove the symbolic link to whatever version was being used before (if any) -->
     <symlink action="delete" link="/usr/local/tomcat" />
 
     <!-- Remove previous installation of this version (if any) -->
