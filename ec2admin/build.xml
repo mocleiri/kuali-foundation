@@ -83,6 +83,10 @@
       <arg value="${tomcat.user}:tomcat" />
       <arg value="/home/${tomcat.user}" />
     </exec>
+    <exec executable="chmod">
+      <arg value="755" />
+      <arg value="${catalina.base}/bin/*.sh" />
+    </exec>
   </target>
 
   <target name="remove" depends="init">
