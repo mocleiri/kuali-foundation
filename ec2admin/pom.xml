@@ -102,7 +102,7 @@
                       <artifactId>apache-tomcat</artifactId>
                       <version>${tomcat.version}</version>
                       <type>zip</type>
-                      <includes>*</includes>
+                      <includes>**/*</includes>
                       <excludes>**/webapps/*</excludes>
                     </artifactItem>
                   </artifactItems>
