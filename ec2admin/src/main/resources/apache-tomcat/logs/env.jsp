@@ -44,7 +44,7 @@
                     value = value.replace("\n", "LF");
                     value = value.replace("\r", "CR");
                 }
-                if (name.equals("common.loader") || name.contains("package.")) {
+                if (name.equals("common.loader") || name.contains("package.") || name.equalsIgnoreCase("tomcat.util.scan.DefaultJarScanner.jarsToSkip")) {
                     value = value.replace(",", "," + "<br>");
                 }
                 if (name.contains(".path") || name.contains(".dirs")) {
