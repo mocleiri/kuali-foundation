@@ -4,6 +4,11 @@
 
   <property name="environment" value="ec2" />
 
+  <target name="resetall">
+    <antcall target="removeall" />
+    <antcall target="createall" />
+  </target>
+
   <target name="removeall">
     <antcall target="remove">
       <param name="instance" value="1" />
@@ -42,7 +47,8 @@
         <filter token="environment" value="${environment}" />
       </filterset>
     </copy>
-    <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/kuali/main/${environment}/rice.keystore" overwrite="true" />
+    <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/kuali/main/${environment}/rice.keystore"
+      overwrite="true" />
     <mkdir dir="${catalina.base}" />
     <mkdir dir="${catalina.base}/lib" />
     <mkdir dir="${catalina.base}/logs" />
