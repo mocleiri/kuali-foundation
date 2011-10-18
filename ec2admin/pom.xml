@@ -80,6 +80,7 @@
       <id>tomcat</id>
       <properties>
         <tomcat.version>7.0.22</tomcat.version>
+        <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
       </properties>
       <build>
         <plugins>
