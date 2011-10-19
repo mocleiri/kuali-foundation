@@ -133,10 +133,10 @@
   <target name="tomcatinit">
     <condition property="tomcat.set">
       <and>
-        <isset property="tomcat.zip" />
         <isset property="tomcat.dir" />
-        <isset property="tomcat.version" />
+        <isset property="tomcat.zip" />
         <isset property="tomcat.major.version" />
+        <isset property="tomcat.version" />
       </and>
     </condition>
     <fail unless="tomcat.set">
