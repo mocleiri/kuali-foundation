@@ -1,7 +1,5 @@
 package org.kuali.student.lum.ui.selenium;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -26,8 +24,8 @@ public class LoginNewTest {
             logonPassword.submit();
             Wait<WebDriver> wait = new WebDriverWait(driver, 10);
             ExpectedCondition<Boolean> condition = new TitlePresentCondition("Kuali Student: Home");
-            boolean conditionMet = wait.until(condition);
-            Assert.assertTrue(conditionMet);
+            wait.until(condition);
+            System.out.println("Title:" + driver.getTitle());
         } finally {
             quitQuietly(driver);
         }
