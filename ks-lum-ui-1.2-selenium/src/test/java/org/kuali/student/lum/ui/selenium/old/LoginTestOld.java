@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
-public class LoginTest {
+public class LoginTestOld {
 
     @Test
     public void loginTest() throws Exception {
