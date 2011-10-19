@@ -1,5 +1,7 @@
 package org.kuali.student.lum.ui.selenium.old;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 import com.thoughtworks.selenium.DefaultSelenium;
@@ -17,6 +19,8 @@ public class LoginTest {
         selenium.type("name=j_password", "admin");
         selenium.click("css=input[type=\"submit\"]");
         selenium.waitForPageToLoad("10000");
+        String title = selenium.getTitle();
+        Assert.assertEquals("Kuali Student: Home", title);
         selenium.stop();
     }
 }
