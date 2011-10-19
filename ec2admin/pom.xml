@@ -57,11 +57,6 @@
         <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
           <version>1.6</version>
-          <configuration>
-            <target>
-              <ant antfile="build.xml" target="${target}" />
-            </target>
-          </configuration>
           <dependencies>
             <dependency>
               <groupId>ant-contrib</groupId>
@@ -100,6 +95,11 @@
                 <goals>
                   <goal>run</goal>
                 </goals>
+                <configuration>
+                  <target>
+                    <ant antfile="build.xml" target="${target}" />
+                  </target>
+                </configuration>
               </execution>
             </executions>
           </plugin>
