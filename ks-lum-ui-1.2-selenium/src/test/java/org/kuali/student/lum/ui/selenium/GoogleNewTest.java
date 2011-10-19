@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class Google2Test {
+public class GoogleNewTest {
 
     @Test
     public void simpleTest() {

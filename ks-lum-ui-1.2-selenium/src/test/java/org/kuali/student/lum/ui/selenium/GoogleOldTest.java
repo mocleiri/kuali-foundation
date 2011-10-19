@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
-public class Google1Test {
+public class GoogleOldTest {
 
     @Test
     public void simpleTest() throws Exception {
