@@ -194,6 +194,15 @@
                 <exclude>org/kuali/student/lum/ui/requirements/uti/*.java</exclude>
               </excludes>
             </configuration>
+            <executions>
+              <execution>
+                <id>integration-test</id>
+                <phase>integration-test</phase>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
           <!-- Publish jar in order to inherit tests in different module -->
           <plugin>
