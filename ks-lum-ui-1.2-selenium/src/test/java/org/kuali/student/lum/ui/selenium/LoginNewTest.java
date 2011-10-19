@@ -23,7 +23,7 @@ public class LoginNewTest {
             typeValue(logonUserName, "admin");
             typeValue(logonPassword, "admin");
             logonPassword.submit();
-            Wait<WebDriver> wait = new WebDriverWait(driver, 10);
+            Wait<WebDriver> wait = new WebDriverWait(driver, 30);
             ExpectedCondition<Boolean> condition = new TitlePresentCondition("Kuali Student: Home");
             wait.until(condition);
             System.out.println("Title:" + driver.getTitle());
