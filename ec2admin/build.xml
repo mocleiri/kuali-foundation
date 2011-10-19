@@ -59,7 +59,7 @@
       <fileset dir="src/main/resources/apache-tomcat/jsps" />
     </copy>
     <copy todir="${catalina.base}/conf" overwrite="true">
-      <fileset dir="src/main/resources/apache-tomcat/${tomcat.version}/conf" />
+      <fileset dir="src/main/resources/apache-tomcat/${tomcat.major.version}/conf" />
       <filterset begintoken="${" endtoken="}">
         <filter token="tomcat.shutdown.port" value="${tomcat.shutdown.port}" />
         <filter token="tomcat.http.port" value="${tomcat.http.port}" />
