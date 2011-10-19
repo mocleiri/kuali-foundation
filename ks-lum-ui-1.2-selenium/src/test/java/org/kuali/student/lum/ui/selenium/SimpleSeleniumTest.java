@@ -9,13 +9,9 @@ import com.thoughtworks.selenium.Selenium;
 
 public class SimpleSeleniumTest {
 
-    protected Selenium createSeleniumClient(String url) throws Exception {
-        return new DefaultSelenium("localhost", 4444, "*firefox", url);
-    }
-
     @Test
     public void testSomethingSimple() throws Exception {
-        Selenium selenium = createSeleniumClient("http://www.google.com");
+        Selenium selenium = new DefaultSelenium("localhost", 4444, "*firefox", "http://www.google.com");
         selenium.start();
 
         //

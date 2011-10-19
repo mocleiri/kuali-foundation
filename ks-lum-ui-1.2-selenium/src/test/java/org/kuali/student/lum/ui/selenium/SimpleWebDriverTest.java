@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -38,7 +39,8 @@ public class SimpleWebDriverTest {
             // Google's search is rendered dynamically with JavaScript.
             // Wait for the page to load, timeout after 10 seconds
             Wait<WebDriver> wait = new WebDriverWait(driver, 10);
-            wait.until(new CheeseTitlePresentCondtion());
+            ExpectedCondition<Boolean> condition = new CheeseTitlePresentCondition();
+            wait.until(condition);
 
             // Should see: "cheese! - Google Search"
             System.out.println("Page title is: " + driver.getTitle());
