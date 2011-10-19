@@ -143,6 +143,8 @@
       <id>selenium</id>
       <properties>
         <selenium.xvfb.phase>pre-integration-test</selenium.xvfb.phase>
+        <selenium.start.phase>pre-integration-test</selenium.start.phase>
+        <selenium.stop.phase>post-integration-test</selenium.stop.phase>
         <selenium.include>**/SimpleSeleniumTest.java</selenium.include>
       </properties>
       <build>
@@ -161,7 +163,7 @@
               </execution>
               <execution>
                 <id>start-selenium-server</id>
-                <phase>pre-integration-test</phase>
+                <phase>${selenium.start.phase}</phase>
                 <goals>
                   <goal>start-server</goal>
                 </goals>
@@ -172,7 +174,7 @@
               </execution>
               <execution>
                 <id>stop-selenium-server</id>
-                <phase>post-integration-test</phase>
+                <phase>${selenium.stop.phase}</phase>
                 <goals>
                   <goal>stop-server</goal>
                 </goals>
