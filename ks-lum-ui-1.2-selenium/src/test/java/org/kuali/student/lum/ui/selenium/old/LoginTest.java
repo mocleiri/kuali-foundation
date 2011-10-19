@@ -18,8 +18,10 @@ public class LoginTest {
         selenium.type("name=j_username", "admin");
         selenium.type("name=j_password", "admin");
         selenium.click("css=input[type=\"submit\"]");
+        Thread.sleep(500);
         selenium.waitForPageToLoad("10000");
         String title = selenium.getTitle();
+        System.out.println("Title=" + title);
         Assert.assertEquals("Kuali Student: Home", title);
         selenium.stop();
     }
