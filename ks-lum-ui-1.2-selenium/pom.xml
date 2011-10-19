@@ -143,6 +143,7 @@
       <id>selenium</id>
       <properties>
         <selenium.xvfb.phase>pre-integration-test</selenium.xvfb.phase>
+        <selenium.include>**/SimpleSeleniumTest.java</selenium.include>
       </properties>
       <build>
         <plugins>
@@ -192,7 +193,7 @@
                 <selenium.baseurl>http://dev.ks.kuali.org</selenium.baseurl>
               </systemPropertyVariables>
               <includes>
-                <include>**/SimpleSeleniumTest.java</include>
+                <include>${selenium.include}</include>
               </includes>
               <excludes>
                 <exclude>org/kuali/student/lum/lu/assembly/*.java</exclude>
