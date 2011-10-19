@@ -99,7 +99,7 @@
       <id>resetall</id>
       <properties>
         <ant.target>resetall</ant.target>
-        <ant.phase>process.resources</ant.phase>
+        <ant.phase>process-resources</ant.phase>
       </properties>
     </profile>
     <profile>
