@@ -2,8 +2,6 @@
   <description>Manage the creating/removing of Tomcat instances on an ec2 deployment server</description>
   <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 
-  <property name="environment" value="ec2" />
-
   <target name="resetall">
     <antcall target="removeall" />
     <antcall target="createall" />
@@ -109,7 +107,7 @@
       <fileset dir="src/main/resources/apache-tomcat/jsps" />
     </copy>
 
-    <!-- Copy in our modified versions of server.xml and web.xml -->
+    <!-- Copy in our customized versions of server.xml and web.xml -->
     <property name="root.server.xml" value="src/main/resources/apache-tomcat/${tomcat.major.version}/root/conf/server.xml" />
     <property name="root.web.xml" value="src/main/resources/apache-tomcat/${tomcat.major.version}/conf/web.xml" />
 
@@ -148,13 +146,11 @@
     <condition property="instance.set">
       <and>
         <isset property="instance" />
+        <isset property="environment" />
+        <isset property="tomcat.major.version" />
       </and>
     </condition>
-    <fail unless="instance.set">
-      Must specify an instance eg:
-      ant create -Dinstance=1
-      ant remove -Dinstance=1
-    </fail>
+    <fail unless="instance.set">Must specify instance, environment, and tomcat.major.version</fail>
     <if>
       <equals arg1="${instance}" arg2="1" />
       <then>
