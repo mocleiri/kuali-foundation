@@ -15,7 +15,7 @@ public class SimpleSeleniumTest {
 
     @Test
     public void testSomethingSimple() throws Exception {
-        Selenium selenium = createSeleniumClient("http://localhost:8080/");
+        Selenium selenium = createSeleniumClient("http://www.google.com");
         selenium.start();
 
         //
