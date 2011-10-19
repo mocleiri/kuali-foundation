@@ -6,10 +6,10 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class SimpleWebDriverTest {
+public class Google2Test {
 
     @Test
-    public void googleTest() {
+    public void simpleTest() {
         WebDriver driver = new FirefoxDriver();
         driver.get("http://www.google.com");
         String title = driver.getTitle();
