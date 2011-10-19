@@ -186,7 +186,7 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
-              <forkMode>always</forkMode>
+              <forkMode>never</forkMode>
               <systemPropertyVariables>
                 <selenium.remote>false</selenium.remote>
                 <selenium.browser>firefox</selenium.browser>
