@@ -110,8 +110,8 @@
     </copy>
 
     <!-- Copy in our modified versions of server.xml and web.xml -->
-    <property name="root.server.xml" value="src/main/resources/apache-tomcat/${tomcat.version}/root/conf/server.xml" />
-    <property name="root.web.xml" value="src/main/resources/apache-tomcat/${tomcat.version}/conf/web.xml" />
+    <property name="root.server.xml" value="src/main/resources/apache-tomcat/${tomcat.major.version}/root/conf/server.xml" />
+    <property name="root.web.xml" value="src/main/resources/apache-tomcat/${tomcat.major.version}/conf/web.xml" />
 
     <copy file="${root.server.xml}" tofile="${tomcat.dir}/conf/server.xml" overwrite="true" />
     <copy file="${root.web.xml}" tofile="${tomcat.dir}/conf/web.xml" overwrite="true" />
