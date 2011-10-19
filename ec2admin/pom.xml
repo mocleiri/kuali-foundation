@@ -50,6 +50,7 @@
     <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
     <tomcat.zip>target/dependency/${tomcat.artifactId}-${tomcat.version}.zip</tomcat.zip>
     <tomcat.dir>/usr/local/${tomcat.artifactId}-${tomcat.version}</tomcat.dir>
+    <ant.phase>none</ant.phase>
   </properties>
   <build>
     <pluginManagement>
@@ -59,9 +60,18 @@
           <version>1.6</version>
           <configuration>
             <target>
-              <ant antfile="build.xml" target="${target}" />
+              <ant antfile="build.xml" target="${ant.target}" />
             </target>
           </configuration>
+          <executions>
+            <execution>
+              <id>run</id>
+              <phase>${ant.phase}</phase>
+              <goals>
+                <goal>run</goal>
+              </goals>
+            </execution>
+          </executions>
           <dependencies>
             <dependency>
               <groupId>ant-contrib</groupId>
@@ -88,24 +98,9 @@
     <profile>
       <id>resetall</id>
       <properties>
-        <target>resetall</target>
+        <ant.target>resetall</ant.target>
+        <ant.phase>process.resources</ant.phase>
       </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>resetall</id>
-                <phase>process-resources</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
     <profile>
       <id>6</id>
