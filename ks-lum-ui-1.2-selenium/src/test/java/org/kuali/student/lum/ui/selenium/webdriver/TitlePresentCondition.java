@@ -1,4 +1,4 @@
-package org.kuali.student.lum.ui.selenium;
+package org.kuali.student.lum.ui.selenium.webdriver;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;

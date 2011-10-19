@@ -1,4 +1,4 @@
-package org.kuali.student.lum.ui.selenium;
+package org.kuali.student.lum.ui.selenium.webdriver;
 
 import junit.framework.Assert;
 

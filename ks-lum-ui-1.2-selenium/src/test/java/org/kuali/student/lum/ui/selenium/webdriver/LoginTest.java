@@ -1,4 +1,4 @@
-package org.kuali.student.lum.ui.selenium;
+package org.kuali.student.lum.ui.selenium.webdriver;
 
 import org.junit.Test;
 import org.openqa.selenium.By;

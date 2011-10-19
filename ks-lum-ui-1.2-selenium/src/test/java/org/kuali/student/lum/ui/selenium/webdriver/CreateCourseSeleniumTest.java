@@ -1,4 +1,4 @@
-package org.kuali.student.lum.ui.selenium;
+package org.kuali.student.lum.ui.selenium.webdriver;
 
 import static org.junit.Assert.fail;
 
