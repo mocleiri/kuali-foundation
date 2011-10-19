@@ -20,7 +20,6 @@ public class SimpleSeleniumTest {
     @Test
     public void googleTest() throws Exception {
         selenium.open("/");
-        selenium.start();
         selenium.waitForPageToLoad("10000");
         Assert.assertEquals("Google", selenium.getTitle());
         selenium.stop();
