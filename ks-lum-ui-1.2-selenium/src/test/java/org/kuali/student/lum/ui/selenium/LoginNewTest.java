@@ -13,10 +13,11 @@ public class LoginNewTest {
 
     @Test
     public void simpleTest() {
+        String baseUrl = System.getProperty("selenium.baseurl");
         WebDriver driver = null;
         try {
             driver = new FirefoxDriver();
-            driver.get("http://dev.ks.kuali.org/login.jsp");
+            driver.get(baseUrl + "/login.jsp");
             WebElement logonUserName = driver.findElement(By.id("j_username"));
             WebElement logonPassword = driver.findElement(By.id("j_password"));
             typeValue(logonUserName, "admin");
