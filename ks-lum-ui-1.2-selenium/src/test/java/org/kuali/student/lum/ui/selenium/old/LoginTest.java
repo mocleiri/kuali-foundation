@@ -1,11 +1,11 @@
-package org.kuali.student.lum.ui.selenium;
+package org.kuali.student.lum.ui.selenium.old;
 
 import org.junit.Test;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
-public class LoginOldTest {
+public class LoginTest {
 
     @Test
     public void loginTest() throws Exception {

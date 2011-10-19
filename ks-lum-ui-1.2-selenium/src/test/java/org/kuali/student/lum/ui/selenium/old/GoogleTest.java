@@ -1,4 +1,4 @@
-package org.kuali.student.lum.ui.selenium;
+package org.kuali.student.lum.ui.selenium.old;
 
 import junit.framework.Assert;
 
@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
-public class GoogleOldTest {
+public class GoogleTest {
 
     @Test
     public void simpleTest() throws Exception {
