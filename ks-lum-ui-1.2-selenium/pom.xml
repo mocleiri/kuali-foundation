@@ -143,9 +143,9 @@
       <id>selenium</id>
       <properties>
         <selenium.xvfb.phase>pre-integration-test</selenium.xvfb.phase>
-        <selenium.start.phase>pre-integration-test</selenium.start.phase>
-        <selenium.stop.phase>post-integration-test</selenium.stop.phase>
-        <selenium.include>**/old/*Test.java</selenium.include>
+        <selenium.start.phase>none</selenium.start.phase>
+        <selenium.stop.phase>none</selenium.stop.phase>
+        <selenium.include>**/webdriver/*Test.java</selenium.include>
       </properties>
       <build>
         <plugins>
