@@ -24,7 +24,7 @@ public class TitlePresentCondition implements ExpectedCondition<Boolean> {
         if (expectedTitle == null) {
             return false;
         }
-        return d.getTitle().toLowerCase().equals(expectedTitle.toLowerCase());
+        return title.toLowerCase().equals(expectedTitle.toLowerCase());
     }
 
     public String getExpectedTitle() {
