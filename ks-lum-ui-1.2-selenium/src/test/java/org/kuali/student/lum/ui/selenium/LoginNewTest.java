@@ -26,7 +26,8 @@ public class LoginNewTest {
             logonPassword.submit();
             Wait<WebDriver> wait = new WebDriverWait(driver, 10);
             ExpectedCondition<Boolean> condition = new TitlePresentCondition("Kuali Student: Home");
-            Assert.assertTrue(wait.until(condition));
+            boolean conditionMet = wait.until(condition);
+            Assert.assertTrue(conditionMet);
         } finally {
             quitQuietly(driver);
         }
