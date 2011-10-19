@@ -13,7 +13,7 @@ public class SimpleSeleniumTest {
 
     @Before
     public void setUp() throws Exception {
-        selenium = new DefaultSelenium("localhost", 4444, "*firefox", System.getProperty("remote.public.url"));
+        selenium = new DefaultSelenium("localhost", 4444, "*firefox", "http://www.google.com");
         selenium.start();
     }
 
