@@ -60,6 +60,8 @@
           <version>1.6</version>
           <configuration>
             <target>
+              <echo>Ant phase: ${ant.phase}</echo>
+              <echo>Ant target: ${ant.target}</echo>
               <ant antfile="build.xml" target="${ant.target}" />
             </target>
           </configuration>
