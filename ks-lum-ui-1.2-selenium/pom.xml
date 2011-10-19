@@ -196,6 +196,7 @@
                 <exclude>org/kuali/student/lum/ui/*.java</exclude>
                 <exclude>org/kuali/student/lum/ui/requirements/uti/*.java</exclude>
               </excludes>
+              <skip>true</skip>
             </configuration>
             <executions>
               <execution>
@@ -204,6 +205,9 @@
                 <goals>
                   <goal>test</goal>
                 </goals>
+                <configuration>
+                  <skip>false</skip>
+                </configuration>
               </execution>
             </executions>
           </plugin>
