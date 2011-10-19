@@ -189,7 +189,7 @@
                 <selenium.baseurl>http://dev.ks.kuali.org</selenium.baseurl>
               </systemPropertyVariables>
               <includes>
-                <include>**/SimpleTest.java</include>
+                <include>**/SimpleSeleniumTest.java</include>
               </includes>
               <excludes>
                 <exclude>org/kuali/student/lum/lu/assembly/*.java</exclude>
