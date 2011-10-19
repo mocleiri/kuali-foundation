@@ -114,13 +114,6 @@
       </properties>
     </profile>
     <profile>
-      <id>6</id>
-      <properties>
-        <tomcat.major.version>6</tomcat.major.version>
-        <tomcat.version>${tomcat.major.version}.0.33</tomcat.version>
-      </properties>
-    </profile>
-    <profile>
       <id>tomcat</id>
       <build>
         <plugins>
