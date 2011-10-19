@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class LoginNewTest {
 
     @Test
-    public void simpleTest() {
+    public void loginTest() {
         String baseUrl = System.getProperty("selenium.baseurl");
         WebDriver driver = null;
         try {

@@ -8,7 +8,7 @@ import com.thoughtworks.selenium.Selenium;
 public class LoginOldTest {
 
     @Test
-    public void simpleTest() throws Exception {
+    public void loginTest() throws Exception {
         String baseUrl = System.getProperty("selenium.baseurl");
         Selenium selenium = new DefaultSelenium("localhost", 4444, "*firefox", baseUrl);
         selenium.open("/login.jsp");
