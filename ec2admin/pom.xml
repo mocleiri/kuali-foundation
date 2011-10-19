@@ -127,7 +127,7 @@
             <executions>
               <execution>
                 <id>get-tomcat</id>
-                <phase>process-resources</phase>
+                <phase>initialize</phase>
                 <goals>
                   <goal>copy</goal>
                 </goals>
