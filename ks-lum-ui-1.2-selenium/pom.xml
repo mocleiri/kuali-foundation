@@ -23,7 +23,7 @@
     </repository>
   </repositories>
   <properties>
-    <selenium.xvfb.phase>none</selenium.xvfb.phase>
+    <selenium.xvfb.phase>test</selenium.xvfb.phase>
   </properties>
   <build>
     <plugins>
