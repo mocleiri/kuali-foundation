@@ -145,7 +145,7 @@
         <selenium.xvfb.phase>pre-integration-test</selenium.xvfb.phase>
         <selenium.start.phase>pre-integration-test</selenium.start.phase>
         <selenium.stop.phase>post-integration-test</selenium.stop.phase>
-        <selenium.include>**/SimpleSeleniumTest.java</selenium.include>
+        <selenium.include>**/*NewTest.java</selenium.include>
       </properties>
       <build>
         <plugins>
