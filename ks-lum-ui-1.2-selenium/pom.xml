@@ -22,6 +22,9 @@
       </snapshots>
     </repository>
   </repositories>
+  <properties>
+    <selenium.xvfb.phase>none</selenium.xvfb.phase>
+  </properties>
   <build>
     <plugins>
       <plugin>
@@ -138,14 +141,20 @@
 
       </dependencies>
     </profile>
-
     <profile>
-      <id>selenium</id>
+      <id>unix</id>
+      <activation>
+        <os>
+          <family>unix</family>
+        </os>
+      </activation>
       <properties>
         <selenium.xvfb.phase>pre-integration-test</selenium.xvfb.phase>
-        <selenium.start.phase>none</selenium.start.phase>
-        <selenium.stop.phase>none</selenium.stop.phase>
-        <selenium.include>**/webdriver/*Test.java</selenium.include>
+      </properties>
+    </profile>
+    <profile>
+      <id>smoketest</id>
+      <properties>
       </properties>
       <build>
         <plugins>
@@ -164,24 +173,6 @@
                   <display>:1</display>
                 </configuration>
               </execution>
-              <execution>
-                <id>start-selenium-server</id>
-                <phase>${selenium.start.phase}</phase>
-                <goals>
-                  <goal>start-server</goal>
-                </goals>
-                <configuration>
-                  <background>true</background>
-                  <logOutput>true</logOutput>
-                </configuration>
-              </execution>
-              <execution>
-                <id>stop-selenium-server</id>
-                <phase>${selenium.stop.phase}</phase>
-                <goals>
-                  <goal>stop-server</goal>
-                </goals>
-              </execution>
             </executions>
           </plugin>
           <!-- Setup Selenium browser configuration -->
@@ -197,28 +188,12 @@
                 <selenium.platform>ANY</selenium.platform>
                 <selenium.baseurl>http://dev.ks.kuali.org</selenium.baseurl>
               </systemPropertyVariables>
-              <includes>
-                <include>${selenium.include}</include>
-              </includes>
               <excludes>
                 <exclude>org/kuali/student/lum/lu/assembly/*.java</exclude>
                 <exclude>org/kuali/student/lum/ui/*.java</exclude>
                 <exclude>org/kuali/student/lum/ui/requirements/uti/*.java</exclude>
               </excludes>
-              <skip>true</skip>
             </configuration>
-            <executions>
-              <execution>
-                <id>integration-test</id>
-                <phase>integration-test</phase>
-                <goals>
-                  <goal>test</goal>
-                </goals>
-                <configuration>
-                  <skip>false</skip>
-                </configuration>
-              </execution>
-            </executions>
           </plugin>
           <!-- Publish jar in order to inherit tests in different module -->
           <plugin>
