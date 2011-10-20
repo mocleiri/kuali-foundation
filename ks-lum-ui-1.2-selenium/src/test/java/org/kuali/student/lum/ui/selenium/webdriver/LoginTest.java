@@ -13,6 +13,8 @@ public class LoginTest {
 
     @Test
     public void loginTest() {
+        String display = System.getenv("display");
+        System.out.println("Display=" + display);
         String baseUrl = System.getProperty("selenium.baseurl");
         WebDriver driver = null;
         try {
@@ -32,7 +34,7 @@ public class LoginTest {
         }
     }
 
-    private void quitQuietly(WebDriver driver) {
+    protected void quitQuietly(WebDriver driver) {
         if (driver == null) {
             return;
         } else {
@@ -40,7 +42,7 @@ public class LoginTest {
         }
     }
 
-    private void typeValue(final WebElement webElement, CharSequence... keysToSend) {
+    protected void typeValue(final WebElement webElement, CharSequence... keysToSend) {
         webElement.clear();
         webElement.sendKeys(keysToSend);
     }
