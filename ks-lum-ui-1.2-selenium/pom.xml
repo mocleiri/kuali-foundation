@@ -182,6 +182,9 @@
                 <selenium.platform>ANY</selenium.platform>
                 <selenium.baseurl>http://dev.ks.kuali.org</selenium.baseurl>
               </systemPropertyVariables>
+              <environmentVariables>
+                <display>:20</display>
+              </environmentVariables>
               <includes>
                 <include>${selenium.include}</include>
               </includes>
