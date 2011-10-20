@@ -153,9 +153,6 @@
                 <goals>
                   <goal>xvfb</goal>
                 </goals>
-                <configuration>
-                  <display>:1</display>
-                </configuration>
               </execution>
             </executions>
           </plugin>
