@@ -139,7 +139,7 @@
       </dependencies>
     </profile>
     <profile>
-      <id>xvfb</id>
+      <id>headless</id>
       <build>
         <plugins>
           <plugin>
