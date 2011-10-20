@@ -140,11 +140,6 @@
     </profile>
     <profile>
       <id>xvfb</id>
-      <activation>
-        <property>
-          <name>selenium.headless</name>
-        </property>
-      </activation>
       <build>
         <plugins>
           <plugin>
