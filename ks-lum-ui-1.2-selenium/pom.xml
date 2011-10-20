@@ -182,11 +182,6 @@
               <includes>
                 <include>**/selenium/**/*Test.java</include>
               </includes>
-              <excludes>
-                <exclude>org/kuali/student/lum/lu/assembly/*.java</exclude>
-                <exclude>org/kuali/student/lum/ui/*.java</exclude>
-                <exclude>org/kuali/student/lum/ui/requirements/uti/*.java</exclude>
-              </excludes>
             </configuration>
           </plugin>
           <!-- Publish jar in order to inherit tests in different module -->
