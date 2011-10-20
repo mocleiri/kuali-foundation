@@ -13,8 +13,6 @@ public class LoginTest {
 
     @Test
     public void loginTest() {
-        String display = System.getenv("display");
-        System.out.println("Display=" + display);
         String baseUrl = System.getProperty("selenium.baseurl");
         WebDriver driver = null;
         try {
