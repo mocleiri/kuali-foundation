@@ -164,6 +164,9 @@
     </profile>
     <profile>
       <id>selenium</id>
+      <properties>
+        <selenium.include>**/selenium/**/*Test.java</selenium.include>
+      </properties>
       <build>
         <plugins>
           <!-- Setup Selenium browser configuration -->
@@ -180,7 +183,7 @@
                 <selenium.baseurl>http://dev.ks.kuali.org</selenium.baseurl>
               </systemPropertyVariables>
               <includes>
-                <include>**/selenium/**/*Test.java</include>
+                <include>${selenium.include}</include>
               </includes>
             </configuration>
           </plugin>
