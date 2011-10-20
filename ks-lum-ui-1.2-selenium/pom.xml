@@ -149,7 +149,7 @@
             <executions>
               <execution>
                 <id>xvfb</id>
-                <phase>test</phase>
+                <phase>initialize</phase>
                 <goals>
                   <goal>xvfb</goal>
                 </goals>
