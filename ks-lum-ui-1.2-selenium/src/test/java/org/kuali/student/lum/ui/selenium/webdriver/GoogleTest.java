@@ -9,11 +9,16 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class GoogleTest {
 
     @Test
-    public void simpleTest() {
-        WebDriver driver = new FirefoxDriver();
-        driver.get("http://www.google.com");
-        String title = driver.getTitle();
-        Assert.assertEquals("Google", title);
-        driver.quit();
+    public void simpleTest() throws Throwable {
+        try {
+            WebDriver driver = new FirefoxDriver();
+            driver.get("http://www.google.com");
+            String title = driver.getTitle();
+            Assert.assertEquals("Google", title);
+            driver.quit();
+        } catch (Throwable e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 }
