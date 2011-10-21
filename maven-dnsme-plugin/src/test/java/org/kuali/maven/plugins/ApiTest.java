@@ -61,7 +61,7 @@ public class ApiTest {
         System.out.println("x-dnsme-hmac:" + hmac);
     }
 
-    // @Test
+    @Test
     public void test2() {
         try {
             HttpInspector inspector = new HttpInspector();
