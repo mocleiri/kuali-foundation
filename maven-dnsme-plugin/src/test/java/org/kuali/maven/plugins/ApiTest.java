@@ -9,10 +9,11 @@ public class ApiTest {
 
     @Test
     public void test1() {
-        Api api = new Api();
+        Config config = new SandboxConfig();
+        Api api = new Api(config);
         String date = api.getHTTPDate(new Date());
         String hmac = api.getHMACSHA1Hash(date);
-        System.out.println("x-dnsme-apiKey:" + api.getApiKey());
+        System.out.println("x-dnsme-apiKey:" + config.getApiKey());
         System.out.println("x-dnsme-requestDate:" + date);
         System.out.println("x-dnsme-hmac:" + hmac);
     }
