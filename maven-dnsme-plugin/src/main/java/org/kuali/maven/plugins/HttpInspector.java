@@ -81,12 +81,11 @@ public class HttpInspector {
     public Result doDNSMERequest(HttpClient client) {
         try {
             Config config = new ProductionConfig();
-            Api api = new Api();
-            String apiKey = api.getApiKey();
+            Api api = new Api(config);
+            String apiKey = config.getApiKey();
             String requestDate = api.getHTTPDate(new Date());
             String hash = api.getHMACSHA1Hash(requestDate);
-            String url = "http://api.sandbox.dnsmadeeasy.com/V1.2/domains/";
-            // String url = "http://api.dnsmadeeasy.com/V1.2/domains/";
+            String url = config.getBaseUrl();
             HttpMethod method = new GetMethod(url);
             Header header1 = new Header("x-dnsme-apiKey", apiKey);
             Header header2 = new Header("x-dnsme-requestDate", requestDate);
@@ -97,12 +96,14 @@ public class HttpInspector {
 
             client.executeMethod(method);
             int statusCode = method.getStatusCode();
-            System.out.println("statusCode=" + statusCode);
             String statusText = method.getStatusText();
             InputStream in = method.getResponseBodyAsStream();
             String s = getString(in);
             in.close();
             method.releaseConnection();
+            System.out.println("Status: '" + statusCode + ":" + statusText + "'");
+            System.out.println("Response:");
+            System.out.println(s);
             return Result.SUCCESS;
         } catch (IOException e) {
             return Result.IO_EXCEPTION;
