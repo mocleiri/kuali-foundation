@@ -52,7 +52,7 @@ public class HttpInspector {
             String msg = "'" + statusCode + ":" + statusText;
             sb.append(msg);
             break;
-        case TIMEOUT:
+        case TIMEDOUT:
             sb.append("'Timeout exceeded'");
             break;
         default:
@@ -82,7 +82,7 @@ public class HttpInspector {
             }
             sleep(sleepInterval);
             if (System.currentTimeMillis() > end) {
-                result.setType(ResultType.TIMEOUT);
+                result.setType(ResultType.TIMEDOUT);
                 log(url, result, -1);
                 return result;
             }
