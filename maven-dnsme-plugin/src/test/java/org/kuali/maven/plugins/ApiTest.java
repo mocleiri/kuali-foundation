@@ -3,6 +3,8 @@ package org.kuali.maven.plugins;
 import java.util.Date;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpConnectionManager;
+import org.apache.commons.httpclient.SimpleHttpConnectionManager;
 import org.junit.Test;
 import org.kuali.maven.plugins.dnsme.config.Config;
 import org.kuali.maven.plugins.dnsme.config.ProductionConfig;
@@ -10,7 +12,7 @@ import org.kuali.maven.plugins.dnsme.config.SandboxConfig;
 
 public class ApiTest {
 
-    @Test
+    // @Test
     public void test1() {
         Config config = new SandboxConfig();
         Api api = new Api(config);
@@ -25,11 +27,24 @@ public class ApiTest {
     public void test2() {
         HttpInspector inspector = new HttpInspector();
         HttpClient client = inspector.getDefaultHttpClient();
+        HttpConnectionManager manager = client.getHttpConnectionManager();
+        System.out.println(manager);
         Config production = new ProductionConfig();
         Config sandbox = new SandboxConfig();
         HttpRequestResult result1 = inspector.doDNSMERequest(client, production);
         HttpRequestResult result2 = inspector.doDNSMERequest(client, sandbox);
         inspector.log(production.getBaseUrl(), result1, -1);
         inspector.log(sandbox.getBaseUrl(), result2, -1);
+    }
+
+    @Test
+    public void test3() {
+        HttpInspector inspector = new HttpInspector();
+        HttpClient client = inspector.getDefaultHttpClient();
+        SimpleHttpConnectionManager manager = (SimpleHttpConnectionManager) client.getHttpConnectionManager();
+        String url = "http://www.yahoo.com";
+        HttpRequestResult result = inspector.doWait(url);
+        System.out.println(manager);
+        manager.shutdown();
     }
 }

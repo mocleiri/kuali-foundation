@@ -7,10 +7,8 @@ import java.util.Date;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpConnectionManager;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodRetryHandler;
-import org.apache.commons.httpclient.SimpleHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
@@ -92,8 +90,7 @@ public class HttpInspector {
     }
 
     public HttpClient getDefaultHttpClient() {
-        HttpConnectionManager manager = new SimpleHttpConnectionManager(true);
-        HttpClient client = new HttpClient(manager);
+        HttpClient client = new HttpClient();
         HttpClientParams clientParams = client.getParams();
         HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
         clientParams.setParameter(HttpMethodParams.RETRY_HANDLER, retryHandler);
@@ -135,7 +132,6 @@ public class HttpInspector {
             String statusText = method.getStatusText();
             String responseBody = getResponseBody(method);
             method.releaseConnection();
-
             result.setStatusCode(statusCode);
             result.setStatusText(statusText);
             result.setResponseBody(responseBody);
