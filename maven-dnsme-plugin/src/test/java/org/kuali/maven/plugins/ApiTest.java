@@ -19,7 +19,7 @@ public class ApiTest {
         Api api = new Api(config);
         String hmac = api.getHMACSHA1Hash(date);
         String expectedHmac = "b3502e6116a324f3cf4a8ed693d78bcee8d8fe3c";
-        Assert.assertEquals(hmac, expectedHmac);
+        Assert.assertEquals(expectedHmac, hmac);
     }
 
     // @Test
