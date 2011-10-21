@@ -49,7 +49,10 @@ public class Api {
     public String getHexString(byte[] b) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < b.length; i++) {
-            sb.append(Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1));
+            int intValue = (b[i] & 0xff) + 0x100;
+            String s = Integer.toString(intValue, 16);
+            String one = s.substring(1);
+            sb.append(one);
         }
         return sb.toString();
     }
