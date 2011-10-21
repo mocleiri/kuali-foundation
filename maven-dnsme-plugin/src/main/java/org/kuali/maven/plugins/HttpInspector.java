@@ -2,9 +2,7 @@ package org.kuali.maven.plugins;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.Header;
@@ -14,6 +12,7 @@ import org.apache.commons.httpclient.HttpMethodRetryHandler;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.io.IOUtils;
 import org.kuali.maven.plugins.dnsme.config.Config;
 import org.kuali.maven.plugins.dnsme.config.SandboxConfig;
 import org.slf4j.Logger;
@@ -21,19 +20,9 @@ import org.slf4j.LoggerFactory;
 
 public class HttpInspector {
     private final Logger logger = LoggerFactory.getLogger(HttpInspector.class);
-    List<Integer> successCodes = new ArrayList<Integer>();
     int requestTimeout = 3000;
     int sleepInterval = 3000;
     int timeout = 180;
-
-    protected boolean isSuccess(int resultCode) {
-        for (int successCode : successCodes) {
-            if (resultCode == successCode) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     protected String getMsg(String msg) {
         return getMsg(msg, -1);
@@ -49,24 +38,53 @@ public class HttpInspector {
         return sb.toString();
     }
 
-    public ResultType wait(String url) {
+    protected void log(String url, HttpRequestResult result, int secondsRemaining) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Status for '" + url + "' is ");
+        switch (result.getType()) {
+        case IO_EXCEPTION:
+            IOException exception = result.getException();
+            sb.append("'" + exception.getMessage() + "'");
+            break;
+        case COMPLETED:
+            int statusCode = result.getStatusCode();
+            String statusText = result.getStatusText();
+            String msg = "'" + statusCode + ":" + statusText;
+            sb.append(msg);
+            break;
+        case TIMEOUT:
+            sb.append("'Timeout exceeded'");
+            break;
+        default:
+            throw new IllegalArgumentException(result.getType() + " is an unknown type");
+        }
+        logger.info(getMsg(sb.toString(), secondsRemaining));
+    }
+
+    protected int getSecondsRemaining(long endMillis) {
+        long currentMillis = System.currentTimeMillis();
+        long millisRemaining = endMillis - currentMillis;
+        double secondsRemaining = millisRemaining / 1000D;
+        return (int) Math.ceil(secondsRemaining);
+    }
+
+    public HttpRequestResult doWait(String url) {
         HttpClient client = getHttpClient();
         long now = System.currentTimeMillis();
         long end = now + (timeout * 1000);
         logger.info(getMsg("Determining status for '" + url + "'"));
         for (;;) {
-            long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
-            ResultType result = doRequest(client, url, secondsRemaining);
-            if (result.equals(ResultType.SUCCESS)) {
-                return result;
-            } else if (result.equals(ResultType.INVALID_HTTP_STATUS_CODE)) {
-                logger.info("Invalid http status code.  Expected " + successCodes);
+            HttpRequestResult result = getResult(client, url);
+            int secondsRemaining = getSecondsRemaining(end);
+            log(url, result, secondsRemaining);
+            if (ResultType.COMPLETED.equals(result.getType())) {
                 return result;
             }
             sleep(sleepInterval);
             if (System.currentTimeMillis() > end) {
-                logger.info("Timed out waiting for response from '" + url + "'");
-                return ResultType.TIMEOUT;
+                result.setType(ResultType.TIMEOUT);
+                log(url, result, -1);
+                return result;
             }
         }
     }
@@ -100,48 +118,49 @@ public class HttpInspector {
             int statusCode = method.getStatusCode();
             String statusText = method.getStatusText();
             InputStream in = method.getResponseBodyAsStream();
-            String s = getString(in);
-            in.close();
+            String s = IOUtils.toString(in);
             method.releaseConnection();
             System.out.println("Status: '" + statusCode + ":" + statusText + "'");
             System.out.println("Response:");
             System.out.println(s);
-            return ResultType.SUCCESS;
+            return ResultType.COMPLETED;
         } catch (IOException e) {
             return ResultType.IO_EXCEPTION;
         }
     }
 
-    protected String getString(InputStream in) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        byte[] buffer = new byte[1024];
-        int bytesRead = -1;
-        while ((bytesRead = in.read(buffer)) != -1) {
-            sb.append(new String(buffer, 0, bytesRead));
+    protected String getResponseBody(HttpMethod method) throws IOException {
+        InputStream in = null;
+        try {
+            in = method.getResponseBodyAsStream();
+            return IOUtils.toString(in);
+        } finally {
+            IOUtils.closeQuietly(in);
         }
-        return sb.toString();
-
     }
 
-    protected ResultType doRequest(HttpClient client, String url, long secondsRemaining) {
+    protected HttpRequestResult getResult(HttpClient client, HttpMethod method) {
+        HttpRequestResult result = new HttpRequestResult();
         try {
-            HttpMethod method = new GetMethod(url);
             client.executeMethod(method);
             int statusCode = method.getStatusCode();
             String statusText = method.getStatusText();
-            boolean success = isSuccess(statusCode);
-            if (success) {
-                logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'"));
-                return ResultType.SUCCESS;
-            } else {
-                logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'",
-                        secondsRemaining));
-                return ResultType.INVALID_HTTP_STATUS_CODE;
-            }
+            String responseBody = getResponseBody(method);
+            method.releaseConnection();
+
+            result.setStatusCode(statusCode);
+            result.setStatusText(statusText);
+            result.setResponseBody(responseBody);
         } catch (IOException e) {
-            logger.info(getMsg("Status for '" + url + "' is '" + e.getMessage() + "'", secondsRemaining));
-            return ResultType.IO_EXCEPTION;
+            result.setType(ResultType.IO_EXCEPTION);
+            result.setException(e);
         }
+        return result;
+    }
+
+    protected HttpRequestResult getResult(HttpClient client, String url) {
+        HttpMethod method = new GetMethod(url);
+        return getResult(client, method);
     }
 
     protected void sleep(long millis) {
@@ -178,13 +197,5 @@ public class HttpInspector {
 
     public Logger getLogger() {
         return logger;
-    }
-
-    public List<Integer> getSuccessCodes() {
-        return successCodes;
-    }
-
-    public void setSuccessCodes(List<Integer> successCodes) {
-        this.successCodes = successCodes;
     }
 }
