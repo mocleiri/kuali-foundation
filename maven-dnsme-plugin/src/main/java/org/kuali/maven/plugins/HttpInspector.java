@@ -14,7 +14,6 @@ import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.io.IOUtils;
 import org.kuali.maven.plugins.dnsme.config.Config;
-import org.kuali.maven.plugins.dnsme.config.SandboxConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +37,7 @@ public class HttpInspector {
         return sb.toString();
     }
 
-    protected void log(String url, HttpRequestResult result, int secondsRemaining) {
+    public void log(String url, HttpRequestResult result, int secondsRemaining) {
         StringBuilder sb = new StringBuilder();
         sb.append("Status for '" + url + "' is ");
         switch (result.getType()) {
@@ -69,7 +68,7 @@ public class HttpInspector {
     }
 
     public HttpRequestResult doWait(String url) {
-        HttpClient client = getHttpClient();
+        HttpClient client = getDefaultHttpClient();
         long now = System.currentTimeMillis();
         long end = now + (timeout * 1000);
         logger.info(getMsg("Determining status for '" + url + "'"));
@@ -89,7 +88,7 @@ public class HttpInspector {
         }
     }
 
-    public HttpClient getHttpClient() {
+    public HttpClient getDefaultHttpClient() {
         HttpClient client = new HttpClient();
         HttpClientParams clientParams = client.getParams();
         HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
@@ -98,35 +97,20 @@ public class HttpInspector {
         return client;
     }
 
-    public ResultType doDNSMERequest(HttpClient client) {
-        try {
-            Config config = new SandboxConfig();
-            Api api = new Api(config);
-            String apiKey = config.getApiKey();
-            String requestDate = api.getHTTPDate(new Date());
-            String hash = api.getHMACSHA1Hash(requestDate);
-            String url = config.getBaseUrl();
-            HttpMethod method = new GetMethod(url);
-            Header header1 = new Header("x-dnsme-apiKey", apiKey);
-            Header header2 = new Header("x-dnsme-requestDate", requestDate);
-            Header header3 = new Header("x-dnsme-hmac", hash);
-            method.addRequestHeader(header1);
-            method.addRequestHeader(header2);
-            method.addRequestHeader(header3);
-
-            client.executeMethod(method);
-            int statusCode = method.getStatusCode();
-            String statusText = method.getStatusText();
-            InputStream in = method.getResponseBodyAsStream();
-            String s = IOUtils.toString(in);
-            method.releaseConnection();
-            System.out.println("Status: '" + statusCode + ":" + statusText + "'");
-            System.out.println("Response:");
-            System.out.println(s);
-            return ResultType.COMPLETED;
-        } catch (IOException e) {
-            return ResultType.IO_EXCEPTION;
-        }
+    public HttpRequestResult doDNSMERequest(HttpClient client, Config config) {
+        Api api = new Api(config);
+        String apiKey = config.getApiKey();
+        String requestDate = api.getHTTPDate(new Date());
+        String hash = api.getHMACSHA1Hash(requestDate);
+        String url = config.getBaseUrl();
+        HttpMethod method = new GetMethod(url);
+        Header header1 = new Header("x-dnsme-apiKey", apiKey);
+        Header header2 = new Header("x-dnsme-requestDate", requestDate);
+        Header header3 = new Header("x-dnsme-hmac", hash);
+        method.addRequestHeader(header1);
+        method.addRequestHeader(header2);
+        method.addRequestHeader(header3);
+        return getResult(client, method);
     }
 
     protected String getResponseBody(HttpMethod method) throws IOException {
@@ -139,7 +123,7 @@ public class HttpInspector {
         }
     }
 
-    protected HttpRequestResult getResult(HttpClient client, HttpMethod method) {
+    public HttpRequestResult getResult(HttpClient client, HttpMethod method) {
         HttpRequestResult result = new HttpRequestResult();
         try {
             client.executeMethod(method);
@@ -151,6 +135,7 @@ public class HttpInspector {
             result.setStatusCode(statusCode);
             result.setStatusText(statusText);
             result.setResponseBody(responseBody);
+            result.setType(ResultType.COMPLETED);
         } catch (IOException e) {
             result.setType(ResultType.IO_EXCEPTION);
             result.setException(e);
@@ -158,7 +143,7 @@ public class HttpInspector {
         return result;
     }
 
-    protected HttpRequestResult getResult(HttpClient client, String url) {
+    public HttpRequestResult getResult(HttpClient client, String url) {
         HttpMethod method = new GetMethod(url);
         return getResult(client, method);
     }
