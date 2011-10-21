@@ -80,7 +80,7 @@ public class HttpInspector {
 
     public Result doDNSMERequest(HttpClient client) {
         try {
-            Config config = new ProductionConfig();
+            Config config = new SandboxConfig();
             Api api = new Api(config);
             String apiKey = config.getApiKey();
             String requestDate = api.getHTTPDate(new Date());
