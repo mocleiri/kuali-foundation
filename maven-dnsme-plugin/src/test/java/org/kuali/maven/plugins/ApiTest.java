@@ -21,7 +21,7 @@ public class ApiTest {
         System.out.println("x-dnsme-hmac:" + hmac);
     }
 
-    @Test
+    // @Test
     public void test2() {
         HttpInspector inspector = new HttpInspector();
         HttpClient client = inspector.getDefaultHttpClient();
