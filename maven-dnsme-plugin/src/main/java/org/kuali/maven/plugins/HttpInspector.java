@@ -14,6 +14,8 @@ import org.apache.commons.httpclient.HttpMethodRetryHandler;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.kuali.maven.plugins.dnsme.config.Config;
+import org.kuali.maven.plugins.dnsme.config.SandboxConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,24 +49,24 @@ public class HttpInspector {
         return sb.toString();
     }
 
-    public Result wait(String url) {
+    public ResultType wait(String url) {
         HttpClient client = getHttpClient();
         long now = System.currentTimeMillis();
         long end = now + (timeout * 1000);
         logger.info(getMsg("Determining status for '" + url + "'"));
         for (;;) {
             long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
-            Result result = doRequest(client, url, secondsRemaining);
-            if (result.equals(Result.SUCCESS)) {
+            ResultType result = doRequest(client, url, secondsRemaining);
+            if (result.equals(ResultType.SUCCESS)) {
                 return result;
-            } else if (result.equals(Result.INVALID_HTTP_STATUS_CODE)) {
+            } else if (result.equals(ResultType.INVALID_HTTP_STATUS_CODE)) {
                 logger.info("Invalid http status code.  Expected " + successCodes);
                 return result;
             }
             sleep(sleepInterval);
             if (System.currentTimeMillis() > end) {
                 logger.info("Timed out waiting for response from '" + url + "'");
-                return Result.TIMEOUT;
+                return ResultType.TIMEOUT;
             }
         }
     }
@@ -78,7 +80,7 @@ public class HttpInspector {
         return client;
     }
 
-    public Result doDNSMERequest(HttpClient client) {
+    public ResultType doDNSMERequest(HttpClient client) {
         try {
             Config config = new SandboxConfig();
             Api api = new Api(config);
@@ -104,9 +106,9 @@ public class HttpInspector {
             System.out.println("Status: '" + statusCode + ":" + statusText + "'");
             System.out.println("Response:");
             System.out.println(s);
-            return Result.SUCCESS;
+            return ResultType.SUCCESS;
         } catch (IOException e) {
-            return Result.IO_EXCEPTION;
+            return ResultType.IO_EXCEPTION;
         }
     }
 
@@ -121,7 +123,7 @@ public class HttpInspector {
 
     }
 
-    protected Result doRequest(HttpClient client, String url, long secondsRemaining) {
+    protected ResultType doRequest(HttpClient client, String url, long secondsRemaining) {
         try {
             HttpMethod method = new GetMethod(url);
             client.executeMethod(method);
@@ -130,15 +132,15 @@ public class HttpInspector {
             boolean success = isSuccess(statusCode);
             if (success) {
                 logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'"));
-                return Result.SUCCESS;
+                return ResultType.SUCCESS;
             } else {
                 logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'",
                         secondsRemaining));
-                return Result.INVALID_HTTP_STATUS_CODE;
+                return ResultType.INVALID_HTTP_STATUS_CODE;
             }
         } catch (IOException e) {
             logger.info(getMsg("Status for '" + url + "' is '" + e.getMessage() + "'", secondsRemaining));
-            return Result.IO_EXCEPTION;
+            return ResultType.IO_EXCEPTION;
         }
     }
 

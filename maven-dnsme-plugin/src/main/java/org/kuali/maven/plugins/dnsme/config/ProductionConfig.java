@@ -1,4 +1,4 @@
-package org.kuali.maven.plugins;
+package org.kuali.maven.plugins.dnsme.config;
 
 public class ProductionConfig extends DefaultConfig {
     public ProductionConfig() {

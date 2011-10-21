@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.junit.Test;
+import org.kuali.maven.plugins.dnsme.config.Config;
+import org.kuali.maven.plugins.dnsme.config.SandboxConfig;
 
 public class ApiTest {
 

@@ -8,6 +8,8 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.kuali.maven.plugins.dnsme.config.Config;
+
 public class Api {
     // Sat, 12 Feb 2011 20:59:04 GMT
     String format = "EEE, dd MMM yyyy HH:mm:ss z";
