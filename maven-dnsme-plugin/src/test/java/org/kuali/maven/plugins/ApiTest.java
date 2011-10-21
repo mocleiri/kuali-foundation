@@ -12,6 +12,10 @@ import org.kuali.maven.plugins.dnsme.config.SandboxConfig;
 
 public class ApiTest {
 
+    /**
+     * Test that values we are generating match up with what is described here:
+     * http://cp.dnsmadeeasy.com/enterprisedns/api.html
+     */
     @Test
     public void testHeaderValues() {
         String date = "Sat, 12 Feb 2011 20:59:04 GMT";
