@@ -39,24 +39,25 @@ public class HttpInspector {
 
     public void log(String url, HttpRequestResult result, int secondsRemaining) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Status for '" + url + "' is ");
+        sb.append("Status for '" + url + "' is '");
         switch (result.getType()) {
         case IO_EXCEPTION:
             IOException exception = result.getException();
-            sb.append("'" + exception.getMessage() + "'");
+            sb.append(exception.getMessage());
             break;
         case COMPLETED:
             int statusCode = result.getStatusCode();
             String statusText = result.getStatusText();
-            String msg = "'" + statusCode + ":" + statusText;
+            String msg = statusCode + ":" + statusText;
             sb.append(msg);
             break;
         case TIMED_OUT:
-            sb.append("'Timeout exceeded'");
+            sb.append("Timeout exceeded");
             break;
         default:
             throw new IllegalArgumentException(result.getType() + " is an unknown type");
         }
+        sb.append("'");
         logger.info(getMsg(sb.toString(), secondsRemaining));
     }
 
