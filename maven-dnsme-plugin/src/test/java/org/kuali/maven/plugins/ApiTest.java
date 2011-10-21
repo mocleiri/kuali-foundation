@@ -3,12 +3,24 @@ package org.kuali.maven.plugins;
 import java.util.Date;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.maven.plugins.dnsme.config.Config;
 import org.kuali.maven.plugins.dnsme.config.ProductionConfig;
+import org.kuali.maven.plugins.dnsme.config.SampleConfig;
 import org.kuali.maven.plugins.dnsme.config.SandboxConfig;
 
 public class ApiTest {
+
+    @Test
+    public void testHeaderValues() {
+        String date = "Sat, 12 Feb 2011 20:59:04 GMT";
+        Config config = new SampleConfig();
+        Api api = new Api(config);
+        String hmac = api.getHMACSHA1Hash(date);
+        String expectedHmac = "b3502e6116a324f3cf4a8ed693d78bcee8d8fe3c";
+        Assert.assertEquals(hmac, expectedHmac);
+    }
 
     // @Test
     public void test1() {
@@ -21,7 +33,7 @@ public class ApiTest {
         System.out.println("x-dnsme-hmac:" + hmac);
     }
 
-    @Test
+    // @Test
     public void test2() {
         try {
             HttpInspector inspector = new HttpInspector();
