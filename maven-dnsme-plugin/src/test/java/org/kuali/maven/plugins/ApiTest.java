@@ -72,6 +72,12 @@ public class ApiTest {
             HttpRequestResult result2 = inspector.doDNSMERequest(client, sandbox);
             inspector.log(production.getBaseUrl(), result1, -1);
             inspector.log(sandbox.getBaseUrl(), result2, -1);
+            System.out.println("Producton");
+            System.out.println("---------");
+            System.out.println(result1.getResponseBody());
+            System.out.println("Sandbox");
+            System.out.println("---------");
+            System.out.println(result2.getResponseBody());
         } catch (Exception e) {
             e.printStackTrace();
         }
