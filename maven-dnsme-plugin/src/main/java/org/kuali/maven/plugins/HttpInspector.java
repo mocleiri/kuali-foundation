@@ -2,6 +2,7 @@ package org.kuali.maven.plugins;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.GeneralSecurityException;
 import java.util.Date;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -44,7 +45,7 @@ public class HttpInspector {
         sb.append("Status for '" + url + "' is '");
         switch (result.getType()) {
         case IO_EXCEPTION:
-            IOException exception = result.getException();
+            Exception exception = result.getException();
             sb.append(exception.getMessage());
             break;
         case COMPLETED:
@@ -101,11 +102,11 @@ public class HttpInspector {
         return client;
     }
 
-    public HttpRequestResult doDNSMERequest(HttpClient client, Config config) {
-        Api api = new Api(config);
+    public HttpRequestResult doDNSMERequest(HttpClient client, Config config) throws GeneralSecurityException {
+        RestUtil api = new RestUtil();
         String apiKey = config.getApiKey();
         String requestDate = api.getHTTPDate(new Date());
-        String hash = api.getHMACSHA1Hash(requestDate);
+        String hash = api.getHash(config.getSecretKey(), requestDate);
         String url = config.getBaseUrl();
         HttpMethod method = new GetMethod(url);
         Header header1 = new Header("x-dnsme-apiKey", apiKey);

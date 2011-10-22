@@ -1,13 +1,12 @@
 package org.kuali.maven.plugins;
 
-import java.io.IOException;
 
 public class HttpRequestResult {
     int statusCode;
     String statusText;
     String responseBody;
     ResultType type;
-    IOException exception;
+    Exception exception;
 
     public String getStatusText() {
         return statusText;
@@ -33,11 +32,11 @@ public class HttpRequestResult {
         this.type = type;
     }
 
-    public IOException getException() {
+    public Exception getException() {
         return exception;
     }
 
-    public void setException(IOException exception) {
+    public void setException(Exception exception) {
         this.exception = exception;
     }
 
