@@ -3,7 +3,9 @@ package org.kuali.maven.plugins;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.Header;
@@ -16,12 +18,12 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.io.IOUtils;
-import org.kuali.maven.plugins.dnsme.config.Config;
+import org.kuali.maven.plugins.dnsme.config.DNSMEConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HttpInspector {
-    private final Logger logger = LoggerFactory.getLogger(HttpInspector.class);
+public class HttpUtil {
+    private final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
     int requestTimeout = 3000;
     int sleepInterval = 3000;
     int timeout = 180;
@@ -102,20 +104,29 @@ public class HttpInspector {
         return client;
     }
 
-    public HttpRequestResult doDNSMERequest(HttpClient client, Config config) throws GeneralSecurityException {
+    public List<Header> getHeaders(DNSMEConfig config) throws GeneralSecurityException {
         RestUtil api = new RestUtil();
-        String apiKey = config.getApiKey();
         String requestDate = api.getHTTPDate(new Date());
         String hash = api.getHash(config.getSecretKey(), requestDate);
-        String url = config.getBaseUrl();
-        HttpMethod method = new GetMethod(url);
-        Header header1 = new Header("x-dnsme-apiKey", apiKey);
-        Header header2 = new Header("x-dnsme-requestDate", requestDate);
-        Header header3 = new Header("x-dnsme-hmac", hash);
-        method.addRequestHeader(header1);
-        method.addRequestHeader(header2);
-        method.addRequestHeader(header3);
+        List<Header> headers = new ArrayList<Header>();
+        headers.add(new Header("x-dnsme-apiKey", config.getApiKey()));
+        headers.add(new Header("x-dnsme-requestDate", requestDate));
+        headers.add(new Header("x-dnsme-hmac", hash));
+        return headers;
+    }
+
+    public HttpRequestResult getResult(HttpClient client, DNSMEConfig config) throws GeneralSecurityException {
+        HttpMethod method = getMethod(config);
         return getResult(client, method);
+    }
+
+    protected HttpMethod getMethod(DNSMEConfig config) throws GeneralSecurityException {
+        HttpMethod method = new GetMethod(config.getBaseUrl());
+        List<Header> headers = getHeaders(config);
+        for (Header header : headers) {
+            method.addRequestHeader(header);
+        }
+        return method;
     }
 
     protected String getResponseBody(HttpMethod method) throws IOException {

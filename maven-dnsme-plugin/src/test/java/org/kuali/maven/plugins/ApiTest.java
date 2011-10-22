@@ -6,7 +6,7 @@ import java.util.Date;
 import org.apache.commons.httpclient.HttpClient;
 import org.junit.Assert;
 import org.junit.Test;
-import org.kuali.maven.plugins.dnsme.config.Config;
+import org.kuali.maven.plugins.dnsme.config.DNSMEConfig;
 import org.kuali.maven.plugins.dnsme.config.PersonalConfig;
 import org.kuali.maven.plugins.dnsme.config.ProductionConfig;
 import org.kuali.maven.plugins.dnsme.config.SampleConfig;
@@ -22,7 +22,7 @@ public class ApiTest {
     @Test
     public void testSampleMatch() throws GeneralSecurityException {
         String date = "Sat, 12 Feb 2011 20:59:04 GMT";
-        Config config = new SampleConfig();
+        DNSMEConfig config = new SampleConfig();
         String hmac = restUtil.getHash(config.getSecretKey(), date);
         String expectedHmac = "b3502e6116a324f3cf4a8ed693d78bcee8d8fe3c";
         Assert.assertEquals(expectedHmac, hmac);
@@ -31,7 +31,7 @@ public class ApiTest {
     @Test
     public void testPerlMatch() throws GeneralSecurityException {
         String date = "Fri, 21 Oct 2011 20:05:09 GMT";
-        Config config = new SandboxConfig();
+        DNSMEConfig config = new SandboxConfig();
         String hmac = restUtil.getHash(config.getSecretKey(), date);
         String expectedHmac = "33235fef00493d52ca9200da7ef2fbadd379ef2e";
         Assert.assertEquals(expectedHmac, hmac);
@@ -40,9 +40,9 @@ public class ApiTest {
     @Test
     public void testPersonalConfig() {
         try {
-            HttpInspector inspector = new HttpInspector();
+            HttpUtil inspector = new HttpUtil();
             HttpClient client = inspector.getDefaultHttpClient();
-            Config personal = new PersonalConfig();
+            DNSMEConfig personal = new PersonalConfig();
             HttpRequestResult result = inspector.doDNSMERequest(client, personal);
             inspector.log(personal.getBaseUrl(), result, -1);
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class ApiTest {
 
     // @Test
     public void test1() throws GeneralSecurityException {
-        Config config = new SandboxConfig();
+        DNSMEConfig config = new SandboxConfig();
         String date = restUtil.getHTTPDate(new Date());
         String hmac = restUtil.getHash(config.getSecretKey(), date);
         System.out.println("x-dnsme-apiKey:" + config.getApiKey());
@@ -63,10 +63,10 @@ public class ApiTest {
     @Test
     public void test2() {
         try {
-            HttpInspector inspector = new HttpInspector();
+            HttpUtil inspector = new HttpUtil();
             HttpClient client = inspector.getDefaultHttpClient();
-            Config production = new ProductionConfig();
-            Config sandbox = new SandboxConfig();
+            DNSMEConfig production = new ProductionConfig();
+            DNSMEConfig sandbox = new SandboxConfig();
             HttpRequestResult result1 = inspector.doDNSMERequest(client, production);
             HttpRequestResult result2 = inspector.doDNSMERequest(client, sandbox);
             inspector.log(production.getBaseUrl(), result1, -1);
@@ -85,7 +85,7 @@ public class ApiTest {
     @Test
     public void test3() {
         try {
-            HttpInspector inspector = new HttpInspector();
+            HttpUtil inspector = new HttpUtil();
             String url = "http://www.yahoo.com";
             inspector.doWait(url);
         } catch (Exception e) {

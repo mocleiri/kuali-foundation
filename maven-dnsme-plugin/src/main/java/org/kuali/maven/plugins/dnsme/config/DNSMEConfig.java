@@ -1,6 +1,6 @@
 package org.kuali.maven.plugins.dnsme.config;
 
-public interface Config {
+public interface DNSMEConfig {
 
     String getApiKey();
 

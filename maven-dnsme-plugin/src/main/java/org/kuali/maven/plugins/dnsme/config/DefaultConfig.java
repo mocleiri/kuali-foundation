@@ -1,6 +1,6 @@
 package org.kuali.maven.plugins.dnsme.config;
 
-public class DefaultConfig implements Config {
+public class DefaultConfig implements DNSMEConfig {
     String apiKey;
     String secretKey;
     String baseUrl;
