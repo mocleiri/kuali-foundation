@@ -9,7 +9,7 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-public class RestUtil {
+public class DNSMEUtil {
     // Sat, 12 Feb 2011 20:59:04 GMT
     public static final String DEFAULT_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z";
     public static final String DEFAULT_TIME_ZONE = "GMT";
@@ -20,7 +20,7 @@ public class RestUtil {
     SimpleDateFormat sdf;
     TimeZone timezone;
 
-    public RestUtil() {
+    public DNSMEUtil() {
         super();
         setFormat(DEFAULT_DATE_FORMAT);
         setTimezone(TimeZone.getTimeZone(DEFAULT_TIME_ZONE));

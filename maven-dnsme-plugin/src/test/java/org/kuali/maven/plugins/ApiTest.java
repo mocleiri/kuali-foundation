@@ -13,7 +13,7 @@ import org.kuali.maven.plugins.dnsme.config.SampleConfig;
 import org.kuali.maven.plugins.dnsme.config.SandboxConfig;
 
 public class ApiTest {
-    RestUtil restUtil = new RestUtil();
+    DNSMEUtil restUtil = new DNSMEUtil();
 
     /**
      * Test that values we are generating match up with what is described here:

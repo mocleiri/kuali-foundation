@@ -105,7 +105,7 @@ public class HttpUtil {
     }
 
     public List<Header> getHeaders(DNSMEConfig config) throws GeneralSecurityException {
-        RestUtil api = new RestUtil();
+        DNSMEUtil api = new DNSMEUtil();
         String requestDate = api.getHTTPDate(new Date());
         String hash = api.getHash(config.getSecretKey(), requestDate);
         List<Header> headers = new ArrayList<Header>();
