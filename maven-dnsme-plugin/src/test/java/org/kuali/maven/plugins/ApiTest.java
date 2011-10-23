@@ -38,16 +38,12 @@ public class ApiTest {
     }
 
     @Test
-    public void testPersonalConfig() {
-        try {
-            HttpUtil inspector = new HttpUtil();
-            HttpClient client = inspector.getHttpClient();
-            DNSMEConfig personal = new PersonalConfig();
-            HttpRequestResult result = inspector.getResult(client, dnsme.getMethod(personal));
-            inspector.log(personal.getBaseUrl(), result, -1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void testPersonalConfig() throws GeneralSecurityException {
+        HttpUtil inspector = new HttpUtil();
+        HttpClient client = inspector.getHttpClient();
+        DNSMEConfig personal = new PersonalConfig();
+        HttpRequestResult result = inspector.getResult(client, dnsme.getMethod(personal));
+        inspector.log(personal.getBaseUrl(), result, -1);
     }
 
     // @Test
