@@ -44,7 +44,7 @@ public class HttpUtil {
             String msg = statusCode + ":" + statusText;
             sb.append(msg);
             break;
-        case TIMED_OUT:
+        case TIMEOUT:
             sb.append("Timeout exceeded");
             break;
         default:
@@ -75,7 +75,7 @@ public class HttpUtil {
             }
             sleep(sleepInterval);
             if (System.currentTimeMillis() > end) {
-                result.setType(ResultType.TIMED_OUT);
+                result.setType(ResultType.TIMEOUT);
                 log(url, result, -1);
                 return result;
             }
