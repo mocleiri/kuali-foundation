@@ -7,8 +7,8 @@ public class HttpRequestResult {
     String statusText;
     HttpRequestResultType type;
     Exception exception;
-    String responseBody;
     Header[] responseHeaders;
+    String responseBody;
 
     public String getStatusText() {
         return statusText;
