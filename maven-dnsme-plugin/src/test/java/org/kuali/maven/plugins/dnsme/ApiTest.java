@@ -3,6 +3,7 @@ package org.kuali.maven.plugins.dnsme;
 import java.security.GeneralSecurityException;
 import java.util.Date;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.junit.Assert;
 import org.junit.Test;
@@ -64,6 +65,10 @@ public class ApiTest {
         System.out.println("Sandbox");
         System.out.println("---------");
         System.out.println(result.getResponseBody());
+        Header[] headers = result.getResponseHeaders();
+        for (Header header : headers) {
+            System.out.println(header.getName() + " " + header.getValue());
+        }
     }
 
     @Test
