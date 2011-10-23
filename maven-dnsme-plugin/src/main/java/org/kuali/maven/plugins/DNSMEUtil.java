@@ -28,12 +28,12 @@ public class DNSMEUtil {
     String format;
     String algorithm;
     SimpleDateFormat sdf;
-    TimeZone timezone;
+    TimeZone timeZone;
 
     public DNSMEUtil() {
         super();
         setFormat(DEFAULT_DATE_FORMAT);
-        setTimezone(TimeZone.getTimeZone(DEFAULT_TIME_ZONE));
+        setTimeZone(TimeZone.getTimeZone(DEFAULT_TIME_ZONE));
         setAlgorithm(DEFAULT_ALGORITHM);
     }
 
@@ -42,8 +42,8 @@ public class DNSMEUtil {
         sdf = new SimpleDateFormat(format);
     }
 
-    public synchronized void setTimezone(TimeZone timezone) {
-        this.timezone = timezone;
+    public synchronized void setTimeZone(TimeZone timezone) {
+        this.timeZone = timezone;
         sdf.setTimeZone(timezone);
     }
 
@@ -94,8 +94,8 @@ public class DNSMEUtil {
         return format;
     }
 
-    public TimeZone getTimezone() {
-        return timezone;
+    public TimeZone getTimeZone() {
+        return timeZone;
     }
 
     public String getAlgorithm() {
