@@ -1,4 +1,4 @@
-package org.kuali.maven.plugins;
+package org.kuali.maven.plugins.dnsme;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
