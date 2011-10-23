@@ -1,4 +1,4 @@
-package org.kuali.maven.plugins;
+package org.kuali.maven.plugins.dnsme;
 
 import java.security.GeneralSecurityException;
 import java.util.Date;
@@ -49,7 +49,7 @@ public class ApiTest {
         inspector.log(personal.getBaseUrl(), result, -1);
     }
 
-    // @Test
+    @Test
     public void test1() throws GeneralSecurityException {
         DNSMEConfig config = new SandboxConfig();
         String date = dnsme.getHTTPDate(new Date());

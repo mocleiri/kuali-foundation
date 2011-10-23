@@ -86,7 +86,7 @@ public class HttpUtil {
         }
     }
 
-    protected HttpClient getHttpClient() {
+    public HttpClient getHttpClient() {
         HttpClient client = new HttpClient();
         HttpClientParams clientParams = client.getParams();
         HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
