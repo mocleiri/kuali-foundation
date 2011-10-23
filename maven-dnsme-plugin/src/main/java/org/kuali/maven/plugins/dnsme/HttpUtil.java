@@ -69,7 +69,8 @@ public class HttpUtil {
     public HttpRequestResult doWait(String url) {
         HttpClient client = getHttpClient();
         long now = System.currentTimeMillis();
-        long end = now + (timeout * 1000);
+        long timeoutMillis = timeout * 1000;
+        long end = now + timeoutMillis;
         logger.info(getMsg("Determining status for '" + url + "'"));
         for (;;) {
             HttpRequestResult result = getResult(client, url);
