@@ -1,12 +1,14 @@
 package org.kuali.maven.plugins.dnsme;
 
+import org.apache.commons.httpclient.Header;
 
 public class HttpRequestResult {
     int statusCode;
     String statusText;
-    String responseBody;
     ResultType type;
     Exception exception;
+    String responseBody;
+    Header[] responseHeaders;
 
     public String getStatusText() {
         return statusText;
@@ -46,5 +48,13 @@ public class HttpRequestResult {
 
     public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
+    }
+
+    public Header[] getResponseHeaders() {
+        return responseHeaders;
+    }
+
+    public void setResponseHeaders(Header[] responseHeaders) {
+        this.responseHeaders = responseHeaders;
     }
 }

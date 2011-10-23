@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodRetryHandler;
@@ -112,10 +113,12 @@ public class HttpUtil {
             int statusCode = method.getStatusCode();
             String statusText = method.getStatusText();
             String responseBody = getResponseBody(method);
+            Header[] responseHeaders = method.getResponseHeaders();
             method.releaseConnection();
             result.setStatusCode(statusCode);
             result.setStatusText(statusText);
             result.setResponseBody(responseBody);
+            result.setResponseHeaders(responseHeaders);
             result.setType(ResultType.COMPLETED);
         } catch (Exception e) {
             result.setType(ResultType.EXCEPTION);

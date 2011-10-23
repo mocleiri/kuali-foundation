@@ -6,9 +6,6 @@ import java.util.Date;
 import org.apache.commons.httpclient.HttpClient;
 import org.junit.Assert;
 import org.junit.Test;
-import org.kuali.maven.plugins.dnsme.DNSMEUtil;
-import org.kuali.maven.plugins.dnsme.HttpRequestResult;
-import org.kuali.maven.plugins.dnsme.HttpUtil;
 import org.kuali.maven.plugins.dnsme.config.DNSMEConfig;
 import org.kuali.maven.plugins.dnsme.config.PersonalConfig;
 import org.kuali.maven.plugins.dnsme.config.ProductionConfig;
@@ -17,6 +14,7 @@ import org.kuali.maven.plugins.dnsme.config.SandboxConfig;
 
 public class ApiTest {
     DNSMEUtil dnsme = new DNSMEUtil();
+    HttpUtil http = new HttpUtil();
 
     /**
      * Test that values we are generating match up with what is described here:
@@ -42,11 +40,10 @@ public class ApiTest {
 
     @Test
     public void testPersonalConfig() throws GeneralSecurityException {
-        HttpUtil inspector = new HttpUtil();
-        HttpClient client = inspector.getHttpClient();
+        HttpClient client = http.getHttpClient();
         DNSMEConfig personal = new PersonalConfig();
-        HttpRequestResult result = inspector.getResult(client, dnsme.getMethod(personal));
-        inspector.log(personal.getBaseUrl(), result, -1);
+        HttpRequestResult result = http.getResult(client, dnsme.getMethod(personal));
+        http.log(personal.getBaseUrl(), result, -1);
     }
 
     @Test
@@ -60,35 +57,26 @@ public class ApiTest {
     }
 
     @Test
-    public void test2() {
-        try {
-            HttpUtil inspector = new HttpUtil();
-            HttpClient client = inspector.getHttpClient();
-            DNSMEConfig production = new ProductionConfig();
-            DNSMEConfig sandbox = new SandboxConfig();
-            HttpRequestResult result1 = inspector.getResult(client, dnsme.getMethod(production));
-            HttpRequestResult result2 = inspector.getResult(client, dnsme.getMethod(sandbox));
-            inspector.log(production.getBaseUrl(), result1, -1);
-            inspector.log(sandbox.getBaseUrl(), result2, -1);
-            System.out.println("Producton");
-            System.out.println("---------");
-            System.out.println(result1.getResponseBody());
-            System.out.println("Sandbox");
-            System.out.println("---------");
-            System.out.println(result2.getResponseBody());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void test2() throws GeneralSecurityException {
+        HttpClient client = http.getHttpClient();
+        DNSMEConfig production = new ProductionConfig();
+        DNSMEConfig sandbox = new SandboxConfig();
+        HttpRequestResult result1 = http.getResult(client, dnsme.getMethod(production));
+        HttpRequestResult result2 = http.getResult(client, dnsme.getMethod(sandbox));
+        http.log(production.getBaseUrl(), result1, -1);
+        http.log(sandbox.getBaseUrl(), result2, -1);
+        System.out.println("Producton");
+        System.out.println("---------");
+        System.out.println(result1.getResponseBody());
+        System.out.println("Sandbox");
+        System.out.println("---------");
+        System.out.println(result2.getResponseBody());
     }
 
     @Test
     public void test3() {
-        try {
-            HttpUtil inspector = new HttpUtil();
-            String url = "http://www.yahoo.com";
-            inspector.doWait(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        HttpUtil inspector = new HttpUtil();
+        String url = "http://www.yahoo.com";
+        inspector.doWait(url);
     }
 }
