@@ -3,18 +3,22 @@ package org.kuali.maven.plugins;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpMethodRetryHandler;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.params.HttpClientParams;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HttpUtil {
     private final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
-    int requestTimeout = 3000;
+    int requestTimeout = 8000;
     int sleepInterval = 3000;
-    int timeout = 180;
+    int timeout = 300;
 
     protected String getMsg(String msg) {
         return getMsg(msg, -1);
@@ -62,7 +66,7 @@ public class HttpUtil {
     }
 
     public HttpRequestResult doWait(String url) {
-        HttpClient client = getDefaultHttpClient();
+        HttpClient client = getHttpClient();
         long now = System.currentTimeMillis();
         long end = now + (timeout * 1000);
         logger.info(getMsg("Determining status for '" + url + "'"));
@@ -82,8 +86,13 @@ public class HttpUtil {
         }
     }
 
-    public HttpClient getDefaultHttpClient() {
-        return new HttpClient();
+    protected HttpClient getHttpClient() {
+        HttpClient client = new HttpClient();
+        HttpClientParams clientParams = client.getParams();
+        HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
+        clientParams.setParameter(HttpMethodParams.RETRY_HANDLER, retryHandler);
+        clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, requestTimeout);
+        return client;
     }
 
     protected String getResponseBody(HttpMethod method) throws IOException {
