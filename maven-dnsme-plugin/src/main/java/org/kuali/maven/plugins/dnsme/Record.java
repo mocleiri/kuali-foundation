@@ -1,11 +1,11 @@
 package org.kuali.maven.plugins.dnsme;
 
 public class Record {
-    int id;
+    Integer id;
     String name;
     String type;
     String data;
-    int ttl;
+    Integer ttl;
     String gtdLocation;
     String password;
     String description;
@@ -14,11 +14,11 @@ public class Record {
     String redirectType;
     Boolean hardLink;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,11 +46,11 @@ public class Record {
         this.data = data;
     }
 
-    public int getTtl() {
+    public Integer getTtl() {
         return ttl;
     }
 
-    public void setTtl(int ttl) {
+    public void setTtl(Integer ttl) {
         this.ttl = ttl;
     }
 
