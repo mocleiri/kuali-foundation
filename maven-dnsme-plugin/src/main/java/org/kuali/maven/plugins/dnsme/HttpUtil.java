@@ -75,11 +75,11 @@ public class HttpUtil {
             HttpRequestResult result = getResult(client, url);
             int secondsRemaining = getSecondsRemaining(end);
             log(url, result, secondsRemaining);
-            if (ResultType.COMPLETED.equals(result.getType())) {
+            if (HttpRequestResultType.COMPLETED.equals(result.getType())) {
                 return result;
             }
             if (System.currentTimeMillis() > end) {
-                result.setType(ResultType.TIMEOUT);
+                result.setType(HttpRequestResultType.TIMEOUT);
                 log(url, result, -1);
                 return result;
             }
@@ -119,9 +119,9 @@ public class HttpUtil {
             result.setStatusText(statusText);
             result.setResponseBody(responseBody);
             result.setResponseHeaders(responseHeaders);
-            result.setType(ResultType.COMPLETED);
+            result.setType(HttpRequestResultType.COMPLETED);
         } catch (Exception e) {
-            result.setType(ResultType.EXCEPTION);
+            result.setType(HttpRequestResultType.EXCEPTION);
             result.setException(e);
         }
         return result;

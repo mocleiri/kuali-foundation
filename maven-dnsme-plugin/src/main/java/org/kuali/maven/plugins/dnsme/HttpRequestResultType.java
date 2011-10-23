@@ -1,5 +1,5 @@
 package org.kuali.maven.plugins.dnsme;
 
-public enum ResultType {
+public enum HttpRequestResultType {
     EXCEPTION, COMPLETED, TIMEOUT;
 }

@@ -5,7 +5,7 @@ import org.apache.commons.httpclient.Header;
 public class HttpRequestResult {
     int statusCode;
     String statusText;
-    ResultType type;
+    HttpRequestResultType type;
     Exception exception;
     String responseBody;
     Header[] responseHeaders;
@@ -26,11 +26,11 @@ public class HttpRequestResult {
         this.responseBody = responseBody;
     }
 
-    public ResultType getType() {
+    public HttpRequestResultType getType() {
         return type;
     }
 
-    public void setType(ResultType type) {
+    public void setType(HttpRequestResultType type) {
         this.type = type;
     }
 
