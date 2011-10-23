@@ -2,23 +2,11 @@ package org.kuali.maven.plugins;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
-import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
-import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpConnectionManager;
 import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.HttpMethodRetryHandler;
-import org.apache.commons.httpclient.SimpleHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.params.HttpClientParams;
-import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.io.IOUtils;
-import org.kuali.maven.plugins.dnsme.config.DNSMEConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +34,7 @@ public class HttpUtil {
         StringBuilder sb = new StringBuilder();
         sb.append("Status for '" + url + "' is '");
         switch (result.getType()) {
-        case IO_EXCEPTION:
+        case EXCEPTION:
             Exception exception = result.getException();
             sb.append(exception.getMessage());
             break;
@@ -95,38 +83,7 @@ public class HttpUtil {
     }
 
     public HttpClient getDefaultHttpClient() {
-        HttpConnectionManager manager = new SimpleHttpConnectionManager(true);
-        HttpClient client = new HttpClient(manager);
-        HttpClientParams clientParams = client.getParams();
-        HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
-        clientParams.setParameter(HttpMethodParams.RETRY_HANDLER, retryHandler);
-        clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, requestTimeout);
-        return client;
-    }
-
-    public List<Header> getHeaders(DNSMEConfig config) throws GeneralSecurityException {
-        DNSMEUtil api = new DNSMEUtil();
-        String requestDate = api.getHTTPDate(new Date());
-        String hash = api.getHash(config.getSecretKey(), requestDate);
-        List<Header> headers = new ArrayList<Header>();
-        headers.add(new Header("x-dnsme-apiKey", config.getApiKey()));
-        headers.add(new Header("x-dnsme-requestDate", requestDate));
-        headers.add(new Header("x-dnsme-hmac", hash));
-        return headers;
-    }
-
-    public HttpRequestResult getResult(HttpClient client, DNSMEConfig config) throws GeneralSecurityException {
-        HttpMethod method = getMethod(config);
-        return getResult(client, method);
-    }
-
-    protected HttpMethod getMethod(DNSMEConfig config) throws GeneralSecurityException {
-        HttpMethod method = new GetMethod(config.getBaseUrl());
-        List<Header> headers = getHeaders(config);
-        for (Header header : headers) {
-            method.addRequestHeader(header);
-        }
-        return method;
+        return new HttpClient();
     }
 
     protected String getResponseBody(HttpMethod method) throws IOException {
@@ -151,8 +108,8 @@ public class HttpUtil {
             result.setStatusText(statusText);
             result.setResponseBody(responseBody);
             result.setType(ResultType.COMPLETED);
-        } catch (IOException e) {
-            result.setType(ResultType.IO_EXCEPTION);
+        } catch (Exception e) {
+            result.setType(ResultType.EXCEPTION);
             result.setException(e);
         }
         return result;

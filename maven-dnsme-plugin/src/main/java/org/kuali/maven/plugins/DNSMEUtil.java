@@ -2,18 +2,28 @@ package org.kuali.maven.plugins;
 
 import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.kuali.maven.plugins.dnsme.config.DNSMEConfig;
+
 public class DNSMEUtil {
     // Sat, 12 Feb 2011 20:59:04 GMT
     public static final String DEFAULT_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z";
     public static final String DEFAULT_TIME_ZONE = "GMT";
     public static final String DEFAULT_ALGORITHM = "HmacSHA1";
+    public static final String API_KEY_HEADER = "x-dnsme-apiKey";
+    public static final String DATE_HEADER = "x-dnsme-requestDate";
+    public static final String HMAC_HEADER = "x-dnsme-hmac";
 
     String format;
     String algorithm;
@@ -47,6 +57,25 @@ public class DNSMEUtil {
         mac.init(secretKey);
         byte[] finalBytes = mac.doFinal(data.getBytes());
         return getHexString(finalBytes);
+    }
+
+    public List<Header> getHeaders(DNSMEConfig config) throws GeneralSecurityException {
+        String requestDate = getHTTPDate(new Date());
+        String hash = getHash(config.getSecretKey(), requestDate);
+        List<Header> headers = new ArrayList<Header>();
+        headers.add(new Header(API_KEY_HEADER, config.getApiKey()));
+        headers.add(new Header(DATE_HEADER, requestDate));
+        headers.add(new Header(HMAC_HEADER, hash));
+        return headers;
+    }
+
+    public HttpMethod getMethod(DNSMEConfig config) throws GeneralSecurityException {
+        HttpMethod method = new GetMethod(config.getBaseUrl());
+        List<Header> headers = getHeaders(config);
+        for (Header header : headers) {
+            method.addRequestHeader(header);
+        }
+        return method;
     }
 
     public String getHexString(byte[] b) {
