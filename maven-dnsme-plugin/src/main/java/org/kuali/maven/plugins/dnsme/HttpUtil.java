@@ -78,12 +78,12 @@ public class HttpUtil {
             if (ResultType.COMPLETED.equals(result.getType())) {
                 return result;
             }
-            sleep(sleepInterval);
             if (System.currentTimeMillis() > end) {
                 result.setType(ResultType.TIMEOUT);
                 log(url, result, -1);
                 return result;
             }
+            sleep(sleepInterval);
         }
     }
 
