@@ -21,42 +21,35 @@ public class HttpUtil {
     int sleepInterval = 3000;
     int timeout = 300;
 
-    protected String getMsg(String msg) {
-        return getMsg(msg, -1);
-    }
-
-    protected String getMsg(String msg, long l) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(msg);
+    protected String getTimeout(long l) {
         if (l == -1) {
-            return sb.toString();
+            return "";
+        } else {
+            return " - (Timeout in " + l + "s)";
         }
-        sb.append(" - (Timeout in " + l + "s)");
-        return sb.toString();
     }
 
     public void log(String url, HttpRequestResult result, int secondsRemaining) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Status for '" + url + "' is '");
+        sb.append("Status for '" + url + "' is '" + getMsg(result) + "'");
+        sb.append(getTimeout(secondsRemaining));
+        logger.info(sb.toString());
+    }
+
+    protected String getMsg(HttpRequestResult result) {
         switch (result.getType()) {
         case EXCEPTION:
             Exception exception = result.getException();
-            sb.append(exception.getMessage());
-            break;
+            return exception.getMessage();
         case COMPLETED:
             int statusCode = result.getStatusCode();
             String statusText = result.getStatusText();
-            String msg = statusCode + ":" + statusText;
-            sb.append(msg);
-            break;
+            return statusCode + ":" + statusText;
         case TIMEOUT:
-            sb.append("Timeout exceeded");
-            break;
+            return "Timeout exceeded";
         default:
             throw new IllegalArgumentException(result.getType() + " is an unknown type");
         }
-        sb.append("'");
-        logger.info(getMsg(sb.toString(), secondsRemaining));
     }
 
     protected int getSecondsRemaining(long endMillis) {
@@ -71,7 +64,7 @@ public class HttpUtil {
         long now = System.currentTimeMillis();
         long timeoutMillis = timeout * 1000;
         long end = now + timeoutMillis;
-        logger.info(getMsg("Determining status for '" + url + "'"));
+        logger.info("Determining status for '" + url + "'");
         for (;;) {
             HttpRequestResult result = getResult(client, url);
             int secondsRemaining = getSecondsRemaining(end);
