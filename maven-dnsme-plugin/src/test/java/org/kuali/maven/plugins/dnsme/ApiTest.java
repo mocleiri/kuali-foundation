@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.maven.plugins.dnsme.config.DNSMEConfig;
@@ -42,7 +43,7 @@ public class ApiTest {
     public void testPersonalConfig() throws GeneralSecurityException {
         HttpClient client = http.getHttpClient();
         DNSMEConfig personal = new PersonalConfig();
-        HttpRequestResult result = http.getResult(client, dnsme.getMethod(personal));
+        HttpRequestResult result = http.executeMethod(client, dnsme.getMethod(personal));
         http.log(personal.getBaseUrl(), result, -1);
     }
 
@@ -58,9 +59,9 @@ public class ApiTest {
 
     @Test
     public void test2() throws GeneralSecurityException {
-        HttpClient client = http.getHttpClient();
         DNSMEConfig sandbox = new SandboxConfig();
-        HttpRequestResult result = http.getResult(client, dnsme.getMethod(sandbox));
+        HttpMethod method = dnsme.getMethod(sandbox);
+        HttpRequestResult result = http.executeMethod(method);
         http.log(sandbox.getBaseUrl(), result, -1);
         System.out.println("Sandbox");
         System.out.println("---------");

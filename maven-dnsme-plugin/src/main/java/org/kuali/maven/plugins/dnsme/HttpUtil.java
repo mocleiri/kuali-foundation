@@ -66,7 +66,7 @@ public class HttpUtil {
         long end = now + timeoutMillis;
         logger.info("Determining status for '" + url + "'");
         for (;;) {
-            HttpRequestResult result = getResult(client, url);
+            HttpRequestResult result = executeMethod(client, url);
             int secondsRemaining = getSecondsRemaining(end);
             log(url, result, secondsRemaining);
             if (HttpRequestResultType.COMPLETED.equals(result.getType())) {
@@ -100,7 +100,11 @@ public class HttpUtil {
         }
     }
 
-    public HttpRequestResult getResult(HttpClient client, HttpMethod method) {
+    public HttpRequestResult executeMethod(HttpMethod method) {
+        return executeMethod(getHttpClient(), method);
+    }
+
+    public HttpRequestResult executeMethod(HttpClient client, HttpMethod method) {
         HttpRequestResult result = new HttpRequestResult();
         try {
             client.executeMethod(method);
@@ -121,9 +125,9 @@ public class HttpUtil {
         return result;
     }
 
-    public HttpRequestResult getResult(HttpClient client, String url) {
+    public HttpRequestResult executeMethod(HttpClient client, String url) {
         HttpMethod method = new GetMethod(url);
-        return getResult(client, method);
+        return executeMethod(client, method);
     }
 
     protected void sleep(long millis) {
