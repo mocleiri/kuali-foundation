@@ -53,6 +53,14 @@ public class JSONTest {
     }
 
     @Test
+    public void testJsonToJavaWithGson() {
+        String jsonText = "{\"list\":[\"kuali.net\",\"kuali.org\",\"kualiproject.org\"]}";
+        JSONObject jsonObject = JSONObject.fromObject(jsonText);
+        DomainNames domainNames = (DomainNames) JSONObject.toBean(jsonObject, DomainNames.class);
+        Assert.assertEquals(3, domainNames.getList().size());
+    }
+
+    @Test
     public void test1() {
         String jsonText = "{\"list\":[\"kuali.net\",\"kuali.org\",\"kualiproject.org\"]}";
         JSONObject jsonObject = JSONObject.fromObject(jsonText);
