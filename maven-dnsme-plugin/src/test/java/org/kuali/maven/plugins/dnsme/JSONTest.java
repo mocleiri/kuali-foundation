@@ -60,8 +60,8 @@ public class JSONTest {
             // String jsonText = "{\"name\":\"foomanchu.com\"}";
             String jsonText = "{\"list\":[\"kuali.net\",\"kuali.org\",\"kualiproject.org\"]}";
             JSONObject jsonObject = JSONObject.fromObject(jsonText);
-            DomainNames list = (DomainNames) JSONObject.toBean(jsonObject, DomainNames.class);
-            System.out.println(list);
+            DomainNames domainNames = (DomainNames) JSONObject.toBean(jsonObject, DomainNames.class);
+            System.out.println(domainNames);
         } catch (Exception e) {
             e.printStackTrace();
         }
