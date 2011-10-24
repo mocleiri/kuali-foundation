@@ -23,7 +23,10 @@ public class JSONTest {
             account.setDomains(domains);
             JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(account);
             String jsonText = jsonObject.toString();
+            JSONObject fromText = JSONObject.fromObject(jsonText);
+            Account fromJsonObject = (Account) JSONObject.toBean(fromText, Account.class);
             System.out.println(jsonText);
+            System.out.println(fromJsonObject);
         } catch (Exception e) {
             e.printStackTrace();
         }
