@@ -1,6 +1,7 @@
 package org.kuali.maven.plugins.dnsme.beans;
 
 public class Record {
+    Domain domain;
     Integer id;
     String name;
     String type;
@@ -108,5 +109,13 @@ public class Record {
 
     public void setHardLink(Boolean hardLink) {
         this.hardLink = hardLink;
+    }
+
+    public Domain getDomain() {
+        return domain;
+    }
+
+    public void setDomain(Domain domain) {
+        this.domain = domain;
     }
 }

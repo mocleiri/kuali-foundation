@@ -7,6 +7,7 @@ public class Domain {
     String name;
     List<String> nameServers;
     Boolean gtdEnabled;
+    List<Record> records;
 
     public Domain() {
         this(null);
@@ -45,6 +46,14 @@ public class Domain {
 
     public void setGtdEnabled(Boolean gtdEnabled) {
         this.gtdEnabled = gtdEnabled;
+    }
+
+    public List<Record> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<Record> records) {
+        this.records = records;
     }
 
 }
