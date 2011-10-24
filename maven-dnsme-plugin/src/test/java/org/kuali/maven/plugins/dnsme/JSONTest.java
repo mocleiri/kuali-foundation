@@ -3,11 +3,11 @@ package org.kuali.maven.plugins.dnsme;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
 import org.junit.Test;
+import org.kuali.maven.plugins.dnsme.beans.Account;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
 
 public class JSONTest {
@@ -19,8 +19,10 @@ public class JSONTest {
             domains.add(new Domain("kuali.net"));
             domains.add(new Domain("kuali.org"));
             domains.add(new Domain("kualiproject.org"));
-            JSONArray jsonArray = (JSONArray) JSONSerializer.toJSON(domains);
-            String jsonText = jsonArray.toString();
+            Account account = new Account();
+            account.setDomains(domains);
+            JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(account);
+            String jsonText = jsonObject.toString();
             System.out.println(jsonText);
         } catch (Exception e) {
             e.printStackTrace();
