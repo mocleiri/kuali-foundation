@@ -14,7 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.kuali.maven.plugins.dnsme.config.DNSMEConfig;
+import org.kuali.maven.plugins.dnsme.beans.Account;
 
 public class DNSMEUtil {
     // Sat, 12 Feb 2011 20:59:04 GMT
@@ -59,19 +59,19 @@ public class DNSMEUtil {
         return getHexString(finalBytes);
     }
 
-    public List<Header> getHeaders(DNSMEConfig config) throws GeneralSecurityException {
+    public List<Header> getHeaders(Account account) throws GeneralSecurityException {
         String requestDate = getHTTPDate(new Date());
-        String hash = getHash(config.getSecretKey(), requestDate);
+        String hash = getHash(account.getSecretKey(), requestDate);
         List<Header> headers = new ArrayList<Header>();
-        headers.add(new Header(API_KEY_HEADER, config.getApiKey()));
+        headers.add(new Header(API_KEY_HEADER, account.getApiKey()));
         headers.add(new Header(DATE_HEADER, requestDate));
         headers.add(new Header(HMAC_HEADER, hash));
         return headers;
     }
 
-    public HttpMethod getMethod(DNSMEConfig config) throws GeneralSecurityException {
-        HttpMethod method = new GetMethod(config.getBaseUrl());
-        List<Header> headers = getHeaders(config);
+    public HttpMethod getMethod(Account account, String url) throws GeneralSecurityException {
+        HttpMethod method = new GetMethod(url);
+        List<Header> headers = getHeaders(account);
         for (Header header : headers) {
             method.addRequestHeader(header);
         }
