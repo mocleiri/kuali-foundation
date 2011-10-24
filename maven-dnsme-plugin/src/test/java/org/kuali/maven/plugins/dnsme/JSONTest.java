@@ -3,6 +3,7 @@ package org.kuali.maven.plugins.dnsme;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.Assert;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
@@ -14,21 +15,20 @@ public class JSONTest {
 
     @Test
     public void testJavaToJson() {
-        try {
-            List<Domain> domains = new ArrayList<Domain>();
-            domains.add(new Domain("kuali.net"));
-            domains.add(new Domain("kuali.org"));
-            domains.add(new Domain("kualiproject.org"));
-            Account account = new Account();
-            account.setDomains(domains);
-            JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(account);
-            String jsonText = jsonObject.toString();
-            JSONObject fromText = JSONObject.fromObject(jsonText);
-            Account fromJsonObject = (Account) JSONObject.toBean(fromText, Account.class);
-            System.out.println(jsonText);
-            System.out.println(fromJsonObject);
-        } catch (Exception e) {
-            e.printStackTrace();
+        List<Domain> domains = new ArrayList<Domain>();
+        domains.add(new Domain("kuali.net"));
+        domains.add(new Domain("kuali.org"));
+        domains.add(new Domain("kualiproject.org"));
+        Account account = new Account();
+        account.setDomains(domains);
+        JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(account);
+        String jsonText = jsonObject.toString();
+        JSONObject fromText = JSONObject.fromObject(jsonText);
+        Account fromJsonObject = (Account) JSONObject.toBean(fromText, Account.class);
+        Assert.assertNotNull(fromJsonObject.getDomains());
+        List<Domain> domainList = fromJsonObject.getDomains();
+        for (Domain domain : domainList) {
+            System.out.println(domain.getName());
         }
     }
 
