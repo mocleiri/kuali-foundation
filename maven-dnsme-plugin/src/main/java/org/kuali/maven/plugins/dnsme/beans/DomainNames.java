@@ -2,7 +2,7 @@ package org.kuali.maven.plugins.dnsme.beans;
 
 import java.util.List;
 
-public class DomainList {
+public class DomainNames {
     List<String> list;
 
     public List<String> getList() {
