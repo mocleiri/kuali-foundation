@@ -10,6 +10,7 @@ import net.sf.json.JSONSerializer;
 import org.junit.Test;
 import org.kuali.maven.plugins.dnsme.beans.Account;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
+import org.kuali.maven.plugins.dnsme.beans.DomainList;
 
 import com.google.gson.Gson;
 
@@ -59,8 +60,8 @@ public class JSONTest {
             // String jsonText = "{\"name\":\"foomanchu.com\"}";
             String jsonText = "{\"list\":[\"kuali.net\",\"kuali.org\",\"kualiproject.org\"]}";
             JSONObject jsonObject = JSONObject.fromObject(jsonText);
-            Account account = (Account) JSONObject.toBean(jsonObject, Account.class);
-            System.out.println(account);
+            DomainList list = (DomainList) JSONObject.toBean(jsonObject, DomainList.class);
+            System.out.println(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
