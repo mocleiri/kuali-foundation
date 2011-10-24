@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.kuali.maven.plugins.dnsme.beans.Account;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
 
+import com.google.gson.Gson;
+
 public class JSONTest {
 
     @Test
@@ -30,6 +32,25 @@ public class JSONTest {
         for (Domain domain : domainList) {
             System.out.println(domain.getName());
         }
+    }
+
+    @Test
+    public void testJavaToJsonWithGson() {
+        List<Domain> domains = new ArrayList<Domain>();
+        domains.add(new Domain("kuali.net"));
+        domains.add(new Domain("kuali.org"));
+        domains.add(new Domain("kualiproject.org"));
+        Account account = new Account();
+        account.setDomains(domains);
+        Gson gson = new Gson();
+        String jsonText = gson.toJson(account);
+        System.out.println(jsonText);
+        Account fromJson = gson.fromJson(jsonText, Account.class);
+        List<Domain> domainList = fromJson.getDomains();
+        for (Domain domain : domainList) {
+            System.out.println(domain.getName());
+        }
+
     }
 
     @Test
