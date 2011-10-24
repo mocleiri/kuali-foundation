@@ -14,7 +14,7 @@ import org.kuali.maven.plugins.dnsme.config.ProductionConfig;
 import org.kuali.maven.plugins.dnsme.config.SampleConfig;
 import org.kuali.maven.plugins.dnsme.config.SandboxConfig;
 
-public class ApiTest {
+public class DomainNamesTest {
     DNSMEUtil dnsme = new DNSMEUtil();
     HttpUtil http = new HttpUtil();
 

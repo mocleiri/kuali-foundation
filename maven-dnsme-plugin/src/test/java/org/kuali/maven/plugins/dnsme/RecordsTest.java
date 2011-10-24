@@ -1,0 +1,30 @@
+package org.kuali.maven.plugins.dnsme;
+
+import java.security.GeneralSecurityException;
+
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpMethod;
+import org.junit.Test;
+import org.kuali.maven.plugins.dnsme.beans.Account;
+import org.kuali.maven.plugins.dnsme.config.ProductionConfig;
+
+public class RecordsTest {
+    DNSMEUtil dnsme = new DNSMEUtil();
+    HttpUtil http = new HttpUtil();
+
+    @Test
+    public void testOne() throws GeneralSecurityException {
+        String url = Constants.PRODUCTION_URL + "/domains/kuali.org/records";
+        Account sandbox = new ProductionConfig();
+        HttpMethod method = dnsme.getMethod(sandbox, url);
+        HttpRequestResult result = http.executeMethod(method);
+        http.log(url, result, -1);
+        System.out.println("Production");
+        System.out.println("---------");
+        System.out.println(result.getResponseBody());
+        Header[] headers = result.getResponseHeaders();
+        for (Header header : headers) {
+            System.out.println(header.getName() + " " + header.getValue());
+        }
+    }
+}
