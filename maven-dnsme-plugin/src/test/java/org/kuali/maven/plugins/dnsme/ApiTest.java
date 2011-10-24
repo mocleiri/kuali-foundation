@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.maven.plugins.dnsme.config.DNSMEConfig;
 import org.kuali.maven.plugins.dnsme.config.PersonalConfig;
+import org.kuali.maven.plugins.dnsme.config.ProductionConfig;
 import org.kuali.maven.plugins.dnsme.config.SampleConfig;
 import org.kuali.maven.plugins.dnsme.config.SandboxConfig;
 
@@ -45,6 +46,21 @@ public class ApiTest {
         DNSMEConfig personal = new PersonalConfig();
         HttpRequestResult result = http.executeMethod(client, dnsme.getMethod(personal));
         http.log(personal.getBaseUrl(), result, -1);
+    }
+
+    @Test
+    public void testProduction() throws GeneralSecurityException {
+        DNSMEConfig sandbox = new ProductionConfig();
+        HttpMethod method = dnsme.getMethod(sandbox);
+        HttpRequestResult result = http.executeMethod(method);
+        http.log(sandbox.getBaseUrl(), result, -1);
+        System.out.println("Production");
+        System.out.println("---------");
+        System.out.println(result.getResponseBody());
+        Header[] headers = result.getResponseHeaders();
+        for (Header header : headers) {
+            System.out.println(header.getName() + " " + header.getValue());
+        }
     }
 
     @Test

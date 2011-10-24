@@ -6,16 +6,33 @@ import java.util.List;
 import net.sf.json.JSONObject;
 
 import org.junit.Test;
+import org.kuali.maven.plugins.dnsme.beans.Domain;
 
 public class JSONTest {
 
     @Test
+    public void testJavaToJson() {
+        try {
+            List<Domain> domains = new ArrayList<Domain>();
+
+            // String jsonText = "{\"name\":\"foomanchu.com\"}";
+            String jsonText = "{\"list\":[\"kuali.net\",\"kuali.org\",\"kualiproject.org\"]}";
+            JSONObject jsonObject = JSONObject.fromObject(jsonText);
+            Account account = (Account) JSONObject.toBean(jsonObject, Account.class);
+            System.out.println(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void test1() {
         try {
-            String jsonText = "{\"name\":\"foomanchu.com\"}";
+            // String jsonText = "{\"name\":\"foomanchu.com\"}";
+            String jsonText = "{\"list\":[\"kuali.net\",\"kuali.org\",\"kualiproject.org\"]}";
             JSONObject jsonObject = JSONObject.fromObject(jsonText);
-            Domain domain = (Domain) JSONObject.toBean(jsonObject, Domain.class);
-            System.out.println(domain.getName());
+            Account account = (Account) JSONObject.toBean(jsonObject, Account.class);
+            System.out.println(account);
         } catch (Exception e) {
             e.printStackTrace();
         }
