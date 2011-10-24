@@ -3,7 +3,9 @@ package org.kuali.maven.plugins.dnsme;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 
 import org.junit.Test;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
@@ -14,12 +16,12 @@ public class JSONTest {
     public void testJavaToJson() {
         try {
             List<Domain> domains = new ArrayList<Domain>();
-
-            // String jsonText = "{\"name\":\"foomanchu.com\"}";
-            String jsonText = "{\"list\":[\"kuali.net\",\"kuali.org\",\"kualiproject.org\"]}";
-            JSONObject jsonObject = JSONObject.fromObject(jsonText);
-            Account account = (Account) JSONObject.toBean(jsonObject, Account.class);
-            System.out.println(account);
+            domains.add(new Domain("kuali.net"));
+            domains.add(new Domain("kuali.org"));
+            domains.add(new Domain("kualiproject.org"));
+            JSONArray jsonArray = (JSONArray) JSONSerializer.toJSON(domains);
+            String jsonText = jsonArray.toString();
+            System.out.println(jsonText);
         } catch (Exception e) {
             e.printStackTrace();
         }
