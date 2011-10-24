@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 public class JSONTest {
 
-    @Test
+    // @Test
     public void testJavaToJson() {
         List<Domain> domains = new ArrayList<Domain>();
         domains.add(new Domain("kuali.net"));
@@ -45,37 +45,19 @@ public class JSONTest {
         account.setDomains(domains);
         Gson gson = new Gson();
         String jsonText = gson.toJson(account);
-        System.out.println(jsonText);
         Account fromJson = gson.fromJson(jsonText, Account.class);
         List<Domain> domainList = fromJson.getDomains();
-        for (Domain domain : domainList) {
-            System.out.println(domain.getName());
-        }
-
+        Domain kualiDotNet = domainList.get(0);
+        Assert.assertNotNull(fromJson.getDomains());
+        Assert.assertEquals("kuali.net", kualiDotNet.getName());
     }
 
     @Test
     public void test1() {
-        try {
-            // String jsonText = "{\"name\":\"foomanchu.com\"}";
-            String jsonText = "{\"list\":[\"kuali.net\",\"kuali.org\",\"kualiproject.org\"]}";
-            JSONObject jsonObject = JSONObject.fromObject(jsonText);
-            DomainNames domainNames = (DomainNames) JSONObject.toBean(jsonObject, DomainNames.class);
-            System.out.println(domainNames);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String jsonText = "{\"list\":[\"kuali.net\",\"kuali.org\",\"kualiproject.org\"]}";
+        JSONObject jsonObject = JSONObject.fromObject(jsonText);
+        DomainNames domainNames = (DomainNames) JSONObject.toBean(jsonObject, DomainNames.class);
+        Assert.assertEquals(3, domainNames.getList().size());
     }
 
-    @Test
-    public void test2() {
-        try {
-            String jsonText = "{\"list\":[\"foomanchu.com\"]}";
-            JSONObject jsonObject = JSONObject.fromObject(jsonText);
-            List<Domain> domains = (List<Domain>) JSONObject.toBean(jsonObject, ArrayList.class);
-            System.out.println(domains);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
