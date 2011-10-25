@@ -22,14 +22,19 @@ public class DNSMEClientTest {
         Domain newDomain = new Domain();
         newDomain.setName(newName);
 
+        // Make sure the domain does not already exist
         List<Domain> domains = client.getDomains();
         Assert.assertFalse(exists(domains, newDomain));
 
+        // Add it, and make sure we can find it
         Domain resultDomain = client.addDomain(newDomain);
         domains = client.getDomains();
         Assert.assertTrue(exists(domains, resultDomain));
 
+        // Delete it, and make sure it is gone
         client.deleteDomain(resultDomain);
+        domains = client.getDomains();
+        Assert.assertFalse(exists(domains, newDomain));
 
     }
 
