@@ -1,11 +1,14 @@
 package org.kuali.maven.plugins.dnsme;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
@@ -13,6 +16,7 @@ import org.kuali.maven.plugins.dnsme.beans.Account;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
 import org.kuali.maven.plugins.dnsme.beans.DomainNames;
 import org.kuali.maven.plugins.dnsme.beans.Record;
+import org.kuali.maven.plugins.dnsme.beans.Search;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -56,10 +60,60 @@ public class DNSMEClient {
         deleteObject(url);
     }
 
-    public List<Record> getRecords(Domain domain, RecordType type) {
+    protected String getQueryString(Search search) {
+        List<NameValuePair> pairs = getPairs(search);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < pairs.size(); i++) {
+            NameValuePair pair = pairs.get(i);
+            if (i == 0) {
+                sb.append("?");
+            } else {
+                sb.append("&");
+            }
+            sb.append(pair.getName() + "=" + encode(pair.getValue()));
+        }
+        return sb.toString();
+    }
+
+    protected List<NameValuePair> getPairs(Search search) {
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        addIfNotNull(pairs, getPair("name", search.getName()));
+        addIfNotNull(pairs, getPair("nameContains", search.getNameContains()));
+        addIfNotNull(pairs, getPair("value", search.getValue()));
+        addIfNotNull(pairs, getPair("valueContains", search.getValueContains()));
+        addIfNotNull(pairs, getPair("gtdLocation", search.getGtdLocation()));
+        addIfNotNull(pairs, getPair("type", search.getType()));
+        return pairs;
+    }
+
+    protected void addIfNotNull(List<NameValuePair> pairs, NameValuePair pair) {
+        if (pair == null) {
+            return;
+        } else {
+            pairs.add(pair);
+        }
+    }
+
+    protected NameValuePair getPair(String name, Object value) {
+        if (value == null) {
+            return null;
+        } else {
+            return new NameValuePair(name, value.toString());
+        }
+    }
+
+    protected String encode(String value) {
+        try {
+            return URLEncoder.encode(value, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new DNSMEException(e);
+        }
+    }
+
+    public List<Record> getRecords(Domain domain, Search search) {
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
-        if (type != null) {
-            url += "?type=" + type;
+        if (search != null) {
+            url += getQueryString(search);
         }
         String json = getJson(url, HTTP_OK);
         List<Record> records = getRecords(json);
@@ -108,7 +162,9 @@ public class DNSMEClient {
     }
 
     public List<Record> getCNAMERecords(Domain domain) {
-        List<Record> records = getRecords(domain, RecordType.CNAME);
+        Search search = new Search();
+        search.setType(RecordType.CNAME);
+        List<Record> records = getRecords(domain, search);
         Collections.sort(records, new RecordComparator());
         return records;
     }
