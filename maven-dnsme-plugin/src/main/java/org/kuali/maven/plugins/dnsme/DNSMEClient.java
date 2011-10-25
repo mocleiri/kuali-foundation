@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.kuali.maven.plugins.dnsme.beans.Account;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
 import org.kuali.maven.plugins.dnsme.beans.DomainNames;
@@ -42,6 +45,18 @@ public class DNSMEClient {
         return getDomains(domainNames);
     }
 
+    public Domain addDomain(Domain domain) {
+        String url = this.restApiUrl + "/domains/" + domain.getName();
+        PutMethod method = new PutMethod(url);
+        return addObject(url, HTTP_CREATED, domain, method);
+    }
+
+    public void deleteDomain(Domain domain) {
+        String url = this.restApiUrl + "/domains/" + domain.getName();
+        HttpMethod method = dnsme.getDeleteMethod(account, url);
+        http.executeMethod(method);
+    }
+
     public List<Record> getRecords(Domain domain, RecordType type) {
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
         if (type != null) {
@@ -57,12 +72,8 @@ public class DNSMEClient {
 
     public Record addRecord(Domain domain, Record record) {
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
-        return getResult(url, HTTP_CREATED, record);
-    }
-
-    public Domain addDomain(Domain domain) {
-        String url = this.restApiUrl + "/domains/" + domain.getName();
-        return getResult(url, HTTP_CREATED, domain);
+        PostMethod method = new PostMethod(url);
+        return addObject(url, HTTP_CREATED, record, method);
     }
 
     public List<Record> getCNAMERecords(Domain domain) {
@@ -71,9 +82,9 @@ public class DNSMEClient {
         return records;
     }
 
-    public <T> T getResult(String url, int statusCode, T object) {
+    public <T> T addObject(String url, int statusCode, T object, EntityEnclosingMethod method) {
         String json = gson.toJson(object);
-        HttpMethod method = dnsme.getPostMethod(account, url, json);
+        dnsme.updateMethod(account, json, method);
         String resultJson = getJson(url, method, HTTP_CREATED);
         @SuppressWarnings("unchecked")
         T resultObject = (T) gson.fromJson(resultJson, object.getClass());

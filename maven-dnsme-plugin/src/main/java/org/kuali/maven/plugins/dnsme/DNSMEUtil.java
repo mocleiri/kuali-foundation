@@ -15,8 +15,8 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.DeleteMethod;
+import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.kuali.maven.plugins.dnsme.beans.Account;
@@ -108,9 +108,8 @@ public class DNSMEUtil {
         return method;
     }
 
-    public HttpMethod getPostMethod(Account account, String url, String json) {
+    public void updateMethod(Account account, String json, EntityEnclosingMethod method) {
         try {
-            PostMethod method = new PostMethod(url);
             RequestEntity requestEntity = new StringRequestEntity(json, "application/json", "UTF-8");
             method.setRequestEntity(requestEntity);
             addAuthenticationHeaders(account, method);
@@ -118,7 +117,6 @@ public class DNSMEUtil {
             Header contentType = new Header("content-type", "application/json");
             method.addRequestHeader(accept);
             method.addRequestHeader(contentType);
-            return method;
         } catch (UnsupportedEncodingException e) {
             throw new DNSMEException(e);
         }

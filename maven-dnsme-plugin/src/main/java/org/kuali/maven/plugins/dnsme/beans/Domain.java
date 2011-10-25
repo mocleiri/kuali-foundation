@@ -6,7 +6,7 @@ public class Domain {
 
     Account account;
     String name;
-    List<String> nameServers;
+    List<String> nameServer;
     Boolean gtdEnabled;
     List<Record> records;
 
@@ -21,7 +21,7 @@ public class Domain {
     public Domain(String name, List<String> nameServers, Boolean gtdEnabled) {
         super();
         this.name = name;
-        this.nameServers = nameServers;
+        this.nameServer = nameServers;
         this.gtdEnabled = gtdEnabled;
     }
 
@@ -33,12 +33,12 @@ public class Domain {
         this.name = name;
     }
 
-    public List<String> getNameServers() {
-        return nameServers;
+    public List<String> getNameServer() {
+        return nameServer;
     }
 
-    public void setNameServers(List<String> nameServers) {
-        this.nameServers = nameServers;
+    public void setNameServer(List<String> nameServers) {
+        this.nameServer = nameServers;
     }
 
     public Boolean getGtdEnabled() {
