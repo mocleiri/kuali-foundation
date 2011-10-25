@@ -6,13 +6,15 @@ import org.kuali.maven.plugins.dnsme.DNSMEClient;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
 
 /**
+ * Add a domain name to a DNSME account
+ *
  * @author Jeff Caddel
  * @goal adddomain
  */
 public class AddDomainMojo extends BaseDNSMEMojo {
 
     /**
-     * The domain name to add
+     * The domain name
      *
      * @parameter expression="${dnsme.domainName}"
      * @required

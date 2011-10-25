@@ -6,13 +6,15 @@ import org.kuali.maven.plugins.dnsme.DNSMEClient;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
 
 /**
+ * Delete a domain from a DNSME account
+ *
  * @author Jeff Caddel
  * @goal deletedomain
  */
 public class DeleteDomainMojo extends BaseDNSMEMojo {
 
     /**
-     * The domain to delete
+     * The domain name
      *
      * @parameter expression="${dnsme.domainName}"
      * @required

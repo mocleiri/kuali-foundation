@@ -9,6 +9,8 @@ import org.kuali.maven.plugins.dnsme.beans.Record;
 import org.kuali.maven.plugins.dnsme.beans.RecordType;
 
 /**
+ * Add a dns record to a domain name managed by a DNSME account
+ *
  * @author Jeff Caddel
  * @goal addrecord
  */

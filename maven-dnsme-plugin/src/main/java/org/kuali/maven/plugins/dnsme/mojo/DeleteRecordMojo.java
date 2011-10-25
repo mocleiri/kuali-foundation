@@ -7,10 +7,13 @@ import org.kuali.maven.plugins.dnsme.beans.Domain;
 import org.kuali.maven.plugins.dnsme.beans.Record;
 
 /**
+ * Delete a dns record from a domain managed by a DNSME account. Must provide either a name or an id
+ *
  * @author Jeff Caddel
  * @goal deleterecord
  */
 public class DeleteRecordMojo extends BaseDNSMEMojo {
+
     /**
      * The domain to delete a record from
      *
