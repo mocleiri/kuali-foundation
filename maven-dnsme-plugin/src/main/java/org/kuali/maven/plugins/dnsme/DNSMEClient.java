@@ -1,7 +1,6 @@
 package org.kuali.maven.plugins.dnsme;
 
 import java.lang.reflect.Type;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -71,6 +70,15 @@ public class DNSMEClient {
         return records;
     }
 
+    public Record addRecord(Domain domain, Record record) {
+        String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
+        String json = gson.toJson(record);
+        HttpMethod method = dnsme.getPostMethod(account, url, json);
+        String resultJson = getJson(url, method, HTTP_CREATED);
+        Record resultRecord = gson.fromJson(resultJson, Record.class);
+        return resultRecord;
+    }
+
     public List<Record> getCNAMERecords(Domain domain) {
         List<Record> records = getRecords(domain, RecordType.CNAME);
         Collections.sort(records, new RecordComparator());
@@ -81,15 +89,15 @@ public class DNSMEClient {
         return getRecords(domain, null);
     }
 
+    protected String getJson(String url, HttpMethod method, int successCode) {
+        HttpRequestResult result = http.executeMethod(method);
+        validateResult(result, successCode);
+        return result.getResponseBody();
+    }
+
     protected String getJson(String url, int successCode) {
-        try {
-            HttpMethod method = dnsme.getMethod(account, url);
-            HttpRequestResult result = http.executeMethod(method);
-            validateResult(result, successCode);
-            return result.getResponseBody();
-        } catch (GeneralSecurityException e) {
-            throw new DNSMEException(e);
-        }
+        HttpMethod method = dnsme.getMethod(account, url);
+        return getJson(url, method, successCode);
     }
 
     protected List<Record> getRecords(String json) {

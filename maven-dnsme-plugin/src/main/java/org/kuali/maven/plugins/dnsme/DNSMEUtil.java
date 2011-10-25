@@ -13,7 +13,9 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.kuali.maven.plugins.dnsme.beans.Account;
 
 public class DNSMEUtil {
@@ -38,6 +40,10 @@ public class DNSMEUtil {
         setAlgorithm(DEFAULT_ALGORITHM);
     }
 
+    public synchronized void setAlgorithm(String algorithm) {
+        this.algorithm = algorithm;
+    }
+
     public synchronized void setFormat(String format) {
         this.format = format;
         sdf = new SimpleDateFormat(format);
@@ -52,28 +58,34 @@ public class DNSMEUtil {
         return sdf.format(date);
     }
 
-    public synchronized String getHash(String key, String data) throws GeneralSecurityException {
-        Mac mac = Mac.getInstance(algorithm);
-        SecretKey secretKey = new SecretKeySpec(key.getBytes(), algorithm);
-        mac.init(secretKey);
-        byte[] finalBytes = mac.doFinal(data.getBytes());
-        return getHexString(finalBytes);
+    public synchronized String getHash(String key, String data) {
+        try {
+            Mac mac = Mac.getInstance(algorithm);
+            SecretKey secretKey = new SecretKeySpec(key.getBytes(), algorithm);
+            mac.init(secretKey);
+            byte[] finalBytes = mac.doFinal(data.getBytes());
+            return getHexString(finalBytes);
+        } catch (GeneralSecurityException e) {
+            throw new DNSMEException(e);
+        }
     }
 
-    public List<Header> getHeaders(Account account) throws GeneralSecurityException {
+    public List<Header> getAuthenticationHeaders(Account account) {
         /**
-         * It appears that the DNSME timestamp tolerance logic has 2 rules:<br>
-         * 1 - All timestamp values must be less than its own internal clock<br>
-         * 2 - All timestamp values must be within 5-6 minutes of its own clock.<br>
-         * 
-         * This is pretty retarded since computer clocks are just as likely to drift forwards as they are backwards.<br>
-         * 
-         * The geniuses at DNS Made Easy did not account for computer clocks that have drifted forward. If the timestamp
-         * you supply them is ahead of their internal clocks (even by a few milliseconds) the request gets denied. They
-         * did think to account for backwards clock drift. So, to compensate for any potential forward clock drift we
-         * subtract one minute from the current timestamp of the machine we are on. This only works as long as the
-         * machine we are on is less than one minute ahead of the DNS Made Easy clocks.
-         * 
+         * The geniuses at DNS Made Easy did not account for computer clocks that have drifted forward.
+         *
+         * The DNSME timestamp tolerance logic has 2 rules:<br>
+         * 1 - All timestamp values must be less than their own internal clock<br>
+         * 2 - All timestamp values must be within 5-6 minutes of their own clock.<br>
+         *
+         * This is pretty retarded since computer clocks outside of DNSME are just as likely to drift forwards as they
+         * are backwards.<br>
+         *
+         * If the timestamp you supply them is ahead of their internal clocks (even by a few milliseconds) the request
+         * gets denied. So, to compensate for any potential forward clock drift we subtract one minute from the current
+         * timestamp of the machine we are on. This only works as long as the machine we are on is less than one minute
+         * ahead of the DNSME clocks.
+         *
          * It would have been much better of them to accept timestamps that are within 5 minutes (plus OR minus) of
          * their internal clocks.
          */
@@ -87,13 +99,29 @@ public class DNSMEUtil {
         return headers;
     }
 
-    public HttpMethod getMethod(Account account, String url) throws GeneralSecurityException {
+    public HttpMethod getPostMethod(Account account, String url, String json) {
+        NameValuePair[] parametersBody = { new NameValuePair("json", json) };
+        PostMethod method = new PostMethod(url);
+        method.setRequestBody(parametersBody);
+        addAuthenticationHeaders(account, method);
+        Header accept = new Header("accept", "application/json");
+        Header contentType = new Header("content-type", "application/json");
+        method.addRequestHeader(accept);
+        method.addRequestHeader(contentType);
+        return method;
+    }
+
+    public HttpMethod getMethod(Account account, String url) {
         HttpMethod method = new GetMethod(url);
-        List<Header> headers = getHeaders(account);
+        addAuthenticationHeaders(account, method);
+        return method;
+    }
+
+    protected void addAuthenticationHeaders(Account account, HttpMethod method) {
+        List<Header> headers = getAuthenticationHeaders(account);
         for (Header header : headers) {
             method.addRequestHeader(header);
         }
-        return method;
     }
 
     public String getHexString(byte[] b) {
@@ -120,7 +148,4 @@ public class DNSMEUtil {
         return algorithm;
     }
 
-    public void setAlgorithm(String algorithm) {
-        this.algorithm = algorithm;
-    }
 }
