@@ -53,9 +53,7 @@ public class DNSMEClient {
 
     public void deleteDomain(Domain domain) {
         String url = this.restApiUrl + "/domains/" + domain.getName();
-        HttpMethod method = dnsme.getDeleteMethod(account, url);
-        HttpRequestResult result = http.executeMethod(method);
-        validateResult(result, HTTP_OK);
+        deleteObject(url);
     }
 
     public List<Record> getRecords(Domain domain, RecordType type) {
@@ -69,35 +67,6 @@ public class DNSMEClient {
             record.setDomain(domain);
         }
         return records;
-    }
-
-    public Record addRecord(Domain domain, Record record) {
-        String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
-        if (record.getId() != null) {
-            throw new DNSMEException("id must be null when adding");
-        }
-        validateRecord(record);
-        PostMethod method = new PostMethod(url);
-        return addOrUpdateObject(url, HTTP_CREATED, record, method);
-    }
-
-    protected void validateRecord(Record record) {
-        StringBuilder sb = new StringBuilder();
-        if (record.getName() == null) {
-            sb.append("Name must not be null\n");
-        }
-        if (record.getData() == null) {
-            sb.append("Data must not be null\n");
-        }
-        if (record.getTtl() == null) {
-            sb.append("TTL must not be null\n");
-        }
-        if (record.getType() == null) {
-            sb.append("Type must not be null\n");
-        }
-        if (sb.length() > 0) {
-            throw new DNSMEException(sb.toString());
-        }
     }
 
     public Record getRecord(Domain domain, int recordId) {
@@ -117,10 +86,50 @@ public class DNSMEClient {
         return addOrUpdateObject(url, HTTP_CREATED, record, method);
     }
 
+    public Record addRecord(Domain domain, Record record) {
+        String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
+        if (record.getId() != null) {
+            throw new DNSMEException("id must be null when adding");
+        }
+        validateRecord(record);
+        PostMethod method = new PostMethod(url);
+        return addOrUpdateObject(url, HTTP_CREATED, record, method);
+    }
+
+    public void deleteRecord(Domain domain, int recordId) {
+        String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
+        deleteObject(url);
+    }
+
+    protected void deleteObject(String url) {
+        HttpMethod method = dnsme.getDeleteMethod(account, url);
+        HttpRequestResult result = http.executeMethod(method);
+        validateResult(result, HTTP_OK);
+    }
+
     public List<Record> getCNAMERecords(Domain domain) {
         List<Record> records = getRecords(domain, RecordType.CNAME);
         Collections.sort(records, new RecordComparator());
         return records;
+    }
+
+    protected void validateRecord(Record record) {
+        StringBuilder sb = new StringBuilder();
+        if (record.getName() == null) {
+            sb.append("Name must not be null\n");
+        }
+        if (record.getData() == null) {
+            sb.append("Data must not be null\n");
+        }
+        if (record.getTtl() == null) {
+            sb.append("TTL must not be null\n");
+        }
+        if (record.getType() == null) {
+            sb.append("Type must not be null\n");
+        }
+        if (sb.length() > 0) {
+            throw new DNSMEException(sb.toString());
+        }
     }
 
     protected <T> T addOrUpdateObject(String url, int statusCode, T object, EntityEnclosingMethod method) {
