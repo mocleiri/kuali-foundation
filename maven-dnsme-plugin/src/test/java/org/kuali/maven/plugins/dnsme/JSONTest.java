@@ -33,7 +33,7 @@ public class JSONTest {
         Assert.assertEquals(gsonJsonText1, gsonJsonText2);
         for (Record record : records1) {
             if (record.getName().equals("dev1.rice")) {
-                System.out.println(record.getData());
+                Assert.assertEquals("rice-env1-lb-1284336526.us-east-1.elb.amazonaws.com.", record.getData());
             }
         }
     }
