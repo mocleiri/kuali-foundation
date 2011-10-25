@@ -1,4 +1,4 @@
-package org.kuali.maven.plugins.dnsme;
+package org.kuali.maven.plugins.dnsme.mojo;
 
 import org.apache.maven.plugin.AbstractMojo;
 
