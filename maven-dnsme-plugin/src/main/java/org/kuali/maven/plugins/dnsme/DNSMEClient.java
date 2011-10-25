@@ -67,35 +67,31 @@ public class DNSMEClient {
     }
 
     public List<Domain> getDomains() {
-        try {
-            String url = this.restApiUrl + "/domains";
-            String json = getJson(url, 200);
-            DomainNames domainNames = gson.fromJson(json, DomainNames.class);
-            return getDomains(domainNames);
-        } catch (GeneralSecurityException e) {
-            throw new DNSMEException(e);
-        }
+        String url = this.restApiUrl + "/domains";
+        String json = getJson(url, 200);
+        DomainNames domainNames = gson.fromJson(json, DomainNames.class);
+        return getDomains(domainNames);
     }
 
     public List<Record> getRecords(Domain domain) {
+        String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
+        String json = getJson(url, 200);
+        List<Record> records = getRecords(json);
+        for (Record record : records) {
+            record.setDomain(domain);
+        }
+        return records;
+    }
+
+    protected String getJson(String url, int successCode) {
         try {
-            String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
-            String json = getJson(url, 200);
-            List<Record> records = getRecords(json);
-            for (Record record : records) {
-                record.setDomain(domain);
-            }
-            return records;
+            HttpMethod method = dnsme.getMethod(account, url);
+            HttpRequestResult result = http.executeMethod(method);
+            validateResult(result, successCode);
+            return result.getResponseBody();
         } catch (GeneralSecurityException e) {
             throw new DNSMEException(e);
         }
-    }
-
-    protected String getJson(String url, int successCode) throws GeneralSecurityException {
-        HttpMethod method = dnsme.getMethod(account, url);
-        HttpRequestResult result = http.executeMethod(method);
-        validateResult(result, successCode);
-        return result.getResponseBody();
     }
 
     protected List<Record> getRecords(String json) {
