@@ -112,10 +112,12 @@ public class DNSMEClient {
 
     public Record getRecord(Domain domain, Search search) {
         List<Record> records = getRecords(domain, search);
-        if (records.size() > 1) {
-            throw new DNSMEException("More than one record matched the search criteria");
+        if (records.size() != 1) {
+            throw new DNSMEException("Search criteria must match exactly 1 record but it matched " + records.size()
+                    + " records");
+        } else {
+            return records.get(0);
         }
-        return records.get(0);
     }
 
     public List<Record> getRecords(Domain domain, Search search) {
