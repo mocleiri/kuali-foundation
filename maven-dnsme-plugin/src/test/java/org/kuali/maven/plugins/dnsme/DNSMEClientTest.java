@@ -18,7 +18,7 @@ public class DNSMEClientTest {
         String restApiUrl = Constants.SANDBOX_URL;
         DNSMEClient client = DNSMEClient.getInstance(account, restApiUrl);
 
-        String newName = "xyzz.com";
+        String newName = "xyzzz.com";
         Domain newDomain = new Domain();
         newDomain.setName(newName);
 
