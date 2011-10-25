@@ -2,15 +2,11 @@ package org.kuali.maven.plugins.dnsme.beans;
 
 import java.util.List;
 
-import org.kuali.maven.plugins.dnsme.Environment;
-
 public class Account {
     String username;
     String password;
     String apiKey;
     String secretKey;
-    Environment environment;
-
     List<Domain> domains;
 
     public List<Domain> getDomains() {
@@ -51,13 +47,5 @@ public class Account {
 
     public void setSecretKey(String secretKey) {
         this.secretKey = secretKey;
-    }
-
-    public Environment getEnvironment() {
-        return environment;
-    }
-
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
     }
 }

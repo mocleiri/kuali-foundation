@@ -13,7 +13,8 @@ public class DNSMEClientTest {
     @Test
     public void testGetDomains() throws GeneralSecurityException {
         Account account = new ProductionAccount();
-        DNSMEClient client = DNSMEClient.getInstance(account);
+        String baseUrl = Constants.PRODUCTION_URL;
+        DNSMEClient client = DNSMEClient.getInstance(account, baseUrl);
         List<Domain> domains = client.getDomains();
         for (Domain domain : domains) {
             System.out.println(domain.getName());

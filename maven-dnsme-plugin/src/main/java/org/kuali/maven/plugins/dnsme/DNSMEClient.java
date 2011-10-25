@@ -13,18 +13,20 @@ import com.google.gson.Gson;
 
 public class DNSMEClient {
 
+    String baseUrl;
     Account account;
     Gson gson = new Gson();
     HttpUtil http = new HttpUtil();
     DNSMEUtil dnsme = new DNSMEUtil();
 
-    public static DNSMEClient getInstance(Account account) {
-        return new DNSMEClient(account);
+    public static DNSMEClient getInstance(Account account, String baseUrl) {
+        return new DNSMEClient(account, baseUrl);
     }
 
-    private DNSMEClient(Account account) {
+    private DNSMEClient(Account account, String baseUrl) {
         super();
         this.account = account;
+        this.baseUrl = baseUrl;
     }
 
     protected void validateResult(HttpRequestResult result, int statusCode) {
@@ -59,7 +61,7 @@ public class DNSMEClient {
 
     public List<Domain> getDomains() {
         try {
-            String url = account.getEnvironment().getUrl() + "/domains";
+            String url = this.baseUrl + "/domains";
             HttpMethod method = dnsme.getMethod(account, url);
             HttpRequestResult result = http.executeMethod(method);
             validateResult(result, 200);
