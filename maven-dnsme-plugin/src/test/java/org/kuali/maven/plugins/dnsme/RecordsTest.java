@@ -1,7 +1,5 @@
 package org.kuali.maven.plugins.dnsme;
 
-import java.security.GeneralSecurityException;
-
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
 import org.junit.Test;
@@ -13,7 +11,7 @@ public class RecordsTest {
     HttpUtil http = new HttpUtil();
 
     @Test
-    public void testOne() throws GeneralSecurityException {
+    public void testOne() {
         String url = Constants.PRODUCTION_URL + "/domains/kuali.org/records";
         Account sandbox = new ProductionAccount();
         HttpMethod method = dnsme.getGetMethod(sandbox, url);
