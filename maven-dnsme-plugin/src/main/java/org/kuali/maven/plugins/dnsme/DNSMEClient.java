@@ -35,8 +35,9 @@ public class DNSMEClient {
             throw new DNSMEException("Operation timed out");
         case COMPLETED:
             int code = result.getStatusCode();
+            String text = result.getStatusText();
             if (statusCode != result.getStatusCode()) {
-                throw new DNSMEException("Invalid status code '" + code + "' Expected: '" + statusCode + "'");
+                throw new DNSMEException("Invalid status '" + code + ":" + text + "' Expected: '" + statusCode + "'");
             }
         }
     }
