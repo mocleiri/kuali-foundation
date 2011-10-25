@@ -13,20 +13,20 @@ import com.google.gson.Gson;
 
 public class DNSMEClient {
 
-    String baseUrl;
+    String restApiUrl;
     Account account;
     Gson gson = new Gson();
     HttpUtil http = new HttpUtil();
     DNSMEUtil dnsme = new DNSMEUtil();
 
-    public static DNSMEClient getInstance(Account account, String baseUrl) {
-        return new DNSMEClient(account, baseUrl);
+    public static DNSMEClient getInstance(Account account, String restApiUrl) {
+        return new DNSMEClient(account, restApiUrl);
     }
 
     private DNSMEClient(Account account, String baseUrl) {
         super();
         this.account = account;
-        this.baseUrl = baseUrl;
+        this.restApiUrl = restApiUrl;
     }
 
     protected void validateResult(HttpRequestResult result, int statusCode) {
@@ -37,10 +37,14 @@ public class DNSMEClient {
             throw new DNSMEException("Operation timed out");
         case COMPLETED:
             int code = result.getStatusCode();
-            String text = result.getStatusText();
-            if (statusCode != result.getStatusCode()) {
-                throw new DNSMEException("Invalid status '" + code + ":" + text + "' Expected: '" + statusCode + "'");
+            if (statusCode == result.getStatusCode()) {
+                return;
+            } else {
+                throw new DNSMEException("Invalid http status '" + code + ":" + result.getStatusText()
+                        + "' Expected: '" + statusCode + "'");
             }
+        default:
+            throw new DNSMEException("Unknown result type: " + result.getType());
         }
     }
 
@@ -61,7 +65,7 @@ public class DNSMEClient {
 
     public List<Domain> getDomains() {
         try {
-            String url = this.baseUrl + "/domains";
+            String url = this.restApiUrl + "/domains";
             HttpMethod method = dnsme.getMethod(account, url);
             HttpRequestResult result = http.executeMethod(method);
             validateResult(result, 200);
