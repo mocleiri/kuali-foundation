@@ -1,6 +1,10 @@
 package org.kuali.maven.plugins.dnsme.mojo;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.kuali.maven.plugins.dnsme.DNSMEClient;
+import org.kuali.maven.plugins.dnsme.beans.Account;
 
 /**
  *
@@ -25,6 +29,17 @@ public abstract class BaseDNSMEMojo extends AbstractMojo {
      * @required
      */
     String secretKey;
+
+    @Override
+    public void execute() throws MojoExecutionException, MojoFailureException {
+        Account account = new Account();
+        account.setApiKey(apiKey);
+        account.setSecretKey(secretKey);
+        DNSMEClient client = DNSMEClient.getInstance(account, restApiUrl);
+        performTasks(client);
+    }
+
+    protected abstract void performTasks(DNSMEClient client) throws MojoExecutionException, MojoFailureException;
 
     public String getRestApiUrl() {
         return restApiUrl;
