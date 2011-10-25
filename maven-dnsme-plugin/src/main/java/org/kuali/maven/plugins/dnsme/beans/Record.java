@@ -1,10 +1,12 @@
 package org.kuali.maven.plugins.dnsme.beans;
 
+import org.kuali.maven.plugins.dnsme.RecordType;
+
 public class Record {
     Domain domain;
     Integer id;
     String name;
-    String type;
+    RecordType type;
     String data;
     Integer ttl;
     String gtdLocation;
@@ -31,11 +33,11 @@ public class Record {
         this.name = name;
     }
 
-    public String getType() {
+    public RecordType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RecordType type) {
         this.type = type;
     }
 
