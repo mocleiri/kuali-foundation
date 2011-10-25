@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
 
 import org.junit.Test;
 import org.kuali.maven.plugins.dnsme.beans.Account;
@@ -35,25 +33,6 @@ public class JSONTest {
             if (record.getName().equals("dev1.rice")) {
                 Assert.assertEquals("rice-env1-lb-1284336526.us-east-1.elb.amazonaws.com.", record.getData());
             }
-        }
-    }
-
-    // @Test
-    public void testJavaToJson() {
-        List<Domain> domains = new ArrayList<Domain>();
-        domains.add(new Domain("kuali.net"));
-        domains.add(new Domain("kuali.org"));
-        domains.add(new Domain("kualiproject.org"));
-        Account account = new Account();
-        account.setDomains(domains);
-        JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(account);
-        String jsonText = jsonObject.toString();
-        JSONObject fromText = JSONObject.fromObject(jsonText);
-        Account fromJsonObject = (Account) JSONObject.toBean(fromText, Account.class);
-        Assert.assertNotNull(fromJsonObject.getDomains());
-        List<Domain> domainList = fromJsonObject.getDomains();
-        for (Domain domain : domainList) {
-            System.out.println(domain.getName());
         }
     }
 
