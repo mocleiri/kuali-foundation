@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Domain {
 
+    Account account;
     String name;
     List<String> nameServers;
     Boolean gtdEnabled;
@@ -54,6 +55,14 @@ public class Domain {
 
     public void setRecords(List<Record> records) {
         this.records = records;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
 }
