@@ -14,6 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
@@ -99,6 +100,12 @@ public class DNSMEUtil {
         headers.add(new Header(DATE_HEADER, requestDate));
         headers.add(new Header(HMAC_HEADER, hash));
         return headers;
+    }
+
+    public HttpMethod getDeleteMethod(Account account, String url) {
+        HttpMethod method = new DeleteMethod(url);
+        addAuthenticationHeaders(account, method);
+        return method;
     }
 
     public HttpMethod getPostMethod(Account account, String url, String json) {

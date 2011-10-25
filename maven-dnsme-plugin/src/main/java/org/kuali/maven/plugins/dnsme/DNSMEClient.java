@@ -35,21 +35,6 @@ public class DNSMEClient {
         this.restApiUrl = restApiUrl;
     }
 
-    protected List<Domain> getDomains(DomainNames domainNames) {
-        if (domainNames.getList() == null) {
-            return new ArrayList<Domain>();
-        }
-        List<String> names = domainNames.getList();
-        List<Domain> domains = new ArrayList<Domain>();
-        for (String name : names) {
-            Domain domain = new Domain();
-            domain.setAccount(account);
-            domain.setName(name);
-            domains.add(domain);
-        }
-        return domains;
-    }
-
     public List<Domain> getDomains() {
         String url = this.restApiUrl + "/domains";
         String json = getJson(url, HTTP_OK);
@@ -72,17 +57,27 @@ public class DNSMEClient {
 
     public Record addRecord(Domain domain, Record record) {
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
-        String json = gson.toJson(record);
-        HttpMethod method = dnsme.getPostMethod(account, url, json);
-        String resultJson = getJson(url, method, HTTP_CREATED);
-        Record resultRecord = gson.fromJson(resultJson, Record.class);
-        return resultRecord;
+        return getResult(url, HTTP_CREATED, record);
+    }
+
+    public Domain addDomain(Domain domain) {
+        String url = this.restApiUrl + "/domains/" + domain.getName();
+        return getResult(url, HTTP_CREATED, domain);
     }
 
     public List<Record> getCNAMERecords(Domain domain) {
         List<Record> records = getRecords(domain, RecordType.CNAME);
         Collections.sort(records, new RecordComparator());
         return records;
+    }
+
+    public <T> T getResult(String url, int statusCode, T object) {
+        String json = gson.toJson(object);
+        HttpMethod method = dnsme.getPostMethod(account, url, json);
+        String resultJson = getJson(url, method, HTTP_CREATED);
+        @SuppressWarnings("unchecked")
+        T resultObject = (T) gson.fromJson(resultJson, object.getClass());
+        return resultObject;
     }
 
     public List<Record> getRecords(Domain domain) {
@@ -133,4 +128,18 @@ public class DNSMEClient {
         }
     }
 
+    protected List<Domain> getDomains(DomainNames domainNames) {
+        if (domainNames.getList() == null) {
+            return new ArrayList<Domain>();
+        }
+        List<String> names = domainNames.getList();
+        List<Domain> domains = new ArrayList<Domain>();
+        for (String name : names) {
+            Domain domain = new Domain();
+            domain.setAccount(account);
+            domain.setName(name);
+            domains.add(domain);
+        }
+        return domains;
+    }
 }
