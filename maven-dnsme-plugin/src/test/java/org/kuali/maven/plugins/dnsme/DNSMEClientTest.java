@@ -18,7 +18,7 @@ public class DNSMEClientTest {
         String restApiUrl = Constants.SANDBOX_URL;
         DNSMEClient client = DNSMEClient.getInstance(account, restApiUrl);
 
-        String newName = "xyz.com";
+        String newName = "xyzz.com";
         Domain newDomain = new Domain();
         newDomain.setName(newName);
 
@@ -28,6 +28,8 @@ public class DNSMEClientTest {
         Domain resultDomain = client.addDomain(newDomain);
         domains = client.getDomains();
         Assert.assertTrue(exists(domains, resultDomain));
+
+        client.deleteDomain(resultDomain);
 
     }
 

@@ -54,7 +54,8 @@ public class DNSMEClient {
     public void deleteDomain(Domain domain) {
         String url = this.restApiUrl + "/domains/" + domain.getName();
         HttpMethod method = dnsme.getDeleteMethod(account, url);
-        http.executeMethod(method);
+        HttpRequestResult result = http.executeMethod(method);
+        validateResult(result, HTTP_OK);
     }
 
     public List<Record> getRecords(Domain domain, RecordType type) {
