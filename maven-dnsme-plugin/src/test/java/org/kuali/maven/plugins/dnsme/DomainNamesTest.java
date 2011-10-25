@@ -9,7 +9,6 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.maven.plugins.dnsme.accounts.PersonalAccount;
-import org.kuali.maven.plugins.dnsme.accounts.ProductionAccount;
 import org.kuali.maven.plugins.dnsme.accounts.SampleAccount;
 import org.kuali.maven.plugins.dnsme.accounts.SandboxAccount;
 import org.kuali.maven.plugins.dnsme.beans.Account;
@@ -51,6 +50,7 @@ public class DomainNamesTest {
 
     @Test
     public void testProduction() throws GeneralSecurityException {
+        /*
         String url = Constants.SANDBOX_URL + "/domains";
         Account sandbox = new ProductionAccount();
         HttpMethod method = dnsme.getGetMethod(sandbox, url);
@@ -62,7 +62,7 @@ public class DomainNamesTest {
         Header[] headers = result.getResponseHeaders();
         for (Header header : headers) {
             System.out.println(header.getName() + " " + header.getValue());
-        }
+        }*/
     }
 
     @Test
