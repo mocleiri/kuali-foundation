@@ -45,7 +45,7 @@ public class DomainNamesTest {
         String url = Constants.SANDBOX_URL + "/domains";
         HttpClient client = http.getHttpClient();
         Account personal = new PersonalAccount();
-        HttpRequestResult result = http.executeMethod(client, dnsme.getMethod(personal, url));
+        HttpRequestResult result = http.executeMethod(client, dnsme.getGetMethod(personal, url));
         http.log(url, result, -1);
     }
 
@@ -53,7 +53,7 @@ public class DomainNamesTest {
     public void testProduction() throws GeneralSecurityException {
         String url = Constants.SANDBOX_URL + "/domains";
         Account sandbox = new ProductionAccount();
-        HttpMethod method = dnsme.getMethod(sandbox, url);
+        HttpMethod method = dnsme.getGetMethod(sandbox, url);
         HttpRequestResult result = http.executeMethod(method);
         http.log(url, result, -1);
         System.out.println("Production");
@@ -79,7 +79,7 @@ public class DomainNamesTest {
     public void test2() throws GeneralSecurityException {
         String url = Constants.SANDBOX_URL + "/domains";
         Account sandbox = new SandboxAccount();
-        HttpMethod method = dnsme.getMethod(sandbox, url);
+        HttpMethod method = dnsme.getGetMethod(sandbox, url);
         HttpRequestResult result = http.executeMethod(method);
         http.log(url, result, -1);
         System.out.println("Sandbox");
