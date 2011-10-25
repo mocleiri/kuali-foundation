@@ -122,8 +122,8 @@ public class DNSMEUtil {
         }
     }
 
-    public HttpMethod getMethod(Account account, String url) {
-        HttpMethod method = new GetMethod(url);
+    public GetMethod getGetMethod(Account account, String url) {
+        GetMethod method = new GetMethod(url);
         addAuthenticationHeaders(account, method);
         return method;
     }

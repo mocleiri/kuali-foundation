@@ -73,8 +73,49 @@ public class DNSMEClient {
 
     public Record addRecord(Domain domain, Record record) {
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
+        if (record.getId() != null) {
+            throw new DNSMEException("id must be null when adding");
+        }
+        validateRecord(record);
         PostMethod method = new PostMethod(url);
         return addObject(url, HTTP_CREATED, record, method);
+    }
+
+    protected void validateRecord(Record record) {
+        StringBuilder sb = new StringBuilder();
+        if (record.getName() == null) {
+            sb.append("Name must not be null when adding\n");
+        }
+        if (record.getData() == null) {
+            sb.append("Data must not be null when adding\n");
+        }
+        if (record.getTtl() == null) {
+            sb.append("TTL must not be null when adding\n");
+        }
+        if (record.getType() == null) {
+            sb.append("Type must not be null when adding\n");
+        }
+        if (sb.length() > 0) {
+            throw new DNSMEException(sb.toString());
+        }
+    }
+
+    public Record getRecord(Domain domain, int recordId) {
+        String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
+        String resultJson = getJson(url, HTTP_OK);
+        Record resultRecord = (Record) gson.fromJson(resultJson, Record.class);
+        return resultRecord;
+    }
+
+    public Record updateRecord(Domain domain, Record record) {
+        if (record.getId() == null) {
+            throw new DNSMEException("id must not be null when updating");
+        }
+        validateRecord(record);
+        String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + record.getId();
+        String resultJson = getJson(url, HTTP_OK);
+        Record resultRecord = (Record) gson.fromJson(resultJson, Record.class);
+        return resultRecord;
     }
 
     public List<Record> getCNAMERecords(Domain domain) {
@@ -83,7 +124,7 @@ public class DNSMEClient {
         return records;
     }
 
-    public <T> T addObject(String url, int statusCode, T object, EntityEnclosingMethod method) {
+    protected <T> T addObject(String url, int statusCode, T object, EntityEnclosingMethod method) {
         String json = gson.toJson(object);
         dnsme.updateMethod(account, json, method);
         String resultJson = getJson(url, method, HTTP_CREATED);
@@ -103,7 +144,7 @@ public class DNSMEClient {
     }
 
     protected String getJson(String url, int successCode) {
-        HttpMethod method = dnsme.getMethod(account, url);
+        HttpMethod method = dnsme.getGetMethod(account, url);
         return getJson(url, method, successCode);
     }
 
