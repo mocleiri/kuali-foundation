@@ -18,7 +18,7 @@ public class DNSMEClientTest {
         String restApiUrl = Constants.SANDBOX_URL;
         DNSMEClient client = DNSMEClient.getInstance(account, restApiUrl);
 
-        String newName = "xyzzz.com";
+        String newName = "deletemenow.com";
         Domain newDomain = new Domain();
         newDomain.setName(newName);
 
@@ -31,11 +31,23 @@ public class DNSMEClientTest {
         domains = client.getDomains();
         Assert.assertTrue(exists(domains, resultDomain));
 
+        sleep(5000);
+
         // Delete it, and make sure it is gone
         client.deleteDomain(resultDomain);
+
+        sleep(5000);
+
         domains = client.getDomains();
         Assert.assertFalse(exists(domains, newDomain));
+    }
 
+    protected void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected boolean exists(List<Domain> domains, Domain targetDomain) {
