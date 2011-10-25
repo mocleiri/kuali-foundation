@@ -80,11 +80,11 @@ public class ShowRecordsMojo extends BaseDNSMEMojo {
         List<Record> records = client.getRecords(domain, search);
         getLog().info("Showing records for: " + domainName);
         for (Record record : records) {
-            getLog().info(getLogCompact(record));
+            getLog().info(getCompactLog(record));
         }
     }
 
-    protected String getLogCompact(Record record) {
+    protected String getCompactLog(Record record) {
         StringBuilder sb = new StringBuilder();
         sb.append(record.getName());
         sb.append("->" + record.getData());
