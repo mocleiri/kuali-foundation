@@ -37,14 +37,13 @@ public class RecordComparator implements Comparator<Record> {
     protected Integer getNullCompare(String s1, String s2) {
         if (s1 == null && s2 == null) {
             return 0;
-        }
-        if (s1 != null && s2 == null) {
+        } else if (s1 != null && s2 == null) {
             return 1;
-        }
-        if (s1 == null && s2 != null) {
+        } else if (s1 == null && s2 != null) {
             return -1;
+        } else {
+            return null;
         }
-        return null;
     }
 
 }
