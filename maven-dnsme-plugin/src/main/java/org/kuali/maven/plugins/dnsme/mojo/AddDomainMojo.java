@@ -12,6 +12,8 @@ import org.kuali.maven.plugins.dnsme.beans.Domain;
 public class AddDomainMojo extends BaseDNSMEMojo {
 
     /**
+     * The domain name to add
+     *
      * @parameter expression="${dnsme.domainName}"
      * @required
      */

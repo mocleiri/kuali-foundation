@@ -14,7 +14,7 @@ import org.kuali.maven.plugins.dnsme.beans.RecordType;
  */
 public class AddRecordMojo extends BaseDNSMEMojo {
     /**
-     * The domain to show records for
+     * The domain to add a record to
      *
      * @parameter expression="${dnsme.domainName}"
      * @required
@@ -37,7 +37,7 @@ public class AddRecordMojo extends BaseDNSMEMojo {
     RecordType recordType;
 
     /**
-     * Matches a single record with this exact name
+     * The record name
      *
      * @parameter expression="${dnsme.recordName}"
      * @required
@@ -45,7 +45,7 @@ public class AddRecordMojo extends BaseDNSMEMojo {
     String recordName;
 
     /**
-     * Matches any record with this exact value
+     * The record value
      *
      * @parameter expression="${dnsme.recordValue}"
      * @required

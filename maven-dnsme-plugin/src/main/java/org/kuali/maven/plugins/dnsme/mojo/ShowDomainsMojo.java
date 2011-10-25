@@ -8,6 +8,8 @@ import org.kuali.maven.plugins.dnsme.DNSMEClient;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
 
 /**
+ * Show all domains belonging to this DNSME account
+ *
  * @author Jeff Caddel
  * @goal showdomains
  */

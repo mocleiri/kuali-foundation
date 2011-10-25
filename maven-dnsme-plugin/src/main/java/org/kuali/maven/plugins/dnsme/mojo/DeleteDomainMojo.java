@@ -12,7 +12,7 @@ import org.kuali.maven.plugins.dnsme.beans.Domain;
 public class DeleteDomainMojo extends BaseDNSMEMojo {
 
     /**
-     * The url for the DNSME Rest API
+     * The domain to delete
      *
      * @parameter expression="${dnsme.domainName}"
      * @required

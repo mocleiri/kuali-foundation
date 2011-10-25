@@ -12,7 +12,7 @@ import org.kuali.maven.plugins.dnsme.beans.Record;
  */
 public class DeleteRecordMojo extends BaseDNSMEMojo {
     /**
-     * The domain to show records for
+     * The domain to delete a record from
      *
      * @parameter expression="${dnsme.domainName}"
      * @required
@@ -20,14 +20,14 @@ public class DeleteRecordMojo extends BaseDNSMEMojo {
     String domainName;
 
     /**
-     * Matches a single record with this exact name
+     * The name of the record to delete
      *
      * @parameter expression="${dnsme.recordName}"
      */
     String recordName;
 
     /**
-     * Matches a single record with this exact name
+     * The id of the record to delete
      *
      * @parameter expression="${dnsme.recordId}"
      */

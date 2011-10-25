@@ -19,12 +19,16 @@ public abstract class BaseDNSMEMojo extends AbstractMojo {
     String restApiUrl;
 
     /**
+     * The REST api key for a DNSME account
+     *
      * @parameter expression="${dnsme.apiKey}"
      * @required
      */
     String apiKey;
 
     /**
+     * The REST secret key for a DNSME account
+     *
      * @parameter expression="${dnsme.secretKey}"
      * @required
      */

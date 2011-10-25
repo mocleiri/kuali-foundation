@@ -12,6 +12,9 @@ import org.kuali.maven.plugins.dnsme.beans.RecordType;
 import org.kuali.maven.plugins.dnsme.beans.Search;
 
 /**
+ * Show records for the domain indicated. By default, all records are shown. Search criteria can be used to restrict the
+ * display
+ *
  * @author Jeff Caddel
  * @goal showrecords
  */
