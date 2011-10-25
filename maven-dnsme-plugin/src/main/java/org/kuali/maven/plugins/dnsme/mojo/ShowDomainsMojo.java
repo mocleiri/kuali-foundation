@@ -9,9 +9,9 @@ import org.kuali.maven.plugins.dnsme.beans.Domain;
 
 /**
  * @author Jeff Caddel
- * @goal getdomains
+ * @goal showdomains
  */
-public class GetDomainsMojo extends BaseDNSMEMojo {
+public class ShowDomainsMojo extends BaseDNSMEMojo {
 
     @Override
     public void performTasks(DNSMEClient client) throws MojoExecutionException, MojoFailureException {
