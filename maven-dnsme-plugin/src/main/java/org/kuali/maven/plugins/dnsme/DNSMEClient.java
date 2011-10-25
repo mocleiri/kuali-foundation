@@ -48,7 +48,7 @@ public class DNSMEClient {
     public Domain addDomain(Domain domain) {
         String url = this.restApiUrl + "/domains/" + domain.getName();
         PutMethod method = new PutMethod(url);
-        return addObject(url, HTTP_CREATED, domain, method);
+        return addOrUpdateObject(url, HTTP_CREATED, domain, method);
     }
 
     public void deleteDomain(Domain domain) {
@@ -78,7 +78,7 @@ public class DNSMEClient {
         }
         validateRecord(record);
         PostMethod method = new PostMethod(url);
-        return addObject(url, HTTP_CREATED, record, method);
+        return addOrUpdateObject(url, HTTP_CREATED, record, method);
     }
 
     protected void validateRecord(Record record) {
@@ -113,8 +113,8 @@ public class DNSMEClient {
         }
         validateRecord(record);
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + record.getId();
-        String resultJson = getJson(url, HTTP_OK);
-        Record resultRecord = (Record) gson.fromJson(resultJson, Record.class);
+        PutMethod method = new PutMethod(url);
+        Record resultRecord = addOrUpdateObject(url, HTTP_CREATED, record, method);
         return resultRecord;
     }
 
@@ -124,7 +124,7 @@ public class DNSMEClient {
         return records;
     }
 
-    protected <T> T addObject(String url, int statusCode, T object, EntityEnclosingMethod method) {
+    protected <T> T addOrUpdateObject(String url, int statusCode, T object, EntityEnclosingMethod method) {
         String json = gson.toJson(object);
         dnsme.updateMethod(account, json, method);
         String resultJson = getJson(url, method, HTTP_CREATED);
