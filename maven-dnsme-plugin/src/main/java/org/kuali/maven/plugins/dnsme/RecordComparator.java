@@ -9,16 +9,16 @@ public class RecordComparator implements Comparator<Record> {
 
     @Override
     public int compare(Record record1, Record record2) {
-        String data1 = record1.getData();
-        String data2 = record2.getData();
+        String name1 = record1.getName();
+        String name2 = record2.getName();
 
-        Integer nullCompare = getNullCompare(data1, data2);
+        Integer nullCompare = getNullCompare(name1, name2);
         if (nullCompare != null) {
             return nullCompare;
         }
 
-        String[] tokens1 = StringUtils.split(data1, ".");
-        String[] tokens2 = StringUtils.split(data2, ".");
+        String[] tokens1 = StringUtils.split(name1, ".");
+        String[] tokens2 = StringUtils.split(name2, ".");
 
         String s1 = getReversedString(tokens1);
         String s2 = getReversedString(tokens2);
