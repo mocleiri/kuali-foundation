@@ -84,16 +84,16 @@ public class DNSMEClient {
     protected void validateRecord(Record record) {
         StringBuilder sb = new StringBuilder();
         if (record.getName() == null) {
-            sb.append("Name must not be null when adding\n");
+            sb.append("Name must not be null\n");
         }
         if (record.getData() == null) {
-            sb.append("Data must not be null when adding\n");
+            sb.append("Data must not be null\n");
         }
         if (record.getTtl() == null) {
-            sb.append("TTL must not be null when adding\n");
+            sb.append("TTL must not be null\n");
         }
         if (record.getType() == null) {
-            sb.append("Type must not be null when adding\n");
+            sb.append("Type must not be null\n");
         }
         if (sb.length() > 0) {
             throw new DNSMEException(sb.toString());
@@ -114,8 +114,7 @@ public class DNSMEClient {
         validateRecord(record);
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + record.getId();
         PutMethod method = new PutMethod(url);
-        Record resultRecord = addOrUpdateObject(url, HTTP_CREATED, record, method);
-        return resultRecord;
+        return addOrUpdateObject(url, HTTP_CREATED, record, method);
     }
 
     public List<Record> getCNAMERecords(Domain domain) {
