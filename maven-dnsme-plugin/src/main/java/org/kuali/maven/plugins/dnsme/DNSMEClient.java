@@ -124,8 +124,9 @@ public class DNSMEClient {
             if (statusCode == result.getStatusCode()) {
                 return;
             } else {
+                String errorText = result.getResponseBody();
                 throw new DNSMEException("Invalid http status '" + code + ":" + result.getStatusText()
-                        + "' Expected: '" + statusCode + "'");
+                        + "' Expected: '" + statusCode + "'  Error:" + errorText);
             }
         default:
             throw new DNSMEException("Unknown result type: " + result.getType());

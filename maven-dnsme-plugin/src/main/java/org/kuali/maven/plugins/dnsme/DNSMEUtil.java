@@ -1,5 +1,6 @@
 package org.kuali.maven.plugins.dnsme;
 
+import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,9 +14,10 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.kuali.maven.plugins.dnsme.beans.Account;
 
 public class DNSMEUtil {
@@ -100,15 +102,19 @@ public class DNSMEUtil {
     }
 
     public HttpMethod getPostMethod(Account account, String url, String json) {
-        NameValuePair[] parametersBody = { new NameValuePair("json", json) };
-        PostMethod method = new PostMethod(url);
-        method.setRequestBody(parametersBody);
-        addAuthenticationHeaders(account, method);
-        Header accept = new Header("accept", "application/json");
-        Header contentType = new Header("content-type", "application/json");
-        method.addRequestHeader(accept);
-        method.addRequestHeader(contentType);
-        return method;
+        try {
+            PostMethod method = new PostMethod(url);
+            RequestEntity requestEntity = new StringRequestEntity(json, "application/json", "UTF-8");
+            method.setRequestEntity(requestEntity);
+            addAuthenticationHeaders(account, method);
+            Header accept = new Header("accept", "application/json");
+            Header contentType = new Header("content-type", "application/json");
+            method.addRequestHeader(accept);
+            method.addRequestHeader(contentType);
+            return method;
+        } catch (UnsupportedEncodingException e) {
+            throw new DNSMEException(e);
+        }
     }
 
     public HttpMethod getMethod(Account account, String url) {
