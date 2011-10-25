@@ -12,8 +12,6 @@ import org.kuali.maven.plugins.dnsme.beans.Domain;
 public class AddDomainMojo extends BaseDNSMEMojo {
 
     /**
-     * The url for the DNSME Rest API
-     *
      * @parameter expression="${dnsme.domainName}"
      * @required
      */

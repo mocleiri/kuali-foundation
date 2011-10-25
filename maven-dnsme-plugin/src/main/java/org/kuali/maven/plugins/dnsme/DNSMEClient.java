@@ -51,6 +51,16 @@ public class DNSMEClient {
         return getDomains(domainNames);
     }
 
+    public Domain getDomain(String name) {
+        List<Domain> domains = getDomains();
+        for (Domain domain : domains) {
+            if (domain.getName().equalsIgnoreCase(name)) {
+                return domain;
+            }
+        }
+        return null;
+    }
+
     public Domain addDomain(Domain domain) {
         String url = this.restApiUrl + "/domains/" + domain.getName();
         PutMethod method = new PutMethod(url);
