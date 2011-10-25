@@ -110,6 +110,14 @@ public class DNSMEClient {
         }
     }
 
+    public Record getRecord(Domain domain, Search search) {
+        List<Record> records = getRecords(domain, search);
+        if (records.size() > 1) {
+            throw new DNSMEException("More than one record matched the search criteria");
+        }
+        return records.get(0);
+    }
+
     public List<Record> getRecords(Domain domain, Search search) {
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
         if (search != null) {
@@ -123,6 +131,12 @@ public class DNSMEClient {
         return records;
     }
 
+    public Record getRecord(Domain domain, String name) {
+        Search search = new Search();
+        search.setName(name);
+        return getRecord(domain, search);
+    }
+
     public Record getRecord(Domain domain, int recordId) {
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
         String resultJson = getJson(url, HTTP_OK);
@@ -130,14 +144,22 @@ public class DNSMEClient {
         return resultRecord;
     }
 
-    public Record updateRecord(Domain domain, Record record) {
+    protected void validateForUpdate(Record record) {
+        if (record.getId() == null && record.getName() == null) {
+            throw new DNSMEException("Either or id or name must have a value when updating");
+        }
+    }
+
+    public void updateRecord(Domain domain, Record record) {
+        validateForUpdate(record);
         if (record.getId() == null) {
-            throw new DNSMEException("id must not be null when updating");
+            Record existingRecord = getRecord(domain, record.getName());
+            record.setId(existingRecord.getId());
         }
         validateRecord(record);
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + record.getId();
         PutMethod method = new PutMethod(url);
-        return addOrUpdateObject(url, HTTP_OK, record, method);
+        addOrUpdateObject(url, HTTP_OK, record, method);
     }
 
     public Record addRecord(Domain domain, Record record) {
@@ -153,6 +175,11 @@ public class DNSMEClient {
     public void deleteRecord(Domain domain, int recordId) {
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
         deleteObject(url);
+    }
+
+    public void deleteRecord(Domain domain, String name) {
+        Record record = getRecord(domain, name);
+        deleteRecord(domain, record.getId());
     }
 
     protected void deleteObject(String url) {

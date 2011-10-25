@@ -18,7 +18,7 @@ public class DNSMEClientTest {
             Account account = new SandboxAccount();
             String restApiUrl = Constants.SANDBOX_URL;
             DNSMEClient client = DNSMEClient.getInstance(account, restApiUrl);
-            Domain domain = new Domain("deletemenow6.com");
+            Domain domain = new Domain("deletemenow7.com");
             client.addDomain(domain);
             sleep(1000);
             List<Record> records = client.getRecords(domain);
@@ -32,15 +32,18 @@ public class DNSMEClientTest {
             Record addedRecord = client.addRecord(domain, record);
             addedRecord.setTtl(600);
             sleep(1000);
-            Record updatedRecord = client.updateRecord(domain, addedRecord);
+            client.updateRecord(domain, addedRecord);
             sleep(1000);
-            Record retrievedRecord = client.getRecord(domain, updatedRecord.getId());
+            Record retrievedRecord1 = client.getRecord(domain, addedRecord.getId());
             sleep(1000);
-            client.deleteRecord(domain, retrievedRecord.getId());
-            Integer id1 = addedRecord.getId();
-            Integer id2 = updatedRecord.getId();
-            Assert.assertNotNull(id1);
-            Assert.assertNotNull(id2);
+            client.deleteRecord(domain, retrievedRecord1.getId());
+            sleep(1000);
+            try {
+                client.getRecord(domain, addedRecord.getId());
+                Assert.fail("Should have thrown an exception");
+            } catch (DNSMEException e) {
+                ; // Expected
+            }
         } catch (Throwable t) {
             t.printStackTrace();
         }
