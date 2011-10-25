@@ -13,6 +13,40 @@ import org.kuali.maven.plugins.dnsme.beans.Record;
 public class DNSMEClientTest {
 
     @Test
+    public void testRecordCrud() {
+        try {
+            Account account = new SandboxAccount();
+            String restApiUrl = Constants.SANDBOX_URL;
+            DNSMEClient client = DNSMEClient.getInstance(account, restApiUrl);
+            Domain domain = new Domain("deletemenow6.com");
+            client.addDomain(domain);
+            sleep(1000);
+            List<Record> records = client.getRecords(domain);
+            sleep(1000);
+            Record record = new Record();
+            record.setName("foo.bar");
+            record.setTtl(60);
+            record.setData("foo.aws.amazon.com");
+            record.setType(RecordType.CNAME);
+            Assert.assertFalse(exists(records, record));
+            Record addedRecord = client.addRecord(domain, record);
+            addedRecord.setTtl(600);
+            sleep(1000);
+            Record updatedRecord = client.updateRecord(domain, addedRecord);
+            sleep(1000);
+            Record retrievedRecord = client.getRecord(domain, updatedRecord.getId());
+            sleep(1000);
+            client.deleteRecord(domain, retrievedRecord.getId());
+            Integer id1 = addedRecord.getId();
+            Integer id2 = updatedRecord.getId();
+            Assert.assertNotNull(id1);
+            Assert.assertNotNull(id2);
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    // @Test
     public void testDomainCrud() {
         Account account = new SandboxAccount();
         String restApiUrl = Constants.SANDBOX_URL;
@@ -48,6 +82,17 @@ public class DNSMEClientTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    protected boolean exists(List<Record> records, Record targetRecord) {
+        String targetName = targetRecord.getName();
+        for (Record record : records) {
+            String name = record.getName();
+            if (targetName.equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected boolean exists(List<Domain> domains, Domain targetDomain) {

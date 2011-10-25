@@ -83,7 +83,7 @@ public class DNSMEClient {
         validateRecord(record);
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + record.getId();
         PutMethod method = new PutMethod(url);
-        return addOrUpdateObject(url, HTTP_CREATED, record, method);
+        return addOrUpdateObject(url, HTTP_OK, record, method);
     }
 
     public Record addRecord(Domain domain, Record record) {
@@ -135,7 +135,7 @@ public class DNSMEClient {
     protected <T> T addOrUpdateObject(String url, int statusCode, T object, EntityEnclosingMethod method) {
         String json = gson.toJson(object);
         dnsme.updateMethod(account, json, method);
-        String resultJson = getJson(url, method, HTTP_CREATED);
+        String resultJson = getJson(url, method, statusCode);
         @SuppressWarnings("unchecked")
         T resultObject = (T) gson.fromJson(resultJson, object.getClass());
         return resultObject;

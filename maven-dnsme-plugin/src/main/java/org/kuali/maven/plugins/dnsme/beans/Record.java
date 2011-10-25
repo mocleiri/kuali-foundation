@@ -1,5 +1,6 @@
 package org.kuali.maven.plugins.dnsme.beans;
 
+import org.kuali.maven.plugins.dnsme.GTDLocation;
 import org.kuali.maven.plugins.dnsme.RecordType;
 
 public class Record {
@@ -9,7 +10,7 @@ public class Record {
     RecordType type;
     String data;
     Integer ttl;
-    String gtdLocation;
+    GTDLocation gtdLocation;
     String password;
     String description;
     String keywords;
@@ -55,14 +56,6 @@ public class Record {
 
     public void setTtl(Integer ttl) {
         this.ttl = ttl;
-    }
-
-    public String getGtdLocation() {
-        return gtdLocation;
-    }
-
-    public void setGtdLocation(String gtdLocation) {
-        this.gtdLocation = gtdLocation;
     }
 
     public String getPassword() {
@@ -119,5 +112,13 @@ public class Record {
 
     public void setDomain(Domain domain) {
         this.domain = domain;
+    }
+
+    public GTDLocation getGtdLocation() {
+        return gtdLocation;
+    }
+
+    public void setGtdLocation(GTDLocation gtdLocation) {
+        this.gtdLocation = gtdLocation;
     }
 }

@@ -1,5 +1,5 @@
 package org.kuali.maven.plugins.dnsme;
 
 public enum RecordType {
-    CNAME, MX, A, HTTPRED, TXT;
+    A, CNAME, MX, NS, PTR, SRV, AAAA, HTTPRED, TXT;
 }
