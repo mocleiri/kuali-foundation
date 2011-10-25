@@ -24,6 +24,7 @@ public class DNSMEUtil {
     public static final String API_KEY_HEADER = "x-dnsme-apiKey";
     public static final String DATE_HEADER = "x-dnsme-requestDate";
     public static final String HMAC_HEADER = "x-dnsme-hmac";
+    public static final int ONE_MINUTE_DELAY = 1000 * 60;
 
     String format;
     String algorithm;
@@ -60,7 +61,24 @@ public class DNSMEUtil {
     }
 
     public List<Header> getHeaders(Account account) throws GeneralSecurityException {
-        String requestDate = getHTTPDate(new Date());
+        /**
+         * It appears that the DNSME timestamp tolerance logic has 2 rules:<br>
+         * 1 - All timestamp values must be less than its own internal clock<br>
+         * 2 - All timestamp values must be within 5-6 minutes of its own clock.<br>
+         * 
+         * This is pretty retarded since computer clocks are just as likely to drift forwards as they are backwards.<br>
+         * 
+         * The geniuses at DNS Made Easy did not account for computer clocks that have drifted forward. If the timestamp
+         * you supply them is ahead of their internal clocks (even by a few milliseconds) the request gets denied. They
+         * did think to account for backwards clock drift. So, to compensate for any potential forward clock drift we
+         * subtract one minute from the current timestamp of the machine we are on. This only works as long as the
+         * machine we are on is less than one minute ahead of the DNS Made Easy clocks.
+         * 
+         * It would have been much better of them to accept timestamps that are within 5 minutes (plus OR minus) of
+         * their internal clocks.
+         */
+        long millis = System.currentTimeMillis() - ONE_MINUTE_DELAY;
+        String requestDate = getHTTPDate(new Date(millis));
         String hash = getHash(account.getSecretKey(), requestDate);
         List<Header> headers = new ArrayList<Header>();
         headers.add(new Header(API_KEY_HEADER, account.getApiKey()));
