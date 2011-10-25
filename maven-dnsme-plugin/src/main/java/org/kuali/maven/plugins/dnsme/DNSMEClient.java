@@ -16,6 +16,8 @@ import org.kuali.maven.plugins.dnsme.beans.Account;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
 import org.kuali.maven.plugins.dnsme.beans.DomainNames;
 import org.kuali.maven.plugins.dnsme.beans.Record;
+import org.kuali.maven.plugins.dnsme.beans.RecordComparator;
+import org.kuali.maven.plugins.dnsme.beans.RecordType;
 import org.kuali.maven.plugins.dnsme.beans.Search;
 
 import com.google.gson.Gson;

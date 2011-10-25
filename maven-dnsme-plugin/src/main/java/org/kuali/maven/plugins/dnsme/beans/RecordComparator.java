@@ -1,9 +1,8 @@
-package org.kuali.maven.plugins.dnsme;
+package org.kuali.maven.plugins.dnsme.beans;
 
 import java.util.Comparator;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.maven.plugins.dnsme.beans.Record;
 
 public class RecordComparator implements Comparator<Record> {
 

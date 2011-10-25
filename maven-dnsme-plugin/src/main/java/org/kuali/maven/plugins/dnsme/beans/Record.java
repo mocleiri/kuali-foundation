@@ -1,7 +1,5 @@
 package org.kuali.maven.plugins.dnsme.beans;
 
-import org.kuali.maven.plugins.dnsme.GTDLocation;
-import org.kuali.maven.plugins.dnsme.RecordType;
 
 public class Record {
     Domain domain;

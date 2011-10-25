@@ -1,4 +1,6 @@
-package org.kuali.maven.plugins.dnsme;
+package org.kuali.maven.plugins.dnsme.beans;
+
+import org.kuali.maven.plugins.dnsme.Constants;
 
 public enum Environment {
     PRODUCTION(Constants.PRODUCTION_URL), SANDBOX(Constants.SANDBOX_URL);

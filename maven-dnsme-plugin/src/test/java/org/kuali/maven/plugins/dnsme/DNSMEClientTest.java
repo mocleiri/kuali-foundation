@@ -9,6 +9,7 @@ import org.kuali.maven.plugins.dnsme.accounts.SandboxAccount;
 import org.kuali.maven.plugins.dnsme.beans.Account;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
 import org.kuali.maven.plugins.dnsme.beans.Record;
+import org.kuali.maven.plugins.dnsme.beans.RecordType;
 
 public class DNSMEClientTest {
 
