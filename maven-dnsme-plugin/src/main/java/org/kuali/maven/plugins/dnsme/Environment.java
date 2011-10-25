@@ -1,11 +1,11 @@
 package org.kuali.maven.plugins.dnsme;
 
-public enum Env {
+public enum Environment {
     PRODUCTION(Constants.PRODUCTION_URL), SANDBOX(Constants.SANDBOX_URL);
 
     private String url;
 
-    private Env(String url) {
+    private Environment(String url) {
         this.url = url;
     }
 
