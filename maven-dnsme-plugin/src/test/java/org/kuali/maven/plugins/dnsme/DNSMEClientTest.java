@@ -13,8 +13,8 @@ public class DNSMEClientTest {
     public void testGetDomains() {
         try {
             Account account = new SandboxAccount();
-            String baseUrl = Constants.SANDBOX_URL;
-            DNSMEClient client = DNSMEClient.getInstance(account, baseUrl);
+            String restApiUrl = Constants.SANDBOX_URL;
+            DNSMEClient client = DNSMEClient.getInstance(account, restApiUrl);
             List<Domain> domains = client.getDomains();
             for (Domain domain : domains) {
                 System.out.println(domain.getName());
