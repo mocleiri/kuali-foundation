@@ -156,7 +156,7 @@ delete from krew_usr_optn_t where PRSN_OPTN_ID like 'RELOAD_ACTION_LIST%'
 
 -- Service Registry - table should be emptied, will be re-populated on startup 
 
-delete from krsb_flt_svc_def_t
+-- ^jcaddel^ delete from krsb_flt_svc_def_t
 /
 delete from krsb_svc_def_t
 /
