@@ -385,17 +385,6 @@
       </properties>
     </profile>
     <profile>
-      <id>rds</id>
-      <properties>
-        <impex.username>RICETEMP</impex.username>
-        <impex.password>RICETEMP</impex.password>
-        <impex.dba.username>master</impex.dba.username>
-        <impex.url>jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE</impex.url>
-        <impex.dba.url>jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE</impex.dba.url>
-        <impex.database>RICETEMP</impex.database>
-      </properties>
-    </profile>
-    <profile>
       <!--
         This profile connects the dropping/creating/loading of a database to appropriate
         phases of the Maven build lifecycle. The "clean" phase drops the db, the "initialize" phase creates the
