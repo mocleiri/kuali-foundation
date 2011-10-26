@@ -54,9 +54,13 @@
     <kuali.javadoc.linksource>true</kuali.javadoc.linksource>
     <kuali.javadoc.maxmemory>512m</kuali.javadoc.maxmemory>
     <kuali.javadoc.debug>false</kuali.javadoc.debug>
-    <kuali.javadoc.report.1>aggregate</kuali.javadoc.report.1>
-    <kuali.javadoc.report.2>test-aggregate</kuali.javadoc.report.2>
-    <kuali.javadoc.aggregate>false</kuali.javadoc.aggregate>
+    <!-- These 2 should be "aggregate" and "test-aggregate", but with the latest version of the relevant tools (Maven 3.0.3, maven-site-plugin 3.0-beta-3 and 
+         maven-javadoc-plugin 2.8), those 2 reports cause a heap error regardless of how large the heap is set.  I set the overall heap to 4 gb's with a MaxPermGen 
+         of 512m before switching back to "javadoc" and "test-javadoc" -->
+    <kuali.javadoc.report.1>javadoc</kuali.javadoc.report.1>
+    <kuali.javadoc.report.2>test-javadoc</kuali.javadoc.report.2>
+    <!-- Once the heap issue with aggregate and test-aggregate is worked out, set this to false -->
+    <kuali.javadoc.aggregate>${kuali.reporting.aggregate}</kuali.javadoc.aggregate>
 
     <!-- Placeholders for javadoc link locations. Override these in child poms as needed -->
     <kuali.javadoc.link.1>http://download.oracle.com/javase/6/docs/api/</kuali.javadoc.link.1>
