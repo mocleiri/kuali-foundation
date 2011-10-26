@@ -104,7 +104,10 @@ delete from krew_rule_t where CUR_IND=0
 /
 delete from krew_rule_t where TMPL_RULE_IND=0 and doc_typ_nm not in (select doc_typ_nm from krew_doc_typ_t)
 /
-update krew_rule_t set RULE_VER_NBR=0, PREV_RULE_VER_NBR=NULL, VER_NBR=0
+
+
+-- ^jcaddel^ update krew_rule_t set RULE_VER_NBR=0, PREV_RULE_VER_NBR=NULL, VER_NBR=0
+update krew_rule_t set RULE_VER_NBR=0, VER_NBR=0
 /
 delete from krew_rule_ext_t where rule_id not in (select rule_id from krew_rule_t)
 /
