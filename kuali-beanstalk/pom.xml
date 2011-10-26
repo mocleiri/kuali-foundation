@@ -36,6 +36,7 @@
             <restApiUrl>http://api.dnsmadeeasy.com/V1.2</restApiUrl>
             <domainName>kuali.org</domainName>
             <recordType>CNAME</recordType>
+            <recordValue>${dnsme.recordValue}.</recordValue>
           </configuration>
         </plugin>
       </plugins>
