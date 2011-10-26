@@ -18,6 +18,7 @@
   <artifactId>rice-db</artifactId>
   <packaging>pom</packaging>
   <modules>
+    <module>sql</module>
     <module>impex</module>
   </modules>
   <repositories>
