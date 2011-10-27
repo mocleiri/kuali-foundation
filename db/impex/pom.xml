@@ -529,7 +529,7 @@
             <version>1.6</version>
             <executions>
               <execution>
-                <id>remove</id>
+                <id>remove-from-scm</id>
                 <phase>${scm.phase}</phase>
                 <configuration>
                   <target name="impex-remove" if="impex.found.invalid">
