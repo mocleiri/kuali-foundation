@@ -477,5 +477,59 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>commit</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>maven-impex-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>id-invalid</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>id-invalid-data-files</goal>
+                </goals>
+                <configuration>
+                  <schemaXMLFile>${project.basedir}/src/main/resources/schema.xml</schemaXMLFile>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <configuration>
+              <message>Automated Impex update</message>
+            </configuration>
+            <executions>
+              <execution>
+                <id>add</id>
+                <phase>${scm.phase}</phase>
+                <goals>
+                  <goal>add</goal>
+                  <goal>checkin</goal>
+                </goals>
+                <configuration>
+                  <includes>${project.basedir}/src/main/resources/*.xml,${project.basedir}/src/main/resources/*.dtd</includes>
+                </configuration>
+              </execution>
+              <execution>
+                <id>remove</id>
+                <phase>${scm.phase}</phase>
+                <goals>
+                  <goal>remove</goal>
+                  <goal>checkin</goal>
+                </goals>
+                <configuration>
+                  <includes>${impex.data.invalid}</includes>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>
