@@ -50,7 +50,7 @@
                 </goals>
                 <configuration>
                   <resourceLocations>
-                    <resourceLocation>classpath:demo/server-dataset-cleanup.sql</resourceLocation>
+                    <resourceLocation>classpath:demo-server-dataset-cleanup.sql</resourceLocation>
                   </resourceLocations>
                 </configuration>
               </execution>
@@ -87,8 +87,8 @@
                 </goals>
                 <configuration>
                   <resourceLocations>
-                    <resourceLocation>classpath:demo/server-dataset-cleanup.sql</resourceLocation>
-                    <resourceLocation>classpath:bootstrap/server-dataset-cleanup.sql</resourceLocation>
+                    <resourceLocation>classpath:demo-server-dataset-cleanup.sql</resourceLocation>
+                    <resourceLocation>classpath:bootstrap-server-dataset-cleanup.sql</resourceLocation>
                   </resourceLocations>
                 </configuration>
               </execution>
