@@ -264,7 +264,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-impex-plugin</artifactId>
-          <version>1.0.24-SNAPSHOT</version>
+          <version>1.0.24</version>
           <dependencies>
             <dependency>
               <groupId>mysql</groupId>
@@ -532,8 +532,12 @@
                 <id>remove</id>
                 <phase>${scm.phase}</phase>
                 <configuration>
-                  <target>
-                    <echo>Removing ${impex.data.invalid}</echo>
+                  <target name="impex-remove" if="impex.found.invalid">
+                    <exec executable="svn">
+                      <arg value="rm" />
+                      <arg value="--targets" />
+                      <arg value="target/impex/invalid.txt" />
+                    </exec>
                   </target>
                 </configuration>
                 <goals>
