@@ -347,6 +347,9 @@
   <profiles>
     <profile>
       <id>export</id>
+      <properties>
+        <impex.generate.phase>none</impex.generate.phase>
+      </properties>
       <build>
         <plugins>
           <plugin>
