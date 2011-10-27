@@ -39,5 +39,11 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>commit</id>
+      <properties>
+        <scm.phase>process-resources</scm.phase>
+      </properties>
+    </profile>
   </profiles>
 </project>
