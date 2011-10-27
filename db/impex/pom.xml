@@ -500,6 +500,7 @@
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>maven-scm-plugin</artifactId>
+            <version>1.6</version>
             <configuration>
               <message>Automated Impex update</message>
             </configuration>
