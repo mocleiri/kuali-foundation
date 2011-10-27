@@ -367,6 +367,13 @@
       </properties>
     </profile>
     <profile>
+      <id>rds</id>
+      <properties>
+        <impex.url>jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE</impex.url>
+        <impex.dba.url>jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE</impex.dba.url>
+      </properties>
+    </profile>
+    <profile>
       <id>oracle</id>
       <properties>
         <db.vendor>oracle</db.vendor>
