@@ -22,6 +22,12 @@
   </properties>
   <profiles>
     <profile>
+      <id>commit</id>
+      <properties>
+        <impex.invalid.phase>none</impex.invalid.phase>
+      </properties>
+    </profile>
+    <profile>
       <id>master</id>
       <properties>
         <impex.username>RICEMASTER</impex.username>

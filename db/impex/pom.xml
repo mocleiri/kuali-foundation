@@ -481,6 +481,7 @@
       <id>commit</id>
       <properties>
         <impex.generate.phase>none</impex.generate.phase>
+        <impex.invalid.phase>initialize</impex.invalid.phase>
       </properties>
       <build>
         <plugins>
@@ -490,7 +491,7 @@
             <executions>
               <execution>
                 <id>id-invalid</id>
-                <phase>initialize</phase>
+                <phase>${impex.invalid.phase}</phase>
                 <goals>
                   <goal>id-invalid-data-files</goal>
                 </goals>
