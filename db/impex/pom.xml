@@ -525,27 +525,6 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>maven-scm-plugin</artifactId>
-            <version>1.6</version>
-            <configuration>
-              <message>Automated Impex update</message>
-            </configuration>
-            <executions>
-              <execution>
-                <id>add</id>
-                <phase>${scm.phase}</phase>
-                <goals>
-                  <goal>add</goal>
-                  <goal>checkin</goal>
-                </goals>
-                <configuration>
-                  <includes>**/src/main/resources/*.xml,**/src/main/resources/*.dtd</includes>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
             <artifactId>maven-antrun-plugin</artifactId>
             <version>1.6</version>
             <executions>
