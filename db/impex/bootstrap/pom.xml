@@ -21,39 +21,4 @@
     <impex.password>RICEBOOTSTRAP</impex.password>
     <impex.database>RICEBOOTSTRAP</impex.database>
   </properties>
-  <profiles>
-    <profile>
-      <id>cleanup</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>sql-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>bootstrap-cleanup</id>
-                <phase>process-resources</phase>
-                <goals>
-                  <goal>execute</goal>
-                </goals>
-                <configuration>
-                  <resourceLocations>
-                    <resourceLocation>classpath:demo/server-dataset-cleanup.sql</resourceLocation>
-                    <resourceLocation>classpath:bootstrap/server-dataset-cleanup.sql</resourceLocation>
-                  </resourceLocations>
-                </configuration>
-              </execution>
-            </executions>
-            <dependencies>
-              <dependency>
-                <groupId>org.kuali.rice</groupId>
-                <artifactId>rice-sql</artifactId>
-                <version>${project.version}</version>
-              </dependency>
-            </dependencies>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>
