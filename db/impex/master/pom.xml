@@ -93,7 +93,7 @@
                   <goal>execute</goal>
                 </goals>
                 <configuration>
-                  <orderFile>false</orderFile>
+                  <orderFile>descending</orderFile>
                   <resourceLocations>
                     <resourceLocation>classpath:demo-server-dataset-cleanup.sql</resourceLocation>
                     <resourceLocation>classpath:bootstrap-server-dataset-cleanup.sql</resourceLocation>
