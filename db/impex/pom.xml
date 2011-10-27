@@ -533,7 +533,7 @@
                 <phase>${scm.phase}</phase>
                 <configuration>
                   <target>
-                    <echo>Checking out ${impex.data.invalid}</echo>
+                    <echo>Removing ${impex.data.invalid}</echo>
                   </target>
                 </configuration>
                 <goals>
