@@ -479,6 +479,9 @@
     </profile>
     <profile>
       <id>commit</id>
+      <properties>
+        <impex.generate.phase>none</impex.generate.phase>
+      </properties>
       <build>
         <plugins>
           <plugin>
