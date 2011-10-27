@@ -541,7 +541,7 @@
                     <exec executable="svn">
                       <arg value="commit" />
                       <arg value="-m" />
-                      <arg value="'Automated Impex Update'" />
+                      <arg value="Automated Impex Update" />
                     </exec>
                   </target>
                 </configuration>
