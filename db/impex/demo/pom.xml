@@ -29,7 +29,6 @@
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>sql-maven-plugin</artifactId>
-            <version>1.7</version>
             <executions>
               <execution>
                 <id>server-dataset-cleanup</id>
