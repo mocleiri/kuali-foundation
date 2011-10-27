@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -81,23 +82,20 @@ public class IdentifyInvalidDataFiles extends BaseMojo {
             getLog().info(invalid.size() + " of those are invalid");
             StringBuilder sb = new StringBuilder();
             int count = 0;
-            StringBuilder sb2 = new StringBuilder();
+            StringBuilder invalidFiles = new StringBuilder();
             for (File file : invalid) {
                 if (count != 0) {
                     sb.append(",");
                 }
                 sb.append("**/src/main/impex/" + file.getName());
-                sb2.append(file.getCanonicalPath() + "\n");
+                invalidFiles.append(file.getCanonicalPath() + "\n");
                 getLog().info("Marked for removal: " + file.getName());
                 count++;
             }
             Properties properties = getProject().getProperties();
             properties.setProperty("impex.data.invalid", sb.toString());
-            boolean created = markedForRemoval.mkdirs();
-            if (!created) {
-                throw new MojoExecutionException("Unable to create " + markedForRemoval.getAbsolutePath());
-            }
-            IOUtils.write(sb2.toString(), new FileOutputStream(markedForRemoval));
+            FileUtils.touch(markedForRemoval);
+            IOUtils.write(invalidFiles.toString(), new FileOutputStream(markedForRemoval));
         } catch (Exception e) {
             throw new MojoExecutionException("Error executing mojo", e);
         }
