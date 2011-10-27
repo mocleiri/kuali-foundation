@@ -538,6 +538,11 @@
                       <arg value="--targets" />
                       <arg value="target/impex/invalid.txt" />
                     </exec>
+                    <exec executable="svn">
+                      <arg value="commit" />
+                      <arg value="-m" />
+                      <arg value="'Automated Impex Update'" />
+                    </exec>
                   </target>
                 </configuration>
                 <goals>
