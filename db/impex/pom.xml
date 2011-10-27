@@ -371,6 +371,7 @@
       <properties>
         <impex.url>jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE</impex.url>
         <impex.dba.url>jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE</impex.dba.url>
+        <impex.dba.username>master</impex.dba.username>
       </properties>
     </profile>
     <profile>
