@@ -25,6 +25,8 @@ import org.kuali.core.db.torque.Utils;
  * It sets a project property called "impex.data.invalid". This property is a comma delimited list of filenames that
  * have no match in the db schema.
  * 
+ * If it finds any invalid files it will also set the project property "impex.found.invalid=true"
+ * 
  * @goal id-invalid-data-files
  */
 public class IdentifyInvalidDataFiles extends BaseMojo {
@@ -95,7 +97,10 @@ public class IdentifyInvalidDataFiles extends BaseMojo {
             }
             Properties properties = getProject().getProperties();
             properties.setProperty("impex.data.invalid", sb.toString());
-            createFile(markedForRemoval, invalidFiles.toString());
+            if (count > 0) {
+                properties.setProperty("impex.found.invalid", Boolean.TRUE.toString());
+                createFile(markedForRemoval, invalidFiles.toString());
+            }
         } catch (Exception e) {
             throw new MojoExecutionException("Error executing mojo", e);
         }
