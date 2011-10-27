@@ -44,7 +44,7 @@
             <executions>
               <execution>
                 <id>demo-cleanup</id>
-                <phase>process-resources</phase>
+                <phase>install</phase>
                 <goals>
                   <goal>execute</goal>
                 </goals>
@@ -81,7 +81,7 @@
             <executions>
               <execution>
                 <id>demo-cleanup</id>
-                <phase>process-resources</phase>
+                <phase>install</phase>
                 <goals>
                   <goal>execute</goal>
                 </goals>
