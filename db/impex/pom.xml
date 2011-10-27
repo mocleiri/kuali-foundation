@@ -522,16 +522,44 @@
                   <includes>**/src/main/resources/*.xml,**/src/main/resources/*.dtd</includes>
                 </configuration>
               </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <version>1.6</version>
+            <configuration>
+              <message>Automated Impex update</message>
+            </configuration>
+            <executions>
               <execution>
-                <id>remove</id>
+                <id>add</id>
                 <phase>${scm.phase}</phase>
                 <goals>
-                  <goal>remove</goal>
+                  <goal>add</goal>
                   <goal>checkin</goal>
                 </goals>
                 <configuration>
-                  <includes>${impex.data.invalid}</includes>
+                  <includes>**/src/main/resources/*.xml,**/src/main/resources/*.dtd</includes>
                 </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>remove</id>
+                <phase>${scm.phase}</phase>
+                <configuration>
+                  <target>
+                    <echo>Checking out ${impex.data.invalid}</echo>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
