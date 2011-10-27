@@ -493,6 +493,7 @@
                 </goals>
                 <configuration>
                   <schemaXMLFile>${project.basedir}/src/main/resources/schema.xml</schemaXMLFile>
+                  <dataDir>${project.basedir}/src/main/resources</dataDir>
                 </configuration>
               </execution>
             </executions>
