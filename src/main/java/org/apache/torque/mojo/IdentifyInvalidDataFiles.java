@@ -1,7 +1,8 @@
 package org.apache.torque.mojo;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -94,10 +95,19 @@ public class IdentifyInvalidDataFiles extends BaseMojo {
             }
             Properties properties = getProject().getProperties();
             properties.setProperty("impex.data.invalid", sb.toString());
-            FileUtils.touch(markedForRemoval);
-            IOUtils.write(invalidFiles.toString(), new FileOutputStream(markedForRemoval));
+            createFile(markedForRemoval, invalidFiles.toString());
         } catch (Exception e) {
             throw new MojoExecutionException("Error executing mojo", e);
+        }
+    }
+
+    protected void createFile(File file, String contents) throws IOException {
+        OutputStream out = null;
+        try {
+            out = FileUtils.openOutputStream(file);
+            IOUtils.write(contents, out);
+        } finally {
+            IOUtils.closeQuietly(out);
         }
     }
 
