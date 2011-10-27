@@ -367,14 +367,6 @@
       </properties>
     </profile>
     <profile>
-      <id>rds</id>
-      <properties>
-        <impex.url>jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE</impex.url>
-        <impex.dba.url>${impex.url}</impex.dba.url>
-        <impex.dba.username>master</impex.dba.username>
-      </properties>
-    </profile>
-    <profile>
       <id>oracle</id>
       <properties>
         <db.vendor>oracle</db.vendor>
@@ -392,6 +384,14 @@
           ${impex.oracle.sql.grants}
         </impex.sql.initialize>
         <impex.generate.sql.mysql.phase>none</impex.generate.sql.mysql.phase>
+      </properties>
+    </profile>
+    <profile>
+      <id>rds</id>
+      <properties>
+        <impex.url>jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE</impex.url>
+        <impex.dba.url>${impex.url}</impex.dba.url>
+        <impex.dba.username>master</impex.dba.username>
       </properties>
     </profile>
     <profile>
