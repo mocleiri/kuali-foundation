@@ -43,7 +43,7 @@
             <artifactId>sql-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>demo-cleanup</id>
+                <id>cleanup</id>
                 <phase>install</phase>
                 <goals>
                   <goal>execute</goal>
@@ -80,7 +80,7 @@
             <artifactId>sql-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>demo-cleanup</id>
+                <id>cleanup</id>
                 <phase>install</phase>
                 <goals>
                   <goal>execute</goal>
