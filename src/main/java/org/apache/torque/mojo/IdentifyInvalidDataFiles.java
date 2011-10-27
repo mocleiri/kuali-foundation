@@ -63,7 +63,7 @@ public class IdentifyInvalidDataFiles extends BaseMojo {
     /**
      * Any invalid files are listed in this file. One file per line
      * 
-     * @parameter expression="${impex.markedForRemoval}" default-value="${project.build.directory}/markedForRemoval.txt"
+     * @parameter expression="${impex.markedForRemoval}" default-value="${project.build.directory}/impex/invalid.txt"
      */
     private File markedForRemoval;
 
@@ -93,6 +93,10 @@ public class IdentifyInvalidDataFiles extends BaseMojo {
             }
             Properties properties = getProject().getProperties();
             properties.setProperty("impex.data.invalid", sb.toString());
+            boolean created = markedForRemoval.mkdirs();
+            if (!created) {
+                throw new MojoExecutionException("Unable to create " + markedForRemoval.getAbsolutePath());
+            }
             IOUtils.write(sb2.toString(), new FileOutputStream(markedForRemoval));
         } catch (Exception e) {
             throw new MojoExecutionException("Error executing mojo", e);
