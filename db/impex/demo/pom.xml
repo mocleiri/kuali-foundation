@@ -21,4 +21,23 @@
     <impex.password>RICEDEMO</impex.password>
     <impex.database>RICEDEMO</impex.database>
   </properties>
+  <profiles>
+    <profile>
+      <id>export</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>maven-impex-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>export</id>
+                <phase>generate-resources</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

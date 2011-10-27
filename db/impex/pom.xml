@@ -346,6 +346,33 @@
   </build>
   <profiles>
     <profile>
+      <id>export</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>maven-impex-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>export</id>
+                <phase>none</phase>
+                <goals>
+                  <goal>exportschema</goal>
+                  <goal>exportdata</goal>
+                  <goal>datadtd</goal>
+                </goals>
+                <configuration>
+                  <schemaXMLFile>${basedir}/src/main/resources/schema.xml</schemaXMLFile>
+                  <dataXMLDir>${basedir}/src/main/resources</dataXMLDir>
+                  <copyToFile>${basedir}/src/main/resources/data.dtd</copyToFile>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
       <id>mysql</id>
       <properties>
         <db.vendor>mysql</db.vendor>
