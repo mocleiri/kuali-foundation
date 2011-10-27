@@ -19,6 +19,8 @@
   <packaging>pom</packaging>
   <modules>
     <module>master</module>
+    <module>demo</module>
+    <module>bootstrap</module>
   </modules>
   <properties>
     <sql.plugin.escapeProcessing>false</sql.plugin.escapeProcessing>
