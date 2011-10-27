@@ -517,7 +517,7 @@
                   <goal>checkin</goal>
                 </goals>
                 <configuration>
-                  <includes>${project.basedir}/src/main/resources/*.xml,${project.basedir}/src/main/resources/*.dtd</includes>
+                  <includes>**/src/main/resources/*.xml,**/src/main/resources/*.dtd</includes>
                 </configuration>
               </execution>
               <execution>
