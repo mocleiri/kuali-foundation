@@ -53,9 +53,9 @@
     <kuali.javadoc.linksource>true</kuali.javadoc.linksource>
     <kuali.javadoc.maxmemory>512m</kuali.javadoc.maxmemory>
     <kuali.javadoc.debug>false</kuali.javadoc.debug>
-    <!-- These 2 should be "aggregate" and "test-aggregate", but with the latest version of the relevant tools (Maven 3.0.3, maven-site-plugin 3.0-beta-3 and 
-         maven-javadoc-plugin 2.8), those 2 reports cause a heap error regardless of how large the heap is set.  I set the overall heap to 4 gb's with a MaxPermGen 
-         of 512m before switching back to "javadoc" and "test-javadoc" -->
+    <!-- These 2 should be "aggregate" and "test-aggregate", but with the latest version of the relevant tools (Maven 3.0.3, maven-site-plugin 3.0-beta-3 and
+      maven-javadoc-plugin 2.8), those 2 reports cause a heap error regardless of how large the heap is set. I set the overall heap to 4 gb's with a MaxPermGen
+      of 512m before switching back to "javadoc" and "test-javadoc" -->
     <kuali.javadoc.report.1>javadoc</kuali.javadoc.report.1>
     <kuali.javadoc.report.2>test-javadoc</kuali.javadoc.report.2>
     <!-- Once the heap issue with aggregate and test-aggregate is worked out, set this to false -->
@@ -95,6 +95,49 @@
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/common</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/pom/trunk/common</url>
   </scm>
+
+  <profiles>
+    <profile>
+      <id>license</id>
+      <properties>
+        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>com.mycila.maven-license-plugin</groupId>
+              <artifactId>maven-license-plugin</artifactId>
+              <version>1.9.0</version>
+              <configuration>
+                <encoding>${project.build.sourceEncoding}</encoding>
+                <strictCheck>true</strictCheck>
+                <header>org/kuali/cm/license/ecl-2.0-header.txt</header>
+                <properties>
+                  <license.copyrightStartYear>2006</license.copyrightStartYear>
+                  <license.copyrightCurrentYear>${maven.build.timestamp}</license.copyrightCurrentYear>
+                </properties>
+              </configuration>
+              <dependencies>
+                <dependency>
+                  <groupId>org.kuali.cm</groupId>
+                  <artifactId>cm-tools</artifactId>
+                  <version>1.6</version>
+                </dependency>
+              </dependencies>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>com.mycila.maven-license-plugin</groupId>
+            <artifactId>maven-license-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
   <build>
     <pluginManagement>
       <plugins>
