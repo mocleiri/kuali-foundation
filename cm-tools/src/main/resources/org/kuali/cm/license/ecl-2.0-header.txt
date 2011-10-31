@@ -1,4 +1,4 @@
-Copyright ${license.startYear}-${license.currentYear} The Kuali Foundation
+Copyright ${license.copyrightStartYear}-${license.copyrightCurrentYear} The Kuali Foundation
 
 Licensed under the Educational Community License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
