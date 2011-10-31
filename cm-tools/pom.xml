@@ -22,7 +22,6 @@
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
   </properties>
-  <url>http://${kuali.site.hostname}/cm/${project.version}</url>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</developerConnection>
