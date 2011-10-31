@@ -9,11 +9,28 @@
             Runtime runtime = Runtime.getRuntime();
             int processors = runtime.availableProcessors();
             double gigabyte = 1024 * 1024 * 1024;
-            double freeMemory = runtime.freeMemory();
+
+            // The total amount of memory the JVM is allowed to allocate 
             double maxMemory = runtime.maxMemory();
+
+            // The total amount of memory currently allocated by the JVM 
             double allocatedMemory = runtime.totalMemory();
+
+            // The amount of memory still available in the currently allocated heap 
+            double freeMemory = runtime.freeMemory();
+
+            // The JDK methods supplied with the Runtime object do not directly provide
+            // a number for used memory.  Those methods tell us what is currently allocated
+            // and how much of that allocation is *not* being used.  The amount of memory 
+            // currently being used by the JVM is the difference between the two. 
             double usedMemory = allocatedMemory - freeMemory;
+            
+            // The JDK method Runtime.freeMemory() reports the amount of memory available
+            // in the currently allocated heap.  We are interested in the total amount of 
+            // memory still available to the JVM irrespective of the size of the currently 
+            // allocated heap.
             double totalFreeMemory = maxMemory - usedMemory;
+            
             sb.append("<li>time: " + sdf.format(new Date()) + "</li>\n");
             sb.append("<li>processors: " + processors + "</li>\n");
             sb.append("<li>mem: [used=" + nf.format(usedMemory / gigabyte) + "g");
