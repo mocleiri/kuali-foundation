@@ -137,7 +137,7 @@
       <id>license</id>
       <properties>
         <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
-        <license.phase>generate-resources</license.phase>
+        <license.phase>process-sources</license.phase>
       </properties>
       <build>
         <pluginManagement>
