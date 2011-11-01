@@ -13,7 +13,7 @@
   <name>Maven Impex Plugin</name>
   <description>Maven plugin for converting database agnostic XML files into platform specific SQL files and for examining proprietary databases via JDBC to generate database agnostic XML files</description>
   <properties>
-    <impex.version>1.0.23</impex.version>
+    <impex.version>1.0.23a-SNAPSHOT</impex.version>
   </properties>
   <dependencies>
     <dependency>
