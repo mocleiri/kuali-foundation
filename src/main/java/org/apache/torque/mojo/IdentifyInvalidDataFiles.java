@@ -1,8 +1,11 @@
 package org.apache.torque.mojo;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -71,6 +74,40 @@ public class IdentifyInvalidDataFiles extends BaseMojo {
      */
     private File markedForRemoval;
 
+    protected Set<File> getExportedFiles() throws MojoExecutionException {
+        String filename = getProject().getBuild().getDirectory() + "/impex/exported-tables.txt";
+        File file = new File(filename);
+        if (!file.exists()) {
+            getLog().warn("Could not locate " + file.getAbsolutePath());
+            return new HashSet<File>();
+        }
+        List<String> tablenames = getContents(file);
+        return getExportedFiles(tablenames);
+    }
+
+    protected Set<File> getExportedFiles(List<String> tablenames) {
+        Set<File> files = new TreeSet<File>();
+        for (String tablename : tablenames) {
+            String filename = dataDir.getAbsolutePath() + FS + tablename + extension;
+            File file = new File(filename);
+            files.add(file);
+        }
+        return files;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected List<String> getContents(File file) throws MojoExecutionException {
+        InputStream in = null;
+        try {
+            in = new FileInputStream(file);
+            return IOUtils.readLines(in);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Unexpected error", e);
+        } finally {
+            IOUtils.closeQuietly(in);
+        }
+    }
+
     @Override
     protected void executeMojo() throws MojoExecutionException, MojoFailureException {
         Utils utils = new Utils();
@@ -79,7 +116,11 @@ public class IdentifyInvalidDataFiles extends BaseMojo {
             Database db = utils.getDatabase(schemaXMLFile, targetDatabase);
             DirectoryScanner ds = getDirectoryScanner();
             Set<File> existing = getExistingFiles(ds);
+            Set<File> exported = getExportedFiles();
             Set<File> allowed = getDatabaseFiles(db);
+            if (exported.size() > 0) {
+                allowed = exported;
+            }
             Set<File> invalid = SetUtils.difference(existing, allowed);
             getLog().info(existing.size() + " data files currently exist");
             getLog().info(invalid.size() + " of those are invalid");
