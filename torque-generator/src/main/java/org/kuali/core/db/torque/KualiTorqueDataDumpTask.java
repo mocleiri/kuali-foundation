@@ -369,9 +369,11 @@ public class KualiTorqueDataDumpTask extends DumpTask {
         int exportCount = 0;
         int skipCount = 0;
         List<String> skippedTables = new ArrayList<String>();
+        List<String> exportedTables = new ArrayList<String>();
         for (String tableName : helper.getTableNames()) {
             boolean exported = processTable(helper, tableName);
             if (exported) {
+                exportedTables.add(tableName);
                 exportCount++;
             } else {
                 skippedTables.add(tableName);
@@ -382,9 +384,11 @@ public class KualiTorqueDataDumpTask extends DumpTask {
         log(utils.pad("Processed " + helper.getTableNames().size() + " tables", elapsed));
         log("Exported data from " + exportCount + " tables to XML");
         log("Skipped " + skipCount + " tables that had zero rows");
+        printTables("Skipped", "./target/impex/skipped-tables.txt", skippedTables);
+        printTables("Exported", "./target/impex/exported-tables.txt", exportedTables);
     }
 
-    protected void printSkippedTables(List<String> skippedTables) {
+    protected void printTables(String msg, String filename, List<String> skippedTables) {
         if (skippedTables.size() == 0) {
             return;
         }
@@ -392,11 +396,10 @@ public class KualiTorqueDataDumpTask extends DumpTask {
         for (String skippedTable : skippedTables) {
             sb.append(skippedTable + "\n");
         }
-        String filename = "./target/impex/skipped-tables.txt";
         OutputStream out = null;
         try {
             File file = new File(filename);
-            log("Skipped table list: " + file.getAbsolutePath());
+            log(msg + " table list: " + file.getAbsolutePath());
             out = FileUtils.openOutputStream(file);
             out.write(sb.toString().getBytes());
         } catch (IOException e) {
