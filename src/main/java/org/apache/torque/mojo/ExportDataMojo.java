@@ -37,7 +37,6 @@ public class ExportDataMojo extends ExportMojo {
     @Override
     protected void configureTask() throws MojoExecutionException {
         KualiTorqueDataDumpTask task = new KualiTorqueDataDumpTask();
-        task.getProject().setBaseDir(getProject().getBasedir());
         setAntTask(task);
         super.configureTask();
         makeOutputDir();
