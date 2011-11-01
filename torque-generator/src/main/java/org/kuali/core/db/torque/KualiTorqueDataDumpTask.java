@@ -52,6 +52,8 @@ public class KualiTorqueDataDumpTask extends DumpTask {
     Utils utils = new Utils();
     private static final String FS = System.getProperty("file.separator");
 
+    private File buildDirectory;
+
     /**
      * The directory where XML files will be written
      */
@@ -384,9 +386,9 @@ public class KualiTorqueDataDumpTask extends DumpTask {
         log(utils.pad("Processed " + helper.getTableNames().size() + " tables", elapsed));
         log("Exported data from " + exportCount + " tables to XML");
         log("Skipped " + skipCount + " tables that had zero rows");
-        String baseDir = getProject().getBaseDir().getCanonicalPath();
-        String skipped = baseDir + FS + "target/impex/skipped-tables.txt";
-        String exported = baseDir + FS + "target/impex/exported-tables.txt";
+        String base = buildDirectory.getCanonicalPath();
+        String skipped = base + FS + "/impex/skipped-tables.txt";
+        String exported = base + FS + "/impex/exported-tables.txt";
         printTables("Skipped", skipped, skippedTables);
         printTables("Exported", exported, exportedTables);
     }
@@ -532,5 +534,13 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 
     public void setDateFormat(final String dateFormat) {
         this.dateFormat = dateFormat;
+    }
+
+    public File getBuildDirectory() {
+        return buildDirectory;
+    }
+
+    public void setBuildDirectory(File buildDirectory) {
+        this.buildDirectory = buildDirectory;
     }
 }
