@@ -101,8 +101,9 @@
       <id>license</id>
       <properties>
         <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
-        <license.phase>process-sources</license.phase>
-        <scm.phase>install</scm.phase>
+        <license.format.phase>process-sources</license.format.phase>
+        <license.check.phase>verify</license.check.phase>
+        <license.commit.phase>install</license.commit.phase>
       </properties>
       <build>
         <pluginManagement>
@@ -131,7 +132,7 @@
             <plugin>
               <groupId>org.kuali.maven.plugins</groupId>
               <artifactId>maven-scm-plugin</artifactId>
-              <version>1.6</version>
+              <version>1.7-SNAPSHOT</version>
               <configuration>
                 <basedir>${project.basedir}</basedir>
                 <message>Automated license update</message>
@@ -146,14 +147,14 @@
             <executions>
               <execution>
                 <id>update-license-header</id>
-                <phase>process-sources</phase>
+                <phase>${license.format.phase}</phase>
                 <goals>
                   <goal>format</goal>
                 </goals>
               </execution>
               <execution>
                 <id>verify-license-header</id>
-                <phase>verify</phase>
+                <phase>${license.check.phase}</phase>
                 <goals>
                   <goal>check</goal>
                 </goals>
@@ -166,7 +167,7 @@
             <executions>
               <execution>
                 <id>commit-license-header</id>
-                <phase>install</phase>
+                <phase>${license.commit.phase}</phase>
                 <goals>
                   <goal>checkin</goal>
                 </goals>
