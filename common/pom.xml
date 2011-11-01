@@ -101,6 +101,9 @@
       <id>license</id>
       <properties>
         <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+        <license.format.phase>process-sources</license.format.phase>
+        <license.check.phase>verify</license.check.phase>
+        <license.commit.phase>install</license.commit.phase>
       </properties>
       <build>
         <pluginManagement>
@@ -126,12 +129,51 @@
                 </dependency>
               </dependencies>
             </plugin>
+            <plugin>
+              <groupId>org.kuali.maven.plugins</groupId>
+              <artifactId>maven-scm-plugin</artifactId>
+              <version>1.6</version>
+              <configuration>
+                <basedir>${project.basedir}</basedir>
+                <message>Automated license header update</message>
+              </configuration>
+            </plugin>
           </plugins>
         </pluginManagement>
         <plugins>
           <plugin>
             <groupId>com.mycila.maven-license-plugin</groupId>
             <artifactId>maven-license-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>update-license-header</id>
+                <phase>${license.format.phase}</phase>
+                <goals>
+                  <goal>format</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>verify-license-header</id>
+                <phase>${license.check.phase}</phase>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>commit-license-header</id>
+                <phase>${license.commit.phase}</phase>
+                <goals>
+                  <goal>status</goal>
+                  <goal>checkin</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
