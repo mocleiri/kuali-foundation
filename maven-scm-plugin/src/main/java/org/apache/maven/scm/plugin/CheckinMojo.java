@@ -19,13 +19,15 @@ package org.apache.maven.scm.plugin;
  * under the License.
  */
 
+import java.io.IOException;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFile;
+import org.apache.maven.scm.ScmVersion;
 import org.apache.maven.scm.command.checkin.CheckInScmResult;
+import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.repository.ScmRepository;
-
-import java.io.IOException;
 
 /**
  * Commit changes to the configured scm url.
@@ -65,6 +67,7 @@ public class CheckinMojo extends AbstractScmMojo {
     private String scmVersion;
 
     /** {@inheritDoc} */
+    @Override
     public void execute() throws MojoExecutionException {
         super.execute();
 
@@ -72,12 +75,10 @@ public class CheckinMojo extends AbstractScmMojo {
 
         try {
             ScmRepository repository = getScmRepository();
-
-            CheckInScmResult result = getScmManager().checkIn(repository, getFileSet(),
-                    getScmVersion(scmVersionType, scmVersion), message);
-
+            ScmManager manager = getScmManager();
+            ScmVersion version = getScmVersion(scmVersionType, scmVersion);
+            CheckInScmResult result = manager.checkIn(repository, getFileSet(), version, message);
             checkResult(result);
-
             for (ScmFile checkedInFile : result.getCheckedInFiles()) {
                 getLog().info("Checked in " + checkedInFile.getPath());
             }
