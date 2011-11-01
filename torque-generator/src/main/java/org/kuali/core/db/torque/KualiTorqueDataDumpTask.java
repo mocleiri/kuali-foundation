@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
@@ -27,6 +28,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
@@ -310,7 +312,7 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 
     /**
      * Convert a List to a Set
-     *
+     * 
      * @param list
      * @return
      */
@@ -366,11 +368,13 @@ public class KualiTorqueDataDumpTask extends DumpTask {
         long start = System.currentTimeMillis();
         int exportCount = 0;
         int skipCount = 0;
+        List<String> skippedTables = new ArrayList<String>();
         for (String tableName : helper.getTableNames()) {
             boolean exported = processTable(helper, tableName);
             if (exported) {
                 exportCount++;
             } else {
+                skippedTables.add(tableName);
                 skipCount++;
             }
         }
@@ -378,6 +382,29 @@ public class KualiTorqueDataDumpTask extends DumpTask {
         log(utils.pad("Processed " + helper.getTableNames().size() + " tables", elapsed));
         log("Exported data from " + exportCount + " tables to XML");
         log("Skipped " + skipCount + " tables that had zero rows");
+    }
+
+    protected void printSkippedTables(List<String> skippedTables) {
+        if (skippedTables.size() == 0) {
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (String skippedTable : skippedTables) {
+            sb.append(skippedTable + "\n");
+        }
+        String filename = "./target/impex/skipped-tables.txt";
+        OutputStream out = null;
+        try {
+            File file = new File(filename);
+            log("Skipped table list: " + file.getAbsolutePath());
+            out = FileUtils.openOutputStream(file);
+            out.write(sb.toString().getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            IOUtils.closeQuietly(out);
+        }
+
     }
 
     /**

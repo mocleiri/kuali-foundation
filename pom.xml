@@ -62,8 +62,8 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/branches/impex-1.0.23</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/branches/impex-1.0.23</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/branches/impex-1.0.23</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/branches/impex-1.0.23a-SNAPSHOT</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/branches/impex-1.0.23a-SNAPSHOT</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/branches/impex-1.0.23a-SNAPSHOT</url>
   </scm>
 </project>
