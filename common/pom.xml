@@ -103,7 +103,6 @@
         <scm.message>Automated SCM commit</scm.message>
         <scm.phase>process-resources</scm.phase>
       </properties>
-
       <build>
         <pluginManagement>
           <plugins>
@@ -133,12 +132,12 @@
           </plugin>
         </plugins>
       </build>
-
     </profile>
     <profile>
       <id>license</id>
       <properties>
         <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+        <license.phase>generate-resources</license.phase>
       </properties>
       <build>
         <pluginManagement>
@@ -170,6 +169,15 @@
           <plugin>
             <groupId>com.mycila.maven-license-plugin</groupId>
             <artifactId>maven-license-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>license</id>
+                <phase>${license.phase}</phase>
+                <goals>
+                  <goal>format</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
