@@ -111,6 +111,7 @@
               <artifactId>maven-scm-plugin</artifactId>
               <version>1.6</version>
               <configuration>
+                <includes>**/*</includes>
                 <basedir>${project.basedir}</basedir>
                 <message>${scm.message}</message>
               </configuration>
