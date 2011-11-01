@@ -261,7 +261,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-impex-plugin</artifactId>
-          <version>1.0.24</version>
+          <version>1.0.25-SNAPSHOT</version>
           <dependencies>
             <dependency>
               <groupId>mysql</groupId>
