@@ -169,6 +169,7 @@
                 <id>commit-license-header</id>
                 <phase>${license.commit.phase}</phase>
                 <goals>
+                  <goal>status</goal>
                   <goal>checkin</goal>
                 </goals>
               </execution>
