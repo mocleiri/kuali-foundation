@@ -103,6 +103,7 @@
         <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
         <license.format.phase>process-sources</license.format.phase>
         <license.check.phase>verify</license.check.phase>
+        <license.status.phase>verify</license.status.phase>
         <license.commit.phase>install</license.commit.phase>
       </properties>
       <build>
@@ -153,6 +154,19 @@
                 </goals>
               </execution>
               <execution>
+                <id>update-pom-headers</id>
+                <phase>${license.format.phase}</phase>
+                <goals>
+                  <goal>format</goal>
+                </goals>
+                <configuration>
+                  <includes>
+                    <include>**/pom.xml</include>
+                  </includes>
+                  <useDefaultExcludes>false</useDefaultExcludes>
+                </configuration>
+              </execution>
+              <execution>
                 <id>verify-license-header</id>
                 <phase>${license.check.phase}</phase>
                 <goals>
@@ -166,10 +180,16 @@
             <artifactId>maven-scm-plugin</artifactId>
             <executions>
               <execution>
+                <id>license-header-status</id>
+                <phase>${license.status.phase}</phase>
+                <goals>
+                  <goal>status</goal>
+                </goals>
+              </execution>
+              <execution>
                 <id>commit-license-header</id>
                 <phase>${license.commit.phase}</phase>
                 <goals>
-                  <goal>status</goal>
                   <goal>checkin</goal>
                 </goals>
               </execution>
