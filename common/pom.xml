@@ -114,15 +114,6 @@
               <configuration>
                 <message>${scm.message}</message>
               </configuration>
-              <executions>
-                <execution>
-                  <id>commit</id>
-                  <phase>${scm.phase}</phase>
-                  <goals>
-                    <goal>checkin</goal>
-                  </goals>
-                </execution>
-              </executions>
             </plugin>
           </plugins>
         </pluginManagement>
@@ -130,6 +121,15 @@
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>maven-scm-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>commit</id>
+                <phase>${scm.phase}</phase>
+                <goals>
+                  <goal>checkin</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
