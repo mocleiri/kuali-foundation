@@ -98,21 +98,6 @@
 
   <profiles>
     <profile>
-      <id>commit</id>
-      <properties>
-        <scm.message>Automated SCM commit</scm.message>
-        <scm.phase>process-resources</scm.phase>
-      </properties>
-      <build>
-        <pluginManagement>
-          <plugins>
-          </plugins>
-        </pluginManagement>
-        <plugins>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
       <id>license</id>
       <properties>
         <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
