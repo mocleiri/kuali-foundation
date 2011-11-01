@@ -15,56 +15,58 @@ import org.kuali.core.db.torque.KualiTorqueDataDumpTask;
  */
 public class ExportDataMojo extends ExportMojo {
 
-	/**
-	 * The format to use for dates/timestamps
-	 * 
-	 * @parameter expression="${dateFormat}" default-value="yyyyMMddHHmmss z"
-	 * @required
-	 */
-	private String dateFormat;
+    /**
+     * The format to use for dates/timestamps
+     * 
+     * @parameter expression="${dateFormat}" default-value="yyyyMMddHHmmss z"
+     * @required
+     */
+    private String dateFormat;
 
-	/**
-	 * The directory where data XML files will be written
-	 * 
-	 * @parameter expression="${dataXMLDir}" default-value="${basedir}/src/main/impex"
-	 * @required
-	 */
-	private File dataXMLDir;
+    /**
+     * The directory where data XML files will be written
+     * 
+     * @parameter expression="${dataXMLDir}" default-value="${basedir}/src/main/impex"
+     * @required
+     */
+    private File dataXMLDir;
 
-	/**
-	 * Configure the Ant task
-	 */
-	protected void configureTask() throws MojoExecutionException {
-		KualiTorqueDataDumpTask task = new KualiTorqueDataDumpTask();
-		setAntTask(task);
-		super.configureTask();
-		makeOutputDir();
-	}
+    /**
+     * Configure the Ant task
+     */
+    @Override
+    protected void configureTask() throws MojoExecutionException {
+        KualiTorqueDataDumpTask task = new KualiTorqueDataDumpTask();
+        task.getProject().setBaseDir(getProject().getBasedir());
+        setAntTask(task);
+        super.configureTask();
+        makeOutputDir();
+    }
 
-	protected void makeOutputDir() throws MojoExecutionException {
-		if (getDataXMLDir().exists()) {
-			return;
-		}
-		try {
-			FileUtils.forceMkdir(getDataXMLDir());
-		} catch (IOException e) {
-			throw new MojoExecutionException("Error creating output directory", e);
-		}
-	}
+    protected void makeOutputDir() throws MojoExecutionException {
+        if (getDataXMLDir().exists()) {
+            return;
+        }
+        try {
+            FileUtils.forceMkdir(getDataXMLDir());
+        } catch (IOException e) {
+            throw new MojoExecutionException("Error creating output directory", e);
+        }
+    }
 
-	public File getDataXMLDir() {
-		return dataXMLDir;
-	}
+    public File getDataXMLDir() {
+        return dataXMLDir;
+    }
 
-	public void setDataXMLDir(File outputDir) {
-		this.dataXMLDir = outputDir;
-	}
+    public void setDataXMLDir(File outputDir) {
+        this.dataXMLDir = outputDir;
+    }
 
-	public String getDateFormat() {
-		return dateFormat;
-	}
+    public String getDateFormat() {
+        return dateFormat;
+    }
 
-	public void setDateFormat(String dateFormat) {
-		this.dateFormat = dateFormat;
-	}
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
 }
