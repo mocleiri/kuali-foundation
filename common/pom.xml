@@ -121,9 +121,6 @@
                   <goals>
                     <goal>checkin</goal>
                   </goals>
-                  <configuration>
-                    <includes>**/*</includes>
-                  </configuration>
                 </execution>
               </executions>
             </plugin>
