@@ -1,0 +1,117 @@
+<config>
+	<!-- App specific parameters -->
+	<param name="application.http.scheme">http</param>
+	<param name="application.host">test.kc.kuali.org</param>
+	<param name="http.port">80</param>
+	<param name="app.context.name">${app.code}-${environment}</param>
+
+	<!-- Database parameters -->
+	<!-- param name="datasource.url">jdbc:oracle:thin:@ec2-174-129-80-250.compute-1.amazonaws.com:1521:XE</param -->
+	<param name="datasource.url">jdbc:oracle:thin:@db.kc.kuali.org:1521:KUALI</param>
+	<param name="datasource.username">KCDEMO</param>
+	<param name="datasource.password">demo174kc</param>
+	<param name="datasource.ojb.platform">Oracle9i</param>
+
+	<!-- For Embedded Mode -->
+	<param name="rice.app.url">http://test.kc.kuali.org/kr-demo</param>
+
+	<param name="kim.runmode">embedded</param>
+	<param name="kcb.runmode">embedded</param>
+	<param name="kew.runmode">embedded</param>
+	<param name="ken.runmode">embedded</param>
+	
+	<param name="dev.mode">false</param>
+	
+	<!-- Rice Server DB -->
+	<!-- Will be the same as KC Client DB when running embedded mode -->
+	<!-- param name="server.datasource.url">jdbc:oracle:thin:@ec2-174-129-80-250.compute-1.amazonaws.com:1521:XE</param -->
+	<param name="server.datasource.url">${datasource.url}</param>
+	<param name="server.datasource.username">KRDEMO</param>
+	<param name="server.datasource.password">demo174kr</param>
+	
+	<param name="rice.portal.links.showRiceServerConfig">true</param>
+	<param name="rice.portal.logout.redirectUrl">${cas.url}/logout</param>
+	
+	<!-- CAS Configuration -->
+    <param name="cas.url">http://test.kc.kuali.org:8081/cas-demo</param>
+    
+    <param name="filter.logout.class">org.jasig.cas.client.session.SingleSignOutFilter</param>
+    <param name="filtermapping.logout.1">/*</param>
+        
+    <param name="filter.login.class">org.jasig.cas.client.authentication.AuthenticationFilter</param>
+    <param name="filter.login.casServerLoginUrl">${cas.url}/login</param>
+    <param name="filter.login.serverName">${appserver.url}</param>
+    <param name="filtermapping.login.2">/*</param>
+       
+    <param name="filter.validation.class">org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</param>
+    <param name="filter.validation.casServerUrlPrefix">${cas.url}</param>
+    <param name="filter.validation.serverName">${appserver.url}</param>
+    <param name="filtermapping.validation.3">/*</param>
+        
+    <param name="filter.caswrapper.class">org.jasig.cas.client.util.HttpServletRequestWrapperFilter</param>
+    <param name="filtermapping.caswrapper.4">/*</param>
+    
+    <param name="listener.logout.class">org.jasig.cas.client.session.SingleSignOutHttpSessionListener</param>
+	
+	<!-- S2S Configuration -->
+	<param name="s2s.keystore.location">/home/tomcat/kuali/main/shared/test_kra_kuali_org-006046700.jks</param>
+	<param name="s2s.keystore.password">kra_s2s_test</param>
+	<param name="s2s.truststore.location">/home/tomcat/kuali/main/shared/cacerts</param>
+	<param name="s2s.truststore.password">changeit</param>
+	<param name="grants.gov.s2s.host">https://at07ws.grants.gov:446/app-s2s-server/services</param>
+	<param name="grants.gov.s2s.port">ApplicantIntegrationSoapPort</param>
+
+
+	<!-- Java mail properties -->
+	<param name="mail.from">kc.grants.gov@kuali.org</param>
+	<param name="mail.transport.protocol">smtp</param>
+	<param name="mail.smtp.host">127.0.0.1</param>
+	<param name="mail.smtp.port">25</param>
+	<param name="mail.smtp.user">userId</param>
+	<param name="mail.user.credentials">password</param>
+	<param name="mail.smtp.auth">false</param>
+	<!--set it to '0' to disable s2s mail service-->
+	<param name="edu.coeus.mail.enabled">1</param>
+	<!-- possible options are, T for Test and P for Production-->
+	<param name="edu.coeus.mail.mode">T</param>
+	<param name="edu.coeus.mail.testReceiverId">kc.grants.gov@kuali.org</param>
+	
+	<!-- Kuali parameters -->
+	<param name="mail.relay.server">127.0.0.1</param>
+	<param name="mailing.list.batch">mailing.list.batch</param>
+	<param name="encryption.key">7IC64w6ksLU</param>
+	<param name="kfsLocator.useAppContext">true</param>
+	<param name="rice.user">true</param>
+	<param name="actionlist.outbox">true</param>
+	<param name="ActionList.norefresh">false</param>
+	<param name="kns.editable.properties.history.size">20</param>
+
+	<!-- Configuration for Exception Incident handling and reporting -->
+	<param name="KualiExceptionHandlerAction.EXCEPTION_INCIDENT_REPORT_SERVICE">knsExceptionIncidentService</param>
+	<param name="MailMessage.from">admin@kuali.org</param>
+	<param name="KualiExceptionIncidentServiceImpl.additionalExceptionNameList"></param>
+	<param name="KualiExceptionIncidentServiceImpl.REPORT_MAIL_LIST">kc.tech.leads@kuali.org</param>
+	<param name="kr.incident.mailing.list"></param>
+	<!-- End of Exception Incident handling and reporting -->
+	
+	<!-- Email Plugin Properties -->
+	<param name="emailDeliverer.smtp.host">127.0.0.1</param>
+	
+	<!-- endpoint security settings -->
+	<param name="kcb.smtp.host">127.0.0.1</param>
+	
+	<!-- Misc parameters -->
+	<param name="institution">iu</param>
+	<param name="security.directory">/usr/local/rice/</param>
+	<param name="settings.directory">/usr/local/rice/</param>
+<!--
+	<param name="keystore.alias">onestartsharedservices-devandtst</param>
+	<param name="keystore.location">/home/tomcat/kuali/main/shared/onestartsharedservices-devandtst_keystore</param>
+	<param name="keystore.password">s1t0spss!xX-tst</param>
+-->
+        <param name="keystore.alias">rice</param>
+        <param name="keystore.file">/home/tomcat/kuali/rice/shared/rice.keystore</param>
+        <param name="keystore.password">r1c3pw</param>
+
+	<param name="log4j.settings.path">/home/tomcat/kuali/main/shared/log4j_kc.properties</param>
+</config>
