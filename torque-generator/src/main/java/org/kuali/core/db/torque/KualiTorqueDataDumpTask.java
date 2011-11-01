@@ -384,8 +384,11 @@ public class KualiTorqueDataDumpTask extends DumpTask {
         log(utils.pad("Processed " + helper.getTableNames().size() + " tables", elapsed));
         log("Exported data from " + exportCount + " tables to XML");
         log("Skipped " + skipCount + " tables that had zero rows");
-        printTables("Skipped", "target/impex/skipped-tables.txt", skippedTables);
-        printTables("Exported", "target/impex/exported-tables.txt", exportedTables);
+        String baseDir = getProject().getBaseDir().getCanonicalPath();
+        String skipped = baseDir + FS + "target/impex/skipped-tables.txt";
+        String exported = baseDir + FS + "target/impex/exported-tables.txt";
+        printTables("Skipped", skipped, skippedTables);
+        printTables("Exported", exported, exportedTables);
     }
 
     protected void printTables(String msg, String filename, List<String> skippedTables) {
