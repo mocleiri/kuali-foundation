@@ -135,7 +135,7 @@
               <version>1.7-SNAPSHOT</version>
               <configuration>
                 <basedir>${project.basedir}</basedir>
-                <message>Automated license update</message>
+                <message>Automated license header update</message>
               </configuration>
             </plugin>
           </plugins>
