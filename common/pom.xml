@@ -106,31 +106,9 @@
       <build>
         <pluginManagement>
           <plugins>
-            <plugin>
-              <groupId>org.kuali.maven.plugins</groupId>
-              <artifactId>maven-scm-plugin</artifactId>
-              <version>1.6</version>
-              <configuration>
-                <basedir>${project.basedir}</basedir>
-                <message>${scm.message}</message>
-              </configuration>
-            </plugin>
           </plugins>
         </pluginManagement>
         <plugins>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>maven-scm-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>commit</id>
-                <phase>${scm.phase}</phase>
-                <goals>
-                  <goal>checkin</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
         </plugins>
       </build>
     </profile>
@@ -139,6 +117,7 @@
       <properties>
         <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
         <license.phase>process-sources</license.phase>
+        <scm.phase>install</scm.phase>
       </properties>
       <build>
         <pluginManagement>
@@ -164,6 +143,15 @@
                 </dependency>
               </dependencies>
             </plugin>
+            <plugin>
+              <groupId>org.kuali.maven.plugins</groupId>
+              <artifactId>maven-scm-plugin</artifactId>
+              <version>1.6</version>
+              <configuration>
+                <basedir>${project.basedir}</basedir>
+                <message>Automated license update</message>
+              </configuration>
+            </plugin>
           </plugins>
         </pluginManagement>
         <plugins>
@@ -172,10 +160,30 @@
             <artifactId>maven-license-plugin</artifactId>
             <executions>
               <execution>
-                <id>license</id>
-                <phase>${license.phase}</phase>
+                <id>update-license-header</id>
+                <phase>process-sources</phase>
                 <goals>
                   <goal>format</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>verify-license-header</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>commit-license-header</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>checkin</goal>
                 </goals>
               </execution>
             </executions>
