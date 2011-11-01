@@ -1,0 +1,1 @@
+INSERT 1 INTO FOO;
