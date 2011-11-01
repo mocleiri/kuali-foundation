@@ -91,9 +91,9 @@
     </repository>
   </repositories>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/common</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/trunk/common</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/pom/trunk/common</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/sandbox/pom/common</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/sandbox/pom/common</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/sandbox/pom/common</url>
   </scm>
 
   <profiles>
