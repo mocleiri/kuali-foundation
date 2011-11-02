@@ -98,6 +98,11 @@
         <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
           <version>${antrun.version}</version>
+          <configuration>
+            <target>
+              <ant antfile="build.xml" target="${ant.target}" />
+            </target>
+          </configuration>
           <dependencies>
             <dependency>
               <groupId>jsch</groupId>
@@ -224,11 +229,6 @@
               <execution>
                 <id>antrun</id>
                 <phase>${ant.phase}</phase>
-                <configuration>
-                  <target>
-                    <ant antfile="build.xml" target="${ant.target}" />
-                  </target>
-                </configuration>
                 <goals>
                   <goal>run</goal>
                 </goals>
