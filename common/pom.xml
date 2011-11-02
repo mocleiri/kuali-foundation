@@ -9,7 +9,8 @@
   express or implied. See the License for the specific language governing
   permissions and limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali</groupId>
@@ -53,8 +54,10 @@
     <kuali.javadoc.linksource>true</kuali.javadoc.linksource>
     <kuali.javadoc.maxmemory>512m</kuali.javadoc.maxmemory>
     <kuali.javadoc.debug>false</kuali.javadoc.debug>
-    <!-- These 2 should be "aggregate" and "test-aggregate", but with the latest version of the relevant tools (Maven 3.0.3, maven-site-plugin 3.0-beta-3 and
-      maven-javadoc-plugin 2.8), those 2 reports cause a heap error regardless of how large the heap is set. I set the overall heap to 4 gb's with a MaxPermGen
+    <!-- These 2 should be "aggregate" and "test-aggregate", but with the latest version of the relevant tools (Maven 3.0.3,
+      maven-site-plugin 3.0-beta-3 and
+      maven-javadoc-plugin 2.8), those 2 reports cause a heap error regardless of how large the heap is set. I set the overall
+      heap to 4 gb's with a MaxPermGen
       of 512m before switching back to "javadoc" and "test-javadoc" -->
     <kuali.javadoc.report.1>javadoc</kuali.javadoc.report.1>
     <kuali.javadoc.report.2>test-javadoc</kuali.javadoc.report.2>
@@ -164,6 +167,9 @@
                     <include>**/pom.xml</include>
                   </includes>
                   <useDefaultExcludes>false</useDefaultExcludes>
+                  <excludes>
+                    <exclude>**/target/**</exclude>
+                  </excludes>
                 </configuration>
               </execution>
               <execution>
