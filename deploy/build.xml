@@ -32,7 +32,8 @@
   <target name="stop" depends="check-basic-properties">
     <echo>Stopping ${tomcat.instance} on ${deploy.server}</echo>
     <property name="stop.command" value="su - ${tomcat.instance} /usr/local/tomcat/bin/forced-shutdown.sh" />
-    <sshexec host="${deploy.server}" keyfile="${deploy.auth}" command="${stop.command}" trust="true" username="root" />
+    <sshexec host="${deploy.server}" keyfile="${deploy.auth}" command="${stop.command}" trust="true" username="root"
+      verbose="true" />
     <!--
       <exec executable="ssh" failonerror="false">
       <arg value="-i" />
