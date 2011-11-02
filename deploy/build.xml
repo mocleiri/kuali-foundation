@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2006-2011 The Kuali Foundation
+  Copyright 2006-2011 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project name="Application Deployer">
@@ -31,7 +31,10 @@
 
   <target name="stop" depends="check-basic-properties">
     <echo>Stopping ${tomcat.instance} on ${deploy.server}</echo>
-    <exec executable="ssh" failonerror="false">
+    <property name="stop.command" value="su - ${tomcat.instance} /usr/local/tomcat/bin/forced-shutdown.sh" />
+    <sshexec host="${deploy.server}" keyfile="${deploy.auth}" command="${stop.command}" trust="true" username="root" />
+    <!--
+      <exec executable="ssh" failonerror="false">
       <arg value="-i" />
       <arg value="${deploy.auth}" />
       <arg value="root@${deploy.server}" />
@@ -39,7 +42,8 @@
       <arg value="-" />
       <arg value="${tomcat.instance}" />
       <arg value="/usr/local/tomcat/bin/forced-shutdown.sh" />
-    </exec>
+      </exec>
+    -->
   </target>
   <target name="cleanjdbc" depends="check-basic-properties">
     <antcall target="removedir">
