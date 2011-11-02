@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali</groupId>
@@ -9,7 +8,7 @@
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>maven-impex-plugin</artifactId>
-  <version>1.0.25-SNAPSHOT</version>
+  <version>1.0.25</version>
   <packaging>maven-plugin</packaging>
   <name>Maven Impex Plugin</name>
   <description>Maven plugin for converting database agnostic XML files into platform specific SQL files and for examining proprietary databases via JDBC to generate database agnostic XML files</description>
@@ -113,8 +112,8 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/branches/maven-impex-plugin-1.0</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/branches/maven-impex-plugin-1.0</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/branches/maven-impex-plugin-1.0</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-impex-plugin-1.0.25</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-impex-plugin-1.0.25</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/maven-impex-plugin-1.0.25</url>
   </scm>
 </project>
