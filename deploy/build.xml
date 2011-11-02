@@ -29,21 +29,24 @@
 
   <property name="config.home" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
 
+  <target name="ssh-exec">
+    <condition property="ssh.properties">
+      <and>
+        <isset property="ssh.command" />
+        <isset property="ssh.failonerror" />
+      </and>
+    </condition>
+    <fail unless="ssh.properties">Missing ssh.command or ssh.failonerror</fail>
+    <sshexec username="root" host="${deploy.server}" keyfile="${deploy.auth}" command="${ssh.command}" trust="true"
+      verbose="true" failonerror="${ssh.failonerror}" />
+  </target>
+
   <target name="stop" depends="check-basic-properties">
     <echo>Stopping ${tomcat.instance} on ${deploy.server}</echo>
-    <property name="stop.command" value="su - ${tomcat.instance} /usr/local/tomcat/bin/forced-shutdown.sh" />
-    <sshexec host="${deploy.server}" keyfile="${deploy.auth}" command="${stop.command}" trust="true" username="root" />
-    <!--
-      <exec executable="ssh" failonerror="false">
-      <arg value="-i" />
-      <arg value="${deploy.auth}" />
-      <arg value="root@${deploy.server}" />
-      <arg value="su" />
-      <arg value="-" />
-      <arg value="${tomcat.instance}" />
-      <arg value="/usr/local/tomcat/bin/forced-shutdown.sh" />
-      </exec>
-    -->
+    <antcall target="ssh-exec">
+      <param name="ssh.command" value="su - ${tomcat.instance} /usr/local/tomcat/bin/forced-shutdown.sh" />
+      <param name="ssh.failonerror" value="false" />
+    </antcall>
   </target>
   <target name="cleanjdbc" depends="check-basic-properties">
     <antcall target="removedir">
