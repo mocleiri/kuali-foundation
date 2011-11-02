@@ -7,7 +7,7 @@
   </parent>
   <groupId>org.kuali.db.impex</groupId>
   <artifactId>impex</artifactId>
-  <version>1.0.26-SNAPSHOT</version>
+  <version>1.0.25-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Impex</name>
   <description />
