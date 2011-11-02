@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.kuali.db.impex</groupId>
     <artifactId>impex</artifactId>
-    <version>1.0.23a-SNAPSHOT</version>
+    <version>1.0.25-SNAPSHOT</version>
   </parent>
   <artifactId>jdbc-support</artifactId>
   <name>JDBC Support Utilities</name>

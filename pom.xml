@@ -7,7 +7,7 @@
   </parent>
   <groupId>org.kuali.db.impex</groupId>
   <artifactId>impex</artifactId>
-  <version>1.0.23a-SNAPSHOT</version>
+  <version>1.0.25-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Impex</name>
   <description />
@@ -62,8 +62,8 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/branches/impex-1.0.23a-SNAPSHOT</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/branches/impex-1.0.23a-SNAPSHOT</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/branches/impex-1.0.23a-SNAPSHOT</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/branches/impex-1.0.25-SNAPSHOT</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/branches/impex-1.0.25-SNAPSHOT</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/branches/impex-1.0.25-SNAPSHOT</url>
   </scm>
 </project>
