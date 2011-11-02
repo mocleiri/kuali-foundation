@@ -42,7 +42,6 @@
   </target>
 
   <target name="stop" depends="check-basic-properties">
-    <echo>Stopping ${tomcat.instance} on ${deploy.server}</echo>
     <property name="stop.command" value="su - ${tomcat.instance} /usr/local/tomcat/bin/forced-shutdown.sh" />
     <!--
       Don't fail the build if the stop command fails
@@ -174,7 +173,6 @@
       </and>
     </condition>
     <fail unless="removedir.properties">Missing remote.dir</fail>
-    <echo>Removing ${deploy.server}:${remote.dir}</echo>
     <antcall target="ssh-exec">
       <param name="ssh.command" value="rm -rf ${remote.dir}" />
     </antcall>
