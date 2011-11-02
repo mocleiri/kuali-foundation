@@ -33,20 +33,18 @@
     <condition property="ssh.properties">
       <and>
         <isset property="ssh.command" />
-        <isset property="ssh.failonerror" />
       </and>
     </condition>
-    <fail unless="ssh.properties">Missing ssh.command or ssh.failonerror</fail>
+    <fail unless="ssh.properties">Missing ssh.command</fail>
     <sshexec username="root" host="${deploy.server}" keyfile="${deploy.auth}" command="${ssh.command}" trust="true"
-      verbose="true" failonerror="${ssh.failonerror}" />
+      verbose="true" failonerror="true" />
   </target>
 
   <target name="stop" depends="check-basic-properties">
     <echo>Stopping ${tomcat.instance} on ${deploy.server}</echo>
-    <antcall target="ssh-exec">
-      <param name="ssh.command" value="su - ${tomcat.instance} /usr/local/tomcat/bin/forced-shutdown.sh" />
-      <param name="ssh.failonerror" value="false" />
-    </antcall>
+    <property name="stop.command" value="su - ${tomcat.instance} /usr/local/tomcat/bin/forced-shutdown.sh" />
+    <sshexec username="root" host="${deploy.server}" keyfile="${deploy.auth}" command="${ssh.command}" trust="true"
+      verbose="true" failonerror="true" />
   </target>
   <target name="cleanjdbc" depends="check-basic-properties">
     <antcall target="removedir">
@@ -169,14 +167,9 @@
     </condition>
     <fail unless="removedir.properties">Missing remote.dir</fail>
     <echo>Removing ${deploy.server}:${remote.dir}</echo>
-    <exec executable="ssh" failonerror="true">
-      <arg value="-i" />
-      <arg value="${deploy.auth}" />
-      <arg value="root@${deploy.server}" />
-      <arg value="rm" />
-      <arg value="-rf" />
-      <arg value="${remote.dir}" />
-    </exec>
+    <antcall target="ssh-exec">
+      <param name="ssh.command" value="rm -rf ${remote.dir}" />
+    </antcall>
   </target>
   <target name="copyfile">
     <echo>Copy ${local.file} to ${deploy.server}:${remote.file}</echo>
