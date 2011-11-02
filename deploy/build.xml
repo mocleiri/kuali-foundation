@@ -186,14 +186,6 @@
     </condition>
     <fail unless="copyfile.properties">Missing either local.file or remote.file</fail>
     <scp localFile="${local.file}" remoteFile="root@${deploy.server}:${remote.file}" keyfile="${deploy.auth}" trust="true" />
-    <!--
-      <exec executable="scp" failonerror="true">
-      <arg value="-i" />
-      <arg value="${deploy.auth}" />
-      <arg value="${local.file}" />
-      <arg value="root@${deploy.server}:${remote.file}" />
-      </exec>
-    -->
     <antcall target="ssh-exec">
       <param name="ssh.command" value="chown ${tomcat.instance}:tomcat ${remote.file}" />
     </antcall>
