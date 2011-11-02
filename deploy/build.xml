@@ -36,14 +36,14 @@
       </and>
     </condition>
     <fail unless="ssh.properties">Missing ssh.command</fail>
-    <sshexec username="root" host="${deploy.server}" keyfile="${deploy.auth}" command="${ssh.command}" trust="true"
+    <sshexec command="${ssh.command}" username="root" host="${deploy.server}" keyfile="${deploy.auth}" trust="true"
       verbose="true" failonerror="true" />
   </target>
 
   <target name="stop" depends="check-basic-properties">
     <echo>Stopping ${tomcat.instance} on ${deploy.server}</echo>
     <property name="stop.command" value="su - ${tomcat.instance} /usr/local/tomcat/bin/forced-shutdown.sh" />
-    <sshexec username="root" host="${deploy.server}" keyfile="${deploy.auth}" command="${ssh.command}" trust="true"
+    <sshexec command="${stop.command}" username="root" host="${deploy.server}" keyfile="${deploy.auth}" trust="true"
       verbose="true" failonerror="true" />
   </target>
   <target name="cleanjdbc" depends="check-basic-properties">
