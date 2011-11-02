@@ -185,14 +185,9 @@
       <arg value="${local.file}" />
       <arg value="root@${deploy.server}:${remote.file}" />
     </exec>
-    <exec executable="ssh" failonerror="true">
-      <arg value="-i" />
-      <arg value="${deploy.auth}" />
-      <arg value="root@${deploy.server}" />
-      <arg value="chown" />
-      <arg value="${tomcat.instance}:tomcat" />
-      <arg value="${remote.file}" />
-    </exec>
+    <antcall target="ssh-exec">
+      <param name="ssh.command" value="chown ${tomcat.instance}:tomcat ${remote.file}" />
+    </antcall>
   </target>
   <target name="check-env-config">
     <condition property="check-env-config.properties">
@@ -213,38 +208,18 @@
     <fail unless="basic.properties">Missing either deploy.server or tomcat.instance property</fail>
   </target>
   <target name="chowndir">
-    <echo>chown -R ${tomcat.instance}:tomcat ${remote.dir}</echo>
-    <exec executable="ssh" failonerror="true">
-      <arg value="-i" />
-      <arg value="${deploy.auth}" />
-      <arg value="root@${deploy.server}" />
-      <arg value="chown" />
-      <arg value="-R" />
-      <arg value="${tomcat.instance}:tomcat" />
-      <arg value="${remote.dir}" />
-    </exec>
+    <antcall target="ssh-exec">
+      <param name="ssh.command" value="chown -R ${tomcat.instance}:tomcat ${remote.dir}" />
+    </antcall>
   </target>
   <target name="mkdir">
-    <echo>Creating ${deploy.server}:${remote.dir}</echo>
-    <exec executable="ssh" failonerror="true">
-      <arg value="-i" />
-      <arg value="${deploy.auth}" />
-      <arg value="root@${deploy.server}" />
-      <arg value="mkdir" />
-      <arg value="${remote.dir}" />
-    </exec>
+    <antcall target="ssh-exec">
+      <param name="ssh.command" value="mkdir ${remote.dir}" />
+    </antcall>
   </target>
   <target name="runscript">
-    <echo>${message}</echo>
-    <echo>Running ${deploy.server}:${script} as ${tomcat.instance}</echo>
-    <exec executable="ssh" failonerror="true">
-      <arg value="-i" />
-      <arg value="${deploy.auth}" />
-      <arg value="root@${deploy.server}" />
-      <arg value="su" />
-      <arg value="-" />
-      <arg value="${tomcat.instance}" />
-      <arg value="${script}" />
-    </exec>
+    <antcall target="ssh-exec">
+      <param name="ssh.command" value="su - ${tomcat.instance} ${script}" />
+    </antcall>
   </target>
 </project>
