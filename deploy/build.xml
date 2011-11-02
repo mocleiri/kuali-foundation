@@ -178,13 +178,22 @@
     </antcall>
   </target>
   <target name="copyfile">
-    <echo>Copy ${local.file} to ${deploy.server}:${remote.file}</echo>
-    <exec executable="scp" failonerror="true">
+    <condition property="copyfile.properties">
+      <and>
+        <isset property="local.file" />
+        <isset property="remote.file" />
+      </and>
+    </condition>
+    <fail unless="copyfile.properties">Missing either local.file or remote.file</fail>
+    <scp localFile="${local.file}" remoteFile="root@${deploy.server}:${remote.file}" keyfile="${deploy.auth}" trust="true" />
+    <!--
+      <exec executable="scp" failonerror="true">
       <arg value="-i" />
       <arg value="${deploy.auth}" />
       <arg value="${local.file}" />
       <arg value="root@${deploy.server}:${remote.file}" />
-    </exec>
+      </exec>
+    -->
     <antcall target="ssh-exec">
       <param name="ssh.command" value="chown ${tomcat.instance}:tomcat ${remote.file}" />
     </antcall>
