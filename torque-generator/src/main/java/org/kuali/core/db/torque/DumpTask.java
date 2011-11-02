@@ -3,6 +3,7 @@ package org.kuali.core.db.torque;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -87,6 +88,11 @@ public class DumpTask extends Task {
      * JDBC driver.
      */
     String driver;
+
+    /**
+     * Additional properties for the JDBC driver
+     */
+    Properties driverProperties;
 
     /**
      * JDBC user name.
@@ -210,6 +216,14 @@ public class DumpTask extends Task {
 
     public void setAntCompatibilityMode(boolean antCompatibilityMode) {
         this.antCompatibilityMode = antCompatibilityMode;
+    }
+
+    public Properties getDriverProperties() {
+        return driverProperties;
+    }
+
+    public void setDriverProperties(Properties driverProperties) {
+        this.driverProperties = driverProperties;
     }
 
 }
