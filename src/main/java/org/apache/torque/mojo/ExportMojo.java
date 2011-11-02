@@ -1,5 +1,7 @@
 package org.apache.torque.mojo;
 
+import java.util.Properties;
+
 import org.apache.cxf.common.util.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.descriptor.PluginDescriptor;
@@ -12,6 +14,13 @@ import org.kuali.core.db.torque.StringFilter;
  * Base Mojo for export related functionality
  */
 public abstract class ExportMojo extends AntTaskMojo {
+
+    /**
+     * Additional properties for the JDBC driver
+     *
+     * @parameter
+     */
+    private Properties driverProperties;
 
     /**
      * If true, files will be exported in a format that the Ant impex tasks can understand
@@ -134,7 +143,7 @@ public abstract class ExportMojo extends AntTaskMojo {
      * Sets the fully qualified class name of the database driver.
      *
      * @param driver
-     * the fully qualified class name of the database driver.
+     *            the fully qualified class name of the database driver.
      */
     public void setDriver(final String driver) {
         this.driver = driver;
@@ -153,7 +162,7 @@ public abstract class ExportMojo extends AntTaskMojo {
      * Sets the password of the database user.
      *
      * @param password
-     * the password of the database user.
+     *            the password of the database user.
      */
     public void setPassword(final String password) {
         this.password = password;
@@ -172,7 +181,7 @@ public abstract class ExportMojo extends AntTaskMojo {
      * Sets the connect URL to the database.
      *
      * @param url
-     * the connect URL to the database.
+     *            the connect URL to the database.
      */
     public void setUrl(final String url) {
         this.url = url;
@@ -258,6 +267,7 @@ public abstract class ExportMojo extends AntTaskMojo {
         DumpTask task = (DumpTask) super.getAntTask();
         task.setIncludePatterns(StringFilter.getListFromCSV(getIncludes()));
         task.setExcludePatterns(StringFilter.getListFromCSV(getExcludes()));
+        task.setDriverProperties(driverProperties);
     }
 
     public String getArtifactId() {
@@ -285,9 +295,17 @@ public abstract class ExportMojo extends AntTaskMojo {
 
     /**
      * @param includeVersionInComment
-     * the includeVersionInComment to set
+     *            the includeVersionInComment to set
      */
     public void setIncludeVersionInComment(final boolean includeVersionInComment) {
         this.includeVersionInComment = includeVersionInComment;
+    }
+
+    public Properties getDriverProperties() {
+        return driverProperties;
+    }
+
+    public void setDriverProperties(Properties driverProperties) {
+        this.driverProperties = driverProperties;
     }
 }
