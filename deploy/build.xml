@@ -204,6 +204,7 @@
       </and>
     </condition>
     <fail unless="copyfile.properties">Missing either local.file or remote.file</fail>
+    <echo>Copy ${local.file} to root@${deploy.server}:${remote.file}</echo>
     <scp localFile="${local.file}" remoteToFile="root@${deploy.server}:${remote.file}" keyfile="${deploy.auth}"
       trust="true" verbose="${scp.verbose}" />
     <antcall target="ssh-exec">
