@@ -98,11 +98,6 @@
         <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
           <version>${antrun.version}</version>
-          <configuration>
-            <target>
-              <ant antfile="build.xml" target="${ant.target}" />
-            </target>
-          </configuration>
           <dependencies>
             <dependency>
               <groupId>org.apache.ant</groupId>
@@ -228,10 +223,15 @@
             <executions>
               <execution>
                 <id>antrun</id>
-                <phase>${ant.phase}</phase>
+                <phase>install</phase>
                 <goals>
                   <goal>run</goal>
                 </goals>
+                <configuration>
+                  <target>
+                    <ant antfile="build.xml" target="reset" />
+                  </target>
+                </configuration>
               </execution>
             </executions>
           </plugin>
@@ -346,21 +346,16 @@
               <execution>
                 <id>checkout</id>
                 <phase>initialize</phase>
-                <configuration>
-                  <target>
-                    <property name="manifest.svn.url" value="${deploy.impex.location}@${manifest.SVN-Revision}" />
-                    <property name="checkout.dir" value="target/checkout/impex" />
-                    <echo>Checking out ${manifest.svn.url}</echo>
-                    <exec executable="svn">
-                      <arg value="checkout" />
-                      <arg value="${manifest.svn.url}" />
-                      <arg value="${checkout.dir}" />
-                    </exec>
-                  </target>
-                </configuration>
                 <goals>
                   <goal>run</goal>
                 </goals>
+                <configuration>
+                  <configuration>
+                    <target>
+                      <ant antfile="build.xml" target="checkout" />
+                    </target>
+                  </configuration>
+                </configuration>
               </execution>
             </executions>
           </plugin>

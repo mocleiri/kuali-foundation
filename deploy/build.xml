@@ -30,6 +30,24 @@
   <property name="config.home" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
   <property name="ssh.verbose" value="false" />
 
+  <target name="checkout">
+    <condition property="checkout.properties">
+      <and>
+        <isset property="deploy.impex.location" />
+        <isset property="manifest.SVN-Revision" />
+      </and>
+    </condition>
+    <fail unless="checkout.properties">Missing checkout properties</fail>
+    <property name="manifest.svn.url" value="${deploy.impex.location}@${manifest.SVN-Revision}" />
+    <property name="checkout.dir" value="target/checkout/impex" />
+    <echo>Checking out ${manifest.svn.url}</echo>
+    <exec executable="svn">
+      <arg value="checkout" />
+      <arg value="${manifest.svn.url}" />
+      <arg value="${checkout.dir}" />
+    </exec>
+  </target>
+
   <target name="ssh-exec">
     <condition property="ssh.properties">
       <and>
