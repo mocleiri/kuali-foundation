@@ -29,6 +29,7 @@
 
   <property name="config.home" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
   <property name="ssh.verbose" value="false" />
+  <property name="scp.verbose" value="false" />
 
   <target name="checkout">
     <condition property="checkout.properties">
@@ -204,7 +205,7 @@
     </condition>
     <fail unless="copyfile.properties">Missing either local.file or remote.file</fail>
     <scp localFile="${local.file}" remoteToFile="root@${deploy.server}:${remote.file}" keyfile="${deploy.auth}"
-      trust="true" verbose="true" />
+      trust="true" verbose="${scp.verbose}" />
     <antcall target="ssh-exec">
       <param name="ssh.command" value="chown ${tomcat.instance}:tomcat ${remote.file}" />
     </antcall>
