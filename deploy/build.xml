@@ -76,7 +76,8 @@
     <fail unless="copy-commonconfig.properties">Missing deploy.config.common</fail>
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.config.common}" />
-      <param name="remote.file" value="${config.home}/common-config.xml" />
+      <param name="remote.dir" value="${config.home}" />
+      <param name="remote.file" value="common-config.xml" />
     </antcall>
   </target>
 
@@ -89,13 +90,15 @@
     <fail unless="copy-appconfig.properties">Missing deploy.config.app</fail>
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.config.app}" />
-      <param name="remote.file" value="${config.home}/${deploy.app.configfile}" />
+      <param name="remote.dir" value="${config.home}" />
+      <param name="remote.file" value="${deploy.app.configfile}" />
     </antcall>
   </target>
   <target name="copy-envconfig" depends="check-basic-properties,check-env-config" if="env.config.present">
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.config.env}" />
-      <param name="remote.file" value="${config.home}/env-config.xml" />
+      <param name="remote.file" value="${config.home}" />
+      <param name="remote.file" value="env-config.xml" />
     </antcall>
   </target>
   <target name="copyjdbc" depends="check-basic-properties">
@@ -111,7 +114,8 @@
     </antcall>
     <antcall target="copyfile">
       <param name="local.file" value="${jdbc.driver.location}" />
-      <param name="remote.file" value="${tomcat.instance.lib.dir}/${jdbc.driver.filename}" />
+      <param name="remote.dir" value="${tomcat.instance.lib.dir}" />
+      <param name="remote.file" value="${jdbc.driver.filename}" />
     </antcall>
     <antcall target="chowndir">
       <param name="remote.dir" value="${tomcat.instance.lib.dir}" />
@@ -124,10 +128,10 @@
       </and>
     </condition>
     <fail unless="copywar.properties">Missing deploy.war</fail>
-    <property name="remote.war.file" value="/usr/local/${tomcat.instance}/webapps/ROOT.war" />
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.war}" />
-      <param name="remote.file" value="${remote.war.file}" />
+      <param name="remote.dir" value="/usr/local/${tomcat.instance}/webapps" />
+      <param name="remote.file" value="ROOT.war" />
     </antcall>
   </target>
   <target name="resetdb">
@@ -181,11 +185,13 @@
     <condition property="copyfile.properties">
       <and>
         <isset property="local.file" />
+        <isset property="remote.dir" />
         <isset property="remote.file" />
       </and>
     </condition>
-    <fail unless="copyfile.properties">Missing either local.file or remote.file</fail>
-    <scp localFile="${local.file}" remoteFile="root@${deploy.server}:${remote.file}" keyfile="${deploy.auth}" trust="true" />
+    <fail unless="copyfile.properties">Missing either local.file, remote.dir, or remote.file</fail>
+    <scp localFile="${local.file}" remoteToDir="root@${deploy.server}:${remote.dir}" remoteToFile="${remote.file}"
+      keyfile="${deploy.auth}" trust="true" />
     <antcall target="ssh-exec">
       <param name="ssh.command" value="chown ${tomcat.instance}:tomcat ${remote.file}" />
     </antcall>
