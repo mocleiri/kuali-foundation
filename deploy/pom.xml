@@ -350,11 +350,9 @@
                   <goal>run</goal>
                 </goals>
                 <configuration>
-                  <configuration>
-                    <target>
-                      <ant antfile="build.xml" target="checkout" />
-                    </target>
-                  </configuration>
+                  <target>
+                    <ant antfile="build.xml" target="checkout" />
+                  </target>
                 </configuration>
               </execution>
             </executions>
