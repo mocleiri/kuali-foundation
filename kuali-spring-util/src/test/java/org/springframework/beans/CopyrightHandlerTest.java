@@ -14,11 +14,12 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Test;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-public class CopyrightHandler {
+public class CopyrightHandlerTest {
 
     public static final String ECL_CR = "${ecl.cr}";
     public static final String ECL_LF = "${ecl.lf}";
@@ -26,20 +27,27 @@ public class CopyrightHandler {
     public static final String LF = "\n";
 
     public static void main(String[] args) {
-        new CopyrightHandler().exec(args);
+        new CopyrightHandlerTest().exec(args);
     }
 
-    protected void exec(String[] args) {
+    protected String getBaseDir() {
+        String basedir = System.getProperty("ecl.basedir");
+        if (basedir == null) {
+            throw new RuntimeException("Set the system property 'ecl.basedir'");
+        } else {
+            return basedir;
+        }
+
+    }
+
+    @Test
+    public void testDuplicateCopyright() {
         try {
-            if (args == null || args.length != 1) {
-                throw new RuntimeException("Pass in basedir as the first (and only argument)");
-            }
-            String basedir = args[0];
+            String basedir = getBaseDir();
             ProblemFileContext context = new MultipleCopyrightContext(basedir);
             ProblemFileDetector detector = new ProblemFileDetector();
             List<File> files = detector.getProblemFiles(context);
-            System.out
-                    .println("Located " + files.size() + " files with multiple lines containing the text 'copyright'");
+            System.out.println("Located " + files.size() + " unknown files with multiple 'Copyright' lines");
             Properties invalidEcl = getProperties("invalid-ecl.properties");
             Set<String> contentsToRemove = getValues(invalidEcl);
             ContentRemover remover = new ContentRemover();
@@ -70,6 +78,10 @@ public class CopyrightHandler {
         } catch (Throwable t) {
             t.printStackTrace();
         }
+    }
+
+    protected void exec(String[] args) {
+        testDuplicateCopyright();
     }
 
     protected Set<String> getValues(Properties properties) {

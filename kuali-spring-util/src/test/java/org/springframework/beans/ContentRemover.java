@@ -6,8 +6,8 @@ import java.util.Set;
 public class ContentRemover {
 
     public boolean removeContent(File file, Set<String> contentsToRemove) {
-        String content = CopyrightHandler.read(file);
-        content = CopyrightHandler.flatten(content);
+        String content = CopyrightHandlerTest.read(file);
+        content = CopyrightHandlerTest.flatten(content);
 
         boolean updated = false;
         for (String contentToRemove : contentsToRemove) {
@@ -20,8 +20,8 @@ public class ContentRemover {
         if (!updated) {
             return false;
         } else {
-            content = CopyrightHandler.expand(content);
-            CopyrightHandler.write(file, content);
+            content = CopyrightHandlerTest.expand(content);
+            CopyrightHandlerTest.write(file, content);
             return true;
         }
     }
