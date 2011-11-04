@@ -29,50 +29,6 @@ public class CopyrightHandler {
         new CopyrightHandler().exec(args);
     }
 
-    public static final void write(File file, String content) {
-        OutputStream out = null;
-        try {
-            out = new FileOutputStream(file);
-            IOUtils.write(content.getBytes(), out);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            IOUtils.closeQuietly(out);
-        }
-    }
-
-    public static final String read(File file) {
-        InputStream in = null;
-        try {
-            in = new FileInputStream(file);
-            return IOUtils.toString(in);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            IOUtils.closeQuietly(in);
-        }
-    }
-
-    public static final String expand(String s) {
-        s = s.replace(ECL_CR, CR);
-        s = s.replace(ECL_LF, LF);
-        return s;
-    }
-
-    public static final String flatten(String s) {
-        s = s.replace(CR, ECL_CR);
-        s = s.replace(LF, ECL_LF);
-        return s;
-    }
-
-    protected void copy(File file) {
-        String content = read(file);
-        String flat = flatten(content);
-        String filename = file.getName();
-        File flatFile = new File("C:/temp/ecl/" + filename);
-        write(flatFile, flat);
-    }
-
     protected void exec(String[] args) {
         try {
             if (args == null || args.length != 1) {
@@ -159,6 +115,50 @@ public class CopyrightHandler {
         } finally {
             IOUtils.closeQuietly(in);
         }
+    }
+
+    public static final void write(File file, String content) {
+        OutputStream out = null;
+        try {
+            out = new FileOutputStream(file);
+            IOUtils.write(content.getBytes(), out);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            IOUtils.closeQuietly(out);
+        }
+    }
+
+    public static final String read(File file) {
+        InputStream in = null;
+        try {
+            in = new FileInputStream(file);
+            return IOUtils.toString(in);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            IOUtils.closeQuietly(in);
+        }
+    }
+
+    public static final String expand(String s) {
+        s = s.replace(ECL_CR, CR);
+        s = s.replace(ECL_LF, LF);
+        return s;
+    }
+
+    public static final String flatten(String s) {
+        s = s.replace(CR, ECL_CR);
+        s = s.replace(LF, ECL_LF);
+        return s;
+    }
+
+    protected void copy(File file) {
+        String content = read(file);
+        String flat = flatten(content);
+        String filename = file.getName();
+        File flatFile = new File("C:/temp/ecl/" + filename);
+        write(flatFile, flat);
     }
 
 }
