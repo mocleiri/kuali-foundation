@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -12,8 +13,10 @@ public class MisplacedXMLPrologFilter implements FileFilter {
 
     @Override
     public boolean accept(File file) {
+        InputStream in = null;
         try {
-            List<String> lines = IOUtils.readLines(new FileInputStream(file));
+            in = new FileInputStream(file);
+            List<String> lines = IOUtils.readLines(in);
             int prologIndex = getPrologIndex(lines);
             if (prologIndex != -1 && prologIndex != 0) {
                 return true;
@@ -21,6 +24,8 @@ public class MisplacedXMLPrologFilter implements FileFilter {
             return false;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            IOUtils.closeQuietly(in);
         }
 
     }

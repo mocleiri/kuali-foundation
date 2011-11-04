@@ -2,6 +2,7 @@ package org.springframework.beans;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -14,6 +15,7 @@ public class MultipleCopyrightFilter implements FileFilter {
     public boolean accept(File file) {
         InputStream in = null;
         try {
+            in = new FileInputStream(file);
             List<String> lines = IOUtils.readLines(in);
             return isMultipleCopyRights(lines);
         } catch (IOException e) {
