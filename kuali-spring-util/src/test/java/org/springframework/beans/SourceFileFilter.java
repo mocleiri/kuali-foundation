@@ -11,26 +11,24 @@ public class SourceFileFilter implements FileFilter {
 
     public SourceFileFilter() {
         super();
-        fileExtensions.add(".properties");
-        fileExtensions.add(".java");
-        /*
-        fileExtensions.add(".groovy");
-        fileExtensions.add(".css");
-        fileExtensions.add(".js");
         fileExtensions.add(".pom");
         fileExtensions.add(".html");
         fileExtensions.add(".htm");
-        fileExtensions.add(".jsp");
         fileExtensions.add(".jspx");
         fileExtensions.add(".mxml");
         fileExtensions.add(".dtd");
         fileExtensions.add(".fml");
-        fileExtensions.add(".txt");
-        fileExtensions.add(".sql");
         fileExtensions.add(".php");
         fileExtensions.add(".vm");
         fileExtensions.add(".tld");
-        */
+        fileExtensions.add(".jsp");
+        fileExtensions.add(".js");
+        fileExtensions.add(".css");
+        fileExtensions.add(".sql");
+        fileExtensions.add(".groovy");
+        fileExtensions.add(".properties");
+        fileExtensions.add(".java");
+        fileExtensions.add(".txt");
     }
 
     @Override

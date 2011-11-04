@@ -75,13 +75,15 @@ public class CopyrightHandler {
 
     protected void exec(String[] args) {
         try {
-
-            ProblemFileContext context = new MultipleCopyrightContext("c:/eclipse/3.6.2/r11/eclipse/ws/rice-2.0-trunk");
-            // context.setInclude(new FilenameContainsDotXFilter());
-
+            if (args == null || args.length != 1) {
+                throw new RuntimeException("Pass in basedir as the first (and only argument)");
+            }
+            String basedir = args[0];
+            ProblemFileContext context = new MultipleCopyrightContext(basedir);
             ProblemFileDetector detector = new ProblemFileDetector();
             List<File> files = detector.getProblemFiles(context);
-            System.out.println(files.size());
+            System.out
+                    .println("Located " + files.size() + " files with multiple lines containing the text 'copyright'");
             Properties invalidEcl = getProperties("invalid-ecl.properties");
             Set<String> contentsToRemove = getValues(invalidEcl);
             ContentRemover remover = new ContentRemover();
