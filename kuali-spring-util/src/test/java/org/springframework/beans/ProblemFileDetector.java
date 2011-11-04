@@ -32,6 +32,7 @@ public class ProblemFileDetector {
         FileFilter include = context.getInclude();
         FileFilter problem = context.getProblem();
         List<File> files = getFiles(baseDir, exclude, include);
+        System.out.println("Located " + files.size() + " total files");
         List<File> problemFiles = getProblemFiles(files, problem);
         return problemFiles;
     }

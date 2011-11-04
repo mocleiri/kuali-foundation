@@ -44,6 +44,7 @@ public class CopyrightHandlerTest {
     public void testDuplicateCopyright() {
         try {
             String basedir = getBaseDir();
+            System.out.println("Examining " + basedir);
             ProblemFileContext context = new MultipleCopyrightContext(basedir);
             ProblemFileDetector detector = new ProblemFileDetector();
             List<File> files = detector.getProblemFiles(context);
