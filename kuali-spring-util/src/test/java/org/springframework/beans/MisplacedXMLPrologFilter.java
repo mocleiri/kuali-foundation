@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 
 public class MisplacedXMLPrologFilter implements FileFilter {
 
@@ -36,14 +35,10 @@ public class MisplacedXMLPrologFilter implements FileFilter {
     }
 
     protected int getPrologIndex(List<String> strings) {
-        int index = 0;
         for (int i = 0; i < strings.size(); i++) {
             String s = strings.get(i).trim();
-            if (!StringUtils.isEmpty(s)) {
-                index++;
-            }
             if (isProlog(s)) {
-                return index;
+                return i;
             }
         }
         return -1;
