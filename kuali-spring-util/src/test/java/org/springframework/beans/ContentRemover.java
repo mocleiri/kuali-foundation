@@ -18,7 +18,7 @@ public class ContentRemover {
             String contentToRemove = contentsToRemove.get(i);
             int pos = content.indexOf(contentToRemove);
             if (pos != -1) {
-                System.out.println("Matched " + i + " replacing");
+                System.out.println("Updating: " + file.getAbsolutePath());
                 content = content.replace(contentToRemove, "");
             }
         }

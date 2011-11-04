@@ -28,6 +28,9 @@ public class CopyrightHandler {
             ProblemFileDetector detector = new ProblemFileDetector();
             List<File> files = detector.getProblemFiles(context);
             System.out.println(files.size());
+            for (File file : files) {
+                System.out.println(file.getAbsolutePath());
+            }
             Properties invalidEcl = getXMLProperties("invalid-ecl-headers.xml");
             List<String> contentsToRemove = getValues(invalidEcl);
 
@@ -45,10 +48,18 @@ public class CopyrightHandler {
         List<String> values = new ArrayList<String>();
         Set<String> keys = properties.stringPropertyNames();
         for (String key : keys) {
-            String value1 = properties.getProperty(key);
-            String value2 = value1.replace("\n", "\r\n");
-            values.add(value1);
-            values.add(value2);
+            String value = properties.getProperty(key);
+
+            // If it has cr+linefeed change it to just linefeed
+            String lf = value.replace("\r\n", "\n");
+
+            // Expand linefeed into cr+linefeed
+            String crlf = lf.replace("\n", "\r\n");
+
+            // Add both values, if we have an exact match where the only
+            // difference is cr+linefeed vs linefeed it needs to be replaced
+            values.add(lf);
+            values.add(crlf);
         }
         return values;
     }
