@@ -14,26 +14,30 @@ public class ProblemFileDetector {
 
     protected void exec(String[] args) {
         try {
-            long beg = System.currentTimeMillis();
-            String dir = "c:/eclipse/3.6.2/r11/eclipse/ws/rice-2.0-trunk";
+            File baseDir = new File("c:/eclipse/3.6.2/r11/eclipse/ws/rice-2.0-trunk");
             FileFilter exclude = new CommonIgnoresFilter();
             FileFilter include = new FilenameContainsDotXFilter();
             FileFilter problem = new MisplacedXMLPrologFilter();
-            List<File> files = getFiles(new File(dir), exclude, include);
-            System.out.println(files.size());
-            List<File> problemFiles = getProblemFiles(files, problem);
-            System.out.println(problemFiles.size());
-            for (int i = 0; i < problemFiles.size(); i++) {
-                File problemFile = problemFiles.get(i);
-                System.out.println(problemFile.getAbsolutePath());
-            }
-            long end = System.currentTimeMillis();
-            long elapsed = end - beg;
-            double seconds = elapsed / 1000D;
-            System.out.println(seconds);
+            execute(baseDir, exclude, include, problem);
         } catch (Throwable t) {
             t.printStackTrace();
         }
+    }
+
+    protected void execute(File baseDir, FileFilter exclude, FileFilter include, FileFilter problem) throws IOException {
+        long beg = System.currentTimeMillis();
+        List<File> files = getFiles(baseDir, exclude, include);
+        System.out.println(files.size());
+        List<File> problemFiles = getProblemFiles(files, problem);
+        System.out.println(problemFiles.size());
+        for (int i = 0; i < problemFiles.size(); i++) {
+            File problemFile = problemFiles.get(i);
+            System.out.println(problemFile.getAbsolutePath());
+        }
+        long end = System.currentTimeMillis();
+        long elapsed = end - beg;
+        double seconds = elapsed / 1000D;
+        System.out.println(seconds);
     }
 
     protected List<File> getProblemFiles(List<File> files, FileFilter problem) throws IOException {
