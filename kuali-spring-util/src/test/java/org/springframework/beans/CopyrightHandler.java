@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -27,7 +28,7 @@ public class CopyrightHandler {
         new CopyrightHandler().exec(args);
     }
 
-    protected void write(File file, String content) {
+    public static final void write(File file, String content) {
         OutputStream out = null;
         try {
             out = new FileOutputStream(file);
@@ -39,7 +40,7 @@ public class CopyrightHandler {
         }
     }
 
-    protected String read(File file) {
+    public static final String read(File file) {
         InputStream in = null;
         try {
             in = new FileInputStream(file);
@@ -86,9 +87,15 @@ public class CopyrightHandler {
             Properties invalidEcl = getProperties("invalid-ecl.properties");
             List<String> contentsToRemove = getValues(invalidEcl);
             ContentRemover remover = new ContentRemover();
-            for (File file : files) {
-                copy(file);
-                remover.removeContent(file, contentsToRemove);
+            Iterator<File> itr = files.iterator();
+            while (itr.hasNext()) {
+                File file = itr.next();
+                boolean updated = remover.removeContent(file, contentsToRemove);
+                if (!updated) {
+                    copy(file);
+                } else {
+                    System.out.println("Updated " + file.getAbsolutePath());
+                }
             }
 
         } catch (Throwable t) {
