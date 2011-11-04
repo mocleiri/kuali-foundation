@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -81,33 +82,41 @@ public class CopyrightHandler {
             ProblemFileDetector detector = new ProblemFileDetector();
             List<File> files = detector.getProblemFiles(context);
             System.out.println(files.size());
-            for (File file : files) {
-                System.out.println(file.getAbsolutePath());
-            }
             Properties invalidEcl = getProperties("invalid-ecl.properties");
-            List<String> contentsToRemove = getValues(invalidEcl);
+            Set<String> contentsToRemove = getValues(invalidEcl);
             ContentRemover remover = new ContentRemover();
             Iterator<File> itr = files.iterator();
+            List<File> updatedFiles = new ArrayList<File>();
+            List<File> nonUpdatedFiles = new ArrayList<File>();
             while (itr.hasNext()) {
                 File file = itr.next();
                 boolean updated = remover.removeContent(file, contentsToRemove);
                 if (!updated) {
+                    nonUpdatedFiles.add(file);
                     copy(file);
                 } else {
-                    System.out.println("Updated " + file.getAbsolutePath());
+                    updatedFiles.add(file);
                 }
             }
-
+            for (File file : nonUpdatedFiles) {
+                System.out.println("Non-updated: " + file.getAbsolutePath());
+            }
+            for (File file : updatedFiles) {
+                System.out.println("Updated: " + file.getAbsolutePath());
+            }
         } catch (Throwable t) {
             t.printStackTrace();
         }
     }
 
-    protected List<String> getValues(Properties properties) {
-        List<String> values = new ArrayList<String>();
+    protected Set<String> getValues(Properties properties) {
+        Set<String> values = new HashSet<String>();
         Set<String> keys = properties.stringPropertyNames();
         for (String key : keys) {
             String value = properties.getProperty(key);
+            if (values.contains(value)) {
+                throw new RuntimeException("key " + key + " is a duplicate");
+            }
             values.add(value);
         }
         return values;
