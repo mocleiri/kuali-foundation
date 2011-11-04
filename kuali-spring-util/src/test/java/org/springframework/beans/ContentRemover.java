@@ -6,15 +6,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 
 public class ContentRemover {
 
-    public void removeContent(File file, String[] contentsToRemove) {
+    public void removeContent(File file, List<String> contentsToRemove) {
         String content = getExistingContent(file);
-        for (int i = 0; i < contentsToRemove.length; i++) {
-            String contentToRemove = contentsToRemove[i];
+        for (int i = 0; i < contentsToRemove.size(); i++) {
+            String contentToRemove = contentsToRemove.get(i);
             int pos = content.indexOf(contentToRemove);
             if (pos != -1) {
                 System.out.println("Matched " + i + " replacing");
