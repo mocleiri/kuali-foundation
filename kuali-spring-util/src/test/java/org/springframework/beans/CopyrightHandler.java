@@ -67,10 +67,8 @@ public class CopyrightHandler {
         String content = read(file);
         String flat = flatten(content);
         String filename = file.getName();
-        File newFile1 = new File("C:/temp/ecl/" + filename);
-        File newFile2 = new File("C:/temp/ecl/" + filename + ".flat");
-        write(newFile1, content);
-        write(newFile2, flat);
+        File flatFile = new File("C:/temp/ecl/" + filename);
+        write(flatFile, flat);
     }
 
     protected void exec(String[] args) {
@@ -89,10 +87,7 @@ public class CopyrightHandler {
             List<String> contentsToRemove = getValues(invalidEcl);
             ContentRemover remover = new ContentRemover();
             for (File file : files) {
-                String name = file.getName();
-                if (name.equals("EDLSpringBeans.xml")) {
-                    copy(file);
-                }
+                copy(file);
                 remover.removeContent(file, contentsToRemove);
             }
 
