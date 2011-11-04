@@ -7,7 +7,7 @@ public class MultipleCopyRightContext extends ProblemFileContext {
     public MultipleCopyRightContext(String basedir) {
         super();
         setBaseDir(new File(basedir));
-        setInclude(new FilenameContainsDotXFilter());
+        setInclude(new SourceFileFilter());
         setExclude(new CommonIgnoresFilter());
         setProblem(new MultipleCopyrightFilter());
     }
