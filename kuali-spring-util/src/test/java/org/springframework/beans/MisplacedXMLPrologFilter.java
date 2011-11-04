@@ -36,7 +36,7 @@ public class MisplacedXMLPrologFilter implements FileFilter {
 
     protected int getPrologIndex(List<String> strings) {
         for (int i = 0; i < strings.size(); i++) {
-            String s = strings.get(i).trim();
+            String s = strings.get(i);
             if (isProlog(s)) {
                 return i;
             }
