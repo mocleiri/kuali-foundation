@@ -12,8 +12,8 @@ public class SourceFileFilter implements FileFilter {
     public SourceFileFilter() {
         super();
         fileExtensions.add(".properties");
-        /*
         fileExtensions.add(".java");
+        /*
         fileExtensions.add(".groovy");
         fileExtensions.add(".css");
         fileExtensions.add(".js");
