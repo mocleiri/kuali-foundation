@@ -15,7 +15,7 @@ public class ProblemFileDetector {
     protected void exec(String[] args) {
         try {
             long beg = System.currentTimeMillis();
-            String dir = "c:/eclipse/sts/2.6.1/ide/ws/rice-trunk";
+            String dir = "c:/eclipse/3.6.2/r11/eclipse/ws/rice-2.0-trunk";
             FileFilter exclude = new CommonIgnoresFilter();
             FileFilter include = new FilenameContainsDotXFilter();
             FileFilter problem = new MisplacedXMLPrologFilter();
