@@ -44,7 +44,10 @@ public class CopyrightHandler {
         List<String> values = new ArrayList<String>();
         Set<String> keys = properties.stringPropertyNames();
         for (String key : keys) {
-            values.add(properties.getProperty(key));
+            String value1 = properties.getProperty(key);
+            String value2 = value1.replace("\n", "\r\n");
+            values.add(value1);
+            values.add(value2);
         }
         return values;
     }
