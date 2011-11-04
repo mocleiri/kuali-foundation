@@ -15,7 +15,7 @@ public class ProblemFileDetector {
         try {
             String basedir = "c:/eclipse/3.6.2/r11/eclipse/ws/rice-2.0-trunk";
             // ProblemFileContext context = new MisplacedXMLPrologContext(basedir);
-            ProblemFileContext context = new MultipleCopyRightContext2(basedir);
+            ProblemFileContext context = new MultipleCopyrightContext(basedir);
             context.setInclude(new FilenameContainsDotXFilter());
             List<File> files = getProblemFiles(context);
             for (File file : files) {

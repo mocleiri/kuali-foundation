@@ -2,9 +2,9 @@ package org.springframework.beans;
 
 import java.io.File;
 
-public class MultipleCopyRightContext2 extends ProblemFileContext {
+public class MultipleCopyrightContext extends ProblemFileContext {
 
-    public MultipleCopyRightContext2(String basedir) {
+    public MultipleCopyrightContext(String basedir) {
         super();
         setBaseDir(new File(basedir));
         setInclude(new SourceFileFilter());

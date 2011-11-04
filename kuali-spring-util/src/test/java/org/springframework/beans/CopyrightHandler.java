@@ -75,7 +75,7 @@ public class CopyrightHandler {
     protected void exec(String[] args) {
         try {
 
-            ProblemFileContext context = new MultipleCopyRightContext2("c:/eclipse/3.6.2/r11/eclipse/ws/rice-2.0-trunk");
+            ProblemFileContext context = new MultipleCopyrightContext("c:/eclipse/3.6.2/r11/eclipse/ws/rice-2.0-trunk");
             context.setInclude(new FilenameContainsDotXFilter());
 
             ProblemFileDetector detector = new ProblemFileDetector();
