@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -86,23 +85,15 @@ public class CopyrightHandler {
             Set<String> contentsToRemove = getValues(invalidEcl);
             ContentRemover remover = new ContentRemover();
             Iterator<File> itr = files.iterator();
-            List<File> updatedFiles = new ArrayList<File>();
-            List<File> nonUpdatedFiles = new ArrayList<File>();
             while (itr.hasNext()) {
                 File file = itr.next();
                 boolean updated = remover.removeContent(file, contentsToRemove);
                 if (!updated) {
-                    nonUpdatedFiles.add(file);
                     copy(file);
-                } else {
-                    updatedFiles.add(file);
                 }
             }
-            for (File file : nonUpdatedFiles) {
-                System.out.println("Non-updated: " + file.getAbsolutePath());
-            }
-            for (File file : updatedFiles) {
-                System.out.println("Updated: " + file.getAbsolutePath());
+            for (File file : files) {
+                System.out.println("Multi-copyright files: " + file.getAbsolutePath());
             }
         } catch (Throwable t) {
             t.printStackTrace();
