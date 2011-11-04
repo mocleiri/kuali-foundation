@@ -9,10 +9,6 @@ public class CommonIgnoresFilter implements FileFilter {
     public boolean accept(File pathname) {
         String name = pathname.getAbsolutePath();
 
-        if (name.equals("c:\\eclipse\\3.6.2\\r11\\eclipse\\ws\\rice-2.0-trunk\\it\\kew\\src\\test\\resources\\org\\kuali\\rice\\kew\\transformation\\.svn\\text-base\\foo1.xsl.svn-base")) {
-            System.out.println("foo");
-        }
-
         if (contains(name, "/.svn/")) {
             return true;
         }
@@ -23,6 +19,9 @@ public class CommonIgnoresFilter implements FileFilter {
             return true;
         }
         if (contains(name, "/target/")) {
+            return true;
+        }
+        if (contains(name, "/it/")) {
             return true;
         }
         return false;

@@ -27,6 +27,7 @@ public class CopyrightHandler {
 
             ProblemFileDetector detector = new ProblemFileDetector();
             List<File> files = detector.getProblemFiles(context);
+            System.out.println(files.size());
             Properties invalidEcl = getXMLProperties("invalid-ecl-headers.xml");
             List<String> contentsToRemove = getValues(invalidEcl);
 
