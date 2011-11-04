@@ -11,6 +11,8 @@ public class SourceFileFilter implements FileFilter {
 
     public SourceFileFilter() {
         super();
+        fileExtensions.add(".properties");
+        /*
         fileExtensions.add(".java");
         fileExtensions.add(".groovy");
         fileExtensions.add(".css");
@@ -23,12 +25,12 @@ public class SourceFileFilter implements FileFilter {
         fileExtensions.add(".mxml");
         fileExtensions.add(".dtd");
         fileExtensions.add(".fml");
-        fileExtensions.add(".properties");
         fileExtensions.add(".txt");
         fileExtensions.add(".sql");
         fileExtensions.add(".php");
         fileExtensions.add(".vm");
         fileExtensions.add(".tld");
+        */
     }
 
     @Override

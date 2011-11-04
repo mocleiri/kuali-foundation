@@ -42,8 +42,8 @@ public class MultipleCopyrightIgnoresFilter extends CommonIgnoresFilter {
     }
 
     protected boolean isMatch(String path) {
-        for (String targetPath : knownMultiCopyrightFiles) {
-            if (contains(path, targetPath)) {
+        for (String knownMultiCopyrightFile : knownMultiCopyrightFiles) {
+            if (contains(path, knownMultiCopyrightFile)) {
                 return true;
             }
         }
