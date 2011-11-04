@@ -17,7 +17,8 @@ public class ProblemFileDetector {
             File baseDir = new File("c:/eclipse/3.6.2/r11/eclipse/ws/rice-2.0-trunk");
             FileFilter exclude = new CommonIgnoresFilter();
             FileFilter include = new FilenameContainsDotXFilter();
-            FileFilter problem = new MisplacedXMLPrologFilter();
+            // FileFilter problem = new MisplacedXMLPrologFilter();
+            FileFilter problem = new MultipleCopyrightFilter();
             execute(baseDir, exclude, include, problem);
         } catch (Throwable t) {
             t.printStackTrace();
