@@ -39,7 +39,7 @@ public class CopyrightHandler {
         }
     }
 
-    protected String getExistingContent(File file) {
+    protected String read(File file) {
         InputStream in = null;
         try {
             in = new FileInputStream(file);
@@ -64,7 +64,7 @@ public class CopyrightHandler {
     }
 
     protected void copy(File file) {
-        String content = getExistingContent(file);
+        String content = read(file);
         String flat = flatten(content);
         String filename = file.getName();
         File newFile1 = new File("C:/temp/ecl/" + filename);
@@ -85,16 +85,8 @@ public class CopyrightHandler {
             for (File file : files) {
                 System.out.println(file.getAbsolutePath());
             }
-            Properties invalidEcl = getXMLProperties("invalid-ecl-headers.xml");
+            Properties invalidEcl = getProperties("invalid-ecl.properties");
             List<String> contentsToRemove = getValues(invalidEcl);
-            File foo = new File("c:/temp/ecl/invalid.txt");
-            StringBuilder sb = new StringBuilder();
-            for (String s : contentsToRemove) {
-                String flat = flatten(s);
-                sb.append(flat + "\n\n");
-            }
-            write(foo, sb.toString());
-
             ContentRemover remover = new ContentRemover();
             for (File file : files) {
                 String name = file.getName();
@@ -114,22 +106,25 @@ public class CopyrightHandler {
         Set<String> keys = properties.stringPropertyNames();
         for (String key : keys) {
             String value = properties.getProperty(key);
-
-            value = value.replace("${ecl.cr}", "\r");
-            value = value.replace("${ecl.lf}", "\n");
-
-            // If it has cr+linefeed change it to just linefeed
-            String lf = value.replace("\r\n", "\n");
-
-            // Expand linefeed into cr+linefeed
-            String crlf = lf.replace("\n", "\r\n");
-
-            // Add both values, if we have an exact match where the only
-            // difference is cr+linefeed vs linefeed it needs to be replaced
-            values.add(lf);
-            values.add(crlf);
+            values.add(value);
         }
         return values;
+    }
+
+    protected Properties getProperties(String location) {
+        ResourceLoader loader = new DefaultResourceLoader();
+        Resource resource = loader.getResource(location);
+        Properties properties = new Properties();
+        InputStream in = null;
+        try {
+            in = resource.getInputStream();
+            properties.load(in);
+            return properties;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            IOUtils.closeQuietly(in);
+        }
     }
 
     protected Properties getXMLProperties(String location) {

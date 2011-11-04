@@ -13,7 +13,9 @@ import org.apache.commons.io.IOUtils;
 public class ContentRemover {
 
     public void removeContent(File file, List<String> contentsToRemove) {
-        String content = getExistingContent(file);
+        String content = read(file);
+        content = CopyrightHandler.flatten(content);
+
         for (int i = 0; i < contentsToRemove.size(); i++) {
             String contentToRemove = contentsToRemove.get(i);
             int pos = content.indexOf(contentToRemove);
@@ -22,6 +24,7 @@ public class ContentRemover {
                 content = content.replace(contentToRemove, "");
             }
         }
+        content = CopyrightHandler.expand(content);
         write(file, content);
     }
 
@@ -37,7 +40,7 @@ public class ContentRemover {
         }
     }
 
-    protected String getExistingContent(File file) {
+    protected String read(File file) {
         InputStream in = null;
         try {
             in = new FileInputStream(file);
