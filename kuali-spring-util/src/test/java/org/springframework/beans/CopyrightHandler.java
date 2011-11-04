@@ -36,6 +36,10 @@ public class CopyrightHandler {
 
             ContentRemover remover = new ContentRemover();
             for (File file : files) {
+                String name = file.getName();
+                if (name.equals("EDLSpringBeans.xml")) {
+                    System.out.println("foo");
+                }
                 remover.removeContent(file, contentsToRemove);
             }
 
