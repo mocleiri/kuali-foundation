@@ -2,7 +2,7 @@ package org.springframework.beans;
 
 import java.io.File;
 
-public class MultipleCopyrightIgnores extends CommonIgnoresFilter {
+public class MultipleCopyrightIgnoresFilter extends CommonIgnoresFilter {
 
     @Override
     public boolean accept(File file) {

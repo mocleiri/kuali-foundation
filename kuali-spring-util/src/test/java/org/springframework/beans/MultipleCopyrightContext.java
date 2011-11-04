@@ -8,7 +8,7 @@ public class MultipleCopyrightContext extends ProblemFileContext {
         super();
         setBaseDir(new File(basedir));
         setInclude(new SourceFileFilter());
-        setExclude(new CommonIgnoresFilter());
+        setExclude(new MultipleCopyrightIgnoresFilter());
         setProblem(new MultipleCopyrightFilter());
     }
 
