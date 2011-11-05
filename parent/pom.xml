@@ -511,8 +511,7 @@
 
         <kuali.repository.release.id>sonatype-nexus-staging</kuali.repository.release.id>
         <kuali.repository.release.name>Sonatype Nexus Release Repository</kuali.repository.release.name>
-        <kuali.repository.release.url>${kuali.nexus.sonatype.url}/service/local/staging/deploy/maven2/
-        </kuali.repository.release.url>
+        <kuali.repository.release.url>${kuali.nexus.sonatype.url}/service/local/staging/deploy/maven2</kuali.repository.release.url>
 
         <!-- These are for reference only. Not currently publishing snapshots to Sonatype's Nexus instance
           <kuali.repository.snapshot.id>sonatype-nexus-snapshots</kuali.repository.snapshot.id>
