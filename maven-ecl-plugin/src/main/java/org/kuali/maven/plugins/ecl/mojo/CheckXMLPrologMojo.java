@@ -10,7 +10,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.kuali.maven.plugins.ecl.Scanner;
 import org.kuali.maven.plugins.ecl.filter.CommonIgnoresFilter;
+import org.kuali.maven.plugins.ecl.filter.FileExtensionFilter;
 import org.kuali.maven.plugins.ecl.filter.MisplacedXMLPrologFilter;
+import org.kuali.maven.plugins.ecl.filter.PathContainsExcludeFilter;
 import org.kuali.maven.plugins.ecl.filter.XMLRelatedFilter;
 
 /**
@@ -71,7 +73,7 @@ public class CheckXMLPrologMojo extends AbstractMojo {
     }
 
     protected FileFilter getIncludeFilter() {
-        XMLRelatedFilter filter = new XMLRelatedFilter();
+        FileExtensionFilter filter = new XMLRelatedFilter();
         if (includes == null) {
             return filter;
         }
@@ -84,7 +86,7 @@ public class CheckXMLPrologMojo extends AbstractMojo {
     }
 
     protected FileFilter getExcludeFilter() {
-        CommonIgnoresFilter filter = new CommonIgnoresFilter();
+        PathContainsExcludeFilter filter = new CommonIgnoresFilter();
         if (excludes == null) {
             return filter;
         }

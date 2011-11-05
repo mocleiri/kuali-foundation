@@ -32,13 +32,15 @@ public class Scanner {
     }
 
     public List<File> getRecusiveFileList(File dir, FileFilter filter) {
-        File[] contents = dir.listFiles(filter);
+        File[] contents = dir.listFiles();
         List<File> files = new ArrayList<File>();
         for (File file : contents) {
             if (file.isDirectory()) {
                 files.addAll(getRecusiveFileList(file, filter));
             } else {
-                files.add(file);
+                if (filter.accept(file)) {
+                    files.add(file);
+                }
             }
         }
         return files;
