@@ -47,7 +47,8 @@ public class CopyrightHandlerTest {
             String basedir = getBaseDir();
             System.out.println("Examining " + basedir);
             System.out.println("Tmp Dir: " + tmpdir);
-            ProblemFileContext context = new MultipleCopyrightContext(basedir);
+            // ProblemFileContext context = new MultipleCopyrightContext(basedir);
+            ProblemFileContext context = new MisplacedXMLPrologContext(basedir);
             ProblemFileDetector detector = new ProblemFileDetector();
             List<File> files = detector.getProblemFiles(context);
             System.out.println("Located " + files.size() + " unknown files with multiple 'Copyright' lines");
