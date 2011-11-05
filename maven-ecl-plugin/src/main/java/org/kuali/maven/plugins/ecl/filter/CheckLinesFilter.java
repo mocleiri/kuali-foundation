@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 
-public abstract class CheckLinesFileFilter implements FileFilter {
+public abstract class CheckLinesFilter implements FileFilter {
 
     protected abstract boolean checkLines(List<String> lines);
 

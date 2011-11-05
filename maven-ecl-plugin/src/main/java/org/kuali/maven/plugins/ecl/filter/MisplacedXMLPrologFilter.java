@@ -2,7 +2,7 @@ package org.kuali.maven.plugins.ecl.filter;
 
 import java.util.List;
 
-public class MisplacedXMLPrologFilter extends CheckLinesFileFilter {
+public class MisplacedXMLPrologFilter extends CheckLinesFilter {
 
     String prologStart = "<?xml";
     String prologStop = "?>";

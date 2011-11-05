@@ -2,7 +2,7 @@ package org.kuali.maven.plugins.ecl.filter;
 
 import java.util.List;
 
-public class MultipleCopyrightFilter extends CheckLinesFileFilter {
+public class MultipleCopyrightFilter extends CheckLinesFilter {
     String[] targets = { "copyright", "kuali", "foundation" };
 
     @Override
