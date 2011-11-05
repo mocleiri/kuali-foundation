@@ -45,11 +45,11 @@
       </properties>
     </profile>
     <profile>
-      <id>demo-client</id>
+      <id>dataset</id>
       <properties>
-        <impex.username>RICEDEMOCLIENT</impex.username>
-        <impex.password>RICEDEMOCLIENT</impex.password>
-        <impex.database>RICEDEMOCLIENT</impex.database>
+        <impex.username>RICE${dataset.schema.prefix}${dataset.schema.suffix}</impex.username>
+        <impex.password>RICE${dataset.schema.prefix}${dataset.schema.suffix}</impex.password>
+        <impex.database>RICE${dataset.schema.prefix}${dataset.schema.suffix}</impex.database>
       </properties>
       <build>
         <plugins>
@@ -65,7 +65,8 @@
                 </goals>
                 <configuration>
                   <resourceLocations>
-                    <resourceLocation>classpath:demo-client-dataset-cleanup.sql</resourceLocation>
+                    <resourceLocation>${dataset.cleanup.1}</resourceLocation>
+                    <resourceLocation>${dataset.cleanup.2}</resourceLocation>
                   </resourceLocations>
                 </configuration>
               </execution>
@@ -75,98 +76,35 @@
       </build>
     </profile>
     <profile>
-      <id>demo-server</id>
+      <id>demo</id>
       <properties>
-        <impex.username>RICEDEMOSERVER</impex.username>
-        <impex.password>RICEDEMOSERVER</impex.password>
-        <impex.database>RICEDEMOSERVER</impex.database>
+        <dataset.schema.prefix>DEMO</dataset.schema.prefix>
+        <dataset.script.prefix>demo</dataset.script.prefix>
+        <dataset.cleanup.1>classpath:${dataset.script.prefix}-${dataset.script.suffix}-dataset-cleanup.sql</dataset.cleanup.1>
       </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>sql-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>cleanup</id>
-                <phase>install</phase>
-                <goals>
-                  <goal>execute</goal>
-                </goals>
-                <configuration>
-                  <resourceLocations>
-                    <resourceLocation>classpath:demo-server-dataset-cleanup.sql</resourceLocation>
-                  </resourceLocations>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
     <profile>
-      <id>bootstrap-server</id>
+      <id>bootstrap</id>
       <properties>
-        <impex.username>RICEBOOTSTRAPSERVER</impex.username>
-        <impex.password>RICEBOOTSTRAPSERVER</impex.password>
-        <impex.database>RICEBOOTSTRAPSERVER</impex.database>
+        <dataset.schema.prefix>BOOTSTRAP</dataset.schema.prefix>
+        <dataset.script.prefix>bootstrap</dataset.script.prefix>
+        <dataset.cleanup.1>classpath:demo-${dataset.script.suffix}-dataset-cleanup.sql</dataset.cleanup.1>
+        <dataset.cleanup.2>classpath:${dataset.script.prefix}-${dataset.script.suffix}-dataset-cleanup.sql</dataset.cleanup.1>
       </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>sql-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>cleanup</id>
-                <phase>install</phase>
-                <goals>
-                  <goal>execute</goal>
-                </goals>
-                <configuration>
-                  <orderFile>descending</orderFile>
-                  <resourceLocations>
-                    <resourceLocation>classpath:demo-server-dataset-cleanup.sql</resourceLocation>
-                    <resourceLocation>classpath:bootstrap-server-dataset-cleanup.sql</resourceLocation>
-                  </resourceLocations>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
     <profile>
-      <id>bootstrap-client</id>
+      <id>client</id>
       <properties>
-        <impex.username>RICEBOOTSTRAPCLIENT</impex.username>
-        <impex.password>RICEBOOTSTRAPCLIENT</impex.password>
-        <impex.database>RICEBOOTSTRAPCLIENT</impex.database>
+        <dataset.schema.suffix>CLIENT</dataset.schema.suffix>
+        <dataset.script.suffix>client</dataset.script.suffix>
       </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>sql-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>cleanup</id>
-                <phase>install</phase>
-                <goals>
-                  <goal>execute</goal>
-                </goals>
-                <configuration>
-                  <orderFile>descending</orderFile>
-                  <resourceLocations>
-                    <resourceLocation>classpath:demo-client-dataset-cleanup.sql</resourceLocation>
-                    <resourceLocation>classpath:bootstrap-client-dataset-cleanup.sql</resourceLocation>
-                  </resourceLocations>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
+    </profile>
+    <profile>
+      <id>server</id>
+      <properties>
+        <dataset.schema.suffix>SERVER</dataset.schema.suffix>
+        <dataset.script.suffix>server</dataset.script.suffix>
+      </properties>
     </profile>
   </profiles>
 </project>
