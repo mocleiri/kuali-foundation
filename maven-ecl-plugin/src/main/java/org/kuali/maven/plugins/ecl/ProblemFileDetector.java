@@ -5,8 +5,6 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class ProblemFileDetector {
     public List<File> getProblemFiles(ProblemFileContext context) throws IOException {
@@ -15,16 +13,7 @@ public class ProblemFileDetector {
         FileFilter include = context.getInclude();
         FileFilter problem = context.getProblem();
         List<File> files = getFiles(baseDir, exclude, include);
-        Map<String, String> map = new TreeMap<String, String>();
-        for (File file : files) {
-            String filename = file.getName();
-            int pos = filename.lastIndexOf(".");
-            String extension = filename.substring(pos);
-            map.put(extension, extension);
-        }
-
         System.out.println("Located " + files.size() + " total files");
-        System.out.println(map.keySet());
         List<File> problemFiles = getProblemFiles(files, problem);
         return problemFiles;
     }
@@ -40,12 +29,9 @@ public class ProblemFileDetector {
     }
 
     protected List<File> getFiles(File dir, FileFilter exclude, FileFilter include) {
-        File[] contents = dir.listFiles();
+        File[] contents = dir.listFiles(exclude);
         List<File> files = new ArrayList<File>();
         for (File file : contents) {
-            if (!exclude.accept(file)) {
-                continue;
-            }
             if (file.isDirectory()) {
                 files.addAll(getFiles(file, exclude, include));
             } else {

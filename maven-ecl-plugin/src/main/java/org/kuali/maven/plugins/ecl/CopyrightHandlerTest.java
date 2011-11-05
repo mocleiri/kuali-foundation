@@ -14,7 +14,6 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.junit.Test;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -41,14 +40,13 @@ public class CopyrightHandlerTest {
 
     }
 
-    @Test
     public void testDuplicateCopyright() {
         try {
-            String basedir = getBaseDir();
+            File basedir = new File(getBaseDir());
             System.out.println("Examining " + basedir);
             System.out.println("Tmp Dir: " + tmpdir);
             // ProblemFileContext context = new MultipleCopyrightContext(basedir);
-            ProblemFileContext context = new MisplacedXMLPrologContext(basedir);
+            ProblemFileContext context = new MisplacedXMLPrologContext(basedir.getAbsolutePath());
             ProblemFileDetector detector = new ProblemFileDetector();
             List<File> files = detector.getProblemFiles(context);
             System.out.println("Located " + files.size() + " unknown files with multiple 'Copyright' lines");
