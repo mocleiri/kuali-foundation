@@ -156,7 +156,7 @@ public class CopyrightHandlerTest {
         }
     }
 
-    public static final String expand(String s) {
+    public static final String unflatten(String s) {
         s = s.replace(ECL_CR, CR);
         s = s.replace(ECL_LF, LF);
         return s;

@@ -20,7 +20,7 @@ public class ContentRemover {
         if (!updated) {
             return false;
         } else {
-            content = CopyrightHandlerTest.expand(content);
+            content = CopyrightHandlerTest.unflatten(content);
             CopyrightHandlerTest.write(file, content);
             return true;
         }
