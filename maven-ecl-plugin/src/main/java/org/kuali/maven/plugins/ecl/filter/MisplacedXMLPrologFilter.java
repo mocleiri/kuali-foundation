@@ -13,25 +13,25 @@ public class MisplacedXMLPrologFilter implements FileFilter {
 
     @Override
     public boolean accept(File file) {
+        List<String> lines = getLines(file);
+        int prologIndex = getPrologIndex(lines);
+        return prologIndex > 0;
+    }
+
+    protected List<String> getLines(File file) {
         InputStream in = null;
         try {
             in = new FileInputStream(file);
-            List<String> lines = IOUtils.readLines(in);
-            int prologIndex = getPrologIndex(lines);
-            if (prologIndex != -1 && prologIndex != 0) {
-                return true;
-            }
-            return false;
+            return IOUtils.readLines(in);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
             IOUtils.closeQuietly(in);
         }
-
     }
 
-    protected boolean isProlog(String s) {
-        String lowerCase = s.toLowerCase();
+    protected boolean isProlog(String line) {
+        String lowerCase = line.toLowerCase();
         int pos1 = lowerCase.indexOf("<?xml");
         int pos2 = lowerCase.indexOf("?>");
         boolean flag1 = pos1 != -1 && pos2 != -1;
@@ -39,10 +39,10 @@ public class MisplacedXMLPrologFilter implements FileFilter {
         return flag1 && flag2;
     }
 
-    protected int getPrologIndex(List<String> strings) {
-        for (int i = 0; i < strings.size(); i++) {
-            String s = strings.get(i);
-            if (isProlog(s)) {
+    protected int getPrologIndex(List<String> lines) {
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            if (isProlog(line)) {
                 return i;
             }
         }
