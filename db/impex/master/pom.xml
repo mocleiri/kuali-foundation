@@ -64,6 +64,7 @@
                   <goal>execute</goal>
                 </goals>
                 <configuration>
+                  <orderFile>descending</orderFile>
                   <resourceLocations>
                     <resourceLocation>${dataset.cleanup.1}</resourceLocation>
                     <resourceLocation>${dataset.cleanup.2}</resourceLocation>
