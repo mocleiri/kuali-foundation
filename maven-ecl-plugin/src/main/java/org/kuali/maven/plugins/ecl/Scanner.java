@@ -17,13 +17,13 @@ public class Scanner {
     }
 
     public List<File> getFiles(List<File> files, FileFilter filter) throws IOException {
-        List<File> newFileList = new ArrayList<File>();
+        List<File> acceptedFiles = new ArrayList<File>();
         for (File file : files) {
             if (filter.accept(file)) {
-                newFileList.add(file);
+                acceptedFiles.add(file);
             }
         }
-        return newFileList;
+        return acceptedFiles;
     }
 
     public List<File> getRecursiveFileList(File dir, FileFilter include, FileFilter exclude) {
