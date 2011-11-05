@@ -10,7 +10,7 @@ import org.kuali.maven.plugins.ecl.filter.IncludeExcludeFilter;
 
 public class Scanner {
     public List<File> getProblemFiles(ProblemFileContext context) throws IOException {
-        List<File> files = getFiles(context.getBaseDir(), context.getInclude(), context.getExclude());
+        List<File> files = getRecursiveFileList(context.getBaseDir(), context.getInclude(), context.getExclude());
         System.out.println("Located " + files.size() + " total files");
         List<File> problemFiles = getFiles(files, context.getProblem());
         return problemFiles;
@@ -26,17 +26,17 @@ public class Scanner {
         return newFileList;
     }
 
-    public List<File> getFiles(File dir, FileFilter include, FileFilter exclude) {
+    public List<File> getRecursiveFileList(File dir, FileFilter include, FileFilter exclude) {
         FileFilter filter = new IncludeExcludeFilter(include, exclude);
-        return getFiles(dir, filter);
+        return getRecusiveFileList(dir, filter);
     }
 
-    public List<File> getFiles(File dir, FileFilter filter) {
+    public List<File> getRecusiveFileList(File dir, FileFilter filter) {
         File[] contents = dir.listFiles(filter);
         List<File> files = new ArrayList<File>();
         for (File file : contents) {
             if (file.isDirectory()) {
-                files.addAll(getFiles(file, filter));
+                files.addAll(getRecusiveFileList(file, filter));
             } else {
                 files.add(file);
             }

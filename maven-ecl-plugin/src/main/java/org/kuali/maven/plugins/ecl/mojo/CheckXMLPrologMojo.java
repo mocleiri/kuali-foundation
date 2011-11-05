@@ -53,7 +53,7 @@ public class CheckXMLPrologMojo extends AbstractMojo {
         FileFilter include = getIncludeFilter();
         FileFilter problem = new MisplacedXMLPrologFilter();
         getLog().info("Scanning " + basedir.getAbsolutePath());
-        List<File> filesToCheck = detector.getFiles(basedir, include, exclude);
+        List<File> filesToCheck = detector.getRecursiveFileList(basedir, include, exclude);
         getLog().info("Located " + filesToCheck.size() + " files to examine");
         try {
             List<File> problems = detector.getFiles(filesToCheck, problem);
