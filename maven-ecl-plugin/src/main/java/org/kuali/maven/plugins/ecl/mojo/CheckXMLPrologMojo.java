@@ -8,10 +8,9 @@ import java.util.List;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.kuali.maven.plugins.ecl.MisplacedXMLPrologContext;
-import org.kuali.maven.plugins.ecl.ProblemFileContext;
 import org.kuali.maven.plugins.ecl.ProblemFileDetector;
 import org.kuali.maven.plugins.ecl.filter.CommonIgnoresFilter;
+import org.kuali.maven.plugins.ecl.filter.MisplacedXMLPrologFilter;
 import org.kuali.maven.plugins.ecl.filter.XMLRelatedFilter;
 
 /**
@@ -50,13 +49,20 @@ public class CheckXMLPrologMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        FileFilter exclude = getExcludeFilter();
+        FileFilter include = getIncludeFilter();
+        FileFilter problem = new MisplacedXMLPrologFilter();
+        getLog().info("Scanning " + basedir.getAbsolutePath());
+        List<File> filesToCheck = detector.getFiles(basedir, include, exclude);
+        getLog().info("Located " + filesToCheck.size() + " files to examine");
         try {
-            ProblemFileContext context = new MisplacedXMLPrologContext(basedir.getAbsolutePath());
-            context.setExclude(getExcludeFilter());
-            context.setInclude(getIncludeFilter());
-            List<File> files = detector.getProblemFiles(context);
-            for (File file : files) {
-                getLog().info(file.getAbsolutePath());
+            List<File> problems = detector.getFiles(filesToCheck, problem);
+            if (problems.size() == 0) {
+                getLog().info("No files containing issues were located");
+            } else {
+                for (File file : problems) {
+                    getLog().warn(file.getAbsolutePath());
+                }
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected error", e);
