@@ -34,13 +34,29 @@ public class CheckXMLPrologMojo extends AbstractMojo {
      */
     private List<String> excludes;
 
+    /**
+     * @parameter expression="${ecl.useDefaultExcludes}" default-value="true"
+     * @required
+     */
+    private boolean useDefaultExcludes;
+
+    /**
+     * @parameter expression="${ecl.useDefaultIncludes}" default-value="true"
+     * @required
+     */
+    private boolean useDefaultIncludes;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             ProblemFileContext context = new MisplacedXMLPrologContext(basedir.getAbsolutePath());
             if (excludes != null) {
                 CommonIgnoresFilter filter = new CommonIgnoresFilter();
-                filter.setExcludes(excludes);
+                if (useDefaultExcludes) {
+                    filter.getExcludes().addAll(excludes);
+                } else {
+                    filter.setExcludes(excludes);
+                }
                 context.setExclude(filter);
             }
             List<File> files = detector.getProblemFiles(context);
