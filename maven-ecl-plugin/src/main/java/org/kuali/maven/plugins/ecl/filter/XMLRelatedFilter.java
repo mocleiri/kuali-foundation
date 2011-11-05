@@ -1,6 +1,5 @@
 package org.kuali.maven.plugins.ecl.filter;
 
-
 public class XMLRelatedFilter extends FileExtensionFilter {
 
     public XMLRelatedFilter() {
@@ -8,6 +7,7 @@ public class XMLRelatedFilter extends FileExtensionFilter {
         extensions.add(".xml");
         extensions.add(".xsd");
         extensions.add(".xsl");
+        extensions.add(".mxml");
     }
 
 }

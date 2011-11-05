@@ -9,7 +9,6 @@ public class SourceFileFilter extends XMLRelatedFilter {
         extensions.add(".html");
         extensions.add(".htm");
         extensions.add(".jspx");
-        extensions.add(".mxml");
         extensions.add(".dtd");
         extensions.add(".fml");
         extensions.add(".php");
