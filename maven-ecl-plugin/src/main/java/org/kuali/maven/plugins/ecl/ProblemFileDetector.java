@@ -6,38 +6,39 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.maven.plugins.ecl.filter.IncludeExcludeFilter;
+
 public class ProblemFileDetector {
     public List<File> getProblemFiles(ProblemFileContext context) throws IOException {
-        File baseDir = context.getBaseDir();
-        FileFilter exclude = context.getExclude();
-        FileFilter include = context.getInclude();
-        FileFilter problem = context.getProblem();
-        List<File> files = getFiles(baseDir, exclude, include);
+        List<File> files = getFiles(context.getBaseDir(), context.getInclude(), context.getExclude());
         System.out.println("Located " + files.size() + " total files");
-        List<File> problemFiles = getProblemFiles(files, problem);
+        List<File> problemFiles = getFiles(files, context.getProblem());
         return problemFiles;
     }
 
-    protected List<File> getProblemFiles(List<File> files, FileFilter problem) throws IOException {
-        List<File> problemFiles = new ArrayList<File>();
+    public List<File> getFiles(List<File> files, FileFilter filter) throws IOException {
+        List<File> newFileList = new ArrayList<File>();
         for (File file : files) {
-            if (problem.accept(file)) {
-                problemFiles.add(file);
+            if (filter.accept(file)) {
+                newFileList.add(file);
             }
         }
-        return problemFiles;
+        return newFileList;
     }
 
-    protected List<File> getFiles(File dir, FileFilter exclude, FileFilter include) {
-        File[] contents = dir.listFiles(exclude);
+    public List<File> getFiles(File dir, FileFilter include, FileFilter exclude) {
+        FileFilter filter = new IncludeExcludeFilter(include, exclude);
+        return getFiles(dir, filter);
+    }
+
+    public List<File> getFiles(File dir, FileFilter filter) {
+        File[] contents = dir.listFiles(filter);
         List<File> files = new ArrayList<File>();
         for (File file : contents) {
             if (file.isDirectory()) {
-                files.addAll(getFiles(file, exclude, include));
+                files.addAll(getFiles(file, filter));
             } else {
-                if (include.accept(file)) {
-                    files.add(file);
-                }
+                files.add(file);
             }
         }
         return files;
