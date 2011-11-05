@@ -89,7 +89,7 @@
         <dataset.schema.prefix>BOOTSTRAP</dataset.schema.prefix>
         <dataset.script.prefix>bootstrap</dataset.script.prefix>
         <dataset.cleanup.1>classpath:demo-${dataset.script.suffix}-dataset-cleanup.sql</dataset.cleanup.1>
-        <dataset.cleanup.2>classpath:${dataset.script.prefix}-${dataset.script.suffix}-dataset-cleanup.sql</dataset.cleanup.1>
+        <dataset.cleanup.2>classpath:${dataset.script.prefix}-${dataset.script.suffix}-dataset-cleanup.sql</dataset.cleanup.2>
       </properties>
     </profile>
     <profile>
