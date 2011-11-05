@@ -17,7 +17,7 @@ import org.kuali.maven.plugins.ecl.filter.XMLRelatedFilter;
  * @goal checkxmlprolog
  */
 public class CheckXMLPrologMojo extends AbstractMojo {
-    Scanner detector = new Scanner();
+    Scanner scanner = new Scanner();
 
     /**
      * @parameter expression="${ecl.basedir}" default-value="${project.basedir}"
@@ -49,17 +49,18 @@ public class CheckXMLPrologMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        FileFilter exclude = getExcludeFilter();
-        FileFilter include = getIncludeFilter();
-        FileFilter problem = new MisplacedXMLPrologFilter();
-        getLog().info("Scanning " + basedir.getAbsolutePath());
-        List<File> filesToCheck = detector.getRecursiveFileList(basedir, include, exclude);
-        getLog().info("Located " + filesToCheck.size() + " files to examine");
         try {
-            List<File> problems = detector.getFiles(filesToCheck, problem);
+            FileFilter exclude = getExcludeFilter();
+            FileFilter include = getIncludeFilter();
+            FileFilter problem = new MisplacedXMLPrologFilter();
+            getLog().info("Scanning " + basedir.getAbsolutePath());
+            List<File> filesToCheck = scanner.getRecursiveFileList(basedir, include, exclude);
+            getLog().info("Located " + filesToCheck.size() + " files to examine");
+            List<File> problems = scanner.getFiles(filesToCheck, problem);
             if (problems.size() == 0) {
-                getLog().info("No files containing issues were located");
+                getLog().info("No files containing XML prolog issues were located");
             } else {
+                getLog().warn("These files contain an XML prolog that is not on the first line");
                 for (File file : problems) {
                     getLog().warn(file.getAbsolutePath());
                 }
