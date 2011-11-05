@@ -1,6 +1,7 @@
 package org.kuali.maven.plugins.ecl.mojo;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.kuali.maven.plugins.ecl.MisplacedXMLPrologContext;
 import org.kuali.maven.plugins.ecl.ProblemFileContext;
 import org.kuali.maven.plugins.ecl.ProblemFileDetector;
 import org.kuali.maven.plugins.ecl.filter.CommonIgnoresFilter;
+import org.kuali.maven.plugins.ecl.filter.XMLRelatedFilter;
 
 /**
  * @goal checkxmlprolog
@@ -50,15 +52,8 @@ public class CheckXMLPrologMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             ProblemFileContext context = new MisplacedXMLPrologContext(basedir.getAbsolutePath());
-            if (excludes != null) {
-                CommonIgnoresFilter filter = new CommonIgnoresFilter();
-                if (useDefaultExcludes) {
-                    filter.getExcludes().addAll(excludes);
-                } else {
-                    filter.setExcludes(excludes);
-                }
-                context.setExclude(filter);
-            }
+            context.setExclude(getExcludeFilter());
+            context.setInclude(getIncludeFilter());
             List<File> files = detector.getProblemFiles(context);
             for (File file : files) {
                 getLog().info(file.getAbsolutePath());
@@ -66,5 +61,31 @@ public class CheckXMLPrologMojo extends AbstractMojo {
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected error", e);
         }
+    }
+
+    protected FileFilter getIncludeFilter() {
+        XMLRelatedFilter filter = new XMLRelatedFilter();
+        if (includes == null) {
+            return filter;
+        }
+        if (useDefaultIncludes) {
+            filter.getExtensions().addAll(includes);
+        } else {
+            filter.setExtensions(includes);
+        }
+        return filter;
+    }
+
+    protected FileFilter getExcludeFilter() {
+        CommonIgnoresFilter filter = new CommonIgnoresFilter();
+        if (excludes == null) {
+            return filter;
+        }
+        if (useDefaultExcludes) {
+            filter.getExcludes().addAll(excludes);
+        } else {
+            filter.setExcludes(excludes);
+        }
+        return filter;
     }
 }
