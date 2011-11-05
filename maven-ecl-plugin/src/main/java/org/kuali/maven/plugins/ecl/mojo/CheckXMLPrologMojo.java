@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.kuali.maven.plugins.ecl.ProblemFileDetector;
+import org.kuali.maven.plugins.ecl.Scanner;
 import org.kuali.maven.plugins.ecl.filter.CommonIgnoresFilter;
 import org.kuali.maven.plugins.ecl.filter.MisplacedXMLPrologFilter;
 import org.kuali.maven.plugins.ecl.filter.XMLRelatedFilter;
@@ -17,7 +17,7 @@ import org.kuali.maven.plugins.ecl.filter.XMLRelatedFilter;
  * @goal checkxmlprolog
  */
 public class CheckXMLPrologMojo extends AbstractMojo {
-    ProblemFileDetector detector = new ProblemFileDetector();
+    Scanner detector = new Scanner();
 
     /**
      * @parameter expression="${ecl.basedir}" default-value="${project.basedir}"

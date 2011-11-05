@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.kuali.maven.plugins.ecl.filter.IncludeExcludeFilter;
 
-public class ProblemFileDetector {
+public class Scanner {
     public List<File> getProblemFiles(ProblemFileContext context) throws IOException {
         List<File> files = getFiles(context.getBaseDir(), context.getInclude(), context.getExclude());
         System.out.println("Located " + files.size() + " total files");

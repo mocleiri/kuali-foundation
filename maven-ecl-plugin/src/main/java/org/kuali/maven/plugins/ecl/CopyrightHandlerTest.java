@@ -47,7 +47,7 @@ public class CopyrightHandlerTest {
             System.out.println("Tmp Dir: " + tmpdir);
             // ProblemFileContext context = new MultipleCopyrightContext(basedir);
             ProblemFileContext context = new MisplacedXMLPrologContext(basedir.getAbsolutePath());
-            ProblemFileDetector detector = new ProblemFileDetector();
+            Scanner detector = new Scanner();
             List<File> files = detector.getProblemFiles(context);
             System.out.println("Located " + files.size() + " unknown files with multiple 'Copyright' lines");
             Properties invalidEcl = getProperties("invalid-ecl.properties");
