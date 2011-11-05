@@ -26,3 +26,6 @@
 -- /
 -- drop table recipe_ingredients_t
 -- /
+
+select sysdate from dual
+/
