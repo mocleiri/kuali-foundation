@@ -2,6 +2,7 @@ package org.kuali.maven.plugins.ecl.filter;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,23 +10,31 @@ public class PathContainsExcludeFilter implements FileFilter {
     List<String> excludes = new ArrayList<String>();
 
     @Override
-    public boolean accept(File pathname) {
-        String name = pathname.getAbsolutePath();
+    public boolean accept(File file) {
+        String path = getPath(file);
         for (String exclude : excludes) {
-            if (contains(name, exclude)) {
+            if (contains(path, exclude)) {
                 return false;
             }
         }
         return true;
     }
 
+    protected String getPath(File file) {
+        try {
+            return file.getCanonicalPath();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
-     * Return true if "s" contains pattern. Ignore differences that are based only on backslash vs forward slash
+     * Return true if "path" contains "pattern". Ignore differences that are based only on backslash vs forward slash
      */
-    protected boolean contains(String s, String pattern) {
-        s = s.replace("\\", "/");
+    protected boolean contains(String path, String pattern) {
+        path = path.replace("\\", "/");
         pattern = pattern.replace("\\", "/");
-        return s.contains(pattern);
+        return path.contains(pattern);
     }
 
     public List<String> getExcludes() {
