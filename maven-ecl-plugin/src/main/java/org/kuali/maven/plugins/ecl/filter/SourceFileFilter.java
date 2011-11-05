@@ -1,12 +1,11 @@
 package org.kuali.maven.plugins.ecl.filter;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SourceFileFilter implements FileFilter {
+public class SourceFileFilter extends FilenameContainsDotXFilter {
     List<String> fileExtensions = new ArrayList<String>();
 
     public SourceFileFilter() {
@@ -33,17 +32,22 @@ public class SourceFileFilter implements FileFilter {
 
     @Override
     public boolean accept(File file) {
-        try {
-            String path = file.getCanonicalPath();
-            if (path.contains(".x")) {
-                return true;
-            }
+        if (super.accept(file)) {
+            return true;
+        } else {
+            String path = getPath(file);
             for (String fileExtension : fileExtensions) {
                 if (path.endsWith(fileExtension)) {
                     return true;
                 }
             }
             return false;
+        }
+    }
+
+    protected String getPath(File file) {
+        try {
+            return file.getCanonicalPath();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

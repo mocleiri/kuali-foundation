@@ -2,27 +2,28 @@ package org.kuali.maven.plugins.ecl.filter;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommonIgnoresFilter implements FileFilter {
+    List<String> excludes = new ArrayList<String>();
+
+    public CommonIgnoresFilter() {
+        super();
+        excludes.add("/.svn/");
+        excludes.add("/target/");
+        excludes.add("/config/ide/");
+        excludes.add("/db/impex/");
+        excludes.add("/it/");
+    }
 
     @Override
     public boolean accept(File pathname) {
         String name = pathname.getAbsolutePath();
-
-        if (contains(name, "/.svn/")) {
-            return false;
-        }
-        if (contains(name, "/config/ide/")) {
-            return false;
-        }
-        if (contains(name, "/db/impex/")) {
-            return false;
-        }
-        if (contains(name, "/target/")) {
-            return false;
-        }
-        if (contains(name, "/it/")) {
-            return false;
+        for (String exclude : excludes) {
+            if (contains(name, exclude)) {
+                return false;
+            }
         }
         return true;
     }
