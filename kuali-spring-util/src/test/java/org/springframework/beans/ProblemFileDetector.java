@@ -51,7 +51,7 @@ public class ProblemFileDetector {
         File[] contents = dir.listFiles();
         List<File> files = new ArrayList<File>();
         for (File file : contents) {
-            if (exclude.accept(file)) {
+            if (!exclude.accept(file)) {
                 continue;
             }
             if (file.isDirectory()) {

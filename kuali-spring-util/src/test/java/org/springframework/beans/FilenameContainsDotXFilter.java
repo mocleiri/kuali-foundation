@@ -6,8 +6,8 @@ import java.io.FileFilter;
 public class FilenameContainsDotXFilter implements FileFilter {
 
     @Override
-    public boolean accept(File pathname) {
-        return pathname.getAbsolutePath().contains(".x");
+    public boolean accept(File file) {
+        return file.getName().contains(".x");
     }
 
 }

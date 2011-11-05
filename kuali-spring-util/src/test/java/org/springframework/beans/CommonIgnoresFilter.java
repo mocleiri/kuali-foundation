@@ -10,21 +10,21 @@ public class CommonIgnoresFilter implements FileFilter {
         String name = pathname.getAbsolutePath();
 
         if (contains(name, "/.svn/")) {
-            return true;
+            return false;
         }
         if (contains(name, "/config/ide/")) {
-            return true;
+            return false;
         }
         if (contains(name, "/db/impex/")) {
-            return true;
+            return false;
         }
         if (contains(name, "/target/")) {
-            return true;
+            return false;
         }
         if (contains(name, "/it/")) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**

@@ -74,15 +74,15 @@ public class MultipleCopyrightIgnoresFilter extends CommonIgnoresFilter {
     @Override
     public boolean accept(File file) {
         if (isMatch(file.getAbsolutePath())) {
-            return true;
+            return false;
         } else {
             return super.accept(file);
         }
     }
 
     protected boolean isMatch(String path) {
-        for (String knownMultiCopyrightFile : knownFiles) {
-            if (contains(path, knownMultiCopyrightFile)) {
+        for (String knownFile : knownFiles) {
+            if (contains(path, knownFile)) {
                 return true;
             }
         }
