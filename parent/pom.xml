@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2011 The Kuali Foundation
+  Copyright 2004-2011 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -66,7 +66,7 @@
     -->
     <kuali.javadoc.plugin.version>2.8</kuali.javadoc.plugin.version>
 
-    <!-- This profile provides basic quality control for official Kuali artifacts (GPG signature, attached sources/javadocs 
+    <!-- This profile provides basic quality control for official Kuali artifacts (GPG signature, attached sources/javadocs
       etc.) -->
     <kuali.release.profiles>kuali-release</kuali.release.profiles>
     <!-- This is "false" because their profile forks the maven process when attaching sources, we want "jar-no-fork" -->
@@ -236,6 +236,7 @@
                 <SVN-Repository>${svn.repository}</SVN-Repository>
                 <SVN-Path>${svn.path}</SVN-Path>
                 <SVN-Revision>${svn.revision}</SVN-Revision>
+                <SVN-URL>${svn.repository}/${svn.path}</SVN-URL>
               </manifestEntries>
               <manifest>
                 <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
@@ -351,6 +352,7 @@
                 <SVN-Revision>${svn.revision}</SVN-Revision>
                 <SVN-Path>${svn.path}</SVN-Path>
                 <SVN-Repository>${svn.repository}</SVN-Repository>
+                <SVN-URL>${svn.repository}/${svn.path}</SVN-URL>
               </manifestEntries>
             </archive>
           </configuration>
