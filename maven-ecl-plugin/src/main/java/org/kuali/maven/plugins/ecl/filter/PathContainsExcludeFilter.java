@@ -29,7 +29,9 @@ public class PathContainsExcludeFilter implements FileFilter {
     }
 
     /**
-     * Return true if "path" contains "pattern". Ignore differences that are based only on backslash vs forward slash
+     * Return true if "path" contains "pattern".
+     *
+     * Ignore differences due only to backslash vs forward slash
      */
     protected boolean contains(String path, String pattern) {
         path = path.replace("\\", "/");
