@@ -1,36 +1,15 @@
 package org.kuali.maven.plugins.ecl.filter;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
-
-public class MultipleCopyrightFilter implements FileFilter {
+public class MultipleCopyrightFilter extends CheckLinesFileFilter {
     String target = "copyright";
 
     @Override
-    public boolean accept(File file) {
-        InputStream in = null;
-        try {
-            in = new FileInputStream(file);
-            List<String> lines = IOUtils.readLines(in);
-            return isMultipleCopyRights(lines);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            IOUtils.closeQuietly(in);
-        }
-
-    }
-
-    protected boolean isMultipleCopyRights(List<String> strings) {
+    protected boolean checkLines(List<String> lines) {
         int count = 0;
-        for (int i = 0; i < strings.size(); i++) {
-            String s = strings.get(i);
+        for (int i = 0; i < lines.size(); i++) {
+            String s = lines.get(i);
             String lowerCase = s.toLowerCase();
             int pos = lowerCase.indexOf(target);
             if (pos != -1) {
