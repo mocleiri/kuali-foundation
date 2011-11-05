@@ -116,22 +116,6 @@ public class CopyrightHandlerTest {
         }
     }
 
-    protected Properties getXMLProperties(String location) {
-        ResourceLoader loader = new DefaultResourceLoader();
-        Resource resource = loader.getResource(location);
-        Properties properties = new Properties();
-        InputStream in = null;
-        try {
-            in = resource.getInputStream();
-            properties.loadFromXML(in);
-            return properties;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            IOUtils.closeQuietly(in);
-        }
-    }
-
     public static final void write(File file, String content) {
         OutputStream out = null;
         try {
