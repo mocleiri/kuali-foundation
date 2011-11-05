@@ -1,6 +1,5 @@
 package org.kuali.maven.plugins.ecl.filter;
 
-
 public class MultipleCopyrightIgnoresFilter extends CommonIgnoresFilter {
 
     public MultipleCopyrightIgnoresFilter() {
@@ -36,7 +35,7 @@ public class MultipleCopyrightIgnoresFilter extends CommonIgnoresFilter {
         excludes.add("/krad/krad-web-framework/src/main/java/org/kuali/rice/krad/uif/view/View.java");
         excludes.add("/krad/krad-web-framework/src/main/resources/org/kuali/rice/krad/ApplicationResources.properties");
         excludes.add("notification.css");
-        excludes.add("web/src/main/webapp/kr/css/kuali.css");
+        excludes.add("/web/src/main/webapp/kr/css/kuali.css");
         excludes.add("/web/src/main/webapp/ken/scripts/jscalendar-1.0/skins/aqua/theme.css");
         excludes.add("/web/src/main/webapp/kr/scripts/jscalendar-1.0/skins/aqua/theme.css");
         excludes.add("/web/src/main/webapp/krad/css/global/base.css");
@@ -46,15 +45,15 @@ public class MultipleCopyrightIgnoresFilter extends CommonIgnoresFilter {
         excludes.add("/web/src/main/webapp/krad/css/kns/jquery-ui-1.8.11.css");
         excludes.add("/web/src/main/webapp/rice-portal/css/portal.css");
         excludes.add("/web/src/main/webapp/kew/css/kuali.css");
-        excludes.add("web/src/main/webapp/kew/scripts/cal2.js");
-        excludes.add("web/src/main/webapp/kr/scripts/dhtml.js");
-        excludes.add("web/src/main/webapp/krad/scripts/jquery/jquery-1.6.3.js");
-        excludes.add("web/src/main/webapp/krad/scripts/jquery/jquery-ui-1.8.9.js");
-        excludes.add("web/src/main/webapp/krad/scripts/jquery/jquery.ba-postmessage.js");
-        excludes.add("web/src/main/webapp/krad/scripts/jquery/jquery.blockUI.js");
-        excludes.add("web/src/main/webapp/krad/scripts/jquery/jquery.dirtyform.js");
-        excludes.add("web/src/main/webapp/krad/scripts/jquery/jquery.easing-1.3.pack.js");
-        excludes.add("web/src/main/webapp/krad/scripts/jquery/jquery.watermark.js");
+        excludes.add("/web/src/main/webapp/kew/scripts/cal2.js");
+        excludes.add("/web/src/main/webapp/kr/scripts/dhtml.js");
+        excludes.add("/web/src/main/webapp/krad/scripts/jquery/jquery-1.6.3.js");
+        excludes.add("/web/src/main/webapp/krad/scripts/jquery/jquery-ui-1.8.9.js");
+        excludes.add("/web/src/main/webapp/krad/scripts/jquery/jquery.ba-postmessage.js");
+        excludes.add("/web/src/main/webapp/krad/scripts/jquery/jquery.blockUI.js");
+        excludes.add("/web/src/main/webapp/krad/scripts/jquery/jquery.dirtyform.js");
+        excludes.add("/web/src/main/webapp/krad/scripts/jquery/jquery.easing-1.3.pack.js");
+        excludes.add("/web/src/main/webapp/krad/scripts/jquery/jquery.watermark.js");
         excludes.add("/LICENSE.txt");
         excludes.add("/NOTICE.txt");
         excludes.add("/web/src/main/webapp/acknowledgments.jsp");
