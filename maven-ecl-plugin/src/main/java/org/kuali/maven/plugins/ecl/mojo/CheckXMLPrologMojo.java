@@ -10,6 +10,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.kuali.maven.plugins.ecl.MisplacedXMLPrologContext;
 import org.kuali.maven.plugins.ecl.ProblemFileContext;
 import org.kuali.maven.plugins.ecl.ProblemFileDetector;
+import org.kuali.maven.plugins.ecl.filter.CommonIgnoresFilter;
 
 /**
  * @goal checkxmlprolog
@@ -23,10 +24,25 @@ public class CheckXMLPrologMojo extends AbstractMojo {
      */
     private File basedir;
 
+    /**
+     * @parameter
+     */
+    private List<String> includes;
+
+    /**
+     * @parameter
+     */
+    private List<String> excludes;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             ProblemFileContext context = new MisplacedXMLPrologContext(basedir.getAbsolutePath());
+            if (excludes != null) {
+                CommonIgnoresFilter filter = new CommonIgnoresFilter();
+                filter.setExcludes(excludes);
+                context.setExclude(filter);
+            }
             List<File> files = detector.getProblemFiles(context);
             for (File file : files) {
                 getLog().info(file.getAbsolutePath());

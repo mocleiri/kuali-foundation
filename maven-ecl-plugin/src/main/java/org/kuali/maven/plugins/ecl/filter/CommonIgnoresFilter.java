@@ -37,4 +37,12 @@ public class CommonIgnoresFilter implements FileFilter {
         return s.contains(pattern);
     }
 
+    public List<String> getExcludes() {
+        return excludes;
+    }
+
+    public void setExcludes(List<String> excludes) {
+        this.excludes = excludes;
+    }
+
 }

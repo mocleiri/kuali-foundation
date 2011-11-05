@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 
 public class MultipleCopyrightFilter implements FileFilter {
+    String target = "copyright";
 
     @Override
     public boolean accept(File file) {
@@ -31,12 +32,20 @@ public class MultipleCopyrightFilter implements FileFilter {
         for (int i = 0; i < strings.size(); i++) {
             String s = strings.get(i);
             String lowerCase = s.toLowerCase();
-            int pos = lowerCase.indexOf("copyright");
+            int pos = lowerCase.indexOf(target);
             if (pos != -1) {
                 count++;
             }
         }
         return count > 1;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 
 }
