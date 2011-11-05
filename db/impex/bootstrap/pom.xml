@@ -25,6 +25,7 @@
     <version>2.0.0-b1-SNAPSHOT</version>
   </parent>
   <artifactId>rice-impex-bootstrap</artifactId>
+  <packaging>pom</packaging>
   <modules>
     <module>client</module>
     <module>server</module>
