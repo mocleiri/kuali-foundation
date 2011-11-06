@@ -132,13 +132,13 @@ public class SqlExecMojoTest extends AbstractMojoTestCase {
         ds.scan();
         mojo.setFileset(ds);
 
-        mojo.setOrderFile(Order.ASCENDING);
+        mojo.setOrderFile(Order.ASCENDING.name());
         mojo.execute();
 
         assertEquals(6, mojo.getSuccessfulStatements());
 
         try {
-            mojo.setOrderFile(Order.DESCENDING);
+            mojo.setOrderFile(Order.DESCENDING.name());
             mojo.execute();
             fail("Execution is not aborted on error.");
         } catch (MojoExecutionException e) {
