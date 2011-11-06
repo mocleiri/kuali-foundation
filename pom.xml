@@ -7,7 +7,7 @@
   </parent>
   <groupId>org.kuali.db.impex</groupId>
   <artifactId>impex-legacy-bundle</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>Legacy Impex Tool</name>
   <description>
     This project creates a bundle of the Impex legacy tool that is decoupled from Subversion.
@@ -20,9 +20,9 @@
     in order to obtain it.
   </description>
   <scm>
-    <connection>scm:svn:https://test.kuali.org/svn/kul-cfg-dbs/branches/impex-1.0-legacy-bundle</connection>
-    <developerConnection>scm:svn:https://test.kuali.org/svn/kul-cfg-dbs/branches/impex-1.0-legacy-bundle</developerConnection>
-    <url>https://test.kuali.org/svn/kul-cfg-dbs/branches/impex-1.0-legacy-bundle</url>
+    <connection>scm:svn:https://test.kuali.org/svn/kul-cfg-dbs/tags/impex-legacy-bundle-1.0.0</connection>
+    <developerConnection>scm:svn:https://test.kuali.org/svn/kul-cfg-dbs/tags/impex-legacy-bundle-1.0.0</developerConnection>
+    <url>https://test.kuali.org/svn/kul-cfg-dbs/tags/impex-legacy-bundle-1.0.0</url>
   </scm>
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
