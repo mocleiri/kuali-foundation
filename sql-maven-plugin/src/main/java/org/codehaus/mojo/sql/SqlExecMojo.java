@@ -1,22 +1,16 @@
 package org.codehaus.mojo.sql;
 
 /*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE
+ * file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 import java.io.BufferedOutputStream;
@@ -87,16 +81,6 @@ public class SqlExecMojo extends AbstractMojo {
      * Call {@link #setOnError(String)} with this value to continue SQL command execution if an error is found.
      */
     public static final String ON_ERROR_CONTINUE = "continue";
-
-    /**
-     * Call {@link #setOrderFile(String)} with this value to sort in ascendant order the sql files.
-     */
-    public static final String FILE_SORTING_ASC = "ascending";
-
-    /**
-     * Call {@link #setOrderFile(String)} with this value to sort in descendant order the sql files.
-     */
-    public static final String FILE_SORTING_DSC = "descending";
 
     // ////////////////////////// User Info ///////////////////////////////////
 
@@ -290,13 +274,13 @@ public class SqlExecMojo extends AbstractMojo {
     private String delimiterType = DelimiterType.NORMAL;
 
     /**
-     * Set the order in which the SQL files will be executed. Possible values are <code>ascending</code> and
-     * <code>descending</code>. Any other value means that no sorting will be performed.
+     * Set the order in which the SQL files will be executed. Possible values are <code>ASCENDING</code> and
+     * <code>DESCENDING</code> and <code>NONE</code>.
      *
      * @since 1.1
-     * @parameter expression="${orderFile}"
+     * @parameter expression="${orderFile}" default-value="NONE";
      */
-    private String orderFile = null;
+    private Order orderFile;
 
     /**
      * When <code>true</code>, the whole SQL content in <code>sqlCommand</code>, <code>srcFiles</code> and
@@ -836,11 +820,18 @@ public class SqlExecMojo extends AbstractMojo {
     /**
      * Sort the transaction list.
      */
-    private void sortTransactions() {
-        if (FILE_SORTING_ASC.equalsIgnoreCase(this.orderFile)) {
+    protected void sortTransactions() {
+        switch (orderFile) {
+        case ASCENDING:
             Collections.sort(transactions);
-        } else if (FILE_SORTING_DSC.equalsIgnoreCase(this.orderFile)) {
+            break;
+        case DESCENDING:
             Collections.sort(transactions, Collections.reverseOrder());
+            break;
+        case NONE:
+            break;
+        default:
+            throw new RuntimeException("Unknown value for orderFile: " + orderFile);
         }
     }
 
@@ -1288,21 +1279,6 @@ public class SqlExecMojo extends AbstractMojo {
         this.srcFiles = files;
     }
 
-    public String getOrderFile() {
-        return this.orderFile;
-    }
-
-    public void setOrderFile(String orderFile) {
-        if (FILE_SORTING_ASC.equalsIgnoreCase(orderFile)) {
-            this.orderFile = FILE_SORTING_ASC;
-        } else if (FILE_SORTING_DSC.equalsIgnoreCase(orderFile)) {
-            this.orderFile = FILE_SORTING_DSC;
-        } else {
-            throw new IllegalArgumentException(orderFile + " is not a valid value for orderFile, only '"
-                    + FILE_SORTING_ASC + "' or '" + FILE_SORTING_DSC + "'.");
-        }
-    }
-
     /**
      * @deprecated use {@link #getSuccessfulStatements()}
      */
@@ -1404,5 +1380,13 @@ public class SqlExecMojo extends AbstractMojo {
 
     public void setExecuteTrailingSQL(boolean executeTrailingSQL) {
         this.executeTrailingSQL = executeTrailingSQL;
+    }
+
+    public Order getOrderFile() {
+        return orderFile;
+    }
+
+    public void setOrderFile(Order orderFile) {
+        this.orderFile = orderFile;
     }
 }
