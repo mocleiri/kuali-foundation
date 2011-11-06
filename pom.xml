@@ -19,11 +19,13 @@
     Processes that need access to the legacy Impex tool can thus express a normal maven dependency
     in order to obtain it.
   </description>
+
   <scm>
     <connection>scm:svn:https://test.kuali.org/svn/kul-cfg-dbs/branches/impex-1.0-mvn-bundle</connection>
     <developerConnection>scm:svn:https://test.kuali.org/svn/kul-cfg-dbs/branches/impex-1.0-mvn-bundle</developerConnection>
     <url>https://test.kuali.org/svn/kul-cfg-dbs/branches/impex-1.0-mvn-bundle</url>
   </scm>
+
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
   </properties>
