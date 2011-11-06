@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.kuali</groupId>
+    <artifactId>kuali-common</artifactId>
+    <version>22</version>
+  </parent>
+  <groupId>org.kuali.db.impex</groupId>
+  <artifactId>impex-legacy-bundle</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>Legacy Impex Tool</name>
+  <description>
+    This project creates a version of the Impex legacy tool that is decoupled from Subversion.
+    It creates a jar file that has the exact same binaries, source, directory structure,
+    and layout as the Impex contained inside Subversion.
+    Since it is published as a versioned jar file, it can be referenced
+    in other processes (like the Rice binary release process) without those processes
+    needing the ability to connect back to Subversion to check out the tool.
+    Processes that need access to the legacy Impex tool can thus express a normal maven dependency
+    in order to obtain it.
+  </description>
+  <scm>
+    <connection>scm:svn:https://test.kuali.org/svn/kul-cfg-dbs/branches/impex-1.0-mvn-bundle</connection>
+    <developerConnection>scm:svn:https://test.kuali.org/svn/kul-cfg-dbs/branches/impex-1.0-mvn-bundle</developerConnection>
+    <url>https://test.kuali.org/svn/kul-cfg-dbs/branches/impex-1.0-mvn-bundle</url>
+  </scm>
+  <properties>
+    <kuali.testjar.phase>none</kuali.testjar.phase>
+  </properties>
+</project>
