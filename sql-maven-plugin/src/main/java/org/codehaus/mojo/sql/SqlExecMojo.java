@@ -1386,7 +1386,7 @@ public class SqlExecMojo extends AbstractMojo {
         return orderFile;
     }
 
-    public void setOrderFile(Order orderFile) {
-        this.orderFile = orderFile;
+    public void setOrderFile(String orderFile) {
+        this.orderFile = Order.valueOf(orderFile.toUpperCase());
     }
 }
