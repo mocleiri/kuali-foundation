@@ -10,7 +10,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <name>Legacy Impex Tool</name>
   <description>
-    This project creates a version of the Impex legacy tool that is decoupled from Subversion.
+    This project creates a bundle of the Impex legacy tool that is decoupled from Subversion.
     It creates a jar file that has the exact same binaries, source, directory structure,
     and layout as the Impex contained inside Subversion.
     Since it is published as a versioned jar file, it can be referenced
