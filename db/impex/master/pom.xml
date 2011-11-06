@@ -77,34 +77,33 @@
       </build>
     </profile>
     <profile>
-      <id>demo</id>
-      <properties>
-        <dataset.schema.prefix>DEMO</dataset.schema.prefix>
-        <dataset.script.prefix>demo</dataset.script.prefix>
-        <dataset.cleanup.1>classpath:${dataset.script.prefix}-${dataset.script.suffix}-dataset-cleanup.sql</dataset.cleanup.1>
-      </properties>
-    </profile>
-    <profile>
-      <id>bootstrap</id>
-      <properties>
-        <dataset.schema.prefix>BOOTSTRAP</dataset.schema.prefix>
-        <dataset.script.prefix>bootstrap</dataset.script.prefix>
-        <dataset.cleanup.1>classpath:demo-${dataset.script.suffix}-dataset-cleanup.sql</dataset.cleanup.1>
-        <dataset.cleanup.2>classpath:${dataset.script.prefix}-${dataset.script.suffix}-dataset-cleanup.sql</dataset.cleanup.2>
-      </properties>
-    </profile>
-    <profile>
       <id>client</id>
       <properties>
-        <dataset.schema.suffix>CLIENT</dataset.schema.suffix>
-        <dataset.script.suffix>client</dataset.script.suffix>
+        <dataset.schema.prefix>CLIENT</dataset.schema.prefix>
+        <dataset.script>client</dataset.script>
       </properties>
     </profile>
     <profile>
       <id>server</id>
       <properties>
-        <dataset.schema.suffix>SERVER</dataset.schema.suffix>
-        <dataset.script.suffix>server</dataset.script.suffix>
+        <dataset.schema.prefix>SERVER</dataset.schema.prefix>
+        <dataset.script>server</dataset.script>
+      </properties>
+    </profile>
+    <profile>
+      <id>demo</id>
+      <properties>
+        <dataset.schema.suffix>DEMO</dataset.schema.suffix>
+        <dataset.cleanup.1>classpath:demo-${dataset.script}-dataset-cleanup.sql</dataset.cleanup.1>
+      </properties>
+    </profile>
+    <profile>
+      <id>bootstrap</id>
+      <properties>
+        <dataset.schema.suffix>BOOTSTRAP</dataset.schema.suffix>
+        <dataset.script.1>bootstrap</dataset.script.1>
+        <dataset.cleanup.1>classpath:demo-${dataset.script}-dataset-cleanup.sql</dataset.cleanup.1>
+        <dataset.cleanup.2>classpath:bootstrap-${dataset.script}-dataset-cleanup.sql</dataset.cleanup.2>
       </properties>
     </profile>
   </profiles>
