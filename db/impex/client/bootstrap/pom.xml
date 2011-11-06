@@ -21,13 +21,13 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali.rice</groupId>
-    <artifactId>rice-impex-demo</artifactId>
+    <artifactId>rice-impex-client</artifactId>
     <version>2.0.0-b1-SNAPSHOT</version>
   </parent>
-  <artifactId>rice-impex-demo-client</artifactId>
+  <artifactId>rice-impex-client-bootstrap</artifactId>
   <properties>
-    <impex.username>RICEDEMOCLIENT</impex.username>
-    <impex.password>RICEDEMOCLIENT</impex.password>
-    <impex.database>RICEDEMOCLIENT</impex.database>
+    <impex.username>RICECLIENTBOOTSTRAP</impex.username>
+    <impex.password>RICECLIENTBOOTSTRAP</impex.password>
+    <impex.database>RICECLIENTBOOTSTRAP</impex.database>
   </properties>
 </project>
