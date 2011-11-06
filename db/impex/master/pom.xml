@@ -101,7 +101,6 @@
       <id>bootstrap</id>
       <properties>
         <dataset.schema.suffix>BOOTSTRAP</dataset.schema.suffix>
-        <dataset.script.1>bootstrap</dataset.script.1>
         <dataset.cleanup.1>classpath:demo-${dataset.script}-dataset-cleanup.sql</dataset.cleanup.1>
         <dataset.cleanup.2>classpath:bootstrap-${dataset.script}-dataset-cleanup.sql</dataset.cleanup.2>
       </properties>
