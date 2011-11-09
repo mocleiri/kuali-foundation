@@ -107,6 +107,7 @@
     <kuali.repository.snapshot.name>Kuali Snapshot Repository</kuali.repository.snapshot.name>
     <kuali.repository.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repository.snapshot.url>
     <kuali.cm.tools.version>1.6</kuali.cm.tools.version>
+    <plugin.project.info.reports.version>2.4</plugin.project.info.reports.version>
   </properties>
   <repositories>
     <repository>
@@ -267,7 +268,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>2.3</version>
+          <version>${plugin.project.info.reports.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>

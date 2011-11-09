@@ -84,6 +84,7 @@
 
     <!-- -->
     <kuali.testjar.phase>package</kuali.testjar.phase>
+    <kuali.jxr.phase>pre-site</kuali.jxr.phase>
   </properties>
   <repositories>
     <repository>
@@ -258,7 +259,7 @@
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <!-- Version is included here only because it does not inherit correctly from the pluginManagement section
                   of the parent pom -->
-                <version>2.3</version>
+                <version>${plugin.project.info.reports.version}</version>
                 <configuration>
                   <dependencyLocationsEnabled>${kuali.reporting.dependency.locations}</dependencyLocationsEnabled>
                 </configuration>
@@ -378,7 +379,7 @@
         <executions>
           <execution>
             <id>pre-site</id>
-            <phase>pre-site</phase>
+            <phase>${kuali.jxr.phase}</phase>
             <goals>
               <goal>jxr</goal>
               <goal>test-jxr</goal>
