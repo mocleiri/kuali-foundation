@@ -39,7 +39,7 @@
     <kuali.build.timestamp>${maven.build.timestamp}</kuali.build.timestamp>
 
     <!-- Default Clover config -->
-    <kuali.clover.generate.info.phase>pre-site</kuali.clover.generate.info.phase>
+    <kuali.clover.phase>pre-site</kuali.clover.phase>
     <kuali.clover.history.dir>${user.home}/.clover/history/${project.groupId}/${project.artifactId}/${project.version}</kuali.clover.history.dir>
     <kuali.clover.license.location>${user.home}/.clover/clover.license</kuali.clover.license.location>
     <kuali.clover.history.generate>true</kuali.clover.history.generate>
@@ -155,7 +155,7 @@
         <maven.jxr.skip>true</maven.jxr.skip>
         <kuali.jxr.phase>none</kuali.jxr.phase>
         <maven.javadoc.skip>true</maven.javadoc.skip>
-        <kuali.clover.generate.info.phase>none</kuali.clover.generate.info.phase>
+        <kuali.clover.phase>none</kuali.clover.phase>
       </properties>
     </profile>
     <profile>
@@ -166,7 +166,7 @@
         <findbugs.skip>true</findbugs.skip>
         <checkstyle.skip>true</checkstyle.skip>
         <cobertura.skip>true</cobertura.skip>
-        <kuali.clover.generate.info.phase>none</kuali.clover.generate.info.phase>
+        <kuali.clover.phase>none</kuali.clover.phase>
       </properties>
     </profile>
   </profiles>
@@ -423,7 +423,7 @@
         <executions>
           <execution>
             <id>generate-clover-info</id>
-            <phase>${kuali.clover.generate.info.phase}</phase>
+            <phase>${kuali.clover.phase}</phase>
             <goals>
               <goal>instrument</goal>
               <goal>aggregate</goal>
