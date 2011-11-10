@@ -40,7 +40,7 @@
     <kuali.build.timestamp>${maven.build.timestamp}</kuali.build.timestamp>
 
     <!-- Default Clover config -->
-    <kuali.clover.phase>pre-site</kuali.clover.phase>
+    <kuali.clover.phase>none</kuali.clover.phase>
     <kuali.clover.history.dir>${user.home}/.clover/history/${project.groupId}/${project.artifactId}/${project.version}</kuali.clover.history.dir>
     <kuali.clover.license.location>${user.home}/.clover/clover.license</kuali.clover.license.location>
     <kuali.clover.history.generate>true</kuali.clover.history.generate>
@@ -162,7 +162,6 @@
         <cobertura.skip>true</cobertura.skip>
         <maven.jxr.skip>true</maven.jxr.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
-        <kuali.clover.phase>none</kuali.clover.phase>
       </properties>
     </profile>
     <profile>
