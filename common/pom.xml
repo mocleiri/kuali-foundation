@@ -228,6 +228,7 @@
             </dependency>
           </dependencies>
         </plugin>
+        <!-- 
         <plugin>
           <groupId>com.atlassian.maven.plugins</groupId>
           <artifactId>maven-clover2-plugin</artifactId>
@@ -237,6 +238,7 @@
             <historyDir>${kuali.clover.history.dir}</historyDir>
           </configuration>
         </plugin>
+         -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
@@ -368,6 +370,7 @@
                   </reportSet>
                 </reportSets>
               </plugin>
+              <!-- 
               <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
@@ -383,10 +386,12 @@
                   </instrumentation>
                 </configuration>
               </plugin>
+               -->
               <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
               </plugin>
+              <!-- 
               <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>maven-clover2-plugin</artifactId>
@@ -396,6 +401,7 @@
                   <historyDir>${kuali.clover.history.dir}</historyDir>
                 </configuration>
               </plugin>
+               -->
               <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
