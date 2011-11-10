@@ -95,7 +95,8 @@
       Typically, quite a few of these urls are out of date, which makes the request eventually time out. This causes basic
       report generation to take a very long time
     -->
-    <kuali.reporting.dependency.locations>false</kuali.reporting.dependency.locations>
+    <dependency.locations.enabled>false</dependency.locations.enabled>
+    <dependency.details.enabled>false</dependency.details.enabled>
 
     <!-- These are the Kuali repository settings for an official release -->
     <kuali.repository.release.id>kuali.release</kuali.repository.release.id>
@@ -304,7 +305,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <configuration>
-                  <dependencyLocationsEnabled>${kuali.reporting.dependency.locations}</dependencyLocationsEnabled>
+                  <dependencyDetailsEnabled>${dependency.details.enabled}</dependencyDetailsEnabled>
+                  <dependencyLocationsEnabled>${dependency.locations.enabled}</dependencyLocationsEnabled>
                 </configuration>
               </plugin>
             </reportPlugins>
