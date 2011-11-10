@@ -158,6 +158,18 @@
         <kuali.clover.generate.info.phase>none</kuali.clover.generate.info.phase>
       </properties>
     </profile>
+    <profile>
+      <id>skipReports</id>
+      <properties>
+        <pmd.skip>true</pmd.skip>
+        <cpd.skip>true</cpd.skip>
+        <findbugs.skip>true</findbugs.skip>
+        <checkstyle.skip>true</checkstyle.skip>
+        <cobertura.skip>true</cobertura.skip>
+        <maven.jxr.skip>true</maven.jxr.skip>
+        <kuali.clover.generate.info.phase>none</kuali.clover.generate.info.phase>
+      </properties>
+    </profile>
   </profiles>
 
   <build>
@@ -411,23 +423,6 @@
       </plugins>
     </pluginManagement>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>pre-site</id>
-            <phase>${kuali.jxr.phase}</phase>
-            <goals>
-              <goal>jxr</goal>
-              <goal>test-jxr</goal>
-            </goals>
-            <configuration>
-              <aggregate>false</aggregate>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>com.atlassian.maven.plugins</groupId>
         <artifactId>maven-clover2-plugin</artifactId>
