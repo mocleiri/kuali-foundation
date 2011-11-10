@@ -16,12 +16,13 @@
   limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali</groupId>
     <artifactId>kuali</artifactId>
-    <version>106</version>
+    <version>107</version>
   </parent>
   <groupId>org.kuali</groupId>
   <artifactId>kuali-common</artifactId>
@@ -221,17 +222,17 @@
             </dependency>
           </dependencies>
         </plugin>
-        <!-- 
-        <plugin>
+        <!--
+          <plugin>
           <groupId>com.atlassian.maven.plugins</groupId>
           <artifactId>maven-clover2-plugin</artifactId>
           <version>3.1.2</version>
           <configuration>
-            <licenseLocation>${kuali.clover.license.location}</licenseLocation>
-            <historyDir>${kuali.clover.history.dir}</historyDir>
+          <licenseLocation>${kuali.clover.license.location}</licenseLocation>
+          <historyDir>${kuali.clover.history.dir}</historyDir>
           </configuration>
-        </plugin>
-         -->
+          </plugin>
+        -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
@@ -363,38 +364,38 @@
                   </reportSet>
                 </reportSets>
               </plugin>
-              <!-- 
-              <plugin>
+              <!--
+                <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <configuration>
-                  <skip>${kuali.cobertura.skip}</skip>
-                  <instrumentation>
-                    <ignores>
-                      <ignore>${kuali.cobertura.instrumentation.ignore}</ignore>
-                    </ignores>
-                    <excludes>
-                      <exclude>${kuali.cobertura.instrumentation.exclude}</exclude>
-                    </excludes>
-                  </instrumentation>
+                <skip>${kuali.cobertura.skip}</skip>
+                <instrumentation>
+                <ignores>
+                <ignore>${kuali.cobertura.instrumentation.ignore}</ignore>
+                </ignores>
+                <excludes>
+                <exclude>${kuali.cobertura.instrumentation.exclude}</exclude>
+                </excludes>
+                </instrumentation>
                 </configuration>
-              </plugin>
-               -->
+                </plugin>
+              -->
               <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
               </plugin>
-              <!-- 
-              <plugin>
+              <!--
+                <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>maven-clover2-plugin</artifactId>
                 <configuration>
-                  <licenseLocation>${kuali.clover.license.location}</licenseLocation>
-                  <generateHistorical>${kuali.clover.history.generate}</generateHistorical>
-                  <historyDir>${kuali.clover.history.dir}</historyDir>
+                <licenseLocation>${kuali.clover.license.location}</licenseLocation>
+                <generateHistorical>${kuali.clover.history.generate}</generateHistorical>
+                <historyDir>${kuali.clover.history.dir}</historyDir>
                 </configuration>
-              </plugin>
-               -->
+                </plugin>
+              -->
               <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
