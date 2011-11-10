@@ -231,7 +231,7 @@
         <plugin>
           <groupId>com.atlassian.maven.plugins</groupId>
           <artifactId>maven-clover2-plugin</artifactId>
-          <version>3.0.4</version>
+          <version>3.1.2</version>
           <configuration>
             <licenseLocation>${kuali.clover.license.location}</licenseLocation>
             <historyDir>${kuali.clover.history.dir}</historyDir>
@@ -381,9 +381,6 @@
                       <exclude>${kuali.cobertura.instrumentation.exclude}</exclude>
                     </excludes>
                   </instrumentation>
-                  <formats>
-                    <format>html</format>
-                  </formats>
                 </configuration>
               </plugin>
               <plugin>
