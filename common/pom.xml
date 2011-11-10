@@ -130,12 +130,6 @@
 
   <profiles>
     <profile>
-      <id>license</id>
-      <properties>
-        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
-      </properties>
-    </profile>
-    <profile>
       <!-- Bare bones site. Only thing it generates is the "About" page -->
       <id>minsite</id>
       <properties>
