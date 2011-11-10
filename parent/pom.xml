@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-  Copyright 2004-2011 The Kuali Foundation
+  Copyright 2004-11 2011 The Kuali Foundation
 
   Licensed under the Educational Community License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
   limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali</groupId>
   <artifactId>kuali</artifactId>
@@ -400,11 +401,14 @@
     <profile>
       <id>license</id>
       <properties>
-        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+        <license.timestamp.phase>initialize</license.timestamp.phase>
+        <license.timestamp.format>yyyy</license.timestamp.format>
         <license.format.phase>process-sources</license.format.phase>
         <license.check.phase>verify</license.check.phase>
         <license.status.phase>verify</license.status.phase>
         <license.commit.phase>install</license.commit.phase>
+        <license.header>org/kuali/cm/license/ecl-2.0-header.txt</license.header>
+        <license.strictCheck>true</license.strictCheck>
       </properties>
       <build>
         <pluginManagement>
@@ -415,11 +419,11 @@
               <version>1.9.0</version>
               <configuration>
                 <encoding>${project.build.sourceEncoding}</encoding>
-                <strictCheck>true</strictCheck>
-                <header>org/kuali/cm/license/ecl-2.0-header.txt</header>
+                <strictCheck>${license.strictCheck}</strictCheck>
+                <header>${license.header}</header>
                 <properties>
                   <license.copyrightStartYear>${project.inceptionYear}</license.copyrightStartYear>
-                  <license.copyrightCurrentYear>${maven.build.timestamp}</license.copyrightCurrentYear>
+                  <license.copyrightCurrentYear>${license.current.year}</license.copyrightCurrentYear>
                 </properties>
               </configuration>
               <dependencies>
@@ -439,9 +443,32 @@
                 <message>Automated license header update</message>
               </configuration>
             </plugin>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>buildnumber-maven-plugin</artifactId>
+              <version>1.0</version>
+            </plugin>
           </plugins>
         </pluginManagement>
         <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+            <version>1.0</version>
+            <executions>
+              <execution>
+                <id>generate-current-year</id>
+                <phase>${license.timestamp.phase}</phase>
+                <goals>
+                  <goal>create-timestamp</goal>
+                </goals>
+                <configuration>
+                  <timestampFormat>${license.timestamp.format}</timestampFormat>
+                  <timestampPropertyName>license.current.year</timestampPropertyName>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <groupId>com.mycila.maven-license-plugin</groupId>
             <artifactId>maven-license-plugin</artifactId>
