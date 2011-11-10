@@ -306,7 +306,8 @@
                   of the parent pom -->
                 <version>${plugin.project.info.reports.version}</version>
                 <configuration>
-                  <dependencyLocationsEnabled>${kuali.reporting.dependency.locations}</dependencyLocationsEnabled>
+                  <dependencyDetailsEnabled>${dependency.details.enabled}</dependencyDetailsEnabled>
+                  <dependencyLocationsEnabled>${dependency.locations.enabled}</dependencyLocationsEnabled>
                 </configuration>
                 <reportSets>
                   <reportSet>
