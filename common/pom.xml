@@ -85,6 +85,7 @@
 
     <kuali.testjar.phase>package</kuali.testjar.phase>
 
+    <!-- List these individually so they can be turned off and on via property manipulation -->
     <kuali.report.1>cim</kuali.report.1>
     <kuali.report.2>dependencies</kuali.report.2>
     <kuali.report.3>dependency-convergence</kuali.report.3>
@@ -101,7 +102,7 @@
     <kuali.report.14>scm</kuali.report.14>
     <kuali.report.15>summary</kuali.report.15>
 
-    <!-- Turn these off by default use the "reports" profile to turn them back on -->
+    <!-- Turn these off by default. Use the "reports" profile to turn them back on -->
     <pmd.skip>true</pmd.skip>
     <cpd.skip>true</cpd.skip>
     <findbugs.skip>true</findbugs.skip>
