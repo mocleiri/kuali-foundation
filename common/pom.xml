@@ -84,7 +84,6 @@
 
     <!-- -->
     <kuali.testjar.phase>package</kuali.testjar.phase>
-    <kuali.jxr.phase>pre-site</kuali.jxr.phase>
 
     <kuali.report.1>cim</kuali.report.1>
     <kuali.report.2>dependencies</kuali.report.2>
@@ -153,7 +152,6 @@
         <checkstyle.skip>true</checkstyle.skip>
         <cobertura.skip>true</cobertura.skip>
         <maven.jxr.skip>true</maven.jxr.skip>
-        <kuali.jxr.phase>none</kuali.jxr.phase>
         <maven.javadoc.skip>true</maven.javadoc.skip>
         <kuali.clover.phase>none</kuali.clover.phase>
       </properties>
