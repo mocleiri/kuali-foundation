@@ -85,6 +85,22 @@
     <!-- -->
     <kuali.testjar.phase>package</kuali.testjar.phase>
     <kuali.jxr.phase>pre-site</kuali.jxr.phase>
+
+    <kuali.report.1>cim</kuali.report.1>
+    <kuali.report.2>dependencies</kuali.report.2>
+    <kuali.report.3>dependency-convergence</kuali.report.3>
+    <kuali.report.4>dependency-management</kuali.report.4>
+    <kuali.report.5>distribution-management</kuali.report.5>
+    <kuali.report.6>index</kuali.report.6>
+    <kuali.report.7>issue-tracking</kuali.report.7>
+    <kuali.report.8>license</kuali.report.8>
+    <kuali.report.9>mailing-list</kuali.report.9>
+    <kuali.report.10>modules</kuali.report.10>
+    <kuali.report.11>plugin-management</kuali.report.11>
+    <kuali.report.12>plugins</kuali.report.12>
+    <kuali.report.13>project-team</kuali.report.13>
+    <kuali.report.14>scm</kuali.report.14>
+    <kuali.report.15>summary</kuali.report.15>
   </properties>
   <repositories>
     <repository>
@@ -263,6 +279,27 @@
                 <configuration>
                   <dependencyLocationsEnabled>${kuali.reporting.dependency.locations}</dependencyLocationsEnabled>
                 </configuration>
+                <reportSets>
+                  <reportSet>
+                    <reports>
+                      <report>${kuali.report.1}</report>
+                      <report>${kuali.report.2}</report>
+                      <report>${kuali.report.3}</report>
+                      <report>${kuali.report.4}</report>
+                      <report>${kuali.report.5}</report>
+                      <report>${kuali.report.6}</report>
+                      <report>${kuali.report.7}</report>
+                      <report>${kuali.report.8}</report>
+                      <report>${kuali.report.9}</report>
+                      <report>${kuali.report.10}</report>
+                      <report>${kuali.report.11}</report>
+                      <report>${kuali.report.12}</report>
+                      <report>${kuali.report.13}</report>
+                      <report>${kuali.report.14}</report>
+                      <report>${kuali.report.15}</report>
+                    </reports>
+                  </reportSet>
+                </reportSets>
               </plugin>
               <plugin>
                 <groupId>org.codehaus.mojo</groupId>
