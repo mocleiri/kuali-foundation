@@ -106,7 +106,7 @@
     <cpd.skip>true</cpd.skip>
     <findbugs.skip>true</findbugs.skip>
     <checkstyle.skip>true</checkstyle.skip>
-    <cobertura.skip>true</cobertura.skip>
+    <kuali.cobertura.skip>true</kuali.cobertura.skip>
     <kuali.clover.phase>none</kuali.clover.phase>
   </properties>
   <repositories>
@@ -159,7 +159,7 @@
         <cpd.skip>true</cpd.skip>
         <findbugs.skip>true</findbugs.skip>
         <checkstyle.skip>true</checkstyle.skip>
-        <cobertura.skip>true</cobertura.skip>
+        <kuali.cobertura.skip>true</kuali.cobertura.skip>
         <maven.jxr.skip>true</maven.jxr.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
       </properties>
@@ -172,7 +172,7 @@
         <cpd.skip>false</cpd.skip>
         <findbugs.skip>false</findbugs.skip>
         <checkstyle.skip>false</checkstyle.skip>
-        <cobertura.skip>false</cobertura.skip>
+        <kuali.cobertura.skip>false</kuali.cobertura.skip>
         <kuali.clover.phase>pre-site</kuali.clover.phase>
       </properties>
       <build>
@@ -372,6 +372,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <configuration>
+                  <skip>${kuali.cobertura.skip}</skip>
                   <instrumentation>
                     <ignores>
                       <ignore>${kuali.cobertura.instrumentation.ignore}</ignore>
