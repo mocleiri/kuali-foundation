@@ -133,20 +133,20 @@
       <id>minsite</id>
       <properties>
         <kuali.report.1>index</kuali.report.1>
-        <kuali.report.2>license</kuali.report.2>
-        <kuali.report.3>license</kuali.report.3>
-        <kuali.report.4>license</kuali.report.4>
-        <kuali.report.5>license</kuali.report.5>
-        <kuali.report.6>license</kuali.report.6>
-        <kuali.report.7>license</kuali.report.7>
-        <kuali.report.8>license</kuali.report.8>
-        <kuali.report.9>license</kuali.report.9>
-        <kuali.report.10>license</kuali.report.10>
-        <kuali.report.11>license</kuali.report.11>
-        <kuali.report.12>license</kuali.report.12>
-        <kuali.report.13>license</kuali.report.13>
-        <kuali.report.14>license</kuali.report.14>
-        <kuali.report.15>license</kuali.report.15>
+        <kuali.report.2>index</kuali.report.2>
+        <kuali.report.3>index</kuali.report.3>
+        <kuali.report.4>index</kuali.report.4>
+        <kuali.report.5>index</kuali.report.5>
+        <kuali.report.6>index</kuali.report.6>
+        <kuali.report.7>index</kuali.report.7>
+        <kuali.report.8>index</kuali.report.8>
+        <kuali.report.9>index</kuali.report.9>
+        <kuali.report.10>index</kuali.report.10>
+        <kuali.report.11>index</kuali.report.11>
+        <kuali.report.12>index</kuali.report.12>
+        <kuali.report.13>index</kuali.report.13>
+        <kuali.report.14>index</kuali.report.14>
+        <kuali.report.15>index</kuali.report.15>
         <pmd.skip>true</pmd.skip>
         <cpd.skip>true</cpd.skip>
         <findbugs.skip>true</findbugs.skip>
