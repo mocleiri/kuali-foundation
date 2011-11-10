@@ -392,35 +392,6 @@
                   <aggregate>${kuali.reporting.aggregate}</aggregate>
                 </configuration>
               </plugin>
-              <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>taglist-maven-plugin</artifactId>
-                <configuration>
-                  <aggregate>${kuali.reporting.aggregate}</aggregate>
-                  <tagListOptions>
-                    <tagClasses>
-                      <tagClass>
-                        <displayName>TODO's</displayName>
-                        <tags>
-                          <tag>
-                            <matchString>TODO</matchString>
-                            <matchType>ignoreCase</matchType>
-                          </tag>
-                        </tags>
-                      </tagClass>
-                      <tagClass>
-                        <displayName>FIXME's</displayName>
-                        <tags>
-                          <tag>
-                            <matchString>FIXME</matchString>
-                            <matchType>ignoreCase</matchType>
-                          </tag>
-                        </tags>
-                      </tagClass>
-                    </tagClasses>
-                  </tagListOptions>
-                </configuration>
-              </plugin>
             </reportPlugins>
           </configuration>
           <dependencies>
