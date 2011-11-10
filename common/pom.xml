@@ -16,7 +16,8 @@
   limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali</groupId>
@@ -82,7 +83,6 @@
     <kuali.javadoc.link.9>${kuali.javadoc.link.1}</kuali.javadoc.link.9>
     <kuali.javadoc.link.10>${kuali.javadoc.link.1}</kuali.javadoc.link.10>
 
-    <!-- -->
     <kuali.testjar.phase>package</kuali.testjar.phase>
 
     <kuali.report.1>cim</kuali.report.1>
@@ -100,6 +100,14 @@
     <kuali.report.13>project-team</kuali.report.13>
     <kuali.report.14>scm</kuali.report.14>
     <kuali.report.15>summary</kuali.report.15>
+
+    <!-- Turn these off by default use the "reports" profile to turn them back on -->
+    <pmd.skip>true</pmd.skip>
+    <cpd.skip>true</cpd.skip>
+    <findbugs.skip>true</findbugs.skip>
+    <checkstyle.skip>true</checkstyle.skip>
+    <cobertura.skip>true</cobertura.skip>
+    <kuali.clover.phase>none</kuali.clover.phase>
   </properties>
   <repositories>
     <repository>
@@ -129,6 +137,7 @@
       </properties>
     </profile>
     <profile>
+      <!-- Bare bones site. Only thing it generates is the "About" page -->
       <id>minsite</id>
       <properties>
         <kuali.report.1>index</kuali.report.1>
@@ -157,15 +166,35 @@
       </properties>
     </profile>
     <profile>
-      <id>skipReports</id>
+      <!-- Turn on some fairly extensive reporting -->
+      <id>reports</id>
       <properties>
-        <pmd.skip>true</pmd.skip>
-        <cpd.skip>true</cpd.skip>
-        <findbugs.skip>true</findbugs.skip>
-        <checkstyle.skip>true</checkstyle.skip>
-        <cobertura.skip>true</cobertura.skip>
-        <kuali.clover.phase>none</kuali.clover.phase>
+        <pmd.skip>false</pmd.skip>
+        <cpd.skip>false</cpd.skip>
+        <findbugs.skip>false</findbugs.skip>
+        <checkstyle.skip>false</checkstyle.skip>
+        <cobertura.skip>false</cobertura.skip>
+        <kuali.clover.phase>pre-site</kuali.clover.phase>
       </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.atlassian.maven.plugins</groupId>
+            <artifactId>maven-clover2-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-clover-info</id>
+                <phase>${kuali.clover.phase}</phase>
+                <goals>
+                  <goal>instrument</goal>
+                  <goal>aggregate</goal>
+                  <goal>save-history</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 
@@ -415,21 +444,6 @@
       </plugins>
     </pluginManagement>
     <plugins>
-      <plugin>
-        <groupId>com.atlassian.maven.plugins</groupId>
-        <artifactId>maven-clover2-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>generate-clover-info</id>
-            <phase>${kuali.clover.phase}</phase>
-            <goals>
-              <goal>instrument</goal>
-              <goal>aggregate</goal>
-              <goal>save-history</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
