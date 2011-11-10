@@ -50,7 +50,7 @@
 
     <!-- Default Cobertura config -->
     <kuali.cobertura.instrumentation.ignore>DO_NOT_MATCH_ANYTHING_PATTERN</kuali.cobertura.instrumentation.ignore>
-    <kuali.cobertura.instrumentation.exclude>DO_NOT_MATCH_ANYTHING_PATTERN</kuali.cobertura.instrumentation.exclude>
+    <kuali.cobertura.instrumentation.exclude>**/*</kuali.cobertura.instrumentation.exclude>
 
     <!-- The jxr, pmd, and taglist plugins all have an aggregate option -->
     <kuali.reporting.aggregate>true</kuali.reporting.aggregate>
