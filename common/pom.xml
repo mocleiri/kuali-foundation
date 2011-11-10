@@ -166,7 +166,6 @@
         <findbugs.skip>true</findbugs.skip>
         <checkstyle.skip>true</checkstyle.skip>
         <cobertura.skip>true</cobertura.skip>
-        <maven.jxr.skip>true</maven.jxr.skip>
         <kuali.clover.generate.info.phase>none</kuali.clover.generate.info.phase>
       </properties>
     </profile>
