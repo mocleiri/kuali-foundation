@@ -181,7 +181,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-cloudfront-plugin</artifactId>
-          <version>1.0.29</version>
+          <version>1.0.30</version>
           <configuration>
             <organizationGroupId>${kuali.organization.group.id}</organizationGroupId>
             <forceMojoExecution>true</forceMojoExecution>
