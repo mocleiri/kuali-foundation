@@ -46,12 +46,6 @@
       <scope>test</scope>
       <version>4.8.1</version>
     </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-      <version>4.8.1</version>
-    </dependency>
   </dependencies>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-threads</connection>
