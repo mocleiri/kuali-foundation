@@ -94,7 +94,7 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
         return stopThreads;
     }
 
-    public Exception getException() {
+    public ThreadHandlerException getException() {
         return exception;
     }
 
