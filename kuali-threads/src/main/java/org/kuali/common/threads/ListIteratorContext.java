@@ -4,6 +4,12 @@ import java.util.List;
 
 import org.kuali.common.threads.listener.ProgressNotifier;
 
+/**
+ * Provides context for iterating over the elements in a list. Offset and length control what portion of the list is
+ * iterated over. The ElementHandler is invoked each time an element in the list is encountered.
+ *
+ * @param <T>
+ */
 public class ListIteratorContext<T> {
     int id;
     int offset;
@@ -12,6 +18,18 @@ public class ListIteratorContext<T> {
     ProgressNotifier<T> notifier;
     List<T> list;
     ElementHandler<T> elementHandler;
+
+    public ListIteratorContext() {
+        this(0, 0, 0, null);
+    }
+
+    public ListIteratorContext(int id, int offset, int length, List<T> list) {
+        super();
+        this.id = id;
+        this.offset = offset;
+        this.length = length;
+        this.list = list;
+    }
 
     public int getId() {
         return id;

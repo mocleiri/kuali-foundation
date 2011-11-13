@@ -2,6 +2,12 @@ package org.kuali.common.threads.listener;
 
 import java.io.PrintStream;
 
+/**
+ * Listener that prints a dot to the console whenever progress is made. Prints a Maven style log header when progress
+ * starts and a linefeed when progress completes.
+ *
+ * @param <T>
+ */
 public class ConsoleListener<T> implements ProgressListener<T> {
 
     PrintStream out = System.out;

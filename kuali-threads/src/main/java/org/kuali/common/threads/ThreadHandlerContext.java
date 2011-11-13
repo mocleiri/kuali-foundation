@@ -5,12 +5,30 @@ import java.util.List;
 import org.kuali.common.threads.listener.NoOpListener;
 import org.kuali.common.threads.listener.ProgressListener;
 
+/**
+ * Context for a ThreadHandler
+ *
+ * @param <T>
+ */
 public class ThreadHandlerContext<T> {
+    // Min threads to use
     int min;
+
+    // Max threads to use
     int max;
+
+    // If supplied, divide # of elements in the list by this number to come up with a thread count
+    // Thread count will always be constrained by max regardless, but this gives clients a way to
+    // scale threads up relative to the number of items in the list
     int divisor;
+
+    // The list of elements to iterate over
     List<T> list;
+
+    // The handler for dealing with an item from the list
     ElementHandler<T> handler;
+
+    // By default don't do anything when informed about progress being made
     ProgressListener<T> listener = new NoOpListener<T>();
 
     public int getMin() {

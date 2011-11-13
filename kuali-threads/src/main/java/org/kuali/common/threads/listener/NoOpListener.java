@@ -1,6 +1,10 @@
 package org.kuali.common.threads.listener;
 
-
+/**
+ * Listener that does nothing
+ *
+ * @param <T>
+ */
 public class NoOpListener<T> implements ProgressListener<T> {
 
     @Override

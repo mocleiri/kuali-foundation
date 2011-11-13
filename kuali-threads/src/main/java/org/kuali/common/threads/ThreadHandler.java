@@ -4,15 +4,29 @@ import java.lang.Thread.UncaughtExceptionHandler;
 
 import org.kuali.common.threads.listener.ProgressNotifier;
 
+/**
+ * Handles the execution of threads. The executeThreads() will start all threads and then block until they have
+ * completed. If an exception occurs in a client thread the uncaughtException() method of this ThreadHandler will be
+ * invoked. The default behavior if that happens is to set the stopThreads flag to true and retain a handle to the
+ * exception. Client threads should examine the isStopThreads() method of their handler and shutdown as quickly as
+ * possible if that method returns true.
+ *
+ * The default behavior if an exception occurs in a client thread is for the handler to re-throw it once client threads
+ * have completed. If that is not desired, set the rethrowException flag to false. The getException() method can still
+ * be used to obtain the exception thrown in the client thread.
+ *
+ * @param <T>
+ */
 public class ThreadHandler<T> implements UncaughtExceptionHandler {
 
     ThreadGroup group;
     Thread[] threads;
-    Exception exception;
+    ThreadHandlerException exception;
     boolean stopThreads;
     int elementsPerThread;
     int threadCount;
     ProgressNotifier<T> notifier;
+    boolean rethrowException = true;
 
     public ThreadGroup getGroup() {
         return group;
@@ -33,6 +47,13 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
     public void executeThreads() {
         start();
         join();
+        if (isThrowException()) {
+            throw exception;
+        }
+    }
+
+    protected boolean isThrowException() {
+        return rethrowException && exception != null;
     }
 
     protected void start() {
@@ -55,7 +76,9 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
     public synchronized void uncaughtException(Thread t, Throwable e) {
         this.stopThreads = true;
         group.interrupt();
-        this.exception = new RuntimeException("Unexpected issue in thread [" + t.getId() + ":" + t.getName() + "]", e);
+        long id = t.getId();
+        String name = t.getName();
+        this.exception = new ThreadHandlerException("Exception in thread [" + id + ":" + name + "]", e);
     }
 
     public synchronized boolean isStopThreads() {
@@ -88,5 +111,13 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
 
     public void setNotifier(ProgressNotifier<T> notifier) {
         this.notifier = notifier;
+    }
+
+    public boolean isRethrowException() {
+        return rethrowException;
+    }
+
+    public void setRethrowException(boolean rethrowException) {
+        this.rethrowException = rethrowException;
     }
 }

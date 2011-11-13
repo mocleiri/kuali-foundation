@@ -1,6 +1,12 @@
 package org.kuali.common.threads.listener;
 
-
+/**
+ * Keeps track of overall progress towards a goal.
+ *
+ * Notifies its listener whenever progress has occurred.
+ *
+ * Also notifies the listener when progress starts and completes.
+ */
 public class ProgressNotifier<T> {
 
     ProgressListener<T> listener = new NoOpListener<T>();
