@@ -2,7 +2,7 @@ package org.kuali.common.threads;
 
 import java.util.List;
 
-import org.kuali.common.threads.listener.ConsoleListener;
+import org.kuali.common.threads.listener.MavenConsoleListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,7 @@ public class ThreadInvoker {
         thc.setMin(min);
         thc.setDivisor(divisor);
         if (thc.getListener() == null) {
-            thc.setListener(new ConsoleListener<T>());
+            thc.setListener(new MavenConsoleListener<T>());
         }
         ThreadHandler<T> handler = factory.getThreadHandler(thc);
         int elementsPerThread = handler.getElementsPerThread();
