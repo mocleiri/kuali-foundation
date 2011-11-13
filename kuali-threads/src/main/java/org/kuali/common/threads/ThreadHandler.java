@@ -77,14 +77,14 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
                 thread.join();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new ThreadHandlerException(e);
         }
     }
 
     @Override
     public synchronized void uncaughtException(Thread t, Throwable e) {
         this.stopThreads = true;
-        group.interrupt();
+        this.group.interrupt();
         long id = t.getId();
         String name = t.getName();
         this.exception = new ThreadHandlerException("Exception in thread [" + id + ":" + name + "]", e);
