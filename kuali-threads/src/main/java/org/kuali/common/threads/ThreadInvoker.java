@@ -10,13 +10,17 @@ public class ThreadInvoker {
     ThreadHandlerFactory factory = new ThreadHandlerFactory();
 
     public <T> ExecutionStatistics invokeThreads(ThreadHandlerContext<T> context) {
+        return invokeThreads(context, "Executing ");
+    }
+
+    public <T> ExecutionStatistics invokeThreads(ThreadHandlerContext<T> context, String msg) {
         if (context.getHandler() == null || context.getList() == null) {
             throw new IllegalArgumentException("Neither elementHandler nor list can be null");
         }
         ThreadHandler<T> handler = factory.getThreadHandler(context);
         int elementsPerThread = handler.getElementsPerThread();
         int size = context.getList().size();
-        logger.info("Executing [t:" + handler.getThreadCount() + " e:" + elementsPerThread + " s:" + size + "]");
+        logger.info(msg + "[t:" + handler.getThreadCount() + " e:" + elementsPerThread + " s:" + size + "]");
         handler.executeThreads();
         return handler.getExecutionStatistics();
     }
