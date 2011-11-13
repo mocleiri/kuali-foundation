@@ -2,7 +2,6 @@ package org.kuali.common.threads;
 
 import java.util.List;
 
-import org.kuali.common.threads.listener.MavenConsoleListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,9 +13,6 @@ public class ThreadInvoker {
         if (context.getHandler() == null || context.getList() == null) {
             throw new IllegalArgumentException("Neither elementHandler nor list can be null");
         }
-        if (context.getListener() == null) {
-            context.setListener(new MavenConsoleListener<T>());
-        }
         ThreadHandler<T> handler = factory.getThreadHandler(context);
         int elementsPerThread = handler.getElementsPerThread();
         int size = context.getList().size();
@@ -26,10 +22,9 @@ public class ThreadInvoker {
     }
 
     public <T> ExecutionStatistics invokeThreads(int max, int min, int divisor, ThreadHandlerContext<T> context) {
-        ThreadHandlerContext<T> thc = new ThreadHandlerContext<T>();
-        thc.setMax(max);
-        thc.setMin(min);
-        thc.setDivisor(divisor);
+        context.setMax(max);
+        context.setMin(min);
+        context.setDivisor(divisor);
         return invokeThreads(context);
     }
 

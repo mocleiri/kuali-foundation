@@ -10,7 +10,6 @@ import org.kuali.common.threads.listener.ProgressNotifier;
  */
 public class ThreadHandlerFactory {
 
-
     /**
      * Given some context, produce a ThreadHandler for iterating over the list of elements provided in the context
      *
