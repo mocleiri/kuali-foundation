@@ -14,13 +14,12 @@ public class ThreadInvoker {
         if (context.getHandler() == null || context.getList() == null) {
             throw new IllegalArgumentException("Neither elementHandler nor list can be null");
         }
-        ThreadHandlerContext<T> thc = new ThreadHandlerContext<T>();
-        if (thc.getListener() == null) {
-            thc.setListener(new MavenConsoleListener<T>());
+        if (context.getListener() == null) {
+            context.setListener(new MavenConsoleListener<T>());
         }
-        ThreadHandler<T> handler = factory.getThreadHandler(thc);
+        ThreadHandler<T> handler = factory.getThreadHandler(context);
         int elementsPerThread = handler.getElementsPerThread();
-        int size = thc.getList().size();
+        int size = context.getList().size();
         logger.info("Executing [t:" + handler.getThreadCount() + " e:" + elementsPerThread + " s:" + size + "]");
         handler.executeThreads();
         return handler.getExecutionStatistics();
