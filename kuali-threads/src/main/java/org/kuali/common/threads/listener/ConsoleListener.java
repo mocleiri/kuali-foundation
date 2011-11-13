@@ -18,10 +18,10 @@ public class ConsoleListener<T> implements ProgressListener<T> {
         this(".", ".");
     }
 
-    public ConsoleListener(String startToken, String progressToken) {
+    public ConsoleListener(String startToken, String completeToken) {
         super();
         this.startToken = startToken;
-        this.progressToken = progressToken;
+        this.completeToken = completeToken;
     }
 
     @Override
