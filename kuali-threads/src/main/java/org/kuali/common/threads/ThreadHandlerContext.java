@@ -6,19 +6,21 @@ import org.kuali.common.threads.listener.NoOpListener;
 import org.kuali.common.threads.listener.ProgressListener;
 
 /**
- * Context for a ThreadHandler
+ * Provides context for a ThreadHandler
  *
  * @param <T>
  */
 public class ThreadHandlerContext<T> {
+    public static final int DEFAULT_MAX_THREADS = 1;
+
     // Min threads to use
     int min;
 
     // Max threads to use
-    int max;
+    int max = DEFAULT_MAX_THREADS;
 
     // If supplied, divide # of elements in the list by this number to come up with a thread count
-    // Thread count will always be constrained by max regardless, but this gives clients a way to
+    // Thread count will always be constrained by max regardless. This gives clients a way to
     // scale threads up relative to the number of items in the list
     int divisor;
 
