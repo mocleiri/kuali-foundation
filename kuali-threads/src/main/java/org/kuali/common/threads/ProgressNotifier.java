@@ -1,10 +1,7 @@
 package org.kuali.common.threads;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ProgressNotifier<T> {
-    private final Logger logger = LoggerFactory.getLogger(ProgressNotifier.class);
 
     ProgressListener<T> listener = new NoOpListener<T>();
     int progress;
@@ -19,7 +16,6 @@ public class ProgressNotifier<T> {
             listener.progressStarted();
         }
         progress++;
-        logger.debug("progress={}", progress);
         listener.progressOccurred(progress, total, event);
         if (progress == total) {
             listener.progressCompleted();
