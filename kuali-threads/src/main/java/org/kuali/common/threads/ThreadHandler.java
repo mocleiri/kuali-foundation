@@ -50,11 +50,12 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
         start();
         join();
         long millis = System.currentTimeMillis() - start;
-        ExecutionStatistics stats = new ExecutionStatistics();
-        stats.setExecutionTime(millis);
-        stats.setThreadCount(threadCount);
-        stats.setIterationCount(notifier.getProgress());
-        stats.setElementsPerThread(elementsPerThread);
+        executionStatistics = new ExecutionStatistics();
+        executionStatistics.setExecutionTime(millis);
+        executionStatistics.setThreadCount(threadCount);
+        executionStatistics.setIterationCount(notifier.getProgress());
+        executionStatistics.setElementsPerThread(elementsPerThread);
+
         if (isThrowException()) {
             throw exception;
         }
