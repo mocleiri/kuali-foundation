@@ -9,9 +9,7 @@ package org.kuali.common.threads.listener;
 public class MavenConsoleListener<T> extends ConsoleListener<T> {
 
     public MavenConsoleListener() {
-        super();
-        setStartToken("[INFO] Progress: ");
-        setCompleteToken("\n");
+        super("[INFO] Progress: ", "\n");
     }
 
 }

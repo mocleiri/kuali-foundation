@@ -14,6 +14,16 @@ public class ConsoleListener<T> implements ProgressListener<T> {
     String completeToken = ".";
     String progressToken = ".";
 
+    public ConsoleListener() {
+        this(".", ".");
+    }
+
+    public ConsoleListener(String startToken, String progressToken) {
+        super();
+        this.startToken = startToken;
+        this.progressToken = progressToken;
+    }
+
     @Override
     public void progressCompleted() {
         out.print(completeToken);
