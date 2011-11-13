@@ -5,15 +5,13 @@ import java.io.PrintStream;
 /**
  * Listener that prints a dot to System.out whenever progress is made.
  *
- * By default, it also prints a Maven style log header when progress starts and a linefeed when progress completes.
- *
  * @param <T>
  */
 public class ConsoleListener<T> implements ProgressListener<T> {
 
     PrintStream out = System.out;
-    String startToken = "[INFO] Progress: ";
-    String completeToken = "\n";
+    String startToken = ".";
+    String completeToken = ".";
     String progressToken = ".";
 
     @Override
@@ -29,6 +27,38 @@ public class ConsoleListener<T> implements ProgressListener<T> {
     @Override
     public void progressOccurred(int count, int total, ProgressEvent<T> event) {
         out.print(progressToken);
+    }
+
+    public PrintStream getOut() {
+        return out;
+    }
+
+    public void setOut(PrintStream out) {
+        this.out = out;
+    }
+
+    public String getStartToken() {
+        return startToken;
+    }
+
+    public void setStartToken(String startToken) {
+        this.startToken = startToken;
+    }
+
+    public String getCompleteToken() {
+        return completeToken;
+    }
+
+    public void setCompleteToken(String completeToken) {
+        this.completeToken = completeToken;
+    }
+
+    public String getProgressToken() {
+        return progressToken;
+    }
+
+    public void setProgressToken(String progressToken) {
+        this.progressToken = progressToken;
     }
 
 }
