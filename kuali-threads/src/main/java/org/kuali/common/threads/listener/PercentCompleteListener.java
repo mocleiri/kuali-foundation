@@ -3,7 +3,7 @@ package org.kuali.common.threads.listener;
 /**
  * Print a dot whenever there is progress of 2% or more
  */
-public class PercentCompleteListener<T> extends ConsoleListener<T> {
+public class PercentCompleteListener<T> extends MavenConsoleListener<T> {
     int percentageIncrement = 2;
     int percentCompletePrevious;
 
