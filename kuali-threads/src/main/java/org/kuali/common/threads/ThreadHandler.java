@@ -2,6 +2,8 @@ package org.kuali.common.threads;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 
+import org.kuali.common.threads.listener.ProgressNotifier;
+
 public class ThreadHandler<T> implements UncaughtExceptionHandler {
 
     ThreadGroup group;

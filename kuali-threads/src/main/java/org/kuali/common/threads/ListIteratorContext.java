@@ -2,6 +2,8 @@ package org.kuali.common.threads;
 
 import java.util.List;
 
+import org.kuali.common.threads.listener.ProgressNotifier;
+
 public class ListIteratorContext<T> {
     int id;
     int offset;
