@@ -1,7 +1,7 @@
 package org.kuali.common.threads;
 
 /**
- * Callback for handling an iteration over an element from a list
+ * Callback for handling one element from a list
  *
  * @param <T>
  */
