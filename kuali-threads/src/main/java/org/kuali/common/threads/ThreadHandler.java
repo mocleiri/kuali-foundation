@@ -27,6 +27,7 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
     int threadCount;
     ProgressNotifier<T> notifier;
     boolean rethrowException = true;
+    ExecutionStatistics executionStatistics;
 
     public ThreadGroup getGroup() {
         return group;
@@ -45,8 +46,15 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
     }
 
     public void executeThreads() {
+        long start = System.currentTimeMillis();
         start();
         join();
+        long millis = System.currentTimeMillis() - start;
+        ExecutionStatistics stats = new ExecutionStatistics();
+        stats.setExecutionTime(millis);
+        stats.setThreadCount(threadCount);
+        stats.setIterationCount(notifier.getProgress());
+        stats.setElementsPerThread(elementsPerThread);
         if (isThrowException()) {
             throw exception;
         }
@@ -119,5 +127,9 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
 
     public void setRethrowException(boolean rethrowException) {
         this.rethrowException = rethrowException;
+    }
+
+    public ExecutionStatistics getExecutionStatistics() {
+        return executionStatistics;
     }
 }
