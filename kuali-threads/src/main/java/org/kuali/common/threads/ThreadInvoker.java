@@ -13,8 +13,8 @@ public class ThreadInvoker {
 
     protected NumberFormat getNumberFormat() {
         NumberFormat nf = NumberFormat.getInstance();
-        nf.setMaximumFractionDigits(1);
-        nf.setMinimumFractionDigits(1);
+        nf.setMaximumFractionDigits(2);
+        nf.setMinimumFractionDigits(2);
         nf.setGroupingUsed(false);
         return nf;
     }
