@@ -23,7 +23,6 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
     Thread[] threads;
     ThreadHandlerException exception;
     boolean stopThreads;
-    int elementsPerThread;
     int threadCount;
     ProgressNotifier<T> notifier;
     boolean rethrowException = true;
@@ -54,7 +53,6 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
         executionStatistics.setExecutionTime(millis);
         executionStatistics.setThreadCount(threadCount);
         executionStatistics.setIterationCount(notifier.getProgress());
-        executionStatistics.setElementsPerThread(elementsPerThread);
 
         if (isThrowException()) {
             throw exception;
@@ -96,14 +94,6 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
 
     public ThreadHandlerException getException() {
         return exception;
-    }
-
-    public int getElementsPerThread() {
-        return elementsPerThread;
-    }
-
-    public void setElementsPerThread(int requestsPerThread) {
-        this.elementsPerThread = requestsPerThread;
     }
 
     public int getThreadCount() {

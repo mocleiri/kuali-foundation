@@ -1,5 +1,6 @@
 package org.kuali.common.threads;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,6 +9,15 @@ import org.slf4j.LoggerFactory;
 public class ThreadInvoker {
     private final Logger logger = LoggerFactory.getLogger(ThreadHandlerFactory.class);
     ThreadHandlerFactory factory = new ThreadHandlerFactory();
+    NumberFormat nf = getNumberFormat();
+
+    protected NumberFormat getNumberFormat() {
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(1);
+        nf.setMinimumFractionDigits(1);
+        nf.setGroupingUsed(false);
+        return nf;
+    }
 
     public <T> ExecutionStatistics invokeThreads(ThreadHandlerContext<T> context) {
         return invokeThreads(context, "Executing ");
@@ -18,9 +28,10 @@ public class ThreadInvoker {
             throw new IllegalArgumentException("Neither elementHandler nor list can be null");
         }
         ThreadHandler<T> handler = factory.getThreadHandler(context);
-        int elementsPerThread = handler.getElementsPerThread();
         int size = context.getList().size();
-        logger.info(msg + "[t:" + handler.getThreadCount() + " e:" + elementsPerThread + " s:" + size + "]");
+        int threads = handler.getThreadCount();
+        double elementsPerThread = (size * 1D) / threads;
+        logger.info(msg + "[t:" + threads + " e:" + nf.format(elementsPerThread) + " s:" + size + "]");
         handler.executeThreads();
         return handler.getExecutionStatistics();
     }
