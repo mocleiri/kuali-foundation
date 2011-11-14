@@ -11,6 +11,27 @@ import org.kuali.common.threads.listener.ProgressNotifier;
 public class ThreadHandlerFactory {
 
     /**
+     * Return an array of int's that represents as even of a split as possible
+     *
+     * For example: passing in 100,7 returns 15, 15, 14, 14, 14, 14, 14
+     *
+     * @param numerator
+     * @param denominator
+     * @return
+     */
+    protected int[] getDivideEvenly(int numerator, int denominator) {
+        int quotient = numerator / denominator;
+        int remainder = numerator % denominator;
+
+        int[] lengths = new int[denominator];
+        for (int i = 0; i < denominator; i++) {
+            int length = i < remainder ? quotient + 1 : quotient;
+            lengths[i] = length;
+        }
+        return lengths;
+    }
+
+    /**
      * Given some context, produce a ThreadHandler for iterating over the list of elements provided in the context
      *
      * @param <T>
@@ -25,14 +46,12 @@ public class ThreadHandlerFactory {
         int min = context.getMin();
 
         // Calculate # of threads and elements per thread
-        int initialThreadCount = getInitialThreadCount(max, min, elements, context.getDivisor());
-        int elementsPerThread = getElementsPerThread(initialThreadCount, elements);
-        int adjustedThreadCount = getAdjustedThreadCount(initialThreadCount, elementsPerThread, elements);
+        int threadCount = getThreadCount(max, min, elements, context.getDivisor());
+        int[] lengths = getDivideEvenly(elements, threadCount);
 
         // Create a new thread handler
         ThreadHandler<T> handler = new ThreadHandler<T>();
-        handler.setThreadCount(adjustedThreadCount);
-        handler.setElementsPerThread(elementsPerThread);
+        handler.setThreadCount(threadCount);
 
         // Setup a notifier/listener for tracking progress
         ProgressNotifier<T> notifier = new ProgressNotifier<T>();
@@ -43,7 +62,7 @@ public class ThreadHandlerFactory {
         // Create a thread group and threads
         ThreadGroup group = new ThreadGroup("List Iterator Threads");
         group.setDaemon(true);
-        Thread[] threads = getThreads(handler, list, context.getHandler());
+        Thread[] threads = getThreads(handler, list, context.getHandler(), lengths);
 
         // Store both in the handler
         handler.setGroup(group);
@@ -62,52 +81,36 @@ public class ThreadHandlerFactory {
      * @param elementHandler
      * @return
      */
-    protected <T> Thread[] getThreads(ThreadHandler<T> threadHandler, List<T> list, ElementHandler<T> elementHandler) {
+    protected <T> Thread[] getThreads(ThreadHandler<T> thandler, List<T> list, ElementHandler<T> ehandler, int[] lengths) {
         // Total threads we'll need
-        Thread[] threads = new Thread[threadHandler.getThreadCount()];
+        Thread[] threads = new Thread[thandler.getThreadCount()];
 
         // Create each thread
+        int offset = 0;
         for (int i = 0; i < threads.length; i++) {
 
             // Get an identifier for this thread
             int id = i + 1;
 
-            // Calculate an offset into the list for this thread
-            int offset = i * threadHandler.getElementsPerThread();
-
-            // Calculate how many elements this thread will iterate over
-            int length = getLength(threadHandler.getElementsPerThread(), list.size(), offset);
+            // The number of elements this thread needs to iterate over
+            int length = lengths[i];
 
             // Give this thread some context
             ListIteratorContext<T> context = new ListIteratorContext<T>(id, offset, length, list);
-            context.setNotifier(threadHandler.getNotifier());
-            context.setThreadHandler(threadHandler);
-            context.setElementHandler(elementHandler);
+            context.setNotifier(thandler.getNotifier());
+            context.setThreadHandler(thandler);
+            context.setElementHandler(ehandler);
 
             // Create a thread and store it in the array
             Runnable runnable = new ListIteratorThread<T>(context);
-            threads[i] = getThread(runnable, id, threadHandler.getGroup(), threadHandler);
+            threads[i] = getThread(runnable, id, thandler.getGroup(), thandler);
+
+            // Increment offset
+            offset += length;
         }
 
         // Return an array of threads ready to execute
         return threads;
-    }
-
-    /**
-     * Return elementsPerThread unless that would run us out past the end of the list. In that case, adjust length so we
-     * go to the end of the list
-     *
-     * @param elementsPerThread
-     * @param size
-     * @param offset
-     * @return
-     */
-    protected int getLength(int elementsPerThread, int size, int offset) {
-        int length = elementsPerThread;
-        if (offset + length > size) {
-            length = size - offset;
-        }
-        return length;
     }
 
     /**
@@ -128,8 +131,8 @@ public class ThreadHandlerFactory {
     }
 
     /**
-     * Come up with an initial calculation for the number of threads to use. The number returned here will never be
-     * greater than max. It may be less than min, but only in the case where elements is also less than min.
+     * Get the number of threads to use. The number returned here will never be greater than max. It may be less than
+     * min, but only in the case where elements is also less than min.
      *
      * @param max
      * @param min
@@ -137,68 +140,24 @@ public class ThreadHandlerFactory {
      * @param divisor
      * @return
      */
-    protected int getInitialThreadCount(int max, int min, int elements, int divisor) {
+    protected int getThreadCount(int max, int min, int elements, int divisor) {
 
         // Reduce max if appropriate
-        if (max > elements) {
-            max = elements;
-        }
+        max = (max > elements) ? elements : max;
 
         // Reduce min if appropriate
-        if (min > elements) {
-            min = elements;
-        }
-
-        // Start off aggressive
-        int threads = max;
+        min = (min > elements) ? elements : min;
 
         // Divisor allows clients to scale threads in proportion to the number of elements in the list
-        if (divisor > 0) {
-            threads = elements / divisor;
-        }
+        int threads = (divisor > 0) ? (elements / divisor) : max;
 
         // Reset to max if we have exceeded it
-        if (threads > max) {
-            threads = max;
-        }
+        threads = (threads > max) ? max : threads;
 
         // Reset to min if we have dropped below it
-        if (threads < min) {
-            threads = min;
-        }
+        threads = (threads < min) ? min : threads;
 
         // Return the thread count to use
-        return threads;
-    }
-
-    /**
-     * Return the minimum number of elements that must be assigned to each thread in order to cover every element
-     *
-     * @param threads
-     * @param elements
-     * @return
-     */
-    protected int getElementsPerThread(int threads, int elements) {
-        int elementsPerThread = elements / threads;
-        while (elementsPerThread * threads < elements) {
-            elementsPerThread++;
-        }
-        return elementsPerThread;
-    }
-
-    /**
-     * Given fixed numbers for elements and elemensPerThread, return the minimum number of threads needed to cover every
-     * element
-     *
-     * @param threads
-     * @param elementsPerThread
-     * @param elements
-     * @return
-     */
-    protected int getAdjustedThreadCount(int threads, int elementsPerThread, int elements) {
-        while (elementsPerThread * (threads - 1) > elements) {
-            threads--;
-        }
         return threads;
     }
 
