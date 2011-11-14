@@ -8,7 +8,7 @@
   </parent>
   <groupId>org.kuali.common.threads</groupId>
   <artifactId>kuali-threads</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>Kuali Threads</name>
   <description>Small helper package for writing multi-threaded apps</description>
   <properties>
@@ -48,8 +48,8 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-threads</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-threads</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/kuali-threads</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/kuali-threads-1.0.0</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/kuali-threads-1.0.0</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/kuali-threads-1.0.0</url>
   </scm>
 </project>
