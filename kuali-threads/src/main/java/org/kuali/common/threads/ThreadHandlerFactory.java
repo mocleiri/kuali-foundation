@@ -141,6 +141,11 @@ public class ThreadHandlerFactory {
      * @return
      */
     protected int getThreadCount(int max, int min, int elements, int divisor) {
+        // Reset min to max if needed
+        min = (min > max) ? max : min;
+
+        // Validate the params
+        validate(max, min, elements, divisor);
 
         // Reduce max if appropriate
         max = (max > elements) ? elements : max;
@@ -159,6 +164,28 @@ public class ThreadHandlerFactory {
 
         // Return the thread count to use
         return threads;
+    }
+
+    protected void validate(int max, int min, int elements, int divisor) {
+        StringBuilder sb = new StringBuilder();
+        if (divisor < 0) {
+            sb.append(" [divisor must be >= 0] ");
+        }
+        if (max < 1) {
+            sb.append(" [max must be >= 1] ");
+        }
+        if (min < 0) {
+            sb.append(" [min must be >= 0] ");
+        }
+        if (elements < 0) {
+            sb.append(" [elements must be >= 0] ");
+        }
+        if (min > max) {
+            sb.append(" [min must be <= max] ");
+        }
+        if (sb.length() > 0) {
+            throw new IllegalArgumentException(sb.toString());
+        }
     }
 
 }

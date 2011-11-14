@@ -21,4 +21,12 @@ public class ThreadHandlerFactoryTest {
         Assert.assertEquals(14, split[6]);
     }
 
+    @Test
+    public void testGetThreadCount() {
+        int threads1 = factory.getThreadCount(1, 0, 0, 0);
+        int threads2 = factory.getThreadCount(50, 10, 21826, 0);
+        System.out.println(threads1);
+        System.out.println(threads2);
+    }
+
 }
