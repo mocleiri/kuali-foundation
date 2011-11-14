@@ -9,7 +9,7 @@ public class ThreadHandlerFactoryTest {
     ThreadHandlerFactory factory = new ThreadHandlerFactory();
 
     @Test
-    public void testGetInitialThreadCount() {
+    public void testGetDivideEvenly() {
         int[] split = factory.getDivideEvenly(100, 7);
 
         Assert.assertEquals(15, split[0]);
