@@ -16,7 +16,8 @@
   limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali</groupId>
   <artifactId>kuali</artifactId>
@@ -109,6 +110,12 @@
     <kuali.repository.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repository.snapshot.url>
     <kuali.cm.tools.version>1.6</kuali.cm.tools.version>
     <plugin.project.info.reports.version>2.4</plugin.project.info.reports.version>
+    <kuali.releases.enabled>true</kuali.releases.enabled>
+    <kuali.snapshots.enabled>true</kuali.snapshots.enabled>
+    <kuali.repo.releases>${kuali.releases.enabled}</kuali.repo.releases>
+    <kuali.plugin.releases>${kuali.releases.enabled}</kuali.plugin.releases>
+    <kuali.repo.snapshots>${kuali.snapshots.enabled}</kuali.repo.snapshots>
+    <kuali.plugin.snapshots>${kuali.snapshots.enabled}</kuali.plugin.snapshots>
   </properties>
   <repositories>
     <repository>
@@ -116,10 +123,10 @@
       <name>Nexus Repository Manager</name>
       <url>http://nexus.kuali.org/content/groups/public</url>
       <releases>
-        <enabled>true</enabled>
+        <enabled>${kuali.repo.releases}</enabled>
       </releases>
       <snapshots>
-        <enabled>true</enabled>
+        <enabled>${kuali.repo.snapshots}</enabled>
       </snapshots>
     </repository>
   </repositories>
@@ -129,10 +136,10 @@
       <name>Nexus Repository Manager</name>
       <url>http://nexus.kuali.org/content/groups/public</url>
       <releases>
-        <enabled>true</enabled>
+        <enabled>${kuali.plugin.releases}</enabled>
       </releases>
       <snapshots>
-        <enabled>true</enabled>
+        <enabled>${kuali.plugin.snapshots}</enabled>
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
