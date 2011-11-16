@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-  Copyright 2004-11 2011 The Kuali Foundation
+    Copyright 2004-2011 The Kuali Foundation
 
-  Licensed under the Educational Community License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+    Licensed under the Educational Community License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-  http://www.opensource.org/licenses/ecl2.php
+    http://www.opensource.org/licenses/ecl2.php
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -110,18 +110,21 @@
     <kuali.repository.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repository.snapshot.url>
     <kuali.cm.tools.version>1.6</kuali.cm.tools.version>
     <plugin.project.info.reports.version>2.4</plugin.project.info.reports.version>
-    <kuali.releases.enabled>true</kuali.releases.enabled>
-    <kuali.snapshots.enabled>true</kuali.snapshots.enabled>
-    <kuali.repo.releases>${kuali.releases.enabled}</kuali.repo.releases>
-    <kuali.plugin.releases>${kuali.releases.enabled}</kuali.plugin.releases>
-    <kuali.repo.snapshots>${kuali.snapshots.enabled}</kuali.repo.snapshots>
-    <kuali.plugin.snapshots>${kuali.snapshots.enabled}</kuali.plugin.snapshots>
+
+    <!-- Properties for controlling repo settings -->
+    <kuali.releases>true</kuali.releases>
+    <kuali.snapshots>true</kuali.snapshots>
+    <kuali.repo.releases>${kuali.releases}</kuali.repo.releases>
+    <kuali.plugin.releases>${kuali.releases}</kuali.plugin.releases>
+    <kuali.repo.snapshots>${kuali.snapshots}</kuali.repo.snapshots>
+    <kuali.plugin.snapshots>${kuali.snapshots}</kuali.plugin.snapshots>
+    <kuali.repo>http://nexus.kuali.org/content/groups/public</kuali.repo>
   </properties>
   <repositories>
     <repository>
       <id>kuali.nexus</id>
       <name>Nexus Repository Manager</name>
-      <url>http://nexus.kuali.org/content/groups/public</url>
+      <url>${kuali.repo}</url>
       <releases>
         <enabled>${kuali.repo.releases}</enabled>
       </releases>
@@ -134,7 +137,7 @@
     <pluginRepository>
       <id>kuali.nexus</id>
       <name>Nexus Repository Manager</name>
-      <url>http://nexus.kuali.org/content/groups/public</url>
+      <url>${kuali.repo}</url>
       <releases>
         <enabled>${kuali.plugin.releases}</enabled>
       </releases>
