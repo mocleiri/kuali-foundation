@@ -31,7 +31,7 @@
   <publishDate format="yyyy-MM-dd" position="right" />
   <version position="right" />
   <poweredBy>
-    <logo name="Kuali Foundation" img="images/kuali/logo.png" href="http://www.kuali.org/" />
+    <logo name="The Kuali Foundation &amp;reg" img="images/kuali/logo.png" href="http://www.kuali.org/" />
   </poweredBy>
   <body>
     <head>
@@ -48,10 +48,7 @@
       <menu ref="parent" inherit="top" />
     -->
 
-    <!-- This isn't working due to this bug http://jira.codehaus.org/browse/MSITE-532
-      They've already fixed the issue, so we are just waiting on maven-site-plugin 3.0-beta4 to be published
-      <menu ref="modules" inherit="top"/>
-    -->
+    <menu ref="modules" inherit="top"/>
     <menu ref="reports" inherit="bottom" />
   </body>
 </project>
