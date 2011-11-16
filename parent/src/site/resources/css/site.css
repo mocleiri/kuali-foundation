@@ -37,5 +37,13 @@
 }
 
 #footer .xright a {
-	display:none;
+  display:none;
+}
+
+.section h2 {
+}
+.section h3 {
+  color:#fff;
+  background-color:#696969;
+  background-image:none;
 }
