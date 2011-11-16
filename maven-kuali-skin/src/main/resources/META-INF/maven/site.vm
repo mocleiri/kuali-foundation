@@ -466,7 +466,7 @@
     </div>
     <div id="breadcrumbs">
       #publishDate( "left" $decoration.publishDate $decoration.version )
-      <div class="xright">#links( $decoration.body.links )#publishDate( "right" $decoration.publishDate $decoration.version )</div>
+      <div class="xright"><span class="xrighttop">#links( $decoration.body.links )#publishDate( "right" $decoration.publishDate $decoration.version )<span></div>
       <div class="clear">
         <hr/>
       </div>
