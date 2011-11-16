@@ -18,20 +18,27 @@
 -->
 <project>
   <bannerLeft>
-    <name></name>
+    <name>Open Source Administrative Software</name>
   </bannerLeft>
   <bannerRight>
-    <name></name>
+    <name>By higher education, for higher education.</name>
   </bannerRight>
+  <!-- 
   <skin>
     <groupId>org.kuali.maven.skins</groupId>
     <artifactId>maven-kuali-skin</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
+  </skin>
+   -->
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-stylus-skin</artifactId>
+    <version>1.2</version>
   </skin>
   <publishDate format="yyyy-MM-dd" position="right" />
   <version position="right" />
   <poweredBy>
-    <logo name="Kuali" img="images/kuali.png" href="http://www.kuali.org/" />
+    <logo name="Kuali" img="images/kuali/logo.png" href="http://www.kuali.org/" />
   </poweredBy>
   <body>
     <head>
