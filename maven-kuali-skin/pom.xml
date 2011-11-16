@@ -30,15 +30,15 @@
 
   <groupId>org.kuali.maven.skins</groupId>
   <artifactId>maven-kuali-skin</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
 
   <name>Kuali Site Skin</name>
   <description>Kuali Site Skin</description>
 
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-kuali-skin-1.0</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-kuali-skin-1.0</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/tags/maven-kuali-skin-1.0</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-kuali-skin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-kuali-skin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/maven-kuali-skin</url>
   </scm>
 </project>
 
