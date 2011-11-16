@@ -458,8 +458,12 @@
   </head>
   <body class="composite">
     <div id="banner">
-      #banner( $decoration.bannerLeft "bannerLeft" )
-      #banner( $decoration.bannerRight "bannerRight" )
+      <span id="bannertop">
+       Open Source Administrative Software
+      </span>
+      <span id="bannerbottom">
+       By higher education, for higher education.
+      </span>
       <div class="clear">
         <hr/>
       </div>

@@ -41,7 +41,33 @@ div.clear hr{
 }
 #banner {
   padding: 0px;
+  text-align:center;
 }
+
+#bannertop {
+ width:100%;
+ padding-top:10px; 
+ display:block; 
+ COLOR: #FFFFFF; 
+ FONT-WEIGHT: 575; 
+ FONT-SIZE: 2.25em; 
+ LINE-HEIGHT: 1.2em; 
+ FONT-FAMILY: 'EB Garamond','Sorts Mill Goudy', Georgia, serif; 
+ text-shadow: 0 0 5px rgba(0,0,0,.01)
+}
+
+#bannerbottom { 
+ width:100%;
+ display:block;
+ padding-top:3px;
+ FONT-SIZE: 1.5em;
+ COLOR: #b3b3b3;
+ MARGIN-RIGHT: 70px;
+ FONT-STYLE: italic;
+ FONT-FAMILY: Georgia, serif;
+ text-shadow: 0 0 5px rgba(0,0,0,.2)
+}
+
 #banner img {
   border: none;
 }
