@@ -156,7 +156,7 @@
       <id>${kuali.site.server.id}</id>
       <name>Maven Site</name>
       <!-- The site publication url is filled in by the maven-kualisite-plugin -->
-      <url>${kuali.site.publish.url}</url>
+      <url>s3://site.origin.kuali.org</url>
     </site>
     <repository>
       <id>${kuali.repository.release.id}</id>
@@ -270,7 +270,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-kualisite-plugin</artifactId>
-          <version>1.0.4</version>
+          <version>1.0.5-SNAPSHOT</version>
           <configuration>
             <organizationGroupId>${kuali.organization.group.id}</organizationGroupId>
             <bucket>${kuali.site.bucket}</bucket>
