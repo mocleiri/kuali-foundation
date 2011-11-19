@@ -138,8 +138,20 @@
     <property name="tomcat.user" value="tomcat${tomcat.instance}" />
     <property name="root.war" value="/usr/local/${tomcat.user}/webapps/ROOT.war" />
     <property name="root.dir" value="/usr/local/${tomcat.user}/webapps/ROOT" />
+    <property name="jenkins.config" value="/home/${tomcat.user}/.jenkins" />
 
+    <exec executable="su">
+      <arg value="-" />
+      <arg value="${tomcat.user}" />
+      <arg value="forced-shutdown.sh" />
+    </exec>
+    <exec executable="su">
+      <arg value="-" />
+      <arg value="${tomcat.user}" />
+      <arg value="cleanup.sh" />
+    </exec>
     <delete dir="${root.dir}" />
+    <delete dir="${jenkins.config}" />
     <delete file="${root.war}" />
     <copy file="${jenkins.war}" tofile="${root.war}" />
     <exec executable="chown">
