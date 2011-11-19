@@ -159,7 +159,7 @@
         <jenkins.groupId>org.jenkins</jenkins.groupId>
         <jenkins.artifactId>jenkins</jenkins.artifactId>
         <jenkins.version>1.440</jenkins.version>
-        <jenkins.war>target/dependency/${jenkins.artifactId}-${jenkins.version}</jenkins.war>
+        <jenkins.war>target/dependency/${jenkins.artifactId}-${jenkins.version}.war</jenkins.war>
         <tomcat.instance>1</tomcat.instance>
         <ant.phase>process-resources</ant.phase>
         <ant.target>installjenkins</ant.target>
