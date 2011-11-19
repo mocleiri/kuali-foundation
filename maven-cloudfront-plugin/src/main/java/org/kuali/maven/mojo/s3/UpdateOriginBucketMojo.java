@@ -76,6 +76,14 @@ public class UpdateOriginBucketMojo extends S3Mojo {
     S3DataConverter converter;
 
     /**
+     * GAV strings representing organizational poms eg "org.kuali.pom:kuali" or "org.kuali.pom:kuali-common". Version is
+     * ignored, only groupId and artifactId are relevant.
+     *
+     * @parameter
+     */
+    private List<String> orgPomGavs;
+
+    /**
      * The max number of threads to use when making calls to S3
      *
      * @parameter expression="${cloudfront.threads}" default-value="20"
@@ -426,12 +434,8 @@ public class UpdateOriginBucketMojo extends S3Mojo {
      * @param groupId
      * @return
      */
-    protected String getDefaultPrefix(MavenProject project, String groupId) {
-        if (builder.isBaseCase(project, groupId)) {
-            return builder.getSitePath(project, groupId) + "/" + project.getVersion();
-        } else {
-            return getDefaultPrefix(project.getParent(), groupId) + "/" + project.getArtifactId();
-        }
+    protected String getDefaultPrefix(MavenProject project, String orgGroupId) {
+        return builder.getSitePath(project, null, orgGroupId);
     }
 
     /**
@@ -809,5 +813,13 @@ public class UpdateOriginBucketMojo extends S3Mojo {
 
     public void setAcl(CannedAccessControlList acl) {
         this.acl = acl;
+    }
+
+    public List<String> getOrgPomGavs() {
+        return orgPomGavs;
+    }
+
+    public void setOrgPomGavs(List<String> orgPomGavs) {
+        this.orgPomGavs = orgPomGavs;
     }
 }
