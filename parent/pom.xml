@@ -119,6 +119,11 @@
     <kuali.repo.snapshots>${kuali.snapshots}</kuali.repo.snapshots>
     <kuali.plugin.releases>${kuali.releases}</kuali.plugin.releases>
     <kuali.plugin.snapshots>${kuali.snapshots}</kuali.plugin.snapshots>
+    <gpg.phase>install</gpg.phase>
+    <cloudfront.phase>site-deploy</cloudfront.phase>
+    <ksite.phase>pre-site</ksite.phase>
+    <site.publish.base>s3://site.origin.kuali.org</site.publish.base>
+    <kuali.site.publish.url>${site.publish.base}/${site.publish.path}</kuali.site.publish.url>
   </properties>
   <repositories>
     <repository>
@@ -153,9 +158,9 @@
     <downloadUrl>${kuali.site.download.url}</downloadUrl>
     <site>
       <id>${kuali.site.server.id}</id>
-      <name>Maven Site</name>
+      <name>Kuali Maven Site</name>
       <!-- The site publication url is filled in by the maven-ksite-plugin -->
-      <url>s3://site.origin.kuali.org</url>
+      <url>${kuali.site.publish.url}</url>
     </site>
     <repository>
       <id>${kuali.repository.release.id}</id>
@@ -384,7 +389,7 @@
         <executions>
           <execution>
             <id>ksite-set</id>
-            <phase>pre-site</phase>
+            <phase>${ksite.phase}</phase>
             <goals>
               <goal>set</goal>
             </goals>
@@ -397,7 +402,7 @@
         <executions>
           <execution>
             <id>update-s3-bucket-indexes</id>
-            <phase>site-deploy</phase>
+            <phase>${cloudfront.phase}</phase>
             <goals>
               <goal>updateoriginbucket</goal>
             </goals>
@@ -592,6 +597,7 @@
             <executions>
               <execution>
                 <id>sign-artifacts</id>
+                <phase>${gpg.phase}</phase>
                 <goals>
                   <goal>sign</goal>
                 </goals>
