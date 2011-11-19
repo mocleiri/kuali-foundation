@@ -21,19 +21,6 @@
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</url>
   </scm>
-  <repositories>
-    <repository>
-      <id>kuali.nexus</id>
-      <name>Nexus Repository Manager</name>
-      <url>http://nexus.kuali.org/content/groups/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
