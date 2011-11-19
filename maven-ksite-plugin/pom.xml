@@ -100,8 +100,8 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:svn:https://test.kuali.org/svn/student/deploymentlab/trunk/maven-kualisite-plugin</connection>
-    <developerConnection>scm:svn:https://test.kuali.org/svn/student/deploymentlab/trunk/maven-kualisite-plugin</developerConnection>
-    <url>http://test.kuali.org/svn/student/deploymentlab/trunk/maven-kualisite-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-kualisite-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-kualisite-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/maven-kualisite-plugin</url>
   </scm>
 </project>
