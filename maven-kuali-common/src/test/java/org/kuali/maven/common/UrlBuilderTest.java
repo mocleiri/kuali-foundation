@@ -74,13 +74,13 @@ public class UrlBuilderTest {
     @Test
     public void test1() {
         MavenProject project = getTopLevelRice();
-        // show(project);
+        show(project);
     }
 
     @Test
     public void test2() {
         MavenProject project = getMavenProject(getKualiParentGAV());
-        // show(project);
+        show(project);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class UrlBuilderTest {
         MavenProjectTest project = getTopLevelRice();
         List<MavenProjectTest> children = project.getChildren();
         for (MavenProjectTest child : children) {
-            // show(child);
+            show(child);
         }
 
     }
