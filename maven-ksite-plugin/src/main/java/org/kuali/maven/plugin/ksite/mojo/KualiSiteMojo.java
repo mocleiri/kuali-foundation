@@ -253,7 +253,6 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
     }
 
     public void setPublishBase(String publishBase) {
-        getLog().info("setPublishBase=" + publishBase);
         this.publishBase = publishBase;
     }
 
