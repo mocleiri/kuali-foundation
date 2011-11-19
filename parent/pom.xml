@@ -16,9 +16,10 @@
   limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.kuali</groupId>
+  <groupId>org.kuali.pom</groupId>
   <artifactId>kuali</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -82,7 +83,7 @@
     <kuali.ecl.license.url>http://maven.kuali.org/external/org/opensource/ecl/2.0/ecl-2.0.txt</kuali.ecl.license.url>
 
     <!-- This must be the same as the groupId for this pom -->
-    <kuali.organization.group.id>org.kuali</kuali.organization.group.id>
+    <kuali.groupId>org.kuali</kuali.groupId>
 
     <!-- These properties are used when generating/deploying the maven generated site -->
     <kuali.site.plugin.version>3.0</kuali.site.plugin.version>
@@ -119,11 +120,15 @@
     <kuali.repo.snapshots>${kuali.snapshots}</kuali.repo.snapshots>
     <kuali.plugin.releases>${kuali.releases}</kuali.plugin.releases>
     <kuali.plugin.snapshots>${kuali.snapshots}</kuali.plugin.snapshots>
-    <gpg.phase>install</gpg.phase>
-    <cloudfront.phase>site-deploy</cloudfront.phase>
+
+
+    <kuali.gpg.phase>install</kuali.gpg.phase>
+    <kuali.cloudfront.phase>site-deploy</kuali.cloudfront.phase>
+
     <ksite.phase>pre-site</ksite.phase>
-    <site.publish.base>s3://site.origin.kuali.org</site.publish.base>
-    <kuali.site.publish.url>${site.publish.base}/${site.publish.path}</kuali.site.publish.url>
+    <ksite.publishBase>s3://site.origin.kuali.org</ksite.publishBase>
+    <ksite.publicBase>http://${kuali.site.hostname}</ksite.publicBase>
+    <ksite.downloadBase>http://s3browse.springsource.com/browse/maven.kuali.org</ksite.downloadBase>
   </properties>
   <repositories>
     <repository>
@@ -151,15 +156,12 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
-  <!-- The public url is filled in by the maven-ksite-plugin -->
   <url>${kuali.site.public.url}</url>
   <distributionManagement>
-    <!-- The download url is filled in by the maven-ksite-plugin -->
     <downloadUrl>${kuali.site.download.url}</downloadUrl>
     <site>
       <id>${kuali.site.server.id}</id>
       <name>Kuali Maven Site</name>
-      <!-- The site publication url is filled in by the maven-ksite-plugin -->
       <url>${kuali.site.publish.url}</url>
     </site>
     <repository>
@@ -203,7 +205,6 @@
             <forceMojoExecution>true</forceMojoExecution>
             <bucket>${kuali.site.bucket}</bucket>
             <serverId>${kuali.site.server.id}</serverId>
-            <recurse>${kuali.site.bucket.recurse}</recurse>
           </configuration>
         </plugin>
         <plugin>
@@ -276,9 +277,18 @@
           <artifactId>maven-ksite-plugin</artifactId>
           <version>1.1.0-SNAPSHOT</version>
           <configuration>
-            <organizationGroupId>${kuali.organization.group.id}</organizationGroupId>
-            <bucket>${kuali.site.bucket}</bucket>
-            <hostname>${kuali.site.hostname}</hostname>
+            <organizationGroupId>${kuali.groupId}</organizationGroupId>
+            <downloadExternalPath>external</downloadExternalPath>
+            <downloadReleasePath>release</downloadReleasePath>
+            <downloadSnapshotPath>snapshot</downloadSnapshotPath>
+            <downloadBase>${ksite.downloadBase}</downloadBase>
+            <publishBase>${ksite.publishBase}</publishBase>
+            <publicBase>${ksite.publicBase}</publicBase>
+            <snapshotSnippet>SNAPSHOT</snapshotSnippet>
+            <orgPomGavs>
+              <param>org.kuali.pom:kuali</param>
+              <param>org.kuali.pom:kuali-common</param>
+            </orgPomGavs>
           </configuration>
         </plugin>
         <plugin>
