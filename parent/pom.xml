@@ -114,11 +114,11 @@
     <!-- Properties for controlling repo settings -->
     <kuali.releases>true</kuali.releases>
     <kuali.snapshots>true</kuali.snapshots>
-    <kuali.repo.releases>${kuali.releases}</kuali.repo.releases>
-    <kuali.plugin.releases>${kuali.releases}</kuali.plugin.releases>
-    <kuali.repo.snapshots>${kuali.snapshots}</kuali.repo.snapshots>
-    <kuali.plugin.snapshots>${kuali.snapshots}</kuali.plugin.snapshots>
     <kuali.repo>http://nexus.kuali.org/content/groups/public</kuali.repo>
+    <kuali.repo.releases>${kuali.releases}</kuali.repo.releases>
+    <kuali.repo.snapshots>${kuali.snapshots}</kuali.repo.snapshots>
+    <kuali.plugin.releases>${kuali.releases}</kuali.plugin.releases>
+    <kuali.plugin.snapshots>${kuali.snapshots}</kuali.plugin.snapshots>
   </properties>
   <repositories>
     <repository>
@@ -146,15 +146,15 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
-  <!-- The public url is filled in by the maven-kualisite-plugin -->
+  <!-- The public url is filled in by the maven-ksite-plugin -->
   <url>${kuali.site.public.url}</url>
   <distributionManagement>
-    <!-- The download url is filled in by the maven-kualisite-plugin -->
+    <!-- The download url is filled in by the maven-ksite-plugin -->
     <downloadUrl>${kuali.site.download.url}</downloadUrl>
     <site>
       <id>${kuali.site.server.id}</id>
       <name>Maven Site</name>
-      <!-- The site publication url is filled in by the maven-kualisite-plugin -->
+      <!-- The site publication url is filled in by the maven-ksite-plugin -->
       <url>s3://site.origin.kuali.org</url>
     </site>
     <repository>
@@ -268,8 +268,8 @@
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>maven-kualisite-plugin</artifactId>
-          <version>1.0.5-SNAPSHOT</version>
+          <artifactId>maven-ksite-plugin</artifactId>
+          <version>1.1.0-SNAPSHOT</version>
           <configuration>
             <organizationGroupId>${kuali.organization.group.id}</organizationGroupId>
             <bucket>${kuali.site.bucket}</bucket>
@@ -380,13 +380,13 @@
     <plugins>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
-        <artifactId>maven-kualisite-plugin</artifactId>
+        <artifactId>maven-ksite-plugin</artifactId>
         <executions>
           <execution>
-            <id>site-kuali-properties</id>
+            <id>ksite-set</id>
             <phase>pre-site</phase>
             <goals>
-              <goal>updatesiteproperties</goal>
+              <goal>set</goal>
             </goals>
           </execution>
         </executions>
@@ -423,6 +423,11 @@
         <pluginManagement>
           <plugins>
             <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>buildnumber-maven-plugin</artifactId>
+              <version>1.0</version>
+            </plugin>
+            <plugin>
               <groupId>com.mycila.maven-license-plugin</groupId>
               <artifactId>maven-license-plugin</artifactId>
               <version>1.9.0</version>
@@ -451,11 +456,6 @@
                 <basedir>${project.basedir}</basedir>
                 <message>Automated license header update</message>
               </configuration>
-            </plugin>
-            <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>buildnumber-maven-plugin</artifactId>
-              <version>1.0</version>
             </plugin>
           </plugins>
         </pluginManagement>
