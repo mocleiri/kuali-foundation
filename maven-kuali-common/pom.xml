@@ -17,9 +17,9 @@
     <kuali.maven.plugin.version>3.0.1</kuali.maven.plugin.version>
   </properties>
   <scm>
-    <connection>scm:svn:https://test.kuali.org/svn/student/deploymentlab/trunk/maven-kuali-common</connection>
-    <developerConnection>scm:svn:https://test.kuali.org/svn/student/deploymentlab/trunk/maven-kuali-common</developerConnection>
-    <url>https://test.kuali.org/svn/student/deploymentlab/trunk/maven-kuali-common</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</url>
   </scm>
   <repositories>
     <repository>
