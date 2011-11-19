@@ -83,8 +83,8 @@ p {
 }
 #breadcrumbs {
   height: 13px;
+  background-image: url(../images/breadcrumbs.jpg);
   padding: 5px 10px 14px 20px;
-  background-color:#A40000;
 }
 * html #breadcrumbs {
   padding-bottom: 8px;
@@ -166,9 +166,6 @@ table {
 }
 .xright a:hover {
   color: #003300;
-}
-.xrighttop {
-  color: #ffffff;
 }
 #banner {
   height: 93px;
