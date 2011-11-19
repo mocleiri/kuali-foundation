@@ -16,8 +16,7 @@
   limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali.pom</groupId>
   <artifactId>kuali</artifactId>
@@ -82,10 +81,10 @@
     <!-- This is used in the licenses section as well as the jar/war plugins -->
     <kuali.ecl.license.url>http://maven.kuali.org/external/org/opensource/ecl/2.0/ecl-2.0.txt</kuali.ecl.license.url>
 
-    <!-- This must be the same as the groupId for this pom -->
-    <kuali.groupId>org.kuali</kuali.groupId>
-
     <!-- These properties are used when generating/deploying the maven generated site -->
+    <kuali.groupId>org.kuali</kuali.groupId>
+    <kuali.pom.1>org.kuali.pom:kuali</kuali.pom.1>
+    <kuali.pom.2>org.kuali.pom:kuali-common</kuali.pom.2>
     <kuali.site.plugin.version>3.0</kuali.site.plugin.version>
     <kuali.site.bucket>site.origin.kuali.org</kuali.site.bucket>
     <kuali.site.hostname>site.kuali.org</kuali.site.hostname>
@@ -126,7 +125,7 @@
     <kuali.cloudfront.phase>site-deploy</kuali.cloudfront.phase>
 
     <ksite.phase>pre-site</ksite.phase>
-    <ksite.publishBase>s3://site.origin.kuali.org</ksite.publishBase>
+    <ksite.publishBase>s3://${kuali.site.bucket}</ksite.publishBase>
     <ksite.publicBase>http://${kuali.site.hostname}</ksite.publicBase>
     <ksite.downloadBase>http://s3browse.springsource.com/browse/maven.kuali.org</ksite.downloadBase>
   </properties>
@@ -199,12 +198,16 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-cloudfront-plugin</artifactId>
-          <version>1.1.0</version>
+          <version>1.1.1-SNAPSHOT</version>
           <configuration>
             <organizationGroupId>${kuali.organization.group.id}</organizationGroupId>
             <forceMojoExecution>true</forceMojoExecution>
             <bucket>${kuali.site.bucket}</bucket>
             <serverId>${kuali.site.server.id}</serverId>
+            <orgPomGavs>
+              <param>${kuali.pom.1}</param>
+              <param>${kuali.pom.2}</param>
+            </orgPomGavs>
           </configuration>
         </plugin>
         <plugin>
@@ -286,8 +289,8 @@
             <publicBase>${ksite.publicBase}</publicBase>
             <snapshotSnippet>SNAPSHOT</snapshotSnippet>
             <orgPomGavs>
-              <param>org.kuali.pom:kuali</param>
-              <param>org.kuali.pom:kuali-common</param>
+              <param>${kuali.pom.1}</param>
+              <param>${kuali.pom.2}</param>
             </orgPomGavs>
           </configuration>
         </plugin>
