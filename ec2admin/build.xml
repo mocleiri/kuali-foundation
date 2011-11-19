@@ -134,11 +134,15 @@
     <symlink link="/usr/local/tomcat" resource="${tomcat.dir}" />
   </target>
 
-  <target name="installjenkins" depends="jenkinsinit">
+  <target name="deletejenkinsconfig" depends="jenkinsinit">
+    <property name="jenkins.config" value="/home/${tomcat.user}/.jenkins" />
+    <delete dir="${jenkins.config}" />
+  </target>
+
+  <target name="upgradejenkins" depends="jenkinsinit">
     <property name="tomcat.user" value="tomcat${tomcat.instance}" />
     <property name="root.war" value="/usr/local/${tomcat.user}/webapps/ROOT.war" />
     <property name="root.dir" value="/usr/local/${tomcat.user}/webapps/ROOT" />
-    <property name="jenkins.config" value="/home/${tomcat.user}/.jenkins" />
 
     <exec executable="su">
       <arg value="-" />
@@ -151,13 +155,17 @@
       <arg value="cleanup.sh" />
     </exec>
     <delete dir="${root.dir}" />
-    <delete dir="${jenkins.config}" />
     <delete file="${root.war}" />
     <copy file="${jenkins.war}" tofile="${root.war}" />
     <exec executable="chown">
       <arg value="${tomcat.user}:tomcat" />
       <arg value="${root.war}" />
     </exec>
+  </target>
+
+  <target name="installjenkins" depends="jenkinsinit">
+    <antcall target="upgradejenkins" />
+    <antcall target="deletejenkinsconfig" />
   </target>
 
   <target name="remove" depends="init">
