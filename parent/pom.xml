@@ -201,7 +201,7 @@
           <artifactId>maven-cloudfront-plugin</artifactId>
           <version>1.1.1-SNAPSHOT</version>
           <configuration>
-            <organizationGroupId>${kuali.organization.group.id}</organizationGroupId>
+            <organizationGroupId>${kuali.groupId}</organizationGroupId>
             <forceMojoExecution>true</forceMojoExecution>
             <bucket>${kuali.site.bucket}</bucket>
             <serverId>${kuali.site.server.id}</serverId>
