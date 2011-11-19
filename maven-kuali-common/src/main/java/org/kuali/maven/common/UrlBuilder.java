@@ -247,7 +247,9 @@ public class UrlBuilder {
         String trimmedGroupId = getTrimmedGroupId(project, context.getOrganizationGroupId());
 
         // Convert dots to slashes, and add to our list of tokens
-        tokens.add(getGroupIdPath(trimmedGroupId));
+        if (trimmedGroupId.length() > 0) {
+            tokens.add(getGroupIdPath(trimmedGroupId));
+        }
 
         // Only time we don't append the artifact id is when it matches the final portion of the group id
         boolean appendArtifactId = isAppendArtifactId(project, trimmedGroupId);
