@@ -36,7 +36,7 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
     private String downloadReleasePath;
 
     /**
-     * The path into the bucket when downloading a release version
+     * The path into the bucket for artifacts not produced by kuali
      *
      * @parameter expression="${ksite.downloadExternalPath}" default-value="external"
      */
@@ -45,14 +45,14 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
     /**
      * The base url for publishing Maven web sites
      *
-     * @parameter expression="${ksite.publishUrlBase}" default-value="s3://site.origin.kuali.org"
+     * @parameter expression="${ksite.publishBase}" default-value="s3://site.origin.kuali.org"
      */
     private String publishBase;
 
     /**
-     * The base url for where the public accesses the Maven web sites
+     * The base url for public access to the Maven web sites
      *
-     * @parameter expression="${ksite.publicUrlBase}" default-value="http://site.kuali.org"
+     * @parameter expression="${ksite.publicBase}" default-value="http://site.kuali.org"
      */
     private String publicBase;
 
@@ -65,7 +65,7 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
     private String downloadBase;
 
     /**
-     * The groupId for the organization
+     * The groupId for the Kuali organization
      *
      * @parameter expression="${ksite.organizationGroupId}" default-value="org.kuali"
      */
@@ -144,7 +144,7 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
     }
 
     /**
-     * Return true if "s" is empty or is an unresolved property
+     * Return true if "s" is empty or contains an unresolved property
      */
     protected boolean isUnresolved(String s) {
         if (StringUtils.isEmpty(s)) {
@@ -304,6 +304,7 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
     }
 
     public void setPublishBase(String publishBase) {
+        getLog().info("setPublishBase=" + publishBase);
         this.publishBase = publishBase;
     }
 
