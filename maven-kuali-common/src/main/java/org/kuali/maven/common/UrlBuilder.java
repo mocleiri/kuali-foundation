@@ -17,14 +17,14 @@ public class UrlBuilder {
     private static final Logger logger = LoggerFactory.getLogger(UrlBuilder.class);
 
     /**
-     * Return the fully qualified url where this MavenProject will be published.
+     * Return the fully qualified url for publishing the web site
      */
     public String getPublishUrl(MavenProject project, SiteContext context) {
         return getSiteUrl(project, context, context.getPublishBase());
     }
 
     /**
-     * Return the fully qualified url where this MavenProject will be published.
+     * Return the fully qualified url for public access to the web site
      */
     public String getPublicUrl(MavenProject project, SiteContext context) {
         return getSiteUrl(project, context, context.getPublicBase());
@@ -159,7 +159,7 @@ public class UrlBuilder {
     }
 
     /**
-     * Returns a fully qualified url
+     * Return a fully qualified url
      */
     protected String getSiteUrl(MavenProject project, SiteContext context, String urlBase) {
         StringBuilder sb = new StringBuilder();
@@ -189,7 +189,7 @@ public class UrlBuilder {
      * Return a list of tokens representing url paths for this project
      */
     protected List<String> getUrlTokens(MavenProject project, SiteContext context) {
-        // Determine if this is a top level org pom
+        // Determine if the project they passed in is a top level pom
         boolean orgPom = isMatch(project, context.getOrgPoms());
         if (orgPom) {
             // If so, just return top level tokens
@@ -210,11 +210,10 @@ public class UrlBuilder {
     protected List<String> getUrlTokens(List<MavenProject> projects, SiteContext context) {
         List<String> tokens = new ArrayList<String>();
         for (MavenProject project : projects) {
-            // If it is an org pom, just skip it
+            // If it is an org pom, skip it, since they are not needed
+            // for calculating the url used for the site path
             boolean orgPom = isMatch(project, context.getOrgPoms());
-            if (orgPom) {
-                continue;
-            } else {
+            if (!orgPom) {
                 // Add tokens appropriate for this project
                 addProjectTokens(project, context, tokens);
             }
