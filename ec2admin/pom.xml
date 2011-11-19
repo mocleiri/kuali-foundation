@@ -159,7 +159,7 @@
         <jenkins.groupId>org.jenkins</jenkins.groupId>
         <jenkins.artifactId>jenkins</jenkins.artifactId>
         <jenkins.artifactId>1.440</jenkins.artifactId>
-        <ant.phase>process-resources</ant.phase>
+        <ant.phase>none</ant.phase>
         <ant.target>installjenkins</ant.target>
       </properties>
       <build>
