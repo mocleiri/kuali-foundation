@@ -435,7 +435,8 @@ public class UpdateOriginBucketMojo extends S3Mojo {
      * @return
      */
     protected String getDefaultPrefix(MavenProject project, String orgGroupId) {
-        return builder.getSitePath(project, null, orgGroupId);
+        List<MavenProject> orgPoms = builder.getMavenProjects(orgPomGavs);
+        return builder.getSitePath(project, orgPoms, orgGroupId);
     }
 
     /**
