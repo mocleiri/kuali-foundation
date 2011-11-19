@@ -140,6 +140,7 @@
 
     <delete dir="${root.dir}" />
     <delete file="${root.war}" />
+    <copy file="${jenkins.war}" tofile="${root.war}" />
   </target>
 
   <target name="remove" depends="init">
