@@ -20,6 +20,7 @@ import org.kuali.maven.common.UrlBuilder;
  * @phase pre-site
  */
 public class KualiSiteMojo extends AbstractMojo implements SiteContext {
+    UrlBuilder builder = new UrlBuilder();
 
     /**
      * The path into the bucket when downloading a snapshot version
@@ -120,7 +121,6 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        UrlBuilder builder = new UrlBuilder();
 
         // Generate our urls
         String publicUrl = builder.getPublicUrl(getProject(), this);
@@ -139,21 +139,6 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
 
     }
 
-    protected boolean containsUnresolvedProperty(String s) {
-        return s.contains("${");
-    }
-
-    /**
-     * Return true if "s" is empty or contains an unresolved property
-     */
-    protected boolean isUnresolved(String s) {
-        if (StringUtils.isEmpty(s)) {
-            return true;
-        } else {
-            return containsUnresolvedProperty(s);
-        }
-    }
-
     protected void warn(String pomString, String calculatedString, String propertyDescription) {
         getLog().warn("****************************************");
         getLog().warn(propertyDescription + " mismatch");
@@ -162,53 +147,37 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
         getLog().warn("****************************************");
     }
 
-    /**
-     * Return true if the 2 urls are exactly the same or if the only thing different about them is a trailing slash
-     */
-    protected boolean isUrlMatch(String url1, String url2) {
-        if (url1.equals(url2)) {
-            return true;
-        }
-        if ((url1 + "/").equals(url2)) {
-            return true;
-        }
-        if (url1.equals(url2 + "/")) {
-            return true;
-        }
-        return false;
-    }
-
     protected void handleDownloadUrl(String downloadUrl, DistributionManagement dm) {
-        if (isUnresolved(dm.getDownloadUrl())) {
+        if (builder.isUnresolved(dm.getDownloadUrl())) {
             getLog().info("Setting download url to " + downloadUrl);
             dm.setDownloadUrl(downloadUrl);
             return;
         }
-        if (!isUrlMatch(downloadUrl, dm.getDownloadUrl())) {
+        if (!builder.isUrlMatch(downloadUrl, dm.getDownloadUrl())) {
             warn(dm.getDownloadUrl(), downloadUrl, "Download url");
         }
         getLog().info("Using download url from the POM " + dm.getDownloadUrl());
     }
 
     protected void handlePublishUrl(String publishUrl, Site site) {
-        if (isUnresolved(site.getUrl())) {
+        if (builder.isUnresolved(site.getUrl())) {
             getLog().info("Setting site publication url to " + publishUrl);
             site.setUrl(publishUrl);
             return;
         }
-        if (!isUrlMatch(publishUrl, site.getUrl())) {
+        if (!builder.isUrlMatch(publishUrl, site.getUrl())) {
             warn(site.getUrl(), publishUrl, "Site publication url");
         }
         getLog().info("Using site publication url - " + site.getUrl());
     }
 
     protected void handlePublicUrl(String publicUrl, MavenProject project) {
-        if (isUnresolved(project.getUrl())) {
+        if (builder.isUnresolved(project.getUrl())) {
             getLog().info("Setting public url to " + publicUrl);
             project.setUrl(publicUrl);
             return;
         }
-        if (!isUrlMatch(publicUrl, project.getUrl())) {
+        if (!builder.isUrlMatch(publicUrl, project.getUrl())) {
             warn(project.getUrl(), publicUrl, "Public url");
         }
         getLog().info("Using public url from the POM " + project.getUrl());

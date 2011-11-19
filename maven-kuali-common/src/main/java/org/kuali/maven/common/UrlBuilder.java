@@ -364,4 +364,86 @@ public class UrlBuilder {
         }
     }
 
+    /**
+     * Return true if the string contains "${", false otherwise.
+     */
+    public boolean containsUnresolvedProperty(String s) {
+        return s.contains("${");
+    }
+
+    /**
+     * Return true if the string is, null, empty, or contains an unresolved property
+     */
+    public boolean isUnresolved(String s) {
+        if (StringUtils.isEmpty(s)) {
+            return true;
+        } else {
+            return containsUnresolvedProperty(s);
+        }
+    }
+
+    /**
+     * Return true if the 2 urls are exactly the same or if the only thing different about them is a trailing slash
+     */
+    public boolean isUrlMatch(String url1, String url2) {
+        if (url1.equals(url2)) {
+            return true;
+        }
+        if ((url1 + "/").equals(url2)) {
+            return true;
+        }
+        if (url1.equals(url2 + "/")) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Given a list of GAV's in the form [groupId]:[artifactId]:[version] return MavenProject objects with groupId,
+     * artifactId, and version set
+     */
+    public List<MavenProject> getMavenProjects(List<String> gavs) {
+        List<MavenProject> projects = new ArrayList<MavenProject>();
+        if (gavs == null) {
+            return projects;
+        }
+        for (String gav : gavs) {
+            MavenProject project = getMavenProject(gav);
+            projects.add(project);
+        }
+        return projects;
+    }
+
+    /**
+     * Given a GAV in the form [groupId]:[artifactId]:[version] return a MavenProject object that has groupId,
+     * artifactId, and version set
+     */
+    public MavenProject getMavenProject(String gav) {
+        // Split the string into tokens
+        String[] tokens = StringUtils.splitByWholeSeparator(gav.trim(), ":");
+
+        // Setup some local storage
+        String groupId = null;
+        String artifactId = null;
+        String version = null;
+
+        // Extract information from the tokens
+        if (tokens.length > 0) {
+            groupId = tokens[0].trim();
+        }
+        if (tokens.length > 1) {
+            artifactId = tokens[1].trim();
+        }
+        if (tokens.length > 2) {
+            version = tokens[2].trim();
+        }
+
+        // Store info into a MavenProject
+        MavenProject project = new MavenProject();
+        project.setGroupId(groupId);
+        project.setArtifactId(artifactId);
+        project.setVersion(version);
+        return project;
+    }
+
 }
