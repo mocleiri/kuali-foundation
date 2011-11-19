@@ -121,6 +121,7 @@
     <kuali.plugin.snapshots>${kuali.snapshots}</kuali.plugin.snapshots>
 
 
+    <kuali.testjar.phase>package</kuali.testjar.phase>
     <kuali.gpg.phase>install</kuali.gpg.phase>
     <kuali.cloudfront.phase>site-deploy</kuali.cloudfront.phase>
 
@@ -415,7 +416,7 @@
         <executions>
           <execution>
             <id>update-s3-bucket-indexes</id>
-            <phase>${cloudfront.phase}</phase>
+            <phase>${kuali.cloudfront.phase}</phase>
             <goals>
               <goal>updateoriginbucket</goal>
             </goals>
@@ -610,7 +611,7 @@
             <executions>
               <execution>
                 <id>sign-artifacts</id>
-                <phase>${gpg.phase}</phase>
+                <phase>${kuali.gpg.phase}</phase>
                 <goals>
                   <goal>sign</goal>
                 </goals>
@@ -648,6 +649,7 @@
             <executions>
               <execution>
                 <id>test-jar</id>
+                <phase>${kuali.testjar.phase}</phase>
                 <goals>
                   <goal>test-jar</goal>
                 </goals>
