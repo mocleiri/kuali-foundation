@@ -172,34 +172,44 @@ public class UrlBuilder {
             sb.append("/");
         }
 
-        // Convert the project hierarchy into appropriate url tokens
-        List<String> tokens = getUrlTokens(project, context);
-
-        // Append the tokens
-        for (String token : tokens) {
-            sb.append(token);
-            sb.append("/");
-        }
+        // Append the path for this project
+        sb.append(getSitePath(project, context.getOrgPoms(), context.getOrganizationGroupId()));
 
         // Return the fully qualified url
         return sb.toString();
     }
 
     /**
+     * Return the portion of the url to the right of the hostname
+     */
+    public String getSitePath(MavenProject project, List<MavenProject> orgPoms, String orgGroupId) {
+        // Convert the project hierarchy into appropriate url tokens
+        List<String> tokens = getUrlTokens(project, orgPoms, orgGroupId);
+
+        StringBuilder sb = new StringBuilder();
+        // Append the tokens
+        for (String token : tokens) {
+            sb.append(token);
+            sb.append("/");
+        }
+        return sb.toString();
+    }
+
+    /**
      * Return a list of tokens representing url paths for this project
      */
-    protected List<String> getUrlTokens(MavenProject project, SiteContext context) {
+    protected List<String> getUrlTokens(MavenProject project, List<MavenProject> orgPoms, String orgGroupId) {
         // Determine if the project they passed in is a top level pom
-        boolean orgPom = isMatch(project, context.getOrgPoms());
+        boolean orgPom = isMatch(project, orgPoms);
         if (orgPom) {
             // If so, just return top level tokens
-            return getTopLevelTokens(project, context);
+            return getTopLevelTokens(project, orgGroupId);
         } else {
             // Otherwise, examine the full project structure
             List<MavenProject> projectPath = getProjectPath(project);
 
             // Convert the project structure into url tokens
-            return getUrlTokens(projectPath, context);
+            return getUrlTokens(projectPath, orgPoms, orgGroupId);
         }
     }
 
@@ -207,15 +217,15 @@ public class UrlBuilder {
      * Return appropriate url tokens for the list of projects representing the path of projects from the highest level
      * pom to our current project
      */
-    protected List<String> getUrlTokens(List<MavenProject> projects, SiteContext context) {
+    protected List<String> getUrlTokens(List<MavenProject> projects, List<MavenProject> orgPoms, String orgGroupId) {
         List<String> tokens = new ArrayList<String>();
         for (MavenProject project : projects) {
             // If it is an org pom, skip it, since they are not needed
             // for calculating the url used for the site path
-            boolean orgPom = isMatch(project, context.getOrgPoms());
+            boolean orgPom = isMatch(project, orgPoms);
             if (!orgPom) {
                 // Add tokens appropriate for this project
-                addProjectTokens(project, context, tokens);
+                addProjectTokens(project, orgPoms, orgGroupId, tokens);
             }
         }
         // return our list of tokens
@@ -225,12 +235,13 @@ public class UrlBuilder {
     /**
      * Add appropriate values to the list of tokens
      */
-    protected void addProjectTokens(MavenProject project, SiteContext context, List<String> tokens) {
+    protected void addProjectTokens(MavenProject project, List<MavenProject> orgPoms, String orgGroupId,
+            List<String> tokens) {
         // Is this a top level project?
-        boolean topLevelProject = isTopLevelProject(project, context.getOrgPoms());
+        boolean topLevelProject = isTopLevelProject(project, orgPoms);
         if (topLevelProject) {
             // If so, add the top level tokens (groupId, artifactId, version)
-            tokens.addAll(getTopLevelTokens(project, context));
+            tokens.addAll(getTopLevelTokens(project, orgGroupId));
         } else {
             // Otherwise just add the artifactId
             tokens.add(project.getArtifactId());
@@ -240,11 +251,11 @@ public class UrlBuilder {
     /**
      * Return the appropriate tokens for this top level project
      */
-    protected List<String> getTopLevelTokens(MavenProject project, SiteContext context) {
+    protected List<String> getTopLevelTokens(MavenProject project, String orgGroupId) {
         List<String> tokens = new ArrayList<String>();
 
         // Trim off the redundant portion of the group id
-        String trimmedGroupId = getTrimmedGroupId(project, context.getOrganizationGroupId());
+        String trimmedGroupId = getTrimmedGroupId(project, orgGroupId);
 
         // Convert dots to slashes, and add to our list of tokens
         if (trimmedGroupId.length() > 0) {
