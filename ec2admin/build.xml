@@ -135,11 +135,10 @@
   </target>
 
   <target name="installjenkins" depends="jenkinsinit">
-    <!-- Remove the symbolic link to whatever version was being used before (if any) -->
-    <symlink action="delete" link="/usr/local/tomcat" />
+    <property name="root.war" value="/usr/local/tomcat${tomcat.instance}/webapps/ROOT.war" />
+    <property name="root.dir" value="/usr/local/tomcat${tomcat.instance}/webapps/ROOT" />
 
-    <!-- Remove previous installation of this version (if any) -->
-    <delete dir="${tomcat.dir}" />
+    <delete dir="${root.dir}" />
 
     <!-- Inflate the zip into /usr/local/apache-tomcat-[version] -->
     <unzip src="${tomcat.zip}" dest="/usr/local" />
