@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2011 The Kuali Foundation
+  Copyright 2004-2011 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project name="Tomcat Instance Manager">
@@ -62,8 +62,7 @@
         <filter token="environment" value="${environment}" />
       </filterset>
     </copy>
-    <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/kuali/main/${environment}/rice.keystore"
-      overwrite="true" />
+    <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/kuali/main/${environment}/rice.keystore" overwrite="true" />
     <mkdir dir="${catalina.base}" />
     <mkdir dir="${catalina.base}/lib" />
     <mkdir dir="${catalina.base}/logs" />
@@ -135,6 +134,45 @@
     <symlink link="/usr/local/tomcat" resource="${tomcat.dir}" />
   </target>
 
+  <target name="installjenkins" depends="jenkinsinit">
+    <!-- Remove the symbolic link to whatever version was being used before (if any) -->
+    <symlink action="delete" link="/usr/local/tomcat" />
+
+    <!-- Remove previous installation of this version (if any) -->
+    <delete dir="${tomcat.dir}" />
+
+    <!-- Inflate the zip into /usr/local/apache-tomcat-[version] -->
+    <unzip src="${tomcat.zip}" dest="/usr/local" />
+
+    <!-- Delete/recreate the webapps directory to remove the pre-installed apps -->
+    <delete dir="${tomcat.dir}/webapps" />
+    <mkdir dir="${tomcat.dir}/webapps" />
+
+    <!-- Clean up the bin directory, add some simple shell scripts, and make *.sh executable -->
+    <delete>
+      <fileset dir="${tomcat.dir}/bin" includes="*.bat" />
+    </delete>
+    <copy todir="${tomcat.dir}/bin">
+      <fileset dir="src/main/resources/apache-tomcat/root/bin" />
+    </copy>
+    <chmod dir="${tomcat.dir}/bin" perm="755" includes="*.sh" />
+
+    <!-- Copy in our utility JSP's -->
+    <copy todir="${tomcat.dir}/logs">
+      <fileset dir="src/main/resources/apache-tomcat/jsps" />
+    </copy>
+
+    <!-- Copy in our customized versions of server.xml and web.xml -->
+    <property name="root.server.xml" value="src/main/resources/apache-tomcat/${tomcat.major.version}/root/conf/server.xml" />
+    <property name="root.web.xml" value="src/main/resources/apache-tomcat/${tomcat.major.version}/conf/web.xml" />
+
+    <copy file="${root.server.xml}" tofile="${tomcat.dir}/conf/server.xml" overwrite="true" />
+    <copy file="${root.web.xml}" tofile="${tomcat.dir}/conf/web.xml" overwrite="true" />
+
+    <!-- Final step is to symlink /usr/local/tomcat to the versioned tomcat directory -->
+    <symlink link="/usr/local/tomcat" resource="${tomcat.dir}" />
+  </target>
+
   <target name="remove" depends="init">
     <property name="tomcat.user" value="tomcat${instance}" />
     <property name="catalina.base" value="/usr/local/tomcat${instance}" />
@@ -143,6 +181,18 @@
       <arg value="${tomcat.user}" />
     </exec>
     <delete dir="${catalina.base}" />
+  </target>
+
+  <target name="jenkinsinit">
+    <condition property="jenkins.set">
+      <and>
+        <isset property="tomcat.instance" />
+        <isset property="jenkins.war" />
+      </and>
+    </condition>
+    <fail unless="jenkins.set">
+      Must specify tomcat.instance and jenkins.war
+    </fail>
   </target>
 
   <target name="tomcatinit">

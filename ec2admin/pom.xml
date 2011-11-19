@@ -16,8 +16,7 @@
   limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali</groupId>
@@ -145,6 +144,43 @@
                       <artifactId>${tomcat.artifactId}</artifactId>
                       <version>${tomcat.version}</version>
                       <type>zip</type>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>jenkins</id>
+      <properties>
+        <jenkins.groupId>org.jenkins</jenkins.groupId>
+        <jenkins.artifactId>jenkins</jenkins.artifactId>
+        <jenkins.artifactId>1.440</jenkins.artifactId>
+        <ant.phase>process-resources</ant.phase>
+        <ant.target>installjenkins</ant.target>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>get-jenkins</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>copy</goal>
+                </goals>
+                <configuration>
+                  <localRepositoryDirectory>target/repository</localRepositoryDirectory>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>${jenkins.groupId}</groupId>
+                      <artifactId>${jenkins.artifactId}</artifactId>
+                      <version>${jenkins.version}</version>
+                      <type>war</type>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
