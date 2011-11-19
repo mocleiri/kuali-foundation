@@ -135,12 +135,17 @@
   </target>
 
   <target name="installjenkins" depends="jenkinsinit">
-    <property name="root.war" value="/usr/local/tomcat${tomcat.instance}/webapps/ROOT.war" />
-    <property name="root.dir" value="/usr/local/tomcat${tomcat.instance}/webapps/ROOT" />
+    <property name="tomcat.user" value="tomcat${tomcat.instance}" />
+    <property name="root.war" value="/usr/local/${tomcat.user}/webapps/ROOT.war" />
+    <property name="root.dir" value="/usr/local/${tomcat.user}/webapps/ROOT" />
 
     <delete dir="${root.dir}" />
     <delete file="${root.war}" />
     <copy file="${jenkins.war}" tofile="${root.war}" />
+    <exec executable="chown">
+      <arg value="${tomcat.user}:tomcat" />
+      <arg value="${root.war}" />
+    </exec>
   </target>
 
   <target name="remove" depends="init">
