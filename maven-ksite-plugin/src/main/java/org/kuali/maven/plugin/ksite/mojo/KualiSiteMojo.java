@@ -1,9 +1,7 @@
 package org.kuali.maven.plugin.ksite.mojo;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.maven.model.DistributionManagement;
 import org.apache.maven.model.Site;
 import org.apache.maven.plugin.AbstractMojo;
@@ -89,7 +87,8 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
     private MavenProject project;
 
     /**
-     * GAV strings representing organizational poms eg "org.kuali.pom:kuali" and "org.kuali.pom:kuali-common"
+     * GAV strings representing organizational poms eg "org.kuali.pom:kuali" and "org.kuali.pom:kuali-common". Version
+     * is ignored, only groupId and artifactId are relevant.
      *
      * @parameter
      */
@@ -97,26 +96,7 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
 
     @Override
     public List<MavenProject> getOrgPoms() {
-        List<MavenProject> projects = new ArrayList<MavenProject>();
-        if (orgPomGavs == null) {
-            return projects;
-        }
-        for (String gav : orgPomGavs) {
-            MavenProject project = getMavenProject(gav);
-            projects.add(project);
-        }
-        return projects;
-    }
-
-    protected MavenProject getMavenProject(String gav) {
-        String[] tokens = StringUtils.splitByWholeSeparator(gav.trim(), ":");
-        String groupId = tokens[0];
-        String artifactId = tokens[1];
-
-        MavenProject project = new MavenProject();
-        project.setGroupId(groupId);
-        project.setArtifactId(artifactId);
-        return project;
+        return builder.getMavenProjects(orgPomGavs);
     }
 
     @Override
