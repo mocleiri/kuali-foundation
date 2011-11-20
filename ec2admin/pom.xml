@@ -162,7 +162,7 @@
         <jenkins.war>target/dependency/${jenkins.artifactId}-${jenkins.version}.war</jenkins.war>
         <tomcat.instance>1</tomcat.instance>
         <ant.phase>process-resources</ant.phase>
-        <ant.target>installjenkins</ant.target>
+        <ant.target>upgradejenkins</ant.target>
       </properties>
       <build>
         <plugins>
