@@ -31,7 +31,7 @@
   <publishDate format="yyyy-MM-dd" position="right" />
   <version position="right" />
   <poweredBy>
-    <logo name="The Kuali Foundation &amp;reg" img="images/kuali/logo.png" href="http://www.kuali.org/" />
+    <logo name="The Kuali Foundation &amp;reg" img="http://maven.kuali.org/external/org/kuali/site/images/kuali-logo/2011/kuali-logo-2011.png" href="http://www.kuali.org/" />
   </poweredBy>
   <body>
     <head>
