@@ -100,14 +100,14 @@
     <dependency.details.enabled>false</dependency.details.enabled>
 
     <!-- These are the Kuali repository settings for an official release -->
-    <kuali.repository.release.id>kuali.release</kuali.repository.release.id>
-    <kuali.repository.release.name>Kuali Release Repository</kuali.repository.release.name>
-    <kuali.repository.release.url>s3://maven.kuali.org/release</kuali.repository.release.url>
+    <kuali.repo.release.id>kuali.release</kuali.repo.release.id>
+    <kuali.repo.release.name>Kuali Release Repository</kuali.repo.release.name>
+    <kuali.repo.release.url>s3://maven.kuali.org/release</kuali.repo.release.url>
 
     <!-- These are the Kuali repository settings for snapshot builds -->
-    <kuali.repository.snapshot.id>kuali.snapshot</kuali.repository.snapshot.id>
-    <kuali.repository.snapshot.name>Kuali Snapshot Repository</kuali.repository.snapshot.name>
-    <kuali.repository.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repository.snapshot.url>
+    <kuali.repo.snapshot.id>kuali.snapshot</kuali.repo.snapshot.id>
+    <kuali.repo.snapshot.name>Kuali Snapshot Repository</kuali.repo.snapshot.name>
+    <kuali.repo.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repo.snapshot.url>
     <kuali.cm.tools.version>1.6</kuali.cm.tools.version>
     <plugin.project.info.reports.version>2.4</plugin.project.info.reports.version>
 
@@ -165,14 +165,14 @@
       <url>${kuali.site.publish.url}</url>
     </site>
     <repository>
-      <id>${kuali.repository.release.id}</id>
-      <name>${kuali.repository.release.name}</name>
-      <url>${kuali.repository.release.url}</url>
+      <id>${kuali.repo.release.id}</id>
+      <name>${kuali.repo.release.name}</name>
+      <url>${kuali.repo.release.url}</url>
     </repository>
     <snapshotRepository>
-      <id>${kuali.repository.snapshot.id}</id>
-      <name>${kuali.repository.snapshot.name}</name>
-      <url>${kuali.repository.snapshot.url}</url>
+      <id>${kuali.repo.snapshot.id}</id>
+      <name>${kuali.repo.snapshot.name}</name>
+      <url>${kuali.repo.snapshot.url}</url>
     </snapshotRepository>
   </distributionManagement>
   <scm>
@@ -566,14 +566,14 @@
         <kuali.nexus.sonatype.promote.auto.select.override>true</kuali.nexus.sonatype.promote.auto.select.override>
         <kuali.nexus.sonatype.release.repository.id>releases</kuali.nexus.sonatype.release.repository.id>
 
-        <kuali.repository.release.id>sonatype-nexus-staging</kuali.repository.release.id>
-        <kuali.repository.release.name>Sonatype Nexus Release Repository</kuali.repository.release.name>
-        <kuali.repository.release.url>${kuali.nexus.sonatype.url}/service/local/staging/deploy/maven2</kuali.repository.release.url>
+        <kuali.repo.release.id>sonatype-nexus-staging</kuali.repo.release.id>
+        <kuali.repo.release.name>Sonatype Nexus Release Repository</kuali.repo.release.name>
+        <kuali.repo.release.url>${kuali.nexus.sonatype.url}/service/local/staging/deploy/maven2</kuali.repo.release.url>
 
         <!-- These are for reference only. Not currently publishing snapshots to Sonatype's Nexus instance
-          <kuali.repository.snapshot.id>sonatype-nexus-snapshots</kuali.repository.snapshot.id>
-          <kuali.repository.snapshot.name>Sonatype Nexus Snapshots</kuali.repository.snapshot.name>
-          <kuali.repository.snapshot.url>https://oss.sonatype.org/content/repositories/snapshots/</kuali.repository.snapshot.url>
+          <kuali.repo.snapshot.id>sonatype-nexus-snapshots</kuali.repo.snapshot.id>
+          <kuali.repo.snapshot.name>Sonatype Nexus Snapshots</kuali.repo.snapshot.name>
+          <kuali.repo.snapshot.url>https://oss.sonatype.org/content/repositories/snapshots/</kuali.repo.snapshot.url>
         -->
       </properties>
       <build>
@@ -583,7 +583,7 @@
             <artifactId>nexus-maven-plugin</artifactId>
             <configuration>
               <nexusUrl>${kuali.nexus.sonatype.url}</nexusUrl>
-              <serverAuthId>${kuali.repository.release.id}</serverAuthId>
+              <serverAuthId>${kuali.repo.release.id}</serverAuthId>
               <automatic>${kuali.nexus.sonatype.automatic}</automatic>
               <promoteAutoSelectOverride>${kuali.nexus.sonatype.promote.auto.select.override}
               </promoteAutoSelectOverride>
