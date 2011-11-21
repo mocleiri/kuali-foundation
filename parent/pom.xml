@@ -16,7 +16,8 @@
   limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali.pom</groupId>
   <artifactId>kuali</artifactId>
@@ -85,7 +86,8 @@
     <kuali.groupId>org.kuali</kuali.groupId>
     <kuali.pom.1>org.kuali.pom:kuali</kuali.pom.1>
     <kuali.pom.2>org.kuali.pom:kuali-common</kuali.pom.2>
-    <kuali.site.plugin.version>3.0</kuali.site.plugin.version>
+    <!-- 3.0 fixes MSITE-532 but has MSITE-600.  3.1 should fix both -->
+    <kuali.site.plugin.version>3.0-beta-3</kuali.site.plugin.version>
     <kuali.site.bucket>site.origin.kuali.org</kuali.site.bucket>
     <kuali.site.hostname>site.kuali.org</kuali.site.hostname>
     <kuali.site.server.id>kuali.site</kuali.site.server.id>
