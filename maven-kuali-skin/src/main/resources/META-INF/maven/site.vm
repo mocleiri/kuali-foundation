@@ -374,8 +374,10 @@
 ##
       #if( $item.img )
         #set ( $img = $item.img )
+        #set ( $img = "images/kuali/logo.png" )
       #else
         #set ( $img = "images/logos/maven-feather.png" )
+        #set ( $img = "images/kuali/logo.png" )
       #end
 ##
       #if ( ! ( $img.toLowerCase().startsWith("http") || $img.toLowerCase().startsWith("https") ) )
