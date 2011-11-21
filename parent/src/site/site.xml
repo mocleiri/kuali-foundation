@@ -50,7 +50,11 @@
       <menu ref="parent" inherit="top" />
     -->
 
-    <menu ref="modules" inherit="top" />
+    <!-- This isn't working due to this bug http://jira.codehaus.org/browse/MSITE-532
+      MSITE-532 is fixed in 3.0, but 3.0 has MSITE-600 which screws up relative
+      pathing for sub-modules.  3.1 is supposed to have both fixes.
+      <menu ref="modules" inherit="top"/>
+    -->
     <menu ref="reports" inherit="bottom" />
   </body>
 </project>
