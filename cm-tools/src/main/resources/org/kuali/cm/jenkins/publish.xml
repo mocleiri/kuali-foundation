@@ -16,7 +16,7 @@
   <scm class="hudson.scm.SubversionSCM">
     <locations>
       <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>${jenkins.project.svn.location}</remote>
+        <remote>${jenkins.scm.url}</remote>
         <local>.</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
     </locations>
