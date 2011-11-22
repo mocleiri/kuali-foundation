@@ -23,7 +23,7 @@
       <arg value="-s" />
       <arg value="${jenkins.url}" />
       <arg value="create-job" />
-      <arg value="${jenkins.job}" />
+      <arg value="${jenkins.job.name}" />
     </java>
   </target>
 
