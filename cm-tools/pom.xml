@@ -24,27 +24,23 @@
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <antrun.version>1.7</antrun.version>
-    <ant.target>none</ant.target>
-    <ant.file>build.xml</ant.file>
-    <ant.java.fork>true</ant.java.fork>
     <svn.foundation.repo>http://svn.kuali.org/repos/foundation</svn.foundation.repo>
-    <jenkins.svn.path>trunk/kuali-threads</jenkins.svn.path>
-    <jenkins.scm.url>${svn.foundation.repo}/${jenkins.svn.path}</jenkins.scm.url>
-    <jenkins.project.groupId>org.kuali.common.threads</jenkins.project.groupId>
-    <jenkins.project.artifactId>kuali-threads</jenkins.project.artifactId>
-    <jenkins.mvn.goals>clean install</jenkins.mvn.goals>
-    <jenkins.job.name>${jenkins.project.artifactId}-publish</jenkins.job.name>
-    <jenkins.job.file>target/classes/org/kuali/cm/jenkins/publish.xml</jenkins.job.file>
-    <jenkins.url>http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/</jenkins.url>
-    <jenkins.cli.classname>hudson.cli.CLI</jenkins.cli.classname>
-    <jenkins.wait>-s</jenkins.wait>
-    <jenkins.changes>-c</jenkins.changes>
   </properties>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/pom/trunk/cm-tools</url>
   </scm>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>${antrun.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
   <developers>
     <developer>
       <id>jcaddel</id>
@@ -58,16 +54,11 @@
     <profile>
       <id>jenkins</id>
       <properties>
-        <antrun.version>1.7</antrun.version>
         <ant.target>none</ant.target>
+        <ant.phase>none</ant.phase>
         <ant.file>build.xml</ant.file>
         <ant.java.fork>true</ant.java.fork>
-        <svn.foundation.repo>http://svn.kuali.org/repos/foundation</svn.foundation.repo>
-        <jenkins.svn.path>trunk/kuali-threads</jenkins.svn.path>
-        <jenkins.scm.url>${svn.foundation.repo}/${jenkins.svn.path}</jenkins.scm.url>
-        <jenkins.project.groupId>org.kuali.common.threads</jenkins.project.groupId>
-        <jenkins.project.artifactId>kuali-threads</jenkins.project.artifactId>
-        <jenkins.mvn.goals>clean install</jenkins.mvn.goals>
+        <jenkins.scm.url>${jenkins.svn.repo}/${jenkins.svn.path}</jenkins.scm.url>
         <jenkins.job.name>${jenkins.project.artifactId}-publish</jenkins.job.name>
         <jenkins.job.file>target/classes/org/kuali/cm/jenkins/publish.xml</jenkins.job.file>
         <jenkins.url>http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/</jenkins.url>
@@ -92,28 +83,53 @@
             </excludes>
           </resource>
         </resources>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <artifactId>maven-antrun-plugin</artifactId>
-              <version>${antrun.version}</version>
-              <configuration>
-                <target>
-                  <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
-                  <ant antfile="${ant.file}" target="${ant.target}" />
-                </target>
-              </configuration>
-              <dependencies>
-                <dependency>
-                  <groupId>org.jenkins</groupId>
-                  <artifactId>jenkins-cli</artifactId>
-                  <version>1.440</version>
-                </dependency>
-              </dependencies>
-            </plugin>
-          </plugins>
-        </pluginManagement>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>ant-run</id>
+                <phase>${ant.phase}</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <target>
+                <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
+                <ant antfile="${ant.file}" target="${ant.target}" />
+              </target>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>org.jenkins</groupId>
+                <artifactId>jenkins-cli</artifactId>
+                <version>1.440</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
       </build>
+    </profile>
+    <profile>
+      <id>publish</id>
+      <properties>
+        <jenkins.mvn.goals>clean deploy site-deploy</jenkins.mvn.goals>
+        <jenkins.job.name>${jenkins.project.artifactId}-publish</jenkins.job.name>
+        <jenkins.job.file>target/classes/org/kuali/cm/jenkins/publish.xml</jenkins.job.file>
+        <ant.target>create</ant.target>
+        <ant.phase>install</ant.phase>
+      </properties>
+    </profile>
+    <profile>
+      <id>kuali</id>
+      <properties>
+        <jenkins.svn.repo>${svn.foundation.repo}</jenkins.svn.repo>
+        <jenkins.svn.path>pom/trunk/parent</jenkins.svn.path>
+        <jenkins.project.groupId>org.kuali.pom</jenkins.project.groupId>
+        <jenkins.project.artifactId>kuali</jenkins.project.artifactId>
+      </properties>
     </profile>
   </profiles>
 </project>
