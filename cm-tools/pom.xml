@@ -128,6 +128,20 @@
       </properties>
     </profile>
     <profile>
+      <id>get</id>
+      <properties>
+        <ant.target>get</ant.target>
+        <ant.phase>install</ant.phase>
+      </properties>
+    </profile>
+    <profile>
+      <id>update</id>
+      <properties>
+        <ant.target>update</ant.target>
+        <ant.phase>install</ant.phase>
+      </properties>
+    </profile>
+    <profile>
       <id>delete</id>
       <properties>
         <ant.target>delete</ant.target>
