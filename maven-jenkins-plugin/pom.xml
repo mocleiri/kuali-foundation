@@ -60,7 +60,7 @@
           </dependency>
         </dependencies>
         <configuration>
-          <goalPrefix>hello</goalPrefix>
+          <goalPrefix>jenkins</goalPrefix>
         </configuration>
       </plugin>
     </plugins>
