@@ -54,6 +54,7 @@
     <profile>
       <id>jenkins</id>
       <properties>
+        <maven.test.skip>true</maven.test.skip>
         <ant.target>none</ant.target>
         <ant.phase>none</ant.phase>
         <ant.file>build.xml</ant.file>
