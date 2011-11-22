@@ -36,6 +36,8 @@
     <jenkins.job.file>target/classes/org/kuali/cm/jenkins/publish.xml</jenkins.job.file>
     <jenkins.url>http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/</jenkins.url>
     <jenkins.cli.classname>hudson.cli.CLI</jenkins.cli.classname>
+    <jenkins.wait>-s</jenkins.wait>
+    <jenkins.changes>-c</jenkins.changes>
   </properties>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>

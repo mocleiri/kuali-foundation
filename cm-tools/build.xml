@@ -33,6 +33,8 @@
       <arg value="${jenkins.url}" />
       <arg value="build" />
       <arg value="${jenkins.job.name}" />
+      <arg value="${jenkins.wait}" />
+      <arg value="${jenkins.changes}" />
     </java>
   </target>
 
