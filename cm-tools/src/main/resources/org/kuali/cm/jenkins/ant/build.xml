@@ -1,0 +1,76 @@
+<!--
+
+  Copyright 2004-2011 The Kuali Foundation
+
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.opensource.org/licenses/ecl2.php
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<project name="CM Tools">
+  <description>Configuration Management Tooling</description>
+
+  <target name="get">
+    <java classname="${jenkins.cli.classname}" output="target/job.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+      <arg value="-s" />
+      <arg value="${jenkins.url}" />
+      <arg value="get-job" />
+      <arg value="${jenkins.job.name}" />
+    </java>
+  </target>
+
+  <target name="create">
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+      <arg value="-s" />
+      <arg value="${jenkins.url}" />
+      <arg value="create-job" />
+      <arg value="${jenkins.job.name}" />
+    </java>
+  </target>
+
+  <target name="update">
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+      <arg value="-s" />
+      <arg value="${jenkins.url}" />
+      <arg value="update-job" />
+      <arg value="${jenkins.job.name}" />
+    </java>
+  </target>
+
+  <target name="delete">
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+      <arg value="-s" />
+      <arg value="${jenkins.url}" />
+      <arg value="delete-job" />
+      <arg value="${jenkins.job.name}" />
+    </java>
+  </target>
+
+  <target name="build">
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+      <arg value="-s" />
+      <arg value="${jenkins.url}" />
+      <arg value="build" />
+      <arg value="${jenkins.job.name}" />
+      <arg value="${jenkins.changes}" />
+      <arg value="${jenkins.wait}" />
+    </java>
+  </target>
+
+  <target name="help">
+    <java classname="${jenkins.cli.classname}">
+      <arg value="-s" />
+      <arg value="${jenkins.url}" />
+      <arg value="help" />
+    </java>
+  </target>
+
+</project>
