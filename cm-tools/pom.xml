@@ -54,43 +54,66 @@
       <email>jcaddel-(at)-kuali.org</email>
     </developer>
   </developers>
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-        <includes>
-          <include>**/jenkins/**/*.xml</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>false</filtering>
-        <excludes>
-          <exclude>**/jenkins/**/*.xml</exclude>
-        </excludes>
-      </resource>
-    </resources>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-antrun-plugin</artifactId>
-          <version>${antrun.version}</version>
-          <configuration>
-            <target>
-              <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
-              <ant antfile="${ant.file}" target="${ant.target}" />
-            </target>
-          </configuration>
-          <dependencies>
-            <dependency>
-              <groupId>org.jenkins</groupId>
-              <artifactId>jenkins-cli</artifactId>
-              <version>1.440</version>
-            </dependency>
-          </dependencies>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
+  <profiles>
+    <profile>
+      <id>jenkins</id>
+      <properties>
+        <antrun.version>1.7</antrun.version>
+        <ant.target>none</ant.target>
+        <ant.file>build.xml</ant.file>
+        <ant.java.fork>true</ant.java.fork>
+        <svn.foundation.repo>http://svn.kuali.org/repos/foundation</svn.foundation.repo>
+        <jenkins.svn.path>trunk/kuali-threads</jenkins.svn.path>
+        <jenkins.scm.url>${svn.foundation.repo}/${jenkins.svn.path}</jenkins.scm.url>
+        <jenkins.project.groupId>org.kuali.common.threads</jenkins.project.groupId>
+        <jenkins.project.artifactId>kuali-threads</jenkins.project.artifactId>
+        <jenkins.mvn.goals>clean install</jenkins.mvn.goals>
+        <jenkins.job.name>${jenkins.project.artifactId}-publish</jenkins.job.name>
+        <jenkins.job.file>target/classes/org/kuali/cm/jenkins/publish.xml</jenkins.job.file>
+        <jenkins.url>http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/</jenkins.url>
+        <jenkins.cli.classname>hudson.cli.CLI</jenkins.cli.classname>
+        <jenkins.wait>-s</jenkins.wait>
+        <jenkins.changes>-c</jenkins.changes>
+      </properties>
+      <build>
+        <resources>
+          <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+            <includes>
+              <include>**/jenkins/**/*.xml</include>
+            </includes>
+          </resource>
+          <resource>
+            <directory>src/main/resources</directory>
+            <filtering>false</filtering>
+            <excludes>
+              <exclude>**/jenkins/**/*.xml</exclude>
+            </excludes>
+          </resource>
+        </resources>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <version>${antrun.version}</version>
+              <configuration>
+                <target>
+                  <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
+                  <ant antfile="${ant.file}" target="${ant.target}" />
+                </target>
+              </configuration>
+              <dependencies>
+                <dependency>
+                  <groupId>org.jenkins</groupId>
+                  <artifactId>jenkins-cli</artifactId>
+                  <version>1.440</version>
+                </dependency>
+              </dependencies>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
 </project>
