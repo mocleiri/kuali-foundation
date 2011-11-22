@@ -118,7 +118,19 @@
         <jenkins.mvn.goals>clean deploy site-deploy</jenkins.mvn.goals>
         <jenkins.job.name>${jenkins.project.artifactId}-publish</jenkins.job.name>
         <jenkins.job.file>target/classes/org/kuali/cm/jenkins/publish.xml</jenkins.job.file>
+      </properties>
+    </profile>
+    <profile>
+      <id>create</id>
+      <properties>
         <ant.target>create</ant.target>
+        <ant.phase>install</ant.phase>
+      </properties>
+    </profile>
+    <profile>
+      <id>delete</id>
+      <properties>
+        <ant.target>delete</ant.target>
         <ant.phase>install</ant.phase>
       </properties>
     </profile>
