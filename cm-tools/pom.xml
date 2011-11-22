@@ -7,7 +7,8 @@
   on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
   express or implied. See the License for the specific language governing permissions
   and limitations under the License. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <name>Kuali CM Tools</name>
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -21,6 +22,9 @@
   <version>1.7-SNAPSHOT</version>
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
+    <antrun.version>1.7</antrun.version>
+    <ant.target>none</ant.target>
+    <ant.file>build.xml</ant.file>
   </properties>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
@@ -33,7 +37,45 @@
       <name>Jeff Caddel</name>
       <organization>rSmart</organization>
       <timezone>-7</timezone>
-      <email>jcaddel(at)kuali.org</email>
+      <email>jcaddel-(at)-kuali.org</email>
     </developer>
   </developers>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>${antrun.version}</version>
+          <configuration>
+            <target>
+              <ant antfile="${ant.file}" target="${ant.target}" />
+            </target>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>ant-contrib</groupId>
+              <artifactId>ant-contrib</artifactId>
+              <version>1.0b3</version>
+              <exclusions>
+                <exclusion>
+                  <groupId>ant</groupId>
+                  <artifactId>ant</artifactId>
+                </exclusion>
+              </exclusions>
+            </dependency>
+            <dependency>
+              <groupId>org.apache.ant</groupId>
+              <artifactId>ant-jsch</artifactId>
+              <version>1.8.2</version>
+            </dependency>
+            <dependency>
+              <groupId>org.jenkins</groupId>
+              <artifactId>jenkins-cli</artifactId>
+              <version>1.440</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
