@@ -18,11 +18,38 @@
 <project name="CM Tools">
   <description>Configuration Management Tooling</description>
 
+  <target name="get">
+    <java classname="${jenkins.cli.classname}" output="target/job.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+      <arg value="-s" />
+      <arg value="${jenkins.url}" />
+      <arg value="get-job" />
+      <arg value="${jenkins.job.name}" />
+    </java>
+  </target>
+
   <target name="create">
     <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
       <arg value="-s" />
       <arg value="${jenkins.url}" />
       <arg value="create-job" />
+      <arg value="${jenkins.job.name}" />
+    </java>
+  </target>
+
+  <target name="update">
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+      <arg value="-s" />
+      <arg value="${jenkins.url}" />
+      <arg value="update-job" />
+      <arg value="${jenkins.job.name}" />
+    </java>
+  </target>
+
+  <target name="delete">
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+      <arg value="-s" />
+      <arg value="${jenkins.url}" />
+      <arg value="delete-job" />
       <arg value="${jenkins.job.name}" />
     </java>
   </target>
@@ -35,15 +62,6 @@
       <arg value="${jenkins.job.name}" />
       <arg value="${jenkins.changes}" />
       <arg value="${jenkins.wait}" />
-    </java>
-  </target>
-
-  <target name="get">
-    <java classname="${jenkins.cli.classname}" output="target/job.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
-      <arg value="-s" />
-      <arg value="${jenkins.url}" />
-      <arg value="get-job" />
-      <arg value="${jenkins.job.name}" />
     </java>
   </target>
 
