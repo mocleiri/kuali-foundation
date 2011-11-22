@@ -1,5 +1,5 @@
 <project>
   <target name="hello">
-    <echo>Hello, World</echo>
+    <echo>Hello, ${name}. You're building project: ${projectName}</echo>
   </target>
 </project>

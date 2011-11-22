@@ -5,9 +5,32 @@
 
       <!-- this element refers to the Ant target we'll invoke -->
       <call>hello</call>
+
+      <requiresProject>true</requiresProject>
+
       <description>
-        Say Hello, World.
+        Say Hello, including the user's name, and print the project name to the console.
       </description>
+      <parameters>
+        <parameter>
+          <name>name</name>
+          <property>name</property>
+          <required>true</required>
+          <expression>${name}</expression>
+          <type>java.lang.String</type>
+          <description>The name of the user to greet.</description>
+        </parameter>
+
+        <parameter>
+          <name>projectName</name>
+          <property>projectName</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>${project.name}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The name of the project currently being built.</description>
+        </parameter>
+      </parameters>
     </mojo>
   </mojos>
 </pluginMetadata>
