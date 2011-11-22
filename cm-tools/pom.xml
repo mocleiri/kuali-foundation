@@ -27,8 +27,9 @@
     <ant.target>none</ant.target>
     <ant.file>build.xml</ant.file>
     <ant.java.fork>true</ant.java.fork>
-    <foundation.repo>http://svn.kuali.org/repos/foundation</foundation.repo>
-    <jenkins.project.svn.location>${foundation.repo}/trunk/kuali-threads</jenkins.project.svn.location>
+    <svn.foundation.repo>http://svn.kuali.org/repos/foundation</svn.foundation.repo>
+    <jenkins.svn.path>trunk/kuali-threads</jenkins.svn.path>
+    <jenkins.scm.url>${svn.foundation.repo}/${jenkins.svn.path}</jenkins.scm.url>
     <jenkins.project.groupId>org.kuali.common.threads</jenkins.project.groupId>
     <jenkins.project.artifactId>kuali-threads</jenkins.project.artifactId>
     <jenkins.mvn.goals>clean install</jenkins.mvn.goals>
