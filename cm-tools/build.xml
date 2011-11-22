@@ -18,12 +18,30 @@
 <project name="CM Tools">
   <description>Configuration Management Tooling</description>
 
+  <target name="create">
+    <java classname="hudson.cli.CLI" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="true">
+      <arg value="-s" />
+      <arg value="${jenkins.url}" />
+      <arg value="create-job" />
+      <arg value="${jenkins.job}" />
+    </java>
+  </target>
+
+  <target name="get">
+    <echo>${maven.plugin.classpath}</echo>
+    <java classname="hudson.cli.CLI" output="target/job.xml" classpath="${maven.plugin.classpath}" fork="true">
+      <arg value="-s" />
+      <arg value="${jenkins.url}" />
+      <arg value="get-job" />
+      <arg value="kuali-publish" />
+    </java>
+  </target>
+
   <target name="help">
     <java classname="hudson.cli.CLI">
       <arg value="-s" />
-      <arg value="http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/" />
-      <arg value="get-job" />
-      <arg value="${jenkins.job}" />
+      <arg value="${jenkins.url}" />
+      <arg value="help" />
     </java>
   </target>
 

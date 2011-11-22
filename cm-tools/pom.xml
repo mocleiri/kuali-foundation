@@ -31,7 +31,8 @@
     <jenkins.project.artifactId>kuali</jenkins.project.artifactId>
     <jenkins.mvn.goals>clean install</jenkins.mvn.goals>
     <jenkins.job.name>${jenkins.project.artifactId}-publish</jenkins.job.name>
-    <jenkins.job.file>target/org/kuali/cm/jenkins/publish.xml</jenkins.job.file>
+    <jenkins.job.file>target/classes/org/kuali/cm/jenkins/publish.xml</jenkins.job.file>
+    <jenkins.url>http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/</jenkins.url>
   </properties>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
@@ -71,6 +72,7 @@
           <version>${antrun.version}</version>
           <configuration>
             <target>
+              <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
               <ant antfile="${ant.file}" target="${ant.target}" />
             </target>
           </configuration>
