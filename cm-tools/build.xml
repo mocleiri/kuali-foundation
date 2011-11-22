@@ -26,6 +26,14 @@
     </java>
   </target>
 
+  <target name="build">
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+      <arg value="-s ${jenkins.url}" />
+      <arg value="build" />
+      <arg value="${jenkins.job.name}" />
+    </java>
+  </target>
+
   <target name="get">
     <java classname="${jenkins.cli.classname}" output="target/job.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
       <arg value="-s ${jenkins.url}" />
