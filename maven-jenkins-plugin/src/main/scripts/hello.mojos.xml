@@ -22,12 +22,12 @@
         </parameter>
 
         <parameter>
-          <name>projectName</name>
-          <property>projectName</property>
+          <name>project</name>
+          <property>project</property>
           <required>true</required>
           <readonly>true</readonly>
-          <defaultValue>${project.name}</defaultValue>
-          <type>java.lang.String</type>
+          <defaultValue>${project}</defaultValue>
+          <type>org.apache.maven.project.MavenProject</type>
           <description>The name of the project currently being built.</description>
         </parameter>
       </parameters>
