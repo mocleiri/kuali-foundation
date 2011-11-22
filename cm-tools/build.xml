@@ -19,27 +19,24 @@
   <description>Configuration Management Tooling</description>
 
   <target name="create">
-    <java classname="hudson.cli.CLI" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
-      <arg value="-s" />
-      <arg value="${jenkins.url}" />
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+      <arg value="-s ${jenkins.url}" />
       <arg value="create-job" />
       <arg value="${jenkins.job.name}" />
     </java>
   </target>
 
   <target name="get">
-    <java classname="hudson.cli.CLI" output="target/job.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
-      <arg value="-s" />
-      <arg value="${jenkins.url}" />
+    <java classname="${jenkins.cli.classname}" output="target/job.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+      <arg value="-s ${jenkins.url}" />
       <arg value="get-job" />
       <arg value="${jenkins.job.name}" />
     </java>
   </target>
 
   <target name="help">
-    <java classname="hudson.cli.CLI">
-      <arg value="-s" />
-      <arg value="${jenkins.url}" />
+    <java classname="${jenkins.cli.classname}">
+      <arg value="-s ${jenkins.url}" />
       <arg value="help" />
     </java>
   </target>
