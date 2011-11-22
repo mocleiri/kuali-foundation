@@ -31,6 +31,7 @@
     <jenkins.project.artifactId>kuali</jenkins.project.artifactId>
     <jenkins.mvn.goals>clean install</jenkins.mvn.goals>
     <jenkins.job.name>${jenkins.project.artifactId}-publish</jenkins.job.name>
+    <jenkins.job.file>target/org/kuali/cm/jenkins/publish.xml</jenkins.job.file>
   </properties>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
@@ -47,6 +48,22 @@
     </developer>
   </developers>
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/jenkins/**/*.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>**/jenkins/**/*.xml</exclude>
+        </excludes>
+      </resource>
+    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
