@@ -25,6 +25,7 @@
     <antrun.version>1.7</antrun.version>
     <ant.target>none</ant.target>
     <ant.file>build.xml</ant.file>
+    <ant.java.fork>true</ant.java.fork>
     <foundation.repo>http://svn.kuali.org/repos/foundation</foundation.repo>
     <jenkins.project.svn.location>${foundation.repo}/pom/trunk/parent</jenkins.project.svn.location>
     <jenkins.project.groupId>org.kuali.pom</jenkins.project.groupId>
