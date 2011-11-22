@@ -19,8 +19,7 @@
   <description>Configuration Management Tooling</description>
 
   <target name="help">
-    <java classname="hudson.cli.CLI" output="target/jenkins/${jenkins.job}.xml">
-      
+    <java classname="hudson.cli.CLI">
       <arg value="-s" />
       <arg value="http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/" />
       <arg value="get-job" />
