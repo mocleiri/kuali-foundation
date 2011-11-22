@@ -25,6 +25,12 @@
     <antrun.version>1.7</antrun.version>
     <ant.target>none</ant.target>
     <ant.file>build.xml</ant.file>
+    <foundation.repo>http://svn.kuali.org/repos/foundation</foundation.repo>
+    <jenkins.project.svn.location>${foundation.repo}/pom/trunk/parent</jenkins.project.svn.location>
+    <jenkins.project.groupId>org.kuali.pom</jenkins.project.groupId>
+    <jenkins.project.artifactId>kuali</jenkins.project.artifactId>
+    <jenkins.mvn.goals>clean install</jenkins.mvn.goals>
+    <jenkins.job.name>${jenkins.project.artifactId}-publish</jenkins.job.name>
   </properties>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
