@@ -155,6 +155,7 @@
         <jenkins.svn.path>pom/trunk/parent</jenkins.svn.path>
         <jenkins.project.groupId>org.kuali.pom</jenkins.project.groupId>
         <jenkins.project.artifactId>kuali</jenkins.project.artifactId>
+        <jenkins.project.version.major>1.0</jenkins.project.version.major>
       </properties>
     </profile>
   </profiles>
