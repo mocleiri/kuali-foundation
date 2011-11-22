@@ -2,12 +2,8 @@
   <mojos>
     <mojo>
       <goal>hello</goal>
-
-      <!-- this element refers to the Ant target we'll invoke -->
       <call>hello</call>
-
       <requiresProject>true</requiresProject>
-
       <description>
         Say Hello, including the user's name, and print the project name to the console.
       </description>
@@ -20,7 +16,6 @@
           <type>java.lang.String</type>
           <description>The name of the user to greet.</description>
         </parameter>
-
         <parameter>
           <name>projectName</name>
           <property>projectName</property>
