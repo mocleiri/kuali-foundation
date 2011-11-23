@@ -194,6 +194,16 @@
       <plugins>
         <!-- set versions of common plugins for reproducibility, ordered alphabetically -->
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>buildnumber-maven-plugin</artifactId>
+          <version>1.0</version>
+        </plugin>
+        <plugin>
+          <groupId>com.mycila.maven-license-plugin</groupId>
+          <artifactId>maven-license-plugin</artifactId>
+          <version>1.9.0</version>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
           <version>2.4.1</version>
@@ -444,14 +454,8 @@
         <pluginManagement>
           <plugins>
             <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>buildnumber-maven-plugin</artifactId>
-              <version>1.0</version>
-            </plugin>
-            <plugin>
               <groupId>com.mycila.maven-license-plugin</groupId>
               <artifactId>maven-license-plugin</artifactId>
-              <version>1.9.0</version>
               <configuration>
                 <encoding>${project.build.sourceEncoding}</encoding>
                 <strictCheck>${license.strictCheck}</strictCheck>
