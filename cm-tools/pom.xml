@@ -65,6 +65,7 @@
         <jenkins.cli.changes>-c</jenkins.cli.changes>
         <jenkins.job.name>${jenkins.artifactId}-${jenkins.majorVersion}-${jenkins.job.type}</jenkins.job.name>
         <jenkins.job.file>target/classes/org/kuali/cm/jenkins/jobs/${jenkins.template.type}-${jenkins.scm.type}-template.xml</jenkins.job.file>
+        <jenkins.git.branch>master</jenkins.git.branch>
       </properties>
       <build>
         <resources>
