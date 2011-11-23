@@ -21,7 +21,7 @@
   <target name="get">
     <java classname="${jenkins.cli.classname}" output="target/job.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
       <arg value="-s" />
-      <arg value="${jenkins.url}" />
+      <arg value="${jenkins.server}" />
       <arg value="get-job" />
       <arg value="${jenkins.job.name}" />
     </java>
@@ -30,7 +30,7 @@
   <target name="create">
     <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
       <arg value="-s" />
-      <arg value="${jenkins.url}" />
+      <arg value="${jenkins.server}" />
       <arg value="create-job" />
       <arg value="${jenkins.job.name}" />
     </java>
@@ -39,7 +39,7 @@
   <target name="update">
     <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
       <arg value="-s" />
-      <arg value="${jenkins.url}" />
+      <arg value="${jenkins.server}" />
       <arg value="update-job" />
       <arg value="${jenkins.job.name}" />
     </java>
@@ -48,7 +48,7 @@
   <target name="delete">
     <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
       <arg value="-s" />
-      <arg value="${jenkins.url}" />
+      <arg value="${jenkins.server}" />
       <arg value="delete-job" />
       <arg value="${jenkins.job.name}" />
     </java>
@@ -57,7 +57,7 @@
   <target name="build">
     <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
       <arg value="-s" />
-      <arg value="${jenkins.url}" />
+      <arg value="${jenkins.server}" />
       <arg value="build" />
       <arg value="${jenkins.job.name}" />
       <arg value="${jenkins.changes}" />
@@ -68,7 +68,7 @@
   <target name="help">
     <java classname="${jenkins.cli.classname}">
       <arg value="-s" />
-      <arg value="${jenkins.url}" />
+      <arg value="${jenkins.server}" />
       <arg value="help" />
     </java>
   </target>
