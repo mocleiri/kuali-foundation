@@ -18,6 +18,10 @@
 <project name="Jenkins CLI Wrapper">
   <description>Ant wrapper for Jenkins CLI calls</description>
 
+  <target name="helloworld">
+    <echo>${project.organization.name}</echo>
+  </target>
+
   <target name="get">
     <java classname="${jenkins.cli.classname}" output="target/${jenkins.job.name}-config.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}"
       failonerror="${ant.java.failonerror}">

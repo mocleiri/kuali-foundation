@@ -297,5 +297,14 @@
         <jenkins.project.majorVersion>1.0</jenkins.project.majorVersion>
       </properties>
     </profile>
+    <profile>
+      <id>version</id>
+      <properties>
+        <jenkins.project.scm.url>${svn.foundation.repo}/trunk/version-maven-plugin</jenkins.project.scm.url>
+        <jenkins.project.groupId>org.kuali.maven.plugins</jenkins.project.groupId>
+        <jenkins.project.artifactId>version-maven-plugin</jenkins.project.artifactId>
+        <jenkins.project.majorVersion>1.0</jenkins.project.majorVersion>
+      </properties>
+    </profile>
   </profiles>
 </project>
