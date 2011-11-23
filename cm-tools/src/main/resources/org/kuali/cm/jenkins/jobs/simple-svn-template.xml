@@ -2,7 +2,7 @@
 <maven2-moduleset>
   <actions />
   <description>
-    &lt;li&gt;${jenkins.job.description}&lt;/li&gt;
+    ${jenkins.job.description}
     &lt;li&gt;${jenkins.project.groupId}:${jenkins.project.artifactId}:${jenkins.project.majorVersion}&lt;/li&gt;
     &lt;li&gt;${jenkins.project.scm.url}&lt;/li&gt; </description>
   <logRotator>
