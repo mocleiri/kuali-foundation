@@ -161,6 +161,13 @@
       </properties>
     </profile>
     <profile>
+      <id>help</id>
+      <properties>
+        <ant.target>help</ant.target>
+        <ant.phase>install</ant.phase>
+      </properties>
+    </profile>
+    <profile>
       <id>get</id>
       <properties>
         <ant.target>get</ant.target>
