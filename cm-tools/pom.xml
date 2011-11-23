@@ -126,7 +126,7 @@
       <properties>
         <jenkins.mvn.goals>clean deploy site-deploy</jenkins.mvn.goals>
         <jenkins.job.name>${jenkins.project.artifactId}-publish</jenkins.job.name>
-        <jenkins.job.file>target/classes/org/kuali/cm/jenkins/jobs/publish-template.xml</jenkins.job.file>
+        <jenkins.job.file>target/classes/org/kuali/cm/jenkins/jobs/publish-${scm.type}-template.xml</jenkins.job.file>
       </properties>
     </profile>
     <profile>
