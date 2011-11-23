@@ -694,8 +694,8 @@
       <id>ci</id>
       <properties>
         <maven.test.skip>true</maven.test.skip>
-        <ant.target>none</ant.target>
-        <ant.phase>none</ant.phase>
+        <ant.target>${ci.cmd}</ant.target>
+        <ant.phase>install</ant.phase>
         <ant.file>target/classes/org/kuali/cm/jenkins/ant/build.xml</ant.file>
         <ant.java.fork>true</ant.java.fork>
         <ant.java.failonerror>true</ant.java.failonerror>
@@ -705,7 +705,7 @@
         <jenkins.cli.changes>-c</jenkins.cli.changes>
         <jenkins.cli.version>1.440</jenkins.cli.version>
         <jenkins.job.name>${jenkins.project.artifactId}-${jenkins.project.majorVersion}-${jenkins.job.type}</jenkins.job.name>
-        <jenkins.job.file>target/classes/org/kuali/cm/jenkins/jobs/${jenkins.template.type}-${jenkins.project.scm.type}-template.xml</jenkins.job.file>
+        <jenkins.job.file>target/filtered/org/kuali/cm/jenkins/jobs/${jenkins.template.type}-${jenkins.project.scm.type}-template.xml</jenkins.job.file>
         <jenkins.project.scm.type>svn</jenkins.project.scm.type>
         <jenkins.git.branch>master</jenkins.git.branch>
         <jenkins.project.groupId>${project.groupId}</jenkins.project.groupId>
@@ -802,6 +802,31 @@
                 </configuration>
               </execution>
             </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <configuration>
+              <target>
+                <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
+                <ant antfile="${ant.file}" target="${ant.target}" />
+              </target>
+            </configuration>
+            <executions>
+              <execution>
+                <id>ant-run</id>
+                <phase>${ant.phase}</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.jenkins</groupId>
+                <artifactId>jenkins-cli</artifactId>
+                <version>${jenkins.cli.version}</version>
+              </dependency>
+            </dependencies>
           </plugin>
         </plugins>
       </build>
