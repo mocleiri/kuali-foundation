@@ -88,8 +88,8 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
 
     /**
      * GAV strings representing organizational poms eg "org.kuali.pom:kuali" and "org.kuali.pom:kuali-common". The
-     * build/publication process identifies a project as being a top level Kuali project if has one of these POM's as a
-     * parent. Version is ignored, only groupId and artifactId are relevant.
+     * build/publication process identifies a project as being a top level Kuali project if it has one of these POM's as
+     * a parent. Version is ignored, only groupId and artifactId are relevant.
      *
      * @parameter
      */
