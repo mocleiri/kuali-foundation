@@ -32,6 +32,22 @@
     <url>http://svn.kuali.org/repos/foundation/pom/trunk/cm-tools</url>
   </scm>
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/jenkins/jobs/**/*.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>**/jenkins/jobs/**/*.xml</exclude>
+        </excludes>
+      </resource>
+    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -71,22 +87,6 @@
         <jenkins.git.branch>master</jenkins.git.branch>
       </properties>
       <build>
-        <resources>
-          <resource>
-            <directory>src/main/resources</directory>
-            <filtering>true</filtering>
-            <includes>
-              <include>**/jenkins/jobs/**/*.xml</include>
-            </includes>
-          </resource>
-          <resource>
-            <directory>src/main/resources</directory>
-            <filtering>false</filtering>
-            <excludes>
-              <exclude>**/jenkins/jobs/**/*.xml</exclude>
-            </excludes>
-          </resource>
-        </resources>
         <plugins>
           <plugin>
             <artifactId>maven-antrun-plugin</artifactId>
