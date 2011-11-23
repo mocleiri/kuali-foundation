@@ -18,39 +18,39 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties />
-  <scm class="hudson.scm.SubversionSCM">
-    <locations>
-      <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>${jenkins.project.scm.url}</remote>
-        <local>.</local>
-      </hudson.scm.SubversionSCM_-ModuleLocation>
-    </locations>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <url>${jenkins.project.scm.url}</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>${jenkins.git.branch}</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <localBranch>${jenkins.git.localBranch}</localBranch>
+    <recursiveSubmodules>false</recursiveSubmodules>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <authorOrCommitter>false</authorOrCommitter>
+    <clean>true</clean>
+    <wipeOutWorkspace>false</wipeOutWorkspace>
+    <pruneBranches>false</pruneBranches>
+    <remotePoll>false</remotePoll>
+    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser" />
+    <gitTool>Default</gitTool>
+    <submoduleCfg class="list" />
+    <relativeTargetDir></relativeTargetDir>
     <excludedRegions></excludedRegions>
-    <includedRegions></includedRegions>
     <excludedUsers></excludedUsers>
-    <excludedRevprop></excludedRevprop>
-    <excludedCommitMessages></excludedCommitMessages>
-    <workspaceUpdater class="hudson.scm.subversion.CheckoutUpdater" />
+    <gitConfigName></gitConfigName>
+    <gitConfigEmail></gitConfigEmail>
+    <skipTag>false</skipTag>
+    <scmName></scmName>
   </scm>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
