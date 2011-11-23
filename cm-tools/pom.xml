@@ -121,9 +121,11 @@
       <properties>
         <jenkins.mvn.goals>release:prepare release:perform -B -e</jenkins.mvn.goals>
         <jenkins.job.type>release</jenkins.job.type>
-        <jenkins.job.description>Create an official Kuali release. Deploy artifacts to S3, generate the Maven web site, sync artifacts to Maven Central</jenkins.job.description>
+        <jenkins.job.description>Create an official Kuali release. Deploy artifacts to S3, generate the Maven web site,
+          sync artifacts to Maven Central</jenkins.job.description>
         <jenkins.template.type>release</jenkins.template.type>
-        <jenkins.postbuild.targets>deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release -DskipTests -e</jenkins.postbuild.targets>
+        <jenkins.postbuild.targets>deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release
+          -DskipTests -e</jenkins.postbuild.targets>
         <jenkins.postbuild.pom>target/checkout/pom.xml</jenkins.postbuild.pom>
         <jenkins.postbuild.mavenName>(Default)</jenkins.postbuild.mavenName>
       </properties>
@@ -141,6 +143,20 @@
       <id>create</id>
       <properties>
         <ant.target>create</ant.target>
+        <ant.phase>install</ant.phase>
+      </properties>
+    </profile>
+    <profile>
+      <id>version</id>
+      <properties>
+        <ant.target>version</ant.target>
+        <ant.phase>install</ant.phase>
+      </properties>
+    </profile>
+    <profile>
+      <id>who</id>
+      <properties>
+        <ant.target>who</ant.target>
         <ant.phase>install</ant.phase>
       </properties>
     </profile>
