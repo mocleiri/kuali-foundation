@@ -116,6 +116,15 @@
       </build>
     </profile>
     <profile>
+      <id>release</id>
+      <properties>
+        <jenkins.mvn.goals>release:prepare release:perform -B -e</jenkins.mvn.goals>
+        <jenkins.job.type>release</jenkins.job.type>
+        <jenkins.job.description>Create an official Kuali release. Deploy artifacts to S3, generate Maven web site, sync to Maven Central</jenkins.job.description>
+        <jenkins.template.type>release</jenkins.template.type>
+      </properties>
+    </profile>
+    <profile>
       <id>publish</id>
       <properties>
         <jenkins.mvn.goals>clean deploy site-deploy -Pkuali-release</jenkins.mvn.goals>

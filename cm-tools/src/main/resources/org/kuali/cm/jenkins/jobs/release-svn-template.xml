@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<maven2-moduleset>
+  <actions />
+  <description> &lt;li&gt;Deploy artifacts to S3 using the same profile used during a release and publish the Maven web site&lt;/li&gt;&#xd;
+    &lt;br&gt;&#xd;
+    &lt;li&gt;org.kuali.common.threads:kuali-threads:1.0&lt;/li&gt;&#xd;
+    &lt;li&gt;http://svn.kuali.org/repos/foundation/trunk/kuali-threads&lt;/li&gt;&#xd;
+    &lt;br&gt;&#xd;
+    &lt;li&gt;Job config handled by the Maven Jenkins CLI
+    Wrapper 1.0.7-SNAPSHOT (CLI Version&#xd;
+    1.440)&lt;/li&gt;&#xd;
+    &lt;li&gt;Last Updated - 2011-11-23 12:50 UTC&lt;/li&gt; </description>
+  <logRotator>
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>3</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties />
+  <scm class="hudson.scm.SubversionSCM">
+    <locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>${jenkins.project.scm.url}</remote>
+        <local>.</local>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <excludedRegions></excludedRegions>
+    <includedRegions></includedRegions>
+    <excludedUsers></excludedUsers>
+    <excludedRevprop></excludedRevprop>
+    <excludedCommitMessages></excludedCommitMessages>
+    <workspaceUpdater class="hudson.scm.subversion.CheckoutUpdater" />
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector" />
+  <concurrentBuild>false</concurrentBuild>
+  <rootModule>
+    <groupId>${jenkins.project.groupId}</groupId>
+    <artifactId>${jenkins.project.artifactId}</artifactId>
+  </rootModule>
+  <goals>${jenkins.mvn.goals}</goals>
+  <aggregatorStyleBuild>true</aggregatorStyleBuild>
+  <incrementalBuild>false</incrementalBuild>
+  <usePrivateRepository>false</usePrivateRepository>
+  <ignoreUpstremChanges>true</ignoreUpstremChanges>
+  <archivingDisabled>false</archivingDisabled>
+  <resolveDependencies>false</resolveDependencies>
+  <processPlugins>false</processPlugins>
+  <mavenValidationLevel>-1</mavenValidationLevel>
+  <runHeadless>false</runHeadless>
+  <settingConfigId></settingConfigId>
+  <globalSettingConfigId></globalSettingConfigId>
+  <reporters />
+  <publishers />
+  <buildWrappers />
+  <prebuilders />
+  <postbuilders>
+    <hudson.tasks.Maven>
+      <targets>deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release -DskipTests -e</targets>
+      <mavenName>3.0.3</mavenName>
+      <pom>target/checkout/pom.xml</pom>
+      <usePrivateRepository>false</usePrivateRepository>
+    </hudson.tasks.Maven>
+  </postbuilders>
+  <runPostStepsIfResult>
+    <name>UNSTABLE</name>
+    <ordinal>1</ordinal>
+    <color>YELLOW</color>
+  </runPostStepsIfResult>
+</maven2-moduleset>
