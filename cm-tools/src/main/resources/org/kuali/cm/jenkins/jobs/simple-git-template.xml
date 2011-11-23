@@ -24,7 +24,7 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>master</name>
+        <name>${jenkins.git.branch}</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <recursiveSubmodules>false</recursiveSubmodules>
