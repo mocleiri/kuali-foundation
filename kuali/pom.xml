@@ -696,7 +696,7 @@
         <maven.test.skip>true</maven.test.skip>
         <ant.target>${ci.cmd}</ant.target>
         <ant.phase>install</ant.phase>
-        <ant.file>target/classes/org/kuali/cm/jenkins/ant/build.xml</ant.file>
+        <ant.file>target/filtered/org/kuali/cm/jenkins/ant/build.xml</ant.file>
         <ant.java.fork>true</ant.java.fork>
         <ant.java.failonerror>true</ant.java.failonerror>
         <jenkins.server>http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/</jenkins.server>
@@ -805,6 +805,7 @@
           </plugin>
           <plugin>
             <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.7</version>
             <configuration>
               <target>
                 <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
@@ -814,7 +815,7 @@
             <executions>
               <execution>
                 <id>ant-run</id>
-                <phase>${ant.phase}</phase>
+                <phase>process-resources</phase>
                 <goals>
                   <goal>run</goal>
                 </goals>
