@@ -255,5 +255,14 @@
         <jenkins.project.majorVersion>1.1</jenkins.project.majorVersion>
       </properties>
     </profile>
+    <profile>
+      <id>cmtools</id>
+      <properties>
+        <jenkins.project.scm.url>${svn.foundation.repo}/trunk/cm-tools</jenkins.project.scm.url>
+        <jenkins.project.groupId>org.kuali.cm</jenkins.project.groupId>
+        <jenkins.project.artifactId>cm-tools</jenkins.project.artifactId>
+        <jenkins.project.majorVersion>1.0</jenkins.project.majorVersion>
+      </properties>
+    </profile>
   </profiles>
 </project>
