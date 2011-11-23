@@ -57,7 +57,7 @@
         <maven.test.skip>true</maven.test.skip>
         <ant.target>none</ant.target>
         <ant.phase>none</ant.phase>
-        <ant.file>src/main/resources/org/kuali/cm/jenkins/ant/build.xml</ant.file>
+        <ant.file>target/classes/org/kuali/cm/jenkins/ant/build.xml</ant.file>
         <ant.java.fork>true</ant.java.fork>
         <jenkins.server>http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/</jenkins.server>
         <jenkins.cli.classname>hudson.cli.CLI</jenkins.cli.classname>
