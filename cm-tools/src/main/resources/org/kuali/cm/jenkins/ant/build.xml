@@ -29,6 +29,15 @@
   </target>
 
   <target name="create">
+    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
+      <arg value="-s" />
+      <arg value="${jenkins.server}" />
+      <arg value="${jenkins.cmd}" />
+      <arg value="${jenkins.job.name}" />
+    </java>
+  </target>
+
+  <target name="create">
     <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />

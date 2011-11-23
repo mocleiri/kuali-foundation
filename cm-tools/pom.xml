@@ -168,6 +168,13 @@
       </properties>
     </profile>
     <profile>
+      <id>cli</id>
+      <properties>
+        <ant.target>cli</ant.target>
+        <ant.phase>install</ant.phase>
+      </properties>
+    </profile>
+    <profile>
       <id>get</id>
       <properties>
         <ant.target>get</ant.target>
