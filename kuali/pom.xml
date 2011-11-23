@@ -110,7 +110,7 @@
     <kuali.repo.snapshot.id>kuali.snapshot</kuali.repo.snapshot.id>
     <kuali.repo.snapshot.name>Kuali Snapshot Repository</kuali.repo.snapshot.name>
     <kuali.repo.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repo.snapshot.url>
-    <kuali.cm.tools.version>1.6</kuali.cm.tools.version>
+    <kuali.cm.tools.version>1.0.10</kuali.cm.tools.version>
     <plugin.project.info.reports.version>2.4</plugin.project.info.reports.version>
 
     <!-- Properties for controlling repo settings -->
