@@ -120,7 +120,9 @@
       <properties>
         <jenkins.mvn.goals>clean deploy site-deploy -Pkuali-release</jenkins.mvn.goals>
         <jenkins.job.type>publish</jenkins.job.type>
-        <jenkins.job.description>&lt;li&gt;Publish artifacts to S3 using the same profile used during a release and deploy the Maven web site&lt;/li&gt;</jenkins.job.description>
+        <jenkins.job.description>
+          &lt;li&gt;Publish artifacts to S3 using the same profile used during a release&lt;/li&gt;
+          &lt;li&gt;Deploy the Maven web site&lt;/li&gt; </jenkins.job.description>
         <jenkins.template.type>simple</jenkins.template.type>
       </properties>
     </profile>
