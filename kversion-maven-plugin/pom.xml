@@ -7,7 +7,7 @@
     <version>1.0.1</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
-  <artifactId>kversion.maven.plugin</artifactId>
+  <artifactId>kversion-maven-plugin</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Maven Version Plugin</name>
