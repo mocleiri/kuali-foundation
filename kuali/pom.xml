@@ -806,6 +806,30 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>rel</id>
+      <properties>
+        <jenkins.mvn.goals>release:prepare release:perform -B -e</jenkins.mvn.goals>
+        <jenkins.job.type>release</jenkins.job.type>
+        <jenkins.job.description>Create an official Kuali release. Deploy artifacts to S3, generate the Maven web site,
+          sync artifacts to Maven Central</jenkins.job.description>
+        <jenkins.template.type>release</jenkins.template.type>
+        <jenkins.postbuild.targets>deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release
+          -DskipTests -e</jenkins.postbuild.targets>
+        <jenkins.postbuild.pom>target/checkout/pom.xml</jenkins.postbuild.pom>
+        <jenkins.postbuild.mavenName>(Default)</jenkins.postbuild.mavenName>
+      </properties>
+    </profile>
+    <profile>
+      <id>pub</id>
+      <properties>
+        <jenkins.mvn.goals>clean deploy site-deploy -Pkuali-release</jenkins.mvn.goals>
+        <jenkins.job.type>publish</jenkins.job.type>
+        <jenkins.job.description>Deploy artifacts to S3 using the "kuali-release" profile. This is the same profile that activates during an official
+          release. Invoke site-deploy to publish the Maven web site</jenkins.job.description>
+        <jenkins.template.type>simple</jenkins.template.type>
+      </properties>
+    </profile>
 
   </profiles>
 </project>
