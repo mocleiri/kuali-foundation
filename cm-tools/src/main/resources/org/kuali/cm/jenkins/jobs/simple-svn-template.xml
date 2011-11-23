@@ -3,6 +3,7 @@
   <actions />
   <description>
     ${jenkins.job.description}
+    &lt;li&gt;br&lt;/li&gt;&lt;li&gt;br&lt;/li&gt;
     &lt;li&gt;${jenkins.project.groupId}:${jenkins.project.artifactId}:${jenkins.project.majorVersion}&lt;/li&gt;
     &lt;li&gt;${jenkins.project.scm.url}&lt;/li&gt;
     &lt;li&gt;Job config handled by the Maven Jenkins CLI Wrapper ${project.version}&lt;/li&gt;
