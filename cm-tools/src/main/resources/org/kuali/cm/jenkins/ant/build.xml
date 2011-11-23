@@ -19,7 +19,7 @@
   <description>Ant wrapper for Jenkins CLI calls</description>
 
   <target name="get">
-    <java classname="${jenkins.cli.classname}" output="target/job.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+    <java classname="${jenkins.cli.classname}" output="target/${jenkins.job.name}-config.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="get-job" />
