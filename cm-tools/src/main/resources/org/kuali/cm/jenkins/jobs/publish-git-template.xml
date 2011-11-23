@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <maven2-moduleset>
   <actions />
-  <description> &lt;li&gt;Publish artifacts to S3 and deploy the Maven web site&lt;/li&gt;
+  <description>
+    &lt;li&gt;Publish artifacts to S3 and deploy the Maven web site&lt;/li&gt;
     &lt;li&gt;${jenkins.project.groupId}:${jenkins.project.artifactId}:${jenkins.project.version.major}&lt;/li&gt;
     &lt;li&gt;${jenkins.scm.url}&lt;/li&gt;
   </description>
@@ -19,7 +20,7 @@
       <hudson.plugins.git.UserRemoteConfig>
         <name></name>
         <refspec></refspec>
-        <url>git://github.com/jcaddel/maven-s3-wagon.git</url>
+        <url>${jenkins.scm.url}git://github.com/jcaddel/maven-s3-wagon.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>

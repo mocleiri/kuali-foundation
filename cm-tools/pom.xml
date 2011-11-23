@@ -177,11 +177,10 @@
     <profile>
       <id>wagon</id>
       <properties>
-        <jenkins.svn.repo>${svn.foundation.repo}</jenkins.svn.repo>
-        <jenkins.svn.path>trunk/maven-s3-wagon</jenkins.svn.path>
-        <jenkins.project.groupId>org.kuali.pom</jenkins.project.groupId>
-        <jenkins.project.artifactId>kuali</jenkins.project.artifactId>
-        <jenkins.project.version.major>1.0</jenkins.project.version.major>
+        <jenkins.scm.url>git://github.com/jcaddel/maven-s3-wagon.git</jenkins.scm.url>
+        <jenkins.project.groupId>org.kuali.maven.wagon</jenkins.project.groupId>
+        <jenkins.project.artifactId>maven-s3-wagon</jenkins.project.artifactId>
+        <jenkins.project.version.major>1.1</jenkins.project.version.major>
       </properties>
     </profile>
   </profiles>
