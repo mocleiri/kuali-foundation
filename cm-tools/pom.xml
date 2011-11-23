@@ -169,6 +169,17 @@
       </properties>
     </profile>
     <profile>
+      <id>threads</id>
+      <properties>
+        <jenkins.scm.type>svn</jenkins.scm.type>
+        <jenkins.svn.repo>${svn.foundation.repo}</jenkins.svn.repo>
+        <jenkins.svn.path>trunk/kuali-threads</jenkins.svn.path>
+        <jenkins.project.groupId>org.kuali.common.threads</jenkins.project.groupId>
+        <jenkins.project.artifactId>kuali-threads</jenkins.project.artifactId>
+        <jenkins.project.version.major>1.0</jenkins.project.version.major>
+      </properties>
+    </profile>
+    <profile>
       <id>wagon</id>
       <properties>
         <jenkins.scm.type>git</jenkins.scm.type>
