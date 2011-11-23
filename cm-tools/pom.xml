@@ -236,5 +236,14 @@
         <jenkins.project.majorVersion>1.1</jenkins.project.majorVersion>
       </properties>
     </profile>
+    <profile>
+      <id>skin</id>
+      <properties>
+        <jenkins.project.scm.url>${svn.foundation.repo}/trunk/maven-kuali-skin</jenkins.project.scm.url>
+        <jenkins.project.groupId>org.kuali.maven.skins</jenkins.project.groupId>
+        <jenkins.project.artifactId>maven-kuali-skin</jenkins.project.artifactId>
+        <jenkins.project.majorVersion>1.1</jenkins.project.majorVersion>
+      </properties>
+    </profile>
   </profiles>
 </project>
