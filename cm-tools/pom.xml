@@ -64,7 +64,7 @@
         <jenkins.cli.wait>-s</jenkins.cli.wait>
         <jenkins.cli.changes>-c</jenkins.cli.changes>
         <jenkins.cli.version>1.440</jenkins.cli.version>
-        <jenkins.job.name>${jenkins.artifactId}-${jenkins.majorVersion}-${jenkins.job.type}</jenkins.job.name>
+        <jenkins.job.name>${jenkins.project.artifactId}-${jenkins.project.majorVersion}-${jenkins.job.type}</jenkins.job.name>
         <jenkins.job.file>target/classes/org/kuali/cm/jenkins/jobs/${jenkins.template.type}-${jenkins.scm.type}-template.xml</jenkins.job.file>
         <jenkins.git.branch>master</jenkins.git.branch>
       </properties>
@@ -163,9 +163,9 @@
       <properties>
         <jenkins.scm.type>svn</jenkins.scm.type>
         <jenkins.scm.url>${svn.foundation.repo}/pom/trunk/kuali</jenkins.scm.url>
-        <jenkins.groupId>org.kuali.pom</jenkins.groupId>
-        <jenkins.artifactId>kuali</jenkins.artifactId>
-        <jenkins.majorVersion>1.0</jenkins.majorVersion>
+        <jenkins.project.groupId>org.kuali.pom</jenkins.project.groupId>
+        <jenkins.project.artifactId>kuali</jenkins.project.artifactId>
+        <jenkins.project.majorVersion>1.0</jenkins.project.majorVersion>
       </properties>
     </profile>
     <profile>
@@ -173,9 +173,9 @@
       <properties>
         <jenkins.scm.type>svn</jenkins.scm.type>
         <jenkins.scm.url>${svn.foundation.repo}/trunk/kuali-threads</jenkins.scm.url>
-        <jenkins.groupId>org.kuali.common.threads</jenkins.groupId>
-        <jenkins.artifactId>kuali-threads</jenkins.artifactId>
-        <jenkins.majorVersion>1.0</jenkins.majorVersion>
+        <jenkins.project.groupId>org.kuali.common.threads</jenkins.project.groupId>
+        <jenkins.project.artifactId>kuali-threads</jenkins.project.artifactId>
+        <jenkins.project.majorVersion>1.0</jenkins.project.majorVersion>
       </properties>
     </profile>
     <profile>
@@ -183,9 +183,9 @@
       <properties>
         <jenkins.scm.type>git</jenkins.scm.type>
         <jenkins.scm.url>git://github.com/jcaddel/maven-s3-wagon.git</jenkins.scm.url>
-        <jenkins.groupId>org.kuali.maven.wagon</jenkins.groupId>
-        <jenkins.artifactId>maven-s3-wagon</jenkins.artifactId>
-        <jenkins.majorVersion>1.1</jenkins.majorVersion>
+        <jenkins.project.groupId>org.kuali.maven.wagon</jenkins.project.groupId>
+        <jenkins.project.artifactId>maven-s3-wagon</jenkins.project.artifactId>
+        <jenkins.project.majorVersion>1.1</jenkins.project.majorVersion>
       </properties>
     </profile>
   </profiles>
