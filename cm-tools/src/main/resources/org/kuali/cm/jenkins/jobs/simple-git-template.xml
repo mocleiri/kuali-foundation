@@ -8,7 +8,7 @@
     &lt;li&gt;${jenkins.project.scm.url}&lt;/li&gt;
     &lt;br&gt;
     &lt;li&gt;Job config handled by the Maven Jenkins CLI Wrapper ${project.version}&lt;/li&gt;
-    &lt;li&gt;Last Updated - ${maven.build.timestamp}&lt;/li&gt; </description>
+    &lt;li&gt;Last Updated - ${kuali.build.timestamp}&lt;/li&gt; </description>
   <logRotator>
     <daysToKeep>-1</daysToKeep>
     <numToKeep>3</numToKeep>
