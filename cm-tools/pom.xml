@@ -147,34 +147,6 @@
       </properties>
     </profile>
     <profile>
-      <id>version</id>
-      <properties>
-        <ant.target>version</ant.target>
-        <ant.phase>install</ant.phase>
-      </properties>
-    </profile>
-    <profile>
-      <id>who</id>
-      <properties>
-        <ant.target>who</ant.target>
-        <ant.phase>install</ant.phase>
-      </properties>
-    </profile>
-    <profile>
-      <id>help</id>
-      <properties>
-        <ant.target>help</ant.target>
-        <ant.phase>install</ant.phase>
-      </properties>
-    </profile>
-    <profile>
-      <id>cli</id>
-      <properties>
-        <ant.target>cli</ant.target>
-        <ant.phase>install</ant.phase>
-      </properties>
-    </profile>
-    <profile>
       <id>get</id>
       <properties>
         <ant.target>get</ant.target>
@@ -199,6 +171,13 @@
       <id>build</id>
       <properties>
         <ant.target>build</ant.target>
+        <ant.phase>install</ant.phase>
+      </properties>
+    </profile>
+    <profile>
+      <id>cli</id>
+      <properties>
+        <ant.target>cli</ant.target>
         <ant.phase>install</ant.phase>
       </properties>
     </profile>
