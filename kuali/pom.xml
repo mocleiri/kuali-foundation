@@ -691,7 +691,7 @@
     </profile>
 
     <profile>
-      <id>jenkins</id>
+      <id>ci</id>
       <properties>
         <maven.test.skip>true</maven.test.skip>
         <ant.target>none</ant.target>
