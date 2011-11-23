@@ -63,6 +63,7 @@
         <jenkins.cli.classname>hudson.cli.CLI</jenkins.cli.classname>
         <jenkins.cli.wait>-s</jenkins.cli.wait>
         <jenkins.cli.changes>-c</jenkins.cli.changes>
+        <jenkins.cli.version>1.440</jenkins.cli.version>
         <jenkins.job.name>${jenkins.artifactId}-${jenkins.majorVersion}-${jenkins.job.type}</jenkins.job.name>
         <jenkins.job.file>target/classes/org/kuali/cm/jenkins/jobs/${jenkins.template.type}-${jenkins.scm.type}-template.xml</jenkins.job.file>
         <jenkins.git.branch>master</jenkins.git.branch>
@@ -106,7 +107,7 @@
               <dependency>
                 <groupId>org.jenkins</groupId>
                 <artifactId>jenkins-cli</artifactId>
-                <version>1.440</version>
+                <version>${jenkins.cli.version}</version>
               </dependency>
             </dependencies>
           </plugin>
@@ -161,7 +162,7 @@
       <id>kuali</id>
       <properties>
         <jenkins.scm.type>svn</jenkins.scm.type>
-        <jenkins.scm.url>${svn.foundation.repo}/pom/trunk/parent</jenkins.scm.url>
+        <jenkins.scm.url>${svn.foundation.repo}/pom/trunk/kuali</jenkins.scm.url>
         <jenkins.groupId>org.kuali.pom</jenkins.groupId>
         <jenkins.artifactId>kuali</jenkins.artifactId>
         <jenkins.majorVersion>1.0</jenkins.majorVersion>
