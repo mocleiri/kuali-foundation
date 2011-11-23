@@ -59,14 +59,11 @@
         <ant.phase>none</ant.phase>
         <ant.file>src/main/resources/org/kuali/cm/jenkins/ant/build.xml</ant.file>
         <ant.java.fork>true</ant.java.fork>
-        <jenkins.scm.url>${jenkins.svn.repo}/${jenkins.svn.path}</jenkins.scm.url>
-        <jenkins.job.name>${jenkins.project.artifactId}-${jenkins.project.version.major}-publish</jenkins.job.name>
-        <jenkins.job.file>target/classes/org/kuali/cm/jenkins/publish.xml</jenkins.job.file>
-        <jenkins.url>http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/</jenkins.url>
+        <jenkins.server>http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/</jenkins.server>
         <jenkins.cli.classname>hudson.cli.CLI</jenkins.cli.classname>
-        <jenkins.wait>-s</jenkins.wait>
-        <jenkins.changes>-c</jenkins.changes>
-        <jenkins.job.name>${jenkins.project.artifactId}-${jenkins.project.version.major}-${jenkins.job.type}</jenkins.job.name>
+        <jenkins.cli.wait>-s</jenkins.cli.wait>
+        <jenkins.cli.changes>-c</jenkins.cli.changes>
+        <jenkins.job.name>${jenkins.artifactId}-${jenkins.majorVersion}-${jenkins.job.type}</jenkins.job.name>
         <jenkins.job.file>target/classes/org/kuali/cm/jenkins/jobs/${jenkins.job.type}-${jenkins.scm.type}-template.xml</jenkins.job.file>
       </properties>
       <build>
@@ -120,6 +117,7 @@
       <properties>
         <jenkins.mvn.goals>clean deploy site-deploy -Pkuali-release</jenkins.mvn.goals>
         <jenkins.job.type>publish</jenkins.job.type>
+        <jenkins.template.type>simple</jenkins.template.type>
       </properties>
     </profile>
     <profile>
@@ -161,22 +159,20 @@
       <id>kuali</id>
       <properties>
         <jenkins.scm.type>svn</jenkins.scm.type>
-        <jenkins.svn.repo>${svn.foundation.repo}</jenkins.svn.repo>
-        <jenkins.svn.path>pom/trunk/parent</jenkins.svn.path>
-        <jenkins.project.groupId>org.kuali.pom</jenkins.project.groupId>
-        <jenkins.project.artifactId>kuali</jenkins.project.artifactId>
-        <jenkins.project.version.major>1.0</jenkins.project.version.major>
+        <jenkins.scm.url>${svn.foundation.repo}/pom/trunk/parent</jenkins.scm.url>
+        <jenkins.groupId>org.kuali.pom</jenkins.groupId>
+        <jenkins.artifactId>kuali</jenkins.artifactId>
+        <jenkins.majorVersion>1.0</jenkins.majorVersion>
       </properties>
     </profile>
     <profile>
       <id>threads</id>
       <properties>
         <jenkins.scm.type>svn</jenkins.scm.type>
-        <jenkins.svn.repo>${svn.foundation.repo}</jenkins.svn.repo>
-        <jenkins.svn.path>trunk/kuali-threads</jenkins.svn.path>
-        <jenkins.project.groupId>org.kuali.common.threads</jenkins.project.groupId>
-        <jenkins.project.artifactId>kuali-threads</jenkins.project.artifactId>
-        <jenkins.project.version.major>1.0</jenkins.project.version.major>
+        <jenkins.scm.url>${svn.foundation.repo}/trunk/kuali-threads</jenkins.scm.url>
+        <jenkins.groupId>org.kuali.common.threads</jenkins.groupId>
+        <jenkins.artifactId>kuali-threads</jenkins.artifactId>
+        <jenkins.majorVersion>1.0</jenkins.majorVersion>
       </properties>
     </profile>
     <profile>
@@ -184,9 +180,9 @@
       <properties>
         <jenkins.scm.type>git</jenkins.scm.type>
         <jenkins.scm.url>git://github.com/jcaddel/maven-s3-wagon.git</jenkins.scm.url>
-        <jenkins.project.groupId>org.kuali.maven.wagon</jenkins.project.groupId>
-        <jenkins.project.artifactId>maven-s3-wagon</jenkins.project.artifactId>
-        <jenkins.project.version.major>1.1</jenkins.project.version.major>
+        <jenkins.groupId>org.kuali.maven.wagon</jenkins.groupId>
+        <jenkins.artifactId>maven-s3-wagon</jenkins.artifactId>
+        <jenkins.majorVersion>1.1</jenkins.majorVersion>
       </properties>
     </profile>
   </profiles>
