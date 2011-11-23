@@ -73,13 +73,4 @@
     </java>
   </target>
 
-  <target name="plugin">
-    <java classname="${jenkins.cli.classname}">
-      <arg value="-s" />
-      <arg value="${jenkins.url}" />
-      <arg value="install-plugin" />
-      <arg value="${jenkins.plugin.id}" />
-    </java>
-  </target>
-
 </project>
