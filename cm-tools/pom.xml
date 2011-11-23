@@ -13,9 +13,9 @@
   <name>Kuali CM Tools</name>
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.kuali</groupId>
+    <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>28</version>
+    <version>1.0.0</version>
   </parent>
   <description>Configuration Management Tools</description>
   <groupId>org.kuali.cm</groupId>
