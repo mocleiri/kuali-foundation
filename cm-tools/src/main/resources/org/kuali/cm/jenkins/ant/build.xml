@@ -73,4 +73,20 @@
     </java>
   </target>
 
+  <target name="version">
+    <java classname="${jenkins.cli.classname}">
+      <arg value="-s" />
+      <arg value="${jenkins.server}" />
+      <arg value="version" />
+    </java>
+  </target>
+
+  <target name="who">
+    <java classname="${jenkins.cli.classname}">
+      <arg value="-s" />
+      <arg value="${jenkins.server}" />
+      <arg value="who-am-i" />
+    </java>
+  </target>
+
 </project>
