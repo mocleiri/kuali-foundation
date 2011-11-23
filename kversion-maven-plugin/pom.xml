@@ -16,9 +16,9 @@
     <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
   </properties>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kversion-maven-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kversion-maven-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/kversion-maven-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/version-maven-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/version-maven-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/version-maven-plugin</url>
   </scm>
   <dependencies>
     <dependency>
