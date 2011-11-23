@@ -3,7 +3,7 @@
   <actions />
   <description>
     &lt;li&gt;Publish artifacts to S3 and deploy the Maven web site&lt;/li&gt;
-    &lt;li&gt;${jenkins.project.groupId}:${jenkins.project.artifactId}:${jenkins.project.version.major}&lt;/li&gt;
+    &lt;li&gt;${jenkins.project.groupId}:${jenkins.project.artifactId}:${jenkins.project.majorVersion}&lt;/li&gt;
     &lt;li&gt;${jenkins.scm.url}&lt;/li&gt;
   </description>
   <logRotator>
