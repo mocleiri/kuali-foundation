@@ -48,8 +48,9 @@ public class GetMajorVersionMojo extends AbstractMojo {
         int pos = getPos(version);
         if (pos == -1) {
             return version;
+        } else {
+            return version.substring(0, pos);
         }
-        return version.substring(pos);
     }
 
     protected int getPos(String version) {
@@ -67,8 +68,47 @@ public class GetMajorVersionMojo extends AbstractMojo {
         if (pos1 != -1 && pos2 == -1) {
             return pos2;
         }
-        // Both a dot and a dash, return whichever one occurs first
-        return Math.min(pos1, pos2);
+
+        // Both a dot and a dash, use the first one
+        int pos = Math.min(pos1, pos2);
+
+        // Attempt to peek ahead one character after the dot/dash
+        int index = pos + 1;
+
+        // If we go past the end of the string, forget it
+        if (index >= version.length()) {
+            return pos;
+        }
+
+        // Is that character an integer?
+        char c = version.charAt(index);
+
+        if (isInteger(c)) {
+            // If so, include it
+            return index + 1;
+        } else {
+            // If not return the original
+            return pos;
+        }
+
+    }
+
+    protected boolean isInteger(char c) {
+        switch (c) {
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            return true;
+        default:
+            return false;
+        }
     }
 
     public MavenProject getProject() {
