@@ -150,6 +150,13 @@
       </properties>
     </profile>
     <profile>
+      <id>build</id>
+      <properties>
+        <ant.target>build</ant.target>
+        <ant.phase>install</ant.phase>
+      </properties>
+    </profile>
+    <profile>
       <id>kuali</id>
       <properties>
         <jenkins.svn.repo>${svn.foundation.repo}</jenkins.svn.repo>
