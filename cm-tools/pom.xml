@@ -118,7 +118,7 @@
     <profile>
       <id>publish</id>
       <properties>
-        <jenkins.mvn.goals>clean deploy site-deploy</jenkins.mvn.goals>
+        <jenkins.mvn.goals>clean deploy site-deploy -Pkuali-release</jenkins.mvn.goals>
         <jenkins.job.type>publish</jenkins.job.type>
       </properties>
     </profile>
