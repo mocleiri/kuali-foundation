@@ -181,6 +181,15 @@
       </properties>
     </profile>
     <profile>
+      <id>kualicommon</id>
+      <properties>
+        <jenkins.project.scm.url>${svn.foundation.repo}/pom/trunk/kuali-common</jenkins.project.scm.url>
+        <jenkins.project.groupId>org.kuali.pom</jenkins.project.groupId>
+        <jenkins.project.artifactId>kuali-common</jenkins.project.artifactId>
+        <jenkins.project.majorVersion>1.0</jenkins.project.majorVersion>
+      </properties>
+    </profile>
+    <profile>
       <id>threads</id>
       <properties>
         <jenkins.project.scm.url>${svn.foundation.repo}/trunk/kuali-threads</jenkins.project.scm.url>
