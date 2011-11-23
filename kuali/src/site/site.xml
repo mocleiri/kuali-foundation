@@ -26,20 +26,20 @@
   <skin>
     <groupId>org.kuali.maven.skins</groupId>
     <artifactId>maven-kuali-skin</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.1.1</version>
   </skin>
   <publishDate format="yyyy-MM-dd" position="right" />
   <version position="right" />
   <poweredBy>
-    <!-- 
+    <!--
       Note: the "img" attribute doesn't work with 3.0 or 3.0-beta-3 because of MSITE-600
-      The site.vm template in the Kuali skin has been edited to always print the 
-      Kuali Foundation logo and ignore the "img" attribute from site.xml.  
+      The site.vm template in the Kuali skin has been edited to always print the
+      Kuali Foundation logo and ignore the "img" attribute from site.xml.
       If a project wants to replace the Kuali Foundation logo with a project
       specific logo it will have to wait until maven-site-plugin 3.1 is released.
-      Edit site.vm in the maven-kuali-skin project to re-enable project specific 
+      Edit site.vm in the maven-kuali-skin project to re-enable project specific
       logos
-     -->
+    -->
     <logo name="The Kuali Foundation &amp;reg" href="http://www.kuali.org/" />
   </poweredBy>
   <body>
@@ -59,8 +59,8 @@
       <menu ref="parent" inherit="top" />
     -->
 
-    <!-- This isn't working due to MSITE-532.  3.0 fixes MSITE-532 but has MSITE-600 which screws up relative
-      pathing for sub-modules.  3.1 is supposed to have both fixes.
+    <!-- This isn't working due to MSITE-532. 3.0 fixes MSITE-532 but has MSITE-600 which screws up relative
+      pathing for sub-modules. 3.1 is supposed to have both fixes.
       <menu ref="modules" inherit="top"/>
     -->
     <menu ref="reports" inherit="bottom" />
