@@ -88,6 +88,12 @@
         <plugins>
           <plugin>
             <artifactId>maven-antrun-plugin</artifactId>
+            <configuration>
+              <target>
+                <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
+                <ant antfile="${ant.file}" target="${ant.target}" />
+              </target>
+            </configuration>
             <executions>
               <execution>
                 <id>ant-run</id>
@@ -97,12 +103,6 @@
                 </goals>
               </execution>
             </executions>
-            <configuration>
-              <target>
-                <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
-                <ant antfile="${ant.file}" target="${ant.target}" />
-              </target>
-            </configuration>
             <dependencies>
               <dependency>
                 <groupId>org.jenkins</groupId>
