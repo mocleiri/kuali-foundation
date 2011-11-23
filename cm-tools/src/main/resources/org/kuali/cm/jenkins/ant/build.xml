@@ -15,8 +15,8 @@
   limitations under the License.
 
 -->
-<project name="CM Tools">
-  <description>Configuration Management Tooling</description>
+<project name="Jenkins CLI Wrapper">
+  <description>Ant wrapper for Jenkins CLI calls</description>
 
   <target name="get">
     <java classname="${jenkins.cli.classname}" output="target/job.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
