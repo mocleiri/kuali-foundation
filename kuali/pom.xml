@@ -17,8 +17,7 @@
   limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali.pom</groupId>
   <artifactId>kuali</artifactId>
@@ -87,7 +86,7 @@
     <kuali.groupId>org.kuali</kuali.groupId>
     <kuali.pom.1>org.kuali.pom:kuali</kuali.pom.1>
     <kuali.pom.2>org.kuali.pom:kuali-common</kuali.pom.2>
-    <!-- 3.0 fixes MSITE-532 but has MSITE-600.  3.1 should fix both -->
+    <!-- 3.0 fixes MSITE-532 but has MSITE-600. 3.1 should fix both -->
     <kuali.site.plugin.version>3.0-beta-3</kuali.site.plugin.version>
     <kuali.site.bucket>site.origin.kuali.org</kuali.site.bucket>
     <kuali.site.hostname>site.kuali.org</kuali.site.hostname>
@@ -188,7 +187,7 @@
       <extension>
         <groupId>org.kuali.maven.wagons</groupId>
         <artifactId>maven-s3-wagon</artifactId>
-        <version>1.1.3-SNAPSHOT</version>
+        <version>1.1.4</version>
       </extension>
     </extensions>
     <pluginManagement>
@@ -202,7 +201,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-cloudfront-plugin</artifactId>
-          <version>1.1.1-SNAPSHOT</version>
+          <version>1.1.2</version>
           <configuration>
             <organizationGroupId>${kuali.groupId}</organizationGroupId>
             <forceMojoExecution>true</forceMojoExecution>
@@ -282,7 +281,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-ksite-plugin</artifactId>
-          <version>1.1.0-SNAPSHOT</version>
+          <version>1.1.0</version>
           <configuration>
             <organizationGroupId>${kuali.groupId}</organizationGroupId>
             <downloadExternalPath>external</downloadExternalPath>
