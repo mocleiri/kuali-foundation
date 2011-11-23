@@ -136,7 +136,8 @@
       <properties>
         <jenkins.mvn.goals>clean deploy site-deploy -Pkuali-release</jenkins.mvn.goals>
         <jenkins.job.type>publish</jenkins.job.type>
-        <jenkins.job.description>Deploy artifacts to S3 using the same profile used during a release and publish the Maven web site</jenkins.job.description>
+        <jenkins.job.description>Deploy artifacts to S3 using the "kuali-release" profile. This is the same profile that activates during an official
+          release. Also, invokes site-deploy to publish the Maven web site</jenkins.job.description>
         <jenkins.template.type>simple</jenkins.template.type>
       </properties>
     </profile>
