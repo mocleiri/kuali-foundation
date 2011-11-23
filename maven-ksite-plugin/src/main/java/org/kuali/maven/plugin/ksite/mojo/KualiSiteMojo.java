@@ -71,7 +71,7 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
     private String organizationGroupId;
 
     /**
-     * If the version number for a pom contains this string it is assumed to be a SNAPSHOT artifact
+     * If the version number contains this string it is assumed to be a SNAPSHOT artifact
      *
      * @parameter expression="${ksite.snapshotSnippet}" default-value="SNAPSHOT"
      */
