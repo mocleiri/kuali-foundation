@@ -70,6 +70,7 @@
     <profile>
       <id>jenkins</id>
       <properties>
+        <jenkins.build.timstamp>${kuali.build.timestamp}</jenkins.build.timstamp>
         <maven.test.skip>true</maven.test.skip>
         <ant.target>none</ant.target>
         <ant.phase>none</ant.phase>
