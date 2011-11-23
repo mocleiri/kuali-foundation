@@ -53,10 +53,10 @@
   <triggers class="vector" />
   <concurrentBuild>false</concurrentBuild>
   <rootModule>
-    <groupId>org.kuali.maven.wagons</groupId>
-    <artifactId>maven-s3-wagon</artifactId>
+    <groupId>${jenkins.project.groupId}</groupId>
+    <artifactId>${jenkins.project.artifactId}</artifactId>
   </rootModule>
-  <goals>clean deploy site-deploy</goals>
+  <goals>${jenkins.mvn.goals}</goals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
   <usePrivateRepository>false</usePrivateRepository>
