@@ -60,7 +60,7 @@
         <ant.file>src/main/resources/org/kuali/cm/jenkins/ant/build.xml</ant.file>
         <ant.java.fork>true</ant.java.fork>
         <jenkins.scm.url>${jenkins.svn.repo}/${jenkins.svn.path}</jenkins.scm.url>
-        <jenkins.job.name>${jenkins.project.artifactId}-publish</jenkins.job.name>
+        <jenkins.job.name>${jenkins.project.artifactId}-${jenkins.project.version.major}-publish</jenkins.job.name>
         <jenkins.job.file>target/classes/org/kuali/cm/jenkins/publish.xml</jenkins.job.file>
         <jenkins.url>http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/</jenkins.url>
         <jenkins.cli.classname>hudson.cli.CLI</jenkins.cli.classname>
