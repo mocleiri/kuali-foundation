@@ -19,7 +19,8 @@
   <description>Ant wrapper for Jenkins CLI calls</description>
 
   <target name="get">
-    <java classname="${jenkins.cli.classname}" output="target/${jenkins.job.name}-config.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+    <java classname="${jenkins.cli.classname}" output="target/${jenkins.job.name}-config.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}"
+      failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="get-job" />
@@ -28,7 +29,7 @@
   </target>
 
   <target name="create">
-    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="create-job" />
@@ -37,7 +38,7 @@
   </target>
 
   <target name="update">
-    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="update-job" />
@@ -46,7 +47,7 @@
   </target>
 
   <target name="delete">
-    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="delete-job" />
@@ -55,7 +56,7 @@
   </target>
 
   <target name="build">
-    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}">
+    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="build" />
@@ -66,7 +67,7 @@
   </target>
 
   <target name="help">
-    <java classname="${jenkins.cli.classname}">
+    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="help" />
@@ -74,7 +75,7 @@
   </target>
 
   <target name="version">
-    <java classname="${jenkins.cli.classname}">
+    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="version" />
@@ -82,7 +83,7 @@
   </target>
 
   <target name="who">
-    <java classname="${jenkins.cli.classname}">
+    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="who-am-i" />
