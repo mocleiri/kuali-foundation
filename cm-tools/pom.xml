@@ -73,20 +73,14 @@
             <directory>src/main/resources</directory>
             <filtering>true</filtering>
             <includes>
-              <include>**/jenkins/**/*.xml</include>
+              <include>**/jenkins/jobs/**/*.xml</include>
             </includes>
-            <excludes>
-              <exclude>**/jenkins/**/build.xml</exclude>
-            </excludes>
           </resource>
           <resource>
             <directory>src/main/resources</directory>
             <filtering>false</filtering>
-            <includes>
-              <include>**/jenkins/**/build.xml</include>
-            </includes>
             <excludes>
-              <exclude>**/jenkins/**/*.xml</exclude>
+              <exclude>**/jenkins/jobs/**/*.xml</exclude>
             </excludes>
           </resource>
         </resources>
