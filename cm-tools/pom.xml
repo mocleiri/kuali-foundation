@@ -57,7 +57,7 @@
         <maven.test.skip>true</maven.test.skip>
         <ant.target>none</ant.target>
         <ant.phase>none</ant.phase>
-        <ant.file>src/main/resources/org/kuali/cm/jenkins/build.xml</ant.file>
+        <ant.file>src/main/resources/org/kuali/cm/jenkins/ant/build.xml</ant.file>
         <ant.java.fork>true</ant.java.fork>
         <jenkins.scm.url>${jenkins.svn.repo}/${jenkins.svn.path}</jenkins.scm.url>
         <jenkins.job.name>${jenkins.project.artifactId}-publish</jenkins.job.name>
