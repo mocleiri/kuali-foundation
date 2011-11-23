@@ -245,5 +245,14 @@
         <jenkins.project.majorVersion>1.1</jenkins.project.majorVersion>
       </properties>
     </profile>
+    <profile>
+      <id>cloudfront</id>
+      <properties>
+        <jenkins.project.scm.url>${svn.foundation.repo}/trunk/maven-cloudfront-plugin</jenkins.project.scm.url>
+        <jenkins.project.groupId>org.kuali.maven.plugins</jenkins.project.groupId>
+        <jenkins.project.artifactId>maven-cloudfront-plugin</jenkins.project.artifactId>
+        <jenkins.project.majorVersion>1.1</jenkins.project.majorVersion>
+      </properties>
+    </profile>
   </profiles>
 </project>
