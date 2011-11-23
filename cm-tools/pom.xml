@@ -122,6 +122,9 @@
         <jenkins.job.type>release</jenkins.job.type>
         <jenkins.job.description>Create an official Kuali release. Deploy artifacts to S3, generate Maven web site, sync to Maven Central</jenkins.job.description>
         <jenkins.template.type>release</jenkins.template.type>
+        <jenkins.postbuild.targets>deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release -DskipTests -e</jenkins.postbuild.targets>
+        <jenkins.postbuild.pom>target/checkout/pom.xml</jenkins.postbuild.pom>
+        <jenkins.postbuild.mavenName>(Default)</jenkins.postbuild.mavenName>
       </properties>
     </profile>
     <profile>

@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <maven2-moduleset>
   <actions />
-  <description> &lt;li&gt;Deploy artifacts to S3 using the same profile used during a release and publish the Maven web site&lt;/li&gt;&#xd;
-    &lt;br&gt;&#xd;
-    &lt;li&gt;org.kuali.common.threads:kuali-threads:1.0&lt;/li&gt;&#xd;
-    &lt;li&gt;http://svn.kuali.org/repos/foundation/trunk/kuali-threads&lt;/li&gt;&#xd;
-    &lt;br&gt;&#xd;
-    &lt;li&gt;Job config handled by the Maven Jenkins CLI
-    Wrapper 1.0.7-SNAPSHOT (CLI Version&#xd;
-    1.440)&lt;/li&gt;&#xd;
-    &lt;li&gt;Last Updated - 2011-11-23 12:50 UTC&lt;/li&gt; </description>
+  <description>
+    &lt;li&gt;${jenkins.job.description}&lt;/li&gt;
+    &lt;br&gt;
+    &lt;li&gt;${jenkins.project.groupId}:${jenkins.project.artifactId}:${jenkins.project.majorVersion}&lt;/li&gt;
+    &lt;li&gt;${jenkins.project.scm.url}&lt;/li&gt;
+    &lt;br&gt;
+    &lt;li&gt;Job config handled by the Maven Jenkins CLI Wrapper ${project.version} (CLI Version
+    ${jenkins.cli.version})&lt;/li&gt;
+    &lt;li&gt;Last Updated - ${kuali.build.timestamp}&lt;/li&gt; </description>
   <logRotator>
     <daysToKeep>-1</daysToKeep>
     <numToKeep>3</numToKeep>
@@ -60,9 +60,9 @@
   <prebuilders />
   <postbuilders>
     <hudson.tasks.Maven>
-      <targets>deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release -DskipTests -e</targets>
-      <mavenName>3.0.3</mavenName>
-      <pom>target/checkout/pom.xml</pom>
+      <targets>${jenkins.postbuild.targets}</targets>
+      <mavenName>${jenkins.postbuild.mavenName}</mavenName>
+      <pom>${jenkins.postbuild.pom}</pom>
       <usePrivateRepository>false</usePrivateRepository>
     </hudson.tasks.Maven>
   </postbuilders>
