@@ -33,7 +33,6 @@
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="${jenkins.cmd}" />
-      <arg value="${jenkins.job.name}" />
     </java>
   </target>
 
