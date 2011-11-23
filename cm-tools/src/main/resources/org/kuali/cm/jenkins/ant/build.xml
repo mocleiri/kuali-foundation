@@ -77,7 +77,7 @@
     <java classname="${jenkins.cli.classname}">
       <arg value="-s" />
       <arg value="${jenkins.url}" />
-      <arg value="help" />
+      <arg value="${jenkins.plugin.id}" />
     </java>
   </target>
 
