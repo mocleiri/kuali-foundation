@@ -66,7 +66,8 @@
         <jenkins.cli.classname>hudson.cli.CLI</jenkins.cli.classname>
         <jenkins.wait>-s</jenkins.wait>
         <jenkins.changes>-c</jenkins.changes>
-        <jenkins.plugin.id></jenkins.plugin.id>
+        <jenkins.job.name>${jenkins.project.artifactId}-${jenkins.project.version.major}-${jenkins.job.type}</jenkins.job.name>
+        <jenkins.job.file>target/classes/org/kuali/cm/jenkins/jobs/${jenkins.job.type}-${jenkins.scm.type}-template.xml</jenkins.job.file>
       </properties>
       <build>
         <resources>
@@ -115,18 +116,10 @@
       </build>
     </profile>
     <profile>
-      <id>plugin</id>
-      <properties>
-        <ant.target>plugin</ant.target>
-        <ant.phase>install</ant.phase>
-      </properties>
-    </profile>
-    <profile>
       <id>publish</id>
       <properties>
         <jenkins.mvn.goals>clean deploy site-deploy</jenkins.mvn.goals>
-        <jenkins.job.name>${jenkins.project.artifactId}-${jenkins.project.version.major}-publish</jenkins.job.name>
-        <jenkins.job.file>target/classes/org/kuali/cm/jenkins/jobs/publish-${jenkins.scm.type}-template.xml</jenkins.job.file>
+        <jenkins.job.type>publish</jenkins.job.type>
       </properties>
     </profile>
     <profile>
