@@ -60,7 +60,7 @@
   </target>
 
   <target name="delete">
-    <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
+    <echo>${jenkins.server} - delete-job - ${jenkins.job.name}</echo>
     <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
