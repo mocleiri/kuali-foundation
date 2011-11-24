@@ -30,7 +30,7 @@
   </target>
 
   <target name="build">
-    <param name="jenkins.cli.cmd" value="build" />
+    <property name="jenkins.cli.cmd" value="build" />
     <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
     <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
