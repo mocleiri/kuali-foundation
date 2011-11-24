@@ -29,8 +29,19 @@
     </java>
   </target>
 
+  <target name="build">
+    <java classname="${jenkins.cli.classname}" input="${ant.input}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
+      <arg value="-s" />
+      <arg value="${jenkins.server}" />
+      <arg value="build" />
+      <arg value="${jenkins.job.name}" />
+      <arg value="${jenkins.cli.changes}" />
+      <arg value="${jenkins.cli.wait}" />
+    </java>
+  </target>
+
   <target name="job">
-    <java classname="${jenkins.cli.classname}" output="target/${jenkins.job.name}-config.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}"
+    <java classname="${jenkins.cli.classname}" input="${ant.input}" output="${ant.output}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}"
       failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
@@ -73,17 +84,6 @@
       <arg value="${jenkins.server}" />
       <arg value="delete-job" />
       <arg value="${jenkins.job.name}" />
-    </java>
-  </target>
-
-  <target name="build">
-    <java classname="${jenkins.cli.classname}" input="${jenkins.job.file}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
-      <arg value="-s" />
-      <arg value="${jenkins.server}" />
-      <arg value="build" />
-      <arg value="${jenkins.job.name}" />
-      <arg value="${jenkins.cli.changes}" />
-      <arg value="${jenkins.cli.wait}" />
     </java>
   </target>
 
