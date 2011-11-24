@@ -21,7 +21,7 @@
   <target name="noop" />
 
   <target name="cli">
-    <echo>${jenkins.server} - ${jenkins.cmd}</echo>
+    <echo>${jenkins.server} - ${jenkins.cli.cmd}</echo>
     <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
