@@ -42,9 +42,6 @@
         <includes>
           <include>**/jenkins/**/*.xml</include>
         </includes>
-        <excludes>
-          <exclude>**/jenkins/**/*-properties.xml</exclude>
-        </excludes>
       </resource>
       <resource>
         <directory>src/main/resources</directory>
@@ -52,9 +49,6 @@
         <excludes>
           <exclude>**/jenkins/**/*.xml</exclude>
         </excludes>
-        <includes>
-          <include>**/jenkins/**/*-properties.xml</include>
-        </includes>
       </resource>
     </resources>
     <pluginManagement>
@@ -106,13 +100,29 @@
         <jenkins.project.name>${p}</jenkins.project.name>
       </properties>
       <build>
-        <filters>
-          <filter>src/main/resources/org/kuali/cm/jenkins/kuali.properties</filter>
-          <filter>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</filter>
-          <filter>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.job.type}-properties.xml</filter>
-          <filter>src/main/resources/org/kuali/cm/jenkins/projects/${jenkins.project.name}.properties</filter>
-        </filters>
         <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <version>1.0-alpha-2</version>
+            <executions>
+              <execution>
+                <id>get-properties</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>read-project-properties</goal>
+                </goals>
+                <configuration>
+                  <files>
+                    <file>src/main/resources/org/kuali/cm/jenkins/kuali.properties</file>
+                    <file>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</file>
+                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.job.type}-properties.xml</file>
+                    <file>src/main/resources/org/kuali/cm/jenkins/projects/${jenkins.project.name}.properties</file>
+                  </files>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>buildnumber-maven-plugin</artifactId>
