@@ -82,6 +82,7 @@
       </properties>
       <build>
         <filters>
+          <filter>src/main/resources/org/kuali/cm/jenkins/kuali.properties</filter>
           <filter>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</filter>
           <filter>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.job.type}.properties</filter>
           <filter>src/main/resources/org/kuali/cm/jenkins/projects/${jenkins.project.name}.properties</filter>
