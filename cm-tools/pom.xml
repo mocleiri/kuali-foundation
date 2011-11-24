@@ -42,6 +42,9 @@
         <includes>
           <include>**/jenkins/**/*.xml</include>
         </includes>
+        <excludes>
+          <exclude>**/jenkins/**/*-properties.xml</exclude>
+        </excludes>
       </resource>
       <resource>
         <directory>src/main/resources</directory>
@@ -49,6 +52,9 @@
         <excludes>
           <exclude>**/jenkins/**/*.xml</exclude>
         </excludes>
+        <includes>
+          <include>**/jenkins/**/*-properties.xml</include>
+        </includes>
       </resource>
     </resources>
     <pluginManagement>
@@ -104,6 +110,7 @@
           <filter>src/main/resources/org/kuali/cm/jenkins/kuali.properties</filter>
           <filter>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</filter>
           <filter>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.job.type}.properties</filter>
+          <filter>src/main/resources/org/kuali/cm/jenkins/jobs/publish-properties.xml</filter>
           <filter>src/main/resources/org/kuali/cm/jenkins/projects/${jenkins.project.name}.properties</filter>
         </filters>
         <plugins>
