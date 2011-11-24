@@ -52,6 +52,16 @@
     </java>
   </target>
 
+  <target name="delete">
+    <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
+    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
+      <arg value="-s" />
+      <arg value="${jenkins.server}" />
+      <arg value="${jenkins.cli.cmd}" />
+      <arg value="${jenkins.job.name}" />
+    </java>
+  </target>
+
   <target name="inputcmd">
     <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
     <echo>file - ${ant.input}</echo>
@@ -73,16 +83,6 @@
     <antcall target="inputcmd">
       <param name="jenkins.cli.cmd" value="update-job" />
     </antcall>
-  </target>
-
-  <target name="delete">
-    <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
-    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
-      <arg value="-s" />
-      <arg value="${jenkins.server}" />
-      <arg value="${jenkins.cli.cmd}" />
-      <arg value="${jenkins.job.name}" />
-    </java>
   </target>
 
 </project>
