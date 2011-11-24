@@ -118,7 +118,7 @@
                   <goal>create-timestamp</goal>
                 </goals>
                 <configuration>
-                  <timestampFormat>yyyy-MM-dd HH:mm z</timestampFormat>
+                  <timestampFormat>yyyy-MM-dd HH:mm:ss.S z</timestampFormat>
                   <timestampPropertyName>jenkins.build.timestamp</timestampPropertyName>
                 </configuration>
               </execution>
@@ -135,7 +135,7 @@
       <properties>
         <ant.target>cli</ant.target>
         <cmd>help</cmd>
-        <jenkins.cmd>${cmd}</jenkins.cmd>
+        <jenkins.cli.cmd>${cmd}</jenkins.cli.cmd>
       </properties>
       <build>
         <filters>
