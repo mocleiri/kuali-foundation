@@ -95,7 +95,6 @@
     <profile>
       <id>ci</id>
       <properties>
-        <cmd>help</cmd>
         <ant.target>${cmd}</ant.target>
         <jenkins.job.type>${job}</jenkins.job.type>
         <jenkins.project.name>${p}</jenkins.project.name>
@@ -135,6 +134,7 @@
       <id>cli</id>
       <properties>
         <ant.target>cli</ant.target>
+        <cmd>help</cmd>
         <jenkins.cmd>${cmd}</jenkins.cmd>
       </properties>
       <build>
