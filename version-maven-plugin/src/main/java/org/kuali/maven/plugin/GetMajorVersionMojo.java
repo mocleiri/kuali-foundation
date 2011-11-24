@@ -42,7 +42,7 @@ public class GetMajorVersionMojo extends AbstractMojo {
         }
         String majorVersion = getMajorVersion(project.getVersion());
         properties.setProperty(majorVersionProperty, majorVersion);
-        getLog().info("Major Version: " + majorVersion);
+        getLog().debug("Major Version: " + majorVersion);
     }
 
     protected String getMajorVersion(String version) {
