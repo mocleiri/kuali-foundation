@@ -134,7 +134,7 @@
                   <goal>create-timestamp</goal>
                 </goals>
                 <configuration>
-                  <timestampFormat>yyyy-MM-dd HH:mm:ss.S z</timestampFormat>
+                  <timestampFormat>yyyy-MM-dd HH:mm:ss z</timestampFormat>
                   <timestampPropertyName>jenkins.build.timestamp</timestampPropertyName>
                 </configuration>
               </execution>
