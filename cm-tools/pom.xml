@@ -131,31 +131,46 @@
       </build>
     </profile>
     <profile>
-      <id>kuali</id>
+      <id>cli</id>
       <properties>
-        <jenkins.project.scm.url>${svn.foundation.repo}/pom/trunk/kuali</jenkins.project.scm.url>
-        <jenkins.project.groupId>org.kuali.pom</jenkins.project.groupId>
-        <jenkins.project.artifactId>kuali</jenkins.project.artifactId>
-        <jenkins.project.majorVersion>1.0</jenkins.project.majorVersion>
+        <ant.target>${cmd}</ant.target>
+        <ant.file>target/classes/org/kuali/cm/jenkins/ant/build.xml</ant.file>
+        <ant.phase>process-resources</ant.phase>
+        <jenkins.cli.version>1.440</jenkins.cli.version>
       </properties>
-    </profile>
-    <profile>
-      <id>kualicommon</id>
-      <properties>
-        <jenkins.project.scm.url>${svn.foundation.repo}/pom/trunk/kuali-common</jenkins.project.scm.url>
-        <jenkins.project.groupId>org.kuali.pom</jenkins.project.groupId>
-        <jenkins.project.artifactId>kuali-common</jenkins.project.artifactId>
-        <jenkins.project.majorVersion>1.0</jenkins.project.majorVersion>
-      </properties>
-    </profile>
-    <profile>
-      <id>mvncommon</id>
-      <properties>
-        <jenkins.project.scm.url>${svn.foundation.repo}/trunk/maven-kuali-common</jenkins.project.scm.url>
-        <jenkins.project.groupId>org.kuali.maven.common</jenkins.project.groupId>
-        <jenkins.project.artifactId>maven-kuali-common</jenkins.project.artifactId>
-        <jenkins.project.majorVersion>1.1</jenkins.project.majorVersion>
-      </properties>
+      <build>
+        <filters>
+          <filter>src/main/resources/org/kuali/cm/jenkins/kuali.properties</filter>
+          <filter>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</filter>
+        </filters>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <configuration>
+              <target>
+                <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
+                <ant antfile="${ant.file}" target="${ant.target}" />
+              </target>
+            </configuration>
+            <executions>
+              <execution>
+                <id>ant-run</id>
+                <phase>${ant.phase}</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.jenkins</groupId>
+                <artifactId>jenkins-cli</artifactId>
+                <version>${jenkins.cli.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
     <profile>
       <id>ksite</id>
