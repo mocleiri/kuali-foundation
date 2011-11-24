@@ -71,11 +71,14 @@
       <id>ci</id>
       <properties>
         <jenkins.cli.version>1.440</jenkins.cli.version>
+        <type>empty</type>
+        <p>empty</p>
       </properties>
       <build>
         <filters>
           <filter>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</filter>
-          <filter>src/main/resources/org/kuali/cm/jenkins/${jobtype}.properties</filter>
+          <filter>src/main/resources/org/kuali/cm/jenkins/${type}.properties</filter>
+          <filter>src/main/resources/org/kuali/cm/jenkins/${p}.properties</filter>
         </filters>
         <plugins>
           <plugin>
@@ -100,7 +103,7 @@
             <configuration>
               <target>
                 <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
-                <ant antfile="${ant.file}" target="${ant.target}" />
+                <ant antfile="${ant.file}" target="${cmd}" />
               </target>
             </configuration>
             <executions>

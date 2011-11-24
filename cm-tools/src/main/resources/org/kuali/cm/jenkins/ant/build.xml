@@ -18,8 +18,8 @@
 <project name="Jenkins CLI Wrapper">
   <description>Ant wrapper for Jenkins CLI calls</description>
 
-  <target name="helloworld">
-    <echo>${project.organization.name}</echo>
+  <target name="noop">
+    <echo>Nothing to do</echo>
   </target>
 
   <target name="get">
