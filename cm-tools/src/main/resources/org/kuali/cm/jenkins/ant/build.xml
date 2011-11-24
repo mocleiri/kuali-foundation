@@ -43,7 +43,7 @@
 
   <target name="get">
     <echo>${jenkins.server} - get-job - ${jenkins.job.name}</echo>
-    <echo>Config File: ${ant.output}</echo>
+    <echo>file - ${ant.output}</echo>
     <java classname="${jenkins.cli.classname}" output="${ant.output}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
@@ -54,7 +54,7 @@
 
   <target name="inputcmd">
     <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
-    <echo>Config: ${ant.input}</echo>
+    <echo>file - ${ant.input}</echo>
     <java classname="${jenkins.cli.classname}" input="${ant.input}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
