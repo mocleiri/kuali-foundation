@@ -31,7 +31,7 @@
 
   <target name="build">
     <echo>${jenkins.server} - build - ${jenkins.job.name}</echo>
-    <java classname="${jenkins.cli.classname}" input="${ant.input}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
+    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="build" />
@@ -42,7 +42,8 @@
   </target>
 
   <target name="get">
-    <echo>${jenkins.server} - get-job - ${jenkins.job.name} &gt; ${ant.output}</echo>
+    <echo>${jenkins.server} - get-job - ${jenkins.job.name}</echo>
+    <echo>Config File: ${ant.output}</echo>
     <java classname="${jenkins.cli.classname}" output="${ant.output}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
@@ -52,7 +53,8 @@
   </target>
 
   <target name="create">
-    <echo>${jenkins.server} - create-job - ${jenkins.job.name} &lt; ${ant.input}</echo>
+    <echo>${jenkins.server} - create-job - ${jenkins.job.name}</echo>
+    <echo>Config File: ${ant.input}</echo>
     <java classname="${jenkins.cli.classname}" input="${ant.input}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
