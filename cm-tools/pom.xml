@@ -72,6 +72,7 @@
       <properties>
         <p>empty</p>
         <type>empty</type>
+        <cmd>noop</cmd>
         <ant.target>${cmd}</ant.target>
         <jenkins.cli.version>1.440</jenkins.cli.version>
         <jenkins.job.type>${type}</jenkins.job.type>
