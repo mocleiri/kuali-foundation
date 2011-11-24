@@ -24,7 +24,6 @@
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <antrun.version>1.7</antrun.version>
-    <svn.foundation.repo>http://svn.kuali.org/repos/foundation</svn.foundation.repo>
     <maven.test.skip>true</maven.test.skip>
   </properties>
   <scm>
