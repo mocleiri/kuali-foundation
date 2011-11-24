@@ -55,6 +55,7 @@
       <plugins>
         <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
+          <version>${antrun.version}</version>
           <configuration>
             <target>
               <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
