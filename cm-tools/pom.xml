@@ -70,9 +70,6 @@
     <profile>
       <id>ci</id>
       <properties>
-        <p>empty</p>
-        <job>empty</job>
-        <cmd>noop</cmd>
         <ant.target>${cmd}</ant.target>
         <ant.file>target/classes/org/kuali/cm/jenkins/ant/build.xml</ant.file>
         <ant.phase>process-resources</ant.phase>
