@@ -36,7 +36,14 @@
       <arg value="${jenkins.server}" />
       <arg value="build" />
       <arg value="${jenkins.job.name}" />
-      <arg value="${jenkins.cli.changes}" />
+      <!--
+        This causes Jenkins to skip the build if nothing has changed.
+        Commented out because it wasn't working property in 1.440.
+        Also, if someone has gone to the trouble of invoking the Jenkins
+        CLI to fire a build they are most likely going to expect that
+        it will kick off a build, even if nothing has changed.
+        <arg value="${jenkins.cli.changes}" />
+      -->
       <arg value="${jenkins.cli.wait}" />
     </java>
   </target>
