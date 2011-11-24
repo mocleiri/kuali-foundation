@@ -95,6 +95,7 @@
     <profile>
       <id>ci</id>
       <properties>
+        <cmd>noop</cmd>
         <ant.target>${cmd}</ant.target>
         <jenkins.job.type>${job}</jenkins.job.type>
         <jenkins.project.name>${p}</jenkins.project.name>
