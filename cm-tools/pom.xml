@@ -134,48 +134,6 @@
       </build>
     </profile>
     <profile>
-      <id>create</id>
-      <properties>
-        <ant.target>create</ant.target>
-        <ant.phase>install</ant.phase>
-      </properties>
-    </profile>
-    <profile>
-      <id>get</id>
-      <properties>
-        <ant.target>get</ant.target>
-        <ant.phase>install</ant.phase>
-      </properties>
-    </profile>
-    <profile>
-      <id>update</id>
-      <properties>
-        <ant.target>update</ant.target>
-        <ant.phase>install</ant.phase>
-      </properties>
-    </profile>
-    <profile>
-      <id>delete</id>
-      <properties>
-        <ant.target>delete</ant.target>
-        <ant.phase>install</ant.phase>
-      </properties>
-    </profile>
-    <profile>
-      <id>build</id>
-      <properties>
-        <ant.target>build</ant.target>
-        <ant.phase>install</ant.phase>
-      </properties>
-    </profile>
-    <profile>
-      <id>cli</id>
-      <properties>
-        <ant.target>cli</ant.target>
-        <ant.phase>install</ant.phase>
-      </properties>
-    </profile>
-    <profile>
       <id>kuali</id>
       <properties>
         <jenkins.project.scm.url>${svn.foundation.repo}/pom/trunk/kuali</jenkins.project.scm.url>
