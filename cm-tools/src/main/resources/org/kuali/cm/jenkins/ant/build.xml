@@ -76,28 +76,4 @@
     </java>
   </target>
 
-  <target name="help">
-    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
-      <arg value="-s" />
-      <arg value="${jenkins.server}" />
-      <arg value="help" />
-    </java>
-  </target>
-
-  <target name="version">
-    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
-      <arg value="-s" />
-      <arg value="${jenkins.server}" />
-      <arg value="version" />
-    </java>
-  </target>
-
-  <target name="who">
-    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
-      <arg value="-s" />
-      <arg value="${jenkins.server}" />
-      <arg value="who-am-i" />
-    </java>
-  </target>
-
 </project>
