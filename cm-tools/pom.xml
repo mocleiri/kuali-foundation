@@ -85,7 +85,7 @@
         <filters>
           <filter>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</filter>
           <filter>src/main/resources/org/kuali/cm/jenkins/${jenkins.job.type}.properties</filter>
-          <filter>src/main/resources/org/kuali/cm/jenkins/${jenkins.project.name}.properties</filter>
+          <filter>src/main/resources/org/kuali/cm/jenkins/projects/${jenkins.project.name}.properties</filter>
         </filters>
         <plugins>
           <plugin>
