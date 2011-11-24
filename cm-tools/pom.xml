@@ -72,13 +72,13 @@
       <id>ci</id>
       <properties>
         <p>empty</p>
-        <type>empty</type>
+        <job>empty</job>
         <cmd>noop</cmd>
         <ant.target>${cmd}</ant.target>
         <ant.file>target/classes/org/kuali/cm/jenkins/ant/build.xml</ant.file>
         <ant.phase>process-resources</ant.phase>
         <jenkins.cli.version>1.440</jenkins.cli.version>
-        <jenkins.job.type>${type}</jenkins.job.type>
+        <jenkins.job.type>${job}</jenkins.job.type>
         <jenkins.project.name>${p}</jenkins.project.name>
       </properties>
       <build>
