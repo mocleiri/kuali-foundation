@@ -64,13 +64,13 @@
   </target>
 
   <target name="create">
-    <antcall target="input-cli-cmd">
+    <antcall target="inputcmd">
       <param name="jenkins.cli.cmd" value="create-job" />
     </antcall>
   </target>
 
   <target name="update">
-    <antcall target="input-cli-cmd">
+    <antcall target="inputcmd">
       <param name="jenkins.cli.cmd" value="update-job" />
     </antcall>
   </target>
