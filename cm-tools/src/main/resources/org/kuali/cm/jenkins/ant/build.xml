@@ -52,20 +52,10 @@
     </java>
   </target>
 
-  <target name="create">
-    <echo>${jenkins.server} - create-job - ${jenkins.job.name}</echo>
-    <echo>Config File: ${ant.input}</echo>
-    <java classname="${jenkins.cli.classname}" input="${ant.input}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
-      <arg value="-s" />
-      <arg value="${jenkins.server}" />
-      <arg value="create-job" />
-      <arg value="${jenkins.job.name}" />
-    </java>
-  </target>
-
-  <target name="job">
+  <target name="inputcmd">
     <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
-    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
+    <echo>Config: ${ant.input}</echo>
+    <java classname="${jenkins.cli.classname}" input="${ant.input}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="${jenkins.cli.cmd}" />
@@ -73,16 +63,26 @@
     </java>
   </target>
 
+  <target name="create">
+    <antcall target="input-cli-cmd">
+      <param name="jenkins.cli.cmd" value="create-job" />
+    </antcall>
+  </target>
+
   <target name="update">
-    <antcall target="job">
+    <antcall target="input-cli-cmd">
       <param name="jenkins.cli.cmd" value="update-job" />
     </antcall>
   </target>
 
   <target name="delete">
-    <antcall target="job">
-      <param name="jenkins.cli.cmd" value="delete-job" />
-    </antcall>
+    <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
+    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
+      <arg value="-s" />
+      <arg value="${jenkins.server}" />
+      <arg value="${jenkins.cli.cmd}" />
+      <arg value="${jenkins.job.name}" />
+    </java>
   </target>
 
 </project>
