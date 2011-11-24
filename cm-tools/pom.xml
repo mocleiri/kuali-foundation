@@ -70,15 +70,17 @@
     <profile>
       <id>ci</id>
       <properties>
-        <jenkins.cli.version>1.440</jenkins.cli.version>
-        <type>empty</type>
         <p>empty</p>
+        <type>empty</type>
+        <jenkins.cli.version>1.440</jenkins.cli.version>
+        <jenkins.job.type>${type}</jenkins.job.type>
+        <jenkins.project.name>${p}</jenkins.project.name>
       </properties>
       <build>
         <filters>
           <filter>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</filter>
-          <filter>src/main/resources/org/kuali/cm/jenkins/${type}.properties</filter>
-          <filter>src/main/resources/org/kuali/cm/jenkins/${p}.properties</filter>
+          <filter>src/main/resources/org/kuali/cm/jenkins/${jenkins.job.type}.properties</filter>
+          <filter>src/main/resources/org/kuali/cm/jenkins/${jenkins.project.name}.properties</filter>
         </filters>
         <plugins>
           <plugin>
