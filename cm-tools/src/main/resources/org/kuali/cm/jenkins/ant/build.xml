@@ -50,7 +50,6 @@
   </target>
 
   <target name="get">
-    <param name="jenkins.cli.cmd" value="get-job" />
     <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
     <echo>file - ${ant.output}</echo>
     <java classname="${jenkins.cli.classname}" output="${ant.output}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
