@@ -72,6 +72,7 @@
       <properties>
         <p>empty</p>
         <type>empty</type>
+        <ant.target>${cmd}</ant.target>
         <jenkins.cli.version>1.440</jenkins.cli.version>
         <jenkins.job.type>${type}</jenkins.job.type>
         <jenkins.project.name>${p}</jenkins.project.name>
@@ -105,7 +106,7 @@
             <configuration>
               <target>
                 <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
-                <ant antfile="${ant.file}" target="${cmd}" />
+                <ant antfile="${ant.file}" target="${ant.target}" />
               </target>
             </configuration>
             <executions>
@@ -127,24 +128,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>release</id>
-      <build>
-        <filters>
-          <filter>src/main/resources/org/kuali/cm/jenkins/release.properties</filter>
-        </filters>
-      </build>
-    </profile>
-    <profile>
-      <id>publish</id>
-      <properties>
-        <jenkins.mvn.goals>clean deploy site-deploy -Pkuali-release</jenkins.mvn.goals>
-        <jenkins.job.type>publish</jenkins.job.type>
-        <jenkins.job.description>Deploy artifacts to S3 using the "kuali-release" profile. This is the same profile that activates during an official
-          release. Also, invokes site-deploy to publish the Maven web site</jenkins.job.description>
-        <jenkins.template.type>simple</jenkins.template.type>
-      </properties>
     </profile>
     <profile>
       <id>create</id>
