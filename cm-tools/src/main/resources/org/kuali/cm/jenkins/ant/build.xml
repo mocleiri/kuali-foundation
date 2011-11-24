@@ -18,9 +18,7 @@
 <project name="Jenkins CLI Wrapper">
   <description>Ant wrapper for Jenkins CLI calls</description>
 
-  <target name="noop">
-    <echo>Nothing to do</echo>
-  </target>
+  <target name="noop" />
 
   <target name="get">
     <java classname="${jenkins.cli.classname}" output="target/${jenkins.job.name}-config.xml" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}"

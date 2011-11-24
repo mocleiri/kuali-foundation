@@ -25,6 +25,7 @@
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <antrun.version>1.7</antrun.version>
     <svn.foundation.repo>http://svn.kuali.org/repos/foundation</svn.foundation.repo>
+    <maven.test.skip>true</maven.test.skip>
   </properties>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
@@ -37,14 +38,14 @@
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>**/jenkins/jobs/**/*.xml</include>
+          <include>**/jenkins/**/*.xml</include>
         </includes>
       </resource>
       <resource>
         <directory>src/main/resources</directory>
         <filtering>false</filtering>
         <excludes>
-          <exclude>**/jenkins/jobs/**/*.xml</exclude>
+          <exclude>**/jenkins/**/*.xml</exclude>
         </excludes>
       </resource>
     </resources>
@@ -74,6 +75,8 @@
         <type>empty</type>
         <cmd>noop</cmd>
         <ant.target>${cmd}</ant.target>
+        <ant.file>target/classes/org/kuali/cm/jenkins/ant/build.xml</ant.file>
+        <ant.phase>process-resources</ant.phase>
         <jenkins.cli.version>1.440</jenkins.cli.version>
         <jenkins.job.type>${type}</jenkins.job.type>
         <jenkins.project.name>${p}</jenkins.project.name>
