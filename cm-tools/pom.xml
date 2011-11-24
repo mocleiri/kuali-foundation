@@ -113,10 +113,12 @@
                   <goal>read-project-properties</goal>
                 </goals>
                 <configuration>
+                  <quiet>true</quiet>
                   <files>
                     <file>src/main/resources/org/kuali/cm/jenkins/kuali.properties</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.job.type}-properties.xml</file>
+                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.job.type}.properties</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/projects/${jenkins.project.name}.properties</file>
                   </files>
                 </configuration>
