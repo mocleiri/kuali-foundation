@@ -26,7 +26,7 @@
     <antrun.version>1.7</antrun.version>
     <maven.test.skip>true</maven.test.skip>
     <jenkins.cli.version>1.440</jenkins.cli.version>
-    <ant.file>target/classes/org/kuali/cm/jenkins/ant/build.xml</ant.file>
+    <ant.file>target/classes/org/kuali/cm/jenkins/ant/cli-wrapper.xml</ant.file>
     <ant.phase>process-resources</ant.phase>
   </properties>
   <scm>
