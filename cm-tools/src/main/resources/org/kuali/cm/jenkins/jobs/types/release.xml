@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <comment>Properties specific to releasing a Kuali project</comment>
+  <entry key="jenkins.job.goals">release:prepare release:perform -B -e</entry>
+  <entry key="jenkins.job.type">release</entry>
+  <entry key="jenkins.job.description.brief"><![CDATA[Create an official Kuali release. Deploy artifacts to S3, generate the Maven web site, sync artifacts to Maven Central]]></entry>
+</properties>
