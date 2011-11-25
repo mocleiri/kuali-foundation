@@ -5,4 +5,18 @@
   <entry key="jenkins.job.goals">release:prepare release:perform -B -e</entry>
   <entry key="jenkins.job.type">release</entry>
   <entry key="jenkins.job.description.brief"><![CDATA[Create an official Kuali release. Deploy artifacts to S3, generate the Maven web site, sync artifacts to Maven Central]]></entry>
+
+  <entry key="jenkins.job.postBuilders">${jenkins.job.postBuilders.1}</entry>
+
+  <entry key="jenkins.job.postBuilders.1"><![CDATA[
+      <hudson.tasks.Maven>
+        <targets>${jenkins.job.postBuilders.1.targets}</targets>
+        <mavenName>${jenkins.job.postBuilders.1.mavenName}</mavenName>
+        <pom>${jenkins.job.postBuilders.1.pom}</pom>
+      <usePrivateRepository>false</usePrivateRepository>
+    </hudson.tasks.Maven>]]></entry>
+
+  <entry key="jenkins.job.postBuilders.1.targets">deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release -DskipTests -e</entry>
+  <entry key="jenkins.job.postBuilders.1.mavenName">3.0.3</entry>
+  <entry key="jenkins.job.postBuilders.1.pom">target/checkout/pom.xml</entry>
 </properties>
