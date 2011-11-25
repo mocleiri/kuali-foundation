@@ -10,7 +10,7 @@
   <entry key="jenkins.job.properties"></entry>
   <entry key="jenkins.job.triggers.class">class</entry>
   <entry key="jenkins.job.triggers"><![CDATA[]]></entry>
-  <entry key="jenkins.job.description"><![CDATA[${jenkins.job.description.short}
+  <entry key="jenkins.job.description"><![CDATA[${jenkins.job.description.brief}
     <br>
     <li>${jenkins.project.groupId}:${jenkins.project.artifactId}:${jenkins.project.majorVersion}</li>
     <li>${jenkins.project.scm.url}</li>
