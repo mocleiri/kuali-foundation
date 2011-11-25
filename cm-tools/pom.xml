@@ -108,6 +108,8 @@
         <ant.target>${cmd}</ant.target>
         <jenkins.job.type>${job}</jenkins.job.type>
         <jenkins.project.name>${p}</jenkins.project.name>
+        <jenkins.project.scmType>${extractor.scmType}</jenkins.project.scmType>
+        <jenkins.project.majorVersion>${extractor.majorVersion}</jenkins.project.majorVersion>
       </properties>
       <build>
         <plugins>
@@ -138,7 +140,8 @@
                   <files>
                     <file>src/main/resources/org/kuali/cm/jenkins/kuali.properties</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</file>
-                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/templates/common-properties.xml</file>
+                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/templates/properties.xml</file>
+                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/templates/${jenkins.project.scmType}-properties.xml</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.job.type}-properties.xml</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/projects/${jenkins.project.name}.properties</file>
                   </files>
