@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-  <comment>Properties specific to "publishing" a Kuali project</comment>
-  <entry key="jenkins.mvn.goals">clean deploy site-deploy -Pkuali-release</entry>
-  <entry key="jenkins.job.type">publish</entry>
-  <entry key="jenkins.job.description">Publish a SNAPSHOT version of this project. Deploy artifacts to S3 using the "kuali-release" profile, invoke site-deploy to publish the Maven web site</entry>
-  <entry key="jenkins.template.type">simple</entry>
-</properties>
