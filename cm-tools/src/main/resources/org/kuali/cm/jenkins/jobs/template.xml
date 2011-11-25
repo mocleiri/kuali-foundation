@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <maven2-moduleset>
   <actions>${jenkins.job.actions}</actions>
-  <description>
-    <![CDATA[${jenkins.job.description}]]>
-  </description>
+  <description><![CDATA[${jenkins.job.description}]]></description>
   <logRotator>
     <daysToKeep>${jenkins.job.logRotator.daysToKeep}</daysToKeep>
     <numToKeep>${jenkins.job.logRotator.numToKeep}</numToKeep>
