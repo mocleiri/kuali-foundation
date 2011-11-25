@@ -193,7 +193,7 @@
     <profile>
       <id>projects</id>
       <properties>
-        <ant.file>target/classes/org/kuali/cm/jenkins/projects/build.xml</ant.file>
+        <ant.file>src/main/resources/org/kuali/cm/jenkins/projects/build.xml</ant.file>
         <ant.target>${target}</ant.target>
         <ant.phase>none</ant.phase>
       </properties>
