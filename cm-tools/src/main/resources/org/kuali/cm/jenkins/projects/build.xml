@@ -18,40 +18,60 @@
 <project name="Project CI">
   <description>Create CI jobs for Kuali projects</description>
 
-  <target name="delete">
-    <property name="ci.cmd" value="delete" />
-    <property name="ant.failonerror" value="false" />
-    <antcall target="executejobs" />
-  </target>
+  <property name="ant.failonerror" value="false" />
 
-  <target name="create">
-    <property name="ci.cmd" value="create" />
-    <property name="ant.failonerror" value="false" />
-    <antcall target="executejobs" />
-  </target>
-
-  <target name="update">
-    <property name="ci.cmd" value="update" />
-    <property name="ant.failonerror" value="true" />
-    <antcall target="executejobs" />
-  </target>
-
-  <target name="executejobs">
-    <antcall target="executecmd">
+  <target name="jobs">
+    <antcall target="execute">
       <param name="ci.job" value="publish" />
     </antcall>
-    <antcall target="executecmd">
+    <antcall target="execute">
       <param name="ci.job" value="release" />
     </antcall>
-    <antcall target="executecmd">
+    <antcall target="execute">
       <param name="ci.job" value="license" />
     </antcall>
-    <antcall target="executecmd">
+    <antcall target="execute">
       <param name="ci.job" value="unit-test" />
     </antcall>
   </target>
 
-  <target name="executecmd">
+  <target name="projects">
+    <antcall target="execute">
+      <param name="p" value="cm-tools" />
+    </antcall>
+    <antcall target="execute">
+      <param name="p" value="extractor-maven-plugin" />
+    </antcall>
+    <antcall target="execute">
+      <param name="p" value="kuali-common" />
+    </antcall>
+    <antcall target="execute">
+      <param name="p" value="kuali-threads" />
+    </antcall>
+    <antcall target="execute">
+      <param name="p" value="kuali" />
+    </antcall>
+    <antcall target="execute">
+      <param name="p" value="maven-cloudfront-plugin" />
+    </antcall>
+    <antcall target="execute">
+      <param name="p" value="maven-ksite-plugin" />
+    </antcall>
+    <antcall target="execute">
+      <param name="p" value="maven-kuali-common" />
+    </antcall>
+    <antcall target="execute">
+      <param name="p" value="maven-kuali-skin" />
+    </antcall>
+    <antcall target="execute">
+      <param name="p" value="maven-s3-wagon" />
+    </antcall>
+    <antcall target="execute">
+      <param name="p" value="properties-maven-plugin" />
+    </antcall>
+  </target>
+
+  <target name="execute">
     <exec executable="mvn" failonerror="${ant.failonerror}" newenvironment="true">
       <arg value="clean" />
       <arg value="process-resources" />
