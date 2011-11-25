@@ -43,6 +43,13 @@
     <color>${jenkins.job.runPostStepsIfResult.color}</color>
   ]]></entry>
 
+  <!-- Check SCM every 60 seconds and fire the job if anything has changed -->
+  <entry key="jenkins.job.trigger.scm.pollEveryMinute"><![CDATA[
+    <hudson.triggers.SCMTrigger>
+      <spec>* * * * *</spec>
+    </hudson.triggers.SCMTrigger>
+  ]]></entry>
+
   <!-- midnight UTC is 5pm on the east coast -->
   <entry key="jenkins.job.trigger.timer.midnight"><![CDATA[
     <hudson.triggers.TimerTrigger>
