@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <comment>Properties specific to Jenkins jobs that interact with Subversion</comment>
+  <entry key="jenkins.job.scm.class">hudson.scm.SubversionSCM</entry>
+  <entry key="jenkins.job.scm.xml"><![CDATA[<locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>${jenkins.project.scm.url}</remote>
+        <local>.</local>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <excludedRegions></excludedRegions>
+    <includedRegions></includedRegions>
+    <excludedUsers></excludedUsers>
+    <excludedRevprop></excludedRevprop>
+    <excludedCommitMessages></excludedCommitMessages>
+    <workspaceUpdater class="hudson.scm.subversion.UpdateUpdater" />]]></entry>
+</properties>
