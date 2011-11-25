@@ -140,8 +140,8 @@
                   <files>
                     <file>src/main/resources/org/kuali/cm/jenkins/kuali.properties</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</file>
-                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/templates/properties.xml</file>
-                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/templates/${jenkins.project.scmType}-properties.xml</file>
+                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/properties/common.xml</file>
+                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/properties/${jenkins.project.scmType}.xml</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.job.type}-properties.xml</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/projects/${jenkins.project.name}.properties</file>
                   </files>
