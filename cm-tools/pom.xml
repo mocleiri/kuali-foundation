@@ -190,5 +190,20 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>projects</id>
+      <properties>
+        <ant.file>target/classes/org/kuali/cm/jenkins/projects/build.xml</ant.file>
+        <cmd>help</cmd>
+        <ant.target>${target}</ant.target>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>
