@@ -107,7 +107,7 @@
             <version>1.0.3</version>
             <executions>
               <execution>
-                <id>get-properties</id>
+                <id>get-properties-1</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>read-project-properties</goal>
@@ -117,9 +117,20 @@
                     <file>src/main/resources/org/kuali/cm/jenkins/kuali.properties</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jobs/common-properties.xml</file>
-                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.template.type}-properties.xml</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.job.type}-properties.xml</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/projects/${jenkins.project.name}.properties</file>
+                  </files>
+                </configuration>
+              </execution>
+              <execution>
+                <id>get-properties-2</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>read-project-properties</goal>
+                </goals>
+                <configuration>
+                  <files>
+                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.template.type}-properties.xml</file>
                   </files>
                 </configuration>
               </execution>
