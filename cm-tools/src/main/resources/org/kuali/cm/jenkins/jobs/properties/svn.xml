@@ -15,10 +15,10 @@
   <entry key="jenkins.job.svn.locations"><![CDATA[
       <hudson.scm.SubversionSCM_-ModuleLocation>
         <remote>${jenkins.project.scm.url}</remote>
-        <local>${jenkins.job.svn.local}</local>
+        <local>${jenkins.job.svn.locations.local}</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
     ]]></entry>
-  <entry key="jenkins.job.svn.local">.</entry>
+  <entry key="jenkins.job.svn.locations.local">.</entry>
   <entry key="jenkins.job.svn.excludedRegions"></entry>
   <entry key="jenkins.job.svn.includedRegions"></entry>
   <entry key="jenkins.job.svn.excludedUsers"></entry>
