@@ -12,18 +12,34 @@
   <entry key="jenkins.job.properties"></entry>
   <entry key="jenkins.job.triggers.class">class</entry>
   <entry key="jenkins.job.triggers"><![CDATA[]]></entry>
-  <entry key="jenkins.job.description"><![CDATA[<style type="text/css">
+  <entry key="jenkins.job.description"><![CDATA[
+    <style type="text/css">
       #jenkins-job-description {
-        border:3px solid black;
+        padding:20px;
       }
       #jenkins-job-brief {
-        border:3px solid blue;
+        padding-bottom:10px;
+      }
+      #jenkins-job-brief-title {
+        list-style-type:square;
+        padding-bottom:15px;
+        font-size:larger;
+        font-weight:bolder;
+      }
+      ol.jenkins-job-brief-sublist {
+        list-style-type: lower-alpha;
+        margin-top:0px;
+        margin-bottom:0px;
       }
       #jenkins-project-metadata {
-        border:3px solid red;
+        list-style-type:circle;
+        padding-top:10px;
+        color:gray;
       }
       #jenkins-cli-wrapper-metadata {
-        border:3px solid green;
+        list-style-type:circle;
+        padding-top:10px;
+        color:gray;
       }
     </style>
     <div id="jenkins-job-description">
@@ -36,7 +52,8 @@
         <li>Job created by Maven Jenkins CLI Wrapper ${project.version} (Jenkins CLI Version ${jenkins.cli.version})</li>
         <li>Last config update via CLI - ${jenkins.build.timestamp}</li>
       </div>
-    </div>]]></entry>
+    </div>
+]]></entry>
   <entry key="jenkins.job.keepDependencies">false</entry>
   <entry key="jenkins.job.canRoam">true</entry>
   <entry key="jenkins.job.disabled">false</entry>

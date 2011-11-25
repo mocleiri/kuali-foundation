@@ -4,23 +4,39 @@
   <comment>Properties specific to releasing a Kuali project</comment>
   <entry key="jenkins.job.goals">release:prepare release:perform -B -e</entry>
   <entry key="jenkins.job.type">release</entry>
-  <entry key="jenkins.job.description.brief"><![CDATA[<li>Create an official Kuali release:</li>
-    <ol>
-      <li>Remove SNAPSHOT from the pom version (eg change 1.0.1-SNAPSHOT to 1.0.1)</li>
-      <li>Update the SCM information in the pom to reflect the release tag that is about to be created</li>
-      <li>Execute "clean verify" to make sure altering the poms has not caused an issue</li>
-      <li>Commit the modified poms</li>
-      <li>Create a tag of the source tree containing the updated version/SCM information</li>
-      <li>Re-alter the poms, by incrementing the pom version (eg change 1.0.1 to 1.0.2-SNAPSHOT) and change the SCM information back to what it was originally</li>
-      <li>Commit the modified poms</li>
-      <li>Checkout the tag</li>
-      <li>Execute "deploy site-deploy" on the tag using the "kuali-release" profile</li>
-      <li>Attach sources/javadoc/site descriptor/test source &amp; classes</li>
-      <li>Sign all artifacts with GPG</li>
-      <li>Embed SCM info into jars/wars</li>
-      <li>Publish the Maven web site</li>
-      <li>Deploy the build artifacts to the Sonatype Nexus instance that sync's with Maven Central</li>
-    </ol>]]></entry>
+  <entry key="jenkins.job.description.brief"><![CDATA[      
+      <div id="jenkins-job-brief">
+          <li id="jenkins-job-brief-title">Create an official Kuali release:</li>
+          <li>Checkout a fresh copy of the project</li>
+          <li>Alter the Maven poms</li>
+          <ol class="jenkins-job-brief-sublist">
+            <li>Remove SNAPSHOT from the version (eg change 1.0.1-SNAPSHOT to 1.0.1)</li>
+            <li>Update the SCM information so it points to the release tag that is about to be created</li>
+          </ol>
+          <li>Execute "clean verify" to make sure altering the poms has not caused an issue</li>
+          <li>Commit the modified poms</li>
+          <li>Create a tag of the source tree containing the poms with the updated version/SCM information</li>
+          <li>Re-alter the Maven poms</li>
+          <ol class="jenkins-job-brief-sublist">
+            <li>Increment the version (eg change 1.0.1 to 1.0.2-SNAPSHOT)</li>
+            <li>Change the SCM information back to what it was originally</li>
+          </ol>
+          <li>Commit the modified poms</li>
+          <li>Checkout the tag</li>
+          <li>Execute "deploy site-deploy" on the tag using the "kuali-release" profile</li>
+          <ol class="jenkins-job-brief-sublist">
+            <li>Attach sources</li>
+            <li>Attach javadocs</li>
+            <li>Attach the Maven site descriptor</li>
+            <li>Attach test code</li>
+            <li>Sign all artifacts with GPG</li>
+            <li>Embed SCM info into jars/wars</li>
+          </ol>
+          <li>Deploy the build artifacts to Kuali's internal S3 repository</li>
+          <li>Publish the Maven web site</li>
+          <li>Deploy the build artifacts to the Sonatype Nexus instance that sync's with Maven Central</li>
+      </div>
+]]></entry>
 
   <entry key="jenkins.job.postbuilders">${jenkins.job.postbuilders.1}</entry>
 
