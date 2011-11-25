@@ -19,13 +19,27 @@
   <description>Create CI jobs for Kuali projects</description>
 
   <target name="delete">
-    <exec executable="mvn">
+    <antcall target="deletejob">
+      <param name="kuali.project" value="properties-maven-plugin" />
+      <param name="ci.job" value="publish" />
+    </antcall>
+  </target>
+
+  <target name="deletejob">
+    <antcall target="executecmd">
+      <param name="ci.cmd" value="delete" />
+      <param name="ant.failonerror" value="false" />
+    </antcall>
+  </target>
+
+  <target name="executecmd">
+    <exec executable="mvn" failonerror="${ant.failonerror}">
       <arg value="clean" />
       <arg value="process-resources" />
       <arg value="-Pci" />
-      <arg value="-Dp=properties-maven-plugin" />
-      <arg value="-Djob=publish" />
-      <arg value="-Dcmd=delete" />
+      <arg value="-Dp=${kuali.project}" />
+      <arg value="-Djob=${ci.job}" />
+      <arg value="-Dcmd=${ci.cmd}" />
     </exec>
   </target>
 
