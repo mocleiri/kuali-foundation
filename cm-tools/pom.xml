@@ -116,7 +116,7 @@
                   <files>
                     <file>src/main/resources/org/kuali/cm/jenkins/kuali.properties</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jenkins.properties</file>
-                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/common-properties.xml</file>
+                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/templates/common-properties.xml</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.job.type}-properties.xml</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/projects/${jenkins.project.name}.properties</file>
                   </files>
@@ -130,7 +130,7 @@
                 </goals>
                 <configuration>
                   <files>
-                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/${jenkins.template.type}-properties.xml</file>
+                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/templates/${jenkins.template.type}-properties.xml</file>
                   </files>
                 </configuration>
               </execution>
