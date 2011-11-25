@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <maven2-moduleset>
   <actions>${jenkins.job.actions}</actions>
-  <description>
-    <![CDATA[${jenkins.job.description}]]>
-  </description>
+  <description><![CDATA[${jenkins.job.description}]]></description>
   <logRotator>
     <daysToKeep>${jenkins.job.daysToKeep}</daysToKeep>
     <numToKeep>${jenkins.job.numToKeep}</numToKeep>
@@ -12,9 +10,7 @@
   </logRotator>
   <keepDependencies>${jenkins.job.keepDependencies}</keepDependencies>
   <properties>${jenkins.job.properties}</properties>
-  <scm class="${jenkins.job.scm.class}">
-    ${jenkins.job.scm.xml}
-  </scm>
+  <scm class="${jenkins.job.scm.class}">${jenkins.job.scm.xml}</scm>
   <canRoam>${jenkins.job.canRoam}</canRoam>
   <disabled>${jenkins.job.disabled}</disabled>
   <blockBuildWhenDownstreamBuilding>${jenkins.job.blockBuildWhenDownstreamBuilding}</blockBuildWhenDownstreamBuilding>
