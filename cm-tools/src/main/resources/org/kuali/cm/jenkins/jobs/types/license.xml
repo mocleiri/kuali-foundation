@@ -7,7 +7,7 @@
   <entry key="jenkins.job.description.brief"><![CDATA[ 
       <div id="jenkins-job-brief">
           <li id="jenkins-job-brief-title">Ensure that the project is using the correct ECL 2.0 license header</li>
-          <li>Execute "install -Plicense -N" on the project</li>
+          <li>Execute "clean install -Plicense -N" on the project</li>
       </div>
     ]]></entry>
 </properties>
