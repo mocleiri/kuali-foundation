@@ -20,18 +20,54 @@
 
   <property name="ant.failonerror" value="false" />
 
+  <target name="projectsandjobs">
+    <antcall target="jobs">
+      <param name="p" value="cm-tools" />
+    </antcall>
+    <antcall target="jobs">
+      <param name="p" value="extractor-maven-plugin" />
+    </antcall>
+    <antcall target="jobs">
+      <param name="p" value="kuali-common" />
+    </antcall>
+    <antcall target="jobs">
+      <param name="p" value="kuali-threads" />
+    </antcall>
+    <antcall target="jobs">
+      <param name="p" value="kuali" />
+    </antcall>
+    <antcall target="jobs">
+      <param name="p" value="maven-cloudfront-plugin" />
+    </antcall>
+    <antcall target="jobs">
+      <param name="p" value="maven-ksite-plugin" />
+    </antcall>
+    <antcall target="jobs">
+      <param name="p" value="maven-kuali-common" />
+    </antcall>
+    <antcall target="jobs">
+      <param name="p" value="maven-kuali-skin" />
+    </antcall>
+    <antcall target="jobs">
+      <param name="p" value="maven-s3-wagon" />
+    </antcall>
+    <antcall target="jobs">
+      <param name="p" value="properties-maven-plugin" />
+    </antcall>
+  </target>
+
   <target name="jobs">
     <antcall target="execute">
-      <param name="ci.job" value="publish" />
+      <param name="job" value="publish" />
     </antcall>
     <antcall target="execute">
-      <param name="ci.job" value="release" />
+      <param name="job" value="release" />
     </antcall>
     <antcall target="execute">
-      <param name="ci.job" value="license" />
+      <param name="job" value="license" />
     </antcall>
     <antcall target="execute">
-      <param name="ci.job" value="unit-test" />
+      <param name="job" value="unit-test" />
     </antcall>
   </target>
 
@@ -77,8 +113,8 @@
       <arg value="process-resources" />
       <arg value="-Pci" />
       <arg value="-Dp=${p}" />
-      <arg value="-Djob=${ci.job}" />
-      <arg value="-Dcmd=${ci.cmd}" />
+      <arg value="-Djob=${job}" />
+      <arg value="-Dcmd=${cmd}" />
     </exec>
   </target>
 
