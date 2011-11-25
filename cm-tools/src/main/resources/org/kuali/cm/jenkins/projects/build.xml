@@ -23,8 +23,14 @@
     <property name="ant.failonerror" value="false" />
     <antcall target="executecmd">
       <param name="ci.job" value="publish" />
+    </antcall>
+    <antcall target="executecmd">
       <param name="ci.job" value="release" />
+    </antcall>
+    <antcall target="executecmd">
       <param name="ci.job" value="license" />
+    </antcall>
+    <antcall target="executecmd">
       <param name="ci.job" value="unit-test" />
     </antcall>
   </target>
