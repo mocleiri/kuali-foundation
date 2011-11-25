@@ -32,7 +32,7 @@
             <li>Sign all artifacts with GPG</li>
             <li>Embed SCM info into jars/wars</li>
           </ol>
-          <li>Deploy the build artifacts to Kuali's internal S3 repository</li>
+          <li>Deploy the build artifacts to Kuali's publicly accessible S3 repository</li>
           <li>Publish the Maven web site</li>
           <li>Deploy the build artifacts to the Sonatype Nexus instance that sync's with Maven Central</li>
       </div>
