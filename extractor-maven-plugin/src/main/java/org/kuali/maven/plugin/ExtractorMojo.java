@@ -1,16 +1,16 @@
 package org.kuali.maven.plugin;
 
-import java.util.Properties;
-
+import org.apache.commons.lang.StringUtils;
+import org.apache.maven.model.Scm;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.StringUtils;
 
 /**
- * Stores the major version of the project as a property. The mojo assumes 3 digit versions eg "1.0.1" and counts "1.0"
- * as the major version
+ * Extracts certain bits of information contained in the pom and exposes them as project properties
+ *
+ * eg major version, and scm type
  *
  * @goal extract
  */
@@ -28,21 +28,68 @@ public class ExtractorMojo extends AbstractMojo {
     /**
      * The property where the major version will be stored
      *
-     * @parameter expression="${extractor.majorVersion}" default-value="extracted.majorVersion"
+     * @parameter expression="${extractor.majorVersionProperty}" default-value="extractor.majorVersion"
      * @required
      */
     private String majorVersionProperty;
 
+    /**
+     * The property where the scm type will be stored
+     *
+     * @parameter expression="${extractor.scmTypeProperty}" default-value="extractor.scmType"
+     * @required
+     */
+    private String scmTypeProperty;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Properties properties = project.getProperties();
-        if (properties.getProperty(majorVersionProperty) != null) {
-            getLog().debug(majorVersionProperty + " already set");
-            return;
+        handleMajorVersion(project);
+        handleScmType(project);
+    }
+
+    protected void handleScmType(MavenProject project) {
+        String scmType = getScmType(project.getScm());
+        if (!StringUtils.isEmpty(scmType)) {
+            project.getProperties().setProperty(scmTypeProperty, scmType);
+            getLog().debug("Setting project property: " + scmTypeProperty + "=" + scmType);
+        } else {
+            getLog().debug("scm type could not be determined");
         }
+    }
+
+    protected String getScmType(Scm scm) {
+        String scmType1 = getScmType(scm.getDeveloperConnection());
+        String scmType2 = getScmType(scm.getConnection());
+        if (!StringUtils.isEmpty(scmType1)) {
+            return scmType1;
+        } else if (!StringUtils.isEmpty(scmType2)) {
+            return scmType2;
+        } else {
+            return null;
+        }
+    }
+
+    protected String getScmType(String url) {
+        if (StringUtils.isEmpty(url)) {
+            return null;
+        }
+        String[] tokens = StringUtils.splitByWholeSeparatorPreserveAllTokens(url, ":");
+        if (tokens == null || tokens.length < 2) {
+            return null;
+        } else {
+            return tokens[1];
+        }
+    }
+
+    protected void handleMajorVersion(MavenProject project) {
+
         String majorVersion = getMajorVersion(project.getVersion());
-        properties.setProperty(majorVersionProperty, majorVersion);
-        getLog().debug("Major Version: " + majorVersion);
+        if (!StringUtils.isEmpty(majorVersion)) {
+            project.getProperties().setProperty(majorVersionProperty, majorVersion);
+            getLog().debug("Setting project property: " + majorVersionProperty + "=" + majorVersion);
+        } else {
+            getLog().debug("Major version could not be determined");
+        }
     }
 
     protected String getMajorVersion(String version) {
@@ -121,5 +168,21 @@ public class ExtractorMojo extends AbstractMojo {
 
     public void setProject(MavenProject project) {
         this.project = project;
+    }
+
+    public String getMajorVersionProperty() {
+        return majorVersionProperty;
+    }
+
+    public void setMajorVersionProperty(String majorVersionProperty) {
+        this.majorVersionProperty = majorVersionProperty;
+    }
+
+    public String getScmTypeProperty() {
+        return scmTypeProperty;
+    }
+
+    public void setScmTypeProperty(String scmTypeProperty) {
+        this.scmTypeProperty = scmTypeProperty;
     }
 }
