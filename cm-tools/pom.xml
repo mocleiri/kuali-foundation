@@ -34,6 +34,15 @@
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/trunk/cm-tools</url>
   </scm>
+  <developers>
+    <developer>
+      <id>jcaddel</id>
+      <name>Jeff Caddel</name>
+      <organization>rSmart</organization>
+      <timezone>-7</timezone>
+      <email>jcaddel@kuali.org</email>
+    </developer>
+  </developers>
   <build>
     <resources>
       <resource>
@@ -92,15 +101,6 @@
       </plugins>
     </pluginManagement>
   </build>
-  <developers>
-    <developer>
-      <id>jcaddel</id>
-      <name>Jeff Caddel</name>
-      <organization>rSmart</organization>
-      <timezone>-7</timezone>
-      <email>jcaddel@kuali.org</email>
-    </developer>
-  </developers>
   <profiles>
     <profile>
       <id>ci</id>
