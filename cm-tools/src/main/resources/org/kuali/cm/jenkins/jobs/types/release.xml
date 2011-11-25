@@ -45,14 +45,7 @@
           <li>Commit the modified poms</li>
           <li>Checkout the tag</li>
           <li>Execute "deploy site-deploy" on the tag using the "kuali-release" profile</li>
-          <ol class="jenkins-job-brief-sublist">
-            <li>Attach sources</li>
-            <li>Attach javadocs</li>
-            <li>Attach the Maven site descriptor</li>
-            <li>Attach test code</li>
-            <li>Sign all artifacts with GPG</li>
-            <li>Embed SCM info into jars/wars</li>
-          </ol>
+          ${jenkins.job.description.kualiRelease}
           <li>Deploy the build artifacts to Kuali's publicly accessible S3 repository</li>
           <li>Publish the Maven web site</li>
           <li>Deploy the build artifacts to the Sonatype Nexus instance that sync's with Maven Central</li>
