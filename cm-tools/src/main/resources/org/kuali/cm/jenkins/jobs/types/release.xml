@@ -6,9 +6,20 @@
   <entry key="jenkins.job.type">release</entry>
   <entry key="jenkins.job.description.brief"><![CDATA[<li>Create an official Kuali release.
     <ol>
-      <li>Deploy artifacts to S3</li>
-      <li>Generate the Maven web site</li>
-      <li>Sync artifacts to Maven Central</li>
+      <li>Remove SNAPSHOT from the pom version (eg change 1.0.1-SNAPSHOT to 1.0.1)</li>
+      <li>Update the SCM information in the poms to reflect the release tag that is being created</li>
+      <li>Execute "clean verify" to make sure altering the poms has not caused an issue</li>
+      <li>Commit the modified poms</li>
+      <li>Create a tag of the source tree containing the updated version/SCM information</li>
+      <li>Re-alter the poms, by incrementing the pom version and changing the SCM information back</li>
+      <li>Commit the modified poms</li>
+      <li>Checkout the tag</li>
+      <li>Execute "deploy site-deploy" on the tag using the "kuali-release" profile</li>
+      <li>Attach sources/javadoc/site descriptor/test source &amp; classes</li>
+      <li>Sign all artifacts with GPG</li>
+      <li>Embed SCM info into jars/wars</li>
+      <li>Publish the Maven web site</li>
+      <li>Deploy the build artifacts to the Sonatype Nexus instance that sync's with Maven Central</li>
     </ol>]]></entry>
 
   <entry key="jenkins.job.postbuilders">${jenkins.job.postbuilders.1}</entry>
