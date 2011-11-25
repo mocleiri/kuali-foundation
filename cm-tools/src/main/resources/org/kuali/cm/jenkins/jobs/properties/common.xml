@@ -84,4 +84,17 @@
   <entry key="jenkins.job.runPostStepsIfResult.name">FAILURE</entry>
   <entry key="jenkins.job.runPostStepsIfResult.ordinal">2</entry>
   <entry key="jenkins.job.runPostStepsIfResult.color">RED</entry>
+  <entry key="jenkins.job.description.kualiRelease"><![CDATA[
+          <ol class="jenkins-job-brief-sublist">
+            <li>Attach sources</li>
+            <li>Attach javadocs</li>
+            <li>Attach the Maven site descriptor</li>
+            <li>Attach test code</li>
+            <li>Sign all artifacts with GPG</li>
+            <li>Embed SCM info into jars/wars</li>
+          </ol>
+  ]]></entry>
+
+
+
 </properties>

@@ -4,12 +4,12 @@
   <comment>Properties specific to "publishing" a Kuali project</comment>
   <entry key="jenkins.job.goals">clean deploy site-deploy -Pkuali-release -e</entry>
   <entry key="jenkins.job.type">publish</entry>
-  <entry key="jenkins.job.description.brief"><![CDATA[<li>Publish this project for public use.</li> 
-    <ol>
-      <li>Deploy artifacts to S3 using the "kuali-release" profile
-      <li>Attach sources/javadoc/site descriptor/test source &amp; classes</li>
-      <li>Sign all artifacts with GPG</li>
-      <li>Embed SCM info into jars/wars</li>
-      <li>Invoke site-deploy to publish the Maven web site</li>
-    </ol>]]></entry>
+  <entry key="jenkins.job.description.brief"><![CDATA[ 
+      <div id="jenkins-job-brief">
+          <li id="jenkins-job-brief-title">Publish a snapshot of this project into the public domain:</li>
+          <li>Invoke Maven using the "kuali-release" profile</li>
+          ${jenkins.job.description.kualiRelease}
+          <li>Publish the Maven web site</li>
+      </div>
+    ]]></entry>
 </properties>
