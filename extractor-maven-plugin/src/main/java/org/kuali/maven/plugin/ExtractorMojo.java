@@ -8,7 +8,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 
 /**
- * Extracts certain bits of information contained in the pom and exposes them as project properties
+ * Extracts information contained in the pom and exposes it as project properties
  *
  * eg major version, and scm type
  *
@@ -26,7 +26,7 @@ public class ExtractorMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     * The property where the major version will be stored
+     * The project property where the major version will be stored
      *
      * @parameter expression="${extractor.majorVersionProperty}" default-value="extractor.majorVersion"
      * @required
@@ -34,7 +34,7 @@ public class ExtractorMojo extends AbstractMojo {
     private String majorVersionProperty;
 
     /**
-     * The property where the scm type will be stored
+     * The project property where the scm type will be stored
      *
      * @parameter expression="${extractor.scmTypeProperty}" default-value="extractor.scmType"
      * @required
