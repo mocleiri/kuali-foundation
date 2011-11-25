@@ -30,16 +30,22 @@
     <scmName>${jenkins.job.git.scmName}</scmName>
   ]]></entry>
   <entry key="jenkins.job.git.userRemoteConfigs"><![CDATA[
-      <hudson.plugins.git.UserRemoteConfig>${jenkins.job.git.userRemoteConfig.1}</hudson.plugins.git.UserRemoteConfig>
+      <hudson.plugins.git.UserRemoteConfig>${jenkins.job.git.userRemoteConfigs.1}</hudson.plugins.git.UserRemoteConfig>
     ]]></entry>
-  <entry key="jenkins.job.git.userRemoteConfig.1"><![CDATA[
-        <name>${jenkins.job.git.userRemoteConfig.1.name}</name>
-        <refspec>${jenkins.job.git.userRemoteConfig.1.refspec}</refspec>
-        <url>${jenkins.job.git.userRemoteConfig.1.url}</url>
+  <entry key="jenkins.job.git.userRemoteConfigs.1"><![CDATA[
+        <name>${jenkins.job.git.userRemoteConfigs.1.name}</name>
+        <refspec>${jenkins.job.git.userRemoteConfigs.1.refspec}</refspec>
+        <url>${jenkins.job.git.userRemoteConfigs.1.url}</url>
       ]]></entry>
-  <entry key="jenkins.job.git.userRemoteConfig.1.name"></entry>
-  <entry key="jenkins.job.git.userRemoteConfig.1.refspec"></entry>
-  <entry key="jenkins.job.git.userRemoteConfig.1.url">${jenkins.project.scm.url}</entry>
+  <entry key="jenkins.job.git.userRemoteConfigs.1.name"></entry>
+  <entry key="jenkins.job.git.userRemoteConfigs.1.refspec"></entry>
+  <entry key="jenkins.job.git.userRemoteConfigs.1.url">${jenkins.project.scm.url}</entry>
+  <entry key="jenkins.job.git.branches"><![CDATA[
+     <hudson.plugins.git.BranchSpec>
+       <name>${jenkins.job.git.branches.1.name}</name>
+     </hudson.plugins.git.BranchSpec>
+    ]]></entry>
+  <entry key="jenkins.job.git.branches.1.name">${jenkins.jobs.git.branches.default}</entry>
   <entry key="jenkins.job.git.configVersion">2</entry>
   <entry key="jenkins.job.git.recursiveSubmodules">false</entry>
   <entry key="jenkins.job.git.doGenerateSubmoduleConfigurations">false</entry>
