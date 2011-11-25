@@ -5,8 +5,10 @@
   <entry key="jenkins.job.goals">clean deploy site-deploy -Pkuali-release</entry>
   <entry key="jenkins.job.type">publish</entry>
   <entry key="jenkins.job.description.brief"><![CDATA[<li>Publish this project for public use.</li> 
-    <ul>
-      <li>Deploy artifacts to S3 using the "kuali-release" profile (attach sources/javadoc/test, sign via gpg, embed SCM info in jars/wars)</li>
+    <ol>
+      <li>Deploy artifacts to S3 using the "kuali-release" profile
+      <li>Attach sources/javadoc/gpg signature/site descriptor/test classes<li>
+      <li>Embed SCM info in jars/wars</li>
       <li>Invoke site-deploy to publish the Maven web site</li>
-    </ul>]]></entry>
+    </ol>]]></entry>
 </properties>
