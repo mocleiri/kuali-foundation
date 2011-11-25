@@ -11,7 +11,7 @@
       <li>Execute "clean verify" to make sure altering the poms has not caused an issue</li>
       <li>Commit the modified poms</li>
       <li>Create a tag of the source tree containing the updated version/SCM information</li>
-      <li>Re-alter the poms, by incrementing the pom version and changing the SCM information back</li>
+      <li>Re-alter the poms, by incrementing the pom version (eg change 1.0.1 to 1.0.2-SNAPSHOT) and change the SCM information back to what it was originally</li>
       <li>Commit the modified poms</li>
       <li>Checkout the tag</li>
       <li>Execute "deploy site-deploy" on the tag using the "kuali-release" profile</li>
