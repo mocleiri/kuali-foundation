@@ -12,6 +12,36 @@
   <entry key="jenkins.job.properties"></entry>
   <entry key="jenkins.job.triggers.class">class</entry>
   <entry key="jenkins.job.triggers"><![CDATA[]]></entry>
+  <entry key="jenkins.job.keepDependencies">false</entry>
+  <entry key="jenkins.job.canRoam">true</entry>
+  <entry key="jenkins.job.disabled">false</entry>
+  <entry key="jenkins.job.blockBuildWhenDownstreamBuilding">false</entry>
+  <entry key="jenkins.job.blockBuildWhenUpstreamBuilding">false</entry>
+  <entry key="jenkins.job.concurrentBuild">false</entry>
+  <entry key="jenkins.job.aggregatorStyleBuild">true</entry>
+  <entry key="jenkins.job.incrementalBuild">false</entry>
+  <entry key="jenkins.job.usePrivateRepository">false</entry>
+  <entry key="jenkins.job.ignoreUpstremChanges">true</entry>
+  <entry key="jenkins.job.archivingDisabled">false</entry>
+  <entry key="jenkins.job.resolveDependencies">false</entry>
+  <entry key="jenkins.job.processPlugins">false</entry>
+  <entry key="jenkins.job.mavenValidationLevel">-1</entry>
+  <entry key="jenkins.job.runHeadless">false</entry>
+  <entry key="jenkins.job.settingConfigId"></entry>
+  <entry key="jenkins.job.globalSettingConfigId"></entry>
+  <entry key="jenkins.job.reporters"></entry>
+  <entry key="jenkins.job.publishers"></entry>
+  <entry key="jenkins.job.buildWrappers"></entry>
+  <entry key="jenkins.job.prebuilders"></entry>
+  <entry key="jenkins.job.postbuilders"></entry>
+  <entry key="jenkins.job.runPostStepsIfResult"><![CDATA[
+    <name>${jenkins.job.runPostStepsIfResult.name}</name>
+    <ordinal>${jenkins.job.runPostStepsIfResult.ordinal}</ordinal>
+    <color>${jenkins.job.runPostStepsIfResult.color}</color>
+  ]]></entry>
+  <entry key="jenkins.job.runPostStepsIfResult.name">FAILURE</entry>
+  <entry key="jenkins.job.runPostStepsIfResult.ordinal">2</entry>
+  <entry key="jenkins.job.runPostStepsIfResult.color">RED</entry>
   <entry key="jenkins.job.description"><![CDATA[
     <style type="text/css">
       #jenkins-job-description {
@@ -54,36 +84,6 @@
       </div>
     </div>
 ]]></entry>
-  <entry key="jenkins.job.keepDependencies">false</entry>
-  <entry key="jenkins.job.canRoam">true</entry>
-  <entry key="jenkins.job.disabled">false</entry>
-  <entry key="jenkins.job.blockBuildWhenDownstreamBuilding">false</entry>
-  <entry key="jenkins.job.blockBuildWhenUpstreamBuilding">false</entry>
-  <entry key="jenkins.job.concurrentBuild">false</entry>
-  <entry key="jenkins.job.aggregatorStyleBuild">true</entry>
-  <entry key="jenkins.job.incrementalBuild">false</entry>
-  <entry key="jenkins.job.usePrivateRepository">false</entry>
-  <entry key="jenkins.job.ignoreUpstremChanges">true</entry>
-  <entry key="jenkins.job.archivingDisabled">false</entry>
-  <entry key="jenkins.job.resolveDependencies">false</entry>
-  <entry key="jenkins.job.processPlugins">false</entry>
-  <entry key="jenkins.job.mavenValidationLevel">-1</entry>
-  <entry key="jenkins.job.runHeadless">false</entry>
-  <entry key="jenkins.job.settingConfigId"></entry>
-  <entry key="jenkins.job.globalSettingConfigId"></entry>
-  <entry key="jenkins.job.reporters"></entry>
-  <entry key="jenkins.job.publishers"></entry>
-  <entry key="jenkins.job.buildWrappers"></entry>
-  <entry key="jenkins.job.prebuilders"></entry>
-  <entry key="jenkins.job.postbuilders"></entry>
-  <entry key="jenkins.job.runPostStepsIfResult"><![CDATA[
-    <name>${jenkins.job.runPostStepsIfResult.name}</name>
-    <ordinal>${jenkins.job.runPostStepsIfResult.ordinal}</ordinal>
-    <color>${jenkins.job.runPostStepsIfResult.color}</color>
-  ]]></entry>
-  <entry key="jenkins.job.runPostStepsIfResult.name">FAILURE</entry>
-  <entry key="jenkins.job.runPostStepsIfResult.ordinal">2</entry>
-  <entry key="jenkins.job.runPostStepsIfResult.color">RED</entry>
   <entry key="jenkins.job.description.kualiRelease"><![CDATA[
           <ol class="jenkins-job-brief-sublist">
             <li>Attach sources</li>
@@ -94,7 +94,4 @@
             <li>Embed SCM info into jars/wars</li>
           </ol>
   ]]></entry>
-
-
-
 </properties>
