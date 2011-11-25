@@ -196,6 +196,7 @@
         <ant.file>target/classes/org/kuali/cm/jenkins/projects/build.xml</ant.file>
         <cmd>help</cmd>
         <ant.target>${target}</ant.target>
+        <ant.phase>initialize</ant.phase>
       </properties>
       <build>
         <plugins>
