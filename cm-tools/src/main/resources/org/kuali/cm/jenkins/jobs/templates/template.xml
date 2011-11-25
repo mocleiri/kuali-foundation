@@ -19,9 +19,7 @@
   <disabled>${jenkins.job.disabled}</disabled>
   <blockBuildWhenDownstreamBuilding>${jenkins.job.blockBuildWhenDownstreamBuilding}</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>${jenkins.job.blockBuildWhenUpstreamBuilding}</blockBuildWhenUpstreamBuilding>
-  <triggers class="${jenkins.job.triggers.class}">
-    ${jenkins.job.triggers}
-  </triggers>
+  <triggers class="${jenkins.job.triggers.class}">${jenkins.job.triggers}</triggers>
   <concurrentBuild>${jenkins.job.concurrentBuild}</concurrentBuild>
   <rootModule>
     <groupId>${jenkins.project.groupId}</groupId>
