@@ -131,7 +131,7 @@
             <artifactId>properties-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>get-properties-1</id>
+                <id>read-properties</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>read-project-properties</goal>
@@ -144,18 +144,6 @@
                     <file>src/main/resources/org/kuali/cm/jenkins/jobs/properties/${jenkins.project.scmType}.xml</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/jobs/types/${jenkins.job.type}.xml</file>
                     <file>src/main/resources/org/kuali/cm/jenkins/projects/${jenkins.project.name}.properties</file>
-                  </files>
-                </configuration>
-              </execution>
-              <execution>
-                <id>get-properties-2</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>read-project-properties</goal>
-                </goals>
-                <configuration>
-                  <files>
-                    <file>src/main/resources/org/kuali/cm/jenkins/jobs/templates/${jenkins.template.type}-properties.xml</file>
                   </files>
                 </configuration>
               </execution>
