@@ -59,8 +59,6 @@
     ${jenkins.job.postbuilders}
   </postbuilders>
   <runPostStepsIfResult>
-    <name>FAILURE</name>
-    <ordinal>2</ordinal>
-    <color>RED</color>
+    ${jenkins.job.runPostStepsIfResult}
   </runPostStepsIfResult>
 </maven2-moduleset>
