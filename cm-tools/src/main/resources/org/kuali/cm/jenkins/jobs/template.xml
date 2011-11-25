@@ -5,14 +5,14 @@
     <![CDATA[${jenkins.job.description}]]>
   </description>
   <logRotator>
-    <daysToKeep>${jenkins.job.daysToKeep}</daysToKeep>
-    <numToKeep>${jenkins.job.numToKeep}</numToKeep>
-    <artifactDaysToKeep>${jenkins.job.artifactDaysToKeep}</artifactDaysToKeep>
-    <artifactNumToKeep>${jenkins.job.artifactNumToKeep}</artifactNumToKeep>
+    <daysToKeep>${jenkins.job.logRotator.daysToKeep}</daysToKeep>
+    <numToKeep>${jenkins.job.logRotator.numToKeep}</numToKeep>
+    <artifactDaysToKeep>${jenkins.job.logRotator.artifactDaysToKeep}</artifactDaysToKeep>
+    <artifactNumToKeep>${jenkins.job.logRotator.artifactNumToKeep}</artifactNumToKeep>
   </logRotator>
   <keepDependencies>${jenkins.job.keepDependencies}</keepDependencies>
   <properties>${jenkins.job.properties}</properties>
-  <scm class="${jenkins.job.scm.class}">${jenkins.job.scm.xml}</scm>
+  <scm class="${jenkins.job.scm.class}">${jenkins.job.scm}</scm>
   <canRoam>${jenkins.job.canRoam}</canRoam>
   <disabled>${jenkins.job.disabled}</disabled>
   <blockBuildWhenDownstreamBuilding>${jenkins.job.blockBuildWhenDownstreamBuilding}</blockBuildWhenDownstreamBuilding>
@@ -20,10 +20,10 @@
   <triggers class="${jenkins.job.triggers.class}">${jenkins.job.triggers}</triggers>
   <concurrentBuild>${jenkins.job.concurrentBuild}</concurrentBuild>
   <rootModule>
-    <groupId>${jenkins.project.groupId}</groupId>
-    <artifactId>${jenkins.project.artifactId}</artifactId>
+    <groupId>${jenkins.job.rootModule.groupId}</groupId>
+    <artifactId>${jenkins.job.rootModule.artifactId}</artifactId>
   </rootModule>
-  <goals>${jenkins.mvn.goals}</goals>
+  <goals>${jenkins.job.goals}</goals>
   <aggregatorStyleBuild>${jenkins.job.aggregatorStyleBuild}</aggregatorStyleBuild>
   <incrementalBuild>${jenkins.job.incrementalBuild}</incrementalBuild>
   <usePrivateRepository>${jenkins.job.usePrivateRepository}</usePrivateRepository>

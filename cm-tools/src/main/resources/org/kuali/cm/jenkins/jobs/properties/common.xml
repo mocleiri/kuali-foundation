@@ -3,10 +3,10 @@
 <properties>
   <comment>Properties common to all Jenkins jobs</comment>
   <entry key="jenkins.job.actions"></entry>
-  <entry key="jenkins.job.daysToKeep">-1</entry>
-  <entry key="jenkins.job.numToKeep">3</entry>
-  <entry key="jenkins.job.artifactDaysToKeep">-1</entry>
-  <entry key="jenkins.job.artifactNumToKeep">-1</entry>
+  <entry key="jenkins.job.logRotator.daysToKeep">-1</entry>
+  <entry key="jenkins.job.logRotator.numToKeep">3</entry>
+  <entry key="jenkins.job.logRotator.artifactDaysToKeep">-1</entry>
+  <entry key="jenkins.job.logRotator.artifactNumToKeep">-1</entry>
   <entry key="jenkins.job.properties"></entry>
   <entry key="jenkins.job.triggers.class">class</entry>
   <entry key="jenkins.job.triggers"><![CDATA[]]></entry>

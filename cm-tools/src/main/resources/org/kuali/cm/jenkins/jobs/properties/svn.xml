@@ -3,7 +3,7 @@
 <properties>
   <comment>Jenkins properties for jobs that interact with Subversion</comment>
   <entry key="jenkins.job.scm.class">hudson.scm.SubversionSCM</entry>
-  <entry key="jenkins.job.scm.xml"><![CDATA[
+  <entry key="jenkins.job.scm"><![CDATA[
     <locations>${jenkins.job.svn.locations}</locations>
     <excludedRegions>${jenkins.job.svn.excludedRegions}</excludedRegions>
     <includedRegions>${jenkins.job.svn.includedRegions}</includedRegions>
