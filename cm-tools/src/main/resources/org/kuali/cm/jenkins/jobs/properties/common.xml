@@ -12,13 +12,13 @@
   <entry key="jenkins.job.properties"></entry>
   <entry key="jenkins.job.triggers.class">class</entry>
   <entry key="jenkins.job.triggers"><![CDATA[]]></entry>
-  <entry key="jenkins.job.description"><![CDATA[${jenkins.job.description.brief}
+  <entry key="jenkins.job.description"><![CDATA[<div id="jenkins-job-description" style="border:5px solid black">${jenkins.job.description.brief}
     <br>
     <li>${jenkins.project.groupId}:${jenkins.project.artifactId}:${jenkins.project.majorVersion}</li>
     <li>${jenkins.project.scm.url}</li>
     <br>
     <li>Job created by Maven Jenkins CLI Wrapper ${project.version} (Jenkins CLI Version ${jenkins.cli.version})</li>
-    <li>Last config update via CLI - ${jenkins.build.timestamp}</li>]]></entry>
+    <li>Last config update via CLI - ${jenkins.build.timestamp}</li></div>]]></entry>
   <entry key="jenkins.job.keepDependencies">false</entry>
   <entry key="jenkins.job.canRoam">true</entry>
   <entry key="jenkins.job.disabled">false</entry>
