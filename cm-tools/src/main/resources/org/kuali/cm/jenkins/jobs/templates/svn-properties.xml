@@ -6,15 +6,21 @@
   <entry key="jenkins.job.scm.xml"><![CDATA[<locations>
     ${jenkins.job.svn.locations}
     </locations>
-    <excludedRegions></excludedRegions>
-    <includedRegions></includedRegions>
-    <excludedUsers></excludedUsers>
-    <excludedRevprop></excludedRevprop>
-    <excludedCommitMessages></excludedCommitMessages>
-    <workspaceUpdater class="hudson.scm.subversion.UpdateUpdater" />]]></entry>
+    <excludedRegions>${jenkins.job.svn.excludedRegions}</excludedRegions>
+    <includedRegions>${jenkins.job.svn.includedRegions}</includedRegions>
+    <excludedUsers>${jenkins.job.svn.excludedUsers}</excludedUsers>
+    <excludedRevprop>${jenkins.job.svn.excludedRevprop}</excludedRevprop>
+    <excludedCommitMessages>${jenkins.job.svn.excludedCommitMessages}</excludedCommitMessages>
+    <workspaceUpdater class="${jenkins.job.svn.workspaceUpdater.class}" />]]></entry>
   <entry key="jenkins.job.svn.locations"><![CDATA[<hudson.scm.SubversionSCM_-ModuleLocation>
         <remote>${jenkins.project.scm.url}</remote>
         <local>${jenkins.job.svn.local}</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>]]></entry>
   <entry key="jenkins.job.svn.local">.</entry>
+  <entry key="jenkins.job.svn.excludedRegions"></entry>
+  <entry key="jenkins.job.svn.includedRegions"></entry>
+  <entry key="jenkins.job.svn.excludedUsers"></entry>
+  <entry key="jenkins.job.svn.excludedRevprop"></entry>
+  <entry key="jenkins.job.svn.excludedCommitMessages"></entry>
+  <entry key="jenkins.job.svn.workspaceUpdater.class">hudson.scm.subversion.UpdateUpdater</entry>
 </properties>
