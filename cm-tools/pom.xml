@@ -191,34 +191,6 @@
       </build>
     </profile>
     <profile>
-      <id>threads</id>
-      <properties>
-        <jenkins.project.scm.url>${svn.foundation.repo}/trunk/kuali-threads</jenkins.project.scm.url>
-        <jenkins.project.groupId>org.kuali.common.threads</jenkins.project.groupId>
-        <jenkins.project.artifactId>kuali-threads</jenkins.project.artifactId>
-        <jenkins.project.majorVersion>1.0</jenkins.project.majorVersion>
-      </properties>
-    </profile>
-    <profile>
-      <id>wagon</id>
-      <properties>
-        <jenkins.project.scm.type>git</jenkins.project.scm.type>
-        <jenkins.project.scm.url>git://github.com/jcaddel/maven-s3-wagon.git</jenkins.project.scm.url>
-        <jenkins.project.groupId>org.kuali.maven.wagon</jenkins.project.groupId>
-        <jenkins.project.artifactId>maven-s3-wagon</jenkins.project.artifactId>
-        <jenkins.project.majorVersion>1.1</jenkins.project.majorVersion>
-      </properties>
-    </profile>
-    <profile>
-      <id>skin</id>
-      <properties>
-        <jenkins.project.scm.url>${svn.foundation.repo}/trunk/maven-kuali-skin</jenkins.project.scm.url>
-        <jenkins.project.groupId>org.kuali.maven.skins</jenkins.project.groupId>
-        <jenkins.project.artifactId>maven-kuali-skin</jenkins.project.artifactId>
-        <jenkins.project.majorVersion>1.1</jenkins.project.majorVersion>
-      </properties>
-    </profile>
-    <profile>
       <id>cloudfront</id>
       <properties>
         <jenkins.project.scm.url>${svn.foundation.repo}/trunk/maven-cloudfront-plugin</jenkins.project.scm.url>
