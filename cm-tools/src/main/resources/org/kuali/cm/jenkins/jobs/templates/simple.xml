@@ -12,21 +12,21 @@
     <artifactDaysToKeep>${jenkins.job.artifactDaysToKeep}</artifactDaysToKeep>
     <artifactNumToKeep>${jenkins.job.artifactNumToKeep}</artifactNumToKeep>
   </logRotator>
-  <keepDependencies>${jenkins.job.artifactNumToKeep}</keepDependencies>
+  <keepDependencies>${jenkins.job.keepDependencies}</keepDependencies>
   <properties>
     ${jenkins.job.properties}
   </properties>
   <scm class="${jenkins.job.scm.class}">
     ${jenkins.job.scm.xml}
   </scm>
-  <canRoam>${jenkins.job.artifactNumToKeep}</canRoam>
-  <disabled>${jenkins.job.artifactNumToKeep}</disabled>
-  <blockBuildWhenDownstreamBuilding>${jenkins.job.artifactNumToKeep}</blockBuildWhenDownstreamBuilding>
-  <blockBuildWhenUpstreamBuilding>${jenkins.job.artifactNumToKeep}</blockBuildWhenUpstreamBuilding>
+  <canRoam>${jenkins.job.canRoam}</canRoam>
+  <disabled>${jenkins.job.disabled}</disabled>
+  <blockBuildWhenDownstreamBuilding>${jenkins.job.blockBuildWhenDownstreamBuilding}</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>${jenkins.job.blockBuildWhenUpstreamBuilding}</blockBuildWhenUpstreamBuilding>
   <triggers class="${jenkins.job.triggers.class}">
     <![CDATA[${jenkins.job.triggers}]]>
   </triggers>
-  <concurrentBuild>${jenkins.job.artifactNumToKeep}</concurrentBuild>
+  <concurrentBuild>${jenkins.job.concurrentBuild}</concurrentBuild>
   <rootModule>
     <groupId>${jenkins.project.groupId}</groupId>
     <artifactId>${jenkins.project.artifactId}</artifactId>
