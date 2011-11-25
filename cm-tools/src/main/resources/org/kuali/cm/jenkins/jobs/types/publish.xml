@@ -7,7 +7,7 @@
   <entry key="jenkins.job.description.brief"><![CDATA[ 
       <div id="jenkins-job-brief">
           <li id="jenkins-job-brief-title">Publish a snapshot of this project into the public domain:</li>
-          <li>Execute "deploy site-deploy" on the project using the "kuali-release" profile</li>
+          <li>Execute "${jenkins.job.goals}" on the project</li>
           ${jenkins.job.description.kualiRelease}
           <li>Deploy the build artifacts to Kuali's publicly accessible S3 repository</li>
           <li>Publish the Maven web site</li>
