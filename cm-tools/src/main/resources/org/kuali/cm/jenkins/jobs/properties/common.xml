@@ -2,6 +2,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
   <comment>Properties common to all Jenkins jobs</comment>
+  <entry key="jenkins.job.rootModule.groupId">${jenkins.project.groupId}</entry>
+  <entry key="enkins.job.rootModule.artifactId">${jenkins.project.artifactId}</entry>
   <entry key="jenkins.job.actions"></entry>
   <entry key="jenkins.job.logRotator.daysToKeep">-1</entry>
   <entry key="jenkins.job.logRotator.numToKeep">3</entry>
