@@ -34,14 +34,14 @@
   <entry key="jenkins.job.buildWrappers"></entry>
   <entry key="jenkins.job.prebuilders"></entry>
   <entry key="jenkins.job.postbuilders"></entry>
+  <entry key="jenkins.job.runPostStepsIfResult.name">FAILURE</entry>
+  <entry key="jenkins.job.runPostStepsIfResult.ordinal">2</entry>
+  <entry key="jenkins.job.runPostStepsIfResult.color">RED</entry>
   <entry key="jenkins.job.runPostStepsIfResult"><![CDATA[
     <name>${jenkins.job.runPostStepsIfResult.name}</name>
     <ordinal>${jenkins.job.runPostStepsIfResult.ordinal}</ordinal>
     <color>${jenkins.job.runPostStepsIfResult.color}</color>
   ]]></entry>
-  <entry key="jenkins.job.runPostStepsIfResult.name">FAILURE</entry>
-  <entry key="jenkins.job.runPostStepsIfResult.ordinal">2</entry>
-  <entry key="jenkins.job.runPostStepsIfResult.color">RED</entry>
   <entry key="jenkins.job.description"><![CDATA[
     <style type="text/css">
       #jenkins-job-description {
