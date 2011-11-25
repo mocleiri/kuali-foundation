@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <comment>Properties specific to enforcing ECL 2.0 license header requirements</comment>
+  <entry key="jenkins.job.goals">clean install -Plicense -N</entry>
+  <entry key="jenkins.job.type">license</entry>
+  <entry key="jenkins.job.description.brief"><![CDATA[ 
+      <div id="jenkins-job-brief">
+          <li id="jenkins-job-brief-title">Ensure that the project is using the correct ECL 2.0 license header</li>
+          <li>Execute "install -Plicense -N" on the project</li>
+      </div>
+    ]]></entry>
+</properties>
