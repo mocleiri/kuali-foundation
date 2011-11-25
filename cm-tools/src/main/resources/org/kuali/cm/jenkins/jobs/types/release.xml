@@ -4,7 +4,7 @@
   <comment>Properties specific to releasing a Kuali project</comment>
   <entry key="jenkins.job.goals">release:prepare release:perform -B -e</entry>
   <entry key="jenkins.job.type">release</entry>
-  <entry key="jenkins.job.description.brief"><![CDATA[<li>Create an official Kuali release.
+  <entry key="jenkins.job.description.brief"><![CDATA[<li>Create an official Kuali release.</li>
     <ol>
       <li>Remove SNAPSHOT from the pom version (eg change 1.0.1-SNAPSHOT to 1.0.1)</li>
       <li>Update the SCM information in the poms to reflect the release tag that is being created</li>
