@@ -21,4 +21,7 @@
   <entry key="jenkins.job.postbuilders.1.mavenName">3.0.3</entry>
   <entry key="jenkins.job.postbuilders.1.pom">target/checkout/pom.xml</entry>
   <entry key="jenkins.job.postbuilders.1.usePrivateRepository">false</entry>
+  <entry key="jenkins.job.runPostStepsIfResult.name">UNSTABLE</entry>
+  <entry key="jenkins.job.runPostStepsIfResult.ordinal">1</entry>
+  <entry key="jenkins.job.runPostStepsIfResult.color">YELLOW</entry>
 </properties>
