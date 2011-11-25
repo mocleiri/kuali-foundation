@@ -7,6 +7,20 @@
   <entry key="jenkins.job.numToKeep">3</entry>
   <entry key="jenkins.job.artifactDaysToKeep">-1</entry>
   <entry key="jenkins.job.artifactNumToKeep">-1</entry>
+  <entry key="jenkins.job.properties"></entry>
+  <entry key="jenkins.job.scm.class">hudson.scm.SubversionSCM</entry>
+  <entry key="jenkins.job.scm.xml"><![CDATA[<locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>${jenkins.project.scm.url}</remote>
+        <local>.</local>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <excludedRegions></excludedRegions>
+    <includedRegions></includedRegions>
+    <excludedUsers></excludedUsers>
+    <excludedRevprop></excludedRevprop>
+    <excludedCommitMessages></excludedCommitMessages>
+    <workspaceUpdater class="hudson.scm.subversion.UpdateUpdater" />]]></entry>
   <entry key="jenkins.job.triggers.class">class</entry>
   <entry key="jenkins.job.triggers"><![CDATA[]]></entry>
   <entry key="jenkins.job.description"><![CDATA[${jenkins.job.description.short}

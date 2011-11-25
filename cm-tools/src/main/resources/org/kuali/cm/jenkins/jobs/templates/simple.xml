@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <maven2-moduleset>
   <actions>
-    <![CDATA[${jenkins.job.actions}]]>
+    ${jenkins.job.actions}
   </actions>
   <description>
     <![CDATA[${jenkins.job.description}]]>
@@ -13,8 +13,12 @@
     <artifactNumToKeep>${jenkins.job.artifactNumToKeep}</artifactNumToKeep>
   </logRotator>
   <keepDependencies>${jenkins.job.artifactNumToKeep}</keepDependencies>
-  <properties />
-  ${jenkins.job.scm.xml}
+  <properties>
+    ${jenkins.job.properties}
+  </properties>
+  <scm class="${jenkins.job.scm.class}">
+    ${jenkins.job.scm.xml}
+  </scm>
   <canRoam>${jenkins.job.artifactNumToKeep}</canRoam>
   <disabled>${jenkins.job.artifactNumToKeep}</disabled>
   <blockBuildWhenDownstreamBuilding>${jenkins.job.artifactNumToKeep}</blockBuildWhenDownstreamBuilding>
