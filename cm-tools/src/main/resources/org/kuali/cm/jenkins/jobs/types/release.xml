@@ -37,7 +37,7 @@
           <li>Execute "clean verify" to make sure altering the poms has not caused an issue</li>
           <li>Commit the modified poms</li>
           <li>Create a tag of the source tree containing the poms with the updated version/SCM information</li>
-          <li>Re-alter the Maven poms</li>
+          <li>Alter the Maven poms again</li>
           <ol class="jenkins-job-brief-sublist">
             <li>Increment the version (eg change 1.0.1 to 1.0.2-SNAPSHOT)</li>
             <li>Change the SCM information back to what it was originally</li>
