@@ -19,6 +19,9 @@
       #jenkins-job-brief {
         border:3px solid blue;
       }
+      #jenkins-project-metadata {
+        border:3px solid red;
+      }
       #jenkins-cli-wrapper-metadata {
         border:3px solid green;
       }
