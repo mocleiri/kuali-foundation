@@ -6,11 +6,7 @@
   <entry key="jenkins.job.scm"><![CDATA[
     <configVersion>${jenkins.job.git.configVersion}</configVersion>
     <userRemoteConfigs>${jenkins.job.git.userRemoteConfigs}</userRemoteConfigs>
-    <branches>
-      <hudson.plugins.git.BranchSpec>
-        <name>${jenkins.git.branch}</name>
-      </hudson.plugins.git.BranchSpec>
-    </branches>
+    <branches>${jenkins.job.git.branches}</branches>
     <recursiveSubmodules>${jenkins.job.git.recursiveSubmodules}</recursiveSubmodules>
     <doGenerateSubmoduleConfigurations>${jenkins.job.git.doGenerateSubmoduleConfigurations}</doGenerateSubmoduleConfigurations>
     <authorOrCommitter>${jenkins.job.git.authorOrCommitter}</authorOrCommitter>
