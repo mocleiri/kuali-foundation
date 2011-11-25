@@ -53,8 +53,11 @@
   <entry key="jenkins.job.prebuilders"></entry>
   <entry key="jenkins.job.postbuilders"></entry>
   <entry key="jenkins.job.runPostStepsIfResult"><![CDATA[
-    <name>FAILURE</name>
-    <ordinal>2</ordinal>
-    <color>RED</color>
+    <name>${jenkins.job.runPostStepsIfResult.name}</name>
+    <ordinal>${jenkins.job.runPostStepsIfResult.ordinal}</ordinal>
+    <color>${jenkins.job.runPostStepsIfResult.color}</color>
   ]]></entry>
+  <entry key="jenkins.job.runPostStepsIfResult.name">FAILURE</entry>
+  <entry key="jenkins.job.runPostStepsIfResult.ordinal">2</entry>
+  <entry key="jenkins.job.runPostStepsIfResult.color">RED</entry>
 </properties>
