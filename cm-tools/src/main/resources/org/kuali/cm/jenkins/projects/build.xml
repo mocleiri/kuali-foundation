@@ -67,7 +67,7 @@
       <param name="job" value="license" />
     </antcall>
     <antcall target="execute">
-      <param name="job" value="unit-test" />
+      <param name="job" value="unit" />
     </antcall>
   </target>
 
