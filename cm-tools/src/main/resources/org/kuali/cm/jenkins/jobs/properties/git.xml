@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-  <comment>Properties specific to Jenkins jobs that interact with Git</comment>
+  <comment>Jenkins properties for jobs that interact with Git</comment>
   <entry key="jenkins.job.scm.class">hudson.plugins.git.GitSCM</entry>
   <entry key="jenkins.job.scm.xml"><![CDATA[
     <configVersion>${jenkins.job.git.configVersion}</configVersion>
