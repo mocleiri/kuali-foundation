@@ -30,7 +30,7 @@
   </target>
 
   <target name="executecmd">
-    <exec executable="mvn" failonerror="${ant.failonerror}" fork="true">
+    <exec executable="mvn" failonerror="${ant.failonerror}" newenvironment="true">
       <arg value="clean" />
       <arg value="process-resources" />
       <arg value="-Pci" />
