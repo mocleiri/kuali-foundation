@@ -24,4 +24,7 @@
   <entry key="jenkins.job.runPostStepsIfResult.name">UNSTABLE</entry>
   <entry key="jenkins.job.runPostStepsIfResult.ordinal">1</entry>
   <entry key="jenkins.job.runPostStepsIfResult.color">YELLOW</entry>
+  <entry key="jenkins.job.git.clean">true</entry>
+  <entry key="jenkins.job.git.userRemoteConfigs.1.refspec">+refs/heads/*:refs/remotes/origin/*</entry>
+  <entry key="jenkins.job.git.userRemoteConfigs.1.name">origin</entry>
 </properties>
