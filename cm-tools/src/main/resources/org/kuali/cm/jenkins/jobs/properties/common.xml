@@ -11,7 +11,7 @@
   <entry key="jenkins.job.logRotator.artifactNumToKeep">-1</entry>
   <entry key="jenkins.job.properties"></entry>
   <entry key="jenkins.job.triggers.class">class</entry>
-  <entry key="jenkins.job.triggers"><![CDATA[]]></entry>
+  <entry key="jenkins.job.triggers"></entry>
   <entry key="jenkins.job.keepDependencies">false</entry>
   <entry key="jenkins.job.canRoam">true</entry>
   <entry key="jenkins.job.disabled">false</entry>
