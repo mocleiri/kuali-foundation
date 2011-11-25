@@ -48,14 +48,14 @@
     <hudson.triggers.TimerTrigger>
       <spec>0 0 * * *</spec>
     </hudson.triggers.TimerTrigger>
-    ]]></entry>
+  ]]></entry>
 
   <!-- 7am UTC is midnight on the east coast -->
   <entry key="jenkins.job.trigger.timer.7am"><![CDATA[
     <hudson.triggers.TimerTrigger>
       <spec>0 7 * * *</spec>
     </hudson.triggers.TimerTrigger>
-    ]]></entry>
+  ]]></entry>
 
   <entry key="jenkins.job.description"><![CDATA[
     <style type="text/css">
