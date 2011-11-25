@@ -191,15 +191,6 @@
       </build>
     </profile>
     <profile>
-      <id>ksite</id>
-      <properties>
-        <jenkins.project.scm.url>${svn.foundation.repo}/trunk/maven-ksite-plugin</jenkins.project.scm.url>
-        <jenkins.project.groupId>org.kuali.maven.plugins</jenkins.project.groupId>
-        <jenkins.project.artifactId>maven-ksite-plugin</jenkins.project.artifactId>
-        <jenkins.project.majorVersion>1.1</jenkins.project.majorVersion>
-      </properties>
-    </profile>
-    <profile>
       <id>threads</id>
       <properties>
         <jenkins.project.scm.url>${svn.foundation.repo}/trunk/kuali-threads</jenkins.project.scm.url>
