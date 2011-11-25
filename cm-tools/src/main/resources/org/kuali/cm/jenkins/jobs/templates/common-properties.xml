@@ -2,7 +2,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
   <comment>Properties common to all Jenkins jobs</comment>
-  <entry key="jenkins.job.description"><![CDATA[<li>${jenkins.job.description.short}</li>
+  <entry key="jenkins.job.actions"></entry>
+  <entry key="jenkins.job.description"><![CDATA[${jenkins.job.description.short}
     <br>
     <li>${jenkins.project.groupId}:${jenkins.project.artifactId}:${jenkins.project.majorVersion}</li>
     <li>${jenkins.project.scm.url}</li>
