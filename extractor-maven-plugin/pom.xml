@@ -7,19 +7,32 @@
     <version>1.0.1</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
-  <artifactId>version-maven-plugin</artifactId>
-  <version>1.0.2-SNAPSHOT</version>
+  <artifactId>extractor-maven-plugin</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <name>Maven Version Plugin</name>
-  <description>Tools for working with Maven version numbers</description>
+  <name>Extractor Maven Plugin</name>
+  <description>
+    Extract information contained in the pom as project properties.
+    These are bits of information that are otherwise not directly available as properties
+    eg major version, scm type
+  </description>
   <properties>
     <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
   </properties>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/version-maven-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/version-maven-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/version-maven-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/extractor-maven-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/extractor-maven-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/extractor-maven-plugin</url>
   </scm>
+  <developers>
+    <developer>
+      <id>jcaddel</id>
+      <name>Jeff Caddel</name>
+      <organization>rSmart</organization>
+      <timezone>-7</timezone>
+      <email>jcaddel@kuali.org</email>
+    </developer>
+  </developers>
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>

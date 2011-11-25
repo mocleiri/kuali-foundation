@@ -12,9 +12,9 @@ import org.codehaus.plexus.util.StringUtils;
  * Stores the major version of the project as a property. The mojo assumes 3 digit versions eg "1.0.1" and counts "1.0"
  * as the major version
  *
- * @goal get-major-version
+ * @goal extract
  */
-public class GetMajorVersionMojo extends AbstractMojo {
+public class ExtractorMojo extends AbstractMojo {
 
     /**
      * The Maven project this plugin runs in.
@@ -28,7 +28,7 @@ public class GetMajorVersionMojo extends AbstractMojo {
     /**
      * The property where the major version will be stored
      *
-     * @parameter expression="${version.majorVersion}" default-value="majorVersion"
+     * @parameter expression="${extractor.majorVersion}" default-value="extracted.majorVersion"
      * @required
      */
     private String majorVersionProperty;
