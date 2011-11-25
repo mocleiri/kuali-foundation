@@ -36,19 +36,13 @@
     <scmName>${jenkins.job.git.scmName}</scmName>
   ]]></entry>
   <entry key="jenkins.job.git.userRemoteConfigs"><![CDATA[
-      <hudson.plugins.git.UserRemoteConfig>
-        <name></name>
-        <refspec></refspec>
-        <url>${jenkins.project.scm.url}</url>
-      </hudson.plugins.git.UserRemoteConfig>
+      <hudson.plugins.git.UserRemoteConfig>${jenkins.job.git.userRemoteConfig.1}</hudson.plugins.git.UserRemoteConfig>
     ]]></entry>
-  <entry key="jenkins.job.git.userRemoteConfig.1"><![CDATA[<userRemoteConfigs>
-      <hudson.plugins.git.UserRemoteConfig>
-        <name></name>
-        <refspec></refspec>
-        <url>${jenkins.project.scm.url}</url>
-      </hudson.plugins.git.UserRemoteConfig>
-    </userRemoteConfigs>]]></entry>
+  <entry key="jenkins.job.git.userRemoteConfig.1"><![CDATA[
+        <name>${jenkins.job.git.userRemoteConfig.1.name}</name>
+        <refspec>${jenkins.job.git.userRemoteConfig.1.refspec}</refspec>
+        <url>${jenkins.job.git.userRemoteConfig.1.url}</url>
+      ]]></entry>
   <entry key="jenkins.job.git.configVersion">2</entry>
   <entry key="jenkins.job.git.recursiveSubmodules">false</entry>
   <entry key="jenkins.job.git.doGenerateSubmoduleConfigurations">false</entry>
