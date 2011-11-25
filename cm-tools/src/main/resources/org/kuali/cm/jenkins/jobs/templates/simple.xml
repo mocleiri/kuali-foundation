@@ -43,11 +43,21 @@
   <runHeadless>${jenkins.job.runHeadless}</runHeadless>
   <settingConfigId>${jenkins.job.settingConfigId}</settingConfigId>
   <globalSettingConfigId>${jenkins.job.globalSettingConfigId}</globalSettingConfigId>
-  <reporters />
-  <publishers />
-  <buildWrappers />
-  <prebuilders />
-  <postbuilders />
+  <reporters>
+    ${jenkins.job.reporters}
+  </reporters>
+  <publishers>
+    ${jenkins.job.publishers}
+  </publishers>
+  <buildWrappers>
+    ${jenkins.job.buildWrappers}
+  </buildWrappers>
+  <prebuilders>
+    ${jenkins.job.prebuilders}
+  </prebuilders>
+  <postbuilders>
+    ${jenkins.job.postbuilders}
+  </postbuilders>
   <runPostStepsIfResult>
     <name>FAILURE</name>
     <ordinal>2</ordinal>

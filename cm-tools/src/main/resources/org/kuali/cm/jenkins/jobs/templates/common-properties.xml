@@ -47,16 +47,12 @@
   <entry key="jenkins.job.runHeadless">false</entry>
   <entry key="jenkins.job.settingConfigId"></entry>
   <entry key="jenkins.job.globalSettingConfigId"></entry>
-</properties>
-
-
-<reporters />
-<publishers />
-<buildWrappers />
-<prebuilders />
-<postbuilders />
-<runPostStepsIfResult>
-  <name>FAILURE</name>
+  <entry key="jenkins.job.reporters"></entry>
+  <entry key="jenkins.job.publishers"></entry>
+  <entry key="jenkins.job.buildWrappers"></entry>
+  <entry key="jenkins.job.prebuilders"></entry>
+  <entry key="jenkins.job.postbuilders"></entry>
+  <entry key="jenkins.job.runPostStepsIfResult"><![CDATA[  <name>FAILURE</name>
   <ordinal>2</ordinal>
-  <color>RED</color>
-</runPostStepsIfResult>
+  <color>RED</color>]]></entry>
+</properties>
