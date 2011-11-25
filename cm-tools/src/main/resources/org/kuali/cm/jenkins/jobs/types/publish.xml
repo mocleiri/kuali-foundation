@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
   <comment>Properties specific to "publishing" a Kuali project</comment>
-  <entry key="jenkins.job.goals">clean deploy site-deploy -Pkuali-release</entry>
+  <entry key="jenkins.job.goals">clean deploy site-deploy -Pkuali-release -e</entry>
   <entry key="jenkins.job.type">publish</entry>
   <entry key="jenkins.job.description.brief"><![CDATA[<li>Publish this project for public use.</li> 
     <ol>
