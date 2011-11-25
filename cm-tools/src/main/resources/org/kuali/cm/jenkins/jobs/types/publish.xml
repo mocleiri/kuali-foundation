@@ -8,7 +8,7 @@
       <div id="jenkins-job-brief">
           <li id="jenkins-job-brief-title">Publish a snapshot of this project into the public domain:</li>
           <li>Deploy build artifacts to Kuali's internal Maven repo</li>
-          <li>Invoke Maven using the "kuali-release" profile</li>
+          <li>Use the "kuali-release" profile to:</li>
           ${jenkins.job.description.kualiRelease}
           <li>Publish the Maven web site</li>
       </div>
