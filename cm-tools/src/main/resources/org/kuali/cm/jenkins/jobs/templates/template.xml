@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <maven2-moduleset>
-  <actions>
-    ${jenkins.job.actions}
-  </actions>
+  <actions>${jenkins.job.actions}</actions>
   <description>
     <![CDATA[${jenkins.job.description}]]>
   </description>
@@ -13,9 +11,7 @@
     <artifactNumToKeep>${jenkins.job.artifactNumToKeep}</artifactNumToKeep>
   </logRotator>
   <keepDependencies>${jenkins.job.keepDependencies}</keepDependencies>
-  <properties>
-    ${jenkins.job.properties}
-  </properties>
+  <properties>${jenkins.job.properties}</properties>
   <scm class="${jenkins.job.scm.class}">
     ${jenkins.job.scm.xml}
   </scm>
@@ -43,22 +39,10 @@
   <runHeadless>${jenkins.job.runHeadless}</runHeadless>
   <settingConfigId>${jenkins.job.settingConfigId}</settingConfigId>
   <globalSettingConfigId>${jenkins.job.globalSettingConfigId}</globalSettingConfigId>
-  <reporters>
-    ${jenkins.job.reporters}
-  </reporters>
-  <publishers>
-    ${jenkins.job.publishers}
-  </publishers>
-  <buildWrappers>
-    ${jenkins.job.buildWrappers}
-  </buildWrappers>
-  <prebuilders>
-    ${jenkins.job.prebuilders}
-  </prebuilders>
-  <postbuilders>
-    ${jenkins.job.postbuilders}
-  </postbuilders>
-  <runPostStepsIfResult>
-    ${jenkins.job.runPostStepsIfResult}
-  </runPostStepsIfResult>
+  <reporters>${jenkins.job.reporters}</reporters>
+  <publishers>${jenkins.job.publishers}</publishers>
+  <buildWrappers>${jenkins.job.buildWrappers}</buildWrappers>
+  <prebuilders>${jenkins.job.prebuilders}</prebuilders>
+  <postbuilders>${jenkins.job.postbuilders}</postbuilders>
+  <runPostStepsIfResult>${jenkins.job.runPostStepsIfResult}</runPostStepsIfResult>
 </maven2-moduleset>
