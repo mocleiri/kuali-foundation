@@ -4,7 +4,12 @@
   <comment>Properties specific to releasing a Kuali project</comment>
   <entry key="jenkins.job.goals">release:prepare release:perform -B -e</entry>
   <entry key="jenkins.job.type">release</entry>
-  <entry key="jenkins.job.description.brief"><![CDATA[Create an official Kuali release. Deploy artifacts to S3, generate the Maven web site, sync artifacts to Maven Central]]></entry>
+  <entry key="jenkins.job.description.brief"><![CDATA[<li>Create an official Kuali release.
+    <ol>
+      <li>Deploy artifacts to S3</li>
+      <li>Generate the Maven web site</li>
+      <li>Sync artifacts to Maven Central</li>
+    </ol>]]></entry>
 
   <entry key="jenkins.job.postbuilders">${jenkins.job.postbuilders.1}</entry>
 
