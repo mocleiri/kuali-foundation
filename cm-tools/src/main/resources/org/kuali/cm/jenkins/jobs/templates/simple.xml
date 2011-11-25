@@ -7,36 +7,38 @@
     <![CDATA[${jenkins.job.description}]]>
   </description>
   <logRotator>
-    <daysToKeep>-1</daysToKeep>
-    <numToKeep>3</numToKeep>
-    <artifactDaysToKeep>-1</artifactDaysToKeep>
-    <artifactNumToKeep>-1</artifactNumToKeep>
+    <daysToKeep>${jenkins.job.daysToKeep}</daysToKeep>
+    <numToKeep>${jenkins.job.numToKeep}</numToKeep>
+    <artifactDaysToKeep>${jenkins.job.artifactDaysToKeep}</artifactDaysToKeep>
+    <artifactNumToKeep>${jenkins.job.artifactNumToKeep}</artifactNumToKeep>
   </logRotator>
-  <keepDependencies>false</keepDependencies>
+  <keepDependencies>${jenkins.job.artifactNumToKeep}</keepDependencies>
   <properties />
   ${jenkins.job.scm.xml}
-  <canRoam>true</canRoam>
-  <disabled>false</disabled>
-  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers class="vector" />
-  <concurrentBuild>false</concurrentBuild>
+  <canRoam>${jenkins.job.artifactNumToKeep}</canRoam>
+  <disabled>${jenkins.job.artifactNumToKeep}</disabled>
+  <blockBuildWhenDownstreamBuilding>${jenkins.job.artifactNumToKeep}</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>${jenkins.job.artifactNumToKeep}</blockBuildWhenUpstreamBuilding>
+  <triggers class="${jenkins.job.triggers.class}">
+    <![CDATA[${jenkins.job.triggers}]]>
+  </triggers>
+  <concurrentBuild>${jenkins.job.artifactNumToKeep}</concurrentBuild>
   <rootModule>
     <groupId>${jenkins.project.groupId}</groupId>
     <artifactId>${jenkins.project.artifactId}</artifactId>
   </rootModule>
   <goals>${jenkins.mvn.goals}</goals>
-  <aggregatorStyleBuild>true</aggregatorStyleBuild>
-  <incrementalBuild>false</incrementalBuild>
-  <usePrivateRepository>false</usePrivateRepository>
-  <ignoreUpstremChanges>true</ignoreUpstremChanges>
-  <archivingDisabled>false</archivingDisabled>
-  <resolveDependencies>false</resolveDependencies>
-  <processPlugins>false</processPlugins>
-  <mavenValidationLevel>-1</mavenValidationLevel>
-  <runHeadless>false</runHeadless>
-  <settingConfigId></settingConfigId>
-  <globalSettingConfigId></globalSettingConfigId>
+  <aggregatorStyleBuild>${jenkins.job.aggregatorStyleBuild}</aggregatorStyleBuild>
+  <incrementalBuild>${jenkins.job.incrementalBuild}</incrementalBuild>
+  <usePrivateRepository>${jenkins.job.usePrivateRepository}</usePrivateRepository>
+  <ignoreUpstremChanges>${jenkins.job.ignoreUpstremChanges}</ignoreUpstremChanges>
+  <archivingDisabled>${jenkins.job.archivingDisabled}</archivingDisabled>
+  <resolveDependencies>${jenkins.job.resolveDependencies}</resolveDependencies>
+  <processPlugins>${jenkins.job.processPlugins}</processPlugins>
+  <mavenValidationLevel>${jenkins.job.mavenValidationLevel}</mavenValidationLevel>
+  <runHeadless>${jenkins.job.runHeadless}</runHeadless>
+  <settingConfigId>${jenkins.job.settingConfigId}</settingConfigId>
+  <globalSettingConfigId>${jenkins.job.globalSettingConfigId}</globalSettingConfigId>
   <reporters />
   <publishers />
   <buildWrappers />

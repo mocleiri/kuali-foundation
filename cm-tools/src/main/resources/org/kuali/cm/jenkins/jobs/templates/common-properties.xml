@@ -3,6 +3,12 @@
 <properties>
   <comment>Properties common to all Jenkins jobs</comment>
   <entry key="jenkins.job.actions"></entry>
+  <entry key="jenkins.job.daysToKeep">-1</entry>
+  <entry key="jenkins.job.numToKeep">3</entry>
+  <entry key="jenkins.job.artifactDaysToKeep">-1</entry>
+  <entry key="jenkins.job.artifactNumToKeep">-1</entry>
+  <entry key="jenkins.job.triggers.class">class</entry>
+  <entry key="jenkins.job.triggers"><![CDATA[]]></entry>
   <entry key="jenkins.job.description"><![CDATA[${jenkins.job.description.short}
     <br>
     <li>${jenkins.project.groupId}:${jenkins.project.artifactId}:${jenkins.project.majorVersion}</li>
@@ -10,4 +16,33 @@
     <br>
     <li>Job created by Maven Jenkins CLI Wrapper ${project.version} (Jenkins CLI Version ${jenkins.cli.version})</li>
     <li>Last config update via CLI - ${jenkins.build.timestamp}</li>]]></entry>
+  <entry key="jenkins.job.keepDependencies">false</entry>
+  <entry key="jenkins.job.canRoam">true</entry>
+  <entry key="jenkins.job.disabled">false</entry>
+  <entry key="jenkins.job.blockBuildWhenDownstreamBuilding">false</entry>
+  <entry key="jenkins.job.blockBuildWhenUpstreamBuilding">false</entry>
+  <entry key="jenkins.job.concurrentBuild">false</entry>
+  <entry key="jenkins.job.aggregatorStyleBuild">true</entry>
+  <entry key="jenkins.job.incrementalBuild">false</entry>
+  <entry key="jenkins.job.usePrivateRepository">false</entry>
+  <entry key="jenkins.job.ignoreUpstremChanges">true</entry>
+  <entry key="jenkins.job.archivingDisabled">false</entry>
+  <entry key="jenkins.job.resolveDependencies">false</entry>
+  <entry key="jenkins.job.processPlugins">false</entry>
+  <entry key="jenkins.job.mavenValidationLevel">-1</entry>
+  <entry key="jenkins.job.runHeadless">false</entry>
+  <entry key="jenkins.job.settingConfigId"></entry>
+  <entry key="jenkins.job.globalSettingConfigId"></entry>
 </properties>
+
+
+<reporters />
+<publishers />
+<buildWrappers />
+<prebuilders />
+<postbuilders />
+<runPostStepsIfResult>
+  <name>FAILURE</name>
+  <ordinal>2</ordinal>
+  <color>RED</color>
+</runPostStepsIfResult>
