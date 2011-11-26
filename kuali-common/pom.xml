@@ -415,7 +415,6 @@
                 </configuration>
               </plugin>
               <plugin>
-                <groupId>org.kuali.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
                   <configLocation>org/kuali/cm/checkstyle/kuali-sun.xml</configLocation>
