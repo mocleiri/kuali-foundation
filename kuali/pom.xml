@@ -23,16 +23,11 @@
   <version>1.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>The Kuali Foundation</name>
-  <description>
-    Kuali is a community of universities, colleges, businesses, and other organizations that have partnered
-    to build and sustain open-source
-    administrative software for higher education, by higher education. Kuali software
-    is designed to meet the needs of all sizes of institutions, from
-    land-grant research universities to community
-    colleges. The members of the Kuali Community share a common vision of open, modular, and distributed
-    systems for
-    their software requirements. Kuali software is released under the Educational Community License.
-  </description>
+  <description><![CDATA[
+    <h5>What is Kuali?</h5>
+    <p>Kuali is a growing community of universities, colleges and commercial firms partnering 
+    to build and sustain open-source software for higher education, by higher education.</p>
+  ]]></description>
   <licenses>
     <license>
       <name>Educational Community License, Version 2.0</name>
