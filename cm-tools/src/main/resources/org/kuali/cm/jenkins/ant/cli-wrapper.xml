@@ -45,7 +45,16 @@
         it will kick off a build regardless of things having changed or not.
         <arg value="${jenkins.cli.changes}" />
       -->
-      <arg value="${jenkins.cli.wait}" />
+      <!--
+        Commenting this out until https://issues.jenkins-ci.org/browse/JENKINS-7052 is resolved
+
+        The symptoms I'm seeing are that everything works fine when connecting directly to the EC2 server
+        but get:
+        SEVERE: I/O error in channel Chunked connection to http://ci.fn.kuali.org/cli
+        java.io.IOException: Unexpected termination of the channel
+        when connecting through the load balancer
+        <arg value="${jenkins.cli.wait}" />
+      -->
     </java>
   </target>
 
