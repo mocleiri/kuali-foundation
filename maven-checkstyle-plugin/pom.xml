@@ -23,9 +23,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.kuali</groupId>
+    <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>15</version>
+    <version>1.0.2</version>
   </parent>
 
   <groupId>org.kuali.maven.plugins</groupId>
@@ -53,10 +53,6 @@
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-checkstyle-plugin</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/trunk/maven-checkstyle-plugin</url>
   </scm>
-  <issueManagement>
-    <system>JIRA</system>
-    <url>http://jira.codehaus.org/browse/MCHECKSTYLE</url>
-  </issueManagement>
 
   <properties>
     <mavenVersion>2.0.6</mavenVersion>
