@@ -30,7 +30,8 @@
   <name>Kuali Common</name>
   <description>
    This pom contains Maven configuration (plugins, profiles, executions, etc) that
-   assist with building, testing, publishing, and releasing Kuali Foundation software. 
+   assists with the building, testing, publishing, and releasing of Kuali Foundation 
+   software. 
   </description>
   <developers>
     <developer>
