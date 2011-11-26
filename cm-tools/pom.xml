@@ -20,7 +20,7 @@
   <description>Configuration Management Tools</description>
   <groupId>org.kuali.cm</groupId>
   <artifactId>cm-tools</artifactId>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.1.0</version>
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <antrun.version>1.7</antrun.version>
@@ -30,9 +30,9 @@
     <ant.phase>process-resources</ant.phase>
   </properties>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/cm-tools</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/cm-tools-1.1.0</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/cm-tools-1.1.0</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/cm-tools-1.1.0</url>
   </scm>
   <developers>
     <developer>
