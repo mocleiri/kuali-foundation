@@ -45,6 +45,10 @@
     <url>http://www.kuali.org/</url>
   </organization>
   <inceptionYear>2004</inceptionYear>
+  <ciManagement>
+    <system>jenkins</system>
+    <url>http://ci.fn.kuali.org</url>
+  </ciManagement>
   <issueManagement>
     <system>JIRA</system>
     <url>http://jira.kuali.org</url>
@@ -807,7 +811,7 @@
             <executions>
               <execution>
                 <id>read-properties</id>
-                <phase>{properties.phase}</phase>
+                <phase>${properties.phase}</phase>
                 <goals>
                   <goal>read-project-properties</goal>
                 </goals>
@@ -833,10 +837,10 @@
                   <goal>copy-resources</goal>
                 </goals>
                 <configuration>
-                  <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                  <outputDirectory>target/classes</outputDirectory>
                   <resources>
                     <resource>
-                      <directory>${project.build.directory}/dependency</directory>
+                      <directory>target/dependency</directory>
                       <filtering>true</filtering>
                       <includes>
                         <include>**/jenkins/**/*</include>
