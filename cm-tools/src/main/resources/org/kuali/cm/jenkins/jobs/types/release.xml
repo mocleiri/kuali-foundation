@@ -31,7 +31,7 @@
           <li>Checkout a fresh copy of the project</li>
           <li>Alter the Maven poms</li>
           <ol class="jenkins-job-brief-sublist">
-            <li>Remove SNAPSHOT from the version (eg change 1.0.1-SNAPSHOT to 1.0.1)</li>
+            <li>Remove SNAPSHOT from the version (eg change 1.0.0-SNAPSHOT to 1.0.0)</li>
             <li>Update the SCM information so it points to the release tag that is about to be created</li>
           </ol>
           <li>Execute "clean verify" to make sure altering the poms has not caused an issue</li>
@@ -39,7 +39,7 @@
           <li>Create a tag of the source tree containing the poms with the updated version/SCM information</li>
           <li>Alter the Maven poms again</li>
           <ol class="jenkins-job-brief-sublist">
-            <li>Increment the version (eg change 1.0.1 to 1.0.2-SNAPSHOT)</li>
+            <li>Increment the version (eg change 1.0.0 to 1.0.1-SNAPSHOT)</li>
             <li>Change the SCM information back to what it was originally</li>
           </ol>
           <li>Commit the modified poms</li>
