@@ -42,7 +42,7 @@ public class ExtractorMojo extends AbstractMojo {
     private String scmTypeProperty;
 
     /**
-     * The project property where the scm type will be stored
+     * The project property where the scm url (with the "scm:svn" or "scm:git" prefix stripped off) will be stored
      *
      * @parameter expression="${extractor.scmUrlProperty}" default-value="extractor.scmUrl"
      * @required
