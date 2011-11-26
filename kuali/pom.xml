@@ -48,9 +48,11 @@
   </issueManagement>
   <developers>
     <developer>
-      <id>kuali</id>
-      <organization>Kuali Foundation</organization>
-      <organizationUrl>http://www.kuali.org</organizationUrl>
+      <id>jcaddel</id>
+      <name>Jeff Caddel</name>
+      <email>jcaddel@kuali.org</email>
+      <organization>rSmart</organization>
+      <timezone>-7</timezone>
     </developer>
   </developers>
   <properties>
