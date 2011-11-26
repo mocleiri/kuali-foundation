@@ -718,6 +718,7 @@
         <jenkins.project.majorVersion>${extractor.majorVersion}</jenkins.project.majorVersion>
         <jenkins.project.groupId>${project.groupId}</jenkins.project.groupId>
         <jenkins.project.artifactId>${project.artifactId}</jenkins.project.artifactId>
+        <jenkins.server>${project.ciManagement.url}</jenkins.server>
         <enforcer.phase>initialize</enforcer.phase>
         <extractor.phase>initialize</extractor.phase>
         <buildnumber.phase>initialize</buildnumber.phase>
@@ -740,12 +741,22 @@
                 <configuration>
                   <rules>
                     <requireProperty>
+                      <property>jenkins.server</property>
+                      <message>You must provide 'jenkins.server' eg -Djenkins.server=http://ci.fn.kuali.org</message>
+                      <regex>\S+</regex>
+                      <regexMessage>'jenkins.server' cannot be empty</regexMessage>
+                    </requireProperty>
+                    <requireProperty>
                       <property>job</property>
                       <message>You must provide 'job' eg -Djob=publish</message>
+                      <regex>\S+</regex>
+                      <regexMessage>'job' cannot be empty</regexMessage>
                     </requireProperty>
                     <requireProperty>
                       <property>cmd</property>
                       <message>You must provide 'cmd' eg -Dcmd=build</message>
+                      <regex>\S+</regex>
+                      <regexMessage>'cmd' cannot be empty</regexMessage>
                     </requireProperty>
                   </rules>
                   <fail>true</fail>
