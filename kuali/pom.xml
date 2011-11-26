@@ -25,9 +25,12 @@
   <name>The Kuali Foundation</name>
   <description>
     Kuali is a community of universities, colleges, businesses, and other organizations that have partnered
-    to build and sustain open-source administrative software for higher education, by higher education. Kuali software
-    is designed to meet the needs of all sizes of institutions, from land-grant research universities to community
-    colleges. The members of the Kuali Community share a common vision of open, modular, and distributed systems for
+    to build and sustain open-source
+    administrative software for higher education, by higher education. Kuali software
+    is designed to meet the needs of all sizes of institutions, from
+    land-grant research universities to community
+    colleges. The members of the Kuali Community share a common vision of open, modular, and distributed
+    systems for
     their software requirements. Kuali software is released under the Educational Community License.
   </description>
   <licenses>
@@ -111,7 +114,7 @@
     <kuali.repo.snapshot.id>kuali.snapshot</kuali.repo.snapshot.id>
     <kuali.repo.snapshot.name>Kuali Snapshot Repository</kuali.repo.snapshot.name>
     <kuali.repo.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repo.snapshot.url>
-    <kuali.cm.tools.version>1.0.9</kuali.cm.tools.version>
+    <kuali.cm.tools.version>1.1.0</kuali.cm.tools.version>
     <plugin.project.info.reports.version>2.4</plugin.project.info.reports.version>
 
     <!-- Properties for controlling repo settings -->
@@ -123,6 +126,7 @@
     <kuali.plugin.releases>${kuali.releases}</kuali.plugin.releases>
     <kuali.plugin.snapshots>${kuali.snapshots}</kuali.plugin.snapshots>
 
+    <jenkins.cli.version>1.440</jenkins.cli.version>
 
     <kuali.testjar.phase>package</kuali.testjar.phase>
     <kuali.gpg.phase>install</kuali.gpg.phase>
@@ -205,7 +209,6 @@
           <version>1.9.0</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
           <version>2.4.1</version>
         </plugin>
@@ -225,7 +228,6 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>2.3.2</version>
           <configuration>
@@ -235,12 +237,14 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.3</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.6</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>1.4</version>
           <configuration>
@@ -248,12 +252,10 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-install-plugin</artifactId>
           <version>2.3.1</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>2.3.2</version>
           <configuration>
@@ -281,7 +283,6 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>${kuali.javadoc.plugin.version}</version>
           <configuration>
@@ -309,12 +310,10 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>${plugin.project.info.reports.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
           <version>2.2.1</version>
           <configuration>
@@ -330,7 +329,6 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
           <version>2.5</version>
           <configuration>
@@ -338,7 +336,6 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
           <version>${kuali.site.plugin.version}</version>
           <configuration>
@@ -355,12 +352,10 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
           <version>2.1.2</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.8</version>
         </plugin>
@@ -379,7 +374,6 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-war-plugin</artifactId>
           <version>2.1.1</version>
           <configuration>
@@ -401,6 +395,16 @@
               </manifestEntries>
             </archive>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+          <version>1.0.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>extractor-maven-plugin</artifactId>
+          <version>1.0.1</version>
         </plugin>
         <plugin>
           <groupId>org.sonatype.plugins</groupId>
@@ -695,37 +699,27 @@
     <profile>
       <id>ci</id>
       <properties>
-        <maven.test.skip>true</maven.test.skip>
-        <ant.target>${ci.cmd}</ant.target>
-        <ant.phase>install</ant.phase>
-        <ant.file>target/filtered/org/kuali/cm/jenkins/ant/build.xml</ant.file>
-        <ant.java.fork>true</ant.java.fork>
-        <ant.java.failonerror>true</ant.java.failonerror>
-        <jenkins.server>http://ec2-107-20-11-86.compute-1.amazonaws.com:8081/</jenkins.server>
-        <jenkins.cli.classname>hudson.cli.CLI</jenkins.cli.classname>
-        <jenkins.cli.wait>-s</jenkins.cli.wait>
-        <jenkins.cli.changes>-c</jenkins.cli.changes>
-        <jenkins.cli.version>1.440</jenkins.cli.version>
-        <jenkins.job.name>${jenkins.project.artifactId}-${jenkins.project.majorVersion}-${jenkins.job.type}</jenkins.job.name>
-        <jenkins.job.file>target/filtered/org/kuali/cm/jenkins/jobs/${jenkins.template.type}-${jenkins.project.scm.type}-template.xml</jenkins.job.file>
-        <jenkins.project.scm.type>svn</jenkins.project.scm.type>
-        <jenkins.git.branch>master</jenkins.git.branch>
+        <ant.file>target/classes/org/kuali/cm/jenkins/ant/cli-wrapper.xml</ant.file>
+        <ant.phase>process-resources</ant.phase>
+        <ant.target>${cmd}</ant.target>
+        <jenkins.job.type>${job}</jenkins.job.type>
+        <jenkins.project.scmType>${extractor.scmType}</jenkins.project.scmType>
+        <jenkins.project.scm.url>${extractor.scmUrl}</jenkins.project.scm.url>
+        <jenkins.project.majorVersion>${extractor.majorVersion}</jenkins.project.majorVersion>
         <jenkins.project.groupId>${project.groupId}</jenkins.project.groupId>
         <jenkins.project.artifactId>${project.artifactId}</jenkins.project.artifactId>
-        <jenkins.project.scm.url>${project.scm.url}</jenkins.project.scm.url>
-        <jenkins.project.majorVersion>${majorVersion}</jenkins.project.majorVersion>
       </properties>
       <build>
         <plugins>
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>version-maven-plugin</artifactId>
-            <version>1.0.0</version>
+            <artifactId>extractor-maven-plugin</artifactId>
             <executions>
               <execution>
+                <id>extract</id>
                 <phase>initialize</phase>
                 <goals>
-                  <goal>get-major-version</goal>
+                  <goal>extract</goal>
                 </goals>
               </execution>
             </executions>
@@ -749,7 +743,6 @@
           </plugin>
           <plugin>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>2.3</version>
             <executions>
               <execution>
                 <id>copy-cm-tools</id>
@@ -771,33 +764,47 @@
             </executions>
           </plugin>
           <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>read-properties</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>read-project-properties</goal>
+                </goals>
+                <configuration>
+                  <files>
+                    <file>target/dependency/org/kuali/cm/jenkins/kuali.properties</file>
+                    <file>target/dependency/org/kuali/cm/jenkins/jenkins.properties</file>
+                    <file>target/dependency/org/kuali/cm/jenkins/jobs/properties/common.xml</file>
+                    <file>target/dependency/org/kuali/cm/jenkins/jobs/properties/${jenkins.project.scmType}.xml</file>
+                    <file>target/dependency/org/kuali/cm/jenkins/jobs/types/${jenkins.job.type}.xml</file>
+                  </files>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
             <artifactId>maven-resources-plugin</artifactId>
-            <version>2.5</version>
             <executions>
               <execution>
                 <id>copy-resources</id>
-                <phase>process-resources</phase>
+                <phase>initialize</phase>
                 <goals>
                   <goal>copy-resources</goal>
                 </goals>
                 <configuration>
-                  <outputDirectory>${project.build.directory}/filtered</outputDirectory>
+                  <outputDirectory>${project.build.directory}/classes</outputDirectory>
                   <resources>
                     <resource>
                       <directory>${project.build.directory}/dependency</directory>
                       <filtering>true</filtering>
                       <includes>
-                        <include>**/jenkins/jobs/**/*.xml</include>
-                      </includes>
-                    </resource>
-                    <resource>
-                      <directory>${project.build.directory}/dependency</directory>
-                      <filtering>false</filtering>
-                      <includes>
-                        <include>**/jenkins/**/*</include>
+                        <include>**/jenkins/**/*.*</include>
                       </includes>
                       <excludes>
-                        <exclude>**/jenkins/jobs/**/*.xml</exclude>
+                        <exclude>**/jenkins/**/projects/*.*</exclude>
                       </excludes>
                     </resource>
                   </resources>
@@ -834,30 +841,5 @@
         </plugins>
       </build>
     </profile>
-    <profile>
-      <id>rel</id>
-      <properties>
-        <jenkins.mvn.goals>release:prepare release:perform -B -e</jenkins.mvn.goals>
-        <jenkins.job.type>release</jenkins.job.type>
-        <jenkins.job.description>Create an official Kuali release. Deploy artifacts to S3, generate the Maven web site,
-          sync artifacts to Maven Central</jenkins.job.description>
-        <jenkins.template.type>release</jenkins.template.type>
-        <jenkins.postbuild.targets>deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release
-          -DskipTests -e</jenkins.postbuild.targets>
-        <jenkins.postbuild.pom>target/checkout/pom.xml</jenkins.postbuild.pom>
-        <jenkins.postbuild.mavenName>(Default)</jenkins.postbuild.mavenName>
-      </properties>
-    </profile>
-    <profile>
-      <id>pub</id>
-      <properties>
-        <jenkins.mvn.goals>clean deploy site-deploy -Pkuali-release</jenkins.mvn.goals>
-        <jenkins.job.type>publish</jenkins.job.type>
-        <jenkins.job.description>Deploy artifacts to S3 using the "kuali-release" profile. This is the same profile that activates during an official
-          release. Invoke site-deploy to publish the Maven web site</jenkins.job.description>
-        <jenkins.template.type>simple</jenkins.template.type>
-      </properties>
-    </profile>
-
   </profiles>
 </project>
