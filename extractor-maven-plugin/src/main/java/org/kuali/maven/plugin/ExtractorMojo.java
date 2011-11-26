@@ -77,7 +77,9 @@ public class ExtractorMojo extends AbstractMojo {
     }
 
     protected String getScmUrl(Scm scm) {
-        String scmUrl = scm.getDeveloperConnection();
+        String devCon = scm.getDeveloperConnection();
+        String con = scm.getDeveloperConnection();
+        String scmUrl = StringUtils.isEmpty(devCon) ? con : devCon;
         if (StringUtils.isEmpty(scmUrl)) {
             return null;
         }
