@@ -28,6 +28,7 @@
   <version>1.0.2-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Extractor Maven Plugin</name>
+  <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <description>
     Extract information contained in the pom as project properties.
     These are bits of information that are otherwise not directly available as properties
