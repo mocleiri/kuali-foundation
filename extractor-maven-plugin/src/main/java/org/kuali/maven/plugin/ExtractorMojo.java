@@ -10,7 +10,7 @@ import org.apache.maven.project.MavenProject;
 /**
  * Extracts information contained in the pom and exposes it as project properties
  *
- * eg major version, and scm type
+ * eg major version, scm type, scm url
  *
  * @goal extract
  */
@@ -59,7 +59,7 @@ public class ExtractorMojo extends AbstractMojo {
     protected void handleScmUrl(MavenProject project) {
         String scmUrl = getScmUrl(project.getScm());
         if (!StringUtils.isEmpty(scmUrl)) {
-            project.getProperties().setProperty(scmTypeProperty, scmUrl);
+            project.getProperties().setProperty(scmUrlProperty, scmUrl);
             getLog().debug("Setting project property: " + scmUrlProperty + "=" + scmUrl);
         } else {
             getLog().debug("scm url could not be determined");
