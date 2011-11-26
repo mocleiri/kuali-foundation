@@ -2,9 +2,9 @@
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.kuali</groupId>
+    <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>18</version>
+    <version>1.0.1</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>maven-dnsme-plugin</artifactId>
@@ -13,7 +13,7 @@
   <name>Maven DNSME Plugin</name>
   <description>Tools for allowing Maven to interact with DNS made easy</description>
   <properties>
-    <kuali.slf4j.version>1.6.1</kuali.slf4j.version>
+    <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
   </properties>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-dnsme-plugin</connection>
