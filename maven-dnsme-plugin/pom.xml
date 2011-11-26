@@ -20,6 +20,15 @@
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-dnsme-plugin</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/trunk/maven-dnsme-plugin</url>
   </scm>
+  <developers>
+    <developer>
+      <id>jcaddel</id>
+      <name>Jeff Caddel</name>
+      <email>jcaddel@kuali.org</email>
+      <organization>rSmart</organization>
+      <timezone>-7</timezone>
+    </developer>
+  </developers>
   <dependencies>
     <dependency>
       <groupId>com.google.code.gson</groupId>
