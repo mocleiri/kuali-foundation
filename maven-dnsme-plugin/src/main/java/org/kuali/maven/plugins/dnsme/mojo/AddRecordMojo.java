@@ -39,7 +39,7 @@ public class AddRecordMojo extends BaseDNSMEMojo {
     RecordType recordType;
 
     /**
-     * The record name eg "myurl.kuali.org"
+     * The record name eg "myurl.mykualiproject". "kuali.org" is appended to this value
      *
      * @parameter expression="${dnsme.recordName}"
      * @required
