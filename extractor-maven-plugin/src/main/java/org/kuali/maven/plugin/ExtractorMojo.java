@@ -41,10 +41,29 @@ public class ExtractorMojo extends AbstractMojo {
      */
     private String scmTypeProperty;
 
+    /**
+     * The project property where the scm type will be stored
+     *
+     * @parameter expression="${extractor.scmUrlProperty}" default-value="extractor.scmUrl"
+     * @required
+     */
+    private String scmUrlProperty;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         handleMajorVersion(project);
         handleScmType(project);
+        handleScmUrl(project);
+    }
+
+    protected void handleScmUrl(MavenProject project) {
+        String scmUrl = getScmUrl(project.getScm());
+        if (!StringUtils.isEmpty(scmUrl)) {
+            project.getProperties().setProperty(scmTypeProperty, scmUrl);
+            getLog().debug("Setting project property: " + scmUrlProperty + "=" + scmUrl);
+        } else {
+            getLog().debug("scm url could not be determined");
+        }
     }
 
     protected void handleScmType(MavenProject project) {
@@ -55,6 +74,25 @@ public class ExtractorMojo extends AbstractMojo {
         } else {
             getLog().debug("scm type could not be determined");
         }
+    }
+
+    protected String getScmUrl(Scm scm) {
+        String scmUrl = scm.getDeveloperConnection();
+        if (StringUtils.isEmpty(scmUrl)) {
+            return null;
+        }
+        String[] tokens = StringUtils.splitByWholeSeparatorPreserveAllTokens(scmUrl, ":");
+        if (tokens == null || tokens.length < 3) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < tokens.length; i++) {
+            if (i != 2) {
+                sb.append(":");
+            }
+            sb.append(tokens[i]);
+        }
+        return sb.toString();
     }
 
     protected String getScmType(Scm scm) {
@@ -184,5 +222,13 @@ public class ExtractorMojo extends AbstractMojo {
 
     public void setScmTypeProperty(String scmTypeProperty) {
         this.scmTypeProperty = scmTypeProperty;
+    }
+
+    public String getScmUrlProperty() {
+        return scmUrlProperty;
+    }
+
+    public void setScmUrlProperty(String scmUrlProperty) {
+        this.scmUrlProperty = scmUrlProperty;
     }
 }
