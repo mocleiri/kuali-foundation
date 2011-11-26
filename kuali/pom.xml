@@ -712,6 +712,12 @@
         <jenkins.project.majorVersion>${extractor.majorVersion}</jenkins.project.majorVersion>
         <jenkins.project.groupId>${project.groupId}</jenkins.project.groupId>
         <jenkins.project.artifactId>${project.artifactId}</jenkins.project.artifactId>
+        <extractor.phase>initialize</extractor.phase>
+        <buildnumber.phase>initialize</buildnumber.phase>
+        <dependency.phase>initialize</dependency.phase>
+        <properties.phase>initialize</properties.phase>
+        <resources.phase>initialize</resources.phase>
+        <antrun.phase>process-resources</antrun.phase>
       </properties>
       <build>
         <plugins>
@@ -721,7 +727,7 @@
             <executions>
               <execution>
                 <id>extract</id>
-                <phase>initialize</phase>
+                <phase>${extractor.phase}</phase>
                 <goals>
                   <goal>extract</goal>
                 </goals>
@@ -729,12 +735,11 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.codehaus.mojo</groupId>
             <artifactId>buildnumber-maven-plugin</artifactId>
             <executions>
               <execution>
                 <id>create-timestamp</id>
-                <phase>initialize</phase>
+                <phase>${buildnumber.phase}</phase>
                 <goals>
                   <goal>create-timestamp</goal>
                 </goals>
@@ -750,7 +755,7 @@
             <executions>
               <execution>
                 <id>copy-cm-tools</id>
-                <phase>initialize</phase>
+                <phase>${dependency.phase}</phase>
                 <goals>
                   <goal>copy</goal>
                   <goal>unpack</goal>
@@ -773,7 +778,7 @@
             <executions>
               <execution>
                 <id>read-properties</id>
-                <phase>initialize</phase>
+                <phase>{properties.phase}</phase>
                 <goals>
                   <goal>read-project-properties</goal>
                 </goals>
@@ -794,7 +799,7 @@
             <executions>
               <execution>
                 <id>copy-resources</id>
-                <phase>initialize</phase>
+                <phase>${resources.phase}</phase>
                 <goals>
                   <goal>copy-resources</goal>
                 </goals>
@@ -827,7 +832,7 @@
             <executions>
               <execution>
                 <id>ant-run</id>
-                <phase>process-resources</phase>
+                <phase>${antrun.phase}</phase>
                 <goals>
                   <goal>run</goal>
                 </goals>
