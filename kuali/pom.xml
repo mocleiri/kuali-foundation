@@ -810,10 +810,10 @@
                       <directory>${project.build.directory}/dependency</directory>
                       <filtering>true</filtering>
                       <includes>
-                        <include>**/jenkins/**/*.*</include>
+                        <include>**/jenkins/**/*</include>
                       </includes>
                       <excludes>
-                        <exclude>**/jenkins/**/projects/*.*</exclude>
+                        <exclude>**/jenkins/**/projects/*</exclude>
                       </excludes>
                     </resource>
                   </resources>
