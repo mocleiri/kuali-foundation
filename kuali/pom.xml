@@ -203,9 +203,9 @@
           <version>1.0</version>
         </plugin>
         <plugin>
-          <groupId>com.mycila.maven-license-plugin</groupId>
-          <artifactId>maven-license-plugin</artifactId>
-          <version>1.9.0</version>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>extractor-maven-plugin</artifactId>
+          <version>1.0.1</version>
         </plugin>
         <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
@@ -246,6 +246,10 @@
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.6</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>1.0.1</version>
         </plugin>
         <plugin>
           <artifactId>maven-gpg-plugin</artifactId>
@@ -311,6 +315,11 @@
               <param>${kuali.pom.2}</param>
             </orgPomGavs>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>com.mycila.maven-license-plugin</groupId>
+          <artifactId>maven-license-plugin</artifactId>
+          <version>1.9.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -400,19 +409,14 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>properties-maven-plugin</artifactId>
-          <version>1.0.3</version>
-        </plugin>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>extractor-maven-plugin</artifactId>
-          <version>1.0.1</version>
-        </plugin>
-        <plugin>
           <groupId>org.sonatype.plugins</groupId>
           <artifactId>nexus-maven-plugin</artifactId>
           <version>1.9.2.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+          <version>1.0.3</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -708,6 +712,7 @@
         <jenkins.project.majorVersion>${extractor.majorVersion}</jenkins.project.majorVersion>
         <jenkins.project.groupId>${project.groupId}</jenkins.project.groupId>
         <jenkins.project.artifactId>${project.artifactId}</jenkins.project.artifactId>
+        <enforcer.phase>initialize</enforcer.phase>
         <extractor.phase>initialize</extractor.phase>
         <buildnumber.phase>initialize</buildnumber.phase>
         <dependency.phase>initialize</dependency.phase>
@@ -717,6 +722,31 @@
       </properties>
       <build>
         <plugins>
+          <plugin>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>enforce-properties</id>
+                <phase>${enforcer.phase}</phase>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <requireProperty>
+                      <property>job</property>
+                      <message>You must provide 'job' eg -Djob=publish</message>
+                    </requireProperty>
+                    <requireProperty>
+                      <property>cmd</property>
+                      <message>You must provide 'cmd' eg -Dcmd=build</message>
+                    </requireProperty>
+                  </rules>
+                  <fail>true</fail>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>extractor-maven-plugin</artifactId>
