@@ -46,7 +46,7 @@
           <li>Checkout the tag</li>
           <li>Execute "deploy site-deploy" on the tag using the "kuali-release" profile</li>
           ${jenkins.job.description.kualiRelease}
-          <li>Deploy the build artifacts to Kuali's publicly accessible S3 repository</li>
+          <li>Deploy the build artifacts to Kuali's public S3 repository</li>
           <li>Publish the Maven web site</li>
           <li>Deploy the build artifacts to the Sonatype Nexus instance that sync's with Maven Central</li>
       </div>
