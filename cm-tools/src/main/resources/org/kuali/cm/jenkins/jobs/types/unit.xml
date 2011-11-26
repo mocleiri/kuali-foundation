@@ -3,7 +3,7 @@
 <properties>
   <comment>Properties for unit testing a project</comment>
   <entry key="jenkins.job.goals">clean install</entry>
-  <entry key="jenkins.job.type">unit-test</entry>
+  <entry key="jenkins.job.type">unit</entry>
   <entry key="jenkins.job.triggers"><![CDATA[${jenkins.job.trigger.scm.pollEveryMinute}]]></entry>
   <entry key="jenkins.job.description.brief"><![CDATA[ 
       <div id="jenkins-job-brief">
