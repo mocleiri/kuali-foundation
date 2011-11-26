@@ -23,11 +23,10 @@
   <version>1.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>The Kuali Foundation</name>
-  <description><![CDATA[
-    <h5>What is Kuali?</h5>
-    <p>Kuali is a growing community of universities, colleges and commercial firms partnering 
-    to build and sustain open-source software for higher education, by higher education.</p>
-  ]]></description>
+  <description>
+    Kuali is a growing community of universities, colleges and commercial firms partnering 
+    to build and sustain open-source software for higher education, by higher education.
+  </description>
   <licenses>
     <license>
       <name>Educational Community License, Version 2.0</name>
