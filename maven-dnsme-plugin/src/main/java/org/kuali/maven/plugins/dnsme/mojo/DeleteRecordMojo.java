@@ -23,7 +23,7 @@ public class DeleteRecordMojo extends BaseDNSMEMojo {
     String domainName;
 
     /**
-     * The name of the record to delete
+     * The name of the record to delete eg "myurl.mykualiproject"
      *
      * @parameter expression="${dnsme.recordName}"
      */
