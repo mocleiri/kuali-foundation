@@ -827,7 +827,7 @@
             </configuration>
             <executions>
               <execution>
-                <id>ant-run</id>
+                <id>ant</id>
                 <phase>${antrun.phase}</phase>
                 <goals>
                   <goal>run</goal>
