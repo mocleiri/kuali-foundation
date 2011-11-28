@@ -10,7 +10,8 @@
   <artifactId>kuali-dns</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>CM Tools</name>
+  <name>DNS Plugin</name>
+  <description>This project provides Kuali specific configuration for the maven-dnsme-plugin</description>
   <developers>
     <developer>
       <id>jcaddel</id>
