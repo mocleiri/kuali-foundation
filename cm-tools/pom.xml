@@ -23,7 +23,6 @@
   <version>1.1.3-SNAPSHOT</version>
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
-    <antrun.version>1.7</antrun.version>
     <maven.test.skip>true</maven.test.skip>
     <ant.file>target/classes/org/kuali/cm/jenkins/ant/cli-wrapper.xml</ant.file>
     <ant.phase>process-resources</ant.phase>
@@ -63,7 +62,6 @@
       <plugins>
         <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
-          <version>${antrun.version}</version>
           <configuration>
             <target>
               <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
@@ -86,16 +84,6 @@
               <version>${jenkins.cli.version}</version>
             </dependency>
           </dependencies>
-        </plugin>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>extractor-maven-plugin</artifactId>
-          <version>1.0.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>properties-maven-plugin</artifactId>
-          <version>1.0.3</version>
         </plugin>
       </plugins>
     </pluginManagement>
