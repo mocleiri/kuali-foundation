@@ -4,11 +4,11 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.6</version>
   </parent>
-  <groupId>org.kuali.common.deploy</groupId>
-  <artifactId>kuali-beanstalk</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <groupId>org.kuali.common.dns</groupId>
+  <artifactId>kuali-dns</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>CM Tools</name>
   <developers>
