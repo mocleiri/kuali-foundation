@@ -65,4 +65,6 @@
   <entry key="jenkins.job.git.gitConfigEmail"></entry>
   <entry key="jenkins.job.git.skipTag">false</entry>
   <entry key="jenkins.job.git.scmName"></entry>
+  <entry key="jenkins.job.git.branches.default">master</entry>
+
 </properties>
