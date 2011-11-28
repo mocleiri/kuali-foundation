@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.kuali</groupId>
+    <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>23</version>
+    <version>1.0.5</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>sql-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.9-SNAPSHOT</version>
+  <version>1.0.9-SNAPSHOT</version>
   <name>SQL Maven Plugin</name>
   <inceptionYear>2006</inceptionYear>
   <description>Execute SQL Statements</description>
@@ -60,10 +60,8 @@
     <developer>
       <id>jcaddel</id>
       <name>Jeff Caddel</name>
-      <email>jcaddel(at)kuali.org</email>
-      <roles>
-        <role>Java Developer</role>
-      </roles>
+      <email>jcaddel@kuali.org</email>
+      <organization>rSmart</organization>
       <timezone>-7</timezone>
     </developer>
   </developers>
