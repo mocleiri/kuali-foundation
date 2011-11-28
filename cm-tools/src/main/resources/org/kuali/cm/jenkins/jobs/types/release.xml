@@ -4,7 +4,6 @@
   <comment>Properties specific to releasing a Kuali project</comment>
   <entry key="jenkins.job.goals">release:prepare release:perform -B -e</entry>
   <entry key="jenkins.job.type">release</entry>
-  <entry key="jenkins.job.git.localBranch">master</entry>
   <entry key="jenkins.job.postbuilders">${jenkins.job.postbuilders.1}</entry>
   <entry key="jenkins.job.postbuilders.1.targets">deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release -DskipTests -e</entry>
   <entry key="jenkins.job.postbuilders.1.mavenName">3.0.3</entry>
@@ -13,6 +12,7 @@
   <entry key="jenkins.job.runPostStepsIfResult.name">UNSTABLE</entry>
   <entry key="jenkins.job.runPostStepsIfResult.ordinal">1</entry>
   <entry key="jenkins.job.runPostStepsIfResult.color">YELLOW</entry>
+  <entry key="jenkins.job.git.localBranch">master</entry>
   <entry key="jenkins.job.git.clean">true</entry>
   <entry key="jenkins.job.git.userRemoteConfigs.1.refspec">+refs/heads/*:refs/remotes/origin/*</entry>
   <entry key="jenkins.job.git.userRemoteConfigs.1.name">origin</entry>
