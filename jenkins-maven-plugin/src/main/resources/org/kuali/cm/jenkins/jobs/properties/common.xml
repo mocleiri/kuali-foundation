@@ -45,6 +45,7 @@
 
   <entry key="jenkins.job.cron.everyMinute">* * * * *</entry>
   <entry key="jenkins.job.cron.midnight">0 0 * * *</entry>
+  <!-- 7am UTC is midnight in Arizona -->
   <entry key="jenkins.job.cron.7am">0 7 * * *</entry>
 
   <entry key="jenkins.job.trigger.scm"><![CDATA[
