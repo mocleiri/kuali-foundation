@@ -199,6 +199,7 @@
   </profiles>
 
   <properties>
+    <kuali.release.arguments>-DskipTests</kuali.release.arguments>
     <mavenVersion>2.0.6</mavenVersion>
     <kuali.compile.source>1.5</kuali.compile.source>
     <kuali.compile.target>1.5</kuali.compile.target>
