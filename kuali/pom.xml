@@ -204,7 +204,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>extractor-maven-plugin</artifactId>
-          <version>1.0.2</version>
+          <version>1.0.3</version>
         </plugin>
         <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
@@ -221,7 +221,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-cloudfront-plugin</artifactId>
-          <version>1.1.2</version>
+          <version>1.1.3</version>
           <configuration>
             <organizationGroupId>${kuali.groupId}</organizationGroupId>
             <forceMojoExecution>true</forceMojoExecution>
@@ -303,7 +303,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-ksite-plugin</artifactId>
-          <version>1.1.0</version>
+          <version>1.1.1</version>
           <configuration>
             <organizationGroupId>${kuali.groupId}</organizationGroupId>
             <downloadExternalPath>external</downloadExternalPath>
@@ -419,7 +419,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>properties-maven-plugin</artifactId>
-          <version>1.0.3</version>
+          <version>1.0.4</version>
         </plugin>
       </plugins>
     </pluginManagement>
