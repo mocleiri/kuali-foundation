@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright 2009 The Kuali Foundation Licensed under the Educational Community
+  License, Version 2.0 (the "License"); you may not use this file except in
+  compliance with the License. You may obtain a copy of the License at
+  http://www.osedu.org/licenses/ECL-2.0 Unless required by applicable law or
+  agreed to in writing, software distributed under the License is distributed
+  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+  express or implied. See the License for the specific language governing
+  permissions and limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.kuali</groupId>
+  <artifactId>kuali</artifactId>
+  <version>101</version>
+  <packaging>pom</packaging>
+  <name>The Kuali Foundation</name>
+  <description>
+    Kuali is a community of universities, colleges, businesses, and other organizations that have partnered
+    to build and sustain open-source administrative software for higher education, by higher education. Kuali software
+    is designed to meet the needs of all sizes of institutions, from land-grant research universities to community
+    colleges. The members of the Kuali Community share a common vision of open, modular, and distributed systems for
+    their software requirements. Kuali software is released under the Educational Community License.
+  </description>
+  <licenses>
+    <license>
+      <name>Educational Community License, Version 2.0</name>
+      <url>${kuali.ecl.license.url}</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <organization>
+    <name>The Kuali Foundation</name>
+    <url>http://www.kuali.org/</url>
+  </organization>
+  <inceptionYear>2004</inceptionYear>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.kuali.org</url>
+  </issueManagement>
+  <developers>
+    <developer>
+      <id>kuali</id>
+      <organization>Kuali Foundation</organization>
+      <organizationUrl>http://www.kuali.org</organizationUrl>
+    </developer>
+  </developers>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    
+    <!-- Declared as properties so they can be shared between the compiler and javadoc plugins -->
+    <kuali.compile.source>1.6</kuali.compile.source>
+    <kuali.compile.target>1.6</kuali.compile.target>
+
+    <!-- This profile provides basic quality control for official Kuali artifacts (GPG signature, attached sources/javadocs etc.)-->
+    <kuali.release.profiles>kuali-release</kuali.release.profiles>
+    <!-- This is "false" because their profile forks the maven process when attaching sources, we want "jar-no-fork" -->
+    <kuali.release.use.maven.profile>false</kuali.release.use.maven.profile>
+    <kuali.release.goals>deploy site-deploy</kuali.release.goals>
+    <kuali.release.prepare.goals>clean verify</kuali.release.prepare.goals>
+
+    <kuali.svn.prefix>svn</kuali.svn.prefix>
+    <kuali.svn.depth>empty</kuali.svn.depth>
+    <kuali.svn.verbose>false</kuali.svn.verbose>
+
+    <!-- This is used in the licenses section as well as the jar/war plugins -->
+    <kuali.ecl.license.url>http://maven.kuali.org/external/org/opensource/ecl/2.0/ecl-2.0.txt</kuali.ecl.license.url>
+
+    <!-- This must be the same as the groupId for this pom -->
+    <kuali.organization.group.id>org.kuali</kuali.organization.group.id>
+
+    <!-- These properties are used when generating/deploying the maven generated site -->
+    <kuali.site.plugin.version>3.0-beta-3</kuali.site.plugin.version>
+    <kuali.site.bucket>site.origin.kuali.org</kuali.site.bucket>
+    <kuali.site.hostname>site.kuali.org</kuali.site.hostname>
+    <kuali.site.server.id>kuali.site</kuali.site.server.id>
+
+    <!-- 
+      Setting this to true causes Maven to try and contact any url's listed for every dependency in the project(s).
+      Typically, quite a few of these urls are out of date, which makes the request eventually time out.  This causes basic
+      report generation to take a very long time  
+     -->
+    <kuali.reporting.dependency.locations>false</kuali.reporting.dependency.locations>
+
+    <!-- These are the Kuali repository settings for an official release -->
+    <kuali.repository.release.id>kuali.release</kuali.repository.release.id>
+    <kuali.repository.release.name>Kuali Release Repository</kuali.repository.release.name>
+    <kuali.repository.release.url>s3://maven.kuali.org/release</kuali.repository.release.url>
+
+    <!-- These are the Kuali repository settings for snapshot builds -->
+    <kuali.repository.snapshot.id>kuali.snapshot</kuali.repository.snapshot.id>
+    <kuali.repository.snapshot.name>Kuali Snapshot Repository</kuali.repository.snapshot.name>
+    <kuali.repository.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repository.snapshot.url>
+  </properties>
+  <repositories>
+    <repository>
+      <id>kuali.nexus</id>
+      <name>Nexus Repository Manager</name>
+      <url>http://nexus.kuali.org/content/groups/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>kuali.nexus</id>
+      <name>Nexus Repository Manager</name>
+      <url>http://nexus.kuali.org/content/groups/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+  <!-- The public url is filled in by the maven-kualisite-plugin -->
+  <url>${kuali.site.public.url}</url>
+  <distributionManagement>
+    <!-- The download url is filled in by the maven-kualisite-plugin -->
+    <downloadUrl>${kuali.site.download.url}</downloadUrl>
+    <site>
+      <id>${kuali.site.server.id}</id>
+      <name>Maven Site</name>
+      <!-- The site publication url is filled in by the maven-kualisite-plugin -->
+      <url>${kuali.site.publish.url}</url>
+    </site>
+    <repository>
+      <id>${kuali.repository.release.id}</id>
+      <name>${kuali.repository.release.name}</name>
+      <url>${kuali.repository.release.url}</url>
+    </repository>
+    <snapshotRepository>
+      <id>${kuali.repository.snapshot.id}</id>
+      <name>${kuali.repository.snapshot.name}</name>
+      <url>${kuali.repository.snapshot.url}</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <scm>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/pom/tags/kuali-101</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/pom/tags/kuali-101</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/pom/tags/kuali-101</url>
+  </scm>
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.kuali.maven.wagons</groupId>
+        <artifactId>maven-s3-wagon</artifactId>
+        <version>1.0.31</version>
+      </extension>
+    </extensions>
+    <pluginManagement>
+      <plugins>
+        <!-- set versions of common plugins for reproducibility, ordered alphabetically -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>2.4.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>maven-cloudfront-plugin</artifactId>
+          <version>1.0.29</version>
+          <configuration>
+            <organizationGroupId>${kuali.organization.group.id}</organizationGroupId>
+            <forceMojoExecution>true</forceMojoExecution>
+            <bucket>${kuali.site.bucket}</bucket>
+            <serverId>${kuali.site.server.id}</serverId>
+            <recurse>${kuali.site.bucket.recurse}</recurse>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.3.2</version>
+          <configuration>
+            <source>${kuali.compile.source}</source>
+            <target>${kuali.compile.target}</target>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.6</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>1.2</version>
+          <configuration>
+            <passphrase>${kuali.gpg.passphrase}</passphrase>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.3.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.3.1</version>
+          <configuration>
+            <archive>
+              <manifestEntries>
+                <Bundle-Version>${project.version}</Bundle-Version>
+                <Bundle-Name>${project.name}</Bundle-Name>
+                <Bundle-Description>${project.description}</Bundle-Description>
+                <Bundle-License>${kuali.ecl.license.url}</Bundle-License>
+                <Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
+                <Bundle-DocURL>${project.organization.url}</Bundle-DocURL>
+                <Bundle-Timestamp>${maven.build.timestamp}</Bundle-Timestamp>
+                <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                <Bundle-BuildNumber>${env.BUILD_NUMBER}</Bundle-BuildNumber>
+                <SVN-Repository>${svn.repository}</SVN-Repository>
+                <SVN-Path>${svn.path}</SVN-Path>
+                <SVN-Revision>${svn.revision}</SVN-Revision>
+              </manifestEntries>
+              <manifest>
+                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.7</version>
+          <configuration>
+            <encoding>${project.build.sourceEncoding}</encoding>
+            <source>${kuali.compile.source}</source>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>maven-kualisite-plugin</artifactId>
+          <version>1.0.4</version>
+          <configuration>
+            <organizationGroupId>${kuali.organization.group.id}</organizationGroupId>
+            <bucket>${kuali.site.bucket}</bucket>
+            <hostname>${kuali.site.hostname}</hostname>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>2.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.1</version>
+          <configuration>
+            <arguments>${kuali.release.arguments}</arguments>
+            <releaseProfiles>${kuali.release.profiles}</releaseProfiles>
+            <useReleaseProfile>${kuali.release.use.maven.profile}</useReleaseProfile>
+            <developmentVersion>${kuali.development.version}</developmentVersion>
+            <releaseVersion>${kuali.release.version}</releaseVersion>
+            <username>${kuali.release.username}</username>
+            <password>${kuali.release.password}</password>
+            <preparationGoals>${kuali.release.prepare.goals}</preparationGoals>
+            <goals>${kuali.release.goals}</goals>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>2.5</version>
+          <configuration>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>${kuali.site.plugin.version}</version>
+          <configuration>
+            <reportPlugins>
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <configuration>
+                  <dependencyLocationsEnabled>${kuali.reporting.dependency.locations}</dependencyLocationsEnabled>
+                </configuration>
+              </plugin>
+            </reportPlugins>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.1.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.8</version>
+        </plugin>
+        <plugin>
+          <groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
+          <artifactId>maven-svn-revision-number-plugin</artifactId>
+          <version>1.6</version>
+          <configuration>
+            <verbose>${kuali.svn.verbose}</verbose>
+            <entries>
+              <entry>
+                <prefix>${kuali.svn.prefix}</prefix>
+                <depth>${kuali.svn.depth}</depth>
+              </entry>
+            </entries>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.1.1</version>
+          <configuration>
+            <archive>
+              <manifestEntries>
+                <Bundle-Version>${project.version}</Bundle-Version>
+                <Bundle-Name>${project.name}</Bundle-Name>
+                <Bundle-Description>${project.description}</Bundle-Description>
+                <Bundle-License>${kuali.ecl.license.url}</Bundle-License>
+                <Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
+                <Bundle-DocURL>${project.organization.url}</Bundle-DocURL>
+                <Bundle-Timestamp>${maven.build.timestamp}</Bundle-Timestamp>
+                <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                <Bundle-BuildNumber>${env.BUILD_NUMBER}</Bundle-BuildNumber>
+                <SVN-Revision>${svn.revision}</SVN-Revision>
+                <SVN-Path>${svn.path}</SVN-Path>
+                <SVN-Repository>${svn.repository}</SVN-Repository>
+              </manifestEntries>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-maven-plugin</artifactId>
+          <version>1.6</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>maven-kualisite-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>site-kuali-properties</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>updatesiteproperties</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>maven-cloudfront-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>update-s3-bucket-indexes</id>
+            <phase>site-deploy</phase>
+            <goals>
+              <goal>updateoriginbucket</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <profiles>
+    <profile>
+      <id>sonatype-oss-release</id>
+      <properties>
+        <kuali.nexus.sonatype.url>https://oss.sonatype.org</kuali.nexus.sonatype.url>
+        <kuali.nexus.sonatype.description>Releasing ${project.artifactId} version ${project.version}
+        </kuali.nexus.sonatype.description>
+        <kuali.nexus.sonatype.phase>deploy</kuali.nexus.sonatype.phase>
+        <kuali.nexus.sonatype.automatic>true</kuali.nexus.sonatype.automatic>
+        <kuali.nexus.sonatype.promote.auto.select.override>true</kuali.nexus.sonatype.promote.auto.select.override>
+        <kuali.nexus.sonatype.release.repository.id>releases</kuali.nexus.sonatype.release.repository.id>
+
+        <kuali.repository.release.id>sonatype-nexus-staging</kuali.repository.release.id>
+        <kuali.repository.release.name>Sonatype Nexus Release Repository</kuali.repository.release.name>
+        <kuali.repository.release.url>${kuali.nexus.sonatype.url}/service/local/staging/deploy/maven2/
+        </kuali.repository.release.url>
+
+        <!-- These are for reference only.  Not currently publishing snapshots to Sonatype's Nexus instance 
+        <kuali.repository.snapshot.id>sonatype-nexus-snapshots</kuali.repository.snapshot.id>
+        <kuali.repository.snapshot.name>Sonatype Nexus Snapshots</kuali.repository.snapshot.name>
+        <kuali.repository.snapshot.url>https://oss.sonatype.org/content/repositories/snapshots/</kuali.repository.snapshot.url>
+        -->
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-maven-plugin</artifactId>
+            <configuration>
+              <nexusUrl>${kuali.nexus.sonatype.url}</nexusUrl>
+              <serverAuthId>${kuali.repository.release.id}</serverAuthId>
+              <automatic>${kuali.nexus.sonatype.automatic}</automatic>
+              <promoteAutoSelectOverride>${kuali.nexus.sonatype.promote.auto.select.override}
+              </promoteAutoSelectOverride>
+              <description>${kuali.nexus.sonatype.description}</description>
+              <targetRepositoryId>${kuali.nexus.sonatype.release.repository.id}</targetRepositoryId>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>kuali-release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <configuration>
+              <updateReleaseInfo>true</updateReleaseInfo>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-descriptor</id>
+                <goals>
+                  <goal>attach-descriptor</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
+            <artifactId>maven-svn-revision-number-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-svn-info</id>
+                <goals>
+                  <goal>revision</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
