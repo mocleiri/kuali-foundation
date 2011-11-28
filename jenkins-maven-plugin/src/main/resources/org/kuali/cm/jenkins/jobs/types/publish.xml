@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <comment>Properties specific to "publishing" a Kuali project</comment>
+  <entry key="jenkins.job.goals">clean deploy site-deploy -Pkuali-release -e</entry>
+  <entry key="jenkins.job.type">publish</entry>
+  <entry key="jenkins.job.description.brief"><![CDATA[ 
+      <div id="jenkins-job-brief">
+          <li id="jenkins-job-brief-title">Publish a snapshot of this project into the public domain:</li>
+          <li>Execute "${jenkins.job.goals}" on the project</li>
+          ${jenkins.job.description.kualiRelease}
+          <li>Deploy the build artifacts to Kuali's public S3 repository</li>
+          <li>Publish the Maven web site</li>
+      </div>
+    ]]></entry>
+</properties>
