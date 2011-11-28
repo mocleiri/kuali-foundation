@@ -8,7 +8,7 @@
     <artifactId>kuali-common</artifactId>
     <version>1.0.6</version>
   </parent>
-  <description>General purpose library of SQL statements</description>
+  <description>General purpose library of SQL statements useful for Kuali projects</description>
   <groupId>org.kuali.db.sql</groupId>
   <artifactId>kuali-sql</artifactId>
   <version>1.0.2-SNAPSHOT</version>
