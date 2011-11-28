@@ -11,7 +11,7 @@
   <version>1.0.9-SNAPSHOT</version>
   <name>SQL Maven Plugin</name>
   <inceptionYear>2006</inceptionYear>
-  <description>Execute SQL Statements</description>
+  <description>Plugin for executing SQL statements that are embedded in pom's, contained in files, or available as resources referenced by a URL</description>
   <prerequisites>
     <maven>${mavenVersion}</maven>
   </prerequisites>
