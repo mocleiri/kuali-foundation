@@ -94,7 +94,6 @@ public class ThreadHandler<T> implements UncaughtExceptionHandler {
         }
     }
 
-    @Override
     public synchronized void uncaughtException(Thread t, Throwable e) {
         this.stopThreads = true;
         this.group.interrupt();
