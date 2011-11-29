@@ -27,8 +27,16 @@
   <entry key="jenkins.job.svn.excludedRevprop"></entry>
   <entry key="jenkins.job.svn.excludedCommitMessages"></entry>
   <entry key="jenkins.job.svn.workspaceUpdater.class">${jenkins.job.svn.workspaceUpdater.class.update}</entry>
+
+  <!-- Use 'svn update' as much as possible -->
   <entry key="jenkins.job.svn.workspaceUpdater.class.update">hudson.scm.subversion.UpdateUpdater</entry>
+
+  <!-- Always checkout a fresh copy -->
   <entry key="jenkins.job.svn.workspaceUpdater.class.freshCopyAlways">hudson.scm.subversion.CheckoutUpdater</entry>
+
+  <!-- Emulate clean checkout by first deleting unversioned/ignored files, then 'svn update' -->
   <entry key="jenkins.job.svn.workspaceUpdater.class.cleanThenUpdate">hudson.scm.subversion.UpdateWithCleanUpdater</entry>
+
+  <!-- Use svn update as much as possible, with 'svn revert' before update -->
   <entry key="jenkins.job.svn.workspaceUpdater.class.revertThenUpdate">hudson.scm.subversion.UpdateWithRevertUpdater</entry>
 </properties>
