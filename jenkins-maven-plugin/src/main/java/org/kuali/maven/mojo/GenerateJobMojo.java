@@ -29,11 +29,10 @@ public class GenerateJobMojo extends AbstractMojo {
     private Template template;
 
     /**
-     * @parameter expression="${jenkins.filename}" default-value="${project.build.directory}/jenkins/job-config.xml"
-     * @required
+     * @parameter expression="${jenkins.filename}"
      */
     private String filename;
-
+    
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {

@@ -18,6 +18,11 @@ public class Generator {
     Extractor extractor = new Extractor();
     PropertiesUtils pu = new PropertiesUtils();
 
+    public String getDefaultFilename() {
+        StringBuilder sb = new StringBuilder();
+        return sb.toString();
+    }
+
     public void generate(JobContext context) throws IOException {
         MavenProject project = context.getProject();
         Template template = context.getTemplate();
