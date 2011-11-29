@@ -26,7 +26,7 @@ public class CreateJobFromTemplate extends AbstractMojo {
 
 	/**
 	 * 
-	 * @parameter expression="${jenkins.template}"
+	 * @parameter expression="${jenkins.template}" default-value="PUBLISH"
 	 * @required
 	 */
 	private Template template;
@@ -46,6 +46,7 @@ public class CreateJobFromTemplate extends AbstractMojo {
 		locations.add("classpath:org/kuali/cm/jenkins/kuali.properties");
 		locations.add("classpath:org/kuali/cm/jenkins/jenkins.properties");
 		locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/common.xml");
+		locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/" + scmType + ".xml");
 		locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/" + scmType + ".xml");
 	}
 
