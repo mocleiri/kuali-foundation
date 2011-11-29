@@ -97,7 +97,7 @@
         <li>${jenkins.project.scmUrl}</li>
       </div>
       <div id="jenkins-cli-wrapper-metadata">
-        <li>Job created by Maven Jenkins CLI Wrapper ${project.version} (Jenkins CLI Version ${jenkins.cli.version})</li>
+        <li>Job created by Jenkins Maven Plugin ${project.version} (Jenkins CLI Version ${jenkins.cli.version})</li>
         <li>Last config update via CLI - ${jenkins.build.timestamp}</li>
       </div>
     </div>
