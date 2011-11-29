@@ -9,7 +9,7 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 /**
  * @goal antrun
  */
-public class JenkinsAntRunMojo extends AbstractAntRunMojo {
+public class KualiAntRunMojo extends AbstractAntRunMojo {
 	Generator generator = new Generator();
 
 	/**
