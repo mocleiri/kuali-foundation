@@ -12,7 +12,7 @@ import org.kuali.maven.common.Extractor;
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
 
-public class CreateJobs extends AbstractMojo {
+public class CreateJobMojo extends AbstractMojo {
 	Extractor extractor = new Extractor();
 
 	/**
