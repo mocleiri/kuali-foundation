@@ -17,7 +17,10 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 
-public class CreateJobXMLMojo extends AbstractMojo {
+/**
+ * @goal generatexml
+ */
+public class GenerateXMLMojo extends AbstractMojo {
     Extractor extractor = new Extractor();
     PropertiesUtils pu = new PropertiesUtils();
 
