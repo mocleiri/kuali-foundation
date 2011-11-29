@@ -10,8 +10,8 @@
   <artifactId>jenkins-maven-plugin</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <name>Maven HTTP Plugin</name>
-  <description>Jenkins integration</description>
+  <name>Jenkins Maven Plugin</name>
+  <description>Management of Jenkins jobs via Maven and Jenkins CLI</description>
   <properties>
     <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
   </properties>
