@@ -1,7 +1,5 @@
 package org.kuali.maven.common;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -9,13 +7,24 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
+import org.codehaus.plexus.util.StringUtils;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class PropertiesUtils {
 	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}");
+	ResourceUtils resourceUtils = new ResourceUtils();
+
+	public String[] getTokens(String csv) {
+		return getTokens(csv, true);
+	}
+
+	public String[] getTokens(String csv, boolean trim) {
+		String[] tokens = StringUtils.split(csv, ",");
+		for (String token : tokens) {
+			token = trim ? token.trim() : token;
+		}
+		return tokens;
+	}
 
 	public String getResolvedValue(String value, Properties properties) {
 		return helper.replacePlaceholders(value, properties);
@@ -44,7 +53,7 @@ public class PropertiesUtils {
 	public Properties getProperties(String location) throws IOException {
 		InputStream in = null;
 		try {
-			in = getInputStream(location);
+			in = resourceUtils.getInputStream(location);
 			Properties properties = new Properties();
 			if (isXml(location)) {
 				properties.loadFromXML(in);
@@ -60,18 +69,4 @@ public class PropertiesUtils {
 	public boolean isXml(String location) {
 		return location.toLowerCase().endsWith(".xml");
 	}
-
-	public InputStream getInputStream(String location) throws IOException {
-		File file = new File(location);
-		if (file.exists()) {
-			return new FileInputStream(file);
-		}
-		ResourceLoader loader = new DefaultResourceLoader();
-		Resource resource = loader.getResource(location);
-		if (!resource.exists()) {
-			throw new IOException("Unable to locate " + location);
-		}
-		return resource.getInputStream();
-	}
-
 }
