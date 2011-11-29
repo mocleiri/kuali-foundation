@@ -48,12 +48,24 @@ public class GenerateJobConfigMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		try {
-			JobContext context = generator.getJobContext(project, configDir, type, template);
+			JobContext context = getJobContext(type);
+			generator.fillInContext(context);
 			getLog().info("Generating: " + context.getFilename());
 			generator.generate(context);
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
+	}
+
+	protected JobContext getJobContext(String type) {
+		JobContext context = new JobContext();
+		context.setConfigDir(configDir);
+		context.setProject(project);
+		context.setType(type);
+		context.setTemplate(template);
+		context.setTimestampFormat(timestampFormat);
+		return context;
+
 	}
 
 	public MavenProject getProject() {

@@ -13,6 +13,14 @@ public class JobContext {
 	String majorVersion;
 	String timestampFormat;
 
+	public String getConfigDir() {
+		return configDir;
+	}
+
+	public void setConfigDir(String configDir) {
+		this.configDir = configDir;
+	}
+
 	public String getFilename() {
 		return filename;
 	}
@@ -27,6 +35,14 @@ public class JobContext {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(String template) {
+		this.template = template;
 	}
 
 	public MavenProject getProject() {
@@ -65,23 +81,7 @@ public class JobContext {
 		return timestampFormat;
 	}
 
-	public void setTimestampFormat(String buildTimestampFormat) {
-		this.timestampFormat = buildTimestampFormat;
-	}
-
-	public String getTemplate() {
-		return template;
-	}
-
-	public void setTemplate(String template) {
-		this.template = template;
-	}
-
-	public String getConfigDir() {
-		return configDir;
-	}
-
-	public void setConfigDir(String directory) {
-		this.configDir = directory;
+	public void setTimestampFormat(String timestampFormat) {
+		this.timestampFormat = timestampFormat;
 	}
 }

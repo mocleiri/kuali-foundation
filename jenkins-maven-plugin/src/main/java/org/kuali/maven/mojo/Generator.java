@@ -26,24 +26,19 @@ public class Generator {
 		write(context.getFilename(), resolvedXml);
 	}
 
-	public JobContext getJobContext(MavenProject project, String configDir, String jobType, String template) {
-		Extractor extractor = new Extractor();
+	public void fillInContext(JobContext context) {
+		MavenProject project = context.getProject();
+
 		String scmType = extractor.getScmType(project.getScm());
 		String scmUrl = extractor.getScmUrl(project.getScm());
 		String majorVersion = extractor.getMajorVersion(project.getVersion());
-		String filename = getFilename(project, jobType);
+		String filename = getFilename(project, context.getType());
 
-		JobContext context = new JobContext();
-		context.setConfigDir(configDir);
-		context.setTemplate(template);
-		context.setProject(project);
-		context.setType(jobType);
 		context.setScmType(scmType);
 		context.setScmUrl(scmUrl);
 		context.setMajorVersion(majorVersion);
 		context.setFilename(filename);
 
-		return context;
 	}
 
 	protected String getFilename(MavenProject project, String jobType) {
