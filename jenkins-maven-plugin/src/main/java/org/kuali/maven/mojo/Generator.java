@@ -20,7 +20,15 @@ public class Generator {
 	PropertiesUtils pu = new PropertiesUtils();
 	private static final String FS = System.getProperty("file.separator");
 
-	protected JobContext getJobContext(MavenProject project, String filename, String type) {
+	public void generate(JobContext context) throws IOException {
+		String filename = context.getFilename();
+		Properties properties = getProperties(context);
+		String xml = read("classpath:org/kuali/jenkins/jobs/templates/jenkins.xml");
+		String resolvedXml = pu.getResolvedValue(xml, properties);
+		write(filename, resolvedXml);
+	}
+
+	public JobContext getJobContext(MavenProject project, String filename, String type) {
 		Extractor extractor = new Extractor();
 		String scmType = extractor.getScmType(project.getScm());
 		String scmUrl = extractor.getScmUrl(project.getScm());
@@ -44,7 +52,7 @@ public class Generator {
 		return context;
 	}
 
-	public String getDefaultFilename(JobContext context) {
+	protected String getDefaultFilename(JobContext context) {
 		String majorVersion = context.getMajorVersion();
 		MavenProject project = context.getProject();
 		String artifactId = project.getArtifactId();
@@ -59,16 +67,10 @@ public class Generator {
 		sb.append(majorVersion);
 		sb.append("-");
 		sb.append(context.getJobType());
+		sb.append("-");
+		sb.append("config");
 		sb.append(".xml");
 		return sb.toString();
-	}
-
-	public void generate(JobContext context) throws IOException {
-		String filename = context.getFilename();
-		Properties properties = getProperties(context);
-		String xml = read("classpath:org/kuali/jenkins/jobs/templates/jenkins.xml");
-		String resolvedXml = pu.getResolvedValue(xml, properties);
-		write(filename, resolvedXml);
 	}
 
 	protected void write(String filename, String contents) throws IOException {
