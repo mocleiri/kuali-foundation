@@ -13,6 +13,12 @@ public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 	Generator generator = new Generator();
 
 	/**
+	 * @parameter expression="${jenkins.cli.cmd}" default-value="noop"
+	 * @required
+	 */
+	private String cliCommand;
+
+	/**
 	 * @parameter expression="${jenkins.ant.location}" default-value="classpath:org/kuali/jenkins/ant/cli-wrapper.xml"
 	 * @required
 	 */
@@ -40,7 +46,7 @@ public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 		sb.append("<project name=\"maven-antrun-\" default=\"main\">\n");
 		sb.append("<target name=\"main\">\n");
 		sb.append("  <property name=\"maven.plugin.classpath\" refid=\"maven.plugin.classpath\"/>\n");
-		sb.append("  <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"noop\"/>\n");
+		sb.append("  <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + cliCommand + "\"/>\n");
 		sb.append("</target>\n");
 		sb.append("</project>\n");
 		generator.write(filename, sb.toString());
