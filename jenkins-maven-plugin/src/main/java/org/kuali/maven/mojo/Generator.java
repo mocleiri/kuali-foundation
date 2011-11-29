@@ -103,12 +103,12 @@ public class Generator {
 
     protected List<String> getLocations(String scmType, String scmUrl, Type template) {
         List<String> locations = new ArrayList<String>();
-        locations.add("classpath:org/kuali/cm/jenkins/kuali.properties");
-        locations.add("classpath:org/kuali/cm/jenkins/jenkins.properties");
-        locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/common.xml");
-        locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/" + scmType + ".xml");
+        locations.add("classpath:org/kuali/jenkins/kuali.properties");
+        locations.add("classpath:org/kuali/jenkins/jenkins.properties");
+        locations.add("classpath:org/kuali/jenkins/jobs/properties/common.xml");
+        locations.add("classpath:org/kuali/jenkins/jobs/properties/" + scmType + ".xml");
         String lowerCase = template.toString().toLowerCase();
-        locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/types/" + lowerCase + ".xml");
+        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + lowerCase + ".xml");
         return locations;
     }
 
