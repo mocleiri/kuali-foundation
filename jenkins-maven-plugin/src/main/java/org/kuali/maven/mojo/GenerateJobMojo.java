@@ -38,6 +38,7 @@ public class GenerateJobMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             JobContext context = getContext();
+            getLog().info("Generating: " + context.getFilename());
             generator.generate(context);
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected error", e);
