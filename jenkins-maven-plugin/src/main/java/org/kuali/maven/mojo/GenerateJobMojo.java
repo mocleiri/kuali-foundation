@@ -51,6 +51,7 @@ public class GenerateJobMojo extends AbstractMojo {
         String scmType = extractor.getScmType(project.getScm());
         String scmUrl = extractor.getScmUrl(project.getScm());
         String majorVersion = extractor.getMajorVersion(project.getVersion());
+
         JobContext context = new JobContext();
         context.setFilename(filename);
         context.setProject(project);
