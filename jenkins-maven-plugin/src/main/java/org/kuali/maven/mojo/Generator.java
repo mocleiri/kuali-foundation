@@ -101,13 +101,13 @@ public class Generator {
         return properties;
     }
 
-    protected List<String> getLocations(String scmType, String scmUrl, String type) {
+    protected List<String> getLocations(String scmType, String scmUrl, String jobType) {
         List<String> locations = new ArrayList<String>();
         locations.add("classpath:org/kuali/jenkins/kuali.properties");
         locations.add("classpath:org/kuali/jenkins/jenkins.properties");
         locations.add("classpath:org/kuali/jenkins/jobs/properties/common.xml");
         locations.add("classpath:org/kuali/jenkins/jobs/properties/" + scmType + ".xml");
-        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + type + ".xml");
+        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + jobType + ".xml");
         return locations;
     }
 
