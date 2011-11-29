@@ -52,19 +52,13 @@ public class Generator {
 	}
 
 	protected String getDefaultFilename(JobContext context) {
-		String majorVersion = context.getMajorVersion();
 		MavenProject project = context.getProject();
-		String artifactId = project.getArtifactId();
 		String buildDir = project.getBuild().getDirectory();
 		StringBuilder sb = new StringBuilder();
 		sb.append(buildDir);
 		sb.append(FS);
 		sb.append("jenkins");
 		sb.append(FS);
-		sb.append(artifactId);
-		sb.append("-");
-		sb.append(majorVersion);
-		sb.append("-");
 		sb.append(context.getJobType());
 		sb.append("-");
 		sb.append("config");
