@@ -35,14 +35,14 @@ public class GenerateJobConfigMojo extends AbstractMojo {
 	private String template;
 
 	/**
-	 * @parameter expression="${jenkins.filename}"
+	 * @parameter expression="${jenkins.configDir}" default-value="${project.build.directory}/jenkins"
 	 */
-	private String filename;
+	private String configDir;
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		try {
-			JobContext context = generator.getJobContext(project, filename, type, template);
+			JobContext context = generator.getJobContext(project, configDir, type, template);
 			getLog().info("Generating: " + context.getFilename());
 			generator.generate(context);
 		} catch (IOException e) {
@@ -56,14 +56,6 @@ public class GenerateJobConfigMojo extends AbstractMojo {
 
 	public void setProject(MavenProject project) {
 		this.project = project;
-	}
-
-	public String getFilename() {
-		return filename;
-	}
-
-	public void setFilename(String filename) {
-		this.filename = filename;
 	}
 
 	public String getType() {
@@ -80,5 +72,13 @@ public class GenerateJobConfigMojo extends AbstractMojo {
 
 	public void setTemplate(String template) {
 		this.template = template;
+	}
+
+	public String getConfigDir() {
+		return configDir;
+	}
+
+	public void setConfigDir(String configDir) {
+		this.configDir = configDir;
 	}
 }

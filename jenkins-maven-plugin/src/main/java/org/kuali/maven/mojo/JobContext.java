@@ -3,6 +3,7 @@ package org.kuali.maven.mojo;
 import org.apache.maven.project.MavenProject;
 
 public class JobContext {
+	String directory;
 	String filename;
 	String jobType;
 	String template;
@@ -74,5 +75,13 @@ public class JobContext {
 
 	public void setTemplate(String template) {
 		this.template = template;
+	}
+
+	public String getDirectory() {
+		return directory;
+	}
+
+	public void setDirectory(String directory) {
+		this.directory = directory;
 	}
 }
