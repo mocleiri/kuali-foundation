@@ -15,6 +15,7 @@ public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		super.setAntTargetName("main");
+		String location = "classpath:org/kuali/jenkins/ant/cli-wrapper.xml";
 		super.execute();
 	}
 
