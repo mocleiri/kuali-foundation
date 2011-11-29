@@ -21,11 +21,10 @@ public class Generator {
 	PropertiesUtils pu = new PropertiesUtils();
 
 	public void generate(JobContext context) throws IOException {
-		String filename = context.getFilename();
 		Properties properties = getProperties(context);
 		String xml = read("classpath:org/kuali/jenkins/jobs/template.xml");
 		String resolvedXml = pu.getResolvedValue(xml, properties);
-		write(filename, resolvedXml);
+		write(context.getFilename(), resolvedXml);
 	}
 
 	public JobContext getJobContext(MavenProject project, String filename, String type) {
