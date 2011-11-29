@@ -5,13 +5,13 @@ import org.apache.maven.project.MavenProject;
 public class JobContext {
 	String configDir;
 	String filename;
-	String jobType;
+	String type;
 	String template;
 	MavenProject project;
 	String scmType;
 	String scmUrl;
 	String majorVersion;
-	String buildTimestampFormat;
+	String timestampFormat;
 
 	public String getFilename() {
 		return filename;
@@ -21,12 +21,12 @@ public class JobContext {
 		this.filename = filename;
 	}
 
-	public String getJobType() {
-		return jobType;
+	public String getType() {
+		return type;
 	}
 
-	public void setJobType(String type) {
-		this.jobType = type;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public MavenProject getProject() {
@@ -61,12 +61,12 @@ public class JobContext {
 		this.majorVersion = majorVersion;
 	}
 
-	public String getBuildTimestampFormat() {
-		return buildTimestampFormat;
+	public String getTimestampFormat() {
+		return timestampFormat;
 	}
 
-	public void setBuildTimestampFormat(String buildTimestampFormat) {
-		this.buildTimestampFormat = buildTimestampFormat;
+	public void setTimestampFormat(String buildTimestampFormat) {
+		this.timestampFormat = buildTimestampFormat;
 	}
 
 	public String getTemplate() {

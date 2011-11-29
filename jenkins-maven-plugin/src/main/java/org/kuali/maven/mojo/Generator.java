@@ -37,7 +37,7 @@ public class Generator {
 		context.setConfigDir(configDir);
 		context.setTemplate(template);
 		context.setProject(project);
-		context.setJobType(jobType);
+		context.setType(jobType);
 		context.setScmType(scmType);
 		context.setScmUrl(scmUrl);
 		context.setMajorVersion(majorVersion);
@@ -118,7 +118,7 @@ public class Generator {
 		locations.add("classpath:org/kuali/jenkins/jenkins.properties");
 		locations.add("classpath:org/kuali/jenkins/jobs/properties/common.xml");
 		locations.add("classpath:org/kuali/jenkins/jobs/properties/" + context.getScmType() + ".xml");
-		locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + context.getJobType() + ".xml");
+		locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + context.getType() + ".xml");
 		return locations;
 	}
 
