@@ -43,7 +43,7 @@ public class Generator {
         Type template = context.getType();
         String filename = context.getFilename();
         Properties properties = getProperties(project, template);
-        String xml = getContent("classpath:org/kuali/cm/jenkins/jobs/templates/jenkins.xml");
+        String xml = getContent("classpath:org/kuali/jenkins/jobs/templates/jenkins.xml");
         String resolvedXml = pu.getResolvedValue(xml, properties);
         write(filename, resolvedXml);
     }
