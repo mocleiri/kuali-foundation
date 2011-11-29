@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -96,6 +98,8 @@ public class Generator {
 	}
 
 	protected Properties getJenkinsProperties(JobContext context) {
+		SimpleDateFormat sdf = new SimpleDateFormat(context.getTimestampFormat());
+		Date now = new Date(System.currentTimeMillis());
 		MavenProject project = context.getProject();
 		Properties properties = new Properties();
 		properties.setProperty("jenkins.project.scmType", context.getScmType());
@@ -103,6 +107,7 @@ public class Generator {
 		properties.setProperty("jenkins.project.majorVersion", context.getMajorVersion());
 		properties.setProperty("jenkins.project.groupId", project.getGroupId());
 		properties.setProperty("jenkins.project.artifactId", project.getArtifactId());
+		properties.setProperty("jenkins.build.timestamp", sdf.format(now));
 		return properties;
 	}
 
