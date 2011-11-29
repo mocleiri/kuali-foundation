@@ -5,18 +5,9 @@ import java.util.Properties;
 import org.apache.maven.project.MavenProject;
 
 public class JobContext {
-    Properties properties;
     String filename;
     Template template;
     MavenProject project;
-
-    public Properties getProperties() {
-        return properties;
-    }
-
-    public void setProperties(Properties properties) {
-        this.properties = properties;
-    }
 
     public String getFilename() {
         return filename;
