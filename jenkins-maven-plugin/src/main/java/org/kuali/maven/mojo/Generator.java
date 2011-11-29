@@ -56,10 +56,9 @@ public class Generator {
 	}
 
 	protected void write(String filename, String contents) throws IOException {
-		File file = new File(filename);
 		OutputStream out = null;
 		try {
-			out = FileUtils.openOutputStream(file);
+			out = FileUtils.openOutputStream(new File(filename));
 			IOUtils.write(contents, out);
 		} finally {
 			IOUtils.closeQuietly(out);
