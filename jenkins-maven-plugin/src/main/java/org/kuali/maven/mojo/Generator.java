@@ -13,6 +13,7 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 
@@ -41,6 +42,14 @@ public class Generator {
 		context.setMajorVersion(majorVersion);
 		context.setFilename(filename);
 
+	}
+
+	public String[] getTypes(String types) {
+		String[] tokens = StringUtils.split(types, ",");
+		for (String token : tokens) {
+			token = token.trim();
+		}
+		return tokens;
 	}
 
 	protected String getFilename(MavenProject project, String jobType) {
