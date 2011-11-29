@@ -33,7 +33,7 @@ public class CreateJobFromTemplate extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		String scmType = extractor.getScmType(project.getScm());
+		String scmType = extractor.getScmType(project.getScm()).toLowerCase();
 		String scmUrl = extractor.getScmUrl(project.getScm());
 		String majorVersion = extractor.getMajorVersion(project.getVersion());
 
@@ -46,6 +46,7 @@ public class CreateJobFromTemplate extends AbstractMojo {
 		locations.add("classpath:org/kuali/cm/jenkins/kuali.properties");
 		locations.add("classpath:org/kuali/cm/jenkins/jenkins.properties");
 		locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/common.xml");
+		locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/" + scmType + ".xml");
 	}
 
 	public MavenProject getProject() {
