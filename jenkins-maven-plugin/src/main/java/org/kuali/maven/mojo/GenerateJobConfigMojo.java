@@ -39,6 +39,12 @@ public class GenerateJobConfigMojo extends AbstractMojo {
 	 */
 	private String configDir;
 
+	/**
+	 * @parameter expression="${jenkins.timestampFormat}" default-value="yyyy-MM-dd HH:mm:ss z"
+	 * @required
+	 */
+	private String timestampFormat;
+
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		try {
@@ -80,5 +86,13 @@ public class GenerateJobConfigMojo extends AbstractMojo {
 
 	public void setConfigDir(String configDir) {
 		this.configDir = configDir;
+	}
+
+	public String getTimestampFormat() {
+		return timestampFormat;
+	}
+
+	public void setTimestampFormat(String timestampFormat) {
+		this.timestampFormat = timestampFormat;
 	}
 }
