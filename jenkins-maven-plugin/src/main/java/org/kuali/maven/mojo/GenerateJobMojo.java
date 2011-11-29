@@ -51,9 +51,6 @@ public class GenerateJobMojo extends AbstractMojo {
         String scmType = extractor.getScmType(project.getScm());
         String scmUrl = extractor.getScmUrl(project.getScm());
         String majorVersion = extractor.getMajorVersion(project.getVersion());
-        if (StringUtils.isEmpty(filename)) {
-            setFilename(generator.getDefaultFilename(project, type.toString().toLowerCase()));
-        }
         JobContext context = new JobContext();
         context.setFilename(filename);
         context.setProject(project);
@@ -61,6 +58,11 @@ public class GenerateJobMojo extends AbstractMojo {
         context.setScmType(scmType);
         context.setScmUrl(scmUrl);
         context.setMajorVersion(majorVersion);
+
+        if (StringUtils.isEmpty(filename)) {
+            String defaultFilename = generator.getDefaultFilename(context);
+            setFilename(defaultFilename);
+        }
         return context;
     }
 

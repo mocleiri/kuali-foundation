@@ -19,9 +19,9 @@ public class Generator {
     PropertiesUtils pu = new PropertiesUtils();
     private static final String FS = System.getProperty("file.separator");
 
-    public String getDefaultFilename(MavenProject project, String type) {
-
-        String majorVersion = extractor.getMajorVersion(project.getVersion());
+    public String getDefaultFilename(JobContext context) {
+        String majorVersion = context.getMajorVersion();
+        MavenProject project = context.getProject();
         String artifactId = project.getArtifactId();
         String buildDir = project.getBuild().getDirectory();
         StringBuilder sb = new StringBuilder();
@@ -33,16 +33,14 @@ public class Generator {
         sb.append("-");
         sb.append(majorVersion);
         sb.append("-");
-        sb.append(type);
+        sb.append(context.getJobType());
         sb.append(".xml");
         return sb.toString();
     }
 
     public void generate(JobContext context) throws IOException {
-        MavenProject project = context.getProject();
-        String type = context.getJobType();
         String filename = context.getFilename();
-        Properties properties = getProperties(project, type);
+        Properties properties = getProperties(context);
         String xml = read("classpath:org/kuali/jenkins/jobs/templates/jenkins.xml");
         String resolvedXml = pu.getResolvedValue(xml, properties);
         write(filename, resolvedXml);
@@ -70,14 +68,12 @@ public class Generator {
         }
     }
 
-    protected Properties getProperties(MavenProject project, String type) throws IOException {
-        String scmType = extractor.getScmType(project.getScm()).toLowerCase();
-        String scmUrl = extractor.getScmUrl(project.getScm());
-        String majorVersion = extractor.getMajorVersion(project.getVersion());
+    protected Properties getProperties(JobContext context) throws IOException {
+        MavenProject project = context.getProject();
 
-        List<String> locations = getLocations(scmType, scmUrl, type);
+        List<String> locations = getLocations(context);
         Properties resourceProperties = pu.getProperties(locations);
-        Properties jenkinsProperties = getJenkinsProperties(scmType, scmUrl, majorVersion, project);
+        Properties jenkinsProperties = getJenkinsProperties(context);
         Properties projectProperties = project.getProperties();
         Properties environmentProperties = pu.getEnvironmentProperties();
         Properties systemProperties = System.getProperties();
@@ -91,23 +87,24 @@ public class Generator {
         return properties;
     }
 
-    protected Properties getJenkinsProperties(String scmType, String scmUrl, String majorVersion, MavenProject project) {
+    protected Properties getJenkinsProperties(JobContext context) {
+        MavenProject project = context.getProject();
         Properties properties = new Properties();
-        properties.setProperty("jenkins.project.scmType", scmType);
-        properties.setProperty("jenkins.project.scmUrl", scmUrl);
-        properties.setProperty("jenkins.project.majorVersion", majorVersion);
+        properties.setProperty("jenkins.project.scmType", context.getScmType());
+        properties.setProperty("jenkins.project.scmUrl", context.getScmUrl());
+        properties.setProperty("jenkins.project.majorVersion", context.getMajorVersion());
         properties.setProperty("jenkins.project.groupId", project.getGroupId());
         properties.setProperty("jenkins.project.artifactId", project.getArtifactId());
         return properties;
     }
 
-    protected List<String> getLocations(String scmType, String scmUrl, String jobType) {
+    protected List<String> getLocations(JobContext context) {
         List<String> locations = new ArrayList<String>();
         locations.add("classpath:org/kuali/jenkins/kuali.properties");
         locations.add("classpath:org/kuali/jenkins/jenkins.properties");
         locations.add("classpath:org/kuali/jenkins/jobs/properties/common.xml");
-        locations.add("classpath:org/kuali/jenkins/jobs/properties/" + scmType + ".xml");
-        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + jobType + ".xml");
+        locations.add("classpath:org/kuali/jenkins/jobs/properties/" + context.getScmType() + ".xml");
+        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + context.getJobType() + ".xml");
         return locations;
     }
 
