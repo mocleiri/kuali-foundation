@@ -48,7 +48,7 @@ public class GenerateJobMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
-            Properties properties = getProperties();
+            Properties properties = getProperties(project, template);
             String xml = getContent("classpath:org/kuali/cm/jenkins/jobs/templates/jenkins.xml");
             String resolvedXml = pu.getResolvedValue(xml, properties);
             write(filename, resolvedXml);
@@ -79,7 +79,7 @@ public class GenerateJobMojo extends AbstractMojo {
         }
     }
 
-    protected Properties getProperties() throws IOException {
+    protected Properties getProperties(MavenProject project, Template template) throws IOException {
         String scmType = extractor.getScmType(project.getScm()).toLowerCase();
         String scmUrl = extractor.getScmUrl(project.getScm());
         String majorVersion = extractor.getMajorVersion(project.getVersion());
