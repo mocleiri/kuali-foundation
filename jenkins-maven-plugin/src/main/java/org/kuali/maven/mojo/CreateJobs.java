@@ -41,13 +41,16 @@ public class CreateJobs extends AbstractMojo {
 		properties.setProperty("jenkins.project.scmType", scmType);
 		properties.setProperty("jenkins.project.scmUrl", scmUrl);
 		properties.setProperty("jenkins.project.majorVersion", majorVersion);
+		properties.setProperty("jenkins.project.groupId", project.getGroupId());
+		properties.setProperty("jenkins.project.artifactId", project.getArtifactId());
 
 		List<String> locations = new ArrayList<String>();
 		locations.add("classpath:org/kuali/cm/jenkins/kuali.properties");
 		locations.add("classpath:org/kuali/cm/jenkins/jenkins.properties");
 		locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/common.xml");
 		locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/" + scmType + ".xml");
-		locations.add("classpath:org/kuali/cm/jenkins/jobs/templates/" + template.toString().toLowerCase() + ".xml");
+		String lowerCase = template.toString().toLowerCase();
+		locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/types/" + lowerCase + ".xml");
 	}
 
 	public MavenProject getProject() {
