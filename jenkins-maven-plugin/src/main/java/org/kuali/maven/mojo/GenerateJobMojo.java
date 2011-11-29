@@ -6,6 +6,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * @goal generatejob
@@ -36,14 +37,22 @@ public class GenerateJobMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
-            JobContext context = new JobContext();
-            context.setFilename(filename);
-            context.setProject(project);
-            context.setType(type);
+            JobContext context = getContext();
             generator.generate(context);
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected error", e);
         }
+    }
+
+    protected JobContext getContext() {
+        if (StringUtils.isEmpty(filename)) {
+            setFilename(generator.getDefaultFilename(project, type.toString().toLowerCase()));
+        }
+        JobContext context = new JobContext();
+        context.setFilename(filename);
+        context.setProject(project);
+        context.setType(type);
+        return context;
     }
 
     public MavenProject getProject() {
