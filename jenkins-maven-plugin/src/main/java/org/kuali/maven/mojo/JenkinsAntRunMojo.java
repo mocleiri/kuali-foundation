@@ -19,10 +19,10 @@ public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 	private String cliCommand;
 
 	/**
-	 * @parameter expression="${jenkins.ant.location}" default-value="classpath:org/kuali/jenkins/ant/cli-wrapper.xml"
+	 * @parameter expression="${jenkins.cliWrapper}" default-value="classpath:org/kuali/jenkins/ant/cli-wrapper.xml"
 	 * @required
 	 */
-	private String location;
+	private String cliWrapper;
 
 	private File localFile;
 
@@ -31,7 +31,7 @@ public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 		try {
 			super.setAntTargetName("main");
 			localFile = new File(getProject().getBuild().getDirectory() + "/antrun/build-local.xml");
-			generator.copy(location, localFile.getAbsolutePath());
+			generator.copy(cliWrapper, localFile.getAbsolutePath());
 			super.execute();
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected error", e);
