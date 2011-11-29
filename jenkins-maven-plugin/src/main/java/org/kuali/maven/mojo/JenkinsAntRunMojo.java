@@ -14,9 +14,15 @@ public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		super.setAntTargetName("main");
-		String location = "classpath:org/kuali/jenkins/ant/cli-wrapper.xml";
-		super.execute();
+		try {
+			super.setAntTargetName("main");
+			String location = "classpath:org/kuali/jenkins/ant/cli-wrapper.xml";
+			String filename = getProject().getBuild().getDirectory() + "/jenkins/ant/cli-wrapper.xml";
+			generator.copy(location, filename);
+			super.execute();
+		} catch (IOException e) {
+			throw new MojoExecutionException("Unexpected error", e);
+		}
 	}
 
 	@Override
@@ -26,7 +32,8 @@ public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
 		sb.append("<project name=\"maven-antrun-\" default=\"main\"  >\n");
 		sb.append("<target name=\"main\">\n");
-		sb.append("  <echo>hello world</echo>\n");
+		sb.append("  <property name=\"maven.plugin.classpath\" refid=\"maven.plugin.classpath\"/>\n");
+		sb.append("  <ant antfile=\"target/jenkins/ant/cli-wrapper.xml\" target=\"noop\"/>\n");
 		sb.append("</target>\n");
 		sb.append("</project>\n");
 		generator.write(filename, sb.toString());

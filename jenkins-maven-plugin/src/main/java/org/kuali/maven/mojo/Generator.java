@@ -66,6 +66,11 @@ public class Generator {
 		return sb.toString();
 	}
 
+	public void copy(String location, String filename) throws IOException {
+		String contents = read(location);
+		write(filename, contents);
+	}
+
 	public void write(String filename, String contents) throws IOException {
 		OutputStream out = null;
 		try {
