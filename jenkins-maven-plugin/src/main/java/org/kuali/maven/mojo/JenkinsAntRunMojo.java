@@ -12,13 +12,20 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 	Generator generator = new Generator();
 
+	/**
+	 * @parameter expression="${jenkins.cliWrapper}" default-value="classpath:org/kuali/jenkins/ant/cli-wrapper.xml"
+	 * @required
+	 */
+	private String cliWrapper;
+
+	private File cliWrapperFile;
+
 	@Override
 	public void execute() throws MojoExecutionException {
 		try {
 			super.setAntTargetName("main");
-			String location = "classpath:org/kuali/jenkins/ant/cli-wrapper.xml";
-			String filename = getProject().getBuild().getDirectory() + "/jenkins/ant/cli-wrapper.xml";
-			generator.copy(location, filename);
+			cliWrapperFile = new File(getProject().getBuild().getDirectory() + "/antrun/cli-wrapper.xml");
+			generator.copy(cliWrapper, cliWrapperFile.getAbsolutePath());
 			super.execute();
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected error", e);
@@ -33,12 +40,11 @@ public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 		sb.append("<project name=\"maven-antrun-\" default=\"main\"  >\n");
 		sb.append("<target name=\"main\">\n");
 		sb.append("  <property name=\"maven.plugin.classpath\" refid=\"maven.plugin.classpath\"/>\n");
-		sb.append("  <ant antfile=\"target/jenkins/ant/cli-wrapper.xml\" target=\"noop\"/>\n");
+		sb.append("  <ant antfile=\"" + cliWrapperFile.getAbsolutePath() + "\" target=\"noop\"/>\n");
 		sb.append("</target>\n");
 		sb.append("</project>\n");
 		generator.write(filename, sb.toString());
 		return new File(filename);
 
 	}
-
 }
