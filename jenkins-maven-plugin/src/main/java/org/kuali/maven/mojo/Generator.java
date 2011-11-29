@@ -23,7 +23,7 @@ public class Generator {
 	public void generate(JobContext context) throws IOException {
 		String filename = context.getFilename();
 		Properties properties = getProperties(context);
-		String xml = read("classpath:org/kuali/jenkins/jobs/templates/jenkins.xml");
+		String xml = read("classpath:org/kuali/jenkins/jobs/template.xml");
 		String resolvedXml = pu.getResolvedValue(xml, properties);
 		write(filename, resolvedXml);
 	}
