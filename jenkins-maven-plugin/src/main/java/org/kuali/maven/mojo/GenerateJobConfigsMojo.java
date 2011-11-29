@@ -14,7 +14,7 @@ public class GenerateJobConfigsMojo extends AbstractGenerateMojo {
 	Generator generator = new Generator();
 
 	/**
-	 * Comma separated list of the types of jobs to generate eg publish, unit, license, release
+	 * Comma separated list of the types of jobs to generate
 	 * 
 	 * @parameter expression="${jenkins.types}" default-value="unit,publish,license,release"
 	 * @required
