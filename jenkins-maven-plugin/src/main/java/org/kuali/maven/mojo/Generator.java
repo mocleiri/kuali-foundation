@@ -17,9 +17,24 @@ import org.kuali.maven.common.PropertiesUtils;
 public class Generator {
     Extractor extractor = new Extractor();
     PropertiesUtils pu = new PropertiesUtils();
+    private static final String FS = System.getProperty("file.separator");
 
-    public String getDefaultFilename() {
+    public String getDefaultFilename(MavenProject project, String type) {
+
+        String majorVersion = extractor.getMajorVersion(project.getVersion());
+        String artifactId = project.getArtifactId();
+        String buildDir = project.getBuild().getDirectory();
         StringBuilder sb = new StringBuilder();
+        sb.append(buildDir);
+        sb.append(FS);
+        sb.append("jenkins");
+        sb.append(FS);
+        sb.append(artifactId);
+        sb.append("-");
+        sb.append(majorVersion);
+        sb.append("-");
+        sb.append(type);
+        sb.append(".xml");
         return sb.toString();
     }
 
