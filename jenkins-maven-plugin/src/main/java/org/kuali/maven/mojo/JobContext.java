@@ -3,7 +3,7 @@ package org.kuali.maven.mojo;
 import org.apache.maven.project.MavenProject;
 
 public class JobContext {
-	String directory;
+	String configDir;
 	String filename;
 	String jobType;
 	String template;
@@ -77,11 +77,11 @@ public class JobContext {
 		this.template = template;
 	}
 
-	public String getDirectory() {
-		return directory;
+	public String getConfigDir() {
+		return configDir;
 	}
 
-	public void setDirectory(String directory) {
-		this.directory = directory;
+	public void setConfigDir(String directory) {
+		this.configDir = directory;
 	}
 }

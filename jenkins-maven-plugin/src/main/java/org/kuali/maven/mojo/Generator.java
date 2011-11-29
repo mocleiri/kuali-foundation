@@ -11,7 +11,6 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 
@@ -27,39 +26,34 @@ public class Generator {
 		write(context.getFilename(), resolvedXml);
 	}
 
-	public JobContext getJobContext(MavenProject project, String filename, String type, String template) {
+	public JobContext getJobContext(MavenProject project, String configDir, String jobType, String template) {
 		Extractor extractor = new Extractor();
 		String scmType = extractor.getScmType(project.getScm());
 		String scmUrl = extractor.getScmUrl(project.getScm());
 		String majorVersion = extractor.getMajorVersion(project.getVersion());
+		String filename = getFilename(project, jobType);
 
 		JobContext context = new JobContext();
+		context.setConfigDir(configDir);
 		context.setTemplate(template);
 		context.setProject(project);
-		context.setJobType(type);
+		context.setJobType(jobType);
 		context.setScmType(scmType);
 		context.setScmUrl(scmUrl);
 		context.setMajorVersion(majorVersion);
-
-		if (!StringUtils.isEmpty(filename)) {
-			context.setFilename(filename);
-		} else {
-			String defaultFilename = getDefaultFilename(context);
-			context.setFilename(defaultFilename);
-		}
+		context.setFilename(filename);
 
 		return context;
 	}
 
-	protected String getDefaultFilename(JobContext context) {
-		MavenProject project = context.getProject();
+	protected String getFilename(MavenProject project, String jobType) {
 		String buildDir = project.getBuild().getDirectory();
 		StringBuilder sb = new StringBuilder();
 		sb.append(buildDir);
 		sb.append(FS);
 		sb.append("jenkins");
 		sb.append(FS);
-		sb.append(context.getJobType());
+		sb.append(jobType);
 		sb.append("-");
 		sb.append("config");
 		sb.append(".xml");
