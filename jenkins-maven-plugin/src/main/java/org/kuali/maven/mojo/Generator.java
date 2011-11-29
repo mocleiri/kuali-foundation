@@ -22,30 +22,30 @@ public class Generator {
 
 	public void generate(JobContext context) throws IOException {
 		Properties properties = getProperties(context);
-		String xml = read("classpath:org/kuali/jenkins/jobs/template.xml");
+		String xml = read(context.getTemplate());
 		String resolvedXml = pu.getResolvedValue(xml, properties);
 		write(context.getFilename(), resolvedXml);
 	}
 
-	public JobContext getJobContext(MavenProject project, String filename, String type) {
+	public JobContext getJobContext(MavenProject project, String filename, String type, String template) {
 		Extractor extractor = new Extractor();
 		String scmType = extractor.getScmType(project.getScm());
 		String scmUrl = extractor.getScmUrl(project.getScm());
 		String majorVersion = extractor.getMajorVersion(project.getVersion());
 
 		JobContext context = new JobContext();
-		context.setFilename(filename);
+		context.setTemplate(template);
 		context.setProject(project);
 		context.setJobType(type);
 		context.setScmType(scmType);
 		context.setScmUrl(scmUrl);
 		context.setMajorVersion(majorVersion);
 
-		if (StringUtils.isEmpty(filename)) {
+		if (!StringUtils.isEmpty(filename)) {
+			context.setFilename(filename);
+		} else {
 			String defaultFilename = getDefaultFilename(context);
 			context.setFilename(defaultFilename);
-		} else {
-			context.setFilename(filename);
 		}
 
 		return context;

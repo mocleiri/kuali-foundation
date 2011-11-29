@@ -29,6 +29,12 @@ public class GenerateJobConfigMojo extends AbstractMojo {
 	private String type;
 
 	/**
+	 * @parameter expression="${jenkins.template}" default-value="classpath:org/kuali/jenkins/jobs/template.xml"
+	 * @required
+	 */
+	private String template;
+
+	/**
 	 * @parameter expression="${jenkins.filename}"
 	 */
 	private String filename;
@@ -36,7 +42,7 @@ public class GenerateJobConfigMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		try {
-			JobContext context = generator.getJobContext(project, filename, type);
+			JobContext context = generator.getJobContext(project, filename, type, template);
 			getLog().info("Generating: " + context.getFilename());
 			generator.generate(context);
 		} catch (IOException e) {
@@ -66,5 +72,13 @@ public class GenerateJobConfigMojo extends AbstractMojo {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(String template) {
+		this.template = template;
 	}
 }
