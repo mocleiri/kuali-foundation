@@ -47,7 +47,7 @@ public class CreateJobFromTemplate extends AbstractMojo {
 		locations.add("classpath:org/kuali/cm/jenkins/jenkins.properties");
 		locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/common.xml");
 		locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/" + scmType + ".xml");
-		locations.add("classpath:org/kuali/cm/jenkins/jobs/properties/" + scmType + ".xml");
+		locations.add("classpath:org/kuali/cm/jenkins/jobs/templates/" + template.toString().toLowerCase() + ".xml");
 	}
 
 	public MavenProject getProject() {
