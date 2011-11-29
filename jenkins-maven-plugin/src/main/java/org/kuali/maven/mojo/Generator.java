@@ -43,7 +43,7 @@ public class Generator {
         Type template = context.getType();
         String filename = context.getFilename();
         Properties properties = getProperties(project, template);
-        String xml = getContent("classpath:org/kuali/jenkins/jobs/templates/jenkins.xml");
+        String xml = read("classpath:org/kuali/jenkins/jobs/templates/jenkins.xml");
         String resolvedXml = pu.getResolvedValue(xml, properties);
         write(filename, resolvedXml);
     }
@@ -60,7 +60,7 @@ public class Generator {
 
     }
 
-    protected String getContent(String location) throws IOException {
+    protected String read(String location) throws IOException {
         InputStream in = null;
         try {
             in = pu.getInputStream(location);
