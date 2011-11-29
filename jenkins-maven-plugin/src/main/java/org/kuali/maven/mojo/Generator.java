@@ -16,9 +16,9 @@ import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 
 public class Generator {
+	private static final String FS = System.getProperty("file.separator");
 	Extractor extractor = new Extractor();
 	PropertiesUtils pu = new PropertiesUtils();
-	private static final String FS = System.getProperty("file.separator");
 
 	public void generate(JobContext context) throws IOException {
 		String filename = context.getFilename();
