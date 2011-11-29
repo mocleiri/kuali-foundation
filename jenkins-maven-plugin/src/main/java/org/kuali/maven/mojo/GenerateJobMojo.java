@@ -23,23 +23,23 @@ public class GenerateJobMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     * @parameter expression="${jenkins.template}" default-value="PUBLISH"
+     * @parameter expression="${jenkins.type}" default-value="PUBLISH"
      * @required
      */
-    private Template template;
+    private Type type;
 
     /**
      * @parameter expression="${jenkins.filename}"
      */
     private String filename;
-    
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             JobContext context = new JobContext();
             context.setFilename(filename);
             context.setProject(project);
-            context.setTemplate(template);
+            context.setType(type);
             generator.generate(context);
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected error", e);
@@ -54,11 +54,19 @@ public class GenerateJobMojo extends AbstractMojo {
         this.project = project;
     }
 
-    public Template getTemplate() {
-        return template;
+    public Type getType() {
+        return type;
     }
 
-    public void setTemplate(Template template) {
-        this.template = template;
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }

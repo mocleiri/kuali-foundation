@@ -25,7 +25,7 @@ public class Generator {
 
     public void generate(JobContext context) throws IOException {
         MavenProject project = context.getProject();
-        Template template = context.getTemplate();
+        Type template = context.getType();
         String filename = context.getFilename();
         Properties properties = getProperties(project, template);
         String xml = getContent("classpath:org/kuali/cm/jenkins/jobs/templates/jenkins.xml");
@@ -55,7 +55,7 @@ public class Generator {
         }
     }
 
-    protected Properties getProperties(MavenProject project, Template template) throws IOException {
+    protected Properties getProperties(MavenProject project, Type template) throws IOException {
         String scmType = extractor.getScmType(project.getScm()).toLowerCase();
         String scmUrl = extractor.getScmUrl(project.getScm());
         String majorVersion = extractor.getMajorVersion(project.getVersion());
@@ -86,7 +86,7 @@ public class Generator {
         return properties;
     }
 
-    protected List<String> getLocations(String scmType, String scmUrl, Template template) {
+    protected List<String> getLocations(String scmType, String scmUrl, Type template) {
         List<String> locations = new ArrayList<String>();
         locations.add("classpath:org/kuali/cm/jenkins/kuali.properties");
         locations.add("classpath:org/kuali/cm/jenkins/jenkins.properties");

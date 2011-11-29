@@ -1,4 +1,4 @@
 package org.kuali.maven.mojo;
-public enum Template {
+public enum Type {
 	PUBLISH, UNIT, LICENSE, RELEASE;
 }
