@@ -19,7 +19,7 @@
         <remote>${jenkins.job.svn.locations.1.remote}</remote>
         <local>${jenkins.job.svn.locations.1.local}</local>
       ]]></entry>
-  <entry key="jenkins.job.svn.locations.1.remote">${jenkins.project.scm.url}</entry>
+  <entry key="jenkins.job.svn.locations.1.remote">${jenkins.project.scmUrl}</entry>
   <entry key="jenkins.job.svn.locations.1.local">.</entry>
   <entry key="jenkins.job.svn.excludedRegions"></entry>
   <entry key="jenkins.job.svn.includedRegions"></entry>

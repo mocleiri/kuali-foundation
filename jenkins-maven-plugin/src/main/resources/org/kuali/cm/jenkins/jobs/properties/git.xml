@@ -37,7 +37,7 @@
       ]]></entry>
   <entry key="jenkins.job.git.userRemoteConfigs.1.name">origin</entry>
   <entry key="jenkins.job.git.userRemoteConfigs.1.refspec">+refs/heads/*:refs/remotes/origin/*</entry>
-  <entry key="jenkins.job.git.userRemoteConfigs.1.url">${jenkins.project.scm.url}</entry>
+  <entry key="jenkins.job.git.userRemoteConfigs.1.url">${jenkins.project.scmUrl}</entry>
   <entry key="jenkins.job.git.branches"><![CDATA[
      <hudson.plugins.git.BranchSpec>
        <name>${jenkins.job.git.branches.1.name}</name>

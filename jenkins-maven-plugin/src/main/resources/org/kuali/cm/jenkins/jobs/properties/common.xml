@@ -94,7 +94,7 @@
       <div id="jenkins-job-brief">${jenkins.job.description.brief}</div>
       <div id="jenkins-project-metadata">
         <li>${jenkins.project.groupId}:${jenkins.project.artifactId}:${jenkins.project.majorVersion}</li>
-        <li>${jenkins.project.scm.url}</li>
+        <li>${jenkins.project.scmUrl}</li>
       </div>
       <div id="jenkins-cli-wrapper-metadata">
         <li>Job created by Maven Jenkins CLI Wrapper ${project.version} (Jenkins CLI Version ${jenkins.cli.version})</li>
