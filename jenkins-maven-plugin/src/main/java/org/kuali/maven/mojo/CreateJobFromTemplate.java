@@ -10,6 +10,8 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.maven.common.Extractor;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
+
 public class CreateJobFromTemplate extends AbstractMojo {
 	Extractor extractor = new Extractor();
 
@@ -21,6 +23,13 @@ public class CreateJobFromTemplate extends AbstractMojo {
 	 * @readonly
 	 */
 	private MavenProject project;
+
+	/**
+	 * 
+	 * @parameter expression="${jenkins.template}"
+	 * @required
+	 */
+	private Template template;
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
@@ -45,5 +54,13 @@ public class CreateJobFromTemplate extends AbstractMojo {
 
 	public void setProject(MavenProject project) {
 		this.project = project;
+	}
+
+	public Template getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(Template template) {
+		this.template = template;
 	}
 }
