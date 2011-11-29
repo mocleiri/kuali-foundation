@@ -24,10 +24,10 @@ public class GenerateJobMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     * @parameter expression="${jenkins.type}" default-value="PUBLISH"
+     * @parameter expression="${jenkins.type}" default-value="publish"
      * @required
      */
-    private Type type;
+    private String type;
 
     /**
      * @parameter expression="${jenkins.filename}"
@@ -64,19 +64,19 @@ public class GenerateJobMojo extends AbstractMojo {
         this.project = project;
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
     public String getFilename() {
         return filename;
     }
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

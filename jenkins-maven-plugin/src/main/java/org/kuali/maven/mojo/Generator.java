@@ -40,9 +40,9 @@ public class Generator {
 
     public void generate(JobContext context) throws IOException {
         MavenProject project = context.getProject();
-        Type template = context.getType();
+        String type = context.getType();
         String filename = context.getFilename();
-        Properties properties = getProperties(project, template);
+        Properties properties = getProperties(project, type);
         String xml = read("classpath:org/kuali/jenkins/jobs/templates/jenkins.xml");
         String resolvedXml = pu.getResolvedValue(xml, properties);
         write(filename, resolvedXml);
@@ -70,12 +70,12 @@ public class Generator {
         }
     }
 
-    protected Properties getProperties(MavenProject project, Type template) throws IOException {
+    protected Properties getProperties(MavenProject project, String type) throws IOException {
         String scmType = extractor.getScmType(project.getScm()).toLowerCase();
         String scmUrl = extractor.getScmUrl(project.getScm());
         String majorVersion = extractor.getMajorVersion(project.getVersion());
 
-        List<String> locations = getLocations(scmType, scmUrl, template);
+        List<String> locations = getLocations(scmType, scmUrl, type);
         Properties resourceProperties = pu.getProperties(locations);
         Properties jenkinsProperties = getJenkinsProperties(scmType, scmUrl, majorVersion, project);
         Properties projectProperties = project.getProperties();
@@ -101,14 +101,13 @@ public class Generator {
         return properties;
     }
 
-    protected List<String> getLocations(String scmType, String scmUrl, Type template) {
+    protected List<String> getLocations(String scmType, String scmUrl, String type) {
         List<String> locations = new ArrayList<String>();
         locations.add("classpath:org/kuali/jenkins/kuali.properties");
         locations.add("classpath:org/kuali/jenkins/jenkins.properties");
         locations.add("classpath:org/kuali/jenkins/jobs/properties/common.xml");
         locations.add("classpath:org/kuali/jenkins/jobs/properties/" + scmType + ".xml");
-        String lowerCase = template.toString().toLowerCase();
-        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + lowerCase + ".xml");
+        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + type + ".xml");
         return locations;
     }
 

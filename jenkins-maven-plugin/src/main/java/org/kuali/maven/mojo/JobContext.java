@@ -4,7 +4,7 @@ import org.apache.maven.project.MavenProject;
 
 public class JobContext {
     String filename;
-    Type type;
+    String type;
     MavenProject project;
 
     public String getFilename() {
@@ -15,12 +15,12 @@ public class JobContext {
         this.filename = filename;
     }
 
-    public Type getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Type template) {
-        this.type = template;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public MavenProject getProject() {
@@ -30,5 +30,4 @@ public class JobContext {
     public void setProject(MavenProject project) {
         this.project = project;
     }
-
 }
