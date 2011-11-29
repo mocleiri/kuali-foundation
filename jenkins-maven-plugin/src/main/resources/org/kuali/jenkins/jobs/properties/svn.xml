@@ -26,5 +26,9 @@
   <entry key="jenkins.job.svn.excludedUsers"></entry>
   <entry key="jenkins.job.svn.excludedRevprop"></entry>
   <entry key="jenkins.job.svn.excludedCommitMessages"></entry>
-  <entry key="jenkins.job.svn.workspaceUpdater.class">hudson.scm.subversion.UpdateUpdater</entry>
+  <entry key="jenkins.job.svn.workspaceUpdater.class">${jenkins.job.svn.workspaceUpdater.class.update}</entry>
+  <entry key="jenkins.job.svn.workspaceUpdater.class.update">hudson.scm.subversion.UpdateUpdater</entry>
+  <entry key="jenkins.job.svn.workspaceUpdater.class.freshCopyAlways">hudson.scm.subversion.CheckoutUpdater</entry>
+  <entry key="jenkins.job.svn.workspaceUpdater.class.cleanThenUpdate">hudson.scm.subversion.UpdateWithCleanUpdater</entry>
+  <entry key="jenkins.job.svn.workspaceUpdater.class.revertThenUpdate">hudson.scm.subversion.UpdateWithRevertUpdater</entry>
 </properties>

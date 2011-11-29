@@ -47,5 +47,6 @@
           <li>Deploy the build artifacts to the Sonatype Nexus instance that sync's with Maven Central</li>
       </div>
 ]]></entry>
+  <entry key="jenkins.job.svn.workspaceUpdater.class">${jenkins.job.svn.workspaceUpdater.class.freshCopyAlways}</entry>
 
 </properties>
