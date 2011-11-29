@@ -13,8 +13,15 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public class PropertiesUtils {
+	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}");
+
+	public String getResolvedValue(String value, Properties properties) {
+		return helper.replacePlaceholders(value, properties);
+	}
+
 	public Properties getProperties(List<String> locations) throws IOException {
 		Properties properties = new Properties();
 		for (String location : locations) {
