@@ -7,6 +7,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.maven.common.Extractor;
 
 /**
  * @goal generatejob
@@ -46,13 +47,20 @@ public class GenerateJobMojo extends AbstractMojo {
     }
 
     protected JobContext getContext() {
+        Extractor extractor = new Extractor();
+        String scmType = extractor.getScmType(project.getScm());
+        String scmUrl = extractor.getScmUrl(project.getScm());
+        String majorVersion = extractor.getMajorVersion(project.getVersion());
         if (StringUtils.isEmpty(filename)) {
             setFilename(generator.getDefaultFilename(project, type.toString().toLowerCase()));
         }
         JobContext context = new JobContext();
         context.setFilename(filename);
         context.setProject(project);
-        context.setType(type);
+        context.setJobType(type);
+        context.setScmType(scmType);
+        context.setScmUrl(scmUrl);
+        context.setMajorVersion(majorVersion);
         return context;
     }
 

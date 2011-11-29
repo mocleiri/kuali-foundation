@@ -40,7 +40,7 @@ public class Generator {
 
     public void generate(JobContext context) throws IOException {
         MavenProject project = context.getProject();
-        String type = context.getType();
+        String type = context.getJobType();
         String filename = context.getFilename();
         Properties properties = getProperties(project, type);
         String xml = read("classpath:org/kuali/jenkins/jobs/templates/jenkins.xml");
