@@ -15,6 +15,11 @@ import org.springframework.core.io.ResourceLoader;
 public class ResourceUtils {
 	ResourceLoader loader = new DefaultResourceLoader();
 
+	/**
+	 * Given a location that can represent either a file on the file system or a Spring style resource, return an
+	 * InputStream. The method checks the file system first. If no file exists, it uses Spring resource loading to
+	 * obtain an InputStream
+	 */
 	public InputStream getInputStream(String location) throws IOException {
 		File file = new File(location);
 		if (file.exists()) {
@@ -27,11 +32,26 @@ public class ResourceUtils {
 		return resource.getInputStream();
 	}
 
+	/**
+	 * Copy a URL location to the local file system
+	 */
 	public void copy(String location, String filename) throws IOException {
-		String contents = read(location);
-		write(filename, contents);
+		InputStream in = null;
+		OutputStream out = null;
+		try {
+			in = getInputStream(location);
+			out = FileUtils.openOutputStream(new File(filename));
+			IOUtils.copy(in, out);
+		} finally {
+			IOUtils.closeQuietly(in);
+			IOUtils.closeQuietly(out);
+
+		}
 	}
 
+	/**
+	 * Write the string to the file system
+	 */
 	public void write(String filename, String contents) throws IOException {
 		OutputStream out = null;
 		try {
@@ -43,6 +63,9 @@ public class ResourceUtils {
 
 	}
 
+	/**
+	 * Read the contents of the URL location into a string
+	 */
 	public String read(String location) throws IOException {
 		InputStream in = null;
 		try {
