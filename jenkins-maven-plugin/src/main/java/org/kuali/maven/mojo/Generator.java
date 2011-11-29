@@ -66,7 +66,7 @@ public class Generator {
 		return sb.toString();
 	}
 
-	protected void write(String filename, String contents) throws IOException {
+	public void write(String filename, String contents) throws IOException {
 		OutputStream out = null;
 		try {
 			out = FileUtils.openOutputStream(new File(filename));
@@ -77,7 +77,7 @@ public class Generator {
 
 	}
 
-	protected String read(String location) throws IOException {
+	public String read(String location) throws IOException {
 		InputStream in = null;
 		try {
 			in = pu.getInputStream(location);
