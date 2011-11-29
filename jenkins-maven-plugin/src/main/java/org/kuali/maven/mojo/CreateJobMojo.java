@@ -10,7 +10,6 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.maven.common.Extractor;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
 
 public class CreateJobMojo extends AbstractMojo {
 	Extractor extractor = new Extractor();
