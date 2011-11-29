@@ -1,11 +1,14 @@
 package org.kuali.maven.mojo;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -28,10 +31,16 @@ public class CreateJobXMLMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     * 
      * @parameter expression="${jenkins.template}" default-value="PUBLISH"
+     * @required
      */
     private Template template;
+
+    /**
+     * @parameter expression="${jenkins.filename}" default-value="${project.build.directory}/jenkins/job-config.xml"
+     * @required
+     */
+    private String filename;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -39,9 +48,22 @@ public class CreateJobXMLMojo extends AbstractMojo {
             Properties properties = getProperties();
             String xml = getContent("classpath:org/kuali/cm/jenkins/jobs/templates/jenkins.xml");
             String resolvedXml = pu.getResolvedValue(xml, properties);
+            write(filename, resolvedXml);
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected error", e);
         }
+    }
+
+    protected void write(String filename, String contents) throws IOException {
+        File file = new File(filename);
+        OutputStream out = null;
+        try {
+            out = FileUtils.openOutputStream(file);
+            IOUtils.write(contents, out);
+        } finally {
+            IOUtils.closeQuietly(out);
+        }
+
     }
 
     protected String getContent(String location) throws IOException {
