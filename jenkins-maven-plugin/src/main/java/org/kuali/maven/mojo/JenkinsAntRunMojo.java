@@ -2,13 +2,9 @@ package org.kuali.maven.mojo;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.antrun.AntrunXmlPlexusConfigurationWriter;
-import org.codehaus.plexus.configuration.PlexusConfiguration;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
-import org.codehaus.plexus.util.FileUtils;
 
 /**
  * @goal antrun
@@ -18,20 +14,23 @@ public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		getLog().info("hello world");
-		PlexusConfiguration pc
+		super.setAntTargetName("main");
 		super.execute();
 	}
 
-	/**
-	 * Write the ant target and surrounding tags to a temporary file
-	 * 
-	 * @throws PlexusConfigurationException
-	 */
 	@Override
 	protected File writeTargetToProjectFile() throws IOException, PlexusConfigurationException {
 		String filename = getProject().getBuild().getDirectory() + "/antrun/build-main.xml";
-		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+		sb.append("<project name=\"maven-antrun-\" default=\"main\"  >\n");
+		sb.append("<target name=\"main\">\n");
+		sb.append("  <echo>hello world</echo>\n");
+		sb.append("</target>\n");
+		sb.append("</project>\n");
+		generator.write(filename, sb.toString());
+		return new File(filename);
+
 	}
 
 }
