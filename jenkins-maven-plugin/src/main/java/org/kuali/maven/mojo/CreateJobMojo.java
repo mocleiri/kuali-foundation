@@ -26,7 +26,6 @@ public class CreateJobMojo extends AbstractMojo {
 	/**
 	 * 
 	 * @parameter expression="${jenkins.template}" default-value="PUBLISH"
-	 * @required
 	 */
 	private Template template;
 
