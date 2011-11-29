@@ -64,6 +64,8 @@ public class GenerateJobMojo extends AbstractMojo {
             String defaultFilename = generator.getDefaultFilename(context);
             setFilename(defaultFilename);
         }
+
+        context.setFilename(filename);
         return context;
     }
 
