@@ -30,7 +30,7 @@ public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 	public void execute() throws MojoExecutionException {
 		try {
 			super.setAntTargetName("main");
-			localFile = new File(getProject().getBuild().getDirectory() + "/antrun/local-file.xml");
+			localFile = new File(getProject().getBuild().getDirectory() + "/antrun/build-local.xml");
 			generator.copy(location, localFile.getAbsolutePath());
 			super.execute();
 		} catch (IOException e) {
