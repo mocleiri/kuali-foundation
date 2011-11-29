@@ -23,23 +23,31 @@ public class GenerateJobConfigMojo extends AbstractMojo {
 	private MavenProject project;
 
 	/**
+	 * The type of job eg publish, unit, license, release
+	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 * @required
 	 */
 	private String type;
 
 	/**
+	 * The location of the jenkins job config template
+	 * 
 	 * @parameter expression="${jenkins.template}" default-value="classpath:org/kuali/jenkins/jobs/template.xml"
 	 * @required
 	 */
 	private String template;
 
 	/**
+	 * The directory where the job config will be generated
+	 * 
 	 * @parameter expression="${jenkins.configDir}" default-value="${project.build.directory}/jenkins"
 	 */
 	private String configDir;
 
 	/**
+	 * The format for timestamp displays
+	 * 
 	 * @parameter expression="${jenkins.timestampFormat}" default-value="yyyy-MM-dd HH:mm:ss z"
 	 * @required
 	 */
