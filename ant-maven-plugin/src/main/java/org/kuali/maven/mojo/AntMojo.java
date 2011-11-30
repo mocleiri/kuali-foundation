@@ -437,7 +437,6 @@ public class AntMojo extends AbstractMojo {
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
 		sb.append("<project name=\"maven-antrun-\" default=\"main\">\n");
 		sb.append("  <target name=\"main\">\n");
-		sb.append("    <property name=\"maven.plugin.classpath\" refid=\"maven.plugin.classpath\" />\n");
 		sb.append("    <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + target + "\"/>\n");
 		sb.append("  </target>\n");
 		sb.append("</project>\n");

@@ -22,7 +22,6 @@ package org.kuali.maven.mojo;
 import java.io.File;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -36,7 +35,6 @@ import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.antrun.AntrunXmlPlexusConfigurationWriter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.tools.ant.BuildException;
@@ -45,7 +43,6 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.taskdefs.Typedef;
 import org.apache.tools.ant.types.Path;
-import org.codehaus.plexus.configuration.PlexusConfiguration;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
@@ -89,10 +86,6 @@ public class AntRunMojo extends AbstractMojo {
 	public final static String UTF_8 = "UTF-8";
 
 	public static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"" + UTF_8 + "\" ?>\n";
-	/**
-	 * The name used for the ant target
-	 */
-	private String antTargetName;
 
 	/**
 	 * The path to The XML file containing the definition of the Maven tasks.
@@ -162,14 +155,6 @@ public class AntRunMojo extends AbstractMojo {
 	private String versionsPropertyName;
 
 	/**
-	 * The XML for the Ant target. You can add anything you can add between &lt;target&gt; and &lt;/target&gt; in a build.xml.
-	 * 
-	 * @parameter
-	 * @since 1.5
-	 */
-	private PlexusConfiguration target;
-
-	/**
 	 * Specifies whether the Antrun execution should be skipped.
 	 * 
 	 * @parameter expression="${maven.antrun.skip}" default-value="false"
@@ -197,25 +182,24 @@ public class AntRunMojo extends AbstractMojo {
 	private boolean failOnError;
 
 	/**
-	 * @parameter expression="${ant.location}"
+	 * The build file to use.
+	 * 
+	 * @parameter expression="${ant.location}" default-value="build.xml"
 	 */
 	private String location;
 
 	/**
-	 * @parameter expression="${ant.locationTarget}" default-value="main"
+	 * If not provided, the default target from the specified build file will be executed
+	 * 
+	 * @parameter expression="${ant.target}"
 	 */
-	private String locationTarget;
+	private String target;
 
 	private File localFile;
 
 	protected boolean isSkip() {
 		if (skip) {
 			getLog().info("Skipping Ant execution");
-			return true;
-		}
-
-		if (target == null && StringUtils.isEmpty(location)) {
-			getLog().info("No Ant target defined - SKIPPED");
 			return true;
 		}
 		return false;
@@ -271,8 +255,6 @@ public class AntRunMojo extends AbstractMojo {
 			Path p = new Path(antProject);
 			p.setPath(StringUtils.join(mavenProject.getCompileClasspathElements().iterator(), File.pathSeparator));
 
-			/* maven.dependency.classpath it's deprecated as it's equal to maven.compile.classpath */
-			antProject.addReference("maven.dependency.classpath", p);
 			antProject.addReference("maven.compile.classpath", p);
 
 			p = new Path(antProject);
@@ -286,20 +268,42 @@ public class AntRunMojo extends AbstractMojo {
 			/* set maven.plugin.classpath with plugin dependencies */
 			antProject.addReference("maven.plugin.classpath", getPathFromArtifacts(pluginArtifacts, antProject));
 
+			Object object = antProject.getReference("maven.plugin.classpath");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info(object.toString());
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+			getLog().info("fooo");
+
 			antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
 			antProject.addReference(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
 			antProject.addReference("maven.local.repository", localRepository);
 			initMavenTasks(antProject);
 
-			// The ant project needs actual properties vs. using expression evaluator when calling an external build
-			// file.
+			// Ant project needs actual properties vs. using expression evaluator when calling an external build file.
 			copyProperties(mavenProject, antProject);
 
 			if (getLog().isInfoEnabled()) {
 				getLog().info("Executing tasks");
 			}
 
-			antProject.executeTarget(antTargetName);
+			String s = antProject.toString();
+			getLog().info(s);
+			antProject.toString();
+
+			antProject.executeTarget(DEFAULT_ANT_TARGET_NAME);
 
 			if (getLog().isInfoEnabled()) {
 				getLog().info("Executed tasks");
@@ -469,8 +473,9 @@ public class AntRunMojo extends AbstractMojo {
 		StringBuilder sb = new StringBuilder();
 		sb.append(XML_HEADER);
 		sb.append(getProjectOpen());
-		sb.append("  <target name=\"main\">\n");
-		sb.append("    <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + locationTarget + "\"/>\n");
+		sb.append("  <target name=\"" + DEFAULT_ANT_TARGET_NAME + "\">\n");
+		sb.append("    <ant inheritRefs=\"true\" antfile=\"target/antrun/build-local.xml\" target=\"" + target
+				+ "\"/>\n");
 		sb.append("  </target>\n");
 		sb.append("</project>\n");
 		return sb.toString();
@@ -482,44 +487,14 @@ public class AntRunMojo extends AbstractMojo {
 	 * @throws PlexusConfigurationException
 	 */
 	private File writeTargetToProjectFile() throws IOException, PlexusConfigurationException {
-		if (target == null) {
-			String s = getDefaultXML();
-		}
-		// Have to use an XML writer because in Maven 2.x the PlexusConfig toString() method loses XML attributes
-		StringWriter writer = new StringWriter();
-		AntrunXmlPlexusConfigurationWriter xmlWriter = new AntrunXmlPlexusConfigurationWriter();
-		xmlWriter.write(target, writer);
-
-		StringBuffer antProjectConfig = writer.getBuffer();
-
-		String targetName = getCorrectAntTargetName();
-
-		if (antTargetName == null) {
-			antTargetName = targetName;
-			stringReplace(antProjectConfig, "<target", "<target name=\"" + antTargetName + "\"");
-		}
-
-		antProjectConfig.insert(0, XML_HEADER);
-		final String projectOpen = getProjectOpen();
-		int index = antProjectConfig.indexOf("<target");
-		antProjectConfig.insert(index, projectOpen);
-
-		if (!StringUtils.isEmpty(location)) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("  <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + locationTarget + "\"/>\n");
-			index = antProjectConfig.indexOf("</target>");
-			antProjectConfig.insert(index, sb.toString());
-		}
-
-		final String projectClose = "\n</project>";
-		antProjectConfig.append(projectClose);
+		String s = getDefaultXML();
 
 		// The fileName should probably use the plugin executionId instead of the targetName
-		String fileName = "build-" + antTargetName + ".xml";
+		String fileName = "build-" + DEFAULT_ANT_TARGET_NAME + ".xml";
 		File buildFile = new File(project.getBuild().getDirectory(), "/antrun/" + fileName);
 
 		buildFile.getParentFile().mkdirs();
-		FileUtils.fileWrite(buildFile.getAbsolutePath(), UTF_8, antProjectConfig.toString());
+		FileUtils.fileWrite(buildFile.getAbsolutePath(), UTF_8, s);
 		return buildFile;
 	}
 
@@ -528,15 +503,7 @@ public class AntRunMojo extends AbstractMojo {
 		if (!customTaskPrefix.trim().equals("")) {
 			xmlns = "xmlns:" + customTaskPrefix + "=\"" + TASK_URI + "\"";
 		}
-		return "<project name=\"maven-antrun-\" default=\"" + antTargetName + "\" " + xmlns + " >\n";
-	}
-
-	protected String getCorrectAntTargetName() throws PlexusConfigurationException {
-		String targetName = DEFAULT_ANT_TARGET_NAME;
-		if (target != null) {
-			targetName = target.getAttribute("name");
-		}
-		return targetName;
+		return "<project name=\"maven-antrun-\" default=\"" + DEFAULT_ANT_TARGET_NAME + "\" " + xmlns + " >\n";
 	}
 
 	/**
@@ -554,14 +521,6 @@ public class AntRunMojo extends AbstractMojo {
 		if (index != -1) {
 			text.replace(index, index + match.length(), with);
 		}
-	}
-
-	public String checkTargetName(PlexusConfiguration antTargetConfig) throws PlexusConfigurationException {
-		String targetName = antTargetConfig.getAttribute("name");
-		if (targetName == null) {
-			targetName = DEFAULT_ANT_TARGET_NAME;
-		}
-		return targetName;
 	}
 
 	/**
