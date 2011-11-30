@@ -90,6 +90,9 @@ public class ResourceUtils {
 		}
 	}
 
+	/**
+	 * Return a filename for this resource, i.e. typically the last part of the path: for example, "myfile.txt".
+	 */
 	public String getFilename(String location) throws IOException {
 		File file = new File(location);
 		if (file.exists()) {
