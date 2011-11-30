@@ -589,8 +589,9 @@ public class AntRunMojo extends AbstractMojo {
 	protected String attr(String name, String value) {
 		if (StringUtils.isEmpty(value)) {
 			return "";
+		} else {
+			return " " + name + "=\"" + value + "\"";
 		}
-		return " " + name + "=\"" + value + "\"";
 	}
 
 }
