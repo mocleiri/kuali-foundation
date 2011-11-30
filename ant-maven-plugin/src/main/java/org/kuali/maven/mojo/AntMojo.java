@@ -167,7 +167,7 @@ public class AntMojo extends AbstractMojo {
 
 	/**
 	 * This is the temporary working directory for the plugin. It copies the build.xml file here and creates a build
-	 * wrapper here as well.
+	 * wrapper here.
 	 * 
 	 * @parameter expression="${ant.tmpDir}" default-value="${project.build.directory}/ant"
 	 */
