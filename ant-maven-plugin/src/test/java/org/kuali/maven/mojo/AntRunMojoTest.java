@@ -6,7 +6,7 @@ public class AntRunMojoTest {
 
 	@Test
 	public void test() {
-		AntRunMojo mojo = new AntRunMojo();
+		AntMojo mojo = new AntMojo();
 		String xml = mojo.getXML(new AntTaskPojo());
 		System.out.println(xml);
 	}
