@@ -197,7 +197,7 @@ public class AntRunMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		if (skip) {
-			getLog().info("Skipping Antrun execution");
+			getLog().info("Skipping Ant execution");
 			return;
 		}
 
