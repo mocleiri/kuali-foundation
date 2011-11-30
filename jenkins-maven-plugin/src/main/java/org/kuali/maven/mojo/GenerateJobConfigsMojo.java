@@ -6,12 +6,14 @@ import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.kuali.maven.common.PropertiesUtils;
 
 /**
  * @goal generatejobconfigs
  */
 public class GenerateJobConfigsMojo extends AbstractGenerateMojo {
 	Generator generator = new Generator();
+	PropertiesUtils propertiesUtils = new PropertiesUtils();
 
 	/**
 	 * Comma separated list of the types of jobs to generate
@@ -35,7 +37,7 @@ public class GenerateJobConfigsMojo extends AbstractGenerateMojo {
 	}
 
 	protected List<JobContext> getJobContexts(String types) {
-		String[] tokens = generator.getTypes(types);
+		String[] tokens = propertiesUtils.getTokens(types, true);
 		List<JobContext> contexts = new ArrayList<JobContext>();
 		for (String type : tokens) {
 			JobContext context = getJobContext(type);

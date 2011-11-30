@@ -1,32 +1,28 @@
 package org.kuali.maven.mojo;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
+import org.kuali.maven.common.ResourceUtils;
 
 public class Generator {
 	private static final String FS = System.getProperty("file.separator");
 	Extractor extractor = new Extractor();
 	PropertiesUtils pu = new PropertiesUtils();
+	ResourceUtils resourceUtils = new ResourceUtils();
 
 	public void generate(JobContext context) throws IOException {
 		Properties properties = getProperties(context);
-		String xml = read(context.getTemplate());
+		String xml = resourceUtils.read(context.getTemplate());
 		String resolvedXml = pu.getResolvedValue(xml, properties);
-		write(context.getFilename(), resolvedXml);
+		resourceUtils.write(context.getFilename(), resolvedXml);
 	}
 
 	public void fillInContext(JobContext context) {
@@ -44,14 +40,6 @@ public class Generator {
 
 	}
 
-	public String[] getTypes(String types) {
-		String[] tokens = StringUtils.split(types, ",");
-		for (String token : tokens) {
-			token = token.trim();
-		}
-		return tokens;
-	}
-
 	protected String getFilename(MavenProject project, String jobType) {
 		String buildDir = project.getBuild().getDirectory();
 		StringBuilder sb = new StringBuilder();
@@ -64,32 +52,6 @@ public class Generator {
 		sb.append("config");
 		sb.append(".xml");
 		return sb.toString();
-	}
-
-	public void copy(String location, String filename) throws IOException {
-		String contents = read(location);
-		write(filename, contents);
-	}
-
-	public void write(String filename, String contents) throws IOException {
-		OutputStream out = null;
-		try {
-			out = FileUtils.openOutputStream(new File(filename));
-			IOUtils.write(contents, out);
-		} finally {
-			IOUtils.closeQuietly(out);
-		}
-
-	}
-
-	public String read(String location) throws IOException {
-		InputStream in = null;
-		try {
-			in = pu.getInputStream(location);
-			return IOUtils.toString(in);
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
 	}
 
 	protected Properties getProperties(JobContext context) throws IOException {

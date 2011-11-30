@@ -83,11 +83,6 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 	public final static String UTF_8 = "UTF-8";
 
 	/**
-	 * The name used for the ant target
-	 */
-	private String antTargetName;
-
-	/**
 	 * The path to The XML file containing the definition of the Maven tasks.
 	 */
 	public final static String ANTLIB = "org/apache/maven/ant/tasks/antlib.xml";
@@ -178,6 +173,22 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 	private boolean failOnError;
 
 	/**
+	 * The target to execute
+	 * 
+	 * @parameter expression="${ant.target}" default-value="true"
+	 */
+	private String target;
+
+	/**
+	 * The location of the build.xml file
+	 * 
+	 * @parameter expression="${ant.location}" default-value="classpath:build.xml"
+	 */
+	private String location;
+
+	private File localFile;
+
+	/**
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
 	@Override
@@ -249,7 +260,7 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 				getLog().info("Executing tasks");
 			}
 
-			antProject.executeTarget(antTargetName);
+			antProject.executeTarget(DEFAULT_ANT_TARGET_NAME);
 
 			if (getLog().isInfoEnabled()) {
 				getLog().info("Executed tasks");
@@ -455,7 +466,17 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 	 * 
 	 * @throws PlexusConfigurationException
 	 */
-	protected abstract File writeTargetToProjectFile() throws IOException, PlexusConfigurationException;
+	protected File writeTargetToProjectFile() throws IOException, PlexusConfigurationException {
+		String filename = getProject().getBuild().getDirectory() + "/antrun/build-main.xml";
+		StringBuilder sb = new StringBuilder();
+		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+		sb.append("<project name=\"maven-antrun-\" default=\"main\">\n");
+		sb.append("  <target name=\"main\">\n");
+		sb.append("    <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + target + "\"/>\n");
+		sb.append("  </target>\n");
+		sb.append("</project>\n");
+		return new File(filename);
+	}
 
 	/**
 	 * Replace text in a StringBuffer. If the match text is not found, the StringBuffer is returned unchanged.
@@ -520,14 +541,6 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 		return null;
 	}
 
-	public String getAntTargetName() {
-		return antTargetName;
-	}
-
-	public void setAntTargetName(String antTargetName) {
-		this.antTargetName = antTargetName;
-	}
-
 	public String getPropertyPrefix() {
 		return propertyPrefix;
 	}
@@ -586,5 +599,21 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 
 	public ArtifactRepository getLocalRepository() {
 		return localRepository;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 }

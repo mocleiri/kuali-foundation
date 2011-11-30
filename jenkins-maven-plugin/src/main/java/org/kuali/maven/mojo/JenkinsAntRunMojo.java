@@ -12,10 +12,6 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 	Generator generator = new Generator();
 
-	/**
-	 * @parameter expression="${jenkins.cli.cmd}" default-value="noop"
-	 * @required
-	 */
 	private String cliCommand;
 
 	/**
@@ -52,5 +48,21 @@ public class JenkinsAntRunMojo extends AbstractAntRunMojo {
 		generator.write(filename, sb.toString());
 		return new File(filename);
 
+	}
+
+	public String getCliCommand() {
+		return cliCommand;
+	}
+
+	public void setCliCommand(String cliCommand) {
+		this.cliCommand = cliCommand;
+	}
+
+	public String getCliWrapper() {
+		return cliWrapper;
+	}
+
+	public void setCliWrapper(String cliWrapper) {
+		this.cliWrapper = cliWrapper;
 	}
 }
