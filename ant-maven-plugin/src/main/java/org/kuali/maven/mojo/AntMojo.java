@@ -204,6 +204,10 @@ public class AntMojo extends AbstractMojo {
 
 			addReferences(antProject);
 
+			File antBuildFile = createBuildWrapper();
+			ProjectHelper.configureProject(antProject, antBuildFile);
+			antProject.init();
+
 			// Ant project needs actual properties vs. using expression evaluator when calling an external build file.
 			copyProperties(project, antProject);
 
@@ -224,9 +228,6 @@ public class AntMojo extends AbstractMojo {
 	protected void addReferences(Project antProject) throws BuildException, DependencyResolutionRequiredException {
 		Path p = new Path(antProject);
 		p.setPath(StringUtils.join(project.getCompileClasspathElements().iterator(), File.pathSeparator));
-
-		/* maven.dependency.classpath it's deprecated as it's equal to maven.compile.classpath */
-		antProject.addReference("maven.dependency.classpath", p);
 		antProject.addReference("maven.compile.classpath", p);
 
 		p = new Path(antProject);
@@ -238,7 +239,8 @@ public class AntMojo extends AbstractMojo {
 		antProject.addReference("maven.test.classpath", p);
 
 		/* set maven.plugin.classpath with plugin dependencies */
-		antProject.addReference("maven.plugin.classpath", getPathFromArtifacts(pluginArtifacts, antProject));
+		p = getPathFromArtifacts(pluginArtifacts, antProject);
+		antProject.addReference("maven.plugin.classpath", p);
 
 		antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
 		antProject.addReference(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
@@ -254,9 +256,6 @@ public class AntMojo extends AbstractMojo {
 
 	protected Project getAntProject() throws IOException {
 		Project antProject = new Project();
-		File antBuildFile = createBuildWrapper();
-		ProjectHelper.configureProject(antProject, antBuildFile);
-		antProject.init();
 		return antProject;
 	}
 
@@ -317,7 +316,9 @@ public class AntMojo extends AbstractMojo {
 		}
 
 		Path p = new Path(antProject);
-		p.setPath(StringUtils.join(list.iterator(), File.pathSeparator));
+		String s = StringUtils.join(list.iterator(), File.pathSeparator);
+		getLog().info(s);
+		p.setPath(s);
 
 		return p;
 	}
@@ -433,6 +434,7 @@ public class AntMojo extends AbstractMojo {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
 		sb.append("<project name=\"maven-antrun-\" default=\"main\">\n");
+		sb.append("<property name=\"maven.plugin.classpath\" refid=\"maven.plugin.classpath\" />\n");
 		sb.append("  <target name=\"main\">\n");
 		sb.append("    <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + target + "\"/>\n");
 		sb.append("  </target>\n");
