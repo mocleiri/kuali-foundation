@@ -1,12 +1,12 @@
 package org.kuali.maven.mojo;
 
 /**
- * Pojo for helping to create XML for the Ant "ant" task
+ * Pojo representing the Ant "ant" task
  * 
  * http://ant.apache.org/manual/Tasks/ant.html
  */
-public class AntFile {
-	String antfile;
+public class AntTaskPojo {
+	String antfile = "build.xml";
 	String dir;
 	String target;
 	String output;

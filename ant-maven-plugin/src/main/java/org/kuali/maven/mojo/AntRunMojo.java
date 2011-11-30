@@ -555,4 +555,12 @@ public class AntRunMojo extends AbstractMojo {
 
 		return null;
 	}
+
+	protected String getXML(AntTaskPojo atp) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<ant ");
+		sb.append("/>");
+		return sb.toString();
+	}
+
 }
