@@ -200,6 +200,8 @@ public class AntRunMojo extends AbstractMojo {
 	 */
 	private String location;
 
+	private File localFile;
+
 	/**
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
@@ -225,7 +227,8 @@ public class AntRunMojo extends AbstractMojo {
 			if (!StringUtils.isEmpty(location)) {
 				String dir = project.getBuild().getDirectory() + "/antrun";
 				String filename = "build-local.xml";
-				resourceUtils.copy(location, dir + "/" + filename);
+				localFile = new File(dir + "/" + filename);
+				resourceUtils.copy(location, localFile.getAbsolutePath());
 			}
 
 			Project antProject = new Project();
@@ -486,10 +489,8 @@ public class AntRunMojo extends AbstractMojo {
 		antProjectConfig.insert(index, projectOpen);
 
 		if (!StringUtils.isEmpty(location)) {
-			String filename = project.getBuild().getDirectory() + "/antrun/build-local.xml";
-			File file = new File(filename);
 			StringBuilder sb = new StringBuilder();
-			sb.append("  <ant antfile=\"" + file.getAbsolutePath() + "\" target=\"noop\"/>\n");
+			sb.append("  <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"noop\"/>\n");
 			index = antProjectConfig.indexOf("</target>");
 			antProjectConfig.insert(index, sb.toString());
 		}
