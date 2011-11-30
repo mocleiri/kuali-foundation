@@ -317,10 +317,10 @@ public class AntRunMojo extends AbstractMojo {
 			Map<String, Path> pathRefs = getPathRefs(antProject, mavenProject);
 			addPathRefs(antProject, pathRefs);
 
-			File antBuildFile = createBuildWrapper();
+			File antBuildFile = createBuildWrapper(pathRefs);
 			ProjectHelper.configureProject(antProject, antBuildFile);
 			antProject.init();
-			
+
 			addMavenReferences(antProject, mavenProject);
 			initMavenTasks(antProject);
 
@@ -493,11 +493,14 @@ public class AntRunMojo extends AbstractMojo {
 		typedef.execute();
 	}
 
-	protected String getDefaultXML() throws IOException {
+	protected String getDefaultXML(Map<String, Path> pathRefs) throws IOException {
 		AntTaskPojo atp = getAntTaskPojo();
 		StringBuilder sb = new StringBuilder();
 		sb.append(XML_HEADER);
 		sb.append(getProjectOpen());
+		for (String key : pathRefs.keySet()) {
+			sb.append("  <property name=\"" + key + "\" refid=\"" + key + "\" />\n");
+		}
 		sb.append("  <target name=\"" + DEFAULT_ANT_TARGET_NAME + "\">\n");
 		sb.append("    " + getXML(atp) + "\n");
 		sb.append("  </target>\n");
@@ -508,8 +511,8 @@ public class AntRunMojo extends AbstractMojo {
 	/**
 	 * Write the ant target and surrounding tags to a temporary file
 	 */
-	protected File createBuildWrapper() throws IOException {
-		String xml = getDefaultXML();
+	protected File createBuildWrapper(Map<String, Path> pathRefs) throws IOException {
+		String xml = getDefaultXML(pathRefs);
 
 		// The fileName should probably use the plugin executionId instead
 		File buildFile = new File(ANT_BUILD_DIR + FS + antFilename);
