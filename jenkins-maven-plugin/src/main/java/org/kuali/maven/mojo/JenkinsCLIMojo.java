@@ -8,24 +8,33 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class JenkinsCLIMojo extends AntMojo {
 
 	/**
-	 * The location of the Ant build.xml file. This can be a file on the file system, a file on the classpath, or any
-	 * URL that Spring's resource loading can understand
-	 * 
-	 * @parameter expression="${jenkins.cliWrapper}"
-	 *            default-value="classpath:org/kuali/jenkins/jobs/ant/cli-wrapper.xml"
+	 * @parameter expression="${jenkins.ant.wrapper}" default-value="classpath:org/kuali/jenkins/jobs/ant/cli-wrapper.xml"
 	 */
-	private String cliWrapper;
+	private String wrapper;
+
+	/**
+	 * @parameter expression="${jenkins.properties}" default-value="classpath:org/kuali/jenkins/jobs/jenkins.properties"
+	 */
+	private String properties;
 
 	@Override
 	public void execute() throws MojoExecutionException {
 	}
 
-	public String getCliWrapper() {
-		return cliWrapper;
+	public String getWrapper() {
+		return wrapper;
 	}
 
-	public void setCliWrapper(String cliWrapper) {
-		this.cliWrapper = cliWrapper;
+	public void setWrapper(String wrapper) {
+		this.wrapper = wrapper;
+	}
+
+	public String getProperties() {
+		return properties;
+	}
+
+	public void setProperties(String properties) {
+		this.properties = properties;
 	}
 
 }
