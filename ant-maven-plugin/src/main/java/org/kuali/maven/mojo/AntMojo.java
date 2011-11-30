@@ -38,6 +38,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.BuildLogger;
 import org.apache.tools.ant.DefaultLogger;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
@@ -48,20 +49,19 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.ReaderFactory;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.maven.common.ResourceUtils;
 
 /**
- * Maven AntRun Mojo. <br/>
- * This plugin provides the capability of calling Ant tasks from a POM by running the nested ant tasks inside the
- * &lt;tasks/&gt; parameter. It is encouraged to move the actual tasks to a separate build.xml file and call that file
- * with an &lt;ant/&gt; task.
+ * Maven Ant Mojo. This plugin allows Maven to invoke Ant tasks. Specify any Ant build.xml file available on the file
+ * system, classpath (or any other URL location supported by Spring style resource syntax) and specify a target inside
+ * the file to invoke
  * 
- * @author <a href="mailto:kenney@apache.org">Kenney Westerhof</a>
- * @author <a href="mailto:vincent.siveton@gmail.com">Vincent Siveton</a>
- * @version $Id: AntRunMojo.java 1190514 2011-10-28 19:27:43Z bimargulies $
  * @threadSafe
  * @requiresDependencyResolution test
+ * @goal ant
  */
-public abstract class AbstractAntRunMojo extends AbstractMojo {
+public class AntMojo extends AbstractMojo {
+	ResourceUtils resourceUtils = new ResourceUtils();
 	/**
 	 * The refid used to store the Maven project object in the Ant build.
 	 */
@@ -81,6 +81,10 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 	 * The default encoding to use for the generated Ant build.
 	 */
 	public final static String UTF_8 = "UTF-8";
+
+	public final static String LOCAL_FILE = "build-local.xml";
+	public final static String BUILD_WRAPPER = "build-wrapper.xml";
+	public final static String BUILD_WRAPPER_TARGET = "main";
 
 	/**
 	 * The name used for the ant target
@@ -132,16 +136,16 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 	/**
 	 * String to prepend to project and dependency property names.
 	 * 
-	 * @parameter default-value=""
+	 * @parameter expression="${ant.propertyPrefix}" default-value=""
 	 */
-	private String propertyPrefix;
+	private String propertyPrefix = "";
 
 	/**
 	 * The xml tag prefix to use for the built in Ant tasks. This prefix needs to be prepended to each task referenced
 	 * in the antrun target config. For example, a prefix of "mvn" means that the attachartifact task is referenced by
 	 * "&lt;mvn:attachartifact&gt;" The default value of an empty string means that no prefix is used for the tasks.
 	 * 
-	 * @parameter default-value=""
+	 * @parameter expression="${ant.customTaskPrefix}" default-value=""
 	 */
 	private String customTaskPrefix = "";
 
@@ -149,21 +153,21 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 	 * The name of a property containing the list of all dependency versions. This is used for the removing the versions
 	 * from the filenames.
 	 * 
-	 * @parameter default-value="maven.project.dependencies.versions"
+	 * @parameter expression="${ant.versionsPropertyName}" default-value="maven.project.dependencies.versions"
 	 */
 	private String versionsPropertyName;
 
 	/**
-	 * Specifies whether the Antrun execution should be skipped.
+	 * Specifies whether the Ant execution should be skipped.
 	 * 
-	 * @parameter expression="${maven.antrun.skip}" default-value="false"
+	 * @parameter expression="${ant.skip}" default-value="false"
 	 */
 	private boolean skip;
 
 	/**
 	 * Specifies whether the Ant properties should be propagated to the Maven properties.
 	 * 
-	 * @parameter default-value="false"
+	 * @parameter expression="${ant.exportAntProperties}" default-value="false"
 	 */
 	private boolean exportAntProperties;
 
@@ -173,13 +177,27 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 	 * If this value is 'true', the Maven build will proceed even if the ant build fails. If it is 'false', then the
 	 * Maven build fails if the ant build fails.
 	 * 
-	 * @parameter default-value="true"
+	 * @parameter expression="${ant.failOnError}" default-value="true"
 	 */
 	private boolean failOnError;
 
 	/**
-	 * @see org.apache.maven.plugin.Mojo#execute()
+	 * @parameter expression="${ant.target}"
 	 */
+	private String target;
+
+	/**
+	 * @parameter expression="${ant.location}" default-value="classpath:build.xml"
+	 */
+	private String location;
+
+	/**
+	 * @parameter expression="${ant.tmpDir}" default-value="${project.build.directory}/ant"
+	 */
+	private String tmpDir;
+
+	private File localFile;
+
 	@Override
 	public void execute() throws MojoExecutionException {
 		if (skip) {
@@ -187,94 +205,104 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 			return;
 		}
 
-		MavenProject mavenProject = getMavenProject();
-
-		if (propertyPrefix == null) {
-			propertyPrefix = "";
-		}
-
 		try {
-			Project antProject = new Project();
-			File antBuildFile = writeTargetToProjectFile();
-			ProjectHelper.configureProject(antProject, antBuildFile);
-			antProject.init();
+			localFile = createLocalFile();
+			Project antProject = getAntProject();
 
-			DefaultLogger antLogger = new DefaultLogger();
-			antLogger.setOutputPrintStream(System.out);
-			antLogger.setErrorPrintStream(System.err);
-
-			if (getLog().isDebugEnabled()) {
-				antLogger.setMessageOutputLevel(Project.MSG_DEBUG);
-			} else if (getLog().isInfoEnabled()) {
-				antLogger.setMessageOutputLevel(Project.MSG_INFO);
-			} else if (getLog().isWarnEnabled()) {
-				antLogger.setMessageOutputLevel(Project.MSG_WARN);
-			} else if (getLog().isErrorEnabled()) {
-				antLogger.setMessageOutputLevel(Project.MSG_ERR);
-			} else {
-				antLogger.setMessageOutputLevel(Project.MSG_VERBOSE);
-			}
-
+			BuildLogger antLogger = getBuildLogger();
 			antProject.addBuildListener(antLogger);
-			antProject.setBaseDir(mavenProject.getBasedir());
+			antProject.setBaseDir(project.getBasedir());
 
-			Path p = new Path(antProject);
-			p.setPath(StringUtils.join(mavenProject.getCompileClasspathElements().iterator(), File.pathSeparator));
+			addReferences(antProject);
 
-			/* maven.dependency.classpath it's deprecated as it's equal to maven.compile.classpath */
-			antProject.addReference("maven.dependency.classpath", p);
-			antProject.addReference("maven.compile.classpath", p);
+			// Ant project needs actual properties vs. using expression evaluator when calling an external build file.
+			copyProperties(project, antProject);
 
-			p = new Path(antProject);
-			p.setPath(StringUtils.join(mavenProject.getRuntimeClasspathElements().iterator(), File.pathSeparator));
-			antProject.addReference("maven.runtime.classpath", p);
-
-			p = new Path(antProject);
-			p.setPath(StringUtils.join(mavenProject.getTestClasspathElements().iterator(), File.pathSeparator));
-			antProject.addReference("maven.test.classpath", p);
-
-			/* set maven.plugin.classpath with plugin dependencies */
-			antProject.addReference("maven.plugin.classpath", getPathFromArtifacts(pluginArtifacts, antProject));
-
-			antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
-			antProject.addReference(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
-			antProject.addReference("maven.local.repository", localRepository);
-			initMavenTasks(antProject);
-
-			// The ant project needs actual properties vs. using expression evaluator when calling an external build
-			// file.
-			copyProperties(mavenProject, antProject);
-
-			if (getLog().isInfoEnabled()) {
-				getLog().info("Executing tasks");
-			}
-
+			getLog().info("Executing tasks");
 			antProject.executeTarget(antTargetName);
+			getLog().info("Executed tasks");
 
-			if (getLog().isInfoEnabled()) {
-				getLog().info("Executed tasks");
-			}
-
-			copyProperties(antProject, mavenProject);
+			copyProperties(antProject, project);
 		} catch (DependencyResolutionRequiredException e) {
 			throw new MojoExecutionException("DependencyResolutionRequiredException: " + e.getMessage(), e);
 		} catch (BuildException e) {
-			StringBuffer sb = new StringBuffer();
-			sb.append("An Ant BuildException has occured: " + e.getMessage());
-			String fragment = findFragment(e);
-			if (fragment != null) {
-				sb.append("\n").append(fragment);
-			}
-			if (!failOnError) {
-				getLog().info(sb.toString(), e);
-				return; // do not register roots.
-			} else {
-				throw new MojoExecutionException(sb.toString(), e);
-			}
+			handleBuildException(e);
 		} catch (Throwable e) {
 			throw new MojoExecutionException("Error executing ant tasks: " + e.getMessage(), e);
 		}
+	}
 
+	protected void addReferences(Project antProject) throws BuildException, DependencyResolutionRequiredException {
+		Path p = new Path(antProject);
+		p.setPath(StringUtils.join(project.getCompileClasspathElements().iterator(), File.pathSeparator));
+
+		/* maven.dependency.classpath it's deprecated as it's equal to maven.compile.classpath */
+		antProject.addReference("maven.dependency.classpath", p);
+		antProject.addReference("maven.compile.classpath", p);
+
+		p = new Path(antProject);
+		p.setPath(StringUtils.join(project.getRuntimeClasspathElements().iterator(), File.pathSeparator));
+		antProject.addReference("maven.runtime.classpath", p);
+
+		p = new Path(antProject);
+		p.setPath(StringUtils.join(project.getTestClasspathElements().iterator(), File.pathSeparator));
+		antProject.addReference("maven.test.classpath", p);
+
+		/* set maven.plugin.classpath with plugin dependencies */
+		antProject.addReference("maven.plugin.classpath", getPathFromArtifacts(pluginArtifacts, antProject));
+
+		antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
+		antProject.addReference(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
+		antProject.addReference("maven.local.repository", localRepository);
+		initMavenTasks(antProject);
+	}
+
+	protected File createLocalFile() throws IOException {
+		String filename = tmpDir + "/" + LOCAL_FILE;
+		resourceUtils.copy(location, filename);
+		return new File(filename);
+	}
+
+	protected Project getAntProject() throws IOException {
+		Project antProject = new Project();
+		File antBuildFile = createBuildWrapper();
+		ProjectHelper.configureProject(antProject, antBuildFile);
+		antProject.init();
+		return antProject;
+	}
+
+	protected BuildLogger getBuildLogger() {
+		DefaultLogger antLogger = new DefaultLogger();
+		antLogger.setOutputPrintStream(System.out);
+		antLogger.setErrorPrintStream(System.err);
+
+		if (getLog().isDebugEnabled()) {
+			antLogger.setMessageOutputLevel(Project.MSG_DEBUG);
+		} else if (getLog().isInfoEnabled()) {
+			antLogger.setMessageOutputLevel(Project.MSG_INFO);
+		} else if (getLog().isWarnEnabled()) {
+			antLogger.setMessageOutputLevel(Project.MSG_WARN);
+		} else if (getLog().isErrorEnabled()) {
+			antLogger.setMessageOutputLevel(Project.MSG_ERR);
+		} else {
+			antLogger.setMessageOutputLevel(Project.MSG_VERBOSE);
+		}
+		return antLogger;
+	}
+
+	protected void handleBuildException(BuildException e) throws MojoExecutionException {
+		StringBuffer sb = new StringBuffer();
+		sb.append("An Ant BuildException has occured: " + e.getMessage());
+		String fragment = findFragment(e);
+		if (fragment != null) {
+			sb.append("\n").append(fragment);
+		}
+		if (!failOnError) {
+			getLog().info(sb.toString(), e);
+			return; // do not register roots.
+		} else {
+			throw new MojoExecutionException(sb.toString(), e);
+		}
 	}
 
 	/**
@@ -450,12 +478,18 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 		typedef.execute();
 	}
 
-	/**
-	 * Write the ant target and surrounding tags to a temporary file
-	 * 
-	 * @throws PlexusConfigurationException
-	 */
-	protected abstract File writeTargetToProjectFile() throws IOException, PlexusConfigurationException;
+	protected File createBuildWrapper() throws IOException {
+		String filename = tmpDir + "/" + BUILD_WRAPPER;
+		StringBuilder sb = new StringBuilder();
+		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+		sb.append("<project name=\"maven-antrun-\" default=\"main\">\n");
+		sb.append("  <target name=\"main\">\n");
+		sb.append("    <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + target + "\"/>\n");
+		sb.append("  </target>\n");
+		sb.append("</project>\n");
+		resourceUtils.write(filename, sb.toString());
+		return new File(filename);
+	}
 
 	/**
 	 * Replace text in a StringBuffer. If the match text is not found, the StringBuffer is returned unchanged.
@@ -586,5 +620,29 @@ public abstract class AbstractAntRunMojo extends AbstractMojo {
 
 	public ArtifactRepository getLocalRepository() {
 		return localRepository;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getTmpDir() {
+		return tmpDir;
+	}
+
+	public void setTmpDir(String temporaryDir) {
+		this.tmpDir = temporaryDir;
 	}
 }
