@@ -51,13 +51,8 @@ import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.ResourceUtils;
 
 /**
- * Maven AntRun Mojo. <br/>
- * This plugin provides the capability of calling Ant tasks from a POM by running the nested ant tasks inside the &lt;tasks/&gt; parameter. It is
- * encouraged to move the actual tasks to a separate build.xml file and call that file with an &lt;ant/&gt; task.
+ * Maven Ant Mojo.
  * 
- * @author <a href="mailto:kenney@apache.org">Kenney Westerhof</a>
- * @author <a href="mailto:vincent.siveton@gmail.com">Vincent Siveton</a>
- * @version $Id: AntRunMojo.java 1190514 2011-10-28 19:27:43Z bimargulies $
  * @goal run2
  * @threadSafe
  * @requiresDependencyResolution test
@@ -132,23 +127,23 @@ public class AntRunMojo extends AbstractMojo {
 	/**
 	 * String to prepend to project and dependency property names.
 	 * 
-	 * @parameter default-value=""
+	 * @parameter expression="${ant.propertyPrefix}" default-value=""
 	 */
-	private String propertyPrefix;
+	private String propertyPrefix = "";
 
 	/**
-	 * The xml tag prefix to use for the built in Ant tasks. This prefix needs to be prepended to each task referenced in the antrun target config. For
-	 * example, a prefix of "mvn" means that the attachartifact task is referenced by "&lt;mvn:attachartifact&gt;" The default value of an empty string
-	 * means that no prefix is used for the tasks.
+	 * The xml tag prefix to use for the built in Ant tasks. This prefix needs to be prepended to each task referenced. For example, a prefix of "mvn"
+	 * means that the attachartifact task is referenced by "&lt;mvn:attachartifact&gt;" The default value of an empty string means that no prefix is used
+	 * for the tasks.
 	 * 
-	 * @parameter default-value=""
+	 * @parameter expression="${ant.customTaskPrefix}" default-value=""
 	 */
 	private String customTaskPrefix = "";
 
 	/**
 	 * The name of a property containing the list of all dependency versions. This is used for the removing the versions from the filenames.
 	 * 
-	 * @parameter default-value="maven.project.dependencies.versions"
+	 * @parameter expression="${ant.versionsPropertyName}" default-value="maven.project.dependencies.versions"
 	 */
 	private String versionsPropertyName;
 
@@ -162,7 +157,7 @@ public class AntRunMojo extends AbstractMojo {
 	/**
 	 * Specifies whether the Ant properties should be propagated to the Maven properties.
 	 * 
-	 * @parameter default-value="false"
+	 * @parameter expression="${ant.exportAntProperties}" default-value="false"
 	 */
 	private boolean exportAntProperties;
 
@@ -172,7 +167,7 @@ public class AntRunMojo extends AbstractMojo {
 	 * If this value is 'true', the Maven build will proceed even if the ant build fails. If it is 'false', then the Maven build fails if the ant build
 	 * fails.
 	 * 
-	 * @parameter default-value="true"
+	 * @parameter expression="${ant.failOnError}" default-value="true"
 	 */
 	private boolean failOnError;
 
@@ -218,7 +213,7 @@ public class AntRunMojo extends AbstractMojo {
 
 	protected AntTaskPojo getAntTaskPojo() {
 		AntTaskPojo pojo = new AntTaskPojo();
-		pojo.setAntfile(file);
+		pojo.setAntfile(relativeLocalFilename);
 		pojo.setTarget(target);
 		pojo.setDir(dir);
 		pojo.setOutput(output);
@@ -229,6 +224,7 @@ public class AntRunMojo extends AbstractMojo {
 	}
 
 	private File localFile;
+	private String relativeLocalFilename;
 
 	protected boolean isSkip() {
 		if (skip) {
@@ -243,27 +239,22 @@ public class AntRunMojo extends AbstractMojo {
 	 */
 	@Override
 	public void execute() throws MojoExecutionException {
-		getLog().info("file=" + file);
 		if (isSkip()) {
 			return;
 		}
 
 		MavenProject mavenProject = getMavenProject();
 
-		if (propertyPrefix == null) {
-			propertyPrefix = "";
-		}
-
 		try {
 			if (!StringUtils.isEmpty(file)) {
-				String dir = project.getBuild().getDirectory() + "/antrun";
-				String filename = "build-local.xml";
-				localFile = new File(dir + "/" + filename);
+				File basedir = project.getBasedir();
+				relativeLocalFilename = "target/ant/build-local.xml";
+				localFile = new File(basedir.getAbsolutePath() + "/" + relativeLocalFilename);
 				resourceUtils.copy(file, localFile.getAbsolutePath());
 			}
 
 			Project antProject = new Project();
-			File antBuildFile = this.writeTargetToProjectFile();
+			File antBuildFile = writeTargetToProjectFile();
 			ProjectHelper.configureProject(antProject, antBuildFile);
 			antProject.init();
 
@@ -359,7 +350,6 @@ public class AntRunMojo extends AbstractMojo {
 
 		Path p = new Path(antProject);
 		p.setPath(StringUtils.join(list.iterator(), File.pathSeparator));
-
 		return p;
 	}
 
@@ -446,7 +436,7 @@ public class AntRunMojo extends AbstractMojo {
 			if (mavenProperties.getProperty(key) != null) {
 				getLog().debug(
 						"Ant property '" + key + "=" + mavenProperties.getProperty(key)
-								+ "' clashs with an existing Maven property, SKIPPING this Ant property propagation.");
+								+ "' clashes with an existing Maven property, SKIPPING this Ant property propagation.");
 				continue;
 			}
 			mavenProperties.setProperty(key, antProps.get(key).toString());
@@ -474,12 +464,12 @@ public class AntRunMojo extends AbstractMojo {
 	}
 
 	protected String getDefaultXML() throws IOException {
+		AntTaskPojo atp = getAntTaskPojo();
 		StringBuilder sb = new StringBuilder();
 		sb.append(XML_HEADER);
 		sb.append(getProjectOpen());
 		sb.append("  <target name=\"" + DEFAULT_ANT_TARGET_NAME + "\">\n");
-		sb.append("    <ant inheritRefs=\"true\" antfile=\"target/antrun/build-local.xml\" target=\"" + target
-				+ "\"/>\n");
+		sb.append("    " + getXML(atp) + "\n");
 		sb.append("  </target>\n");
 		sb.append("</project>\n");
 		return sb.toString();
@@ -490,12 +480,12 @@ public class AntRunMojo extends AbstractMojo {
 	 * 
 	 * @throws PlexusConfigurationException
 	 */
-	private File writeTargetToProjectFile() throws IOException, PlexusConfigurationException {
+	protected File writeTargetToProjectFile() throws IOException, PlexusConfigurationException {
 		String s = getDefaultXML();
 
 		// The fileName should probably use the plugin executionId instead of the targetName
 		String fileName = "build-" + DEFAULT_ANT_TARGET_NAME + ".xml";
-		File buildFile = new File(project.getBuild().getDirectory(), "/antrun/" + fileName);
+		File buildFile = new File(project.getBuild().getDirectory(), "/ant/" + fileName);
 
 		buildFile.getParentFile().mkdirs();
 		FileUtils.fileWrite(buildFile.getAbsolutePath(), UTF_8, s);
@@ -507,7 +497,7 @@ public class AntRunMojo extends AbstractMojo {
 		if (!customTaskPrefix.trim().equals("")) {
 			xmlns = "xmlns:" + customTaskPrefix + "=\"" + TASK_URI + "\"";
 		}
-		return "<project name=\"maven-antrun-\" default=\"" + DEFAULT_ANT_TARGET_NAME + "\" " + xmlns + " >\n";
+		return "<project name=\"ant-maven\" default=\"" + DEFAULT_ANT_TARGET_NAME + "\" " + xmlns + " >\n";
 	}
 
 	/**
@@ -532,7 +522,7 @@ public class AntRunMojo extends AbstractMojo {
 	 *            not null
 	 * @return the fragment XML part where the buildException occurs.
 	 */
-	private String findFragment(BuildException buildException) {
+	protected String findFragment(BuildException buildException) {
 		if (buildException == null || buildException.getLocation() == null
 				|| buildException.getLocation().getFileName() == null) {
 			return null;
