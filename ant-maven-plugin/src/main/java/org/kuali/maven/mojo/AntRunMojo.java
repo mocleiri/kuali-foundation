@@ -558,9 +558,23 @@ public class AntRunMojo extends AbstractMojo {
 
 	protected String getXML(AntTaskPojo atp) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<ant ");
-		sb.append("/>");
+		sb.append("<ant");
+		sb.append(" " + attr("antfile", atp.getAntfile()));
+		sb.append(" " + attr("dir", atp.getDir()));
+		sb.append(" " + attr("target", atp.getTarget()));
+		sb.append(" " + attr("output", atp.getOutput()));
+		sb.append(" " + attr("inheritAll", atp.isInheritAll() + ""));
+		sb.append(" " + attr("inheritRefs", atp.isInheritRefs() + ""));
+		sb.append(" " + attr("useNativeBaseDir", atp.isUseNativeBasedir() + ""));
+		sb.append(" />");
 		return sb.toString();
+	}
+
+	protected String attr(String name, String value) {
+		if (StringUtils.isEmpty(value)) {
+			return "";
+		}
+		return name + "=\"" + value + "\"";
 	}
 
 }
