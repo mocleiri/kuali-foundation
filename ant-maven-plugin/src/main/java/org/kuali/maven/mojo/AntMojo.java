@@ -53,7 +53,7 @@ import org.kuali.maven.common.ResourceUtils;
 
 /**
  * Maven Ant Mojo. This plugin allows Maven to invoke Ant tasks. Specify any Ant build.xml file available on the file
- * system, classpath (or any other URL location supported by Spring style resource loading) and specify a target inside
+ * system, classpath, (or any other URL location supported by Spring style resource loading) and specify a target inside
  * the file to invoke
  * 
  * @threadSafe
