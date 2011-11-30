@@ -58,7 +58,7 @@ import org.kuali.maven.common.ResourceUtils;
  * 
  * @threadSafe
  * @requiresDependencyResolution test
- * @goal ant
+ * @goal run
  */
 public class AntMojo extends AbstractMojo {
 	ResourceUtils resourceUtils = new ResourceUtils();
