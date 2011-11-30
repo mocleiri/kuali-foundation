@@ -256,28 +256,27 @@ public class AntMojo extends AbstractMojo {
 		return antLogger;
 	}
 
-	protected Map<String, Path> getPathRefs(Project antProject, MavenProject mavenProject)
-			throws DependencyResolutionRequiredException {
+	protected Map<String, Path> getPathRefs(Project ant, MavenProject mvn) throws DependencyResolutionRequiredException {
 
 		Map<String, Path> pathRefs = new HashMap<String, Path>();
 
 		// compile
-		Path mcp = new Path(antProject);
-		mcp.setPath(StringUtils.join(mavenProject.getCompileClasspathElements().iterator(), File.pathSeparator));
+		Path mcp = new Path(ant);
+		mcp.setPath(StringUtils.join(mvn.getCompileClasspathElements().iterator(), File.pathSeparator));
 		pathRefs.put("maven.compile.classpath", mcp);
 
 		// runtime
-		Path mrp = new Path(antProject);
-		mrp.setPath(StringUtils.join(mavenProject.getRuntimeClasspathElements().iterator(), File.pathSeparator));
+		Path mrp = new Path(ant);
+		mrp.setPath(StringUtils.join(mvn.getRuntimeClasspathElements().iterator(), File.pathSeparator));
 		pathRefs.put("maven.runtime.classpath", mrp);
 
 		// test
-		Path mtp = new Path(antProject);
-		mtp.setPath(StringUtils.join(mavenProject.getTestClasspathElements().iterator(), File.pathSeparator));
+		Path mtp = new Path(ant);
+		mtp.setPath(StringUtils.join(mvn.getTestClasspathElements().iterator(), File.pathSeparator));
 		pathRefs.put("maven.test.classpath", mtp);
 
 		// plugin
-		Path mpp = getPathFromArtifacts(pluginArtifacts, antProject);
+		Path mpp = getPathFromArtifacts(pluginArtifacts, ant);
 		pathRefs.put("maven.plugin.classpath", mpp);
 		return pathRefs;
 	}
