@@ -117,22 +117,6 @@ public class AntMojo extends AbstractMojo {
 	protected ArtifactRepository localRepository;
 
 	/**
-	 * String to prepend to project and dependency property names.
-	 * 
-	 * @parameter expression="${ant.propertyPrefix}" default-value=""
-	 */
-	private String propertyPrefix = "";
-
-	/**
-	 * The xml tag prefix to use for the built in Ant tasks. This prefix needs to be prepended to each task referenced in the antrun target config. For
-	 * example, a prefix of "mvn" means that the attachartifact task is referenced by "&lt;mvn:attachartifact&gt;" The default value of an empty string
-	 * means that no prefix is used for the tasks.
-	 * 
-	 * @parameter expression="${ant.customTaskPrefix}" default-value=""
-	 */
-	private String customTaskPrefix = "";
-
-	/**
 	 * The name of a property containing the list of all dependency versions. This is used for the removing the versions from the filenames.
 	 * 
 	 * @parameter expression="${ant.versionsPropertyName}" default-value="maven.project.dependencies.versions"
@@ -226,8 +210,6 @@ public class AntMojo extends AbstractMojo {
 		Path p = new Path(antProject);
 		p.setPath(StringUtils.join(getProject().getCompileClasspathElements().iterator(), File.pathSeparator));
 
-		/* maven.dependency.classpath it's deprecated as it's equal to maven.compile.classpath */
-		antProject.addReference("maven.dependency.classpath", p);
 		antProject.addReference("maven.compile.classpath", p);
 
 		p = new Path(antProject);
@@ -341,26 +323,21 @@ public class AntMojo extends AbstractMojo {
 		antProject.setProperty("ant.file", mavenProject.getFile().getAbsolutePath());
 
 		// Add some of the common maven properties
-		getLog().debug("Setting properties with prefix: " + propertyPrefix);
-		antProject.setProperty((propertyPrefix + "project.groupId"), mavenProject.getGroupId());
-		antProject.setProperty((propertyPrefix + "project.artifactId"), mavenProject.getArtifactId());
-		antProject.setProperty((propertyPrefix + "project.name"), mavenProject.getName());
+		antProject.setProperty(("project.groupId"), mavenProject.getGroupId());
+		antProject.setProperty(("project.artifactId"), mavenProject.getArtifactId());
+		antProject.setProperty(("project.name"), mavenProject.getName());
 		if (mavenProject.getDescription() != null) {
-			antProject.setProperty((propertyPrefix + "project.description"), mavenProject.getDescription());
+			antProject.setProperty(("project.description"), mavenProject.getDescription());
 		}
-		antProject.setProperty((propertyPrefix + "project.version"), mavenProject.getVersion());
-		antProject.setProperty((propertyPrefix + "project.packaging"), mavenProject.getPackaging());
-		antProject.setProperty((propertyPrefix + "project.build.directory"), mavenProject.getBuild().getDirectory());
-		antProject.setProperty((propertyPrefix + "project.build.outputDirectory"), mavenProject.getBuild()
-				.getOutputDirectory());
-		antProject.setProperty((propertyPrefix + "project.build.testOutputDirectory"), mavenProject.getBuild()
-				.getTestOutputDirectory());
-		antProject.setProperty((propertyPrefix + "project.build.sourceDirectory"), mavenProject.getBuild()
-				.getSourceDirectory());
-		antProject.setProperty((propertyPrefix + "project.build.testSourceDirectory"), mavenProject.getBuild()
-				.getTestSourceDirectory());
-		antProject.setProperty((propertyPrefix + "localRepository"), localRepository.toString());
-		antProject.setProperty((propertyPrefix + "settings.localRepository"), localRepository.getBasedir());
+		antProject.setProperty(("project.version"), mavenProject.getVersion());
+		antProject.setProperty(("project.packaging"), mavenProject.getPackaging());
+		antProject.setProperty(("project.build.directory"), mavenProject.getBuild().getDirectory());
+		antProject.setProperty(("project.build.outputDirectory"), mavenProject.getBuild().getOutputDirectory());
+		antProject.setProperty(("project.build.testOutputDirectory"), mavenProject.getBuild().getTestOutputDirectory());
+		antProject.setProperty(("project.build.sourceDirectory"), mavenProject.getBuild().getSourceDirectory());
+		antProject.setProperty(("project.build.testSourceDirectory"), mavenProject.getBuild().getTestSourceDirectory());
+		antProject.setProperty(("localRepository"), localRepository.toString());
+		antProject.setProperty(("settings.localRepository"), localRepository.getBasedir());
 
 		// Add properties for depenedency artifacts
 		Set<?> depArtifacts = mavenProject.getArtifacts();
@@ -369,7 +346,7 @@ public class AntMojo extends AbstractMojo {
 
 			String propName = artifact.getDependencyConflictId();
 
-			antProject.setProperty(propertyPrefix + propName, artifact.getFile().getPath());
+			antProject.setProperty(propName, artifact.getFile().getPath());
 		}
 
 		// Add a property containing the list of versions for the mapper
@@ -380,16 +357,6 @@ public class AntMojo extends AbstractMojo {
 			versionsBuffer.append(artifact.getVersion() + File.pathSeparator);
 		}
 		antProject.setProperty(versionsPropertyName, versionsBuffer.toString());
-
-		// Add properties in deprecated format to depenedency artifacts
-		// This should be removed in future versions of the antrun plugin.
-		for (Iterator<?> it = depArtifacts.iterator(); it.hasNext();) {
-			Artifact artifact = (Artifact) it.next();
-
-			String propName = getDependencyArtifactPropertyName(artifact);
-
-			antProject.setProperty(propName, artifact.getFile().getPath());
-		}
 	}
 
 	/**
@@ -424,37 +391,12 @@ public class AntMojo extends AbstractMojo {
 		}
 	}
 
-	/**
-	 * Prefix for legacy property format.
-	 * 
-	 * @deprecated This should only be used for generating the old property format.
-	 */
-	@Deprecated
-	public static final String DEPENDENCY_PREFIX = "maven.dependency.";
-
-	/**
-	 * Returns a property name for a dependency artifact. The name is in the format maven.dependency.groupId.artifactId[.classifier].type.path
-	 * 
-	 * @param artifact
-	 * @return property name
-	 * @deprecated The dependency conflict ID should be used as the property name.
-	 */
-	@Deprecated
-	public static String getDependencyArtifactPropertyName(Artifact artifact) {
-		String key = DEPENDENCY_PREFIX + artifact.getGroupId() + "." + artifact.getArtifactId()
-				+ (artifact.getClassifier() != null ? "." + artifact.getClassifier() : "")
-				+ (artifact.getType() != null ? "." + artifact.getType() : "") + ".path";
-		return key;
-	}
-
 	public void initMavenTasks(Project antProject) {
 		getLog().debug("Initialize Maven Ant Tasks");
 		Typedef typedef = new Typedef();
 		typedef.setProject(antProject);
 		typedef.setResource(ANTLIB);
-		if (!customTaskPrefix.equals("")) {
-			typedef.setURI(TASK_URI);
-		}
+		typedef.setURI(TASK_URI);
 		typedef.execute();
 	}
 
@@ -524,22 +466,6 @@ public class AntMojo extends AbstractMojo {
 		}
 
 		return null;
-	}
-
-	public String getPropertyPrefix() {
-		return propertyPrefix;
-	}
-
-	public void setPropertyPrefix(String propertyPrefix) {
-		this.propertyPrefix = propertyPrefix;
-	}
-
-	public String getCustomTaskPrefix() {
-		return customTaskPrefix;
-	}
-
-	public void setCustomTaskPrefix(String customTaskPrefix) {
-		this.customTaskPrefix = customTaskPrefix;
 	}
 
 	public String getVersionsPropertyName() {
