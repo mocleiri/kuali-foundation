@@ -133,7 +133,6 @@ public class AntRunMojo extends AbstractMojo {
 	 * String to prepend to project and dependency property names.
 	 * 
 	 * @parameter default-value=""
-	 * @since 1.4
 	 */
 	private String propertyPrefix;
 
@@ -143,7 +142,6 @@ public class AntRunMojo extends AbstractMojo {
 	 * means that no prefix is used for the tasks.
 	 * 
 	 * @parameter default-value=""
-	 * @since 1.5
 	 */
 	private String customTaskPrefix = "";
 
@@ -157,8 +155,7 @@ public class AntRunMojo extends AbstractMojo {
 	/**
 	 * Specifies whether the Antrun execution should be skipped.
 	 * 
-	 * @parameter expression="${maven.antrun.skip}" default-value="false"
-	 * @since 1.7
+	 * @parameter expression="${ant.skip}" default-value="false"
 	 */
 	private boolean skip;
 
@@ -166,7 +163,6 @@ public class AntRunMojo extends AbstractMojo {
 	 * Specifies whether the Ant properties should be propagated to the Maven properties.
 	 * 
 	 * @parameter default-value="false"
-	 * @since 1.7
 	 */
 	private boolean exportAntProperties;
 
@@ -177,19 +173,19 @@ public class AntRunMojo extends AbstractMojo {
 	 * fails.
 	 * 
 	 * @parameter default-value="true"
-	 * @since 1.7
 	 */
 	private boolean failOnError;
 
 	/**
-	 * The build file to use.
+	 * The build file to use. This supports Spring 3.0 resource URL expressions eg "classpath:build.xml" or "http://myurl/build.xml" Note, when searching
+	 * the classpath for build files, the classpath of the ant-maven-plugin is what is searched, not the classpath of the project the plugin is running in.
 	 * 
-	 * @parameter expression="${ant.location}" default-value="build.xml"
+	 * @parameter expression="${ant.file}" default-value="build.xml"
 	 */
-	private String location;
+	private String file;
 
 	/**
-	 * If not provided, the default target from the specified build file will be executed
+	 * The target inside the build file to invoke. If not provided, the default target from the specified build file will be executed
 	 * 
 	 * @parameter expression="${ant.target}"
 	 */
@@ -210,6 +206,7 @@ public class AntRunMojo extends AbstractMojo {
 	 */
 	@Override
 	public void execute() throws MojoExecutionException {
+		getLog().info("file=" + file);
 		if (isSkip()) {
 			return;
 		}
@@ -221,11 +218,11 @@ public class AntRunMojo extends AbstractMojo {
 		}
 
 		try {
-			if (!StringUtils.isEmpty(location)) {
+			if (!StringUtils.isEmpty(file)) {
 				String dir = project.getBuild().getDirectory() + "/antrun";
 				String filename = "build-local.xml";
 				localFile = new File(dir + "/" + filename);
-				resourceUtils.copy(location, localFile.getAbsolutePath());
+				resourceUtils.copy(file, localFile.getAbsolutePath());
 			}
 
 			Project antProject = new Project();
@@ -424,7 +421,6 @@ public class AntRunMojo extends AbstractMojo {
 	 *            not null
 	 * @param mavenProject
 	 *            not null
-	 * @since 1.7
 	 */
 	public void copyProperties(Project antProject, MavenProject mavenProject) {
 		if (!exportAntProperties) {
@@ -527,7 +523,6 @@ public class AntRunMojo extends AbstractMojo {
 	 * @param buildException
 	 *            not null
 	 * @return the fragment XML part where the buildException occurs.
-	 * @since 1.7
 	 */
 	private String findFragment(BuildException buildException) {
 		if (buildException == null || buildException.getLocation() == null
