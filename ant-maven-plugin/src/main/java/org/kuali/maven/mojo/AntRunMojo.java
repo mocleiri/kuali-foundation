@@ -203,11 +203,6 @@ public class AntRunMojo extends AbstractMojo {
 
 		MavenProject mavenProject = getMavenProject();
 
-		if (target == null) {
-			getLog().info("No ant target defined - SKIPPED");
-			// return;
-		}
-
 		if (propertyPrefix == null) {
 			propertyPrefix = "";
 		}
