@@ -191,6 +191,43 @@ public class AntRunMojo extends AbstractMojo {
 	 */
 	private String target;
 
+	/**
+	 * @parameter expression="${ant.output}"
+	 */
+	private String output;
+
+	/**
+	 * @parameter expression="${ant.dir}"
+	 */
+	private String dir;
+
+	/**
+	 * @parameter expression="${ant.inheritAll}" default-value="true"
+	 */
+	private String inheritAll;
+
+	/**
+	 * @parameter expression="${ant.inheritRefs}" default-value="true"
+	 */
+	private String inheritRefs;
+
+	/**
+	 * @parameter expression="${ant.useNativeBaseDir}" default-value="false"
+	 */
+	private String useNativeBaseDir;
+
+	protected AntTaskPojo getAntTaskPojo() {
+		AntTaskPojo pojo = new AntTaskPojo();
+		pojo.setAntfile(file);
+		pojo.setTarget(target);
+		pojo.setDir(dir);
+		pojo.setOutput(output);
+		pojo.setInheritAll(Boolean.parseBoolean(inheritAll));
+		pojo.setInheritRefs(Boolean.parseBoolean(inheritRefs));
+		pojo.setUseNativeBasedir(Boolean.parseBoolean(useNativeBaseDir));
+		return pojo;
+	}
+
 	private File localFile;
 
 	protected boolean isSkip() {
@@ -265,25 +302,6 @@ public class AntRunMojo extends AbstractMojo {
 			/* set maven.plugin.classpath with plugin dependencies */
 			antProject.addReference("maven.plugin.classpath", getPathFromArtifacts(pluginArtifacts, antProject));
 
-			Object object = antProject.getReference("maven.plugin.classpath");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info(object.toString());
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-			getLog().info("fooo");
-
 			antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
 			antProject.addReference(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
 			antProject.addReference("maven.local.repository", localRepository);
@@ -292,19 +310,9 @@ public class AntRunMojo extends AbstractMojo {
 			// Ant project needs actual properties vs. using expression evaluator when calling an external build file.
 			copyProperties(mavenProject, antProject);
 
-			if (getLog().isInfoEnabled()) {
-				getLog().info("Executing tasks");
-			}
-
-			String s = antProject.toString();
-			getLog().info(s);
-			antProject.toString();
-
+			getLog().info("Executing tasks");
 			antProject.executeTarget(DEFAULT_ANT_TARGET_NAME);
-
-			if (getLog().isInfoEnabled()) {
-				getLog().info("Executed tasks");
-			}
+			getLog().info("Executed tasks");
 
 			copyProperties(antProject, mavenProject);
 		} catch (DependencyResolutionRequiredException e) {
