@@ -44,7 +44,6 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.taskdefs.Typedef;
 import org.apache.tools.ant.types.Path;
-import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.ReaderFactory;
@@ -233,7 +232,7 @@ public class AntRunMojo extends AbstractMojo {
 
 	protected Project getAntProject() throws IOException {
 		Project antProject = new Project();
-		File antBuildFile = writeTargetToProjectFile();
+		File antBuildFile = createBuildWrapper();
 		ProjectHelper.configureProject(antProject, antBuildFile);
 		antProject.init();
 		return antProject;
@@ -489,14 +488,12 @@ public class AntRunMojo extends AbstractMojo {
 
 	/**
 	 * Write the ant target and surrounding tags to a temporary file
-	 * 
-	 * @throws PlexusConfigurationException
 	 */
-	protected File writeTargetToProjectFile() throws IOException {
+	protected File createBuildWrapper() throws IOException {
 		String xml = getDefaultXML();
 
 		// The fileName should probably use the plugin executionId instead of the targetName
-		String fileName = "build-" + DEFAULT_ANT_TARGET_NAME + ".xml";
+		String fileName = "build.xml";
 		File buildFile = new File(project.getBuild().getDirectory(), "/ant/" + fileName);
 
 		buildFile.getParentFile().mkdirs();
