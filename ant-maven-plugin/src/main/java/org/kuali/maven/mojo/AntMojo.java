@@ -87,11 +87,6 @@ public class AntMojo extends AbstractMojo {
 	public final static String BUILD_WRAPPER_TARGET = "main";
 
 	/**
-	 * The name used for the ant target
-	 */
-	private String antTargetName;
-
-	/**
 	 * The path to The XML file containing the definition of the Maven tasks.
 	 */
 	public final static String ANTLIB = "org/apache/maven/ant/tasks/antlib.xml";
@@ -219,7 +214,7 @@ public class AntMojo extends AbstractMojo {
 			copyProperties(project, antProject);
 
 			getLog().info("Executing tasks");
-			antProject.executeTarget(antTargetName);
+			antProject.executeTarget(BUILD_WRAPPER_TARGET);
 			getLog().info("Executed tasks");
 
 			copyProperties(antProject, project);
@@ -552,14 +547,6 @@ public class AntMojo extends AbstractMojo {
 		}
 
 		return null;
-	}
-
-	public String getAntTargetName() {
-		return antTargetName;
-	}
-
-	public void setAntTargetName(String antTargetName) {
-		this.antTargetName = antTargetName;
 	}
 
 	public String getPropertyPrefix() {
