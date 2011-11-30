@@ -125,7 +125,7 @@ public class AntRunMojo extends AbstractMojo {
 	 * @required
 	 * @readonly
 	 */
-	private List pluginArtifacts;
+	private List<?> pluginArtifacts;
 
 	/**
 	 * The local Maven repository
@@ -167,25 +167,6 @@ public class AntRunMojo extends AbstractMojo {
 	 * @since 1.5
 	 */
 	private PlexusConfiguration target;
-
-	/**
-	 * This folder is added to the list of those folders containing source to be compiled. Use this if your ant script generates source code.
-	 * 
-	 * @parameter expression="${sourceRoot}"
-	 * @deprecated Use the build-helper-maven-plugin to bind source directories
-	 */
-	@Deprecated
-	private File sourceRoot;
-
-	/**
-	 * This folder is added to the list of those folders containing source to be compiled for testing. Use this if your ant script generates test source
-	 * code.
-	 * 
-	 * @parameter expression="${testSourceRoot}"
-	 * @deprecated Use the build-helper-maven-plugin to bind test source directories
-	 */
-	@Deprecated
-	private File testSourceRoot;
 
 	/**
 	 * Specifies whether the Antrun execution should be skipped.
@@ -327,16 +308,6 @@ public class AntRunMojo extends AbstractMojo {
 		} catch (Throwable e) {
 			throw new MojoExecutionException("Error executing ant tasks: " + e.getMessage(), e);
 		}
-
-		if (sourceRoot != null) {
-			getLog().info("Registering compile source root " + sourceRoot);
-			getMavenProject().addCompileSourceRoot(sourceRoot.toString());
-		}
-
-		if (testSourceRoot != null) {
-			getLog().info("Registering compile test source root " + testSourceRoot);
-			getMavenProject().addTestCompileSourceRoot(testSourceRoot.toString());
-		}
 	}
 
 	/**
@@ -345,14 +316,14 @@ public class AntRunMojo extends AbstractMojo {
 	 * @return a path
 	 * @throws DependencyResolutionRequiredException
 	 */
-	public Path getPathFromArtifacts(Collection artifacts, Project antProject)
+	public Path getPathFromArtifacts(Collection<?> artifacts, Project antProject)
 			throws DependencyResolutionRequiredException {
 		if (artifacts == null) {
 			return new Path(antProject);
 		}
 
-		List list = new ArrayList(artifacts.size());
-		for (Iterator i = artifacts.iterator(); i.hasNext();) {
+		List<String> list = new ArrayList<String>(artifacts.size());
+		for (Iterator<?> i = artifacts.iterator(); i.hasNext();) {
 			Artifact a = (Artifact) i.next();
 			File file = a.getFile();
 			if (file == null) {
@@ -375,7 +346,7 @@ public class AntRunMojo extends AbstractMojo {
 	 */
 	public void copyProperties(MavenProject mavenProject, Project antProject) {
 		Properties mavenProps = mavenProject.getProperties();
-		Iterator iter = mavenProps.keySet().iterator();
+		Iterator<?> iter = mavenProps.keySet().iterator();
 		while (iter.hasNext()) {
 			String key = (String) iter.next();
 			antProject.setProperty(key, mavenProps.getProperty(key));
@@ -407,8 +378,8 @@ public class AntRunMojo extends AbstractMojo {
 		antProject.setProperty((propertyPrefix + "settings.localRepository"), localRepository.getBasedir());
 
 		// Add properties for depenedency artifacts
-		Set depArtifacts = mavenProject.getArtifacts();
-		for (Iterator it = depArtifacts.iterator(); it.hasNext();) {
+		Set<?> depArtifacts = mavenProject.getArtifacts();
+		for (Iterator<?> it = depArtifacts.iterator(); it.hasNext();) {
 			Artifact artifact = (Artifact) it.next();
 
 			String propName = artifact.getDependencyConflictId();
@@ -418,22 +389,12 @@ public class AntRunMojo extends AbstractMojo {
 
 		// Add a property containing the list of versions for the mapper
 		StringBuffer versionsBuffer = new StringBuffer();
-		for (Iterator it = depArtifacts.iterator(); it.hasNext();) {
+		for (Iterator<?> it = depArtifacts.iterator(); it.hasNext();) {
 			Artifact artifact = (Artifact) it.next();
 
 			versionsBuffer.append(artifact.getVersion() + File.pathSeparator);
 		}
 		antProject.setProperty(versionsPropertyName, versionsBuffer.toString());
-
-		// Add properties in deprecated format to depenedency artifacts
-		// This should be removed in future versions of the antrun plugin.
-		for (Iterator it = depArtifacts.iterator(); it.hasNext();) {
-			Artifact artifact = (Artifact) it.next();
-
-			String propName = getDependencyArtifactPropertyName(artifact);
-
-			antProject.setProperty(propName, artifact.getFile().getPath());
-		}
 	}
 
 	/**
@@ -451,9 +412,9 @@ public class AntRunMojo extends AbstractMojo {
 		}
 
 		getLog().debug("Propagated Ant properties to Maven properties");
-		Hashtable antProps = antProject.getProperties();
+		Hashtable<?, ?> antProps = antProject.getProperties();
 
-		Iterator iter = antProps.keySet().iterator();
+		Iterator<?> iter = antProps.keySet().iterator();
 		while (iter.hasNext()) {
 			String key = (String) iter.next();
 
@@ -466,29 +427,6 @@ public class AntRunMojo extends AbstractMojo {
 			}
 			mavenProperties.setProperty(key, antProps.get(key).toString());
 		}
-	}
-
-	/**
-	 * Prefix for legacy property format.
-	 * 
-	 * @deprecated This should only be used for generating the old property format.
-	 */
-	@Deprecated
-	public static final String DEPENDENCY_PREFIX = "maven.dependency.";
-
-	/**
-	 * Returns a property name for a dependency artifact. The name is in the format maven.dependency.groupId.artifactId[.classifier].type.path
-	 * 
-	 * @param artifact
-	 * @return property name
-	 * @deprecated The dependency conflict ID should be used as the property name.
-	 */
-	@Deprecated
-	public static String getDependencyArtifactPropertyName(Artifact artifact) {
-		String key = DEPENDENCY_PREFIX + artifact.getGroupId() + "." + artifact.getArtifactId()
-				+ (artifact.getClassifier() != null ? "." + artifact.getClassifier() : "")
-				+ (artifact.getType() != null ? "." + artifact.getType() : "") + ".path";
-		return key;
 	}
 
 	/**
