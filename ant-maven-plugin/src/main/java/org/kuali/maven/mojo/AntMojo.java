@@ -170,16 +170,24 @@ public class AntMojo extends AbstractMojo {
 	private boolean failOnError;
 
 	/**
+	 * The target inside of the build.xml file to invoke
+	 * 
 	 * @parameter expression="${ant.target}"
 	 */
 	private String target;
 
 	/**
+	 * The location of the Ant build.xml file. This can be a file on the file system, a file on the classpath, or any
+	 * URL that Spring's resource loading can understand
+	 * 
 	 * @parameter expression="${ant.location}" default-value="classpath:build.xml"
 	 */
 	private String location;
 
 	/**
+	 * This is the temporary working directory for the plugin. It copies the build.xml file here and creates a build
+	 * wrapper here as well.
+	 * 
 	 * @parameter expression="${ant.tmpDir}" default-value="${project.build.directory}/ant"
 	 */
 	private String tmpDir;
