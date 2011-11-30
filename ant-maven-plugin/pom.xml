@@ -11,7 +11,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Ant Maven Plugin</name>
-  <description>Allows invoking a target inside any Ant build.xml file that is available on the file system, classpath, or any URL that Spring's resource loading can understand</description>
+  <description>Allows Maven to invoke an Ant target inside any Ant build.xml file that is available on the file system, classpath, or any URL that Spring's resource loading can understand</description>
   <properties>
     <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
   </properties>
