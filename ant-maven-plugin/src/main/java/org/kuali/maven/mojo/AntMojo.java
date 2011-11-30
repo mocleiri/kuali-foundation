@@ -147,13 +147,6 @@ public class AntMojo extends AbstractMojo {
 	private String customTaskPrefix = "";
 
 	/**
-	 * The name of a property containing the list of all dependency versions. This is used for the removing the versions from the filenames.
-	 * 
-	 * @parameter expression="${ant.versionsPropertyName}" default-value="maven.project.dependencies.versions"
-	 */
-	private String versionsPropertyName;
-
-	/**
 	 * Specifies whether the Antrun execution should be skipped.
 	 * 
 	 * @parameter expression="${ant.skip}" default-value="false"
@@ -442,14 +435,6 @@ public class AntMojo extends AbstractMojo {
 			antProject.setProperty(propertyPrefix + propName, artifact.getFile().getPath());
 		}
 
-		// Add a property containing the list of versions for the mapper
-		StringBuffer versionsBuffer = new StringBuffer();
-		for (Iterator<?> it = depArtifacts.iterator(); it.hasNext();) {
-			Artifact artifact = (Artifact) it.next();
-
-			versionsBuffer.append(artifact.getVersion() + File.pathSeparator);
-		}
-		antProject.setProperty(versionsPropertyName, versionsBuffer.toString());
 	}
 
 	/**
