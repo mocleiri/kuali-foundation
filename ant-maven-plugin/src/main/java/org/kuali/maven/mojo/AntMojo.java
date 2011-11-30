@@ -216,12 +216,14 @@ public class AntMojo extends AbstractMojo {
 			getLog().info("Executed tasks");
 
 			copyProperties(antProject, project);
-		} catch (DependencyResolutionRequiredException e) {
-			throw new MojoExecutionException("DependencyResolutionRequiredException: " + e.getMessage(), e);
-		} catch (BuildException e) {
-			handleBuildException(e);
 		} catch (Throwable e) {
-			throw new MojoExecutionException("Error executing ant tasks: " + e.getMessage(), e);
+			e.printStackTrace();
+			// } catch (DependencyResolutionRequiredException e) {
+			// throw new MojoExecutionException("DependencyResolutionRequiredException: " + e.getMessage(), e);
+			// } catch (BuildException e) {
+			// handleBuildException(e);
+			// } catch (Throwable e) {
+			// throw new MojoExecutionException("Error executing ant tasks: " + e.getMessage(), e);
 		}
 	}
 
@@ -434,8 +436,8 @@ public class AntMojo extends AbstractMojo {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
 		sb.append("<project name=\"maven-antrun-\" default=\"main\">\n");
-		sb.append("<property name=\"maven.plugin.classpath\" refid=\"maven.plugin.classpath\" />\n");
 		sb.append("  <target name=\"main\">\n");
+		sb.append("    <property name=\"maven.plugin.classpath\" refid=\"maven.plugin.classpath\" />\n");
 		sb.append("    <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + target + "\"/>\n");
 		sb.append("  </target>\n");
 		sb.append("</project>\n");
