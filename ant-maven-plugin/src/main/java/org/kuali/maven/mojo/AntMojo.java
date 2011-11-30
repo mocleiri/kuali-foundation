@@ -46,9 +46,8 @@ import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.ResourceUtils;
 
 /**
- * Maven Ant Mojo. This plugin allows Maven to invoke Ant tasks. Specify any Ant build.xml file available on the file
- * system, classpath, (or any other URL location supported by Spring style resource loading) and specify a target inside
- * the file to invoke
+ * Maven Ant Mojo. This plugin allows Maven to invoke Ant tasks. Specify any Ant build.xml file available on the file system, classpath, (or any other URL
+ * location supported by Spring style resource loading) and specify a target inside the file to invoke
  * 
  * @threadSafe
  * @requiresDependencyResolution test
@@ -125,17 +124,16 @@ public class AntMojo extends AbstractMojo {
 	private String propertyPrefix = "";
 
 	/**
-	 * The xml tag prefix to use for the built in Ant tasks. This prefix needs to be prepended to each task referenced
-	 * in the antrun target config. For example, a prefix of "mvn" means that the attachartifact task is referenced by
-	 * "&lt;mvn:attachartifact&gt;" The default value of an empty string means that no prefix is used for the tasks.
+	 * The xml tag prefix to use for the built in Ant tasks. This prefix needs to be prepended to each task referenced in the antrun target config. For
+	 * example, a prefix of "mvn" means that the attachartifact task is referenced by "&lt;mvn:attachartifact&gt;" The default value of an empty string
+	 * means that no prefix is used for the tasks.
 	 * 
 	 * @parameter expression="${ant.customTaskPrefix}" default-value=""
 	 */
 	private String customTaskPrefix = "";
 
 	/**
-	 * The name of a property containing the list of all dependency versions. This is used for the removing the versions
-	 * from the filenames.
+	 * The name of a property containing the list of all dependency versions. This is used for the removing the versions from the filenames.
 	 * 
 	 * @parameter expression="${ant.versionsPropertyName}" default-value="maven.project.dependencies.versions"
 	 */
@@ -158,8 +156,8 @@ public class AntMojo extends AbstractMojo {
 	/**
 	 * Specifies whether a failure in the ant build leads to a failure of the Maven build.
 	 * 
-	 * If this value is 'true', the Maven build will proceed even if the ant build fails. If it is 'false', then the
-	 * Maven build fails if the ant build fails.
+	 * If this value is 'true', the Maven build will proceed even if the ant build fails. If it is 'false', then the Maven build fails if the ant build
+	 * fails.
 	 * 
 	 * @parameter expression="${ant.failOnError}" default-value="true"
 	 */
@@ -173,16 +171,15 @@ public class AntMojo extends AbstractMojo {
 	private String target;
 
 	/**
-	 * The location of the Ant build.xml file. This can be a file on the file system, a file on the classpath, or any
-	 * URL that Spring's resource loading can understand
+	 * The location of the Ant build.xml file. This can be a file on the file system, a file on the classpath, or any URL that Spring's resource loading
+	 * can understand
 	 * 
 	 * @parameter expression="${ant.location}" default-value="classpath:build.xml"
 	 */
 	private String location;
 
 	/**
-	 * This is the temporary working directory for the plugin. It copies the build.xml file here and creates a build
-	 * wrapper here.
+	 * This is the temporary working directory for the plugin. It copies the build.xml file here and creates a build wrapper here.
 	 * 
 	 * @parameter expression="${ant.tmpDir}" default-value="${project.build.directory}/ant"
 	 */
@@ -198,23 +195,24 @@ public class AntMojo extends AbstractMojo {
 		}
 
 		try {
+			MavenProject mavenProject = getProject();
 			localFile = createLocalFile();
 			Project antProject = getAntProject();
 
 			BuildLogger antLogger = getBuildLogger();
 			antProject.addBuildListener(antLogger);
-			antProject.setBaseDir(project.getBasedir());
+			antProject.setBaseDir(mavenProject.getBasedir());
 
 			addReferences(antProject);
 
 			// Ant project needs actual properties vs. using expression evaluator when calling an external build file.
-			copyProperties(project, antProject);
+			copyProperties(mavenProject, antProject);
 
 			getLog().info("Executing tasks");
 			antProject.executeTarget(BUILD_WRAPPER_TARGET);
 			getLog().info("Executed tasks");
 
-			copyProperties(antProject, project);
+			copyProperties(antProject, mavenProject);
 		} catch (DependencyResolutionRequiredException e) {
 			throw new MojoExecutionException("DependencyResolutionRequiredException: " + e.getMessage(), e);
 		} catch (BuildException e) {
@@ -435,8 +433,7 @@ public class AntMojo extends AbstractMojo {
 	public static final String DEPENDENCY_PREFIX = "maven.dependency.";
 
 	/**
-	 * Returns a property name for a dependency artifact. The name is in the format
-	 * maven.dependency.groupId.artifactId[.classifier].type.path
+	 * Returns a property name for a dependency artifact. The name is in the format maven.dependency.groupId.artifactId[.classifier].type.path
 	 * 
 	 * @param artifact
 	 * @return property name
