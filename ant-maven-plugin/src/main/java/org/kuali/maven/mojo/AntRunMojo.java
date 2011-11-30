@@ -498,12 +498,17 @@ public class AntRunMojo extends AbstractMojo {
 		StringBuilder sb = new StringBuilder();
 		sb.append(XML_HEADER);
 		sb.append(getProjectOpen());
-		for (String key : pathRefs.keySet()) {
-			sb.append("  <property name=\"" + key + "\" refid=\"" + key + "\" />\n");
-		}
 		sb.append("  <target name=\"" + DEFAULT_ANT_TARGET_NAME + "\">\n");
 		sb.append("    " + getXML(atp) + "\n");
 		sb.append("  </target>\n");
+		for (Map.Entry<String, Path> pair : pathRefs.entrySet()) {
+			sb.append("  <path id=\"" + pair.getKey() + "\">\n");
+			sb.append("    <pathelement path=\"" + pair.getValue() + "\" />\n");
+			sb.append("  </path>\n");
+		}
+		for (String key : pathRefs.keySet()) {
+			sb.append("  <property name=\"" + key + "\" refid=\"" + key + "\" />\n");
+		}
 		sb.append("</project>\n");
 		return sb.toString();
 	}
