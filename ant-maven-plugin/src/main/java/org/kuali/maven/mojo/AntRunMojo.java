@@ -301,7 +301,7 @@ public class AntRunMojo extends AbstractMojo {
 
 			BuildLogger antLogger = getBuildLogger();
 			antProject.addBuildListener(antLogger);
-			antProject.setBaseDir(mavenProject.getBasedir());
+			// antProject.setBaseDir(mavenProject.getBasedir());
 
 			addPathReferences(antProject, mavenProject);
 			addMavenReferences(antProject, mavenProject);
@@ -507,6 +507,7 @@ public class AntRunMojo extends AbstractMojo {
 		sb.append("<project");
 		sb.append(" name=\"ant-maven\"");
 		sb.append(" default=\"" + DEFAULT_ANT_TARGET_NAME + "\"");
+		sb.append(" basedir=\"" + project.getBasedir().getAbsolutePath() + "\"");
 		if (!StringUtils.isBlank(customTaskPrefix)) {
 			sb.append(" xmlns:" + customTaskPrefix + "=\"" + TASK_URI + "\"");
 		}
