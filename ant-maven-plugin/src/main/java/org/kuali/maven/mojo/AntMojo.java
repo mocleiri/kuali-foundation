@@ -44,8 +44,6 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.taskdefs.Typedef;
 import org.apache.tools.ant.types.Path;
-import org.codehaus.plexus.configuration.PlexusConfiguration;
-import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.ReaderFactory;
 import org.codehaus.plexus.util.StringUtils;
@@ -71,11 +69,6 @@ public class AntMojo extends AbstractMojo {
 	 * The refid used to store the Maven project object in the Ant build.
 	 */
 	public final static String DEFAULT_MAVEN_PROJECT_HELPER_REFID = "maven.project.helper";
-
-	/**
-	 * The default target name.
-	 */
-	public final static String DEFAULT_ANT_TARGET_NAME = "main";
 
 	/**
 	 * The default encoding to use for the generated Ant build.
@@ -501,14 +494,6 @@ public class AntMojo extends AbstractMojo {
 		if (index != -1) {
 			text.replace(index, index + match.length(), with);
 		}
-	}
-
-	public String checkTargetName(PlexusConfiguration antTargetConfig) throws PlexusConfigurationException {
-		String targetName = antTargetConfig.getAttribute("name");
-		if (targetName == null) {
-			targetName = DEFAULT_ANT_TARGET_NAME;
-		}
-		return targetName;
 	}
 
 	/**
