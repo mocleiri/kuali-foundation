@@ -258,23 +258,26 @@ public class AntRunMojo extends AbstractMojo {
 		return antLogger;
 	}
 
-	protected void addReferences(Project antProject, MavenProject mavenProject) throws BuildException,
+	protected void addPathReferences(Project antProject, MavenProject mavenProject) throws BuildException,
 			DependencyResolutionRequiredException {
-		Path p = new Path(antProject);
-		p.setPath(StringUtils.join(mavenProject.getCompileClasspathElements().iterator(), File.pathSeparator));
-		antProject.addReference("maven.compile.classpath", p);
+		Path mcp = new Path(antProject);
+		mcp.setPath(StringUtils.join(mavenProject.getCompileClasspathElements().iterator(), File.pathSeparator));
+		antProject.addReference("maven.compile.classpath", mcp);
 
-		p = new Path(antProject);
-		p.setPath(StringUtils.join(mavenProject.getRuntimeClasspathElements().iterator(), File.pathSeparator));
-		antProject.addReference("maven.runtime.classpath", p);
+		Path mrp = new Path(antProject);
+		mrp.setPath(StringUtils.join(mavenProject.getRuntimeClasspathElements().iterator(), File.pathSeparator));
+		antProject.addReference("maven.runtime.classpath", mrp);
 
-		p = new Path(antProject);
-		p.setPath(StringUtils.join(mavenProject.getTestClasspathElements().iterator(), File.pathSeparator));
-		antProject.addReference("maven.test.classpath", p);
+		Path mtp = new Path(antProject);
+		mtp.setPath(StringUtils.join(mavenProject.getTestClasspathElements().iterator(), File.pathSeparator));
+		antProject.addReference("maven.test.classpath", mtp);
 
 		/* set maven.plugin.classpath with plugin dependencies */
-		antProject.addReference("maven.plugin.classpath", getPathFromArtifacts(pluginArtifacts, antProject));
+		Path mpc = getPathFromArtifacts(pluginArtifacts, antProject);
+		antProject.addReference("maven.plugin.classpath", mpc);
+	}
 
+	protected void addMavenReferences(Project antProject, MavenProject mavenProject) {
 		antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
 		antProject.addReference(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
 		antProject.addReference("maven.local.repository", localRepository);
@@ -299,7 +302,8 @@ public class AntRunMojo extends AbstractMojo {
 			antProject.addBuildListener(antLogger);
 			antProject.setBaseDir(mavenProject.getBasedir());
 
-			addReferences(antProject, mavenProject);
+			addPathReferences(antProject, mavenProject);
+			addMavenReferences(antProject, mavenProject);
 			initMavenTasks(antProject);
 
 			// Ant project needs actual properties vs. using expression evaluator when calling an external build file.
@@ -313,20 +317,24 @@ public class AntRunMojo extends AbstractMojo {
 		} catch (DependencyResolutionRequiredException e) {
 			throw new MojoExecutionException("DependencyResolutionRequiredException: " + e.getMessage(), e);
 		} catch (BuildException e) {
-			StringBuffer sb = new StringBuffer();
-			sb.append("An Ant BuildException has occured: " + e.getMessage());
-			String fragment = findFragment(e);
-			if (fragment != null) {
-				sb.append("\n").append(fragment);
-			}
-			if (!failOnError) {
-				getLog().info(sb.toString(), e);
-				return; // do not register roots.
-			} else {
-				throw new MojoExecutionException(sb.toString(), e);
-			}
+			handleBuildException(e);
 		} catch (Throwable e) {
 			throw new MojoExecutionException("Error executing ant tasks: " + e.getMessage(), e);
+		}
+	}
+
+	protected void handleBuildException(BuildException e) throws MojoExecutionException {
+		StringBuffer sb = new StringBuffer();
+		sb.append("An Ant BuildException has occured: " + e.getMessage());
+		String fragment = findFragment(e);
+		if (fragment != null) {
+			sb.append("\n").append(fragment);
+		}
+		if (!failOnError) {
+			getLog().info(sb.toString(), e);
+			return; // do not register roots.
+		} else {
+			throw new MojoExecutionException(sb.toString(), e);
 		}
 	}
 
