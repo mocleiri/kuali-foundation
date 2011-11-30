@@ -24,9 +24,11 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -234,9 +236,6 @@ public class AntRunMojo extends AbstractMojo {
 
 	protected Project getAntProject() throws IOException {
 		Project antProject = new Project();
-		File antBuildFile = createBuildWrapper();
-		ProjectHelper.configureProject(antProject, antBuildFile);
-		antProject.init();
 		return antProject;
 	}
 
@@ -259,23 +258,36 @@ public class AntRunMojo extends AbstractMojo {
 		return antLogger;
 	}
 
-	protected void addPathReferences(Project antProject, MavenProject mavenProject) throws BuildException,
-			DependencyResolutionRequiredException {
+	protected Map<String, Path> getPathRefs(Project antProject, MavenProject mavenProject)
+			throws DependencyResolutionRequiredException {
+
+		Map<String, Path> pathRefs = new HashMap<String, Path>();
+
+		// compile
 		Path mcp = new Path(antProject);
 		mcp.setPath(StringUtils.join(mavenProject.getCompileClasspathElements().iterator(), File.pathSeparator));
-		antProject.addReference("maven.compile.classpath", mcp);
+		pathRefs.put("maven.compile.classpath", mcp);
 
+		// runtime
 		Path mrp = new Path(antProject);
 		mrp.setPath(StringUtils.join(mavenProject.getRuntimeClasspathElements().iterator(), File.pathSeparator));
-		antProject.addReference("maven.runtime.classpath", mrp);
+		pathRefs.put("maven.runtime.classpath", mrp);
 
+		// test
 		Path mtp = new Path(antProject);
 		mtp.setPath(StringUtils.join(mavenProject.getTestClasspathElements().iterator(), File.pathSeparator));
-		antProject.addReference("maven.test.classpath", mtp);
+		pathRefs.put("maven.test.classpath", mtp);
 
-		/* set maven.plugin.classpath with plugin dependencies */
+		// plugin
 		Path mpc = getPathFromArtifacts(pluginArtifacts, antProject);
-		antProject.addReference("maven.plugin.classpath", mpc);
+		pathRefs.put("maven.plugin.classpath", mpc);
+		return pathRefs;
+	}
+
+	protected void addPathRefs(Project antProject, Map<String, Path> pathRefs) {
+		for (Map.Entry<String, Path> pair : pathRefs.entrySet()) {
+			antProject.addReference(pair.getKey(), pair.getValue());
+		}
 	}
 
 	protected void addMavenReferences(Project antProject, MavenProject mavenProject) {
@@ -301,9 +313,14 @@ public class AntRunMojo extends AbstractMojo {
 
 			BuildLogger antLogger = getBuildLogger();
 			antProject.addBuildListener(antLogger);
-			// antProject.setBaseDir(mavenProject.getBasedir());
 
-			addPathReferences(antProject, mavenProject);
+			Map<String, Path> pathRefs = getPathRefs(antProject, mavenProject);
+			addPathRefs(antProject, pathRefs);
+
+			File antBuildFile = createBuildWrapper();
+			ProjectHelper.configureProject(antProject, antBuildFile);
+			antProject.init();
+			
 			addMavenReferences(antProject, mavenProject);
 			initMavenTasks(antProject);
 
