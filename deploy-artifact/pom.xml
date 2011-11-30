@@ -83,6 +83,7 @@
             <artifactId>${dp.artifactId}</artifactId>
             <version>${dp.version}</version>
             <file>${dp.file}</file>
+            <classifier>${dp.classifier}</classifier>
           </configuration>
         </plugin>
         <plugin>
