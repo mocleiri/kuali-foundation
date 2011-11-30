@@ -6,7 +6,7 @@ package org.kuali.maven.mojo;
  * http://ant.apache.org/manual/Tasks/ant.html
  */
 public class AntTaskPojo {
-	String antfile = "build.xml";
+	String antfile;
 	String dir;
 	String target;
 	String output;
