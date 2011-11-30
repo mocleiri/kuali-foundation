@@ -31,9 +31,8 @@ public class ResourceUtils {
 	ResourceLoader loader = new DefaultResourceLoader();
 
 	/**
-	 * Given a location that can represent either a file on the file system or a Spring style resource, return an
-	 * InputStream. The method checks the file system first. If no file exists, it uses Spring resource loading to
-	 * obtain an InputStream
+	 * Given a location that can represent either a file on the file system or a Spring style resource, return an InputStream. The method checks the file
+	 * system first. If no file exists, it uses Spring resource loading to obtain an InputStream
 	 */
 	public InputStream getInputStream(String location) throws IOException {
 		File file = new File(location);
@@ -89,5 +88,17 @@ public class ResourceUtils {
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
+	}
+
+	public String getFilename(String location) throws IOException {
+		File file = new File(location);
+		if (file.exists()) {
+			return file.getName();
+		}
+		Resource resource = loader.getResource(location);
+		if (!resource.exists()) {
+			throw new IOException("Unable to locate " + location);
+		}
+		return resource.getFilename();
 	}
 }
