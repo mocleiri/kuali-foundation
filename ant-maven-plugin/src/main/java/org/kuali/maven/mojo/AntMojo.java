@@ -71,7 +71,7 @@ public class AntMojo extends AbstractMojo {
 	public final static String UTF_8 = "UTF-8";
 
 	public final static String LOCAL_FILE = "build-local.xml";
-	public final static String BUILD_WRAPPER = "build-wrapper.xml";
+	public final static String BUILD_WRAPPER = "build.xml";
 	public final static String BUILD_WRAPPER_TARGET = "main";
 
 	/**
@@ -115,6 +115,22 @@ public class AntMojo extends AbstractMojo {
 	 * @readonly
 	 */
 	protected ArtifactRepository localRepository;
+
+	/**
+	 * String to prepend to project and dependency property names.
+	 * 
+	 * @parameter expression="${ant.propertyPrefix}" default-value=""
+	 */
+	private String propertyPrefix = "";
+
+	/**
+	 * The xml tag prefix to use for the built in Ant tasks. This prefix needs to be prepended to each task referenced in the antrun target config. For
+	 * example, a prefix of "mvn" means that the attachartifact task is referenced by "&lt;mvn:attachartifact&gt;" The default value of an empty string
+	 * means that no prefix is used for the tasks.
+	 * 
+	 * @parameter expression="${ant.customTaskPrefix}" default-value=""
+	 */
+	private String customTaskPrefix = "";
 
 	/**
 	 * The name of a property containing the list of all dependency versions. This is used for the removing the versions from the filenames.
@@ -179,24 +195,23 @@ public class AntMojo extends AbstractMojo {
 		}
 
 		try {
-			MavenProject mavenProject = getProject();
 			localFile = createLocalFile();
 			Project antProject = getAntProject();
 
 			BuildLogger antLogger = getBuildLogger();
 			antProject.addBuildListener(antLogger);
-			antProject.setBaseDir(mavenProject.getBasedir());
+			antProject.setBaseDir(project.getBasedir());
 
 			addReferences(antProject);
 
 			// Ant project needs actual properties vs. using expression evaluator when calling an external build file.
-			copyProperties(mavenProject, antProject);
+			copyProperties(project, antProject);
 
 			getLog().info("Executing tasks");
 			antProject.executeTarget(BUILD_WRAPPER_TARGET);
 			getLog().info("Executed tasks");
 
-			copyProperties(antProject, mavenProject);
+			copyProperties(antProject, project);
 		} catch (DependencyResolutionRequiredException e) {
 			throw new MojoExecutionException("DependencyResolutionRequiredException: " + e.getMessage(), e);
 		} catch (BuildException e) {
@@ -208,22 +223,24 @@ public class AntMojo extends AbstractMojo {
 
 	protected void addReferences(Project antProject) throws BuildException, DependencyResolutionRequiredException {
 		Path p = new Path(antProject);
-		p.setPath(StringUtils.join(getProject().getCompileClasspathElements().iterator(), File.pathSeparator));
+		p.setPath(StringUtils.join(project.getCompileClasspathElements().iterator(), File.pathSeparator));
 
+		/* maven.dependency.classpath it's deprecated as it's equal to maven.compile.classpath */
+		antProject.addReference("maven.dependency.classpath", p);
 		antProject.addReference("maven.compile.classpath", p);
 
 		p = new Path(antProject);
-		p.setPath(StringUtils.join(getProject().getRuntimeClasspathElements().iterator(), File.pathSeparator));
+		p.setPath(StringUtils.join(project.getRuntimeClasspathElements().iterator(), File.pathSeparator));
 		antProject.addReference("maven.runtime.classpath", p);
 
 		p = new Path(antProject);
-		p.setPath(StringUtils.join(getProject().getTestClasspathElements().iterator(), File.pathSeparator));
+		p.setPath(StringUtils.join(project.getTestClasspathElements().iterator(), File.pathSeparator));
 		antProject.addReference("maven.test.classpath", p);
 
 		/* set maven.plugin.classpath with plugin dependencies */
 		antProject.addReference("maven.plugin.classpath", getPathFromArtifacts(pluginArtifacts, antProject));
 
-		antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getProject());
+		antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
 		antProject.addReference(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
 		antProject.addReference("maven.local.repository", localRepository);
 		initMavenTasks(antProject);
@@ -323,37 +340,41 @@ public class AntMojo extends AbstractMojo {
 		antProject.setProperty("ant.file", mavenProject.getFile().getAbsolutePath());
 
 		// Add some of the common maven properties
-		antProject.setProperty(("project.groupId"), mavenProject.getGroupId());
-		antProject.setProperty(("project.artifactId"), mavenProject.getArtifactId());
-		antProject.setProperty(("project.name"), mavenProject.getName());
+		getLog().debug("Setting properties with prefix: " + propertyPrefix);
+		antProject.setProperty((propertyPrefix + "project.groupId"), mavenProject.getGroupId());
+		antProject.setProperty((propertyPrefix + "project.artifactId"), mavenProject.getArtifactId());
+		antProject.setProperty((propertyPrefix + "project.name"), mavenProject.getName());
 		if (mavenProject.getDescription() != null) {
-			antProject.setProperty(("project.description"), mavenProject.getDescription());
+			antProject.setProperty((propertyPrefix + "project.description"), mavenProject.getDescription());
 		}
-		antProject.setProperty(("project.version"), mavenProject.getVersion());
-		antProject.setProperty(("project.packaging"), mavenProject.getPackaging());
-		antProject.setProperty(("project.build.directory"), mavenProject.getBuild().getDirectory());
-		antProject.setProperty(("project.build.outputDirectory"), mavenProject.getBuild().getOutputDirectory());
-		antProject.setProperty(("project.build.testOutputDirectory"), mavenProject.getBuild().getTestOutputDirectory());
-		antProject.setProperty(("project.build.sourceDirectory"), mavenProject.getBuild().getSourceDirectory());
-		antProject.setProperty(("project.build.testSourceDirectory"), mavenProject.getBuild().getTestSourceDirectory());
-		antProject.setProperty(("localRepository"), localRepository.toString());
-		antProject.setProperty(("settings.localRepository"), localRepository.getBasedir());
+		antProject.setProperty((propertyPrefix + "project.version"), mavenProject.getVersion());
+		antProject.setProperty((propertyPrefix + "project.packaging"), mavenProject.getPackaging());
+		antProject.setProperty((propertyPrefix + "project.build.directory"), mavenProject.getBuild().getDirectory());
+		antProject.setProperty((propertyPrefix + "project.build.outputDirectory"), mavenProject.getBuild()
+				.getOutputDirectory());
+		antProject.setProperty((propertyPrefix + "project.build.testOutputDirectory"), mavenProject.getBuild()
+				.getTestOutputDirectory());
+		antProject.setProperty((propertyPrefix + "project.build.sourceDirectory"), mavenProject.getBuild()
+				.getSourceDirectory());
+		antProject.setProperty((propertyPrefix + "project.build.testSourceDirectory"), mavenProject.getBuild()
+				.getTestSourceDirectory());
+		antProject.setProperty((propertyPrefix + "localRepository"), localRepository.toString());
+		antProject.setProperty((propertyPrefix + "settings.localRepository"), localRepository.getBasedir());
 
-		// Add properties for depenedency artifacts
+		// Add properties for dependency artifacts
 		Set<?> depArtifacts = mavenProject.getArtifacts();
 		for (Iterator<?> it = depArtifacts.iterator(); it.hasNext();) {
 			Artifact artifact = (Artifact) it.next();
 
 			String propName = artifact.getDependencyConflictId();
 
-			antProject.setProperty(propName, artifact.getFile().getPath());
+			antProject.setProperty(propertyPrefix + propName, artifact.getFile().getPath());
 		}
 
 		// Add a property containing the list of versions for the mapper
 		StringBuffer versionsBuffer = new StringBuffer();
 		for (Iterator<?> it = depArtifacts.iterator(); it.hasNext();) {
 			Artifact artifact = (Artifact) it.next();
-
 			versionsBuffer.append(artifact.getVersion() + File.pathSeparator);
 		}
 		antProject.setProperty(versionsPropertyName, versionsBuffer.toString());
@@ -366,7 +387,6 @@ public class AntMojo extends AbstractMojo {
 	 *            not null
 	 * @param mavenProject
 	 *            not null
-	 * @since 1.7
 	 */
 	public void copyProperties(Project antProject, MavenProject mavenProject) {
 		if (!exportAntProperties) {
@@ -391,25 +411,33 @@ public class AntMojo extends AbstractMojo {
 		}
 	}
 
+	/**
+	 * Get the current Maven project
+	 */
+	public MavenProject getMavenProject() {
+		return this.project;
+	}
+
 	public void initMavenTasks(Project antProject) {
 		getLog().debug("Initialize Maven Ant Tasks");
 		Typedef typedef = new Typedef();
 		typedef.setProject(antProject);
 		typedef.setResource(ANTLIB);
-		typedef.setURI(TASK_URI);
+		if (!customTaskPrefix.equals("")) {
+			typedef.setURI(TASK_URI);
+		}
 		typedef.execute();
 	}
 
 	protected File createBuildWrapper() throws IOException {
-		String filename = tmpDir + "/" + BUILD_WRAPPER;
 		StringBuilder sb = new StringBuilder();
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
-		sb.append("<project name=\"maven-ant\" default=\"main\">\n");
-		sb.append("  <property name=\"maven.plugin.classpath\" refid=\"maven.plugin.classpath\">\n");
+		sb.append("<project name=\"maven-antrun-\" default=\"main\">\n");
 		sb.append("  <target name=\"main\">\n");
 		sb.append("    <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + target + "\"/>\n");
 		sb.append("  </target>\n");
 		sb.append("</project>\n");
+		String filename = tmpDir + "/" + BUILD_WRAPPER;
 		resourceUtils.write(filename, sb.toString());
 		return new File(filename);
 	}
@@ -435,15 +463,13 @@ public class AntMojo extends AbstractMojo {
 	 * @param buildException
 	 *            not null
 	 * @return the fragment XML part where the buildException occurs.
-	 * @since 1.7
 	 */
-	protected String findFragment(BuildException buildException) {
-		if (buildException == null || buildException.getLocation() == null
-				|| buildException.getLocation().getFileName() == null) {
+	protected String findFragment(BuildException be) {
+		if (be == null || be.getLocation() == null || be.getLocation().getFileName() == null) {
 			return null;
 		}
 
-		File antFile = new File(buildException.getLocation().getFileName());
+		File antFile = new File(be.getLocation().getFileName());
 		if (!antFile.exists()) {
 			return null;
 		}
@@ -453,10 +479,8 @@ public class AntMojo extends AbstractMojo {
 			reader = new LineNumberReader(ReaderFactory.newXmlReader(antFile));
 			String line = "";
 			while ((line = reader.readLine()) != null) {
-				if (reader.getLineNumber() == buildException.getLocation().getLineNumber()) {
-					return "around Ant part ..." + line.trim() + "... @ "
-							+ buildException.getLocation().getLineNumber() + ":"
-							+ buildException.getLocation().getColumnNumber() + " in " + antFile.getAbsolutePath();
+				if (reader.getLineNumber() == be.getLocation().getLineNumber()) {
+					return getFragmentMsg(line, be, antFile);
 				}
 			}
 		} catch (Exception e) {
@@ -467,6 +491,35 @@ public class AntMojo extends AbstractMojo {
 		}
 
 		return null;
+	}
+
+	protected String getFragmentMsg(String line, BuildException be, File antFile) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("around Ant part ...");
+		sb.append(line.trim());
+		sb.append("... @ ");
+		sb.append(be.getLocation().getLineNumber());
+		sb.append(":");
+		sb.append(be.getLocation().getColumnNumber());
+		sb.append(" in ");
+		sb.append(antFile.getAbsolutePath());
+		return sb.toString();
+	}
+
+	public String getPropertyPrefix() {
+		return propertyPrefix;
+	}
+
+	public void setPropertyPrefix(String propertyPrefix) {
+		this.propertyPrefix = propertyPrefix;
+	}
+
+	public String getCustomTaskPrefix() {
+		return customTaskPrefix;
+	}
+
+	public void setCustomTaskPrefix(String customTaskPrefix) {
+		this.customTaskPrefix = customTaskPrefix;
 	}
 
 	public String getVersionsPropertyName() {
