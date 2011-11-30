@@ -206,6 +206,8 @@ public class AntRunMojo extends AbstractMojo {
 	 */
 	private String inheritRefs;
 
+	private String antFilename;
+
 	protected AntTaskPojo getAntTaskPojo() {
 		AntTaskPojo pojo = new AntTaskPojo();
 		pojo.setAntfile(LOCAL_BUILD_FILE);
@@ -220,6 +222,7 @@ public class AntRunMojo extends AbstractMojo {
 		File basedir = project.getBasedir();
 		File localFile = new File(basedir.getAbsolutePath() + "/" + LOCAL_BUILD_FILE);
 		resourceUtils.copy(file, localFile.getAbsolutePath());
+		antFilename = resourceUtils.getFilename(file);
 	}
 
 	protected boolean isSkip() {
@@ -493,8 +496,7 @@ public class AntRunMojo extends AbstractMojo {
 		String xml = getDefaultXML();
 
 		// The fileName should probably use the plugin executionId instead of the targetName
-		String fileName = "build.xml";
-		File buildFile = new File(project.getBuild().getDirectory(), "/ant/" + fileName);
+		File buildFile = new File(project.getBuild().getDirectory(), "/ant/" + antFilename);
 
 		buildFile.getParentFile().mkdirs();
 		FileUtils.fileWrite(buildFile.getAbsolutePath(), UTF_8, xml);
@@ -502,11 +504,16 @@ public class AntRunMojo extends AbstractMojo {
 	}
 
 	protected String getProjectOpen() {
-		String xmlns = "";
-		if (!customTaskPrefix.trim().equals("")) {
-			xmlns = "xmlns:" + customTaskPrefix + "=\"" + TASK_URI + "\"";
+		StringBuilder sb = new StringBuilder();
+		sb.append("<project");
+		sb.append(" name=\"ant-maven\"");
+		sb.append(" default=\"" + DEFAULT_ANT_TARGET_NAME + "\"");
+		if (!StringUtils.isBlank(customTaskPrefix)) {
+			sb.append(" xmlns:" + customTaskPrefix + "=\"" + TASK_URI + "\"");
 		}
-		return "<project name=\"ant-maven\" default=\"" + DEFAULT_ANT_TARGET_NAME + "\" " + xmlns + " >\n";
+		sb.append(">");
+		sb.append("\n");
+		return sb.toString();
 	}
 
 	/**
