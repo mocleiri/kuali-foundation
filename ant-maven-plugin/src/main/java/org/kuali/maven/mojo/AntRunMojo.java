@@ -88,6 +88,7 @@ public class AntRunMojo extends AbstractMojo {
 	 */
 	public final static String UTF_8 = "UTF-8";
 
+	public static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"" + UTF_8 + "\" ?>\n";
 	/**
 	 * The name used for the ant target
 	 */
@@ -200,24 +201,36 @@ public class AntRunMojo extends AbstractMojo {
 	 */
 	private String location;
 
+	/**
+	 * @parameter expression="${ant.locationTarget}" default-value="main"
+	 */
+	private String locationTarget;
+
 	private File localFile;
+
+	protected boolean isSkip() {
+		if (skip) {
+			getLog().info("Skipping Ant execution");
+			return true;
+		}
+
+		if (target == null && StringUtils.isEmpty(location)) {
+			getLog().info("No Ant target defined - SKIPPED");
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
 	@Override
 	public void execute() throws MojoExecutionException {
-		if (skip) {
-			getLog().info("Skipping Antrun execution");
+		if (isSkip()) {
 			return;
 		}
 
 		MavenProject mavenProject = getMavenProject();
-
-		if (target == null) {
-			getLog().info("No ant target defined - SKIPPED");
-			return;
-		}
 
 		if (propertyPrefix == null) {
 			propertyPrefix = "";
@@ -452,6 +465,17 @@ public class AntRunMojo extends AbstractMojo {
 		typedef.execute();
 	}
 
+	protected String getDefaultXML() throws IOException {
+		StringBuilder sb = new StringBuilder();
+		sb.append(XML_HEADER);
+		sb.append(getProjectOpen());
+		sb.append("  <target name=\"main\">\n");
+		sb.append("    <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + locationTarget + "\"/>\n");
+		sb.append("  </target>\n");
+		sb.append("</project>\n");
+		return sb.toString();
+	}
+
 	/**
 	 * Write the ant target and surrounding tags to a temporary file
 	 * 
@@ -465,32 +489,21 @@ public class AntRunMojo extends AbstractMojo {
 
 		StringBuffer antProjectConfig = writer.getBuffer();
 
-		// replace deprecated tasks tag with standard Ant target
-		stringReplace(antProjectConfig, "<tasks", "<target");
-		stringReplace(antProjectConfig, "</tasks", "</target");
-
-		antTargetName = target.getAttribute("name");
+		String targetName = getCorrectAntTargetName();
 
 		if (antTargetName == null) {
-			antTargetName = DEFAULT_ANT_TARGET_NAME;
+			antTargetName = targetName;
 			stringReplace(antProjectConfig, "<target", "<target name=\"" + antTargetName + "\"");
 		}
 
-		String xmlns = "";
-		if (!customTaskPrefix.trim().equals("")) {
-			xmlns = "xmlns:" + customTaskPrefix + "=\"" + TASK_URI + "\"";
-		}
-
-		final String xmlHeader = "<?xml version=\"1.0\" encoding=\"" + UTF_8 + "\" ?>\n";
-		antProjectConfig.insert(0, xmlHeader);
-		final String projectOpen = "<project name=\"maven-antrun-\" default=\"" + antTargetName + "\" " + xmlns
-				+ " >\n";
+		antProjectConfig.insert(0, XML_HEADER);
+		final String projectOpen = getProjectOpen();
 		int index = antProjectConfig.indexOf("<target");
 		antProjectConfig.insert(index, projectOpen);
 
 		if (!StringUtils.isEmpty(location)) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("  <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"noop\"/>\n");
+			sb.append("  <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + locationTarget + "\"/>\n");
 			index = antProjectConfig.indexOf("</target>");
 			antProjectConfig.insert(index, sb.toString());
 		}
@@ -505,6 +518,22 @@ public class AntRunMojo extends AbstractMojo {
 		buildFile.getParentFile().mkdirs();
 		FileUtils.fileWrite(buildFile.getAbsolutePath(), UTF_8, antProjectConfig.toString());
 		return buildFile;
+	}
+
+	protected String getProjectOpen() {
+		String xmlns = "";
+		if (!customTaskPrefix.trim().equals("")) {
+			xmlns = "xmlns:" + customTaskPrefix + "=\"" + TASK_URI + "\"";
+		}
+		return "<project name=\"maven-antrun-\" default=\"" + antTargetName + "\" " + xmlns + " >\n";
+	}
+
+	protected String getCorrectAntTargetName() throws PlexusConfigurationException {
+		String targetName = DEFAULT_ANT_TARGET_NAME;
+		if (target != null) {
+			targetName = target.getAttribute("name");
+		}
+		return targetName;
 	}
 
 	/**
