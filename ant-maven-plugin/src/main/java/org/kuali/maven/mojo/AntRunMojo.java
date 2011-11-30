@@ -59,38 +59,42 @@ import org.kuali.maven.common.ResourceUtils;
  */
 public class AntRunMojo extends AbstractMojo {
 	ResourceUtils resourceUtils = new ResourceUtils();
+	private static final String FS = System.getProperty("file.separator");
+
+	public static final String ANT_BUILD_DIR = "target" + FS + "ant";
+	public static final String LOCAL_BUILD_FILE = ANT_BUILD_DIR + FS + "build-local.xml";
 
 	/**
 	 * The refid used to store the Maven project object in the Ant build.
 	 */
-	public final static String DEFAULT_MAVEN_PROJECT_REFID = "maven.project";
+	public static final String DEFAULT_MAVEN_PROJECT_REFID = "maven.project";
 
 	/**
 	 * The refid used to store the Maven project object in the Ant build.
 	 */
-	public final static String DEFAULT_MAVEN_PROJECT_HELPER_REFID = "maven.project.helper";
+	public static final String DEFAULT_MAVEN_PROJECT_HELPER_REFID = "maven.project.helper";
 
 	/**
 	 * The default target name.
 	 */
-	public final static String DEFAULT_ANT_TARGET_NAME = "main";
+	public static final String DEFAULT_ANT_TARGET_NAME = "main";
 
 	/**
 	 * The default encoding to use for the generated Ant build.
 	 */
-	public final static String UTF_8 = "UTF-8";
+	public static final String UTF_8 = "UTF-8";
 
 	public static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"" + UTF_8 + "\" ?>\n";
 
 	/**
 	 * The path to The XML file containing the definition of the Maven tasks.
 	 */
-	public final static String ANTLIB = "org/apache/maven/ant/tasks/antlib.xml";
+	public static final String ANTLIB = "org/apache/maven/ant/tasks/antlib.xml";
 
 	/**
 	 * The URI which defines the built in Ant tasks
 	 */
-	public final static String TASK_URI = "antlib:org.apache.maven.ant.tasks";
+	public static final String TASK_URI = "antlib:org.apache.maven.ant.tasks";
 
 	/**
 	 * The Maven project object
@@ -172,10 +176,11 @@ public class AntRunMojo extends AbstractMojo {
 	private boolean failOnError;
 
 	/**
-	 * The build file to use. This supports Spring 3.0 resource URL expressions eg "classpath:build.xml" or "http://myurl/build.xml" Note, when searching
-	 * the classpath for build files, the classpath of the ant-maven-plugin is what is searched, not the classpath of the project the plugin is running in.
+	 * The build file to use. This supports Spring 3.0 resource URL expressions eg "classpath:build.xml" or "http://myurl/build.xml". When searching the
+	 * classpath for build files, the classpath of the ant-maven-plugin is what is searched, not the classpath of the project the plugin is running in.
 	 * 
 	 * @parameter expression="${ant.file}" default-value="build.xml"
+	 * @required
 	 */
 	private String file;
 
@@ -192,11 +197,6 @@ public class AntRunMojo extends AbstractMojo {
 	private String output;
 
 	/**
-	 * @parameter expression="${ant.dir}"
-	 */
-	private String dir;
-
-	/**
 	 * @parameter expression="${ant.inheritAll}" default-value="true"
 	 */
 	private String inheritAll;
@@ -206,25 +206,21 @@ public class AntRunMojo extends AbstractMojo {
 	 */
 	private String inheritRefs;
 
-	/**
-	 * @parameter expression="${ant.useNativeBaseDir}" default-value="false"
-	 */
-	private String useNativeBaseDir;
-
 	protected AntTaskPojo getAntTaskPojo() {
 		AntTaskPojo pojo = new AntTaskPojo();
-		pojo.setAntfile(relativeLocalFilename);
+		pojo.setAntfile(LOCAL_BUILD_FILE);
 		pojo.setTarget(target);
-		pojo.setDir(dir);
 		pojo.setOutput(output);
 		pojo.setInheritAll(Boolean.parseBoolean(inheritAll));
 		pojo.setInheritRefs(Boolean.parseBoolean(inheritRefs));
-		pojo.setUseNativeBasedir(Boolean.parseBoolean(useNativeBaseDir));
 		return pojo;
 	}
 
-	private File localFile;
-	private String relativeLocalFilename;
+	protected void handleAntfile() throws IOException {
+		File basedir = project.getBasedir();
+		File localFile = new File(basedir.getAbsolutePath() + "/" + LOCAL_BUILD_FILE);
+		resourceUtils.copy(file, localFile.getAbsolutePath());
+	}
 
 	protected boolean isSkip() {
 		if (skip) {
@@ -246,13 +242,8 @@ public class AntRunMojo extends AbstractMojo {
 		MavenProject mavenProject = getMavenProject();
 
 		try {
-			if (!StringUtils.isEmpty(file)) {
-				File basedir = project.getBasedir();
-				relativeLocalFilename = "target/ant/build-local.xml";
-				localFile = new File(basedir.getAbsolutePath() + "/" + relativeLocalFilename);
-				resourceUtils.copy(file, localFile.getAbsolutePath());
-			}
-
+			handleAntfile();
+			
 			Project antProject = new Project();
 			File antBuildFile = writeTargetToProjectFile();
 			ProjectHelper.configureProject(antProject, antBuildFile);
