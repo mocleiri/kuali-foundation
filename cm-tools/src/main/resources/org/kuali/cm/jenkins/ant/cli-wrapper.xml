@@ -22,7 +22,7 @@
 
   <target name="cli">
     <echo>${jenkins.server} - ${jenkins.cli.cmd}</echo>
-    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
+    <java classname="${jenkins.cli.classname}" classpathref="maven.plugin.classpath" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="${jenkins.cli.cmd}" />
@@ -32,7 +32,7 @@
   <target name="build">
     <property name="jenkins.cli.cmd" value="build" />
     <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
-    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
+    <java classname="${jenkins.cli.classname}" classpathref="maven.plugin.classpath" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="${jenkins.cli.cmd}" />
@@ -62,7 +62,7 @@
     <property name="jenkins.cli.cmd" value="get-job" />
     <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
     <echo>file - ${ant.output}</echo>
-    <java classname="${jenkins.cli.classname}" output="${ant.output}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
+    <java classname="${jenkins.cli.classname}" output="${ant.output}" classpathref="maven.plugin.classpath" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="${jenkins.cli.cmd}" />
@@ -73,7 +73,7 @@
   <target name="delete">
     <property name="jenkins.cli.cmd" value="delete-job" />
     <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
-    <java classname="${jenkins.cli.classname}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
+    <java classname="${jenkins.cli.classname}" classpathref="maven.plugin.classpath" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="${jenkins.cli.cmd}" />
@@ -84,7 +84,7 @@
   <target name="inputcmd">
     <echo>${jenkins.server} - ${jenkins.cli.cmd} - ${jenkins.job.name}</echo>
     <echo>file - ${ant.input}</echo>
-    <java classname="${jenkins.cli.classname}" input="${ant.input}" classpath="${maven.plugin.classpath}" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
+    <java classname="${jenkins.cli.classname}" input="${ant.input}" classpathref="maven.plugin.classpath" fork="${ant.java.fork}" failonerror="${ant.java.failonerror}">
       <arg value="-s" />
       <arg value="${jenkins.server}" />
       <arg value="${jenkins.cli.cmd}" />
