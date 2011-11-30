@@ -224,24 +224,24 @@ public class AntMojo extends AbstractMojo {
 
 	protected void addReferences(Project antProject) throws BuildException, DependencyResolutionRequiredException {
 		Path p = new Path(antProject);
-		p.setPath(StringUtils.join(project.getCompileClasspathElements().iterator(), File.pathSeparator));
+		p.setPath(StringUtils.join(getProject().getCompileClasspathElements().iterator(), File.pathSeparator));
 
 		/* maven.dependency.classpath it's deprecated as it's equal to maven.compile.classpath */
 		antProject.addReference("maven.dependency.classpath", p);
 		antProject.addReference("maven.compile.classpath", p);
 
 		p = new Path(antProject);
-		p.setPath(StringUtils.join(project.getRuntimeClasspathElements().iterator(), File.pathSeparator));
+		p.setPath(StringUtils.join(getProject().getRuntimeClasspathElements().iterator(), File.pathSeparator));
 		antProject.addReference("maven.runtime.classpath", p);
 
 		p = new Path(antProject);
-		p.setPath(StringUtils.join(project.getTestClasspathElements().iterator(), File.pathSeparator));
+		p.setPath(StringUtils.join(getProject().getTestClasspathElements().iterator(), File.pathSeparator));
 		antProject.addReference("maven.test.classpath", p);
 
 		/* set maven.plugin.classpath with plugin dependencies */
 		antProject.addReference("maven.plugin.classpath", getPathFromArtifacts(pluginArtifacts, antProject));
 
-		antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
+		antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getProject());
 		antProject.addReference(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
 		antProject.addReference("maven.local.repository", localRepository);
 		initMavenTasks(antProject);
@@ -445,15 +445,6 @@ public class AntMojo extends AbstractMojo {
 				+ (artifact.getClassifier() != null ? "." + artifact.getClassifier() : "")
 				+ (artifact.getType() != null ? "." + artifact.getType() : "") + ".path";
 		return key;
-	}
-
-	/**
-	 * Get the current Maven project
-	 * 
-	 * @return current Maven project
-	 */
-	public MavenProject getMavenProject() {
-		return this.project;
 	}
 
 	public void initMavenTasks(Project antProject) {
