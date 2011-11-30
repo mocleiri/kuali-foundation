@@ -482,6 +482,9 @@ public class AntRunMojo extends AbstractMojo {
 	 * @throws PlexusConfigurationException
 	 */
 	private File writeTargetToProjectFile() throws IOException, PlexusConfigurationException {
+		if (target == null) {
+			String s = getDefaultXML();
+		}
 		// Have to use an XML writer because in Maven 2.x the PlexusConfig toString() method loses XML attributes
 		StringWriter writer = new StringWriter();
 		AntrunXmlPlexusConfigurationWriter xmlWriter = new AntrunXmlPlexusConfigurationWriter();
