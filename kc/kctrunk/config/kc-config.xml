@@ -114,4 +114,7 @@
         <param name="keystore.password">r1c3pw</param>
 
 	<param name="log4j.settings.path">/home/tomcat/kuali/main/shared/log4j_kc.properties</param>
+	
+	<param name="fin.system.integration.service.url">http://stg.kfs.kuali.org:80/kfs-stg/remoting/</param>
+	
 </config>
