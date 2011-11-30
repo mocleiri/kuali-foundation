@@ -153,7 +153,7 @@ public class AntRunMojo extends AbstractMojo {
 	private String versionsPropertyName;
 
 	/**
-	 * @parameter expression="${ant.target} default-value="main"
+	 * @parameter expression="${ant.target}" default-value="main"
 	 */
 	private String target;
 
@@ -440,7 +440,7 @@ public class AntRunMojo extends AbstractMojo {
 		sb.append("<project name=\"maven-antrun-\" default=\"main\">\n");
 		sb.append("  <target name=\"main\">\n");
 		sb.append("    <property name=\"maven.plugin.classpath\" refid=\"maven.plugin.classpath\" />\n");
-		sb.append("    <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"noop\"/>\n");
+		sb.append("    <ant antfile=\"" + localFile.getAbsolutePath() + "\" target=\"" + target + "\"/>\n");
 		sb.append("  </target>\n");
 		sb.append("</project>\n");
 		String filename = project.getBuild().getDirectory() + "/antrun/build-main.xml";
