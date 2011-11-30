@@ -61,8 +61,8 @@ public class AntRunMojo extends AbstractMojo {
 	ResourceUtils resourceUtils = new ResourceUtils();
 	private static final String FS = System.getProperty("file.separator");
 
-	public static final String ANT_BUILD_DIR = "target" + FS + "ant";
-	public static final String LOCAL_BUILD_FILE = ANT_BUILD_DIR + FS + "build-local.xml";
+	public static final String ANT_DIR = "ant";
+	public static final String ANT_BUILD_DIR = "target" + FS + ANT_DIR;
 
 	/**
 	 * The refid used to store the Maven project object in the Ant build.
@@ -210,7 +210,7 @@ public class AntRunMojo extends AbstractMojo {
 
 	protected AntTaskPojo getAntTaskPojo() {
 		AntTaskPojo pojo = new AntTaskPojo();
-		pojo.setAntfile(LOCAL_BUILD_FILE);
+		pojo.setAntfile(ANT_BUILD_DIR + FS + "local-" + antFilename);
 		pojo.setTarget(target);
 		pojo.setOutput(output);
 		pojo.setInheritAll(Boolean.parseBoolean(inheritAll));
@@ -219,10 +219,9 @@ public class AntRunMojo extends AbstractMojo {
 	}
 
 	protected void handleAntfile() throws IOException {
-		File basedir = project.getBasedir();
-		File localFile = new File(basedir.getAbsolutePath() + "/" + LOCAL_BUILD_FILE);
-		resourceUtils.copy(file, localFile.getAbsolutePath());
 		antFilename = resourceUtils.getFilename(file);
+		File localFile = new File(ANT_BUILD_DIR + FS + "local-" + antFilename);
+		resourceUtils.copy(file, localFile.getAbsolutePath());
 	}
 
 	protected boolean isSkip() {
@@ -495,8 +494,8 @@ public class AntRunMojo extends AbstractMojo {
 	protected File createBuildWrapper() throws IOException {
 		String xml = getDefaultXML();
 
-		// The fileName should probably use the plugin executionId instead of the targetName
-		File buildFile = new File(project.getBuild().getDirectory(), "/ant/" + antFilename);
+		// The fileName should probably use the plugin executionId instead
+		File buildFile = new File(ANT_BUILD_DIR + FS + antFilename);
 
 		buildFile.getParentFile().mkdirs();
 		FileUtils.fileWrite(buildFile.getAbsolutePath(), UTF_8, xml);
