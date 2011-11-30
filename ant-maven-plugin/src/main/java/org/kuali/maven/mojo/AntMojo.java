@@ -231,7 +231,7 @@ public class AntMojo extends AbstractMojo {
 
 	protected Project getAntProject() throws IOException {
 		Project antProject = new Project();
-		File antBuildFile = createBuildWrapper(null);
+		File antBuildFile = createBuildWrapper();
 		ProjectHelper.configureProject(antProject, antBuildFile);
 		antProject.init();
 		return antProject;
@@ -490,7 +490,7 @@ public class AntMojo extends AbstractMojo {
 		typedef.execute();
 	}
 
-	protected String getDefaultXML(Map<String, Path> pathRefs) throws IOException {
+	protected String getDefaultXML() throws IOException {
 		AntTaskPojo atp = getAntTaskPojo();
 		StringBuilder sb = new StringBuilder();
 		sb.append(XML_HEADER);
@@ -498,16 +498,6 @@ public class AntMojo extends AbstractMojo {
 		sb.append("  <target name=\"" + DEFAULT_ANT_TARGET_NAME + "\">\n");
 		sb.append("    " + getXML(atp) + "\n");
 		sb.append("  </target>\n");
-		if (pathRefs != null) {
-			for (Map.Entry<String, Path> pair : pathRefs.entrySet()) {
-				sb.append("  <path id=\"" + pair.getKey() + "\">\n");
-				sb.append("    <pathelement path=\"" + pair.getValue() + "\" />\n");
-				sb.append("  </path>\n");
-			}
-			for (String key : pathRefs.keySet()) {
-				sb.append("  <property name=\"" + key + "\" refid=\"" + key + "\" />\n");
-			}
-		}
 		sb.append("</project>\n");
 		return sb.toString();
 	}
@@ -515,8 +505,8 @@ public class AntMojo extends AbstractMojo {
 	/**
 	 * Write the ant target and surrounding tags to a temporary file
 	 */
-	protected File createBuildWrapper(Map<String, Path> pathRefs) throws IOException {
-		String xml = getDefaultXML(pathRefs);
+	protected File createBuildWrapper() throws IOException {
+		String xml = getDefaultXML();
 
 		// The fileName should probably use the plugin executionId instead
 		File buildFile = new File(ANT_BUILD_DIR + FS + antFilename);
