@@ -570,9 +570,18 @@ public class AntRunMojo extends AbstractMojo {
 		sb.append(attr("dir", atp.getDir()));
 		sb.append(attr("target", atp.getTarget()));
 		sb.append(attr("output", atp.getOutput()));
-		sb.append(attr("inheritAll", atp.isInheritAll() + ""));
-		sb.append(attr("inheritRefs", atp.isInheritRefs() + ""));
-		sb.append(attr("useNativeBaseDir", atp.isUseNativeBasedir() + ""));
+		// Only include if different from the default
+		if (!atp.isInheritAll()) {
+			sb.append(attr("inheritAll", atp.isInheritAll() + ""));
+		}
+		// Only include if different from the default
+		if (atp.isInheritRefs()) {
+			sb.append(attr("inheritRefs", atp.isInheritRefs() + ""));
+		}
+		// Only include if different from the default
+		if (atp.isUseNativeBasedir()) {
+			sb.append(attr("useNativeBaseDir", atp.isUseNativeBasedir() + ""));
+		}
 		sb.append(" />");
 		return sb.toString();
 	}
