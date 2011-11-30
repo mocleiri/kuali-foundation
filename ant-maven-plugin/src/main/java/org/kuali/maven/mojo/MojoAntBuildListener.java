@@ -56,12 +56,10 @@ public class MojoAntBuildListener implements BuildListener {
 
 	@Override
 	public void targetStarted(BuildEvent event) {
-		messageLogged(event);
 	}
 
 	@Override
 	public void targetFinished(BuildEvent event) {
-		messageLogged(event);
 	}
 
 	@Override
