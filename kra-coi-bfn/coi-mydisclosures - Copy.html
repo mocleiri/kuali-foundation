@@ -2,7 +2,7 @@
 <html>
 <head>
 
-	<title>COI - Current Disclosure</title>
+	<title>COI - My Disclosures</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <link rel="shortcut icon" href="../images/icon.ico" />
     
@@ -87,7 +87,7 @@
 <body>
 <form name="thisform" method="post" action="">
 <div class="headerarea-kra" id="headerarea">
-  <h1>COI - Current Disclosure <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
+  <h1>COI - My Disclosures <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
   <div class="headerbox">
     <table cellpadding=0 cellspacing=0 summary="document header: general information" style="border-bottom:#A0A0A0; border-bottom-style:solid; border-bottom-width:1px">
       <tr>
@@ -116,7 +116,7 @@
   <div id="tabs">
     <dl class="tabul">
       <dt class="licurrent"> <span class="tabright tabcurrent">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-annualdisclosures.html');return document.MM_returnValue" value="Current Disclosure">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-mydisclosures.html');return document.MM_returnValue" value="My Disclosures">
         </span> </dt>
     </dl>
   </div>
@@ -140,13 +140,151 @@
     <td><div  align="center">
         <div id="workarea">
         
-         
+          <!-- Reporter Details -->
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle" >Reporter Details</td>
+              <td class="tabtable1-mid"><a href="#" id="A031b" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031b" ></a></td>
+              <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G031b" style="display: none;">
+
+			<!-- reporter details panel -->
+            <div class="h2-container">
+            	<span class="subhead-left">
+              		<h2>Reporter Details</h2>
+              	</span>
+                <span class="subhead-right subhead">
+                	<a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
+                </span>
+            </div>
+            <table cellspacing="0">
+                <tbody>
+                    <tr>
+                        <th style="width:155px;"><div align="right">Name:</div></th>
+                        <td>Brad Mehldau</td>
+                        <th style="width:110px;"><div align="right">Phone Number:</div></th>
+                        <td><input type="text" style="width:98%;" value="(123) 456-7890" /></td>
+                        <th style="width:130px;"><div align="right">E-mail:</div></th>
+                        <td colspan="3"><input type="text" style="width:98%;" value="Brad.Mehldau@Kuali.org" /></td>
+                    </tr>
+                    <tr>
+                        <th><div align="right">Street 1:</div></th>
+                        <td><input type="text" style="width:98%;" value="123 Main St." /></td>
+                        <th><div align="right">Street 2:</div></th>
+                        <td><input type="text" style="width:98%;" value="Ste. 504" /></td>
+                        <th><div align="right">State:</div></th>
+                        <td><input type="text" style="width:98%;" value="MI" /></td>
+                        <th style="width:35px;"><div align="right">Zip:</div></th>
+                        <td><input type="text" style="width:98%;" value="12345" /></td>
+                    </tr>
+                    <tr>
+                        <th><div align="right">Department:</div></th>
+                        <td>
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="Chemistry" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                        <th><div align="right">Unit:</div></th>
+                        <td>
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="Chemistry" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                        <th><div align="right">College:</div></th>
+                        <td colspan="3">
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="College of Arts &amp; Sciences" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><div align="right">Secondary Department:</div></th>
+                        <td>
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                        <th><div align="right">Secondary Unit:</div></th>
+                        <td>
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                        <th><div align="right">Secondary College:</div></th>
+                        <td colspan="3">
+                        
+                        	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        <input type="text" style="width:100%;" value="" />
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/searchicon.gif" onclick="javascript: alert('This would open a lookup for this field.'); return false" class="tinybutton" align="top" alt="Search " title="Search " border="0" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+          </div>	
+            
+            
           <!-- Awards -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle" ><span id="control_awardprotprop" style="cursor:pointer;">Awards</span></td>
-              <td class="tabtable1-mid"><a href="#" id="A031bb" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031bb" ></a></td>
-              <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" ><span id="control_awardprotprop" style="cursor:pointer;">Awards</span></td>
+              <td class="tabtable2-mid"><a href="#" id="A031bb" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031bb" ></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
           <div class="tab-container" align="center" id="G031bb" style="display: none;">
@@ -293,7 +431,6 @@
                 </table>
             </div>
             
-            
             <!-- Gamma -->
             <div class="div_protocol" style="margin-bottom:10px;">
                 <div class="h2-container" style="height:20px;">
@@ -325,7 +462,6 @@
                 </table>
             </div>
             
-            
             <!-- Delta -->
             <div class="div_protocol" style="margin-bottom:10px;">
                 <div class="h2-container" style="height:20px;">
@@ -356,7 +492,6 @@
                   </tbody>
                 </table>
             </div>
-            
             
             <!-- Zeta -->
             <div class="div_protocol" style="margin-bottom:10px;">
@@ -391,38 +526,6 @@
             
           </div>
           
-          
-          <!-- Annual -->
-          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
-            <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" ><span id="control_awardprotprop" style="cursor:pointer;">Annual</span></td>
-              <td class="tabtable2-mid"><a href="#" id="A031bb6s" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031bb6s" ></a></td>
-              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
-            </tr>
-          </table>
-          <div class="tab-container" align="center" id="G031bb6s" style="display: none;">
-            
-            <!-- Beta -->
-            <div class="div_protocol" style="margin-bottom:10px;">
-                <div class="h2-container" style="height:20px;">
-                    <span class="subhead-left">
-                        <h2><input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the indicated disclosure.'); return false" style="border:none; vertical-align:middle;" alt="view" title="View" type="image" />
-                        2011 Annual Disclosure</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
-                    </span>
-                </div>
-                <table cellspacing="0">
-                  <tbody>
-                    <tr>
-                        <th style="text-align:right; width:130px;">Ipsum:</th>
-                        <td>Lorum</td>
-                    </tr>
-                  </tbody>
-                </table>
-            </div>
-            
-          </div>
-          
-          
           <table width="100%" border="0" cellpadding="0" cellspacing="0" class="b3" summary="">
             <tr>
               <td align="left" class="footer"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="bl3"></td>
@@ -430,6 +533,8 @@
             </tr>
           </table>
         </div>
+        
+        
         <div align="right"><br>
           * required </div>
         <div class="globalbuttons">
