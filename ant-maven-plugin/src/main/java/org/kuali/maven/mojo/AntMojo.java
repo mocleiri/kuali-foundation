@@ -202,10 +202,11 @@ public class AntMojo extends AbstractMojo {
 	private String inheritRefs;
 
 	private String antFilename;
+	private String relativeLocalFilename;
 
 	protected AntTaskPojo getAntTaskPojo() {
 		AntTaskPojo pojo = new AntTaskPojo();
-		pojo.setAntfile(ANT_BUILD_DIR + FS + "local-" + antFilename);
+		pojo.setAntfile(relativeLocalFilename);
 		pojo.setTarget(target);
 		pojo.setOutput(output);
 		pojo.setInheritAll(Boolean.parseBoolean(inheritAll));
@@ -215,7 +216,8 @@ public class AntMojo extends AbstractMojo {
 
 	protected void handleAntfile() throws IOException {
 		antFilename = resourceUtils.getFilename(file);
-		File localFile = new File(ANT_BUILD_DIR + FS + "local-" + antFilename);
+		relativeLocalFilename = ANT_BUILD_DIR + FS + "local-" + antFilename;
+		File localFile = new File(relativeLocalFilename);
 		resourceUtils.copy(file, localFile.getAbsolutePath());
 	}
 
