@@ -236,6 +236,9 @@ public class AntRunMojo extends AbstractMojo {
 
 	protected Project getAntProject() throws IOException {
 		Project antProject = new Project();
+		File antBuildFile = createBuildWrapper(null);
+		ProjectHelper.configureProject(antProject, antBuildFile);
+		antProject.init();
 		return antProject;
 	}
 
@@ -284,16 +287,18 @@ public class AntRunMojo extends AbstractMojo {
 		return pathRefs;
 	}
 
-	protected void addPathRefs(Project antProject, Map<String, Path> pathRefs) {
-		for (Map.Entry<String, Path> pair : pathRefs.entrySet()) {
+	protected void addRefs(Project antProject, Map<String, ?> refs) {
+		for (Map.Entry<String, ?> pair : refs.entrySet()) {
 			antProject.addReference(pair.getKey(), pair.getValue());
 		}
 	}
 
-	protected void addMavenReferences(Project antProject, MavenProject mavenProject) {
-		antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
-		antProject.addReference(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
-		antProject.addReference("maven.local.repository", localRepository);
+	protected Map<String, ?> getMavenRefs(MavenProject mavenProject) {
+		Map<String, Object> mavenRefs = new HashMap<String, Object>();
+		mavenRefs.put(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
+		mavenRefs.put(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
+		mavenRefs.put("maven.local.repository", localRepository);
+		return mavenRefs;
 	}
 
 	/**
@@ -315,13 +320,10 @@ public class AntRunMojo extends AbstractMojo {
 			antProject.addBuildListener(antLogger);
 
 			Map<String, Path> pathRefs = getPathRefs(antProject, mavenProject);
-			addPathRefs(antProject, pathRefs);
+			Map<String, ?> mavenRefs = getMavenRefs(mavenProject);
+			addRefs(antProject, pathRefs);
+			addRefs(antProject, mavenRefs);
 
-			File antBuildFile = createBuildWrapper(pathRefs);
-			ProjectHelper.configureProject(antProject, antBuildFile);
-			antProject.init();
-
-			addMavenReferences(antProject, mavenProject);
 			initMavenTasks(antProject);
 
 			// Ant project needs actual properties vs. using expression evaluator when calling an external build file.
@@ -501,13 +503,15 @@ public class AntRunMojo extends AbstractMojo {
 		sb.append("  <target name=\"" + DEFAULT_ANT_TARGET_NAME + "\">\n");
 		sb.append("    " + getXML(atp) + "\n");
 		sb.append("  </target>\n");
-		for (Map.Entry<String, Path> pair : pathRefs.entrySet()) {
-			sb.append("  <path id=\"" + pair.getKey() + "\">\n");
-			sb.append("    <pathelement path=\"" + pair.getValue() + "\" />\n");
-			sb.append("  </path>\n");
-		}
-		for (String key : pathRefs.keySet()) {
-			sb.append("  <property name=\"" + key + "\" refid=\"" + key + "\" />\n");
+		if (pathRefs != null) {
+			for (Map.Entry<String, Path> pair : pathRefs.entrySet()) {
+				sb.append("  <path id=\"" + pair.getKey() + "\">\n");
+				sb.append("    <pathelement path=\"" + pair.getValue() + "\" />\n");
+				sb.append("  </path>\n");
+			}
+			for (String key : pathRefs.keySet()) {
+				sb.append("  <property name=\"" + key + "\" refid=\"" + key + "\" />\n");
+			}
 		}
 		sb.append("</project>\n");
 		return sb.toString();
