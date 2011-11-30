@@ -153,7 +153,7 @@ public class AntMojo extends AbstractMojo {
 	/**
 	 * The target inside of the build.xml file to invoke
 	 * 
-	 * @parameter expression="${ant.target}"
+	 * @parameter expression="${ant.target}" default-value="main"
 	 */
 	private String target;
 
