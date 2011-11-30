@@ -38,6 +38,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.BuildLogger;
 import org.apache.tools.ant.DefaultLogger;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
@@ -230,6 +231,55 @@ public class AntRunMojo extends AbstractMojo {
 		return false;
 	}
 
+	protected Project getAntProject() throws IOException {
+		Project antProject = new Project();
+		File antBuildFile = writeTargetToProjectFile();
+		ProjectHelper.configureProject(antProject, antBuildFile);
+		antProject.init();
+		return antProject;
+	}
+
+	protected BuildLogger getBuildLogger() {
+		DefaultLogger antLogger = new DefaultLogger();
+		antLogger.setOutputPrintStream(System.out);
+		antLogger.setErrorPrintStream(System.err);
+
+		if (getLog().isDebugEnabled()) {
+			antLogger.setMessageOutputLevel(Project.MSG_DEBUG);
+		} else if (getLog().isInfoEnabled()) {
+			antLogger.setMessageOutputLevel(Project.MSG_INFO);
+		} else if (getLog().isWarnEnabled()) {
+			antLogger.setMessageOutputLevel(Project.MSG_WARN);
+		} else if (getLog().isErrorEnabled()) {
+			antLogger.setMessageOutputLevel(Project.MSG_ERR);
+		} else {
+			antLogger.setMessageOutputLevel(Project.MSG_VERBOSE);
+		}
+		return antLogger;
+	}
+
+	protected void addReferences(Project antProject, MavenProject mavenProject) throws BuildException,
+			DependencyResolutionRequiredException {
+		Path p = new Path(antProject);
+		p.setPath(StringUtils.join(mavenProject.getCompileClasspathElements().iterator(), File.pathSeparator));
+		antProject.addReference("maven.compile.classpath", p);
+
+		p = new Path(antProject);
+		p.setPath(StringUtils.join(mavenProject.getRuntimeClasspathElements().iterator(), File.pathSeparator));
+		antProject.addReference("maven.runtime.classpath", p);
+
+		p = new Path(antProject);
+		p.setPath(StringUtils.join(mavenProject.getTestClasspathElements().iterator(), File.pathSeparator));
+		antProject.addReference("maven.test.classpath", p);
+
+		/* set maven.plugin.classpath with plugin dependencies */
+		antProject.addReference("maven.plugin.classpath", getPathFromArtifacts(pluginArtifacts, antProject));
+
+		antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
+		antProject.addReference(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
+		antProject.addReference("maven.local.repository", localRepository);
+	}
+
 	/**
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
@@ -243,50 +293,13 @@ public class AntRunMojo extends AbstractMojo {
 
 		try {
 			handleAntfile();
-			
-			Project antProject = new Project();
-			File antBuildFile = writeTargetToProjectFile();
-			ProjectHelper.configureProject(antProject, antBuildFile);
-			antProject.init();
+			Project antProject = getAntProject();
 
-			DefaultLogger antLogger = new DefaultLogger();
-			antLogger.setOutputPrintStream(System.out);
-			antLogger.setErrorPrintStream(System.err);
-
-			if (getLog().isDebugEnabled()) {
-				antLogger.setMessageOutputLevel(Project.MSG_DEBUG);
-			} else if (getLog().isInfoEnabled()) {
-				antLogger.setMessageOutputLevel(Project.MSG_INFO);
-			} else if (getLog().isWarnEnabled()) {
-				antLogger.setMessageOutputLevel(Project.MSG_WARN);
-			} else if (getLog().isErrorEnabled()) {
-				antLogger.setMessageOutputLevel(Project.MSG_ERR);
-			} else {
-				antLogger.setMessageOutputLevel(Project.MSG_VERBOSE);
-			}
-
+			BuildLogger antLogger = getBuildLogger();
 			antProject.addBuildListener(antLogger);
 			antProject.setBaseDir(mavenProject.getBasedir());
 
-			Path p = new Path(antProject);
-			p.setPath(StringUtils.join(mavenProject.getCompileClasspathElements().iterator(), File.pathSeparator));
-
-			antProject.addReference("maven.compile.classpath", p);
-
-			p = new Path(antProject);
-			p.setPath(StringUtils.join(mavenProject.getRuntimeClasspathElements().iterator(), File.pathSeparator));
-			antProject.addReference("maven.runtime.classpath", p);
-
-			p = new Path(antProject);
-			p.setPath(StringUtils.join(mavenProject.getTestClasspathElements().iterator(), File.pathSeparator));
-			antProject.addReference("maven.test.classpath", p);
-
-			/* set maven.plugin.classpath with plugin dependencies */
-			antProject.addReference("maven.plugin.classpath", getPathFromArtifacts(pluginArtifacts, antProject));
-
-			antProject.addReference(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
-			antProject.addReference(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
-			antProject.addReference("maven.local.repository", localRepository);
+			addReferences(antProject, mavenProject);
 			initMavenTasks(antProject);
 
 			// Ant project needs actual properties vs. using expression evaluator when calling an external build file.
@@ -471,15 +484,15 @@ public class AntRunMojo extends AbstractMojo {
 	 * 
 	 * @throws PlexusConfigurationException
 	 */
-	protected File writeTargetToProjectFile() throws IOException, PlexusConfigurationException {
-		String s = getDefaultXML();
+	protected File writeTargetToProjectFile() throws IOException {
+		String xml = getDefaultXML();
 
 		// The fileName should probably use the plugin executionId instead of the targetName
 		String fileName = "build-" + DEFAULT_ANT_TARGET_NAME + ".xml";
 		File buildFile = new File(project.getBuild().getDirectory(), "/ant/" + fileName);
 
 		buildFile.getParentFile().mkdirs();
-		FileUtils.fileWrite(buildFile.getAbsolutePath(), UTF_8, s);
+		FileUtils.fileWrite(buildFile.getAbsolutePath(), UTF_8, xml);
 		return buildFile;
 	}
 
