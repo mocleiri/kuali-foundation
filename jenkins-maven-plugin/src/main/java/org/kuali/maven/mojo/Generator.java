@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
@@ -18,7 +19,10 @@ public class Generator {
 	PropertiesUtils propertiesUtils = new PropertiesUtils();
 	ResourceUtils resourceUtils = new ResourceUtils();
 
-	public String getJobName(MavenProject project, String type) {
+	public String getJobName(String name, MavenProject project, String type) {
+		if (!StringUtils.isBlank(name)) {
+			return name;
+		}
 		String majorVersion = extractor.getMajorVersion(project.getVersion());
 		StringBuilder sb = new StringBuilder();
 		sb.append(project.getArtifactId());
