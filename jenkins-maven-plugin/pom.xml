@@ -17,6 +17,7 @@
   This plugin automates the process of creating Jenkins jobs by harvesting information from the POM to create XML config files in the format Jenkins needs.  The
   Jenkins CLI wrapper is then used to create, update, read, and delete Jenkins jobs on the CI server.  
   </description>
+  <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <properties>
     <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
   </properties>
