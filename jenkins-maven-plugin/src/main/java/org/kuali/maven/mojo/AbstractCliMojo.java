@@ -13,12 +13,27 @@ public abstract class AbstractCliMojo extends BaseMojo {
 	 */
 	private String classname;
 
+	/**
+	 * @parameter expression="${jenkins.cmd}" default-value="get-job"
+	 * @required
+	 */
+	private String cmd;
+
+
 	public String getClassname() {
 		return classname;
 	}
 
 	public void setClassname(String classname) {
 		this.classname = classname;
+	}
+
+	public String getCmd() {
+		return cmd;
+	}
+
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
 	}
 
 }

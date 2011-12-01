@@ -1,13 +1,12 @@
 package org.kuali.maven.mojo;
 
-import hudson.cli.CLI;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +44,7 @@ public class JenkinsHelper {
 	ResourceUtils resourceUtils = new ResourceUtils();
 	AntMavenUtils antMvnUtils = new AntMavenUtils();
 
-	public <T> T getContext(Class<T> type, Mojo mojo) {
+	protected <T> T getContext(Class<T> type, Mojo mojo) {
 		try {
 			T context = type.newInstance();
 			BeanUtils.copyProperties(context, mojo);
@@ -68,9 +67,7 @@ public class JenkinsHelper {
 			MavenContext mvnContext = getMavenContext(mojo);
 			JobContext jobContext = getJobContext(mvnContext, mojo, name, type);
 			FileUtils.touch(jobContext.getLocalFile());
-			CliContext cliContext = getContext(CliContext.class, mojo);
-			String[] args = getArgs("-s", cliContext.getServer(), cliContext.getCmd(), jobContext.getName());
-			cliContext.setArgs(args);
+			CliContext cliContext = getCliContext(jobContext, mojo);
 			MojoContext context = getMojoContext(mvnContext, jobContext, cliContext);
 			AntContext antContext = getAntContext(context);
 			context.setAntContext(antContext);
@@ -89,11 +86,27 @@ public class JenkinsHelper {
 		}
 	}
 
+	protected boolean isEmpty(Collection<?> c) {
+		return c == null || c.size() == 0;
+	}
+
+	public void getJobs(Mojo mojo, List<String> names, String[] types) throws MojoExecutionException {
+		if (!isEmpty(names)) {
+			for (String name : names) {
+				getJob(mojo, name, null);
+			}
+		} else {
+			for (String type : types) {
+				getJob(mojo, null, type);
+			}
+		}
+	}
+
 	protected String[] getArgs(String... args) {
 		return args;
 	}
 
-	public void handleResult(MojoContext context, int result) throws MojoExecutionException {
+	protected void handleResult(MojoContext context, int result) throws MojoExecutionException {
 		if (result == 0) {
 			return;
 		}
@@ -133,23 +146,24 @@ public class JenkinsHelper {
 		}
 	}
 
-	public AntContext getAntContext(MojoContext mojoContext) throws MojoExecutionException {
+	protected AntContext getAntContext(MojoContext mojoContext) throws MojoExecutionException {
 		Project antProject = getAntProject();
 		Path classpath = getPluginClasspath(antProject, mojoContext.getMvnContext());
 
 		AntContext context = new AntContext();
 		context.setAntProject(antProject);
 		context.setClasspath(classpath);
+		context.setClassname(mojoContext.getCliContext().getClassname());
 		context.setArgs(mojoContext.getCliContext().getArgs());
 		context.setOutputFile(mojoContext.getJobContext().getLocalFile());
 		context.setResultProperty(JenkinsHelper.JAVA_RESULT_PROPERTY);
 		return context;
 	}
 
-	public Java getJavaTask(AntContext context) throws DependencyResolutionRequiredException {
+	protected Java getJavaTask(AntContext context) {
 		Java task = new Java();
 		task.setProject(context.getAntProject());
-		task.setClassname(CLI.class.getName());
+		task.setClassname(context.getClassname());
 		task.setFork(true);
 		task.setOutput(context.getOutputFile());
 		task.setResultProperty(context.getResultProperty());
@@ -196,11 +210,7 @@ public class JenkinsHelper {
 		}
 	}
 
-	public CliContext getCliContext(Mojo mojo) {
-		return getContext(CliContext.class, mojo);
-	}
-
-	public JobContext getJobContext(MavenContext mvnContext, Mojo mojo, String name, String type) {
+	protected JobContext getJobContext(MavenContext mvnContext, Mojo mojo, String name, String type) {
 		JobContext jobContext = getContext(JobContext.class, mojo);
 		jobContext.setType(type);
 		String jobName = getJobName(mvnContext, name, type);
@@ -211,7 +221,14 @@ public class JenkinsHelper {
 		return jobContext;
 	}
 
-	public MavenContext getMavenContext(Mojo mojo) {
+	protected CliContext getCliContext(JobContext jobContext, Mojo mojo) {
+		CliContext context = getContext(CliContext.class, mojo);
+		String[] args = getArgs("-s", context.getServer(), context.getCmd(), jobContext.getName());
+		context.setArgs(args);
+		return context;
+	}
+
+	protected MavenContext getMavenContext(Mojo mojo) {
 		MavenContext context = getContext(MavenContext.class, mojo);
 		MavenProject project = context.getProject();
 		String scmType = extractor.getScmType(project.getScm());
