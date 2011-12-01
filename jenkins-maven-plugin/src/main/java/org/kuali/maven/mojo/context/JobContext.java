@@ -9,6 +9,8 @@ public class JobContext {
 	File workingDir;
 	File localFile;
 	String timestampFormat;
+	String resolvedContent;
+	String unresolvedContent;
 
 	public String getName() {
 		return name;
@@ -56,5 +58,21 @@ public class JobContext {
 
 	public void setTimestampFormat(String timestampFormat) {
 		this.timestampFormat = timestampFormat;
+	}
+
+	public String getResolvedContent() {
+		return resolvedContent;
+	}
+
+	public void setResolvedContent(String resolvedContent) {
+		this.resolvedContent = resolvedContent;
+	}
+
+	public String getUnresolvedContent() {
+		return unresolvedContent;
+	}
+
+	public void setUnresolvedContent(String unresolvedContent) {
+		this.unresolvedContent = unresolvedContent;
 	}
 }
