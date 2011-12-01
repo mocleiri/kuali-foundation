@@ -13,6 +13,7 @@ public class AntContext {
 	String[] args;
 	Path classpath;
 	String classname;
+	int result;
 
 	public Project getAntProject() {
 		return antProject;
@@ -68,5 +69,13 @@ public class AntContext {
 
 	public void setInputFile(File inputFile) {
 		this.inputFile = inputFile;
+	}
+
+	public int getResult() {
+		return result;
+	}
+
+	public void setResult(int result) {
+		this.result = result;
 	}
 }

@@ -78,6 +78,7 @@ public class JenkinsHelper {
 			mojo.getLog().info("File - " + antContext.getOutputFile().getAbsolutePath());
 			task.execute();
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
+			antContext.setResult(result);
 			handleResult(context, result, jobContext.getLocalFile());
 			String location = jobContext.getLocalFile().getAbsolutePath();
 			String content = resourceUtils.read(location);
@@ -193,6 +194,7 @@ public class JenkinsHelper {
 	}
 
 	public List<MojoContext> pushJobsToJenkins(Mojo mojo, String[] types) throws MojoExecutionException {
+
 		List<MojoContext> contexts = new ArrayList<MojoContext>();
 		for (String type : types) {
 			MojoContext context = pushJobToJenkins(mojo, type);
@@ -219,6 +221,7 @@ public class JenkinsHelper {
 		mojo.getLog().info(cliContext.getServer() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
 		task.execute();
 		int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
+		antContext.setResult(result);
 		handleResult(createContext, result, outputFile);
 		return createContext;
 	}
