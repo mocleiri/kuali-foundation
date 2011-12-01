@@ -405,8 +405,7 @@ public class AntMojo extends AbstractMojo {
 	/**
 	 * Default XML that wraps the build file they supplied us with
 	 */
-	protected String getDefaultXML() throws IOException {
-		AntTaskPojo atp = getAntTaskPojo();
+	protected String getDefaultXML(AntTaskPojo atp) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		sb.append(XML_HEADER);
 		sb.append(getProjectOpen());
@@ -421,7 +420,8 @@ public class AntMojo extends AbstractMojo {
 	 * Write the ant target and surrounding tags to a temporary file
 	 */
 	protected File createBuildWrapper() throws IOException {
-		String xml = getDefaultXML();
+		AntTaskPojo atp = getAntTaskPojo();
+		String xml = getDefaultXML(atp);
 
 		// The fileName should probably use the plugin executionId instead
 		File buildFile = new File(ANT_BUILD_DIR + FS + antFilename);
