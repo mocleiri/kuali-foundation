@@ -285,13 +285,13 @@ public class JenkinsHelper {
 	public List<MojoContext> deleteJobs(Mojo mojo, String[] types) throws MojoExecutionException {
 		List<MojoContext> contexts = new ArrayList<MojoContext>();
 		for (String type : types) {
-			MojoContext context = deleteJob(mojo, type);
+			MojoContext context = executeCliJobCommand(mojo, type);
 			contexts.add(context);
 		}
 		return contexts;
 	}
 
-	public MojoContext deleteJob(Mojo mojo, String type) throws MojoExecutionException {
+	public MojoContext executeCliJobCommand(Mojo mojo, String type) throws MojoExecutionException {
 		try {
 			MavenContext mvnContext = getMavenContext(mojo);
 			JobContext jobContext = getJobContext(mvnContext, mojo, null, type);
