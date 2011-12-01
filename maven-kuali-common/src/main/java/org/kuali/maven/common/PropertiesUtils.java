@@ -22,21 +22,20 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class PropertiesUtils {
 	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}");
 	ResourceUtils resourceUtils = new ResourceUtils();
 
-	public String[] getTokens(String csv) {
-		return getTokens(csv, true);
-	}
-
-	public String[] getTokens(String csv, boolean trim) {
-		String[] tokens = StringUtils.split(csv, ",");
+	/**
+	 * Split the string trimming as we go
+	 */
+	public static String[] splitAndTrim(String csv, String separator) {
+		String[] tokens = StringUtils.split(csv, separator);
 		for (String token : tokens) {
-			token = trim ? token.trim() : token;
+			token = token.trim();
 		}
 		return tokens;
 	}
