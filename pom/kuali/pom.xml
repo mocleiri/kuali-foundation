@@ -197,7 +197,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>ant-maven-plugin</artifactId>
-          <version>1.0.3</version>
+          <version>1.0.5</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -207,7 +207,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>jenkins-maven-plugin</artifactId>
-          <version>1.0.0</version>
+          <version>1.0.2</version>
         </plugin>
         <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
