@@ -62,7 +62,7 @@ public class JenkinsHelper {
 		return context;
 	}
 
-	public void getJob(Mojo mojo, String name, String type) throws MojoExecutionException {
+	public MojoContext getJob(Mojo mojo, String name, String type) throws MojoExecutionException {
 		try {
 			MavenContext mvnContext = getMavenContext(mojo);
 			JobContext jobContext = getJobContext(mvnContext, mojo, name, type);
@@ -81,6 +81,8 @@ public class JenkinsHelper {
 			task.execute();
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 			handleResult(context, result);
+			jobContext.setResolvedContent(resourceUtils.read(jobContext.getLocalFile().getAbsolutePath()));
+			return context;
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
@@ -90,16 +92,18 @@ public class JenkinsHelper {
 		return c == null || c.size() == 0;
 	}
 
-	public void getJobs(Mojo mojo, List<String> names, String[] types) throws MojoExecutionException {
+	public List<MojoContext> getJobs(Mojo mojo, List<String> names, String[] types) throws MojoExecutionException {
+		List<MojoContext> contexts = new ArrayList<MojoContext>();
 		if (!isEmpty(names)) {
 			for (String name : names) {
-				getJob(mojo, name, null);
+				contexts.add(getJob(mojo, name, null));
 			}
 		} else {
 			for (String type : types) {
-				getJob(mojo, null, type);
+				contexts.add(getJob(mojo, null, type));
 			}
 		}
+		return contexts;
 	}
 
 	protected String[] getArgs(String... args) {
