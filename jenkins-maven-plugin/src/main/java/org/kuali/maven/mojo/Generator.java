@@ -58,10 +58,10 @@ public class Generator {
 		MavenProject project = context.getProject();
 
 		List<String> locations = getLocations(context);
-		Properties resourceProperties = pu.getProperties(locations);
+		Properties resourceProperties = propertiesUtils.getProperties(locations);
 		Properties jenkinsProperties = getJenkinsProperties(context);
 		Properties projectProperties = project.getProperties();
-		Properties environmentProperties = pu.getEnvironmentProperties();
+		Properties environmentProperties = propertiesUtils.getEnvironmentProperties();
 		Properties systemProperties = System.getProperties();
 
 		Properties properties = new Properties();
