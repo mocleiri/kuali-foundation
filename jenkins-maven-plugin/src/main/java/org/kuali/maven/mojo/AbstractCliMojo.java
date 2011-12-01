@@ -17,7 +17,6 @@ public abstract class AbstractCliMojo extends BaseMojo {
 	 * The command to issue to Jenkins CLI
 	 * 
 	 * @parameter expression="${jenkins.cmd}"
-	 * @required
 	 */
 	private String cmd;
 
