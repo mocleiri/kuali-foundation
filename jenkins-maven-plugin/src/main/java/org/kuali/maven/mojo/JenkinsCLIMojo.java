@@ -50,7 +50,7 @@ public class JenkinsCLIMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		String[] args = { "-s", server, "get-job", "cm-tools-1.1-publish" };
+		String[] args = { "-s", server, "get-job", "cm-tools-1.1-publishh" };
 		try {
 			Project antProject = getAntProject();
 			Java javaTask = getJavaTask(antProject, args);
