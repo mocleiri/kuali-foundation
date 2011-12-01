@@ -1,5 +1,6 @@
 package org.kuali.maven.mojo.context;
 
+import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
@@ -16,6 +17,7 @@ public class MavenContext {
 	String majorVersion;
 	Properties properties;
 	boolean stopOnError;
+	File workingDir;
 
 	public MavenProject getProject() {
 		return project;
@@ -79,6 +81,14 @@ public class MavenContext {
 
 	public void setStopOnError(boolean stopOnError) {
 		this.stopOnError = stopOnError;
+	}
+
+	public File getWorkingDir() {
+		return workingDir;
+	}
+
+	public void setWorkingDir(File workingDir) {
+		this.workingDir = workingDir;
 	}
 
 }

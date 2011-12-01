@@ -291,6 +291,28 @@ public class JenkinsHelper {
 		return contexts;
 	}
 
+	public MojoContext executeCliCommand(Mojo mojo) throws MojoExecutionException {
+		try {
+			MavenContext mvnContext = getMavenContext(mojo);
+			CliContext cliContext = getCliContext(mojo);
+			MojoContext context = getMojoContext(mvnContext, null, cliContext);
+			AntContext antContext = getAntContext(context);
+			File outputFile = new File(mvnContext.getWorkingDir() + FS + cliContext.getClassname() + ".txt");
+			FileUtils.touch(outputFile);
+			antContext.setOutputFile(outputFile);
+			Task task = getJavaTask(antContext);
+			mojo.getLog().info(cliContext.getServer() + " - " + cliContext.getCmd());
+			task.execute();
+			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
+			antContext.setResult(result);
+			ResultContext resultContext = handleResult(context, result, outputFile);
+			context.setResultContext(resultContext);
+			return context;
+		} catch (IOException e) {
+			throw new MojoExecutionException("Unexpected error", e);
+		}
+	}
+
 	public MojoContext executeCliJobCommand(Mojo mojo, String type) throws MojoExecutionException {
 		try {
 			MavenContext mvnContext = getMavenContext(mojo);
@@ -359,6 +381,13 @@ public class JenkinsHelper {
 		File localFile = new File(filename);
 		jobContext.setLocalFile(localFile);
 		return jobContext;
+	}
+
+	protected CliContext getCliContext(Mojo mojo) {
+		CliContext context = getContext(CliContext.class, mojo);
+		String[] args = getArgs("-s", context.getServer(), context.getCmd());
+		context.setArgs(args);
+		return context;
 	}
 
 	protected CliContext getCliContext(JobContext jobContext, Mojo mojo) {
