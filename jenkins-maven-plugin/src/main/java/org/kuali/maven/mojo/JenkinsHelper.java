@@ -78,7 +78,7 @@ public class JenkinsHelper {
 			mojo.getLog().info("File - " + antContext.getOutputFile().getAbsolutePath());
 			task.execute();
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
-			handleResult(context, result);
+			handleResult(context, result, jobContext.getLocalFile());
 			String location = jobContext.getLocalFile().getAbsolutePath();
 			String content = resourceUtils.read(location);
 			jobContext.setResolvedContent(content);
@@ -110,17 +110,16 @@ public class JenkinsHelper {
 		return args;
 	}
 
-	protected void handleResult(MojoContext context, int result) throws MojoExecutionException {
+	protected void handleResult(MojoContext context, int result, File resultFile) throws MojoExecutionException {
 		if (result == 0) {
 			return;
 		}
-		File file = context.getAntContext().getOutputFile();
-		if (!file.exists() || file.length() == 0) {
+		if (resultFile == null || !resultFile.exists() || resultFile.length() == 0) {
 			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI: " + result);
 		}
 
 		try {
-			String msg = resourceUtils.read(file.getAbsolutePath());
+			String msg = resourceUtils.read(resultFile.getAbsolutePath());
 			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI: " + result + "\n" + msg);
 		} catch (IOException e) {
 			throw new MojoExecutionException("Error processing Jenkins CLI error message: " + result, e);
@@ -193,6 +192,16 @@ public class JenkinsHelper {
 		return antProject;
 	}
 
+	public List<MojoContext> pushJobsToJenkins(Mojo mojo, String[] types) throws MojoExecutionException {
+		List<MojoContext> contexts = new ArrayList<MojoContext>();
+		for (String type : types) {
+			MojoContext context = pushJobToJenkins(mojo, type);
+			contexts.add(context);
+		}
+		return contexts;
+
+	}
+
 	public MojoContext pushJobToJenkins(Mojo mojo, String type) throws MojoExecutionException {
 		MojoContext genContext = generate(mojo, type);
 		MojoContext createContext = new MojoContext();
@@ -202,18 +211,17 @@ public class JenkinsHelper {
 		CliContext cliContext = getCliContext(genContext.getJobContext(), mojo);
 		createContext.setCliContext(cliContext);
 		AntContext antContext = getAntContext(createContext);
-		antContext.setInputFile(antContext.getOutputFile());
-		antContext.setOutputFile(null);
+		antContext.setInputFile(jobContext.getLocalFile());
+		File outputFile = new File(jobContext.getLocalFile().getAbsolutePath() + ".out");
+		antContext.setOutputFile(outputFile);
 		createContext.setAntContext(antContext);
 		Task task = getJavaTask(antContext);
 		mojo.getLog().info("");
 		mojo.getLog().info(cliContext.getServer() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
-		mojo.getLog().info("File - " + antContext.getInputFile().getAbsolutePath());
 		task.execute();
 		int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
-		handleResult(createContext, result);
+		handleResult(createContext, result, outputFile);
 		return createContext;
-
 	}
 
 	public MojoContext generate(Mojo mojo, String type) throws MojoExecutionException {
