@@ -3,13 +3,12 @@ package org.kuali.maven.mojo;
 import org.apache.maven.project.MavenProject;
 
 public class JobContext {
-	String server;
 	String name;
 	String workingDir;
 	String filename;
 	String type;
 	String template;
-	MavenProject project;
+	MavenProject mavenProject;
 	String scmType;
 	String scmUrl;
 	String majorVersion;
@@ -47,12 +46,12 @@ public class JobContext {
 		this.template = template;
 	}
 
-	public MavenProject getProject() {
-		return project;
+	public MavenProject getMavenProject() {
+		return mavenProject;
 	}
 
-	public void setProject(MavenProject project) {
-		this.project = project;
+	public void setMavenProject(MavenProject project) {
+		this.mavenProject = project;
 	}
 
 	public String getScmType() {
@@ -85,14 +84,6 @@ public class JobContext {
 
 	public void setTimestampFormat(String timestampFormat) {
 		this.timestampFormat = timestampFormat;
-	}
-
-	public String getServer() {
-		return server;
-	}
-
-	public void setServer(String server) {
-		this.server = server;
 	}
 
 	public String getName() {

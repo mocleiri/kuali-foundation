@@ -55,7 +55,7 @@ public class Generator {
 			log.info("File - " + output.getAbsolutePath());
 			log.info("");
 			task.execute();
-			int result = new Integer(antProject.getProperty(Generator.JAVA_RESULT_PROPERTY));
+			int result = new Integer(antProject.getProperty(JAVA_RESULT_PROPERTY));
 			handleResult(context, result, log);
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
@@ -167,7 +167,7 @@ public class Generator {
 	}
 
 	public void fillInContext(JobContext context) {
-		MavenProject project = context.getProject();
+		MavenProject project = context.getMavenProject();
 
 		String scmType = extractor.getScmType(project.getScm());
 		String scmUrl = extractor.getScmUrl(project.getScm());
@@ -196,7 +196,7 @@ public class Generator {
 	}
 
 	protected Properties getProperties(JobContext context) throws IOException {
-		MavenProject project = context.getProject();
+		MavenProject project = context.getMavenProject();
 
 		List<String> locations = getLocations(context);
 		Properties resourceProperties = propertiesUtils.getProperties(locations);
@@ -217,7 +217,7 @@ public class Generator {
 	protected Properties getJenkinsProperties(JobContext context) {
 		SimpleDateFormat sdf = new SimpleDateFormat(context.getTimestampFormat());
 		Date now = new Date(System.currentTimeMillis());
-		MavenProject project = context.getProject();
+		MavenProject project = context.getMavenProject();
 		Properties properties = new Properties();
 		properties.setProperty("jenkins.project.scmType", context.getScmType());
 		properties.setProperty("jenkins.project.scmUrl", context.getScmUrl());

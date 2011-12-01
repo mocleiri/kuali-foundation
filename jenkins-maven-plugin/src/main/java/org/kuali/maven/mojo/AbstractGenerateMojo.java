@@ -16,7 +16,7 @@ public abstract class AbstractGenerateMojo extends BaseMojo {
 	protected JobContext getJobContext(String type) {
 		JobContext context = new JobContext();
 		context.setWorkingDir(getWorkingDir());
-		context.setProject(getProject());
+		context.setMavenProject(getProject());
 		context.setType(type);
 		context.setTemplate(template);
 		context.setTimestampFormat(getTimestampFormat());
