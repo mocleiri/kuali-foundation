@@ -188,7 +188,7 @@ public class JenkinsHelper {
 		return antProject;
 	}
 
-	public void generate(Mojo mojo, String type) throws MojoExecutionException {
+	public MojoContext generate(Mojo mojo, String type) throws MojoExecutionException {
 		try {
 			MavenContext mvnContext = getMavenContext(mojo);
 			JobContext jobContext = getJobContext(mvnContext, mojo, null, type);
@@ -198,16 +198,26 @@ public class JenkinsHelper {
 			Properties properties = getProperties(mvnContext, jobContext);
 			String xml = resourceUtils.read(jobContext.getTemplate());
 			String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
+			jobContext.setResolvedContent(resolvedXml);
+			jobContext.setUnresolvedContent(xml);
+			mvnContext.setProperties(properties);
+			MojoContext context = new MojoContext();
+			context.setJobContext(jobContext);
+			context.setMvnContext(mvnContext);
 			resourceUtils.write(localFilePath, resolvedXml);
+			return context;
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
 	}
 
-	public void generate(Mojo mojo, String[] types) throws MojoExecutionException {
+	public List<MojoContext> generate(Mojo mojo, String[] types) throws MojoExecutionException {
+		List<MojoContext> contexts = new ArrayList<MojoContext>();
 		for (String type : types) {
-			generate(mojo, type);
+			MojoContext context = generate(mojo, type);
+			contexts.add(context);
 		}
+		return contexts;
 	}
 
 	protected JobContext getJobContext(MavenContext mvnContext, Mojo mojo, String name, String type) {
