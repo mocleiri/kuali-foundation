@@ -1,8 +1,6 @@
 package org.kuali.maven.mojo;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -35,38 +33,23 @@ public class GetJobMojo extends BaseMojo {
 	public void execute() throws MojoExecutionException {
 		try {
 			String jobName = generator.getJobName(name, getProject(), type);
-			File outputFile = new File(getWorkingDir() + FS + jobName + ".xml");
-			FileUtils.touch(outputFile);
-			String[] args = getArgs(jobName);
+			File output = new File(getWorkingDir() + FS + jobName + ".xml");
+			FileUtils.touch(output);
+			String[] args = getArgs("-s", getServer(), getCmd(), jobName);
 			Project antProject = generator.getAntProject(getLog());
-			AntContext context = getAntContext(antProject,args,outputFile);
+			AntContext context = generator.getAntContext(antProject, getProject(), args, output, getPluginArtifacts());
 			Task task = generator.getJavaTask(context);
+			getLog().info(getServer() + " - " + getCmd() + " - " + jobName);
 			task.execute();
-			int result = new Integer(antProject.getProperty("java.result"));
+			int result = new Integer(antProject.getProperty(Generator.JAVA_RESULT_PROPERTY));
 			getLog().info("Result: " + result);
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
 	}
 
-	protected AntContext getAntContext(Project antProject, String[] args, File outputFile) {
-		AntContext context = new AntContext();
-		context.setAntProject(antProject);
-		context.setMavenProject(getProject());
-		context.setArgs(args);
-		context.setOutputFile(outputFile);
-		context.setPluginArtifacts(getPluginArtifacts());
-		context.setResultProperty(Generator.JAVA_RESULT_PROPERTY);
-		return context;
-	}
-
-	protected String[] getArgs(String jobName) {
-		List<String> args = new ArrayList<String>();
-		args.add("-s");
-		args.add(getServer());
-		args.add(getCmd());
-		args.add(jobName);
-		return args.toArray(new String[args.size()]);
+	protected String[] getArgs(String... args) {
+		return args;
 	}
 
 	public String getCmd() {

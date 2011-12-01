@@ -2,6 +2,7 @@ package org.kuali.maven.mojo;
 
 import hudson.cli.CLI;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +33,18 @@ public class Generator {
 	PropertiesUtils propertiesUtils = new PropertiesUtils();
 	ResourceUtils resourceUtils = new ResourceUtils();
 	AntMavenUtils antMvnUtils = new AntMavenUtils();
+
+	public AntContext getAntContext(Project antProject, MavenProject mvnProject, String[] args, File outputFile,
+			List<Artifact> pluginArtifacts) {
+		AntContext context = new AntContext();
+		context.setAntProject(antProject);
+		context.setMavenProject(mvnProject);
+		context.setArgs(args);
+		context.setOutputFile(outputFile);
+		context.setPluginArtifacts(pluginArtifacts);
+		context.setResultProperty(Generator.JAVA_RESULT_PROPERTY);
+		return context;
+	}
 
 	public Java getJavaTask(AntContext context) throws DependencyResolutionRequiredException {
 		Project antProject = context.getAntProject();
