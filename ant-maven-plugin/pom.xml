@@ -25,7 +25,7 @@
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>ant-maven-plugin</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Ant Maven Plugin</name>
   <description>Allows Maven to invoke an Ant target inside any Ant build file that is available on the file system, the ant-maven-plugin classpath, or any URL that Spring 3.0 resource loading can understand</description>
@@ -34,9 +34,9 @@
     <kuali.maven.version>2.0.11</kuali.maven.version>
   </properties>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/ant-maven-plugin-1.0.3</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/ant-maven-plugin-1.0.3</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/tags/ant-maven-plugin-1.0.3</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ant-maven-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ant-maven-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/ant-maven-plugin</url>
   </scm>
   <build>
     <testResources>
