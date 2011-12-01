@@ -35,6 +35,7 @@ import org.kuali.maven.mojo.context.CliContext;
 import org.kuali.maven.mojo.context.JobContext;
 import org.kuali.maven.mojo.context.MavenContext;
 import org.kuali.maven.mojo.context.MojoContext;
+import org.kuali.maven.mojo.context.ResultContext;
 
 public class JenkinsHelper {
 	private static final String FS = System.getProperty("file.separator");
@@ -79,10 +80,11 @@ public class JenkinsHelper {
 			task.execute();
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 			antContext.setResult(result);
-			handleResult(context, result, jobContext.getLocalFile());
+			ResultContext resultContext = handleResult(context, result, jobContext.getLocalFile());
 			String location = jobContext.getLocalFile().getAbsolutePath();
 			String content = resourceUtils.read(location);
 			jobContext.setResolvedContent(content);
+			context.setResultContext(resultContext);
 			return context;
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
@@ -111,21 +113,38 @@ public class JenkinsHelper {
 		return args;
 	}
 
-	protected void handleResult(MojoContext context, int result, File resultFile) throws MojoExecutionException {
+	protected ResultContext getResultContext(int result, File resultFile) {
 		if (result == 0) {
-			return;
+			return new ResultContext(result, null);
 		}
 		if (resultFile == null || !resultFile.exists() || resultFile.length() == 0) {
-			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI: " + result);
+			MojoExecutionException e = new MojoExecutionException("Non-zero result returned from Jenkins CLI: "
+					+ result);
+			return new ResultContext(result, e);
 		}
 
 		try {
 			String msg = resourceUtils.read(resultFile.getAbsolutePath());
-			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI: " + result + "\n" + msg);
+			MojoExecutionException e = new MojoExecutionException("Non-zero result returned from Jenkins CLI: "
+					+ result + "\n" + msg);
+			return new ResultContext(result, e);
 		} catch (IOException e) {
-			throw new MojoExecutionException("Error processing Jenkins CLI error message: " + result, e);
+			MojoExecutionException ee = new MojoExecutionException("Error processing Jenkins CLI error message: "
+					+ result, e);
+			return new ResultContext(result, ee);
 		}
+	}
 
+	protected ResultContext handleResult(MojoContext context, int result, File resultFile)
+			throws MojoExecutionException {
+		ResultContext resultContext = getResultContext(result, resultFile);
+		boolean stopOnError = context.getMvnContext().isStopOnError();
+		MojoExecutionException e = resultContext.getException();
+		if (stopOnError && e != null) {
+			throw e;
+		} else {
+			return resultContext;
+		}
 	}
 
 	protected List<String> readLines(File file) throws IOException {
@@ -222,7 +241,8 @@ public class JenkinsHelper {
 		task.execute();
 		int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 		antContext.setResult(result);
-		handleResult(createContext, result, outputFile);
+		ResultContext resultContext = handleResult(createContext, result, outputFile);
+		createContext.setResultContext(resultContext);
 		return createContext;
 	}
 

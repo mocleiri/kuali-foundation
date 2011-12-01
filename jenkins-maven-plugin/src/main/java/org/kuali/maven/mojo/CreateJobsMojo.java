@@ -29,6 +29,7 @@ public class CreateJobsMojo extends AbstractCliMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		setCmd(StringUtils.isBlank(getCmd()) ? "create-job" : getCmd());
+		setStopOnError(false);
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
 		helper.pushJobsToJenkins(this, tokens);
 	}

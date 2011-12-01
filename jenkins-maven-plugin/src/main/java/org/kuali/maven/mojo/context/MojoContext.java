@@ -5,6 +5,7 @@ public class MojoContext {
 	JobContext jobContext;
 	CliContext cliContext;
 	AntContext antContext;
+	ResultContext resultContext;
 
 	public MavenContext getMvnContext() {
 		return mvnContext;
@@ -36,6 +37,14 @@ public class MojoContext {
 
 	public void setAntContext(AntContext antContext) {
 		this.antContext = antContext;
+	}
+
+	public ResultContext getResultContext() {
+		return resultContext;
+	}
+
+	public void setResultContext(ResultContext resultContext) {
+		this.resultContext = resultContext;
 	}
 
 }

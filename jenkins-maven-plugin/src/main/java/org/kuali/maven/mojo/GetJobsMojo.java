@@ -30,6 +30,7 @@ public class GetJobsMojo extends AbstractCliMojo {
 	public void execute() throws MojoExecutionException {
 		setCmd(StringUtils.isBlank(getCmd()) ? "get-job" : getCmd());
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
+		setStopOnError(false);
 		helper.getJobs(this, names, tokens);
 	}
 
