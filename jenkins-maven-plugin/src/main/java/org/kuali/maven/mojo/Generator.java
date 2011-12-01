@@ -18,6 +18,17 @@ public class Generator {
 	PropertiesUtils propertiesUtils = new PropertiesUtils();
 	ResourceUtils resourceUtils = new ResourceUtils();
 
+	public String getJobName(MavenProject project, String type) {
+		String majorVersion = extractor.getMajorVersion(project.getVersion());
+		StringBuilder sb = new StringBuilder();
+		sb.append(project.getArtifactId());
+		sb.append("-");
+		sb.append(majorVersion);
+		sb.append("-");
+		sb.append(type);
+		return sb.toString();
+	}
+
 	public void generate(JobContext context) throws IOException {
 		Properties properties = getProperties(context);
 		String xml = resourceUtils.read(context.getTemplate());
