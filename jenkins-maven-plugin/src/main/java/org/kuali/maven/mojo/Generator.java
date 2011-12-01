@@ -30,6 +30,8 @@ import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
+import org.kuali.maven.mojo.context.AntContext;
+import org.kuali.maven.mojo.context.JobContext;
 
 public class Generator {
 	private static final String FS = System.getProperty("file.separator");

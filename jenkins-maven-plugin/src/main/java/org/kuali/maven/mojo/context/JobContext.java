@@ -1,4 +1,4 @@
-package org.kuali.maven.mojo;
+package org.kuali.maven.mojo.context;
 
 import org.apache.maven.project.MavenProject;
 

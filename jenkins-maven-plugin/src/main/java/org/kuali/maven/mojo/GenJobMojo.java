@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.kuali.maven.mojo.context.JobContext;
 
 /**
  * @goal genjob

@@ -1,4 +1,4 @@
-package org.kuali.maven.mojo;
+package org.kuali.maven.mojo.context;
 
 public class CliContext {
 	String server;

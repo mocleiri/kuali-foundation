@@ -1,5 +1,7 @@
 package org.kuali.maven.mojo;
 
+import org.kuali.maven.mojo.context.JobContext;
+
 /**
  * 
  */

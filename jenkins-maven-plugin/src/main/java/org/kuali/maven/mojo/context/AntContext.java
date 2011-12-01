@@ -1,4 +1,4 @@
-package org.kuali.maven.mojo;
+package org.kuali.maven.mojo.context;
 
 import java.io.File;
 import java.util.List;

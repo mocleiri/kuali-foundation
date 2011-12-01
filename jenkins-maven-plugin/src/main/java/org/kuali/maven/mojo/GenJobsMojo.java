@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.kuali.maven.common.PropertiesUtils;
+import org.kuali.maven.mojo.context.JobContext;
 
 /**
  * @goal genjobs
