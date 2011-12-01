@@ -75,7 +75,7 @@ public class AntMavenUtils {
 	 * @return a path
 	 * @throws DependencyResolutionRequiredException
 	 */
-	public Path getPathFromArtifacts(Collection<?> artifacts, Project antProject)
+	public Path getPathFromArtifacts(Collection<Artifact> artifacts, Project antProject)
 			throws DependencyResolutionRequiredException {
 		if (artifacts == null) {
 			return new Path(antProject);
@@ -173,7 +173,7 @@ public class AntMavenUtils {
 	/**
 	 * Create the Ant equivalent of the Maven classpath's for compile, runtime, test, and for the plugin
 	 */
-	public Map<String, Path> getPathRefs(Project ant, MavenProject mvn, List<?> pluginArtifacts)
+	public Map<String, Path> getPathRefs(Project ant, MavenProject mvn, List<Artifact> pluginArtifacts)
 			throws DependencyResolutionRequiredException {
 
 		Map<String, Path> pathRefs = new HashMap<String, Path>();
