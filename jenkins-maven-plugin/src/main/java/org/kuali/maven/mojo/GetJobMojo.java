@@ -4,6 +4,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
+ * Connect to a Jenkins server and retrieve an XML document describing the job configuration
+ * 
  * @goal getjob
  * @requiresDependencyResolution test
  */

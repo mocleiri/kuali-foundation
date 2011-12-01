@@ -4,6 +4,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
+ * Contact a Jenkins job and schedule a job to run
+ * 
  * @goal runjob
  * @requiresDependencyResolution test
  */

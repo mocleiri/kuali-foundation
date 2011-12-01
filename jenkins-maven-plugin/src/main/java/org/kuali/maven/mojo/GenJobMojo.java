@@ -3,6 +3,8 @@ package org.kuali.maven.mojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
+ * Generate an XML config file for a Jenkins job to the local file system.
+ * 
  * @goal genjob
  */
 public class GenJobMojo extends AbstractGenerateMojo {

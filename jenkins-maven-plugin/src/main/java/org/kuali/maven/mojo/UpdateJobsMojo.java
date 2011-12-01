@@ -8,6 +8,8 @@ import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.mojo.context.MojoContext;
 
 /**
+ * Contact a Jenkins server and update one or more existing jobs configuration
+ * 
  * @goal updatejobs
  * @requiresDependencyResolution test
  */

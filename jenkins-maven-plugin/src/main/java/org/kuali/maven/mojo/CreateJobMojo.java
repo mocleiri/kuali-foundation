@@ -4,6 +4,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
+ * Create a Jenkins job based on the information in the Maven pom and the 'type' provided.
+ * 
  * @goal createjob
  * @requiresDependencyResolution test
  */

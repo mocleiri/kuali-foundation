@@ -8,6 +8,8 @@ import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.mojo.context.MojoContext;
 
 /**
+ * Connect to a Jenkins server and retrieve XML documents describing one or more job configurations
+ * 
  * @goal getjobs
  * @requiresDependencyResolution test
  */

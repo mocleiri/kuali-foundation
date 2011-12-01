@@ -4,21 +4,15 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
+ * Delete a Jenkins job. The name of the job to delete is derived from information in the POM combined with 'type'
+ * 
  * @goal deletejob
  * @requiresDependencyResolution test
  */
 public class DeleteJobMojo extends AbstractCliMojo {
 
 	/**
-	 * The location of the jenkins job config template
-	 * 
-	 * @parameter expression="${jenkins.template}" default-value="classpath:org/kuali/jenkins/jobs/template.xml"
-	 * @required
-	 */
-	private String template;
-
-	/**
-	 * The type of job to create
+	 * The type of job to delete
 	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 * @required
@@ -37,14 +31,6 @@ public class DeleteJobMojo extends AbstractCliMojo {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public String getTemplate() {
-		return template;
-	}
-
-	public void setTemplate(String template) {
-		this.template = template;
 	}
 
 }

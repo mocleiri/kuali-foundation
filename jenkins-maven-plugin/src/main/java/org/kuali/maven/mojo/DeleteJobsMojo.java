@@ -9,6 +9,8 @@ import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.mojo.context.MojoContext;
 
 /**
+ * Delete one or more Jenkins jobs. The names of the jobs to delete is derived from information in the Maven pom combined with the 'types' provided
+ * 
  * @goal deletejobs
  * @requiresDependencyResolution test
  */
