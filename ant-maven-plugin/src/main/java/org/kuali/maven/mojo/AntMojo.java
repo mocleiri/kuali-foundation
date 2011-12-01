@@ -268,10 +268,6 @@ public class AntMojo extends AbstractMojo {
 			// Initialize an Ant project
 			Project antProject = getAntProject();
 
-			// Setup logging
-			BuildLogger antLogger = antMvnUtils.getBuildLogger(getLog());
-			antProject.addBuildListener(antLogger);
-
 			// Create the Ant equivalents of important Maven classpath's
 			Map<String, Path> pathRefs = antMvnUtils.getPathRefs(antProject, mavenProject, pluginArtifacts);
 
@@ -328,6 +324,10 @@ public class AntMojo extends AbstractMojo {
 		File antBuildFile = createBuildWrapper();
 		ProjectHelper.configureProject(antProject, antBuildFile);
 		antProject.init();
+		// Setup logging
+		BuildLogger antLogger = antMvnUtils.getBuildLogger(getLog());
+		antProject.addBuildListener(antLogger);
+
 		return antProject;
 	}
 
