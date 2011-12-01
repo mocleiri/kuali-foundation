@@ -11,6 +11,7 @@ public class AntContext {
 	File outputFile;
 	String[] args;
 	Path classpath;
+	String classname;
 
 	public Project getAntProject() {
 		return antProject;
@@ -50,5 +51,13 @@ public class AntContext {
 
 	public void setClasspath(Path classpath) {
 		this.classpath = classpath;
+	}
+
+	public String getClassname() {
+		return classname;
+	}
+
+	public void setClassname(String classname) {
+		this.classname = classname;
 	}
 }
