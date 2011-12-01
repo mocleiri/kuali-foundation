@@ -3,7 +3,10 @@ package org.kuali.maven.mojo;
 import hudson.cli.CLI;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
+
+import org.apache.tools.ant.Project;
 
 /**
  * @goal cli
@@ -19,4 +22,14 @@ public class JenkinsCLIMojo {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 
+	 */
+	protected Project getAntProject() throws IOException {
+		Project antProject = new Project();
+		antProject.init();
+		return antProject;
+	}
+
 }
