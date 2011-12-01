@@ -19,6 +19,7 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
@@ -93,6 +94,26 @@ public class JenkinsHelper {
 
 	protected boolean isEmpty(Collection<?> c) {
 		return c == null || c.size() == 0;
+	}
+
+	public void handleResults(List<MojoContext> contexts) throws MojoExecutionException {
+		List<MojoContext> issues = new ArrayList<MojoContext>();
+		for (MojoContext context : contexts) {
+			ResultContext rc = context.getResultContext();
+			if (rc.getReturnCode() != 0) {
+				issues.add(context);
+			}
+		}
+		MojoExecutionException e = null;
+		for (MojoContext issue : issues) {
+			Log log = issue.getMvnContext().getLog();
+			ResultContext rc = issue.getResultContext();
+			log.error(issue.getJobContext().getName() + " " + rc.getException().getMessage());
+			e = rc.getException();
+		}
+		if (issues.size() > 0) {
+			throw new MojoExecutionException("One or more requests had an issue", e);
+		}
 	}
 
 	public List<MojoContext> getJobs(Mojo mojo, List<String> names, String[] types) throws MojoExecutionException {

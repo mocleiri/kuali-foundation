@@ -1,8 +1,11 @@
 package org.kuali.maven.mojo;
 
+import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.PropertiesUtils;
+import org.kuali.maven.mojo.context.MojoContext;
 
 /**
  * @goal createjobs
@@ -31,7 +34,8 @@ public class CreateJobsMojo extends AbstractCliMojo {
 		setCmd(StringUtils.isBlank(getCmd()) ? "create-job" : getCmd());
 		setStopOnError(false);
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-		helper.pushJobsToJenkins(this, tokens);
+		List<MojoContext> contexts = helper.pushJobsToJenkins(this, tokens);
+		helper.handleResults(contexts);
 	}
 
 	public String getTemplate() {
