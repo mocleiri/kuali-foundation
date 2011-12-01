@@ -12,11 +12,15 @@ import org.codehaus.plexus.util.StringUtils;
 public class GetJobMojo extends AbstractCliMojo {
 
 	/**
+	 * The type of job.  This is combined with artifactId and majorVersion to produce a fully qualified job name.  eg "jenkins-maven-plugin-1.0-publish"
+	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 */
 	private String type;
 
 	/**
+	 * The name of the job to retrieve XML for
+	 * 
 	 * @parameter expression="${jenkins.name}"
 	 */
 	private String name;
