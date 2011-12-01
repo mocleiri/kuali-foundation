@@ -13,17 +13,9 @@ public abstract class AbstractGenerateMojo extends BaseMojo {
 	 */
 	private String template;
 
-	/**
-	 * The directory where the job config will be generated
-	 * 
-	 * @parameter expression="${jenkins.configDir}" default-value="${project.build.directory}/jenkins"
-	 * @required
-	 */
-	private String configDir;
-
 	protected JobContext getJobContext(String type) {
 		JobContext context = new JobContext();
-		context.setConfigDir(configDir);
+		context.setWorkingDir(getWorkingDir());
 		context.setProject(getProject());
 		context.setType(type);
 		context.setTemplate(template);
@@ -37,14 +29,6 @@ public abstract class AbstractGenerateMojo extends BaseMojo {
 
 	public void setTemplate(String template) {
 		this.template = template;
-	}
-
-	public String getConfigDir() {
-		return configDir;
-	}
-
-	public void setConfigDir(String configDir) {
-		this.configDir = configDir;
 	}
 
 }

@@ -45,6 +45,14 @@ public abstract class BaseMojo extends AbstractMojo {
 	 */
 	private String timestampFormat;
 
+	/**
+	 * The working directory for the plugin
+	 * 
+	 * @parameter expression="${jenkins.workingDir}" default-value="${project.build.directory}/jenkins"
+	 * @required
+	 */
+	private String workingDir;
+
 	public MavenProject getProject() {
 		return project;
 	}
@@ -67,6 +75,14 @@ public abstract class BaseMojo extends AbstractMojo {
 
 	public void setTimestampFormat(String timestampFormat) {
 		this.timestampFormat = timestampFormat;
+	}
+
+	public String getWorkingDir() {
+		return workingDir;
+	}
+
+	public void setWorkingDir(String workingDir) {
+		this.workingDir = workingDir;
 	}
 
 }

@@ -3,7 +3,9 @@ package org.kuali.maven.mojo;
 import org.apache.maven.project.MavenProject;
 
 public class JobContext {
-	String configDir;
+	String server;
+	String name;
+	String workingDir;
 	String filename;
 	String type;
 	String template;
@@ -13,12 +15,12 @@ public class JobContext {
 	String majorVersion;
 	String timestampFormat;
 
-	public String getConfigDir() {
-		return configDir;
+	public String getWorkingDir() {
+		return workingDir;
 	}
 
-	public void setConfigDir(String configDir) {
-		this.configDir = configDir;
+	public void setWorkingDir(String configDir) {
+		this.workingDir = configDir;
 	}
 
 	public String getFilename() {
@@ -83,5 +85,21 @@ public class JobContext {
 
 	public void setTimestampFormat(String timestampFormat) {
 		this.timestampFormat = timestampFormat;
+	}
+
+	public String getServer() {
+		return server;
+	}
+
+	public void setServer(String server) {
+		this.server = server;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
