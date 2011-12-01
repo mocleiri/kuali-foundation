@@ -32,6 +32,7 @@ import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.mojo.context.AntContext;
 import org.kuali.maven.mojo.context.JobContext;
+import org.kuali.maven.mojo.context.MavenContext;
 
 public class Generator {
 	private static final String FS = System.getProperty("file.separator");
@@ -181,6 +182,19 @@ public class Generator {
 		context.setMajorVersion(majorVersion);
 		context.setLocalFile(filename);
 
+	}
+
+	public MavenContext getMavenContext(MavenProject project) {
+		String scmType = extractor.getScmType(project.getScm());
+		String scmUrl = extractor.getScmUrl(project.getScm());
+		String majorVersion = extractor.getMajorVersion(project.getVersion());
+
+		MavenContext context = new MavenContext();
+		context.setMajorVersion(majorVersion);
+		context.setScmType(scmType);
+		context.setScmUrl(scmUrl);
+		context.setProject(project);
+		return context;
 	}
 
 	protected String getFilename(MavenProject project, String jobType) {

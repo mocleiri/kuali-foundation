@@ -3,17 +3,17 @@ package org.kuali.maven.mojo.context;
 import org.apache.maven.project.MavenProject;
 
 public class MavenContext {
-	MavenProject mavenProject;
+	MavenProject project;
 	String scmType;
 	String scmUrl;
 	String majorVersion;
 
-	public MavenProject getMavenProject() {
-		return mavenProject;
+	public MavenProject getProject() {
+		return project;
 	}
 
-	public void setMavenProject(MavenProject mavenProject) {
-		this.mavenProject = mavenProject;
+	public void setProject(MavenProject mavenProject) {
+		this.project = mavenProject;
 	}
 
 	public String getScmType() {
