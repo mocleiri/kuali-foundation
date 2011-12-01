@@ -3,8 +3,7 @@ package org.kuali.maven.mojo.context;
 public class CliContext {
 	String server;
 	String cmd;
-	AntContext antContext;
-	JobContext jobContext;
+	String[] args;
 
 	public String getServer() {
 		return server;
@@ -22,20 +21,11 @@ public class CliContext {
 		this.cmd = cmd;
 	}
 
-	public AntContext getAntContext() {
-		return antContext;
+	public String[] getArgs() {
+		return args;
 	}
 
-	public void setAntContext(AntContext antContext) {
-		this.antContext = antContext;
+	public void setArgs(String[] args) {
+		this.args = args;
 	}
-
-	public JobContext getJobContext() {
-		return jobContext;
-	}
-
-	public void setJobContext(JobContext jobContext) {
-		this.jobContext = jobContext;
-	}
-
 }
