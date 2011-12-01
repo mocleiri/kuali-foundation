@@ -9,7 +9,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.kuali.maven.common.PropertiesUtils;
 
 /**
- * @goal genjobconfigs
+ * @goal genjobs
  */
 public class GenJobsMojo extends AbstractGenerateMojo {
 	Generator generator = new Generator();
