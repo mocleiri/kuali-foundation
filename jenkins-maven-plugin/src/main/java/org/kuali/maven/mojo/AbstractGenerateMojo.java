@@ -29,7 +29,6 @@ public abstract class AbstractGenerateMojo extends BaseMojo {
 		context.setTemplate(template);
 		context.setTimestampFormat(getTimestampFormat());
 		return context;
-
 	}
 
 	public String getTemplate() {
