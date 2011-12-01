@@ -1,19 +1,15 @@
 package org.kuali.maven.mojo.context;
 
 import java.io.File;
-import java.util.List;
 
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.project.MavenProject;
 import org.apache.tools.ant.Project;
 
 public class AntContext {
 	Project antProject;
-	MavenProject mavenProject;
 	String resultProperty;
 	File outputFile;
-	List<Artifact> pluginArtifacts;
 	String[] args;
+	String classpath;
 
 	public Project getAntProject() {
 		return antProject;
@@ -21,14 +17,6 @@ public class AntContext {
 
 	public void setAntProject(Project antProject) {
 		this.antProject = antProject;
-	}
-
-	public MavenProject getMavenProject() {
-		return mavenProject;
-	}
-
-	public void setMavenProject(MavenProject mavenProject) {
-		this.mavenProject = mavenProject;
 	}
 
 	public String getResultProperty() {
@@ -47,20 +35,20 @@ public class AntContext {
 		this.outputFile = outputFile;
 	}
 
-	public List<Artifact> getPluginArtifacts() {
-		return pluginArtifacts;
-	}
-
-	public void setPluginArtifacts(List<Artifact> pluginArtifacts) {
-		this.pluginArtifacts = pluginArtifacts;
-	}
-
 	public String[] getArgs() {
 		return args;
 	}
 
 	public void setArgs(String[] args) {
 		this.args = args;
+	}
+
+	public String getClasspath() {
+		return classpath;
+	}
+
+	public void setClasspath(String classpath) {
+		this.classpath = classpath;
 	}
 
 }
