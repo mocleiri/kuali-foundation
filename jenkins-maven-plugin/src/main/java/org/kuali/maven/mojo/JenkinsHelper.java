@@ -74,6 +74,7 @@ public class JenkinsHelper {
 			cliContext.setArgs(args);
 			MojoContext context = getMojoContext(mvnContext, jobContext, cliContext);
 			AntContext antContext = getAntContext(context);
+			context.setAntContext(antContext);
 
 			Task task = getJavaTask(antContext);
 			mojo.getLog().info("");
@@ -99,7 +100,7 @@ public class JenkinsHelper {
 		}
 		File file = context.getAntContext().getOutputFile();
 		if (!file.exists() || file.length() == 0) {
-			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI - " + result);
+			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI: " + result);
 		}
 
 		try {
@@ -107,9 +108,9 @@ public class JenkinsHelper {
 			for (String line : lines) {
 				log.error(line);
 			}
-			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI - " + result);
+			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI: " + result);
 		} catch (IOException e) {
-			throw new MojoExecutionException("Error processing Jenkins CLI error message - " + result, e);
+			throw new MojoExecutionException("Error processing Jenkins CLI error message: " + result, e);
 		}
 
 	}
