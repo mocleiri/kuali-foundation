@@ -13,7 +13,7 @@
   <name>Jenkins Maven Plugin</name>
   <description>
   Automated management of Jenkins jobs via Maven.  Much of the information needed by Jenkins when creating a job is already being maintained in the Maven pom.
-  The SCM information and CI url are present in the pom.  Jenkins jobs also typically have names that are reflect the groupId, artifactId, and version in the pom.
+  The SCM information and CI url are present there.  Jenkins jobs also typically have names that reflect the groupId, artifactId, and version in some manner.
   This plugin automates the process of creating Jenkins jobs by harvesting information from the POM to create XML config files in the format Jenkins needs.  The
   Jenkins CLI wrapper is then used to create, update, read, and delete Jenkins jobs.       
   </description>
