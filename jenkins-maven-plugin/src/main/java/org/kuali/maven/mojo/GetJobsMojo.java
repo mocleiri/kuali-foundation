@@ -32,6 +32,9 @@ public class GetJobsMojo extends AbstractCliMojo {
 		setCmd(StringUtils.isBlank(getCmd()) ? "get-job" : getCmd());
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
 		setStopOnError(false);
+		getLog().info("");
+		getLog().info("Working Dir - " + getWorkingDir().getAbsolutePath());
+		getLog().info("");
 		List<MojoContext> contexts = helper.getJobs(this, names, tokens);
 		helper.handleResults(contexts);
 	}

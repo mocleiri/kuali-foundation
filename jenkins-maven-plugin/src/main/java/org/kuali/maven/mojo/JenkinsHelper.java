@@ -75,9 +75,7 @@ public class JenkinsHelper {
 			context.setAntContext(antContext);
 
 			Task task = getJavaTask(antContext);
-			mojo.getLog().info("");
 			mojo.getLog().info(cliContext.getServer() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
-			mojo.getLog().info("File - " + antContext.getOutputFile().getAbsolutePath());
 			task.execute();
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 			antContext.setResult(result);
