@@ -13,10 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
@@ -41,6 +43,16 @@ public class Generator {
 	PropertiesUtils propertiesUtils = new PropertiesUtils();
 	ResourceUtils resourceUtils = new ResourceUtils();
 	AntMavenUtils antMvnUtils = new AntMavenUtils();
+
+	public <T> T getContext(Class<T> type, Mojo mojo) {
+		try {
+			T context = type.newInstance();
+			BeanUtils.copyProperties(context, mojo);
+			return context;
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
 
 	public void getJob(String name, MavenProject mvnProject, String type, String workingDir, String server, String cmd,
 			Log log, List<Artifact> pluginArtifacts) throws MojoExecutionException {
@@ -162,62 +174,68 @@ public class Generator {
 		return sb.toString();
 	}
 
-	public void generate(JobContext context) throws IOException {
-		Properties properties = getProperties(context);
-		String xml = resourceUtils.read(context.getTemplate());
-		String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
-		resourceUtils.write(context.getLocalFile(), resolvedXml);
+	public void generate(Mojo mojo, String type) throws MojoExecutionException {
+		try {
+			MavenContext mvnContext = getMavenContext(mojo);
+			JobContext jobContext = getJobContext(mvnContext, mojo);
+			jobContext.setType(type);
+			mojo.getLog().info("Generating: " + jobContext.getLocalFile());
+			Properties properties = getProperties(mvnContext, jobContext);
+			String xml = resourceUtils.read(jobContext.getTemplate());
+			String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
+			resourceUtils.write(jobContext.getLocalFile(), resolvedXml);
+		} catch (IOException e) {
+			throw new MojoExecutionException("Unexpected error", e);
+		}
 	}
 
-	public void fillInContext(JobContext context) {
-		MavenProject project = context.getMavenProject();
+	public void generate(Mojo mojo, String[] types) throws MojoExecutionException {
+		for (String type : types) {
+			generate(mojo, type);
+		}
+	}
 
+	public JobContext getJobContext(MavenContext mvnContext, Mojo mojo) {
+		JobContext jobContext = getContext(JobContext.class, mojo);
+		String filename = getFilename(mvnContext, jobContext);
+		jobContext.setLocalFile(filename);
+		return jobContext;
+	}
+
+	public MavenContext getMavenContext(Mojo mojo) {
+		MavenContext context = getContext(MavenContext.class, mojo);
+		MavenProject project = context.getProject();
 		String scmType = extractor.getScmType(project.getScm());
 		String scmUrl = extractor.getScmUrl(project.getScm());
 		String majorVersion = extractor.getMajorVersion(project.getVersion());
-		String filename = getFilename(project, context.getType());
 
-		context.setScmType(scmType);
-		context.setScmUrl(scmUrl);
-		context.setMajorVersion(majorVersion);
-		context.setLocalFile(filename);
-
-	}
-
-	public MavenContext getMavenContext(MavenProject project) {
-		String scmType = extractor.getScmType(project.getScm());
-		String scmUrl = extractor.getScmUrl(project.getScm());
-		String majorVersion = extractor.getMajorVersion(project.getVersion());
-
-		MavenContext context = new MavenContext();
 		context.setMajorVersion(majorVersion);
 		context.setScmType(scmType);
 		context.setScmUrl(scmUrl);
-		context.setProject(project);
 		return context;
 	}
 
-	protected String getFilename(MavenProject project, String jobType) {
-		String buildDir = project.getBuild().getDirectory();
+	protected String getFilename(MavenContext mvnContext, JobContext jobContext) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(buildDir);
+		sb.append(jobContext.getWorkingDir());
 		sb.append(FS);
-		sb.append("jenkins");
+		sb.append("gen");
 		sb.append(FS);
-		sb.append(jobType);
+		sb.append(mvnContext.getProject().getArtifactId());
 		sb.append("-");
-		sb.append("config");
+		sb.append(mvnContext.getMajorVersion());
+		sb.append("-");
+		sb.append(jobContext.getType());
 		sb.append(".xml");
 		return sb.toString();
 	}
 
-	protected Properties getProperties(JobContext context) throws IOException {
-		MavenProject project = context.getMavenProject();
+	protected Properties getProperties(MavenContext mvnContext, JobContext jobContext) throws IOException {
 
-		List<String> locations = getLocations(context);
+		List<String> locations = getLocations(mvnContext, jobContext);
 		Properties resourceProperties = propertiesUtils.getProperties(locations);
-		Properties jenkinsProperties = getJenkinsProperties(context);
-		Properties projectProperties = project.getProperties();
+		Properties jenkinsProperties = getJenkinsProperties(mvnContext, jobContext);
+		Properties projectProperties = mvnContext.getProject().getProperties();
 		Properties environmentProperties = propertiesUtils.getEnvironmentProperties();
 		Properties systemProperties = System.getProperties();
 
@@ -230,27 +248,27 @@ public class Generator {
 		return properties;
 	}
 
-	protected Properties getJenkinsProperties(JobContext context) {
-		SimpleDateFormat sdf = new SimpleDateFormat(context.getTimestampFormat());
+	protected Properties getJenkinsProperties(MavenContext mvnContext, JobContext jobContext) {
+		SimpleDateFormat sdf = new SimpleDateFormat(jobContext.getTimestampFormat());
 		Date now = new Date(System.currentTimeMillis());
-		MavenProject project = context.getMavenProject();
+		MavenProject project = mvnContext.getProject();
 		Properties properties = new Properties();
-		properties.setProperty("jenkins.project.scmType", context.getScmType());
-		properties.setProperty("jenkins.project.scmUrl", context.getScmUrl());
-		properties.setProperty("jenkins.project.majorVersion", context.getMajorVersion());
+		properties.setProperty("jenkins.project.scmType", mvnContext.getScmType());
+		properties.setProperty("jenkins.project.scmUrl", mvnContext.getScmUrl());
+		properties.setProperty("jenkins.project.majorVersion", mvnContext.getMajorVersion());
 		properties.setProperty("jenkins.project.groupId", project.getGroupId());
 		properties.setProperty("jenkins.project.artifactId", project.getArtifactId());
 		properties.setProperty("jenkins.build.timestamp", sdf.format(now));
 		return properties;
 	}
 
-	protected List<String> getLocations(JobContext context) {
+	protected List<String> getLocations(MavenContext mvnContext, JobContext jobContext) {
 		List<String> locations = new ArrayList<String>();
 		locations.add("classpath:org/kuali/jenkins/kuali.properties");
 		locations.add("classpath:org/kuali/jenkins/jenkins.properties");
 		locations.add("classpath:org/kuali/jenkins/jobs/properties/common.xml");
-		locations.add("classpath:org/kuali/jenkins/jobs/properties/" + context.getScmType() + ".xml");
-		locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + context.getType() + ".xml");
+		locations.add("classpath:org/kuali/jenkins/jobs/properties/" + mvnContext.getScmType() + ".xml");
+		locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + jobContext.getType() + ".xml");
 		return locations;
 	}
 

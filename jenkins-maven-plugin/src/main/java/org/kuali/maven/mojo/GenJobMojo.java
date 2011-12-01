@@ -1,16 +1,11 @@
 package org.kuali.maven.mojo;
 
-import java.io.IOException;
-
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.kuali.maven.mojo.context.JobContext;
 
 /**
  * @goal genjob
  */
 public class GenJobMojo extends AbstractGenerateMojo {
-	Generator generator = new Generator();
 
 	/**
 	 * The type of job eg publish, unit, license, release
@@ -21,15 +16,8 @@ public class GenJobMojo extends AbstractGenerateMojo {
 	private String type;
 
 	@Override
-	public void execute() throws MojoExecutionException, MojoFailureException {
-		try {
-			JobContext context = getJobContext(type);
-			generator.fillInContext(context);
-			getLog().info("Generating: " + context.getLocalFile());
-			generator.generate(context);
-		} catch (IOException e) {
-			throw new MojoExecutionException("Unexpected error", e);
-		}
+	public void execute() throws MojoExecutionException {
+		generator.generate(this, type);
 	}
 
 	public String getType() {

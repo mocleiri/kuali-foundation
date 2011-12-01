@@ -1,11 +1,11 @@
 package org.kuali.maven.mojo;
 
-import org.kuali.maven.mojo.context.JobContext;
 
 /**
  * 
  */
 public abstract class AbstractGenerateMojo extends BaseMojo {
+	Generator generator = new Generator();
 
 	/**
 	 * The location of the jenkins job config template
@@ -14,16 +14,6 @@ public abstract class AbstractGenerateMojo extends BaseMojo {
 	 * @required
 	 */
 	private String template;
-
-	protected JobContext getJobContext(String type) {
-		JobContext context = new JobContext();
-		context.setWorkingDir(getWorkingDir());
-		context.setMavenProject(getProject());
-		context.setType(type);
-		context.setTemplate(template);
-		context.setTimestampFormat(getTimestampFormat());
-		return context;
-	}
 
 	public String getTemplate() {
 		return template;

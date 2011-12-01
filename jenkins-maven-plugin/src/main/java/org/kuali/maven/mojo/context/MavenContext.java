@@ -1,9 +1,15 @@
 package org.kuali.maven.mojo.context;
 
+import java.util.List;
+
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 
 public class MavenContext {
 	MavenProject project;
+	List<Artifact> pluginArtifacts;
+	Log log;
 	String scmType;
 	String scmUrl;
 	String majorVersion;
@@ -38,6 +44,22 @@ public class MavenContext {
 
 	public void setMajorVersion(String majorVersion) {
 		this.majorVersion = majorVersion;
+	}
+
+	public Log getLog() {
+		return log;
+	}
+
+	public void setLog(Log log) {
+		this.log = log;
+	}
+
+	public List<Artifact> getPluginArtifacts() {
+		return pluginArtifacts;
+	}
+
+	public void setPluginArtifacts(List<Artifact> pluginArtifacts) {
+		this.pluginArtifacts = pluginArtifacts;
 	}
 
 }
