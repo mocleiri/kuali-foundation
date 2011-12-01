@@ -1,7 +1,6 @@
 package org.kuali.maven.mojo;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Connect to a Jenkins server and retrieve an XML document describing the job configuration
@@ -12,7 +11,15 @@ import org.codehaus.plexus.util.StringUtils;
 public class GetJobMojo extends AbstractCliMojo {
 
 	/**
-	 * The type of job.  This is combined with artifactId and majorVersion to produce a fully qualified job name.  eg "jenkins-maven-plugin-1.0-publish"
+	 * The command issued to Jenkins CLI
+	 * 
+	 * @parameter expression="${jenkins.cmd}" default-value="get-job"
+	 * @required
+	 */
+	private String cmd;
+
+	/**
+	 * The type of job. This is combined with artifactId and majorVersion to produce a fully qualified job name. eg "jenkins-maven-plugin-1.0-publish"
 	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 */
@@ -27,7 +34,6 @@ public class GetJobMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setCmd(StringUtils.isBlank(getCmd()) ? "get-job" : getCmd());
 		helper.getJob(this, name, type);
 	}
 
@@ -45,6 +51,14 @@ public class GetJobMojo extends AbstractCliMojo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCmd() {
+		return cmd;
+	}
+
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
 	}
 
 }

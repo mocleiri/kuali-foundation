@@ -1,7 +1,6 @@
 package org.kuali.maven.mojo;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Contact a Jenkins server and update an existing jobs configuration
@@ -10,6 +9,14 @@ import org.codehaus.plexus.util.StringUtils;
  * @requiresDependencyResolution test
  */
 public class UpdateJobMojo extends AbstractCliMojo {
+
+	/**
+	 * The command issued to Jenkins CLI
+	 * 
+	 * @parameter expression="${jenkins.cmd}" default-value="update-job"
+	 * @required
+	 */
+	private String cmd;
 
 	/**
 	 * The location of the jenkins job config template
@@ -29,7 +36,6 @@ public class UpdateJobMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setCmd(StringUtils.isBlank(getCmd()) ? "update-job" : getCmd());
 		helper.pushJobToJenkins(this, type);
 	}
 
@@ -47,6 +53,14 @@ public class UpdateJobMojo extends AbstractCliMojo {
 
 	public void setTemplate(String template) {
 		this.template = template;
+	}
+
+	public String getCmd() {
+		return cmd;
+	}
+
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
 	}
 
 }

@@ -1,7 +1,6 @@
 package org.kuali.maven.mojo;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Contact a Jenkins server and schedule a job to run
@@ -10,6 +9,14 @@ import org.codehaus.plexus.util.StringUtils;
  * @requiresDependencyResolution test
  */
 public class RunJobMojo extends AbstractCliMojo {
+
+	/**
+	 * The command issued to Jenkins CLI
+	 * 
+	 * @parameter expression="${jenkins.cmd}" default-value="build"
+	 * @required
+	 */
+	private String cmd;
 
 	/**
 	 * The type of job to create
@@ -21,7 +28,6 @@ public class RunJobMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setCmd(StringUtils.isBlank(getCmd()) ? "build" : getCmd());
 		helper.executeCliJobCommand(this, type);
 	}
 
@@ -31,6 +37,14 @@ public class RunJobMojo extends AbstractCliMojo {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getCmd() {
+		return cmd;
+	}
+
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
 	}
 
 }

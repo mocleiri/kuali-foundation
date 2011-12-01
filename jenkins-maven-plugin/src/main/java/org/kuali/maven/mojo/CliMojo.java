@@ -11,7 +11,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class CliMojo extends AbstractCliMojo {
 
 	/**
-	 * The command issued to Jenkins CLI eg "help, version, who-ami-i etc"
+	 * The command issued to Jenkins CLI eg "help", "version", "who-ami-i" etc
 	 * 
 	 * @parameter expression="${jenkins.cmd}" default-value="help"
 	 * @required
@@ -23,12 +23,10 @@ public class CliMojo extends AbstractCliMojo {
 		helper.executeCliCommand(this);
 	}
 
-	@Override
 	public String getCmd() {
 		return cmd;
 	}
 
-	@Override
 	public void setCmd(String cmd) {
 		this.cmd = cmd;
 	}

@@ -3,7 +3,6 @@ package org.kuali.maven.mojo;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.mojo.context.MojoContext;
 
@@ -14,6 +13,14 @@ import org.kuali.maven.mojo.context.MojoContext;
  * @requiresDependencyResolution test
  */
 public class GetJobsMojo extends AbstractCliMojo {
+
+	/**
+	 * The command issued to Jenkins CLI
+	 * 
+	 * @parameter expression="${jenkins.cmd}" default-value="get-job"
+	 * @required
+	 */
+	private String cmd;
 
 	/**
 	 * Comma separated list of job types
@@ -31,7 +38,6 @@ public class GetJobsMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setCmd(StringUtils.isBlank(getCmd()) ? "get-job" : getCmd());
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
 		setStopOnError(false);
 		getLog().info("");
@@ -55,6 +61,14 @@ public class GetJobsMojo extends AbstractCliMojo {
 
 	public void setNames(List<String> names) {
 		this.names = names;
+	}
+
+	public String getCmd() {
+		return cmd;
+	}
+
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
 	}
 
 }

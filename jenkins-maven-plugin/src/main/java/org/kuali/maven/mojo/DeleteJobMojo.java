@@ -1,7 +1,6 @@
 package org.kuali.maven.mojo;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Delete a Jenkins job. The name of the job to delete is derived from information in the POM combined with 'type'
@@ -10,6 +9,14 @@ import org.codehaus.plexus.util.StringUtils;
  * @requiresDependencyResolution test
  */
 public class DeleteJobMojo extends AbstractCliMojo {
+
+	/**
+	 * The command issued to Jenkins CLI
+	 * 
+	 * @parameter expression="${jenkins.cmd}" default-value="delete-job"
+	 * @required
+	 */
+	private String cmd;
 
 	/**
 	 * The type of job to delete
@@ -21,7 +28,6 @@ public class DeleteJobMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setCmd(StringUtils.isBlank(getCmd()) ? "delete-job" : getCmd());
 		helper.executeCliJobCommand(this, type);
 	}
 
@@ -31,6 +37,14 @@ public class DeleteJobMojo extends AbstractCliMojo {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getCmd() {
+		return cmd;
+	}
+
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
 	}
 
 }

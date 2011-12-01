@@ -1,7 +1,6 @@
 package org.kuali.maven.mojo;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Create a Jenkins job based on the information in the Maven pom and the 'type' provided.
@@ -10,6 +9,14 @@ import org.codehaus.plexus.util.StringUtils;
  * @requiresDependencyResolution test
  */
 public class CreateJobMojo extends AbstractCliMojo {
+
+	/**
+	 * The command issued to Jenkins CLI
+	 * 
+	 * @parameter expression="${jenkins.cmd}" default-value="create-job"
+	 * @required
+	 */
+	private String cmd;
 
 	/**
 	 * The location of the jenkins job config template
@@ -29,7 +36,6 @@ public class CreateJobMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setCmd(StringUtils.isBlank(getCmd()) ? "create-job" : getCmd());
 		helper.pushJobToJenkins(this, type);
 	}
 
@@ -47,6 +53,14 @@ public class CreateJobMojo extends AbstractCliMojo {
 
 	public void setTemplate(String template) {
 		this.template = template;
+	}
+
+	public String getCmd() {
+		return cmd;
+	}
+
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
 	}
 
 }

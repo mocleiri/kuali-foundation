@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.mojo.context.MojoContext;
 
@@ -15,6 +14,14 @@ import org.kuali.maven.mojo.context.MojoContext;
  * @requiresDependencyResolution test
  */
 public class DeleteJobsMojo extends AbstractCliMojo {
+
+	/**
+	 * The command issued to Jenkins CLI
+	 * 
+	 * @parameter expression="${jenkins.cmd}" default-value="delete-job"
+	 * @required
+	 */
+	private String cmd;
 
 	/**
 	 * The location of the jenkins job config template
@@ -42,7 +49,6 @@ public class DeleteJobsMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setCmd(StringUtils.isBlank(getCmd()) ? "delete-job" : getCmd());
 		setStopOnError(false);
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
 		List<MojoContext> contexts = helper.deleteJobs(this, tokens);
@@ -65,6 +71,30 @@ public class DeleteJobsMojo extends AbstractCliMojo {
 
 	public void setTemplate(String template) {
 		this.template = template;
+	}
+
+	public String getCmd() {
+		return cmd;
+	}
+
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
+	}
+
+	public String getTypes() {
+		return types;
+	}
+
+	public void setTypes(String types) {
+		this.types = types;
+	}
+
+	public String getIgnoreCodes() {
+		return ignoreCodes;
+	}
+
+	public void setIgnoreCodes(String ignoreCodes) {
+		this.ignoreCodes = ignoreCodes;
 	}
 
 }
