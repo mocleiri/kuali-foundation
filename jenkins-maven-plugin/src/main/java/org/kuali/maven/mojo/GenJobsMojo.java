@@ -20,7 +20,7 @@ public class GenJobsMojo extends AbstractGenerateMojo {
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-		generator.generate(this, tokens);
+		helper.generate(this, tokens);
 	}
 
 	public String getTypes() {

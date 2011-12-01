@@ -26,7 +26,7 @@ public class GetJobMojo extends BaseMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		generator.getJob(name, getProject(), type, getWorkingDir(), getServer(), cmd, getLog(), getPluginArtifacts());
+		helper.getJob(name, getProject(), type, getWorkingDir(), getServer(), cmd, getLog(), getPluginArtifacts());
 	}
 
 	public String getCmd() {

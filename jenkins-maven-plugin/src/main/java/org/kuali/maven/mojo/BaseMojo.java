@@ -11,7 +11,7 @@ import org.apache.maven.project.MavenProject;
  */
 public abstract class BaseMojo extends AbstractMojo {
 	public static final String FS = System.getProperty("file.separator");
-	JenkinsHelper generator = new JenkinsHelper();
+	JenkinsHelper helper = new JenkinsHelper();
 
 	/**
 	 * The Maven project object

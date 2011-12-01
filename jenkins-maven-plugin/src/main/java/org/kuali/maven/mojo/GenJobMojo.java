@@ -17,7 +17,7 @@ public class GenJobMojo extends AbstractGenerateMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		generator.generate(this, type);
+		helper.generate(this, type);
 	}
 
 	public String getType() {
