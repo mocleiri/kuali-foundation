@@ -32,6 +32,8 @@ public abstract class BaseMojo extends AbstractMojo {
 	private List<Artifact> pluginArtifacts;
 
 	/**
+	 * The Jenkins instance to connect to.
+	 * 
 	 * @parameter expression="${jenkins.server}" default-value="${project.ciManagement.url}"
 	 * @required
 	 */
@@ -54,7 +56,10 @@ public abstract class BaseMojo extends AbstractMojo {
 	private File workingDir;
 
 	/**
-	 * @parameter expression="${jenkins.stopOnError}" default-value="true"
+	 * If set to true, the build will fail the first time it encounters an issue. When false, mojo's will proceed through their list of requests and then
+	 * fail at the end if an issue was encountered along the way.
+	 * 
+	 * @parameter expression="${jenkins.stopOnError}" default-value="false"
 	 * @required
 	 */
 	private boolean stopOnError;
