@@ -14,7 +14,7 @@ public abstract class AbstractCliMojo extends BaseMojo {
 	private String classname;
 
 	/**
-	 * The command to issue to Jenkins CLI
+	 * The command to issue to Jenkins CLI eg "create-job, get-job, etc"
 	 * 
 	 * @parameter expression="${jenkins.cmd}"
 	 */

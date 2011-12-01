@@ -19,7 +19,10 @@ public class CreateJobMojo extends AbstractCliMojo {
 	private String template;
 
 	/**
+	 * The type of job to create
+	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
+	 * @required
 	 */
 	private String type;
 
