@@ -1,6 +1,7 @@
 package org.kuali.maven.mojo;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * @goal getjob
@@ -26,13 +27,18 @@ public class GetJobMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
+		if (StringUtils.isBlank(getCmd())) {
+			setCmd("get-job");
+		}
 		helper.getJob(this, name, type);
 	}
 
+	@Override
 	public String getCmd() {
 		return cmd;
 	}
 
+	@Override
 	public void setCmd(String cmd) {
 		this.cmd = cmd;
 	}
