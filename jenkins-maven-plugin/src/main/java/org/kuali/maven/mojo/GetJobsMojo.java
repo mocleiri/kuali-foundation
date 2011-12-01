@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.PropertiesUtils;
+import org.kuali.maven.mojo.context.MojoContext;
 
 /**
  * @goal getjobs
@@ -31,7 +32,8 @@ public class GetJobsMojo extends AbstractCliMojo {
 		setCmd(StringUtils.isBlank(getCmd()) ? "get-job" : getCmd());
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
 		setStopOnError(false);
-		helper.getJobs(this, names, tokens);
+		List<MojoContext> contexts = helper.getJobs(this, names, tokens);
+		helper.handleResults(contexts);
 	}
 
 	public String getTypes() {
