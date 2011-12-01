@@ -15,13 +15,13 @@ import org.kuali.maven.common.ResourceUtils;
 public class Generator {
 	private static final String FS = System.getProperty("file.separator");
 	Extractor extractor = new Extractor();
-	PropertiesUtils pu = new PropertiesUtils();
+	PropertiesUtils propertiesUtils = new PropertiesUtils();
 	ResourceUtils resourceUtils = new ResourceUtils();
 
 	public void generate(JobContext context) throws IOException {
 		Properties properties = getProperties(context);
 		String xml = resourceUtils.read(context.getTemplate());
-		String resolvedXml = pu.getResolvedValue(xml, properties);
+		String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
 		resourceUtils.write(context.getFilename(), resolvedXml);
 	}
 
