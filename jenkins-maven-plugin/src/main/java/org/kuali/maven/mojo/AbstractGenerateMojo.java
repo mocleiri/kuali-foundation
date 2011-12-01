@@ -1,22 +1,9 @@
 package org.kuali.maven.mojo;
 
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.project.MavenProject;
-
 /**
  * 
  */
-public abstract class AbstractGenerateMojo extends AbstractMojo {
-	Generator generator = new Generator();
-
-	/**
-	 * The Maven project this plugin runs in.
-	 * 
-	 * @parameter expression="${project}"
-	 * @required
-	 * @readonly
-	 */
-	private MavenProject project;
+public abstract class AbstractGenerateMojo extends BaseMojo {
 
 	/**
 	 * The location of the jenkins job config template
@@ -34,31 +21,15 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
 	 */
 	private String configDir;
 
-	/**
-	 * The format for timestamp displays
-	 * 
-	 * @parameter expression="${jenkins.timestampFormat}" default-value="yyyy-MM-dd HH:mm:ss z"
-	 * @required
-	 */
-	private String timestampFormat;
-
 	protected JobContext getJobContext(String type) {
 		JobContext context = new JobContext();
 		context.setConfigDir(configDir);
-		context.setProject(project);
+		context.setProject(getProject());
 		context.setType(type);
 		context.setTemplate(template);
-		context.setTimestampFormat(timestampFormat);
+		context.setTimestampFormat(getTimestampFormat());
 		return context;
 
-	}
-
-	public MavenProject getProject() {
-		return project;
-	}
-
-	public void setProject(MavenProject project) {
-		this.project = project;
 	}
 
 	public String getTemplate() {
@@ -77,11 +48,4 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
 		this.configDir = configDir;
 	}
 
-	public String getTimestampFormat() {
-		return timestampFormat;
-	}
-
-	public void setTimestampFormat(String timestampFormat) {
-		this.timestampFormat = timestampFormat;
-	}
 }

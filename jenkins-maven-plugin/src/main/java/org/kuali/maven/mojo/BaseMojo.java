@@ -12,6 +12,7 @@ import org.kuali.maven.common.AntMavenUtils;
  */
 public abstract class BaseMojo extends AbstractMojo {
 	AntMavenUtils antMvnUtils = new AntMavenUtils();
+	Generator generator = new Generator();
 
 	/**
 	 * The Maven project object
@@ -36,6 +37,14 @@ public abstract class BaseMojo extends AbstractMojo {
 	 */
 	private String server;
 
+	/**
+	 * The format for timestamp displays
+	 * 
+	 * @parameter expression="${jenkins.timestampFormat}" default-value="yyyy-MM-dd HH:mm:ss z"
+	 * @required
+	 */
+	private String timestampFormat;
+
 	public MavenProject getProject() {
 		return project;
 	}
@@ -50,6 +59,14 @@ public abstract class BaseMojo extends AbstractMojo {
 
 	public void setServer(String server) {
 		this.server = server;
+	}
+
+	public String getTimestampFormat() {
+		return timestampFormat;
+	}
+
+	public void setTimestampFormat(String timestampFormat) {
+		this.timestampFormat = timestampFormat;
 	}
 
 }
