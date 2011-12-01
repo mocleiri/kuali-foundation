@@ -81,7 +81,9 @@ public class JenkinsHelper {
 			task.execute();
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 			handleResult(context, result);
-			jobContext.setResolvedContent(resourceUtils.read(jobContext.getLocalFile().getAbsolutePath()));
+			String location = jobContext.getLocalFile().getAbsolutePath();
+			String content = resourceUtils.read(location);
+			jobContext.setResolvedContent(content);
 			return context;
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
