@@ -1,6 +1,7 @@
 package org.kuali.maven.mojo.context;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.logging.Log;
@@ -13,6 +14,7 @@ public class MavenContext {
 	String scmType;
 	String scmUrl;
 	String majorVersion;
+	Properties properties;
 
 	public MavenProject getProject() {
 		return project;
@@ -60,6 +62,14 @@ public class MavenContext {
 
 	public void setPluginArtifacts(List<Artifact> pluginArtifacts) {
 		this.pluginArtifacts = pluginArtifacts;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 
 }
