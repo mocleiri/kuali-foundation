@@ -2,7 +2,6 @@ package org.kuali.maven.mojo;
 
 import hudson.cli.CLI;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,27 +27,35 @@ import org.kuali.maven.common.ResourceUtils;
 
 public class Generator {
 	private static final String FS = System.getProperty("file.separator");
+	public static final String JAVA_RESULT_PROPERTY = "java.result";
 	Extractor extractor = new Extractor();
 	PropertiesUtils propertiesUtils = new PropertiesUtils();
 	ResourceUtils resourceUtils = new ResourceUtils();
 	AntMavenUtils antMvnUtils = new AntMavenUtils();
 
-	public Java getJavaTask(Project antProject, MavenProject mvnProject, String[] args, List<Artifact> pluginArtifacts,
-			File out) throws DependencyResolutionRequiredException {
+	public Java getJavaTask(AntContext context) throws DependencyResolutionRequiredException {
+		Project antProject = context.getAntProject();
+		MavenProject mvnProject = context.getMavenProject();
+		List<Artifact> pluginArtifacts = context.getPluginArtifacts();
+
 		Java task = new Java();
 		task.setProject(antProject);
 		task.setClassname(CLI.class.getName());
 		task.setFork(true);
-		task.setOutput(out);
-		task.setResultProperty("java.result");
-		for (String arg : args) {
-			Argument argument = task.createArg();
-			argument.setValue(arg);
-		}
+		task.setOutput(context.getOutputFile());
+		task.setResultProperty(context.getResultProperty());
+		createArgs(context.getArgs(), task);
 		Map<String, Path> pathRefs = antMvnUtils.getPathRefs(antProject, mvnProject, pluginArtifacts);
 		Path pluginClasspath = pathRefs.get(AntMavenUtils.MVN_PLUGIN_CLASSPATH_KEY);
 		task.setClasspath(pluginClasspath);
 		return task;
+	}
+
+	protected void createArgs(String[] args, Java task) {
+		for (String arg : args) {
+			Argument argument = task.createArg();
+			argument.setValue(arg);
+		}
 	}
 
 	/**

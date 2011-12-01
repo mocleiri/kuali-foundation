@@ -39,13 +39,25 @@ public class GetJobMjo extends BaseMojo {
 			FileUtils.touch(outputFile);
 			String[] args = getArgs(jobName);
 			Project antProject = generator.getAntProject(getLog());
-			Task task = generator.getJavaTask(antProject, getProject(), args, getPluginArtifacts(), outputFile);
+			AntContext context = getAntContext(antProject,args,outputFile);
+			Task task = generator.getJavaTask(context);
 			task.execute();
 			int result = new Integer(antProject.getProperty("java.result"));
 			getLog().info("Result: " + result);
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
+	}
+
+	protected AntContext getAntContext(Project antProject, String[] args, File outputFile) {
+		AntContext context = new AntContext();
+		context.setAntProject(antProject);
+		context.setMavenProject(getProject());
+		context.setArgs(args);
+		context.setOutputFile(outputFile);
+		context.setPluginArtifacts(getPluginArtifacts());
+		context.setResultProperty(Generator.JAVA_RESULT_PROPERTY);
+		return context;
 	}
 
 	protected String[] getArgs(String jobName) {
