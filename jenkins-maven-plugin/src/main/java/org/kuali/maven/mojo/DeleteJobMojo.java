@@ -26,9 +26,17 @@ public class DeleteJobMojo extends AbstractCliMojo {
 	 */
 	private String type;
 
+	/**
+	 * The name of the job to delete. If name is provided, 'type' is ignored
+	 * 
+	 * @parameter expression="${jenkins.name}"
+	 * @required
+	 */
+	private String name;
+
 	@Override
 	public void execute() throws MojoExecutionException {
-		helper.executeCliJobCommand(this, type);
+		helper.executeCliJobCommand(this, name, type);
 	}
 
 	public String getType() {
@@ -45,6 +53,14 @@ public class DeleteJobMojo extends AbstractCliMojo {
 
 	public void setCmd(String cmd) {
 		this.cmd = cmd;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

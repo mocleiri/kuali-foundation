@@ -40,6 +40,13 @@ public class DeleteJobsMojo extends AbstractCliMojo {
 	private String types;
 
 	/**
+	 * The explicit list of jobs to delete. If names are provided, 'types' is ignored.
+	 * 
+	 * @parameter
+	 */
+	private List<String> names;
+
+	/**
 	 * Comma delimited list of result codes to ignore. Result code of 1 means the job we are trying to delete does not exist.
 	 * 
 	 * @parameter expression="${jenkins.ignoreCodes}" default-value="1"
@@ -51,7 +58,7 @@ public class DeleteJobsMojo extends AbstractCliMojo {
 	public void execute() throws MojoExecutionException {
 		setStopOnError(false);
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-		List<MojoContext> contexts = helper.deleteJobs(this, tokens);
+		List<MojoContext> contexts = helper.deleteJobs(this, names, tokens);
 		List<Integer> ignoreCodeList = getIgnoreCodeList();
 		helper.handleResults(contexts, ignoreCodeList);
 	}
@@ -95,6 +102,14 @@ public class DeleteJobsMojo extends AbstractCliMojo {
 
 	public void setIgnoreCodes(String ignoreCodes) {
 		this.ignoreCodes = ignoreCodes;
+	}
+
+	public List<String> getNames() {
+		return names;
+	}
+
+	public void setNames(List<String> names) {
+		this.names = names;
 	}
 
 }

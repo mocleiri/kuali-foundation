@@ -284,11 +284,18 @@ public class JenkinsHelper {
 		return createContext;
 	}
 
-	public List<MojoContext> deleteJobs(Mojo mojo, String[] types) throws MojoExecutionException {
+	public List<MojoContext> deleteJobs(Mojo mojo, List<String> names, String[] types) throws MojoExecutionException {
 		List<MojoContext> contexts = new ArrayList<MojoContext>();
-		for (String type : types) {
-			MojoContext context = executeCliJobCommand(mojo, type);
-			contexts.add(context);
+		if (!isEmpty(names)) {
+			for (String name : names) {
+				MojoContext context = executeCliJobCommand(mojo, name, null);
+				contexts.add(context);
+			}
+		} else {
+			for (String type : types) {
+				MojoContext context = executeCliJobCommand(mojo, null, type);
+				contexts.add(context);
+			}
 		}
 		return contexts;
 	}
@@ -315,10 +322,10 @@ public class JenkinsHelper {
 		}
 	}
 
-	public MojoContext executeCliJobCommand(Mojo mojo, String type) throws MojoExecutionException {
+	public MojoContext executeCliJobCommand(Mojo mojo, String name, String type) throws MojoExecutionException {
 		try {
 			MavenContext mvnContext = getMavenContext(mojo);
-			JobContext jobContext = getJobContext(mvnContext, mojo, null, type);
+			JobContext jobContext = getJobContext(mvnContext, mojo, name, type);
 			FileUtils.touch(jobContext.getLocalFile());
 			CliContext cliContext = getCliContext(jobContext, mojo);
 			MojoContext context = getMojoContext(mvnContext, jobContext, cliContext);
