@@ -216,7 +216,7 @@ public class AntMojo extends AbstractMojo {
 	private String inheritAll;
 
 	/**
-	 * If true, pass named Maven references to Ant
+	 * If true, pass Maven object references to Ant (MavenProject, MavenProjectHelper, ArtifactRepository - for the local repo)
 	 * 
 	 * @parameter expression="${ant.inheritRefs}" default-value="true"
 	 */
