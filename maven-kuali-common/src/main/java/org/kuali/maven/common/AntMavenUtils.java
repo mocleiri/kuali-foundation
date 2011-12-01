@@ -38,6 +38,11 @@ import org.apache.tools.ant.types.Path;
 import org.codehaus.plexus.util.StringUtils;
 
 public class AntMavenUtils {
+	public static final String MVN_COMPILE_CLASSPATH_KEY = "maven.compile.classpath";
+	public static final String MVN_RUNTIME_CLASSPATH_KEY = "maven.runtime.classpath";
+	public static final String MVN_TEST_CLASSPATH_KEY = "maven.test.classpath";
+	public static final String MVN_PLUGIN_CLASSPATH_KEY = "maven.plugin.classpath";
+
 	/**
 	 * Copy properties from the ant project to the maven project.
 	 * 
@@ -176,21 +181,21 @@ public class AntMavenUtils {
 		// compile
 		Path mcp = new Path(ant);
 		mcp.setPath(StringUtils.join(mvn.getCompileClasspathElements().iterator(), File.pathSeparator));
-		pathRefs.put("maven.compile.classpath", mcp);
+		pathRefs.put(MVN_COMPILE_CLASSPATH_KEY, mcp);
 
 		// runtime
 		Path mrp = new Path(ant);
 		mrp.setPath(StringUtils.join(mvn.getRuntimeClasspathElements().iterator(), File.pathSeparator));
-		pathRefs.put("maven.runtime.classpath", mrp);
+		pathRefs.put(MVN_RUNTIME_CLASSPATH_KEY, mrp);
 
 		// test
 		Path mtp = new Path(ant);
 		mtp.setPath(StringUtils.join(mvn.getTestClasspathElements().iterator(), File.pathSeparator));
-		pathRefs.put("maven.test.classpath", mtp);
+		pathRefs.put(MVN_TEST_CLASSPATH_KEY, mtp);
 
 		// plugin
 		Path mpp = getPathFromArtifacts(pluginArtifacts, ant);
-		pathRefs.put("maven.plugin.classpath", mpp);
+		pathRefs.put(MVN_PLUGIN_CLASSPATH_KEY, mpp);
 		return pathRefs;
 	}
 
