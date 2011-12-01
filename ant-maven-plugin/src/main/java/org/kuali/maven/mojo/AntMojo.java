@@ -103,9 +103,14 @@ public class AntMojo extends AbstractMojo {
 	public static final String DEFAULT_MAVEN_PROJECT_REFID = "maven.project";
 
 	/**
-	 * The refid used to store the Maven project object in the Ant build.
+	 * The refid used to store the Maven project helper object in the Ant build.
 	 */
 	public static final String DEFAULT_MAVEN_PROJECT_HELPER_REFID = "maven.project.helper";
+
+	/**
+	 * The refid used to store the Maven local repository object in the Ant build.
+	 */
+	public static final String DEFAULT_MAVEN_LOCAL_REPOSITORY_REFID = "maven.local.repository";
 
 	/**
 	 * The default target name.
@@ -338,7 +343,7 @@ public class AntMojo extends AbstractMojo {
 		Map<String, Object> mavenRefs = new HashMap<String, Object>();
 		mavenRefs.put(DEFAULT_MAVEN_PROJECT_REFID, getMavenProject());
 		mavenRefs.put(DEFAULT_MAVEN_PROJECT_HELPER_REFID, projectHelper);
-		mavenRefs.put("maven.local.repository", localRepository);
+		mavenRefs.put(DEFAULT_MAVEN_LOCAL_REPOSITORY_REFID, localRepository);
 		return mavenRefs;
 	}
 
