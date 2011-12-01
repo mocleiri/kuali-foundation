@@ -29,6 +29,7 @@
   <packaging>maven-plugin</packaging>
   <name>Ant Maven Plugin</name>
   <description>Allows Maven to invoke an Ant target inside any Ant build file that is available on the file system, the ant-maven-plugin classpath, or any URL that Spring 3.0 resource loading can understand</description>
+  <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <properties>
     <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
     <kuali.maven.version>2.0.11</kuali.maven.version>
