@@ -267,6 +267,15 @@ public class JenkinsHelper {
 		return createContext;
 	}
 
+	public List<MojoContext> deleteJobs(Mojo mojo, String[] types) throws MojoExecutionException {
+		List<MojoContext> contexts = new ArrayList<MojoContext>();
+		for (String type : types) {
+			MojoContext context = deleteJob(mojo, type);
+			contexts.add(context);
+		}
+		return contexts;
+	}
+
 	public MojoContext deleteJob(Mojo mojo, String type) throws MojoExecutionException {
 		try {
 			MavenContext mvnContext = getMavenContext(mojo);
