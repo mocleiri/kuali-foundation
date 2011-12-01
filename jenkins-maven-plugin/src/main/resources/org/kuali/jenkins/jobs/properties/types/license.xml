@@ -5,7 +5,7 @@
   <entry key="jenkins.job.goals">clean install -Plicense -N -DskipTests</entry>
   <entry key="jenkins.job.type">license</entry>
   <entry key="jenkins.job.triggers"><![CDATA[${jenkins.job.trigger.timer}]]></entry>
-  <entry key="jenkins.job.triggers.timer.spec">${jenkins.job.cron.7am}</entry>
+  <entry key="jenkins.job.trigger.timer.spec">${jenkins.job.cron.7am}</entry>
   <entry key="jenkins.job.description.brief"><![CDATA[ 
       <div id="jenkins-job-brief">
           <li id="jenkins-job-brief-title">Ensure the correct ECL 2.0 license header is being used</li>
