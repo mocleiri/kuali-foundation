@@ -179,11 +179,13 @@ public class JenkinsHelper {
 			MavenContext mvnContext = getMavenContext(mojo);
 			JobContext jobContext = getJobContext(mvnContext, mojo);
 			jobContext.setType(type);
-			mojo.getLog().info("Generating: " + jobContext.getLocalFile());
+			File localFile = jobContext.getLocalFile();
+			String path = localFile.getCanonicalPath();
+			mojo.getLog().info("Generating: " + path);
 			Properties properties = getProperties(mvnContext, jobContext);
 			String xml = resourceUtils.read(jobContext.getTemplate());
 			String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
-			resourceUtils.write(jobContext.getLocalFile(), resolvedXml);
+			resourceUtils.write(path, resolvedXml);
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
@@ -198,7 +200,8 @@ public class JenkinsHelper {
 	public JobContext getJobContext(MavenContext mvnContext, Mojo mojo) {
 		JobContext jobContext = getContext(JobContext.class, mojo);
 		String filename = getFilename(mvnContext, jobContext);
-		jobContext.setLocalFile(filename);
+		File localFile = new File(filename);
+		jobContext.setLocalFile(localFile);
 		return jobContext;
 	}
 

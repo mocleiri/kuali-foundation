@@ -1,5 +1,6 @@
 package org.kuali.maven.mojo;
 
+import java.io.File;
 import java.util.List;
 
 import org.apache.maven.artifact.Artifact;
@@ -50,7 +51,7 @@ public abstract class BaseMojo extends AbstractMojo {
 	 * @parameter expression="${jenkins.workingDir}" default-value="${project.build.directory}/jenkins"
 	 * @required
 	 */
-	private String workingDir;
+	private File workingDir;
 
 	public MavenProject getProject() {
 		return project;
@@ -76,11 +77,11 @@ public abstract class BaseMojo extends AbstractMojo {
 		this.timestampFormat = timestampFormat;
 	}
 
-	public String getWorkingDir() {
+	public File getWorkingDir() {
 		return workingDir;
 	}
 
-	public void setWorkingDir(String workingDir) {
+	public void setWorkingDir(File workingDir) {
 		this.workingDir = workingDir;
 	}
 
