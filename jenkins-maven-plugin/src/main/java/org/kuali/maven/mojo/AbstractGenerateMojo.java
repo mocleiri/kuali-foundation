@@ -4,6 +4,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
 
 /**
+ * 
  */
 public abstract class AbstractGenerateMojo extends AbstractMojo {
 	Generator generator = new Generator();
@@ -29,6 +30,7 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
 	 * The directory where the job config will be generated
 	 * 
 	 * @parameter expression="${jenkins.configDir}" default-value="${project.build.directory}/jenkins"
+	 * @required
 	 */
 	private String configDir;
 
