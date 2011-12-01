@@ -10,12 +10,6 @@ import org.codehaus.plexus.util.StringUtils;
 public class GetJobMojo extends AbstractCliMojo {
 
 	/**
-	 * @parameter expression="${jenkins.cmd}" default-value="get-job"
-	 * @required
-	 */
-	private String cmd;
-
-	/**
 	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 */
 	private String type;
@@ -27,20 +21,8 @@ public class GetJobMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		if (StringUtils.isBlank(getCmd())) {
-			setCmd("get-job");
-		}
+		setCmd(StringUtils.isBlank(getCmd()) ? "get-job" : getCmd());
 		helper.getJob(this, name, type);
-	}
-
-	@Override
-	public String getCmd() {
-		return cmd;
-	}
-
-	@Override
-	public void setCmd(String cmd) {
-		this.cmd = cmd;
 	}
 
 	public String getType() {
