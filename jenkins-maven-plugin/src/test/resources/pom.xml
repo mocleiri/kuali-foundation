@@ -23,16 +23,16 @@
     <artifactId>kuali-common</artifactId>
     <version>1.0.6</version>
   </parent>
-  <groupId>org.kuali.maven.plugins</groupId>
-  <artifactId>maven-cloudfront-plugin</artifactId>
-  <version>1.1.0</version>
+  <groupId>${project.groupId}</groupId>
+  <artifactId>${project.artifactId}</artifactId>
+  <version>1.0.1</version>
   <name>Jenkins Maven Plugin Test POM</name>
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>jenkins-maven-plugin</artifactId>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>${project.artifactId}</artifactId>
           <version>${project.version}</version>
         </plugin>
       </plugins>
