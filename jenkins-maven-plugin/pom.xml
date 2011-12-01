@@ -35,11 +35,6 @@
       <version>${jenkins.cli.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.kuali.maven.plugins</groupId>
-      <artifactId>ant-maven-plugin</artifactId>
-      <version>1.0.1</version>
-    </dependency>
-    <dependency>
       <groupId>org.kuali.maven.common</groupId>
       <artifactId>maven-kuali-common</artifactId>
       <version>1.1.4</version>
