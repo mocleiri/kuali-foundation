@@ -41,6 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.AbstractMojo;
@@ -150,7 +151,7 @@ public class AntMojo extends AbstractMojo {
 	 * @required
 	 * @readonly
 	 */
-	private List<?> pluginArtifacts;
+	private List<Artifact> pluginArtifacts;
 
 	/**
 	 * The local Maven repository
@@ -238,12 +239,12 @@ public class AntMojo extends AbstractMojo {
 	private String inheritRefs;
 
 	/**
-	 * If they give us "http://myurl/mybuild.xml", this gets set to "mybuild.xml"
+	 * If they give us "http://myurl/mybuild.xml", this gets set to "mybuild.xml" by the handleAntFile() method
 	 */
 	private String antFilename;
 
 	/**
-	 * If they give us "http://myurl/mybuild.xml" this gets set to "target/ant/mybuild.xml"
+	 * If they give us "http://myurl/mybuild.xml" this gets set to "target/ant/mybuild.xml" by the handleAntFile() method
 	 */
 	private String relativeLocalFilename;
 
@@ -282,7 +283,7 @@ public class AntMojo extends AbstractMojo {
 			antMvnUtils.addRefs(antProject, mavenRefs);
 
 			// Add the Maven classpath's as simple properties (for convenience)
-			antMvnUtils.setProperties(antProject, pathRefs);
+			antMvnUtils.setPathProperties(antProject, pathRefs);
 
 			// Initialize Maven ant tasks
 			initMavenTasks(antProject);
@@ -527,6 +528,106 @@ public class AntMojo extends AbstractMojo {
 		} else {
 			return " " + name + "=\"" + value + "\"";
 		}
+	}
+
+	public String getPropertyPrefix() {
+		return propertyPrefix;
+	}
+
+	public void setPropertyPrefix(String propertyPrefix) {
+		this.propertyPrefix = propertyPrefix;
+	}
+
+	public String getCustomTaskPrefix() {
+		return customTaskPrefix;
+	}
+
+	public void setCustomTaskPrefix(String customTaskPrefix) {
+		this.customTaskPrefix = customTaskPrefix;
+	}
+
+	public boolean isExportAntProperties() {
+		return exportAntProperties;
+	}
+
+	public void setExportAntProperties(boolean exportAntProperties) {
+		this.exportAntProperties = exportAntProperties;
+	}
+
+	public boolean isFailOnError() {
+		return failOnError;
+	}
+
+	public void setFailOnError(boolean failOnError) {
+		this.failOnError = failOnError;
+	}
+
+	public String getFile() {
+		return file;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
+	}
+
+	public String getInheritAll() {
+		return inheritAll;
+	}
+
+	public void setInheritAll(String inheritAll) {
+		this.inheritAll = inheritAll;
+	}
+
+	public String getInheritRefs() {
+		return inheritRefs;
+	}
+
+	public void setInheritRefs(String inheritRefs) {
+		this.inheritRefs = inheritRefs;
+	}
+
+	public MavenProject getProject() {
+		return project;
+	}
+
+	public MavenProjectHelper getProjectHelper() {
+		return projectHelper;
+	}
+
+	public List<Artifact> getPluginArtifacts() {
+		return pluginArtifacts;
+	}
+
+	public ArtifactRepository getLocalRepository() {
+		return localRepository;
+	}
+
+	public String getAntFilename() {
+		return antFilename;
+	}
+
+	public String getRelativeLocalFilename() {
+		return relativeLocalFilename;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 }
