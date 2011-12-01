@@ -20,6 +20,15 @@
   <properties>
     <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
   </properties>
+  <developers>
+    <developer>
+      <id>jcaddel</id>
+      <name>Jeff Caddel</name>
+      <organization>rSmart</organization>
+      <timezone>-7</timezone>
+      <email>jcaddel@kuali.org</email>
+    </developer>
+  </developers>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/jenkins-maven-plugin</connection>
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/jenkins-maven-plugin</developerConnection>
