@@ -96,11 +96,25 @@ public class JenkinsHelper {
 		return c == null || c.size() == 0;
 	}
 
-	public void handleResults(List<MojoContext> contexts) throws MojoExecutionException {
+	protected boolean isIgnore(int result, List<Integer> ignoreCodes) {
+		if (result == 0) {
+			return true;
+		}
+		for (Integer ignore : ignoreCodes) {
+			if (result == ignore) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void handleResults(List<MojoContext> contexts, List<Integer> ignoreCodes) throws MojoExecutionException {
 		List<MojoContext> issues = new ArrayList<MojoContext>();
 		for (MojoContext context : contexts) {
 			ResultContext rc = context.getResultContext();
-			if (rc.getReturnCode() != 0) {
+			int returnCode = rc.getReturnCode();
+			boolean ignore = isIgnore(returnCode, ignoreCodes);
+			if (!ignore) {
 				issues.add(context);
 			}
 		}
@@ -114,6 +128,10 @@ public class JenkinsHelper {
 		if (issues.size() > 0) {
 			throw new MojoExecutionException("One or more requests had an issue", e);
 		}
+	}
+
+	public void handleResults(List<MojoContext> contexts) throws MojoExecutionException {
+		handleResults(contexts, new ArrayList<Integer>());
 	}
 
 	public List<MojoContext> getJobs(Mojo mojo, List<String> names, String[] types) throws MojoExecutionException {
@@ -234,7 +252,6 @@ public class JenkinsHelper {
 	}
 
 	public List<MojoContext> pushJobsToJenkins(Mojo mojo, String[] types) throws MojoExecutionException {
-
 		List<MojoContext> contexts = new ArrayList<MojoContext>();
 		for (String type : types) {
 			MojoContext context = pushJobToJenkins(mojo, type);
@@ -245,7 +262,7 @@ public class JenkinsHelper {
 	}
 
 	public MojoContext pushJobToJenkins(Mojo mojo, String type) throws MojoExecutionException {
-		MojoContext genContext = generate(mojo, type);
+		MojoContext genContext = generate(mojo, type, false);
 		MojoContext createContext = new MojoContext();
 		createContext.setMvnContext(genContext.getMvnContext());
 		createContext.setJobContext(genContext.getJobContext());
@@ -297,13 +314,15 @@ public class JenkinsHelper {
 		}
 	}
 
-	public MojoContext generate(Mojo mojo, String type) throws MojoExecutionException {
+	public MojoContext generate(Mojo mojo, String type, boolean logFilename) throws MojoExecutionException {
 		try {
 			MavenContext mvnContext = getMavenContext(mojo);
 			JobContext jobContext = getJobContext(mvnContext, mojo, null, type);
 			File localFile = jobContext.getLocalFile();
 			String localFilePath = localFile.getCanonicalPath();
-			mojo.getLog().info("Generating: " + localFilePath);
+			if (logFilename) {
+				mojo.getLog().info("Generating: " + localFilePath);
+			}
 			Properties properties = getProperties(mvnContext, jobContext);
 			String xml = resourceUtils.read(jobContext.getTemplate());
 			String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
@@ -318,6 +337,10 @@ public class JenkinsHelper {
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
+	}
+
+	public MojoContext generate(Mojo mojo, String type) throws MojoExecutionException {
+		return generate(mojo, type, true);
 	}
 
 	public List<MojoContext> generate(Mojo mojo, String[] types) throws MojoExecutionException {
