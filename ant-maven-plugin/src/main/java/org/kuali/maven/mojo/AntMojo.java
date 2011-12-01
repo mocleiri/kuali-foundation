@@ -46,10 +46,14 @@ import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.ResourceUtils;
 
 /**
+ * <p>
  * Maven Ant Mojo. Allows Maven to invoke a target inside an Ant build file. The build file can be located on the file system, the ant-maven-plugin
  * classpath, or any resource URL that Spring 3.0 can understand.
+ * </p>
  * 
+ * <p>
  * By default, this mojo makes the following available to Ant build files as both properties and references:
+ * </p>
  * 
  * maven.compile.classpath=The classpath Maven is using for compilation<br>
  * maven.runtime.classpath=The classpath Maven is using at runtime<br>
@@ -57,7 +61,9 @@ import org.kuali.maven.common.ResourceUtils;
  * maven.plugin.classpath=The classpath for the ant-maven-plugin
  * 
  * 
+ * <p>
  * These are available as Ant references:
+ * </p>
  * 
  * maven.project=MavenProject<br>
  * maven.project.helper=MavenProjectHelper<br>
