@@ -3,7 +3,9 @@ package org.kuali.maven.mojo;
 import hudson.cli.CLI;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,11 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
-import org.apache.tools.ant.BuildLogger;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Java;
 import org.apache.tools.ant.types.Commandline.Argument;
@@ -33,6 +36,37 @@ public class Generator {
 	PropertiesUtils propertiesUtils = new PropertiesUtils();
 	ResourceUtils resourceUtils = new ResourceUtils();
 	AntMavenUtils antMvnUtils = new AntMavenUtils();
+
+	protected void handleResult(AntContext context, int result, Log log) throws MojoExecutionException {
+		if (result == 0) {
+			return;
+		}
+		File file = context.getOutputFile();
+		if (!file.exists() || file.length() == 0) {
+			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI - " + result);
+		}
+
+		try {
+			List<String> lines = readLines(file);
+			for (String line : lines) {
+				log.error(line);
+			}
+			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI - " + result);
+		} catch (IOException e) {
+			throw new MojoExecutionException("Error processing Jenkins CLI error message - " + result, e);
+		}
+
+	}
+
+	protected List<String> readLines(File file) throws IOException {
+		InputStream in = null;
+		try {
+			in = new FileInputStream(file);
+			return IOUtils.readLines(in);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
 
 	public AntContext getAntContext(Project antProject, MavenProject mvnProject, String[] args, File outputFile,
 			List<Artifact> pluginArtifacts) {
@@ -77,8 +111,8 @@ public class Generator {
 	public Project getAntProject(Log mavenLogger) throws IOException {
 		Project antProject = new Project();
 		antProject.init();
-		BuildLogger logger = antMvnUtils.getBuildLogger(mavenLogger);
-		antProject.addBuildListener(logger);
+		// BuildLogger logger = antMvnUtils.getBuildLogger(mavenLogger);
+		// antProject.addBuildListener(logger);
 		return antProject;
 	}
 
