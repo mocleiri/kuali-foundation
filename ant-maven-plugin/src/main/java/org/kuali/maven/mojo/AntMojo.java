@@ -178,7 +178,7 @@ public class AntMojo extends AbstractMojo {
 	/**
 	 * Specifies whether a failure in the ant build leads to a failure of the Maven build.
 	 * 
-	 * If this value is 'true', the Maven build will proceed even if the ant build fails. If it is 'false', then the Maven build fails if the ant build
+	 * If this value is 'false', the Maven build will proceed even if the ant build fails. If it is 'true', then the Maven build fails if the ant build
 	 * fails.
 	 * 
 	 * @parameter expression="${ant.failOnError}" default-value="true"
@@ -186,8 +186,8 @@ public class AntMojo extends AbstractMojo {
 	private boolean failOnError;
 
 	/**
-	 * The build file to use. This supports Spring 3.0 resource URL expressions eg "classpath:build.xml" or "http://myurl/build.xml". When searching the
-	 * classpath for build files, the classpath of the ant-maven-plugin is what is searched, not the classpath of the project the plugin is running in.
+	 * The build file to use. This supports Spring 3.0 resource URL expressions eg "classpath:build.xml" or "http://myurl/build.xml". The ant-maven-plugin
+	 * classpath is what is searched when using the "classpath:" notation
 	 * 
 	 * @parameter expression="${ant.file}" default-value="build.xml"
 	 * @required
