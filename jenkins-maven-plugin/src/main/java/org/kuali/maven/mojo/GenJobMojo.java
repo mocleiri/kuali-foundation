@@ -24,7 +24,7 @@ public class GenJobMojo extends AbstractGenerateMojo {
 		try {
 			JobContext context = getJobContext(type);
 			generator.fillInContext(context);
-			getLog().info("Generating: " + context.getFilename());
+			getLog().info("Generating: " + context.getLocalFile());
 			generator.generate(context);
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected error", e);

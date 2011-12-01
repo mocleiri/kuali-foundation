@@ -28,7 +28,7 @@ public class GenJobsMojo extends AbstractGenerateMojo {
 		try {
 			List<JobContext> contexts = getJobContexts(types);
 			for (JobContext context : contexts) {
-				getLog().info("Generating: " + context.getFilename());
+				getLog().info("Generating: " + context.getLocalFile());
 				generator.generate(context);
 			}
 		} catch (IOException e) {

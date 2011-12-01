@@ -163,7 +163,7 @@ public class Generator {
 		Properties properties = getProperties(context);
 		String xml = resourceUtils.read(context.getTemplate());
 		String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
-		resourceUtils.write(context.getFilename(), resolvedXml);
+		resourceUtils.write(context.getLocalFile(), resolvedXml);
 	}
 
 	public void fillInContext(JobContext context) {
@@ -177,7 +177,7 @@ public class Generator {
 		context.setScmType(scmType);
 		context.setScmUrl(scmUrl);
 		context.setMajorVersion(majorVersion);
-		context.setFilename(filename);
+		context.setLocalFile(filename);
 
 	}
 

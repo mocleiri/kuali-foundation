@@ -5,7 +5,7 @@ import org.apache.maven.project.MavenProject;
 public class JobContext {
 	String name;
 	String workingDir;
-	String filename;
+	String localFile;
 	String type;
 	String template;
 	MavenProject mavenProject;
@@ -22,12 +22,12 @@ public class JobContext {
 		this.workingDir = configDir;
 	}
 
-	public String getFilename() {
-		return filename;
+	public String getLocalFile() {
+		return localFile;
 	}
 
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setLocalFile(String filename) {
+		this.localFile = filename;
 	}
 
 	public String getType() {
