@@ -19,5 +19,11 @@
   <description>Test build file</description>
 
   <target name="noop" />
+  <target name="show">
+    <echo>${maven.compile.classpath}</echo>
+    <echo>${maven.runtime.classpath}</echo>
+    <echo>${maven.test.classpath}</echo>
+    <echo>${maven.plugin.classpath}</echo>
+  </target>
 
 </project>
