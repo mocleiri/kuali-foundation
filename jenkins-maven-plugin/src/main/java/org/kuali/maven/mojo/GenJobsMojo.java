@@ -11,7 +11,7 @@ import org.kuali.maven.common.PropertiesUtils;
 /**
  * @goal genjobconfigs
  */
-public class GenJobConfigsMojo extends AbstractGenerateMojo {
+public class GenJobsMojo extends AbstractGenerateMojo {
 	Generator generator = new Generator();
 	PropertiesUtils propertiesUtils = new PropertiesUtils();
 
