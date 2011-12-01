@@ -309,29 +309,6 @@ public class AntMojo extends AbstractMojo {
 	}
 
 	/**
-	 * Aggregate some of the Maven configuration into a pojo
-	 */
-	protected AntTaskPojo getAntTaskPojo() {
-		AntTaskPojo pojo = new AntTaskPojo();
-		pojo.setAntfile(relativeLocalFilename);
-		pojo.setTarget(target);
-		pojo.setOutput(output);
-		pojo.setInheritAll(Boolean.parseBoolean(inheritAll));
-		pojo.setInheritRefs(Boolean.parseBoolean(inheritRefs));
-		return pojo;
-	}
-
-	/**
-	 * Copy the build file to a local temp directory and preserve some information about the filename
-	 */
-	protected void handleAntfile() throws IOException {
-		antFilename = resourceUtils.getFilename(file);
-		relativeLocalFilename = ANT_BUILD_DIR + FS + "local-" + antFilename;
-		File localFile = new File(relativeLocalFilename);
-		resourceUtils.copy(file, localFile.getAbsolutePath());
-	}
-
-	/**
 	 * Determine if mojo execution should be skipped
 	 */
 	protected boolean isSkip() {
@@ -423,12 +400,40 @@ public class AntMojo extends AbstractMojo {
 		AntTaskPojo atp = getAntTaskPojo();
 		String xml = getDefaultXML(atp);
 
-		// The fileName should probably use the plugin executionId instead
 		File buildFile = new File(ANT_BUILD_DIR + FS + antFilename);
 
 		buildFile.getParentFile().mkdirs();
 		FileUtils.fileWrite(buildFile.getAbsolutePath(), UTF_8, xml);
 		return buildFile;
+	}
+
+	/**
+	 * Copy the build file to a local temp directory and preserve some information about the filename
+	 */
+	protected void handleAntfile() throws IOException {
+		String filename = resourceUtils.getFilename(file);
+
+		// The fileName should probably use the plugin executionId instead of target
+		if (!StringUtils.isBlank(target)) {
+			filename = target + "-" + filename;
+		}
+		antFilename = filename;
+		relativeLocalFilename = ANT_BUILD_DIR + FS + "local-" + antFilename;
+		File localFile = new File(relativeLocalFilename);
+		resourceUtils.copy(file, localFile.getAbsolutePath());
+	}
+
+	/**
+	 * Aggregate some of the Maven configuration into a pojo
+	 */
+	protected AntTaskPojo getAntTaskPojo() {
+		AntTaskPojo pojo = new AntTaskPojo();
+		pojo.setAntfile(relativeLocalFilename);
+		pojo.setTarget(target);
+		pojo.setOutput(output);
+		pojo.setInheritAll(Boolean.parseBoolean(inheritAll));
+		pojo.setInheritRefs(Boolean.parseBoolean(inheritRefs));
+		return pojo;
 	}
 
 	/**
