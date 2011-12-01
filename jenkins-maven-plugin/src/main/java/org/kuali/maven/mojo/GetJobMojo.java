@@ -6,7 +6,7 @@ import org.apache.maven.plugin.MojoExecutionException;
  * @goal getjob
  * @requiresDependencyResolution test
  */
-public class GetJobMojo extends BaseMojo {
+public class GetJobMojo extends AbstractCliMojo {
 
 	/**
 	 * @parameter expression="${jenkins.cmd}" default-value="get-job"
@@ -26,8 +26,7 @@ public class GetJobMojo extends BaseMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		helper.getJob(name, getProject(), type, getWorkingDir().getAbsolutePath(), getServer(), cmd, getLog(),
-				getPluginArtifacts());
+		helper.getJob(this, name, type);
 	}
 
 	public String getCmd() {

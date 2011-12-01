@@ -1,6 +1,7 @@
 package org.kuali.maven.mojo.context;
 
 public class CliContext {
+	String classname;
 	String server;
 	String cmd;
 	String[] args;
@@ -27,5 +28,13 @@ public class CliContext {
 
 	public void setArgs(String[] args) {
 		this.args = args;
+	}
+
+	public String getClassname() {
+		return classname;
+	}
+
+	public void setClassname(String classname) {
+		this.classname = classname;
 	}
 }

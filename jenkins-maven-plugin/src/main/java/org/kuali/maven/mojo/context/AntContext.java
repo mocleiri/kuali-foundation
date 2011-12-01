@@ -3,13 +3,14 @@ package org.kuali.maven.mojo.context;
 import java.io.File;
 
 import org.apache.tools.ant.Project;
+import org.apache.tools.ant.types.Path;
 
 public class AntContext {
 	Project antProject;
 	String resultProperty;
 	File outputFile;
 	String[] args;
-	String classpath;
+	Path classpath;
 
 	public Project getAntProject() {
 		return antProject;
@@ -43,12 +44,11 @@ public class AntContext {
 		this.args = args;
 	}
 
-	public String getClasspath() {
+	public Path getClasspath() {
 		return classpath;
 	}
 
-	public void setClasspath(String classpath) {
+	public void setClasspath(Path classpath) {
 		this.classpath = classpath;
 	}
-
 }

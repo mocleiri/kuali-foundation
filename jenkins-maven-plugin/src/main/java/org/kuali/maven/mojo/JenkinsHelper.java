@@ -33,8 +33,10 @@ import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.mojo.context.AntContext;
+import org.kuali.maven.mojo.context.CliContext;
 import org.kuali.maven.mojo.context.JobContext;
 import org.kuali.maven.mojo.context.MavenContext;
+import org.kuali.maven.mojo.context.MojoContext;
 
 public class JenkinsHelper {
 	private static final String FS = System.getProperty("file.separator");
@@ -54,24 +56,34 @@ public class JenkinsHelper {
 		}
 	}
 
-	public void getJob(String name, MavenProject mvnProject, String type, String workingDir, String server, String cmd,
-			Log log, List<Artifact> pluginArtifacts) throws MojoExecutionException {
+	protected MojoContext getMojoContext(MavenContext mvnContext, JobContext jobContext, CliContext cliContext) {
+		MojoContext context = new MojoContext();
+		context.setMvnContext(mvnContext);
+		context.setJobContext(jobContext);
+		context.setCliContext(cliContext);
+		return context;
+	}
+
+	public void getJob(Mojo mojo, String name, String type) throws MojoExecutionException {
 		try {
-			String jobName = getJobName(name, mvnProject, type);
-			File output = new File(workingDir + FS + jobName + ".xml");
-			FileUtils.touch(output);
-			String[] args = getArgs("-s", server, cmd, jobName);
-			Project antProject = getAntProject(log);
-			AntContext context = getAntContext(antProject, mvnProject, args, output, pluginArtifacts);
-			Task task = getJavaTask(context);
-			log.info("");
-			log.info("Jenkins Instance - " + server);
-			log.info("Job Name - " + jobName);
-			log.info("File - " + output.getAbsolutePath());
-			log.info("");
+			MavenContext mvnContext = getMavenContext(mojo);
+			JobContext jobContext = getJobContext(mvnContext, mojo, name, type);
+			CliContext cliContext = getContext(CliContext.class, mojo);
+			String[] args = getArgs("-s", cliContext.getServer(), cliContext.getCmd(), jobContext.getName());
+			cliContext.setArgs(args);
+			MojoContext context = getMojoContext(mvnContext, jobContext, cliContext);
+			AntContext antContext = getAntContext(context);
+			FileUtils.touch(jobContext.getLocalFile());
+
+			Task task = getJavaTask(antContext);
+			mojo.getLog().info("");
+			mojo.getLog().info("Jenkins Instance - " + cliContext.getServer());
+			mojo.getLog().info("Job Name - " + jobContext.getName());
+			mojo.getLog().info("File - " + antContext.getOutputFile().getAbsolutePath());
+			mojo.getLog().info("");
 			task.execute();
-			int result = new Integer(antProject.getProperty(JAVA_RESULT_PROPERTY));
-			handleResult(context, result, log);
+			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
+			handleResult(context, result, mojo.getLog());
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
@@ -81,11 +93,11 @@ public class JenkinsHelper {
 		return args;
 	}
 
-	public void handleResult(AntContext context, int result, Log log) throws MojoExecutionException {
+	public void handleResult(MojoContext context, int result, Log log) throws MojoExecutionException {
 		if (result == 0) {
 			return;
 		}
-		File file = context.getOutputFile();
+		File file = context.getAntContext().getOutputFile();
 		if (!file.exists() || file.length() == 0) {
 			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI - " + result);
 		}
@@ -112,33 +124,40 @@ public class JenkinsHelper {
 		}
 	}
 
-	public AntContext getAntContext(Project antProject, MavenProject mvnProject, String[] args, File outputFile,
-			List<Artifact> pluginArtifacts) {
+	protected Path getPluginClasspath(Project antProject, MavenContext mvnContext) throws MojoExecutionException {
+		try {
+			MavenProject mvnProject = mvnContext.getProject();
+			List<Artifact> pluginArtifacts = mvnContext.getPluginArtifacts();
+			Map<String, Path> pathRefs = antMvnUtils.getPathRefs(antProject, mvnProject, pluginArtifacts);
+			Path pluginClasspath = pathRefs.get(AntMavenUtils.MVN_PLUGIN_CLASSPATH_KEY);
+			return pluginClasspath;
+		} catch (DependencyResolutionRequiredException e) {
+			throw new MojoExecutionException("Error obtaining classpath", e);
+		}
+	}
+
+	public AntContext getAntContext(MojoContext mojoContext) throws MojoExecutionException {
+		Project antProject = getAntProject();
+		Path classpath = getPluginClasspath(antProject, mojoContext.getMvnContext());
+
 		AntContext context = new AntContext();
 		context.setAntProject(antProject);
-		context.setMavenProject(mvnProject);
-		context.setArgs(args);
-		context.setOutputFile(outputFile);
-		context.setPluginArtifacts(pluginArtifacts);
+		context.setClasspath(classpath);
+		context.setArgs(mojoContext.getCliContext().getArgs());
+		context.setOutputFile(mojoContext.getJobContext().getLocalFile());
 		context.setResultProperty(JenkinsHelper.JAVA_RESULT_PROPERTY);
 		return context;
 	}
 
 	public Java getJavaTask(AntContext context) throws DependencyResolutionRequiredException {
-		Project antProject = context.getAntProject();
-		MavenProject mvnProject = context.getMavenProject();
-		List<Artifact> pluginArtifacts = context.getPluginArtifacts();
-
 		Java task = new Java();
-		task.setProject(antProject);
+		task.setProject(context.getAntProject());
 		task.setClassname(CLI.class.getName());
 		task.setFork(true);
 		task.setOutput(context.getOutputFile());
 		task.setResultProperty(context.getResultProperty());
 		createArgs(context.getArgs(), task);
-		Map<String, Path> pathRefs = antMvnUtils.getPathRefs(antProject, mvnProject, pluginArtifacts);
-		Path pluginClasspath = pathRefs.get(AntMavenUtils.MVN_PLUGIN_CLASSPATH_KEY);
-		task.setClasspath(pluginClasspath);
+		task.setClasspath(context.getClasspath());
 		return task;
 	}
 
@@ -152,33 +171,16 @@ public class JenkinsHelper {
 	/**
 	 * 
 	 */
-	public Project getAntProject(Log mavenLogger) throws IOException {
+	public Project getAntProject() {
 		Project antProject = new Project();
 		antProject.init();
-		// BuildLogger logger = antMvnUtils.getBuildLogger(mavenLogger);
-		// antProject.addBuildListener(logger);
 		return antProject;
-	}
-
-	public String getJobName(String name, MavenProject project, String type) {
-		if (!StringUtils.isBlank(name)) {
-			return name;
-		}
-		String majorVersion = extractor.getMajorVersion(project.getVersion());
-		StringBuilder sb = new StringBuilder();
-		sb.append(project.getArtifactId());
-		sb.append("-");
-		sb.append(majorVersion);
-		sb.append("-");
-		sb.append(type);
-		return sb.toString();
 	}
 
 	public void generate(Mojo mojo, String type) throws MojoExecutionException {
 		try {
 			MavenContext mvnContext = getMavenContext(mojo);
-			JobContext jobContext = getJobContext(mvnContext, mojo);
-			jobContext.setType(type);
+			JobContext jobContext = getJobContext(mvnContext, mojo, null, type);
 			File localFile = jobContext.getLocalFile();
 			String localFilePath = localFile.getCanonicalPath();
 			mojo.getLog().info("Generating: " + localFilePath);
@@ -197,8 +199,14 @@ public class JenkinsHelper {
 		}
 	}
 
-	public JobContext getJobContext(MavenContext mvnContext, Mojo mojo) {
+	public CliContext getCliContext(Mojo mojo) {
+		return getContext(CliContext.class, mojo);
+	}
+
+	public JobContext getJobContext(MavenContext mvnContext, Mojo mojo, String name, String type) {
 		JobContext jobContext = getContext(JobContext.class, mojo);
+		jobContext.setName(name);
+		jobContext.setType(type);
 		String filename = getFilename(mvnContext, jobContext);
 		File localFile = new File(filename);
 		jobContext.setLocalFile(localFile);
@@ -222,14 +230,23 @@ public class JenkinsHelper {
 		StringBuilder sb = new StringBuilder();
 		sb.append(jobContext.getWorkingDir());
 		sb.append(FS);
-		sb.append("gen");
-		sb.append(FS);
+		sb.append(getJobName(mvnContext, jobContext));
+		sb.append(".xml");
+		return sb.toString();
+	}
+
+	protected String getJobName(MavenContext mvnContext, JobContext jobContext) {
+		String name = jobContext.getName();
+		if (!StringUtils.isBlank(name)) {
+			return name;
+		}
+		String type = jobContext.getType();
+		StringBuilder sb = new StringBuilder();
 		sb.append(mvnContext.getProject().getArtifactId());
 		sb.append("-");
 		sb.append(mvnContext.getMajorVersion());
 		sb.append("-");
-		sb.append(jobContext.getType());
-		sb.append(".xml");
+		sb.append(type);
 		return sb.toString();
 	}
 
