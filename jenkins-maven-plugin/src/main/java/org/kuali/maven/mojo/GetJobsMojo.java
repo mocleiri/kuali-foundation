@@ -16,7 +16,7 @@ public class GetJobsMojo extends AbstractCliMojo {
 	/**
 	 * Comma separated list of job types
 	 * 
-	 * @parameter expression="${jenkins.types}" default-value="publish,license,unit,release"
+	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
 	 */
 	private String types;
 

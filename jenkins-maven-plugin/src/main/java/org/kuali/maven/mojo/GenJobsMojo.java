@@ -12,7 +12,7 @@ public class GenJobsMojo extends AbstractGenerateMojo {
 	/**
 	 * Comma separated list of the types of jobs to generate
 	 * 
-	 * @parameter expression="${jenkins.types}" default-value="unit,publish,license,release"
+	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
 	 * @required
 	 */
 	private String types;
