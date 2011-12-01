@@ -6,9 +6,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
 /**
- * @goal generatejobconfig
+ * @goal genjobconfig
  */
-public class GenerateJobConfigMojo extends AbstractGenerateMojo {
+public class GenJobConfigMojo extends AbstractGenerateMojo {
 	Generator generator = new Generator();
 
 	/**

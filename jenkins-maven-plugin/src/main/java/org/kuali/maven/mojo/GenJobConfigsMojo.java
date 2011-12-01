@@ -9,9 +9,9 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.kuali.maven.common.PropertiesUtils;
 
 /**
- * @goal generatejobconfigs
+ * @goal genjobconfigs
  */
-public class GenerateJobConfigsMojo extends AbstractGenerateMojo {
+public class GenJobConfigsMojo extends AbstractGenerateMojo {
 	Generator generator = new Generator();
 	PropertiesUtils propertiesUtils = new PropertiesUtils();
 
