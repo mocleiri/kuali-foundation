@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.tools.ant.Project;
-import org.apache.tools.ant.taskdefs.Java;
+import org.apache.tools.ant.Task;
 
 /**
  * @goal getjob
@@ -39,12 +39,12 @@ public class GetJobMjo extends BaseMojo {
 			FileUtils.touch(outputFile);
 			String[] args = getArgs(jobName);
 			Project antProject = generator.getAntProject(getLog());
-			Java javaTask = generator.getJavaTask(antProject, getProject(), args, getPluginArtifacts(), outputFile);
-			javaTask.execute();
+			Task task = generator.getJavaTask(antProject, getProject(), args, getPluginArtifacts(), outputFile);
+			task.execute();
 			int result = new Integer(antProject.getProperty("java.result"));
 			getLog().info("Result: " + result);
-		} catch (Throwable e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new MojoExecutionException("Unexpected error", e);
 		}
 	}
 
