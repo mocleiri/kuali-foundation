@@ -22,17 +22,10 @@ package org.kuali.maven.mojo;
 import java.io.File;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
 
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.AbstractMojo;
@@ -41,7 +34,6 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.BuildLogger;
-import org.apache.tools.ant.DefaultLogger;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.taskdefs.Typedef;
@@ -50,6 +42,7 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.ReaderFactory;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.ResourceUtils;
 
 /**
@@ -76,6 +69,7 @@ import org.kuali.maven.common.ResourceUtils;
  */
 public class AntMojo extends AbstractMojo {
 	ResourceUtils resourceUtils = new ResourceUtils();
+	AntMavenUtils antMvnUtils = new AntMavenUtils();
 	private static final String FS = System.getProperty("file.separator");
 
 	public static final String ANT_DIR = "ant";
@@ -253,27 +247,27 @@ public class AntMojo extends AbstractMojo {
 			Project antProject = getAntProject();
 
 			// Setup logging
-			BuildLogger antLogger = getBuildLogger();
+			BuildLogger antLogger = antMvnUtils.getBuildLogger(getLog());
 			antProject.addBuildListener(antLogger);
 
-			// Create the Ant equivalent of the important Maven classpath's
-			Map<String, Path> pathRefs = getPathRefs(antProject, mavenProject);
+			// Create the Ant equivalents of important Maven classpath's
+			Map<String, Path> pathRefs = antMvnUtils.getPathRefs(antProject, mavenProject, pluginArtifacts);
 
 			// Collect some Maven objects
 			Map<String, ?> mavenRefs = getMavenRefs(mavenProject);
 
 			// Add both as references to the Ant project
-			addRefs(antProject, pathRefs);
-			addRefs(antProject, mavenRefs);
+			antMvnUtils.addRefs(antProject, pathRefs);
+			antMvnUtils.addRefs(antProject, mavenRefs);
 
 			// Add the Maven classpath's as simple properties (for convenience)
-			setProperties(antProject, pathRefs);
+			antMvnUtils.setProperties(antProject, pathRefs);
 
 			// Initialize Maven ant tasks
 			initMavenTasks(antProject);
 
 			// Ant project needs actual properties vs. using expression evaluator when calling an external build file.
-			copyProperties(mavenProject, antProject);
+			antMvnUtils.copyProperties(mavenProject, antProject, propertyPrefix, getLog(), localRepository);
 
 			// Execute the target from our wrapper. This calls the target from the build file they supplied
 			getLog().info("Executing tasks");
@@ -281,7 +275,9 @@ public class AntMojo extends AbstractMojo {
 			getLog().info("Executed tasks");
 
 			// Copy properties from Ant back to Maven (if needed)
-			copyProperties(antProject, mavenProject);
+			if (exportAntProperties) {
+				antMvnUtils.copyProperties(antProject, mavenProject, getLog());
+			}
 		} catch (DependencyResolutionRequiredException e) {
 			throw new MojoExecutionException("DependencyResolutionRequiredException: " + e.getMessage(), e);
 		} catch (BuildException e) {
@@ -328,80 +324,12 @@ public class AntMojo extends AbstractMojo {
 	/**
 	 * Create a wrapper build file that calls into the build file they supplied us with. Initialize an Ant project from the wrapper file.
 	 */
-	protected Project getAntProject() throws IOException {
+	public Project getAntProject() throws IOException {
 		Project antProject = new Project();
 		File antBuildFile = createBuildWrapper();
 		ProjectHelper.configureProject(antProject, antBuildFile);
 		antProject.init();
 		return antProject;
-	}
-
-	/**
-	 * Setup an Ant BuildLogger
-	 */
-	protected BuildLogger getBuildLogger() {
-		DefaultLogger antLogger = new DefaultLogger();
-		antLogger.setOutputPrintStream(System.out);
-		antLogger.setErrorPrintStream(System.err);
-
-		if (getLog().isDebugEnabled()) {
-			antLogger.setMessageOutputLevel(Project.MSG_DEBUG);
-		} else if (getLog().isInfoEnabled()) {
-			antLogger.setMessageOutputLevel(Project.MSG_INFO);
-		} else if (getLog().isWarnEnabled()) {
-			antLogger.setMessageOutputLevel(Project.MSG_WARN);
-		} else if (getLog().isErrorEnabled()) {
-			antLogger.setMessageOutputLevel(Project.MSG_ERR);
-		} else {
-			antLogger.setMessageOutputLevel(Project.MSG_VERBOSE);
-		}
-		return antLogger;
-	}
-
-	/**
-	 * Create the Ant equivalent of the Maven classpath's for compile, runtime, test, and for the plugin
-	 */
-	protected Map<String, Path> getPathRefs(Project ant, MavenProject mvn) throws DependencyResolutionRequiredException {
-
-		Map<String, Path> pathRefs = new HashMap<String, Path>();
-
-		// compile
-		Path mcp = new Path(ant);
-		mcp.setPath(StringUtils.join(mvn.getCompileClasspathElements().iterator(), File.pathSeparator));
-		pathRefs.put("maven.compile.classpath", mcp);
-
-		// runtime
-		Path mrp = new Path(ant);
-		mrp.setPath(StringUtils.join(mvn.getRuntimeClasspathElements().iterator(), File.pathSeparator));
-		pathRefs.put("maven.runtime.classpath", mrp);
-
-		// test
-		Path mtp = new Path(ant);
-		mtp.setPath(StringUtils.join(mvn.getTestClasspathElements().iterator(), File.pathSeparator));
-		pathRefs.put("maven.test.classpath", mtp);
-
-		// plugin
-		Path mpp = getPathFromArtifacts(pluginArtifacts, ant);
-		pathRefs.put("maven.plugin.classpath", mpp);
-		return pathRefs;
-	}
-
-	/**
-	 * Add this map of objects to the Ant projects as named references
-	 */
-	protected void addRefs(Project antProject, Map<String, ?> refs) {
-		for (Map.Entry<String, ?> pair : refs.entrySet()) {
-			antProject.addReference(pair.getKey(), pair.getValue());
-		}
-	}
-
-	/**
-	 * Set named properties on the Ant project
-	 */
-	protected void setProperties(Project antProject, Map<String, ?> properties) {
-		for (Map.Entry<String, ?> pair : properties.entrySet()) {
-			antProject.setProperty(pair.getKey(), pair.getValue().toString());
-		}
 	}
 
 	/**
@@ -430,115 +358,6 @@ public class AntMojo extends AbstractMojo {
 			return; // do not register roots.
 		} else {
 			throw new MojoExecutionException(sb.toString(), e);
-		}
-	}
-
-	/**
-	 * @param artifacts
-	 * @param antProject
-	 * @return a path
-	 * @throws DependencyResolutionRequiredException
-	 */
-	public Path getPathFromArtifacts(Collection<?> artifacts, Project antProject)
-			throws DependencyResolutionRequiredException {
-		if (artifacts == null) {
-			return new Path(antProject);
-		}
-
-		List<String> list = new ArrayList<String>(artifacts.size());
-		for (Iterator<?> i = artifacts.iterator(); i.hasNext();) {
-			Artifact a = (Artifact) i.next();
-			File file = a.getFile();
-			if (file == null) {
-				throw new DependencyResolutionRequiredException(a);
-			}
-			list.add(file.getPath());
-		}
-
-		Path p = new Path(antProject);
-		p.setPath(StringUtils.join(list.iterator(), File.pathSeparator));
-		return p;
-	}
-
-	/**
-	 * Copy properties from the maven project to the ant project.
-	 * 
-	 * @param mavenProject
-	 * @param antProject
-	 */
-	public void copyProperties(MavenProject mavenProject, Project antProject) {
-		Properties mavenProps = mavenProject.getProperties();
-		Iterator<?> iter = mavenProps.keySet().iterator();
-		while (iter.hasNext()) {
-			String key = (String) iter.next();
-			antProject.setProperty(key, mavenProps.getProperty(key));
-		}
-
-		// Set the POM file as the ant.file for the tasks run directly in Maven.
-		antProject.setProperty("ant.file", mavenProject.getFile().getAbsolutePath());
-
-		// Add some of the common maven properties
-		getLog().debug("Setting properties with prefix: " + propertyPrefix);
-		antProject.setProperty((propertyPrefix + "project.groupId"), mavenProject.getGroupId());
-		antProject.setProperty((propertyPrefix + "project.artifactId"), mavenProject.getArtifactId());
-		antProject.setProperty((propertyPrefix + "project.name"), mavenProject.getName());
-		if (mavenProject.getDescription() != null) {
-			antProject.setProperty((propertyPrefix + "project.description"), mavenProject.getDescription());
-		}
-		antProject.setProperty((propertyPrefix + "project.version"), mavenProject.getVersion());
-		antProject.setProperty((propertyPrefix + "project.packaging"), mavenProject.getPackaging());
-		antProject.setProperty((propertyPrefix + "project.build.directory"), mavenProject.getBuild().getDirectory());
-		antProject.setProperty((propertyPrefix + "project.build.outputDirectory"), mavenProject.getBuild()
-				.getOutputDirectory());
-		antProject.setProperty((propertyPrefix + "project.build.testOutputDirectory"), mavenProject.getBuild()
-				.getTestOutputDirectory());
-		antProject.setProperty((propertyPrefix + "project.build.sourceDirectory"), mavenProject.getBuild()
-				.getSourceDirectory());
-		antProject.setProperty((propertyPrefix + "project.build.testSourceDirectory"), mavenProject.getBuild()
-				.getTestSourceDirectory());
-		antProject.setProperty((propertyPrefix + "localRepository"), localRepository.toString());
-		antProject.setProperty((propertyPrefix + "settings.localRepository"), localRepository.getBasedir());
-
-		// Add properties for depenedency artifacts
-		Set<?> depArtifacts = mavenProject.getArtifacts();
-		for (Iterator<?> it = depArtifacts.iterator(); it.hasNext();) {
-			Artifact artifact = (Artifact) it.next();
-
-			String propName = artifact.getDependencyConflictId();
-
-			antProject.setProperty(propertyPrefix + propName, artifact.getFile().getPath());
-		}
-
-	}
-
-	/**
-	 * Copy properties from the ant project to the maven project.
-	 * 
-	 * @param antProject
-	 *            not null
-	 * @param mavenProject
-	 *            not null
-	 */
-	public void copyProperties(Project antProject, MavenProject mavenProject) {
-		if (!exportAntProperties) {
-			return;
-		}
-
-		getLog().debug("Propagated Ant properties to Maven properties");
-		Hashtable<?, ?> antProps = antProject.getProperties();
-
-		Iterator<?> iter = antProps.keySet().iterator();
-		while (iter.hasNext()) {
-			String key = (String) iter.next();
-
-			Properties mavenProperties = mavenProject.getProperties();
-			if (mavenProperties.getProperty(key) != null) {
-				getLog().debug(
-						"Ant property '" + key + "=" + mavenProperties.getProperty(key)
-								+ "' clashes with an existing Maven property, SKIPPING this Ant property propagation.");
-				continue;
-			}
-			mavenProperties.setProperty(key, antProps.get(key).toString());
 		}
 	}
 
