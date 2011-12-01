@@ -14,11 +14,12 @@ public abstract class AbstractCliMojo extends BaseMojo {
 	private String classname;
 
 	/**
-	 * @parameter expression="${jenkins.cmd}" default-value="get-job"
+	 * The command to issue to Jenkins CLI
+	 * 
+	 * @parameter expression="${jenkins.cmd}"
 	 * @required
 	 */
 	private String cmd;
-
 
 	public String getClassname() {
 		return classname;
