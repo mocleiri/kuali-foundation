@@ -68,12 +68,12 @@ public class JenkinsHelper {
 		try {
 			MavenContext mvnContext = getMavenContext(mojo);
 			JobContext jobContext = getJobContext(mvnContext, mojo, name, type);
+			FileUtils.touch(jobContext.getLocalFile());
 			CliContext cliContext = getContext(CliContext.class, mojo);
 			String[] args = getArgs("-s", cliContext.getServer(), cliContext.getCmd(), jobContext.getName());
 			cliContext.setArgs(args);
 			MojoContext context = getMojoContext(mvnContext, jobContext, cliContext);
 			AntContext antContext = getAntContext(context);
-			FileUtils.touch(jobContext.getLocalFile());
 
 			Task task = getJavaTask(antContext);
 			mojo.getLog().info("");
@@ -205,9 +205,10 @@ public class JenkinsHelper {
 
 	public JobContext getJobContext(MavenContext mvnContext, Mojo mojo, String name, String type) {
 		JobContext jobContext = getContext(JobContext.class, mojo);
-		jobContext.setName(name);
 		jobContext.setType(type);
-		String filename = getFilename(mvnContext, jobContext);
+		String jobName = getJobName(mvnContext, name, type);
+		jobContext.setName(jobName);
+		String filename = getFilename(mvnContext, jobContext, jobName);
 		File localFile = new File(filename);
 		jobContext.setLocalFile(localFile);
 		return jobContext;
@@ -226,21 +227,19 @@ public class JenkinsHelper {
 		return context;
 	}
 
-	protected String getFilename(MavenContext mvnContext, JobContext jobContext) {
+	protected String getFilename(MavenContext mvnContext, JobContext jobContext, String jobName) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(jobContext.getWorkingDir());
 		sb.append(FS);
-		sb.append(getJobName(mvnContext, jobContext));
+		sb.append(jobName);
 		sb.append(".xml");
 		return sb.toString();
 	}
 
-	protected String getJobName(MavenContext mvnContext, JobContext jobContext) {
-		String name = jobContext.getName();
+	protected String getJobName(MavenContext mvnContext, String name, String type) {
 		if (!StringUtils.isBlank(name)) {
 			return name;
 		}
-		String type = jobContext.getType();
 		StringBuilder sb = new StringBuilder();
 		sb.append(mvnContext.getProject().getArtifactId());
 		sb.append("-");
