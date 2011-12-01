@@ -28,7 +28,7 @@ public class UpdateJobMojo extends AbstractCliMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		setCmd(StringUtils.isBlank(getCmd()) ? "update-job" : getCmd());
-		helper.deleteJob(this, type);
+		helper.pushJobToJenkins(this, type);
 	}
 
 	public String getType() {

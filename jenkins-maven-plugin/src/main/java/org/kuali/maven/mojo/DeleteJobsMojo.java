@@ -1,5 +1,6 @@
 package org.kuali.maven.mojo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -22,12 +23,20 @@ public class DeleteJobsMojo extends AbstractCliMojo {
 	private String template;
 
 	/**
-	 * The type of job to create
+	 * Comma delimited list of types to delete
 	 * 
 	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
 	 * @required
 	 */
 	private String types;
+
+	/**
+	 * Comma delimited list of result codes to ignore. Result code of 1 means the job we are trying to delete does not exist.
+	 * 
+	 * @parameter expression="${jenkins.ignoreCodes}" default-value="1"
+	 * @required
+	 */
+	private String ignoreCodes;
 
 	@Override
 	public void execute() throws MojoExecutionException {
@@ -35,7 +44,17 @@ public class DeleteJobsMojo extends AbstractCliMojo {
 		setStopOnError(false);
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
 		List<MojoContext> contexts = helper.deleteJobs(this, tokens);
-		helper.handleResults(contexts);
+		List<Integer> ignoreCodeList = getIgnoreCodeList();
+		helper.handleResults(contexts, ignoreCodeList);
+	}
+
+	protected List<Integer> getIgnoreCodeList() {
+		List<Integer> ignoreCodeList = new ArrayList<Integer>();
+		String[] tokens = PropertiesUtils.splitAndTrim(ignoreCodes, ",");
+		for (String token : tokens) {
+			ignoreCodeList.add(new Integer(token));
+		}
+		return ignoreCodeList;
 	}
 
 	public String getTemplate() {
