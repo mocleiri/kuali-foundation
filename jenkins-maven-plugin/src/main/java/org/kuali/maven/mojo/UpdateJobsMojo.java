@@ -23,7 +23,7 @@ public class UpdateJobsMojo extends AbstractJobConfigMojo {
 	private String cmd;
 
 	/**
-	 * Comma delimited list of types of jobs to publish
+	 * Comma delimited list of types of jobs to update
 	 * 
 	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
 	 * @required

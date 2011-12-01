@@ -19,7 +19,7 @@ public class UpdateJobMojo extends AbstractJobConfigMojo {
 	private String cmd;
 
 	/**
-	 * The type of job to create
+	 * The type of job to update
 	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 * @required
