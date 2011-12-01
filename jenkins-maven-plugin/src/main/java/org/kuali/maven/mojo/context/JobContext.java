@@ -1,7 +1,5 @@
 package org.kuali.maven.mojo.context;
 
-import org.apache.maven.project.MavenProject;
-
 public class JobContext {
 	String name;
 	String type;
