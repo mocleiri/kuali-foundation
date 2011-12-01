@@ -3,7 +3,7 @@ package org.kuali.maven.mojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Contact a Jenkins job and schedule a job to run
+ * Execute a Jenkins CLI command
  * 
  * @goal cli
  * @requiresDependencyResolution test
