@@ -209,10 +209,10 @@ public class AntMavenUtils {
 	}
 
 	/**
-	 * Set named properties on the Ant project
+	 * Set paths as properties on the Ant project
 	 */
-	public void setProperties(Project antProject, Map<String, ?> properties) {
-		for (Map.Entry<String, ?> pair : properties.entrySet()) {
+	public void setPathProperties(Project antProject, Map<String, Path> paths) {
+		for (Map.Entry<String, ?> pair : paths.entrySet()) {
 			antProject.setProperty(pair.getKey(), pair.getValue().toString());
 		}
 	}
