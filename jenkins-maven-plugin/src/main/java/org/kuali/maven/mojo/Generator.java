@@ -1,14 +1,26 @@
 package org.kuali.maven.mojo;
 
+import hudson.cli.CLI;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
+import org.apache.tools.ant.BuildLogger;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Java;
+import org.apache.tools.ant.types.Commandline.Argument;
+import org.apache.tools.ant.types.Path;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
@@ -18,6 +30,34 @@ public class Generator {
 	Extractor extractor = new Extractor();
 	PropertiesUtils propertiesUtils = new PropertiesUtils();
 	ResourceUtils resourceUtils = new ResourceUtils();
+	AntMavenUtils antMvnUtils = new AntMavenUtils();
+
+	public Java getJavaTask(Project antProject, MavenProject mavenProject, String[] args, List<Artifact> pluginArtifacts)
+			throws DependencyResolutionRequiredException {
+		Java task = new Java();
+		task.setProject(antProject);
+		task.setClassname(CLI.class.getName());
+		task.setFork(true);
+		for (String arg : args) {
+			Argument argument = task.createArg();
+			argument.setValue(arg);
+		}
+		Map<String, Path> pathRefs = antMvnUtils.getPathRefs(antProject, mavenProject, pluginArtifacts);
+		Path pluginClasspath = pathRefs.get(AntMavenUtils.MVN_PLUGIN_CLASSPATH_KEY);
+		task.setClasspath(pluginClasspath);
+		return task;
+	}
+
+	/**
+	 * 
+	 */
+	public Project getAntProject(Log mavenLogger) throws IOException {
+		Project antProject = new Project();
+		antProject.init();
+		BuildLogger logger = antMvnUtils.getBuildLogger(mavenLogger);
+		antProject.addBuildListener(logger);
+		return antProject;
+	}
 
 	public String getJobName(String name, MavenProject project, String type) {
 		if (!StringUtils.isBlank(name)) {

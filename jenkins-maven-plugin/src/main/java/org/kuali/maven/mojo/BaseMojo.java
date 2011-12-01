@@ -5,13 +5,11 @@ import java.util.List;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
-import org.kuali.maven.common.AntMavenUtils;
 
 /**
  * 
  */
 public abstract class BaseMojo extends AbstractMojo {
-	AntMavenUtils antMvnUtils = new AntMavenUtils();
 	Generator generator = new Generator();
 
 	/**
