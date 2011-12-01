@@ -49,4 +49,12 @@ public class CreateJobMojo extends AbstractCliMojo {
 		this.name = name;
 	}
 
+	public String getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(String template) {
+		this.template = template;
+	}
+
 }
