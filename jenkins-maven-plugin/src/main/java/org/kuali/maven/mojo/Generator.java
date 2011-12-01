@@ -50,7 +50,7 @@ public class Generator {
 			AntContext context = getAntContext(antProject, mvnProject, args, output, pluginArtifacts);
 			Task task = getJavaTask(context);
 			log.info("");
-			log.info("Jenkins Instance - " + mvnProject);
+			log.info("Jenkins Instance - " + server);
 			log.info("Job Name - " + jobName);
 			log.info("File - " + output.getAbsolutePath());
 			log.info("");
