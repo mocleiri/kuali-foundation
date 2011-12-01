@@ -40,7 +40,8 @@ public class GetJobMjo extends BaseMojo {
 			String[] args = getArgs(jobName);
 			Project antProject = generator.getAntProject(getLog());
 			Java javaTask = generator.getJavaTask(antProject, getProject(), args, getPluginArtifacts(), outputFile);
-			int result = javaTask.executeJava();
+			javaTask.execute();
+			int result = new Integer(antProject.getProperty("java.result"));
 			getLog().info("Result: " + result);
 		} catch (Throwable e) {
 			e.printStackTrace();

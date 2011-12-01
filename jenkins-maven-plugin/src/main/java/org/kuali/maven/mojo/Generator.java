@@ -40,6 +40,7 @@ public class Generator {
 		task.setClassname(CLI.class.getName());
 		task.setFork(true);
 		task.setOutput(out);
+		task.setResultProperty("java.result");
 		for (String arg : args) {
 			Argument argument = task.createArg();
 			argument.setValue(arg);
