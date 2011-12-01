@@ -3,7 +3,7 @@ package org.kuali.maven.mojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Delete a Jenkins job. The name of the job to delete is derived from information in the POM combined with 'type'
+ * Connect to a Jenkins server and delete a job
  * 
  * @goal deletejob
  * @requiresDependencyResolution test

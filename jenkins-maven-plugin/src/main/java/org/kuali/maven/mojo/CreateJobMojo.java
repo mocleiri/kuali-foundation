@@ -3,7 +3,7 @@ package org.kuali.maven.mojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Create a Jenkins job based on the information in the Maven pom and the 'type' provided.
+ * Connect to a Jenkins server and create a Jenkins job
  * 
  * @goal createjob
  * @requiresDependencyResolution test

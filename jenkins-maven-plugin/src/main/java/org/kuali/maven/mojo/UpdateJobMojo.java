@@ -3,7 +3,7 @@ package org.kuali.maven.mojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Contact a Jenkins server and update an existing jobs configuration
+ * Connect to a Jenkins server and update an existing jobs configuration
  * 
  * @goal updatejob
  * @requiresDependencyResolution test

@@ -7,7 +7,7 @@ import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.mojo.context.MojoContext;
 
 /**
- * Create one ore more Jenkins jobs based on the information in the Maven pom and the 'types' provided.
+ * Connect to a Jenkins server and create one or more Jenkins jobs
  * 
  * @goal createjobs
  * @requiresDependencyResolution test
