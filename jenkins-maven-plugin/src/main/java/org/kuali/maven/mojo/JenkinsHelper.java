@@ -215,7 +215,9 @@ public class JenkinsHelper {
 		context.setClasspath(classpath);
 		context.setClassname(mojoContext.getCliContext().getClassname());
 		context.setArgs(mojoContext.getCliContext().getArgs());
-		context.setOutputFile(mojoContext.getJobContext().getLocalFile());
+		if (mojoContext.getJobContext() != null) {
+			context.setOutputFile(mojoContext.getJobContext().getLocalFile());
+		}
 		context.setResultProperty(JenkinsHelper.JAVA_RESULT_PROPERTY);
 		return context;
 	}
