@@ -4,14 +4,10 @@ import org.apache.maven.project.MavenProject;
 
 public class JobContext {
 	String name;
-	String workingDir;
-	String localFile;
 	String type;
 	String template;
-	MavenProject mavenProject;
-	String scmType;
-	String scmUrl;
-	String majorVersion;
+	String workingDir;
+	String localFile;
 	String timestampFormat;
 
 	public String getWorkingDir() {
@@ -44,38 +40,6 @@ public class JobContext {
 
 	public void setTemplate(String template) {
 		this.template = template;
-	}
-
-	public MavenProject getMavenProject() {
-		return mavenProject;
-	}
-
-	public void setMavenProject(MavenProject project) {
-		this.mavenProject = project;
-	}
-
-	public String getScmType() {
-		return scmType;
-	}
-
-	public void setScmType(String scmType) {
-		this.scmType = scmType;
-	}
-
-	public String getScmUrl() {
-		return scmUrl;
-	}
-
-	public void setScmUrl(String scmUrl) {
-		this.scmUrl = scmUrl;
-	}
-
-	public String getMajorVersion() {
-		return majorVersion;
-	}
-
-	public void setMajorVersion(String majorVersion) {
-		this.majorVersion = majorVersion;
 	}
 
 	public String getTimestampFormat() {
