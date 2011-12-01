@@ -112,29 +112,12 @@ public class Extractor {
 		if (pos == -1) {
 			return version;
 		} else {
-			return version.substring(0, pos);
+			int peekAhead = peekAhead(pos, version);
+			return version.substring(0, peekAhead);
 		}
 	}
 
-	protected int getPos(String version) {
-		int pos1 = version.indexOf(".");
-		int pos2 = version.indexOf("-");
-		// No dot or dash
-		if (pos1 == pos2 && pos2 == -1) {
-			return -1;
-		}
-		// Dash but no dot
-		if (pos1 == -1 && pos2 != -1) {
-			return pos1;
-		}
-		// Dot but no dash
-		if (pos1 != -1 && pos2 == -1) {
-			return pos2;
-		}
-
-		// Both a dot and a dash, use the first one
-		int pos = Math.min(pos1, pos2);
-
+	protected int peekAhead(int pos, String version) {
 		// Attempt to peek ahead one character after the dot/dash
 		int index = pos + 1;
 
@@ -153,6 +136,26 @@ public class Extractor {
 			// If not return the original
 			return pos;
 		}
+	}
+
+	protected int getPos(String version) {
+		int pos1 = version.indexOf(".");
+		int pos2 = version.indexOf("-");
+		// No dot or dash
+		if (pos1 == pos2 && pos2 == -1) {
+			return -1;
+		}
+		// Dash but no dot
+		if (pos1 == -1 && pos2 != -1) {
+			return pos2;
+		}
+		// Dot but no dash
+		if (pos1 != -1 && pos2 == -1) {
+			return pos1;
+		}
+
+		// Both a dot and a dash, use the first one
+		return Math.min(pos1, pos2);
 
 	}
 
