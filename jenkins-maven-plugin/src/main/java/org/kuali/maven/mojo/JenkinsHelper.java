@@ -267,6 +267,27 @@ public class JenkinsHelper {
 		return createContext;
 	}
 
+	public MojoContext deleteJob(Mojo mojo, String type) throws MojoExecutionException {
+		try {
+			MavenContext mvnContext = getMavenContext(mojo);
+			JobContext jobContext = getJobContext(mvnContext, mojo, null, type);
+			FileUtils.touch(jobContext.getLocalFile());
+			CliContext cliContext = getCliContext(jobContext, mojo);
+			MojoContext context = getMojoContext(mvnContext, jobContext, cliContext);
+			AntContext antContext = getAntContext(context);
+			Task task = getJavaTask(antContext);
+			mojo.getLog().info(cliContext.getServer() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
+			task.execute();
+			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
+			antContext.setResult(result);
+			ResultContext resultContext = handleResult(context, result, jobContext.getLocalFile());
+			context.setResultContext(resultContext);
+			return context;
+		} catch (IOException e) {
+			throw new MojoExecutionException("Unexpected error", e);
+		}
+	}
+
 	public MojoContext generate(Mojo mojo, String type) throws MojoExecutionException {
 		try {
 			MavenContext mvnContext = getMavenContext(mojo);

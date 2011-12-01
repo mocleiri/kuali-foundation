@@ -4,10 +4,10 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
- * @goal updatejob
+ * @goal deletejob
  * @requiresDependencyResolution test
  */
-public class UpdateJobMojo extends AbstractCliMojo {
+public class DeleteJobMojo extends AbstractCliMojo {
 
 	/**
 	 * The location of the jenkins job config template
@@ -27,7 +27,7 @@ public class UpdateJobMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setCmd(StringUtils.isBlank(getCmd()) ? "update-job" : getCmd());
+		setCmd(StringUtils.isBlank(getCmd()) ? "delete-job" : getCmd());
 		helper.deleteJob(this, type);
 	}
 
