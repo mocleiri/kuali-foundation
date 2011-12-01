@@ -609,23 +609,6 @@ public class AntMojo extends AbstractMojo {
 	}
 
 	/**
-	 * Replace text in a StringBuffer. If the match text is not found, the StringBuffer is returned unchanged.
-	 * 
-	 * @param text
-	 *            The string buffer containing the text
-	 * @param match
-	 *            The string to match and remove
-	 * @param with
-	 *            The string to insert
-	 */
-	public void stringReplace(StringBuffer text, String match, String with) {
-		int index = text.indexOf(match);
-		if (index != -1) {
-			text.replace(index, index + match.length(), with);
-		}
-	}
-
-	/**
 	 * @param buildException
 	 *            not null
 	 * @return the fragment XML part where the buildException occurs.
