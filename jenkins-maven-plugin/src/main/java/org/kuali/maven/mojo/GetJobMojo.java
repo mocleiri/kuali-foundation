@@ -39,7 +39,9 @@ public class GetJobMojo extends BaseMojo {
 			Project antProject = generator.getAntProject(getLog());
 			AntContext context = generator.getAntContext(antProject, getProject(), args, output, getPluginArtifacts());
 			Task task = generator.getJavaTask(context);
-			getLog().info(getServer() + " - " + getCmd() + " - " + jobName);
+			getLog().info("Jenkins Instance: " + getServer());
+			getLog().info("Job Name: " + jobName);
+			getLog().info("File: " + output.getAbsolutePath());
 			task.execute();
 			int result = new Integer(antProject.getProperty(Generator.JAVA_RESULT_PROPERTY));
 			getLog().info("Result: " + result);
