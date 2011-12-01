@@ -1,27 +1,21 @@
 package org.kuali.maven.mojo.context;
 
+import java.io.File;
+
 public class JobContext {
 	String name;
 	String type;
 	String template;
-	String workingDir;
-	String localFile;
+	File workingDir;
+	File localFile;
 	String timestampFormat;
 
-	public String getWorkingDir() {
-		return workingDir;
+	public String getName() {
+		return name;
 	}
 
-	public void setWorkingDir(String configDir) {
-		this.workingDir = configDir;
-	}
-
-	public String getLocalFile() {
-		return localFile;
-	}
-
-	public void setLocalFile(String filename) {
-		this.localFile = filename;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getType() {
@@ -40,19 +34,27 @@ public class JobContext {
 		this.template = template;
 	}
 
+	public File getWorkingDir() {
+		return workingDir;
+	}
+
+	public void setWorkingDir(File workingDir) {
+		this.workingDir = workingDir;
+	}
+
+	public File getLocalFile() {
+		return localFile;
+	}
+
+	public void setLocalFile(File localFile) {
+		this.localFile = localFile;
+	}
+
 	public String getTimestampFormat() {
 		return timestampFormat;
 	}
 
 	public void setTimestampFormat(String timestampFormat) {
 		this.timestampFormat = timestampFormat;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 }
