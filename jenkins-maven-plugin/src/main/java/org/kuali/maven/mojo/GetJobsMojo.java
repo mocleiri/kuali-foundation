@@ -30,7 +30,7 @@ public class GetJobsMojo extends AbstractCliMojo {
 	private String types;
 
 	/**
-	 * The explicit list of jobs to get
+	 * The explicit list of jobs to get. If names are provided, 'types' is ignored.
 	 * 
 	 * @parameter
 	 */
