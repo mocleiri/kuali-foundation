@@ -2,6 +2,7 @@ package org.kuali.maven.mojo;
 
 import hudson.cli.CLI;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,17 +33,18 @@ public class Generator {
 	ResourceUtils resourceUtils = new ResourceUtils();
 	AntMavenUtils antMvnUtils = new AntMavenUtils();
 
-	public Java getJavaTask(Project antProject, MavenProject mavenProject, String[] args, List<Artifact> pluginArtifacts)
-			throws DependencyResolutionRequiredException {
+	public Java getJavaTask(Project antProject, MavenProject mvnProject, String[] args, List<Artifact> pluginArtifacts,
+			File out) throws DependencyResolutionRequiredException {
 		Java task = new Java();
 		task.setProject(antProject);
 		task.setClassname(CLI.class.getName());
 		task.setFork(true);
+		task.setOutput(out);
 		for (String arg : args) {
 			Argument argument = task.createArg();
 			argument.setValue(arg);
 		}
-		Map<String, Path> pathRefs = antMvnUtils.getPathRefs(antProject, mavenProject, pluginArtifacts);
+		Map<String, Path> pathRefs = antMvnUtils.getPathRefs(antProject, mvnProject, pluginArtifacts);
 		Path pluginClasspath = pathRefs.get(AntMavenUtils.MVN_PLUGIN_CLASSPATH_KEY);
 		task.setClasspath(pluginClasspath);
 		return task;

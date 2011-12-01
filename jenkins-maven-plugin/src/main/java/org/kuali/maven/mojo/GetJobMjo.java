@@ -1,5 +1,10 @@
 package org.kuali.maven.mojo;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Java;
@@ -28,15 +33,27 @@ public class GetJobMjo extends BaseMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		String[] args = { "-s", getServer(), getCmd(), "cm-tools-1.1-publish" };
 		try {
+			String jobName = generator.getJobName(name, getProject(), type);
+			File outputFile = new File(getWorkingDir() + FS + jobName + ".xml");
+			FileUtils.touch(outputFile);
+			String[] args = getArgs(jobName);
 			Project antProject = generator.getAntProject(getLog());
-			Java javaTask = generator.getJavaTask(antProject, getProject(), args, getPluginArtifacts());
+			Java javaTask = generator.getJavaTask(antProject, getProject(), args, getPluginArtifacts(), outputFile);
 			int result = javaTask.executeJava();
 			getLog().info("Result: " + result);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected String[] getArgs(String jobName) {
+		List<String> args = new ArrayList<String>();
+		args.add("-s");
+		args.add(getServer());
+		args.add(getCmd());
+		args.add(jobName);
+		return args.toArray(new String[args.size()]);
 	}
 
 	public String getCmd() {
