@@ -24,7 +24,7 @@ public class DeleteJobsMojo extends AbstractCliMojo {
 	/**
 	 * The type of job to create
 	 * 
-	 * @parameter expression="${jenkins.types}" default-value="publish"
+	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
 	 * @required
 	 */
 	private String types;
