@@ -53,6 +53,12 @@ public abstract class BaseMojo extends AbstractMojo {
 	 */
 	private File workingDir;
 
+	/**
+	 * @parameter expression="${jenkins.stopOnError}" default-value="true"
+	 * @required
+	 */
+	private boolean stopOnError;
+
 	public MavenProject getProject() {
 		return project;
 	}
@@ -83,6 +89,14 @@ public abstract class BaseMojo extends AbstractMojo {
 
 	public void setWorkingDir(File workingDir) {
 		this.workingDir = workingDir;
+	}
+
+	public boolean isStopOnError() {
+		return stopOnError;
+	}
+
+	public void setStopOnError(boolean stopOnError) {
+		this.stopOnError = stopOnError;
 	}
 
 }

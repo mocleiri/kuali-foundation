@@ -15,6 +15,7 @@ public class MavenContext {
 	String scmUrl;
 	String majorVersion;
 	Properties properties;
+	boolean stopOnError;
 
 	public MavenProject getProject() {
 		return project;
@@ -70,6 +71,14 @@ public class MavenContext {
 
 	public void setProperties(Properties properties) {
 		this.properties = properties;
+	}
+
+	public boolean isStopOnError() {
+		return stopOnError;
+	}
+
+	public void setStopOnError(boolean stopOnError) {
+		this.stopOnError = stopOnError;
 	}
 
 }
