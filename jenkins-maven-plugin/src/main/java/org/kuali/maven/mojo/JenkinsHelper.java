@@ -180,12 +180,12 @@ public class JenkinsHelper {
 			JobContext jobContext = getJobContext(mvnContext, mojo);
 			jobContext.setType(type);
 			File localFile = jobContext.getLocalFile();
-			String path = localFile.getCanonicalPath();
-			mojo.getLog().info("Generating: " + path);
+			String localFilePath = localFile.getCanonicalPath();
+			mojo.getLog().info("Generating: " + localFilePath);
 			Properties properties = getProperties(mvnContext, jobContext);
 			String xml = resourceUtils.read(jobContext.getTemplate());
 			String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
-			resourceUtils.write(path, resolvedXml);
+			resourceUtils.write(localFilePath, resolvedXml);
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
