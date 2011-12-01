@@ -36,7 +36,7 @@ import org.kuali.maven.mojo.context.AntContext;
 import org.kuali.maven.mojo.context.JobContext;
 import org.kuali.maven.mojo.context.MavenContext;
 
-public class Generator {
+public class JenkinsHelper {
 	private static final String FS = System.getProperty("file.separator");
 	public static final String JAVA_RESULT_PROPERTY = "java.result";
 	Extractor extractor = new Extractor();
@@ -120,7 +120,7 @@ public class Generator {
 		context.setArgs(args);
 		context.setOutputFile(outputFile);
 		context.setPluginArtifacts(pluginArtifacts);
-		context.setResultProperty(Generator.JAVA_RESULT_PROPERTY);
+		context.setResultProperty(JenkinsHelper.JAVA_RESULT_PROPERTY);
 		return context;
 	}
 

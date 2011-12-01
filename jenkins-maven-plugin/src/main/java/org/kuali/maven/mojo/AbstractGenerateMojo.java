@@ -5,7 +5,7 @@ package org.kuali.maven.mojo;
  * 
  */
 public abstract class AbstractGenerateMojo extends BaseMojo {
-	Generator generator = new Generator();
+	JenkinsHelper generator = new JenkinsHelper();
 
 	/**
 	 * The location of the jenkins job config template
