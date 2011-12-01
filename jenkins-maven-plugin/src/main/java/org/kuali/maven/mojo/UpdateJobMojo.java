@@ -4,10 +4,10 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
- * @goal createjob
+ * @goal updatejob
  * @requiresDependencyResolution test
  */
-public class CreateJobMojo extends AbstractCliMojo {
+public class UpdateJobMojo extends AbstractCliMojo {
 
 	/**
 	 * The location of the jenkins job config template
@@ -27,7 +27,7 @@ public class CreateJobMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setCmd(StringUtils.isBlank(getCmd()) ? "create-job" : getCmd());
+		setCmd(StringUtils.isBlank(getCmd()) ? "update-job" : getCmd());
 		helper.pushJobToJenkins(this, type);
 	}
 

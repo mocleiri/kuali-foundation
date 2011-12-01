@@ -74,8 +74,7 @@ public class JenkinsHelper {
 
 			Task task = getJavaTask(antContext);
 			mojo.getLog().info("");
-			mojo.getLog().info("Jenkins Instance - " + cliContext.getServer());
-			mojo.getLog().info("Job Name - " + jobContext.getName());
+			mojo.getLog().info(cliContext.getServer() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
 			mojo.getLog().info("File - " + antContext.getOutputFile().getAbsolutePath());
 			task.execute();
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
@@ -192,6 +191,29 @@ public class JenkinsHelper {
 		Project antProject = new Project();
 		antProject.init();
 		return antProject;
+	}
+
+	public MojoContext pushJobToJenkins(Mojo mojo, String type) throws MojoExecutionException {
+		MojoContext genContext = generate(mojo, type);
+		MojoContext createContext = new MojoContext();
+		createContext.setMvnContext(genContext.getMvnContext());
+		createContext.setJobContext(genContext.getJobContext());
+		JobContext jobContext = genContext.getJobContext();
+		CliContext cliContext = getCliContext(genContext.getJobContext(), mojo);
+		createContext.setCliContext(cliContext);
+		AntContext antContext = getAntContext(createContext);
+		antContext.setInputFile(antContext.getOutputFile());
+		antContext.setOutputFile(null);
+		createContext.setAntContext(antContext);
+		Task task = getJavaTask(antContext);
+		mojo.getLog().info("");
+		mojo.getLog().info(cliContext.getServer() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
+		mojo.getLog().info("File - " + antContext.getInputFile().getAbsolutePath());
+		task.execute();
+		int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
+		handleResult(createContext, result);
+		return createContext;
+
 	}
 
 	public MojoContext generate(Mojo mojo, String type) throws MojoExecutionException {
