@@ -8,7 +8,7 @@ import org.apache.maven.plugin.MojoExecutionException;
  * @goal createjob
  * @requiresDependencyResolution test
  */
-public class CreateJobMojo extends AbstractCliMojo {
+public class CreateJobMojo extends AbstractJobConfigMojo {
 
 	/**
 	 * The command issued to Jenkins CLI
@@ -17,14 +17,6 @@ public class CreateJobMojo extends AbstractCliMojo {
 	 * @required
 	 */
 	private String cmd;
-
-	/**
-	 * The location of the jenkins job config template
-	 * 
-	 * @parameter expression="${jenkins.template}" default-value="classpath:org/kuali/jenkins/jobs/template.xml"
-	 * @required
-	 */
-	private String template;
 
 	/**
 	 * The type of job to create
@@ -45,14 +37,6 @@ public class CreateJobMojo extends AbstractCliMojo {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public String getTemplate() {
-		return template;
-	}
-
-	public void setTemplate(String template) {
-		this.template = template;
 	}
 
 	public String getCmd() {

@@ -12,7 +12,7 @@ import org.kuali.maven.mojo.context.MojoContext;
  * @goal updatejobs
  * @requiresDependencyResolution test
  */
-public class UpdateJobsMojo extends AbstractCliMojo {
+public class UpdateJobsMojo extends AbstractJobConfigMojo {
 
 	/**
 	 * The command issued to Jenkins CLI
@@ -21,14 +21,6 @@ public class UpdateJobsMojo extends AbstractCliMojo {
 	 * @required
 	 */
 	private String cmd;
-
-	/**
-	 * The location of the jenkins job config template
-	 * 
-	 * @parameter expression="${jenkins.template}" default-value="classpath:org/kuali/jenkins/jobs/template.xml"
-	 * @required
-	 */
-	private String template;
 
 	/**
 	 * Comma delimited list of types of jobs to publish
@@ -44,14 +36,6 @@ public class UpdateJobsMojo extends AbstractCliMojo {
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
 		List<MojoContext> contexts = helper.pushJobsToJenkins(this, tokens);
 		helper.handleResults(contexts);
-	}
-
-	public String getTemplate() {
-		return template;
-	}
-
-	public void setTemplate(String template) {
-		this.template = template;
 	}
 
 	public String getCmd() {
