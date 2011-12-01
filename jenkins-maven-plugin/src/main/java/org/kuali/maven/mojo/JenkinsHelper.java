@@ -20,7 +20,6 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
@@ -84,7 +83,7 @@ public class JenkinsHelper {
 			mojo.getLog().info("");
 			task.execute();
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
-			handleResult(context, result, mojo.getLog());
+			handleResult(context, result);
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
@@ -94,7 +93,7 @@ public class JenkinsHelper {
 		return args;
 	}
 
-	public void handleResult(MojoContext context, int result, Log log) throws MojoExecutionException {
+	public void handleResult(MojoContext context, int result) throws MojoExecutionException {
 		if (result == 0) {
 			return;
 		}
@@ -104,11 +103,8 @@ public class JenkinsHelper {
 		}
 
 		try {
-			List<String> lines = readLines(file);
-			for (String line : lines) {
-				log.error(line);
-			}
-			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI: " + result);
+			String msg = resourceUtils.read(file.getAbsolutePath());
+			throw new MojoExecutionException("Non-zero result returned from Jenkins CLI: " + result + "\n" + msg);
 		} catch (IOException e) {
 			throw new MojoExecutionException("Error processing Jenkins CLI error message: " + result, e);
 		}
