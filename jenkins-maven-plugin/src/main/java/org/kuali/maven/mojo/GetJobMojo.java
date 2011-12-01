@@ -13,7 +13,7 @@ import org.apache.tools.ant.Task;
  * @goal getjob
  * @requiresDependencyResolution test
  */
-public class GetJobMjo extends BaseMojo {
+public class GetJobMojo extends BaseMojo {
 
 	/**
 	 * @parameter expression="${jenkins.cmd}" default-value="get-job"
