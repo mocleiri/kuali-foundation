@@ -490,8 +490,6 @@ public class JenkinsHelper {
 
 	protected List<String> getLocations(MavenContext mvnContext, JobContext jobContext) {
 		List<String> locations = new ArrayList<String>();
-		locations.add("classpath:org/kuali/jenkins/kuali.properties");
-		locations.add("classpath:org/kuali/jenkins/jenkins.properties");
 		locations.add("classpath:org/kuali/jenkins/jobs/properties/common.xml");
 		locations.add("classpath:org/kuali/jenkins/jobs/properties/" + mvnContext.getScmType() + ".xml");
 		locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + jobContext.getType() + ".xml");
