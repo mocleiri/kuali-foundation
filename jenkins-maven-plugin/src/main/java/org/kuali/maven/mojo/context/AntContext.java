@@ -9,6 +9,7 @@ public class AntContext {
 	Project antProject;
 	String resultProperty;
 	File outputFile;
+	File inputFile;
 	String[] args;
 	Path classpath;
 	String classname;
@@ -59,5 +60,13 @@ public class AntContext {
 
 	public void setClassname(String classname) {
 		this.classname = classname;
+	}
+
+	public File getInputFile() {
+		return inputFile;
+	}
+
+	public void setInputFile(File inputFile) {
+		this.inputFile = inputFile;
 	}
 }

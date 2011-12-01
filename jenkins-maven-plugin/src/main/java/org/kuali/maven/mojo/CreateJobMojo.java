@@ -2,6 +2,7 @@ package org.kuali.maven.mojo;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.maven.mojo.context.MojoContext;
 
 /**
  * @goal createjob
@@ -22,15 +23,10 @@ public class CreateJobMojo extends AbstractCliMojo {
 	 */
 	private String type;
 
-	/**
-	 * @parameter expression="${jenkins.name}"
-	 */
-	private String name;
-
 	@Override
 	public void execute() throws MojoExecutionException {
 		setCmd(StringUtils.isBlank(getCmd()) ? "create-job" : getCmd());
-		helper.getJob(this, name, type);
+		MojoContext context = helper.generate(this, type);
 	}
 
 	public String getType() {
@@ -39,14 +35,6 @@ public class CreateJobMojo extends AbstractCliMojo {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getTemplate() {
