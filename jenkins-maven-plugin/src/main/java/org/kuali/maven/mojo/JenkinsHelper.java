@@ -171,6 +171,7 @@ public class JenkinsHelper {
 		task.setClassname(context.getClassname());
 		task.setFork(true);
 		task.setOutput(context.getOutputFile());
+		task.setInput(context.getInputFile());
 		task.setResultProperty(context.getResultProperty());
 		createArgs(context.getArgs(), task);
 		task.setClasspath(context.getClasspath());
