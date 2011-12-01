@@ -8,6 +8,8 @@ import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.mojo.context.MojoContext;
 
 /**
+ * Create one ore more Jenkins jobs based on the information in the Maven pom and the 'types' provided.
+ * 
  * @goal createjobs
  * @requiresDependencyResolution test
  */
