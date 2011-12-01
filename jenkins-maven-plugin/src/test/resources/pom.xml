@@ -24,9 +24,9 @@
     <version>1.0.6</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
-  <artifactId>test-pom</artifactId>
+  <artifactId>jenkins-maven-plugin</artifactId>
   <version>1.0.0</version>
-  <name>Test POM</name>
+  <name>Jenkins Maven Plugin Test POM</name>
   <build>
     <pluginManagement>
       <plugins>
@@ -38,5 +38,9 @@
       </plugins>
     </pluginManagement>
   </build>
-
+  <scm>
+    <connection>${project.scm.connection}</connection>
+    <developerConnection>${project.scm.developerConnection}</developerConnection>
+    <url>${project.scm.url}</url>
+  </scm>
 </project>
