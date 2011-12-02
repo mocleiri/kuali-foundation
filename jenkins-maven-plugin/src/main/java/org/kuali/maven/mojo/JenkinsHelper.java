@@ -165,25 +165,26 @@ public class JenkinsHelper {
 		return args;
 	}
 
-	protected ResultContext getResultContext(int result, File resultFile) {
-		if (result == 0) {
-			return new ResultContext(result, null);
-		}
-		if (resultFile == null || !resultFile.exists() || resultFile.length() == 0) {
-			MojoExecutionException e = new MojoExecutionException("Non-zero result returned from Jenkins CLI: "
-					+ result);
-			return new ResultContext(result, e);
-		}
-
+	protected String getContents(File file) {
 		try {
-			String msg = resourceUtils.read(resultFile.getAbsolutePath());
-			MojoExecutionException e = new MojoExecutionException("Non-zero result returned from Jenkins CLI: "
-					+ result + "\n" + msg);
-			return new ResultContext(result, e);
+			if (file == null || !file.exists() || file.length() == 0) {
+				return null;
+			}
+			return resourceUtils.read(file.getAbsolutePath());
 		} catch (IOException e) {
-			MojoExecutionException ee = new MojoExecutionException("Error processing Jenkins CLI error message: "
-					+ result, e);
-			return new ResultContext(result, ee);
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	protected ResultContext getResultContext(int result, File resultFile) {
+		String contents = getContents(resultFile);
+		if (result == 0) {
+			return new ResultContext(result, null, contents);
+		} else {
+			String msg = "Non-zero result returned from Jenkins CLI: " + result;
+			MojoExecutionException e = new MojoExecutionException(msg);
+			return new ResultContext(result, e, contents);
 		}
 	}
 
@@ -330,6 +331,9 @@ public class JenkinsHelper {
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 			antContext.setResult(result);
 			ResultContext resultContext = handleResult(context, result, outputFile);
+			if (resultContext.getReturnCode() == 0) {
+				mvnContext.getLog().info(resultContext.getFileContents());
+			}
 			context.setResultContext(resultContext);
 			return context;
 		} catch (IOException e) {

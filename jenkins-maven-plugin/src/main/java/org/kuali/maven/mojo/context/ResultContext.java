@@ -20,15 +20,21 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class ResultContext {
 	Integer returnCode;
 	MojoExecutionException exception;
+	String fileContents;
 
 	public ResultContext() {
 		this(null, null);
 	}
 
 	public ResultContext(Integer returnCode, MojoExecutionException exception) {
+		this(returnCode, exception, null);
+	}
+
+	public ResultContext(Integer returnCode, MojoExecutionException exception, String fileContents) {
 		super();
 		this.returnCode = returnCode;
 		this.exception = exception;
+		this.fileContents = fileContents;
 	}
 
 	public Integer getReturnCode() {
@@ -45,6 +51,14 @@ public class ResultContext {
 
 	public void setException(MojoExecutionException exception) {
 		this.exception = exception;
+	}
+
+	public String getFileContents() {
+		return fileContents;
+	}
+
+	public void setFileContents(String fileContents) {
+		this.fileContents = fileContents;
 	}
 
 }
