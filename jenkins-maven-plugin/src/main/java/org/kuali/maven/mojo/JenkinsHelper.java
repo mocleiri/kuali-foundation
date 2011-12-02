@@ -16,9 +16,7 @@
 package org.kuali.maven.mojo;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +27,6 @@ import java.util.Properties;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.Mojo;
@@ -84,7 +81,7 @@ public class JenkinsHelper {
 			MavenContext mvnContext = getMavenContext(mojo);
 			JobContext jobContext = getJobContext(mvnContext, mojo, name, type);
 			FileUtils.touch(jobContext.getLocalFile());
-			CliContext cliContext = getCliContext(jobContext, mojo);
+			CliContext cliContext = getCliContext(mojo, jobContext);
 			MojoContext context = getMojoContext(mvnContext, jobContext, cliContext);
 			AntContext antContext = getAntContext(context);
 			context.setAntContext(antContext);
@@ -188,25 +185,14 @@ public class JenkinsHelper {
 		}
 	}
 
-	protected ResultContext handleResult(MojoContext context, int result, File resultFile)
-			throws MojoExecutionException {
-		ResultContext resultContext = getResultContext(result, resultFile);
+	protected ResultContext handleResult(MojoContext context, int result, File file) throws MojoExecutionException {
+		ResultContext resultContext = getResultContext(result, file);
 		boolean stopOnError = context.getMvnContext().isStopOnError();
 		MojoExecutionException e = resultContext.getException();
 		if (stopOnError && e != null) {
 			throw e;
 		} else {
 			return resultContext;
-		}
-	}
-
-	protected List<String> readLines(File file) throws IOException {
-		InputStream in = null;
-		try {
-			in = new FileInputStream(file);
-			return IOUtils.readLines(in);
-		} finally {
-			IOUtils.closeQuietly(in);
 		}
 	}
 
@@ -283,7 +269,7 @@ public class JenkinsHelper {
 		createContext.setMvnContext(genContext.getMvnContext());
 		createContext.setJobContext(genContext.getJobContext());
 		JobContext jobContext = genContext.getJobContext();
-		CliContext cliContext = getCliContext(genContext.getJobContext(), mojo);
+		CliContext cliContext = getCliContext(mojo, genContext.getJobContext());
 		createContext.setCliContext(cliContext);
 		AntContext antContext = getAntContext(createContext);
 		antContext.setInputFile(jobContext.getLocalFile());
@@ -322,7 +308,7 @@ public class JenkinsHelper {
 			CliContext cliContext = getCliContext(mojo);
 			MojoContext context = getMojoContext(mvnContext, null, cliContext);
 			AntContext antContext = getAntContext(context);
-			File outputFile = new File(mvnContext.getWorkingDir() + FS + cliContext.getClassname() + ".txt");
+			File outputFile = new File(mvnContext.getWorkingDir() + FS + cliContext.getCmd() + ".txt");
 			FileUtils.touch(outputFile);
 			antContext.setOutputFile(outputFile);
 			Task task = getJavaTask(antContext);
@@ -344,7 +330,7 @@ public class JenkinsHelper {
 			MavenContext mvnContext = getMavenContext(mojo);
 			JobContext jobContext = getJobContext(mvnContext, mojo, name, type);
 			FileUtils.touch(jobContext.getLocalFile());
-			CliContext cliContext = getCliContext(jobContext, mojo);
+			CliContext cliContext = getCliContext(mojo, jobContext);
 			MojoContext context = getMojoContext(mvnContext, jobContext, cliContext);
 			AntContext antContext = getAntContext(context);
 			Task task = getJavaTask(antContext);
@@ -403,7 +389,7 @@ public class JenkinsHelper {
 		jobContext.setType(type);
 		String jobName = getJobName(mvnContext, name, type);
 		jobContext.setName(jobName);
-		String filename = getFilename(mvnContext, jobContext, jobName);
+		String filename = getFilename(jobContext, jobName);
 		File localFile = new File(filename);
 		jobContext.setLocalFile(localFile);
 		return jobContext;
@@ -416,7 +402,7 @@ public class JenkinsHelper {
 		return context;
 	}
 
-	protected CliContext getCliContext(JobContext jobContext, Mojo mojo) {
+	protected CliContext getCliContext(Mojo mojo, JobContext jobContext) {
 		CliContext context = getContext(CliContext.class, mojo);
 		String[] args = getArgs("-s", context.getServer(), context.getCmd(), jobContext.getName());
 		context.setArgs(args);
@@ -436,7 +422,7 @@ public class JenkinsHelper {
 		return context;
 	}
 
-	protected String getFilename(MavenContext mvnContext, JobContext jobContext, String jobName) {
+	protected String getFilename(JobContext jobContext, String jobName) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(jobContext.getWorkingDir());
 		sb.append(FS);
