@@ -16,7 +16,9 @@
 package org.kuali.maven.mojo;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +29,7 @@ import java.util.Properties;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.Mojo;
@@ -118,7 +121,7 @@ public class JenkinsHelper {
 		return false;
 	}
 
-	public void handleResults(List<MojoContext> contexts, List<Integer> ignoreCodes) throws MojoExecutionException {
+	protected void handleResults(List<MojoContext> contexts, List<Integer> ignoreCodes) throws MojoExecutionException {
 		List<MojoContext> issues = new ArrayList<MojoContext>();
 		for (MojoContext context : contexts) {
 			ResultContext rc = context.getResultContext();
@@ -140,7 +143,7 @@ public class JenkinsHelper {
 		}
 	}
 
-	public void handleResults(List<MojoContext> contexts) throws MojoExecutionException {
+	protected void handleResults(List<MojoContext> contexts) throws MojoExecutionException {
 		handleResults(contexts, new ArrayList<Integer>());
 	}
 
@@ -174,14 +177,37 @@ public class JenkinsHelper {
 		}
 	}
 
+	protected List<String> getContentLines(File file) {
+		try {
+			if (file == null || !file.exists() || file.length() == 0) {
+				return null;
+			}
+			return readLines(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	protected List<String> readLines(File file) throws IOException {
+		InputStream in = null;
+		try {
+			in = new FileInputStream(file);
+			return IOUtils.readLines(in);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
 	protected ResultContext getResultContext(int result, File resultFile) {
 		String contents = getContents(resultFile);
+		List<String> lines = getContentLines(resultFile);
 		if (result == 0) {
-			return new ResultContext(result, null, contents);
+			return new ResultContext(result, null, contents, lines);
 		} else {
 			String msg = "Non-zero result returned from Jenkins CLI: " + result;
 			MojoExecutionException e = new MojoExecutionException(msg);
-			return new ResultContext(result, e, contents);
+			return new ResultContext(result, e, contents, lines);
 		}
 	}
 
@@ -247,7 +273,7 @@ public class JenkinsHelper {
 	/**
 	 * 
 	 */
-	public Project getAntProject() {
+	protected Project getAntProject() {
 		Project antProject = new Project();
 		antProject.init();
 		return antProject;
@@ -273,7 +299,7 @@ public class JenkinsHelper {
 		createContext.setCliContext(cliContext);
 		AntContext antContext = getAntContext(createContext);
 		antContext.setInputFile(jobContext.getLocalFile());
-		File outputFile = new File(jobContext.getLocalFile().getAbsolutePath() + ".out");
+		File outputFile = new File(jobContext.getLocalFile().getAbsolutePath() + ".output.txt");
 		antContext.setOutputFile(outputFile);
 		createContext.setAntContext(antContext);
 		Task task = getJavaTask(antContext);
@@ -317,12 +343,27 @@ public class JenkinsHelper {
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 			antContext.setResult(result);
 			ResultContext resultContext = handleResult(context, result, outputFile);
-			mvnContext.getLog().info("Jenkins CLI Output:\n\n" + resultContext.getFileContents() + "\n");
+			showResult(resultContext, mvnContext);
 			context.setResultContext(resultContext);
 			return context;
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
+	}
+
+	protected void showResult(ResultContext resultContext, MavenContext mvnContext) {
+		mvnContext.getLog().info("");
+		mvnContext.getLog().info("== Jenkins CLI Output == ");
+		mvnContext.getLog().info("");
+		List<String> lines = resultContext.getFileContentLines();
+		if (!isEmpty(lines)) {
+			for (String line : lines) {
+				mvnContext.getLog().info(line);
+			}
+		}
+		mvnContext.getLog().info("");
+		mvnContext.getLog().info("== Jenkins CLI Output == ");
+		mvnContext.getLog().info("");
 	}
 
 	public MojoContext executeCliJobCommand(Mojo mojo, String name, String type) throws MojoExecutionException {

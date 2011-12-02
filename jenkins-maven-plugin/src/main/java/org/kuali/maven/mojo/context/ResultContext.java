@@ -15,26 +15,31 @@
  */
 package org.kuali.maven.mojo.context;
 
+import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
 
 public class ResultContext {
 	Integer returnCode;
 	MojoExecutionException exception;
 	String fileContents;
+	List<String> fileContentLines;
 
 	public ResultContext() {
 		this(null, null);
 	}
 
 	public ResultContext(Integer returnCode, MojoExecutionException exception) {
-		this(returnCode, exception, null);
+		this(returnCode, exception, null, null);
 	}
 
-	public ResultContext(Integer returnCode, MojoExecutionException exception, String fileContents) {
+	public ResultContext(Integer returnCode, MojoExecutionException exception, String fileContents,
+			List<String> fileContentLines) {
 		super();
 		this.returnCode = returnCode;
 		this.exception = exception;
 		this.fileContents = fileContents;
+		this.fileContentLines = fileContentLines;
 	}
 
 	public Integer getReturnCode() {
@@ -59,6 +64,14 @@ public class ResultContext {
 
 	public void setFileContents(String fileContents) {
 		this.fileContents = fileContents;
+	}
+
+	public List<String> getFileContentLines() {
+		return fileContentLines;
+	}
+
+	public void setFileContentLines(List<String> fileContentLines) {
+		this.fileContentLines = fileContentLines;
 	}
 
 }
