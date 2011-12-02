@@ -87,7 +87,7 @@ public class JenkinsHelper {
 			context.setAntContext(antContext);
 
 			Task task = getJavaTask(antContext);
-			mojo.getLog().info(cliContext.getServer() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
+			mojo.getLog().info(cliContext.getUrl() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
 			task.execute();
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 			antContext.setResult(result);
@@ -277,7 +277,7 @@ public class JenkinsHelper {
 		antContext.setOutputFile(outputFile);
 		createContext.setAntContext(antContext);
 		Task task = getJavaTask(antContext);
-		mojo.getLog().info(cliContext.getServer() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
+		mojo.getLog().info(cliContext.getUrl() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
 		task.execute();
 		int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 		antContext.setResult(result);
@@ -312,7 +312,7 @@ public class JenkinsHelper {
 			FileUtils.touch(outputFile);
 			antContext.setOutputFile(outputFile);
 			Task task = getJavaTask(antContext);
-			mojo.getLog().info(cliContext.getServer() + " - " + cliContext.getCmd());
+			mojo.getLog().info(cliContext.getUrl() + " - " + cliContext.getCmd());
 			task.execute();
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 			antContext.setResult(result);
@@ -334,7 +334,7 @@ public class JenkinsHelper {
 			MojoContext context = getMojoContext(mvnContext, jobContext, cliContext);
 			AntContext antContext = getAntContext(context);
 			Task task = getJavaTask(antContext);
-			mojo.getLog().info(cliContext.getServer() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
+			mojo.getLog().info(cliContext.getUrl() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
 			task.execute();
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 			antContext.setResult(result);
@@ -397,14 +397,14 @@ public class JenkinsHelper {
 
 	protected CliContext getCliContext(Mojo mojo) {
 		CliContext context = getContext(CliContext.class, mojo);
-		String[] args = getArgs("-s", context.getServer(), context.getCmd());
+		String[] args = getArgs("-s", context.getUrl(), context.getCmd());
 		context.setArgs(args);
 		return context;
 	}
 
 	protected CliContext getCliContext(Mojo mojo, JobContext jobContext) {
 		CliContext context = getContext(CliContext.class, mojo);
-		String[] args = getArgs("-s", context.getServer(), context.getCmd(), jobContext.getName());
+		String[] args = getArgs("-s", context.getUrl(), context.getCmd(), jobContext.getName());
 		context.setArgs(args);
 		return context;
 	}

@@ -49,10 +49,10 @@ public abstract class BaseMojo extends AbstractMojo {
 	/**
 	 * The Jenkins instance to connect to.
 	 * 
-	 * @parameter expression="${jenkins.server}" default-value="${project.ciManagement.url}"
+	 * @parameter expression="${jenkins.url}" default-value="${project.ciManagement.url}"
 	 * @required
 	 */
-	private String server;
+	private String url;
 
 	/**
 	 * The format for timestamp displays
@@ -87,12 +87,12 @@ public abstract class BaseMojo extends AbstractMojo {
 		return pluginArtifacts;
 	}
 
-	public String getServer() {
-		return server;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setServer(String server) {
-		this.server = server;
+	public void setUrl(String server) {
+		this.url = server;
 	}
 
 	public String getTimestampFormat() {

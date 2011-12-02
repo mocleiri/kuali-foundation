@@ -17,16 +17,16 @@ package org.kuali.maven.mojo.context;
 
 public class CliContext {
 	String classname;
-	String server;
+	String url;
 	String cmd;
 	String[] args;
 
-	public String getServer() {
-		return server;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setServer(String server) {
-		this.server = server;
+	public void setUrl(String server) {
+		this.url = server;
 	}
 
 	public String getCmd() {
