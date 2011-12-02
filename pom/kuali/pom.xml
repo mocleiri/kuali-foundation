@@ -321,7 +321,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>${kuali.javadoc.plugin.version}</version>
+          <version>${plugin.javadoc.version}</version>
           <configuration>
             <encoding>${project.build.sourceEncoding}</encoding>
             <source>${kuali.compile.source}</source>
@@ -384,7 +384,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
-          <version>${kuali.site.plugin.version}</version>
+          <version>${plugin.site.version}</version>
           <configuration>
             <reportPlugins>
               <plugin>
