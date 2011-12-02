@@ -34,7 +34,7 @@ public class RunJobMojo extends AbstractCliMojo {
 	private String cmd;
 
 	/**
-	 * The type of job to run
+	 * The type of job to run. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
 	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 * @required

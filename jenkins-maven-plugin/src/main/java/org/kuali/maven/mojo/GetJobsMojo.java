@@ -38,7 +38,7 @@ public class GetJobsMojo extends AbstractCliMojo {
 	private String cmd;
 
 	/**
-	 * Comma separated list of job types
+	 * The types of jobs to retrieve. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
 	 * 
 	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
 	 * @required
@@ -46,7 +46,7 @@ public class GetJobsMojo extends AbstractCliMojo {
 	private String types;
 
 	/**
-	 * The explicit list of jobs to get. If names are provided, 'types' is ignored.
+	 * The explicit list of jobs to retrieve. If names are provided, 'types' is ignored.
 	 * 
 	 * @parameter
 	 */

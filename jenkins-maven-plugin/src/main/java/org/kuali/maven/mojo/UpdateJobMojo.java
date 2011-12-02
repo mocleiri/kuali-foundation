@@ -34,7 +34,7 @@ public class UpdateJobMojo extends AbstractJobConfigMojo {
 	private String cmd;
 
 	/**
-	 * The type of job to update
+	 * The type of job to update. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
 	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 * @required

@@ -25,7 +25,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class GenJobMojo extends AbstractGenerateMojo {
 
 	/**
-	 * The type of job eg publish, unit, license, release
+	 * The type of job to generate. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
 	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 * @required

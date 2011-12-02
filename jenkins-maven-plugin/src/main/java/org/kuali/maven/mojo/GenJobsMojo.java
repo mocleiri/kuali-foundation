@@ -27,7 +27,8 @@ import org.kuali.maven.common.PropertiesUtils;
 public class GenJobsMojo extends AbstractGenerateMojo {
 
 	/**
-	 * Comma separated list of the types of jobs to generate
+	 * Comma separated list of the types of jobs to generate. Maven GAV info is combined with 'type' to derive the complete job name eg
+	 * 'jenkins-maven-plugin-1.0-publish'
 	 * 
 	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
 	 * @required

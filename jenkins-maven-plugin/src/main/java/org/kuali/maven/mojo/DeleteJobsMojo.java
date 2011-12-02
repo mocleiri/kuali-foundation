@@ -47,7 +47,8 @@ public class DeleteJobsMojo extends AbstractCliMojo {
 	private String template;
 
 	/**
-	 * Comma delimited list of types to delete
+	 * Comma delimited list of types to delete. Maven GAV info is combined with 'type' to derive the complete job name eg
+	 * 'jenkins-maven-plugin-1.0-publish'
 	 * 
 	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
 	 * @required

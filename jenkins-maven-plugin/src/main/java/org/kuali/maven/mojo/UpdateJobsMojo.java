@@ -38,7 +38,8 @@ public class UpdateJobsMojo extends AbstractJobConfigMojo {
 	private String cmd;
 
 	/**
-	 * Comma delimited list of types of jobs to update
+	 * Comma delimited list of types of jobs to update. Maven GAV info is combined with 'type' to derive the complete job name eg
+	 * 'jenkins-maven-plugin-1.0-publish'
 	 * 
 	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
 	 * @required
