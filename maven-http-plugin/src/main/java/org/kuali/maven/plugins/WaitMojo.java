@@ -25,115 +25,115 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
 /**
- * Repeatedly contact the specified HTTP URL until a valid HTTP response code is returned or the maximum wait timeout is
- * exceeded, whichever comes first.
- *
+ * Contact the specified HTTP URL until a valid HTTP response code is returned or the maximum wait timeout is exceeded, whichever comes first.
+ * 
  * @author Jeff Caddel
  * @goal wait
  * @execute phase="validate"
+ * @threadSafe
  * @since 1.0
  */
 public class WaitMojo extends AbstractMojo {
 
-    /**
-     * The url to contact
-     *
-     * @parameter expression="${http.url}" default-value="http://localhost"
-     */
-    private String url;
+	/**
+	 * The url to contact
+	 * 
+	 * @parameter expression="${http.url}" default-value="http://localhost"
+	 */
+	private String url;
 
-    /**
-     * The maximum number of seconds to wait for the url to respond correctly
-     *
-     * @parameter expression="${http.timeout}" default-value="180"
-     */
-    private int timeout;
+	/**
+	 * The maximum number of seconds to wait for the url to respond correctly
+	 * 
+	 * @parameter expression="${http.timeout}" default-value="180"
+	 */
+	private int timeout;
 
-    /**
-     * The maximum number of milliseconds to wait for an individual HTTP request to complete
-     *
-     * @parameter expression="${http.requestTimeout}" default-value="3000"
-     */
-    private int requestTimeout;
+	/**
+	 * The maximum number of milliseconds to wait for an individual HTTP request to complete
+	 * 
+	 * @parameter expression="${http.requestTimeout}" default-value="3000"
+	 */
+	private int requestTimeout;
 
-    /**
-     * The number of milliseconds to sleep in between HTTP requests
-     *
-     * @parameter expression="${http.sleepInterval}" default-value="3000"
-     */
-    private int sleepInterval;
+	/**
+	 * The number of milliseconds to sleep in between HTTP requests
+	 * 
+	 * @parameter expression="${http.sleepInterval}" default-value="3000"
+	 */
+	private int sleepInterval;
 
-    /**
-     * Comma separated list of HTTP status codes that represent success
-     *
-     * @parameter expression="${http.successCodes}" default-value="200"
-     */
-    private String httpSuccessCodes;
+	/**
+	 * Comma separated list of HTTP status codes that represent success
+	 * 
+	 * @parameter expression="${http.successCodes}" default-value="200"
+	 */
+	private String httpSuccessCodes;
 
-    protected HttpInspector getHttpInspector() throws MojoExecutionException {
-        HttpInspector inspector = new HttpInspector();
-        try {
-            BeanUtils.copyProperties(inspector, this);
-        } catch (Exception e) {
-            throw new MojoExecutionException("Error copying properties", e);
-        }
-        String[] successCodeStrings = StringUtils.splitByWholeSeparator(httpSuccessCodes, ",");
-        List<Integer> successCodeList = new ArrayList<Integer>();
-        for (String successCodeString : successCodeStrings) {
-            successCodeList.add(new Integer(successCodeString));
-        }
-        inspector.setSuccessCodes(successCodeList);
-        return inspector;
-    }
+	protected HttpInspector getHttpInspector() throws MojoExecutionException {
+		HttpInspector inspector = new HttpInspector();
+		try {
+			BeanUtils.copyProperties(inspector, this);
+		} catch (Exception e) {
+			throw new MojoExecutionException("Error copying properties", e);
+		}
+		String[] successCodeStrings = StringUtils.splitByWholeSeparator(httpSuccessCodes, ",");
+		List<Integer> successCodeList = new ArrayList<Integer>();
+		for (String successCodeString : successCodeStrings) {
+			successCodeList.add(new Integer(successCodeString));
+		}
+		inspector.setSuccessCodes(successCodeList);
+		return inspector;
+	}
 
-    @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
-        HttpInspector inspector = getHttpInspector();
-        Result result = inspector.wait(url);
-        boolean success = result.equals(Result.SUCCESS);
-        if (!success) {
-            throw new MojoExecutionException("Waiting for a response from '" + url + "' was not successful");
-        }
-    }
+	@Override
+	public void execute() throws MojoExecutionException, MojoFailureException {
+		HttpInspector inspector = getHttpInspector();
+		Result result = inspector.wait(url);
+		boolean success = result.equals(Result.SUCCESS);
+		if (!success) {
+			throw new MojoExecutionException("Waiting for a response from '" + url + "' was not successful");
+		}
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-    public int getTimeout() {
-        return timeout;
-    }
+	public int getTimeout() {
+		return timeout;
+	}
 
-    public void setTimeout(int timeout) {
-        this.timeout = timeout;
-    }
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
+	}
 
-    public int getRequestTimeout() {
-        return requestTimeout;
-    }
+	public int getRequestTimeout() {
+		return requestTimeout;
+	}
 
-    public void setRequestTimeout(int requestTimeout) {
-        this.requestTimeout = requestTimeout;
-    }
+	public void setRequestTimeout(int requestTimeout) {
+		this.requestTimeout = requestTimeout;
+	}
 
-    public int getSleepInterval() {
-        return sleepInterval;
-    }
+	public int getSleepInterval() {
+		return sleepInterval;
+	}
 
-    public void setSleepInterval(int sleepInterval) {
-        this.sleepInterval = sleepInterval;
-    }
+	public void setSleepInterval(int sleepInterval) {
+		this.sleepInterval = sleepInterval;
+	}
 
-    public String getHttpSuccessCodes() {
-        return httpSuccessCodes;
-    }
+	public String getHttpSuccessCodes() {
+		return httpSuccessCodes;
+	}
 
-    public void setHttpSuccessCodes(String httpSuccessCodes) {
-        this.httpSuccessCodes = httpSuccessCodes;
-    }
+	public void setHttpSuccessCodes(String httpSuccessCodes) {
+		this.httpSuccessCodes = httpSuccessCodes;
+	}
 
 }
