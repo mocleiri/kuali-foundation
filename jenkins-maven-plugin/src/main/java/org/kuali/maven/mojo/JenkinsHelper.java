@@ -332,7 +332,7 @@ public class JenkinsHelper {
 			antContext.setResult(result);
 			ResultContext resultContext = handleResult(context, result, outputFile);
 			if (resultContext.getReturnCode() == 0) {
-				mvnContext.getLog().info(resultContext.getFileContents());
+				mvnContext.getLog().info("Jenkins CLI Output:\n\n" + resultContext.getFileContents() + "\n");
 			}
 			context.setResultContext(resultContext);
 			return context;
