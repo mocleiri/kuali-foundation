@@ -28,7 +28,7 @@ public class CliMojo extends AbstractCliMojo {
 	/**
 	 * The command issued to Jenkins CLI eg "help", "version", "who-ami-i" etc
 	 * 
-	 * @parameter expression="${jenkins.cmd}" default-value="help"
+	 * @parameter expression="${jenkins.cmd}" default-value="version"
 	 * @required
 	 */
 	private String cmd;
