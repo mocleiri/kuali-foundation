@@ -149,7 +149,7 @@
     <plugin.properties.version>1.0.4</plugin.properties.version>
     <plugin.release.version>2.2.1</plugin.release.version>
     <plugin.resources.version>2.5</plugin.resources.version>
-    <plugin.scm.version>1.6</plugin.scm.version>
+    <plugin.scm.version>1.5</plugin.scm.version>
     <!-- 3.0 fixes MSITE-532 but has MSITE-600. 3.1 should fix both -->
     <plugin.site.version>3.0-beta-3</plugin.site.version>
     <plugin.source.version>2.1.2</plugin.source.version>
@@ -378,7 +378,6 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-scm-plugin</artifactId>
           <version>${plugin.scm.version}</version>
         </plugin>
