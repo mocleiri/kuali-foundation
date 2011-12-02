@@ -45,7 +45,6 @@ public class DeleteJobMojo extends AbstractCliMojo {
 	 * The name of the job to delete. If name is provided, 'type' is ignored
 	 * 
 	 * @parameter expression="${jenkins.name}"
-	 * @required
 	 */
 	private String name;
 

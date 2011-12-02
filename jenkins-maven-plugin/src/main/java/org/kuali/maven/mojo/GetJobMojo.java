@@ -37,6 +37,7 @@ public class GetJobMojo extends AbstractCliMojo {
 	 * The type of job. This is combined with artifactId and majorVersion to produce a fully qualified job name. eg "jenkins-maven-plugin-1.0-publish"
 	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
+	 * @required
 	 */
 	private String type;
 
