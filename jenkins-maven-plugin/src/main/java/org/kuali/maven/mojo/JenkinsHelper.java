@@ -353,7 +353,7 @@ public class JenkinsHelper {
 
 	protected void showResult(ResultContext resultContext, MavenContext mvnContext) {
 		mvnContext.getLog().info("");
-		mvnContext.getLog().info("== Jenkins CLI Output == ");
+		mvnContext.getLog().info("== Jenkins CLI Output ==");
 		mvnContext.getLog().info("");
 		List<String> lines = resultContext.getFileContentLines();
 		if (!isEmpty(lines)) {
@@ -362,7 +362,7 @@ public class JenkinsHelper {
 			}
 		}
 		mvnContext.getLog().info("");
-		mvnContext.getLog().info("== Jenkins CLI Output == ");
+		mvnContext.getLog().info("== Jenkins CLI Output ==");
 		mvnContext.getLog().info("");
 	}
 
