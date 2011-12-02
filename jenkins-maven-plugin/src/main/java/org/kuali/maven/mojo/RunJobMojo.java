@@ -37,7 +37,6 @@ public class RunJobMojo extends AbstractCliMojo {
 	 * The type of job to run
 	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
-	 * @required
 	 */
 	private String type;
 
@@ -45,7 +44,6 @@ public class RunJobMojo extends AbstractCliMojo {
 	 * The explicit name of a job to run. If name is provided, 'type' is ignored
 	 * 
 	 * @parameter expression="${jenkins.name}"
-	 * @required
 	 */
 	private String name;
 
