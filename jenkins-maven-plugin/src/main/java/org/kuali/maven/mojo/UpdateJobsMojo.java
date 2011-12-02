@@ -47,7 +47,6 @@ public class UpdateJobsMojo extends AbstractJobConfigMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setStopOnError(false);
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
 		List<MojoContext> contexts = helper.pushJobsToJenkins(this, tokens);
 		helper.handleResults(contexts);

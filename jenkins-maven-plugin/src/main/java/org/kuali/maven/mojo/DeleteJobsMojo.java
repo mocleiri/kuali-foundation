@@ -71,7 +71,6 @@ public class DeleteJobsMojo extends AbstractCliMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setStopOnError(false);
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
 		List<MojoContext> contexts = helper.deleteJobs(this, names, tokens);
 		List<Integer> ignoreCodeList = getIgnoreCodeList();

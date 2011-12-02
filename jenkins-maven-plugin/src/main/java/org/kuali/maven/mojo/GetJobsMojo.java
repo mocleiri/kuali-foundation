@@ -54,7 +54,6 @@ public class GetJobsMojo extends AbstractCliMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-		setStopOnError(false);
 		getLog().info("");
 		getLog().info("Working Dir - " + getWorkingDir().getAbsolutePath());
 		getLog().info("");
