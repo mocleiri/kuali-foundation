@@ -331,9 +331,7 @@ public class JenkinsHelper {
 			int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
 			antContext.setResult(result);
 			ResultContext resultContext = handleResult(context, result, outputFile);
-			if (resultContext.getReturnCode() == 0) {
-				mvnContext.getLog().info("Jenkins CLI Output:\n\n" + resultContext.getFileContents() + "\n");
-			}
+			mvnContext.getLog().info("Jenkins CLI Output:\n\n" + resultContext.getFileContents() + "\n");
 			context.setResultContext(resultContext);
 			return context;
 		} catch (IOException e) {
