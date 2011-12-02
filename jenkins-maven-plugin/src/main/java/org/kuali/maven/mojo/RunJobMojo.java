@@ -18,7 +18,7 @@ package org.kuali.maven.mojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Connect to a Jenkins server and schedule a job to run
+ * Connect to a Jenkins server and kick off a job
  * 
  * @goal runjob
  * @requiresDependencyResolution test
