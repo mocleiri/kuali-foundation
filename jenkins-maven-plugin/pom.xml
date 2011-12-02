@@ -37,6 +37,7 @@
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <properties>
     <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
+    <jenkins.cli.version>1.440</jenkins.cli.version>
   </properties>
   <developers>
     <developer>
