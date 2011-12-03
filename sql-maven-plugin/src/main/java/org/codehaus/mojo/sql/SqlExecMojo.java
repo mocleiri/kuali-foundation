@@ -110,7 +110,7 @@ public class SqlExecMojo extends AbstractMojo {
 	private String password;
 
 	/**
-	 * If enableAnonymousPassword is 'true', and the password they provide is
+	 * If enableAnonymousPassword is 'true', and the password provided is
 	 * blank or equals 'NONE' do not pass the password to the jdbc driver. This
 	 * is useful for databases like MySQL where the 'root' user is created by
 	 * default without a password. The jdbc driver succeeds if no password
