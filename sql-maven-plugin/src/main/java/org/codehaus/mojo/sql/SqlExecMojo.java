@@ -933,29 +933,9 @@ public class SqlExecMojo extends AbstractMojo {
 	private Connection getConnection() throws MojoExecutionException,
 			SQLException {
 		getLog().debug("connecting to " + getUrl());
-		Properties info = new Properties();
-		info.put("user", getUsername());
 
-		if (!enableAnonymousPassword) {
-			info.put("password", getPassword());
-		}
-
-		info.putAll(this.getDriverProperties());
-
-		Driver driverInstance = null;
-
-		try {
-			Class<?> dc = Class.forName(getDriver());
-			driverInstance = (Driver) dc.newInstance();
-		} catch (ClassNotFoundException e) {
-			throw new MojoExecutionException("Driver class not found: "
-					+ getDriver(), e);
-		} catch (Exception e) {
-			throw new MojoExecutionException("Failure loading driver: "
-					+ getDriver(), e);
-		}
-
-		Connection conn = driverInstance.connect(getUrl(), info);
+		Properties properties = getProperties();
+		Connection conn = getDriverInstance().connect(getUrl(), properties);
 
 		if (conn == null) {
 			// Driver doesn't understand the URL
@@ -964,6 +944,34 @@ public class SqlExecMojo extends AbstractMojo {
 
 		conn.setAutoCommit(autocommit);
 		return conn;
+	}
+	
+	protected boolean skipPassword() {
+		return enableAnonymousPassword  &&  StringUtils.isBlank(getPassword());
+	}
+
+	protected Properties getProperties() throws MojoExecutionException {
+		Properties properties = new Properties();
+		properties.put("user", getUsername());
+
+		if (!skipPassword()) {
+			properties.put("password", getPassword());
+		}
+		properties.putAll(this.getDriverProperties());
+		return properties;
+	}
+
+	protected Driver getDriverInstance() throws MojoExecutionException {
+		try {
+			Class<?> dc = Class.forName(getDriver());
+			return (Driver) dc.newInstance();
+		} catch (ClassNotFoundException e) {
+			throw new MojoExecutionException("Driver class not found: "
+					+ getDriver(), e);
+		} catch (Exception e) {
+			throw new MojoExecutionException("Failure loading driver: "
+					+ getDriver(), e);
+		}
 	}
 
 	/**
