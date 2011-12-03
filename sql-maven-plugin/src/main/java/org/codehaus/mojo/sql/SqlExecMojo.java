@@ -110,9 +110,12 @@ public class SqlExecMojo extends AbstractMojo {
 	private String password;
 
 	/**
-	 * Ignore the password and use anonymous access. This may be useful for
-	 * databases like MySQL which do not allow empty password parameters in the
-	 * connection initialization.
+	 * If enableAnonymousPassword is 'true', and the password they provide is
+	 * blank or equals 'NONE' do not pass the password to the jdbc driver. This
+	 * is useful for databases like MySQL where the 'root' user is created by
+	 * default without a password. The jdbc driver succeeds if no password
+	 * property is passed to it, but fails if a password property is
+	 * passed to it but equals NULL or the empty string.
 	 * 
 	 * @since 1.4
 	 * @parameter default-value="false"
