@@ -945,16 +945,20 @@ public class SqlExecMojo extends AbstractMojo {
 		conn.setAutoCommit(autocommit);
 		return conn;
 	}
-	
-	protected boolean skipPassword() {
-		return enableAnonymousPassword  &&  StringUtils.isBlank(getPassword());
+
+	protected boolean isBlankOrNone(String s) {
+		return StringUtils.isBlank(s) || "NONE".equals(s.trim());
+	}
+
+	protected boolean isSkipPassword() {
+		return enableAnonymousPassword && isBlankOrNone(getPassword());
 	}
 
 	protected Properties getProperties() throws MojoExecutionException {
 		Properties properties = new Properties();
 		properties.put("user", getUsername());
 
-		if (!skipPassword()) {
+		if (!isSkipPassword()) {
 			properties.put("password", getPassword());
 		}
 		properties.putAll(this.getDriverProperties());
