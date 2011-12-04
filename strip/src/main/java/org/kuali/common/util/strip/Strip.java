@@ -126,8 +126,7 @@ public class Strip {
 		}
 	}
 
-	public void strip(File workingDir, List<String> filenames)
-			throws IOException {
+	public void strip(File workingDir, List<String> filenames) throws IOException {
 		String path = workingDir.getCanonicalPath();
 		for (String filename : filenames) {
 			File file = new File(path + FS + filename);
