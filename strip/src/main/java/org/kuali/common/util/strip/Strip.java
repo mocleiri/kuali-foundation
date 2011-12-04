@@ -30,18 +30,77 @@ public class Strip {
 	public static final String LF = "\n";
 	public static final String CR = "\r";
 	public static final String CRLF = CR + LF;
+	File dir = new File(".");
 
 	/**
 	 * @param args
 	 */
-	public static synchronized void main(String[] args) {
+	public static void main(String[] args) {
 		new Strip().exec(args);
+	}
+
+	protected String getFilename(String[] args) {
+		if (isEmpty(args)) {
+			return null;
+		}
+		int length = args.length;
+		return args[length - 1];
+	}
+
+	protected boolean isEmpty(String[] args) {
+		return args == null || args.length == 0;
+	}
+
+	protected File getWorkingDir(String[] args) throws IOException {
+		if (isEmpty(args)) {
+			return this.dir;
+		}
+
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			if (!arg.equals("-d")) {
+				continue;
+			} else {
+				return getArgsDir(args, i);
+			}
+		}
+		return this.dir;
+	}
+
+	protected File getArgsDir(String[] args, int index) throws IOException {
+		if ((index + 1) >= args.length) {
+			String msg = "-d was provided without a directory";
+			throw new IllegalArgumentException(msg);
+		}
+		String argsDir = args[index + 1];
+		if (isDir(argsDir)) {
+			return new File(args[index + 1]);
+		} else {
+			throw new IOException(argsDir + " is not a directory");
+		}
+	}
+
+	protected boolean isDir(String dir) {
+		File file = new File(dir);
+		if (!file.exists()) {
+			return false;
+		}
+		return file.isDirectory();
+	}
+
+	protected void showUsage() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("strip [files]\n");
+		sb.append("strip -d [dir] [files]\n");
+		sb.append("strip -r -d [dir] [files]\n");
+		System.out.println(sb.toString());
 	}
 
 	public void exec(String[] args) {
 		try {
-			String filename = "." + FS + args[0];
-			File file = new File(filename);
+			File dir = getWorkingDir(args);
+			String filename = getFilename(args);
+			File file = new File(dir.getCanonicalPath() + FS + filename);
 			String s = read(file);
 			s = replace(s);
 			write(file, s);
