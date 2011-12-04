@@ -32,7 +32,8 @@ public class CRLF {
 	public static final String LF = "\n";
 	public static final String CR = "\r";
 	public static final String CRLF = CR + LF;
-	public static final boolean DEBUG = "true".equalsIgnoreCase(System.getProperty("crlf.debug"));
+	public static final String DEBUG_KEY = "crlf.debug";
+	public static final boolean DEBUG = Boolean.getBoolean(DEBUG_KEY);
 
 	/**
 	 * @param args
