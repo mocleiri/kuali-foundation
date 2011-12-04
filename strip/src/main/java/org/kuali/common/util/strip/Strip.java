@@ -108,9 +108,9 @@ public class Strip {
 	protected void showUsage() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\n");
-		sb.append("strip [filename (or pattern)]\n");
-		sb.append("strip -R [filename (or pattern)]\n");
-		sb.append("strip -R [filename (or pattern)]\n");
+		sb.append("strip [files]\n");
+		sb.append("strip -d [dir] [files]\n");
+		sb.append("strip -R -d [dir] [files]\n");
 		sb.append("\n");
 		System.out.print(sb.toString());
 	}
