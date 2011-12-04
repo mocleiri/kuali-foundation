@@ -27,7 +27,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
-public class Strip {
+public class CRLF {
 	public static final String FS = System.getProperty("file.separator");
 	public static final String LF = "\n";
 	public static final String CR = "\r";
@@ -37,7 +37,7 @@ public class Strip {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new Strip().exec(args);
+		new CRLF().exec(args);
 	}
 
 	protected boolean isEmpty(String[] args) {
