@@ -72,11 +72,11 @@ public class CRLF {
 
 	protected void handleFile(File file, List<File> files) {
 		if (file.isDirectory()) {
-			System.out.println("Skipped " + file.getAbsolutePath() + " - directory");
+			System.out.println("skipped " + file.getName() + " - directory");
 		} else if (!file.canRead()) {
-			System.out.println("Skipped " + file.getAbsolutePath() + " - can't read");
+			System.out.println("skipped " + file.getName() + " - can't read");
 		} else if (!file.canWrite()) {
-			System.out.println("Skipped " + file.getAbsolutePath() + " - can't write");
+			System.out.println("skipped " + file.getName() + " - can't write");
 		} else {
 			files.add(file);
 		}
