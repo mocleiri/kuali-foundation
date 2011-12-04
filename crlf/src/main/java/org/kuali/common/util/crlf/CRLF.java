@@ -70,17 +70,25 @@ public class CRLF {
 		}
 	}
 
+	protected void handleFile(File file, List<File> files) {
+		if (file.isDirectory()) {
+			System.out.println("Skipped " + file.getAbsolutePath() + " - directory");
+		} else if (!file.canRead()) {
+			System.out.println("Skipped " + file.getAbsolutePath() + " - can't read");
+		} else if (!file.canWrite()) {
+			System.out.println("Skipped " + file.getAbsolutePath() + " - can't write");
+		} else {
+			files.add(file);
+		}
+	}
+
 	protected List<File> getFiles(File dir, String[] args) throws IOException {
 		String path = dir.getCanonicalPath();
 		List<File> files = new ArrayList<File>();
 		for (String arg : args) {
 			String filename = path + FS + arg;
 			File file = new File(filename);
-			if (isSkip(file)) {
-				System.out.println("Skipped " + file.getCanonicalPath());
-			} else {
-				files.add(file);
-			}
+			handleFile(file, files);
 		}
 		return files;
 	}
@@ -95,18 +103,14 @@ public class CRLF {
 	protected void strip(List<File> files) throws IOException {
 		for (File file : files) {
 			String s = read(file);
-			if (isSkip(s)) {
-				System.out.println("Skipped " + file.getCanonicalPath());
+			if (s.indexOf(CR) == -1) {
+				System.out.println("Skipped " + file.getCanonicalPath() + " - no carriage returns");
 			} else {
 				s = replace(s);
 				write(file, s);
 				System.out.println("Updated " + file.getCanonicalPath());
 			}
 		}
-	}
-
-	protected boolean isSkip(String s) {
-		return s.indexOf(CR) == -1;
 	}
 
 	protected String read(File file) throws IOException {
