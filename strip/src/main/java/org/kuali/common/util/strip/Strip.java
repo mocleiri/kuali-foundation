@@ -33,6 +33,7 @@ public class Strip {
 	public static final String CR = "\r";
 	public static final String CRLF = CR + LF;
 	File dir = new File(".");
+	boolean verbose = false;
 
 	/**
 	 * @param args
@@ -42,8 +43,8 @@ public class Strip {
 	}
 
 	protected List<String> getFilenames(String[] args) {
-		int dirIndex = getDirIndex(args);
-		int filenamesIndex = dirIndex == -1 ? 0 : dirIndex + 2;
+		int lastArgIndex = getLastArgIndex(args);
+		int filenamesIndex = lastArgIndex == -1 ? 0 : lastArgIndex + 2;
 		if (filenamesIndex >= args.length) {
 			throw new IllegalArgumentException("no filenames were provided");
 		}
@@ -63,6 +64,17 @@ public class Strip {
 			}
 		}
 		return -1;
+	}
+
+	protected int getLastArgIndex(String[] args) {
+		int index = -1;
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			if (arg.startsWith("-")) {
+				index = i;
+			}
+		}
+		return index;
 	}
 
 	protected boolean isEmpty(String[] args) {
