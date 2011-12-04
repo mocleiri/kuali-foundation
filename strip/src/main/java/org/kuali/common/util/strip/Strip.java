@@ -42,9 +42,6 @@ public class Strip {
 	}
 
 	protected List<String> getFilenames(String[] args) {
-		if (isEmpty(args)) {
-			return null;
-		}
 		int dirIndex = getDirIndex(args);
 		int filenamesIndex = dirIndex == -1 ? 0 : dirIndex + 2;
 		if (filenamesIndex >= args.length) {
@@ -73,9 +70,6 @@ public class Strip {
 	}
 
 	protected File getWorkingDir(String[] args) throws IOException {
-		if (isEmpty(args)) {
-			return this.dir;
-		}
 		int index = getDirIndex(args);
 		if (index == -1) {
 			return this.dir;
@@ -109,8 +103,7 @@ public class Strip {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\n");
 		sb.append("strip [files]\n");
-		sb.append("strip -d [dir] [files]\n");
-		sb.append("strip -R -d [dir] [files]\n");
+		sb.append("strip -v [files]\n");
 		sb.append("\n");
 		System.out.print(sb.toString());
 	}
