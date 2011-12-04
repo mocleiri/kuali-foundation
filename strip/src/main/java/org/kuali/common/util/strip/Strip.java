@@ -131,9 +131,17 @@ public class Strip {
 		for (String filename : filenames) {
 			File file = new File(path + FS + filename);
 			String s = read(file);
+			if (isSkip(s)) {
+				System.out.println("Skipping " + file.getCanonicalPath());
+				continue;
+			}
 			s = replace(s);
 			write(file, s);
 		}
+	}
+
+	protected boolean isSkip(String s) {
+		return s.indexOf(CR) == -1;
 	}
 
 	protected String read(File file) throws IOException {
