@@ -32,8 +32,6 @@ public class Strip {
 	public static final String LF = "\n";
 	public static final String CR = "\r";
 	public static final String CRLF = CR + LF;
-	File dir = new File(".");
-	boolean verbose = false;
 
 	/**
 	 * @param args
@@ -42,74 +40,8 @@ public class Strip {
 		new Strip().exec(args);
 	}
 
-	protected List<String> getFilenames(String[] args) {
-		int lastArgIndex = getLastArgIndex(args);
-		int filenamesIndex = lastArgIndex == -1 ? 0 : lastArgIndex + 2;
-		if (filenamesIndex >= args.length) {
-			throw new IllegalArgumentException("no filenames were provided");
-		}
-		List<String> filenames = new ArrayList<String>();
-		for (int i = filenamesIndex; i < args.length; i++) {
-			String filename = args[i];
-			filenames.add(filename);
-		}
-		return filenames;
-	}
-
-	protected int getDirIndex(String[] args) {
-		for (int i = 0; i < args.length; i++) {
-			String arg = args[i];
-			if (arg.equals("-d")) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	protected boolean isVerbose(String[] args) {
-		for (String arg : args) {
-			if (arg.equals("-v")) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	protected int getLastArgIndex(String[] args) {
-		int index = -1;
-		for (int i = 0; i < args.length; i++) {
-			String arg = args[i];
-			if (arg.startsWith("-")) {
-				index = i;
-			}
-		}
-		return index;
-	}
-
 	protected boolean isEmpty(String[] args) {
 		return args == null || args.length == 0;
-	}
-
-	protected File getWorkingDir(String[] args) throws IOException {
-		int index = getDirIndex(args);
-		if (index == -1) {
-			return this.dir;
-		} else {
-			return getArgsDir(args, index);
-		}
-	}
-
-	protected File getArgsDir(String[] args, int index) {
-		if ((index + 1) >= args.length) {
-			String msg = "-d was provided without a directory";
-			throw new IllegalArgumentException(msg);
-		}
-		String argsDir = args[index + 1];
-		if (isDir(argsDir)) {
-			return new File(args[index + 1]);
-		} else {
-			throw new IllegalArgumentException(argsDir + " is not a directory");
-		}
 	}
 
 	protected boolean isDir(String dir) {
@@ -124,7 +56,6 @@ public class Strip {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\n");
 		sb.append("strip [files]\n");
-		sb.append("strip -v [files]\n");
 		sb.append("\n");
 		System.out.print(sb.toString());
 	}
@@ -134,41 +65,36 @@ public class Strip {
 			showUsage();
 			return;
 		}
-		for (String arg : args) {
-			System.out.println(arg);
-		}
-		this.verbose = isVerbose(args);
 		try {
-			File dir = getWorkingDir(args);
-			if (verbose) {
-				System.out.println("Working Dir: " + dir.getCanonicalPath());
-			}
-			List<String> filenames = getFilenames(args);
-			if (verbose) {
-				for (String filename : filenames) {
-					System.out.println(filename);
-				}
-			}
-			strip(dir, filenames);
-		} catch (IllegalArgumentException e) {
-			System.out.println("Error: " + e.getMessage());
-			showUsage();
+			File dir = new File(".");
+			List<File> files = getFiles(dir, args);
+			strip(files);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void strip(File workingDir, List<String> filenames) throws IOException {
-		String path = workingDir.getCanonicalPath();
-		for (String filename : filenames) {
-			File file = new File(path + FS + filename);
+	protected List<File> getFiles(File dir, String[] args) throws IOException {
+		String path = dir.getCanonicalPath();
+		List<File> files = new ArrayList<File>();
+		for (String arg : args) {
+			String filename = path + FS + arg;
+			File file = new File(filename);
+			files.add(file);
+		}
+		return files;
+	}
+
+	protected void strip(List<File> files) throws IOException {
+		for (File file : files) {
 			String s = read(file);
 			if (isSkip(s)) {
-				System.out.println("Skipping " + file.getCanonicalPath());
+				System.out.println("Skipped " + file.getCanonicalPath());
 				continue;
 			}
 			s = replace(s);
 			write(file, s);
+			System.out.println("Stripped " + file.getCanonicalPath());
 		}
 	}
 
