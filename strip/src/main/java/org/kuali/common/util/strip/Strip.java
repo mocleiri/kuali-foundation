@@ -134,6 +134,9 @@ public class Strip {
 			showUsage();
 			return;
 		}
+		for (String arg : args) {
+			System.out.println(arg);
+		}
 		this.verbose = isVerbose(args);
 		try {
 			File dir = getWorkingDir(args);
