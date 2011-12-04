@@ -42,22 +42,6 @@ public class CRLF {
 		new CRLF().exec(args);
 	}
 
-	protected boolean isEmpty(String[] args) {
-		return args == null || args.length == 0;
-	}
-
-	protected boolean isDir(String dir) {
-		File file = new File(dir);
-		if (!file.exists()) {
-			return false;
-		}
-		return file.isDirectory();
-	}
-
-	protected void showUsage() {
-		System.out.println("usage: crlf [files]");
-	}
-
 	public void exec(String[] args) {
 		if (isEmpty(args)) {
 			showUsage();
@@ -70,6 +54,14 @@ public class CRLF {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected boolean isEmpty(String[] args) {
+		return args == null || args.length == 0;
+	}
+
+	protected void showUsage() {
+		System.out.println("usage: crlf [files]");
 	}
 
 	protected void debug(String msg) {
