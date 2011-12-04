@@ -66,6 +66,15 @@ public class Strip {
 		return -1;
 	}
 
+	protected boolean isVerbose(String[] args) {
+		for (String arg : args) {
+			if (arg.equals("-v")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	protected int getLastArgIndex(String[] args) {
 		int index = -1;
 		for (int i = 0; i < args.length; i++) {
