@@ -72,7 +72,7 @@ public class CRLF {
 
 	protected void handleFile(File file, List<File> files) {
 		if (file.isDirectory()) {
-			System.out.println("skipped " + file.getName() + " - directory");
+			System.out.println("skipped " + file.getName() + " - dir");
 		} else if (!file.canRead()) {
 			System.out.println("skipped " + file.getName() + " - can't read");
 		} else if (!file.canWrite()) {
