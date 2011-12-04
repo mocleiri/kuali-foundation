@@ -53,7 +53,7 @@ public class CRLF {
 	}
 
 	protected void showUsage() {
-		System.out.println("usage: strip [files]");
+		System.out.println("usage: crlf [files]");
 	}
 
 	public void exec(String[] args) {
