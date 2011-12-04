@@ -96,11 +96,11 @@ public class Strip {
 			String s = read(file);
 			if (isSkip(s)) {
 				System.out.println("Skipped " + file.getCanonicalPath());
-				continue;
+			} else {
+				s = replace(s);
+				write(file, s);
+				System.out.println("Stripped " + file.getCanonicalPath());
 			}
-			s = replace(s);
-			write(file, s);
-			System.out.println("Stripped " + file.getCanonicalPath());
 		}
 	}
 
