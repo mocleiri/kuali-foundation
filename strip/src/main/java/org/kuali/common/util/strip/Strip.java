@@ -53,11 +53,7 @@ public class Strip {
 	}
 
 	protected void showUsage() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("\n");
-		sb.append("strip [files]\n");
-		sb.append("\n");
-		System.out.print(sb.toString());
+		System.out.print("usage: strip [files]");
 	}
 
 	public void exec(String[] args) {
