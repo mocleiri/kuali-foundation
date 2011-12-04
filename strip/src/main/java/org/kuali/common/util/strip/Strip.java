@@ -21,6 +21,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -39,12 +41,31 @@ public class Strip {
 		new Strip().exec(args);
 	}
 
-	protected String getFilename(String[] args) {
+	protected List<String> getFilenames(String[] args) {
 		if (isEmpty(args)) {
 			return null;
 		}
-		int length = args.length;
-		return args[length - 1];
+		int dirIndex = getDirIndex(args);
+		int filenamesIndex = dirIndex == -1 ? 0 : dirIndex + 2;
+		if (filenamesIndex >= args.length) {
+			throw new IllegalArgumentException("no filenames were provided");
+		}
+		List<String> filenames = new ArrayList<String>();
+		for (int i = filenamesIndex; i < args.length; i++) {
+			String filename = args[i];
+			filenames.add(filename);
+		}
+		return filenames;
+	}
+
+	protected int getDirIndex(String[] args) {
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			if (arg.equals("-d")) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	protected boolean isEmpty(String[] args) {
@@ -55,16 +76,12 @@ public class Strip {
 		if (isEmpty(args)) {
 			return this.dir;
 		}
-
-		for (int i = 0; i < args.length; i++) {
-			String arg = args[i];
-			if (!arg.equals("-d")) {
-				continue;
-			} else {
-				return getArgsDir(args, i);
-			}
+		int index = getDirIndex(args);
+		if (index == -1) {
+			return this.dir;
+		} else {
+			return getArgsDir(args, index);
 		}
-		return this.dir;
 	}
 
 	protected File getArgsDir(String[] args, int index) throws IOException {
@@ -90,22 +107,33 @@ public class Strip {
 
 	protected void showUsage() {
 		StringBuilder sb = new StringBuilder();
+		sb.append(" == Usage ==\n");
+		sb.append("\n");
 		sb.append("strip [files]\n");
 		sb.append("strip -d [dir] [files]\n");
-		sb.append("strip -R -d [dir] [files]\n");
+		sb.append("strip -d [dir] [files]\n");
+		sb.append("\n");
 		System.out.println(sb.toString());
 	}
 
 	public void exec(String[] args) {
 		try {
 			File dir = getWorkingDir(args);
-			String filename = getFilename(args);
-			File file = new File(dir.getCanonicalPath() + FS + filename);
+			List<String> filenames = getFilenames(args);
+			strip(dir, filenames);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void strip(File workingDir, List<String> filenames)
+			throws IOException {
+		String path = workingDir.getCanonicalPath();
+		for (String filename : filenames) {
+			File file = new File(path + FS + filename);
 			String s = read(file);
 			s = replace(s);
 			write(file, s);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
