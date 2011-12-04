@@ -53,7 +53,7 @@ public class Strip {
 	}
 
 	protected void showUsage() {
-		System.out.print("usage: strip [files]");
+		System.out.println("usage: strip [files]");
 	}
 
 	public void exec(String[] args) {
