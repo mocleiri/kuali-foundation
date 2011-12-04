@@ -16,15 +16,11 @@
 package org.kuali.common.util.crlf;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
 public class CRLF {
@@ -97,34 +93,14 @@ public class CRLF {
 
 	protected void replace(List<File> files) throws IOException {
 		for (File file : files) {
-			String s = read(file);
+			String s = FileUtils.readFileToString(file);
 			if (s.indexOf(CR) == -1) {
 				debug("skipped " + file.getName() + " - no cr's");
 			} else {
 				s = replace(s);
-				write(file, s);
+				FileUtils.write(file, s);
 				System.out.println("updated " + file.getName());
 			}
-		}
-	}
-
-	protected String read(File file) throws IOException {
-		InputStream in = null;
-		try {
-			in = new FileInputStream(file);
-			return IOUtils.toString(in);
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
-	}
-
-	protected void write(File file, String s) throws IOException {
-		OutputStream out = null;
-		try {
-			out = new FileOutputStream(file);
-			IOUtils.write(s.getBytes(), out);
-		} finally {
-			IOUtils.closeQuietly(out);
 		}
 	}
 
