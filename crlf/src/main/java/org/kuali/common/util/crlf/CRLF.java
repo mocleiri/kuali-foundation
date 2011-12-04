@@ -104,7 +104,7 @@ public class CRLF {
 		for (File file : files) {
 			String s = read(file);
 			if (s.indexOf(CR) == -1) {
-				System.out.println("Skipped " + file.getCanonicalPath() + " - no carriage returns");
+				System.out.println("Skipped " + file.getCanonicalPath() + " - no cr's");
 			} else {
 				s = replace(s);
 				write(file, s);
