@@ -1,4 +1,4 @@
-package org.kuali.common.util;
+package org.kuali.common.util.strip;
 
 public class Strip {
 
