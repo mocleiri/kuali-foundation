@@ -92,7 +92,7 @@ public class Strip {
 		StringBuilder sb = new StringBuilder();
 		sb.append("strip [files]\n");
 		sb.append("strip -d [dir] [files]\n");
-		sb.append("strip -r -d [dir] [files]\n");
+		sb.append("strip -R -d [dir] [files]\n");
 		System.out.println(sb.toString());
 	}
 
