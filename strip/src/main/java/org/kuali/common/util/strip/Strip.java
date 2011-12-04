@@ -5,7 +5,11 @@ public class Strip {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static synchronized void main(String[] args) {
+		new Strip().exec(args);
+	}
+	
+	public void exec(String[] args) {
 		try {
 			System.out.println("hello world");
 		} catch (Exception e) {
