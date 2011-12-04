@@ -84,7 +84,7 @@ public class Strip {
 		}
 	}
 
-	protected File getArgsDir(String[] args, int index) throws IOException {
+	protected File getArgsDir(String[] args, int index) {
 		if ((index + 1) >= args.length) {
 			String msg = "-d was provided without a directory";
 			throw new IllegalArgumentException(msg);
@@ -93,7 +93,7 @@ public class Strip {
 		if (isDir(argsDir)) {
 			return new File(args[index + 1]);
 		} else {
-			throw new IOException(argsDir + " is not a directory");
+			throw new IllegalArgumentException(argsDir + " is not a directory");
 		}
 	}
 
@@ -125,7 +125,7 @@ public class Strip {
 			List<String> filenames = getFilenames(args);
 			strip(dir, filenames);
 		} catch (IllegalArgumentException e) {
-			System.out.println(e.getMessage());
+			System.out.println("Error: " + e.getMessage());
 			showUsage();
 		} catch (Exception e) {
 			e.printStackTrace();
