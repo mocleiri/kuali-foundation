@@ -134,9 +134,18 @@ public class Strip {
 			showUsage();
 			return;
 		}
+		this.verbose = isVerbose(args);
 		try {
 			File dir = getWorkingDir(args);
+			if (verbose) {
+				System.out.println("Working Dir: " + dir.getCanonicalPath());
+			}
 			List<String> filenames = getFilenames(args);
+			if (verbose) {
+				for (String filename : filenames) {
+					System.out.println(filename);
+				}
+			}
 			strip(dir, filenames);
 		} catch (IllegalArgumentException e) {
 			System.out.println("Error: " + e.getMessage());
