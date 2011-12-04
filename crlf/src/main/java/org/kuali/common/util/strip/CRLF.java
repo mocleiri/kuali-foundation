@@ -76,7 +76,9 @@ public class CRLF {
 		for (String arg : args) {
 			String filename = path + FS + arg;
 			File file = new File(filename);
-			if (!isSkip(file)) {
+			if (isSkip(file)) {
+				System.out.println("Skipped " + file.getCanonicalPath());
+			} else {
 				files.add(file);
 			}
 		}
