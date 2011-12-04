@@ -50,7 +50,7 @@ public class CRLF {
 		try {
 			File dir = new File(".");
 			List<File> files = getFiles(dir, args);
-			strip(files);
+			replace(files);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,7 +95,7 @@ public class CRLF {
 		return files;
 	}
 
-	protected void strip(List<File> files) throws IOException {
+	protected void replace(List<File> files) throws IOException {
 		for (File file : files) {
 			String s = read(file);
 			if (s.indexOf(CR) == -1) {
