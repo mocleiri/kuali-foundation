@@ -42,10 +42,10 @@ public class Strip {
 		}
 	}
 
-	protected void write(File file, String contents) throws IOException {
+	protected void write(File file, String s) throws IOException {
 		OutputStream out = null;
 		try {
-			IOUtils.write(contents.getBytes(), out);
+			IOUtils.write(s.getBytes(), out);
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
