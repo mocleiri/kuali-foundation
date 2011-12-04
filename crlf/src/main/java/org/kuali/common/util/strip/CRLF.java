@@ -100,7 +100,7 @@ public class CRLF {
 			} else {
 				s = replace(s);
 				write(file, s);
-				System.out.println("Stripped " + file.getCanonicalPath());
+				System.out.println("Updated " + file.getCanonicalPath());
 			}
 		}
 	}
