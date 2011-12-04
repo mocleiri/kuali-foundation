@@ -32,7 +32,7 @@
     Replace carriage return + linefeed with linefeed.
     Replace carriage return with linefeed. 
   </description>
-  <url>http://${kuali.site.hostname}/commmon/util/${project.artifactId}/${project.version}/</url>
+  <url>http://${kuali.site.hostname}/common/util/${project.artifactId}/${project.version}</url>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/crlf</connection>
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/crlf</developerConnection>
