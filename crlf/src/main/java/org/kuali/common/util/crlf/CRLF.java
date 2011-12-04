@@ -93,22 +93,15 @@ public class CRLF {
 		return files;
 	}
 
-	/**
-	 * Skip if its a directory or a file we can't read or write
-	 */
-	protected boolean isSkip(File f) {
-		return f.isDirectory() || !f.canRead() || !f.canWrite();
-	}
-
 	protected void strip(List<File> files) throws IOException {
 		for (File file : files) {
 			String s = read(file);
 			if (s.indexOf(CR) == -1) {
-				System.out.println("Skipped " + file.getCanonicalPath() + " - no cr's");
+				System.out.println("skipped " + file.getName() + " - no cr's");
 			} else {
 				s = replace(s);
 				write(file, s);
-				System.out.println("Updated " + file.getCanonicalPath());
+				System.out.println("updated " + file.getName());
 			}
 		}
 	}
