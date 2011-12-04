@@ -117,10 +117,17 @@ public class Strip {
 	}
 
 	public void exec(String[] args) {
+		if (isEmpty(args)) {
+			showUsage();
+			return;
+		}
 		try {
 			File dir = getWorkingDir(args);
 			List<String> filenames = getFilenames(args);
 			strip(dir, filenames);
+		} catch (IllegalArgumentException e) {
+			showUsage();
+			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
