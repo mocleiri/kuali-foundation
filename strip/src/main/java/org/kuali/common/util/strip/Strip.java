@@ -112,7 +112,7 @@ public class Strip {
 		sb.append("strip -R [filename (or pattern)]\n");
 		sb.append("strip -R [filename (or pattern)]\n");
 		sb.append("\n");
-		System.out.println(sb.toString());
+		System.out.print(sb.toString());
 	}
 
 	public void exec(String[] args) {
