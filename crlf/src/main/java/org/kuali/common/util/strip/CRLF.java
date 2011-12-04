@@ -83,8 +83,11 @@ public class CRLF {
 		return files;
 	}
 
-	protected boolean isSkip(File file) {
-		return file.isDirectory();
+	/**
+	 * Skip if its a directory or a file we can't read or write
+	 */
+	protected boolean isSkip(File f) {
+		return f.isDirectory() || !f.canRead() || !f.canWrite();
 	}
 
 	protected void strip(List<File> files) throws IOException {
