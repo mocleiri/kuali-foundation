@@ -80,9 +80,15 @@ public class Strip {
 		for (String arg : args) {
 			String filename = path + FS + arg;
 			File file = new File(filename);
-			files.add(file);
+			if (!isSkip(file)) {
+				files.add(file);
+			}
 		}
 		return files;
+	}
+
+	protected boolean isSkip(File file) {
+		return file.isDirectory();
 	}
 
 	protected void strip(List<File> files) throws IOException {
