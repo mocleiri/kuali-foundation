@@ -125,8 +125,8 @@ public class Strip {
 			List<String> filenames = getFilenames(args);
 			strip(dir, filenames);
 		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
 			showUsage();
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
