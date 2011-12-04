@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 M2_REPO=~/.m2/repository
 GROUPID=org/kuali/common/util
 ARTIFACTID=crlf
