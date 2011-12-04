@@ -1,6 +1,8 @@
 package org.kuali.common.util.strip;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -36,6 +38,7 @@ public class Strip {
 	protected String read(File file) throws IOException {
 		InputStream in = null;
 		try {
+			in = new FileInputStream(file);
 			return IOUtils.toString(in);
 		} finally {
 			IOUtils.closeQuietly(in);
@@ -45,6 +48,7 @@ public class Strip {
 	protected void write(File file, String s) throws IOException {
 		OutputStream out = null;
 		try {
+			out = new FileOutputStream(file);
 			IOUtils.write(s.getBytes(), out);
 		} finally {
 			IOUtils.closeQuietly(out);
