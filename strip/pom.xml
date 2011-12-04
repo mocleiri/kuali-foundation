@@ -30,6 +30,9 @@
   <name>Strip</name>
   <description>Remove carriage returns from text files</description>
   <url>http://${kuali.site.hostname}/commmon/util/${project.artifactId}/${project.version}</url>
+  <properties>
+    <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
+  </properties>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip</connection>
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip</developerConnection>
@@ -71,6 +74,21 @@
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${kuali.slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${kuali.slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${kuali.slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
