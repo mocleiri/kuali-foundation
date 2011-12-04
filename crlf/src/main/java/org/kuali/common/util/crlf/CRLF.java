@@ -71,9 +71,17 @@ public class CRLF {
 		}
 	}
 
+	protected void debug(String msg) {
+		if (!DEBUG) {
+			return;
+		} else {
+			System.out.println(msg);
+		}
+	}
+
 	protected void handleFile(File file, List<File> files) {
 		if (file.isDirectory()) {
-			System.out.println("skipped " + file.getName() + " - dir");
+			debug("skipped " + file.getName() + " - dir");
 		} else if (!file.canRead()) {
 			System.out.println("skipped " + file.getName() + " - can't read");
 		} else if (!file.canWrite()) {
@@ -98,7 +106,7 @@ public class CRLF {
 		for (File file : files) {
 			String s = read(file);
 			if (s.indexOf(CR) == -1) {
-				System.out.println("skipped " + file.getName() + " - no cr's");
+				debug("skipped " + file.getName() + " - no cr's");
 			} else {
 				s = replace(s);
 				write(file, s);
