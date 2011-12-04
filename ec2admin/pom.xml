@@ -110,6 +110,7 @@
       <groupId>org.kuali.common.util</groupId>
       <artifactId>crlf</artifactId>
       <version>1.0.0</version>
+      <classifier>jar-with-dependencies</classifier>
     </dependency>
   </dependencies>
   <profiles>
