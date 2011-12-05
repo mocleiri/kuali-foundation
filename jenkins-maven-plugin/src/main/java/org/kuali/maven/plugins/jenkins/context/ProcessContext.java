@@ -1,28 +1,8 @@
 package org.kuali.maven.plugins.jenkins.context;
 
-import java.util.List;
-
 public class ProcessContext {
-    String binary;
-    List<String> args;
+    String[] args;
     String input;
-    String output;
-
-    public String getBinary() {
-        return binary;
-    }
-
-    public void setBinary(String binary) {
-        this.binary = binary;
-    }
-
-    public List<String> getArgs() {
-        return args;
-    }
-
-    public void setArgs(List<String> args) {
-        this.args = args;
-    }
 
     public String getInput() {
         return input;
@@ -32,12 +12,12 @@ public class ProcessContext {
         this.input = input;
     }
 
-    public String getOutput() {
-        return output;
+    public String[] getArgs() {
+        return args;
     }
 
-    public void setOutput(String output) {
-        this.output = output;
+    public void setArgs(String[] args) {
+        this.args = args;
     }
 
 }
