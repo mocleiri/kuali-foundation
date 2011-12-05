@@ -1,4 +1,4 @@
-package org.kuali.maven.plugins.jenkins;
+package org.kuali.maven.plugins.jenkins.helper;
 
 import org.junit.Assert;
 import org.junit.Test;
