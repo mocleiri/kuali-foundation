@@ -7,10 +7,6 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
 
-/**
- * Locate the full path to the java executable being used by the currently running JVM or just return "java" if unable
- * to locate it
- */
 public class JavaHelper {
     ProcessHelper helper = new ProcessHelper();
 
@@ -32,14 +28,10 @@ public class JavaHelper {
         return helper.execute(executable, jarArgs, input);
     }
 
-    protected String[] getExecuteJarArgs(File jar, String... args) {
-        List<String> list = new ArrayList<String>();
-        list.add(EXECUTE_JAR_ARG);
-        list.add(jar.getAbsolutePath());
-        Helper.addToList(list, args);
-        return list.toArray(new String[list.size()]);
-    }
-
+    /**
+     * Locate the full path to the java executable being used by the currently running JVM or just return "java" if
+     * unable to locate it
+     */
     public String getExecutable() {
         return getExecutable(EXECUTABLES, EXTENSIONS);
     }
@@ -52,6 +44,14 @@ public class JavaHelper {
             }
         }
         return JAVA;
+    }
+
+    protected String[] getExecuteJarArgs(File jar, String... args) {
+        List<String> list = new ArrayList<String>();
+        list.add(EXECUTE_JAR_ARG);
+        list.add(jar.getAbsolutePath());
+        Helper.addToList(list, args);
+        return list.toArray(new String[list.size()]);
     }
 
     protected boolean isUsable(String path) {
