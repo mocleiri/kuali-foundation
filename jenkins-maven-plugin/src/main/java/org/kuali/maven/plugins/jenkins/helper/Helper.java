@@ -8,7 +8,7 @@ public class Helper {
         return args == null || args.length == 0;
     }
 
-    public static final void addArgs(List<String> list, String... args) {
+    public static final void addToList(List<String> list, String... args) {
         if (isEmpty(args)) {
             return;
         }

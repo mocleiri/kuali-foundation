@@ -32,17 +32,8 @@ public class JavaHelper {
         List<String> list = new ArrayList<String>();
         list.add(EXECUTE_JAR_ARG);
         list.add(jar.getAbsolutePath());
-        addArgs(list, args);
+        Helper.addToList(list, args);
         return list.toArray(new String[list.size()]);
-    }
-
-    protected void addArgs(List<String> list, String... args) {
-        if (args == null || args.length == 0) {
-            return;
-        }
-        for (String arg : args) {
-            list.add(arg);
-        }
     }
 
     public String getExecutable() {

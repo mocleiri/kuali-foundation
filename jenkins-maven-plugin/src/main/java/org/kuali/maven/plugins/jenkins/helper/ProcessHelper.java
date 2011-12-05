@@ -61,21 +61,8 @@ public class ProcessHelper {
     protected String[] getProcessBuilderCommand(String executable, String... args) {
         List<String> command = new ArrayList<String>();
         command.add(executable);
-        addArray(command, args);
+        Helper.addToList(command, args);
         return command.toArray(new String[command.size()]);
-    }
-
-    protected void addArray(List<String> list, String... args) {
-        if (isEmpty(args)) {
-            return;
-        }
-        for (String arg : args) {
-            list.add(arg);
-        }
-    }
-
-    protected boolean isEmpty(String... args) {
-        return args == null || args.length == 0;
     }
 
     protected List<String> getOutputLines(String s) throws IOException {
