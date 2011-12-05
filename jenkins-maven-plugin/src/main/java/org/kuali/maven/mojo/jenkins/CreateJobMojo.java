@@ -13,21 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.mojo;
-
-import java.util.List;
+package org.kuali.maven.mojo.jenkins;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.kuali.maven.common.PropertiesUtils;
-import org.kuali.maven.mojo.context.MojoContext;
 
 /**
- * Connect to a Jenkins server and create one or more Jenkins jobs
+ * Connect to a Jenkins server and create a Jenkins job
  * 
- * @goal createjobs
+ * @goal createjob
  * @requiresDependencyResolution test
  */
-public class CreateJobsMojo extends AbstractJobConfigMojo {
+public class CreateJobMojo extends AbstractJobConfigMojo {
 
 	/**
 	 * The command issued to Jenkins CLI
@@ -38,35 +34,32 @@ public class CreateJobsMojo extends AbstractJobConfigMojo {
 	private String cmd;
 
 	/**
-	 * Comma delimited list of types of jobs to create. Maven GAV info is combined with 'type' to derive the complete job name eg
-	 * 'jenkins-maven-plugin-1.0-publish'
+	 * The type of job to create. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
 	 * 
-	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
+	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 * @required
 	 */
-	private String types;
+	private String type;
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-		List<MojoContext> contexts = helper.pushJobsToJenkins(this, tokens);
-		helper.handleResults(contexts);
+		helper.pushJobToJenkins(this, type);
 	}
 
-	public void setCmd(String cmd) {
-		this.cmd = cmd;
+	public String getType() {
+		return type;
 	}
 
-	public String getTypes() {
-		return types;
-	}
-
-	public void setTypes(String types) {
-		this.types = types;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getCmd() {
 		return cmd;
+	}
+
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
 	}
 
 }

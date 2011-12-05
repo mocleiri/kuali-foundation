@@ -13,29 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.mojo;
+package org.kuali.maven.mojo.jenkins;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Connect to a Jenkins server and execute a Jenkins CLI command
+ * Connect to a Jenkins server and kick off a job
  * 
- * @goal cli
+ * @goal runjob
  * @requiresDependencyResolution test
  */
-public class CliMojo extends AbstractCliMojo {
+public class RunJobMojo extends AbstractCliMojo {
 
 	/**
-	 * The command issued to Jenkins CLI eg "help", "version", "who-ami-i" etc
+	 * The command issued to Jenkins CLI
 	 * 
-	 * @parameter expression="${jenkins.cmd}" default-value="version"
+	 * @parameter expression="${jenkins.cmd}" default-value="build"
 	 * @required
 	 */
 	private String cmd;
 
+	/**
+	 * The type of job to run. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
+	 * 
+	 * @parameter expression="${jenkins.type}" default-value="publish"
+	 * @required
+	 */
+	private String type;
+
+	/**
+	 * The explicit name of a job to run. If name is provided, 'type' is ignored
+	 * 
+	 * @parameter expression="${jenkins.name}"
+	 */
+	private String name;
+
 	@Override
 	public void execute() throws MojoExecutionException {
-		helper.executeCliCommand(this);
+		helper.executeCliJobCommand(this, name, type);
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getCmd() {
@@ -44,6 +67,14 @@ public class CliMojo extends AbstractCliMojo {
 
 	public void setCmd(String cmd) {
 		this.cmd = cmd;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.mojo;
+package org.kuali.maven.mojo.jenkins;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Connect to a Jenkins server and kick off a job
+ * Connect to a Jenkins server and delete a job
  * 
- * @goal runjob
+ * @goal deletejob
  * @requiresDependencyResolution test
  */
-public class RunJobMojo extends AbstractCliMojo {
+public class DeleteJobMojo extends AbstractCliMojo {
 
 	/**
 	 * The command issued to Jenkins CLI
 	 * 
-	 * @parameter expression="${jenkins.cmd}" default-value="build"
+	 * @parameter expression="${jenkins.cmd}" default-value="delete-job"
 	 * @required
 	 */
 	private String cmd;
 
 	/**
-	 * The type of job to run. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
+	 * The type of job to delete. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
 	 * 
 	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 * @required
@@ -42,7 +42,7 @@ public class RunJobMojo extends AbstractCliMojo {
 	private String type;
 
 	/**
-	 * The explicit name of a job to run. If name is provided, 'type' is ignored
+	 * The name of the job to delete. If name is provided, 'type' is ignored
 	 * 
 	 * @parameter expression="${jenkins.name}"
 	 */

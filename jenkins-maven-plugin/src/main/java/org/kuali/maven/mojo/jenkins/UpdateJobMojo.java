@@ -13,21 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.mojo;
-
-import java.util.List;
+package org.kuali.maven.mojo.jenkins;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.kuali.maven.common.PropertiesUtils;
-import org.kuali.maven.mojo.context.MojoContext;
 
 /**
- * Connect to a Jenkins server and update the configuration for one or more existing jobs
+ * Connect to a Jenkins server and update the configuration for an existing job
  * 
- * @goal updatejobs
+ * @goal updatejob
  * @requiresDependencyResolution test
  */
-public class UpdateJobsMojo extends AbstractJobConfigMojo {
+public class UpdateJobMojo extends AbstractJobConfigMojo {
 
 	/**
 	 * The command issued to Jenkins CLI
@@ -38,19 +34,24 @@ public class UpdateJobsMojo extends AbstractJobConfigMojo {
 	private String cmd;
 
 	/**
-	 * Comma delimited list of types of jobs to update. Maven GAV info is combined with 'type' to derive the complete job name eg
-	 * 'jenkins-maven-plugin-1.0-publish'
+	 * The type of job to update. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
 	 * 
-	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
+	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 * @required
 	 */
-	private String types;
+	private String type;
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-		List<MojoContext> contexts = helper.pushJobsToJenkins(this, tokens);
-		helper.handleResults(contexts);
+		helper.pushJobToJenkins(this, type);
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getCmd() {
@@ -59,14 +60,6 @@ public class UpdateJobsMojo extends AbstractJobConfigMojo {
 
 	public void setCmd(String cmd) {
 		this.cmd = cmd;
-	}
-
-	public String getTypes() {
-		return types;
-	}
-
-	public void setTypes(String types) {
-		this.types = types;
 	}
 
 }

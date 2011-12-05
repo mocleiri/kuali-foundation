@@ -13,36 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.mojo;
+package org.kuali.maven.mojo.jenkins;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Generate an XML config file for a Jenkins job to the local file system.
- * 
- * @goal genjob
+ * Connect to a Jenkins server and execute a Jenkins CLI command
+ *
+ * @goal cli
+ * @requiresDependencyResolution test
  */
-public class GenJobMojo extends AbstractGenerateMojo {
+public class CliMojo extends AbstractCliMojo {
 
-	/**
-	 * The type of job to generate. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
-	 * 
-	 * @parameter expression="${jenkins.type}" default-value="publish"
-	 * @required
-	 */
-	private String type;
+    /**
+     * The command issued to Jenkins CLI eg "help", "version", "who-ami-i" etc
+     *
+     * @parameter expression="${jenkins.cmd}" default-value="version"
+     * @required
+     */
+    private String cmd;
 
-	@Override
-	public void execute() throws MojoExecutionException {
-		helper.generate(this, type);
-	}
+    @Override
+    public void execute() throws MojoExecutionException {
+        new Env().write();
+        helper.executeCliCommand(this);
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getCmd() {
+        return cmd;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
+    }
 
 }

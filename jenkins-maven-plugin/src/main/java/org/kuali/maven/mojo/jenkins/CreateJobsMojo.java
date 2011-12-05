@@ -13,68 +13,60 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.mojo;
+package org.kuali.maven.mojo.jenkins;
+
+import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.kuali.maven.common.PropertiesUtils;
+import org.kuali.maven.mojo.jenkins.context.MojoContext;
 
 /**
- * Connect to a Jenkins server and delete a job
+ * Connect to a Jenkins server and create one or more Jenkins jobs
  * 
- * @goal deletejob
+ * @goal createjobs
  * @requiresDependencyResolution test
  */
-public class DeleteJobMojo extends AbstractCliMojo {
+public class CreateJobsMojo extends AbstractJobConfigMojo {
 
 	/**
 	 * The command issued to Jenkins CLI
 	 * 
-	 * @parameter expression="${jenkins.cmd}" default-value="delete-job"
+	 * @parameter expression="${jenkins.cmd}" default-value="create-job"
 	 * @required
 	 */
 	private String cmd;
 
 	/**
-	 * The type of job to delete. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
+	 * Comma delimited list of types of jobs to create. Maven GAV info is combined with 'type' to derive the complete job name eg
+	 * 'jenkins-maven-plugin-1.0-publish'
 	 * 
-	 * @parameter expression="${jenkins.type}" default-value="publish"
+	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
 	 * @required
 	 */
-	private String type;
-
-	/**
-	 * The name of the job to delete. If name is provided, 'type' is ignored
-	 * 
-	 * @parameter expression="${jenkins.name}"
-	 */
-	private String name;
+	private String types;
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		helper.executeCliJobCommand(this, name, type);
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getCmd() {
-		return cmd;
+		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
+		List<MojoContext> contexts = helper.pushJobsToJenkins(this, tokens);
+		helper.handleResults(contexts);
 	}
 
 	public void setCmd(String cmd) {
 		this.cmd = cmd;
 	}
 
-	public String getName() {
-		return name;
+	public String getTypes() {
+		return types;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTypes(String types) {
+		this.types = types;
+	}
+
+	public String getCmd() {
+		return cmd;
 	}
 
 }

@@ -13,28 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.mojo;
+package org.kuali.maven.mojo.jenkins;
 
+import org.apache.maven.plugin.MojoExecutionException;
 
 /**
+ * Generate an XML config file for a Jenkins job to the local file system.
  * 
+ * @goal genjob
  */
-public abstract class AbstractGenerateMojo extends BaseMojo {
+public class GenJobMojo extends AbstractGenerateMojo {
 
 	/**
-	 * The location of the jenkins job config template
+	 * The type of job to generate. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
 	 * 
-	 * @parameter expression="${jenkins.template}" default-value="classpath:org/kuali/jenkins/jobs/template.xml"
+	 * @parameter expression="${jenkins.type}" default-value="publish"
 	 * @required
 	 */
-	private String template;
+	private String type;
 
-	public String getTemplate() {
-		return template;
+	@Override
+	public void execute() throws MojoExecutionException {
+		helper.generate(this, type);
 	}
 
-	public void setTemplate(String template) {
-		this.template = template;
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

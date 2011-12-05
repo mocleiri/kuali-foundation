@@ -13,27 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.mojo;
+package org.kuali.maven.mojo.jenkins;
+
+import org.kuali.maven.mojo.BaseMojo;
+
 
 /**
  * 
  */
-public abstract class AbstractCliMojo extends BaseMojo {
+public abstract class AbstractGenerateMojo extends BaseMojo {
 
 	/**
-	 * The classname for Jenkins CLI
+	 * The location of the jenkins job config template
 	 * 
-	 * @parameter expression="${jenkins.classname}" default-value="hudson.cli.CLI"
+	 * @parameter expression="${jenkins.template}" default-value="classpath:org/kuali/jenkins/jobs/template.xml"
 	 * @required
 	 */
-	private String classname;
+	private String template;
 
-	public String getClassname() {
-		return classname;
+	public String getTemplate() {
+		return template;
 	}
 
-	public void setClassname(String classname) {
-		this.classname = classname;
+	public void setTemplate(String template) {
+		this.template = template;
 	}
 
 }
