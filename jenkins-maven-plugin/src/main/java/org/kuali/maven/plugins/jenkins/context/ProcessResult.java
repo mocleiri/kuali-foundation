@@ -3,10 +3,21 @@ package org.kuali.maven.plugins.jenkins.context;
 import java.util.List;
 
 public class ProcessResult {
+    ProcessContext context;
     int exitValue;
-    String input;
-    List<String> output;
+    List<String> outputLines;
+    String output;
     long elapsed;
+    long start;
+    long stop;
+
+    public ProcessContext getContext() {
+        return context;
+    }
+
+    public void setContext(ProcessContext context) {
+        this.context = context;
+    }
 
     public int getExitValue() {
         return exitValue;
@@ -16,27 +27,19 @@ public class ProcessResult {
         this.exitValue = exitValue;
     }
 
-    public String getInput() {
-        return input;
+    public List<String> getOutputLines() {
+        return outputLines;
     }
 
-    public void setInput(String input) {
-        this.input = input;
+    public void setOutputLines(List<String> outputLines) {
+        this.outputLines = outputLines;
     }
 
-    public long getMillis() {
-        return elapsed;
-    }
-
-    public void setMillis(long millis) {
-        this.elapsed = millis;
-    }
-
-    public List<String> getOutput() {
+    public String getOutput() {
         return output;
     }
 
-    public void setOutput(List<String> output) {
+    public void setOutput(String output) {
         this.output = output;
     }
 
@@ -46,6 +49,22 @@ public class ProcessResult {
 
     public void setElapsed(long elapsed) {
         this.elapsed = elapsed;
+    }
+
+    public long getStart() {
+        return start;
+    }
+
+    public void setStart(long start) {
+        this.start = start;
+    }
+
+    public long getStop() {
+        return stop;
+    }
+
+    public void setStop(long stop) {
+        this.stop = stop;
     }
 
 }
