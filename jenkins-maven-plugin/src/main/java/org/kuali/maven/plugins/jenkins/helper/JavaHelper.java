@@ -16,9 +16,9 @@ public class JavaHelper {
 
     public static final String FS = System.getProperty("file.separator");
     public static final String JAVA_HOME_KEY = "java.home";
+    public static final String BIN = "bin";
     public static final String JAVA = "java";
     public static final String[] EXECUTABLES = { JAVA, "javaw" };
-    public static final String BIN = "bin";
     public static final String[] EXTENSIONS = { "", ".exe" };
     public static final String EXECUTE_JAR_ARG = "-jar";
 
