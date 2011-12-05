@@ -15,23 +15,34 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
+import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Connect to a Jenkins server and execute a Jenkins CLI command
+ * Connect to a Jenkins server and execute one or more Jenkins CLI commands
  *
  * @goal cli
  * @requiresDependencyResolution test
  */
-public class CliMojo extends AbstractCliMojo {
+public class CliMojo extends BaseMojo {
 
     /**
-     * The command issued to Jenkins CLI eg "help", "version", "who-ami-i" etc
+     * The command to issue to Jenkins CLI eg "help", "version", "who-ami-i" etc
      *
      * @parameter expression="${jenkins.cmd}" default-value="version"
      * @required
      */
     private String cmd;
+
+    /**
+     * List of commands to issue to Jenkins CLI eg "help", "version", "who-ami-i" etc
+     *
+     * If 'cmds' is provided 'cmd' is ignored
+     *
+     * @parameter expression="${jenkins.cmds}"
+     */
+    private List<String> cmds;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -44,6 +55,14 @@ public class CliMojo extends AbstractCliMojo {
 
     public void setCmd(String cmd) {
         this.cmd = cmd;
+    }
+
+    public List<String> getCmds() {
+        return cmds;
+    }
+
+    public void setCmds(List<String> cmds) {
+        this.cmds = cmds;
     }
 
 }

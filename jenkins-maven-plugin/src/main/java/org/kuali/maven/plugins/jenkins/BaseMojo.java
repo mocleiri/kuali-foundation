@@ -24,100 +24,118 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.maven.plugins.jenkins.helper.JenkinsHelper;
 
 /**
- * 
+ *
  */
 public abstract class BaseMojo extends AbstractMojo {
-	public static final String FS = System.getProperty("file.separator");
-	JenkinsHelper helper = new JenkinsHelper();
+    public static final String FS = System.getProperty("file.separator");
+    JenkinsHelper helper = new JenkinsHelper();
 
-	/**
-	 * The Maven project object
-	 * 
-	 * @parameter expression="${project}"
-	 * @readonly
-	 */
-	private MavenProject project;
+    /**
+     * The Maven project object
+     *
+     * @parameter expression="${project}"
+     * @readonly
+     */
+    private MavenProject project;
 
-	/**
-	 * The plugin dependencies.
-	 * 
-	 * @parameter expression="${plugin.artifacts}"
-	 * @required
-	 * @readonly
-	 */
-	private List<Artifact> pluginArtifacts;
+    /**
+     * The plugin dependencies.
+     *
+     * @parameter expression="${plugin.artifacts}"
+     * @required
+     * @readonly
+     */
+    private List<Artifact> pluginArtifacts;
 
-	/**
-	 * The Jenkins instance to connect to.
-	 * 
-	 * @parameter expression="${jenkins.url}" default-value="${project.ciManagement.url}"
-	 * @required
-	 */
-	private String url;
+    /**
+     * The Jenkins instance to connect to.
+     *
+     * @parameter expression="${jenkins.url}" default-value="${project.ciManagement.url}"
+     * @required
+     */
+    private String url;
 
-	/**
-	 * The format for timestamp displays
-	 * 
-	 * @parameter expression="${jenkins.timestampFormat}" default-value="yyyy-MM-dd HH:mm:ss z"
-	 * @required
-	 */
-	private String timestampFormat;
+    /**
+     * The format for timestamp displays
+     *
+     * @parameter expression="${jenkins.timestampFormat}" default-value="yyyy-MM-dd HH:mm:ss z"
+     * @required
+     */
+    private String timestampFormat;
 
-	/**
-	 * The working directory for the plugin
-	 * 
-	 * @parameter expression="${jenkins.workingDir}" default-value="${project.build.directory}/jenkins"
-	 * @required
-	 */
-	private File workingDir;
+    /**
+     * The working directory for the plugin
+     *
+     * @parameter expression="${jenkins.workingDir}" default-value="${project.build.directory}/jenkins"
+     * @required
+     */
+    private File workingDir;
 
-	/**
-	 * If set to true, the build will fail the first time it encounters an issue. When false, mojo's that issue multiple requests, will proceed through
-	 * their list of requests and then fail at the end if an issue was encountered along the way.
-	 * 
-	 * @parameter expression="${jenkins.stopOnError}" default-value="false"
-	 * @required
-	 */
-	private boolean stopOnError;
+    /**
+     * If set to true, the build will fail the first time Jenkins CLI encounters an issue. When false, mojo's that issue
+     * multiple CLI requests, will proceed through their list of requests and then fail at the end if an issue was
+     * encountered along the way.
+     *
+     * @parameter expression="${jenkins.stopOnError}" default-value="false"
+     * @required
+     */
+    private boolean stopOnError;
 
-	public MavenProject getProject() {
-		return project;
-	}
+    /**
+     * If set to true, the Maven build will fail if Jenkins CLI returns a non-zero exit value, otherwise the Maven build
+     * will continue
+     *
+     * @parameter expression="${jenkins.failOnError}" default-value="true"
+     * @required
+     */
+    private boolean failOnError;
 
-	public List<Artifact> getPluginArtifacts() {
-		return pluginArtifacts;
-	}
+    public MavenProject getProject() {
+        return project;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public List<Artifact> getPluginArtifacts() {
+        return pluginArtifacts;
+    }
 
-	public void setUrl(String server) {
-		this.url = server;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public String getTimestampFormat() {
-		return timestampFormat;
-	}
+    public void setUrl(String server) {
+        this.url = server;
+    }
 
-	public void setTimestampFormat(String timestampFormat) {
-		this.timestampFormat = timestampFormat;
-	}
+    public String getTimestampFormat() {
+        return timestampFormat;
+    }
 
-	public File getWorkingDir() {
-		return workingDir;
-	}
+    public void setTimestampFormat(String timestampFormat) {
+        this.timestampFormat = timestampFormat;
+    }
 
-	public void setWorkingDir(File workingDir) {
-		this.workingDir = workingDir;
-	}
+    public File getWorkingDir() {
+        return workingDir;
+    }
 
-	public boolean isStopOnError() {
-		return stopOnError;
-	}
+    public void setWorkingDir(File workingDir) {
+        this.workingDir = workingDir;
+    }
 
-	public void setStopOnError(boolean stopOnError) {
-		this.stopOnError = stopOnError;
-	}
+    public boolean isStopOnError() {
+        return stopOnError;
+    }
+
+    public void setStopOnError(boolean stopOnError) {
+        this.stopOnError = stopOnError;
+    }
+
+    public boolean isFailOnError() {
+        return failOnError;
+    }
+
+    public void setFailOnError(boolean failOnError) {
+        this.failOnError = failOnError;
+    }
 
 }

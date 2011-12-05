@@ -47,12 +47,15 @@ import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
+import org.kuali.maven.plugins.jenkins.BaseMojo;
+import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.context.AntContext;
 import org.kuali.maven.plugins.jenkins.context.CliContext;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.JobContext;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.context.MojoContext;
+import org.kuali.maven.plugins.jenkins.context.ProcessException;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
 import org.kuali.maven.plugins.jenkins.context.ResultContext;
 import org.slf4j.Logger;
@@ -68,6 +71,7 @@ public class JenkinsHelper {
     PropertiesUtils propertiesUtils = new PropertiesUtils();
     ResourceUtils resourceUtils = new ResourceUtils();
     AntMavenUtils antMvnUtils = new AntMavenUtils();
+    JavaHelper javaHelper = new JavaHelper();
 
     protected <T> T getContext(Class<T> type, Mojo mojo) {
         try {
@@ -247,7 +251,7 @@ public class JenkinsHelper {
         String groupId = properties.getProperty("jenkins.cli.groupId");
         String artifactId = properties.getProperty("jenkins.cli.artifactId");
         String version = properties.getProperty("jenkins.cli.version");
-        if (anyAreBlank(groupId, artifactId, version)) {
+        if (Helper.anyAreBlank(groupId, artifactId, version)) {
             return null;
         }
         GAV gav = new GAV();
@@ -265,23 +269,11 @@ public class JenkinsHelper {
         return gav;
     }
 
-    /**
-     * Return true if any of the args passed in are blank
-     */
-    protected boolean anyAreBlank(String... args) {
-        for (String arg : args) {
-            if (StringUtils.isBlank(arg)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    protected GAV getGav(MavenContext context) throws IOException {
+    protected GAV getGav(MavenProject project) throws IOException {
         String location = "classpath:org/kuali/maven/plugins/jenkins/jenkins-cli.properties";
         Properties internal = propertiesUtils.getProperties(location);
         GAV internalGAV = getGav(internal);
-        GAV overrideGAV = getGav(context.getProject().getProperties());
+        GAV overrideGAV = getGav(project.getProperties());
 
         GAV gav = internalGAV;
         if (overrideGAV != null && !internalGAV.equals(overrideGAV)) {
@@ -292,11 +284,9 @@ public class JenkinsHelper {
 
     }
 
-    protected File getJenkinsJar(MavenContext context) throws IOException {
-        GAV gav = getGav(context);
-
-        List<Artifact> artifacts = context.getPluginArtifacts();
-        for (Iterator<Artifact> itr = artifacts.iterator(); itr.hasNext();) {
+    public File getJenkinsJar(MavenProject project, List<Artifact> pluginArtifacts) throws IOException {
+        GAV gav = getGav(project);
+        for (Iterator<Artifact> itr = pluginArtifacts.iterator(); itr.hasNext();) {
             Artifact artifact = itr.next();
             if (equals(artifact, gav)) {
                 return artifact.getFile();
@@ -452,22 +442,83 @@ public class JenkinsHelper {
         return contexts;
     }
 
-    public void executeCli(Mojo mojo) throws MojoExecutionException {
+    public ProcessResult executeCli(File jar, String url, String cmd) {
+        String[] args = getJenkinsCliArgs(url, cmd);
+        return javaHelper.executeJar(jar, args);
+    }
+
+    protected String[] getJenkinsCliArgs(String url, String cmd) {
+        List<String> list = new ArrayList<String>();
+        list.add("-s");
+        list.add(url);
+        String[] cmdTokens = PropertiesUtils.splitAndTrim(cmd, " ");
+        Helper.addToList(list, cmdTokens);
+        return list.toArray(new String[list.size()]);
+    }
+
+    protected void handleResult(BaseMojo mojo, ProcessResult result) {
+        handleResult(mojo, result, 0);
+    }
+
+    protected boolean isSuccess(int exitValue, int... successValues) {
+        for (int successValue : successValues) {
+            if (exitValue == successValue) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected void handleResult(BaseMojo mojo, ProcessResult result, int... successValues) {
+        int exitValue = result.getExitValue();
+        if (isSuccess(exitValue, successValues)) {
+            handleSuccess(mojo, result);
+        } else {
+            handleFailure(mojo, result);
+        }
+    }
+
+    protected void logInfo(List<String> lines) {
+        if (lines.size() == 0) {
+            return;
+        }
+        for (String line : lines) {
+            logger.info(line);
+        }
+    }
+
+    protected void logError(List<String> lines) {
+        String top = getTop(lines);
+        if (top != null) {
+            logger.error(top);
+        }
+    }
+
+    protected String getTop(List<String> lines) {
+        for (String line : lines) {
+            if (!StringUtils.isBlank(line)) {
+                return line;
+            }
+        }
+        return null;
+    }
+
+    protected void handleFailure(BaseMojo mojo, ProcessResult result) {
+        logError(result.getOutputLines());
+        if (mojo.isFailOnError()) {
+            throw new ProcessException("Result code: '" + result.getExitValue() + "' " + result.getOutput());
+        }
+    }
+
+    protected void handleSuccess(BaseMojo mojo, ProcessResult result) {
+        logInfo(result.getOutputLines());
+    }
+
+    public void executeCli(CliMojo mojo) throws MojoExecutionException {
         try {
-            MavenContext context = getMavenContext(mojo);
-            CliContext cliContext = getCliContext(mojo);
-            String cmd = cliContext.getCmd();
-            String url = context.getProject().getProperties().getProperty("jenkins.url");
-            List<String> list = new ArrayList<String>();
-            list.add("-s");
-            list.add(url);
-            String[] cmdTokens = PropertiesUtils.splitAndTrim(cmd, " ");
-            Helper.addToList(list, cmdTokens);
-            String[] args = list.toArray(new String[list.size()]);
-            File jar = getJenkinsJar(context);
-            JavaHelper jHelper = new JavaHelper();
-            ProcessResult result = jHelper.executeJar(jar, args);
-            logger.info("Result: " + result);
+            File jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
+            ProcessResult result = executeCli(jar, mojo.getUrl(), mojo.getCmd());
+            handleResult(mojo, result);
         } catch (Exception e) {
             throw new MojoExecutionException("Unexpected error", e);
         }
