@@ -8,18 +8,15 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.plexus.util.StringUtils;
-import org.kuali.maven.plugins.jenkins.context.ProcessContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessException;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
 
 public class ProcessHelper {
 
-    public ProcessResult execute(ProcessContext context) {
-        String input = context.getInput();
-        String[] args = context.getArgs();
-        ProcessBuilder builder = new ProcessBuilder(args);
-        builder.redirectErrorStream(true);
+    public ProcessResult execute(String[] command, String input) {
         try {
+            ProcessBuilder builder = new ProcessBuilder(command);
+            builder.redirectErrorStream(true);
             long start = System.currentTimeMillis();
             Process process = builder.start();
             if (!StringUtils.isBlank(input)) {
@@ -31,7 +28,8 @@ public class ProcessHelper {
             long stop = System.currentTimeMillis();
             long elapsed = stop - start;
             ProcessResult result = new ProcessResult();
-            result.setContext(context);
+            result.setCommand(command);
+            result.setInput(input);
             result.setExitValue(exitValue);
             result.setOutput(output);
             result.setOutputLines(outputLines);
