@@ -15,27 +15,25 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import org.kuali.maven.mojo.BaseMojo;
-
 /**
- * 
+ *
  */
 public abstract class AbstractCliMojo extends BaseMojo {
 
-	/**
-	 * The classname for Jenkins CLI
-	 * 
-	 * @parameter expression="${jenkins.classname}" default-value="hudson.cli.CLI"
-	 * @required
-	 */
-	private String classname;
+    /**
+     * The classname for Jenkins CLI
+     *
+     * @parameter expression="${jenkins.classname}" default-value="hudson.cli.CLI"
+     * @required
+     */
+    private String classname;
 
-	public String getClassname() {
-		return classname;
-	}
+    public String getClassname() {
+        return classname;
+    }
 
-	public void setClassname(String classname) {
-		this.classname = classname;
-	}
+    public void setClassname(String classname) {
+        this.classname = classname;
+    }
 
 }

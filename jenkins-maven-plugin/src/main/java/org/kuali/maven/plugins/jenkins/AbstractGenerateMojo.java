@@ -15,28 +15,25 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import org.kuali.maven.mojo.BaseMojo;
-
-
 /**
- * 
+ *
  */
 public abstract class AbstractGenerateMojo extends BaseMojo {
 
-	/**
-	 * The location of the jenkins job config template
-	 * 
-	 * @parameter expression="${jenkins.template}" default-value="classpath:org/kuali/jenkins/jobs/template.xml"
-	 * @required
-	 */
-	private String template;
+    /**
+     * The location of the jenkins job config template
+     *
+     * @parameter expression="${jenkins.template}" default-value="classpath:org/kuali/jenkins/jobs/template.xml"
+     * @required
+     */
+    private String template;
 
-	public String getTemplate() {
-		return template;
-	}
+    public String getTemplate() {
+        return template;
+    }
 
-	public void setTemplate(String template) {
-		this.template = template;
-	}
+    public void setTemplate(String template) {
+        this.template = template;
+    }
 
 }
