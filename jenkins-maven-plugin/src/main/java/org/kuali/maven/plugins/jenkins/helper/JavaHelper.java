@@ -22,7 +22,11 @@ public class JavaHelper {
     public static final String[] EXTENSIONS = { "", ".exe" };
     public static final String EXECUTE_JAR_ARG = "-jar";
 
-    public ProcessResult executeJar(File jar, String input, String... args) {
+    public ProcessResult executeJar(File jar, String... args) {
+        return executeJar(jar, args, null);
+    }
+
+    public ProcessResult executeJar(File jar, String[] args, String input) {
         String executable = getExecutable();
         String[] jarArgs = getExecuteJarArgs(jar, args);
         return helper.execute(executable, jarArgs, input);
@@ -48,10 +52,6 @@ public class JavaHelper {
             }
         }
         return JAVA;
-    }
-
-    protected boolean isBlank(String[] array) {
-        return array == null || array.length == 0;
     }
 
     protected boolean isUsable(String path) {
