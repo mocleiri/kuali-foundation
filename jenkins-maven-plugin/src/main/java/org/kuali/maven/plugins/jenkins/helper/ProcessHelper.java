@@ -15,18 +15,10 @@ import org.kuali.maven.plugins.jenkins.context.ProcessResult;
 public class ProcessHelper {
 
     public ProcessResult execute(String executable) {
-        return execute(executable, null, null);
+        return execute(executable, (String[]) null);
     }
 
-    public ProcessResult execute(String executable, String arg) {
-        if (arg == null) {
-            return execute(executable, null, null);
-        } else {
-            return execute(executable, new String[] { arg }, null);
-        }
-    }
-
-    public ProcessResult execute(String executable, String[] args) {
+    public ProcessResult execute(String executable, String... args) {
         return execute(executable, args, null);
     }
 
@@ -66,14 +58,14 @@ public class ProcessHelper {
         }
     }
 
-    protected String[] getProcessBuilderCommand(String executable, String[] args) {
+    protected String[] getProcessBuilderCommand(String executable, String... args) {
         List<String> command = new ArrayList<String>();
         command.add(executable);
         addArray(command, args);
         return command.toArray(new String[command.size()]);
     }
 
-    protected void addArray(List<String> list, String[] args) {
+    protected void addArray(List<String> list, String... args) {
         if (isEmpty(args)) {
             return;
         }
@@ -82,7 +74,7 @@ public class ProcessHelper {
         }
     }
 
-    protected boolean isEmpty(String[] args) {
+    protected boolean isEmpty(String... args) {
         return args == null || args.length == 0;
     }
 
