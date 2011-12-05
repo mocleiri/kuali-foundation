@@ -35,7 +35,6 @@ public class CliMojo extends AbstractCliMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        new Env().write();
         helper.executeCliCommand(this);
     }
 
