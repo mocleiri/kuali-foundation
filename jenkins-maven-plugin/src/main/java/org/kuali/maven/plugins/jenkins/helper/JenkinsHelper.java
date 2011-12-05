@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.jenkins;
+package org.kuali.maven.plugins.jenkins.helper;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -122,7 +122,7 @@ public class JenkinsHelper {
         return false;
     }
 
-    protected void handleResults(List<MojoContext> contexts, List<Integer> ignoreCodes) throws MojoExecutionException {
+    public void handleResults(List<MojoContext> contexts, List<Integer> ignoreCodes) throws MojoExecutionException {
         List<MojoContext> issues = new ArrayList<MojoContext>();
         for (MojoContext context : contexts) {
             ResultContext rc = context.getResultContext();
@@ -144,7 +144,7 @@ public class JenkinsHelper {
         }
     }
 
-    protected void handleResults(List<MojoContext> contexts) throws MojoExecutionException {
+    public void handleResults(List<MojoContext> contexts) throws MojoExecutionException {
         handleResults(contexts, new ArrayList<Integer>());
     }
 

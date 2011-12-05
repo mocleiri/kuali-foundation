@@ -3,6 +3,8 @@ package org.kuali.maven.plugins.jenkins;
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
+import org.kuali.maven.plugins.jenkins.helper.JavaHelper;
+import org.kuali.maven.plugins.jenkins.helper.ProcessHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

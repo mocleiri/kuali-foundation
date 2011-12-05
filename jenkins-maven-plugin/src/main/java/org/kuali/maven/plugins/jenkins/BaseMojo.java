@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
+import org.kuali.maven.plugins.jenkins.helper.JenkinsHelper;
 
 /**
  * 

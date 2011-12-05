@@ -1,4 +1,4 @@
-package org.kuali.maven.plugins.jenkins;
+package org.kuali.maven.plugins.jenkins.helper;
 
 import java.io.File;
 import java.util.ArrayList;

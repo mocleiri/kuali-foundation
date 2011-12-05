@@ -1,4 +1,4 @@
-package org.kuali.maven.plugins.jenkins;
+package org.kuali.maven.plugins.jenkins.helper;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
