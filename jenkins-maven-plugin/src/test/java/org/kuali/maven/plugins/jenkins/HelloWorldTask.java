@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins;
+package org.kuali.maven.plugins.jenkins;
 
-public class HelloWorld {
-	public static final void main(String[] args) {
-		System.out.println("hello world");
-		System.exit(0);
+import org.apache.tools.ant.taskdefs.Java;
+
+public class HelloWorldTask extends Java {
+
+	public HelloWorldTask() {
+		super();
+		setClassname("org.kuali.maven.plugins.HelloWorld");
+
 	}
 
 }
