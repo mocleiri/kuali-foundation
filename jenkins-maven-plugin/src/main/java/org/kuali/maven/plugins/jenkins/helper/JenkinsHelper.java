@@ -407,6 +407,11 @@ public class JenkinsHelper {
         return contexts;
     }
 
+    public void executeCli(Mojo mojo) {
+        MavenContext context = getMavenContext(mojo);
+        File jar = getJenkinsJar(context);
+    }
+
     public MojoContext executeCliCommand(Mojo mojo) throws MojoExecutionException {
         try {
             MavenContext mvnContext = getMavenContext(mojo);
