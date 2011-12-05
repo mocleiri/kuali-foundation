@@ -40,7 +40,7 @@ public class CliMojo extends BaseMojo {
      *
      * If 'cmds' is provided 'cmd' is ignored
      *
-     * @parameter expression="${jenkins.cmds}"
+     * @parameter
      */
     private List<String> cmds;
 

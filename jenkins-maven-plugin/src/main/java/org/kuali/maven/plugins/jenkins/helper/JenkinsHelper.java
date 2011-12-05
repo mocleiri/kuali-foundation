@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -505,7 +506,7 @@ public class JenkinsHelper {
 
     protected void handleFailure(BaseMojo mojo, ProcessResult result) {
         logError(result.getOutputLines());
-        if (mojo.isFailOnError()) {
+        if (mojo.isStopOnError()) {
             throw new ProcessException("Result code: '" + result.getExitValue() + "' " + result.getOutput());
         }
     }
@@ -514,11 +515,29 @@ public class JenkinsHelper {
         logInfo(result.getOutputLines());
     }
 
+    protected List<String> getMojoCmds(CliMojo mojo) {
+        if (mojo.getCmds() != null) {
+            return mojo.getCmds();
+        } else {
+            String[] cmds = PropertiesUtils.splitAndTrim(mojo.getCmd(), " ");
+            return Arrays.asList(cmds);
+        }
+    }
+
     public void executeCli(CliMojo mojo) throws MojoExecutionException {
         try {
             File jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
-            ProcessResult result = executeCli(jar, mojo.getUrl(), mojo.getCmd());
-            handleResult(mojo, result);
+            String url = mojo.getUrl();
+            logger.info("Jenkins CLI: " + jar.getPath());
+            logger.info("Jenkins URL: " + url);
+            List<String> cmds = getMojoCmds(mojo);
+            List<ProcessResult> results = new ArrayList<ProcessResult>();
+            for (String cmd : cmds) {
+                logger.info("Issuing command '" + cmd + "'");
+                ProcessResult result = executeCli(jar, url, cmd);
+                handleResult(mojo, result);
+                results.add(result);
+            }
         } catch (Exception e) {
             throw new MojoExecutionException("Unexpected error", e);
         }
