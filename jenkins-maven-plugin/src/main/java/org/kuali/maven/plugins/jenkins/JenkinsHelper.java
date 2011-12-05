@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.mojo.jenkins;
+package org.kuali.maven.plugins.jenkins;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,12 +47,12 @@ import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
-import org.kuali.maven.mojo.jenkins.context.AntContext;
-import org.kuali.maven.mojo.jenkins.context.CliContext;
-import org.kuali.maven.mojo.jenkins.context.JobContext;
-import org.kuali.maven.mojo.jenkins.context.MavenContext;
-import org.kuali.maven.mojo.jenkins.context.MojoContext;
-import org.kuali.maven.mojo.jenkins.context.ResultContext;
+import org.kuali.maven.plugins.jenkins.context.AntContext;
+import org.kuali.maven.plugins.jenkins.context.CliContext;
+import org.kuali.maven.plugins.jenkins.context.JobContext;
+import org.kuali.maven.plugins.jenkins.context.MavenContext;
+import org.kuali.maven.plugins.jenkins.context.MojoContext;
+import org.kuali.maven.plugins.jenkins.context.ResultContext;
 
 public class JenkinsHelper {
     private static final String FS = System.getProperty("file.separator");

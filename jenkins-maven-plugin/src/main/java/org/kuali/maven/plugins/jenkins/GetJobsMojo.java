@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.mojo.jenkins;
+package org.kuali.maven.plugins.jenkins;
 
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.kuali.maven.common.PropertiesUtils;
-import org.kuali.maven.mojo.jenkins.context.MojoContext;
+import org.kuali.maven.plugins.jenkins.context.MojoContext;
 
 /**
  * Connect to a Jenkins server and retrieve XML documents describing one or more job configurations
