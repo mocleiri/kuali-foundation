@@ -4,12 +4,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.plexus.util.StringUtils;
+
+/**
+ * Locate the full path to the java executable being used by the currently running JVM or just return "java" if unable
+ * to locate it
+ */
 public class JavaHelper {
     public static final String FS = System.getProperty("file.separator");
     public static final String JAVA_HOME_KEY = "java.home";
-    public static final String EXECUTABLE = "java";
-    public static final String[] EXECUTABLES = { EXECUTABLE, "javaw" };
-    public static final String PATH = "bin";
+    public static final String JAVA = "java";
+    public static final String[] EXECUTABLES = { JAVA, "javaw" };
+    public static final String BIN = "bin";
     public static final String[] EXTENSIONS = { "", ".exe" };
 
     public String getExecutable() {
@@ -23,7 +29,7 @@ public class JavaHelper {
                 return path;
             }
         }
-        return EXECUTABLE;
+        return JAVA;
     }
 
     protected boolean isBlank(String[] array) {
@@ -37,10 +43,13 @@ public class JavaHelper {
 
     protected List<String> getPotentialPaths(String[] executables, String[] extensions) {
         String javaHome = System.getProperty(JAVA_HOME_KEY);
+        if (StringUtils.isBlank(javaHome)) {
+            return new ArrayList<String>();
+        }
         if (!javaHome.endsWith(FS)) {
             javaHome += FS;
         }
-        String dir = javaHome + PATH + FS;
+        String dir = javaHome + BIN + FS;
         List<String> paths = new ArrayList<String>();
         for (String executable : executables) {
             for (String extension : extensions) {
