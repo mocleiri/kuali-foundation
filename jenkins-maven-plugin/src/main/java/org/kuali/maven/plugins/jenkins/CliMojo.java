@@ -35,7 +35,7 @@ public class CliMojo extends AbstractCliMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        helper.executeCliCommand(this);
+        helper.executeCli(this);
     }
 
     public String getCmd() {
