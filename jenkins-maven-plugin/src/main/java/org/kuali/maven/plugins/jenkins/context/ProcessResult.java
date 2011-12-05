@@ -2,11 +2,27 @@ package org.kuali.maven.plugins.jenkins.context;
 
 import java.util.List;
 
+/**
+ * <p>
+ * Holds the result of executing an external process
+ * </p>
+ *
+ * context - holds the executable, arguments, and any input provided to the process<br>
+ * exitValue - the return value of the process - by convention zero means success<br>
+ * output - holds anything written to standard out by the process<br>
+ * outputLines - same content as 'output' but split up into individual lines<br>
+ * start - the time the process started (millis since the epoch)<br>
+ * stop - the time the process finished (millis since the epoch)<br>
+ * elapsed - the total elapsed time in millis for the process<br>
+ *
+ * @author jeffcaddel
+ */
+
 public class ProcessResult {
     ProcessContext context;
     int exitValue;
-    List<String> outputLines;
     String output;
+    List<String> outputLines;
     long start;
     long stop;
     long elapsed;
