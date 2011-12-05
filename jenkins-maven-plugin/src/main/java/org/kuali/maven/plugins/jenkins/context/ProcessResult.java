@@ -1,9 +1,11 @@
 package org.kuali.maven.plugins.jenkins.context;
 
+import java.util.List;
+
 public class ProcessResult {
     int exitValue;
     String input;
-    String output;
+    List<String> output;
     long elapsed;
 
     public int getExitValue() {
@@ -22,20 +24,28 @@ public class ProcessResult {
         this.input = input;
     }
 
-    public String getOutput() {
-        return output;
-    }
-
-    public void setOutput(String output) {
-        this.output = output;
-    }
-
     public long getMillis() {
         return elapsed;
     }
 
     public void setMillis(long millis) {
         this.elapsed = millis;
+    }
+
+    public List<String> getOutput() {
+        return output;
+    }
+
+    public void setOutput(List<String> output) {
+        this.output = output;
+    }
+
+    public long getElapsed() {
+        return elapsed;
+    }
+
+    public void setElapsed(long elapsed) {
+        this.elapsed = elapsed;
     }
 
 }
