@@ -1,7 +1,8 @@
 package org.kuali.maven.plugins.jenkins;
 
 public class ProcessHelperTest {
-    ProcessHelper helper = new ProcessHelper();
+    ProcessHelper pHelper = new ProcessHelper();
+    JavaHelper jHelper = new JavaHelper();
 
     public void testExecute() {
 
