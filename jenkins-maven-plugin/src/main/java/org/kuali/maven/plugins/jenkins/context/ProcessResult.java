@@ -3,8 +3,7 @@ package org.kuali.maven.plugins.jenkins.context;
 import java.util.List;
 
 public class ProcessResult {
-    String[] command;
-    String input;
+    ProcessContext context;
     int exitValue;
     List<String> outputLines;
     String output;
@@ -12,20 +11,12 @@ public class ProcessResult {
     long stop;
     long elapsed;
 
-    public String[] getCommand() {
-        return command;
+    public ProcessContext getContext() {
+        return context;
     }
 
-    public void setCommand(String[] command) {
-        this.command = command;
-    }
-
-    public String getInput() {
-        return input;
-    }
-
-    public void setInput(String input) {
-        this.input = input;
+    public void setContext(ProcessContext context) {
+        this.context = context;
     }
 
     public int getExitValue() {
