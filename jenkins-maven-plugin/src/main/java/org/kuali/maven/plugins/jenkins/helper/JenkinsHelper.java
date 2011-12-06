@@ -711,7 +711,7 @@ public class JenkinsHelper {
     public void generate(AbstractGenerateMojo mojo, String type) {
         try {
             MavenContext context = getMavenContext(mojo);
-            String jobName = getJobName(context, null, type);
+            String jobName = getJobName(context, type);
             String filename = mojo.getWorkingDir() + FS + jobName + ".xml";
             mojo.getLog().info("Generating: " + filename);
             Properties properties = getProperties(context, type, mojo.getTimestampFormat());
@@ -723,7 +723,7 @@ public class JenkinsHelper {
         }
     }
 
-    public void generate(AbstractGenerateMojo mojo, String[] types) throws MojoExecutionException {
+    public void generate(AbstractGenerateMojo mojo, String[] types) {
         for (String type : types) {
             generate(mojo, type);
         }
@@ -776,14 +776,19 @@ public class JenkinsHelper {
         return sb.toString();
     }
 
-    public String getJobName(MavenContext mvnContext, String name, String type) {
+    public String getJobName(MavenContext context, String name, String type) {
         if (!StringUtils.isBlank(name)) {
             return name;
+        } else {
+            return getJobName(context, type);
         }
+    }
+
+    public String getJobName(MavenContext context, String type) {
         StringBuilder sb = new StringBuilder();
-        sb.append(mvnContext.getProject().getArtifactId());
+        sb.append(context.getProject().getArtifactId());
         sb.append("-");
-        sb.append(mvnContext.getMajorVersion());
+        sb.append(context.getMajorVersion());
         sb.append("-");
         sb.append(type);
         return sb.toString();
