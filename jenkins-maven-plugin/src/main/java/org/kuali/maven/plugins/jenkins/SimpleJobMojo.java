@@ -22,7 +22,7 @@ import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.helper.Helper;
 
 /**
- * Mojo for execution 'simple' Jenkins CLI commands related to a single Jenkins job. 'Simple' in this context means the
+ * Mojo for executing 'simple' Jenkins CLI commands related to a single Jenkins job. 'Simple' in this context means the
  * CLI command requires no input and produces no output.
  */
 public abstract class SimpleJobMojo extends CliMojo {
