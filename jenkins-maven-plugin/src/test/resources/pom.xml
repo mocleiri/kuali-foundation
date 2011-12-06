@@ -55,7 +55,7 @@
           <!-- demonstrates running multiple cli commands in a single Maven execution -->
           <execution>
             <id>cli-multiple-commands</id>
-            <phase>process-resources</phase>
+            <phase>none</phase>
             <goals>
               <goal>cli</goal>
             </goals>
@@ -71,7 +71,7 @@
           </execution>
           <execution>
             <id>cli-groovy</id>
-            <phase>process-resources</phase>
+            <phase>none</phase>
             <goals>
               <goal>cli</goal>
             </goals>
@@ -113,7 +113,7 @@
           <!-- demonstrates configuring an explicit jenkins server to connect to -->
           <execution>
             <id>cli-explicit-url</id>
-            <phase>process-resources</phase>
+            <phase>none</phase>
             <goals>
               <goal>cli</goal>
             </goals>
@@ -129,6 +129,13 @@
               </commands>
               <failOnError>false</failOnError>
             </configuration>
+          </execution>
+          <execution>
+            <id>cli-runjob</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>runjob</goal>
+            </goals>
           </execution>
         </executions>
         <dependencies>

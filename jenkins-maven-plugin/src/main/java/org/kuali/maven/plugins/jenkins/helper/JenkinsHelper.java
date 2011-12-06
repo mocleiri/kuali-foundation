@@ -770,7 +770,7 @@ public class JenkinsHelper {
         return context;
     }
 
-    protected MavenContext getMavenContext(Mojo mojo) {
+    public MavenContext getMavenContext(Mojo mojo) {
         MavenContext context = getContext(MavenContext.class, mojo);
         MavenProject project = context.getProject();
         String scmType = extractor.getScmType(project.getScm());
@@ -792,7 +792,7 @@ public class JenkinsHelper {
         return sb.toString();
     }
 
-    protected String getJobName(MavenContext mvnContext, String name, String type) {
+    public String getJobName(MavenContext mvnContext, String name, String type) {
         if (!StringUtils.isBlank(name)) {
             return name;
         }

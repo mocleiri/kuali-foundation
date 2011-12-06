@@ -15,66 +15,77 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
+import java.util.Arrays;
+
 import org.apache.maven.plugin.MojoExecutionException;
+import org.kuali.maven.plugins.jenkins.context.MavenContext;
+import org.kuali.maven.plugins.jenkins.helper.Helper;
 
 /**
  * Connect to a Jenkins server and kick off a job
- * 
+ *
  * @goal runjob
  * @requiresDependencyResolution test
  */
-public class RunJobMojo extends AbstractCliMojo {
+public class RunJobMojo extends CliMojo {
 
-	/**
-	 * The command issued to Jenkins CLI
-	 * 
-	 * @parameter expression="${jenkins.cmd}" default-value="build"
-	 * @required
-	 */
-	private String cmd;
+    /**
+     * The Jenkins CLI command for running a job
+     *
+     * @parameter expression="${jenkins.runJobCmd}" default-value="build"
+     * @required
+     */
+    private String runJobCmd;
 
-	/**
-	 * The type of job to run. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
-	 * 
-	 * @parameter expression="${jenkins.type}" default-value="publish"
-	 * @required
-	 */
-	private String type;
+    /**
+     * The type of job. Maven GAV info is combined with 'type' to derive the complete job name eg
+     * 'jenkins-maven-plugin-1.0-publish'
+     *
+     * @parameter expression="${jenkins.type}" default-value="publish"
+     * @required
+     */
+    private String type;
 
-	/**
-	 * The explicit name of a job to run. If name is provided, 'type' is ignored
-	 * 
-	 * @parameter expression="${jenkins.name}"
-	 */
-	private String name;
+    /**
+     * The explicit name of a job. If name is provided, 'type' is ignored
+     *
+     * @parameter expression="${jenkins.name}"
+     */
+    private String name;
 
-	@Override
-	public void execute() throws MojoExecutionException {
-		helper.executeCliJobCommand(this, name, type);
-	}
+    @Override
+    public void execute() throws MojoExecutionException {
+        MavenContext context = helper.getMavenContext(this);
+        String jobName = helper.getJobName(context, name, type);
+        String[] args = { runJobCmd, jobName };
+        Command command = new Command();
+        command.setArgs(Arrays.asList(args));
+        super.setCommands(Helper.toList(command));
+        helper.executeCli(this);
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getCmd() {
-		return cmd;
-	}
+    public String getRunJobCmd() {
+        return runJobCmd;
+    }
 
-	public void setCmd(String cmd) {
-		this.cmd = cmd;
-	}
+    public void setRunJobCmd(String cmd) {
+        this.runJobCmd = cmd;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }
