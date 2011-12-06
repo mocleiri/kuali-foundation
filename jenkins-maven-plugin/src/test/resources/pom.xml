@@ -104,7 +104,7 @@
                     <arg>groovy</arg>
                     <arg>=</arg>
                   </args>
-                  <input>println "hello world"</input>
+                  <input>println "hello world from stdin"</input>
                 </command>
               </commands>
             </configuration>
