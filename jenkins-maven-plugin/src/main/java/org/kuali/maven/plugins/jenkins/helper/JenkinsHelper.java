@@ -533,22 +533,47 @@ public class JenkinsHelper {
                 handleResult(mojo, result, successCodes);
                 results.add(result);
             }
+            handleResults2(results, mojo.isFailOnError(), successCodes);
         } catch (Exception e) {
             throw new MojoExecutionException("Unexpected error", e);
         }
     }
 
-    protected void handleResults2(List<ProcessResult> results, int... successCodes) {
-        boolean error = false;
+    protected void handleResults2(List<ProcessResult> results, boolean failOnError, int... successCodes) {
+        List<ProcessResult> issues = new ArrayList<ProcessResult>();
         for (ProcessResult result : results) {
             int exitValue = result.getExitValue();
             if (!Helper.isMatch(exitValue, successCodes)) {
-                error = true;
+                issues.add(result);
             }
         }
-        if (error) {
-            throw new CliException("");
+        if (issues.size() == 0) {
+            return;
         }
+        String msg = getErrorMessage(issues);
+        if (failOnError) {
+            throw new CliException(msg);
+        } else {
+            logger.warn(msg);
+        }
+    }
+
+    protected String getErrorMessage(List<ProcessResult> results) {
+        StringBuilder sb = new StringBuilder();
+        for (ProcessResult result : results) {
+            sb.append(getErrorMessage(result));
+        }
+        return sb.toString();
+    }
+
+    protected String getErrorMessage(ProcessResult result) {
+        int exitValue = result.getExitValue();
+        String top = getTop(result.getOutputLines());
+        String[] args = result.getContext().getArgs();
+        String cmd = Helper.toString(args, " ");
+        StringBuilder sb = new StringBuilder();
+        sb.append("cmd: " + cmd + " result:" + exitValue + " msg: " + top + "\n");
+        return sb.toString();
     }
 
     public MojoContext executeCliCommand(Mojo mojo) throws MojoExecutionException {

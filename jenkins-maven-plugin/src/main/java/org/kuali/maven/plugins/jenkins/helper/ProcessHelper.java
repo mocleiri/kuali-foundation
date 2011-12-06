@@ -46,6 +46,7 @@ public class ProcessHelper {
             long stop = System.currentTimeMillis();
             long elapsed = stop - start;
             ProcessResult result = new ProcessResult();
+            result.setContext(context);
             result.setExitValue(exitValue);
             result.setOutput(output);
             result.setOutputLines(outputLines);

@@ -7,9 +7,20 @@ import org.apache.commons.lang.StringUtils;
 
 public class Helper {
 
-    public static final boolean isMatch(int i, int... values) {
+    public static final String toString(String[] tokens, String separator) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tokens.length; i++) {
+            if (i != 0) {
+                sb.append(separator);
+            }
+            sb.append(tokens[i]);
+        }
+        return sb.toString();
+    }
+
+    public static final boolean isMatch(int target, int... values) {
         for (int value : values) {
-            if (value == i) {
+            if (value == target) {
                 return true;
             }
         }
