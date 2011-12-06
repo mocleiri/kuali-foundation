@@ -547,7 +547,6 @@ public class JenkinsHelper {
             results.add(result);
         }
         handleResults(results, mojo.isFailOnError(), successCodes);
-
     }
 
     protected void handleResults(List<ProcessResult> results, boolean failOnError, int... successCodes) {
