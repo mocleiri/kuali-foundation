@@ -430,8 +430,12 @@ public class JenkinsHelper {
     }
 
     public ProcessResult executeCli(File jar, String url, String cmd) {
+        return executeCli(jar, url, cmd, null);
+    }
+
+    public ProcessResult executeCli(File jar, String url, String cmd, String input) {
         String[] args = getJenkinsCliArgs(url, cmd);
-        return javaHelper.executeJar(jar, args);
+        return javaHelper.executeJar(jar, args, input);
     }
 
     protected String[] getJenkinsCliArgs(String url, String cmd) {
