@@ -101,12 +101,27 @@
               <commands>
                 <command>
                   <args>
-                    <arg>set-build-description</arg>
-                    <arg>crlf-1.0-publish</arg>
-                    <arg>4</arg>
+                    <arg>groovy</arg>
                     <arg>=</arg>
                   </args>
-                  <input>${kuali.build.timestamp}</input>
+                  <input>println "hello world"</input>
+                </command>
+              </commands>
+            </configuration>
+          </execution>
+          <execution>
+            <id>cli-groovy-from-file</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>cli</goal>
+            </goals>
+            <configuration>
+              <commands>
+                <command>
+                  <args>
+                    <arg>groovy</arg>
+                    <arg>helloworld.groovy</arg>
+                  </args>
                 </command>
               </commands>
             </configuration>
