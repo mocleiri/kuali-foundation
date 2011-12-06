@@ -15,11 +15,8 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import java.util.List;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.configuration.PlexusConfiguration;
-import org.kuali.maven.plugins.jenkins.context.Command;
 
 /**
  * Connect to a Jenkins server and execute one or more Jenkins CLI commands. Commands executed by this mojo cannot
@@ -65,14 +62,7 @@ public class CliMojo extends BaseMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        getLog().info(commands.toString());
-        int childCount = commands.getChildCount();
-        getLog().info("Child Count=" + childCount);
-        String name = commands.getName();
-        getLog().info("Name=" + name);
-        List<Command> cmds = helper.getCommands(commands);
-        getLog().info("size=" + cmds.size());
-        // helper.executeCli(this);
+        helper.executeCli(this);
     }
 
     public String getCmd() {

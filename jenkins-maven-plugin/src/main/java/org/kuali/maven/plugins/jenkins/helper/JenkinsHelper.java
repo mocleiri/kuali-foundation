@@ -376,14 +376,11 @@ public class JenkinsHelper {
 
     public List<Command> getCommands(PlexusConfiguration plexusCommands) {
         List<Command> commands = new ArrayList<Command>();
-        for (PlexusConfiguration plexusCommand : plexusCommands.getChildren()) {
-            String plexusName = plexusCommand.getName();
-            if ("command".equals(plexusName)) {
-                Command command = getCommand(plexusCommand);
-                commands.add(command);
-            }
+        PlexusConfiguration[] commandChildren = plexusCommands.getChildren("command");
+        for (PlexusConfiguration plexusCommand : commandChildren) {
+            Command command = getCommand(plexusCommand);
+            commands.add(command);
         }
-
         return commands;
     }
 
@@ -402,15 +399,21 @@ public class JenkinsHelper {
         if (plexusArgs == null) {
             return new ArrayList<String>();
         }
-        List<String> args = new ArrayList<String>();
-        for (PlexusConfiguration plexusArg : plexusArgs.getChildren()) {
-            String plexusName = plexusArg.getName();
-            if ("arg".equals(plexusName)) {
-                String arg = getValue(plexusArg);
-                args.add(arg);
+        PlexusConfiguration[] argChildren = plexusArgs.getChildren("arg");
+        String[] argValues = getValues(argChildren);
+        return Arrays.asList(argValues);
+    }
+
+    protected String[] getValues(PlexusConfiguration[] plexusConfigs) {
+        if (plexusConfigs == null) {
+            return new String[] {};
+        } else {
+            String[] values = new String[plexusConfigs.length];
+            for (int i = 0; i < values.length; i++) {
+                values[i] = getValue(plexusConfigs[i]);
             }
+            return values;
         }
-        return args;
     }
 
     protected String getValue(PlexusConfiguration plexusConfig) {
@@ -596,8 +599,12 @@ public class JenkinsHelper {
     }
 
     protected List<Command> getCmds(CliMojo mojo) {
-        Command command = getCommand(mojo.getCmd(), mojo.getInput(), mojo.getInputUrl());
-        return Helper.toList(command);
+        if (mojo.getCommands() != null) {
+            return getCommands(mojo.getCommands());
+        } else {
+            Command command = getCommand(mojo.getCmd(), mojo.getInput(), mojo.getInputUrl());
+            return Helper.toList(command);
+        }
     }
 
     protected List<String> getCmds(String cmd, List<String> cmds) {

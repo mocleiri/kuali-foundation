@@ -45,7 +45,14 @@
         <version>${project.version}</version>
         <executions>
           <execution>
-            <id>cli</id>
+            <id>cli-default</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>cli</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>cli-multi</id>
             <phase>process-resources</phase>
             <goals>
               <goal>cli</goal>
