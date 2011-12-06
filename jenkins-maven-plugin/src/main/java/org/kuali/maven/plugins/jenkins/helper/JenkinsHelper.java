@@ -546,11 +546,11 @@ public class JenkinsHelper {
             handleResult(mojo, result, successCodes);
             results.add(result);
         }
-        handleResults2(results, mojo.isFailOnError(), successCodes);
+        handleResults(results, mojo.isFailOnError(), successCodes);
 
     }
 
-    protected void handleResults2(List<ProcessResult> results, boolean failOnError, int... successCodes) {
+    protected void handleResults(List<ProcessResult> results, boolean failOnError, int... successCodes) {
         List<ProcessResult> errors = new ArrayList<ProcessResult>();
         for (ProcessResult result : results) {
             int exitValue = result.getExitValue();
