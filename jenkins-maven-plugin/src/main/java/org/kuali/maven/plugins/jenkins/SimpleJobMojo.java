@@ -22,20 +22,11 @@ import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.helper.Helper;
 
 /**
- * Connect to a Jenkins server and delete a job
  *
- * @goal deletejob
- * @requiresDependencyResolution test
  */
-public class DeleteJobMojo extends CliMojo {
+public abstract class SimpleJobMojo extends CliMojo {
 
-    /**
-     * The command issued to Jenkins CLI
-     *
-     * @parameter expression="${jenkins.deleteJobCmd}" default-value="delete-job"
-     * @required
-     */
-    private String deleteJobCmd;
+    protected abstract String getJobCmd();
 
     /**
      * The type of job to delete. Maven GAV info is combined with 'type' to derive the complete job name eg
@@ -57,27 +48,10 @@ public class DeleteJobMojo extends CliMojo {
     public void execute() throws MojoExecutionException {
         MavenContext context = helper.getMavenContext(this);
         String jobName = helper.getJobName(context, name, type);
-        String[] args = { deleteJobCmd, jobName };
+        String[] args = { getJobCmd(), jobName };
         Command command = new Command();
         command.setArgs(Arrays.asList(args));
         super.setCommands(Helper.toList(command));
         helper.executeCli(this);
     }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
 }

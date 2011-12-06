@@ -15,11 +15,6 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import java.util.Arrays;
-
-import org.apache.maven.plugin.MojoExecutionException;
-import org.kuali.maven.plugins.jenkins.context.MavenContext;
-import org.kuali.maven.plugins.jenkins.helper.Helper;
 
 /**
  * Connect to a Jenkins server and kick off a job
@@ -27,7 +22,7 @@ import org.kuali.maven.plugins.jenkins.helper.Helper;
  * @goal runjob
  * @requiresDependencyResolution test
  */
-public class RunJobMojo extends CliMojo {
+public class RunJobMojo extends SimpleJobMojo {
 
     /**
      * The Jenkins CLI command for running a job
@@ -37,39 +32,9 @@ public class RunJobMojo extends CliMojo {
      */
     private String runJobCmd;
 
-    /**
-     * The type of job. Maven GAV info is combined with 'type' to derive the complete job name eg
-     * 'jenkins-maven-plugin-1.0-publish'
-     *
-     * @parameter expression="${jenkins.type}" default-value="publish"
-     * @required
-     */
-    private String type;
-
-    /**
-     * The explicit name of a job. If name is provided, 'type' is ignored
-     *
-     * @parameter expression="${jenkins.name}"
-     */
-    private String name;
-
     @Override
-    public void execute() throws MojoExecutionException {
-        MavenContext context = helper.getMavenContext(this);
-        String jobName = helper.getJobName(context, name, type);
-        String[] args = { runJobCmd, jobName };
-        Command command = new Command();
-        command.setArgs(Arrays.asList(args));
-        super.setCommands(Helper.toList(command));
-        helper.executeCli(this);
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    protected String getJobCmd() {
+        return this.runJobCmd;
     }
 
     public String getRunJobCmd() {
@@ -78,14 +43,6 @@ public class RunJobMojo extends CliMojo {
 
     public void setRunJobCmd(String cmd) {
         this.runJobCmd = cmd;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 }
