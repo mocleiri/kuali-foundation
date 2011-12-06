@@ -53,6 +53,8 @@
             <configuration>
               <cmds>
                 <param>version</param>
+                <param>tuesday</param>
+                <param>blue</param>
                 <param>who-am-i</param>
               </cmds>
             </configuration>
