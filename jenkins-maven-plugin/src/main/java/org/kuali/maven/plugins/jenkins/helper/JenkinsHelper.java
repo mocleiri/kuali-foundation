@@ -549,6 +549,14 @@ public class JenkinsHelper {
         executeCli(mojo, SUCCESS_CODE);
     }
 
+    public String getInput(String input, String inputUrl) throws IOException {
+        if (StringUtils.isBlank(inputUrl)) {
+            return input;
+        } else {
+            return resourceUtils.read(inputUrl);
+        }
+    }
+
     public void executeCli(CliMojo mojo, int... successCodes) {
         File jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
         String url = mojo.getUrl();

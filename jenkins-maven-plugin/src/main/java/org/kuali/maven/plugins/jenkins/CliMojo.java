@@ -37,6 +37,22 @@ public class CliMojo extends BaseMojo {
     private String cmd;
 
     /**
+     * Anything supplied here is provided as input to the standard input stream of Jenkins CLI
+     *
+     * @parameter expression="${jenkins.stdin}"
+     */
+    private String stdin;
+
+    /**
+     * This can be a file on the file system, a classpath resource using Spring's "classpath:" notation, or any other
+     * url Spring 3.0 resource loading can understand. If supplied, the content of the url is provided as input to the
+     * standard input stream of Jenkins CLI. If 'stdinUrl' is supplied 'stdin' is ignored.
+     *
+     * @parameter expression="${jenkins.stdinUrl}"
+     */
+    private String stdinUrl;
+
+    /**
      * List of commands to issue to Jenkins CLI eg "help", "version", "who-ami-i" etc
      *
      * If 'cmds' is provided 'cmd' is ignored
@@ -50,16 +66,16 @@ public class CliMojo extends BaseMojo {
      *
      * @parameter
      */
-    private String stdin;
+    private List<String> stdins;
 
     /**
      * This can be a file on the file system, a classpath resource using Spring's "classpath:" notation, or any other
      * url Spring 3.0 resource loading can understand. If supplied, the content of the url is provided as input to the
-     * standard input stream of Jenkins CLI. If 'stdinUrl' is supplied 'stdin' is ignored.
+     * standard input stream of Jenkins CLI. If 'stdinUrls' is supplied 'stdins' is ignored.
      *
      * @parameter
      */
-    private String stdinUrl;
+    private List<String> stdinUrls;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -96,6 +112,22 @@ public class CliMojo extends BaseMojo {
 
     public void setStdinUrl(String stdinUrl) {
         this.stdinUrl = stdinUrl;
+    }
+
+    public List<String> getStdins() {
+        return stdins;
+    }
+
+    public void setStdins(List<String> stdins) {
+        this.stdins = stdins;
+    }
+
+    public List<String> getStdinUrls() {
+        return stdinUrls;
+    }
+
+    public void setStdinUrls(List<String> stdinUrls) {
+        this.stdinUrls = stdinUrls;
     }
 
 }
