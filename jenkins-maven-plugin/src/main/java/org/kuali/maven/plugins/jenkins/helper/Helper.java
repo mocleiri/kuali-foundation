@@ -22,6 +22,10 @@ import org.apache.commons.lang.StringUtils;
 
 public class Helper {
 
+    public static final String[] toArray(List<String> list) {
+        return list.toArray(new String[list.size()]);
+    }
+
     public static final String toEmpty(String s) {
         if (StringUtils.isBlank(s)) {
             return "";

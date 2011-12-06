@@ -529,6 +529,10 @@ public class JenkinsHelper {
         return commandLine;
     }
 
+    public void executeJobRelatedCliCommandWithNoInputOutput() {
+
+    }
+
     public void executeCli(CliMojo mojo) {
         executeCli(mojo, SUCCESS_CODE);
     }
