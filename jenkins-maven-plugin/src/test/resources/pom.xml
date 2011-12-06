@@ -110,7 +110,7 @@
                     <arg>groovy</arg>
                     <arg>=</arg>
                   </args>
-                  <stdinUrl>classpath:helloworld-classpath.groovy</stdinUrl>
+                  <stdinUrl>classpath:helloworld-stdinUrl.groovy</stdinUrl>
                 </command>
               </commands>
             </configuration>
