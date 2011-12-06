@@ -38,18 +38,18 @@ public class CliMojo extends BaseMojo {
     /**
      * Anything supplied here is provided as input to the standard input stream of Jenkins CLI
      *
-     * @parameter expression="${jenkins.input}"
+     * @parameter expression="${jenkins.stdin}"
      */
-    private String input;
+    private String stdin;
 
     /**
      * This can be a file on the file system, a classpath resource using Spring's "classpath:" notation, or any other
      * url Spring 3.0 resource loading can understand. If supplied, the content of the url is provided as input to the
-     * standard input stream of Jenkins CLI. If 'inputUrl' is supplied 'input' is ignored.
+     * standard input stream of Jenkins CLI. If 'stdinUrl' is supplied 'stdin' is ignored.
      *
-     * @parameter expression="${jenkins.inputUrl}"
+     * @parameter expression="${jenkins.stdinUrl}"
      */
-    private String inputUrl;
+    private String stdinUrl;
 
     /**
      * List of commands to issue to Jenkins CLI eg "help", "version", "who-ami-i" etc
@@ -73,20 +73,20 @@ public class CliMojo extends BaseMojo {
         this.cmd = cmd;
     }
 
-    public String getInput() {
-        return input;
+    public String getStdin() {
+        return stdin;
     }
 
-    public void setInput(String input) {
-        this.input = input;
+    public void setStdin(String stdin) {
+        this.stdin = stdin;
     }
 
-    public String getInputUrl() {
-        return inputUrl;
+    public String getStdinUrl() {
+        return stdinUrl;
     }
 
-    public void setInputUrl(String inputUrl) {
-        this.inputUrl = inputUrl;
+    public void setStdinUrl(String stdinUrl) {
+        this.stdinUrl = stdinUrl;
     }
 
     public PlexusConfiguration getCommands() {

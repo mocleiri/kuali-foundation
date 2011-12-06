@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -40,7 +39,6 @@ import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.Java;
 import org.apache.tools.ant.types.Commandline.Argument;
 import org.apache.tools.ant.types.Path;
-import org.codehaus.plexus.configuration.PlexusConfiguration;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.Extractor;
@@ -76,6 +74,7 @@ public class JenkinsHelper {
     ResourceUtils resourceUtils = new ResourceUtils();
     AntMavenUtils antMvnUtils = new AntMavenUtils();
     JavaHelper javaHelper = new JavaHelper();
+    CommandHelper cmdHelper = new CommandHelper();
 
     protected <T> T getContext(Class<T> type, Mojo mojo) {
         try {
@@ -374,56 +373,6 @@ public class JenkinsHelper {
         }
     }
 
-    public List<Command> getCommands(PlexusConfiguration plexusCommands) {
-        List<Command> commands = new ArrayList<Command>();
-        PlexusConfiguration[] commandChildren = plexusCommands.getChildren("command");
-        for (PlexusConfiguration plexusCommand : commandChildren) {
-            Command command = getCommand(plexusCommand);
-            commands.add(command);
-        }
-        return commands;
-    }
-
-    protected Command getCommand(PlexusConfiguration plexusCommand) {
-        List<String> args = getArgs(plexusCommand.getChild("args"));
-        String input = getValue(plexusCommand.getChild("input"));
-        String inputUrl = getValue(plexusCommand.getChild("inputUrl"));
-        Command command = new Command();
-        command.setArgs(args);
-        command.setStdin(input);
-        command.setStdinUrl(inputUrl);
-        return command;
-    }
-
-    protected List<String> getArgs(PlexusConfiguration plexusArgs) {
-        if (plexusArgs == null) {
-            return new ArrayList<String>();
-        }
-        PlexusConfiguration[] argChildren = plexusArgs.getChildren("arg");
-        String[] argValues = getValues(argChildren);
-        return Arrays.asList(argValues);
-    }
-
-    protected String[] getValues(PlexusConfiguration[] plexusConfigs) {
-        if (plexusConfigs == null) {
-            return new String[] {};
-        } else {
-            String[] values = new String[plexusConfigs.length];
-            for (int i = 0; i < values.length; i++) {
-                values[i] = getValue(plexusConfigs[i]);
-            }
-            return values;
-        }
-    }
-
-    protected String getValue(PlexusConfiguration plexusConfig) {
-        if (plexusConfig != null) {
-            return plexusConfig.getValue();
-        } else {
-            return null;
-        }
-    }
-
     /**
 	 *
 	 */
@@ -590,24 +539,6 @@ public class JenkinsHelper {
         return commandLines;
     }
 
-    protected Command getCommand(String cmd, String input, String inputUrl) {
-        String[] args = PropertiesUtils.splitAndTrim(cmd, " ");
-        Command command = new Command();
-        command.setArgs(Arrays.asList(args));
-        command.setStdin(input);
-        command.setStdin(inputUrl);
-        return command;
-    }
-
-    protected List<Command> getCmds(CliMojo mojo) {
-        if (mojo.getCommands() != null) {
-            return getCommands(mojo.getCommands());
-        } else {
-            Command command = getCommand(mojo.getCmd(), mojo.getInput(), mojo.getInputUrl());
-            return Helper.toList(command);
-        }
-    }
-
     protected List<String> getCmds(String cmd, List<String> cmds) {
         if (Helper.isEmpty(cmds)) {
             List<String> newCmds = new ArrayList<String>();
@@ -654,7 +585,7 @@ public class JenkinsHelper {
         String url = mojo.getUrl();
         logger.info("Jenkins CLI: " + jar.getPath());
         logger.info("Jenkins URL: " + url);
-        List<Command> cmds = getCmds(mojo);
+        List<Command> cmds = cmdHelper.getCmds(mojo);
         List<ProcessResult> results = new ArrayList<ProcessResult>();
         for (Command cmd : cmds) {
             logger.info("Issuing command '" + Helper.toString(cmd.getArgs()) + "'");
