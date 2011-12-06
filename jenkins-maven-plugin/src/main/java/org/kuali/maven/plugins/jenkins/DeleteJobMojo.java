@@ -22,6 +22,7 @@ package org.kuali.maven.plugins.jenkins;
  * @requiresDependencyResolution test
  */
 public class DeleteJobMojo extends SimpleJobMojo {
+
     /**
      * The Jenkins CLI command for running a job
      *
