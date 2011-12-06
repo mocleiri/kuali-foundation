@@ -92,7 +92,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>cli-multi-arg-stdin</id>
+            <id>cli-groovy-stdin</id>
             <phase>process-resources</phase>
             <goals>
               <goal>cli</goal>
@@ -110,7 +110,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>cli-groovy-from-file</id>
+            <id>cli-groovy-file</id>
             <phase>process-resources</phase>
             <goals>
               <goal>cli</goal>
