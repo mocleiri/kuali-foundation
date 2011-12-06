@@ -17,6 +17,7 @@ package org.kuali.maven.plugins.jenkins;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.kuali.maven.plugins.jenkins.helper.Helper;
 
@@ -52,15 +53,26 @@ public class RunJobMojo extends SimpleJobMojo {
      */
     private boolean skipIfNoChanges;
 
+    /**
+     * Anything specified here will be passed to Jenkins as build parameters for the job we are running
+     *
+     * @parameter
+     */
+    private Map<String, String> params;
+
     @Override
     protected String[] getArgs(String jobName) {
         List<String> args = new ArrayList<String>();
         args.add(jobName);
-        if (skipIfNoChanges) {
+        if (isSkipIfNoChanges()) {
             args.add("-c");
         }
-        if (wait) {
+        if (isWait()) {
             args.add("-s");
+        }
+        if (!Helper.isEmpty(params)) {
+            args.add("-p");
+            args.addAll(Helper.toList(params));
         }
         return Helper.toArray(args);
     }
@@ -92,6 +104,14 @@ public class RunJobMojo extends SimpleJobMojo {
 
     public void setSkipIfNoChanges(boolean skipIfNoChanges) {
         this.skipIfNoChanges = skipIfNoChanges;
+    }
+
+    public Map<String, String> getParams() {
+        return params;
+    }
+
+    public void setParams(Map<String, String> params) {
+        this.params = params;
     }
 
 }

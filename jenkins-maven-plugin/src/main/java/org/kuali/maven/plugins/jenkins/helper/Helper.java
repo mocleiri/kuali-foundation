@@ -18,10 +18,25 @@ package org.kuali.maven.plugins.jenkins.helper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
 public class Helper {
+    public static final String EQUALS = "=";
+
+    public static final List<String> toList(Map<String, String> params) {
+        return toList(params, EQUALS);
+    }
+
+    public static final List<String> toList(Map<String, String> params, String separator) {
+        List<String> args = new ArrayList<String>();
+        for (Map.Entry<String, String> pair : params.entrySet()) {
+            String arg = pair.getKey() + separator + pair.getValue();
+            args.add(arg);
+        }
+        return args;
+    }
 
     /**
      * Split the string trimming as we go
@@ -82,6 +97,13 @@ public class Helper {
             }
         }
         return false;
+    }
+
+    /**
+     * Return true if map is null or size zero
+     */
+    public static final boolean isEmpty(Map<?, ?> map) {
+        return map == null || map.size() == 0;
     }
 
     /**
