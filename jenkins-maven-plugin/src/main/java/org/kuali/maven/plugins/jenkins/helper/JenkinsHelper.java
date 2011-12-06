@@ -21,8 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -52,6 +50,7 @@ import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.context.AntContext;
 import org.kuali.maven.plugins.jenkins.context.CliContext;
+import org.kuali.maven.plugins.jenkins.context.CommandLine;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.JobContext;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
@@ -66,6 +65,7 @@ public class JenkinsHelper {
 
     private static final Logger logger = LoggerFactory.getLogger(JenkinsHelper.class);
 
+    public static final int SUCCESS_CODE = 0;
     private static final String FS = System.getProperty("file.separator");
     public static final String JAVA_RESULT_PROPERTY = "java.result";
     Extractor extractor = new Extractor();
@@ -118,10 +118,6 @@ public class JenkinsHelper {
         }
     }
 
-    protected boolean isEmpty(Collection<?> c) {
-        return c == null || c.size() == 0;
-    }
-
     protected boolean isIgnore(int result, List<Integer> ignoreCodes) {
         if (result == 0) {
             return true;
@@ -162,7 +158,7 @@ public class JenkinsHelper {
 
     public List<MojoContext> getJobs(Mojo mojo, List<String> names, String[] types) throws MojoExecutionException {
         List<MojoContext> contexts = new ArrayList<MojoContext>();
-        if (!isEmpty(names)) {
+        if (!Helper.isEmpty(names)) {
             for (String name : names) {
                 contexts.add(getJob(mojo, name, null));
             }
@@ -429,7 +425,7 @@ public class JenkinsHelper {
 
     public List<MojoContext> deleteJobs(Mojo mojo, List<String> names, String[] types) throws MojoExecutionException {
         List<MojoContext> contexts = new ArrayList<MojoContext>();
-        if (!isEmpty(names)) {
+        if (!Helper.isEmpty(names)) {
             for (String name : names) {
                 MojoContext context = executeCliJobCommand(mojo, name, null);
                 contexts.add(context);
@@ -515,31 +511,59 @@ public class JenkinsHelper {
         logInfo(result.getOutputLines());
     }
 
-    protected List<String> getMojoCmds(CliMojo mojo) {
-        if (mojo.getCmds() != null) {
-            return mojo.getCmds();
+    protected List<CommandLine> getCommandLines(List<String> cmds, String cmd) {
+        List<CommandLine> commandLines = new ArrayList<CommandLine>();
+        if (cmds == null || cmds.size() == 0) {
+            CommandLine commandLine = getCommandLine(cmd);
+            commandLines.add(commandLine);
         } else {
-            String[] cmds = PropertiesUtils.splitAndTrim(mojo.getCmd(), " ");
-            return Arrays.asList(cmds);
+        }
+        return commandLines;
+    }
+
+    protected List<String> getCmds(String cmd, List<String> cmds) {
+        if (Helper.isEmpty(cmds)) {
+            List<String> newCmds = new ArrayList<String>();
+            newCmds.add(cmd);
+            return newCmds;
+        } else {
+            return cmds;
         }
     }
 
+    protected CommandLine getCommandLine(String cmd) {
+        String[] args = PropertiesUtils.splitAndTrim(cmd, " ");
+        CommandLine commandLine = new CommandLine();
+        commandLine.setArgs(args);
+        return commandLine;
+    }
+
     public void executeCli(CliMojo mojo) throws MojoExecutionException {
+        executeCli(mojo, SUCCESS_CODE);
+    }
+
+    public void executeCli(CliMojo mojo, int... successCodes) throws MojoExecutionException {
         try {
             File jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
             String url = mojo.getUrl();
             logger.info("Jenkins CLI: " + jar.getPath());
             logger.info("Jenkins URL: " + url);
-            List<String> cmds = getMojoCmds(mojo);
+            List<String> cmds = getCmds(mojo.getCmd(), mojo.getCmds());
             List<ProcessResult> results = new ArrayList<ProcessResult>();
             for (String cmd : cmds) {
                 logger.info("Issuing command '" + cmd + "'");
                 ProcessResult result = executeCli(jar, url, cmd);
-                handleResult(mojo, result);
+                handleResult(mojo, result, successCodes);
                 results.add(result);
             }
         } catch (Exception e) {
             throw new MojoExecutionException("Unexpected error", e);
+        }
+    }
+
+    protected void handleResults2(List<ProcessResult> results, int... successCodes) {
+        for (ProcessResult result : results) {
+
         }
     }
 
@@ -571,7 +595,7 @@ public class JenkinsHelper {
         mvnContext.getLog().info("== Jenkins CLI Output ==");
         mvnContext.getLog().info("");
         List<String> lines = resultContext.getFileContentLines();
-        if (!isEmpty(lines)) {
+        if (!Helper.isEmpty(lines)) {
             for (String line : lines) {
                 mvnContext.getLog().info(line);
             }
