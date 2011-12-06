@@ -44,7 +44,7 @@
         <artifactId>${project.artifactId}</artifactId>
         <version>${project.version}</version>
         <executions>
-          <!-- demonstrates running the default cli command 'version' -->
+          <!-- demonstrates running the simple cli command 'version' -->
           <execution>
             <id>cli-default</id>
             <phase>none</phase>
