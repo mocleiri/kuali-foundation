@@ -54,6 +54,7 @@ import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.JobContext;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.context.MojoContext;
+import org.kuali.maven.plugins.jenkins.context.ProcessContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessException;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
 import org.kuali.maven.plugins.jenkins.context.ResultContext;
@@ -567,12 +568,16 @@ public class JenkinsHelper {
     }
 
     protected String getErrorMessage(ProcessResult result) {
+        ProcessContext context = result.getContext();
         int exitValue = result.getExitValue();
         String top = getTop(result.getOutputLines());
         String[] args = result.getContext().getArgs();
         String cmd = Helper.toString(args, " ");
         StringBuilder sb = new StringBuilder();
-        sb.append("cmd: " + cmd + " result:" + exitValue + " msg: " + top + "\n");
+        sb.append("executable: " + context.getExecutable() + "\n");
+        sb.append("cmd: " + cmd + "\n");
+        sb.append("result:" + exitValue + "\n");
+        sb.append("msg: " + top + "\n");
         return sb.toString();
     }
 
