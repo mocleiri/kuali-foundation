@@ -15,8 +15,9 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
+import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.configuration.PlexusConfiguration;
 
 /**
  * Connect to a Jenkins server and execute one or more Jenkins CLI commands.
@@ -57,7 +58,7 @@ public class CliMojo extends BaseMojo {
      *
      * @parameter
      */
-    private PlexusConfiguration commands;
+    private List<Command> commands;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -88,11 +89,11 @@ public class CliMojo extends BaseMojo {
         this.stdinUrl = stdinUrl;
     }
 
-    public PlexusConfiguration getCommands() {
+    public List<Command> getCommands() {
         return commands;
     }
 
-    public void setCommands(PlexusConfiguration commands) {
+    public void setCommands(List<Command> commands) {
         this.commands = commands;
     }
 

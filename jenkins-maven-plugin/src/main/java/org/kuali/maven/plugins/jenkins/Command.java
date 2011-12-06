@@ -1,11 +1,11 @@
-package org.kuali.maven.plugins.jenkins.context;
+package org.kuali.maven.plugins.jenkins;
 
 import java.util.List;
 
 public class Command {
-    List<String> args;
-    String stdin;
-    String stdinUrl;
+    private List<String> args;
+    private String stdin;
+    private String stdinUrl;
 
     public List<String> getArgs() {
         return args;

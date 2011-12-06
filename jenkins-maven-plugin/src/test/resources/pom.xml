@@ -47,7 +47,7 @@
           <!-- demonstrates running a single cli command -->
           <execution>
             <id>cli-default</id>
-            <phase>process-resources</phase>
+            <phase>none</phase>
             <goals>
               <goal>cli</goal>
             </goals>
@@ -64,11 +64,6 @@
                 <command>
                   <args>
                     <arg>version</arg>
-                  </args>
-                </command>
-                <command>
-                  <args>
-                    <arg>who-am-i</arg>
                   </args>
                 </command>
               </commands>
@@ -115,7 +110,7 @@
               </commands>
             </configuration>
           </execution>
-          <!-- demonstrates connection to a different jenkins server different from the default url embedded in the pom -->
+          <!-- demonstrates configuring an explicit jenkins server to connect to -->
           <execution>
             <id>cli-explicit-url</id>
             <phase>process-resources</phase>
@@ -132,6 +127,7 @@
                   </args>
                 </command>
               </commands>
+              <failOnError>false</failOnError>
             </configuration>
           </execution>
         </executions>
