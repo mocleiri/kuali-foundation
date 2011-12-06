@@ -19,8 +19,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.configuration.PlexusConfiguration;
 
 /**
- * Connect to a Jenkins server and execute one or more Jenkins CLI commands. Commands executed by this mojo cannot
- * require input from stdin and any output (normal or err) is logged to stdout
+ * Connect to a Jenkins server and execute one or more Jenkins CLI commands.
  *
  * @goal cli
  * @requiresDependencyResolution test
