@@ -44,6 +44,7 @@
         <artifactId>${project.artifactId}</artifactId>
         <version>${project.version}</version>
         <executions>
+          <!-- demonstrates running the default cli command 'version' -->
           <execution>
             <id>cli-default</id>
             <phase>none</phase>
@@ -51,8 +52,9 @@
               <goal>cli</goal>
             </goals>
           </execution>
+          <!-- demonstrates running multiple cli commands in a single Maven execution -->
           <execution>
-            <id>cli-multi</id>
+            <id>cli-multiple-commands</id>
             <phase>none</phase>
             <goals>
               <goal>cli</goal>
@@ -72,9 +74,10 @@
               </commands>
             </configuration>
           </execution>
+          <!-- demonstrates passing multiple arguments to a single command -->
           <execution>
-            <id>cli-multi-arg</id>
-            <phase>none</phase>
+            <id>cli-groovy-file</id>
+            <phase>process-resources</phase>
             <goals>
               <goal>cli</goal>
             </goals>
@@ -82,15 +85,14 @@
               <commands>
                 <command>
                   <args>
-                    <arg>set-build-description</arg>
-                    <arg>crlf-1.0-publish</arg>
-                    <arg>4</arg>
-                    <arg>${kuali.build.timestamp}</arg>
+                    <arg>groovy</arg>
+                    <arg>helloworld.groovy</arg>
                   </args>
                 </command>
               </commands>
             </configuration>
           </execution>
+          <!-- demonstrates providing input to Jenkins CLI stdin -->
           <execution>
             <id>cli-groovy-stdin</id>
             <phase>process-resources</phase>
@@ -105,23 +107,6 @@
                     <arg>=</arg>
                   </args>
                   <input>println "hello world from stdin"</input>
-                </command>
-              </commands>
-            </configuration>
-          </execution>
-          <execution>
-            <id>cli-groovy-file</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>cli</goal>
-            </goals>
-            <configuration>
-              <commands>
-                <command>
-                  <args>
-                    <arg>groovy</arg>
-                    <arg>helloworld.groovy</arg>
-                  </args>
                 </command>
               </commands>
             </configuration>
