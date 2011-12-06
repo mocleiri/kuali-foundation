@@ -47,7 +47,7 @@ public class CliMojo extends BaseMojo {
     /**
      * This can be a file on the file system, a classpath resource using Spring's "classpath:" notation, or any other
      * url Spring 3.0 resource loading can understand. If supplied, the content of the url is provided as input to the
-     * standard input stream of Jenkins CLI. If 'stdinUrl' is supplied 'stdin' is ignored.
+     * standard input stream of Jenkins CLI. If 'inputUrl' is supplied 'input' is ignored.
      *
      * @parameter expression="${jenkins.inputUrl}"
      */
