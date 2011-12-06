@@ -549,11 +549,37 @@ public class JenkinsHelper {
         executeCli(mojo, SUCCESS_CODE);
     }
 
-    public String getInput(String input, String inputUrl) throws IOException {
-        if (StringUtils.isBlank(inputUrl)) {
-            return input;
+    protected List<String> getInputs(List<String> inputs, List<String> inputUrls) throws IOException {
+        if (!Helper.isEmpty(inputUrls)) {
+            return resourceUtils.read(inputUrls);
         } else {
+            return inputs;
+        }
+    }
+
+    protected String getInput(String input, String inputUrl) throws IOException {
+        if (!StringUtils.isBlank(inputUrl)) {
             return resourceUtils.read(inputUrl);
+        } else {
+            return input;
+        }
+    }
+
+    protected boolean isMultiInputs(CliMojo mojo) {
+        return !Helper.isEmpty(mojo.getStdins()) || !Helper.isEmpty(mojo.getStdinUrls());
+    }
+
+    protected List<String> getInputs(CliMojo mojo) {
+        try {
+            if (isMultiInputs(mojo)) {
+                return getInputs(mojo.getStdins(), mojo.getStdinUrls());
+            } else {
+                List<String> stdins = Helper.toList(mojo.getStdin());
+                List<String> stdinUrls = Helper.toList(mojo.getStdinUrl());
+                return getInputs(stdins, stdinUrls);
+            }
+        } catch (IOException e) {
+            throw new CliException(e);
         }
     }
 
@@ -563,6 +589,7 @@ public class JenkinsHelper {
         logger.info("Jenkins CLI: " + jar.getPath());
         logger.info("Jenkins URL: " + url);
         List<String> cmds = getCmds(mojo.getCmd(), mojo.getCmds());
+        List<String> inputs = getInputs(mojo);
         List<ProcessResult> results = new ArrayList<ProcessResult>();
         for (String cmd : cmds) {
             logger.info("Issuing command '" + cmd + "'");

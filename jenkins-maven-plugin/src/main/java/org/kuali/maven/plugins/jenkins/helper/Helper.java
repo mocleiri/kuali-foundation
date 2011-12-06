@@ -15,12 +15,19 @@
  */
 package org.kuali.maven.plugins.jenkins.helper;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
 public class Helper {
+
+    public static final List<String> toList(String s) {
+        List<String> list = new ArrayList<String>();
+        list.add(s);
+        return list;
+    }
 
     public static final String[] toArray(List<String> list) {
         return list.toArray(new String[list.size()]);
