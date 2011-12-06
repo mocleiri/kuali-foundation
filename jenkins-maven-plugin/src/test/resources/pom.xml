@@ -115,7 +115,7 @@
               </commands>
             </configuration>
           </execution>
-          <!-- demonstrates connection to a different jenkins server -->
+          <!-- demonstrates connection to a different jenkins server different from the default url embedded in the pom -->
           <execution>
             <id>cli-explicit-url</id>
             <phase>process-resources</phase>
