@@ -15,58 +15,27 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import java.util.List;
-
 import org.apache.maven.plugin.MojoExecutionException;
-import org.kuali.maven.common.PropertiesUtils;
-import org.kuali.maven.plugins.jenkins.context.MojoContext;
 
 /**
- * Connect to a Jenkins server and update the configuration for one or more existing jobs
- * 
+ * Connect to a Jenkins server and update one or more Jenkins job
+ *
  * @goal updatejobs
  * @requiresDependencyResolution test
  */
-public class UpdateJobsMojo extends AbstractJobConfigMojo {
+public class UpdateJobsMojo extends BaseMojo {
 
-	/**
-	 * The command issued to Jenkins CLI
-	 * 
-	 * @parameter expression="${jenkins.cmd}" default-value="update-job"
-	 * @required
-	 */
-	private String cmd;
+    /**
+     * The Jenkins CLI command for creating a job
+     *
+     * @parameter expression="${jenkins.updateJobCmd}" default-value="update-job"
+     * @required
+     */
+    private String udpateJobCmd;
 
-	/**
-	 * Comma delimited list of types of jobs to update. Maven GAV info is combined with 'type' to derive the complete job name eg
-	 * 'jenkins-maven-plugin-1.0-publish'
-	 * 
-	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
-	 * @required
-	 */
-	private String types;
-
-	@Override
-	public void execute() throws MojoExecutionException {
-		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-		List<MojoContext> contexts = helper.pushJobsToJenkins(this, tokens);
-		helper.handleResults(contexts);
-	}
-
-	public String getCmd() {
-		return cmd;
-	}
-
-	public void setCmd(String cmd) {
-		this.cmd = cmd;
-	}
-
-	public String getTypes() {
-		return types;
-	}
-
-	public void setTypes(String types) {
-		this.types = types;
-	}
+    @Override
+    public void execute() throws MojoExecutionException {
+        helper.pushJobs(this, udpateJobCmd);
+    }
 
 }

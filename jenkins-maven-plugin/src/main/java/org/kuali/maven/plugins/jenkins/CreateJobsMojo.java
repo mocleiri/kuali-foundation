@@ -23,7 +23,7 @@ import org.apache.maven.plugin.MojoExecutionException;
  * @goal createjobs
  * @requiresDependencyResolution test
  */
-public class CreateJobsMojo extends AbstractJobConfigMojo {
+public class CreateJobsMojo extends BaseMojo {
 
     /**
      * The Jenkins CLI command for creating a job
