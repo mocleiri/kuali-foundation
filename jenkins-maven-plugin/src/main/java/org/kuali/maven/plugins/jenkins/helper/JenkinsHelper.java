@@ -66,6 +66,7 @@ public class JenkinsHelper {
     private static final Logger logger = LoggerFactory.getLogger(JenkinsHelper.class);
 
     public static final int SUCCESS_CODE = 0;
+    public static final String SERVER_ARG = "-s";
     public static final int NO_SUCH_COMMAND = 255;
     private static final String FS = System.getProperty("file.separator");
     public static final String JAVA_RESULT_PROPERTY = "java.result";
@@ -456,10 +457,10 @@ public class JenkinsHelper {
 
     protected String[] getJenkinsCliArgs(String url, List<String> args) {
         List<String> list = new ArrayList<String>();
-        list.add("-s");
+        list.add(SERVER_ARG);
         list.add(url);
         list.addAll(args);
-        return list.toArray(new String[list.size()]);
+        return Helper.toArray(list);
     }
 
     protected void handleResult(BaseMojo mojo, ProcessResult result) {

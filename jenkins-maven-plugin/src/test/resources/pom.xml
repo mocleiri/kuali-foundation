@@ -115,6 +115,25 @@
               </commands>
             </configuration>
           </execution>
+          <!-- demonstrates connection to a different jenkins server -->
+          <execution>
+            <id>cli-explicit-url</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>cli</goal>
+            </goals>
+            <configuration>
+              <url>http://ci.rice.kuali.org</url>
+              <commands>
+                <command>
+                  <args>
+                    <arg>groovy</arg>
+                    <arg>helloworld.groovy</arg>
+                  </args>
+                </command>
+              </commands>
+            </configuration>
+          </execution>
         </executions>
         <dependencies>
           <dependency>
