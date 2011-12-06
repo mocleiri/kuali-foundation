@@ -23,67 +23,68 @@ import org.kuali.maven.plugins.jenkins.context.MojoContext;
 
 /**
  * Connect to a Jenkins server and retrieve XML documents describing one or more job configurations
- * 
+ *
  * @goal getjobs
  * @requiresDependencyResolution test
  */
-public class GetJobsMojo extends AbstractCliMojo {
+public class GetJobsMojo extends BaseMojo {
 
-	/**
-	 * The command issued to Jenkins CLI
-	 * 
-	 * @parameter expression="${jenkins.cmd}" default-value="get-job"
-	 * @required
-	 */
-	private String cmd;
+    /**
+     * The command issued to Jenkins CLI
+     *
+     * @parameter expression="${jenkins.cmd}" default-value="get-job"
+     * @required
+     */
+    private String cmd;
 
-	/**
-	 * The types of jobs to retrieve. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
-	 * 
-	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
-	 * @required
-	 */
-	private String types;
+    /**
+     * The types of jobs to retrieve. Maven GAV info is combined with 'type' to derive the complete job name eg
+     * 'jenkins-maven-plugin-1.0-publish'
+     *
+     * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
+     * @required
+     */
+    private String types;
 
-	/**
-	 * The explicit list of jobs to retrieve. If names are provided, 'types' is ignored.
-	 * 
-	 * @parameter
-	 */
-	private List<String> names;
+    /**
+     * The explicit list of jobs to retrieve. If names are provided, 'types' is ignored.
+     *
+     * @parameter
+     */
+    private List<String> names;
 
-	@Override
-	public void execute() throws MojoExecutionException {
-		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-		getLog().info("");
-		getLog().info("Working Dir - " + getWorkingDir().getAbsolutePath());
-		getLog().info("");
-		List<MojoContext> contexts = helper.getJobs(this, names, tokens);
-		helper.handleResults(contexts);
-	}
+    @Override
+    public void execute() throws MojoExecutionException {
+        String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
+        getLog().info("");
+        getLog().info("Working Dir - " + getWorkingDir().getAbsolutePath());
+        getLog().info("");
+        List<MojoContext> contexts = helper.getJobs(this, names, tokens);
+        helper.handleResults(contexts);
+    }
 
-	public String getTypes() {
-		return types;
-	}
+    public String getTypes() {
+        return types;
+    }
 
-	public void setTypes(String types) {
-		this.types = types;
-	}
+    public void setTypes(String types) {
+        this.types = types;
+    }
 
-	public List<String> getNames() {
-		return names;
-	}
+    public List<String> getNames() {
+        return names;
+    }
 
-	public void setNames(List<String> names) {
-		this.names = names;
-	}
+    public void setNames(List<String> names) {
+        this.names = names;
+    }
 
-	public String getCmd() {
-		return cmd;
-	}
+    public String getCmd() {
+        return cmd;
+    }
 
-	public void setCmd(String cmd) {
-		this.cmd = cmd;
-	}
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
+    }
 
 }

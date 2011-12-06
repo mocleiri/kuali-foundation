@@ -19,62 +19,63 @@ import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Connect to a Jenkins server and retrieve an XML document describing the job configuration
- * 
+ *
  * @goal getjob
  * @requiresDependencyResolution test
  */
-public class GetJobMojo extends AbstractCliMojo {
+public class GetJobMojo extends BaseMojo {
 
-	/**
-	 * The command issued to Jenkins CLI
-	 * 
-	 * @parameter expression="${jenkins.cmd}" default-value="get-job"
-	 * @required
-	 */
-	private String cmd;
+    /**
+     * The command issued to Jenkins CLI
+     *
+     * @parameter expression="${jenkins.cmd}" default-value="get-job"
+     * @required
+     */
+    private String cmd;
 
-	/**
-	 * The type of job to retrieve. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
-	 * 
-	 * @parameter expression="${jenkins.type}" default-value="publish"
-	 * @required
-	 */
-	private String type;
+    /**
+     * The type of job to retrieve. Maven GAV info is combined with 'type' to derive the complete job name eg
+     * 'jenkins-maven-plugin-1.0-publish'
+     *
+     * @parameter expression="${jenkins.type}" default-value="publish"
+     * @required
+     */
+    private String type;
 
-	/**
-	 * The name of the job to retrieve. If name is supplied, 'type' is ignored
-	 * 
-	 * @parameter expression="${jenkins.name}"
-	 */
-	private String name;
+    /**
+     * The name of the job to retrieve. If name is supplied, 'type' is ignored
+     *
+     * @parameter expression="${jenkins.name}"
+     */
+    private String name;
 
-	@Override
-	public void execute() throws MojoExecutionException {
-		helper.getJob(this, name, type);
-	}
+    @Override
+    public void execute() throws MojoExecutionException {
+        helper.getJob(this, name, type);
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getCmd() {
-		return cmd;
-	}
+    public String getCmd() {
+        return cmd;
+    }
 
-	public void setCmd(String cmd) {
-		this.cmd = cmd;
-	}
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
+    }
 
 }
