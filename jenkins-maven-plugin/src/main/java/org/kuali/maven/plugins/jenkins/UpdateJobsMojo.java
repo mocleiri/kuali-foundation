@@ -31,11 +31,19 @@ public class UpdateJobsMojo extends BaseMojo {
      * @parameter expression="${jenkins.updateJobCmd}" default-value="update-job"
      * @required
      */
-    private String udpateJobCmd;
+    private String updateJobCmd;
 
     @Override
     public void execute() throws MojoExecutionException {
-        helper.pushJobs(this, udpateJobCmd);
+        helper.pushJobs(this, updateJobCmd);
+    }
+
+    public String getUpdateJobCmd() {
+        return updateJobCmd;
+    }
+
+    public void setUpdateJobCmd(String updateJobCmd) {
+        this.updateJobCmd = updateJobCmd;
     }
 
 }
