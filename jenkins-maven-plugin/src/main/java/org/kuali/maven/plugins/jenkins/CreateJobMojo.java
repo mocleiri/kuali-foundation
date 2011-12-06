@@ -19,47 +19,48 @@ import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Connect to a Jenkins server and create a Jenkins job
- * 
+ *
  * @goal createjob
  * @requiresDependencyResolution test
  */
 public class CreateJobMojo extends AbstractJobConfigMojo {
 
-	/**
-	 * The command issued to Jenkins CLI
-	 * 
-	 * @parameter expression="${jenkins.cmd}" default-value="create-job"
-	 * @required
-	 */
-	private String cmd;
+    /**
+     * The Jenkins CLI command for creating a job
+     *
+     * @parameter expression="${jenkins.createJobCmd}" default-value="create-job"
+     * @required
+     */
+    private String createJobCmd;
 
-	/**
-	 * The type of job to create. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
-	 * 
-	 * @parameter expression="${jenkins.type}" default-value="publish"
-	 * @required
-	 */
-	private String type;
+    /**
+     * The type of job to create. Maven GAV info is combined with 'type' to derive the complete job name eg
+     * 'jenkins-maven-plugin-1.0-publish'
+     *
+     * @parameter expression="${jenkins.type}" default-value="publish"
+     * @required
+     */
+    private String type;
 
-	@Override
-	public void execute() throws MojoExecutionException {
-		helper.pushJobToJenkins(this, type);
-	}
+    @Override
+    public void execute() throws MojoExecutionException {
+        helper.pushJobToJenkins(this, type);
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getCmd() {
-		return cmd;
-	}
+    public String getCreateJobCmd() {
+        return createJobCmd;
+    }
 
-	public void setCmd(String cmd) {
-		this.cmd = cmd;
-	}
+    public void setCreateJobCmd(String createJobCmd) {
+        this.createJobCmd = createJobCmd;
+    }
 
 }
