@@ -22,7 +22,7 @@ import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.helper.Helper;
 
 /**
- * Mojo for execution 'simple' Jenkins CLI commands related to Jenkins jobs. Simple in this context means the CLI
+ * Mojo for execution 'simple' Jenkins CLI commands related to Jenkins jobs. 'Simple' in this context means the CLI
  * command requires no input and produces no output.
  */
 public abstract class SimpleJobMojo extends CliMojo {
@@ -45,11 +45,15 @@ public abstract class SimpleJobMojo extends CliMojo {
      */
     private String name;
 
+    protected String[] getArgs(String jobName) {
+        return new String[] { getJobCmd(), jobName };
+    }
+
     @Override
     public void execute() throws MojoExecutionException {
         MavenContext context = helper.getMavenContext(this);
         String jobName = helper.getJobName(context, name, type);
-        String[] args = { getJobCmd(), jobName };
+        String[] args = getArgs(jobName);
         Command command = new Command();
         command.setArgs(Arrays.asList(args));
         super.setCommands(Helper.toList(command));
