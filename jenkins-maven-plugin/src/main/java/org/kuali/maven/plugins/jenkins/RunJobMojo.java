@@ -15,6 +15,11 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.kuali.maven.plugins.jenkins.helper.Helper;
+
 /**
  * Connect to a Jenkins server and kick off a job
  *
@@ -31,6 +36,35 @@ public class RunJobMojo extends SimpleJobMojo {
      */
     private String runJobCmd;
 
+    /**
+     * It true, wait for the job to complete before continuing.
+     *
+     * @parameter expression="${jenkins.wait}" default-value="false"
+     * @required
+     */
+    private boolean wait;
+
+    /**
+     * It true, check for changes before running the job. If nothing has changed, do not run the job.
+     *
+     * @parameter expression="${jenkins.skipIfNoChanges}" default-value="false"
+     * @required
+     */
+    private boolean skipIfNoChanges;
+
+    @Override
+    protected String[] getArgs(String jobName) {
+        List<String> args = new ArrayList<String>();
+        args.add(jobName);
+        if (skipIfNoChanges) {
+            args.add("-c");
+        }
+        if (wait) {
+            args.add("-s");
+        }
+        return Helper.toArray(args);
+    }
+
     @Override
     protected String getJobCmd() {
         return getRunJobCmd();
@@ -42,6 +76,22 @@ public class RunJobMojo extends SimpleJobMojo {
 
     public void setRunJobCmd(String cmd) {
         this.runJobCmd = cmd;
+    }
+
+    public boolean isWait() {
+        return wait;
+    }
+
+    public void setWait(boolean wait) {
+        this.wait = wait;
+    }
+
+    public boolean isSkipIfNoChanges() {
+        return skipIfNoChanges;
+    }
+
+    public void setSkipIfNoChanges(boolean skipIfNoChanges) {
+        this.skipIfNoChanges = skipIfNoChanges;
     }
 
 }
