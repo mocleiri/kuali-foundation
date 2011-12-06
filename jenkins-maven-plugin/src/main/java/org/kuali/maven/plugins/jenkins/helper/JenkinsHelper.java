@@ -66,6 +66,7 @@ public class JenkinsHelper {
     private static final Logger logger = LoggerFactory.getLogger(JenkinsHelper.class);
 
     public static final int SUCCESS_CODE = 0;
+    public static final int NO_SUCH_COMMAND = 255;
     private static final String FS = System.getProperty("file.separator");
     public static final String JAVA_RESULT_PROPERTY = "java.result";
     Extractor extractor = new Extractor();
@@ -244,22 +245,26 @@ public class JenkinsHelper {
         return gav;
     }
 
-    protected GAV getGav(MavenProject project) throws IOException {
-        String location = "classpath:org/kuali/maven/plugins/jenkins/jenkins-cli.properties";
-        Properties internal = propertiesUtils.getProperties(location);
-        GAV internalGAV = getGav(internal);
-        GAV overrideGAV = getGav(project.getProperties());
+    protected GAV getGav(MavenProject project) {
+        try {
+            String location = "classpath:org/kuali/maven/plugins/jenkins/jenkins-cli.properties";
+            Properties internal = propertiesUtils.getProperties(location);
+            GAV internalGAV = getGav(internal);
+            GAV overrideGAV = getGav(project.getProperties());
 
-        GAV gav = internalGAV;
-        if (overrideGAV != null && !internalGAV.equals(overrideGAV)) {
-            logger.info("Jenkins CLI override: [internal=" + internalGAV + ", override=" + overrideGAV + "]");
-            gav = overrideGAV;
+            GAV gav = internalGAV;
+            if (overrideGAV != null && !internalGAV.equals(overrideGAV)) {
+                logger.info("Jenkins CLI override: [internal=" + internalGAV + ", override=" + overrideGAV + "]");
+                gav = overrideGAV;
+            }
+            return gav;
+        } catch (IOException e) {
+            throw new CliException(e);
         }
-        return gav;
 
     }
 
-    public File getJenkinsJar(MavenProject project, List<Artifact> pluginArtifacts) throws IOException {
+    public File getJenkinsJar(MavenProject project, List<Artifact> pluginArtifacts) {
         GAV gav = getGav(project);
         for (Iterator<Artifact> itr = pluginArtifacts.iterator(); itr.hasNext();) {
             Artifact artifact = itr.next();
@@ -267,7 +272,7 @@ public class JenkinsHelper {
                 return artifact.getFile();
             }
         }
-        throw new IOException("Unable to locate jenkins-cli.jar");
+        throw new CliException("Unable to locate jenkins-cli.jar");
     }
 
     protected boolean equals(Artifact artifact, GAV gav) {
@@ -469,6 +474,13 @@ public class JenkinsHelper {
         }
     }
 
+    protected void logWarning(List<String> lines) {
+        String top = getTop(lines);
+        if (top != null) {
+            logger.warn(top);
+        }
+    }
+
     protected String getTop(List<String> lines) {
         for (String line : lines) {
             if (!StringUtils.isBlank(line)) {
@@ -479,9 +491,11 @@ public class JenkinsHelper {
     }
 
     protected void handleFailure(BaseMojo mojo, ProcessResult result) {
-        logError(result.getOutputLines());
         if (mojo.isStopOnError()) {
+            logError(result.getOutputLines());
             throw new ProcessException("Result code: '" + result.getExitValue() + "' " + result.getOutput());
+        } else {
+            logWarning(result.getOutputLines());
         }
     }
 
@@ -516,52 +530,54 @@ public class JenkinsHelper {
         return commandLine;
     }
 
-    public void executeCli(CliMojo mojo) throws MojoExecutionException {
+    public void executeCli(CliMojo mojo) {
         executeCli(mojo, SUCCESS_CODE);
     }
 
-    public void executeCli(CliMojo mojo, int... successCodes) throws MojoExecutionException {
-        try {
-            File jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
-            String url = mojo.getUrl();
-            logger.info("Jenkins CLI: " + jar.getPath());
-            logger.info("Jenkins URL: " + url);
-            List<String> cmds = getCmds(mojo.getCmd(), mojo.getCmds());
-            List<ProcessResult> results = new ArrayList<ProcessResult>();
-            for (String cmd : cmds) {
-                logger.info("Issuing command '" + cmd + "'");
-                ProcessResult result = executeCli(jar, url, cmd);
-                handleResult(mojo, result, successCodes);
-                results.add(result);
-            }
-            handleResults2(results, mojo.isFailOnError(), successCodes);
-        } catch (Exception e) {
-            throw new MojoExecutionException("Unexpected error", e);
+    public void executeCli(CliMojo mojo, int... successCodes) {
+        File jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
+        String url = mojo.getUrl();
+        logger.info("Jenkins CLI: " + jar.getPath());
+        logger.info("Jenkins URL: " + url);
+        List<String> cmds = getCmds(mojo.getCmd(), mojo.getCmds());
+        List<ProcessResult> results = new ArrayList<ProcessResult>();
+        for (String cmd : cmds) {
+            logger.info("Issuing command '" + cmd + "'");
+            ProcessResult result = executeCli(jar, url, cmd);
+            handleResult(mojo, result, successCodes);
+            results.add(result);
         }
+        handleResults2(results, mojo.isFailOnError(), successCodes);
+
     }
 
     protected void handleResults2(List<ProcessResult> results, boolean failOnError, int... successCodes) {
-        List<ProcessResult> issues = new ArrayList<ProcessResult>();
+        List<ProcessResult> errors = new ArrayList<ProcessResult>();
         for (ProcessResult result : results) {
             int exitValue = result.getExitValue();
             if (!Helper.isMatch(exitValue, successCodes)) {
-                issues.add(result);
+                errors.add(result);
             }
         }
-        if (issues.size() == 0) {
+        if (errors.size() == 0) {
             return;
         }
-        String msg = getErrorMessage(issues);
         if (failOnError) {
-            throw new CliException(msg);
+            logger.error(getErrorMessage(errors));
+            throw new CliException("Jenkins CLI error");
         } else {
-            logger.warn(msg);
+            logger.warn(getErrorMessage(errors));
         }
     }
 
-    protected String getErrorMessage(List<ProcessResult> results) {
+    protected String getErrorMessage(List<ProcessResult> errors) {
         StringBuilder sb = new StringBuilder();
-        for (ProcessResult result : results) {
+        if (errors.size() == 1) {
+            sb.append("There was 1 error.");
+        } else {
+            sb.append("There were " + errors.size() + " errors.");
+        }
+        for (ProcessResult result : errors) {
             sb.append(getErrorMessage(result));
         }
         return sb.toString();
@@ -574,10 +590,14 @@ public class JenkinsHelper {
         String[] args = result.getContext().getArgs();
         String cmd = Helper.toString(args, " ");
         StringBuilder sb = new StringBuilder();
+        sb.append("\n");
+        sb.append("msg: " + top + "\n");
         sb.append("executable: " + context.getExecutable() + "\n");
         sb.append("cmd: " + cmd + "\n");
-        sb.append("result:" + exitValue + "\n");
-        sb.append("msg: " + top + "\n");
+        sb.append("result: " + exitValue + "\n");
+        if (exitValue != NO_SUCH_COMMAND) {
+            sb.append("details: " + result.getOutput());
+        }
         return sb.toString();
     }
 
