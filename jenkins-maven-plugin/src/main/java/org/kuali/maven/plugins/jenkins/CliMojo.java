@@ -20,7 +20,8 @@ import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Connect to a Jenkins server and execute one or more Jenkins CLI commands
+ * Connect to a Jenkins server and execute one or more Jenkins CLI commands. Commands executed by this mojo cannot
+ * require input from stdin and any output (normal or err) is logged to stdout
  *
  * @goal cli
  * @requiresDependencyResolution test
@@ -44,6 +45,13 @@ public class CliMojo extends BaseMojo {
      */
     private List<String> cmds;
 
+    /**
+     * Anything supplied here is provided as input to the standard input stream of Jenkins CLI
+     *
+     * @parameter
+     */
+    private String stdin;
+
     @Override
     public void execute() throws MojoExecutionException {
         helper.executeCli(this);
@@ -63,6 +71,14 @@ public class CliMojo extends BaseMojo {
 
     public void setCmds(List<String> cmds) {
         this.cmds = cmds;
+    }
+
+    public String getStdin() {
+        return stdin;
+    }
+
+    public void setStdin(String stdin) {
+        this.stdin = stdin;
     }
 
 }

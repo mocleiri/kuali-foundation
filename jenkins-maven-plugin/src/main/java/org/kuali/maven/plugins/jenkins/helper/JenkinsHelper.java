@@ -265,13 +265,21 @@ public class JenkinsHelper {
 
     public File getJenkinsJar(MavenProject project, List<Artifact> pluginArtifacts) {
         GAV gav = getGav(project);
-        for (Iterator<Artifact> itr = pluginArtifacts.iterator(); itr.hasNext();) {
-            Artifact artifact = itr.next();
+        File jar = getJar(gav, pluginArtifacts);
+        if (jar == null) {
+            throw new CliException("Unable to locate jenkins-cli.jar");
+        } else {
+            return jar;
+        }
+    }
+
+    public File getJar(GAV gav, List<Artifact> artifacts) {
+        for (Artifact artifact : artifacts) {
             if (equals(artifact, gav)) {
                 return artifact.getFile();
             }
         }
-        throw new CliException("Unable to locate jenkins-cli.jar");
+        return null;
     }
 
     protected boolean equals(Artifact artifact, GAV gav) {
