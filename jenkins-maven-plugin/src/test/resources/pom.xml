@@ -92,7 +92,7 @@
               </commands>
             </configuration>
           </execution>
-          <!-- demonstrates providing input to Jenkins CLI stdin -->
+          <!-- demonstrates providing input to Jenkins CLI via stdin -->
           <execution>
             <id>cli-groovy-stdin</id>
             <phase>process-resources</phase>
@@ -106,7 +106,7 @@
                     <arg>groovy</arg>
                     <arg>=</arg>
                   </args>
-                  <input>println "hello world from stdin"</input>
+                  <stdin>println "hello world from stdin"</stdin>
                 </command>
               </commands>
             </configuration>
