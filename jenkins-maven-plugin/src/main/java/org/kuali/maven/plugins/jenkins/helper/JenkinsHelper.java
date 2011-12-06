@@ -16,9 +16,7 @@
 package org.kuali.maven.plugins.jenkins.helper;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +48,7 @@ import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.context.AntContext;
 import org.kuali.maven.plugins.jenkins.context.CliContext;
+import org.kuali.maven.plugins.jenkins.context.CliException;
 import org.kuali.maven.plugins.jenkins.context.CommandLine;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.JobContext;
@@ -186,31 +185,9 @@ public class JenkinsHelper {
         }
     }
 
-    protected List<String> getContentLines(File file) {
-        try {
-            if (file == null || !file.exists() || file.length() == 0) {
-                return null;
-            }
-            return readLines(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    protected List<String> readLines(File file) throws IOException {
-        InputStream in = null;
-        try {
-            in = new FileInputStream(file);
-            return IOUtils.readLines(in);
-        } finally {
-            IOUtils.closeQuietly(in);
-        }
-    }
-
     protected ResultContext getResultContext(int result, File resultFile) {
         String contents = getContents(resultFile);
-        List<String> lines = getContentLines(resultFile);
+        List<String> lines = new ArrayList<String>();
         if (result == 0) {
             return new ResultContext(result, null, contents, lines);
         } else {
@@ -562,8 +539,15 @@ public class JenkinsHelper {
     }
 
     protected void handleResults2(List<ProcessResult> results, int... successCodes) {
+        boolean error = false;
         for (ProcessResult result : results) {
-
+            int exitValue = result.getExitValue();
+            if (!Helper.isMatch(exitValue, successCodes)) {
+                error = true;
+            }
+        }
+        if (error) {
+            throw new CliException("");
         }
     }
 

@@ -7,6 +7,15 @@ import org.apache.commons.lang.StringUtils;
 
 public class Helper {
 
+    public static final boolean isMatch(int i, int... values) {
+        for (int value : values) {
+            if (value == i) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Return true if c is null or size zero
      */

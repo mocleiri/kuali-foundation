@@ -28,11 +28,6 @@
   <artifactId>${project.artifactId}</artifactId>
   <version>1.0.1</version>
   <name>Jenkins Maven Plugin Test POM</name>
-  <properties>
-    <jenkins.cli.groupId>${jenkins.cli.groupId}</jenkins.cli.groupId>
-    <jenkins.cli.artifactId>${jenkins.cli.artifactId}</jenkins.cli.artifactId>
-    <jenkins.cli.version>${jenkins.cli.version}</jenkins.cli.version>
-  </properties>
   <build>
     <pluginManagement>
       <plugins>
@@ -43,6 +38,28 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>${project.artifactId}</artifactId>
+        <version>${project.version}</version>
+        <executions>
+          <execution>
+            <id>cli</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>cli</goal>
+            </goals>
+            <configuration>
+              <cmds>
+                <param>version</param>
+                <param>who-am-i</param>
+              </cmds>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
   <scm>
     <connection>${project.scm.connection}</connection>
