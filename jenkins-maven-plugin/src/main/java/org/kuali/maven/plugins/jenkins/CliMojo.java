@@ -18,6 +18,7 @@ package org.kuali.maven.plugins.jenkins;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.kuali.maven.plugins.jenkins.context.Command;
 
 /**
  * Connect to a Jenkins server and execute one or more Jenkins CLI commands. Commands executed by this mojo cannot
@@ -39,18 +40,18 @@ public class CliMojo extends BaseMojo {
     /**
      * Anything supplied here is provided as input to the standard input stream of Jenkins CLI
      *
-     * @parameter expression="${jenkins.stdin}"
+     * @parameter expression="${jenkins.input}"
      */
-    private String stdin;
+    private String input;
 
     /**
      * This can be a file on the file system, a classpath resource using Spring's "classpath:" notation, or any other
      * url Spring 3.0 resource loading can understand. If supplied, the content of the url is provided as input to the
      * standard input stream of Jenkins CLI. If 'stdinUrl' is supplied 'stdin' is ignored.
      *
-     * @parameter expression="${jenkins.stdinUrl}"
+     * @parameter expression="${jenkins.inputUrl}"
      */
-    private String stdinUrl;
+    private String inputUrl;
 
     /**
      * List of commands to issue to Jenkins CLI eg "help", "version", "who-ami-i" etc
@@ -59,23 +60,7 @@ public class CliMojo extends BaseMojo {
      *
      * @parameter
      */
-    private List<String> cmds;
-
-    /**
-     * Anything supplied here is provided as input to the standard input stream of Jenkins CLI
-     *
-     * @parameter
-     */
-    private List<String> stdins;
-
-    /**
-     * This can be a file on the file system, a classpath resource using Spring's "classpath:" notation, or any other
-     * url Spring 3.0 resource loading can understand. If supplied, the content of the url is provided as input to the
-     * standard input stream of Jenkins CLI. If 'stdinUrls' is supplied 'stdins' is ignored.
-     *
-     * @parameter
-     */
-    private List<String> stdinUrls;
+    private List<Command> cmds;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -90,44 +75,28 @@ public class CliMojo extends BaseMojo {
         this.cmd = cmd;
     }
 
-    public List<String> getCmds() {
+    public String getInput() {
+        return input;
+    }
+
+    public void setInput(String input) {
+        this.input = input;
+    }
+
+    public String getInputUrl() {
+        return inputUrl;
+    }
+
+    public void setInputUrl(String inputUrl) {
+        this.inputUrl = inputUrl;
+    }
+
+    public List<Command> getCmds() {
         return cmds;
     }
 
-    public void setCmds(List<String> cmds) {
+    public void setCmds(List<Command> cmds) {
         this.cmds = cmds;
-    }
-
-    public String getStdin() {
-        return stdin;
-    }
-
-    public void setStdin(String stdin) {
-        this.stdin = stdin;
-    }
-
-    public String getStdinUrl() {
-        return stdinUrl;
-    }
-
-    public void setStdinUrl(String stdinUrl) {
-        this.stdinUrl = stdinUrl;
-    }
-
-    public List<String> getStdins() {
-        return stdins;
-    }
-
-    public void setStdins(List<String> stdins) {
-        this.stdins = stdins;
-    }
-
-    public List<String> getStdinUrls() {
-        return stdinUrls;
-    }
-
-    public void setStdinUrls(List<String> stdinUrls) {
-        this.stdinUrls = stdinUrls;
     }
 
 }

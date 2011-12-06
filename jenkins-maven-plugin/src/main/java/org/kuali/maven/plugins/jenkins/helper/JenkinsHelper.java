@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -49,6 +50,7 @@ import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.context.AntContext;
 import org.kuali.maven.plugins.jenkins.context.CliContext;
 import org.kuali.maven.plugins.jenkins.context.CliException;
+import org.kuali.maven.plugins.jenkins.context.Command;
 import org.kuali.maven.plugins.jenkins.context.CommandLine;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.JobContext;
@@ -429,21 +431,33 @@ public class JenkinsHelper {
         return contexts;
     }
 
-    public ProcessResult executeCli(File jar, String url, String cmd) {
-        return executeCli(jar, url, cmd, null);
+    protected String getInput(Command cmd) {
+        if (!StringUtils.isBlank(cmd.getInputUrl())) {
+            try {
+                return resourceUtils.read(cmd.getInputUrl());
+            } catch (IOException e) {
+                throw new CliException(e);
+            }
+        } else {
+            return cmd.getInput();
+        }
     }
 
-    public ProcessResult executeCli(File jar, String url, String cmd, String input) {
-        String[] args = getJenkinsCliArgs(url, cmd);
-        return javaHelper.executeJar(jar, args, input);
+    public ProcessResult executeCli(File jar, String url, Command cmd) {
+        String input = getInput(cmd);
+        return executeCli(jar, url, cmd.getArgs(), input);
     }
 
-    protected String[] getJenkinsCliArgs(String url, String cmd) {
+    public ProcessResult executeCli(File jar, String url, List<String> args, String input) {
+        String[] newArgs = getJenkinsCliArgs(url, args);
+        return javaHelper.executeJar(jar, newArgs, input);
+    }
+
+    protected String[] getJenkinsCliArgs(String url, List<String> args) {
         List<String> list = new ArrayList<String>();
         list.add("-s");
         list.add(url);
-        String[] cmdTokens = PropertiesUtils.splitAndTrim(cmd, " ");
-        Helper.addToList(list, cmdTokens);
+        list.addAll(args);
         return list.toArray(new String[list.size()]);
     }
 
@@ -524,6 +538,24 @@ public class JenkinsHelper {
         return commandLines;
     }
 
+    protected Command getCommand(String cmd, String input, String inputUrl) {
+        String[] args = PropertiesUtils.splitAndTrim(cmd, " ");
+        Command command = new Command();
+        command.setArgs(Arrays.asList(args));
+        command.setInput(input);
+        command.setInput(inputUrl);
+        return command;
+    }
+
+    protected List<Command> getCmds(CliMojo mojo) {
+        if (!Helper.isEmpty(mojo.getCmds())) {
+            return mojo.getCmds();
+        } else {
+            Command command = getCommand(mojo.getCmd(), mojo.getInput(), mojo.getInputUrl());
+            return Helper.toList(command);
+        }
+    }
+
     protected List<String> getCmds(String cmd, List<String> cmds) {
         if (Helper.isEmpty(cmds)) {
             List<String> newCmds = new ArrayList<String>();
@@ -565,33 +597,14 @@ public class JenkinsHelper {
         }
     }
 
-    protected boolean isMultiInputs(CliMojo mojo) {
-        return !Helper.isEmpty(mojo.getStdins()) || !Helper.isEmpty(mojo.getStdinUrls());
-    }
-
-    protected List<String> getInputs(CliMojo mojo) {
-        try {
-            if (isMultiInputs(mojo)) {
-                return getInputs(mojo.getStdins(), mojo.getStdinUrls());
-            } else {
-                List<String> stdins = Helper.toList(mojo.getStdin());
-                List<String> stdinUrls = Helper.toList(mojo.getStdinUrl());
-                return getInputs(stdins, stdinUrls);
-            }
-        } catch (IOException e) {
-            throw new CliException(e);
-        }
-    }
-
     public void executeCli(CliMojo mojo, int... successCodes) {
         File jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
         String url = mojo.getUrl();
         logger.info("Jenkins CLI: " + jar.getPath());
         logger.info("Jenkins URL: " + url);
-        List<String> cmds = getCmds(mojo.getCmd(), mojo.getCmds());
-        List<String> inputs = getInputs(mojo);
+        List<Command> cmds = getCmds(mojo);
         List<ProcessResult> results = new ArrayList<ProcessResult>();
-        for (String cmd : cmds) {
+        for (Command cmd : cmds) {
             logger.info("Issuing command '" + cmd + "'");
             ProcessResult result = executeCli(jar, url, cmd);
             handleResult(mojo, result, successCodes);

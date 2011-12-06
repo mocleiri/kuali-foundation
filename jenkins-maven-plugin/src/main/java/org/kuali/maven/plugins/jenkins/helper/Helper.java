@@ -23,9 +23,9 @@ import org.apache.commons.lang.StringUtils;
 
 public class Helper {
 
-    public static final List<String> toList(String s) {
-        List<String> list = new ArrayList<String>();
-        list.add(s);
+    public static final <T> List<T> toList(T element) {
+        List<T> list = new ArrayList<T>();
+        list.add(element);
         return list;
     }
 
