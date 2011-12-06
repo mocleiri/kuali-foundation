@@ -55,7 +55,6 @@ import org.kuali.maven.plugins.jenkins.context.JobContext;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.context.MojoContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessContext;
-import org.kuali.maven.plugins.jenkins.context.ProcessException;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
 import org.kuali.maven.plugins.jenkins.context.ResultContext;
 import org.slf4j.Logger;
@@ -492,8 +491,8 @@ public class JenkinsHelper {
 
     protected void handleFailure(BaseMojo mojo, ProcessResult result) {
         if (mojo.isStopOnError()) {
-            logError(result.getOutputLines());
-            throw new ProcessException("Result code: '" + result.getExitValue() + "' " + result.getOutput());
+            logger.error("Jenkins CLI Exception:" + getErrorMessage(result));
+            throw new CliException("Jenkins CLI Exception");
         } else {
             logWarning(result.getOutputLines());
         }
@@ -595,6 +594,7 @@ public class JenkinsHelper {
         sb.append("executable: " + context.getExecutable() + "\n");
         sb.append("cmd: " + cmd + "\n");
         sb.append("result: " + exitValue + "\n");
+        sb.append("input: " + Helper.toEmpty(context.getInput()) + "\n");
         if (exitValue != NO_SUCH_COMMAND) {
             sb.append("details: " + result.getOutput());
         }

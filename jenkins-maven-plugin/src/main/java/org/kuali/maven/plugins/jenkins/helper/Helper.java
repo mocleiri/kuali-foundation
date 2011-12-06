@@ -7,6 +7,14 @@ import org.apache.commons.lang.StringUtils;
 
 public class Helper {
 
+    public static final String toEmpty(String s) {
+        if (StringUtils.isBlank(s)) {
+            return "";
+        } else {
+            return s;
+        }
+    }
+
     public static final String toString(String[] tokens, String separator) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tokens.length; i++) {
