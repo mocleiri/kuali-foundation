@@ -45,7 +45,6 @@ import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
-import org.kuali.maven.plugins.jenkins.AbstractGenerateMojo;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
@@ -760,7 +759,7 @@ public class JenkinsHelper {
         }
     }
 
-    public void generate(AbstractGenerateMojo mojo, String type) {
+    public void generate(BaseMojo mojo, String type) {
         try {
             MavenContext context = getMavenContext(mojo);
             String jobName = getJobName(context, type);
@@ -775,7 +774,7 @@ public class JenkinsHelper {
         }
     }
 
-    public void generate(AbstractGenerateMojo mojo, String[] types) {
+    public void generate(BaseMojo mojo, String[] types) {
         for (String type : types) {
             generate(mojo, type);
         }

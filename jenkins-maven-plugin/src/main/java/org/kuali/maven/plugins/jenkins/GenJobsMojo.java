@@ -21,32 +21,32 @@ import org.kuali.maven.common.PropertiesUtils;
 
 /**
  * Generate one or more XML config files for Jenkins jobs to the local file system.
- * 
+ *
  * @goal genjobs
  */
-public class GenJobsMojo extends AbstractGenerateMojo {
+public class GenJobsMojo extends BaseMojo {
 
-	/**
-	 * Comma separated list of the types of jobs to generate. Maven GAV info is combined with 'type' to derive the complete job name eg
-	 * 'jenkins-maven-plugin-1.0-publish'
-	 * 
-	 * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
-	 * @required
-	 */
-	private String types;
+    /**
+     * Comma separated list of the types of jobs to generate. Maven GAV info is combined with 'type' to derive the
+     * complete job name eg 'jenkins-maven-plugin-1.0-publish'
+     *
+     * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
+     * @required
+     */
+    private String types;
 
-	@Override
-	public void execute() throws MojoExecutionException, MojoFailureException {
-		String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-		helper.generate(this, tokens);
-	}
+    @Override
+    public void execute() throws MojoExecutionException, MojoFailureException {
+        String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
+        helper.generate(this, tokens);
+    }
 
-	public String getTypes() {
-		return types;
-	}
+    public String getTypes() {
+        return types;
+    }
 
-	public void setType(String types) {
-		this.types = types;
-	}
+    public void setType(String types) {
+        this.types = types;
+    }
 
 }

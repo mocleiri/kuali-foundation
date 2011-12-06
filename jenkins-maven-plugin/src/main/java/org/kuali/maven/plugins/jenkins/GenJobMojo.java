@@ -19,30 +19,31 @@ import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Generate an XML config file for a Jenkins job to the local file system.
- * 
+ *
  * @goal genjob
  */
-public class GenJobMojo extends AbstractGenerateMojo {
+public class GenJobMojo extends BaseMojo {
 
-	/**
-	 * The type of job to generate. Maven GAV info is combined with 'type' to derive the complete job name eg 'jenkins-maven-plugin-1.0-publish'
-	 * 
-	 * @parameter expression="${jenkins.type}" default-value="publish"
-	 * @required
-	 */
-	private String type;
+    /**
+     * The type of job to generate. Maven GAV info is combined with 'type' to derive the complete job name eg
+     * 'jenkins-maven-plugin-1.0-publish'
+     *
+     * @parameter expression="${jenkins.type}" default-value="publish"
+     * @required
+     */
+    private String type;
 
-	@Override
-	public void execute() throws MojoExecutionException {
-		helper.generate(this, type);
-	}
+    @Override
+    public void execute() throws MojoExecutionException {
+        helper.generate(this, type);
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
 }
