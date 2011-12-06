@@ -44,10 +44,10 @@
         <artifactId>${project.artifactId}</artifactId>
         <version>${project.version}</version>
         <executions>
-          <!-- demonstrates running a single cli command 'version' -->
+          <!-- demonstrates running a single cli command -->
           <execution>
             <id>cli-default</id>
-            <phase>none</phase>
+            <phase>process-resources</phase>
             <goals>
               <goal>cli</goal>
             </goals>
@@ -55,7 +55,7 @@
           <!-- demonstrates running multiple cli commands in a single Maven execution -->
           <execution>
             <id>cli-multiple-commands</id>
-            <phase>none</phase>
+            <phase>process-resources</phase>
             <goals>
               <goal>cli</goal>
             </goals>
