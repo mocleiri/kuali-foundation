@@ -18,6 +18,7 @@ package org.kuali.maven.plugins.jenkins;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.plexus.configuration.PlexusConfiguration;
 import org.kuali.maven.plugins.jenkins.context.Command;
 
 /**
@@ -60,11 +61,18 @@ public class CliMojo extends BaseMojo {
      *
      * @parameter
      */
-    private List<Command> commands;
+    private PlexusConfiguration commands;
 
     @Override
     public void execute() throws MojoExecutionException {
-        helper.executeCli(this);
+        getLog().info(commands.toString());
+        int childCount = commands.getChildCount();
+        getLog().info("Child Count=" + childCount);
+        String name = commands.getName();
+        getLog().info("Name=" + name);
+        List<Command> cmds = helper.getCommands(commands);
+        getLog().info("size=" + cmds.size());
+        // helper.executeCli(this);
     }
 
     public String getCmd() {
@@ -91,11 +99,11 @@ public class CliMojo extends BaseMojo {
         this.inputUrl = inputUrl;
     }
 
-    public List<Command> getCommands() {
+    public PlexusConfiguration getCommands() {
         return commands;
     }
 
-    public void setCommands(List<Command> commands) {
+    public void setCommands(PlexusConfiguration commands) {
         this.commands = commands;
     }
 

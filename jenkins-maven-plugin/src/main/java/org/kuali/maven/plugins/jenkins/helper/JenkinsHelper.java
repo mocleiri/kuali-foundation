@@ -40,6 +40,7 @@ import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.Java;
 import org.apache.tools.ant.types.Commandline.Argument;
 import org.apache.tools.ant.types.Path;
+import org.codehaus.plexus.configuration.PlexusConfiguration;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.Extractor;
@@ -373,6 +374,53 @@ public class JenkinsHelper {
         }
     }
 
+    public List<Command> getCommands(PlexusConfiguration plexusCommands) {
+        List<Command> commands = new ArrayList<Command>();
+        for (PlexusConfiguration plexusCommand : plexusCommands.getChildren()) {
+            String plexusName = plexusCommand.getName();
+            if ("command".equals(plexusName)) {
+                Command command = getCommand(plexusCommand);
+                commands.add(command);
+            }
+        }
+
+        return commands;
+    }
+
+    protected Command getCommand(PlexusConfiguration plexusCommand) {
+        List<String> args = getArgs(plexusCommand.getChild("args"));
+        Command command = new Command();
+        command.setArgs(args);
+        return command;
+    }
+
+    protected List<String> getArgs(PlexusConfiguration plexusArgs) {
+        if (plexusArgs == null) {
+            return new ArrayList<String>();
+        }
+        List<String> args = new ArrayList<String>();
+        for (PlexusConfiguration plexusArg : plexusArgs.getChildren()) {
+            String plexusName = plexusArg.getName();
+            if ("arg".equals(plexusName)) {
+                String arg = getArg(plexusArg);
+                args.add(arg);
+            }
+        }
+        return args;
+    }
+
+    protected String getArg(PlexusConfiguration plexusArg) {
+        return plexusArg.getValue();
+    }
+
+    protected String getInput(PlexusConfiguration plexusInput) {
+        return "";
+    }
+
+    protected String getInputUrl(PlexusConfiguration plexusInputUrl) {
+        return "";
+    }
+
     /**
 	 *
 	 */
@@ -548,12 +596,8 @@ public class JenkinsHelper {
     }
 
     protected List<Command> getCmds(CliMojo mojo) {
-        if (!Helper.isEmpty(mojo.getCommands())) {
-            return mojo.getCommands();
-        } else {
-            Command command = getCommand(mojo.getCmd(), mojo.getInput(), mojo.getInputUrl());
-            return Helper.toList(command);
-        }
+        Command command = getCommand(mojo.getCmd(), mojo.getInput(), mojo.getInputUrl());
+        return Helper.toList(command);
     }
 
     protected List<String> getCmds(String cmd, List<String> cmds) {
