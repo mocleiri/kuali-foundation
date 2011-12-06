@@ -60,7 +60,7 @@ public class CliMojo extends BaseMojo {
      *
      * @parameter
      */
-    private List<Command> cmds;
+    private List<Command> commands;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -91,12 +91,12 @@ public class CliMojo extends BaseMojo {
         this.inputUrl = inputUrl;
     }
 
-    public List<Command> getCmds() {
-        return cmds;
+    public List<Command> getCommands() {
+        return commands;
     }
 
-    public void setCmds(List<Command> cmds) {
-        this.cmds = cmds;
+    public void setCommands(List<Command> commands) {
+        this.commands = commands;
     }
 
 }

@@ -548,8 +548,8 @@ public class JenkinsHelper {
     }
 
     protected List<Command> getCmds(CliMojo mojo) {
-        if (!Helper.isEmpty(mojo.getCmds())) {
-            return mojo.getCmds();
+        if (!Helper.isEmpty(mojo.getCommands())) {
+            return mojo.getCommands();
         } else {
             Command command = getCommand(mojo.getCmd(), mojo.getInput(), mojo.getInputUrl());
             return Helper.toList(command);
