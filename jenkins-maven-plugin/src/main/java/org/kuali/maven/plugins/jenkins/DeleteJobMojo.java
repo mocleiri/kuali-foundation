@@ -15,69 +15,32 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import java.util.Arrays;
-
-import org.apache.maven.plugin.MojoExecutionException;
-import org.kuali.maven.plugins.jenkins.context.MavenContext;
-import org.kuali.maven.plugins.jenkins.helper.Helper;
-
 /**
  * Connect to a Jenkins server and delete a job
  *
  * @goal deletejob
  * @requiresDependencyResolution test
  */
-public class DeleteJobMojo extends CliMojo {
-
+public class DeleteJobMojo extends SimpleJobMojo {
     /**
-     * The command issued to Jenkins CLI
+     * The Jenkins CLI command for running a job
      *
      * @parameter expression="${jenkins.deleteJobCmd}" default-value="delete-job"
      * @required
      */
     private String deleteJobCmd;
 
-    /**
-     * The type of job to delete. Maven GAV info is combined with 'type' to derive the complete job name eg
-     * 'jenkins-maven-plugin-1.0-publish'
-     *
-     * @parameter expression="${jenkins.type}" default-value="publish"
-     * @required
-     */
-    private String type;
-
-    /**
-     * The name of the job to delete. If name is provided, 'type' is ignored
-     *
-     * @parameter expression="${jenkins.name}"
-     */
-    private String name;
-
     @Override
-    public void execute() throws MojoExecutionException {
-        MavenContext context = helper.getMavenContext(this);
-        String jobName = helper.getJobName(context, name, type);
-        String[] args = { deleteJobCmd, jobName };
-        Command command = new Command();
-        command.setArgs(Arrays.asList(args));
-        super.setCommands(Helper.toList(command));
-        helper.executeCli(this);
+    protected String getJobCmd() {
+        return this.deleteJobCmd;
     }
 
-    public String getType() {
-        return type;
+    public String getDeleteJobCmd() {
+        return deleteJobCmd;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setDeleteJobCmd(String deleteJobCmd) {
+        this.deleteJobCmd = deleteJobCmd;
     }
 
 }
