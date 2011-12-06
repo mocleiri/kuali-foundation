@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -66,11 +67,13 @@ public class JenkinsHelper {
 
     private static final Logger logger = LoggerFactory.getLogger(JenkinsHelper.class);
 
+    public static final String XML_EXTENSION = ".xml";
     public static final int SUCCESS_CODE = 0;
     public static final String SERVER_ARG = "-s";
     public static final int NO_SUCH_COMMAND = 255;
     private static final String FS = System.getProperty("file.separator");
     public static final String JAVA_RESULT_PROPERTY = "java.result";
+
     Extractor extractor = new Extractor();
     PropertiesUtils propertiesUtils = new PropertiesUtils();
     ResourceUtils resourceUtils = new ResourceUtils();
@@ -384,7 +387,7 @@ public class JenkinsHelper {
         return antProject;
     }
 
-    public List<MojoContext> pushJobsToJenkins(Mojo mojo, String[] types) throws MojoExecutionException {
+    public List<MojoContext> pushJobsToJenkins(BaseMojo mojo, String[] types) throws MojoExecutionException {
         List<MojoContext> contexts = new ArrayList<MojoContext>();
         for (String type : types) {
             MojoContext context = pushJobToJenkins(mojo, type);
@@ -394,7 +397,26 @@ public class JenkinsHelper {
 
     }
 
-    public MojoContext pushJobToJenkins(Mojo mojo, String type) throws MojoExecutionException {
+    protected List<File> getFiles(File workingDir) {
+        if (!workingDir.exists()) {
+            return new ArrayList<File>();
+        }
+        File[] files = workingDir.listFiles();
+        return Arrays.asList(files);
+    }
+
+    protected void pushJob(String cmd, File file) {
+        String jobName = file.getName();
+    }
+
+    public void pushJobs(BaseMojo mojo, String cmd) {
+        List<File> files = getFiles(mojo.getWorkingDir());
+        for (File file : files) {
+            pushJob(cmd, file);
+        }
+    }
+
+    public MojoContext pushJobToJenkins(BaseMojo mojo, String type) throws MojoExecutionException {
         MojoContext genContext = null;// generate(mojo, type);
         MojoContext createContext = new MojoContext();
         createContext.setMvnContext(genContext.getMvnContext());
@@ -712,7 +734,7 @@ public class JenkinsHelper {
         try {
             MavenContext context = getMavenContext(mojo);
             String jobName = getJobName(context, type);
-            String filename = mojo.getWorkingDir() + FS + jobName + ".xml";
+            String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
             mojo.getLog().info("Generating: " + filename);
             Properties properties = getProperties(context, type, mojo.getTimestampFormat());
             String xml = resourceUtils.read(mojo.getTemplate());
@@ -772,7 +794,7 @@ public class JenkinsHelper {
         sb.append(jobContext.getWorkingDir());
         sb.append(FS);
         sb.append(jobName);
-        sb.append(".xml");
+        sb.append(XML_EXTENSION);
         return sb.toString();
     }
 
@@ -829,8 +851,8 @@ public class JenkinsHelper {
     protected List<String> getLocations(MavenContext context, String type) {
         List<String> locations = new ArrayList<String>();
         locations.add("classpath:org/kuali/jenkins/jobs/properties/common.xml");
-        locations.add("classpath:org/kuali/jenkins/jobs/properties/" + context.getScmType() + ".xml");
-        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + type + ".xml");
+        locations.add("classpath:org/kuali/jenkins/jobs/properties/" + context.getScmType() + XML_EXTENSION);
+        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + type + XML_EXTENSION);
         return locations;
     }
 

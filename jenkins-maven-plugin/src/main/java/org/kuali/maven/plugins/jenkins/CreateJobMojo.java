@@ -33,26 +33,9 @@ public class CreateJobMojo extends AbstractJobConfigMojo {
      */
     private String createJobCmd;
 
-    /**
-     * The type of job to create. Maven GAV info is combined with 'type' to derive the complete job name eg
-     * 'jenkins-maven-plugin-1.0-publish'
-     *
-     * @parameter expression="${jenkins.type}" default-value="publish"
-     * @required
-     */
-    private String type;
-
     @Override
     public void execute() throws MojoExecutionException {
-        helper.pushJobToJenkins(this, type);
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+        helper.pushJobs(this, createJobCmd);
     }
 
     public String getCreateJobCmd() {
