@@ -52,6 +52,15 @@ public class CliMojo extends BaseMojo {
      */
     private String stdin;
 
+    /**
+     * This can be a file on the file system, a classpath resource using Spring's "classpath:" notation, or any other
+     * url Spring 3.0 resource loading can understand. If supplied, the content of the url is provided as input to the
+     * standard input stream of Jenkins CLI. If 'stdinUrl' is supplied 'stdin' is ignored.
+     *
+     * @parameter
+     */
+    private String stdinUrl;
+
     @Override
     public void execute() throws MojoExecutionException {
         helper.executeCli(this);
@@ -79,6 +88,14 @@ public class CliMojo extends BaseMojo {
 
     public void setStdin(String stdin) {
         this.stdin = stdin;
+    }
+
+    public String getStdinUrl() {
+        return stdinUrl;
+    }
+
+    public void setStdinUrl(String stdinUrl) {
+        this.stdinUrl = stdinUrl;
     }
 
 }
