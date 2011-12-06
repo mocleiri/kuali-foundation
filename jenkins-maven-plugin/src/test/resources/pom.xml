@@ -72,6 +72,25 @@
               </commands>
             </configuration>
           </execution>
+          <execution>
+            <id>cli-multi-arg</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>cli</goal>
+            </goals>
+            <configuration>
+              <commands>
+                <command>
+                  <args>
+                    <arg>set-build-description</arg>
+                    <arg>crlf-1.0-publish</arg>
+                    <arg>4</arg>
+                    <arg>${kuali.build.timestamp}</arg>
+                  </args>
+                </command>
+              </commands>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
