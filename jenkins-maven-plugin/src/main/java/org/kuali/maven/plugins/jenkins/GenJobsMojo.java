@@ -20,7 +20,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.kuali.maven.common.PropertiesUtils;
 
 /**
- * Generate one or more XML config files for Jenkins jobs to the local file system.
+ * Generate XML config files for Jenkins jobs to the local file system.
  *
  * @goal genjobs
  */
