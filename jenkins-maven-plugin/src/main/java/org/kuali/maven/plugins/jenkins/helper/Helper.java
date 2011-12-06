@@ -41,6 +41,18 @@ public class Helper {
         }
     }
 
+    public static final String toString(List<String> list) {
+        return toString(list.toArray(new String[list.size()]), " ");
+    }
+
+    public static final String toString(List<String> list, String separator) {
+        return toString(list.toArray(new String[list.size()]), separator);
+    }
+
+    public static final String toString(String[] tokens) {
+        return toString(tokens, " ");
+    }
+
     public static final String toString(String[] tokens, String separator) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tokens.length; i++) {

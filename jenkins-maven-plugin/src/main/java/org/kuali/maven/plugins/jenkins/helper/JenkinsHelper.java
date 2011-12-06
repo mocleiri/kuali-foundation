@@ -605,7 +605,7 @@ public class JenkinsHelper {
         List<Command> cmds = getCmds(mojo);
         List<ProcessResult> results = new ArrayList<ProcessResult>();
         for (Command cmd : cmds) {
-            logger.info("Issuing command '" + cmd + "'");
+            logger.info("Issuing command '" + Helper.toString(cmd.getArgs()) + "'");
             ProcessResult result = executeCli(jar, url, cmd);
             handleResult(mojo, result, successCodes);
             results.add(result);
