@@ -405,20 +405,40 @@ public class JenkinsHelper {
         return Arrays.asList(files);
     }
 
-    protected void pushJob(String cmd, File file) {
+    public void pushJobs(BaseMojo mojo, String cmd) {
         try {
-            String jobName = StringUtils.replace(file.getName(), XML_EXTENSION, "");
-            String input = resourceUtils.read(file.getAbsolutePath());
+            List<Command> commands = getCommands(mojo.getWorkingDir(), cmd);
+            executeCli(mojo, commands, SUCCESS_CODE);
         } catch (IOException e) {
             throw new CliException(e);
         }
+
     }
 
-    public void pushJobs(BaseMojo mojo, String cmd) {
-        List<File> files = getFiles(mojo.getWorkingDir());
+    protected List<Command> getCommands(File workingDir, String cmd) throws IOException {
+        List<File> files = getFiles(workingDir);
+        List<Command> commands = new ArrayList<Command>();
         for (File file : files) {
-            pushJob(cmd, file);
+            Command command = getCommand(file, cmd);
+            commands.add(command);
         }
+        return commands;
+    }
+
+    protected String getJobName(File file) {
+        String name = file.getName();
+        int pos = name.lastIndexOf(XML_EXTENSION);
+        return name.substring(0, pos);
+    }
+
+    protected Command getCommand(File file, String cmd) throws IOException {
+        String stdin = resourceUtils.read(file.getAbsolutePath());
+        String jobName = getJobName(file);
+        String[] args = { cmd, jobName };
+        Command command = new Command();
+        command.setStdin(stdin);
+        command.setArgs(Arrays.asList(args));
+        return command;
     }
 
     public MojoContext pushJobToJenkins(BaseMojo mojo, String type) throws MojoExecutionException {
