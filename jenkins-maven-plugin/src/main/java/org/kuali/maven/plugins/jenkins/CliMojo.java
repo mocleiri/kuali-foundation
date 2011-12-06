@@ -28,7 +28,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class CliMojo extends BaseMojo {
 
     /**
-     * The command to issue to Jenkins CLI eg "help", "version", "who-ami-i" etc
+     * Jenkins CLI command to issue eg "help", "version", "who-ami-i" etc
      *
      * @parameter expression="${jenkins.cmd}" default-value="version"
      * @required
