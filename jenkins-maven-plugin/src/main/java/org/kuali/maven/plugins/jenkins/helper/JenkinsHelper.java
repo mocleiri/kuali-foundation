@@ -390,8 +390,8 @@ public class JenkinsHelper {
         String inputUrl = getValue(plexusCommand.getChild("inputUrl"));
         Command command = new Command();
         command.setArgs(args);
-        command.setInput(input);
-        command.setInputUrl(inputUrl);
+        command.setStdin(input);
+        command.setStdinUrl(inputUrl);
         return command;
     }
 
@@ -483,14 +483,14 @@ public class JenkinsHelper {
     }
 
     protected String getInput(Command cmd) {
-        if (!StringUtils.isBlank(cmd.getInputUrl())) {
+        if (!StringUtils.isBlank(cmd.getStdinUrl())) {
             try {
-                return resourceUtils.read(cmd.getInputUrl());
+                return resourceUtils.read(cmd.getStdinUrl());
             } catch (IOException e) {
                 throw new CliException(e);
             }
         } else {
-            return cmd.getInput();
+            return cmd.getStdin();
         }
     }
 
@@ -594,8 +594,8 @@ public class JenkinsHelper {
         String[] args = PropertiesUtils.splitAndTrim(cmd, " ");
         Command command = new Command();
         command.setArgs(Arrays.asList(args));
-        command.setInput(input);
-        command.setInput(inputUrl);
+        command.setStdin(input);
+        command.setStdin(inputUrl);
         return command;
     }
 

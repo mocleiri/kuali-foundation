@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Command {
     List<String> args;
-    String input;
-    String inputUrl;
+    String stdin;
+    String stdinUrl;
 
     public List<String> getArgs() {
         return args;
@@ -15,19 +15,19 @@ public class Command {
         this.args = args;
     }
 
-    public String getInput() {
-        return input;
+    public String getStdin() {
+        return stdin;
     }
 
-    public void setInput(String input) {
-        this.input = input;
+    public void setStdin(String stdin) {
+        this.stdin = stdin;
     }
 
-    public String getInputUrl() {
-        return inputUrl;
+    public String getStdinUrl() {
+        return stdinUrl;
     }
 
-    public void setInputUrl(String inputUrl) {
-        this.inputUrl = inputUrl;
+    public void setStdinUrl(String stdinUrl) {
+        this.stdinUrl = stdinUrl;
     }
 }
