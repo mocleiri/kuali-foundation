@@ -56,22 +56,22 @@ public class RunJobMojo extends SimpleJobMojo {
     private boolean skipIfNoChanges;
 
     /**
-     * Anything specified here will be passed to Jenkins as build parameters for the job we are running
+     * Comma delimited list of key=value pairs to pass to the Jenkins job as build parameters
+     *
+     * @parameter expression="${jenkins.params}"
+     */
+    private String params;
+
+    /**
+     * key=value pairs to pass to the Jenkins job as build parameters
      *
      * @parameter
      */
     private Map<String, String> paramMap;
 
-    /**
-     * Comma delimited list of key=value pairs to pass to the Jenkins job as build parameters
-     *
-     * @parameter
-     */
-    private String params;
-
     protected List<String> getParamArgs() {
         List<String> paramArgs = new ArrayList<String>();
-        if (Helper.isEmpty(paramMap)) {
+        if (!Helper.isEmpty(paramMap)) {
             paramArgs.addAll(Helper.toList(paramMap));
         }
         if (!StringUtils.isBlank(params)) {
