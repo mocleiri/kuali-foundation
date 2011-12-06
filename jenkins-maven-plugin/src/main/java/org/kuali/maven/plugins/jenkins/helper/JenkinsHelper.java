@@ -389,8 +389,12 @@ public class JenkinsHelper {
 
     protected Command getCommand(PlexusConfiguration plexusCommand) {
         List<String> args = getArgs(plexusCommand.getChild("args"));
+        String input = getValue(plexusCommand.getChild("input"));
+        String inputUrl = getValue(plexusCommand.getChild("inputUrl"));
         Command command = new Command();
         command.setArgs(args);
+        command.setInput(input);
+        command.setInputUrl(inputUrl);
         return command;
     }
 
@@ -402,23 +406,19 @@ public class JenkinsHelper {
         for (PlexusConfiguration plexusArg : plexusArgs.getChildren()) {
             String plexusName = plexusArg.getName();
             if ("arg".equals(plexusName)) {
-                String arg = getArg(plexusArg);
+                String arg = getValue(plexusArg);
                 args.add(arg);
             }
         }
         return args;
     }
 
-    protected String getArg(PlexusConfiguration plexusArg) {
-        return plexusArg.getValue();
-    }
-
-    protected String getInput(PlexusConfiguration plexusInput) {
-        return "";
-    }
-
-    protected String getInputUrl(PlexusConfiguration plexusInputUrl) {
-        return "";
+    protected String getValue(PlexusConfiguration plexusConfig) {
+        if (plexusConfig != null) {
+            return plexusConfig.getValue();
+        } else {
+            return null;
+        }
     }
 
     /**
