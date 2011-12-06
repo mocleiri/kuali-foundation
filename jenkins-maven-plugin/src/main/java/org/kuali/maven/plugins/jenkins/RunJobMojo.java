@@ -38,7 +38,7 @@ public class RunJobMojo extends SimpleJobMojo {
     private String runJobCmd;
 
     /**
-     * It true, wait for the job to complete before continuing.
+     * If true, wait for the job to complete before continuing.
      *
      * @parameter expression="${jenkins.wait}" default-value="false"
      * @required
@@ -46,7 +46,7 @@ public class RunJobMojo extends SimpleJobMojo {
     private boolean wait;
 
     /**
-     * It true, check for changes before running the job. If nothing has changed, do not run the job.
+     * If true, check for changes before running the job. If nothing has changed, do not run the job.
      *
      * @parameter expression="${jenkins.skipIfNoChanges}" default-value="false"
      * @required
