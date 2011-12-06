@@ -16,9 +16,11 @@
 package org.kuali.maven.plugins.jenkins;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.plugins.jenkins.helper.Helper;
 
 /**
@@ -58,11 +60,31 @@ public class RunJobMojo extends SimpleJobMojo {
      *
      * @parameter
      */
-    private Map<String, String> params;
+    private Map<String, String> paramMap;
+
+    /**
+     * Comma delimited list of key=value pairs to pass to the Jenkins job as build parameters
+     *
+     * @parameter
+     */
+    private String params;
+
+    protected List<String> getParamArgs() {
+        List<String> paramArgs = new ArrayList<String>();
+        if (Helper.isEmpty(paramMap)) {
+            paramArgs.addAll(Helper.toList(paramMap));
+        }
+        if (!StringUtils.isBlank(params)) {
+            String[] tokens = Helper.splitAndTrim(params, ",");
+            paramArgs.addAll(Arrays.asList(tokens));
+        }
+        return paramArgs;
+    }
 
     @Override
     protected String[] getArgs(String jobName) {
         List<String> args = new ArrayList<String>();
+        args.add(getJobCmd());
         args.add(jobName);
         if (isSkipIfNoChanges()) {
             args.add("-c");
@@ -70,9 +92,10 @@ public class RunJobMojo extends SimpleJobMojo {
         if (isWait()) {
             args.add("-s");
         }
-        if (!Helper.isEmpty(params)) {
+        List<String> paramArgs = getParamArgs();
+        if (!Helper.isEmpty(paramArgs)) {
             args.add("-p");
-            args.addAll(Helper.toList(params));
+            args.addAll(paramArgs);
         }
         return Helper.toArray(args);
     }
@@ -106,11 +129,19 @@ public class RunJobMojo extends SimpleJobMojo {
         this.skipIfNoChanges = skipIfNoChanges;
     }
 
-    public Map<String, String> getParams() {
+    public Map<String, String> getParamMap() {
+        return paramMap;
+    }
+
+    public void setParamMap(Map<String, String> paramMap) {
+        this.paramMap = paramMap;
+    }
+
+    public String getParams() {
         return params;
     }
 
-    public void setParams(Map<String, String> params) {
+    public void setParams(String params) {
         this.params = params;
     }
 

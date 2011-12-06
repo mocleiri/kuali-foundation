@@ -29,6 +29,9 @@ public class Helper {
         return toList(params, EQUALS);
     }
 
+    /**
+     * Convert the map to a list
+     */
     public static final List<String> toList(Map<String, String> params, String separator) {
         List<String> args = new ArrayList<String>();
         for (Map.Entry<String, String> pair : params.entrySet()) {
