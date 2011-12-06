@@ -82,11 +82,18 @@
             </goals>
             <configuration>
               <commands>
-                <!-- demonstrates passing multiple arguments to a single command -->
+                <!-- demonstrates executing groovy code contained in a file -->
                 <command>
                   <args>
                     <arg>groovy</arg>
                     <arg>helloworld.groovy</arg>
+                  </args>
+                </command>
+                <!-- demonstrates executing groovy code contained in a url -->
+                <command>
+                  <args>
+                    <arg>groovy</arg>
+                    <arg>file://${project.basedir}/src/test/resources/helloworld-url.groovy</arg>
                   </args>
                 </command>
                 <!-- demonstrates providing text to the stdin of Jenkins CLI -->
