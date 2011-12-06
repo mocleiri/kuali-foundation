@@ -1,1 +1,1 @@
-println "hello world from a url"
+println "hello world from the classpath"
