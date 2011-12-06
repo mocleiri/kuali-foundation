@@ -46,14 +46,14 @@
         <executions>
           <execution>
             <id>cli-default</id>
-            <phase>process-resources</phase>
+            <phase>none</phase>
             <goals>
               <goal>cli</goal>
             </goals>
           </execution>
           <execution>
             <id>cli-multi</id>
-            <phase>process-resources</phase>
+            <phase>none</phase>
             <goals>
               <goal>cli</goal>
             </goals>
@@ -74,7 +74,7 @@
           </execution>
           <execution>
             <id>cli-multi-arg</id>
-            <phase>process-resources</phase>
+            <phase>none</phase>
             <goals>
               <goal>cli</goal>
             </goals>

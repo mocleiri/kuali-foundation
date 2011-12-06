@@ -26,8 +26,11 @@ import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.plugins.jenkins.context.ProcessContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessException;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ProcessHelper {
+    private static final Logger logger = LoggerFactory.getLogger(ProcessHelper.class);
 
     public ProcessResult execute(String executable) {
         return execute(executable, (String[]) null);
@@ -51,11 +54,18 @@ public class ProcessHelper {
             ProcessBuilder builder = new ProcessBuilder(command);
             builder.redirectErrorStream(true);
             long start = System.currentTimeMillis();
+            logger.debug("Starting process");
             Process process = builder.start();
+            logger.debug("Process started");
             if (!StringUtils.isBlank(context.getInput())) {
+                logger.debug("Writing input=" + context.getInput());
                 IOUtils.write(context.getInput(), process.getOutputStream());
+                logger.debug("Done writing input");
+                process.getOutputStream().close();
             }
+            logger.debug("Reading output");
             String output = IOUtils.toString(process.getInputStream());
+            logger.debug("Done reading output=" + output);
             List<String> outputLines = getOutputLines(output);
             int exitValue = process.waitFor();
             long stop = System.currentTimeMillis();

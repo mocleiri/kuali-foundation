@@ -496,6 +496,7 @@ public class JenkinsHelper {
 
     public ProcessResult executeCli(File jar, String url, Command cmd) {
         String input = getInput(cmd);
+        logger.debug("input=" + input);
         return executeCli(jar, url, cmd.getArgs(), input);
     }
 
