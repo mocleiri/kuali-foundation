@@ -8,12 +8,12 @@
 	<!-- Database parameters -->
 	<!-- param name="datasource.url">jdbc:oracle:thin:@ec2-174-129-80-250.compute-1.amazonaws.com:1521:XE</param -->
 	<param name="datasource.url">jdbc:oracle:thin:@db.kc.kuali.org:1521:KUALI</param>
-	<param name="datasource.username">KCPARM30</param>
+	<param name="datasource.username">KCPARM40</param>
 	<param name="datasource.password">parm174kc</param>
 	<param name="datasource.ojb.platform">Oracle9i</param>
 	
-    <param name="filter.login.class">org.kuali.kra.web.filter.MultiCampusDummyLoginFilter</param>
-   <param name="filtermapping.login.1">/*</param>
+    <param name="filter.login.class">org.kuali.rice.kew.web.DummyLoginFilter</param>
+    <param name="filtermapping.login.1">/*</param>
 
 	<!-- For Embedded Mode
 	<param name="rice.app.url">http://test.kc.kuali.org/kc-parm30</param>
@@ -30,7 +30,7 @@
 	<!-- Will be the same as KC Client DB when running embedded mode -->
 	<!-- param name="server.datasource.url">jdbc:oracle:thin:@ec2-174-129-80-250.compute-1.amazonaws.com:1521:XE</param -->
 	<param name="server.datasource.url">${datasource.url}</param>
-	<param name="server.datasource.username">KCPARM30</param>
+	<param name="server.datasource.username">KCPARM40</param>
 	<param name="server.datasource.password">parm174kc</param>
 	
 	<!-- S2S Configuration -->
