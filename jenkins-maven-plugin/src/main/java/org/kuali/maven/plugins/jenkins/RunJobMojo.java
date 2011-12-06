@@ -15,7 +15,6 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-
 /**
  * Connect to a Jenkins server and kick off a job
  *
@@ -34,7 +33,7 @@ public class RunJobMojo extends SimpleJobMojo {
 
     @Override
     protected String getJobCmd() {
-        return this.runJobCmd;
+        return getRunJobCmd();
     }
 
     public String getRunJobCmd() {
