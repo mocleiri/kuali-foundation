@@ -44,6 +44,7 @@ import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
+import org.kuali.maven.plugins.jenkins.AbstractGenerateMojo;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
@@ -394,7 +395,7 @@ public class JenkinsHelper {
     }
 
     public MojoContext pushJobToJenkins(Mojo mojo, String type) throws MojoExecutionException {
-        MojoContext genContext = generate(mojo, type, false);
+        MojoContext genContext = null;// generate(mojo, type);
         MojoContext createContext = new MojoContext();
         createContext.setMvnContext(genContext.getMvnContext());
         createContext.setJobContext(genContext.getJobContext());
@@ -707,42 +708,25 @@ public class JenkinsHelper {
         }
     }
 
-    public MojoContext generate(Mojo mojo, String type, boolean logFilename) throws MojoExecutionException {
+    public void generate(AbstractGenerateMojo mojo, String type) {
         try {
-            MavenContext mvnContext = getMavenContext(mojo);
-            JobContext jobContext = getJobContext(mvnContext, mojo, null, type);
-            File localFile = jobContext.getLocalFile();
-            String localFilePath = localFile.getCanonicalPath();
-            if (logFilename) {
-                mojo.getLog().info("Generating: " + localFilePath);
-            }
-            Properties properties = getProperties(mvnContext, jobContext);
-            String xml = resourceUtils.read(jobContext.getTemplate());
+            MavenContext context = getMavenContext(mojo);
+            String jobName = getJobName(context, null, type);
+            String filename = mojo.getWorkingDir() + FS + jobName + ".xml";
+            mojo.getLog().info("Generating: " + filename);
+            Properties properties = getProperties(context, type, mojo.getTimestampFormat());
+            String xml = resourceUtils.read(mojo.getTemplate());
             String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
-            jobContext.setResolvedContent(resolvedXml);
-            jobContext.setUnresolvedContent(xml);
-            mvnContext.setProperties(properties);
-            MojoContext context = new MojoContext();
-            context.setJobContext(jobContext);
-            context.setMvnContext(mvnContext);
-            resourceUtils.write(localFilePath, resolvedXml);
-            return context;
+            resourceUtils.write(filename, resolvedXml);
         } catch (IOException e) {
-            throw new MojoExecutionException("Unexpected error", e);
+            throw new CliException("Unexpected error", e);
         }
     }
 
-    public MojoContext generate(Mojo mojo, String type) throws MojoExecutionException {
-        return generate(mojo, type, true);
-    }
-
-    public List<MojoContext> generate(Mojo mojo, String[] types) throws MojoExecutionException {
-        List<MojoContext> contexts = new ArrayList<MojoContext>();
+    public void generate(AbstractGenerateMojo mojo, String[] types) throws MojoExecutionException {
         for (String type : types) {
-            MojoContext context = generate(mojo, type);
-            contexts.add(context);
+            generate(mojo, type);
         }
-        return contexts;
     }
 
     protected JobContext getJobContext(MavenContext mvnContext, Mojo mojo, String name, String type) {
@@ -805,11 +789,11 @@ public class JenkinsHelper {
         return sb.toString();
     }
 
-    protected Properties getProperties(MavenContext mvnContext, JobContext jobContext) throws IOException {
+    protected Properties getProperties(MavenContext mvnContext, String type, String timestampFormat) throws IOException {
 
-        List<String> locations = getLocations(mvnContext, jobContext);
+        List<String> locations = getLocations(mvnContext, type);
         Properties resourceProperties = propertiesUtils.getProperties(locations);
-        Properties jenkinsProperties = getJenkinsProperties(mvnContext, jobContext);
+        Properties jenkinsProperties = getJenkinsProperties(mvnContext, timestampFormat);
         Properties projectProperties = mvnContext.getProject().getProperties();
         Properties environmentProperties = propertiesUtils.getEnvironmentProperties();
         Properties systemProperties = System.getProperties();
@@ -823,25 +807,25 @@ public class JenkinsHelper {
         return properties;
     }
 
-    protected Properties getJenkinsProperties(MavenContext mvnContext, JobContext jobContext) {
-        SimpleDateFormat sdf = new SimpleDateFormat(jobContext.getTimestampFormat());
+    protected Properties getJenkinsProperties(MavenContext context, String timestampFormat) {
+        SimpleDateFormat sdf = new SimpleDateFormat(timestampFormat);
         Date now = new Date(System.currentTimeMillis());
-        MavenProject project = mvnContext.getProject();
+        MavenProject project = context.getProject();
         Properties properties = new Properties();
-        properties.setProperty("jenkins.project.scmType", mvnContext.getScmType());
-        properties.setProperty("jenkins.project.scmUrl", mvnContext.getScmUrl());
-        properties.setProperty("jenkins.project.majorVersion", mvnContext.getMajorVersion());
+        properties.setProperty("jenkins.project.scmType", context.getScmType());
+        properties.setProperty("jenkins.project.scmUrl", context.getScmUrl());
+        properties.setProperty("jenkins.project.majorVersion", context.getMajorVersion());
         properties.setProperty("jenkins.project.groupId", project.getGroupId());
         properties.setProperty("jenkins.project.artifactId", project.getArtifactId());
         properties.setProperty("jenkins.build.timestamp", sdf.format(now));
         return properties;
     }
 
-    protected List<String> getLocations(MavenContext mvnContext, JobContext jobContext) {
+    protected List<String> getLocations(MavenContext context, String type) {
         List<String> locations = new ArrayList<String>();
         locations.add("classpath:org/kuali/jenkins/jobs/properties/common.xml");
-        locations.add("classpath:org/kuali/jenkins/jobs/properties/" + mvnContext.getScmType() + ".xml");
-        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + jobContext.getType() + ".xml");
+        locations.add("classpath:org/kuali/jenkins/jobs/properties/" + context.getScmType() + ".xml");
+        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + type + ".xml");
         return locations;
     }
 
