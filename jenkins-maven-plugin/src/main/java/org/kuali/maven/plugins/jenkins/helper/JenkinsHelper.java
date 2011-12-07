@@ -34,12 +34,12 @@ import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
-import org.kuali.maven.plugins.jenkins.SimpleJobMojo;
 import org.kuali.maven.plugins.jenkins.context.CliException;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
+import org.kuali.maven.plugins.jenkins.context.SimpleJobsContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,10 +59,10 @@ public class JenkinsHelper {
     JavaHelper javaHelper = new JavaHelper();
     CommandHelper cmdHelper = new CommandHelper();
 
-    public void executeSimpleJobMojo(SimpleJobMojo mojo) {
+    public void executeSimpleJobsMojo(SimpleJobsContext mojoContext) {
         MavenContext context = getMavenContext(mojo);
-        String jobName = getJobName(context, mojo.getName(), mojo.getType());
-        String[] args = mojo.getArgs(jobName);
+        String jobName = getJobName(context, mojoContext.getName(), mojo.getType());
+        String[] args = mojo.getJobArgs(jobName);
         Command command = new Command();
         command.setArgs(Arrays.asList(args));
         executeCli(mojo, command, SUCCESS_CODE);

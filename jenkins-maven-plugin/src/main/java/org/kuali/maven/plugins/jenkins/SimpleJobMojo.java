@@ -21,7 +21,7 @@ import org.apache.maven.plugin.MojoExecutionException;
  * Mojo for executing 'simple' Jenkins CLI commands related to a single Jenkins job. 'Simple' in this context means the
  * CLI command requires no input and produces no output.
  */
-public abstract class SimpleJobMojo extends CliMojo {
+public abstract class SimpleJobMojo extends BaseMojo {
 
     protected abstract String getJobCmd();
 
@@ -41,13 +41,13 @@ public abstract class SimpleJobMojo extends CliMojo {
      */
     private String name;
 
-    public String[] getArgs(String jobName) {
+    public String[] getJobArgs(String jobName) {
         return new String[] { getJobCmd(), jobName };
     }
 
     @Override
     public void execute() throws MojoExecutionException {
-        helper.executeSimpleJobMojo(this);
+        helper.executeSimpleJobsMojo(this);
     }
 
     public String getType() {
