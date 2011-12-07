@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.kuali.maven.plugins.jenkins.context.SimpleJobsContext;
-import org.kuali.maven.plugins.jenkins.helper.Helper;
 
 /**
  * Mojo for executing 'simple' Jenkins CLI commands related to a single Jenkins job. 'Simple' in this context means the
@@ -27,7 +26,6 @@ import org.kuali.maven.plugins.jenkins.helper.Helper;
  */
 public abstract class SimpleJobMojo extends BaseMojo implements SimpleJobsContext {
 
-    @Override
     public abstract String getJobCmd();
 
     /**
@@ -47,18 +45,13 @@ public abstract class SimpleJobMojo extends BaseMojo implements SimpleJobsContex
     private String name;
 
     @Override
-    public List<String> getTypes() {
-        return Helper.toList(getType());
-    }
-
-    @Override
-    public List<String> getNames() {
-        return Helper.toList(getName());
-    }
-
-    @Override
     public void execute() throws MojoExecutionException {
-        helper.executeCli(this);
+        helper.executeCli(this, this);
+    }
+
+    @Override
+    public List<SimpleJobCommand> getSimpleJobCommands() {
+        return helper.get
     }
 
     public String getType() {

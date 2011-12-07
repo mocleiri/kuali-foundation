@@ -34,7 +34,6 @@ import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
-import org.kuali.maven.plugins.jenkins.RunJobCommand;
 import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
 import org.kuali.maven.plugins.jenkins.context.CliException;
 import org.kuali.maven.plugins.jenkins.context.GAV;
@@ -53,9 +52,6 @@ public class JenkinsHelper {
     public static final int SUCCESS_CODE = 0;
     public static final int NO_SUCH_COMMAND = 255;
     public static final String SERVER_ARG = "-s";
-    public static final String SKIP_IF_NO_CHANGES_ARG = "-c";
-    public static final String WAIT_FOR_JOB_TO_FINISH_ARG = "-s";
-    public static final String PARAMS_ARG = "-p";
     public static final String FS = System.getProperty("file.separator");
 
     Extractor extractor = new Extractor();
@@ -71,22 +67,6 @@ public class JenkinsHelper {
         return Helper.toArray(args);
     }
 
-    public String[] getArgs(RunJobCommand rjc) {
-        List<String> args = new ArrayList<String>();
-        String[] simpleArgs = getArgs((SimpleJobCommand) rjc);
-        Helper.addToList(args, simpleArgs);
-        if (rjc.isSkipIfNoChanges()) {
-            args.add(SKIP_IF_NO_CHANGES_ARG);
-        }
-        if (rjc.isWait()) {
-            args.add(WAIT_FOR_JOB_TO_FINISH_ARG);
-        }
-        if (!Helper.isEmpty(rjc.getParams())) {
-            args.add(PARAMS_ARG);
-            args.addAll(Helper.toKeyValueList(rjc.getParams()));
-        }
-        return Helper.toArray(args);
-    }
 
     public void executeSimpleJobsMojo(SimpleJobsContext mojoContext) {
         MavenContext context = getMavenContext(mojo);
@@ -267,7 +247,6 @@ public class JenkinsHelper {
 
     public ProcessResult executeCli(File jar, String url, Command cmd) {
         String input = getInput(cmd);
-        logger.debug("input=" + input);
         return executeCli(jar, url, cmd.getArgs(), input);
     }
 

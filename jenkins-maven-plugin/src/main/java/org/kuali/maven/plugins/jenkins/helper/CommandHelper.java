@@ -15,15 +15,20 @@
  */
 package org.kuali.maven.plugins.jenkins.helper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
+import org.kuali.maven.plugins.jenkins.RunJobCommand;
 import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
 
 public class CommandHelper {
     public static final String SPACE = " ";
+    public static final String SKIP_IF_NO_CHANGES_ARG = "-c";
+    public static final String WAIT_FOR_JOB_TO_FINISH_ARG = "-s";
+    public static final String PARAMS_ARG = "-p";
 
     public List<Command> getCmds(CliMojo mojo) {
         if (mojo.getCommands() != null) {
@@ -34,12 +39,27 @@ public class CommandHelper {
         }
     }
 
-    public Command getCommand(SimpleJobCommand sjc) {
-        List<String> args = Helper.toList(sjc.getJenkinsCommand());
-        args.add(sjc.getJobName());
-        Command command = new Command();
-        command.setArgs(args);
-        return command;
+    public String[] toArgs(RunJobCommand command) {
+        List<String> args = new ArrayList<String>();
+        String[] simpleArgs = toArgs((SimpleJobCommand) command);
+        Helper.addToList(args, simpleArgs);
+        if (command.isSkipIfNoChanges()) {
+            args.add(SKIP_IF_NO_CHANGES_ARG);
+        }
+        if (command.isWait()) {
+            args.add(WAIT_FOR_JOB_TO_FINISH_ARG);
+        }
+        if (!Helper.isEmpty(command.getParams())) {
+            args.add(PARAMS_ARG);
+            args.addAll(Helper.toKeyValueList(command.getParams()));
+        }
+        return Helper.toArray(args);
+    }
+
+    public String[] toArgs(SimpleJobCommand command) {
+        String jenkinsCommand = command.getJenkinsCommand();
+        String jobName = command.getJobName();
+        return new String[] { jenkinsCommand, jobName };
     }
 
     protected Command getCommand(String cmd, String stdin, String stdinUrl) {

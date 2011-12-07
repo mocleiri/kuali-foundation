@@ -32,7 +32,7 @@ public class DeleteJobMojo extends SimpleJobMojo {
     private String deleteJobCmd;
 
     @Override
-    protected String getJobCmd() {
+    public String getJobCmd() {
         return getDeleteJobCmd();
     }
 
