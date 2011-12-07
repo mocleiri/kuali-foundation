@@ -371,7 +371,7 @@ public class JenkinsHelper {
     public List<Command> getCommands(List<SimpleJobCommand> sjcs) {
         List<Command> commands = new ArrayList<Command>();
         for (SimpleJobCommand sjc : sjcs) {
-            Command command = cmdHelper.getCommand(sjc);
+            Command command = cmdHelper.getCommands(sjc);
             commands.add(command);
         }
         return commands;
@@ -389,7 +389,7 @@ public class JenkinsHelper {
     }
 
     public void executeCli(CliMojo mojo, int... successCodes) {
-        List<Command> cmds = cmdHelper.getCmds(mojo);
+        List<Command> cmds = cmdHelper.getCommands(mojo);
         executeCli(mojo, cmds, successCodes);
 
     }

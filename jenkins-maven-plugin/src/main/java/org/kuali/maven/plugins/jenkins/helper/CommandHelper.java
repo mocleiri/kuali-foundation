@@ -30,13 +30,22 @@ public class CommandHelper {
     public static final String WAIT_FOR_JOB_TO_FINISH_ARG = "-s";
     public static final String PARAMS_ARG = "-p";
 
-    public List<Command> getCmds(CliMojo mojo) {
-        if (mojo.getCommands() != null) {
+    public List<Command> getCommands(CliMojo mojo) {
+        if (Helper.isEmpty(mojo.getCommands())) {
             return mojo.getCommands();
         } else {
-            Command command = getCommand(mojo.getCmd(), mojo.getStdin(), mojo.getStdinUrl());
+            Command command = getCommand(mojo);
             return Helper.toList(command);
         }
+    }
+
+    protected Command getCommand(CliMojo mojo) {
+        String[] args = Helper.splitAndTrim(mojo.getCmd(), SPACE);
+        Command command = new Command();
+        command.setArgs(Arrays.asList(args));
+        command.setStdin(mojo.getStdin());
+        command.setStdin(mojo.getStdinUrl());
+        return command;
     }
 
     public String[] toArgs(RunJobCommand command) {
@@ -62,12 +71,4 @@ public class CommandHelper {
         return new String[] { jenkinsCommand, jobName };
     }
 
-    protected Command getCommand(String cmd, String stdin, String stdinUrl) {
-        String[] args = Helper.splitAndTrim(cmd, SPACE);
-        Command command = new Command();
-        command.setArgs(Arrays.asList(args));
-        command.setStdin(stdin);
-        command.setStdin(stdinUrl);
-        return command;
-    }
 }
