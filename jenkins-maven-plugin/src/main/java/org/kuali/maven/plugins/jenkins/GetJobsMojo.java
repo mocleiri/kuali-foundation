@@ -53,6 +53,7 @@ public class GetJobsMojo extends BaseMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        helper.getJobs(this, getGetJobCmd(), getNames(), getTypes());
     }
 
     public String getTypes() {
