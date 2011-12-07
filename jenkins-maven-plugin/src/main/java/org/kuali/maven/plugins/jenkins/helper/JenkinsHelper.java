@@ -34,6 +34,7 @@ import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
+import org.kuali.maven.plugins.jenkins.RunJobCommand;
 import org.kuali.maven.plugins.jenkins.context.CliException;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
@@ -49,8 +50,11 @@ public class JenkinsHelper {
 
     public static final String XML_EXTENSION = ".xml";
     public static final int SUCCESS_CODE = 0;
-    public static final String SERVER_ARG = "-s";
     public static final int NO_SUCH_COMMAND = 255;
+    public static final String SERVER_ARG = "-s";
+    public static final String SKIP_IF_NO_CHANGES_ARG = "-c";
+    public static final String WAIT_FOR_JOB_TO_FINISH_ARG = "-s";
+    public static final String PARAMS_ARG = "-p";
     public static final String FS = System.getProperty("file.separator");
 
     Extractor extractor = new Extractor();
@@ -58,6 +62,23 @@ public class JenkinsHelper {
     ResourceUtils resourceUtils = new ResourceUtils();
     JavaHelper javaHelper = new JavaHelper();
     CommandHelper cmdHelper = new CommandHelper();
+
+    public String[] getArgs(RunJobCommand rjc) {
+        List<String> args = new ArrayList<String>();
+        args.add(rjc.getJenkinsCommand());
+        args.add(rjc.getJobName());
+        if (rjc.isSkipIfNoChanges()) {
+            args.add(SKIP_IF_NO_CHANGES_ARG);
+        }
+        if (rjc.isWait()) {
+            args.add(WAIT_FOR_JOB_TO_FINISH_ARG);
+        }
+        if (!Helper.isEmpty(rjc.getParams())) {
+            args.add(PARAMS_ARG);
+            args.addAll(Helper.toKeyValueList(rjc.getParams()));
+        }
+        return Helper.toArray(args);
+    }
 
     public void executeSimpleJobsMojo(SimpleJobsContext mojoContext) {
         MavenContext context = getMavenContext(mojo);

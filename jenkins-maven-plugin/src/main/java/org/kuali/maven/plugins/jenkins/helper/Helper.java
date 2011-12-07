@@ -34,22 +34,6 @@ public class Helper {
     public static final String EMPTY_STRING = "";
 
     /**
-     * Return a List<String> (never null) where each String element is "key=value" from the map and the csv tokens from
-     * the csv string. The csv is assumed to be "key=value" pairs separated by commas
-     */
-    public static final List<String> toKeyValuePairs(Map<String, String> map, String csv) {
-        List<String> paramArgs = new ArrayList<String>();
-        if (!isEmpty(map)) {
-            paramArgs.addAll(toList(map));
-        }
-        if (!StringUtils.isBlank(csv)) {
-            String[] tokens = Helper.splitAndTrimCSV(csv);
-            paramArgs.addAll(Arrays.asList(tokens));
-        }
-        return paramArgs;
-    }
-
-    /**
      * Return a List<String> (never null) where each String element is one "line" from the string passed in
      */
     public static final List<String> getLines(String s) {
@@ -65,22 +49,31 @@ public class Helper {
     }
 
     /**
-     * Convert the map to a list where each string in the list is "key=value" from the map
+     * Return a List<String> (never null) where each String element is "key=value" from the map and the csv tokens from
+     * the csv string. The csv is assumed to be "key=value" pairs separated by commas
      */
-    public static final List<String> toList(Map<String, String> params) {
-        return toList(params, EQUALS);
+    public static final List<String> toKeyValueList(Map<String, String> map, String csv) {
+        List<String> list = new ArrayList<String>();
+        if (!isEmpty(map)) {
+            list.addAll(toKeyValueList(map));
+        }
+        if (!StringUtils.isBlank(csv)) {
+            String[] tokens = Helper.splitAndTrimCSV(csv);
+            list.addAll(Arrays.asList(tokens));
+        }
+        return list;
     }
 
     /**
-     * Convert the map to a list where each string in the list is a key/value pair from the map separated by "separator"
+     * Convert the map to a list where each string in the list is "key=value" from the map
      */
-    public static final List<String> toList(Map<String, String> params, String separator) {
-        List<String> args = new ArrayList<String>();
-        for (Map.Entry<String, String> pair : params.entrySet()) {
-            String arg = pair.getKey() + separator + pair.getValue();
-            args.add(arg);
+    public static final List<String> toKeyValueList(Map<String, String> map) {
+        List<String> list = new ArrayList<String>();
+        for (Map.Entry<String, String> pair : map.entrySet()) {
+            String s = pair.getKey() + EQUALS + pair.getValue();
+            list.add(s);
         }
-        return args;
+        return list;
     }
 
     /**

@@ -15,28 +15,23 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import java.util.Map;
+public class SimpleJobCommand {
+    String jenkinsCommand;
+    String jobName;
 
-public class RunJobCommand extends SimpleJobCommand {
-    boolean wait;
-    boolean skipIfNoChanges;
-    Map<String, String> params;
-    public boolean isWait() {
-        return wait;
+    public String getJenkinsCommand() {
+        return jenkinsCommand;
     }
-    public void setWait(boolean wait) {
-        this.wait = wait;
+
+    public void setJenkinsCommand(String jenkinsCommand) {
+        this.jenkinsCommand = jenkinsCommand;
     }
-    public boolean isSkipIfNoChanges() {
-        return skipIfNoChanges;
+
+    public String getJobName() {
+        return jobName;
     }
-    public void setSkipIfNoChanges(boolean skipIfNoChanges) {
-        this.skipIfNoChanges = skipIfNoChanges;
-    }
-    public Map<String, String> getParams() {
-        return params;
-    }
-    public void setParams(Map<String, String> params) {
-        this.params = params;
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
     }
 }

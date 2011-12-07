@@ -16,6 +16,7 @@
 package org.kuali.maven.plugins.jenkins;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.kuali.maven.plugins.jenkins.helper.Helper;
 
 /**
  * Mojo for executing 'simple' Jenkins CLI commands related to a single Jenkins job. 'Simple' in this context means the
@@ -47,7 +48,7 @@ public abstract class SimpleJobMojo extends BaseMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        helper.executeSimpleJobsMojo(this);
+        helper.executeCli(this, getJobCmd(), Helper.toList(name), Helper.toList(type));
     }
 
     public String getType() {
