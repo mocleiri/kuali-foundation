@@ -147,7 +147,7 @@ public class JenkinsHelper {
 
     }
 
-    public File getJenkinsJar(MavenProject project, List<Artifact> pluginArtifacts) {
+    protected File getJenkinsJar(MavenProject project, List<Artifact> pluginArtifacts) {
         GAV gav = getGav(project);
         File jar = getJar(gav, pluginArtifacts);
         if (jar == null) {
@@ -157,7 +157,7 @@ public class JenkinsHelper {
         }
     }
 
-    public File getJar(GAV gav, List<Artifact> artifacts) {
+    protected File getJar(GAV gav, List<Artifact> artifacts) {
         for (Artifact artifact : artifacts) {
             if (equals(artifact, gav)) {
                 return artifact.getFile();
@@ -234,20 +234,16 @@ public class JenkinsHelper {
     }
 
     public ProcessResult executeCli(File jar, String url, List<String> args, String input) {
-        String[] cliArgs = getJenkinsCliArgs(url, args);
+        String[] cliArgs = getCliArgs(url, args);
         return javaHelper.executeJar(jar, cliArgs, input);
     }
 
-    protected String[] getJenkinsCliArgs(String url, List<String> args) {
+    protected String[] getCliArgs(String url, List<String> args) {
         List<String> list = new ArrayList<String>();
         list.add(SERVER_ARG);
         list.add(url);
         list.addAll(args);
         return Helper.toArray(list);
-    }
-
-    protected void handleResult(ProcessResult result) {
-        throw new RuntimeException("unimplemented");
     }
 
     protected boolean isSuccess(int exitValue, int... successValues) {
