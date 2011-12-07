@@ -75,7 +75,7 @@ public class RunJobMojo extends SimpleJobMojo {
             paramArgs.addAll(Helper.toList(paramMap));
         }
         if (!StringUtils.isBlank(params)) {
-            String[] tokens = Helper.splitAndTrim(params, ",");
+            String[] tokens = Helper.splitAndTrimCSV(params);
             paramArgs.addAll(Arrays.asList(tokens));
         }
         return paramArgs;
