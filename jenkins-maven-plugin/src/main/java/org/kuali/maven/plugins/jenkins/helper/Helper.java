@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +63,27 @@ public class Helper {
             list.addAll(Arrays.asList(tokens));
         }
         return list;
+    }
+
+    /**
+     * Create a map from an array of key=value strings
+     */
+    public static final Map<String, String> toMap(String[] keyValuePairs) {
+        return toMap(Arrays.asList(keyValuePairs));
+    }
+
+    /**
+     * Create a map from a list of key=value strings
+     */
+    public static final Map<String, String> toMap(List<String> keyValuePairs) {
+        Map<String, String> map = new HashMap<String, String>();
+        for (String keyValuePair : keyValuePairs) {
+            String[] tokens = StringUtils.split(keyValuePair, EQUALS);
+            String key = tokens[0];
+            String value = tokens[1];
+            map.put(key, value);
+        }
+        return map;
     }
 
     /**

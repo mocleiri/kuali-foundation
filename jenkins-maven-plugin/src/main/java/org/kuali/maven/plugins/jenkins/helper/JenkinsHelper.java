@@ -21,7 +21,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -34,6 +36,8 @@ import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
+import org.kuali.maven.plugins.jenkins.RunJobCommand;
+import org.kuali.maven.plugins.jenkins.RunJobMojo;
 import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
 import org.kuali.maven.plugins.jenkins.SimpleJobMojo;
 import org.kuali.maven.plugins.jenkins.context.CliException;
@@ -79,10 +83,18 @@ public class JenkinsHelper {
     protected <T> T getContext(Class<T> type, BaseMojo mojo) {
         try {
             T context = type.newInstance();
-            BeanUtils.copyProperties(context, mojo);
+            copyProperties(context, mojo);
             return context;
         } catch (Exception e) {
-            throw new IllegalArgumentException(e);
+            throw new CliException(e);
+        }
+    }
+
+    protected void copyProperties(Object dest, Object orig) {
+        try {
+            BeanUtils.copyProperties(dest, orig);
+        } catch (Exception e) {
+            throw new CliException(e);
         }
     }
 
@@ -384,6 +396,36 @@ public class JenkinsHelper {
         sjc.setJobName(jobName);
         Command command = new Command();
         command.setArgs(cmdHelper.toArgs(sjc));
+        executeCli(mojo, command);
+    }
+
+    protected Map<String, String> getBuildParameters(Map<String, String> map, String csv) {
+        Map<String, String> buildParameters = new HashMap<String, String>();
+        if (!Helper.isEmpty(map)) {
+            buildParameters.putAll(map);
+        }
+        if (!Helper.isEmpty(csv)) {
+            String[] keyValuePairs = Helper.splitAndTrimCSV(csv);
+            Map<String, String> csvMap = Helper.toMap(keyValuePairs);
+            buildParameters.putAll(csvMap);
+        }
+        return buildParameters;
+    }
+
+    public void executeCli(RunJobMojo mojo) {
+        MavenContext context = getMavenContext(mojo);
+        String jobName = getJobName(context, mojo.getName(), mojo.getType());
+        Map<String, String> params = getBuildParameters(mojo.getParamMap(), mojo.getParams());
+
+        RunJobCommand rjc = new RunJobCommand();
+        rjc.setJobName(jobName);
+        rjc.setParams(params);
+        rjc.setJenkinsCommand(mojo.getJobCmd());
+        rjc.setWait(mojo.isWait());
+        rjc.setSkipIfNoChanges(mojo.isSkipIfNoChanges());
+
+        Command command = new Command();
+        command.setArgs(cmdHelper.toArgs(rjc));
         executeCli(mojo, command);
     }
 

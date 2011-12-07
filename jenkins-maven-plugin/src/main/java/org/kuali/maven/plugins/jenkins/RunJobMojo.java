@@ -15,11 +15,7 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-
-import org.kuali.maven.plugins.jenkins.helper.Helper;
 
 /**
  * Connect to a Jenkins server and kick off a job
@@ -68,26 +64,7 @@ public class RunJobMojo extends SimpleJobMojo {
     private Map<String, String> paramMap;
 
     @Override
-    public String[] getArgs(String jobName) {
-        List<String> args = new ArrayList<String>();
-        args.add(getJobCmd());
-        args.add(jobName);
-        if (isSkipIfNoChanges()) {
-            args.add("-c");
-        }
-        if (isWait()) {
-            args.add("-s");
-        }
-        List<String> paramArgs = Helper.toKeyValuePairs(paramMap, params);
-        if (!Helper.isEmpty(paramArgs)) {
-            args.add("-p");
-            args.addAll(paramArgs);
-        }
-        return Helper.toArray(args);
-    }
-
-    @Override
-    protected String getJobCmd() {
+    public String getJobCmd() {
         return getRunJobCmd();
     }
 
