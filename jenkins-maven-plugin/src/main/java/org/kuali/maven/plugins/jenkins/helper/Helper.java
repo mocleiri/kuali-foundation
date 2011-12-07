@@ -29,6 +29,9 @@ import org.apache.commons.lang.StringUtils;
 
 public class Helper {
     public static final String EQUALS = "=";
+    public static final String SPACE = " ";
+    public static final String COMMA = ",";
+    public static final String EMPTY_STRING = "";
 
     /**
      * Return a List<String> (never null) where each String element is "key=value" from the map and the csv tokens from
@@ -46,6 +49,9 @@ public class Helper {
         return paramArgs;
     }
 
+    /**
+     * Return a List<String> (never null) where each String element is one "line" from the string passed in
+     */
     public static final List<String> getLines(String s) {
         if (StringUtils.isBlank(s)) {
             return new ArrayList<String>();
@@ -58,12 +64,15 @@ public class Helper {
         }
     }
 
+    /**
+     * Convert the map to a list where each string in the list is "key=value" from the map
+     */
     public static final List<String> toList(Map<String, String> params) {
         return toList(params, EQUALS);
     }
 
     /**
-     * Convert the map to a list
+     * Convert the map to a list where each string in the list is a key/value pair from the map separated by "separator"
      */
     public static final List<String> toList(Map<String, String> params, String separator) {
         List<String> args = new ArrayList<String>();
@@ -75,10 +84,10 @@ public class Helper {
     }
 
     /**
-     * Split the string trimming as we go
+     * Split the CSV string trimming as we go
      */
     public static final String[] splitAndTrimCSV(String s) {
-        return splitAndTrim(s, ",");
+        return splitAndTrim(s, COMMA);
     }
 
     /**
@@ -92,36 +101,57 @@ public class Helper {
         return tokens;
     }
 
+    /**
+     * Create a one element list from the element passed in
+     */
     public static final <T> List<T> toList(T element) {
         List<T> list = new ArrayList<T>();
         list.add(element);
         return list;
     }
 
+    /**
+     * Convert List<String> into String[]
+     */
     public static final String[] toArray(List<String> list) {
         return list.toArray(new String[list.size()]);
     }
 
+    /**
+     * Return "" if the string passed in is null or all whitespace
+     */
     public static final String toEmpty(String s) {
         if (StringUtils.isBlank(s)) {
-            return "";
+            return EMPTY_STRING;
         } else {
             return s;
         }
     }
 
+    /**
+     * Combine the elements in the list into string separated by spaces
+     */
     public static final String toString(List<String> list) {
-        return toString(list.toArray(new String[list.size()]), " ");
+        return toString(toArray(list), SPACE);
     }
 
+    /**
+     * Return a string representing the strings from the list combined into a single string separated by "separator"
+     */
     public static final String toString(List<String> list, String separator) {
-        return toString(list.toArray(new String[list.size()]), separator);
+        return toString(toArray(list), separator);
     }
 
+    /**
+     * Return a string representing the tokens combined into a single string separated by a space
+     */
     public static final String toString(String[] tokens) {
-        return toString(tokens, " ");
+        return toString(tokens, SPACE);
     }
 
+    /**
+     * Return a string representing the tokens combined into a single string separated by "separator"
+     */
     public static final String toString(String[] tokens, String separator) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tokens.length; i++) {
@@ -133,6 +163,9 @@ public class Helper {
         return sb.toString();
     }
 
+    /**
+     * return true if target matches any of the values passed in
+     */
     public static final boolean isMatch(int target, int... values) {
         for (int value : values) {
             if (value == target) {
