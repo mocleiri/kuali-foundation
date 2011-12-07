@@ -255,12 +255,13 @@ public class JenkinsHelper {
         return false;
     }
 
-    protected void handleResult(Command command, ProcessResult result, boolean stopOnError, int... successValues) {
+    protected void handleResult(Command command, ProcessResult result, boolean failOnError, boolean stopOnError,
+            int... successValues) {
         int exitValue = result.getExitValue();
         if (isSuccess(exitValue, successValues)) {
             handleSuccess(command, result);
         } else {
-            handleFailure(stopOnError, result);
+            handleFailure(stopOnError, failOnError, result);
         }
     }
 
@@ -296,12 +297,16 @@ public class JenkinsHelper {
         return null;
     }
 
-    protected void handleFailure(boolean stopOnError, ProcessResult result) {
+    protected void handleFailure(boolean stopOnError, boolean failOnError, ProcessResult result) {
         if (stopOnError) {
             logger.error("Jenkins CLI Exception:" + getErrorMessage(result));
             throw new CliException("Jenkins CLI Exception");
         } else {
-            logWarning(result.getOutputLines());
+            if (failOnError) {
+                logError(result.getOutputLines());
+            } else {
+                logWarning(result.getOutputLines());
+            }
         }
     }
 
@@ -341,7 +346,7 @@ public class JenkinsHelper {
         for (Command command : commands) {
             logger.info("Issuing command '" + Helper.toString(command.getArgs()) + "'");
             ProcessResult result = executeCli(jar, url, command);
-            handleResult(command, result, mojo.isStopOnError(), successCodes);
+            handleResult(command, result, mojo.isFailOnError(), mojo.isStopOnError(), successCodes);
             results.add(result);
         }
         handleResults(results, mojo.isFailOnError(), successCodes);
