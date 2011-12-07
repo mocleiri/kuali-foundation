@@ -26,22 +26,17 @@ import java.util.Properties;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.plugin.Mojo;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
-import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
-import org.kuali.maven.plugins.jenkins.context.CliContext;
 import org.kuali.maven.plugins.jenkins.context.CliException;
 import org.kuali.maven.plugins.jenkins.context.GAV;
-import org.kuali.maven.plugins.jenkins.context.JobContext;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
-import org.kuali.maven.plugins.jenkins.context.MojoContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
 import org.slf4j.Logger;
@@ -61,11 +56,10 @@ public class JenkinsHelper {
     Extractor extractor = new Extractor();
     PropertiesUtils propertiesUtils = new PropertiesUtils();
     ResourceUtils resourceUtils = new ResourceUtils();
-    AntMavenUtils antMvnUtils = new AntMavenUtils();
     JavaHelper javaHelper = new JavaHelper();
     CommandHelper cmdHelper = new CommandHelper();
 
-    protected <T> T getContext(Class<T> type, Mojo mojo) {
+    protected <T> T getContext(Class<T> type, BaseMojo mojo) {
         try {
             T context = type.newInstance();
             BeanUtils.copyProperties(context, mojo);
@@ -75,16 +69,16 @@ public class JenkinsHelper {
         }
     }
 
-    protected MojoContext getMojoContext(MavenContext mvnContext, JobContext jobContext, CliContext cliContext) {
-        MojoContext context = new MojoContext();
-        context.setMvnContext(mvnContext);
-        context.setJobContext(jobContext);
-        context.setCliContext(cliContext);
-        return context;
-    }
-
-    public void getJob(BaseMojo mojo, String name, String type) {
-
+    public void getJob(BaseMojo mojo, String cmd, String name, String type) {
+        MavenContext context = getMavenContext(mojo);
+        String jobName = getJobName(context, name, type);
+        String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
+        String[] args = { cmd, jobName };
+        Command command = new Command();
+        command.setArgs(Arrays.asList(args));
+        command.setStdout(new File(filename));
+        List<Command> commands = Helper.toList(command);
+        executeCli(mojo, commands);
     }
 
     protected GAV getGav(Properties properties) {
@@ -240,10 +234,10 @@ public class JenkinsHelper {
         return false;
     }
 
-    protected void handleResult(ProcessResult result, boolean stopOnError, int... successValues) {
+    protected void handleResult(Command command, ProcessResult result, boolean stopOnError, int... successValues) {
         int exitValue = result.getExitValue();
         if (isSuccess(exitValue, successValues)) {
-            handleSuccess(result);
+            handleSuccess(command, result);
         } else {
             handleFailure(stopOnError, result);
         }
@@ -290,8 +284,21 @@ public class JenkinsHelper {
         }
     }
 
-    protected void handleSuccess(ProcessResult result) {
-        logInfo(result.getOutputLines());
+    protected void handleSuccess(Command command, ProcessResult result) {
+        File stdout = command.getStdout();
+        if (stdout != null) {
+            write(stdout.getAbsolutePath(), result.getOutput());
+        } else {
+            logInfo(result.getOutputLines());
+        }
+    }
+
+    protected void write(String filename, String content) {
+        try {
+            resourceUtils.write(filename, content);
+        } catch (IOException e) {
+            throw new CliException(e);
+        }
     }
 
     public void executeCli(CliMojo mojo) {
@@ -313,10 +320,14 @@ public class JenkinsHelper {
         for (Command command : commands) {
             logger.info("Issuing command '" + Helper.toString(command.getArgs()) + "'");
             ProcessResult result = executeCli(jar, url, command);
-            handleResult(result, mojo.isStopOnError(), successCodes);
+            handleResult(command, result, mojo.isStopOnError(), successCodes);
             results.add(result);
         }
         handleResults(results, mojo.isFailOnError(), successCodes);
+    }
+
+    public void executeCli(BaseMojo mojo, List<Command> commands) {
+        executeCli(mojo, commands, SUCCESS_CODE);
     }
 
     protected void handleResults(List<ProcessResult> results, boolean failOnError, int... successCodes) {
@@ -391,7 +402,7 @@ public class JenkinsHelper {
         }
     }
 
-    public MavenContext getMavenContext(Mojo mojo) {
+    public MavenContext getMavenContext(BaseMojo mojo) {
         MavenContext context = getContext(MavenContext.class, mojo);
         MavenProject project = context.getProject();
         String scmType = extractor.getScmType(project.getScm());
@@ -402,15 +413,6 @@ public class JenkinsHelper {
         context.setScmType(scmType);
         context.setScmUrl(scmUrl);
         return context;
-    }
-
-    protected String getFilename(JobContext jobContext, String jobName) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(jobContext.getWorkingDir());
-        sb.append(FS);
-        sb.append(jobName);
-        sb.append(XML_EXTENSION);
-        return sb.toString();
     }
 
     public String getJobName(MavenContext context, String name, String type) {
