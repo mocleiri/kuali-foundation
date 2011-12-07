@@ -17,7 +17,6 @@ package org.kuali.maven.plugins.jenkins;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.kuali.maven.common.PropertiesUtils;
 
 /**
  * Generate XML config files for Jenkins jobs to the local file system.
@@ -37,8 +36,7 @@ public class GenJobsMojo extends BaseMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-        helper.generate(this, tokens);
+        helper.generate(this, types);
     }
 
     public String getTypes() {

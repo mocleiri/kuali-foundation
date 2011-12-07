@@ -406,9 +406,16 @@ public class JenkinsHelper {
         return sb.toString();
     }
 
-    public void generate(BaseMojo mojo, String type) {
+    public void generate(BaseMojo mojo, String types) {
+        MavenContext context = getMavenContext(mojo);
+        String[] tokens = Helper.splitAndTrimCSV(types);
+        for (String type : tokens) {
+            generate(mojo, context, type);
+        }
+    }
+
+    public void generate(BaseMojo mojo, MavenContext context, String type) {
         try {
-            MavenContext context = getMavenContext(mojo);
             String jobName = getJobName(context, type);
             String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
             mojo.getLog().info("Generating: " + filename);
@@ -417,13 +424,7 @@ public class JenkinsHelper {
             String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
             resourceUtils.write(filename, resolvedXml);
         } catch (IOException e) {
-            throw new CliException("Unexpected error", e);
-        }
-    }
-
-    public void generate(BaseMojo mojo, String[] types) {
-        for (String type : types) {
-            generate(mojo, type);
+            throw new CliException(e);
         }
     }
 
