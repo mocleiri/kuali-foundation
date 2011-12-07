@@ -30,10 +30,10 @@ public class GetJobsMojo extends BaseMojo {
     /**
      * The command issued to Jenkins CLI
      *
-     * @parameter expression="${jenkins.cmd}" default-value="get-job"
+     * @parameter expression="${jenkins.getJobCmd}" default-value="get-job"
      * @required
      */
-    private String cmd;
+    private String getJobCmd;
 
     /**
      * The types of jobs to retrieve. Maven GAV info is combined with 'type' to derive the complete job name eg
@@ -53,15 +53,6 @@ public class GetJobsMojo extends BaseMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        getLog().info("help me");
-        /*
-        String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-        getLog().info("");
-        getLog().info("Working Dir - " + getWorkingDir().getAbsolutePath());
-        getLog().info("");
-        List<MojoContext> contexts = helper.getJobs(this, names, tokens);
-        helper.handleResults(contexts);
-        */
     }
 
     public String getTypes() {
@@ -80,12 +71,11 @@ public class GetJobsMojo extends BaseMojo {
         this.names = names;
     }
 
-    public String getCmd() {
-        return cmd;
+    public String getGetJobCmd() {
+        return getJobCmd;
     }
 
-    public void setCmd(String cmd) {
-        this.cmd = cmd;
+    public void setGetJobCmd(String getJobCmd) {
+        this.getJobCmd = getJobCmd;
     }
-
 }
