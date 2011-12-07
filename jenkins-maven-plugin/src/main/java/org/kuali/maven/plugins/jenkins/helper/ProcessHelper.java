@@ -88,7 +88,7 @@ public class ProcessHelper {
         List<String> command = new ArrayList<String>();
         command.add(executable);
         Helper.addToList(command, args);
-        return command.toArray(new String[command.size()]);
+        return Helper.toArray(command);
     }
 
     protected List<String> getOutputLines(String s) throws IOException {
