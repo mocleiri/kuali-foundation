@@ -35,6 +35,7 @@ import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
 import org.kuali.maven.plugins.jenkins.RunJobCommand;
+import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
 import org.kuali.maven.plugins.jenkins.context.CliException;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
@@ -63,10 +64,17 @@ public class JenkinsHelper {
     JavaHelper javaHelper = new JavaHelper();
     CommandHelper cmdHelper = new CommandHelper();
 
+    public String[] getArgs(SimpleJobCommand sjc) {
+        List<String> args = new ArrayList<String>();
+        args.add(sjc.getJenkinsCommand());
+        args.add(sjc.getJobName());
+        return Helper.toArray(args);
+    }
+
     public String[] getArgs(RunJobCommand rjc) {
         List<String> args = new ArrayList<String>();
-        args.add(rjc.getJenkinsCommand());
-        args.add(rjc.getJobName());
+        String[] simpleArgs = getArgs((SimpleJobCommand) rjc);
+        Helper.addToList(args, simpleArgs);
         if (rjc.isSkipIfNoChanges()) {
             args.add(SKIP_IF_NO_CHANGES_ARG);
         }
@@ -355,6 +363,46 @@ public class JenkinsHelper {
         } catch (IOException e) {
             throw new CliException(e);
         }
+    }
+
+    protected List<SimpleJobCommand> getSimpleJobCommands(MavenContext context, SimpleJobsContext sjc) {
+        String jenkinsCommand = sjc.getJobCmd();
+        List<String> names = sjc.getNames();
+        List<String> types = sjc.getTypes();
+        List<SimpleJobCommand> commands = new ArrayList<SimpleJobCommand>();
+        if (Helper.isEmpty(names)) {
+            for (String type : types) {
+                SimpleJobCommand command = new SimpleJobCommand();
+                command.setJenkinsCommand(jenkinsCommand);
+                String jobName = getJobName(context, type);
+                command.setJobName(jobName);
+                commands.add(command);
+            }
+        } else {
+            for (String name : names) {
+                SimpleJobCommand command = new SimpleJobCommand();
+                command.setJenkinsCommand(jenkinsCommand);
+                command.setJobName(name);
+                commands.add(command);
+            }
+        }
+        return commands;
+    }
+
+    public List<Command> getCommands(List<SimpleJobCommand> sjcs) {
+        List<Command> commands = new ArrayList<Command>();
+        for (SimpleJobCommand sjc : sjcs) {
+            Command command = cmdHelper.getCommand(sjc);
+            commands.add(command);
+        }
+        return commands;
+    }
+
+    public void executeCli(BaseMojo mojo, SimpleJobsContext sjc) {
+        MavenContext context = getMavenContext(mojo);
+        List<SimpleJobCommand> sjcs = getSimpleJobCommands(context, sjc);
+        List<Command> commands = getCommands(sjcs);
+        executeCli(mojo, commands);
     }
 
     public void executeCli(CliMojo mojo) {

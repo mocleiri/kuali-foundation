@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
+import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
 
 public class CommandHelper {
     public static final String SPACE = " ";
@@ -31,6 +32,14 @@ public class CommandHelper {
             Command command = getCommand(mojo.getCmd(), mojo.getStdin(), mojo.getStdinUrl());
             return Helper.toList(command);
         }
+    }
+
+    public Command getCommand(SimpleJobCommand sjc) {
+        List<String> args = Helper.toList(sjc.getJenkinsCommand());
+        args.add(sjc.getJobName());
+        Command command = new Command();
+        command.setArgs(args);
+        return command;
     }
 
     protected Command getCommand(String cmd, String stdin, String stdinUrl) {

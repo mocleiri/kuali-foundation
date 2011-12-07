@@ -15,16 +15,20 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
+import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
+import org.kuali.maven.plugins.jenkins.context.SimpleJobsContext;
 import org.kuali.maven.plugins.jenkins.helper.Helper;
 
 /**
  * Mojo for executing 'simple' Jenkins CLI commands related to a single Jenkins job. 'Simple' in this context means the
  * CLI command requires no input and produces no output.
  */
-public abstract class SimpleJobMojo extends BaseMojo {
+public abstract class SimpleJobMojo extends BaseMojo implements SimpleJobsContext {
 
-    protected abstract String getJobCmd();
+    @Override
+    public abstract String getJobCmd();
 
     /**
      * The type of job. Maven GAV info is combined with 'type' to derive the complete job name eg
@@ -42,13 +46,19 @@ public abstract class SimpleJobMojo extends BaseMojo {
      */
     private String name;
 
-    public String[] getJobArgs(String jobName) {
-        return new String[] { getJobCmd(), jobName };
+    @Override
+    public List<String> getTypes() {
+        return Helper.toList(getType());
+    }
+
+    @Override
+    public List<String> getNames() {
+        return Helper.toList(getName());
     }
 
     @Override
     public void execute() throws MojoExecutionException {
-        helper.executeCli(this, getJobCmd(), Helper.toList(name), Helper.toList(type));
+        helper.executeCli(this);
     }
 
     public String getType() {

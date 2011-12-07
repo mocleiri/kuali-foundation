@@ -107,7 +107,7 @@ public class Helper {
      * Convert List<String> into String[]
      */
     public static final String[] toArray(List<String> list) {
-        return list.toArray(new String[list.size()]);
+        return toArray(list);
     }
 
     /**
