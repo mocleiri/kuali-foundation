@@ -45,14 +45,13 @@ import org.slf4j.LoggerFactory;
 
 public class JenkinsHelper {
 
-    private static final Logger logger = LoggerFactory.getLogger(JenkinsHelper.class);
+    private final Logger logger = LoggerFactory.getLogger(JenkinsHelper.class);
 
     public static final String XML_EXTENSION = ".xml";
     public static final int SUCCESS_CODE = 0;
     public static final String SERVER_ARG = "-s";
     public static final int NO_SUCH_COMMAND = 255;
-    private static final String FS = System.getProperty("file.separator");
-    public static final String JAVA_RESULT_PROPERTY = "java.result";
+    public static final String FS = System.getProperty("file.separator");
 
     Extractor extractor = new Extractor();
     PropertiesUtils propertiesUtils = new PropertiesUtils();
