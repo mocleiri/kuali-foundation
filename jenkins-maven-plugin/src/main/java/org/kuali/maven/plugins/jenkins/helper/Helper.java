@@ -34,6 +34,45 @@ public class Helper {
     public static final String COMMA = ",";
     public static final String EMPTY_STRING = "";
 
+    public static final String toCSV(int[] integers) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < integers.length; i++) {
+            if (i != 0) {
+                sb.append(COMMA);
+            }
+            sb.append(integers[i]);
+        }
+        return sb.toString();
+    }
+
+    public static final String toCSV(Integer[] integers) {
+        return toCSV(toIntArray(integers));
+    }
+
+    public static final String toCSV(List<Integer> integers) {
+        return toCSV(toIntegerArray(integers));
+    }
+
+    public static final int[] toIntArray(List<Integer> integers) {
+        int[] ints = new int[integers.size()];
+        for (int i = 0; i < ints.length; i++) {
+            ints[i] = integers.get(i);
+        }
+        return ints;
+    }
+
+    public static final int[] toIntArray(Integer[] integers) {
+        return toIntArray(toIntegerList(integers));
+    }
+
+    public static final Integer[] toIntegerArray(List<Integer> integers) {
+        return integers.toArray(new Integer[integers.size()]);
+    }
+
+    public static final List<Integer> toIntegerList(Integer[] integers) {
+        return Arrays.asList(integers);
+    }
+
     public static final List<Integer> toIntegerList(String csv) {
         int[] integers = toIntegerArray(csv);
         List<Integer> list = new ArrayList<Integer>();
@@ -47,8 +86,7 @@ public class Helper {
         String[] tokens = splitAndTrimCSV(csv);
         int[] integers = new int[tokens.length];
         for (int i = 0; i < integers.length; i++) {
-            Integer integer = new Integer(tokens[i]);
-            integers[i] = integer;
+            integers[i] = new Integer(tokens[i]);
         }
         return integers;
     }
