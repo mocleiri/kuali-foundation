@@ -15,15 +15,31 @@
  */
 package org.kuali.maven.plugins.jenkins.helper;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 public class Helper {
     public static final String EQUALS = "=";
+
+    public static final List<String> getLines(String s) {
+        if (StringUtils.isBlank(s)) {
+            return new ArrayList<String>();
+        }
+        InputStream in = new ByteArrayInputStream(s.getBytes());
+        try {
+            return IOUtils.readLines(in);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static final List<String> toList(Map<String, String> params) {
         return toList(params, EQUALS);

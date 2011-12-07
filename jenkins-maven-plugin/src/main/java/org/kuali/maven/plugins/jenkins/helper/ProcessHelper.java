@@ -15,9 +15,6 @@
  */
 package org.kuali.maven.plugins.jenkins.helper;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +63,7 @@ public class ProcessHelper {
             logger.debug("Reading output");
             String output = IOUtils.toString(process.getInputStream());
             logger.debug("Done reading output=" + output);
-            List<String> outputLines = getOutputLines(output);
+            List<String> outputLines = Helper.getLines(output);
             int exitValue = process.waitFor();
             long stop = System.currentTimeMillis();
             long elapsed = stop - start;
@@ -89,14 +86,6 @@ public class ProcessHelper {
         command.add(executable);
         Helper.addToList(command, args);
         return Helper.toArray(command);
-    }
-
-    protected List<String> getOutputLines(String s) throws IOException {
-        if (StringUtils.isBlank(s)) {
-            return new ArrayList<String>();
-        }
-        InputStream in = new ByteArrayInputStream(s.getBytes());
-        return IOUtils.readLines(in);
     }
 
 }
