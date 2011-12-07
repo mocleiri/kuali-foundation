@@ -284,6 +284,7 @@
 															null,
 															null,
 															null,
+															null,
 															{ "bSearchable": false }
 														],
 											"aoColumns": [ 
@@ -293,9 +294,10 @@
 															null,
 															null,
 															null,
+															null,
 															{ "bSortable": false }
 														],
-                                            "aaSorting": [[0,'asc']]
+                                            "aaSorting": [[6,'asc']]
 											
                                         } );                
                                         $('table.display').css("width","100%");
@@ -306,12 +308,13 @@
                                     <thead>
                                         <tr>
                                             <th style="width:80px; background-image:none; background-color:#CCC;">Event</th>
-                                            <th style="width:80px; background-image:none; background-color:#CCC">Type</th>
+                                            <th style="width:120px; background-image:none; background-color:#CCC">Disposition Status</th>
                                             <th style="width:95px; background-image:none; background-color:#CCC">Approval Date</th>
                                             <th style="background-image:none; background-color:#CCC">Project Name</th>
                                             <th style="width:110px; background-image:none; background-color:#CCC">Project Number</th>
                                             <th style="width:130px; background-image:none; background-color:#CCC">Disclosure Status</th>
-                                            <th style="width:85px; background-image:none; background-color:#CCC; cursor:default;">Action</th>
+                                            <th style="width:80px; background-image:none; background-color:#CCC">Sequence</th>
+                                            <th style="width:55px; background-image:none; background-color:#CCC; cursor:default;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -323,9 +326,9 @@
                                             <td>My Big Project</td>
                                             <td>123456</td>
                                             <td>No Conflict</td>
+                                            <td>1</td>
                                             <td style="text-align:center;">
                                             	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the indicated disclosure..'); return false" style="border:none;" alt="view" title="View" type="image" />
-                                                <input src="../images/tinybutton-history.gif" onclick="javascript: alert('This would show a History FancyBox.'); return false" style="border:none;" alt="history" title="History" type="image" />
                                             </td>
                                         </tr>
                                         
@@ -336,9 +339,9 @@
                                             <td>My Big Project</td>
                                             <td>123456</td>
                                             <td>No Conflict</td>
+                                            <td>5</td>
                                             <td style="text-align:center;">
                                             	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the indicated disclosure..'); return false" style="border:none;" alt="view" title="View" type="image" />
-                                                <input src="../images/tinybutton-history.gif" onclick="javascript: alert('This would show a History FancyBox.'); return false" style="border:none;" alt="history" title="History" type="image" />
                                             </td>
                                         </tr>
                                         
@@ -349,9 +352,9 @@
                                             <td>Your Little Project</td>
                                             <td>789123</td>
                                             <td>Resolved</td>
+                                            <td>4</td>
                                             <td style="text-align:center;">
                                             	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the indicated disclosure..'); return false" style="border:none;" alt="view" title="View" type="image" />
-                                                <input src="../images/tinybutton-history.gif" onclick="javascript: alert('This would show a History FancyBox.'); return false" style="border:none;" alt="history" title="History" type="image" />
                                             </td>
                                         </tr>
                                         
@@ -362,9 +365,9 @@
                                             <td>My Big Project</td>
                                             <td>123456</td>
                                             <td>No Conflict</td>
+                                            <td>6</td>
                                             <td style="text-align:center;">
                                             	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the indicated disclosure..'); return false" style="border:none;" alt="view" title="View" type="image" />
-                                                <input src="../images/tinybutton-history.gif" onclick="javascript: alert('This would show a History FancyBox.'); return false" style="border:none;" alt="history" title="History" type="image" />
                                             </td>
                                         </tr>
                                         
@@ -375,9 +378,9 @@
                                             <td>Someone's Medium Project</td>
                                             <td>987654</td>
                                             <td>Resolved</td>
+                                            <td>2</td>
                                             <td style="text-align:center;">
                                             	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the indicated disclosure..'); return false" style="border:none;" alt="view" title="View" type="image" />
-                                                <input src="../images/tinybutton-history.gif" onclick="javascript: alert('This would show a History FancyBox.'); return false" style="border:none;" alt="history" title="History" type="image" />
                                             </td>
                                         </tr>
                                         
@@ -388,9 +391,9 @@
                                             <td>Someone's Medium Project</td>
                                             <td>123456</td>
                                             <td>No Conflict</td>
+                                            <td>3</td>
                                             <td style="text-align:center;">
                                             	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the indicated disclosure..'); return false" style="border:none;" alt="view" title="View" type="image" />
-                                                <input src="../images/tinybutton-history.gif" onclick="javascript: alert('This would show a History FancyBox.'); return false" style="border:none;" alt="history" title="History" type="image" />
                                             </td>
                                         </tr>
                                         
@@ -401,9 +404,35 @@
                                             <td>My Big Project</td>
                                             <td>123456</td>
                                             <td>No Conflict</td>
+                                            <td>7</td>
                                             <td style="text-align:center;">
                                             	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the indicated disclosure..'); return false" style="border:none;" alt="view" title="View" type="image" />
-                                                <input src="../images/tinybutton-history.gif" onclick="javascript: alert('This would show a History FancyBox.'); return false" style="border:none;" alt="history" title="History" type="image" />
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Master</td>
+                                            <td>Managed</td>
+                                            <td>12/06/2011</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>No Conflict</td>
+                                            <td>8</td>
+                                            <td style="text-align:center;">
+                                            	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the indicated disclosure..'); return false" style="border:none;" alt="view" title="View" type="image" />
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Annual</td>
+                                            <td>Managed</td>
+                                            <td>12/07/2011</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>No Conflict</td>
+                                            <td>9</td>
+                                            <td style="text-align:center;">
+                                            	<input src="../images/tinybutton-view.gif" onclick="javascript: alert('This would navigate to the indicated disclosure..'); return false" style="border:none;" alt="view" title="View" type="image" />
                                             </td>
                                         </tr>
                                         

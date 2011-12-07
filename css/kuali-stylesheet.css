@@ -539,6 +539,18 @@
 		padding-left:3px;
 		padding-bottom:3px;
 	}
+	.content_highlight
+	{
+		background-color:#FF9;
+		border-top: solid #939393 0px;
+		border-bottom: solid #939393 1px;
+		border-left: solid #939393 1px;
+		border-right: solid #939393 1px;
+		padding-top:3px;
+		padding-right:3px;
+		padding-left:3px;
+		padding-bottom:3px;
+	}
 	.content_grey
 	{
 		background-color:#E4E3E4;

@@ -435,4 +435,15 @@
 		background-color:#CCC;
 		text-align:right;
 	}
-	
+
+.highlightspan
+{
+	padding:3px;
+	border:1px solid #900;
+	background-color:#FFFFCC;
+}
+
+.highlighttd
+{
+	background-color:#FFFFCC;
+}

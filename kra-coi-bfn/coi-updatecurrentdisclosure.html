@@ -2,7 +2,7 @@
 <html>
 <head>
 
-	<title>COI - Revise/Update Current Disclosure</title>
+	<title>COI - Revise/Update Master Disclosure</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <link rel="shortcut icon" href="../images/icon.ico" />
     
@@ -87,7 +87,7 @@
 <body>
 <form name="thisform" method="post" action="">
 <div class="headerarea-kra" id="headerarea">
-  <h1>COI - Revise/Update Current Disclosure <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
+  <h1>COI - Revise/Update Master Disclosure <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
   <div class="headerbox">
     <table cellpadding=0 cellspacing=0 summary="document header: general information" style="border-bottom:#A0A0A0; border-bottom-style:solid; border-bottom-width:1px">
       <tr>
@@ -116,7 +116,7 @@
   <div id="tabs">
     <dl class="tabul">
       <dt class="licurrent"> <span class="tabright tabcurrent">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-updatecurrentdisclosure.html');return document.MM_returnValue" value="Revise/Update Current Disclosure">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','coi-updatecurrentdisclosure.html');return document.MM_returnValue" value="Revise/Update Master Disclosure">
         </span> </dt>
     </dl>
   </div>
@@ -342,6 +342,8 @@
                 </table>
             </div>
             <div class="div_projectdetails" style="margin-bottom:15px;">
+            
+                <!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshow01" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -779,7 +781,10 @@
                             <img src="../images/tinybutton-history.gif" alt="history" style="width:47px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of versions for the indicated record.')">
                             </td>
                         <td class="content_white">
-                            Berlex Laboratories, Inc. 
+                            <span class="highlightspan">
+                                <img src="../images/questionmark.png" alt="review" style="width:16px; height:16px; border:none; vertical-align:middle;" />
+                                <b>Berlex Laboratories, Inc.</b>
+                            </span>
                         </td>
                         <td class="content_white">
                             <select class="select_cnc1 project01conflict" style="width:99%;">
@@ -832,6 +837,69 @@
                         </td>
                     </tr>
                 </table>
+                
+                <!-- Questionnaire -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq01" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq01").toggle(
+                                function()
+                                {
+                                    $("#table_q01").slideDown(400);
+                                    $("#hideshowq01").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q01").slideUp(400);
+                                    $("#hideshowq01").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Questionnaire
+                </div>
+                <table class="content_table" id="table_q01" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: The appropriate Questionnaire would be displayed here.]</span>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Notes & Attachments -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq02" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq02").toggle(
+                                function()
+                                {
+                                    $("#table_q02").slideDown(400);
+                                    $("#hideshowq02").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q02").slideUp(400);
+                                    $("#hideshowq02").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Notes &amp; Attachments
+                </div>
+                <table class="content_table" id="table_q02" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: This area is the same as the IRB Trunk's "Notes & Attachments".]</span>
+                        </td>
+                    </tr>
+                </table>
+                
             </div>
             
           </div>
@@ -877,6 +945,8 @@
                 </table>
             </div>
             <div class="div_projectdetails" style="margin-bottom:15px;">
+                
+                <!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshow05" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -978,23 +1048,23 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="content_white" style="text-align:center;">
+                        <td class="content_white" style="text-align:center; background-color:#FF9;">
                             <!--<img src="../images/exclamation.png" alt="attention" style="width:16px; height:16px; vertical-align:middle;">-->
                             <img src="../images/tinybutton-view.gif" alt="view" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of a read-only, summary view for the indicated record.')">
                             <img src="../images/tinybutton-edit1.gif" alt="edit" style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would navigate to the editable view of the indicated record.')">
                             <img src="../images/tinybutton-history.gif" alt="history" style="width:47px; height:15px; border:none; cursor:pointer;" onclick="alert('This would open the FancyBox of versions for the indicated record.')">
                         </td>
-                        <td class="content_white">
+                        <td class="content_white" style="background-color:#FF9; font-weight:bold;">
                             Berlex Laboratories, Inc. 
                         </td>
-                        <td class="content_white">
+                        <td class="content_white" style="background-color:#FF9;">
                             <select class="select_cnc2 project02conflict" style="width:99%;">
                                 <option value="0">select</option>
                                 <option value="1">related</option>
                                 <option value="2" selected="selected">unrelated</option>
                             </select>
                         </td>
-                        <td class="content_white">
+                        <td class="content_white" style="background-color:#FF9;">
                             <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="border:none; background:none;">
@@ -1038,6 +1108,69 @@
                         </td>
                     </tr>
                 </table>
+                
+                <!-- Questionnaire -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq03" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq03").toggle(
+                                function()
+                                {
+                                    $("#table_q03").slideDown(400);
+                                    $("#hideshowq03").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q03").slideUp(400);
+                                    $("#hideshowq03").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Questionnaire
+                </div>
+                <table class="content_table" id="table_q03" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: The appropriate Questionnaire would be displayed here.]</span>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Notes & Attachments -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq04" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq04").toggle(
+                                function()
+                                {
+                                    $("#table_q04").slideDown(400);
+                                    $("#hideshowq04").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q04").slideUp(400);
+                                    $("#hideshowq04").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Notes &amp; Attachments
+                </div>
+                <table class="content_table" id="table_q04" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: This area is the same as the IRB Trunk's "Notes & Attachments".]</span>
+                        </td>
+                    </tr>
+                </table>
+                
             </div>
             
             <!-- Beta -->
@@ -1070,6 +1203,8 @@
                 </table>
             </div>
             <div class="div_projectdetails" style="margin-bottom:15px;">
+                
+                <!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshow03" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -1232,6 +1367,69 @@
                         </td>
                     </tr>
                 </table>
+                
+                <!-- Questionnaire -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq05" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq05").toggle(
+                                function()
+                                {
+                                    $("#table_q05").slideDown(400);
+                                    $("#hideshowq05").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q05").slideUp(400);
+                                    $("#hideshowq05").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Questionnaire
+                </div>
+                <table class="content_table" id="table_q05" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: The appropriate Questionnaire would be displayed here.]</span>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Notes & Attachments -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq06" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq06").toggle(
+                                function()
+                                {
+                                    $("#table_q06").slideDown(400);
+                                    $("#hideshowq06").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q06").slideUp(400);
+                                    $("#hideshowq06").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Notes &amp; Attachments
+                </div>
+                <table class="content_table" id="table_q06" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: This area is the same as the IRB Trunk's "Notes & Attachments".]</span>
+                        </td>
+                    </tr>
+                </table>
+                
             </div>
             
           </div>
@@ -1277,6 +1475,8 @@
                 </table>
             </div>
             <div class="div_projectdetails" style="margin-bottom:15px;">
+            
+            	<!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshow07" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -1438,6 +1638,69 @@
                         </td>
                     </tr>
                 </table>
+                
+                <!-- Questionnaire -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq11" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq11").toggle(
+                                function()
+                                {
+                                    $("#table_q11").slideDown(400);
+                                    $("#hideshowq11").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q11").slideUp(400);
+                                    $("#hideshowq11").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Questionnaire
+                </div>
+                <table class="content_table" id="table_q11" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: The appropriate Questionnaire would be displayed here.]</span>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Notes & Attachments -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq22" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq22").toggle(
+                                function()
+                                {
+                                    $("#table_q22").slideDown(400);
+                                    $("#hideshowq22").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q22").slideUp(400);
+                                    $("#hideshowq2").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Notes &amp; Attachments
+                </div>
+                <table class="content_table" id="table_q22" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: This area is the same as the IRB Trunk's "Notes & Attachments".]</span>
+                        </td>
+                    </tr>
+                </table>
+                
             </div>
             
             <!-- Gamma -->
@@ -1470,6 +1733,8 @@
                 </table>
             </div>
             <div class="div_projectdetails" style="margin-bottom:15px;">
+            
+            	<!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshow04" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -1631,6 +1896,69 @@
                         </td>
                     </tr>
                 </table>
+                
+                <!-- Questionnaire -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq33" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq33").toggle(
+                                function()
+                                {
+                                    $("#table_q33").slideDown(400);
+                                    $("#hideshowq33").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q33").slideUp(400);
+                                    $("#hideshowq33").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Questionnaire
+                </div>
+                <table class="content_table" id="table_q33" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: The appropriate Questionnaire would be displayed here.]</span>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Notes & Attachments -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq44" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq44").toggle(
+                                function()
+                                {
+                                    $("#table_q44").slideDown(400);
+                                    $("#hideshowq44").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q44").slideUp(400);
+                                    $("#hideshowq44").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Notes &amp; Attachments
+                </div>
+                <table class="content_table" id="table_q44" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: This area is the same as the IRB Trunk's "Notes & Attachments".]</span>
+                        </td>
+                    </tr>
+                </table>
+                
             </div>
             
             <!-- Delta -->
@@ -1663,6 +1991,8 @@
                 </table>
             </div>
             <div class="div_projectdetails" style="margin-bottom:15px;">
+            
+            	<!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshow02" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -1824,6 +2154,69 @@
                         </td>
                     </tr>
                 </table>
+                
+                <!-- Questionnaire -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq55" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq55").toggle(
+                                function()
+                                {
+                                    $("#table_q55").slideDown(400);
+                                    $("#hideshowq55").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q55").slideUp(400);
+                                    $("#hideshowq55").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Questionnaire
+                </div>
+                <table class="content_table" id="table_q55" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: The appropriate Questionnaire would be displayed here.]</span>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Notes & Attachments -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq66" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq66").toggle(
+                                function()
+                                {
+                                    $("#table_q66").slideDown(400);
+                                    $("#hideshowq66").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q66").slideUp(400);
+                                    $("#hideshowq66").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Notes &amp; Attachments
+                </div>
+                <table class="content_table" id="table_q66" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: This area is the same as the IRB Trunk's "Notes & Attachments".]</span>
+                        </td>
+                    </tr>
+                </table>
+                
             </div>
             
             <!-- Zeta -->
@@ -1856,6 +2249,8 @@
                 </table>
             </div>
             <div class="div_projectdetails" style="margin-bottom:15px;">
+            
+            	<!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshow06" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -2017,11 +2412,239 @@
                         </td>
                     </tr>
                 </table>
+                
+                <!-- Questionnaire -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq77" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq77").toggle(
+                                function()
+                                {
+                                    $("#table_q77").slideDown(400);
+                                    $("#hideshowq77").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q77").slideUp(400);
+                                    $("#hideshowq77").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Questionnaire
+                </div>
+                <table class="content_table" id="table_q77" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: The appropriate Questionnaire would be displayed here.]</span>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Notes & Attachments -->
+                <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
+                    <img id="hideshowq88" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            
+                            $("#hideshowq88").toggle(
+                                function()
+                                {
+                                    $("#table_q88").slideDown(400);
+                                    $("#hideshowq88").attr("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#table_q88").slideUp(400);
+                                    $("#hideshowq88").attr("src","../images/tinybutton-show.gif");
+                                }
+                            );
+                            
+                        });
+                    </script>
+                    Notes &amp; Attachments
+                </div>
+                <table class="content_table" id="table_q88" style="display:none;">  
+                    <tr>
+                        <td class="content_grey" style="text-align:center; height:35px;">
+                            <span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: This area is the same as the IRB Trunk's "Notes & Attachments".]</span>
+                        </td>
+                    </tr>
+                </table>
+                
             </div>
             
           </div>
           
+          <!-- Notes and Attachments -->
+            <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+                <tr>
+                    <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Notes and Attachments</td>
+                    <td class="tabtable2-mid">
+                        <a href="#" id="A031d" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031d" ></a>
+                    </td>
+                    <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+                </tr>
+            </table>
+            <div class="tab-container" align="center" id="G031d" style="display: none;">
+            	
+               	<span style="font-weight:bold; padding:5px; background-color:#FFFFCC; border:1px solid #666;">[NB: This area is the same as the IRB Trunk's "Notes & Attachments".]</span>
+                  
+			</div>
           
+          
+          <!-- Certification -->
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Certification</td>
+              <td class="tabtable2-mid"><a href="#" id="A031c" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031c" ></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G031c" style="display: none;">
+
+				<div class="h2-container">
+                	<span class="subhead-left">
+            			<h2>Investigator Disclosure</h2>
+            		</span>
+                    <span class="subhead-right subhead">
+                        <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
+                    </span>
+                </div>
+                <table cellpadding=0 cellspacing="0" class="result-table" summary="">
+                    <tbody>
+                        <tr>
+                        	<th colspan="2" style="text-align:left; font-weight:normal;">
+                            	<p>
+                                	In accordance with the University of California Policy on Disclosure of Financial Interests and Managment of 
+                                    Conflict of Interest Related to Sponsored Projects, the Principal Investigator and all other UCSD Investigators 
+                                    who share responsibility for the design, conduct, or reporting of sponsored projects must disclose their personal 
+                                    SIGNIFICANT FINANCIAL INTERESTS in any non-profit foundation or for-profit company that might benefit from the 
+                                    predictable results of those proposed projects. 
+                                </p>
+                                <p>
+                                	In addition, when the work to be performed under the proposed research project and the results of the proposed 
+                                    research project would reasonably appear to affect the Investigator's SIGNIFICANT FINANCIAL INTEREST , the 
+                                    interest is regarded as being related to the proposed research project and must be reported. 
+                                </p>
+                                <p>
+                                	For the purposes of this disclosure, SIGNIFICANT FINANCIAL INTEREST is considered to include: 
+                                    <ol>
+                                    	<li>
+                                        	Income (Includes salary, stock dividends and/or interest earned, consulting fees, royalty payments and honoraria from a single business entity exceeding $10,000).
+                                        </li>
+                                        <li>
+                                        	Position with a single business entity (Includes director, employee, founder, manager, officer, partner, trustee, or advisory board member).
+                                        </li>
+                                        <li>
+                                        	Investment Ownership or Controlling Interest of more than 5% of the voting stock in a single business entity.
+                                        </li>
+                                        <li>
+                                        	Interest in Intellectual Property Rights belonging to a single business entity (Includes patents, copyrights or other license rights).
+                                        </li>
+                                    </ol>
+                                </p>
+                            </th>
+                        </tr>
+                        <tr>
+                        	<th colspan="2" style="height:30px;">
+                            	Certification 
+                            </th>
+                        </tr>
+                        <tr>
+                        	<td style="vertical-align:top;">
+                            	<input type="checkbox" id="C_Certification" />
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										// initial state
+											$("#D_Certification").hide(0);
+											$("#C_Certification").attr('checked', false);
+										// trigger
+											$("#C_Certification").click(
+												function()
+												{
+													F_Certification();
+												}
+											);
+										// function
+											function F_Certification()
+											{
+												if ($('#C_Certification').is(':checked'))
+												{
+													$("#D_Certification").slideDown(400);
+													$("#C_Certification").attr('checked', true);
+												}
+												else
+												{
+													$("#D_Certification").slideUp(200);
+													$("#C_Certification").attr('checked', false);
+												}
+		
+											}
+									});
+								</script>
+                            </td>
+                            <td>
+                            	I acknowledge that it is my responsibility to disclose any new SIGNIFICANT FINANCIAL INTERESTS obtained during the term of the above proposed project.
+								I certify that this is a complete disclosure of all my financial interests related to the above proposed project.
+                                
+                                
+                                <div id="D_Certification" style="display:none;">
+                                	<p>
+                                    <table style="border:none; background:none; width:400px;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none; text-align:center;">
+                                                <u><b>Stephanie Roberts</b></u>
+                                            </td>
+                                            <td style="border:none; background:none; text-align:center;">
+                                                <u><b>10/09/2009</b></u>
+                                            </td>
+                                            <td style="border:none; background:none; text-align:center;" rowspan="2">
+                                                
+                                                <input id="BFNsubmit" src="../images/tinybutton-submit.gif" onclick="javascript: alert('Thank you for submitting your certification.'); return false" style="border:none;" alt="submit" title="Submit" type="image" />
+                                                <script type="text/javascript">
+													$(document).ready(function(){
+														// initial state
+															$("#BFNprint").hide(0);
+															$("#C_Certification").attr("disabled", false);
+														// trigger
+															$("#BFNsubmit").click(
+																function()
+																{
+																	$("#BFNsubmit").hide(0);
+																	$("#BFNprint").slideDown(0);
+																	$("#C_Certification").attr("disabled", true);
+																}
+															);
+													});
+												</script>
+                                                
+                                                <input id="BFNprint" src="../images/tinybutton-print.gif" onclick="javascript: alert('This would print the Internal Disclosure.'); return false" style="border:none;" alt="print" title="Print" type="image" />
+                                                
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border:none; background:none; text-align:center;" class="fineprint">
+                                                Reporter
+                                            </td>
+                                            <td style="border:none; background:none; text-align:center;" class="fineprint">
+                                                Date
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                </div>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+          </div>
           
           
           
