@@ -70,15 +70,40 @@ public class JenkinsHelper {
     }
 
     public void getJob(BaseMojo mojo, String cmd, String name, String type) {
+        getJobs(mojo, cmd, Helper.toList(name), type);
+    }
+
+    protected List<Command> getGetJobCommands(BaseMojo mojo, String cmd, List<String> jobNames) {
+        List<Command> commands = new ArrayList<Command>();
+        for (String jobName : jobNames) {
+            String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
+            String[] args = { cmd, jobName };
+            Command command = new Command();
+            command.setArgs(Arrays.asList(args));
+            command.setStdout(new File(filename));
+            commands.add(command);
+        }
+        return commands;
+    }
+
+    public void getJobs(BaseMojo mojo, String cmd, List<String> names, String types) {
         MavenContext context = getMavenContext(mojo);
-        String jobName = getJobName(context, name, type);
-        String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
-        String[] args = { cmd, jobName };
-        Command command = new Command();
-        command.setArgs(Arrays.asList(args));
-        command.setStdout(new File(filename));
-        List<Command> commands = Helper.toList(command);
+        List<String> jobNames = getJobNames(context, names, types);
+        List<Command> commands = getGetJobCommands(mojo, cmd, jobNames);
         executeCli(mojo, commands);
+    }
+
+    protected List<String> getJobNames(MavenContext context, List<String> names, String types) {
+        if (!Helper.isEmpty(names)) {
+            return names;
+        }
+        List<String> newNames = new ArrayList<String>();
+        String[] tokens = Helper.splitAndTrimCSV(types);
+        for (String type : tokens) {
+            String name = getJobName(context, type);
+            newNames.add(name);
+        }
+        return newNames;
     }
 
     protected GAV getGav(Properties properties) {
