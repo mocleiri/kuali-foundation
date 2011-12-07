@@ -30,7 +30,7 @@ public abstract class SimpleJobMojo extends CliMojo {
     protected abstract String getJobCmd();
 
     /**
-     * The type of job to delete. Maven GAV info is combined with 'type' to derive the complete job name eg
+     * The type of job. Maven GAV info is combined with 'type' to derive the complete job name eg
      * 'jenkins-maven-plugin-1.0-publish'
      *
      * @parameter expression="${jenkins.type}" default-value="publish"
@@ -39,7 +39,7 @@ public abstract class SimpleJobMojo extends CliMojo {
     private String type;
 
     /**
-     * The name of the job to delete. If name is provided, 'type' is ignored
+     * The name of the job. If name is provided, 'type' is ignored
      *
      * @parameter expression="${jenkins.name}"
      */
