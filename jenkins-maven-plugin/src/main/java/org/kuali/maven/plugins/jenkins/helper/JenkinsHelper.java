@@ -34,6 +34,7 @@ import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
+import org.kuali.maven.plugins.jenkins.SimpleJobMojo;
 import org.kuali.maven.plugins.jenkins.context.CliException;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
@@ -58,6 +59,15 @@ public class JenkinsHelper {
     ResourceUtils resourceUtils = new ResourceUtils();
     JavaHelper javaHelper = new JavaHelper();
     CommandHelper cmdHelper = new CommandHelper();
+
+    public void executeSimpleJobMojo(SimpleJobMojo mojo) {
+        MavenContext context = getMavenContext(mojo);
+        String jobName = getJobName(context, mojo.getName(), mojo.getType());
+        String[] args = mojo.getArgs(jobName);
+        Command command = new Command();
+        command.setArgs(Arrays.asList(args));
+        executeCli(mojo, command, SUCCESS_CODE);
+    }
 
     protected <T> T getContext(Class<T> type, BaseMojo mojo) {
         try {
@@ -335,6 +345,10 @@ public class JenkinsHelper {
         List<Command> cmds = cmdHelper.getCmds(mojo);
         executeCli(mojo, cmds, successCodes);
 
+    }
+
+    public void executeCli(BaseMojo mojo, Command command, int... successCodes) {
+        executeCli(mojo, Helper.toList(command), successCodes);
     }
 
     public void executeCli(BaseMojo mojo, List<Command> commands, int... successCodes) {

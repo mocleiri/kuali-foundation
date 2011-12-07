@@ -68,7 +68,7 @@ public class RunJobMojo extends SimpleJobMojo {
     private Map<String, String> paramMap;
 
     @Override
-    protected String[] getArgs(String jobName) {
+    public String[] getArgs(String jobName) {
         List<String> args = new ArrayList<String>();
         args.add(getJobCmd());
         args.add(jobName);
