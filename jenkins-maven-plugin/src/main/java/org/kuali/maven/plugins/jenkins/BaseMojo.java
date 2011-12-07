@@ -98,6 +98,14 @@ public abstract class BaseMojo extends AbstractMojo {
      */
     private String template;
 
+    /**
+     * Comma separated list of codes representing successful completion of a Jenkins CLI command.
+     *
+     * @parameter expression="${jenkins.successCodes}" default-value="0"
+     * @required
+     */
+    private String successCodes;
+
     public String getTemplate() {
         return template;
     }
@@ -152,6 +160,14 @@ public abstract class BaseMojo extends AbstractMojo {
 
     public void setFailOnError(boolean failOnError) {
         this.failOnError = failOnError;
+    }
+
+    public String getSuccessCodes() {
+        return successCodes;
+    }
+
+    public void setSuccessCodes(String successCodes) {
+        this.successCodes = successCodes;
     }
 
 }
