@@ -95,6 +95,13 @@ public class Helper {
     }
 
     /**
+     * Convert List<String> into String[]
+     */
+    public static final List<String> toList(String... strings) {
+        return Arrays.asList(strings);
+    }
+
+    /**
      * Create a one element list from the element passed in
      */
     public static final <T> List<T> toList(T element) {

@@ -48,10 +48,9 @@ public class CommandHelper {
         return command;
     }
 
-    public String[] toArgs(RunJobCommand command) {
+    public List<String> toArgs(RunJobCommand command) {
         List<String> args = new ArrayList<String>();
-        String[] simpleArgs = toArgs((SimpleJobCommand) command);
-        Helper.addToList(args, simpleArgs);
+        args.addAll(toArgs((SimpleJobCommand) command));
         if (command.isSkipIfNoChanges()) {
             args.add(SKIP_IF_NO_CHANGES_ARG);
         }
@@ -62,13 +61,13 @@ public class CommandHelper {
             args.add(PARAMS_ARG);
             args.addAll(Helper.toKeyValueList(command.getParams()));
         }
-        return Helper.toArray(args);
+        return args;
     }
 
-    public String[] toArgs(SimpleJobCommand command) {
+    public List<String> toArgs(SimpleJobCommand command) {
         String jenkinsCommand = command.getJenkinsCommand();
         String jobName = command.getJobName();
-        return new String[] { jenkinsCommand, jobName };
+        return Helper.toList(jenkinsCommand, jobName);
     }
 
 }

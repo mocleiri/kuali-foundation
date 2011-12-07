@@ -35,12 +35,12 @@ import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
 import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
+import org.kuali.maven.plugins.jenkins.SimpleJobMojo;
 import org.kuali.maven.plugins.jenkins.context.CliException;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
-import org.kuali.maven.plugins.jenkins.context.SimpleJobsContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,7 +66,6 @@ public class JenkinsHelper {
         args.add(sjc.getJobName());
         return Helper.toArray(args);
     }
-
 
     public void executeSimpleJobsMojo(SimpleJobsContext mojoContext) {
         MavenContext context = getMavenContext(mojo);
@@ -377,11 +376,15 @@ public class JenkinsHelper {
         return commands;
     }
 
-    public void executeCli(BaseMojo mojo, SimpleJobsContext sjc) {
+    public void executeCli(SimpleJobMojo mojo) {
         MavenContext context = getMavenContext(mojo);
-        List<SimpleJobCommand> sjcs = getSimpleJobCommands(context, sjc);
-        List<Command> commands = getCommands(sjcs);
-        executeCli(mojo, commands);
+        String jobName = getJobName(context, mojo.getName(), mojo.getType());
+        SimpleJobCommand sjc = new SimpleJobCommand();
+        sjc.setJenkinsCommand(mojo.getJobCmd());
+        sjc.setJobName(jobName);
+        Command command = new Command();
+        command.setArgs(cmdHelper.toArgs(sjc));
+        executeCli(mojo, command);
     }
 
     public void executeCli(CliMojo mojo) {
