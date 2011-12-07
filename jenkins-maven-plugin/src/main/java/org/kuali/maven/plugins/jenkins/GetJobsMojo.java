@@ -28,7 +28,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class GetJobsMojo extends BaseMojo {
 
     /**
-     * The command issued to Jenkins CLI
+     * The Jenkins CLI command for getting a job
      *
      * @parameter expression="${jenkins.getJobCmd}" default-value="get-job"
      * @required

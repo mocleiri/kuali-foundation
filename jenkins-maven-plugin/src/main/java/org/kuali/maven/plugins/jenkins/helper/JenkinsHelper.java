@@ -82,7 +82,7 @@ public class JenkinsHelper {
         getJobs(mojo, cmd, Helper.toList(name), type);
     }
 
-    protected List<Command> getGetJobCommands(BaseMojo mojo, String cmd, List<String> jobNames) {
+    protected List<Command> createGetJobCommands(BaseMojo mojo, String cmd, List<String> jobNames) {
         List<Command> commands = new ArrayList<Command>();
         for (String jobName : jobNames) {
             String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
@@ -98,7 +98,7 @@ public class JenkinsHelper {
     public void getJobs(BaseMojo mojo, String cmd, List<String> names, String types) {
         MavenContext context = getMavenContext(mojo);
         List<String> jobNames = getJobNames(context, names, types);
-        List<Command> commands = getGetJobCommands(mojo, cmd, jobNames);
+        List<Command> commands = createGetJobCommands(mojo, cmd, jobNames);
         executeCli(mojo, commands);
     }
 
