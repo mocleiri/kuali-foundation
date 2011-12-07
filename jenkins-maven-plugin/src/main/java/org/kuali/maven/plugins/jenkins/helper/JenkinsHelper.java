@@ -21,25 +21,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.Mojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.Task;
-import org.apache.tools.ant.taskdefs.Java;
-import org.apache.tools.ant.types.Commandline.Argument;
-import org.apache.tools.ant.types.Path;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.Extractor;
@@ -48,17 +36,14 @@ import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
-import org.kuali.maven.plugins.jenkins.context.AntContext;
 import org.kuali.maven.plugins.jenkins.context.CliContext;
 import org.kuali.maven.plugins.jenkins.context.CliException;
-import org.kuali.maven.plugins.jenkins.context.CommandLine;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.JobContext;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.context.MojoContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
-import org.kuali.maven.plugins.jenkins.context.ResultContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,134 +83,8 @@ public class JenkinsHelper {
         return context;
     }
 
-    public MojoContext getJob(Mojo mojo, String name, String type) throws MojoExecutionException {
-        try {
-            MavenContext mvnContext = getMavenContext(mojo);
-            JobContext jobContext = getJobContext(mvnContext, mojo, name, type);
-            FileUtils.touch(jobContext.getLocalFile());
-            CliContext cliContext = getCliContext(mojo, jobContext);
-            MojoContext context = getMojoContext(mvnContext, jobContext, cliContext);
-            AntContext antContext = getAntContext(context);
-            context.setAntContext(antContext);
+    public void getJob(BaseMojo mojo, String name, String type) {
 
-            Task task = getJavaTask(antContext);
-            mojo.getLog().info(cliContext.getUrl() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
-            task.execute();
-            int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
-            antContext.setResult(result);
-            ResultContext resultContext = handleResult(context, result, jobContext.getLocalFile());
-            String location = jobContext.getLocalFile().getAbsolutePath();
-            String content = resourceUtils.read(location);
-            jobContext.setResolvedContent(content);
-            context.setResultContext(resultContext);
-            return context;
-        } catch (Exception e) {
-            throw new MojoExecutionException("Unexpected error", e);
-        }
-    }
-
-    protected boolean isIgnore(int result, List<Integer> ignoreCodes) {
-        if (result == 0) {
-            return true;
-        }
-        for (Integer ignore : ignoreCodes) {
-            if (result == ignore) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void handleResults(List<MojoContext> contexts, List<Integer> ignoreCodes) throws MojoExecutionException {
-        List<MojoContext> issues = new ArrayList<MojoContext>();
-        for (MojoContext context : contexts) {
-            ResultContext rc = context.getResultContext();
-            int returnCode = rc.getReturnCode();
-            boolean ignore = isIgnore(returnCode, ignoreCodes);
-            if (!ignore) {
-                issues.add(context);
-            }
-        }
-        MojoExecutionException e = null;
-        for (MojoContext issue : issues) {
-            Log log = issue.getMvnContext().getLog();
-            ResultContext rc = issue.getResultContext();
-            log.error(issue.getJobContext().getName() + " " + rc.getException().getMessage());
-            e = rc.getException();
-        }
-        if (issues.size() > 0) {
-            throw new MojoExecutionException("One or more requests had an issue", e);
-        }
-    }
-
-    public void handleResults(List<MojoContext> contexts) throws MojoExecutionException {
-        handleResults(contexts, new ArrayList<Integer>());
-    }
-
-    public List<MojoContext> getJobs(Mojo mojo, List<String> names, String[] types) throws MojoExecutionException {
-        List<MojoContext> contexts = new ArrayList<MojoContext>();
-        if (!Helper.isEmpty(names)) {
-            for (String name : names) {
-                contexts.add(getJob(mojo, name, null));
-            }
-        } else {
-            for (String type : types) {
-                contexts.add(getJob(mojo, null, type));
-            }
-        }
-        return contexts;
-    }
-
-    protected String[] getArgs(String... args) {
-        return args;
-    }
-
-    protected String getContents(File file) {
-        try {
-            if (file == null || !file.exists() || file.length() == 0) {
-                return null;
-            }
-            return resourceUtils.read(file.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    protected ResultContext getResultContext(int result, File resultFile) {
-        String contents = getContents(resultFile);
-        List<String> lines = new ArrayList<String>();
-        if (result == 0) {
-            return new ResultContext(result, null, contents, lines);
-        } else {
-            String msg = "Non-zero result returned from Jenkins CLI: " + result;
-            MojoExecutionException e = new MojoExecutionException(msg);
-            return new ResultContext(result, e, contents, lines);
-        }
-    }
-
-    protected ResultContext handleResult(MojoContext context, int result, File file) throws MojoExecutionException {
-        ResultContext resultContext = getResultContext(result, file);
-        boolean stopOnError = context.getMvnContext().isStopOnError();
-        MojoExecutionException e = resultContext.getException();
-        if (stopOnError && e != null) {
-            throw e;
-        } else {
-            return resultContext;
-        }
-    }
-
-    protected Path getMyPath(MavenContext context) {
-        List<Artifact> artifacts = context.getPluginArtifacts();
-        List<String> list = new ArrayList<String>(artifacts.size());
-        for (Iterator<Artifact> itr = artifacts.iterator(); itr.hasNext();) {
-            Artifact artifact = itr.next();
-            File file = artifact.getFile();
-            list.add(file.getPath());
-        }
-        String path = StringUtils.join(list.iterator(), File.pathSeparator);
-        System.out.println(path.replace(File.pathSeparator, "\n"));
-        return null;
     }
 
     protected GAV getGav(Properties properties) {
@@ -293,109 +152,6 @@ public class JenkinsHelper {
         return artifactGav.equals(gav);
     }
 
-    protected Path getPluginClasspath(Project antProject, MavenContext mvnContext) throws MojoExecutionException {
-        try {
-            MavenProject mvnProject = mvnContext.getProject();
-            List<Artifact> pluginArtifacts = mvnContext.getPluginArtifacts();
-            Map<String, Path> pathRefs = antMvnUtils.getPathRefs(antProject, mvnProject, pluginArtifacts);
-            Path pluginClasspath = pathRefs.get(AntMavenUtils.MVN_PLUGIN_CLASSPATH_KEY);
-            return pluginClasspath;
-        } catch (DependencyResolutionRequiredException e) {
-            throw new MojoExecutionException("Error obtaining classpath", e);
-        }
-    }
-
-    protected String[] getJenkinsArgs(File jar) {
-        List<String> args = new ArrayList<String>();
-        args.add("java");
-        args.add("-jar");
-        args.add(jar.getAbsolutePath());
-        args.add("-s");
-        args.add("http://ci.fn.kuali.orgg");
-        args.add("version");
-        return args.toArray(new String[args.size()]);
-    }
-
-    protected AntContext getAntContext(MojoContext mojoContext) throws MojoExecutionException {
-        Log log = mojoContext.getMvnContext().getLog();
-        File jenkinsJar = null;// getJenkinsJar(mojoContext.getMvnContext());
-        try {
-            String[] args = getJenkinsArgs(jenkinsJar);
-            ProcessBuilder builder = new ProcessBuilder(args);
-            builder.redirectErrorStream(true);
-            Process process = builder.start();
-            List<String> output = IOUtils.readLines(process.getInputStream());
-            int result = process.waitFor();
-            log.info("");
-            log.info(" == Jenkins CLI Output ==");
-            for (String line : output) {
-                if (result == 0) {
-                    log.info(line);
-                } else {
-                    log.error(line);
-                }
-            }
-            log.info(" == Jenkins CLI Output ==");
-            log.info("");
-        } catch (Exception e) {
-            throw new MojoExecutionException("Unexpected error", e);
-        }
-
-        System.out.println(jenkinsJar.getAbsolutePath());
-        Project antProject = getAntProject();
-        Path classpath = getPluginClasspath(antProject, mojoContext.getMvnContext());
-        System.out.println(classpath.toString());
-        AntContext context = new AntContext();
-        context.setAntProject(antProject);
-        context.setClasspath(classpath);
-        context.setClassname(mojoContext.getCliContext().getClassname());
-        context.setArgs(mojoContext.getCliContext().getArgs());
-        if (mojoContext.getJobContext() != null) {
-            context.setOutputFile(mojoContext.getJobContext().getLocalFile());
-        }
-        context.setResultProperty(JenkinsHelper.JAVA_RESULT_PROPERTY);
-        return context;
-    }
-
-    protected Java getJavaTask(AntContext context) {
-        Java task = new Java();
-        task.setProject(context.getAntProject());
-        task.setClassname(context.getClassname());
-        task.setFork(true);
-        task.setOutput(context.getOutputFile());
-        task.setInput(context.getInputFile());
-        task.setResultProperty(context.getResultProperty());
-        createArgs(context.getArgs(), task);
-        task.setClasspath(context.getClasspath());
-        return task;
-    }
-
-    protected void createArgs(String[] args, Java task) {
-        for (String arg : args) {
-            Argument argument = task.createArg();
-            argument.setValue(arg);
-        }
-    }
-
-    /**
-	 *
-	 */
-    protected Project getAntProject() {
-        Project antProject = new Project();
-        antProject.init();
-        return antProject;
-    }
-
-    public List<MojoContext> pushJobsToJenkins(BaseMojo mojo, String[] types) throws MojoExecutionException {
-        List<MojoContext> contexts = new ArrayList<MojoContext>();
-        for (String type : types) {
-            MojoContext context = pushJobToJenkins(mojo, type);
-            contexts.add(context);
-        }
-        return contexts;
-
-    }
-
     protected List<File> getFiles(File workingDir) {
         if (!workingDir.exists()) {
             return new ArrayList<File>();
@@ -438,45 +194,6 @@ public class JenkinsHelper {
         command.setStdin(stdin);
         command.setArgs(Arrays.asList(args));
         return command;
-    }
-
-    public MojoContext pushJobToJenkins(BaseMojo mojo, String type) throws MojoExecutionException {
-        MojoContext genContext = null;// generate(mojo, type);
-        MojoContext createContext = new MojoContext();
-        createContext.setMvnContext(genContext.getMvnContext());
-        createContext.setJobContext(genContext.getJobContext());
-        JobContext jobContext = genContext.getJobContext();
-        CliContext cliContext = getCliContext(mojo, genContext.getJobContext());
-        createContext.setCliContext(cliContext);
-        AntContext antContext = getAntContext(createContext);
-        antContext.setInputFile(jobContext.getLocalFile());
-        File outputFile = new File(jobContext.getLocalFile().getAbsolutePath() + ".output.txt");
-        antContext.setOutputFile(outputFile);
-        createContext.setAntContext(antContext);
-        Task task = getJavaTask(antContext);
-        mojo.getLog().info(cliContext.getUrl() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
-        task.execute();
-        int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
-        antContext.setResult(result);
-        ResultContext resultContext = handleResult(createContext, result, outputFile);
-        createContext.setResultContext(resultContext);
-        return createContext;
-    }
-
-    public List<MojoContext> deleteJobs(Mojo mojo, List<String> names, String[] types) throws MojoExecutionException {
-        List<MojoContext> contexts = new ArrayList<MojoContext>();
-        if (!Helper.isEmpty(names)) {
-            for (String name : names) {
-                MojoContext context = executeCliJobCommand(mojo, name, null);
-                contexts.add(context);
-            }
-        } else {
-            for (String type : types) {
-                MojoContext context = executeCliJobCommand(mojo, null, type);
-                contexts.add(context);
-            }
-        }
-        return contexts;
     }
 
     protected String getInput(Command cmd) {
@@ -577,37 +294,6 @@ public class JenkinsHelper {
         logInfo(result.getOutputLines());
     }
 
-    protected List<CommandLine> getCommandLines(List<String> cmds, String cmd) {
-        List<CommandLine> commandLines = new ArrayList<CommandLine>();
-        if (cmds == null || cmds.size() == 0) {
-            CommandLine commandLine = getCommandLine(cmd);
-            commandLines.add(commandLine);
-        } else {
-        }
-        return commandLines;
-    }
-
-    protected List<String> getCmds(String cmd, List<String> cmds) {
-        if (Helper.isEmpty(cmds)) {
-            List<String> newCmds = new ArrayList<String>();
-            newCmds.add(cmd);
-            return newCmds;
-        } else {
-            return cmds;
-        }
-    }
-
-    protected CommandLine getCommandLine(String cmd) {
-        String[] args = PropertiesUtils.splitAndTrim(cmd, " ");
-        CommandLine commandLine = new CommandLine();
-        commandLine.setArgs(args);
-        return commandLine;
-    }
-
-    public void executeJobRelatedCliCommandWithNoInputOutput() {
-
-    }
-
     public void executeCli(CliMojo mojo) {
         executeCli(mojo, SUCCESS_CODE);
     }
@@ -700,65 +386,6 @@ public class JenkinsHelper {
         return sb.toString();
     }
 
-    public MojoContext executeCliCommand(Mojo mojo) throws MojoExecutionException {
-        try {
-            MavenContext mvnContext = getMavenContext(mojo);
-            CliContext cliContext = getCliContext(mojo);
-            MojoContext context = getMojoContext(mvnContext, null, cliContext);
-            AntContext antContext = getAntContext(context);
-            File outputFile = new File(mvnContext.getWorkingDir() + FS + cliContext.getCmd() + ".txt");
-            FileUtils.touch(outputFile);
-            antContext.setOutputFile(outputFile);
-            Task task = getJavaTask(antContext);
-            mojo.getLog().info(cliContext.getUrl() + " - " + cliContext.getCmd());
-            task.execute();
-            int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
-            antContext.setResult(result);
-            ResultContext resultContext = handleResult(context, result, outputFile);
-            showResult(resultContext, mvnContext);
-            context.setResultContext(resultContext);
-            return context;
-        } catch (IOException e) {
-            throw new MojoExecutionException("Unexpected error", e);
-        }
-    }
-
-    protected void showResult(ResultContext resultContext, MavenContext mvnContext) {
-        mvnContext.getLog().info("");
-        mvnContext.getLog().info("== Jenkins CLI Output ==");
-        mvnContext.getLog().info("");
-        List<String> lines = resultContext.getFileContentLines();
-        if (!Helper.isEmpty(lines)) {
-            for (String line : lines) {
-                mvnContext.getLog().info(line);
-            }
-        }
-        mvnContext.getLog().info("");
-        mvnContext.getLog().info("== Jenkins CLI Output ==");
-        mvnContext.getLog().info("");
-    }
-
-    public MojoContext executeCliJobCommand(Mojo mojo, String name, String type) throws MojoExecutionException {
-        try {
-            MavenContext mvnContext = getMavenContext(mojo);
-            JobContext jobContext = getJobContext(mvnContext, mojo, name, type);
-            FileUtils.touch(jobContext.getLocalFile());
-            CliContext cliContext = getCliContext(mojo, jobContext);
-            MojoContext context = getMojoContext(mvnContext, jobContext, cliContext);
-            AntContext antContext = getAntContext(context);
-            Task task = getJavaTask(antContext);
-            mojo.getLog().info(cliContext.getUrl() + " - " + cliContext.getCmd() + " - " + jobContext.getName());
-            task.execute();
-            int result = new Integer(antContext.getAntProject().getProperty(JAVA_RESULT_PROPERTY));
-            antContext.setResult(result);
-            ResultContext resultContext = handleResult(context, result, jobContext.getLocalFile());
-            context.setResultContext(resultContext);
-            return context;
-        } catch (IOException e) {
-            throw new MojoExecutionException("Unexpected error", e);
-        }
-    }
-
     public void generate(BaseMojo mojo, String type) {
         try {
             MavenContext context = getMavenContext(mojo);
@@ -778,31 +405,6 @@ public class JenkinsHelper {
         for (String type : types) {
             generate(mojo, type);
         }
-    }
-
-    protected JobContext getJobContext(MavenContext mvnContext, Mojo mojo, String name, String type) {
-        JobContext jobContext = getContext(JobContext.class, mojo);
-        jobContext.setType(type);
-        String jobName = getJobName(mvnContext, name, type);
-        jobContext.setName(jobName);
-        String filename = getFilename(jobContext, jobName);
-        File localFile = new File(filename);
-        jobContext.setLocalFile(localFile);
-        return jobContext;
-    }
-
-    protected CliContext getCliContext(Mojo mojo) {
-        CliContext context = getContext(CliContext.class, mojo);
-        String[] args = getArgs("-s", context.getUrl(), context.getCmd());
-        context.setArgs(args);
-        return context;
-    }
-
-    protected CliContext getCliContext(Mojo mojo, JobContext jobContext) {
-        CliContext context = getContext(CliContext.class, mojo);
-        String[] args = getArgs("-s", context.getUrl(), context.getCmd(), jobContext.getName());
-        context.setArgs(args);
-        return context;
     }
 
     public MavenContext getMavenContext(Mojo mojo) {

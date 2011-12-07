@@ -18,8 +18,6 @@ package org.kuali.maven.plugins.jenkins;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.kuali.maven.common.PropertiesUtils;
-import org.kuali.maven.plugins.jenkins.context.MojoContext;
 
 /**
  * Connect to a Jenkins server and retrieve XML documents describing one or more job configurations
@@ -55,12 +53,15 @@ public class GetJobsMojo extends BaseMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        getLog().info("help me");
+        /*
         String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
         getLog().info("");
         getLog().info("Working Dir - " + getWorkingDir().getAbsolutePath());
         getLog().info("");
         List<MojoContext> contexts = helper.getJobs(this, names, tokens);
         helper.handleResults(contexts);
+        */
     }
 
     public String getTypes() {
