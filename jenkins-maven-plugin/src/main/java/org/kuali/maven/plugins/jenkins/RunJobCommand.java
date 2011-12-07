@@ -21,21 +21,27 @@ public class RunJobCommand extends SimpleJobCommand {
     boolean wait;
     boolean skipIfNoChanges;
     Map<String, String> params;
+
     public boolean isWait() {
         return wait;
     }
+
     public void setWait(boolean wait) {
         this.wait = wait;
     }
+
     public boolean isSkipIfNoChanges() {
         return skipIfNoChanges;
     }
+
     public void setSkipIfNoChanges(boolean skipIfNoChanges) {
         this.skipIfNoChanges = skipIfNoChanges;
     }
+
     public Map<String, String> getParams() {
         return params;
     }
+
     public void setParams(Map<String, String> params) {
         this.params = params;
     }
