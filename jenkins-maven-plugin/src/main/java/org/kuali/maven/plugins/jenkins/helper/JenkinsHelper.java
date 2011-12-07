@@ -298,22 +298,6 @@ public class JenkinsHelper {
         executeCli(mojo, SUCCESS_CODE);
     }
 
-    protected List<String> getInputs(List<String> inputs, List<String> inputUrls) throws IOException {
-        if (!Helper.isEmpty(inputUrls)) {
-            return resourceUtils.read(inputUrls);
-        } else {
-            return inputs;
-        }
-    }
-
-    protected String getInput(String input, String inputUrl) throws IOException {
-        if (!StringUtils.isBlank(inputUrl)) {
-            return resourceUtils.read(inputUrl);
-        } else {
-            return input;
-        }
-    }
-
     public void executeCli(CliMojo mojo, int... successCodes) {
         List<Command> cmds = cmdHelper.getCmds(mojo);
         executeCli(mojo, cmds, successCodes);
