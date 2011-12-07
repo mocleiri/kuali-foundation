@@ -26,6 +26,12 @@ import org.kuali.maven.plugins.jenkins.context.ProcessResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Helper class for executing external processes. Default behavior is to start a process and wait for it to complete
+ * before continuing. The stdin of the spawned process can be provided with input via the "input" string. Any output
+ * (error or otherwise) that the process sends to its stdout is captured in the "output" variable of the corresponding
+ * ProcessResult object.
+ */
 public class ProcessHelper {
     private static final Logger logger = LoggerFactory.getLogger(ProcessHelper.class);
 
@@ -87,5 +93,4 @@ public class ProcessHelper {
         Helper.addToList(command, args);
         return Helper.toArray(command);
     }
-
 }
