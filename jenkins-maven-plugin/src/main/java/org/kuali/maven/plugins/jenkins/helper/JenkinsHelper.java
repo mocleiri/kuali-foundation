@@ -71,15 +71,6 @@ public class JenkinsHelper {
         return Helper.toArray(args);
     }
 
-    public void executeSimpleJobsMojo(SimpleJobsContext mojoContext) {
-        MavenContext context = getMavenContext(mojo);
-        String jobName = getJobName(context, mojoContext.getName(), mojo.getType());
-        String[] args = mojo.getJobArgs(jobName);
-        Command command = new Command();
-        command.setArgs(Arrays.asList(args));
-        executeCli(mojo, command, SUCCESS_CODE);
-    }
-
     protected <T> T getContext(Class<T> type, BaseMojo mojo) {
         try {
             T context = type.newInstance();
@@ -211,7 +202,7 @@ public class JenkinsHelper {
     public void pushJobs(BaseMojo mojo, String cmd) {
         try {
             List<Command> commands = getCommands(mojo.getWorkingDir(), cmd);
-            executeCli(mojo, commands, SUCCESS_CODE);
+            executeCli(mojo, commands);
         } catch (IOException e) {
             throw new CliException(e);
         }
@@ -355,39 +346,6 @@ public class JenkinsHelper {
         }
     }
 
-    protected List<SimpleJobCommand> getSimpleJobCommands(MavenContext context, SimpleJobsContext sjc) {
-        String jenkinsCommand = sjc.getJobCmd();
-        List<String> names = sjc.getNames();
-        List<String> types = sjc.getTypes();
-        List<SimpleJobCommand> commands = new ArrayList<SimpleJobCommand>();
-        if (Helper.isEmpty(names)) {
-            for (String type : types) {
-                SimpleJobCommand command = new SimpleJobCommand();
-                command.setJenkinsCommand(jenkinsCommand);
-                String jobName = getJobName(context, type);
-                command.setJobName(jobName);
-                commands.add(command);
-            }
-        } else {
-            for (String name : names) {
-                SimpleJobCommand command = new SimpleJobCommand();
-                command.setJenkinsCommand(jenkinsCommand);
-                command.setJobName(name);
-                commands.add(command);
-            }
-        }
-        return commands;
-    }
-
-    public List<Command> getCommands(List<SimpleJobCommand> sjcs) {
-        List<Command> commands = new ArrayList<Command>();
-        for (SimpleJobCommand sjc : sjcs) {
-            Command command = cmdHelper.getCommands(sjc);
-            commands.add(command);
-        }
-        return commands;
-    }
-
     public void executeCli(SimpleJobMojo mojo) {
         MavenContext context = getMavenContext(mojo);
         String jobName = getJobName(context, mojo.getName(), mojo.getType());
@@ -455,6 +413,7 @@ public class JenkinsHelper {
     }
 
     protected void handleResults(List<ProcessResult> results, BaseMojo mojo) {
+        int[] successCodes = Helper.toIntArray(mojo.getSuccessCodesList());
         List<ProcessResult> errors = new ArrayList<ProcessResult>();
         for (ProcessResult result : results) {
             int exitValue = result.getExitValue();
