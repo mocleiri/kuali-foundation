@@ -16,11 +16,9 @@
 package org.kuali.maven.plugins.jenkins;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.plugins.jenkins.helper.Helper;
 
 /**
@@ -69,18 +67,6 @@ public class RunJobMojo extends SimpleJobMojo {
      */
     private Map<String, String> paramMap;
 
-    protected List<String> getParamArgs() {
-        List<String> paramArgs = new ArrayList<String>();
-        if (!Helper.isEmpty(paramMap)) {
-            paramArgs.addAll(Helper.toList(paramMap));
-        }
-        if (!StringUtils.isBlank(params)) {
-            String[] tokens = Helper.splitAndTrimCSV(params);
-            paramArgs.addAll(Arrays.asList(tokens));
-        }
-        return paramArgs;
-    }
-
     @Override
     protected String[] getArgs(String jobName) {
         List<String> args = new ArrayList<String>();
@@ -92,7 +78,7 @@ public class RunJobMojo extends SimpleJobMojo {
         if (isWait()) {
             args.add("-s");
         }
-        List<String> paramArgs = getParamArgs();
+        List<String> paramArgs = Helper.toKeyValuePairs(paramMap, params);
         if (!Helper.isEmpty(paramArgs)) {
             args.add("-p");
             args.addAll(paramArgs);

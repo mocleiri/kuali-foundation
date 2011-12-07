@@ -19,6 +19,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,22 @@ import org.apache.commons.lang.StringUtils;
 
 public class Helper {
     public static final String EQUALS = "=";
+
+    /**
+     * Return a List<String> (never null) where each String element is "key=value" from the map and the csv tokens from
+     * the csv string. The csv is assumed to be "key=value" pairs separated by commas
+     */
+    public static final List<String> toKeyValuePairs(Map<String, String> map, String csv) {
+        List<String> paramArgs = new ArrayList<String>();
+        if (!isEmpty(map)) {
+            paramArgs.addAll(toList(map));
+        }
+        if (!StringUtils.isBlank(csv)) {
+            String[] tokens = Helper.splitAndTrimCSV(csv);
+            paramArgs.addAll(Arrays.asList(tokens));
+        }
+        return paramArgs;
+    }
 
     public static final List<String> getLines(String s) {
         if (StringUtils.isBlank(s)) {
