@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
+import org.kuali.maven.plugins.jenkins.helper.Helper;
 import org.kuali.maven.plugins.jenkins.helper.JenkinsHelper;
 
 /**
@@ -99,12 +100,16 @@ public abstract class BaseMojo extends AbstractMojo {
     private String template;
 
     /**
-     * Comma separated list of codes representing successful completion of a Jenkins CLI command.
+     * Comma separated list of integers that represent a Jenkins CLI command completing successfully
      *
      * @parameter expression="${jenkins.successCodes}" default-value="0"
      * @required
      */
     private String successCodes;
+
+    public List<Integer> getSuccessCodesList() {
+        return Helper.toIntegerList(successCodes);
+    }
 
     public String getTemplate() {
         return template;

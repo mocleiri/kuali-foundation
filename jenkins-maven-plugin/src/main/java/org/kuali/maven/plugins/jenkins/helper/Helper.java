@@ -34,6 +34,25 @@ public class Helper {
     public static final String COMMA = ",";
     public static final String EMPTY_STRING = "";
 
+    public static final List<Integer> toIntegerList(String csv) {
+        int[] integers = toIntegerArray(csv);
+        List<Integer> list = new ArrayList<Integer>();
+        for (int integer : integers) {
+            list.add(integer);
+        }
+        return list;
+    }
+
+    public static final int[] toIntegerArray(String csv) {
+        String[] tokens = splitAndTrimCSV(csv);
+        int[] integers = new int[tokens.length];
+        for (int i = 0; i < integers.length; i++) {
+            Integer integer = new Integer(tokens[i]);
+            integers[i] = integer;
+        }
+        return integers;
+    }
+
     /**
      * Return a List<String> (never null) where each String element is one "line" from the string passed in
      */
