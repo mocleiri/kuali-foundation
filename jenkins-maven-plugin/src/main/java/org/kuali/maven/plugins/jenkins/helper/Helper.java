@@ -60,14 +60,14 @@ public class Helper {
     /**
      * Split the string trimming as we go
      */
-    public static String[] splitAndTrimCSV(String s) {
+    public static final String[] splitAndTrimCSV(String s) {
         return splitAndTrim(s, ",");
     }
 
     /**
      * Split the string trimming as we go
      */
-    public static String[] splitAndTrim(String s, String separator) {
+    public static final String[] splitAndTrim(String s, String separator) {
         String[] tokens = StringUtils.split(s, separator);
         for (String token : tokens) {
             token = token.trim();
