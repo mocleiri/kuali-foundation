@@ -275,19 +275,10 @@ public class JenkinsHelper {
         return Helper.toArray(list);
     }
 
-    protected boolean isSuccess(int exitValue, int... successValues) {
-        for (int successValue : successValues) {
-            if (exitValue == successValue) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     protected void handleResult(Command command, ProcessResult result, BaseMojo mojo) {
-        List<Integer> successCodes = mojo.getSuccessCodesList();
+        int[] successCodes = Helper.toIntArray(mojo.getSuccessCodesList());
         int exitValue = result.getExitValue();
-        if (isSuccess(exitValue, Helper.toIntArray(successCodes))) {
+        if (Helper.isMatch(exitValue, successCodes)) {
             handleSuccess(command, result);
         } else {
             handleFailure(mojo, result);
