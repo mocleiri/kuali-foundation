@@ -58,6 +58,11 @@ public class CliMojo extends BaseMojo {
      */
     private List<Command> commands;
 
+    @Override
+    protected void executeMojo() {
+        helper.execute(this);
+    }
+
     public String getCmd() {
         return cmd;
     }

@@ -31,7 +31,7 @@ public class CommandHelper {
     public static final String PARAMS_ARG = "-p";
 
     public List<Command> getCommands(CliMojo mojo) {
-        if (Helper.isEmpty(mojo.getCommands())) {
+        if (!Helper.isEmpty(mojo.getCommands())) {
             return mojo.getCommands();
         } else {
             Command command = getCommand(mojo);
