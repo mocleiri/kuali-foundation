@@ -103,7 +103,7 @@
     <kuali.repo.snapshot.id>kuali.snapshot</kuali.repo.snapshot.id>
     <kuali.repo.snapshot.name>Kuali Snapshot Repository</kuali.repo.snapshot.name>
     <kuali.repo.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repo.snapshot.url>
-    <kuali.cm.tools.version>1.1.4-SNAPSHOT</kuali.cm.tools.version>
+    <kuali.cm.tools.version>1.1.5</kuali.cm.tools.version>
 
     <!-- Properties for controlling repo settings -->
     <kuali.releases>true</kuali.releases>
@@ -139,7 +139,7 @@
     <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
     <plugin.gpg.version>1.4</plugin.gpg.version>
     <plugin.install.version>2.3.1</plugin.install.version>
-    <plugin.jar.version>2.3.2-kuali-SNAPSHOT</plugin.jar.version>
+    <plugin.jar.version>2.3.2-kuali</plugin.jar.version>
     <plugin.javadoc.version>2.8</plugin.javadoc.version>
     <plugin.jenkins.version>1.0.4</plugin.jenkins.version>
     <plugin.ksite.version>1.1.1</plugin.ksite.version>
