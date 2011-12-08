@@ -20,11 +20,11 @@
   <description>Configuration Management Tools</description>
   <groupId>org.kuali.common.cm</groupId>
   <artifactId>cm-tools</artifactId>
-  <version>1.1.5-SNAPSHOT</version>
+  <version>1.1.5</version>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/cm-tools</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/cm-tools-1.1.5</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/cm-tools-1.1.5</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/cm-tools-1.1.5</url>
   </scm>
   <developers>
     <developer>
