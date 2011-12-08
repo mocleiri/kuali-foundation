@@ -353,8 +353,8 @@ public class JenkinsHelper {
         MavenContext context = getMavenContext(mojo);
         String jobName = getJobName(context, mojo.getName(), mojo.getType());
         SimpleJobCommand sjc = new SimpleJobCommand();
-        sjc.setJenkinsCommand(mojo.getJobCmd());
-        sjc.setJobName(jobName);
+        sjc.setCommand(mojo.getJobCmd());
+        sjc.setName(jobName);
         Command command = new Command();
         command.setArgs(cmdHelper.toArgs(sjc));
         executeCli(mojo, command);
@@ -375,9 +375,9 @@ public class JenkinsHelper {
 
     protected RunJobCommand getRunJobCommand(RunJobMojo mojo, String jobName, Map<String, String> params) {
         RunJobCommand rjc = new RunJobCommand();
-        rjc.setJobName(jobName);
+        rjc.setName(jobName);
         rjc.setParams(params);
-        rjc.setJenkinsCommand(mojo.getJobCmd());
+        rjc.setCommand(mojo.getJobCmd());
         rjc.setWait(mojo.isWait());
         rjc.setSkipIfNoChanges(mojo.isSkipIfNoChanges());
         return rjc;

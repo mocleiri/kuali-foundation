@@ -16,22 +16,22 @@
 package org.kuali.maven.plugins.jenkins;
 
 public class SimpleJobCommand {
-    String jenkinsCommand;
-    String jobName;
+    String command;
+    String name;
 
-    public String getJenkinsCommand() {
-        return jenkinsCommand;
+    public String getCommand() {
+        return command;
     }
 
-    public void setJenkinsCommand(String jenkinsCommand) {
-        this.jenkinsCommand = jenkinsCommand;
+    public void setCommand(String jenkinsCommand) {
+        this.command = jenkinsCommand;
     }
 
-    public String getJobName() {
-        return jobName;
+    public String getName() {
+        return name;
     }
 
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
+    public void setName(String jobName) {
+        this.name = jobName;
     }
 }

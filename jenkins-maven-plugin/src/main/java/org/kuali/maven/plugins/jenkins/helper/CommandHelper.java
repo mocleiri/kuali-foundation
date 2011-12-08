@@ -65,8 +65,8 @@ public class CommandHelper {
     }
 
     public List<String> toArgs(SimpleJobCommand command) {
-        String jenkinsCommand = command.getJenkinsCommand();
-        String jobName = command.getJobName();
+        String jenkinsCommand = command.getCommand();
+        String jobName = command.getName();
         return Helper.toList(jenkinsCommand, jobName);
     }
 
