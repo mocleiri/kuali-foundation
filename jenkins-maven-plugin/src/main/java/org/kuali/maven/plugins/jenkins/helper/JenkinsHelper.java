@@ -36,6 +36,8 @@ import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
+import org.kuali.maven.plugins.jenkins.GenJobMojo;
+import org.kuali.maven.plugins.jenkins.GenJobsMojo;
 import org.kuali.maven.plugins.jenkins.GetJobMojo;
 import org.kuali.maven.plugins.jenkins.GetJobsMojo;
 import org.kuali.maven.plugins.jenkins.RunJobCommand;
@@ -465,15 +467,24 @@ public class JenkinsHelper {
         return sb.toString();
     }
 
-    public void generate(BaseMojo mojo, String types) {
+    public void execute(GenJobsMojo mojo) {
         MavenContext context = getMavenContext(mojo);
-        String[] tokens = Helper.splitAndTrimCSV(types);
-        for (String type : tokens) {
-            generate(mojo, context, type);
+        List<String> types = Helper.splitAndTrimCSVToList(mojo.getTypes());
+        generateJobs(mojo, context, types);
+    }
+
+    public void execute(GenJobMojo mojo) {
+        MavenContext context = getMavenContext(mojo);
+        generateJob(mojo, context, mojo.getType());
+    }
+
+    protected void generateJobs(BaseMojo mojo, MavenContext context, List<String> types) {
+        for (String type : types) {
+            generateJob(mojo, context, type);
         }
     }
 
-    protected void generate(BaseMojo mojo, MavenContext context, String type) {
+    protected void generateJob(BaseMojo mojo, MavenContext context, String type) {
         try {
             String jobName = getJobName(context, type);
             String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
