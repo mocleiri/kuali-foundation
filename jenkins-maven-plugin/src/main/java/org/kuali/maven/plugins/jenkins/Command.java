@@ -18,6 +18,9 @@ package org.kuali.maven.plugins.jenkins;
 import java.io.File;
 import java.util.List;
 
+/**
+ * Low level abstraction of a Jenkins CLI command.
+ */
 public class Command {
     private List<String> args;
     private String stdin;
