@@ -379,7 +379,7 @@ public class JenkinsHelper {
         return rjc;
     }
 
-    public void execute(BaseMojo mojo, MavenContext context) {
+    public void execute(BaseMojo mojo) {
         mojo.getLog().info("Jenkins Maven Plugin");
     }
 

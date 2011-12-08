@@ -15,10 +15,13 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
+import java.util.List;
+
 /**
  * Connect to a Jenkins server and retrieve an XML document describing the job configuration
  *
- * @goal getjob
+ * @goal getjobs
+ * @threadSafe
  * @requiresDependencyResolution test
  */
 public class GetJobMojo extends BaseMojo {
@@ -32,10 +35,41 @@ public class GetJobMojo extends BaseMojo {
     private String cmd;
 
     /**
-     * The name of the job to retrieve.
+     * Comma delimited list of job names to retrieve
      *
-     * @parameter expression="${jenkins.name}" default-value="publish"
+     * @parameter expression="${jenkins.names}" default-value="publish,unit,license,release"
      */
-    private String name;
+    private String names;
+
+    /**
+     * List of job names to retrieve. If 'nameList' is provided, 'names' is ignored
+     *
+     * @parameter
+     */
+    private List<String> nameList;
+
+    public String getCmd() {
+        return cmd;
+    }
+
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
+    }
+
+    public String getNames() {
+        return names;
+    }
+
+    public void setNames(String names) {
+        this.names = names;
+    }
+
+    public List<String> getNameList() {
+        return nameList;
+    }
+
+    public void setNameList(List<String> nameList) {
+        this.nameList = nameList;
+    }
 
 }
