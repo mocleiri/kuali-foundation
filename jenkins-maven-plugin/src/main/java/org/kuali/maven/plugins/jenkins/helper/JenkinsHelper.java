@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
@@ -43,11 +42,8 @@ import org.kuali.maven.plugins.jenkins.PushJobsMojo;
 import org.kuali.maven.plugins.jenkins.RunJobCommand;
 import org.kuali.maven.plugins.jenkins.RunJobMojo;
 import org.kuali.maven.plugins.jenkins.RunJobsMojo;
-import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
-import org.kuali.maven.plugins.jenkins.SimpleJobMojo;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.JenkinsException;
-import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
 import org.slf4j.Logger;
@@ -70,24 +66,6 @@ public class JenkinsHelper {
     ResourceUtils resourceUtils = new ResourceUtils();
     JavaHelper javaHelper = new JavaHelper();
     CommandHelper cmdHelper = new CommandHelper();
-
-    protected <T> T getContext(Class<T> type, BaseMojo mojo) {
-        try {
-            T context = type.newInstance();
-            copyProperties(context, mojo);
-            return context;
-        } catch (Exception e) {
-            throw new JenkinsException(e);
-        }
-    }
-
-    protected void copyProperties(Object dest, Object orig) {
-        try {
-            BeanUtils.copyProperties(dest, orig);
-        } catch (Exception e) {
-            throw new JenkinsException(e);
-        }
-    }
 
     protected List<String> getNamesList(String csvNames, List<String> names) {
         if (!Helper.isEmpty(names)) {
@@ -347,16 +325,6 @@ public class JenkinsHelper {
         }
     }
 
-    protected void execute(SimpleJobMojo mojo) {
-        String jobName = getJobName(mojo, mojo.getName());
-        SimpleJobCommand sjc = new SimpleJobCommand();
-        sjc.setCommand(mojo.getCmd());
-        sjc.setName(jobName);
-        Command command = new Command();
-        command.setArgs(cmdHelper.toArgs(sjc));
-        executeCli(mojo, command);
-    }
-
     protected Map<String, String> getBuildParameters(Map<String, String> map, String csv) {
         Map<String, String> buildParameters = new HashMap<String, String>();
         if (!Helper.isEmpty(map)) {
@@ -557,20 +525,6 @@ public class JenkinsHelper {
         } catch (IOException e) {
             throw new JenkinsException(e);
         }
-    }
-
-    public MavenContext getContext(BaseMojo mojo) {
-        MavenProject project = mojo.getProject();
-        String scmType = extractor.getScmType(project.getScm());
-        String scmUrl = extractor.getScmUrl(project.getScm());
-        String majorVersion = extractor.getMajorVersion(project.getVersion());
-
-        MavenContext context = new MavenContext();
-        context.setMajorVersion(majorVersion);
-        context.setScmType(scmType);
-        context.setScmUrl(scmUrl);
-        context.setMojo(mojo);
-        return context;
     }
 
     protected boolean isKnownJobType(BaseMojo mojo, String name) {
