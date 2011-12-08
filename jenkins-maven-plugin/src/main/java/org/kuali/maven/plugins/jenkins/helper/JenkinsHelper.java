@@ -35,6 +35,7 @@ import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
+import org.kuali.maven.plugins.jenkins.DeleteJobMojo;
 import org.kuali.maven.plugins.jenkins.GenJobMojo;
 import org.kuali.maven.plugins.jenkins.GenJobsMojo;
 import org.kuali.maven.plugins.jenkins.GetJobsMojo;
@@ -42,6 +43,7 @@ import org.kuali.maven.plugins.jenkins.PushJobsMojo;
 import org.kuali.maven.plugins.jenkins.RunJobCommand;
 import org.kuali.maven.plugins.jenkins.RunJobMojo;
 import org.kuali.maven.plugins.jenkins.RunJobsMojo;
+import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.JenkinsException;
 import org.kuali.maven.plugins.jenkins.context.ProcessContext;
@@ -369,6 +371,16 @@ public class JenkinsHelper {
         }
     }
 
+    public void execute(DeleteJobMojo mojo) {
+        String jobName = getJobName(mojo, mojo.getName());
+        SimpleJobCommand sjc = new SimpleJobCommand();
+        sjc.setName(jobName);
+        sjc.setCommand(mojo.getCmd());
+        Command command = new Command();
+        command.setArgs(cmdHelper.toArgs(sjc));
+        executeCli(mojo, command);
+    }
+
     public void execute(RunJobMojo mojo) {
         String jobName = getJobName(mojo, mojo.getName());
         Map<String, String> params = getBuildParameters(mojo.getParamMap(), mojo.getParams());
@@ -450,8 +462,18 @@ public class JenkinsHelper {
             logger.error(getErrorMessage(errors));
             throw new JenkinsException("Jenkins CLI error");
         } else {
-            logger.warn(getErrorMessage(errors));
+            logger.warn(getWarnMessage(errors));
         }
+    }
+
+    protected String getWarnMessage(List<ProcessResult> errors) {
+        StringBuilder sb = new StringBuilder();
+        if (errors.size() == 1) {
+            sb.append("There was 1 error.");
+        } else {
+            sb.append("There were " + errors.size() + " errors.");
+        }
+        return sb.toString();
     }
 
     protected String getErrorMessage(List<ProcessResult> errors) {
