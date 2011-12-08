@@ -24,24 +24,19 @@ package org.kuali.maven.plugins.jenkins;
 public class UpdateJobsMojo extends BaseMojo {
 
     /**
-     * The Jenkins CLI command for creating a job
+     * The Jenkins CLI command for updating a job
      *
-     * @parameter expression="${jenkins.updateJobCmd}" default-value="update-job"
+     * @parameter expression="${jenkins.cmd}" default-value="update-job"
      * @required
      */
-    private String updateJobCmd;
+    private String cmd;
 
-    @Override
-    public void execute() {
-        helper.execute(this);
+    public String getCmd() {
+        return cmd;
     }
 
-    public String getUpdateJobCmd() {
-        return updateJobCmd;
-    }
-
-    public void setUpdateJobCmd(String updateJobCmd) {
-        this.updateJobCmd = updateJobCmd;
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
     }
 
 }

@@ -440,11 +440,11 @@ public class JenkinsHelper {
     }
 
     public void execute(CreateJobsMojo mojo) {
-        pushJobs(mojo, mojo.getCreateJobCmd());
+        pushJobs(mojo, mojo.getCmd());
     }
 
     public void execute(UpdateJobsMojo mojo) {
-        pushJobs(mojo, mojo.getUpdateJobCmd());
+        pushJobs(mojo, mojo.getCmd());
     }
 
     public void execute(CliMojo mojo) {

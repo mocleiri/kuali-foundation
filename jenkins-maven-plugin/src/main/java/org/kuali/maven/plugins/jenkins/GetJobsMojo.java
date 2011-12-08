@@ -42,7 +42,7 @@ public class GetJobsMojo extends BaseMojo {
     private String names;
 
     /**
-     * List<String> of job names to retrieve. If 'nameList' is provided, 'names' is ignored
+     * List of job names to retrieve. If 'nameList' is provided, 'names' is ignored
      *
      * @parameter
      */

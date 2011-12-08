@@ -26,17 +26,17 @@ public class CreateJobsMojo extends BaseMojo {
     /**
      * The Jenkins CLI command for creating a job
      *
-     * @parameter expression="${jenkins.createJobCmd}" default-value="create-job"
+     * @parameter expression="${jenkins.cmd}" default-value="create-job"
      * @required
      */
-    private String createJobCmd;
+    private String cmd;
 
-    public String getCreateJobCmd() {
-        return createJobCmd;
+    public String getCmd() {
+        return cmd;
     }
 
-    public void setCreateJobCmd(String createJobCmd) {
-        this.createJobCmd = createJobCmd;
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
     }
 
 }
