@@ -25,7 +25,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
 /**
- * Build a JAR of the test classes for the current project.
+ * Build a JAR of the test classes for the current project. Skip execution if packaging type is 'pom'
  *
  * @author <a href="evenisse@apache.org">Emmanuel Venisse</a>
  * @version $Id: TestJarMojo.java 1158941 2011-08-17 22:22:17Z rfscholte $
