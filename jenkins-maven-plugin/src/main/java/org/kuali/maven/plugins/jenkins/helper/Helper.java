@@ -116,7 +116,7 @@ public class Helper {
             list.addAll(toKeyValueList(map));
         }
         if (!StringUtils.isBlank(csv)) {
-            String[] tokens = Helper.splitAndTrimCSV(csv);
+            String[] tokens = splitAndTrimCSV(csv);
             list.addAll(Arrays.asList(tokens));
         }
         return list;
@@ -153,6 +153,13 @@ public class Helper {
             list.add(s);
         }
         return list;
+    }
+
+    /**
+     * Split the CSV string trimming as we go
+     */
+    public static final List<String> splitAndTrimCSVToList(String s) {
+        return toList(splitAndTrim(s, COMMA));
     }
 
     /**

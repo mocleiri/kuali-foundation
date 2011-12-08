@@ -36,6 +36,8 @@ import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
+import org.kuali.maven.plugins.jenkins.GetJobMojo;
+import org.kuali.maven.plugins.jenkins.GetJobsMojo;
 import org.kuali.maven.plugins.jenkins.RunJobCommand;
 import org.kuali.maven.plugins.jenkins.RunJobMojo;
 import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
@@ -89,37 +91,45 @@ public class JenkinsHelper {
         }
     }
 
-    public void getJob(BaseMojo mojo, String cmd, String name, String type) {
-        getJobs(mojo, cmd, Helper.toList(name), type);
+    public void getJob(GetJobMojo mojo) {
+        MavenContext context = getMavenContext(mojo);
+        String jobName = getJobName(context, mojo.getName(), mojo.getType());
+        Command command = createGetJobCommand(mojo, mojo.getGetJobCmd(), jobName);
+        executeCli(mojo, command);
+    }
+
+    public void getJobs(GetJobsMojo mojo) {
+        List<String> types = Helper.splitAndTrimCSVToList(mojo.getTypes());
+        MavenContext context = getMavenContext(mojo);
+        List<String> jobNames = getJobNames(context, mojo.getNames(), types);
+        List<Command> commands = createGetJobCommands(mojo, mojo.getGetJobCmd(), jobNames);
+        executeCli(mojo, commands);
     }
 
     protected List<Command> createGetJobCommands(BaseMojo mojo, String cmd, List<String> jobNames) {
         List<Command> commands = new ArrayList<Command>();
         for (String jobName : jobNames) {
-            String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
-            String[] args = { cmd, jobName };
-            Command command = new Command();
-            command.setArgs(Arrays.asList(args));
-            command.setStdout(new File(filename));
+            Command command = createGetJobCommand(mojo, cmd, jobName);
             commands.add(command);
         }
         return commands;
     }
 
-    public void getJobs(BaseMojo mojo, String cmd, List<String> names, String types) {
-        MavenContext context = getMavenContext(mojo);
-        List<String> jobNames = getJobNames(context, names, types);
-        List<Command> commands = createGetJobCommands(mojo, cmd, jobNames);
-        executeCli(mojo, commands);
+    protected Command createGetJobCommand(BaseMojo mojo, String cmd, String jobName) {
+        String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
+        String[] args = { cmd, jobName };
+        Command command = new Command();
+        command.setArgs(Arrays.asList(args));
+        command.setStdout(new File(filename));
+        return command;
     }
 
-    protected List<String> getJobNames(MavenContext context, List<String> names, String types) {
+    protected List<String> getJobNames(MavenContext context, List<String> names, List<String> types) {
         if (!Helper.isEmpty(names)) {
             return names;
         }
         List<String> newNames = new ArrayList<String>();
-        String[] tokens = Helper.splitAndTrimCSV(types);
-        for (String type : tokens) {
+        for (String type : types) {
             String name = getJobName(context, type);
             newNames.add(name);
         }

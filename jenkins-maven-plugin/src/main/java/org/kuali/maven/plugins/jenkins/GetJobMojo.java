@@ -51,7 +51,7 @@ public class GetJobMojo extends BaseMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        helper.getJob(this, getJobCmd, name, type);
+        helper.getJob(this);
     }
 
     public String getType() {
