@@ -351,7 +351,7 @@ public class JenkinsHelper {
         }
     }
 
-    public void executeCli(SimpleJobMojo mojo) {
+    public void execute(SimpleJobMojo mojo) {
         MavenContext context = getMavenContext(mojo);
         String jobName = getJobName(context, mojo.getName(), mojo.getType());
         SimpleJobCommand sjc = new SimpleJobCommand();

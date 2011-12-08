@@ -35,7 +35,7 @@ public class DeleteJobMojo extends SimpleJobMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        helper.executeCli(this);
+        helper.execute(this);
     }
 
     @Override
