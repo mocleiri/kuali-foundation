@@ -105,6 +105,16 @@ public abstract class BaseMojo extends AbstractMojo {
      */
     private String successCodes;
 
+    /**
+     * Comma separated list of known job types. When specifying a job name these can be used as shorthand for the fully
+     * qualified job name. eg "publish" gets expanded to "jenkins-maven-plugin-1.1-publish". To turn off expansion set
+     * 'jobTypes' to the empty string, null, or 'NONE'
+     *
+     * @parameter expression="${jenkins.jobTypes}" default-value="publish,unit,license,release"
+     * @required
+     */
+    private String jobTypes;
+
     public String getTemplate() {
         return template;
     }
@@ -167,6 +177,14 @@ public abstract class BaseMojo extends AbstractMojo {
 
     public void setSuccessCodes(String successCodes) {
         this.successCodes = successCodes;
+    }
+
+    public String getJobTypes() {
+        return jobTypes;
+    }
+
+    public void setJobTypes(String jobTypes) {
+        this.jobTypes = jobTypes;
     }
 
 }

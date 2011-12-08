@@ -43,6 +43,7 @@ import org.kuali.maven.plugins.jenkins.GetJobMojo;
 import org.kuali.maven.plugins.jenkins.GetJobsMojo;
 import org.kuali.maven.plugins.jenkins.RunJobCommand;
 import org.kuali.maven.plugins.jenkins.RunJobMojo;
+import org.kuali.maven.plugins.jenkins.RunJobsMojo;
 import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
 import org.kuali.maven.plugins.jenkins.SimpleJobMojo;
 import org.kuali.maven.plugins.jenkins.UpdateJobsMojo;
@@ -349,7 +350,7 @@ public class JenkinsHelper {
         }
     }
 
-    public void execute(SimpleJobMojo mojo) {
+    protected void execute(SimpleJobMojo mojo) {
         MavenContext context = getMavenContext(mojo);
         String jobName = getJobName(context, mojo.getName(), mojo.getType());
         SimpleJobCommand sjc = new SimpleJobCommand();
@@ -384,6 +385,16 @@ public class JenkinsHelper {
     }
 
     public void execute(RunJobMojo mojo) {
+        MavenContext context = getMavenContext(mojo);
+        String jobName = getJobName(context, mojo.getName(), mojo.getType());
+        Map<String, String> params = getBuildParameters(mojo.getParamMap(), mojo.getParams());
+        RunJobCommand rjc = getRunJobCommand(mojo, jobName, params);
+        Command command = new Command();
+        command.setArgs(cmdHelper.toArgs(rjc));
+        executeCli(mojo, command);
+    }
+
+    public void execute(RunJobsMojo mojo) {
         MavenContext context = getMavenContext(mojo);
         String jobName = getJobName(context, mojo.getName(), mojo.getType());
         Map<String, String> params = getBuildParameters(mojo.getParamMap(), mojo.getParams());
