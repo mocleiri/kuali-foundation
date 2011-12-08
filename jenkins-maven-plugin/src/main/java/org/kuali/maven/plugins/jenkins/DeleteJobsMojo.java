@@ -15,10 +15,7 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.maven.common.PropertiesUtils;
 
 /**
  * Connect to a Jenkins server and delete one or more jobs
@@ -37,60 +34,22 @@ public class DeleteJobsMojo extends BaseMojo {
     private String cmd;
 
     /**
-     * The location of the jenkins job config template
+     * Comma delimited list of job names to retrieve
      *
-     * @parameter expression="${jenkins.template}" default-value="classpath:org/kuali/jenkins/jobs/template.xml"
-     * @required
+     * @parameter expression="${jenkins.names}" default-value="publish,unit,license,release"
      */
-    private String template;
+    private String names;
 
     /**
-     * Comma delimited list of types to delete. Maven GAV info is combined with 'type' to derive the complete job name
-     * eg 'jenkins-maven-plugin-1.0-publish'
-     *
-     * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
-     * @required
-     */
-    private String types;
-
-    /**
-     * The explicit list of jobs to delete. If names are provided, 'types' is ignored.
+     * List of job names to retrieve. If 'nameList' is provided, 'names' is ignored
      *
      * @parameter
      */
-    private List<String> names;
-
-    /**
-     * Comma delimited list of result codes to ignore. Result code of 1 means the job we are trying to delete does not
-     * exist.
-     *
-     * @parameter expression="${jenkins.ignoreCodes}" default-value="1"
-     * @required
-     */
-    private String ignoreCodes;
+    private List<String> nameList;
 
     @Override
     protected void executeMojo() {
         helper.execute(this);
-    }
-
-    protected List<Integer> getIgnoreCodeList() {
-        List<Integer> ignoreCodeList = new ArrayList<Integer>();
-        String[] tokens = PropertiesUtils.splitAndTrim(ignoreCodes, ",");
-        for (String token : tokens) {
-            ignoreCodeList.add(new Integer(token));
-        }
-        return ignoreCodeList;
-    }
-
-    @Override
-    public String getTemplate() {
-        return template;
-    }
-
-    @Override
-    public void setTemplate(String template) {
-        this.template = template;
     }
 
     public String getCmd() {
@@ -101,28 +60,20 @@ public class DeleteJobsMojo extends BaseMojo {
         this.cmd = cmd;
     }
 
-    public String getTypes() {
-        return types;
-    }
-
-    public void setTypes(String types) {
-        this.types = types;
-    }
-
-    public String getIgnoreCodes() {
-        return ignoreCodes;
-    }
-
-    public void setIgnoreCodes(String ignoreCodes) {
-        this.ignoreCodes = ignoreCodes;
-    }
-
-    public List<String> getNames() {
+    public String getNames() {
         return names;
     }
 
-    public void setNames(List<String> names) {
+    public void setNames(String names) {
         this.names = names;
+    }
+
+    public List<String> getNameList() {
+        return nameList;
+    }
+
+    public void setNameList(List<String> nameList) {
+        this.nameList = nameList;
     }
 
 }

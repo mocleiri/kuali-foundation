@@ -36,6 +36,7 @@ import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
 import org.kuali.maven.plugins.jenkins.DeleteJobMojo;
+import org.kuali.maven.plugins.jenkins.DeleteJobsMojo;
 import org.kuali.maven.plugins.jenkins.GenJobMojo;
 import org.kuali.maven.plugins.jenkins.GenJobsMojo;
 import org.kuali.maven.plugins.jenkins.GetJobsMojo;
@@ -350,10 +351,6 @@ public class JenkinsHelper {
         return rjc;
     }
 
-    public void execute(BaseMojo mojo) {
-        mojo.getLog().info("Jenkins Maven Plugin");
-    }
-
     public void updateMojo(BaseMojo mojo) {
         MavenProject project = mojo.getProject();
         String scmType = extractor.getScmType(project.getScm());
@@ -373,12 +370,33 @@ public class JenkinsHelper {
 
     public void execute(DeleteJobMojo mojo) {
         String jobName = getJobName(mojo, mojo.getName());
-        SimpleJobCommand sjc = new SimpleJobCommand();
-        sjc.setName(jobName);
-        sjc.setCommand(mojo.getCmd());
+        SimpleJobCommand sjc = getSimpleJobCommand(jobName, mojo.getCmd());
         Command command = new Command();
         command.setArgs(cmdHelper.toArgs(sjc));
         executeCli(mojo, command);
+    }
+
+    protected List<SimpleJobCommand> getSimpleJobCommands(List<String> names, String cmd) {
+        List<SimpleJobCommand> commands = new ArrayList<SimpleJobCommand>();
+        for (String name : names) {
+            SimpleJobCommand sjc = getSimpleJobCommand(name, cmd);
+            commands.add(sjc);
+        }
+        return commands;
+    }
+
+    protected SimpleJobCommand getSimpleJobCommand(String name, String cmd) {
+        SimpleJobCommand sjc = new SimpleJobCommand();
+        sjc.setName(name);
+        sjc.setCommand(cmd);
+        return sjc;
+    }
+
+    public void execute(DeleteJobsMojo mojo) {
+        List<String> jobNames = getJobNames(mojo, mojo.getNames(), mojo.getNameList());
+        List<SimpleJobCommand> sjcs = getSimpleJobCommands(jobNames, mojo.getCmd());
+        List<Command> commands = getCommandsFromSimple(sjcs);
+        executeCli(mojo, commands);
     }
 
     public void execute(RunJobMojo mojo) {
@@ -396,6 +414,16 @@ public class JenkinsHelper {
             command.setName(name);
             command.setCommand(cmd);
         }
+    }
+
+    protected List<Command> getCommandsFromSimple(List<SimpleJobCommand> sjcs) {
+        List<Command> commands = new ArrayList<Command>();
+        for (SimpleJobCommand sjc : sjcs) {
+            Command command = new Command();
+            command.setArgs(cmdHelper.toArgs(sjc));
+            commands.add(command);
+        }
+        return commands;
     }
 
     protected List<Command> getCommands(List<RunJobCommand> rjcs) {
