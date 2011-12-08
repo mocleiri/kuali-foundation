@@ -400,24 +400,33 @@ public class JenkinsHelper {
         executeCli(mojo, command);
     }
 
-    public void execute(RunJobsMojo mojo) {
-        MavenContext context = getMavenContext(mojo);
-        List<RunJobCommand> commands = mojo.getCommands();
-        if (Helper.isEmpty(commands)) {
-            return;
-        }
+    protected void updateCommands(List<RunJobCommand> commands, String cmd, MavenContext context) {
         for (RunJobCommand command : commands) {
             String name = getJobName(context, command.getName());
-            String cmd = mojo.getCmd();
             command.setName(name);
             command.setCommand(cmd);
         }
-        String jobName = getJobName(context, mojo.getName(), mojo.getType());
-        Map<String, String> params = getBuildParameters(mojo.getParamMap(), mojo.getParams());
-        RunJobCommand rjc = getRunJobCommand(mojo, jobName, params);
-        Command command = new Command();
-        command.setArgs(cmdHelper.toArgs(rjc));
-        executeCli(mojo, command);
+    }
+
+    protected List<Command> getCommands(List<RunJobCommand> rjcs) {
+        List<Command> commands = new ArrayList<Command>();
+        for (RunJobCommand rjc : rjcs) {
+            Command command = new Command();
+            command.setArgs(cmdHelper.toArgs(rjc));
+            commands.add(command);
+        }
+        return commands;
+    }
+
+    public void execute(RunJobsMojo mojo) {
+        // nothing to do
+        if (Helper.isEmpty(mojo.getCommands())) {
+            return;
+        }
+        MavenContext context = getMavenContext(mojo);
+        updateCommands(mojo.getCommands(), mojo.getCmd(), context);
+        List<Command> commands = getCommands(mojo.getCommands());
+        executeCli(mojo, commands);
     }
 
     public void execute(CreateJobsMojo mojo) {
