@@ -70,13 +70,6 @@ public class JenkinsHelper {
     JavaHelper javaHelper = new JavaHelper();
     CommandHelper cmdHelper = new CommandHelper();
 
-    public String[] getArgs(SimpleJobCommand sjc) {
-        List<String> args = new ArrayList<String>();
-        args.add(sjc.getJenkinsCommand());
-        args.add(sjc.getJobName());
-        return Helper.toArray(args);
-    }
-
     protected <T> T getContext(Class<T> type, BaseMojo mojo) {
         try {
             T context = type.newInstance();
