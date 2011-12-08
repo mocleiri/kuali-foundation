@@ -24,18 +24,13 @@ package org.kuali.maven.plugins.jenkins;
 public class GenJobMojo extends BaseMojo {
 
     /**
-     * The type of job to retrieve. Maven GAV info is combined with 'type' to derive the complete job name eg
+     * The type of job to generate. Maven GAV info is combined with 'type' to derive the complete job name eg
      * 'jenkins-maven-plugin-1.0-publish'
      *
      * @parameter expression="${jenkins.type}" default-value="publish"
      * @required
      */
     private String type;
-
-    @Override
-    public void execute() {
-        helper.execute(this);
-    }
 
     public String getType() {
         return type;

@@ -15,7 +15,6 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-
 /**
  * Connect to a Jenkins server and create a Jenkins job
  *
@@ -31,11 +30,6 @@ public class CreateJobsMojo extends BaseMojo {
      * @required
      */
     private String createJobCmd;
-
-    @Override
-    public void execute() {
-        helper.execute(this);
-    }
 
     public String getCreateJobCmd() {
         return createJobCmd;
