@@ -16,7 +16,11 @@
 package org.kuali.maven.plugins.jenkins;
 
 /**
+ * Abstraction for a mojo that sends an XML file to a Jenkins server. Jenkins CLI has 2 different commands related to
+ * pushing XML files out to a jenkins server.<br>
  *
+ * 1 - "create-job"<br>
+ * 2 - "update-job"<br>
  */
 public abstract class PushJobsMojo extends BaseMojo {
 
