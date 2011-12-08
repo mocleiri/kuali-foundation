@@ -28,7 +28,6 @@ import org.kuali.maven.plugins.jenkins.helper.JenkinsHelper;
  *
  */
 public abstract class BaseMojo extends AbstractMojo {
-    public static final String FS = System.getProperty("file.separator");
     JenkinsHelper helper = new JenkinsHelper();
 
     /**
