@@ -17,6 +17,8 @@ package org.kuali.maven.plugins.jenkins;
 
 import java.util.Map;
 
+import org.apache.maven.plugin.MojoExecutionException;
+
 /**
  * Connect to a Jenkins server and kick off a job
  *
@@ -66,6 +68,11 @@ public class RunJobMojo extends SimpleJobMojo {
     @Override
     public String getJobCmd() {
         return getRunJobCmd();
+    }
+
+    @Override
+    public void execute() throws MojoExecutionException {
+        helper.executeCli(this);
     }
 
     public String getRunJobCmd() {
