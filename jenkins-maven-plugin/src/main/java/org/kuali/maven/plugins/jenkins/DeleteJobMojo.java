@@ -28,10 +28,10 @@ public class DeleteJobMojo extends SimpleJobMojo {
     /**
      * The Jenkins CLI command for running a job
      *
-     * @parameter expression="${jenkins.deleteJobCmd}" default-value="delete-job"
+     * @parameter expression="${jenkins.cmd}" default-value="delete-job"
      * @required
      */
-    private String deleteJobCmd;
+    private String cmd;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -39,16 +39,12 @@ public class DeleteJobMojo extends SimpleJobMojo {
     }
 
     @Override
-    public String getJobCmd() {
-        return getDeleteJobCmd();
+    public String getCmd() {
+        return cmd;
     }
 
-    public String getDeleteJobCmd() {
-        return deleteJobCmd;
-    }
-
-    public void setDeleteJobCmd(String deleteJobCmd) {
-        this.deleteJobCmd = deleteJobCmd;
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
     }
 
 }

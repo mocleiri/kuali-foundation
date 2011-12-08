@@ -66,7 +66,7 @@ public class RunJobMojo extends SimpleJobMojo {
     private Map<String, String> paramMap;
 
     @Override
-    public String getJobCmd() {
+    public String getCmd() {
         return getRunJobCmd();
     }
 

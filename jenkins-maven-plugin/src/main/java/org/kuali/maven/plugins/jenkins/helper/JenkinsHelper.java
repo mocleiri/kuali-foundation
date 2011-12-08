@@ -63,6 +63,8 @@ public class JenkinsHelper {
     public static final int SUCCESS_CODE = 0;
     public static final int NO_SUCH_COMMAND = 255;
     public static final String SERVER_ARG = "-s";
+    public static final String NONE = "NONE";
+    public static final String DASH = "-";
     public static final String FS = System.getProperty("file.separator");
 
     Extractor extractor = new Extractor();
@@ -352,9 +354,9 @@ public class JenkinsHelper {
 
     protected void execute(SimpleJobMojo mojo) {
         MavenContext context = getMavenContext(mojo);
-        String jobName = getJobName(context, mojo.getName(), mojo.getType());
+        String jobName = getJobName(context, mojo.getName());
         SimpleJobCommand sjc = new SimpleJobCommand();
-        sjc.setCommand(mojo.getJobCmd());
+        sjc.setCommand(mojo.getCmd());
         sjc.setName(jobName);
         Command command = new Command();
         command.setArgs(cmdHelper.toArgs(sjc));
@@ -378,7 +380,7 @@ public class JenkinsHelper {
         RunJobCommand rjc = new RunJobCommand();
         rjc.setName(jobName);
         rjc.setParams(params);
-        rjc.setCommand(mojo.getJobCmd());
+        rjc.setCommand(mojo.getCmd());
         rjc.setWait(mojo.isWait());
         rjc.setSkipIfNoChanges(mojo.isSkipIfNoChanges());
         return rjc;
@@ -552,14 +554,30 @@ public class JenkinsHelper {
         }
     }
 
-    protected String getJobName(MavenContext context, String type) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(context.getProject().getArtifactId());
-        sb.append("-");
-        sb.append(context.getMajorVersion());
-        sb.append("-");
-        sb.append(type);
-        return sb.toString();
+    protected boolean isKnownJobType(BaseMojo mojo, String name) {
+        String jobTypes = mojo.getJobTypes();
+        if (StringUtils.isBlank(jobTypes)) {
+            return false;
+        }
+        if (NONE.equalsIgnoreCase(jobTypes)) {
+            return false;
+        }
+        List<String> jobTypesList = Helper.splitAndTrimCSVToList(mojo.getJobTypes());
+        return jobTypesList.contains(name);
+    }
+
+    protected String getJobName(BaseMojo mojo, MavenContext context, String name) {
+        if (isKnownJobType(mojo, name)) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(mojo.getProject().getArtifactId());
+            sb.append(DASH);
+            sb.append(context.getMajorVersion());
+            sb.append(DASH);
+            sb.append(name);
+            return sb.toString();
+        } else {
+            return name;
+        }
     }
 
     protected Properties getProperties(MavenContext mvnContext, String type, String timestampFormat) throws IOException {
