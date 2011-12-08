@@ -385,7 +385,7 @@ public class JenkinsHelper {
         return rjc;
     }
 
-    public void executeCli(RunJobMojo mojo) {
+    public void execute(RunJobMojo mojo) {
         MavenContext context = getMavenContext(mojo);
         String jobName = getJobName(context, mojo.getName(), mojo.getType());
         Map<String, String> params = getBuildParameters(mojo.getParamMap(), mojo.getParams());
