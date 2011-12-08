@@ -22,7 +22,6 @@ package org.apache.maven.plugin.jar;
 import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 
 /**
  * Build a JAR of the test classes for the current project. Skip execution if packaging type is 'pom'
@@ -35,13 +34,11 @@ import org.apache.maven.project.MavenProject;
  * @threadSafe
  * @requiresDependencyResolution test
  */
-public class TestJarMojo
-    extends AbstractJarMojo
-{
+public class TestJarMojo extends AbstractJarMojo {
 
     /**
-     * Set this to <code>true</code> to bypass unit tests entirely.
-     * Its use is <b>NOT RECOMMENDED</b>, but quite convenient on occasion.
+     * Set this to <code>true</code> to bypass unit tests entirely. Its use is <b>NOT RECOMMENDED</b>, but quite
+     * convenient on occasion.
      *
      * @parameter expression="${maven.test.skip}"
      */
@@ -56,8 +53,7 @@ public class TestJarMojo
     private File testClassesDirectory;
 
     @Override
-    protected String getClassifier()
-    {
+    protected String getClassifier() {
         return "tests";
     }
 
@@ -65,8 +61,7 @@ public class TestJarMojo
      * @return type of the generated artifact
      */
     @Override
-    protected String getType()
-    {
+    protected String getType() {
         return "test-jar";
     }
 
@@ -74,47 +69,27 @@ public class TestJarMojo
      * Return the test-classes directory, to serve as the root of the tests jar.
      */
     @Override
-    protected File getClassesDirectory()
-    {
+    protected File getClassesDirectory() {
         return testClassesDirectory;
     }
 
-    /**
-     * The Maven project object
-     *
-     * @parameter expression="${project}"
-     * @readonly
-     */
-    private MavenProject project;
-
     protected boolean isSkip() {
-        if ( skip )
-        {
-            getLog().info( "Skipping packaging of the test-jar" );
+        if (skip) {
+            getLog().info("Skipping packaging of the test-jar");
             return true;
         }
-        if (project != null && project.getPackaging().equalsIgnoreCase("pom")) {
+        if ("pom".equalsIgnoreCase(getProject().getPackaging())) {
             return true;
         }
         return false;
     }
 
-	@Override
-    public void execute()
-        throws MojoExecutionException
-    {
-        if ( isSkip() )
-        {
+    @Override
+    public void execute() throws MojoExecutionException {
+        if (isSkip()) {
             return;
-        }
-        else
-        {
+        } else {
             super.execute();
         }
-    }
-
-    @Override
-    public MavenProject getProject() {
-        return project;
     }
 }
