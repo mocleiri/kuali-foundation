@@ -257,12 +257,12 @@ public class JenkinsHelper {
         }
     }
 
-    public ProcessResult executeCli(File jar, String url, Command cmd) {
+    protected ProcessResult executeCli(File jar, String url, Command cmd) {
         String input = getInput(cmd);
         return executeCli(jar, url, cmd.getArgs(), input);
     }
 
-    public ProcessResult executeCli(File jar, String url, List<String> args, String input) {
+    protected ProcessResult executeCli(File jar, String url, List<String> args, String input) {
         String[] cliArgs = getCliArgs(url, args);
         return javaHelper.executeJar(jar, cliArgs, input);
     }
@@ -394,11 +394,11 @@ public class JenkinsHelper {
 
     }
 
-    public void executeCli(BaseMojo mojo, Command command) {
+    protected void executeCli(BaseMojo mojo, Command command) {
         executeCli(mojo, Helper.toList(command));
     }
 
-    public void executeCli(BaseMojo mojo, List<Command> commands) {
+    protected void executeCli(BaseMojo mojo, List<Command> commands) {
         File jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
         String url = mojo.getUrl();
         logger.info("Jenkins CLI: " + jar.getPath());
@@ -473,7 +473,7 @@ public class JenkinsHelper {
         }
     }
 
-    public void generate(BaseMojo mojo, MavenContext context, String type) {
+    protected void generate(BaseMojo mojo, MavenContext context, String type) {
         try {
             String jobName = getJobName(context, type);
             String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
@@ -487,7 +487,7 @@ public class JenkinsHelper {
         }
     }
 
-    public MavenContext getMavenContext(BaseMojo mojo) {
+    protected MavenContext getMavenContext(BaseMojo mojo) {
         MavenContext context = getContext(MavenContext.class, mojo);
         MavenProject project = context.getProject();
         String scmType = extractor.getScmType(project.getScm());
