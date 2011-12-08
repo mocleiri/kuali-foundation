@@ -484,11 +484,23 @@ public class JenkinsHelper {
         }
     }
 
+    protected String getRelativePath(MavenContext context, String filename) {
+        File dir = context.getProject().getBasedir();
+        File file = new File(filename);
+        String relativePath = Helper.getRelativePath(dir, file);
+        if (relativePath == null) {
+            return filename;
+        } else {
+            return relativePath;
+        }
+    }
+
     protected void generateJob(BaseMojo mojo, MavenContext context, String type) {
         try {
             String jobName = getJobName(context, type);
             String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
-            mojo.getLog().info("Generating: " + filename);
+            String relativePath = getRelativePath(context, filename);
+            mojo.getLog().info("Generating: " + relativePath);
             Properties properties = getProperties(context, type, mojo.getTimestampFormat());
             String xml = resourceUtils.read(mojo.getTemplate());
             String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);

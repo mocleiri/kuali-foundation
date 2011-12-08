@@ -16,6 +16,7 @@
 package org.kuali.maven.plugins.jenkins.helper;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -33,6 +34,18 @@ public class Helper {
     public static final String SPACE = " ";
     public static final String COMMA = ",";
     public static final String EMPTY_STRING = "";
+    public static final String FS = System.getProperty("file.separator");
+
+    public static final String getRelativePath(File dir, File file) {
+        String dirPath = dir.getAbsolutePath();
+        String filePath = file.getAbsolutePath();
+        int pos = filePath.indexOf(dirPath);
+        int len = dirPath.length();
+        if (pos == -1) {
+            return null;
+        }
+        return filePath.substring(pos + len + FS.length());
+    }
 
     public static final String toCSV(int[] integers) {
         StringBuilder sb = new StringBuilder();
@@ -200,7 +213,7 @@ public class Helper {
      * Convert List<String> into String[]
      */
     public static final String[] toArray(List<String> list) {
-        return toArray(list);
+        return list.toArray(new String[list.size()]);
     }
 
     /**
@@ -215,7 +228,7 @@ public class Helper {
     }
 
     /**
-     * Combine the elements in the list into string separated by spaces
+     * Combine the elements in the list into a string separated by spaces
      */
     public static final String toString(List<String> list) {
         return toString(toArray(list), SPACE);
