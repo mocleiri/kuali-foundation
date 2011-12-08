@@ -15,7 +15,6 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Connect to a Jenkins server and update one or more Jenkins job
@@ -34,7 +33,7 @@ public class UpdateJobsMojo extends BaseMojo {
     private String updateJobCmd;
 
     @Override
-    public void execute() throws MojoExecutionException {
+    public void execute() {
         helper.pushJobs(this, updateJobCmd);
     }
 

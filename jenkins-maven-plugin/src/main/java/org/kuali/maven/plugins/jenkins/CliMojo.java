@@ -17,8 +17,6 @@ package org.kuali.maven.plugins.jenkins;
 
 import java.util.List;
 
-import org.apache.maven.plugin.MojoExecutionException;
-
 /**
  * Connect to a Jenkins server and execute one or more Jenkins CLI commands.
  *
@@ -61,7 +59,7 @@ public class CliMojo extends BaseMojo {
     private List<Command> commands;
 
     @Override
-    public void execute() throws MojoExecutionException {
+    public void execute() {
         helper.executeCli(this);
     }
 

@@ -15,7 +15,6 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Connect to a Jenkins server and create a Jenkins job
@@ -34,7 +33,7 @@ public class CreateJobsMojo extends BaseMojo {
     private String createJobCmd;
 
     @Override
-    public void execute() throws MojoExecutionException {
+    public void execute() {
         helper.pushJobs(this, createJobCmd);
     }
 
