@@ -300,7 +300,7 @@ public class JenkinsHelper {
             logger.error("Jenkins CLI Exception:" + getErrorMessage(result));
             throw new JenkinsException("Jenkins CLI Exception");
         } else {
-            if (mojo.isStopOnError()) {
+            if (mojo.isFailOnError()) {
                 logError(result.getOutputLines());
             } else {
                 logWarning(result.getOutputLines());
