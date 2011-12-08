@@ -63,6 +63,11 @@ public class RunJobMojo extends SimpleJobMojo {
      */
     private Map<String, String> paramMap;
 
+    @Override
+    protected void executeMojo() {
+        helper.execute(this);
+    }
+
     public boolean isWait() {
         return wait;
     }

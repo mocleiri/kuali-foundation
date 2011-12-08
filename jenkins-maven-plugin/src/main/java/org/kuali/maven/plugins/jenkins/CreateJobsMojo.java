@@ -33,6 +33,11 @@ public class CreateJobsMojo extends PushJobsMojo {
     private String cmd;
 
     @Override
+    protected void executeMojo() {
+        helper.execute(this);
+    }
+
+    @Override
     public String getCmd() {
         return cmd;
     }

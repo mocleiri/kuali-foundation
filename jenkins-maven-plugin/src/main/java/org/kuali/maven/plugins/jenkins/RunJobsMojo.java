@@ -38,6 +38,11 @@ public class RunJobsMojo extends BaseMojo {
      */
     private List<RunJobCommand> commands;;
 
+    @Override
+    protected void executeMojo() {
+        helper.execute(this);
+    }
+
     public List<RunJobCommand> getCommands() {
         return commands;
     }

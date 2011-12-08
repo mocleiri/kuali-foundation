@@ -69,6 +69,11 @@ public class DeleteJobsMojo extends BaseMojo {
      */
     private String ignoreCodes;
 
+    @Override
+    protected void executeMojo() {
+        helper.execute(this);
+    }
+
     protected List<Integer> getIgnoreCodeList() {
         List<Integer> ignoreCodeList = new ArrayList<Integer>();
         String[] tokens = PropertiesUtils.splitAndTrim(ignoreCodes, ",");

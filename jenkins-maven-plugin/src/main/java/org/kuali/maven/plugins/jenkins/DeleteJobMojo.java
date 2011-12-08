@@ -32,6 +32,11 @@ public class DeleteJobMojo extends SimpleJobMojo {
     private String cmd;
 
     @Override
+    protected void executeMojo() {
+        helper.execute(this);
+    }
+
+    @Override
     public String getCmd() {
         return cmd;
     }

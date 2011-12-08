@@ -32,6 +32,11 @@ public class GenJobMojo extends BaseMojo {
      */
     private String type;
 
+    @Override
+    protected void executeMojo() {
+        helper.execute(this);
+    }
+
     public String getType() {
         return type;
     }

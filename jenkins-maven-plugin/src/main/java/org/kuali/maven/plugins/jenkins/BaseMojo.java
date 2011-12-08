@@ -133,14 +133,11 @@ public abstract class BaseMojo extends AbstractMojo {
      */
     private String majorVersion;
 
-    protected  void executeMojo(){
-
-    }
+    protected abstract void executeMojo();
 
     @Override
     public void execute() {
         helper.updateMojo(this);
-        getLog().info(this.getClass().getName());
         executeMojo();
     }
 

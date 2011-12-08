@@ -48,6 +48,11 @@ public class GetJobsMojo extends BaseMojo {
      */
     private List<String> nameList;
 
+    @Override
+    protected void executeMojo() {
+        helper.execute(this);
+    }
+
     public String getCmd() {
         return cmd;
     }
