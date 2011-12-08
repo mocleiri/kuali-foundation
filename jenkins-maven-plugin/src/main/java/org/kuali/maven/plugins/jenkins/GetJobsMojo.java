@@ -24,7 +24,7 @@ import java.util.List;
  * @threadSafe
  * @requiresDependencyResolution test
  */
-public class GetJobMojo extends BaseMojo {
+public class GetJobsMojo extends BaseMojo {
 
     /**
      * The Jenkins CLI command for getting a job
@@ -42,7 +42,7 @@ public class GetJobMojo extends BaseMojo {
     private String names;
 
     /**
-     * List of job names to retrieve. If 'nameList' is provided, 'names' is ignored
+     * List<String> of job names to retrieve. If 'nameList' is provided, 'names' is ignored
      *
      * @parameter
      */

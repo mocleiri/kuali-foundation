@@ -39,7 +39,7 @@ import org.kuali.maven.plugins.jenkins.Command;
 import org.kuali.maven.plugins.jenkins.CreateJobsMojo;
 import org.kuali.maven.plugins.jenkins.GenJobMojo;
 import org.kuali.maven.plugins.jenkins.GenJobsMojo;
-import org.kuali.maven.plugins.jenkins.GetJobMojo;
+import org.kuali.maven.plugins.jenkins.GetJobsMojo;
 import org.kuali.maven.plugins.jenkins.GetJobsMojo;
 import org.kuali.maven.plugins.jenkins.RunJobCommand;
 import org.kuali.maven.plugins.jenkins.RunJobMojo;
@@ -91,7 +91,7 @@ public class JenkinsHelper {
         }
     }
 
-    public void execute(GetJobMojo mojo) {
+    public void execute(GetJobsMojo mojo) {
         String jobName = getJobName(mojo, mojo.getName());
         Command command = createGetJobCommand(mojo, mojo.getGetJobCmd(), jobName);
         executeCli(mojo, command);
