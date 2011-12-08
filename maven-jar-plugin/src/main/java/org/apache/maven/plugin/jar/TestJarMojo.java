@@ -93,7 +93,7 @@ public class TestJarMojo
             getLog().info( "Skipping packaging of the test-jar" );
             return true;
         }
-        if (project.getPackaging().equalsIgnoreCase("pom")) {
+        if (project != null && project.getPackaging().equalsIgnoreCase("pom")) {
             return true;
         }
         return false;
@@ -111,5 +111,10 @@ public class TestJarMojo
         {
             super.execute();
         }
+    }
+
+    @Override
+    public MavenProject getProject() {
+        return project;
     }
 }
