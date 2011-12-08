@@ -25,7 +25,7 @@ public abstract class SimpleJobMojo extends BaseMojo {
     /**
      * The name of the job.
      *
-     * @parameter expression="${jenkins.name}"
+     * @parameter expression="${jenkins.name}" default-value="publish"
      */
     private String name;
 
