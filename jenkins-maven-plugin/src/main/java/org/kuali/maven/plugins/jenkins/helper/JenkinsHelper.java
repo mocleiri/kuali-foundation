@@ -272,8 +272,13 @@ public class JenkinsHelper {
         return Helper.toArray(list);
     }
 
+    protected int[] getSuccessCodes(BaseMojo mojo) {
+        String csv = mojo.getSuccessCodes();
+        return Helper.toIntArray(csv);
+    }
+
     protected void handleResult(Command command, ProcessResult result, BaseMojo mojo) {
-        int[] successCodes = Helper.toIntArray(mojo.getSuccessCodesList());
+        int[] successCodes = getSuccessCodes(mojo);
         int exitValue = result.getExitValue();
         if (Helper.isMatch(exitValue, successCodes)) {
             handleSuccess(command, result);
@@ -421,7 +426,7 @@ public class JenkinsHelper {
     }
 
     protected void handleResults(List<ProcessResult> results, BaseMojo mojo) {
-        int[] successCodes = Helper.toIntArray(mojo.getSuccessCodesList());
+        int[] successCodes = getSuccessCodes(mojo);
         List<ProcessResult> errors = new ArrayList<ProcessResult>();
         for (ProcessResult result : results) {
             int exitValue = result.getExitValue();

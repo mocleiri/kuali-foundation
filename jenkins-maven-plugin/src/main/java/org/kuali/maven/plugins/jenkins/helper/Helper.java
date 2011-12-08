@@ -87,7 +87,7 @@ public class Helper {
     }
 
     public static final List<Integer> toIntegerList(String csv) {
-        int[] integers = toIntegerArray(csv);
+        int[] integers = toIntArray(csv);
         List<Integer> list = new ArrayList<Integer>();
         for (int integer : integers) {
             list.add(integer);
@@ -95,7 +95,7 @@ public class Helper {
         return list;
     }
 
-    public static final int[] toIntegerArray(String csv) {
+    public static final int[] toIntArray(String csv) {
         String[] tokens = splitAndTrimCSV(csv);
         int[] integers = new int[tokens.length];
         for (int i = 0; i < integers.length; i++) {
