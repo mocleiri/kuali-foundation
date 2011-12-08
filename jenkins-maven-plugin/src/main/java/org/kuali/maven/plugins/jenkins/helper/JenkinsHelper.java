@@ -36,16 +36,15 @@ import org.kuali.maven.common.ResourceUtils;
 import org.kuali.maven.plugins.jenkins.BaseMojo;
 import org.kuali.maven.plugins.jenkins.CliMojo;
 import org.kuali.maven.plugins.jenkins.Command;
-import org.kuali.maven.plugins.jenkins.CreateJobsMojo;
 import org.kuali.maven.plugins.jenkins.GenJobMojo;
 import org.kuali.maven.plugins.jenkins.GenJobsMojo;
 import org.kuali.maven.plugins.jenkins.GetJobsMojo;
+import org.kuali.maven.plugins.jenkins.PushJobsMojo;
 import org.kuali.maven.plugins.jenkins.RunJobCommand;
 import org.kuali.maven.plugins.jenkins.RunJobMojo;
 import org.kuali.maven.plugins.jenkins.RunJobsMojo;
 import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
 import org.kuali.maven.plugins.jenkins.SimpleJobMojo;
-import org.kuali.maven.plugins.jenkins.UpdateJobsMojo;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.JenkinsException;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
@@ -439,11 +438,7 @@ public class JenkinsHelper {
         executeCli(mojo, commands);
     }
 
-    public void execute(CreateJobsMojo mojo) {
-        pushJobs(mojo, mojo.getCmd());
-    }
-
-    public void execute(UpdateJobsMojo mojo) {
+    public void execute(PushJobsMojo mojo) {
         pushJobs(mojo, mojo.getCmd());
     }
 

@@ -16,28 +16,10 @@
 package org.kuali.maven.plugins.jenkins;
 
 /**
- * Connect to a Jenkins server and update one or more Jenkins job
  *
- * @goal updatejobs
- * @requiresDependencyResolution test
  */
-public class UpdateJobsMojo extends PushJobsMojo {
+public abstract class PushJobsMojo extends BaseMojo {
 
-    /**
-     * The Jenkins CLI command for updating a job
-     *
-     * @parameter expression="${jenkins.cmd}" default-value="update-job"
-     * @required
-     */
-    private String cmd;
-
-    @Override
-    public String getCmd() {
-        return cmd;
-    }
-
-    public void setCmd(String cmd) {
-        this.cmd = cmd;
-    }
+    public abstract String getCmd();
 
 }

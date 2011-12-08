@@ -21,7 +21,7 @@ package org.kuali.maven.plugins.jenkins;
  * @goal createjobs
  * @requiresDependencyResolution test
  */
-public class CreateJobsMojo extends BaseMojo {
+public class CreateJobsMojo extends PushJobsMojo {
 
     /**
      * The Jenkins CLI command for creating a job
@@ -31,6 +31,7 @@ public class CreateJobsMojo extends BaseMojo {
      */
     private String cmd;
 
+    @Override
     public String getCmd() {
         return cmd;
     }
