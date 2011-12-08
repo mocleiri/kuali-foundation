@@ -19,6 +19,7 @@ package org.kuali.maven.plugins.jenkins;
  * Connect to a Jenkins server and create a Jenkins job
  *
  * @goal createjobs
+ * @threadSafe
  * @requiresDependencyResolution test
  */
 public class CreateJobsMojo extends PushJobsMojo {
