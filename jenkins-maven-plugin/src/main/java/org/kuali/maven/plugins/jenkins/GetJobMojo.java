@@ -50,7 +50,7 @@ public class GetJobMojo extends BaseMojo {
 
     @Override
     public void execute() {
-        helper.getJob(this);
+        helper.execute(this);
     }
 
     public String getType() {

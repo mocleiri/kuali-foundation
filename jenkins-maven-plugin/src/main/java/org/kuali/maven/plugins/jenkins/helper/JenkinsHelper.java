@@ -46,8 +46,8 @@ import org.kuali.maven.plugins.jenkins.RunJobMojo;
 import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
 import org.kuali.maven.plugins.jenkins.SimpleJobMojo;
 import org.kuali.maven.plugins.jenkins.UpdateJobsMojo;
-import org.kuali.maven.plugins.jenkins.context.JenkinsException;
 import org.kuali.maven.plugins.jenkins.context.GAV;
+import org.kuali.maven.plugins.jenkins.context.JenkinsException;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
@@ -88,14 +88,14 @@ public class JenkinsHelper {
         }
     }
 
-    public void getJob(GetJobMojo mojo) {
+    public void execute(GetJobMojo mojo) {
         MavenContext context = getMavenContext(mojo);
         String jobName = getJobName(context, mojo.getName(), mojo.getType());
         Command command = createGetJobCommand(mojo, mojo.getGetJobCmd(), jobName);
         executeCli(mojo, command);
     }
 
-    public void getJobs(GetJobsMojo mojo) {
+    public void execute(GetJobsMojo mojo) {
         List<String> types = Helper.splitAndTrimCSVToList(mojo.getTypes());
         MavenContext context = getMavenContext(mojo);
         List<String> jobNames = getJobNames(context, mojo.getNames(), types);
