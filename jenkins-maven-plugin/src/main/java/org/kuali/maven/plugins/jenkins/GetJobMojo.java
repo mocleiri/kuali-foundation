@@ -24,39 +24,18 @@ package org.kuali.maven.plugins.jenkins;
 public class GetJobMojo extends BaseMojo {
 
     /**
-     * The command issued to Jenkins CLI
+     * The Jenkins CLI command for getting a job
      *
-     * @parameter expression="${jenkins.getJobCmd}" default-value="get-job"
+     * @parameter expression="${jenkins.cmd}" default-value="get-job"
      * @required
      */
-    private String getJobCmd;
+    private String cmd;
 
     /**
      * The name of the job to retrieve.
      *
-     * @parameter expression="${jenkins.name}"
+     * @parameter expression="${jenkins.name}" default-value="publish"
      */
     private String name;
-
-    @Override
-    public void execute() {
-        helper.execute(this);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGetJobCmd() {
-        return getJobCmd;
-    }
-
-    public void setGetJobCmd(String getJobCmd) {
-        this.getJobCmd = getJobCmd;
-    }
 
 }

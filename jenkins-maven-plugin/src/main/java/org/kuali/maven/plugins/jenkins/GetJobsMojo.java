@@ -28,39 +28,17 @@ public class GetJobsMojo extends BaseMojo {
     /**
      * The Jenkins CLI command for getting a job
      *
-     * @parameter expression="${jenkins.getJobCmd}" default-value="get-job"
+     * @parameter expression="${jenkins.cmd}" default-value="get-job"
      * @required
      */
-    private String getJobCmd;
+    private String cmd;
 
     /**
-     * The types of jobs to retrieve. Maven GAV info is combined with 'type' to derive the complete job name eg
-     * 'jenkins-maven-plugin-1.0-publish'
-     *
-     * @parameter expression="${jenkins.types}" default-value="publish,unit,license,release"
-     * @required
-     */
-    private String types;
-
-    /**
-     * The explicit list of jobs to retrieve. If names are provided, 'types' is ignored.
+     * The list of job names to get
      *
      * @parameter
      */
     private List<String> names;
-
-    @Override
-    public void execute() {
-        helper.execute(this);
-    }
-
-    public String getTypes() {
-        return types;
-    }
-
-    public void setTypes(String types) {
-        this.types = types;
-    }
 
     public List<String> getNames() {
         return names;
@@ -70,11 +48,4 @@ public class GetJobsMojo extends BaseMojo {
         this.names = names;
     }
 
-    public String getGetJobCmd() {
-        return getJobCmd;
-    }
-
-    public void setGetJobCmd(String getJobCmd) {
-        this.getJobCmd = getJobCmd;
-    }
 }

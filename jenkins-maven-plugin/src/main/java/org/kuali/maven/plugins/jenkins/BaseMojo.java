@@ -115,6 +115,33 @@ public abstract class BaseMojo extends AbstractMojo {
      */
     private String jobTypes;
 
+    /**
+     *
+     * @parameter expression="${jenkins.scmType}"
+     * @required
+     */
+    private String scmType;
+
+    /**
+     *
+     * @parameter expression="${jenkins.scmUrl}"
+     * @required
+     */
+    private String scmUrl;
+
+    /**
+     *
+     * @parameter expression="${jenkins.majorVersion}"
+     * @required
+     */
+    private String majorVersion;
+
+    @Override
+    public void execute() {
+        helper.updateMojo(this);
+        helper.execute(this);
+    }
+
     public String getTemplate() {
         return template;
     }
@@ -187,9 +214,28 @@ public abstract class BaseMojo extends AbstractMojo {
         this.jobTypes = jobTypes;
     }
 
-    @Override
-    public void execute() {
-        helper.execute(this);
+    public String getScmType() {
+        return scmType;
+    }
+
+    public void setScmType(String scmType) {
+        this.scmType = scmType;
+    }
+
+    public String getScmUrl() {
+        return scmUrl;
+    }
+
+    public void setScmUrl(String scmUrl) {
+        this.scmUrl = scmUrl;
+    }
+
+    public String getMajorVersion() {
+        return majorVersion;
+    }
+
+    public void setMajorVersion(String majorVersion) {
+        this.majorVersion = majorVersion;
     }
 
 }
