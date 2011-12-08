@@ -40,7 +40,6 @@ import org.kuali.maven.plugins.jenkins.CreateJobsMojo;
 import org.kuali.maven.plugins.jenkins.GenJobMojo;
 import org.kuali.maven.plugins.jenkins.GenJobsMojo;
 import org.kuali.maven.plugins.jenkins.GetJobsMojo;
-import org.kuali.maven.plugins.jenkins.GetJobsMojo;
 import org.kuali.maven.plugins.jenkins.RunJobCommand;
 import org.kuali.maven.plugins.jenkins.RunJobMojo;
 import org.kuali.maven.plugins.jenkins.RunJobsMojo;
@@ -91,15 +90,18 @@ public class JenkinsHelper {
         }
     }
 
-    public void execute(GetJobsMojo mojo) {
-        String jobName = getJobName(mojo, mojo.getName());
-        Command command = createGetJobCommand(mojo, mojo.getGetJobCmd(), jobName);
-        executeCli(mojo, command);
+    protected List<String> getNamesList(String csvNames, List<String> names) {
+        if (!Helper.isEmpty(names)) {
+            return names;
+        } else {
+            return Helper.splitAndTrimCSVToList(csvNames);
+        }
     }
 
-    protected List<String> getJobNames(BaseMojo mojo, List<String> names) {
+    protected List<String> getJobNames(BaseMojo mojo, String csvNames, List<String> names) {
+        List<String> namesList = getNamesList(csvNames, names);
         List<String> newNames = new ArrayList<String>();
-        for (String name : names) {
+        for (String name : namesList) {
             String newName = getJobName(mojo, name);
             newNames.add(newName);
         }
@@ -107,8 +109,8 @@ public class JenkinsHelper {
     }
 
     public void execute(GetJobsMojo mojo) {
-        List<String> jobNames = getJobNames(mojo, mojo.getNames());
-        List<Command> commands = createGetJobCommands(mojo, mojo.getGetJobCmd(), jobNames);
+        List<String> jobNames = getJobNames(mojo, mojo.getNames(), mojo.getNameList());
+        List<Command> commands = createGetJobCommands(mojo, mojo.getCmd(), jobNames);
         executeCli(mojo, commands);
     }
 
