@@ -42,6 +42,7 @@
    The Maven version prints a warning that no content as been marked for inclusion but still
    creates and deploys a "-tests.jar" for pom projects.
   </description>
+  <url>http://${kuali.site.hostname}/org/apache/maven/plugins/${project.artifactId}/${project.version}</url>
 
   <developers>
     <developer>
