@@ -20,7 +20,9 @@ package org.apache.maven.plugin.jar;
  */
 
 import java.io.File;
+
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
 
 /**
  * Build a JAR of the test classes for the current project.
@@ -53,6 +55,7 @@ public class TestJarMojo
      */
     private File testClassesDirectory;
 
+    @Override
     protected String getClassifier()
     {
         return "tests";
@@ -61,6 +64,7 @@ public class TestJarMojo
     /**
      * @return type of the generated artifact
      */
+    @Override
     protected String getType()
     {
         return "test-jar";
@@ -69,17 +73,39 @@ public class TestJarMojo
     /**
      * Return the test-classes directory, to serve as the root of the tests jar.
      */
+    @Override
     protected File getClassesDirectory()
     {
         return testClassesDirectory;
     }
 
-	public void execute()
-        throws MojoExecutionException
-    {
+    /**
+     * The Maven project object
+     *
+     * @parameter expression="${project}"
+     * @readonly
+     */
+    private MavenProject project;
+
+    protected boolean isSkip() {
         if ( skip )
         {
             getLog().info( "Skipping packaging of the test-jar" );
+            return true;
+        }
+        if (project.getPackaging().equalsIgnoreCase("pom")) {
+            return true;
+        }
+        return false;
+    }
+
+	@Override
+    public void execute()
+        throws MojoExecutionException
+    {
+        if ( isSkip() )
+        {
+            return;
         }
         else
         {
