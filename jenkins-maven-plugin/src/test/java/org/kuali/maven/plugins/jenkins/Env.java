@@ -33,7 +33,7 @@ public class Env {
 
     public void write() {
         try {
-            FileUtils.write(new File("/Users/jeffcaddel/env.htm"), getHtml());
+            FileUtils.write(new File("." + FS + "env.htm"), getHtml());
         } catch (IOException e) {
             e.printStackTrace();
         }
