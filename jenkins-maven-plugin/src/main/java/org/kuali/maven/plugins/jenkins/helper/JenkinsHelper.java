@@ -402,6 +402,16 @@ public class JenkinsHelper {
 
     public void execute(RunJobsMojo mojo) {
         MavenContext context = getMavenContext(mojo);
+        List<RunJobCommand> commands = mojo.getCommands();
+        if (Helper.isEmpty(commands)) {
+            return;
+        }
+        for (RunJobCommand command : commands) {
+            String name = getJobName(context, command.getName());
+            String cmd = mojo.getCmd();
+            command.setName(name);
+            command.setCommand(cmd);
+        }
         String jobName = getJobName(context, mojo.getName(), mojo.getType());
         Map<String, String> params = getBuildParameters(mojo.getParamMap(), mojo.getParams());
         RunJobCommand rjc = getRunJobCommand(mojo, jobName, params);

@@ -17,8 +17,6 @@ package org.kuali.maven.plugins.jenkins;
 
 import java.util.List;
 
-import org.apache.maven.plugin.MojoExecutionException;
-
 /**
  * Connect to a Jenkins server and kick off one or more jobs
  *
@@ -28,14 +26,17 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class RunJobsMojo extends BaseMojo {
 
     /**
+     * The Jenkins CLI command for running a job
+     *
+     * @parameter expression="${jenkins.cmd}" default-value="build"
+     * @required
+     */
+    private String cmd;
+
+    /**
      * @parameter
      */
     private List<RunJobCommand> commands;;
-
-    @Override
-    public void execute() throws MojoExecutionException {
-        helper.execute(this);
-    }
 
     public List<RunJobCommand> getCommands() {
         return commands;
@@ -43,6 +44,14 @@ public class RunJobsMojo extends BaseMojo {
 
     public void setCommands(List<RunJobCommand> commands) {
         this.commands = commands;
+    }
+
+    public String getCmd() {
+        return cmd;
+    }
+
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
     }
 
 }

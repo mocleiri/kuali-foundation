@@ -15,8 +15,6 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-import org.apache.maven.plugin.MojoExecutionException;
-
 /**
  * Connect to a Jenkins server and delete a job
  *
@@ -26,17 +24,12 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class DeleteJobMojo extends SimpleJobMojo {
 
     /**
-     * The Jenkins CLI command for running a job
+     * The Jenkins CLI command for deleting a job
      *
      * @parameter expression="${jenkins.cmd}" default-value="delete-job"
      * @required
      */
     private String cmd;
-
-    @Override
-    public void execute() throws MojoExecutionException {
-        helper.execute(this);
-    }
 
     @Override
     public String getCmd() {

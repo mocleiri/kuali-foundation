@@ -18,7 +18,6 @@ package org.kuali.maven.plugins.jenkins;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import org.kuali.maven.common.PropertiesUtils;
 
 /**
@@ -69,17 +68,6 @@ public class DeleteJobsMojo extends BaseMojo {
      * @required
      */
     private String ignoreCodes;
-
-    @Override
-    public void execute() throws MojoExecutionException {
-        getLog().info("help me");
-        /*
-        String[] tokens = PropertiesUtils.splitAndTrim(types, ",");
-        List<MojoContext> contexts = helper.deleteJobs(this, names, tokens);
-        List<Integer> ignoreCodeList = getIgnoreCodeList();
-        helper.handleResults(contexts, ignoreCodeList);
-        */
-    }
 
     protected List<Integer> getIgnoreCodeList() {
         List<Integer> ignoreCodeList = new ArrayList<Integer>();
