@@ -17,8 +17,6 @@ package org.kuali.maven.plugins.jenkins;
 
 import java.util.List;
 
-import org.apache.maven.plugin.MojoExecutionException;
-
 /**
  * Connect to a Jenkins server and retrieve XML documents describing one or more job configurations
  *
@@ -52,7 +50,7 @@ public class GetJobsMojo extends BaseMojo {
     private List<String> names;
 
     @Override
-    public void execute() throws MojoExecutionException {
+    public void execute() {
         helper.getJobs(this);
     }
 
