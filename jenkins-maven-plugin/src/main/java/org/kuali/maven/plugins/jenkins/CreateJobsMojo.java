@@ -34,7 +34,7 @@ public class CreateJobsMojo extends BaseMojo {
 
     @Override
     public void execute() {
-        helper.pushJobs(this, createJobCmd);
+        helper.execute(this);
     }
 
     public String getCreateJobCmd() {

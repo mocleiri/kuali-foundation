@@ -15,7 +15,6 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-
 /**
  * Connect to a Jenkins server and update one or more Jenkins job
  *
@@ -34,7 +33,7 @@ public class UpdateJobsMojo extends BaseMojo {
 
     @Override
     public void execute() {
-        helper.pushJobs(this, updateJobCmd);
+        helper.execute(this);
     }
 
     public String getUpdateJobCmd() {
