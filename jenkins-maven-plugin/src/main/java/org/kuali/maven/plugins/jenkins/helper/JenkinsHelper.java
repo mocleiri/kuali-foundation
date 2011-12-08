@@ -400,7 +400,7 @@ public class JenkinsHelper {
         pushJobs(mojo, mojo.getUpdateJobCmd());
     }
 
-    public void executeCli(CliMojo mojo) {
+    public void execute(CliMojo mojo) {
         List<Command> cmds = cmdHelper.getCommands(mojo);
         executeCli(mojo, cmds);
     }

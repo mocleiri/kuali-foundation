@@ -60,7 +60,7 @@ public class CliMojo extends BaseMojo {
 
     @Override
     public void execute() {
-        helper.executeCli(this);
+        helper.execute(this);
     }
 
     public String getCmd() {
