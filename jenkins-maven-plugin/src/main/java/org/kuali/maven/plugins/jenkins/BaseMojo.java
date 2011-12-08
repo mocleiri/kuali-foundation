@@ -118,27 +118,25 @@ public abstract class BaseMojo extends AbstractMojo {
     /**
      *
      * @parameter expression="${jenkins.scmType}"
-     * @required
      */
     private String scmType;
 
     /**
      *
      * @parameter expression="${jenkins.scmUrl}"
-     * @required
      */
     private String scmUrl;
 
     /**
      *
      * @parameter expression="${jenkins.majorVersion}"
-     * @required
      */
     private String majorVersion;
 
     @Override
     public void execute() {
         helper.updateMojo(this);
+        getLog().info(this.getClass().getName());
         helper.execute(this);
     }
 
