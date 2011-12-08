@@ -434,8 +434,7 @@ public class JenkinsHelper {
         if (Helper.isEmpty(mojo.getCommands())) {
             return;
         }
-        MavenContext context = getMavenContext(mojo);
-        updateCommands(mojo.getCommands(), mojo.getCmd(), context);
+        updateCommands(mojo.getCommands(), mojo.getCmd(), mojo);
         List<Command> commands = getCommands(mojo.getCommands());
         executeCli(mojo, commands);
     }
