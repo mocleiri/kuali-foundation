@@ -26,7 +26,7 @@ import java.util.List;
 public class CliMojo extends BaseMojo {
 
     /**
-     * Jenkins CLI command to issue eg "help", "version", "who-ami-i" etc
+     * Jenkins CLI command to issue eg "help", "version", "who-ami-i", "build my-job -c -s" etc
      *
      * @parameter expression="${jenkins.cmd}" default-value="version"
      * @required
