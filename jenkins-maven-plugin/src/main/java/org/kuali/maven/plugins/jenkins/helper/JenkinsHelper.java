@@ -46,7 +46,7 @@ import org.kuali.maven.plugins.jenkins.RunJobMojo;
 import org.kuali.maven.plugins.jenkins.SimpleJobCommand;
 import org.kuali.maven.plugins.jenkins.SimpleJobMojo;
 import org.kuali.maven.plugins.jenkins.UpdateJobsMojo;
-import org.kuali.maven.plugins.jenkins.context.CliException;
+import org.kuali.maven.plugins.jenkins.context.JenkinsException;
 import org.kuali.maven.plugins.jenkins.context.GAV;
 import org.kuali.maven.plugins.jenkins.context.MavenContext;
 import org.kuali.maven.plugins.jenkins.context.ProcessContext;
@@ -76,7 +76,7 @@ public class JenkinsHelper {
             copyProperties(context, mojo);
             return context;
         } catch (Exception e) {
-            throw new CliException(e);
+            throw new JenkinsException(e);
         }
     }
 
@@ -84,7 +84,7 @@ public class JenkinsHelper {
         try {
             BeanUtils.copyProperties(dest, orig);
         } catch (Exception e) {
-            throw new CliException(e);
+            throw new JenkinsException(e);
         }
     }
 
@@ -169,7 +169,7 @@ public class JenkinsHelper {
             }
             return gav;
         } catch (IOException e) {
-            throw new CliException(e);
+            throw new JenkinsException(e);
         }
 
     }
@@ -178,7 +178,7 @@ public class JenkinsHelper {
         GAV gav = getGav(project);
         File jar = getJar(gav, pluginArtifacts);
         if (jar == null) {
-            throw new CliException("Unable to locate jenkins-cli.jar");
+            throw new JenkinsException("Unable to locate jenkins-cli.jar");
         } else {
             return jar;
         }
@@ -211,7 +211,7 @@ public class JenkinsHelper {
             List<Command> commands = getCommands(mojo.getWorkingDir(), cmd);
             executeCli(mojo, commands);
         } catch (IOException e) {
-            throw new CliException(e);
+            throw new JenkinsException(e);
         }
 
     }
@@ -247,7 +247,7 @@ public class JenkinsHelper {
             try {
                 return resourceUtils.read(cmd.getStdinUrl());
             } catch (IOException e) {
-                throw new CliException(e);
+                throw new JenkinsException(e);
             }
         } else {
             return cmd.getStdin();
@@ -317,7 +317,7 @@ public class JenkinsHelper {
     protected void handleFailure(BaseMojo mojo, ProcessResult result) {
         if (mojo.isStopOnError()) {
             logger.error("Jenkins CLI Exception:" + getErrorMessage(result));
-            throw new CliException("Jenkins CLI Exception");
+            throw new JenkinsException("Jenkins CLI Exception");
         } else {
             if (mojo.isStopOnError()) {
                 logError(result.getOutputLines());
@@ -340,7 +340,7 @@ public class JenkinsHelper {
         try {
             resourceUtils.write(filename, content);
         } catch (IOException e) {
-            throw new CliException(e);
+            throw new JenkinsException(e);
         }
     }
 
@@ -434,7 +434,7 @@ public class JenkinsHelper {
         }
         if (mojo.isFailOnError()) {
             logger.error(getErrorMessage(errors));
-            throw new CliException("Jenkins CLI error");
+            throw new JenkinsException("Jenkins CLI error");
         } else {
             logger.warn(getErrorMessage(errors));
         }
@@ -511,7 +511,7 @@ public class JenkinsHelper {
             String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
             resourceUtils.write(filename, resolvedXml);
         } catch (IOException e) {
-            throw new CliException(e);
+            throw new JenkinsException(e);
         }
     }
 
