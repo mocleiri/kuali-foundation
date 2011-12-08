@@ -206,7 +206,7 @@ public class JenkinsHelper {
         return Arrays.asList(files);
     }
 
-    public void pushJobs(BaseMojo mojo, String cmd) {
+    protected void pushJobs(BaseMojo mojo, String cmd) {
         try {
             List<Command> commands = getCommands(mojo.getWorkingDir(), cmd);
             executeCli(mojo, commands);
@@ -528,7 +528,7 @@ public class JenkinsHelper {
         return context;
     }
 
-    public String getJobName(MavenContext context, String name, String type) {
+    protected String getJobName(MavenContext context, String name, String type) {
         if (!StringUtils.isBlank(name)) {
             return name;
         } else {
@@ -536,7 +536,7 @@ public class JenkinsHelper {
         }
     }
 
-    public String getJobName(MavenContext context, String type) {
+    protected String getJobName(MavenContext context, String type) {
         StringBuilder sb = new StringBuilder();
         sb.append(context.getProject().getArtifactId());
         sb.append("-");
