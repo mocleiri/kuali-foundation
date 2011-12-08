@@ -15,7 +15,6 @@
  */
 package org.kuali.maven.plugins.jenkins;
 
-
 /**
  * Connect to a Jenkins server and retrieve an XML document describing the job configuration
  *
@@ -33,16 +32,7 @@ public class GetJobMojo extends BaseMojo {
     private String getJobCmd;
 
     /**
-     * The type of job to retrieve. Maven GAV info is combined with 'type' to derive the complete job name eg
-     * 'jenkins-maven-plugin-1.0-publish'
-     *
-     * @parameter expression="${jenkins.type}" default-value="publish"
-     * @required
-     */
-    private String type;
-
-    /**
-     * The name of the job to retrieve. If name is supplied, 'type' is ignored
+     * The name of the job to retrieve.
      *
      * @parameter expression="${jenkins.name}"
      */
@@ -51,14 +41,6 @@ public class GetJobMojo extends BaseMojo {
     @Override
     public void execute() {
         helper.execute(this);
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getName() {

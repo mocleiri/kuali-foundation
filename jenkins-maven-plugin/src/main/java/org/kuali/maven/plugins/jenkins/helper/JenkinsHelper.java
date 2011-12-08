@@ -93,7 +93,7 @@ public class JenkinsHelper {
 
     public void execute(GetJobMojo mojo) {
         MavenContext context = getMavenContext(mojo);
-        String jobName = getJobName(context, mojo.getName(), mojo.getType());
+        String jobName = getJobName(context, mojo.getName());
         Command command = createGetJobCommand(mojo, mojo.getGetJobCmd(), jobName);
         executeCli(mojo, command);
     }
@@ -386,9 +386,13 @@ public class JenkinsHelper {
         return rjc;
     }
 
+    public void execute(BaseMojo mojo) {
+        mojo.getLog().info("Jenkins Maven Plugin");
+    }
+
     public void execute(RunJobMojo mojo) {
         MavenContext context = getMavenContext(mojo);
-        String jobName = getJobName(context, mojo.getName(), mojo.getType());
+        String jobName = getJobName(context, mojo.getName());
         Map<String, String> params = getBuildParameters(mojo.getParamMap(), mojo.getParams());
         RunJobCommand rjc = getRunJobCommand(mojo, jobName, params);
         Command command = new Command();
@@ -493,22 +497,22 @@ public class JenkinsHelper {
     public void execute(GenJobsMojo mojo) {
         MavenContext context = getMavenContext(mojo);
         List<String> types = Helper.splitAndTrimCSVToList(mojo.getTypes());
-        generateJobs(mojo, context, types);
+        generateJobs(context, types);
     }
 
     public void execute(GenJobMojo mojo) {
         MavenContext context = getMavenContext(mojo);
-        generateJob(mojo, context, mojo.getType());
+        generateJob(context, mojo.getType());
     }
 
-    protected void generateJobs(BaseMojo mojo, MavenContext context, List<String> types) {
+    protected void generateJobs(MavenContext context, List<String> types) {
         for (String type : types) {
-            generateJob(mojo, context, type);
+            generateJob(context, type);
         }
     }
 
     protected String getRelativePath(MavenContext context, String filename) {
-        File dir = context.getProject().getBasedir();
+        File dir = context.getMojo().getProject().getBasedir();
         File file = new File(filename);
         String relativePath = Helper.getRelativePath(dir, file);
         if (relativePath == null) {
@@ -518,8 +522,9 @@ public class JenkinsHelper {
         }
     }
 
-    protected void generateJob(BaseMojo mojo, MavenContext context, String type) {
+    protected void generateJob(MavenContext context, String type) {
         try {
+            BaseMojo mojo = context.getMojo();
             String jobName = getJobName(context, type);
             String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
             String relativePath = getRelativePath(context, filename);
@@ -534,24 +539,17 @@ public class JenkinsHelper {
     }
 
     protected MavenContext getMavenContext(BaseMojo mojo) {
-        MavenContext context = getContext(MavenContext.class, mojo);
-        MavenProject project = context.getProject();
+        MavenProject project = mojo.getProject();
         String scmType = extractor.getScmType(project.getScm());
         String scmUrl = extractor.getScmUrl(project.getScm());
         String majorVersion = extractor.getMajorVersion(project.getVersion());
 
+        MavenContext context = new MavenContext();
         context.setMajorVersion(majorVersion);
         context.setScmType(scmType);
         context.setScmUrl(scmUrl);
+        context.setMojo(mojo);
         return context;
-    }
-
-    protected String getJobName(MavenContext context, String name, String type) {
-        if (!StringUtils.isBlank(name)) {
-            return name;
-        } else {
-            return getJobName(context, type);
-        }
     }
 
     protected boolean isKnownJobType(BaseMojo mojo, String name) {
@@ -566,8 +564,9 @@ public class JenkinsHelper {
         return jobTypesList.contains(name);
     }
 
-    protected String getJobName(BaseMojo mojo, MavenContext context, String name) {
-        if (isKnownJobType(mojo, name)) {
+    protected String getJobName(MavenContext context, String name) {
+        BaseMojo mojo = context.getMojo();
+        if (isKnownJobType(context.getMojo(), name)) {
             StringBuilder sb = new StringBuilder();
             sb.append(mojo.getProject().getArtifactId());
             sb.append(DASH);
@@ -580,12 +579,12 @@ public class JenkinsHelper {
         }
     }
 
-    protected Properties getProperties(MavenContext mvnContext, String type, String timestampFormat) throws IOException {
+    protected Properties getProperties(MavenContext context, String type, String timestampFormat) throws IOException {
 
-        List<String> locations = getLocations(mvnContext, type);
+        List<String> locations = getLocations(context, type);
         Properties resourceProperties = propertiesUtils.getProperties(locations);
-        Properties jenkinsProperties = getJenkinsProperties(mvnContext, timestampFormat);
-        Properties projectProperties = mvnContext.getProject().getProperties();
+        Properties jenkinsProperties = getJenkinsProperties(context, timestampFormat);
+        Properties projectProperties = context.getMojo().getProject().getProperties();
         Properties environmentProperties = propertiesUtils.getEnvironmentProperties();
         Properties systemProperties = System.getProperties();
 
@@ -601,7 +600,7 @@ public class JenkinsHelper {
     protected Properties getJenkinsProperties(MavenContext context, String timestampFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat(timestampFormat);
         Date now = new Date(System.currentTimeMillis());
-        MavenProject project = context.getProject();
+        MavenProject project = context.getMojo().getProject();
         Properties properties = new Properties();
         properties.setProperty("jenkins.project.scmType", context.getScmType());
         properties.setProperty("jenkins.project.scmUrl", context.getScmUrl());

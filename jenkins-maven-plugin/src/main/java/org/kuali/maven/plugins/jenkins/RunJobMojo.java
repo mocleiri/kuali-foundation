@@ -30,10 +30,10 @@ public class RunJobMojo extends SimpleJobMojo {
     /**
      * The Jenkins CLI command for running a job
      *
-     * @parameter expression="${jenkins.runJobCmd}" default-value="build"
+     * @parameter expression="${jenkins.cmd}" default-value="build"
      * @required
      */
-    private String runJobCmd;
+    private String cmd;
 
     /**
      * If true, wait for the job to complete before continuing.
@@ -66,21 +66,8 @@ public class RunJobMojo extends SimpleJobMojo {
     private Map<String, String> paramMap;
 
     @Override
-    public String getCmd() {
-        return getRunJobCmd();
-    }
-
-    @Override
     public void execute() throws MojoExecutionException {
         helper.execute(this);
-    }
-
-    public String getRunJobCmd() {
-        return runJobCmd;
-    }
-
-    public void setRunJobCmd(String cmd) {
-        this.runJobCmd = cmd;
     }
 
     public boolean isWait() {
@@ -113,6 +100,15 @@ public class RunJobMojo extends SimpleJobMojo {
 
     public void setParams(String params) {
         this.params = params;
+    }
+
+    @Override
+    public String getCmd() {
+        return cmd;
+    }
+
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
     }
 
 }

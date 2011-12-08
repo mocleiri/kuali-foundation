@@ -187,4 +187,9 @@ public abstract class BaseMojo extends AbstractMojo {
         this.jobTypes = jobTypes;
     }
 
+    @Override
+    public void execute() {
+        helper.execute(this);
+    }
+
 }
