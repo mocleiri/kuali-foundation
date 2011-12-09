@@ -152,10 +152,10 @@
             </goals>
             <configuration>
               <commands>
-                <command>
+                <runJobCommand>
                   <name>publish</name>
-                  <wait>true</wait>
-                </command>
+                  <skipIfNoChanges>true</skipIfNoChanges>
+                </runJobCommand>
               </commands>
             </configuration>
           </execution>
