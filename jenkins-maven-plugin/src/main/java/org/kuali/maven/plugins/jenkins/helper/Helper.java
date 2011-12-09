@@ -301,7 +301,7 @@ public class Helper {
     }
 
     /**
-     * Return true if args is null or length zero
+     * Return true if strings is null or length zero
      */
     public static final boolean isEmpty(String[] strings) {
         return strings == null || strings.length == 0;
