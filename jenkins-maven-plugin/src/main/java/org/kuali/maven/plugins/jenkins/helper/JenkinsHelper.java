@@ -466,7 +466,7 @@ public class JenkinsHelper {
         logger.info("Jenkins URL: " + url);
         List<ProcessResult> results = new ArrayList<ProcessResult>();
         for (Command command : commands) {
-            logger.info("Issuing command '" + Helper.toString(command.getArgs()) + "'");
+            logger.info(Helper.toString(command.getArgs()));
             ProcessResult result = executeCli(jar, url, command);
             handleResult(command, result, mojo);
             results.add(result);
