@@ -116,18 +116,24 @@ public abstract class BaseMojo extends AbstractMojo {
     private String jobTypes;
 
     /**
+     * This is the type of SCM for the project eg "svn" or "git". If not provided, this value is filled in automatically
+     * based on information in the POM.
      *
      * @parameter expression="${jenkins.scmType}"
      */
     private String scmType;
 
     /**
+     * This is the SCM url for the project eg "http://svn.kuali.org/repos/foundation/trunk/jenkins-maven-plugin". If not
+     * provided, this value is filled in automatically based on information in the POM.
      *
      * @parameter expression="${jenkins.scmUrl}"
      */
     private String scmUrl;
 
     /**
+     * This is the "major version" for the project. For a project with the version "1.1.0" the major version is "1.1".
+     * If not provided, this value is filled in automatically based on information from the POM.
      *
      * @parameter expression="${jenkins.majorVersion}"
      */
