@@ -21,6 +21,7 @@ import java.util.List;
  * Connect to a Jenkins server and execute one or more Jenkins CLI commands.
  *
  * @goal cli
+ * @threadSafe
  * @requiresDependencyResolution test
  */
 public class CliMojo extends BaseMojo {

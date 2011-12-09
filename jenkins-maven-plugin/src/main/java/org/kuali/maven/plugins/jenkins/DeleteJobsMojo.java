@@ -21,6 +21,7 @@ import java.util.List;
  * Connect to a Jenkins server and delete one or more jobs
  *
  * @goal deletejobs
+ * @threadSafe
  * @requiresDependencyResolution test
  */
 public class DeleteJobsMojo extends BaseMojo {

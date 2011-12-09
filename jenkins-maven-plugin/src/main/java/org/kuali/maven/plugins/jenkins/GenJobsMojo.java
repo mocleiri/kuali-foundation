@@ -19,6 +19,7 @@ package org.kuali.maven.plugins.jenkins;
  * Generate XML config files in the format required for Jenkins jobs
  *
  * @goal genjobs
+ * @threadSafe
  * @requiresDependencyResolution test
  */
 public class GenJobsMojo extends BaseMojo {

@@ -21,6 +21,7 @@ import java.util.List;
  * Connect to a Jenkins server and kick off one or more jobs
  *
  * @goal runjobs
+ * @threadSafe
  * @requiresDependencyResolution test
  */
 public class RunJobsMojo extends BaseMojo {

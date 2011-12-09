@@ -19,6 +19,7 @@ package org.kuali.maven.plugins.jenkins;
  * Connect to a Jenkins server and update one or more Jenkins job
  *
  * @goal updatejobs
+ * @threadSafe
  * @requiresDependencyResolution test
  */
 public class UpdateJobsMojo extends PushJobsMojo {

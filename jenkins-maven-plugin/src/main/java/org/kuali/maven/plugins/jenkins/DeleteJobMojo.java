@@ -19,6 +19,7 @@ package org.kuali.maven.plugins.jenkins;
  * Connect to a Jenkins server and delete a job
  *
  * @goal deletejob
+ * @threadSafe
  * @requiresDependencyResolution test
  */
 public class DeleteJobMojo extends SimpleJobMojo {

@@ -21,6 +21,7 @@ import java.util.Map;
  * Connect to a Jenkins server and kick off a job
  *
  * @goal runjob
+ * @threadSafe
  * @requiresDependencyResolution test
  */
 public class RunJobMojo extends SimpleJobMojo {
