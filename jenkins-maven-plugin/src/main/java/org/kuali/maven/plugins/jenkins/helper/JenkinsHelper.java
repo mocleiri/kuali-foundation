@@ -333,7 +333,7 @@ public class JenkinsHelper {
         if (!Helper.isEmpty(map)) {
             buildParameters.putAll(map);
         }
-        if (!Helper.isEmpty(csv)) {
+        if (!StringUtils.isBlank(csv)) {
             String[] keyValuePairs = Helper.splitAndTrimCSV(csv);
             Map<String, String> csvMap = Helper.toMap(keyValuePairs);
             buildParameters.putAll(csvMap);
