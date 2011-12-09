@@ -16,6 +16,7 @@
 package org.kuali.maven.plugins.jenkins.helper;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -181,7 +182,8 @@ public class JenkinsHelper {
         if (!workingDir.exists()) {
             return new ArrayList<File>();
         }
-        File[] files = workingDir.listFiles();
+        FileFilter filter = new XmlFileFilter();
+        File[] files = workingDir.listFiles(filter);
         return Arrays.asList(files);
     }
 
