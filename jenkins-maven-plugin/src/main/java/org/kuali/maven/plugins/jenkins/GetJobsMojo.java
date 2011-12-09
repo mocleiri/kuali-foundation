@@ -18,7 +18,7 @@ package org.kuali.maven.plugins.jenkins;
 import java.util.List;
 
 /**
- * Connect to a Jenkins server and retrieve an XML document describing the job configuration
+ * Connect to a Jenkins server and retrieve XML documents describing jobs
  *
  * @goal getjobs
  * @threadSafe
