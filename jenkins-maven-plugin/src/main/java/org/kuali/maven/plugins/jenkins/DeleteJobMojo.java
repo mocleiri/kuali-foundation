@@ -31,6 +31,15 @@ public class DeleteJobMojo extends SimpleJobMojo {
      */
     private String cmd;
 
+    /**
+     * Comma separated list of Jenkins CLI exit values to ignore. Jenkins CLI returns "1" when you attempt to delete a
+     * job that does not exist. By default, that error code is ignored.
+     *
+     * @parameter expression="${jenkins.ignoreCodes}" default-value="1"
+     * @required
+     */
+    private String ignoreCodes;
+
     @Override
     protected void executeMojo() {
         helper.execute(this);
@@ -43,6 +52,14 @@ public class DeleteJobMojo extends SimpleJobMojo {
 
     public void setCmd(String cmd) {
         this.cmd = cmd;
+    }
+
+    public String getIgnoreCodes() {
+        return ignoreCodes;
+    }
+
+    public void setIgnoreCodes(String ignoreCodes) {
+        this.ignoreCodes = ignoreCodes;
     }
 
 }

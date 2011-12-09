@@ -371,6 +371,10 @@ public class JenkinsHelper {
     }
 
     public void execute(DeleteJobMojo mojo) {
+        String ignoreCodes = mojo.getIgnoreCodes();
+        String successCodes = mojo.getSuccessCodes();
+        String newSuccessCodes = successCodes + "," + ignoreCodes;
+        mojo.setSuccessCodes(newSuccessCodes);
         String jobName = getJobName(mojo, mojo.getName());
         SimpleJobCommand sjc = getSimpleJobCommand(jobName, mojo.getCmd());
         Command command = new Command();
@@ -395,6 +399,10 @@ public class JenkinsHelper {
     }
 
     public void execute(DeleteJobsMojo mojo) {
+        String ignoreCodes = mojo.getIgnoreCodes();
+        String successCodes = mojo.getSuccessCodes();
+        String newSuccessCodes = successCodes + "," + ignoreCodes;
+        mojo.setSuccessCodes(newSuccessCodes);
         List<String> jobNames = getJobNames(mojo, mojo.getNames(), mojo.getNameList());
         List<SimpleJobCommand> sjcs = getSimpleJobCommands(jobNames, mojo.getCmd());
         List<Command> commands = getCommandsFromSimple(sjcs);
