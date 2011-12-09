@@ -262,7 +262,7 @@ public class JenkinsHelper {
         int[] successCodes = getSuccessCodes(mojo);
         int exitValue = result.getExitValue();
         if (Helper.isMatch(exitValue, successCodes)) {
-            handleSuccess(command, result);
+            handleSuccess(mojo, command, result);
         } else {
             handleFailure(mojo, result);
         }
@@ -313,12 +313,20 @@ public class JenkinsHelper {
         }
     }
 
-    protected void handleSuccess(Command command, ProcessResult result) {
+    protected void handleSuccess(BaseMojo mojo, Command command, ProcessResult result) {
         File stdout = command.getStdout();
         if (stdout != null) {
             write(stdout.getAbsolutePath(), result.getOutput());
         } else {
-            logInfo(result.getOutputLines());
+            List<String> lines = result.getOutputLines();
+            if (result.getExitValue() == SUCCESS_CODE) {
+                logInfo(lines);
+            } else {
+                String top = getTop(lines);
+                if (top != null) {
+                    logger.info(top);
+                }
+            }
         }
     }
 
