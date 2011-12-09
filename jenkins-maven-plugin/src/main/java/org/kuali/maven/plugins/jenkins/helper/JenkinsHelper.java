@@ -40,6 +40,7 @@ import org.kuali.maven.plugins.jenkins.DeleteJobMojo;
 import org.kuali.maven.plugins.jenkins.DeleteJobsMojo;
 import org.kuali.maven.plugins.jenkins.GenJobMojo;
 import org.kuali.maven.plugins.jenkins.GenJobsMojo;
+import org.kuali.maven.plugins.jenkins.GetJobMojo;
 import org.kuali.maven.plugins.jenkins.GetJobsMojo;
 import org.kuali.maven.plugins.jenkins.PushJobsMojo;
 import org.kuali.maven.plugins.jenkins.RunJobCommand;
@@ -87,6 +88,12 @@ public class JenkinsHelper {
             newNames.add(newName);
         }
         return newNames;
+    }
+
+    public void execute(GetJobMojo mojo) {
+        List<String> jobNames = getJobNames(mojo, mojo.getName(), null);
+        List<Command> commands = createGetJobCommands(mojo, mojo.getCmd(), jobNames);
+        executeCli(mojo, commands);
     }
 
     public void execute(GetJobsMojo mojo) {
