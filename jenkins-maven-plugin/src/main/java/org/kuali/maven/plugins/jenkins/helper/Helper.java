@@ -291,9 +291,9 @@ public class Helper {
     /**
      * Return true if any of the args passed in are blank
      */
-    public static final boolean anyAreBlank(String... args) {
-        for (String arg : args) {
-            if (StringUtils.isBlank(arg)) {
+    public static final boolean anyAreBlank(String... strings) {
+        for (String string : strings) {
+            if (StringUtils.isBlank(string)) {
                 return true;
             }
         }
@@ -303,8 +303,8 @@ public class Helper {
     /**
      * Return true if args is null or length zero
      */
-    public static final boolean isEmpty(String... args) {
-        return args == null || args.length == 0;
+    public static final boolean isEmpty(String[] strings) {
+        return strings == null || strings.length == 0;
     }
 
     /**
