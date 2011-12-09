@@ -28,6 +28,9 @@
   <artifactId>${project.artifactId}</artifactId>
   <version>${project.version}</version>
   <name>Jenkins Maven Plugin Test POM</name>
+  <properties>
+    <jenkins.phase>process-resources</jenkins.phase>
+  </properties>
   <build>
     <pluginManagement>
       <plugins>
@@ -47,7 +50,7 @@
           <!-- demonstrates running a single cli command -->
           <execution>
             <id>cli-default</id>
-            <phase>none</phase>
+            <phase>${jenkins.phase}</phase>
             <goals>
               <goal>cli</goal>
             </goals>
@@ -55,7 +58,7 @@
           <!-- demonstrates running multiple cli commands in a single Maven execution -->
           <execution>
             <id>cli-multiple-commands</id>
-            <phase>none</phase>
+            <phase>${jenkins.phase}</phase>
             <goals>
               <goal>cli</goal>
             </goals>
@@ -71,7 +74,7 @@
           </execution>
           <execution>
             <id>cli-groovy</id>
-            <phase>none</phase>
+            <phase>${jenkins.phase}</phase>
             <goals>
               <goal>cli</goal>
             </goals>
@@ -113,7 +116,7 @@
           <!-- demonstrates configuring a jenkins server to connect to -->
           <execution>
             <id>cli-provide-ci-url</id>
-            <phase>none</phase>
+            <phase>${jenkins.phase}</phase>
             <goals>
               <goal>cli</goal>
             </goals>
@@ -132,7 +135,7 @@
           </execution>
           <execution>
             <id>cli-runjob</id>
-            <phase>process-resources</phase>
+            <phase>${jenkins.phase}</phase>
             <goals>
               <goal>runjob</goal>
             </goals>
