@@ -144,6 +144,21 @@
               <goal>deletejobs</goal>
             </goals>
           </execution>
+          <execution>
+            <id>cli-run-job-commands</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>runjobs</goal>
+            </goals>
+            <configuration>
+              <commands>
+                <command>
+                  <name>publish</name>
+                  <wait>true</wait>
+                </command>
+              </commands>
+            </configuration>
+          </execution>
         </executions>
         <dependencies>
           <dependency>

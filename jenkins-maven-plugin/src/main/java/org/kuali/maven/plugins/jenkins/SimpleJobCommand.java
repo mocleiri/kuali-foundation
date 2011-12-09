@@ -23,15 +23,15 @@ public class SimpleJobCommand {
         return command;
     }
 
-    public void setCommand(String jenkinsCommand) {
-        this.command = jenkinsCommand;
+    public void setCommand(String command) {
+        this.command = command;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String jobName) {
-        this.name = jobName;
+    public void setName(String name) {
+        this.name = name;
     }
 }
