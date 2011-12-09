@@ -300,7 +300,7 @@ public class JenkinsHelper {
 
     protected void handleFailure(BaseMojo mojo, ProcessResult result) {
         if (mojo.isStopOnError()) {
-            logger.error("Jenkins CLI Exception:" + getErrorMessage(result));
+            logger.error("Jenkins CLI Exception:" + getErrorMessage(mojo, result));
             throw new JenkinsException("Jenkins CLI Exception");
         } else {
             if (mojo.isFailOnError()) {
@@ -487,7 +487,7 @@ public class JenkinsHelper {
             return;
         }
         if (mojo.isFailOnError()) {
-            logger.error(getErrorMessage(errors));
+            logger.error(getErrorMessage(mojo, errors));
             throw new JenkinsException("Jenkins CLI error");
         } else {
             logger.warn(getWarnMessage(errors));
@@ -504,7 +504,7 @@ public class JenkinsHelper {
         return sb.toString();
     }
 
-    protected String getErrorMessage(List<ProcessResult> errors) {
+    protected String getErrorMessage(BaseMojo mojo, List<ProcessResult> errors) {
         StringBuilder sb = new StringBuilder();
         if (errors.size() == 1) {
             sb.append("There was 1 error.");
@@ -512,12 +512,12 @@ public class JenkinsHelper {
             sb.append("There were " + errors.size() + " errors.");
         }
         for (ProcessResult result : errors) {
-            sb.append(getErrorMessage(result));
+            sb.append(getErrorMessage(mojo, result));
         }
         return sb.toString();
     }
 
-    protected String getErrorMessage(ProcessResult result) {
+    protected String getErrorMessage(BaseMojo mojo, ProcessResult result) {
         ProcessContext context = result.getContext();
         int exitValue = result.getExitValue();
         String top = getTop(result.getOutputLines());
@@ -529,11 +529,29 @@ public class JenkinsHelper {
         sb.append("executable: " + context.getExecutable() + "\n");
         sb.append("cmd: " + cmd + "\n");
         sb.append("result: " + exitValue + "\n");
-        sb.append("input: " + Helper.toEmpty(context.getInput()) + "\n");
+        sb.append("input: " + getInputErrorMessage(mojo, context.getInput()) + "\n");
         if (exitValue != NO_SUCH_COMMAND) {
             sb.append("details: " + result.getOutput());
         }
         return sb.toString();
+    }
+
+    protected String getInputErrorMessage(BaseMojo mojo, String input) {
+        String s = Helper.toEmpty(input);
+        if (StringUtils.isBlank(s)) {
+            return s;
+        }
+        int length = input.length();
+        if (length > 50) {
+            long count = Counter.increment() + 1;
+            File dir = mojo.getWorkingDir();
+            String filename = dir + FS + "error" + FS + "input-" + count + ".log";
+            File file = new File(filename);
+            write(filename, input);
+            return Helper.getRelativePath(mojo.getProject().getBasedir(), file);
+        } else {
+            return input;
+        }
     }
 
     public void execute(GenJobsMojo mojo) {
