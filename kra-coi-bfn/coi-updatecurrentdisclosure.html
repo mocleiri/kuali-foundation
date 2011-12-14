@@ -316,7 +316,7 @@
           <!-- Awards -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" ><span id="control_awardprotprop" style="cursor:pointer;">Awards</span></td>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Awards</td>
               <td class="tabtable2-mid"><a href="#" id="A031bb" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031bb" ></a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
@@ -325,23 +325,42 @@
             
             <!-- Alpha -->
             <div class="div_award">
-                <div class="h2-container">
+                <div class="h2-container" style="height:25px; padding-top:4px;">
                     <span class="subhead-left">
-                        <h2>Award Number: 123456789</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
+                        <h2><img id="hs01" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle; cursor:pointer;" >
+                        <script>
+							$(document).ready(function () {
+								$("#hs01").toggle(
+									function(){
+										$(".hs01").slideDown(400);
+										$(this).attr("src","../images/tinybutton-hide.gif");
+									},
+									function(){
+										$(".hs01").slideUp(400);
+										$(this).attr("src","../images/tinybutton-show.gif");
+									}
+								);
+							});
+						</script>
+                        Award Number: 123456789 (Disapproved)</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
                     </span>
                 </div>
-                <table cellspacing="0">
+                <table cellspacing="0" class="hs01" style="display:none;">
                   <tbody>
                     <tr>
-                        <th style="text-align:right; width:40px;">Title:</th>
-                        <td>My cool project with a much longer title include a ridiculously redundant section about the advantages of distributing starfish over white beach sand banks.</td>
-                        <th style="text-align:right; width:80px;">Award Date:</th>
-                        <td style="width:80px;">10/16/2010</td>
+                        <th rowspan="2" style="text-align:right; width:40px;">Title:</th>
+                        <td rowspan="2">My cool project with a much longer title include a ridiculously redundant section about the advantages of distributing starfish over white beach sand banks.</td>
+                        <th style="text-align:right; width:100px;">Review Status:</th>
+                        <td style="width:260px;">Disclosable Interests Unmanageable</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;">Award Date:</th>
+                        <td>10/16/2010</td>
                     </tr>
                   </tbody>
                 </table>
             </div>
-            <div class="div_projectdetails" style="margin-bottom:15px;">
+            <div class="div_projectdetails hs01" style="margin-bottom:15px; display:none;">
             
                 <!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
@@ -869,7 +888,7 @@
                     </tr>
                 </table>
                 
-                <!-- Notes & Attachments -->
+                <!-- Review Comments -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshowq02" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -890,7 +909,7 @@
                             
                         });
                     </script>
-                    Notes &amp; Attachments
+                    Review Comments
                 </div>
                 <table class="content_table" id="table_q02" style="display:none;">  
                     <tr>
@@ -908,7 +927,7 @@
           <!-- Proposals -->
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
-              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" ><span id="control_awardprotprop" style="cursor:pointer;">Proposals</span></td>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Proposals</td>
               <td class="tabtable2-mid"><a href="#" id="A031bb4" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F031bb4" ></a></td>
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
@@ -917,34 +936,53 @@
             
             <!-- Alpha -->
             <div class="div_proposal">
-                <div class="h2-container">
+                <div class="h2-container" style="height:25px; padding-top:4px;">
                     <span class="subhead-left">
-                        <h2>Proposal Number: 1234</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
+                        <h2><img id="hs02" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle; cursor:pointer;" >
+                        <script>
+							$(document).ready(function () {
+								$("#hs02").toggle(
+									function(){
+										$(".hs02").slideDown(400);
+										$(this).attr("src","../images/tinybutton-hide.gif");
+									},
+									function(){
+										$(".hs02").slideUp(400);
+										$(this).attr("src","../images/tinybutton-show.gif");
+									}
+								);
+							});
+						</script>
+                        Proposal Number: 1234 (Approved)</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
                     </span>
                 </div>
-                <table cellspacing="0">
+                <table cellspacing="0" class="hs02" style="display:none;">
                   <tbody>
                     <tr>
                         <th style="text-align:right; width:130px;">Proposal Name:</th>
-                        <td colspan="3">My Undeniable Proposal</td>
-                        <th style="text-align:right; width:130px;">Sponsor:</th>
-                        <td>Bill W.</td>
+                        <td>My Undeniable Proposal</td>
+                        <th style="text-align:right; width:130px;">Review Status:</th>
+                        <td style="width:260px;">Disclosable Interests Eliminated</td>
                     </tr>
                     <tr>
-                        <th style="text-align:right;">Start Date:</th>
-                        <td>10/16/2010</td>
-                        <th style="text-align:right;">End Date:</th>
-                        <td>10/16/2011</td>
                         <th style="text-align:right;">PI Name:</th>
                         <td>
                         	Dirk Barenger
                             <input name="x" src="../images/book_open.png" onclick="javascript: alert('This would show the direct inquiry dialog.'); return false" align="top" alt="Direct Inquiry" title="Direct Inquiry" style="border:none;" type="image" />
                         </td>
+                        <th style="text-align:right;">Start Date:</th>
+                        <td>10/16/2010</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;;">Sponsor:</th>
+                        <td>Bill W.</td>
+                        <th style="text-align:right;">End Date:</th>
+                        <td>10/16/2011</td>
                     </tr>
                   </tbody>
                 </table>
             </div>
-            <div class="div_projectdetails" style="margin-bottom:15px;">
+            <div class="div_projectdetails hs02" style="margin-bottom:15px; display:none;">
                 
                 <!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
@@ -1140,7 +1178,7 @@
                     </tr>
                 </table>
                 
-                <!-- Notes & Attachments -->
+                <!-- Review Comments -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshowq04" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -1161,7 +1199,7 @@
                             
                         });
                     </script>
-                    Notes &amp; Attachments
+                    Review Comments
                 </div>
                 <table class="content_table" id="table_q04" style="display:none;">  
                     <tr>
@@ -1174,35 +1212,54 @@
             </div>
             
             <!-- Beta -->
-            <div class="div_proposal">
-                <div class="h2-container">
+            <div class="div_proposal" style="margin-top:1px;">
+                <div class="h2-container" style="height:25px; padding-top:4px;">
                     <span class="subhead-left">
-                        <h2>Proposal Number: 5678</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
+                        <h2><img id="hs03" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle; cursor:pointer;" >
+                        <script>
+							$(document).ready(function () {
+								$("#hs03").toggle(
+									function(){
+										$(".hs03").slideDown(400);
+										$(this).attr("src","../images/tinybutton-hide.gif");
+									},
+									function(){
+										$(".hs03").slideUp(400);
+										$(this).attr("src","../images/tinybutton-show.gif");
+									}
+								);
+							});
+						</script>
+                        Proposal Number: 5678 (Pending)</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
                     </span>
                 </div>
-                <table cellspacing="0">
+                <table cellspacing="0" class="hs03" style="display:none;">
                   <tbody>
                     <tr>
                         <th style="text-align:right; width:130px;">Proposal Name:</th>
-                        <td colspan="3">My Second Undeniable Proposal</td>
-                        <th style="text-align:right; width:130px;">Sponsor:</th>
-                        <td>Bill W.</td>
+                        <td>My Second Undeniable Proposal</td>
+                        <th style="text-align:right; width:130px;">Review Status:</th>
+                        <td style="width:260px;">Under COI Committee Review</td>
                     </tr>
                     <tr>
-                        <th style="text-align:right;">Start Date:</th>
-                        <td>10/16/2010</td>
-                        <th style="text-align:right;">End Date:</th>
-                        <td>10/16/2011</td>
                         <th style="text-align:right;">PI Name:</th>
                         <td>
                         	Dirk Barenger
                             <input name="x" src="../images/book_open.png" onclick="javascript: alert('This would show the direct inquiry dialog.'); return false" align="top" alt="Direct Inquiry" title="Direct Inquiry" style="border:none;" type="image" />
                         </td>
+                        <th style="text-align:right;">Start Date:</th>
+                        <td>10/16/2010</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;;">Sponsor:</th>
+                        <td>Bill W.</td>
+                        <th style="text-align:right;">End Date:</th>
+                        <td>10/16/2011</td>
                     </tr>
                   </tbody>
                 </table>
             </div>
-            <div class="div_projectdetails" style="margin-bottom:15px;">
+            <div class="div_projectdetails hs03" style="margin-bottom:15px; display:none;">
                 
                 <!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
@@ -1399,7 +1456,7 @@
                     </tr>
                 </table>
                 
-                <!-- Notes & Attachments -->
+                <!-- Review Comments -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshowq06" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -1420,7 +1477,7 @@
                             
                         });
                     </script>
-                    Notes &amp; Attachments
+                    Review Comments
                 </div>
                 <table class="content_table" id="table_q06" style="display:none;">  
                     <tr>
@@ -1446,35 +1503,54 @@
           <div class="tab-container" align="center" id="G031bb6" style="display: none;">
             
             <!-- Beta -->
-            <div class="div_protocol">
-                <div class="h2-container">
+            <div class="div_protocol" style="margin-top:1px;">
+                <div class="h2-container" style="height:25px; padding-top:4px;">
                     <span class="subhead-left">
-                        <h2>IRB Protocol Number: 123 (Pending)</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
+                        <h2><img id="hs04" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle; cursor:pointer;" >
+                        <script>
+							$(document).ready(function () {
+								$("#hs04").toggle(
+									function(){
+										$(".hs04").slideDown(400);
+										$(this).attr("src","../images/tinybutton-hide.gif");
+									},
+									function(){
+										$(".hs04").slideUp(400);
+										$(this).attr("src","../images/tinybutton-show.gif");
+									}
+								);
+							});
+						</script>
+                        IRB Protocol Number: 123 (Pending)</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
                     </span>
                 </div>
-                <table cellspacing="0">
+                <table cellspacing="0" class="hs04" style="display:none;">
                   <tbody>
                     <tr>
                         <th style="text-align:right; width:130px;">IRB Protocol Name:</th>
-                        <td colspan="3">My Cool Protocol</td>
-                        <th style="text-align:right; width:130px;">IRB Protocol Type:</th>
-                        <td>Tall Dark and Handsome</td>
+                        <td>My Cool Protocol</td>
+                        <th style="text-align:right; width:130px;">Review Status:</th>
+                        <td style="width:260px;">Awaiting Additional Information</td>
                     </tr>
                     <tr>
-                        <th style="text-align:right;">Application Date:</th>
-                        <td style="width:130px;">10/16/2010</td>
-                        <th style="text-align:right; width:130px;">Expiration Date:</th>
-                        <td>10/16/2011</td>
                         <th style="text-align:right;">PI Name:</th>
-                        <td style="width:200px;">
+                        <td>
                         	Dirk Barenger
                             <input name="x" src="../images/book_open.png" onclick="javascript: alert('This would show the direct inquiry dialog.'); return false" align="top" alt="Direct Inquiry" title="Direct Inquiry" style="border:none;" type="image" />
                         </td>
+                        <th style="text-align:right;">Application Date:</th>
+                        <td>10/16/2010</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;;">IRB Protocol Type:</th>
+                        <td>Tall Dark and Handsome</td>
+                        <th style="text-align:right;">Expiration Date:</th>
+                        <td>10/16/2011</td>
                     </tr>
                   </tbody>
                 </table>
             </div>
-            <div class="div_projectdetails" style="margin-bottom:15px;">
+            <div class="div_projectdetails hs04" style="margin-bottom:15px; display: none;">
             
             	<!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
@@ -1670,7 +1746,7 @@
                     </tr>
                 </table>
                 
-                <!-- Notes & Attachments -->
+                <!-- Review Comments -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshowq22" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -1691,7 +1767,7 @@
                             
                         });
                     </script>
-                    Notes &amp; Attachments
+                    Review Comments
                 </div>
                 <table class="content_table" id="table_q22" style="display:none;">  
                     <tr>
@@ -1704,35 +1780,54 @@
             </div>
             
             <!-- Gamma -->
-            <div class="div_protocol">
-                <div class="h2-container">
+            <div class="div_protocol" style="margin-top:1px;">
+                <div class="h2-container" style="height:25px; padding-top:4px;">
                     <span class="subhead-left">
-                        <h2>IRB Protocol Number: 456 (Approved)</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
+                        <h2><img id="hs05" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle; cursor:pointer;" >
+                        <script>
+							$(document).ready(function () {
+								$("#hs05").toggle(
+									function(){
+										$(".hs05").slideDown(400);
+										$(this).attr("src","../images/tinybutton-hide.gif");
+									},
+									function(){
+										$(".hs05").slideUp(400);
+										$(this).attr("src","../images/tinybutton-show.gif");
+									}
+								);
+							});
+						</script>
+                        IRB Protocol Number: 456 (Approved)</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
                     </span>
                 </div>
-                <table cellspacing="0">
+                <table cellspacing="0" class="hs05" style="display:none;">
                   <tbody>
                     <tr>
                         <th style="text-align:right; width:130px;">IRB Protocol Name:</th>
-                        <td colspan="3">My Cooler Protocol</td>
-                        <th style="text-align:right; width:130px;">IRB Protocol Type:</th>
-                        <td>Tall Dark and Handsome</td>
+                        <td>My Cooler Protocol</td>
+                        <th style="text-align:right; width:130px;">Review Status:</th>
+                        <td style="width:260px;">Best Practices Memo</td>
                     </tr>
                     <tr>
-                        <th style="text-align:right;">Application Date:</th>
-                        <td style="width:130px;">10/16/2010</td>
-                        <th style="text-align:right; width:130px;">Expiration Date:</th>
-                        <td>10/16/2011</td>
                         <th style="text-align:right;">PI Name:</th>
-                        <td style="width:200px;">
+                        <td>
                         	Dirk Barenger
                             <input name="x" src="../images/book_open.png" onclick="javascript: alert('This would show the direct inquiry dialog.'); return false" align="top" alt="Direct Inquiry" title="Direct Inquiry" style="border:none;" type="image" />
                         </td>
+                        <th style="text-align:right;">Application Date:</th>
+                        <td>10/16/2010</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;;">IRB Protocol Type:</th>
+                        <td>Tall Dark and Handsome</td>
+                        <th style="text-align:right;">Expiration Date:</th>
+                        <td>10/16/2011</td>
                     </tr>
                   </tbody>
                 </table>
             </div>
-            <div class="div_projectdetails" style="margin-bottom:15px;">
+            <div class="div_projectdetails hs05" style="margin-bottom:15px; display: none;">
             
             	<!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
@@ -1928,7 +2023,7 @@
                     </tr>
                 </table>
                 
-                <!-- Notes & Attachments -->
+                <!-- Review Comments -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshowq44" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -1949,7 +2044,7 @@
                             
                         });
                     </script>
-                    Notes &amp; Attachments
+                    Review Comments
                 </div>
                 <table class="content_table" id="table_q44" style="display:none;">  
                     <tr>
@@ -1962,35 +2057,54 @@
             </div>
             
             <!-- Delta -->
-            <div class="div_protocol">
-                <div class="h2-container">
+            <div class="div_protocol" style="margin-top:1px;">
+                <div class="h2-container" style="height:25px; padding-top:4px;">
                     <span class="subhead-left">
-                        <h2>IRB Protocol Number: 789 (Pending)</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
+                        <h2><img id="hs06" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle; cursor:pointer;" >
+                        <script>
+							$(document).ready(function () {
+								$("#hs06").toggle(
+									function(){
+										$(".hs06").slideDown(400);
+										$(this).attr("src","../images/tinybutton-hide.gif");
+									},
+									function(){
+										$(".hs06").slideUp(400);
+										$(this).attr("src","../images/tinybutton-show.gif");
+									}
+								);
+							});
+						</script>
+                        IRB Protocol Number: 789 (Pending)</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
                     </span>
                 </div>
-                <table cellspacing="0">
+                <table cellspacing="0" class="hs06" style="display:none;">
                   <tbody>
                     <tr>
                         <th style="text-align:right; width:130px;">IRB Protocol Name:</th>
-                        <td colspan="3">My Coolest Protocol</td>
-                        <th style="text-align:right; width:130px;">IRB Protocol Type:</th>
-                        <td>Tall Dark and Handsome</td>
+                        <td>My Coolest Protocol</td>
+                        <th style="text-align:right; width:130px;">Review Status:</th>
+                        <td style="width:260px;">Under Review by COI Reviewer</td>
                     </tr>
                     <tr>
-                        <th style="text-align:right;">Application Date:</th>
-                        <td style="width:130px;">10/16/2010</td>
-                        <th style="text-align:right; width:130px;">Expiration Date:</th>
-                        <td>10/16/2011</td>
                         <th style="text-align:right;">PI Name:</th>
-                        <td style="width:200px;">
+                        <td>
                         	Dirk Barenger
                             <input name="x" src="../images/book_open.png" onclick="javascript: alert('This would show the direct inquiry dialog.'); return false" align="top" alt="Direct Inquiry" title="Direct Inquiry" style="border:none;" type="image" />
                         </td>
+                        <th style="text-align:right;">Application Date:</th>
+                        <td>10/16/2010</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;;">IRB Protocol Type:</th>
+                        <td>Tall Dark and Handsome</td>
+                        <th style="text-align:right;">Expiration Date:</th>
+                        <td>10/16/2011</td>
                     </tr>
                   </tbody>
                 </table>
             </div>
-            <div class="div_projectdetails" style="margin-bottom:15px;">
+            <div class="div_projectdetails hs06" style="margin-bottom:15px; display: none;">
             
             	<!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
@@ -2186,7 +2300,7 @@
                     </tr>
                 </table>
                 
-                <!-- Notes & Attachments -->
+                <!-- Review Comments -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshowq66" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -2207,7 +2321,7 @@
                             
                         });
                     </script>
-                    Notes &amp; Attachments
+                    Review Comments
                 </div>
                 <table class="content_table" id="table_q66" style="display:none;">  
                     <tr>
@@ -2220,35 +2334,54 @@
             </div>
             
             <!-- Zeta -->
-            <div class="div_protocol">
-                <div class="h2-container">
+            <div class="div_protocol" style="margin-top:1px;">
+                <div class="h2-container" style="height:25px; padding-top:4px;">
                     <span class="subhead-left">
-                        <h2>IRB Protocol Number: 007 (Disapproved)</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
+                        <h2><img id="hs07" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none; vertical-align:middle; cursor:pointer;" >
+                        <script>
+							$(document).ready(function () {
+								$("#hs07").toggle(
+									function(){
+										$(".hs07").slideDown(400);
+										$(this).attr("src","../images/tinybutton-hide.gif");
+									},
+									function(){
+										$(".hs07").slideUp(400);
+										$(this).attr("src","../images/tinybutton-show.gif");
+									}
+								);
+							});
+						</script>
+                        IRB Protocol Number: 007 (Disapproved)</h2></span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span>
                     </span>
                 </div>
-                <table cellspacing="0">
+                <table cellspacing="0" class="hs07" style="display:none;">
                   <tbody>
                     <tr>
                         <th style="text-align:right; width:130px;">IRB Protocol Name:</th>
-                        <td colspan="3">My Lame Protocol</td>
-                        <th style="text-align:right; width:130px;">IRB Protocol Type:</th>
-                        <td>Phat and Sassy</td>
+                        <td>My Lame Protocol</td>
+                        <th style="text-align:right; width:130px;">Review Status:</th>
+                        <td style="width:260px;">Unresolved</td>
                     </tr>
                     <tr>
-                        <th style="text-align:right;">Application Date:</th>
-                        <td style="width:130px;">10/16/2010</td>
-                        <th style="text-align:right; width:130px;">Expiration Date:</th>
-                        <td>10/16/2011</td>
                         <th style="text-align:right;">PI Name:</th>
-                        <td style="width:200px;">
+                        <td>
                         	Dirk Barenger
                             <input name="x" src="../images/book_open.png" onclick="javascript: alert('This would show the direct inquiry dialog.'); return false" align="top" alt="Direct Inquiry" title="Direct Inquiry" style="border:none;" type="image" />
                         </td>
+                        <th style="text-align:right;">Application Date:</th>
+                        <td>10/16/2010</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;;">IRB Protocol Type:</th>
+                        <td>Tall Dark and Handsome</td>
+                        <th style="text-align:right;">Expiration Date:</th>
+                        <td>10/16/2011</td>
                     </tr>
                   </tbody>
                 </table>
             </div>
-            <div class="div_projectdetails" style="margin-bottom:15px;">
+            <div class="div_projectdetails hs07" style="margin-bottom:15px; display: none;">
             
             	<!-- Financial Entities -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:none; border-bottom:none; color:#FFF; font-weight:bold;">
@@ -2444,7 +2577,7 @@
                     </tr>
                 </table>
                 
-                <!-- Notes & Attachments -->
+                <!-- Review Comments -->
                 <div class="h2-container" style="height:22px; vertical-align:middle; background-color:#999; border-top:1px solid #CCC; border-bottom:none; color:#FFF; font-weight:bold;">
                     <img id="hideshowq88" src="../images/tinybutton-show.gif" alt="show/hide this panel" style="vertical-align:middle; margin:3px; width:45px; height:15px; border:none; cursor:pointer;" >
                     <script type="text/javascript">
@@ -2465,7 +2598,7 @@
                             
                         });
                     </script>
-                    Notes &amp; Attachments
+                    Review Comments
                 </div>
                 <table class="content_table" id="table_q88" style="display:none;">  
                     <tr>
@@ -2655,6 +2788,7 @@
               <td align="right" class="footer-right"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="br3"></td>
             </tr>
           </table>
+          
         </div>
         <div align="right"><br>
           * required </div>
