@@ -105,10 +105,10 @@ public class HttpInspector {
                 logger.info(getMsg(message.toString()));
                 return Result.SUCCESS;
             } 
-            if (statusCode == PROXY_STATUS) {
-                throw new IOException();
-            }
             else {
+                if (statusCode == PROXY_STATUS) {
+                    throw new IOException();
+                }
                 logger.info(getMsg(message.toString(),secondsRemaining));
                 return Result.INVALID_HTTP_STATUS_CODE;
             }
