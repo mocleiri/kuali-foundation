@@ -30,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HttpInspector {
+    private final static int PROXY_STATUS = 503;
     private final Logger logger = LoggerFactory.getLogger(HttpInspector.class);
     List<Integer> successCodes = new ArrayList<Integer>();
     int requestTimeout = 3000;
@@ -91,22 +92,28 @@ public class HttpInspector {
     }
 
     protected Result doRequest(HttpClient client, String url, long secondsRemaining) {
+        StringBuilder message = new StringBuilder("Status for '" + url + "' is '");
         try {
             HttpMethod method = new GetMethod(url);
             client.executeMethod(method);
             int statusCode = method.getStatusCode();
             String statusText = method.getStatusText();
             boolean success = isSuccess(statusCode);
+
+            message = message.append(statusCode + ":" + statusText + "'");
             if (success) {
-                logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'"));
+                logger.info(getMsg(message.toString()));
                 return Result.SUCCESS;
-            } else {
-                logger.info(getMsg("Status for '" + url + "' is '" + statusCode + ":" + statusText + "'",
-                        secondsRemaining));
+            } 
+            if (statusCode == PROXY_STATUS) {
+                throw new IOException();
+            }
+            else {
+                logger.info(getMsg(message.toString(),secondsRemaining));
                 return Result.INVALID_HTTP_STATUS_CODE;
             }
         } catch (IOException e) {
-            logger.info(getMsg("Status for '" + url + "' is '" + e.getMessage() + "'", secondsRemaining));
+            logger.info(getMsg(message.append(e.getMessage() + "'").toString(), secondsRemaining));
             return Result.IO_EXCEPTION;
         }
     }
