@@ -1,7 +1,7 @@
 <project>
   <body>
     <menu name="Dependencies" inherit="top">
-      <item name="Graphsss" href="./dependency-graphs.html#"/>
+      <item name="Graphsss" href="${project.url}/dependency-graphs.html"/>
     </menu>
   </body>
 </project>
