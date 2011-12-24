@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.15-SNAPSHOT</version>
   </parent>
   <groupId>org.kuali.common.threads</groupId>
   <artifactId>kuali-threads</artifactId>
@@ -44,11 +44,6 @@
     </developer>
   </developers>
   <dependencies>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
