@@ -547,6 +547,7 @@
           <artifactId>maven-site-plugin</artifactId>
           <version>${plugin.site.version}</version>
           <configuration>
+            <relativizeDecorationLinks>false</relativizeDecorationLinks>
             <reportPlugins>
               <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
