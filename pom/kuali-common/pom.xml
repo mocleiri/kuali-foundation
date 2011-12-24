@@ -170,6 +170,14 @@
               <ignoreDotFailure>true</ignoreDotFailure>
             </configuration>
             <executions>
+              <!-- APT hack -->
+              <execution>
+                <id>apt</id>
+                <goals>
+                  <goal>apt</goal>
+                </goals>
+                <phase>${plugin.graph.phase}</phase>
+              </execution>
               <!-- Direct dependencies -->
               <execution>
                 <id>direct-all</id>
