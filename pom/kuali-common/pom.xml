@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2011 The Kuali Foundation
+  Copyright 2004-2011 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali.pom</groupId>
@@ -73,7 +74,8 @@
     <kuali.javadoc.linksource>true</kuali.javadoc.linksource>
     <kuali.javadoc.maxmemory>512m</kuali.javadoc.maxmemory>
     <kuali.javadoc.debug>false</kuali.javadoc.debug>
-    <!-- These 2 should be "aggregate" and "test-aggregate", but they have a memory leak that results in a heap error for large projects -->
+    <!-- These 2 should be "aggregate" and "test-aggregate", but they have a memory leak that results in a heap error for
+      large projects -->
     <kuali.javadoc.report.1>javadoc</kuali.javadoc.report.1>
     <kuali.javadoc.report.2>test-javadoc</kuali.javadoc.report.2>
     <!-- Once the heap issue with aggregate and test-aggregate is worked out, set this to false -->
@@ -124,6 +126,7 @@
     <plugin.jxr.version>2.3</plugin.jxr.version>
     <plugin.plugin.version>2.7</plugin.plugin.version>
     <plugin.pmd.version>2.5</plugin.pmd.version>
+    <plugin.graph.version>1.0.1-SNAPSHOT</plugin.graph.version>
 
   </properties>
   <repositories>
@@ -147,6 +150,78 @@
   </scm>
 
   <profiles>
+    <!-- Profile for executing Graphviz to draw dependency trees -->
+    <profile>
+      <id>graph</id>
+      <properties>
+        <plugin.graph.phase>pre-site</plugin.graph.phase>
+        <graph.dir>${project.build.directory}/site/images/dependencies</graph.dir>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>graph-maven-plugin</artifactId>
+            <version>${plugin.graph.version}</version>
+            <executions>
+              <execution>
+                <id>dependencies</id>
+                <goals>
+                  <goal>condensed</goal>
+                </goals>
+                <phase>${plugin.graph.phase}</phase>
+                <configuration>
+                  <transitive>false</transitive>
+                  <file>${graph.dir}/direct.png</file>
+                </configuration>
+              </execution>
+              <execution>
+                <id>transitive</id>
+                <goals>
+                  <goal>condensed</goal>
+                </goals>
+                <phase>${plugin.graph.phase}</phase>
+                <configuration>
+                  <file>${graph.dir}/transitive.png</file>
+                </configuration>
+              </execution>
+              <execution>
+                <id>kuali</id>
+                <goals>
+                  <goal>condensed</goal>
+                </goals>
+                <phase>${plugin.graph.phase}</phase>
+                <configuration>
+                  <file>${graph.dir}/kuali.png</file>
+                  <includes>org.kuali.*</includes>
+                </configuration>
+              </execution>
+              <execution>
+                <id>conflicts</id>
+                <goals>
+                  <goal>conflicts</goal>
+                </goals>
+                <phase>${plugin.graph.phase}</phase>
+                <configuration>
+                  <file>${graph.dir}/conflicts.png</file>
+                </configuration>
+              </execution>
+              <execution>
+                <id>compile</id>
+                <goals>
+                  <goal>condensed</goal>
+                </goals>
+                <phase>${plugin.graph.phase}</phase>
+                <configuration>
+                  <show>compile</show>
+                  <file>${graph.dir}/compile.png</file>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <!-- Bare bones site. Only thing it generates is the "About" page -->
       <id>minsite</id>
@@ -220,6 +295,11 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>findbugs-maven-plugin</artifactId>
           <version>${plugin.findbugs.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>graph-maven-plugin</artifactId>
+          <version>${plugin.graph.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-checkstyle-plugin</artifactId>
