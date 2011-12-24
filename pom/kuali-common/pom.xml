@@ -150,9 +150,9 @@
   </scm>
 
   <profiles>
-    <!-- Profile for executing Graphviz to draw dependency trees -->
+    <!-- Attempts to execute Graphviz to draw dependency trees.  Will not fail the build if Graphviz isn't installed -->
     <profile>
-      <id>graph</id>
+      <id>kuali-release</id>
       <properties>
         <plugin.graph.phase>pre-site</plugin.graph.phase>
         <graph.dir>${project.build.directory}/site/images/dependencies</graph.dir>
