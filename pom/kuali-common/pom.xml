@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2011 The Kuali Foundation
+  Copyright 2004-2011 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -29,6 +29,7 @@
   <version>1.0.16-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Kuali Common</name>
+  <url>http://${kuali.site.hostname}/pom/${project.artifactId}/${project.version}</url>
   <description>
    This pom contains Maven configuration (plugins, profiles, executions, etc) that
    assists with the building, testing, publishing, and releasing of Kuali Foundation 
@@ -126,7 +127,7 @@
     <plugin.jxr.version>2.3</plugin.jxr.version>
     <plugin.plugin.version>2.7</plugin.plugin.version>
     <plugin.pmd.version>2.5</plugin.pmd.version>
-    <plugin.graph.version>1.0.5-SNAPSHOT</plugin.graph.version>
+    <plugin.graph.version>1.0.4</plugin.graph.version>
 
   </properties>
   <repositories>
@@ -150,244 +151,6 @@
   </scm>
 
   <profiles>
-    <!-- Attempts to execute Graphviz to draw dependency trees.  Will not fail the build if Graphviz isn't installed -->
-    <profile>
-      <id>kuali-release</id>
-      <properties>
-        <plugin.graph.phase>pre-site</plugin.graph.phase>
-        <graph.dir>${project.build.directory}/site/images/dependencies</graph.dir>
-        <graph.direct.dir>${graph.dir}/direct</graph.direct.dir>
-        <graph.transitive.dir>${graph.dir}/transitive</graph.transitive.dir>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>graph-maven-plugin</artifactId>
-            <version>${plugin.graph.version}</version>
-            <configuration>
-              <keepDotFile>true</keepDotFile>
-              <ignoreDotFailure>true</ignoreDotFailure>
-            </configuration>
-            <executions>
-              <!-- APT hack -->
-              <execution>
-                <id>apt</id>
-                <goals>
-                  <goal>apt</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-              </execution>
-              <!-- Direct dependencies -->
-              <execution>
-                <id>direct-all</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <transitive>false</transitive>
-                  <file>${graph.direct.dir}/all.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>direct-compile</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <transitive>false</transitive>
-                  <show>compile</show>
-                  <file>${graph.direct.dir}/compile.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>direct-provided</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <transitive>false</transitive>
-                  <show>provided</show>
-                  <file>${graph.direct.dir}/provided.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>direct-runtime</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <transitive>false</transitive>
-                  <show>runtime</show>
-                  <file>${graph.direct.dir}/runtime.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>direct-test</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <transitive>false</transitive>
-                  <show>test</show>
-                  <file>${graph.direct.dir}/test.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>direct-system</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <transitive>false</transitive>
-                  <show>system</show>
-                  <file>${graph.direct.dir}/system.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>direct-import</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <transitive>false</transitive>
-                  <show>import</show>
-                  <file>${graph.direct.dir}/import.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>direct-kuali</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <transitive>false</transitive>
-                  <includes>org.kuali*</includes>
-                  <file>${graph.direct.dir}/kuali.png</file>
-                </configuration>
-              </execution>
-              <!-- Transitive dependencies -->
-              <execution>
-                <id>transitive-all</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <file>${graph.transitive.dir}/all.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>transitive-compile</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <show>compile</show>
-                  <file>${graph.transitive.dir}/compile.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>transitive-provided</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <show>provided</show>
-                  <file>${graph.transitive.dir}/provided.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>transitive-runtime</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <show>runtime</show>
-                  <file>${graph.transitive.dir}/runtime.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>transitive-test</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <show>test</show>
-                  <file>${graph.transitive.dir}/test.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>transitive-system</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <show>system</show>
-                  <file>${graph.transitive.dir}/system.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>transitive-import</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <show>import</show>
-                  <file>${graph.transitive.dir}/import.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>transitive-kuali</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <includes>org.kuali*</includes>
-                  <file>${graph.transitive.dir}/kuali.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>conflicts</id>
-                <goals>
-                  <goal>conflicts</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <file>${graph.dir}/conflicts.png</file>
-                </configuration>
-              </execution>
-              <execution>
-                <id>logging</id>
-                <goals>
-                  <goal>condensed</goal>
-                </goals>
-                <phase>${plugin.graph.phase}</phase>
-                <configuration>
-                  <includes>commons-logging,org.slf4j,log4j</includes>
-                  <file>${graph.dir}/logging.png</file>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
     <profile>
       <!-- Bare bones site. Only thing it generates is the "About" page -->
       <id>minsite</id>
@@ -549,6 +312,11 @@
           <configuration>
             <relativizeDecorationLinks>false</relativizeDecorationLinks>
             <reportPlugins>
+              <plugin>
+                <groupId>org.kuali.maven.plugins</groupId>
+                <artifactId>graph-maven-plugin</artifactId>
+                <version>1.0.5-SNAPSHOT</version>
+              </plugin>
               <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <!-- Version is included here only because it does not inherit correctly from the pluginManagement section
