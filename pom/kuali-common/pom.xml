@@ -127,7 +127,7 @@
     <plugin.jxr.version>2.3</plugin.jxr.version>
     <plugin.plugin.version>2.7</plugin.plugin.version>
     <plugin.pmd.version>2.5</plugin.pmd.version>
-    <plugin.graph.version>1.0.4</plugin.graph.version>
+    <plugin.graph.version>1.0.5-SNAPSHOT</plugin.graph.version>
 
   </properties>
   <repositories>
@@ -316,6 +316,40 @@
                 <groupId>org.kuali.maven.plugins</groupId>
                 <artifactId>graph-maven-plugin</artifactId>
                 <version>1.0.5-SNAPSHOT</version>
+                <configuration>
+                  <descriptors>
+                    <descriptor>
+                      <includes>org.kuali*</includes>
+                      <category>transitive</category>
+                      <label>kuali</label>
+                    </descriptor>
+                    <descriptor>
+                      <includes>org.kuali*</includes>
+                      <category>transitive</category>
+                      <label>kuali-flat</label>
+                      <layout>FLAT</layout>
+                    </descriptor>
+                    <descriptor>
+                      <includes>org.kuali*</includes>
+                      <category>direct</category>
+                      <label>kuali</label>
+                      <transitive>false</transitive>
+                    </descriptor>
+                    <descriptor>
+                      <includes>org.kuali*</includes>
+                      <category>direct</category>
+                      <label>kuali-flat</label>
+                      <layout>FLAT</layout>
+                      <transitive>false</transitive>
+                    </descriptor>
+                    <descriptor>
+                      <includes>commons-logging,org.slf4j,log4j</includes>
+                      <filterType>PATH</filterType>
+                      <category>other</category>
+                      <label>logging</label>
+                    </descriptor>
+                  </descriptors>
+                </configuration>
               </plugin>
               <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
