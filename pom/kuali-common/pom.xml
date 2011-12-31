@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2011 The Kuali Foundation
+  Copyright 2004-2011 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -127,7 +127,7 @@
     <plugin.jxr.version>2.3</plugin.jxr.version>
     <plugin.plugin.version>2.7</plugin.plugin.version>
     <plugin.pmd.version>2.5</plugin.pmd.version>
-    <plugin.graph.version>1.0.5-SNAPSHOT</plugin.graph.version>
+    <plugin.graph.version>1.1.0</plugin.graph.version>
 
   </properties>
   <repositories>
@@ -315,40 +315,80 @@
               <plugin>
                 <groupId>org.kuali.maven.plugins</groupId>
                 <artifactId>graph-maven-plugin</artifactId>
-                <version>1.0.5-SNAPSHOT</version>
+                <version>${plugin.graph.version}</version>
                 <configuration>
-                  <descriptors>
-                    <descriptor>
-                      <includes>org.kuali*</includes>
-                      <category>transitive</category>
-                      <label>kuali</label>
-                    </descriptor>
-                    <descriptor>
-                      <includes>org.kuali*</includes>
-                      <category>transitive</category>
-                      <label>kuali-flat</label>
-                      <layout>FLAT</layout>
-                    </descriptor>
-                    <descriptor>
-                      <includes>org.kuali*</includes>
-                      <category>direct</category>
-                      <label>kuali</label>
-                      <transitive>false</transitive>
-                    </descriptor>
-                    <descriptor>
-                      <includes>org.kuali*</includes>
-                      <category>direct</category>
-                      <label>kuali-flat</label>
-                      <layout>FLAT</layout>
-                      <transitive>false</transitive>
-                    </descriptor>
-                    <descriptor>
-                      <includes>commons-logging,org.slf4j,log4j</includes>
-                      <filterType>PATH</filterType>
-                      <category>other</category>
-                      <label>logging</label>
-                    </descriptor>
-                  </descriptors>
+                  <categories>
+                    <category>
+                      <name>kuali</name>
+                      <description>Dependencies on Kuali projects</description>
+                      <groups>
+                        <group>
+                          <name>direct</name>
+                          <description>Direct dependencies on other Kuali projects</description>
+                          <descriptors>
+                            <descriptor>
+                              <includes>org.kuali*</includes>
+                              <name>linked</name>
+                              <transitive>false</transitive>
+                              <showGroupIds>false</showGroupIds>
+                            </descriptor>
+                            <descriptor>
+                              <includes>org.kuali*</includes>
+                              <name>flat</name>
+                              <layout>FLAT</layout>
+                              <transitive>false</transitive>
+                              <showGroupIds>false</showGroupIds>
+                            </descriptor>
+                          </descriptors>
+                        </group>
+                        <group>
+                          <name>transitive</name>
+                          <description>Transitive dependencies on other Kuali projects</description>
+                          <descriptors>
+                            <descriptor>
+                              <includes>org.kuali*</includes>
+                              <name>linked</name>
+                            </descriptor>
+                            <descriptor>
+                              <includes>org.kuali*</includes>
+                              <name>flat</name>
+                              <layout>FLAT</layout>
+                              <showGroupIds>false</showGroupIds>
+                            </descriptor>
+                          </descriptors>
+                        </group>
+                      </groups>
+                    </category>
+                    <category>
+                      <name>logging</name>
+                      <description>Dependencies on logging libraries</description>
+                      <groups>
+                        <group>
+                          <name>logging</name>
+                          <description>Dependencies on logging libraries</description>
+                          <descriptors>
+                            <descriptor>
+                              <includes>org.slf4j,log4j</includes>
+                              <filterType>PATH</filterType>
+                              <name>linked</name>
+                            </descriptor>
+                            <descriptor>
+                              <includes>org.slf4j,log4j</includes>
+                              <filterType>PATH</filterType>
+                              <layout>FLAT</layout>
+                              <showDuplicates>true</showDuplicates>
+                              <name>flat</name>
+                            </descriptor>
+                            <descriptor>
+                              <includes>commons-logging</includes>
+                              <filterType>PATH</filterType>
+                              <name>commons-logging</name>
+                            </descriptor>
+                          </descriptors>
+                        </group>
+                      </groups>
+                    </category>
+                  </categories>
                 </configuration>
               </plugin>
               <plugin>
