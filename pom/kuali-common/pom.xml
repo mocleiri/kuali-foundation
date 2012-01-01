@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali.pom</groupId>
@@ -126,7 +127,7 @@
     <plugin.jxr.version>2.3</plugin.jxr.version>
     <plugin.plugin.version>2.7</plugin.plugin.version>
     <plugin.pmd.version>2.5</plugin.pmd.version>
-    <plugin.graph.version>1.1.0</plugin.graph.version>
+    <plugin.graph.version>1.1.1-SNAPSHOT</plugin.graph.version>
 
   </properties>
   <repositories>
@@ -309,21 +310,21 @@
           <artifactId>maven-site-plugin</artifactId>
           <version>${plugin.site.version}</version>
           <configuration>
-            <relativizeDecorationLinks>false</relativizeDecorationLinks>
             <reportPlugins>
               <plugin>
                 <groupId>org.kuali.maven.plugins</groupId>
                 <artifactId>graph-maven-plugin</artifactId>
                 <version>${plugin.graph.version}</version>
                 <configuration>
+                  <ignoreDotFailure>true</ignoreDotFailure>
                   <categories>
                     <category>
                       <name>kuali</name>
                       <description>Dependencies on Kuali projects</description>
-                      <groups>
-                        <group>
+                      <rows>
+                        <row>
                           <name>direct</name>
-                          <description>Direct dependencies on other Kuali projects</description>
+                          <description>Direct dependencies on Kuali projects</description>
                           <descriptors>
                             <descriptor>
                               <includes>org.kuali*</includes>
@@ -339,10 +340,10 @@
                               <showGroupIds>false</showGroupIds>
                             </descriptor>
                           </descriptors>
-                        </group>
-                        <group>
+                        </row>
+                        <row>
                           <name>transitive</name>
-                          <description>Transitive dependencies on other Kuali projects</description>
+                          <description>Transitive dependencies on Kuali projects</description>
                           <descriptors>
                             <descriptor>
                               <includes>org.kuali*</includes>
@@ -355,14 +356,96 @@
                               <showGroupIds>false</showGroupIds>
                             </descriptor>
                           </descriptors>
-                        </group>
-                      </groups>
+                        </row>
+                      </rows>
+                    </category>
+                    <category>
+                      <name>rice</name>
+                      <description>Dependencies on Kuali Rice</description>
+                      <rows>
+                        <row>
+                          <name>direct</name>
+                          <description>Direct dependencies on Kuali Rice</description>
+                          <descriptors>
+                            <descriptor>
+                              <includes>org.kuali.rice*</includes>
+                              <name>linked</name>
+                              <transitive>false</transitive>
+                              <showGroupIds>false</showGroupIds>
+                            </descriptor>
+                            <descriptor>
+                              <includes>org.kuali.rice*</includes>
+                              <name>flat</name>
+                              <layout>FLAT</layout>
+                              <transitive>false</transitive>
+                              <showGroupIds>false</showGroupIds>
+                            </descriptor>
+                          </descriptors>
+                        </row>
+                        <row>
+                          <name>transitive</name>
+                          <description>Transitive dependencies on Kuali Rice</description>
+                          <descriptors>
+                            <descriptor>
+                              <includes>org.kuali.rice*</includes>
+                              <name>linked</name>
+                            </descriptor>
+                            <descriptor>
+                              <includes>org.kuali.rice*</includes>
+                              <name>flat</name>
+                              <layout>FLAT</layout>
+                              <showGroupIds>false</showGroupIds>
+                            </descriptor>
+                          </descriptors>
+                        </row>
+                      </rows>
+                    </category>
+                    <category>
+                      <name>student</name>
+                      <description>Dependencies on Kuali Student</description>
+                      <rows>
+                        <row>
+                          <name>direct</name>
+                          <description>Direct dependencies on Kuali student</description>
+                          <descriptors>
+                            <descriptor>
+                              <includes>org.kuali.student*</includes>
+                              <name>linked</name>
+                              <transitive>false</transitive>
+                              <showGroupIds>false</showGroupIds>
+                            </descriptor>
+                            <descriptor>
+                              <includes>org.kuali.student*</includes>
+                              <name>flat</name>
+                              <layout>FLAT</layout>
+                              <transitive>false</transitive>
+                              <showGroupIds>false</showGroupIds>
+                            </descriptor>
+                          </descriptors>
+                        </row>
+                        <row>
+                          <name>transitive</name>
+                          <description>Transitive dependencies on Kuali Student</description>
+                          <descriptors>
+                            <descriptor>
+                              <includes>org.kuali.student*</includes>
+                              <name>linked</name>
+                            </descriptor>
+                            <descriptor>
+                              <includes>org.kuali.student*</includes>
+                              <name>flat</name>
+                              <layout>FLAT</layout>
+                              <showGroupIds>false</showGroupIds>
+                            </descriptor>
+                          </descriptors>
+                        </row>
+                      </rows>
                     </category>
                     <category>
                       <name>logging</name>
                       <description>Dependencies on logging libraries</description>
-                      <groups>
-                        <group>
+                      <rows>
+                        <row>
                           <name>logging</name>
                           <description>Dependencies on logging libraries</description>
                           <descriptors>
@@ -384,8 +467,8 @@
                               <name>commons-logging</name>
                             </descriptor>
                           </descriptors>
-                        </group>
-                      </groups>
+                        </row>
+                      </rows>
                     </category>
                   </categories>
                 </configuration>
