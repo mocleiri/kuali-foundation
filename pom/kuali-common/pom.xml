@@ -446,8 +446,8 @@
                       <description>Dependencies on logging libraries</description>
                       <rows>
                         <row>
-                          <name>logging</name>
-                          <description>Dependencies on logging libraries</description>
+                          <name>slf4j</name>
+                          <description>Dependencies on SLF4J</description>
                           <descriptors>
                             <descriptor>
                               <includes>org.slf4j,log4j</includes>
@@ -461,10 +461,26 @@
                               <showDuplicates>true</showDuplicates>
                               <name>flat</name>
                             </descriptor>
+                          </descriptors>
+                        </row>
+                        <row>
+                          <name>jcl</name>
+                          <description>
+                            Dependencies on Jakarta Commons Logging (JCL). These dependencies should be
+                            excluded and replaced by jcl-over-slf4j
+                          </description>
+                          <descriptors>
                             <descriptor>
                               <includes>commons-logging</includes>
                               <filterType>PATH</filterType>
-                              <name>commons-logging</name>
+                              <name>linked</name>
+                            </descriptor>
+                            <descriptor>
+                              <includes>commons-logging</includes>
+                              <filterType>PATH</filterType>
+                              <layout>FLAT</layout>
+                              <showDuplicates>true</showDuplicates>
+                              <name>flat</name>
                             </descriptor>
                           </descriptors>
                         </row>
