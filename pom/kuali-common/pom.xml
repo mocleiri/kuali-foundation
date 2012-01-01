@@ -451,12 +451,12 @@
                           <descriptors>
                             <descriptor>
                               <includes>org.slf4j,log4j</includes>
-                              <filterType>PATH</filterType>
+                              <display>PATH</display>
                               <name>linked</name>
                             </descriptor>
                             <descriptor>
                               <includes>org.slf4j,log4j</includes>
-                              <filterType>PATH</filterType>
+                              <display>PATH</display>
                               <layout>FLAT</layout>
                               <showDuplicates>true</showDuplicates>
                               <name>flat</name>
@@ -472,12 +472,12 @@
                           <descriptors>
                             <descriptor>
                               <includes>commons-logging</includes>
-                              <filterType>PATH</filterType>
+                              <display>PATH</display>
                               <name>linked</name>
                             </descriptor>
                             <descriptor>
                               <includes>commons-logging</includes>
-                              <filterType>PATH</filterType>
+                              <display>PATH</display>
                               <layout>FLAT</layout>
                               <showDuplicates>true</showDuplicates>
                               <name>flat</name>
