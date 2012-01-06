@@ -16,12 +16,11 @@
   limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali.pom</groupId>
   <artifactId>kuali</artifactId>
-  <version>1.0.15-SNAPSHOT</version>
+  <version>1.0.15</version>
   <packaging>pom</packaging>
   <name>The Kuali Foundation</name>
   <description>
@@ -204,9 +203,9 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/pom/kuali</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/pom/kuali</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/pom/kuali</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/kuali-1.0.15</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/kuali-1.0.15</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/kuali-1.0.15</url>
   </scm>
   <build>
     <extensions>
