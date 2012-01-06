@@ -30,7 +30,6 @@
   <url>http://${kuali.site.hostname}/common/threads/${project.artifactId}/${project.version}</url>
   <description>Small helper package for writing multi-threaded apps</description>
   <properties>
-    <kuali.release.profiles>kuali-release,graph</kuali.release.profiles>
     <kuali.compile.source>1.5</kuali.compile.source>
     <kuali.compile.target>1.5</kuali.compile.target>
     <slf4j.version>1.6.4</slf4j.version>
