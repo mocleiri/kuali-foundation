@@ -647,6 +647,7 @@
     <profile>
       <id>kuali-release</id>
       <properties>
+        <!-- Use our internal version that skips packaging/deploying test JAR's for pom projects -->
         <plugin.jar.version>2.3.2-kuali-2</plugin.jar.version>
       </properties>
       <build>
