@@ -16,8 +16,7 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali.pom</groupId>
@@ -26,7 +25,7 @@
   </parent>
   <groupId>org.kuali.common.threads</groupId>
   <artifactId>kuali-threads</artifactId>
-  <version>1.0.7-SNAPSHOT</version>
+  <version>1.0.7</version>
   <name>Kuali Threads</name>
   <url>http://${kuali.site.hostname}/common/threads/${project.artifactId}/${project.version}</url>
   <description>Small helper package for writing multi-threaded apps</description>
@@ -65,8 +64,8 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-threads</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-threads</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/kuali-threads</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/kuali-threads-1.0.7</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/kuali-threads-1.0.7</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/kuali-threads-1.0.7</url>
   </scm>
 </project>
