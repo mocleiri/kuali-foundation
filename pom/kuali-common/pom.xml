@@ -176,6 +176,7 @@
         <kuali.cobertura.skip>true</kuali.cobertura.skip>
         <maven.jxr.skip>true</maven.jxr.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
+        <graph.skip>true</graph.skip>
       </properties>
     </profile>
     <profile>
