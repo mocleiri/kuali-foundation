@@ -445,8 +445,8 @@
                       <description>Dependencies on logging libraries</description>
                       <rows>
                         <row>
-                          <name>slf4j</name>
-                          <description>Dependencies on SLF4J</description>
+                          <name>klog</name>
+                          <description>Dependencies on slf4j + log4j</description>
                           <descriptors>
                             <descriptor>
                               <includes>org.slf4j,log4j</includes>
