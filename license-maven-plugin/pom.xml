@@ -56,7 +56,7 @@
   </prerequisites>
 
   <properties>
-    <maven.test.skip>true</maven.test.skip>
+    <maven.test.skip></maven.test.skip>
     <mojo.java.target>1.5</mojo.java.target>
     <mavenVersion>2.2.1</mavenVersion>
     <processorVersion>1.2.2</processorVersion>
@@ -260,8 +260,8 @@
       <id>run-its</id>
       <activation>
         <property>
-          <name>maven.test.skip</name>
-          <value>!true</value>
+          <name>run.it.tests</name>
+          <value>foobar</value>
         </property>
       </activation>
       <build>
