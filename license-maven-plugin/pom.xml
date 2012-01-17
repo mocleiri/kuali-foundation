@@ -56,6 +56,7 @@
   </prerequisites>
 
   <properties>
+    <maven.test.skip>true</maven.test.skip>
     <mojo.java.target>1.5</mojo.java.target>
     <mavenVersion>2.2.1</mavenVersion>
     <processorVersion>1.2.2</processorVersion>
