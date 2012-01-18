@@ -142,6 +142,7 @@
     <plugin.jar.version>2.3.2</plugin.jar.version>
     <plugin.javadoc.version>2.8</plugin.javadoc.version>
     <plugin.jenkins.version>1.1.0</plugin.jenkins.version>
+    <plugin.klicense.version>1.1-kuali</plugin.klicense.version>
     <plugin.ksite.version>1.1.1</plugin.ksite.version>
     <plugin.license.version>1.9.0</plugin.license.version>
     <plugin.nexus.version>1.9.2.3</plugin.nexus.version>
@@ -232,6 +233,38 @@
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>jenkins-maven-plugin</artifactId>
           <version>${plugin.jenkins.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <version>${plugin.klicense.version}</version>
+          <configuration>
+            <artifactLicenseMapping>classpath:org/kuali/cm/license/THIRD-PARTY.properties</artifactLicenseMapping>
+            <useMissingFile>true</useMissingFile>
+            <groupByLicense>true</groupByLicense>
+            <licenseMerges>
+              <licenseMerge>Apache Software License - Version 2.0|Apache License 2.0|ASF 2.0|Apache License Version 2.0|Apache 2|Apache 2.0|Apache License|Apache License Version 2.0|Apache License, Version 2.0|The Apache Software License, Version 2.0|provided without support or warranty</licenseMerge>
+              <licenseMerge>BSD License|BSD|BSD style|BSD-style License|The BSD License</licenseMerge>
+              <licenseMerge>Common Public License - Version 1.0|CPL|Common Public License Version 1.0</licenseMerge>
+              <licenseMerge>Eclipse Public License - Version 1.0|Eclipse Public License - v 1.0|Eclipse Public License v1.0</licenseMerge>
+              <licenseMerge>CDDL - Version 1.0|CDDL|CDDL 1.0|CDDL License</licenseMerge>
+              <licenseMerge>CDDL - Version 1.1 / GNU General Public License - Version 2|CDDL v1.1 / GPL v2 dual license</licenseMerge>
+              <licenseMerge>Educational Community License - Version 2.0|Educational Community License, Version 2.0</licenseMerge>
+              <licenseMerge>GNU Lesser General Public License|GNU LESSER GENERAL PUBLIC LICENSE|lgpl|license.txt</licenseMerge>
+              <licenseMerge>GNU Lesser General Public License - Version 2.1|GNU Lesser General Public License Version 2.1|LGPL 2.1|LGPL, version 2.1</licenseMerge>
+              <licenseMerge>GNU Lesser General Public License - Version 3.0|GNU Lesser General Public License v3.0</licenseMerge>
+              <licenseMerge>GNU General Public License - Version 2|The GNU General Public License, Version 2</licenseMerge>
+              <licenseMerge>Mozilla Public License - Version 1.1|Mozilla Public License version 1.1|MPL 1.1</licenseMerge>
+              <licenseMerge>GNU General Public License - Version 2 / CPE|GPL2 w/ CPE|GPLv2+CE</licenseMerge>
+            </licenseMerges>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.kuali.common.cm</groupId>
+              <artifactId>cm-tools</artifactId>
+              <version>${kuali.cm.tools.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
@@ -651,6 +684,18 @@
       </properties>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>license-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>add-third-party-licenses</id>
+                <goals>
+                  <goal>add-third-party</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <artifactId>maven-deploy-plugin</artifactId>
             <configuration>
