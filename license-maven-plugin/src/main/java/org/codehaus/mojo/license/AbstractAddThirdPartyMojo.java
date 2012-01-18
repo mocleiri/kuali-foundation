@@ -428,6 +428,12 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
                     sb.append("List of third-party dependencies grouped by " + "their license type.");
                     for (String licenseName : licenseMap.keySet()) {
                         SortedSet<MavenProject> projects = licenseMap.get(licenseName);
+
+                        // Don't print the license if it isn't being used
+                        if (projects == null || projects.size() == 0) {
+                            continue;
+                        }
+
                         sb.append("\n\n").append(licenseName).append(" : ");
 
                         for (MavenProject mavenProject : projects) {
