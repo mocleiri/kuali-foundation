@@ -114,6 +114,8 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
 
     @Override
     protected SortedMap<String, MavenProject> loadDependencies() {
+        getLog().info("dependencies tool=" + dependenciesTool.getClass());
+
         return dependenciesTool.loadProjectDependencies(getProject(), this, localRepository, remoteRepositories,
                 getArtifactCache());
     }
@@ -127,10 +129,12 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
 
         SortedSet<MavenProject> unsafeDependencies = getUnsafeDependencies();
 
+        getLog().info("1.0");
         if (CollectionUtils.isNotEmpty(unsafeDependencies)) {
 
             // there is some unresolved license
 
+            getLog().info("2.0");
             if (isUseRepositoryMissingFiles()) {
 
                 // try to load missing third party files from dependencies
@@ -139,9 +143,11 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
                 projects.remove(getProject());
                 projects.removeAll(unsafeDependencies);
 
-                SortedProperties resolvedUnsafeMapping = getThridPartyTool().loadThirdPartyDescriptorsForUnsafeMapping(
-                        getEncoding(), projects, unsafeDependencies, getLicenseMap(), localRepository,
-                        remoteRepositories);
+                getLog().info("2.1");
+                SortedProperties resolvedUnsafeMapping = new SortedProperties("UTF-8");// getThridPartyTool().loadThirdPartyDescriptorsForUnsafeMapping(
+                // getEncoding(), projects, unsafeDependencies, getLicenseMap(), localRepository,
+                // remoteRepositories);
+                getLog().info("2.2");
 
                 // push back resolved unsafe mappings
                 unsafeMappings.putAll(resolvedUnsafeMapping);
@@ -174,6 +180,7 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
                 getLog().debug("Missing file " + getMissingFile() + " is up-to-date.");
             }
         }
+        getLog().info("4");
         return unsafeMappings;
     }
 

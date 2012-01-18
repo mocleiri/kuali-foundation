@@ -299,7 +299,6 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
             setMissingFile(propertiesFile);
         }
 
-
         Log log = getLog();
 
         if (log.isDebugEnabled()) {
