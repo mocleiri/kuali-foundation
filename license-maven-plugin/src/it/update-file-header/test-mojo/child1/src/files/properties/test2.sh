@@ -1,26 +1,18 @@
 #!/bin/sh
-###
-# #%L
-# License Test :: update-file-header
 #
-# $Id: test2.sh 14735 2011-09-19 17:39:34Z tchemit $
-# $HeadURL: http://svn.codehaus.org/mojo/tags/license-maven-plugin-1.0/src/it/update-file-header/test-mojo/child1/src/files/properties/test2.sh $
-# %%
-# Copyright (C) 2012 License Test
-# %%
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
+# Copyright 2010-2012 The Kuali Foundation
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# Licensed under the Educational Community License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# You should have received a copy of the GNU General Public
-# License along with this program.  If not, see
-# <http://www.gnu.org/licenses/gpl-3.0.html>.
-# #L%
-###
+# http://www.opensource.org/licenses/ecl2.php
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 ls ~/*
