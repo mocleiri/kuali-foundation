@@ -127,6 +127,7 @@
     <plugin.jxr.version>2.3</plugin.jxr.version>
     <plugin.plugin.version>2.7</plugin.plugin.version>
     <plugin.pmd.version>2.5</plugin.pmd.version>
+    <plugin.klicense.version>1.0-kuali</plugin.klicense.version>
 
   </properties>
   <repositories>
@@ -233,7 +234,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>license-maven-plugin</artifactId>
-          <version>1.0-kuali</version>
+          <version>${plugin.klicense.version}</version>
           <configuration>
             <artifactLicenseMapping>classpath:org/kuali/cm/license/THIRD-PARTY.properties</artifactLicenseMapping>
             <licenseMerges>
