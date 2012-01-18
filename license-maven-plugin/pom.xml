@@ -30,7 +30,7 @@
   <name>License Maven Plugin</name>
   <version>1.0-kuali-SNAPSHOT</version>
   <description>Maven plugin to download and collect license files from project dependencies.</description>
-
+  <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/license-maven-plugin</connection>
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/license-maven-plugin</developerConnection>
