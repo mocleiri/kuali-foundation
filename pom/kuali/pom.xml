@@ -124,7 +124,7 @@
     <ksite.downloadBase>http://s3browse.springsource.com/browse/maven.kuali.org</ksite.downloadBase>
 
     <!-- Wagon versions -->
-    <wagon.s3.version>1.1.8</wagon.s3.version>
+    <wagon.s3.version>1.1.10</wagon.s3.version>
 
     <!-- Plugin versions (ordered alphabetically) -->
     <plugin.ant.version>1.0.5</plugin.ant.version>
@@ -142,7 +142,7 @@
     <plugin.jar.version>2.3.2</plugin.jar.version>
     <plugin.javadoc.version>2.8</plugin.javadoc.version>
     <plugin.jenkins.version>1.1.0</plugin.jenkins.version>
-    <plugin.klicense.version>1.1-kuali</plugin.klicense.version>
+    <plugin.klicense.version>1.2-kuali</plugin.klicense.version>
     <plugin.ksite.version>1.1.1</plugin.ksite.version>
     <plugin.license.version>1.9.0</plugin.license.version>
     <plugin.nexus.version>1.9.2.3</plugin.nexus.version>
