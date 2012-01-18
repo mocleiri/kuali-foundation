@@ -405,7 +405,7 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
             for (MavenProject dep : unsafeDependencies) {
 
                 // no license found for the dependency
-                log.info(" - " + MojoHelper.getArtifactId(dep.getArtifact()));
+                log.debug(" - " + MojoHelper.getArtifactId(dep.getArtifact()));
             }
         }
         return unsafe;
