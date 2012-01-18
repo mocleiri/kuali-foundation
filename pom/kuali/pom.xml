@@ -694,7 +694,7 @@
                   <goal>add-third-party</goal>
                 </goals>
                 <configuration>
-                  <generateBundle>true</generateBundle>
+                  <thirdPartyFilename>META-INF/THIRD-PARTY.txt</thirdPartyFilename>
                 </configuration>
               </execution>
             </executions>
