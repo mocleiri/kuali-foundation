@@ -114,8 +114,6 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
 
     @Override
     protected SortedMap<String, MavenProject> loadDependencies() {
-        getLog().info("dependencies tool=" + dependenciesTool.getClass());
-
         return dependenciesTool.loadProjectDependencies(getProject(), this, localRepository, remoteRepositories,
                 getArtifactCache());
     }
@@ -144,7 +142,12 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
                 projects.removeAll(unsafeDependencies);
 
                 getLog().debug("2.1");
-                SortedProperties resolvedUnsafeMapping = new SortedProperties("UTF-8");// getThridPartyTool().loadThirdPartyDescriptorsForUnsafeMapping(
+
+                SortedProperties resolvedUnsafeMapping = new SortedProperties("UTF-8");
+                // The next few lines attempt to download groupid--artifactid--third-party.properties for every
+                // dependency in the tree
+
+                // getThridPartyTool().loadThirdPartyDescriptorsForUnsafeMapping(
                 // getEncoding(), projects, unsafeDependencies, getLicenseMap(), localRepository,
                 // remoteRepositories);
                 getLog().debug("2.2");
@@ -180,7 +183,7 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
                 getLog().debug("Missing file " + getMissingFile() + " is up-to-date.");
             }
         }
-        getLog().info("4");
+        getLog().debug("4");
         return unsafeMappings;
     }
 
