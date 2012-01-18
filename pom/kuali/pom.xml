@@ -242,7 +242,6 @@
             <artifactLicenseMapping>classpath:org/kuali/cm/license/THIRD-PARTY.properties</artifactLicenseMapping>
             <useMissingFile>true</useMissingFile>
             <groupByLicense>true</groupByLicense>
-            <generateBundle>true</generateBundle>
             <licenseMerges>
               <licenseMerge>Apache Software License - Version 2.0|Apache License 2.0|ASF 2.0|Apache License Version 2.0|Apache 2|Apache 2.0|Apache License|Apache License Version 2.0|Apache License, Version 2.0|The Apache Software License, Version 2.0|provided without support or warranty</licenseMerge>
               <licenseMerge>BSD License|BSD|BSD style|BSD-style License|The BSD License</licenseMerge>
@@ -694,6 +693,9 @@
                 <goals>
                   <goal>add-third-party</goal>
                 </goals>
+                <configuration>
+                  <generateBundle>true</generateBundle>
+                </configuration>
               </execution>
             </executions>
           </plugin>
