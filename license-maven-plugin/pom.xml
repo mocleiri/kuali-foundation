@@ -28,13 +28,13 @@
   <artifactId>license-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <name>License Maven Plugin</name>
-  <version>1.0-kuali-SNAPSHOT</version>
+  <version>1.0-kuali</version>
   <description>Maven plugin to download and collect license files from project dependencies.</description>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/license-maven-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/license-maven-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/license-maven-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/license-maven-plugin-1.0-kuali</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/license-maven-plugin-1.0-kuali</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/license-maven-plugin-1.0-kuali</url>
   </scm>
 
   <inceptionYear>2010</inceptionYear>
@@ -51,7 +51,7 @@
   </prerequisites>
 
   <properties>
-    <maven.test.skip></maven.test.skip>
+    <maven.test.skip />
     <mojo.java.target>1.5</mojo.java.target>
     <mavenVersion>2.2.1</mavenVersion>
     <processorVersion>1.2.2</processorVersion>
