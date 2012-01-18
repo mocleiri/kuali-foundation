@@ -1,1 +1,0 @@
-To fix the MLICENSE-21 bug (see http://jira.codehaus.org/browse/MLICENSE-21)
