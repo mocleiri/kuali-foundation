@@ -304,6 +304,11 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
 
     @Override
     protected void init() throws Exception {
+        if (exists(getArtifactLicenseMapping())) {
+            File propertiesFile = copyToFileSystem(getArtifactLicenseMapping());
+            setMissingFile(propertiesFile);
+        }
+
 
         Log log = getLog();
 
@@ -411,7 +416,7 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
             for (MavenProject dep : unsafeDependencies) {
 
                 // no license found for the dependency
-                log.debug(" - " + MojoHelper.getArtifactId(dep.getArtifact()));
+                log.info(" - " + MojoHelper.getArtifactId(dep.getArtifact()));
             }
         }
         return unsafe;

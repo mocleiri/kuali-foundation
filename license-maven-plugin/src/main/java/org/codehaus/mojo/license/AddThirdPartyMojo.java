@@ -246,12 +246,6 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
 
     @Override
     protected void doAction() throws Exception {
-
-        if (exists(getArtifactLicenseMapping())) {
-            File propertiesFile = copyToFileSystem(getArtifactLicenseMapping());
-            setMissingFile(propertiesFile);
-        }
-
         boolean unsafe = checkUnsafeDependencies();
 
         writeThirdPartyFile();
