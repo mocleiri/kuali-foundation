@@ -130,7 +130,7 @@
     <plugin.ant.version>1.0.5</plugin.ant.version>
     <plugin.antrun.version>1.7</plugin.antrun.version>
     <plugin.assembly.version>2.2.1</plugin.assembly.version>
-    <plugin.buildnumber.version>1.0</plugin.buildnumber.version>
+    <plugin.buildnumber.version>1.7</plugin.buildnumber.version>
     <plugin.clean.version>2.4.1</plugin.clean.version>
     <plugin.cloudfront.version>1.1.3</plugin.cloudfront.version>
     <plugin.compiler.version>2.3.2</plugin.compiler.version>
