@@ -122,7 +122,7 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
     protected SortedProperties createUnsafeMapping() throws ProjectBuildingException, IOException,
             ThirdPartyToolException {
 
-        SortedProperties unsafeMappings = getThridPartyTool().loadUnsafeMapping(getLicenseMap(), getArtifactCache(),
+        SortedProperties unsafeMappings = getThirdPartyTool().loadUnsafeMapping(getLicenseMap(), getArtifactCache(),
                 getEncoding(), getMissingFile());
 
         SortedSet<MavenProject> unsafeDependencies = getUnsafeDependencies();
@@ -273,7 +273,7 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
             File file = getMissingFile();
 
             getLog().debug("Will deploy third party file from " + file);
-            getThridPartyTool().attachThirdPartyDescriptor(getProject(), file);
+            getThirdPartyTool().attachThirdPartyDescriptor(getProject(), file);
         }
 
         addResourceDir(getOutputDirectory(), "**/*.txt");

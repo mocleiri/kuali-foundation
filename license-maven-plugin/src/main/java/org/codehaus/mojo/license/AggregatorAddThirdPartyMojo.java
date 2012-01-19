@@ -94,12 +94,12 @@ public class AggregatorAddThirdPartyMojo extends AbstractAddThirdPartyMojo {
 
             if (file.exists()) {
 
-                SortedProperties tmp = getThridPartyTool().loadUnsafeMapping(licenseMap, getArtifactCache(),
+                SortedProperties tmp = getThirdPartyTool().loadUnsafeMapping(licenseMap, getArtifactCache(),
                         getEncoding(), file);
                 unsafeMappings.putAll(tmp);
             }
 
-            SortedSet<MavenProject> unsafes = getThridPartyTool().getProjectsWithNoLicense(licenseMap, isVerbose());
+            SortedSet<MavenProject> unsafes = getThirdPartyTool().getProjectsWithNoLicense(licenseMap, isVerbose());
             if (CollectionUtils.isEmpty(unsafes)) {
 
                 // no more unsafe dependencies, can break

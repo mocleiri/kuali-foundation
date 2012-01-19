@@ -16,6 +16,7 @@
 package org.codehaus.mojo.license;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -61,7 +62,7 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
     protected File outputDirectory;
 
     /**
-     * File where to wirte the third-party file.
+     * File where license information for third party dependencies gets stored
      *
      * @parameter expression="${license.thirdPartyFilename}" default-value="THIRD-PARTY.txt"
      * @required
@@ -86,11 +87,10 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
     protected File missingFile;
 
     /**
-     * Location of a properties file mapping artifacts that are published with no license to the license that should be
-     * used for them. This supports classpath notation and any other type of URL Spring 3.1 resource loading can
-     * understand.
+     * Location of a properties file mapping artifacts without a license to the license that should be used for them.
+     * This supports classpath notation and any other type of URL Spring 3.1 resource loading can understand.
      *
-     * @parameter expression="${license.artifactLicenseMapping}" default-value="THIRD-PARTY.properties"
+     * @parameter expression="${license.artifactLicenseMapping}" default-value="classpath:THIRD-PARTY.properties"
      * @since 1.0
      */
     protected String artifactLicenseMapping;
@@ -155,7 +155,7 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
     /**
      * A flag to change the grouping of the generated THIRD-PARTY file.
      * <p/>
-     * By default, group by dependecies.
+     * By default, group by dependencies.
      * <p/>
      * If sets to {@code true}, the it will group by license type.
      *
@@ -227,7 +227,7 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
      * @readonly
      * @since 1.0
      */
-    private ThirdPartyTool thridPartyTool;
+    private ThirdPartyTool thirdPartyTool;
 
     private SortedMap<String, MavenProject> projectDependencies;
 
@@ -263,27 +263,43 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
         if (StringUtils.isBlank(location)) {
             return false;
         }
+        File file = new File(location);
+        if (file.exists()) {
+            return true;
+        }
         ResourceLoader loader = new DefaultResourceLoader();
         Resource resource = loader.getResource(location);
         return resource.exists();
     }
 
-    protected File copyToFileSystem(String location) {
+    protected InputStream getInputStream(String location) throws IOException {
+        File file = new File(location);
+        if (file.exists()) {
+            return new FileInputStream(file);
+        }
         ResourceLoader loader = new DefaultResourceLoader();
         Resource resource = loader.getResource(location);
         if (!resource.exists()) {
-            throw new IllegalArgumentException("Can't locate " + location);
+            throw new IllegalArgumentException("Can't open an input stream for " + location);
+        } else {
+            return resource.getInputStream();
         }
+    }
 
+    protected File copyToFileSystem(String location) {
+        File temp = new File(getProject().getBuild().getDirectory() + "/license/THIRD-PARTY.properties");
+        return copyToFileSystem(location, temp);
+    }
+
+    protected File copyToFileSystem(String location, File file) {
         InputStream in = null;
         OutputStream out = null;
         try {
-            in = resource.getInputStream();
-            File temp = new File(getProject().getBuild().getDirectory() + "/license/THIRD-PARTY.properties");
-            out = FileUtils.openOutputStream(temp);
+            in = getInputStream(location);
+            out = FileUtils.openOutputStream(file);
             IOUtils.copy(in, out);
-            getLog().debug("Created " + temp);
-            return temp;
+            getLog().debug("Copied " + location + " to " + file);
+            return file;
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         } finally {
@@ -338,7 +354,7 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
 
         licenseMap = createLicenseMap(projectDependencies);
 
-        SortedSet<MavenProject> unsafeDependencies = getThridPartyTool().getProjectsWithNoLicense(licenseMap,
+        SortedSet<MavenProject> unsafeDependencies = getThirdPartyTool().getProjectsWithNoLicense(licenseMap,
                 isVerbose());
 
         setUnsafeDependencies(unsafeDependencies);
@@ -381,7 +397,7 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
                     getLog().info("Will merge " + Arrays.toString(mergedLicense) + "");
                 }
 
-                thridPartyTool.mergeLicenses(licenseMap, mergedLicense);
+                thirdPartyTool.mergeLicenses(licenseMap, mergedLicense);
             }
         }
     }
@@ -391,7 +407,7 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
         LicenseMap licenseMap = new LicenseMap();
 
         for (MavenProject project : dependencies.values()) {
-            thridPartyTool.addLicense(licenseMap, project, project.getLicenses());
+            thirdPartyTool.addLicense(licenseMap, project, project.getLicenses());
         }
         return licenseMap;
     }
@@ -654,12 +670,12 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
         this.includedArtifacts = includedArtifacts;
     }
 
-    public ThirdPartyTool getThridPartyTool() {
-        return thridPartyTool;
+    public ThirdPartyTool getThirdPartyTool() {
+        return thirdPartyTool;
     }
 
-    public void setThridPartyTool(ThirdPartyTool thridPartyTool) {
-        this.thridPartyTool = thridPartyTool;
+    public void setThirdPartyTool(ThirdPartyTool thridPartyTool) {
+        this.thirdPartyTool = thridPartyTool;
     }
 
     public String getArtifactLicenseMapping() {
