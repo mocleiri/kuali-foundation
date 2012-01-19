@@ -15,9 +15,16 @@
  */
 package org.kuali.common.util.cxf;
 
-
 public class Generator {
     public static void main(String[] args) {
+        new Generator().execute(args);
+    }
 
+    public void execute(String[] args) {
+        try {
+
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
     }
 }
