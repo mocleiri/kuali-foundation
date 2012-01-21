@@ -16,12 +16,13 @@
 
 package com.google.code.mojo.license;
 
-import com.google.code.mojo.license.document.Document;
-import com.google.code.mojo.license.header.Header;
+import java.io.File;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-import java.io.File;
+import com.google.code.mojo.license.document.Document;
+import com.google.code.mojo.license.header.Header;
 
 /**
  * Reformat files with a missing header to add it
@@ -33,8 +34,8 @@ import java.io.File;
 public final class LicenseFormatMojo extends AbstractLicenseMojo {
 
     /**
-     * Wheter to treat multi-modules projects as only one project (true) or treat multi-module projects separately
-     * (false, by default)
+     * Treat multi-modules projects as only one project (true) or treat multi-module projects separately (false, by
+     * default)
      *
      * @parameter expression="${license.dryRun}" default-value="false"
      */
@@ -47,10 +48,12 @@ public final class LicenseFormatMojo extends AbstractLicenseMojo {
      */
     protected boolean skipExistingHeaders = false;
 
+    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("Updating license headers...");
 
         execute(new Callback() {
+            @Override
             public void onHeaderNotFound(Document document, Header header) {
                 document.parseHeader();
                 if (document.headerDetected()) {
@@ -72,6 +75,7 @@ public final class LicenseFormatMojo extends AbstractLicenseMojo {
                 }
             }
 
+            @Override
             public void onExistingHeader(Document document, Header header) {
                 debug("Header OK in: %s", document.getFile());
             }
