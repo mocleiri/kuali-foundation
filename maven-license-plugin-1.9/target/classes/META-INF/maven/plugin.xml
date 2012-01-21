@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+  <name>maven-license-plugin</name>
+  <description>Maven 2 plugin to check and update license headers in source files</description>
+  <groupId>org.kuali.maven.plugins</groupId>
+  <artifactId>maven-license-plugin</artifactId>
+  <version>1.9.1-SNAPSHOT</version>
+  <goalPrefix>license</goalPrefix>
+  <isolatedRealm>false</isolatedRealm>
+  <inheritedByDefault>true</inheritedByDefault>
+  <mojos>
+    <mojo>
+      <goal>check</goal>
+      <description>Check if the source files of the project have a valid license header</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>verify</phase>
+      <implementation>com.google.code.mojo.license.LicenseCheckMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>true</threadSafe>
+      <parameters>
+        <parameter>
+          <name>aggregate</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Wheter to treat multi-modules projects as only one project (true) or treat multi-module projects separately
+(false, by default)</description>
+        </parameter>
+        <parameter>
+          <name>basedir</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The base directory, in which to search for files.</description>
+        </parameter>
+        <parameter>
+          <name>concurrencyFactor</name>
+          <type>float</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Maven license plugin uses concurrency to check license headers. This factor is used to control the number
+of threads used to check. The rule is:
+&lt;br&gt;
+{@code &lt;nThreads&gt; = &lt;number of cores&gt; *  concurrencyFactor}
+&lt;br&gt;
+The default is 1.5.</description>
+        </parameter>
+        <parameter>
+          <name>encoding</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set the charcter encoding for files</description>
+        </parameter>
+        <parameter>
+          <name>excludes</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specifies files, which are excluded in the check. By default, no files are excluded.</description>
+        </parameter>
+        <parameter>
+          <name>failIfMissing</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Whether to fail the build if some file miss license header</description>
+        </parameter>
+        <parameter>
+          <name>header</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The text document containing the license header to check or use for reformatting</description>
+        </parameter>
+        <parameter>
+          <name>headerDefinitions</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Allows the use of external header definitions files. These files are properties like.</description>
+        </parameter>
+        <parameter>
+          <name>includes</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specifies files, which are included in the check. By default, all files are included.</description>
+        </parameter>
+        <parameter>
+          <name>keywords</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specify the list of keywords to use to detect a header. A header must include all keywords to be valid.
+By default, the word &apos;copyright&apos; is used. Detection is done case insensitive.</description>
+        </parameter>
+        <parameter>
+          <name>mapping</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set mapping between document mapping and a supported type to use</description>
+        </parameter>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description></description>
+        </parameter>
+        <parameter>
+          <name>properties</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The properties to use when reading the header, to replace tokens</description>
+        </parameter>
+        <parameter>
+          <name>quiet</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set this to &quot;true&quot; to cause no output</description>
+        </parameter>
+        <parameter>
+          <name>skip</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Whether to skip the plugin execution</description>
+        </parameter>
+        <parameter>
+          <name>strictCheck</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set to true if you need a strict check against the headers. By default, the existence of
+a header is verified by taking the top portion of a file and checking if it contains the
+headers text, not considering special characters (spaces, tabs, ...)
+&lt;br&gt;
+We highly recommend to set this option to true. It is by default set to false for
+backward compatibility</description>
+        </parameter>
+        <parameter>
+          <name>useDefaultExcludes</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Whether to use the default excludes when scanning for files.</description>
+        </parameter>
+        <parameter>
+          <name>useDefaultMapping</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Whether to use the default mapping between fiel extensions and comments to use, or only the one your provide</description>
+        </parameter>
+        <parameter>
+          <name>validHeaders</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specifies additional header files to use when checking for the presence of a valid header in your sources.
+&lt;br&gt;
+When using format goal, this property will be used to detect all valid headers that don&apos;t need formatting.
+&lt;br&gt;
+When using remove goal, this property will be used to detect all valid headers that also must be removed.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <aggregate implementation="boolean" default-value="false">${license.aggregate}</aggregate>
+        <basedir implementation="java.io.File" default-value="${basedir}">${license.basedir}</basedir>
+        <concurrencyFactor implementation="float" default-value="1.5">${license.concurrencyFactor}</concurrencyFactor>
+        <encoding implementation="java.lang.String" default-value="${file.encoding}">${license.encoding}</encoding>
+        <failIfMissing implementation="boolean" default-value="true">${license.failIfMissing}</failIfMissing>
+        <header implementation="java.lang.String">${license.header}</header>
+        <project implementation="org.apache.maven.project.MavenProject" default-value="${project}"/>
+        <quiet implementation="boolean" default-value="false">${license.quiet}</quiet>
+        <skip implementation="boolean" default-value="false">${license.skip}</skip>
+        <strictCheck implementation="boolean" default-value="false">${license.strictCheck}</strictCheck>
+        <useDefaultExcludes implementation="boolean" default-value="true">${license.useDefaultExcludes}</useDefaultExcludes>
+        <useDefaultMapping implementation="boolean" default-value="true">${license.useDefaultMapping}</useDefaultMapping>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>remove</goal>
+      <description>Remove the specified header from source files</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <implementation>com.google.code.mojo.license.LicenseRemoveMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>true</threadSafe>
+      <parameters>
+        <parameter>
+          <name>aggregate</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Wheter to treat multi-modules projects as only one project (true) or treat multi-module projects separately
+(false, by default)</description>
+        </parameter>
+        <parameter>
+          <name>basedir</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The base directory, in which to search for files.</description>
+        </parameter>
+        <parameter>
+          <name>concurrencyFactor</name>
+          <type>float</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Maven license plugin uses concurrency to check license headers. This factor is used to control the number
+of threads used to check. The rule is:
+&lt;br&gt;
+{@code &lt;nThreads&gt; = &lt;number of cores&gt; *  concurrencyFactor}
+&lt;br&gt;
+The default is 1.5.</description>
+        </parameter>
+        <parameter>
+          <name>dryRun</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Wheter to treat multi-modules projects as only one project (true) or treat multi-module projects separately
+(false, by default)</description>
+        </parameter>
+        <parameter>
+          <name>encoding</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set the charcter encoding for files</description>
+        </parameter>
+        <parameter>
+          <name>excludes</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specifies files, which are excluded in the check. By default, no files are excluded.</description>
+        </parameter>
+        <parameter>
+          <name>header</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The text document containing the license header to check or use for reformatting</description>
+        </parameter>
+        <parameter>
+          <name>headerDefinitions</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Allows the use of external header definitions files. These files are properties like.</description>
+        </parameter>
+        <parameter>
+          <name>includes</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specifies files, which are included in the check. By default, all files are included.</description>
+        </parameter>
+        <parameter>
+          <name>keywords</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specify the list of keywords to use to detect a header. A header must include all keywords to be valid.
+By default, the word &apos;copyright&apos; is used. Detection is done case insensitive.</description>
+        </parameter>
+        <parameter>
+          <name>mapping</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set mapping between document mapping and a supported type to use</description>
+        </parameter>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description></description>
+        </parameter>
+        <parameter>
+          <name>properties</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The properties to use when reading the header, to replace tokens</description>
+        </parameter>
+        <parameter>
+          <name>quiet</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set this to &quot;true&quot; to cause no output</description>
+        </parameter>
+        <parameter>
+          <name>skip</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Whether to skip the plugin execution</description>
+        </parameter>
+        <parameter>
+          <name>strictCheck</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set to true if you need a strict check against the headers. By default, the existence of
+a header is verified by taking the top portion of a file and checking if it contains the
+headers text, not considering special characters (spaces, tabs, ...)
+&lt;br&gt;
+We highly recommend to set this option to true. It is by default set to false for
+backward compatibility</description>
+        </parameter>
+        <parameter>
+          <name>useDefaultExcludes</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Whether to use the default excludes when scanning for files.</description>
+        </parameter>
+        <parameter>
+          <name>useDefaultMapping</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Whether to use the default mapping between fiel extensions and comments to use, or only the one your provide</description>
+        </parameter>
+        <parameter>
+          <name>validHeaders</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specifies additional header files to use when checking for the presence of a valid header in your sources.
+&lt;br&gt;
+When using format goal, this property will be used to detect all valid headers that don&apos;t need formatting.
+&lt;br&gt;
+When using remove goal, this property will be used to detect all valid headers that also must be removed.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <aggregate implementation="boolean" default-value="false">${license.aggregate}</aggregate>
+        <basedir implementation="java.io.File" default-value="${basedir}">${license.basedir}</basedir>
+        <concurrencyFactor implementation="float" default-value="1.5">${license.concurrencyFactor}</concurrencyFactor>
+        <dryRun implementation="boolean" default-value="false">${license.dryRun}</dryRun>
+        <encoding implementation="java.lang.String" default-value="${file.encoding}">${license.encoding}</encoding>
+        <header implementation="java.lang.String">${license.header}</header>
+        <project implementation="org.apache.maven.project.MavenProject" default-value="${project}"/>
+        <quiet implementation="boolean" default-value="false">${license.quiet}</quiet>
+        <skip implementation="boolean" default-value="false">${license.skip}</skip>
+        <strictCheck implementation="boolean" default-value="false">${license.strictCheck}</strictCheck>
+        <useDefaultExcludes implementation="boolean" default-value="true">${license.useDefaultExcludes}</useDefaultExcludes>
+        <useDefaultMapping implementation="boolean" default-value="true">${license.useDefaultMapping}</useDefaultMapping>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>format</goal>
+      <description>Reformat files with a missing header to add it</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <implementation>com.google.code.mojo.license.LicenseFormatMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>true</threadSafe>
+      <parameters>
+        <parameter>
+          <name>aggregate</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Wheter to treat multi-modules projects as only one project (true) or treat multi-module projects separately
+(false, by default)</description>
+        </parameter>
+        <parameter>
+          <name>basedir</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The base directory, in which to search for files.</description>
+        </parameter>
+        <parameter>
+          <name>concurrencyFactor</name>
+          <type>float</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Maven license plugin uses concurrency to check license headers. This factor is used to control the number
+of threads used to check. The rule is:
+&lt;br&gt;
+{@code &lt;nThreads&gt; = &lt;number of cores&gt; *  concurrencyFactor}
+&lt;br&gt;
+The default is 1.5.</description>
+        </parameter>
+        <parameter>
+          <name>dryRun</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Wheter to treat multi-modules projects as only one project (true) or treat multi-module projects separately
+(false, by default)</description>
+        </parameter>
+        <parameter>
+          <name>encoding</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set the charcter encoding for files</description>
+        </parameter>
+        <parameter>
+          <name>excludes</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specifies files, which are excluded in the check. By default, no files are excluded.</description>
+        </parameter>
+        <parameter>
+          <name>header</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The text document containing the license header to check or use for reformatting</description>
+        </parameter>
+        <parameter>
+          <name>headerDefinitions</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Allows the use of external header definitions files. These files are properties like.</description>
+        </parameter>
+        <parameter>
+          <name>includes</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specifies files, which are included in the check. By default, all files are included.</description>
+        </parameter>
+        <parameter>
+          <name>keywords</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specify the list of keywords to use to detect a header. A header must include all keywords to be valid.
+By default, the word &apos;copyright&apos; is used. Detection is done case insensitive.</description>
+        </parameter>
+        <parameter>
+          <name>mapping</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set mapping between document mapping and a supported type to use</description>
+        </parameter>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description></description>
+        </parameter>
+        <parameter>
+          <name>properties</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The properties to use when reading the header, to replace tokens</description>
+        </parameter>
+        <parameter>
+          <name>quiet</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set this to &quot;true&quot; to cause no output</description>
+        </parameter>
+        <parameter>
+          <name>skip</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Whether to skip the plugin execution</description>
+        </parameter>
+        <parameter>
+          <name>skipExistingHeaders</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Wheter to skip file where a header has been detected</description>
+        </parameter>
+        <parameter>
+          <name>strictCheck</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Set to true if you need a strict check against the headers. By default, the existence of
+a header is verified by taking the top portion of a file and checking if it contains the
+headers text, not considering special characters (spaces, tabs, ...)
+&lt;br&gt;
+We highly recommend to set this option to true. It is by default set to false for
+backward compatibility</description>
+        </parameter>
+        <parameter>
+          <name>useDefaultExcludes</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Whether to use the default excludes when scanning for files.</description>
+        </parameter>
+        <parameter>
+          <name>useDefaultMapping</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Whether to use the default mapping between fiel extensions and comments to use, or only the one your provide</description>
+        </parameter>
+        <parameter>
+          <name>validHeaders</name>
+          <type>java.lang.String[]</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Specifies additional header files to use when checking for the presence of a valid header in your sources.
+&lt;br&gt;
+When using format goal, this property will be used to detect all valid headers that don&apos;t need formatting.
+&lt;br&gt;
+When using remove goal, this property will be used to detect all valid headers that also must be removed.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <aggregate implementation="boolean" default-value="false">${license.aggregate}</aggregate>
+        <basedir implementation="java.io.File" default-value="${basedir}">${license.basedir}</basedir>
+        <concurrencyFactor implementation="float" default-value="1.5">${license.concurrencyFactor}</concurrencyFactor>
+        <dryRun implementation="boolean" default-value="false">${license.dryRun}</dryRun>
+        <encoding implementation="java.lang.String" default-value="${file.encoding}">${license.encoding}</encoding>
+        <header implementation="java.lang.String">${license.header}</header>
+        <project implementation="org.apache.maven.project.MavenProject" default-value="${project}"/>
+        <quiet implementation="boolean" default-value="false">${license.quiet}</quiet>
+        <skip implementation="boolean" default-value="false">${license.skip}</skip>
+        <skipExistingHeaders implementation="boolean" default-value="false">${license.skipExistingHeaders}</skipExistingHeaders>
+        <strictCheck implementation="boolean" default-value="false">${license.strictCheck}</strictCheck>
+        <useDefaultExcludes implementation="boolean" default-value="true">${license.useDefaultExcludes}</useDefaultExcludes>
+        <useDefaultMapping implementation="boolean" default-value="true">${license.useDefaultMapping}</useDefaultMapping>
+      </configuration>
+    </mojo>
+  </mojos>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <type>jar</type>
+      <version>3.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <type>jar</type>
+      <version>3.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <type>jar</type>
+      <version>3.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-inject-plexus</artifactId>
+      <type>jar</type>
+      <version>2.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-inject-bean</artifactId>
+      <type>jar</type>
+      <version>2.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-guice</artifactId>
+      <type>jar</type>
+      <version>2.9.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.mycila.xmltool</groupId>
+      <artifactId>xmltool</artifactId>
+      <type>jar</type>
+      <version>3.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <type>jar</type>
+      <version>3.0-alpha-2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-interpolation</artifactId>
+      <type>jar</type>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-compat</artifactId>
+      <type>jar</type>
+      <version>3.0-alpha-2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.wagon</groupId>
+      <artifactId>wagon-provider-api</artifactId>
+      <type>jar</type>
+      <version>1.0-beta-4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-container-default</artifactId>
+      <type>jar</type>
+      <version>1.0-beta-3.0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.xbean</groupId>
+      <artifactId>xbean-reflect</artifactId>
+      <type>jar</type>
+      <version>3.4</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <type>jar</type>
+      <version>1.2.12</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging-api</artifactId>
+      <type>jar</type>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.google-collections</groupId>
+      <artifactId>google-collect</artifactId>
+      <type>jar</type>
+      <version>snapshot-20080530</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.woodstox</groupId>
+      <artifactId>wstx-asl</artifactId>
+      <type>jar</type>
+      <version>3.2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>stax</groupId>
+      <artifactId>stax-api</artifactId>
+      <type>jar</type>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.spice</groupId>
+      <artifactId>model-builder</artifactId>
+      <type>jar</type>
+      <version>1.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project-builder</artifactId>
+      <type>jar</type>
+      <version>3.0-alpha-2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <type>jar</type>
+      <version>2.0.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-settings</artifactId>
+      <type>jar</type>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <type>jar</type>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-settings-builder</artifactId>
+      <type>jar</type>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-repository-metadata</artifactId>
+      <type>jar</type>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-aether-provider</artifactId>
+      <type>jar</type>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.aether</groupId>
+      <artifactId>aether-spi</artifactId>
+      <type>jar</type>
+      <version>1.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.aether</groupId>
+      <artifactId>aether-impl</artifactId>
+      <type>jar</type>
+      <version>1.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.aether</groupId>
+      <artifactId>aether-api</artifactId>
+      <type>jar</type>
+      <version>1.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.aether</groupId>
+      <artifactId>aether-util</artifactId>
+      <type>jar</type>
+      <version>1.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model-builder</artifactId>
+      <type>jar</type>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-classworlds</artifactId>
+      <type>jar</type>
+      <version>2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-component-annotations</artifactId>
+      <type>jar</type>
+      <version>1.5.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.plexus</groupId>
+      <artifactId>plexus-sec-dispatcher</artifactId>
+      <type>jar</type>
+      <version>1.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.plexus</groupId>
+      <artifactId>plexus-cipher</artifactId>
+      <type>jar</type>
+      <version>1.4</version>
+    </dependency>
+  </dependencies>
+</plugin>
