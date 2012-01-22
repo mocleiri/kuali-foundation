@@ -13,6 +13,7 @@
 	<param name="datasource.ojb.platform">Oracle9i</param>
 	
 	<!-- For Embedded Mode -->
+	<!--  -->
 	<param name="rice.app.url">http://test.kc.kuali.org/kr-release</param>
 
 	<param name="kim.runmode">embedded</param>
@@ -21,16 +22,18 @@
 	<param name="ken.runmode">embedded</param>
 	
 	<param name="dev.mode">false</param>
+	-->
 	
 	<!-- Rice Server DB -->
 	<!-- Will be the same as KC Client DB when running embedded mode -->
-	<!-- param name="server.datasource.url">jdbc:oracle:thin:@ec2-174-129-80-250.compute-1.amazonaws.com:1521:XE</param -->
+	<!-- 
 	<param name="server.datasource.url">${datasource.url}</param>
 	<param name="server.datasource.username">KRRELEASE</param>
 	<param name="server.datasource.password">release174kr</param>
 	
 	<param name="rice.portal.links.showRiceServerConfig">true</param>
 	<param name="rice.portal.logout.redirectUrl">${cas.url}/logout</param>
+	-->
 	
 	<!-- CAS Configuration -->
     <param name="cas.url">http://test.kc.kuali.org/cas-release</param>
