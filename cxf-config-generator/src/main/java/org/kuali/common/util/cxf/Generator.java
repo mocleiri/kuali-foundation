@@ -59,7 +59,6 @@ public class Generator {
     }
 
     protected String getProperties(Execution e) {
-        String abbreviation = getAbbreviation(e);
         StringBuilder sb = new StringBuilder();
         sb.append("<svc.xxx.name></svc.xxx.name>\n");
         sb.append("<svc.xxx.wsdl>${wsdl.dir}/${svc.xxx.name}</svc.xxx.wsdl>\n");
@@ -67,13 +66,44 @@ public class Generator {
     }
 
     protected String getAbbreviation(Execution e) {
-        String className = e.getClassName();
-        String serviceName = e.getServiceName();
-        boolean fixedAlready = serviceName.startsWith("$");
-        if (!fixedAlready && !className.endsWith(serviceName)) {
-            System.out.println(serviceName + " " + className);
+        String file = e.getOutputFile();
+        int pos = file.lastIndexOf(".");
+        String s = file.substring(0, pos);
+        if (s.endsWith("Service")) {
+            s = s.substring(0, s.length() - "Service".length());
         }
-        return serviceName;
+        pos = s.lastIndexOf("/");
+        s = s.substring(pos + 1);
+        System.out.println(s);
+
+        String uppers = getUppers(s);
+        if (uppers.length() <= 1) {
+            return s.toLowerCase();
+        } else {
+            return uppers.toLowerCase();
+        }
+    }
+
+    protected String getUppers(String s) {
+        char[] chars = s.toCharArray();
+        StringBuilder sb = new StringBuilder();
+        for (char c : chars) {
+            if (Character.isUpperCase(c)) {
+                sb.append(c + "");
+            }
+        }
+        return sb.toString();
+    }
+
+    protected int getUpperCaseCount(String s) {
+        char[] chars = s.toCharArray();
+        int count = 0;
+        for (char c : chars) {
+            if (Character.isUpperCase(c)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     protected List<Execution> getExecutions(File pom) throws IOException {
@@ -106,6 +136,8 @@ public class Generator {
         e.setClassName(className);
         e.setOutputFile(outputFile);
         e.setServiceName(serviceName);
+        String abbreviation = getAbbreviation(e);
+        e.setAbbreviation(abbreviation);
         return e;
 
     }

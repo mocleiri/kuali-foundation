@@ -8,6 +8,7 @@ public class Execution {
     String className;
     String outputFile;
     String serviceName;
+    String abbreviation;
 
     public String getId() {
         return id;
@@ -55,6 +56,14 @@ public class Execution {
 
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
 }
