@@ -13,7 +13,7 @@
 	<param name="datasource.ojb.platform">Oracle9i</param>
 	
 	<!-- For Embedded Mode -->
-	<!--  -->
+	<!-- 
 	<param name="rice.app.url">http://test.kc.kuali.org/kr-release</param>
 
 	<param name="kim.runmode">embedded</param>
