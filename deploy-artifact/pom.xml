@@ -27,6 +27,7 @@
     <dp.artifactId>${env.ARTIFACT_ID}</dp.artifactId>
     <dp.version>${env.VERSION}</dp.version>
     <dp.file>${env.WORKSPACE}/deploy.jar</dp.file>
+    <!-- The deploy plugin picks "type" from the file extension -->
     <dp.phase>process-resources</dp.phase>
   </properties>
   <build>
@@ -83,6 +84,7 @@
             <artifactId>${dp.artifactId}</artifactId>
             <version>${dp.version}</version>
             <file>${dp.file}</file>
+            <!-- The deploy plugin picks "type" from the file extension -->
             <classifier>${dp.classifier}</classifier>
           </configuration>
         </plugin>
