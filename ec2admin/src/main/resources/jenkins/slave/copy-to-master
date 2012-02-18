@@ -1,12 +1,15 @@
 !/bin/sh -xe
 
 if [ -z "${JOB_NAME}" ] ; then
-    echo "Please set JOB_NAME"
-    exit 1
+  echo "Please set JOB_NAME"
+  exit 1
 fi
 
 LCL_WS=/var/lib/jenkins/workspace/$JOB_NAME
 RMT_WS=/var/lib/jenkins/jobs/$JOB_NAME/workspace
 
+SRC=$LCL_WS/
+DST=jenkins@ci.rice.kuali.org:$RMT_WS
+
 chown -R jenkins:ubuntu $LCL_WS
-rsync -avhz --rsh=ssh --delete $LCL_WS/ jenkins@ci.rice.kuali.org:$RMT_WS
+rsync -avhz --rsh=ssh --delete $SRC $DST

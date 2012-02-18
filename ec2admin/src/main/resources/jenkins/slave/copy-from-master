@@ -6,11 +6,14 @@ if [ $# -ne 1 ]; then
 fi
 
 if [ -z "${JOB_NAME}" ]; then
-    echo "Please set JOB_NAME"
-    exit 1
+  echo "Please set JOB_NAME"
+  exit 1
 fi
 
 LCL_WS=/var/lib/jenkins/workspace/$JOB_NAME
 RMT_WS=/var/lib/jenkins/jobs/$1/workspace
 
-rsync -avhz --rsh=ssh --delete jenkins@ci.rice.kuali.org:$RMT_WS/ $LCL_WS
+SRC=jenkins@ci.rice.kuali.org:$RMT_WS/
+DST=$LCL_WS
+
+rsync -avhz --rsh=ssh --delete $SRC $DST
