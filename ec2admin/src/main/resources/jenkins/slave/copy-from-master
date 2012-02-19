@@ -19,4 +19,6 @@ DST=$LCL_WS
 # Skip compressing files we know are compressed already
 SC=jar,war,zip,gz,bz2,png,jpg,jpeg,gif,ico
 
+echo $(date)
 rsync -avhz --skip-compress=$SC --rsh=ssh --delete $SRC $DST
+echo $(date)
