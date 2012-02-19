@@ -16,4 +16,7 @@ RMT_WS=/var/lib/jenkins/jobs/$1/workspace
 SRC=jenkins@ci.rice.kuali.org:$RMT_WS/
 DST=$LCL_WS
 
-rsync -avhz --skip-compress=jar,war,zip,gz,bz2,png,jpg,jpeg,gif,ico --rsh=ssh --delete $SRC $DST
+# Skip compressing files we know are compressed already
+SC=jar,war,zip,gz,bz2,png,jpg,jpeg,gif,ico
+
+rsync -avhz --skip-compress=$SC --rsh=ssh --delete $SRC $DST
