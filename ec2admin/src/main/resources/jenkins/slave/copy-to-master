@@ -1,5 +1,6 @@
 #!/bin/sh -xe
 
+
 if [ -z "${JOB_NAME}" ] ; then
   echo "Please set JOB_NAME"
   exit 1
