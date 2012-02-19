@@ -16,4 +16,4 @@ RMT_WS=/var/lib/jenkins/jobs/$1/workspace
 SRC=jenkins@ci.rice.kuali.org:$RMT_WS/
 DST=$LCL_WS
 
-rsync -avhz --rsh=ssh --delete $SRC $DST
+rsync -avhz --skip-compress=jar,war,zip,gz,bz2,png,jpg,jpeg,gif,ico --rsh=ssh --delete $SRC $DST
