@@ -1,2 +1,2 @@
-# module = plugins branch Path = https://test.kuali.org/svn/kul-cfg-dbs/branches/clover-integration/clover/plugins revision = 7177
-plugins::https--=__test.kuali.org_svn_kul-cfg-dbs_branches_clover-integration_clover_plugins::UNKNOWN
+# module = plugins branch Path = db-utils/branches/clover-integration/clover/plugins revision = 7277
+plugins::db-utils_branches_clover-integration_clover_plugins::UNKNOWN
