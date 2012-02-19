@@ -1,6 +1,5 @@
 #!/bin/sh -xe
 
-
 if [ $# -ne 1 ]; then
   echo "Usage: $0 job-to-copy"
   exit 1
