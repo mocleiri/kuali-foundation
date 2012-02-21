@@ -1,3 +1,4 @@
 #!/bin/sh
 
 svn checkout http://svn.kuali.org/repos/rice/branches/rice-2.1 /var/lib/jenkins/workspace/rice-2.1-unit-test
+svn checkout http://svn.kuali.org/repos/foundation/db-utils/trunk /var/lib/jenkins/workspace/
