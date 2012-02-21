@@ -1,0 +1,3 @@
+#!/bin/sh
+
+svn checkout http://svn.kuali.org/repos/rice/brances/rice-2.1 /var/lib/jenkins/workspace/rice-2.1-unit-test
