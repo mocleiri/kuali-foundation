@@ -1,4 +1,4 @@
 #!/bin/sh
 
-svn checkout http://svn.kuali.org/repos/rice/branches/rice-2.1 /var/lib/jenkins/workspace/rice-2.1-unit-test
-svn checkout http://svn.kuali.org/repos/foundation/db-utils/trunk /var/lib/jenkins/workspace/
+./setup-workspace http://svn.kuali.org/repos/rice/branches/rice-2.1 rice-2.1-unit-test
+./setup-workspace http://svn.kuali.org/repos/foundation/db-utils/trunk rice-trunk-impex-export-master-db
