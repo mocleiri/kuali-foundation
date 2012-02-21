@@ -1,4 +1,4 @@
 #!/bin/sh
 
-./setup-workspace http://svn.kuali.org/repos/rice/branches/rice-2.1 rice-2.1-unit-test
+# ./setup-workspace http://svn.kuali.org/repos/rice/branches/rice-2.1 rice-2.1-unit-test
 ./setup-workspace http://svn.kuali.org/repos/foundation/db-utils/trunk rice-trunk-impex-export-master-db
