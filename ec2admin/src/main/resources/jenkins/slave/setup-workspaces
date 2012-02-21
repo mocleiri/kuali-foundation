@@ -2,7 +2,7 @@
 
 # ./setup-workspace http://svn.kuali.org/repos/rice/branches/rice-2.1 rice-2.1-unit-test
 # ./setup-workspace http://svn.kuali.org/repos/foundation/db-utils/trunk rice-trunk-impex-export-master-db
-./setup-workspace http://svn.kuali.org/repos/rice/trunk rice-trunk-impex-create-master-db-copy
+#./setup-workspace http://svn.kuali.org/repos/rice/trunk rice-trunk-impex-create-master-db-copy
 ./setup-workspace http://svn.kuali.org/repos/rice/trunk rice-trunk-smoke-test
 ./setup-workspace http://svn.kuali.org/repos/rice/trunk rice-trunk-integration-test-oracle
 ./setup-workspace http://svn.kuali.org/repos/rice/trunk rice-trunk-integration-test-mysql
