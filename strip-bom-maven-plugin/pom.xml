@@ -15,7 +15,7 @@
   <description>This plugin will strip BOMs from source files or files in your
   build directory
   </description>
-  <url>http://${kuali.site.hostname}/rice/${project.version}</url>
+  <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}/</url>
 
   <ciManagement>
     <url>http://ci.rice.kuali.org</url>
