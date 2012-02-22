@@ -7,11 +7,11 @@
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>4</version>
+    <groupId>org.kuali.pom</groupId>
+    <artifactId>kuali-common</artifactId>
+    <version>1.0.31</version>
   </parent>
-  <groupId>com.dhptech.maven</groupId>
+  <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>strip-bom-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <version>1.0.0-SNAPSHOT</version>
@@ -19,60 +19,41 @@
   <description>This plugin will strip BOMs from source files or files in your
   build directory
   </description>
-  <licenses>
-    <license>
-      <name>apache-2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-    </license>
-  </licenses>
-  <url>http://wiki.strip-bom-maven-plugin.googlecode.com/hg/site/${state}</url>
+  <url>http://${kuali.site.hostname}/rice/${project.version}</url>
+
+  <ciManagement>
+    <url>http://ci.rice.kuali.org</url>
+  </ciManagement>
+
   <developers>
     <developer>
-      <id>danap</id>
-      <name>Dana H. P'Simer</name>
-      <organization>DHP Technologies, Inc.</organization>
-      <organizationUrl>http://dhptech.com</organizationUrl>
+      <id>leo</id>
+      <name>Leo Przybylski</name>
+      <email>leo@rsmart.com</email>
+      <url>http://kualigan.blogspot.com</url>
+      <organization>rsmart</organization>
+      <organizationUrl>http://www.rsmart.com</organizationUrl>
       <roles>
-        <role>Lead</role>
-        <role>Code Monkey</role>
+        <role>developer</role>
       </roles>
-      <timezone>GMT-5</timezone>
-      <url>http://danapsimer.com</url>
+      <timezone>-7</timezone>
+      <properties>
+        <picUrl>http://www.gravatar.com/avatar/6be04114e185b6fa626a0ee530db34e4.png</picUrl>
+      </properties>
     </developer>
   </developers>
-  <organization>
-    <name>DHP Technologies, Inc.</name>
-    <url>http://dhptech.com</url>
-  </organization>
+
   <issueManagement>
-    <system>Google Code</system>
-    <url>http://code.google.com/p/strip-bom-maven-plugin/issues/list</url>
+    <system>JIRA</system>
+    <url>http://jira.kuali.org/</url>
   </issueManagement>
+
   <scm>
-    <url>http://code.google.com/p/strip-bom-maven-plugin/source/browse/</url>
-    <connection>scm:hg:https://strip-bom-maven-plugin.googlecode.com/hg/</connection>
-    <developerConnection>scm:hg:https://strip-bom-maven-plugin.googlecode.com/hg/</developerConnection>
+    <connection>scm:svn:http://svn.kuali.org/repos/rice/trunk</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/rice/trunk</developerConnection>
+    <url>http://svn.kuali.org/repos/rice/trunk</url>
   </scm>
-  <distributionManagement>
-    <site>
-      <id>strip-bom-site</id>
-      <name>Site</name>
-      <url>file:${strip-bom.deploy.directory}/site/${state}/</url>
-    </site>
-    <downloadUrl>http://code.google.com/p/strip-bom-maven-plugin/downloads/list</downloadUrl>
-  </distributionManagement>
-  <ciManagement>
-    <notifiers>
-      <notifier>
-        <sendOnWarning>danap@dhptech.com</sendOnWarning>
-        <sendOnError>danap@dhptech.com</sendOnError>
-        <sendOnFailure>danap@dhptech.com</sendOnFailure>
-        <type>email</type>
-      </notifier>
-    </notifiers>
-    <system>hudson</system>
-    <url>http://dhptech.com:8080/</url>
-  </ciManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
