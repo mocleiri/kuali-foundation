@@ -109,6 +109,7 @@
           </execution>
         </executions>
       </plugin>
+      <!--
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>strip-bom-plugin</artifactId>
@@ -143,6 +144,7 @@
           </execution>
         </executions>
       </plugin>
+      -->
     </plugins>
   </build>
 </project>
