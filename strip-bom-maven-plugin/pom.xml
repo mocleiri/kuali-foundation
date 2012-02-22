@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project 
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="
-    http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="     http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -14,7 +10,7 @@
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>strip-bom-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>strip-bom-plugin</name>
   <description>This plugin will strip BOMs from source files or files in your
   build directory
@@ -49,9 +45,9 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/rice/trunk</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/rice/trunk</developerConnection>
-    <url>http://svn.kuali.org/repos/rice/trunk</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/rice/tags/strip-bom-plugin-1.0.0</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/rice/tags/strip-bom-plugin-1.0.0</developerConnection>
+    <url>http://svn.kuali.org/repos/rice/tags/strip-bom-plugin-1.0.0</url>
   </scm>
 
   <dependencies>
