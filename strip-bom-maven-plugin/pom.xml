@@ -23,6 +23,25 @@
 
   <developers>
     <developer>
+      <id>danap</id>
+      <name>Dana H. P'Simer</name>
+      <organization>DHP Technologies, Inc.</organization>
+      <organizationUrl>http://dhptech.com</organizationUrl>
+      <roles>
+        <role>Lead</role>
+        <role>Code Monkey</role>
+      </roles>
+      <timezone>GMT-5</timezone>
+      <url>http://danapsimer.com</url>
+    </developer>
+    <developer>
+      <id>jcaddel</id>
+      <name>Jeff Caddel</name>
+      <email>jcaddel@kuali.org</email>
+      <organization>rSmart</organization>
+      <timezone>-7</timezone>
+    </developer>
+    <developer>
       <id>leo</id>
       <name>Leo Przybylski</name>
       <email>leo@rsmart.com</email>
@@ -45,9 +64,9 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip-bom-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip-bom-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/strip-bom-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</url>
   </scm>
 
   <dependencies>
