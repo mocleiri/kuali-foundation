@@ -27,7 +27,7 @@
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>strip-bom-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.0.2-SNAPSHOT</version>
+  <version>1.0.2</version>
   <name>strip-bom-plugin</name>
   <description>
     This plugin will strip BOMs from source files or files in your build directory
@@ -71,9 +71,9 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/strip-bom-maven-plugin-1.0.2</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/strip-bom-maven-plugin-1.0.2</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/strip-bom-maven-plugin-1.0.2</url>
   </scm>
 
   <dependencies>
