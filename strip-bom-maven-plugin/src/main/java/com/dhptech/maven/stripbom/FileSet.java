@@ -17,11 +17,17 @@ package com.dhptech.maven.stripbom;
 
 /**
  * a class to make using the FileSet from the POM easier.
+ *
  * @author danap
  */
 public class FileSet extends org.apache.maven.shared.model.fileset.FileSet {
 
-  public FileSet() {
-  }
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6666515349895300525L;
+
+    public FileSet() {
+    }
 
 }
