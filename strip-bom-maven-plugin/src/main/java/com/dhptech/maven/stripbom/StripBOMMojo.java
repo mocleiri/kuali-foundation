@@ -40,12 +40,14 @@ import org.apache.maven.shared.model.fileset.util.FileSetManager;
 public class StripBOMMojo extends AbstractMojo {
 
     protected static final byte[] UTF8_BOM = new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF };
+
     /**
      * Locations of a single file to strip the BOM from.
      *
      * @parameter expression="${file}"
      */
     private File file;
+
     /**
      * Locations of the files to strip BOMs.
      *
