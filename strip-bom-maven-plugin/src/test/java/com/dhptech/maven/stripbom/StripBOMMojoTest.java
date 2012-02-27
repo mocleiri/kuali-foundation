@@ -59,11 +59,11 @@ public class StripBOMMojoTest {
       byte[] bom = new byte[3];
       in.mark(10);
       in.read(bom);
-      if (!Arrays.equals(bom, StripBOMMojo.UTF8_BOM)) {
+      if (!Arrays.equals(bom, ByteOrderMarkMojo.UTF8_BOM)) {
         in.reset();
         File tempFile = File.createTempFile(file.getName(), ".tmp", file.getParentFile());
         OutputStream out = new FileOutputStream(tempFile);
-        out.write(StripBOMMojo.UTF8_BOM);
+        out.write(ByteOrderMarkMojo.UTF8_BOM);
         byte[] buffer = new byte[1024];
         int cnt = -1;
         while ((cnt = in.read(buffer)) >= 0) {
@@ -92,7 +92,7 @@ public class StripBOMMojoTest {
     try {
       byte[] bom = new byte[3];
       in.read(bom);
-      return Arrays.equals(bom, StripBOMMojo.UTF8_BOM);
+      return Arrays.equals(bom, ByteOrderMarkMojo.UTF8_BOM);
     } finally {
       in.close();
     }
@@ -106,7 +106,7 @@ public class StripBOMMojoTest {
   @Test
   public void testStripBOMMojoWarnOnlyFailBuild() throws Exception {
     System.out.println("*** testStripBOMMojoWarnOnlyFailBuild");
-    StripBOMMojo mojo = new StripBOMMojo();
+    ByteOrderMarkMojo mojo = new ByteOrderMarkMojo();
 
     Log log = createMock(Log.class);
     Log logDelegate = new StdOutMavenLogger();
@@ -148,7 +148,7 @@ public class StripBOMMojoTest {
   @Test
   public void testStripBOMMojoWarnOnly() throws Exception {
     System.out.println("*** testStripBOMMojoWarnOnly");
-    StripBOMMojo mojo = new StripBOMMojo();
+    ByteOrderMarkMojo mojo = new ByteOrderMarkMojo();
 
     Log log = createMock(Log.class);
     Log logDelegate = new StdOutMavenLogger();
@@ -183,7 +183,7 @@ public class StripBOMMojoTest {
  @Test(dependsOnMethods={"testStripBOMMojoWarnOnly","testStripBOMMojoWarnOnlyFailBuild"})
   public void testStripBOMMojo() throws Exception {
     System.out.println("*** testStripBOMMojo");
-    StripBOMMojo mojo = new StripBOMMojo();
+    ByteOrderMarkMojo mojo = new ByteOrderMarkMojo();
 
     Log log = createMock(Log.class);
     Log logDelegate = new StdOutMavenLogger();
@@ -216,7 +216,7 @@ public class StripBOMMojoTest {
   @Test(dependsOnMethods="testStripBOMMojo")
   public void testStripBOMMojoWarnOnlyFailBuildNoBOMs() throws Exception {
     System.out.println("*** testStripBOMMojoWarnOnlyFailBuildNoBOMs");
-    StripBOMMojo mojo = new StripBOMMojo();
+    ByteOrderMarkMojo mojo = new ByteOrderMarkMojo();
 
     Log log = createMock(Log.class);
     Log logDelegate = new StdOutMavenLogger();

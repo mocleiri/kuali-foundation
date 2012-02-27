@@ -21,25 +21,29 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.shared.model.fileset.FileSet;
 import org.apache.maven.shared.model.fileset.util.FileSetManager;
 
 /**
- * Goal to strip BOMs from UTF-8 text files.
+ * Goal to detect and strip BOMs from files.
  *
  * @goal strip-bom
  * @phase process-sources
  * @requiresProject false
  */
-public class StripBOMMojo extends AbstractMojo {
+public class ByteOrderMarkMojo extends AbstractMojo {
 
     protected static final byte[] UTF8_BOM = new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF };
+    protected static final byte[] UTF16_BIG_ENDIAN_BOM = new byte[] { (byte) 0xFE, (byte) 0xFF };
+    protected static final byte[] UTF16_LITTLE_ENDIAN_BOM = new byte[] { (byte) 0xFF, (byte) 0xFE };
 
     /**
      * Locations of a single file to strip the BOM from.
@@ -56,21 +60,22 @@ public class StripBOMMojo extends AbstractMojo {
     private List<FileSet> files;
 
     /**
-     * Set to true if you only want StripBOM to issue a warning message when a file contains a BOM.
+     * Set to true if you only want to issue a warning message when a file contains a BOM instead of altering the file
+     * contents by removing the BOM.
      *
-     * @parameter expression="${strip-bom.warnOnly}" default-value="false"
+     * @parameter expression="${strip-bom.warnOnly}" default-value="true"
      */
-    private boolean warnOnly = false;
+    private boolean warnOnly = true;
 
     /**
-     * Set to true if you want the build to fail when BOMs are found, really only useful if warnOnly = true.
+     * Set to true if you want the build to fail if a BOM is found.
      *
-     * @parameter expression="${strip-bom.failBuild}" default-value="false"
+     * @parameter expression="${strip-bom.failBuild}" default-value="true"
      */
-    private boolean failBuild = false;
+    private boolean failBuild = true;
 
     /**
-     * The list of fileSets that will specify the files to strip BOMs from.
+     * The list of fileSets that will specify the files to examine
      *
      * @return the file sets.
      */
@@ -145,39 +150,85 @@ public class StripBOMMojo extends AbstractMojo {
         this.failBuild = failBuild;
     }
 
+    protected boolean containsBom(File file, byte[] bom) throws IOException {
+        InputStream in = null;
+        try {
+            in = new FileInputStream(file);
+            byte[] bytes = new byte[bom.length];
+            in.read(bytes);
+            return Arrays.equals(bytes, bom);
+        } finally {
+            IOUtils.closeQuietly(in);
+        }
+    }
+
+    protected boolean containsBom(File file, List<byte[]> boms) throws IOException {
+        for (byte[] bom : boms) {
+            if (containsBom(file, bom)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected List<File> getFileList() {
+        if (file != null) {
+            List<File> fileList = new ArrayList<File>();
+            fileList.add(file);
+            return fileList;
+        }
+        List<File> fileList = new ArrayList<File>();
+        FileSetManager fsm = new FileSetManager(getLog());
+        Iterator<FileSet> fileSetIter = files.iterator();
+        while (fileSetIter.hasNext()) {
+            FileSet fileSet = fileSetIter.next();
+            String[] fileNames = fsm.getIncludedFiles(fileSet);
+            for (int f = 0; f < fileNames.length; f++) {
+                String fileName = fileNames[f];
+                File currFile = new File(fileSet.getDirectory(), fileName);
+                fileList.add(currFile);
+            }
+        }
+        return fileList;
+    }
+
+    protected List<byte[]> getBoms() {
+        List<byte[]> boms = new ArrayList<byte[]>();
+        boms.add(UTF8_BOM);
+        boms.add(UTF16_LITTLE_ENDIAN_BOM);
+        boms.add(UTF16_BIG_ENDIAN_BOM);
+        return boms;
+    }
+
+    protected List<File> getBomFiles(List<File> fileList, List<byte[]> boms) throws MojoExecutionException {
+        List<File> bomFiles = new ArrayList<File>();
+        try {
+            for (File file : fileList) {
+                getLog().debug("Examining " + file);
+                if (containsBom(file, boms)) {
+                    getLog().warn("BOM located in " + file);
+                    bomFiles.add(file);
+                }
+            }
+            return bomFiles;
+        } catch (IOException e) {
+            throw new MojoExecutionException("Error when looking for BOM's", e);
+        }
+    }
+
     /**
-     * Strips the BOMs, if found, from the specified files.
+     * Check for BOM's
      *
      * @throws MojoExecutionException
      */
     @Override
     public void execute() throws MojoExecutionException {
-        boolean foundBOM = false;
-        if (file != null) {
-            try {
-                foundBOM |= stripBOM(file);
-            } catch (IOException ex) {
-                throw new MojoExecutionException("IOException attempting to strip BOM from " + file, ex);
-            }
-        } else {
-            FileSetManager fsm = new FileSetManager(getLog());
-            Iterator<FileSet> fileSetIter = files.iterator();
-            while (fileSetIter.hasNext()) {
-                FileSet fileSet = fileSetIter.next();
-                String[] fileNames = fsm.getIncludedFiles(fileSet);
-                for (int f = 0; f < fileNames.length; f++) {
-                    String fileName = fileNames[f];
-                    File currFile = new File(fileSet.getDirectory(), fileName);
-                    try {
-                        foundBOM |= stripBOM(currFile);
-                    } catch (IOException ex) {
-                        throw new MojoExecutionException("IOException attempting to strip BOM from " + currFile, ex);
-                    }
-                }
-            }
-        }
-        if (foundBOM && failBuild) {
-            throw new MojoExecutionException("BOM(s) Found in files, see output log for specifics.");
+        List<byte[]> boms = getBoms();
+        List<File> fileList = getFileList();
+        getLog().info("Examining " + files.size() + " files for BOM's");
+        List<File> bomFiles = getBomFiles(fileList, boms);
+        if (failBuild && bomFiles.size() > 0) {
+            throw new MojoExecutionException("BOM's were detected");
         }
     }
 
