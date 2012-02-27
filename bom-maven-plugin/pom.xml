@@ -72,9 +72,9 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/bom-maven-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/bom-maven-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/bom-maven-plugin</url>
   </scm>
 
   <dependencies>
