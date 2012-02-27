@@ -35,7 +35,7 @@ import org.apache.maven.shared.model.fileset.util.FileSetManager;
 /**
  * Goal to detect and strip BOMs from files.
  *
- * @goal strip-bom
+ * @goal bom
  * @phase process-sources
  * @requiresProject false
  */
