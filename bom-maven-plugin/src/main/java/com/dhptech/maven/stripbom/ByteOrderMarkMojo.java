@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,13 +48,14 @@ public class ByteOrderMarkMojo extends AbstractMojo {
     protected static final byte[] UTF16_LITTLE_ENDIAN_BOM = new byte[] { (byte) 0xFF, (byte) 0xFE };
 
     /**
+     * Directory where a backup copy of any file having its BOM removed is created
      *
      * @parameter expression="${bom.workingDir}" default-value="${project.build.directory}/bom"
      */
     private File workingDir;
 
     /**
-     * Locations of a single file to strip the BOM from.
+     * Location of a single file to strip the BOM from.
      *
      * @parameter expression="${bom.file}"
      */
@@ -77,7 +79,7 @@ public class ByteOrderMarkMojo extends AbstractMojo {
     /**
      * Set to true if you want the build to fail if a BOM is found.
      *
-     * @parameter expression="${bom.failBuild}" default-value="true"
+     * @parameter expression="${bom.failBuild}" default-value="false"
      */
     private boolean failBuild = true;
 
@@ -157,6 +159,9 @@ public class ByteOrderMarkMojo extends AbstractMojo {
         this.failBuild = failBuild;
     }
 
+    /**
+     * Return true if the file begins with the same sequence of bytes as the BOM passed in
+     */
     protected boolean containsBom(File file, byte[] bom) throws IOException {
         InputStream in = null;
         try {
@@ -169,6 +174,9 @@ public class ByteOrderMarkMojo extends AbstractMojo {
         }
     }
 
+    /**
+     * Return -1 if the file does not begin with a BOM, otherwise return the index of the BOM the file starts with
+     */
     protected int containsBom(File file, List<byte[]> boms) throws IOException {
         for (int i = 0; i < boms.size(); i++) {
             if (containsBom(file, boms.get(i))) {
@@ -178,11 +186,12 @@ public class ByteOrderMarkMojo extends AbstractMojo {
         return -1;
     }
 
+    /**
+     * Return the list of files we need to inspect for BOM's
+     */
     protected List<File> getFileList() {
         if (file != null) {
-            List<File> fileList = new ArrayList<File>();
-            fileList.add(file);
-            return fileList;
+            return Collections.singletonList(file);
         }
         List<File> fileList = new ArrayList<File>();
         FileSetManager fsm = new FileSetManager(getLog());
@@ -199,6 +208,9 @@ public class ByteOrderMarkMojo extends AbstractMojo {
         return fileList;
     }
 
+    /**
+     * Return the list of known BOM's we need to look for
+     */
     protected List<byte[]> getBoms() {
         List<byte[]> boms = new ArrayList<byte[]>();
         boms.add(UTF8_BOM);
@@ -207,6 +219,9 @@ public class ByteOrderMarkMojo extends AbstractMojo {
         return boms;
     }
 
+    /**
+     * Create BomMarker objects for any files that start with a bom
+     */
     protected List<BomMarker> getBomMarkers(List<File> fileList, List<byte[]> boms) throws IOException {
         List<BomMarker> bomMarkers = new ArrayList<BomMarker>();
         for (File file : fileList) {
