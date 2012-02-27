@@ -27,7 +27,7 @@
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>strip-bom-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.0.5</version>
+  <version>1.0.6-SNAPSHOT</version>
   <name>Strip BOM Maven Plugin</name>
   <description>
     This plugin has tooling for dealing with files that contain a byte order mark (aka BOM).  It can strip BOM's from files, warn that files contain BOM's, or fail the build if BOM's are detected.
@@ -72,9 +72,9 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/strip-bom-maven-plugin-1.0.5</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/strip-bom-maven-plugin-1.0.5</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/tags/strip-bom-maven-plugin-1.0.5</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/strip-bom-maven-plugin</url>
   </scm>
 
   <dependencies>
