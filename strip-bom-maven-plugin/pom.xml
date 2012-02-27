@@ -28,7 +28,7 @@
   <artifactId>strip-bom-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <version>1.0.5-SNAPSHOT</version>
-  <name>String BOM Maven Plugin</name>
+  <name>Strip BOM Maven Plugin</name>
   <description>
     This plugin has tooling for dealing with files that contain a byte order mark (aka BOM).  It can strip BOM's from files, warn that files contain BOM's, or fail the build if BOM's are detected.
   </description>
