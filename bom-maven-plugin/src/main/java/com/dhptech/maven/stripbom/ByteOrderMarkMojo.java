@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -46,9 +47,15 @@ public class ByteOrderMarkMojo extends AbstractMojo {
     protected static final byte[] UTF16_LITTLE_ENDIAN_BOM = new byte[] { (byte) 0xFF, (byte) 0xFE };
 
     /**
+     *
+     * @parameter expression="${bom.workingDir}" default-value="${project.build.directory}/bom"
+     */
+    private File workingDir;
+
+    /**
      * Locations of a single file to strip the BOM from.
      *
-     * @parameter expression="${file}"
+     * @parameter expression="${bom.file}"
      */
     private File file;
 
@@ -63,14 +70,14 @@ public class ByteOrderMarkMojo extends AbstractMojo {
      * Set to true if you only want to issue a warning message when a file contains a BOM instead of altering the file
      * contents by removing the BOM.
      *
-     * @parameter expression="${strip-bom.warnOnly}" default-value="true"
+     * @parameter expression="${bom.warnOnly}" default-value="true"
      */
     private boolean warnOnly = true;
 
     /**
      * Set to true if you want the build to fail if a BOM is found.
      *
-     * @parameter expression="${strip-bom.failBuild}" default-value="true"
+     * @parameter expression="${bom.failBuild}" default-value="true"
      */
     private boolean failBuild = true;
 
@@ -162,13 +169,13 @@ public class ByteOrderMarkMojo extends AbstractMojo {
         }
     }
 
-    protected boolean containsBom(File file, List<byte[]> boms) throws IOException {
-        for (byte[] bom : boms) {
-            if (containsBom(file, bom)) {
-                return true;
+    protected int containsBom(File file, List<byte[]> boms) throws IOException {
+        for (int i = 0; i < boms.size(); i++) {
+            if (containsBom(file, boms.get(i))) {
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 
     protected List<File> getFileList() {
@@ -200,20 +207,23 @@ public class ByteOrderMarkMojo extends AbstractMojo {
         return boms;
     }
 
-    protected List<File> getBomFiles(List<File> fileList, List<byte[]> boms) throws MojoExecutionException {
-        List<File> bomFiles = new ArrayList<File>();
-        try {
-            for (File file : fileList) {
-                getLog().debug("Examining " + file);
-                if (containsBom(file, boms)) {
-                    getLog().warn("BOM located in " + file);
-                    bomFiles.add(file);
-                }
+    protected List<BomMarker> getBomMarkers(List<File> fileList, List<byte[]> boms) throws IOException {
+        List<BomMarker> bomMarkers = new ArrayList<BomMarker>();
+        for (File file : fileList) {
+            getLog().debug("Examining " + file);
+            int index = containsBom(file, boms);
+            if (index == -1) {
+                continue;
+            } else {
+                getLog().warn("BOM located in " + file);
+                int skipBytes = boms.get(index).length;
+                BomMarker bm = new BomMarker();
+                bm.setFile(file);
+                bm.setSkipBytes(skipBytes);
+                bomMarkers.add(bm);
             }
-            return bomFiles;
-        } catch (IOException e) {
-            throw new MojoExecutionException("Error when looking for BOM's", e);
         }
+        return bomMarkers;
     }
 
     /**
@@ -223,13 +233,38 @@ public class ByteOrderMarkMojo extends AbstractMojo {
      */
     @Override
     public void execute() throws MojoExecutionException {
-        List<byte[]> boms = getBoms();
-        List<File> fileList = getFileList();
-        getLog().info("Examining " + files.size() + " files for BOM's");
-        List<File> bomFiles = getBomFiles(fileList, boms);
-        if (failBuild && bomFiles.size() > 0) {
-            throw new MojoExecutionException("BOM's were detected");
+        try {
+            List<byte[]> boms = getBoms();
+            List<File> fileList = getFileList();
+            getLog().info("Examining " + files.size() + " files for BOM's");
+            List<BomMarker> bomMarkers = getBomMarkers(fileList, boms);
+            if (!warnOnly) {
+                stripBoms(bomMarkers);
+            }
+            if (failBuild && bomMarkers.size() > 0) {
+                throw new MojoExecutionException(bomMarkers.size() + " BOM's were detected");
+            }
+        } catch (IOException e) {
+            throw new MojoExecutionException("Unexpected IO error", e);
         }
+    }
+
+    protected void stripBoms(List<BomMarker> bomMarkers) throws IOException {
+        FileUtils.forceMkdir(workingDir);
+        for (BomMarker bomMarker : bomMarkers) {
+            stripBom(bomMarker);
+        }
+    }
+
+    protected void stripBom(BomMarker bm) throws IOException {
+        File backup = File.createTempFile(bm.getFile().getName(), "bak", workingDir);
+        FileUtils.copyFile(bm.getFile(), backup);
+        byte[] bytes = FileUtils.readFileToByteArray(bm.getFile());
+        int length = bytes.length - bm.getSkipBytes();
+        byte[] newBytes = new byte[length];
+        System.arraycopy(bytes, bm.getSkipBytes(), newBytes, 0, newBytes.length);
+        FileUtils.writeByteArrayToFile(bm.getFile(), newBytes);
+        backup.delete();
     }
 
     /**
@@ -241,7 +276,7 @@ public class ByteOrderMarkMojo extends AbstractMojo {
      * @throws IOException
      * @throws MojoExecutionException
      */
-    private boolean stripBOM(File file) throws IOException, MojoExecutionException {
+    protected boolean stripBOM(File file) throws IOException, MojoExecutionException {
         if (getLog().isDebugEnabled()) {
             getLog().debug("Checking for BOM in " + file);
         }
