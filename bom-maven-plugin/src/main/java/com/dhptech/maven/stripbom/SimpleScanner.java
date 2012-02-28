@@ -59,7 +59,7 @@ public final class SimpleScanner {
         return excluded;
     }
 
-    private void scanIfneeded() {
+    private synchronized void scanIfneeded() {
         if (scanner == null) {
             scanner = new DirectoryScanner();
             scanner.setBasedir(basedir);
