@@ -27,7 +27,7 @@
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>bom-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <name>BOM Maven Plugin</name>
   <description>
     This plugin has tooling for dealing with files that contain a byte order mark (aka BOM).  It can strip BOM's from files, warn that files contain BOM's, or fail the build if BOM's are detected.
@@ -93,9 +93,9 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/bom-maven-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/bom-maven-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/bom-maven-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/bom-maven-plugin-1.0.1</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/bom-maven-plugin-1.0.1</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/bom-maven-plugin-1.0.1</url>
   </scm>
 
   <dependencies>
