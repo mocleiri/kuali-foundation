@@ -17,10 +17,8 @@ package com.dhptech.maven.stripbom;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -82,11 +80,11 @@ public class StripMojo extends AbstractMojo {
     private boolean useDefaultExcludes;
 
     /**
-     * Set to true if you want to remove any BOM's detected by the plugin
+     * If true, any files where a BOM is detected have the BOM stripped out.
      *
-     * @parameter expression="${bom.strip}" default-value="false"
+     * @parameter expression="${bom.strip}" default-value="true"
      */
-    private boolean strip = false;
+    private boolean strip = true;
 
     /**
      * Set to true if you want the build to fail if a BOM is found.
@@ -225,6 +223,7 @@ public class StripMojo extends AbstractMojo {
             getLog().info("Examining " + fileList.size() + " files for BOM's");
             List<BomMarker> bomMarkers = getBomMarkers(fileList, boms);
             if (strip && bomMarkers.size() > 0) {
+                getLog().info("Removing BOM's from " + bomMarkers.size() + " files");
                 stripBoms(bomMarkers);
             }
             if (failBuild && bomMarkers.size() > 0) {
@@ -244,9 +243,8 @@ public class StripMojo extends AbstractMojo {
     }
 
     protected void stripBom(BomMarker bm, int count) throws IOException {
-        File backup = File.createTempFile(bm.getFile().getName() + ".", ".bak", workingDir);
         getLog().info(count + " --------");
-        getLog().info("Backing up " + bm.getFile().getAbsolutePath());
+        File backup = File.createTempFile(bm.getFile().getName() + ".", ".bak", workingDir);
         getLog().info("Creating " + backup.getAbsolutePath());
         FileUtils.copyFile(bm.getFile(), backup);
         byte[] bytes = FileUtils.readFileToByteArray(bm.getFile());
@@ -255,58 +253,8 @@ public class StripMojo extends AbstractMojo {
         System.arraycopy(bytes, bm.getSkipBytes(), newBytes, 0, newBytes.length);
         getLog().info("Rewriting " + bm.getFile().getAbsolutePath());
         FileUtils.writeByteArrayToFile(bm.getFile(), newBytes);
-        backup.delete();
         getLog().info("Removing " + backup.getAbsolutePath());
-    }
-
-    /**
-     * Strips the BOM, if found from a single file.
-     *
-     * @param file
-     *            the file to remove the BOM from, if it is there.
-     *
-     * @throws IOException
-     * @throws MojoExecutionException
-     */
-    protected boolean stripBOM(File file) throws IOException, MojoExecutionException {
-        if (getLog().isDebugEnabled()) {
-            getLog().debug("Checking for BOM in " + file);
-        }
-        InputStream in = new FileInputStream(file);
-        byte[] bom = new byte[3];
-        in.read(bom);
-        if (Arrays.equals(bom, UTF8_BOM)) {
-            if (getLog().isWarnEnabled()) {
-                getLog().warn("Found BOM in " + file + ", " + (strip ? "not " : "") + "removing.");
-            }
-            if (strip) {
-                return true; // BOM Found
-            }
-
-            File tempFile = File.createTempFile(file.getName(), ".tmp", file.getParentFile());
-            OutputStream out = new FileOutputStream(tempFile);
-            byte[] buffer = new byte[1024];
-            int cnt = -1;
-            while ((cnt = in.read(buffer)) >= 0) {
-                out.write(buffer, 0, cnt);
-            }
-            out.close();
-            File backupFile = File.createTempFile(file.getName(), ".bak", file.getParentFile());
-            if (!file.renameTo(backupFile)) {
-                throw new MojoExecutionException("Could not rename target file, " + file + ", to backup file, "
-                        + backupFile);
-            }
-            if (!tempFile.renameTo(file)) {
-                if (!backupFile.renameTo(file)) {
-                    getLog().error("Could not undo rename of backup file, " + backupFile + ", to target file, " + file);
-                }
-                throw new MojoExecutionException("Could not rename temp file, " + tempFile + ", to target file, "
-                        + file);
-            }
-            backupFile.delete();
-            return true; // BOM Found
-        }
-        return false; // No BOM Found
+        backup.delete();
     }
 
     public File getWorkingDir() {
