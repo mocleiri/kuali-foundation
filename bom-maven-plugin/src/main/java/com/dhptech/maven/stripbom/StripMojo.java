@@ -87,7 +87,7 @@ public class StripMojo extends AbstractMojo {
     private boolean strip = true;
 
     /**
-     * Set to true if you want the build to fail if a BOM is found.
+     * If true, the Maven build will fail if a BOM is detected
      *
      * @parameter expression="${bom.failBuild}" default-value="false"
      */
