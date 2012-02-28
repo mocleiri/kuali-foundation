@@ -223,6 +223,9 @@ public class StripMojo extends AbstractMojo {
             List<File> fileList = getFileList();
             getLog().info("Examining " + fileList.size() + " files for BOM's");
             List<BomMarker> bomMarkers = getBomMarkers(fileList, boms);
+            if (bomMarkers.size() == 0) {
+                getLog().info("No BOM's detected");
+            }
             if (strip && bomMarkers.size() > 0) {
                 getLog().info("Removing BOM's from " + bomMarkers.size() + " files");
                 stripBoms(bomMarkers);
