@@ -49,11 +49,11 @@ public class StripMojo extends AbstractMojo {
     private File workingDir;
 
     /**
-     * The base directory to recursively scan for files containing BOM's
+     * The directory to recursively scan for files containing BOM's
      *
-     * @parameter expression="${project.basedir}"
+     * @parameter expression="${bom.directory}" default-value="${project.basedir}"
      */
-    private File basedir;
+    private File directory;
 
     /**
      * Inclusion patterns. By default, all files are included
@@ -80,7 +80,7 @@ public class StripMojo extends AbstractMojo {
     private boolean useDefaultExcludes;
 
     /**
-     * If true, any files where a BOM is detected have the BOM stripped out.
+     * If true, any files where a BOM is detected has its BOM stripped out.
      *
      * @parameter expression="${bom.strip}" default-value="true"
      */
@@ -94,22 +94,17 @@ public class StripMojo extends AbstractMojo {
     private boolean failBuild = true;
 
     /**
-     * True if we should only warn about BOMs and not actually strip them.
      *
-     * @return true if warnOnly is true.
      */
     public boolean isStrip() {
         return strip;
     }
 
     /**
-     * Set to true to warn only on finding a BOM.
      *
-     * @param warnOnly
-     *            true if we should only warn when finding a BOM.
      */
-    public void setStrip(boolean warnOnly) {
-        this.strip = warnOnly;
+    public void setStrip(boolean strip) {
+        this.strip = strip;
     }
 
     /**
@@ -163,7 +158,7 @@ public class StripMojo extends AbstractMojo {
      * Return the list of files we need to inspect for BOM's
      */
     protected List<File> getFileList() {
-        SimpleScanner scanner = new SimpleScanner(basedir, includes, excludes, useDefaultExcludes);
+        SimpleScanner scanner = new SimpleScanner(directory, includes, excludes, useDefaultExcludes);
         String[] filenames = scanner.getSelectedFiles();
         List<File> fileList = new ArrayList<File>();
         for (String filename : filenames) {
@@ -265,12 +260,12 @@ public class StripMojo extends AbstractMojo {
         this.workingDir = workingDir;
     }
 
-    public File getBasedir() {
-        return basedir;
+    public File getDirectory() {
+        return directory;
     }
 
-    public void setBasedir(File basedir) {
-        this.basedir = basedir;
+    public void setDirectory(File basedir) {
+        this.directory = basedir;
     }
 
     public String[] getIncludes() {

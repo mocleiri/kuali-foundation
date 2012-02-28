@@ -28,14 +28,14 @@ import org.codehaus.plexus.util.DirectoryScanner;
  */
 public final class SimpleScanner {
 
-    private final File basedir;
+    private final File directory;
     private final String[] included;
     private final String[] excluded;
 
     private DirectoryScanner scanner;
 
-    public SimpleScanner(File basedir, String[] included, String[] excluded, boolean useDefaultExcludes) {
-        this.basedir = basedir;
+    public SimpleScanner(File directory, String[] included, String[] excluded, boolean useDefaultExcludes) {
+        this.directory = directory;
         this.included = buildInclusions(included);
         this.excluded = buildExclusions(useDefaultExcludes, excluded);
     }
@@ -45,8 +45,8 @@ public final class SimpleScanner {
         return scanner.getIncludedFiles();
     }
 
-    public File getBasedir() {
-        return basedir;
+    public File getDirectory() {
+        return directory;
     }
 
     public String[] getIncluded() {
@@ -60,7 +60,7 @@ public final class SimpleScanner {
     protected synchronized void scanIfNeeded() {
         if (scanner == null) {
             scanner = new DirectoryScanner();
-            scanner.setBasedir(basedir);
+            scanner.setBasedir(directory);
             scanner.setIncludes(included);
             scanner.setExcludes(excluded);
             scanner.scan();
