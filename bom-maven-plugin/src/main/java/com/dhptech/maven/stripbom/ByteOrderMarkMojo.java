@@ -79,12 +79,11 @@ public class ByteOrderMarkMojo extends AbstractMojo {
     private boolean useDefaultExcludes;
 
     /**
-     * Set to true if you only want to issue a warning message when a file contains a BOM instead of altering the file
-     * contents by removing the BOM.
+     * Set to true if you want to remove any BOM's detected by the plugin
      *
-     * @parameter expression="${bom.warnOnly}" default-value="true"
+     * @parameter expression="${bom.strip}" default-value="false"
      */
-    private boolean warnOnly = true;
+    private boolean strip = false;
 
     /**
      * Set to true if you want the build to fail if a BOM is found.
@@ -98,8 +97,8 @@ public class ByteOrderMarkMojo extends AbstractMojo {
      *
      * @return true if warnOnly is true.
      */
-    public boolean isWarnOnly() {
-        return warnOnly;
+    public boolean isStrip() {
+        return strip;
     }
 
     /**
@@ -108,8 +107,8 @@ public class ByteOrderMarkMojo extends AbstractMojo {
      * @param warnOnly
      *            true if we should only warn when finding a BOM.
      */
-    public void setWarnOnly(boolean warnOnly) {
-        this.warnOnly = warnOnly;
+    public void setStrip(boolean warnOnly) {
+        this.strip = warnOnly;
     }
 
     /**
@@ -222,7 +221,7 @@ public class ByteOrderMarkMojo extends AbstractMojo {
             List<File> fileList = getFileList();
             getLog().info("Examining " + fileList.size() + " files for BOM's");
             List<BomMarker> bomMarkers = getBomMarkers(fileList, boms);
-            if (!warnOnly && bomMarkers.size() > 0) {
+            if (!strip && bomMarkers.size() > 0) {
                 stripBoms(bomMarkers);
             }
             if (failBuild && bomMarkers.size() > 0) {
@@ -275,9 +274,9 @@ public class ByteOrderMarkMojo extends AbstractMojo {
         in.read(bom);
         if (Arrays.equals(bom, UTF8_BOM)) {
             if (getLog().isWarnEnabled()) {
-                getLog().warn("Found BOM in " + file + ", " + (warnOnly ? "not " : "") + "removing.");
+                getLog().warn("Found BOM in " + file + ", " + (strip ? "not " : "") + "removing.");
             }
-            if (warnOnly) {
+            if (strip) {
                 return true; // BOM Found
             }
 
