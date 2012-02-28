@@ -231,13 +231,15 @@ public class ByteOrderMarkMojo extends AbstractMojo {
 
     protected void stripBoms(List<BomMarker> bomMarkers) throws IOException {
         FileUtils.forceMkdir(workingDir);
+        int count = 0;
         for (BomMarker bomMarker : bomMarkers) {
-            stripBom(bomMarker);
+            stripBom(bomMarker, count++);
         }
     }
 
-    protected void stripBom(BomMarker bm) throws IOException {
+    protected void stripBom(BomMarker bm, int count) throws IOException {
         File backup = File.createTempFile(bm.getFile().getName() + ".", ".bak", workingDir);
+        getLog().info(count + " --------");
         getLog().info("Backing up " + bm.getFile().getAbsolutePath());
         getLog().info("Creating " + backup.getAbsolutePath());
         FileUtils.copyFile(bm.getFile(), backup);
