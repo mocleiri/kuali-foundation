@@ -33,13 +33,13 @@ public class CreateTestResources {
             List<byte[]> boms = new ByteOrderMarkMojo().getBoms();
             File directory = new File("/Users/jeffcaddel/ws/bom-maven-plugin/src/test/resources");
             File file1 = new File(directory + "/normal.txt");
+            FileUtils.writeByteArrayToFile(file1, normal);
             File file2 = new File(directory + "/utf8-bom.txt");
             File file3 = new File(directory + "/utf16-bom1.txt");
             File file4 = new File(directory + "/utf16-bom2.txt");
             write(file2, boms.get(0), normal);
             write(file3, boms.get(1), normal);
             write(file4, boms.get(2), normal);
-            FileUtils.writeByteArrayToFile(file1, normal);
         } catch (Exception e) {
             e.printStackTrace();
         }
