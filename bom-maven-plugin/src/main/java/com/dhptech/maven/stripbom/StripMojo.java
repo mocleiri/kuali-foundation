@@ -187,14 +187,8 @@ public class StripMojo extends AbstractMojo {
         for (File file : fileList) {
             getLog().debug("Examining " + file.getAbsolutePath());
             int index = containsBom(file, boms);
-            if (index == -1) {
-                continue;
-            } else {
-                if (failBuild) {
-                    getLog().error("BOM located in " + file.getAbsolutePath());
-                } else {
-                    getLog().warn("BOM located in " + file.getAbsolutePath());
-                }
+            if (index != -1) {
+                logBomFound(file);
                 int skipBytes = boms.get(index).length;
                 BomMarker bm = new BomMarker();
                 bm.setFile(file);
@@ -203,6 +197,18 @@ public class StripMojo extends AbstractMojo {
             }
         }
         return bomMarkers;
+    }
+
+    protected void logBomFound(File file) {
+        if (failBuild) {
+            getLog().error("BOM located in " + file.getAbsolutePath());
+        } else {
+            if (strip) {
+                getLog().info("BOM located in " + file.getAbsolutePath());
+            } else {
+                getLog().warn("BOM located in " + file.getAbsolutePath());
+            }
+        }
     }
 
     /**
@@ -248,8 +254,6 @@ public class StripMojo extends AbstractMojo {
         System.arraycopy(bytes, bm.getSkipBytes(), newBytes, 0, newBytes.length);
         getLog().info("Rewriting " + bm.getFile().getAbsolutePath());
         FileUtils.writeByteArrayToFile(bm.getFile(), newBytes);
-        getLog().info("Removing " + backup.getAbsolutePath());
-        backup.delete();
     }
 
     public File getWorkingDir() {
