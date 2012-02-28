@@ -163,13 +163,6 @@ public class ByteOrderMarkMojo extends AbstractMojo {
      */
     protected List<File> getFileList() {
         SimpleScanner scanner = new SimpleScanner(basedir, includes, excludes, useDefaultExcludes);
-        getLog().info("useDefaultExcludes=" + useDefaultExcludes);
-        for (String include : scanner.getIncluded()) {
-            getLog().info("include=" + include);
-        }
-        for (String exclude : scanner.getExcluded()) {
-            getLog().info("exclude=" + exclude);
-        }
         String[] filenames = scanner.getSelectedFiles();
         List<File> fileList = new ArrayList<File>();
         for (String filename : filenames) {
