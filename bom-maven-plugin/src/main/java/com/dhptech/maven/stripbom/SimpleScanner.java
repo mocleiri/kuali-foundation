@@ -71,10 +71,12 @@ public final class SimpleScanner {
 
     private static String[] buildExclusions(boolean useDefaultExcludes, String... excludes) {
         List<String> exclusions = new ArrayList<String>();
-        if (useDefaultExcludes)
+        if (useDefaultExcludes) {
             exclusions.addAll(asList(DEFAULT_EXCLUDES));
-        if (excludes != null && excludes.length > 0)
+        }
+        if (excludes != null && excludes.length > 0) {
             exclusions.addAll(asList(excludes));
+        }
         return exclusions.toArray(new String[exclusions.size()]);
     }
 

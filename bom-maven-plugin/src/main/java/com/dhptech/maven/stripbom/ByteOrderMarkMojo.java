@@ -190,7 +190,7 @@ public class ByteOrderMarkMojo extends AbstractMojo {
     protected List<BomMarker> getBomMarkers(List<File> fileList, List<byte[]> boms) throws IOException {
         List<BomMarker> bomMarkers = new ArrayList<BomMarker>();
         for (File file : fileList) {
-            getLog().info("Examining " + file);
+            getLog().info("Examining " + file.getAbsolutePath());
             int index = containsBom(file, boms);
             if (index == -1) {
                 continue;
