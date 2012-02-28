@@ -231,7 +231,7 @@ public class ByteOrderMarkMojo extends AbstractMojo {
 
     protected void stripBoms(List<BomMarker> bomMarkers) throws IOException {
         FileUtils.forceMkdir(workingDir);
-        int count = 0;
+        int count = 1;
         for (BomMarker bomMarker : bomMarkers) {
             stripBom(bomMarker, count++);
         }
