@@ -190,7 +190,7 @@ public class ByteOrderMarkMojo extends AbstractMojo {
     protected List<BomMarker> getBomMarkers(List<File> fileList, List<byte[]> boms) throws IOException {
         List<BomMarker> bomMarkers = new ArrayList<BomMarker>();
         for (File file : fileList) {
-            getLog().info("Examining " + file.getAbsolutePath());
+            getLog().debug("Examining " + file.getAbsolutePath());
             int index = containsBom(file, boms);
             if (index == -1) {
                 continue;
@@ -218,6 +218,8 @@ public class ByteOrderMarkMojo extends AbstractMojo {
             List<File> fileList = getFileList();
             getLog().info("Examining " + fileList.size() + " files for BOM's");
             List<BomMarker> bomMarkers = getBomMarkers(fileList, boms);
+            getLog().info("warnOnly=" + warnOnly);
+            getLog().info("bomMarkers.size()=" + bomMarkers.size());
             if (!warnOnly && bomMarkers.size() > 0) {
                 stripBoms(bomMarkers);
             }
@@ -237,14 +239,18 @@ public class ByteOrderMarkMojo extends AbstractMojo {
     }
 
     protected void stripBom(BomMarker bm) throws IOException {
-        File backup = File.createTempFile(bm.getFile().getName(), "bak", workingDir);
+        File backup = File.createTempFile(bm.getFile().getName() + ".", ".bak", workingDir);
+        getLog().info("Backing up " + bm.getFile().getAbsolutePath());
+        getLog().info("Creating " + backup.getAbsolutePath());
         FileUtils.copyFile(bm.getFile(), backup);
         byte[] bytes = FileUtils.readFileToByteArray(bm.getFile());
         int length = bytes.length - bm.getSkipBytes();
         byte[] newBytes = new byte[length];
         System.arraycopy(bytes, bm.getSkipBytes(), newBytes, 0, newBytes.length);
+        getLog().info("Rewriting " + bm.getFile().getAbsolutePath());
         FileUtils.writeByteArrayToFile(bm.getFile(), newBytes);
         backup.delete();
+        getLog().info("Removing " + backup.getAbsolutePath());
     }
 
     /**
