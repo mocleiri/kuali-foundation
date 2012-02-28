@@ -156,6 +156,7 @@
     <!-- 3.0 fixes MSITE-532 but has MSITE-600. 3.1 should fix both -->
     <plugin.site.version>3.0-beta-3</plugin.site.version>
     <plugin.source.version>2.1.2</plugin.source.version>
+    <plugin.bom.version>1.0.2</plugin.bom.version>
     <plugin.surefire.version>2.10</plugin.surefire.version>
     <plugin.svn-revision-number.version>1.7</plugin.svn-revision-number.version>
     <plugin.war.version>2.1.1</plugin.war.version>
@@ -444,6 +445,11 @@
           <version>${plugin.source.version}</version>
         </plugin>
         <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>bom-maven-plugin</artifactId>
+          <version>${plugin.bom.version}</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${plugin.surefire.version}</version>
         </plugin>
@@ -531,6 +537,7 @@
       <id>license</id>
       <properties>
         <license.timestamp.phase>initialize</license.timestamp.phase>
+        <license.bom.phase>initialize</license.bom.phase>
         <license.timestamp.format>yyyy</license.timestamp.format>
         <license.format.phase>process-sources</license.format.phase>
         <license.check.phase>verify</license.check.phase>
@@ -572,6 +579,23 @@
           </plugins>
         </pluginManagement>
         <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>bom-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>detect-boms</id>
+                <phase>${license.bom.phase}</phase>
+                <goals>
+                  <goal>strip</goal>
+                </goals>
+                <configuration>
+                  <strip>false</strip>
+                  <failBuild>true</failBuild>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>buildnumber-maven-plugin</artifactId>
