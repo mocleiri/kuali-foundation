@@ -195,9 +195,9 @@ public class StripMojo extends AbstractMojo {
                 continue;
             } else {
                 if (failBuild) {
-                    getLog().error("BOM located in " + file);
+                    getLog().error("BOM located in " + file.getAbsolutePath());
                 } else {
-                    getLog().warn("BOM located in " + file);
+                    getLog().warn("BOM located in " + file.getAbsolutePath());
                 }
                 int skipBytes = boms.get(index).length;
                 BomMarker bm = new BomMarker();
