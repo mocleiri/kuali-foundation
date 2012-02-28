@@ -36,6 +36,12 @@
   <inceptionYear>2011</inceptionYear>
 
   <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
 
   </build>
 

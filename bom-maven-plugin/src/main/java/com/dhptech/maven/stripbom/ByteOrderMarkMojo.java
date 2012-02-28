@@ -249,6 +249,7 @@ public class ByteOrderMarkMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException {
         try {
+            validate();
             List<byte[]> boms = getBoms();
             List<File> fileList = getFileList();
             getLog().info("Examining " + files.size() + " files for BOM's");
@@ -261,6 +262,13 @@ public class ByteOrderMarkMojo extends AbstractMojo {
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected IO error", e);
+        }
+    }
+
+    protected void validate() throws MojoExecutionException {
+        if (file == null && files == null) {
+            throw new MojoExecutionException(
+                    "No files to check!  You must supply either a named file a list of fileSets");
         }
     }
 

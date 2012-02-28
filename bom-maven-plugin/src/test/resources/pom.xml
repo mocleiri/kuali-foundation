@@ -39,6 +39,13 @@
             <goals>
               <goal>bom</goal>
             </goals>
+            <configuration>
+              <files>
+                <param>
+                  <directory>${project.basedir}</directory>
+                </param>
+              </files>
+            </configuration>
           </execution>
         </executions>
       </plugin>
