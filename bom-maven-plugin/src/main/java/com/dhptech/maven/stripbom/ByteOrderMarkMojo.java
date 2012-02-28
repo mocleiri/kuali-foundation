@@ -195,7 +195,11 @@ public class ByteOrderMarkMojo extends AbstractMojo {
             if (index == -1) {
                 continue;
             } else {
-                getLog().warn("BOM located in " + file);
+                if (failBuild) {
+                    getLog().error("BOM located in " + file);
+                } else {
+                    getLog().warn("BOM located in " + file);
+                }
                 int skipBytes = boms.get(index).length;
                 BomMarker bm = new BomMarker();
                 bm.setFile(file);
