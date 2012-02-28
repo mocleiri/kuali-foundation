@@ -29,7 +29,9 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Goal to detect and strip BOM's from files.
+ * Goal to detect and strip BOM's from files. Any file where the first bytes of the file match the byte sequences
+ * <code>EFBBBF</code>, <code>FEFF</code>, or <code>FFFE</code> will produce a positive match. The files will be
+ * re-written containing the exact same contents but without the BOM bytes.
  *
  * @goal strip
  * @phase process-sources
