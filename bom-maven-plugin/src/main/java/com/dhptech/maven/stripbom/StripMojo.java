@@ -31,7 +31,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Goal to detect and strip BOMs from files.
+ * Goal to detect and strip BOM's from files.
  *
  * @goal strip
  * @phase process-sources
@@ -51,7 +51,7 @@ public class StripMojo extends AbstractMojo {
     private File workingDir;
 
     /**
-     * Location of a single file to strip the BOM from.
+     * The base directory to recursively scan for files containing BOM's
      *
      * @parameter expression="${project.basedir}"
      */
@@ -65,14 +65,17 @@ public class StripMojo extends AbstractMojo {
     private String[] includes;
 
     /**
-     * Exclusion patterns. By default nothing is excluded
+     * Exclusion patterns. By default no files (other than those matching the default excludes) are excluded
      *
      * @parameter
      */
     private String[] excludes;
 
     /**
-     * Use default excludes
+     * Flag indicating whether or not to use the default exclude patterns. These are known patterns like
+     * <code>&#042;&#042;/.svn/&#042;</code> and <code>&#042;&#042;/&#042;.jar</code> See the
+     * <code>DEFAULT_EXCLUDES</code> field in the <code>SimpleScanner</code> class for the exact list of default
+     * excludes.
      *
      * @parameter expression="${bom.useDefaultExcludes}" default-value="true"
      */
