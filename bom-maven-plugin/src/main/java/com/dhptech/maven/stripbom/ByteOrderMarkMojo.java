@@ -252,7 +252,7 @@ public class ByteOrderMarkMojo extends AbstractMojo {
             validate();
             List<byte[]> boms = getBoms();
             List<File> fileList = getFileList();
-            getLog().info("Examining " + files.size() + " files for BOM's");
+            getLog().info("Examining " + fileList.size() + " files for BOM's");
             List<BomMarker> bomMarkers = getBomMarkers(fileList, boms);
             if (!warnOnly && bomMarkers.size() > 0) {
                 stripBoms(bomMarkers);
