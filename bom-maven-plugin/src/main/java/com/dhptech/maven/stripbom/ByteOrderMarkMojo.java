@@ -23,16 +23,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.shared.model.fileset.FileSet;
-import org.apache.maven.shared.model.fileset.util.FileSetManager;
 
 /**
  * Goal to detect and strip BOMs from files.
@@ -57,16 +53,30 @@ public class ByteOrderMarkMojo extends AbstractMojo {
     /**
      * Location of a single file to strip the BOM from.
      *
-     * @parameter expression="${bom.file}"
+     * @parameter expression="${project.basedir}"
      */
-    private File file;
+    private File basedir;
 
     /**
-     * Locations of the files to strip BOMs.
+     * Inclusion patterns. By default, all files are included
      *
      * @parameter
      */
-    private List<FileSet> files;
+    private String[] includes;
+
+    /**
+     * Exclusion patterns. By default nothing is excluded
+     *
+     * @parameter
+     */
+    private String[] excludes;
+
+    /**
+     * Use default excludes
+     *
+     * @parameter expression=${bom.useDefaultExcludes} default-value="true"
+     */
+    private boolean useDefaultExcludes;
 
     /**
      * Set to true if you only want to issue a warning message when a file contains a BOM instead of altering the file
@@ -82,43 +92,6 @@ public class ByteOrderMarkMojo extends AbstractMojo {
      * @parameter expression="${bom.failBuild}" default-value="false"
      */
     private boolean failBuild = true;
-
-    /**
-     * The list of fileSets that will specify the files to examine
-     *
-     * @return the file sets.
-     */
-    public List<FileSet> getFiles() {
-        return files;
-    }
-
-    /**
-     * Sets the file set list.
-     *
-     * @param files
-     *            the file sets.
-     */
-    public void setFiles(List<FileSet> files) {
-        this.files = files;
-    }
-
-    /**
-     * Get the single file to strip.
-     *
-     * @return
-     */
-    public File getFile() {
-        return file;
-    }
-
-    /**
-     * Set the single file to strip.
-     *
-     * @param file
-     */
-    public void setFile(File file) {
-        this.file = file;
-    }
 
     /**
      * True if we should only warn about BOMs and not actually strip them.
@@ -190,20 +163,12 @@ public class ByteOrderMarkMojo extends AbstractMojo {
      * Return the list of files we need to inspect for BOM's
      */
     protected List<File> getFileList() {
-        if (file != null) {
-            return Collections.singletonList(file);
-        }
+        SimpleScanner scanner = new SimpleScanner(basedir, includes, excludes, useDefaultExcludes);
+        String[] filenames = scanner.getSelectedFiles();
         List<File> fileList = new ArrayList<File>();
-        FileSetManager fsm = new FileSetManager(getLog());
-        Iterator<FileSet> fileSetIter = files.iterator();
-        while (fileSetIter.hasNext()) {
-            FileSet fileSet = fileSetIter.next();
-            String[] fileNames = fsm.getIncludedFiles(fileSet);
-            for (int f = 0; f < fileNames.length; f++) {
-                String fileName = fileNames[f];
-                File currFile = new File(fileSet.getDirectory(), fileName);
-                fileList.add(currFile);
-            }
+        for (String filename : filenames) {
+            File file = new File(filename);
+            fileList.add(file);
         }
         return fileList;
     }
@@ -249,7 +214,6 @@ public class ByteOrderMarkMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException {
         try {
-            validate();
             List<byte[]> boms = getBoms();
             List<File> fileList = getFileList();
             getLog().info("Examining " + fileList.size() + " files for BOM's");
@@ -262,13 +226,6 @@ public class ByteOrderMarkMojo extends AbstractMojo {
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected IO error", e);
-        }
-    }
-
-    protected void validate() throws MojoExecutionException {
-        if (file == null && files == null) {
-            throw new MojoExecutionException(
-                    "No files to check!  You must supply either a named file a list of fileSets");
         }
     }
 
@@ -338,5 +295,45 @@ public class ByteOrderMarkMojo extends AbstractMojo {
             return true; // BOM Found
         }
         return false; // No BOM Found
+    }
+
+    public File getWorkingDir() {
+        return workingDir;
+    }
+
+    public void setWorkingDir(File workingDir) {
+        this.workingDir = workingDir;
+    }
+
+    public File getBasedir() {
+        return basedir;
+    }
+
+    public void setBasedir(File basedir) {
+        this.basedir = basedir;
+    }
+
+    public String[] getIncludes() {
+        return includes;
+    }
+
+    public void setIncludes(String[] includes) {
+        this.includes = includes;
+    }
+
+    public String[] getExcludes() {
+        return excludes;
+    }
+
+    public void setExcludes(String[] excludes) {
+        this.excludes = excludes;
+    }
+
+    public boolean isUseDefaultExcludes() {
+        return useDefaultExcludes;
+    }
+
+    public void setUseDefaultExcludes(boolean useDefaultExcludes) {
+        this.useDefaultExcludes = useDefaultExcludes;
     }
 }
