@@ -34,6 +34,11 @@
   </description>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}/</url>
   <inceptionYear>2011</inceptionYear>
+
+  <build>
+
+  </build>
+
   <developers>
     <developer>
       <id>danap</id>

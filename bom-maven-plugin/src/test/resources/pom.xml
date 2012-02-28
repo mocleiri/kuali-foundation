@@ -33,6 +33,14 @@
         <groupId>${project.groupId}</groupId>
         <artifactId>${project.artifactId}</artifactId>
         <version>${project.version}</version>
+        <executions>
+          <execution>
+            <id>handle-boms</id>
+            <goals>
+              <goal>bom</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
