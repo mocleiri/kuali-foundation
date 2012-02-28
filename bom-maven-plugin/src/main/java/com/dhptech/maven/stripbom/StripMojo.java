@@ -80,7 +80,7 @@ public class StripMojo extends AbstractMojo {
     private boolean useDefaultExcludes;
 
     /**
-     * If true, any files where a BOM is detected has its BOM stripped out.
+     * If true, any file where a BOM is detected has its BOM stripped out.
      *
      * @parameter expression="${bom.strip}" default-value="true"
      */
