@@ -30,7 +30,7 @@ public class CreateTestResources {
         try {
             String s = "The quick brown fox jumped over the lazy dog";
             byte[] normal = s.getBytes();
-            List<byte[]> boms = new ByteOrderMarkMojo().getBoms();
+            List<byte[]> boms = new StripMojo().getBoms();
             File directory = new File("/Users/jeffcaddel/ws/bom-maven-plugin/src/test/resources");
             File file1 = new File(directory + "/normal.txt");
             FileUtils.writeByteArrayToFile(file1, normal);

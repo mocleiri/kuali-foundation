@@ -35,9 +35,9 @@
         <version>${project.version}</version>
         <executions>
           <execution>
-            <id>handle-boms</id>
+            <id>strip-boms</id>
             <goals>
-              <goal>bom</goal>
+              <goal>strip</goal>
             </goals>
           </execution>
         </executions>

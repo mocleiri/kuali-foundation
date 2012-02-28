@@ -24,8 +24,7 @@ import java.util.List;
 import org.codehaus.plexus.util.DirectoryScanner;
 
 /**
- * <b>Date:</b> 16-Feb-2008<br>
- * <b>Author:</b> Mathieu Carbou (mathieu.carbou@gmail.com)
+ * Logic for recursively scanning a base directory for files that match include/exclude patterns
  */
 public final class SimpleScanner {
 
@@ -42,7 +41,7 @@ public final class SimpleScanner {
     }
 
     public String[] getSelectedFiles() {
-        scanIfneeded();
+        scanIfNeeded();
         return scanner.getIncludedFiles();
     }
 
@@ -58,7 +57,7 @@ public final class SimpleScanner {
         return excluded;
     }
 
-    private synchronized void scanIfneeded() {
+    protected synchronized void scanIfNeeded() {
         if (scanner == null) {
             scanner = new DirectoryScanner();
             scanner.setBasedir(basedir);
@@ -68,7 +67,7 @@ public final class SimpleScanner {
         }
     }
 
-    private static String[] buildExclusions(boolean useDefaultExcludes, String... excludes) {
+    protected static String[] buildExclusions(boolean useDefaultExcludes, String... excludes) {
         List<String> exclusions = new ArrayList<String>();
         if (useDefaultExcludes) {
             exclusions.addAll(asList(DEFAULT_EXCLUDES));
@@ -79,7 +78,7 @@ public final class SimpleScanner {
         return exclusions.toArray(new String[exclusions.size()]);
     }
 
-    private static String[] buildInclusions(String... includes) {
+    protected static String[] buildInclusions(String... includes) {
         return includes != null && includes.length > 0 ? includes : DEFAULT_INCLUDE;
     }
 
@@ -155,7 +154,7 @@ public final class SimpleScanner {
             // eclipse project files
             "**/.classpath", "**/.project", "**/.settings/**",
 
-            // IDEA projet files
+            // IDEA project files
             "**/*.iml", "**/*.ipr", "**/*.iws",
 
             // descriptors
@@ -172,7 +171,7 @@ public final class SimpleScanner {
             "**/*.md5", "**/*.sha1",
 
             // binary files - archives
-            "**/*.jar", "**/*.zip", "**/*.rar", "**/*.tar", "**/*.tar.gz", "**/*.tar.bz2", "**/*.gz",
+            "**/*.jar", "**/*.war", "**/*.zip", "**/*.rar", "**/*.tar", "**/*.tar.gz", "**/*.tar.bz2", "**/*.gz",
 
             // binary files - documents
             "**/*.xls",

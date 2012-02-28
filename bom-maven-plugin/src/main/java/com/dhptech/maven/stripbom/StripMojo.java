@@ -33,11 +33,11 @@ import org.apache.maven.plugin.MojoExecutionException;
 /**
  * Goal to detect and strip BOMs from files.
  *
- * @goal bom
+ * @goal strip
  * @phase process-sources
  * @requiresProject false
  */
-public class ByteOrderMarkMojo extends AbstractMojo {
+public class StripMojo extends AbstractMojo {
 
     protected static final byte[] UTF8_BOM = new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF };
     protected static final byte[] UTF16_BIG_ENDIAN_BOM = new byte[] { (byte) 0xFE, (byte) 0xFF };
