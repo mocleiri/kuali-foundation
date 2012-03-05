@@ -14,20 +14,20 @@ import java.util.TreeMap;
 public class CreateExtractGraph {
 
 
-	
-	
+
+
 	public static void main(String[] args) throws Exception {
 		if ( args.length == 0 ) {
 			System.err.println( "usage: gengraph <database.cfg file> <table schema> <table name> <graph file name>" );
 		}
 
 		Connection con = ETLHelper.connectToDatabase( args[0] );
-		
+
 		List<FieldInfo> fields = DbMetadataToFormat.createFieldInfoFromMetadata(con, args[1], args[2]);
 		String graphString = createExportGraph( con, args[1], args[2], fields, "", "", "data", "data", false, false, false );
-			
+
 		con.close();
-		
+
 		System.out.println( graphString );
 		File outFile = new File( args[3] );
 		BufferedWriter out = new BufferedWriter( new FileWriter( outFile ) );
@@ -35,7 +35,7 @@ public class CreateExtractGraph {
 		out.close();
 		System.out.println( "Wrote to output file: "  + outFile.getAbsolutePath() );
 	}
-	
+
 	public static String createExportGraph( Connection con, String schema, String tableName, List<FieldInfo> fieldInfo, String inputFormatDir, String outputFormatDir, String dataDir, String dumpDir, boolean addKfsFields, boolean includeMappingTransformStep, boolean includeDebugDump ) throws SQLException {
 		System.out.println( "Dumping Table Export Graph for: " + schema +  "." + tableName );
 		StringBuffer sb = new StringBuffer( 2000 );
@@ -57,7 +57,7 @@ public class CreateExtractGraph {
 		sb.append( "    <!-- With the default command below, the fields in the format file must be the same order as the columns in the database. -->\r\n" );
 		sb.append( "    <Node dbConnection=\"SourceDB\" id=\"INPUT\" type=\"DB_INPUT_TABLE\">\r\n" );
 		sb.append( "      <attr name=\"sqlQuery\">\r\n" );
-		sb.append( "        SELECT * FROM " ).append( tableName).append( "\r\n" ).append( "${" ).append( tableName.toUpperCase() ).append( "_WHERE_CLAUSE}\r\n" );
+		sb.append( "        SELECT * FROM " ).append(schema).append('.').append( tableName).append( "\r\n" ).append( "${" ).append( tableName.toUpperCase() ).append( "_WHERE_CLAUSE}\r\n" );
 		sb.append( "      </attr>\r\n" );
 		sb.append( "    </Node>\r\n" );
 		sb.append( "    <Edge fromNode=\"INPUT:0\" toNode=\"SORT:0\" id=\"SORT_INPUT\" metadata=\"InputFileFormat\" />\r\n" );
@@ -83,7 +83,7 @@ public class CreateExtractGraph {
 			}
 		}
 		sb.append( "\" />\r\n" );
-		
+
 		pks.close();
 		if ( includeMappingTransformStep ) {
 			sb.append( "    <Edge fromNode=\"SORT:0\" toNode=\"TRANSFORM_1:0\" id=\"SORT_TO_TRANSFORM_1\" metadata=\"InputFileFormat\" />\r\n" );
@@ -94,7 +94,7 @@ public class CreateExtractGraph {
 			sb.append( "    function transform() {\r\n" );
 			// loop over fields
 			for ( FieldInfo field : fieldInfo ) {
-				if ( !addKfsFields 
+				if ( !addKfsFields
 						|| !(field.getColumnName().equalsIgnoreCase("OBJ_ID") || field.getColumnName().equalsIgnoreCase("VER_NBR" ) ) ) {
 					sb.append( "        $0.").append( field.getColumnName().toLowerCase() )
 							.append( " := $" ).append( field.getColumnName().toLowerCase() ).append( ";\r\n" );
@@ -118,7 +118,7 @@ public class CreateExtractGraph {
 		sb.append( "    function transform() {\r\n" );
 		// loop over fields
 		for ( FieldInfo field : fieldInfo ) {
-			if ( !addKfsFields 
+			if ( !addKfsFields
 					|| !(field.getColumnName().equalsIgnoreCase("OBJ_ID") || field.getColumnName().equalsIgnoreCase("VER_NBR" ) ) ) {
 				if ( field.getCloverFieldType().equals( "string") ) {
 					sb.append( "        $0.").append( field.getColumnName().toLowerCase() )
