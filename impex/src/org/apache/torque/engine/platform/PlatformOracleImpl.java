@@ -73,7 +73,8 @@ public class PlatformOracleImpl extends PlatformDefaultImpl
     /**
      * @see Platform#getMaxColumnNameLength()
      */
-    public int getMaxColumnNameLength()
+    @Override
+	public int getMaxColumnNameLength()
     {
         return 30;
     }
@@ -81,7 +82,8 @@ public class PlatformOracleImpl extends PlatformDefaultImpl
     /**
      * @see Platform#getNativeIdMethod()
      */
-    public String getNativeIdMethod()
+    @Override
+	public String getNativeIdMethod()
     {
         return Platform.SEQUENCE;
     }
@@ -89,7 +91,8 @@ public class PlatformOracleImpl extends PlatformDefaultImpl
     /**
      * @see Platform#getAutoIncrement()
      */
-    public String getAutoIncrement()
+    @Override
+	public String getAutoIncrement()
     {
         return "";
     }
@@ -97,7 +100,7 @@ public class PlatformOracleImpl extends PlatformDefaultImpl
     protected boolean isSpecialTable( String tableName ) {
     	return tableName.contains( "$" );
     }
-    
+
     @Override
     public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException {
     	return super.getPrimaryKeys( dbMeta, dbSchema.toUpperCase(), tableName );
@@ -106,17 +109,27 @@ public class PlatformOracleImpl extends PlatformDefaultImpl
     @Override
     public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
 		List<String> tables = super.getTableNames(dbMeta, databaseSchema);
+		List<String> mvs = getMaterializedViewNames(dbMeta, databaseSchema);
 		// filter out special tables
 		Iterator<String> tableIterator = tables.iterator();
 		while ( tableIterator.hasNext() ) {
 			String tableName = tableIterator.next();
-			if ( isSpecialTable(tableName) ) { 
+			if ( isSpecialTable(tableName) ) {
 				tableIterator.remove();
+				continue;
+			}
+			if ( mvs.contains( tableName ) ) {
+				tableIterator.remove();
+				continue;
 			}
 		}
 		return tables;
     }
-    
+
+    public List<String> getMaterializedViewNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+    	return getObjectsOfType(dbMeta, databaseSchema, new String[] { "MATERIALIZED VIEW" } );
+    }
+
 	@Override
 	public boolean isSpecialDefault( String defaultValue ) {
 		defaultValue = defaultValue.toUpperCase();

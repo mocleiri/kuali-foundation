@@ -788,6 +788,7 @@ ${where-clauses}
     		password="${export.torque.database.password}"
     		schemaname="${export.torque.database.schema}"
     		exportbasedir="${torque.schema.dir}"
+			tableNameRegex="${export.table.name.filter}"
     		createIfTableEmpty="false"
     		classpathref="torque-classpath"
             truncateTable="true"

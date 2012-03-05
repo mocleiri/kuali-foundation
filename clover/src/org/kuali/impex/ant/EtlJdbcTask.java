@@ -1,11 +1,12 @@
 package org.kuali.impex.ant;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 import org.apache.tools.ant.taskdefs.JDBCTask;
 
 public class EtlJdbcTask extends JDBCTask {
-	
+
 	private String schemaName;
 	private String tableName;
 	private File exportBaseDir;
@@ -14,8 +15,9 @@ public class EtlJdbcTask extends JDBCTask {
 	private String dataDir = "data";
 	private String dumpDir = "dump";
 	private boolean includeDebugDumps = false;
-	
-	
+	private String tableNameRegex = ".*";
+	private Pattern tableNameRegexPattern = Pattern.compile(tableNameRegex);
+
 	public File getExportBaseDir() {
 		return exportBaseDir;
 	}
@@ -58,7 +60,7 @@ public class EtlJdbcTask extends JDBCTask {
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
 	}
-	
+
 	/**
 	 * @return the includeDebugDumps
 	 */
@@ -71,5 +73,15 @@ public class EtlJdbcTask extends JDBCTask {
 	public void setIncludeDebugDumps(boolean includeDebugDumps) {
 		this.includeDebugDumps = includeDebugDumps;
 	}
-	
+	public String getTableNameRegex() {
+		return tableNameRegex;
+	}
+	public void setTableNameRegex(String tableNameRegex) {
+		this.tableNameRegex = tableNameRegex;
+		tableNameRegexPattern = Pattern.compile(tableNameRegex);
+	}
+	public Pattern getTableNameRegexPattern() {
+		return tableNameRegexPattern;
+	}
+
 }
