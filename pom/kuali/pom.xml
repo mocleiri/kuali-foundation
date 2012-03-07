@@ -64,6 +64,9 @@
     <kuali.compile.source>1.6</kuali.compile.source>
     <kuali.compile.target>1.6</kuali.compile.target>
 
+    <!-- Don't create -tests.jar for POM's and other modules that don't actually have test code -->
+    <kuali.testjar.skipIfEmpty>true</kuali.testjar.skipIfEmpty>
+
     <!-- This profile provides quality control for official Kuali artifacts (GPG signature, attached sources, javadocs etc.) -->
     <kuali.release.profiles>kuali-release</kuali.release.profiles>
     <!-- This is "false" because their profile forks the maven process when attaching sources, we want "jar-no-fork" -->
@@ -159,7 +162,7 @@
     <plugin.bom.version>1.0.2</plugin.bom.version>
     <plugin.surefire.version>2.10</plugin.surefire.version>
     <plugin.svn-revision-number.version>1.7</plugin.svn-revision-number.version>
-    <plugin.war.version>2.1.1</plugin.war.version>
+    <plugin.war.version>2.2</plugin.war.version>
   </properties>
   <repositories>
     <repository>
@@ -338,7 +341,6 @@
           <artifactId>maven-jar-plugin</artifactId>
           <version>${plugin.jar.version}</version>
           <configuration>
-            <skipIfEmpty>true</skipIfEmpty>
             <archive>
               <manifestEntries>
                 <Bundle-Version>${project.version}</Bundle-Version>
@@ -793,6 +795,9 @@
                 <goals>
                   <goal>test-jar</goal>
                 </goals>
+                <configuration>
+                  <skipIfEmpty>${kuali.testjar.skipIfEmpty}</skipIfEmpty>
+                </configuration>
               </execution>
             </executions>
           </plugin>
