@@ -13,11 +13,16 @@ if [ -z "${JOB_NAME}" ]; then
   exit 1
 fi
 
+if [ -z "${JENKINS_MASTER}" ] ; then
+  echo "Please set JENKINS_MASTER"
+  exit 1
+fi
+
 LCL_WS=/var/lib/jenkins/workspace/$JOB_NAME
 RMT_WS=/var/lib/jenkins/jobs/$1/workspace
 
 # The trailing slash is significant here
-SRC=jenkins@ci.rice.kuali.org:$RMT_WS/
+SRC=jenkins@${JENKINS_MASTER}:$RMT_WS/
 DST=$LCL_WS
 
 # Skip compressing files we know are compressed already
