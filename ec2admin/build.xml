@@ -124,16 +124,16 @@
     </copy>
 
     <!-- Copy in our customized versions of server.xml and web.xml -->
-    <property name="root.server.xml" value="src/main/resources/apache-tomcat/${tomcat.major.version}/root/conf/server.xml">
+    <property name="root.server.xml" value="src/main/resources/apache-tomcat/${tomcat.major.version}/root/conf/server.xml" />
+    <property name="root.web.xml" value="src/main/resources/apache-tomcat/${tomcat.major.version}/conf/web.xml" />
+
+    <copy file="${root.server.xml}" tofile="${tomcat.dir}/conf/server.xml" overwrite="true">
       <filterset begintoken="${" endtoken="}">
         <filter token="tomcat.shutdown.port" value="${tomcat.shutdown.port}" />
         <filter token="tomcat.http.port" value="${tomcat.http.port}" />
         <filter token="tomcat.https.port" value="${tomcat.https.port}" />
       </filterset>
-    </property>
-    <property name="root.web.xml" value="src/main/resources/apache-tomcat/${tomcat.major.version}/conf/web.xml" />
-
-    <copy file="${root.server.xml}" tofile="${tomcat.dir}/conf/server.xml" overwrite="true" />
+    </copy>
     <copy file="${root.web.xml}" tofile="${tomcat.dir}/conf/web.xml" overwrite="true" />
 
     <!-- Final step is to symlink /usr/local/tomcat to the versioned tomcat directory -->
