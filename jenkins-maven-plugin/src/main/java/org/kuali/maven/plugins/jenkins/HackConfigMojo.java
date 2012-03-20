@@ -35,7 +35,6 @@ public class HackConfigMojo extends AbstractMojo {
     @Override
     public void execute() {
         try {
-
             List<File> files = getPinnedBuilds();
             getLog().info("Pinned Builds:" + files.size());
         } catch (Exception e) {
@@ -43,7 +42,18 @@ public class HackConfigMojo extends AbstractMojo {
         }
     }
 
-    protected void rewriteConfig(List<File> files) {
+    protected void rewriteConfig(List<File> files) throws IOException {
+        for (File f : files) {
+            String content = FileUtils.readFileToString(f);
+            String s = StringUtils.substringBetween(content, "<assignedNode>", "</assignedNode>");
+            String searchString = "<assignedNode>" + s + "</assignedNode>";
+            String replacement = "<assignedNode>master</assignedNode>";
+            String newContent = StringUtils.replace(content, searchString, replacement);
+            File newFile = new File(f.getAbsolutePath() + ".hack");
+            getLog().info("Creating " + newFile.getAbsolutePath());
+            FileUtils.writeStringToFile(newFile, newContent);
+            break;
+        }
     }
 
     protected List<File> getPinnedBuilds() throws IOException {
@@ -65,7 +75,7 @@ public class HackConfigMojo extends AbstractMojo {
             if (pos != -1) {
                 pinnedBuilds.add(configFile);
                 String s = StringUtils.substringBetween(content, "<assignedNode>", "</assignedNode>");
-                getLog().info(f.getPath() + " " + s);
+                // getLog().info(f.getPath() + " " + s);
             }
         }
 
