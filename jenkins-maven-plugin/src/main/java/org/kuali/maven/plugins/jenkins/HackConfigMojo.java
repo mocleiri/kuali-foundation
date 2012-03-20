@@ -44,7 +44,6 @@ public class HackConfigMojo extends AbstractMojo {
     }
 
     protected void rewriteConfig(List<File> files) throws IOException {
-        int count = 0;
         for (File f : files) {
             String content = FileUtils.readFileToString(f);
             String s = StringUtils.substringBetween(content, "<assignedNode>", "</assignedNode>");
@@ -55,10 +54,6 @@ public class HackConfigMojo extends AbstractMojo {
             getLog().info("Creating " + bakFile.getAbsolutePath());
             FileUtils.writeStringToFile(bakFile, content);
             FileUtils.writeStringToFile(f, newContent);
-            count++;
-            if (count == 3) {
-                break;
-            }
         }
     }
 
