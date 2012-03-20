@@ -37,6 +37,7 @@ public class HackConfigMojo extends AbstractMojo {
         try {
             List<File> files = getPinnedBuilds();
             getLog().info("Pinned Builds:" + files.size());
+            rewriteConfig(files);
         } catch (Exception e) {
             e.printStackTrace();
         }
