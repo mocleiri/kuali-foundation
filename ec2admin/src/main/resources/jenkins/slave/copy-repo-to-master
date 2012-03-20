@@ -1,0 +1,17 @@
+#!/bin/sh
+
+echo $(date)
+
+if [ -z "${JENKINS_MASTER}" ] ; then
+  echo "Please set JENKINS_MASTER"
+  exit 1
+fi
+
+# The trailing slash is significant here
+SRC=/root/.m2/repository/
+DST=jenkins@${JENKINS_MASTER}:/var/lib/jenkins/m2/repository
+
+# Make the rsync call
+rsync --archive --stats $SRC $DST
+
+echo $(date)
