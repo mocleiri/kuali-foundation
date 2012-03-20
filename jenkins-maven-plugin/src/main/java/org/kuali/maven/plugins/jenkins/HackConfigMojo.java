@@ -50,9 +50,10 @@ public class HackConfigMojo extends AbstractMojo {
             String searchString = "<assignedNode>" + s + "</assignedNode>";
             String replacement = "<assignedNode>master</assignedNode>";
             String newContent = StringUtils.replace(content, searchString, replacement);
-            File newFile = new File(f.getAbsolutePath() + ".hack");
-            getLog().info("Creating " + newFile.getAbsolutePath());
-            FileUtils.writeStringToFile(newFile, newContent);
+            File bakFile = new File(f.getAbsolutePath() + ".bak");
+            getLog().info("Creating " + bakFile.getAbsolutePath());
+            FileUtils.writeStringToFile(bakFile, content);
+            FileUtils.writeStringToFile(f, newContent);
             break;
         }
     }
