@@ -1,7 +1,7 @@
 #!/bin/sh
 
-set -xe
 echo $(date)
+set -xe
 
 if [ -z "${JENKINS_MASTER}" ] ; then
   echo "Please set JENKINS_MASTER"
