@@ -1,5 +1,6 @@
 #!/bin/sh
 
+set -xe
 echo $(date)
 
 if [ -z "${JENKINS_MASTER}" ] ; then
@@ -14,4 +15,5 @@ DST=jenkins@${JENKINS_MASTER}:/var/lib/jenkins/m2/repository
 # Make the rsync call
 rsync --archive --stats $SRC $DST
 
+set +x
 echo $(date)
