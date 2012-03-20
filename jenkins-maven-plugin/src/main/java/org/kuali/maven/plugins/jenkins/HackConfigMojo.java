@@ -55,6 +55,9 @@ public class HackConfigMojo extends AbstractMojo {
                 continue;
             }
             File configFile = new File(f.getAbsolutePath() + "/config.xml");
+            if (!configFile.exists()) {
+                continue;
+            }
             String content = FileUtils.readFileToString(configFile);
             int pos = content.indexOf("<assignedNode>");
             if (pos != -1) {
