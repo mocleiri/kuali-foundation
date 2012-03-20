@@ -30,7 +30,7 @@ chown -R jenkins:ubuntu $LCL_WS
 # -a preserves permissions, last modified, group, owner, and recurses into sub-directories
 # --delete removes files from DST that are not in SRC
 #
-rsync -az --skip-compress=$SKIPCOMPRESS --delete $SRC $DST
+rsync -az --stats --skip-compress=$SKIPCOMPRESS --delete $SRC $DST
 
 set +x
 echo $(date)
