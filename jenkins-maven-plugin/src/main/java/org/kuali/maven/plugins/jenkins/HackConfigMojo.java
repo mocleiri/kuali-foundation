@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 
 /**
@@ -42,6 +43,9 @@ public class HackConfigMojo extends AbstractMojo {
         }
     }
 
+    protected void rewriteConfig(List<File> files) {
+    }
+
     protected List<File> getPinnedBuilds() throws IOException {
         List<File> pinnedBuilds = new ArrayList<File>();
 
@@ -60,11 +64,12 @@ public class HackConfigMojo extends AbstractMojo {
             int pos = content.indexOf("<assignedNode>");
             if (pos != -1) {
                 pinnedBuilds.add(configFile);
+                String s = StringUtils.substringBetween(content, "<assignedNode>", "</assignedNode>");
+                getLog().info(f.getPath() + " " + s);
             }
         }
 
         return pinnedBuilds;
 
     }
-
 }
