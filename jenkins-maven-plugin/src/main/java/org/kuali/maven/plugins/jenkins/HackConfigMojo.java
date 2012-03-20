@@ -16,7 +16,11 @@
 package org.kuali.maven.plugins.jenkins;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 
 /**
@@ -31,16 +35,35 @@ public class HackConfigMojo extends AbstractMojo {
     public void execute() {
         try {
 
-            String basedir = "/var/lib/jenkins/workspace";
-            File file = new File(basedir);
-            File[] files = file.listFiles();
-            for (File f : files) {
-                getLog().info(f.getAbsolutePath());
+            List<File> files = getPinnedBuilds();
+            for (File file : files) {
+                getLog().info(file.getAbsolutePath());
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    protected List<File> getPinnedBuilds() throws IOException {
+        List<File> pinnedBuilds = new ArrayList<File>();
+
+        String basedir = "/var/lib/jenkins/workspace";
+        File file = new File(basedir);
+        File[] files = file.listFiles();
+        for (File f : files) {
+            if (!f.isDirectory()) {
+                continue;
+            }
+            File configFile = new File(f.getAbsolutePath() + "/config.xml");
+            String content = FileUtils.readFileToString(configFile);
+            int pos = content.indexOf("<assignedNode>");
+            if (pos != -1) {
+                pinnedBuilds.add(configFile);
+            }
+        }
+
+        return pinnedBuilds;
+
     }
 
 }
