@@ -24,7 +24,6 @@ import org.apache.maven.plugin.AbstractMojo;
  *
  * @goal hackconfig
  * @threadSafe
- * @requiresDependencyResolution test
  */
 public class HackConfigMojo extends AbstractMojo {
 
@@ -36,7 +35,7 @@ public class HackConfigMojo extends AbstractMojo {
             File file = new File(basedir);
             File[] files = file.listFiles();
             for (File f : files) {
-                getLog().info(file.getAbsolutePath());
+                getLog().info(f.getAbsolutePath());
             }
 
         } catch (Exception e) {
