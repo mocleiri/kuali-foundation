@@ -3,14 +3,15 @@
 echo $(date)
 set -xe
 
-if [ $# -e 1 ]; then
+if [ $# -ne 1 ]; then
+   if [ -z "${JENKINS_MASTER}" ] ; then
+     echo "Please set JENKINS_MASTER"
+     exit 1
+   fi
+else
   JENKINS_MASTER=$1
 fi
 
-if [ -z "${JENKINS_MASTER}" ] ; then
-  echo "Please set JENKINS_MASTER"
-  exit 1
-fi
 
 # The trailing slash is significant here
 SRC=/root/.m2/repository/
