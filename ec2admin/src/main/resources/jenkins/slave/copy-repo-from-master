@@ -3,6 +3,10 @@
 echo $(date)
 set -xe
 
+if [ $# -e 1 ]; then
+  JENKINS_MASTER=$1
+fi
+
 if [ -z "${JENKINS_MASTER}" ] ; then
   echo "Please set JENKINS_MASTER"
   exit 1
