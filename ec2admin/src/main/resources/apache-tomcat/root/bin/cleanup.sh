@@ -33,6 +33,7 @@ echo Removing $LOGS
 echo Removing $WORK
 
 rm -rf $LOGS
+mkdir $LOGS
 rm -rf $WORK
 
 cp $CATALINA_BASE/conf/env.jsp $ENV
