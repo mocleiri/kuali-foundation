@@ -18,6 +18,7 @@ package org.kuali.maven.plugins.jenkins;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -36,6 +37,7 @@ public class HackConfigMojo extends AbstractMojo {
     public void execute() {
         try {
             List<File> files = getPinnedBuilds();
+            Collections.sort(files);
             getLog().info("Pinned Builds:" + files.size());
             // rewriteConfig(files);
         } catch (Exception e) {
