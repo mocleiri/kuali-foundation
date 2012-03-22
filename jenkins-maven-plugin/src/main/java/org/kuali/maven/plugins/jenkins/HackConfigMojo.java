@@ -38,7 +38,10 @@ public class HackConfigMojo extends AbstractMojo {
         try {
             List<File> files = getPinnedBuilds();
             Collections.sort(files, new FilenameComparator());
-            getLog().info("Pinned Builds:" + files.size());
+            getLog().info("Builds:" + files.size());
+            for (File file : files) {
+                getLog().info(file.getPath());
+            }
             // rewriteConfig(files);
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,10 +80,8 @@ public class HackConfigMojo extends AbstractMojo {
             int pos = content.indexOf(">ec2<");
             if (pos != -1) {
                 pinnedBuilds.add(configFile);
-                getLog().info(f.getPath());
             }
         }
-
         return pinnedBuilds;
 
     }
