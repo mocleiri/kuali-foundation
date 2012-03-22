@@ -37,7 +37,7 @@ public class HackConfigMojo extends AbstractMojo {
     public void execute() {
         try {
             List<File> files = getPinnedBuilds();
-            Collections.sort(files);
+            Collections.sort(files, new FilenameComparator());
             getLog().info("Pinned Builds:" + files.size());
             // rewriteConfig(files);
         } catch (Exception e) {
