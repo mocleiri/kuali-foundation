@@ -72,7 +72,7 @@ public class HackConfigMojo extends AbstractMojo {
                 continue;
             }
             String content = FileUtils.readFileToString(configFile);
-            int pos = content.indexOf("master");
+            int pos = content.indexOf(">master<");
             if (pos != -1) {
                 pinnedBuilds.add(configFile);
                 String s = StringUtils.substringBetween(content, "<assignedNode>", "</assignedNode>");
