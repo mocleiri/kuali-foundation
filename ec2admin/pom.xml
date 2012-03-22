@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.0.4</version>
+    <version>1.1.0</version>
   </parent>
   <groupId>org.kuali.common.ec2</groupId>
   <artifactId>ec2admin</artifactId>
@@ -51,7 +51,7 @@
     <kuali.testjar.phase>none</kuali.testjar.phase>
     <environment>ec2</environment>
     <tomcat.major.version>7</tomcat.major.version>
-    <tomcat.version>${tomcat.major.version}.0.22</tomcat.version>
+    <tomcat.version>${tomcat.major.version}.0.26</tomcat.version>
     <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
     <tomcat.zip>target/dependency/${tomcat.artifactId}-${tomcat.version}.zip</tomcat.zip>
     <tomcat.dir>/usr/local/${tomcat.artifactId}-${tomcat.version}</tomcat.dir>
@@ -124,7 +124,7 @@
       <id>6</id>
       <properties>
         <tomcat.major.version>6</tomcat.major.version>
-        <tomcat.version>${tomcat.major.version}.0.33</tomcat.version>
+        <tomcat.version>${tomcat.major.version}.0.35</tomcat.version>
       </properties>
     </profile>
     <profile>
