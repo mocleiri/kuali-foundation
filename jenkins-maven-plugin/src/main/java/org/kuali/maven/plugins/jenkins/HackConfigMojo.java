@@ -40,9 +40,9 @@ public class HackConfigMojo extends AbstractMojo {
             Collections.sort(files);
             getLog().info("Builds:" + files.size());
             for (File file : files) {
-                getLog().info(file.getPath());
+                // getLog().info(file.getPath());
             }
-            // rewriteConfig(files);
+            rewriteConfig(files);
         } catch (Exception e) {
             e.printStackTrace();
         }
