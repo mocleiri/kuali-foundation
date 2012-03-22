@@ -21,23 +21,19 @@ if [ "$CATALINA_BASE" = "" ]; then
   exit
 fi
 
-OUT=$CATALINA_BASE/logs/*.out
-LOG=$CATALINA_BASE/logs/*.log
-TLOG=$CATALINA_BASE/logs/*.tlog
-TXT=$CATALINA_BASE/logs/*.txt
-PID=$CATALINA_BASE/logs/catalina.pid
+ENV=$CATALINA_BASE/logs/env.jsp
+TAIL=$CATALINA_BASE/logs/tail.jsp
+cp $ENV $CATALINA_BASE/conf/env.jsp
+cp $TAIL $CATALINA_BASE/conf/tail.jsp
+
+LOGS=$CATALINA_BASE/logs
 WORK=$CATALINA_BASE/work
 
-echo Removing $OUT
-echo Removing $LOG
-echo Removing $TLOG
-echo Removing $TXT
-echo Removing $PID
+echo Removing $LOGS
 echo Removing $WORK
 
-rm -f $OUT
-rm -f $LOG
-rm -f $TLOG
-rm -f $TXT
-rm -f $PID
+rm -rf $LOGS
 rm -rf $WORK
+
+cp $CATALINA_BASE/conf/env.jsp $ENV
+cp $CATALINA_BASE/conf/tail.jsp $TAIL
