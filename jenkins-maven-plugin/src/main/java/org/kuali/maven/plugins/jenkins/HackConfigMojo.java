@@ -37,7 +37,7 @@ public class HackConfigMojo extends AbstractMojo {
         try {
             List<File> files = getPinnedBuilds();
             getLog().info("Pinned Builds:" + files.size());
-            rewriteConfig(files);
+            // rewriteConfig(files);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,11 +72,11 @@ public class HackConfigMojo extends AbstractMojo {
                 continue;
             }
             String content = FileUtils.readFileToString(configFile);
-            int pos = content.indexOf("<assignedNode>");
+            int pos = content.indexOf("<assignedNode>ec2&&dedicated");
             if (pos != -1) {
                 pinnedBuilds.add(configFile);
                 String s = StringUtils.substringBetween(content, "<assignedNode>", "</assignedNode>");
-                // getLog().info(f.getPath() + " " + s);
+                getLog().info(f.getPath() + " " + s);
             }
         }
 
