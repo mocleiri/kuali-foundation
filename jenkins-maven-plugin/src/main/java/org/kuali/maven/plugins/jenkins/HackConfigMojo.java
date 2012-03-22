@@ -75,8 +75,7 @@ public class HackConfigMojo extends AbstractMojo {
             int pos = content.indexOf(">ec2<");
             if (pos != -1) {
                 pinnedBuilds.add(configFile);
-                String s = StringUtils.substringBetween(content, "<assignedNode>", "</assignedNode>");
-                getLog().info(f.getPath() + " " + s);
+                getLog().info(f.getPath());
             }
         }
 
