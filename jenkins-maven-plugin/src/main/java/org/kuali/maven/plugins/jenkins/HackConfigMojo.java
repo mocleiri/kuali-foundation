@@ -51,9 +51,8 @@ public class HackConfigMojo extends AbstractMojo {
     protected void rewriteConfig(List<File> files) throws IOException {
         for (File f : files) {
             String content = FileUtils.readFileToString(f);
-            String s = StringUtils.substringBetween(content, "<assignedNode>", "</assignedNode>");
-            String searchString = "<assignedNode>" + s + "</assignedNode>";
-            String replacement = "<assignedNode>master</assignedNode>";
+            String searchString = "<assignedNode>ec2</assignedNode>";
+            String replacement = "<assignedNode>ec2slave</assignedNode>";
             String newContent = StringUtils.replace(content, searchString, replacement);
             File bakFile = new File(f.getAbsolutePath() + ".bak");
             getLog().info("Creating " + bakFile.getAbsolutePath());
