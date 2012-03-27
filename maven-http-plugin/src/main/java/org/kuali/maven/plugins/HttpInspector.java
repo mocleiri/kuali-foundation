@@ -104,12 +104,11 @@ public class HttpInspector {
             if (success) {
                 logger.info(getMsg(message.toString()));
                 return Result.SUCCESS;
-            } 
-            else {
+            } else {
                 if (statusCode == PROXY_STATUS) {
                     throw new IOException();
                 }
-                logger.info(getMsg(message.toString(),secondsRemaining));
+                logger.info(getMsg(message.toString(), secondsRemaining));
                 return Result.INVALID_HTTP_STATUS_CODE;
             }
         } catch (IOException e) {
