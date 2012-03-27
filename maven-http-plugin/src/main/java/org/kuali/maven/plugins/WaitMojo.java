@@ -85,13 +85,18 @@ public class WaitMojo extends AbstractMojo {
         } catch (Exception e) {
             throw new MojoExecutionException("Error copying properties", e);
         }
-        String[] successCodeStrings = StringUtils.splitByWholeSeparator(httpSuccessCodes, ",");
-        List<Integer> successCodeList = new ArrayList<Integer>();
-        for (String successCodeString : successCodeStrings) {
-            successCodeList.add(new Integer(successCodeString));
-        }
-        inspector.setSuccessCodes(successCodeList);
+        inspector.setSuccessCodes(splitToList(httpSuccessCodes));
+        inspector.setContinueWaitingCodes(splitToList(httpContinueWaitingCodes));
         return inspector;
+    }
+
+    private List<Integer> splitToList(String csv) {
+        List<Integer> list = new ArrayList<Integer>();
+        String[] tokens = StringUtils.splitByWholeSeparator(csv, ",");
+        for (String token : tokens) {
+            list.add(new Integer(token));
+        }
+        return list;
     }
 
     @Override
