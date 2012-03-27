@@ -29,7 +29,7 @@
   <packaging>maven-plugin</packaging>
   <name>Maven HTTP Plugin</name>
   <description>Tools for allowing Maven to interact with the HTTP protocol</description>
-  <url>http://${kuali.site.hostname}/maven/kuali/${project.artifactId}/${project.version}</url>
+  <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <properties>
     <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
   </properties>
