@@ -30,16 +30,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HttpInspector {
-    private final static int PROXY_STATUS = 503;
     private final Logger logger = LoggerFactory.getLogger(HttpInspector.class);
     List<Integer> successCodes = new ArrayList<Integer>();
+    List<Integer> continueWaitingCodes = new ArrayList<Integer>();
     int requestTimeout = 3000;
     int sleepInterval = 3000;
     int timeout = 180;
 
     protected boolean isSuccess(int resultCode) {
-        for (int successCode : successCodes) {
-            if (resultCode == successCode) {
+        return isMatch(resultCode, successCodes);
+    }
+
+    protected boolean isContinueWaiting(int resultCode) {
+        return isMatch(resultCode, continueWaitingCodes);
+    }
+
+    protected boolean isMatch(int i, List<Integer> integers) {
+        for (int integer : integers) {
+            if (i == integer) {
                 return true;
             }
         }
@@ -99,18 +107,26 @@ public class HttpInspector {
             int statusCode = method.getStatusCode();
             String statusText = method.getStatusText();
             boolean success = isSuccess(statusCode);
+            boolean continueWaiting = isContinueWaiting(statusCode);
 
             message = message.append(statusCode + ":" + statusText + "'");
             if (success) {
+                // Everything is OK
                 logger.info(getMsg(message.toString()));
                 return Result.SUCCESS;
+            } else if (continueWaiting) {
+                // We got an HTTP status code that does not represent success,
+                // but we should continue waiting
+                // This can happen when Tomcat is fronted by an Apache web server
+                // that returns 503 if Tomcat isn't up and running yet
+                logger.info(getMsg(message.toString()));
+                return Result.CONTINUE_WAITING_HTTP_STATUS_CODE;
             } else {
-                if (statusCode == PROXY_STATUS) {
-                    throw new IOException();
-                }
+                // We got an HTTP status code that we don't recognize, we are done
                 logger.info(getMsg(message.toString(), secondsRemaining));
                 return Result.INVALID_HTTP_STATUS_CODE;
             }
+
         } catch (IOException e) {
             logger.info(getMsg(message.append(e.getMessage() + "'").toString(), secondsRemaining));
             return Result.IO_EXCEPTION;
@@ -159,5 +175,13 @@ public class HttpInspector {
 
     public void setSuccessCodes(List<Integer> successCodes) {
         this.successCodes = successCodes;
+    }
+
+    public List<Integer> getContinueWaitingCodes() {
+        return continueWaitingCodes;
+    }
+
+    public void setContinueWaitingCodes(List<Integer> continueWaitingCodes) {
+        this.continueWaitingCodes = continueWaitingCodes;
     }
 }
