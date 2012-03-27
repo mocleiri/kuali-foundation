@@ -25,7 +25,7 @@
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>maven-http-plugin</artifactId>
-  <version>1.0.5-SNAPSHOT</version>
+  <version>1.0.5</version>
   <packaging>maven-plugin</packaging>
   <name>Maven HTTP Plugin</name>
   <description>Tools for allowing Maven to interact with the HTTP protocol</description>
@@ -34,9 +34,9 @@
     <kuali.slf4j.version>1.6.4</kuali.slf4j.version>
   </properties>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-http-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-http-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/maven-http-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-http-plugin-1.0.5</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-http-plugin-1.0.5</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/maven-http-plugin-1.0.5</url>
   </scm>
   <dependencies>
     <dependency>
