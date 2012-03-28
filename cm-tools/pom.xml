@@ -23,9 +23,9 @@
   <version>1.1.10-SNAPSHOT</version>
   <url>http://${kuali.site.hostname}/common/cm/${project.artifactId}/${project.version}</url>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools@7553</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools@7553</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/cm-tools@7553</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/cm-tools</url>
   </scm>
   <developers>
     <developer>
