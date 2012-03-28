@@ -27,6 +27,19 @@
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/trunk/cm-tools</url>
   </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-plugin</artifactId>
+        <version>1.6</version>
+        <configuration>
+          <connectionType>connection</connectionType>
+          <connectionUrl>${project.scm.connection}@7553</connectionUrl>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <developers>
     <developer>
       <id>jcaddel</id>
