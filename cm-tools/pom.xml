@@ -23,10 +23,13 @@
   <version>1.1.9-SNAPSHOT</version>
   <url>http://${kuali.site.hostname}/common/cm/${project.artifactId}/${project.version}</url>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</developerConnection>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools${kuali.svn.revision}</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools${kuali.svn.revision}</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/trunk/cm-tools</url>
   </scm>
+  <properties>
+    <kuali.svn.revision>@7465</kuali.svn.revision>
+  </properties>
   <developers>
     <developer>
       <id>jcaddel</id>
