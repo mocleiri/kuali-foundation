@@ -28,7 +28,7 @@
     <url>http://svn.kuali.org/repos/foundation/trunk/cm-tools</url>
   </scm>
   <properties>
-    <kuali.svn.revision>@7465</kuali.svn.revision>
+    <kuali.svn.revision></kuali.svn.revision>
   </properties>
   <developers>
     <developer>
