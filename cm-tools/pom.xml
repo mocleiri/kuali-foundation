@@ -20,16 +20,13 @@
   <description>Configuration Management Tools</description>
   <groupId>org.kuali.common.cm</groupId>
   <artifactId>cm-tools</artifactId>
-  <version>1.1.9</version>
+  <version>1.1.10-SNAPSHOT</version>
   <url>http://${kuali.site.hostname}/common/cm/${project.artifactId}/${project.version}</url>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/cm-tools-1.1.9</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/cm-tools-1.1.9</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/tags/cm-tools-1.1.9</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools@7553</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools@7553</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/cm-tools@7553</url>
   </scm>
-  <properties>
-    <kuali.release.arguments>-Dkuali.svn.revision=@7553</kuali.release.arguments>
-  </properties>
   <developers>
     <developer>
       <id>jcaddel</id>
