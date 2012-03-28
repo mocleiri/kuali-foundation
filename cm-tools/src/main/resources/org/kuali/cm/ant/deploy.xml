@@ -16,7 +16,7 @@
 
 -->
 
-<!-- Test Data2 -->
+<!-- Foo Bar -->
 <project name="Application Deployer">
   <description>Deploy applications packaged by Maven to a server on EC2</description>
   <property name="impex.dba.username" value="master" />
