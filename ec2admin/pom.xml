@@ -28,6 +28,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <name>EC2 Server Admin</name>
   <description>Various tasks for administering an EC2 server</description>
+  <url>http://${kuali.site.hostname}/common/ec2/${project.artifactId}/${project.version}</url>
   <repositories>
     <repository>
       <id>kuali.nexus</id>
