@@ -114,6 +114,12 @@
   </dependencies>
   <profiles>
     <profile>
+      <id>nightly</id>
+      <properties>
+        <kuali.repo.release.url>s3://maven.kuali.org/nightly</kuali.repo.release.url>
+      </properties>
+    </profile>
+    <profile>
       <id>resetall</id>
       <properties>
         <ant.target>resetall</ant.target>
