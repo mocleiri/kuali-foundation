@@ -26,7 +26,6 @@
   <groupId>org.kuali.common.ec2</groupId>
   <artifactId>ec2admin</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
   <name>EC2 Server Admin</name>
   <description>Various tasks for administering an EC2 server</description>
   <repositories>
