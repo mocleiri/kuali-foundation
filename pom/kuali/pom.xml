@@ -125,7 +125,7 @@
     <ksite.phase>pre-site</ksite.phase>
     <ksite.publishBase>s3://${kuali.site.bucket}</ksite.publishBase>
     <ksite.publicBase>http://${kuali.site.hostname}</ksite.publicBase>
-    <ksite.downloadBase>http://s3browse.springsource.com/browse/maven.kuali.org</ksite.downloadBase>
+    <ksite.downloadBase>http://shrub.appspot.com/maven.kuali.org</ksite.downloadBase>
 
     <!-- Wagon versions -->
     <wagon.s3.version>1.1.10</wagon.s3.version>
