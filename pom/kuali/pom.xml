@@ -346,7 +346,6 @@
               <manifestEntries>
                 <Bundle-Version>${project.version}</Bundle-Version>
                 <Bundle-Name>${project.name}</Bundle-Name>
-                <Bundle-Description>${project.description}</Bundle-Description>
                 <Bundle-License>${kuali.ecl.license.url}</Bundle-License>
                 <Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
                 <Bundle-DocURL>${project.organization.url}</Bundle-DocURL>
@@ -479,7 +478,6 @@
               <manifestEntries>
                 <Bundle-Version>${project.version}</Bundle-Version>
                 <Bundle-Name>${project.name}</Bundle-Name>
-                <Bundle-Description>${project.description}</Bundle-Description>
                 <Bundle-License>${kuali.ecl.license.url}</Bundle-License>
                 <Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
                 <Bundle-DocURL>${project.organization.url}</Bundle-DocURL>
