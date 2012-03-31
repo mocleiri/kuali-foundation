@@ -827,6 +827,7 @@
       </build>
     </profile>
     <profile>
+      <!-- Version the POM's based on ${project.version} + the Jenkins build number -->
       <id>version</id>
       <properties>
         <kuali.nightly.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-build-${env.BUILD_NUMBER}</kuali.nightly.version>
@@ -860,6 +861,61 @@
                 <configuration>
                   <generateBackupPoms>false</generateBackupPoms>
                   <newVersion>${kuali.nightly.version}</newVersion>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <!-- Version the POM's based on ${project.version} + the SVN revision number -->
+      <id>revision</id>
+      <properties>
+        <kuali.revision.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-r${svn.revision}</kuali.revision.version>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
+            <artifactId>maven-svn-revision-number-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-svn-info</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>revision</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>get-maven-metadata</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>parse-version</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>versions-maven-plugin</artifactId>
+            <version>${plugin.versions.version}</version>
+            <executions>
+              <execution>
+                <id>update-version</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>set</goal>
+                </goals>
+                <configuration>
+                  <generateBackupPoms>false</generateBackupPoms>
+                  <newVersion>${kuali.revision.version}</newVersion>
                 </configuration>
               </execution>
             </executions>
