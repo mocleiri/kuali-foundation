@@ -832,7 +832,7 @@
       <id>nightly</id>
       <properties>
         <kuali.repo.release.url>s3://maven.kuali.org/nightly</kuali.repo.release.url>
-        <kuali.nightly.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.version>
+        <kuali.nightly.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-build-${env.BUILD_NUMBER}</kuali.nightly.version>
       </properties>
       <build>
         <plugins>
@@ -846,18 +846,6 @@
                 <goals>
                   <goal>parse-version</goal>
                 </goals>
-              </execution>
-              <execution>
-                <id>build-day</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>timestamp-property</goal>
-                </goals>
-                <configuration>
-                  <pattern>yyyyMMdd</pattern>
-                  <name>kuali.build.day</name>
-                  <locale>en_US</locale>
-                </configuration>
               </execution>
             </executions>
           </plugin>
