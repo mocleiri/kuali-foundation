@@ -131,17 +131,6 @@
                   <goal>parse-version</goal>
                 </goals>
               </execution>
-              <execution>
-                <id>current-day</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>timestamp-property</goal>
-                </goals>
-                <configuration>
-                  <pattern>yyyyMMdd</pattern>
-                  <name>kuali.build.day</name>
-                </configuration>
-              </execution>
             </executions>
           </plugin>
           <plugin>
