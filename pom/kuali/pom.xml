@@ -856,6 +856,7 @@
                 <configuration>
                   <pattern>yyyyMMdd</pattern>
                   <name>kuali.build.day</name>
+                  <locale>en_US</locale>
                 </configuration>
               </execution>
             </executions>
