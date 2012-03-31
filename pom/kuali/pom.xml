@@ -831,6 +831,7 @@
     <profile>
       <id>nightly</id>
       <properties>
+        <kuali.repo.release.url>s3://maven.kuali.org/nightly</kuali.repo.release.url>
         <kuali.nightly.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-build-${env.BUILD_NUMBER}</kuali.nightly.version>
       </properties>
       <build>
