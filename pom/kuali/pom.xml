@@ -155,7 +155,7 @@
     <plugin.properties.version>1.0.4</plugin.properties.version>
     <plugin.release.version>2.2.1</plugin.release.version>
     <plugin.resources.version>2.5</plugin.resources.version>
-    <plugin.scm.version>1.5</plugin.scm.version>
+    <plugin.scm.version>1.6</plugin.scm.version>
     <!-- 3.0 fixes MSITE-532 but has MSITE-600. 3.1 should fix both -->
     <plugin.site.version>3.0-beta-3</plugin.site.version>
     <plugin.source.version>2.1.2</plugin.source.version>
@@ -828,9 +828,9 @@
     </profile>
     <profile>
       <!-- Version the POM's based on ${project.version} + the Jenkins build number -->
-      <id>version</id>
+      <id>buildnumber</id>
       <properties>
-        <kuali.nightly.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-build-${env.BUILD_NUMBER}</kuali.nightly.version>
+        <kuali.build.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-build-${env.BUILD_NUMBER}</kuali.build.version>
       </properties>
       <build>
         <plugins>
@@ -860,7 +860,7 @@
                 </goals>
                 <configuration>
                   <generateBackupPoms>false</generateBackupPoms>
-                  <newVersion>${kuali.nightly.version}</newVersion>
+                  <newVersion>${kuali.build.version}</newVersion>
                 </configuration>
               </execution>
             </executions>
@@ -872,7 +872,7 @@
       <!-- Version the POM's based on ${project.version} + the SVN revision number -->
       <id>revision</id>
       <properties>
-        <kuali.revision.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-r${svn.revision}</kuali.revision.version>
+        <kuali.build.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-r${svn.revision}</kuali.build.version>
       </properties>
       <build>
         <plugins>
@@ -915,7 +915,7 @@
                 </goals>
                 <configuration>
                   <generateBackupPoms>false</generateBackupPoms>
-                  <newVersion>${kuali.revision.version}</newVersion>
+                  <newVersion>${kuali.build.version}</newVersion>
                 </configuration>
               </execution>
             </executions>
@@ -924,10 +924,75 @@
       </build>
     </profile>
     <profile>
-      <id>nightly</id>
+      <!-- Create a build for internal use at Kuali -->
+      <id>build</id>
       <properties>
-        <kuali.repo.release.url>s3://maven.kuali.org/nightly</kuali.repo.release.url>
+        <kuali.repo.release.url>s3://maven.kuali.org/build</kuali.repo.release.url>
+        <kuali.gpg.phase>none</kuali.gpg.phase>
+        <kuali.site.descriptor.phase>none</kuali.site.descriptor.phase>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
       </properties>
+    </profile>
+    <profile>
+      <!-- Tag today's source tree -->
+      <id>nightlytag</id>
+      <properties>
+        <!--
+          This doesn't work at the moment because the maven-scm-plugin for Subversion doesn't add "-parents" to the command
+          http://jira.codehaus.org/browse/SCM-487
+        -->
+        <kuali.nightly.tag>builds/${project.artifactId}/${parsedVersion.majorVersion}.${parsedVersion.minorVersion}/${project.artifactId}-${parsedVersion.majorVersion}.${parsedVersion.minorVersion}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>get-maven-metadata</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>parse-version</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-current-day</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>create-timestamp</goal>
+                </goals>
+                <configuration>
+                  <timestampFormat>yyyyMMdd</timestampFormat>
+                  <timestampPropertyName>kuali.build.day</timestampPropertyName>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-scm-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>nightly-tag</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>tag</goal>
+                </goals>
+                <configuration>
+                  <tag>${kuali.nightly.tag}</tag>
+                  <message>Automated nightly build tag</message>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 </project>
