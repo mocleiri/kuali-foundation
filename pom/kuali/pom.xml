@@ -925,9 +925,9 @@
     </profile>
     <profile>
       <!-- Create a build for internal use at Kuali -->
-      <id>build</id>
+      <id>builds</id>
       <properties>
-        <kuali.repo.release.url>s3://maven.kuali.org/build</kuali.repo.release.url>
+        <kuali.repo.release.url>s3://maven.kuali.org/builds</kuali.repo.release.url>
         <kuali.gpg.phase>none</kuali.gpg.phase>
         <kuali.site.descriptor.phase>none</kuali.site.descriptor.phase>
         <maven.javadoc.skip>true</maven.javadoc.skip>
