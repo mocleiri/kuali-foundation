@@ -89,6 +89,25 @@
       <param name="script" value="/usr/local/tomcat/bin/cleanup.sh" />
     </antcall>
   </target>
+  
+  <target name="copyoleconfig" depends="check-basic-properties">
+    <condition property="copyoleconfig.properties">
+      <and>
+        <isset property="local.configuration.properties" />
+        <isset property="remote.security.properties" />
+      </and>
+    </condition>
+    <fail unless="copyoleconfig.properties">Missing local.configuration.properties or local.security.properties</fail>
+    <antcall target="copyfile">
+      <param name="local.file" value="${local.configuration.properties}" />
+      <param name="remote.file" value="${remote.configuration.properties}" />
+    </antcall>
+    <antcall target="copyfile">
+      <param name="local.file" value="${local.security.properties}" />
+      <param name="remote.file" value="${remote.security.properties}" />
+    </antcall>
+  </target>
+
   <target name="copy-commonconfig" depends="check-basic-properties">
     <condition property="copy-commonconfig.properties">
       <and>
