@@ -40,7 +40,7 @@
 
   <target name="rsync">
     <echo>rsync -a --stats --delete ${rsync.src} ${rsync.dst}</echo>
-    <exec executable="rsync">
+    <exec executable="rsync" failonerror="true">
       <arg value="-a" />
       <arg value="--stats" />
       <arg value="--delete" />
