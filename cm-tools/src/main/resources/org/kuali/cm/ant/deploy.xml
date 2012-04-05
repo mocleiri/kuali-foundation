@@ -22,11 +22,13 @@
   <property name="impex.dba.username" value="master" />
   <property name="tomcat.instance.lib.dir" value="/usr/local/${tomcat.instance}/lib" />
 
+  <target name="resetole" depends="stop,clean,cleanjdbc,copyole,start" />
   <target name="reset" depends="stop,clean,cleanjdbc,copy,resetdb,start" />
   <target name="restart" depends="stop,clean,start" />
   <target name="waronly" depends="stop,clean,copywar,start" />
   <target name="configonly" depends="stop,clean,copy-appconfig,copy-envconfig,start" />
   <target name="copy" depends="copyjdbc,copyconfig,copywar" />
+  <target name="copyole" depends="copyjdbc,copyoleconfig,copywar" />
   <target name="copyconfig" depends="copy-commonconfig,copy-appconfig,copy-envconfig" />
 
   <property name="config.home" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
@@ -35,6 +37,17 @@
   <property name="secure.user" value="root" />
   <property name="ssh.user" value="${secure.user}" />
   <property name="scp.user" value="${secure.user}" />
+
+  <target name="rsync">
+    <echo>rsync -a --stats --delete ${rsync.src} ${rsync.dst}</echo>
+    <exec executable="rsync">
+      <arg value="-a" />
+      <arg value="--stats" />
+      <arg value="--delete" />
+      <arg value="${rsync.src}" />
+      <arg value="${rsync.dst}" />
+    </exec>
+  </target>
 
   <target name="checkout">
     <condition property="checkout.properties">
@@ -89,22 +102,21 @@
       <param name="script" value="/usr/local/tomcat/bin/cleanup.sh" />
     </antcall>
   </target>
-  
+
   <target name="copyoleconfig" depends="check-basic-properties">
-    <condition property="copyoleconfig.properties">
+    <condition property="copyoleconfig.property">
       <and>
-        <isset property="local.configuration.properties" />
-        <isset property="remote.security.properties" />
+        <isset property="local.config.dir" />
+        <isset property="remote.config.dir" />
       </and>
     </condition>
-    <fail unless="copyoleconfig.properties">Missing local.configuration.properties or local.security.properties</fail>
-    <antcall target="copyfile">
-      <param name="local.file" value="${local.configuration.properties}" />
-      <param name="remote.file" value="${remote.configuration.properties}" />
+    <fail unless="copyoleconfig.property">Missing local.config.dir or remote.config.dir</fail>
+    <antcall target="rsync">
+      <param name="rsync.src" value="${local.config.dir}" />
+      <param name="rsync.dst" value="${secure.user}@${deploy.server}:${remote.config.dir}" />
     </antcall>
-    <antcall target="copyfile">
-      <param name="local.file" value="${local.security.properties}" />
-      <param name="remote.file" value="${remote.security.properties}" />
+    <antcall target="chowndir">
+      <param name="remote.dir" value="${remote.user.home}" />
     </antcall>
   </target>
 
@@ -257,7 +269,7 @@
   </target>
   <target name="mkdir">
     <antcall target="ssh-exec">
-      <param name="ssh.command" value="mkdir ${remote.dir}" />
+      <param name="ssh.command" value="mkdir -p ${remote.dir}" />
     </antcall>
   </target>
   <target name="runscript">
