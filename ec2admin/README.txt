@@ -23,5 +23,5 @@ mvn clean install -Presetall,6
 
 Tomcat 7 Commands
 
-mvn clean install -Ptomcat,7
-mvn clean install -Presetall,7
+mvn clean install -Ptomcat
+mvn clean install -Presetall
