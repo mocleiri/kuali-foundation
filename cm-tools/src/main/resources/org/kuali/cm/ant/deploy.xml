@@ -74,7 +74,7 @@
       </and>
     </condition>
     <fail unless="ssh.properties">Missing ssh.command</fail>
-    <sshexec command="${ssh.command}" username="${ssh.user}" host="${deploy.server}" trust="true" verbose="${ssh.verbose}" failonerror="true" />
+    <sshexec command="${ssh.command}" username="${ssh.user}" host="${deploy.server}" keyfile="${deploy.auth}" trust="true" verbose="${ssh.verbose}" failonerror="true" />
   </target>
 
   <target name="stop" depends="check-basic-properties">
@@ -86,7 +86,7 @@
       catalina.pid should be present but it is not. Generally speaking, if catalina.pid
       is not present tomcat is not running, which means the build should not fail.
     -->
-    <sshexec command="${stop.command}" username="${ssh.user}" host="${deploy.server}" trust="true" verbose="${ssh.verbose}" failonerror="false" />
+    <sshexec command="${stop.command}" username="${ssh.user}" host="${deploy.server}" keyfile="${deploy.auth}" trust="true" verbose="${ssh.verbose}" failonerror="false" />
   </target>
   <target name="cleanjdbc" depends="check-basic-properties">
     <antcall target="removedir">
@@ -239,7 +239,7 @@
     </condition>
     <fail unless="copyfile.properties">Missing either local.file or remote.file</fail>
     <echo>scp ${local.file} to ${deploy.server}:${remote.file}</echo>
-    <scp localFile="${local.file}" remoteToFile="${scp.user}@${deploy.server}:${remote.file}" trust="true" verbose="${scp.verbose}" />
+    <scp localFile="${local.file}" remoteToFile="${scp.user}@${deploy.server}:${remote.file}" keyfile="${deploy.auth}" trust="true" verbose="${scp.verbose}" />
     <antcall target="ssh-exec">
       <param name="ssh.command" value="chown ${tomcat.instance}:tomcat ${remote.file}" />
     </antcall>
