@@ -64,11 +64,6 @@
       <version>1.0.1</version>
       <classifier>jar-with-dependencies</classifier>
     </dependency>
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-core-api</artifactId>
-      <version>2.0.2-build-8</version>
-    </dependency>
   </dependencies>
   <build>
     <pluginManagement>
