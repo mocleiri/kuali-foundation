@@ -27,9 +27,9 @@
   </prerequisites>
 
   <scm>
-    <connection>scm:svn:http://svn.codehaus.org/mojo/trunk/mojo/wagon-maven-plugin</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/trunk/mojo/wagon-maven-plugin</developerConnection>
-    <url>http://svn.codehaus.org/mojo/trunk/mojo/wagon-maven-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/wagon-maven-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/wagon-maven-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/wagon-maven-plugin</url>
   </scm>
 
   <developers>
@@ -52,15 +52,6 @@
       </roles>
     </developer>
   </developers>
-
-  <licenses>
-    <license>
-      <name>Apache License 2</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-
 
   <dependencies>
     <dependency>
