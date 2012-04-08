@@ -3,11 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <artifactId>mojo-parent</artifactId>
-    <groupId>org.codehaus.mojo</groupId>
-    <version>29</version>
+    <groupId>org.kuali.pom</groupId>
+    <artifactId>kuali-common</artifactId>
+    <version>1.1.7</version>
   </parent>
 
+  <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>wagon-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <name>Maven Wagon plugin</name>
