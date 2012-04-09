@@ -16,7 +16,8 @@
 
   <description>
     Maven 2 plugin that can be used to access various operations on a given URL using a supported maven wagon. Supports
-    recursive upload, download, and list directory content functionality.
+    recursive upload, download, and list directory content functionality.  The Kuali version of this plugin exists, because the 
+    Maven version ignores the filePermissions tag from settings.xml when uploading artifacts to a repository. 
   </description>
 
   <inceptionYear>2008</inceptionYear>
