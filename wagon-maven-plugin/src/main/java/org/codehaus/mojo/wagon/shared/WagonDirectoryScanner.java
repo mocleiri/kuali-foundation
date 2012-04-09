@@ -267,6 +267,7 @@ public class WagonDirectoryScanner {
      */
     private void scandir(String dir, String vpath) throws WagonException {
         logger.debug("scandir: dir: " + dir + " vpath: " + vpath);
+        @SuppressWarnings("unchecked")
         List<String> files = wagon.getFileList(dir);
 
         for (Iterator<String> iterator = files.iterator(); iterator.hasNext();) {
