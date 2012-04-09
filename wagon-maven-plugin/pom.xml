@@ -13,6 +13,7 @@
   <packaging>maven-plugin</packaging>
   <version>1.0.0-SNAPSHOT</version>
   <name>Wagon Maven Plugin</name>
+  <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
 
   <description>
     Maven 2 plugin that can be used to access various operations on a given URL using a supported maven wagon. Supports
