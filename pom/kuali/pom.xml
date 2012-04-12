@@ -128,7 +128,7 @@
     <ksite.downloadBase>http://shrub.appspot.com/maven.kuali.org</ksite.downloadBase>
 
     <!-- Wagon versions -->
-    <wagon.s3.version>1.1.10</wagon.s3.version>
+    <wagon.s3.version>1.1.11</wagon.s3.version>
 
     <!-- Plugin versions (ordered alphabetically) -->
     <plugin.ant.version>1.0.5</plugin.ant.version>
