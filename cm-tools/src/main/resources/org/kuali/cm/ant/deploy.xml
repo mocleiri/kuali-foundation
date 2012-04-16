@@ -21,6 +21,8 @@
   <description>Deploy applications packaged by Maven to a server on EC2</description>
   <property name="impex.dba.username" value="master" />
   <property name="tomcat.instance.lib.dir" value="/usr/local/${tomcat.instance}/lib" />
+  <property name="chown.owner" value="${tomcat.instance}" />
+  <property name="chown.group" value="tomcat" />
 
   <target name="resetole" depends="stop,clean,cleanjdbc,copyole,start" />
   <target name="reset" depends="stop,clean,cleanjdbc,copy,resetdb,start" />
@@ -241,7 +243,7 @@
     <echo>scp ${local.file} to ${deploy.server}:${remote.file}</echo>
     <scp localFile="${local.file}" remoteToFile="${scp.user}@${deploy.server}:${remote.file}" keyfile="${deploy.auth}" trust="true" verbose="${scp.verbose}" />
     <antcall target="ssh-exec">
-      <param name="ssh.command" value="chown ${tomcat.instance}:tomcat ${remote.file}" />
+      <param name="ssh.command" value="chown ${chown.owner}:${chown.group} ${remote.file}" />
     </antcall>
   </target>
   <target name="check-env-config">
@@ -264,7 +266,7 @@
   </target>
   <target name="chowndir">
     <antcall target="ssh-exec">
-      <param name="ssh.command" value="chown -R ${tomcat.instance}:tomcat ${remote.dir}" />
+      <param name="ssh.command" value="chown -R ${chown.owner}:${chown.group} ${remote.dir}" />
     </antcall>
   </target>
   <target name="mkdir">
