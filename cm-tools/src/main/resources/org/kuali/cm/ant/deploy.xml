@@ -34,7 +34,7 @@
   <property name="catalina.context.dir" value="${catalina.conf}/${catalina.engine}/${catalina.hostname}" />
   <property name="catalina.context.file" value="${catalina.context.dir}/ROOT.xml" />
 
-  <property name="config.home" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
+  <property name="remote.config.dir" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
   <property name="ssh.verbose" value="false" />
   <property name="scp.verbose" value="false" />
   <property name="secure.user" value="root" />
@@ -131,10 +131,10 @@
     <fail unless="copyoleconfig.property">Missing local.config.dir or remote.config.dir</fail>
     <antcall target="rsync">
       <param name="rsync.src" value="${local.config.dir}" />
-      <param name="rsync.dst" value="${secure.user}@${deploy.server}:${remote.config.dir}" />
+      <param name="rsync.dst" value="${secure.user}@${deploy.server}:${remote.config.home}" />
     </antcall>
     <antcall target="chowndir">
-      <param name="remote.dir" value="${remote.config.dir}" />
+      <param name="remote.dir" value="${remote.config.home}" />
     </antcall>
     <antcall target="mkdir">
       <param name="remote.dir" value="${catalina.context.dir}" />
@@ -157,7 +157,7 @@
     <fail unless="copy-commonconfig.properties">Missing deploy.config.common</fail>
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.config.common}" />
-      <param name="remote.file" value="${config.home}/common-config.xml" />
+      <param name="remote.file" value="${remote.config.dir}/common-config.xml" />
     </antcall>
   </target>
 
@@ -170,13 +170,13 @@
     <fail unless="copy-appconfig.properties">Missing deploy.config.app</fail>
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.config.app}" />
-      <param name="remote.file" value="${config.home}/${deploy.app.configfile}" />
+      <param name="remote.file" value="${remote.config.dir}/${deploy.app.configfile}" />
     </antcall>
   </target>
   <target name="copy-envconfig" depends="check-basic-properties,check-env-config" if="env.config.present">
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.config.env}" />
-      <param name="remote.file" value="${config.home}/env-config.xml" />
+      <param name="remote.file" value="${remote.config.dir}/env-config.xml" />
     </antcall>
   </target>
   <target name="copyjdbc" depends="check-basic-properties">
