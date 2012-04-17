@@ -31,7 +31,7 @@
 
   <property name="catalina.engine" value="Catalina" />
   <property name="catalina.hostname" value="localhost" />
-  <property name="catalina.context.dir" value="${catalina.base}/${catalina.engine}/${catalina.hostname}" />
+  <property name="catalina.context.dir" value="${catalina.conf}/${catalina.engine}/${catalina.hostname}" />
   <property name="catalina.context.file" value="${catalina.context.dir}/ROOT.xml" />
 
   <property name="config.home" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
@@ -142,6 +142,9 @@
     <antcall target="copyfile">
       <param name="local.file" value="${local.config.dir}ole/context.xml" />
       <param name="remote.file" value="${catalina.context.file}" />
+    </antcall>
+    <antcall target="chowndir">
+      <param name="remote.dir" value="${catalina.conf}" />
     </antcall>
   </target>
 
