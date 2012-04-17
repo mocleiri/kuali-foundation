@@ -263,7 +263,7 @@
       </and>
     </condition>
     <fail unless="copyfile.properties">Missing either local.file or remote.file</fail>
-    <echo>scp ${local.file} to ${deploy.server}:${remote.file}</echo>
+    <echo>scp ${local.file} to ${scp.user}@${deploy.server}:${remote.file}</echo>
     <scp localFile="${local.file}" remoteToFile="${scp.user}@${deploy.server}:${remote.file}" keyfile="${deploy.auth}" trust="true" verbose="${scp.verbose}" />
     <antcall target="ssh-exec">
       <param name="ssh.command" value="chown ${chown.owner}:${chown.group} ${remote.file}" />
