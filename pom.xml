@@ -20,11 +20,11 @@
   <description>Wrapping the Ant based Impex Clover Comment Extraction tooling with Maven, so we can publish it as a versioned jar file and thus express a proper dependency to it without resorting to SCM trickery.</description>
   <groupId>org.kuali.db.impex</groupId>
   <artifactId>impex-clover-ce</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <url>http://${kuali.site.hostname}/db/impex/${project.artifactId}/${project.version}</url>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/db-utils/branches/impex-clover-ce</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/db-utils/branches/impex-clover-ce</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/db-utils/branches/impex-clover-ce</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/db-utils/tags/impex-clover-ce-1.0.0</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/db-utils/tags/impex-clover-ce-1.0.0</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/db-utils/tags/impex-clover-ce-1.0.0</url>
   </scm>
 </project>
