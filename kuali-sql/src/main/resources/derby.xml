@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <comment>Derby SQL</comment>
+  <entry key="sql.derby.create">
+    CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.user.${sql.username}', '${sql.password}')
+    /
+  </entry>
+  <entry key="sql.derby.validate">
+    values(1)
+    /
+  </entry>
+</properties>

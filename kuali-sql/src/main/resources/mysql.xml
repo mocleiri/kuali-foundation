@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <comment>MySQL SQL</comment>
+  <entry key="sql.mysql.drop">
+    DROP DATABASE IF EXISTS ${sql.database}
+    /
+    GRANT USAGE ON *.* TO '${sql.username}'@'%'
+    IDENTIFIED BY '${sql.password}'
+    /
+    GRANT USAGE ON *.* TO '${sql.username}'@'localhost'
+    IDENTIFIED BY
+    '${sql.password}'
+    /
+    DROP
+    USER '${sql.username}'@'%'
+    /
+    DROP
+    USER '${sql.username}'@'localhost'
+    /
+  </entry>
+  <entry key="sql.mysql.create">
+    CREATE DATABASE IF NOT EXISTS ${sql.database}
+    DEFAULT CHARACTER SET
+    '${sql.mysql.character.set}'
+    DEFAULT COLLATE
+    '${sql.mysql.collate}'
+    /
+
+    CREATE USER '${sql.username}'@'%' IDENTIFIED
+    BY '${sql.password}'
+    /
+    CREATE USER '${sql.username}'@'localhost' IDENTIFIED
+    BY '${sql.password}'
+    /
+    GRANT ALL ON ${sql.database}.*
+    TO '${sql.username}'@'%'
+    WITH GRANT OPTION
+    /
+  </entry>
+  <entry key="sql.mysql.validate">
+    SELECT 1
+    /
+  </entry>
+</properties>

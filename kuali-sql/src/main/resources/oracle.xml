@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <comment>Oracle SQL</comment>
+  <entry key="sql.oracle.drop">
+    BEGIN
+    EXECUTE IMMEDIATE 'DROP USER ${sql.username} CASCADE';
+    EXCEPTION WHEN OTHERS THEN
+    IF SQLCODE != ${sql.oracle.error.userDoesNotExist} THEN
+    RAISE;
+    END IF;
+    END;
+    /
+  </entry>
+  <entry key="sql.oracle.create">
+    CREATE USER ${sql.username}
+    IDENTIFIED BY ${sql.password}
+    DEFAULT TABLESPACE ${sql.oracle.defaultTablespace}
+    TEMPORARY TABLESPACE ${sql.oracle.temporaryTablespace}
+    QUOTA ${sql.oracle.quota} ON ${sql.oracle.defaultTablespace}
+    /
+
+    GRANT CREATE PROCEDURE
+    , CREATE SEQUENCE
+    , CREATE SESSION
+    , CREATE SYNONYM
+    , CREATE TABLE
+    , CREATE TRIGGER
+    , CREATE TYPE
+    , CREATE VIEW
+    TO ${sql.username}
+    /
+  </entry>
+  <entry key="sql.oracle.validate">
+    SELECT SYSDATE FROM DUAL
+    /
+  </entry>
+  <entry key="sql.oracle.purge-recyclebin">
+    PURGE RECYCLEBIN
+    /
+  </entry>
+</properties>
