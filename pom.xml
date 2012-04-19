@@ -43,7 +43,7 @@
       <timezone>-7</timezone>
     </developer>
   </developers>
-  <url>http://${kuali.site.hostname}/db/impex/${project.artifactId}/${project.version}</url>
+  <url>http://${kuali.site.hostname}/db/${project.artifactId}/${project.version}</url>
   <modules>
     <module>jdbc-support</module>
     <module>torque-generator</module>
