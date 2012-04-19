@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.kuali</groupId>
+    <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>21</version>
+    <version>1.1.7</version>
   </parent>
   <groupId>org.kuali.db.impex</groupId>
   <artifactId>impex</artifactId>
@@ -26,32 +26,12 @@
       <timezone>-7</timezone>
     </developer>
   </developers>
-  <url>${kuali.site.public.url}</url>
-  <distributionManagement>
-    <site>
-      <id>${kuali.site.server.id}</id>
-      <name>Maven Site</name>
-      <url>${kuali.site.publish.url}</url>
-    </site>
-  </distributionManagement>
+  <url>http://${kuali.site.hostname}/impex/${project.artifactId}/${project.version}</url>
   <modules>
     <module>jdbc-support</module>
     <module>torque-generator</module>
     <module>torque-templates</module>
   </modules>
-  <repositories>
-    <repository>
-      <id>kuali.nexus</id>
-      <name>Nexus Repository Manager</name>
-      <url>http://nexus.kuali.org/content/groups/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
