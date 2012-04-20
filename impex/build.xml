@@ -1064,10 +1064,22 @@ END;
 		<!-- generate an absolute path to this directory -->
 		<property name="temp.workflow.dir" location="${post.import.workflow.xml.directory}"/>		
 		
+        <if>
+          <not>
+            <isset property="maven.plugin.classpath" />
+          </not>
+          <then>
+            <property name="import.workflow.classpath" value="${java.class.path}" />
+          </then>
+          <else>
+            <property name="import.workflow.classpath" value="${maven.plugin.classpath}" />
+          </else>
+        </if>
+		
 		<java classname="org.apache.tools.ant.Main"
 		      fork="true"
 		      failonerror="true">		    
-		    <classpath path="${java.class.path}" />
+		    <classpath path="${import.workflow.classpath}" />
 		    <jvmarg value="-Xmx1g" />
 		    <arg value="-Duser.home=${user.home}" />
 			<arg value="-buildfile" />
