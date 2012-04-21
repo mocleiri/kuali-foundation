@@ -31,7 +31,7 @@
     <plugins>
       <plugin>
         <groupId>${project.groupId}</groupId>
-        <artifactId>${project.artifactid}</artifactId>
+        <artifactId>${project.artifactId}</artifactId>
         <version>${project.version}</version>
       </plugin>
     </plugins>

@@ -28,7 +28,7 @@ public class WorkflowImporter {
     protected static final Logger LOG = LoggerFactory.getLogger(WorkflowImporter.class);
 
     public static void main(String[] args) {
-        if (args.length < 1) {
+        if (args == null || args.length < 1) {
             args = new String[1];
             args[0] = "/Users/jeffcaddel/sts/2.8.1/ws/ingester-maven-plugin/src/test/resources/workflow";
         }
