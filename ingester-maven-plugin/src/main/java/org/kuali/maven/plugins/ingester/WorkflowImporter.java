@@ -24,9 +24,11 @@ import java.nio.channels.FileChannel;
 import java.util.Arrays;
 
 import org.kuali.rice.kew.batch.XmlPollerServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WorkflowImporter {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(WorkflowImporter.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(WorkflowImporter.class);
 
     public static void main(String[] args) {
         if (args.length < 1) {
