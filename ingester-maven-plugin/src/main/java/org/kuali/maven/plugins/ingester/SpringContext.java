@@ -15,20 +15,9 @@
  */
 package org.kuali.maven.plugins.ingester;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,7 +27,6 @@ import org.kuali.rice.core.config.ConfigContext;
 import org.kuali.rice.core.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.core.resourceloader.RiceResourceLoaderFactory;
 import org.kuali.rice.core.util.RiceConstants;
-import org.kuali.rice.kns.service.KualiConfigurationService;
 import org.kuali.rice.kns.util.spring.ClassPathXmlApplicationContext;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.DisposableBean;
@@ -47,7 +35,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import uk.ltd.getahead.dwr.create.SpringCreator;
 
-@SuppressWarnings("deprecation")
 public class SpringContext {
     protected static final Logger LOG = Logger.getLogger(SpringContext.class);
     protected static final String APPLICATION_CONTEXT_DEFINITION = "spring-rice-startup.xml";
@@ -60,7 +47,6 @@ public class SpringContext {
     protected static Map<String, Object> SINGLETON_BEANS_BY_NAME_CACHE = new HashMap<String, Object>();
     @SuppressWarnings("rawtypes")
     protected static Map<Class<? extends Object>, Map> SINGLETON_BEANS_OF_TYPE_CACHE = new HashMap<Class<? extends Object>, Map>();
-    protected static Thread processWatchThread = null;
 
     /**
      * Use this method to retrieve a service which may or may not be implemented locally. (That is, defined in the main
@@ -244,12 +230,6 @@ public class SpringContext {
     }
 
     protected static void close() throws Exception {
-        if (processWatchThread != null) {
-            if (processWatchThread.isAlive()) {
-                processWatchThread.stop();
-            }
-            processWatchThread = null;
-        }
         if (applicationContext == null) {
             applicationContext = RiceResourceLoaderFactory.getSpringResourceLoader().getContext();
         }
@@ -304,71 +284,5 @@ public class SpringContext {
         LOG.info("Completed Spring context initialization");
 
         SpringCreator.setOverrideBeanFactory(applicationContext.getBeanFactory());
-
-        if (getBean(KualiConfigurationService.class).getPropertyAsBoolean("periodic.thread.dump")) {
-            final long sleepPeriod = Long.parseLong(getBean(KualiConfigurationService.class).getPropertyString(
-                    "periodic.thread.dump.seconds")) * 1000;
-            final File logDir = new File(getBean(KualiConfigurationService.class).getPropertyString("logs.directory"));
-            final File monitoringLogDir = new File(logDir, "monitoring");
-            if (!monitoringLogDir.exists()) {
-                monitoringLogDir.mkdir();
-            }
-            if (LOG.isInfoEnabled()) {
-                LOG.info("Starting the Periodic Thread Dump thread - dumping every " + (sleepPeriod / 1000)
-                        + " seconds");
-                LOG.info("Periodic Thread Dump Logs: " + monitoringLogDir.getAbsolutePath());
-            }
-            Runnable processWatch = new Runnable() {
-                DateFormat df = new SimpleDateFormat("yyyyMMdd");
-                DateFormat tf = new SimpleDateFormat("HH-mm-ss");
-
-                @Override
-                public void run() {
-                    while (true) {
-                        Date now = new Date();
-                        File todaysLogDir = new File(monitoringLogDir, df.format(now));
-                        if (!todaysLogDir.exists()) {
-                            todaysLogDir.mkdir();
-                        }
-                        File logFile = new File(todaysLogDir, "process-" + tf.format(now) + ".log");
-                        try {
-                            BufferedWriter w = new BufferedWriter(new FileWriter(logFile));
-                            StringBuilder logStatement = new StringBuilder(10240);
-                            logStatement.append("Threads Running at: ").append(now).append("\n\n\n");
-                            Map<Thread, StackTraceElement[]> threads = Thread.getAllStackTraces();
-                            List<Thread> sortedThreads = new ArrayList<Thread>(threads.keySet());
-                            Collections.sort(sortedThreads, new Comparator<Thread>() {
-                                @Override
-                                public int compare(Thread o1, Thread o2) {
-                                    return o1.getName().compareTo(o2.getName());
-                                }
-                            });
-                            for (Thread t : sortedThreads) {
-                                logStatement.append("\tThread: name=").append(t.getName()).append(", id=")
-                                        .append(t.getId()).append(", priority=").append(t.getPriority())
-                                        .append(", state=").append(t.getState());
-                                logStatement.append('\n');
-                                for (StackTraceElement stackTraceElement : threads.get(t)) {
-                                    logStatement.append("\t\t" + stackTraceElement).append('\n');
-                                }
-                                logStatement.append('\n');
-                            }
-                            w.write(logStatement.toString());
-                            w.close();
-                        } catch (IOException ex) {
-                            LOG.error("Unable to write the ProcessWatch output file: " + logFile.getAbsolutePath(), ex);
-                        }
-                        try {
-                            Thread.sleep(sleepPeriod);
-                        } catch (InterruptedException ex) {
-                            LOG.error("woken up during sleep of the ProcessWatch thread", ex);
-                        }
-                    }
-                }
-            };
-            processWatchThread = new Thread(processWatch, "ProcessWatch thread");
-            processWatchThread.setDaemon(true);
-            processWatchThread.start();
-        }
     }
 }
