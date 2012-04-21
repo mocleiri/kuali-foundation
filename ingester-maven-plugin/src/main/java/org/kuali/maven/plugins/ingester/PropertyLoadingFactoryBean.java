@@ -41,7 +41,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
     public static final String ENVIRONMENT_KEY = "environment";
     public static final String APPLICATION_URL_KEY = "application.url";
     private static final String CONFIGURATION_FILE_NAME = "configuration";
-    private static final String ALT_CONFIG_LOCATION_PROPERTY = "alt.config.location";
+    private static final String ALT_CONFIG_LOCATION_PROPERTY = "ingester.config.location";
     private static final String ALT_CONFIG_LOCATION = System.getProperty(ALT_CONFIG_LOCATION_PROPERTY);
     private static final String PROPERTY_FILE_NAMES_KEY = "property.files";
     private static final Properties BASE_PROPERTIES = new Properties();
