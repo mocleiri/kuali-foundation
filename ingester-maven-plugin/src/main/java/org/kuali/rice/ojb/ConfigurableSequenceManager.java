@@ -27,7 +27,7 @@ import org.kuali.maven.plugins.ingester.PropertyLoadingFactoryBean;
 import org.kuali.rice.core.config.ConfigurationException;
 
 /**
- * Overriding corresponding rice implementation that doesn't work for OLE.
+ * Overriding corresponding Rice implementation
  */
 public class ConfigurableSequenceManager implements SequenceManager {
     private static final Logger LOG = Logger.getLogger(ConfigurableSequenceManager.class);
