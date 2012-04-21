@@ -34,6 +34,7 @@
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <properties>
     <slf4j.version>1.6.4</slf4j.version>
+    <mvn.version>3.0.4</mvn.version>
   </properties>
   <developers>
     <developer>
@@ -77,13 +78,13 @@
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <version>3.0.4</version>
+      <version>${mvn.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-compat</artifactId>
-      <version>3.0.4</version>
+      <version>${mvn.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
