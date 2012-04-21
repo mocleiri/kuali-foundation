@@ -55,6 +55,7 @@ public class IngestMojo extends AbstractMojo {
         }
         DirectoryStructure ds = getDirectoryStructure();
         prepareDirs(ds, files);
+
         SpringContextForWorkflowImporter.initializeApplicationContext();
         XmlPollerServiceImpl parser = new XmlPollerServiceImpl();
         parser.setXmlPendingLocation(ds.getPendingDir().getAbsolutePath());
@@ -100,7 +101,7 @@ public class IngestMojo extends AbstractMojo {
         String[] filenames = scanner.getSelectedFiles();
         List<File> fileList = new ArrayList<File>();
         for (String filename : filenames) {
-            File file = new File(filename);
+            File file = new File(sourceDir, filename);
             fileList.add(file);
         }
         Collections.sort(fileList);
