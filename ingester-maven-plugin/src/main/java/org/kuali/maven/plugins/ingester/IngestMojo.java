@@ -34,7 +34,7 @@ public class IngestMojo extends AbstractMojo {
     private File sourceDir;
 
     /**
-     * The working directory where documents are copied and transition from pending to either completed or failed.
+     * The working directory where documents are copied and transition from pending to completed or failed.
      *
      * @parameter expression="${ingester.outputDir}" default-value="${project.build.directory}/ingester"
      */
