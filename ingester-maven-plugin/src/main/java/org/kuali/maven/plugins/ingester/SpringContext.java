@@ -39,8 +39,6 @@ public class SpringContext {
     protected static final Logger LOG = Logger.getLogger(SpringContext.class);
     protected static final String APPLICATION_CONTEXT_DEFINITION = "spring-rice-startup.xml";
     protected static final String TEST_CONTEXT_DEFINITION = "spring-rice-startup-test.xml";
-    protected static final String MEMORY_MONITOR_THRESHOLD_KEY = "memory.monitor.threshold";
-    protected static final String USE_QUARTZ_SCHEDULING_KEY = "use.quartz.scheduling";
     protected static ConfigurableApplicationContext applicationContext;
     protected static Set<Class<? extends Object>> SINGLETON_TYPES = new HashSet<Class<? extends Object>>();
     protected static Map<Class<? extends Object>, Object> SINGLETON_BEANS_BY_TYPE_CACHE = new HashMap<Class<? extends Object>, Object>();
