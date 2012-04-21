@@ -10,13 +10,21 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.project.MavenProject;
 import org.kuali.rice.kew.batch.XmlPollerServiceImpl;
 
 /**
  * @goal ingest
  */
 public class IngestMojo extends AbstractMojo {
+
+    /**
+     * The Maven project object
+     *
+     * @parameter expression="${project}"
+     * @readonly
+     */
+    private MavenProject project;
 
     /**
      * The directory containing documents to ingest
@@ -47,13 +55,14 @@ public class IngestMojo extends AbstractMojo {
     private String[] excludes;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
         List<File> files = getFileList();
         if (files.size() == 0) {
             getLog().info("Skipping execution.  No matching files found");
         } else {
             getLog().info("Ingesting " + files.size() + " documents");
         }
+
         DirectoryStructure ds = getDirectoryStructure();
         prepareDirs(ds, files);
 
@@ -144,6 +153,10 @@ public class IngestMojo extends AbstractMojo {
 
     public void setOutputDir(File outputDir) {
         this.outputDir = outputDir;
+    }
+
+    public MavenProject getProject() {
+        return project;
     }
 
 }
