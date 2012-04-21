@@ -75,15 +75,15 @@ public class IngestMojo extends AbstractMojo {
 
     protected DirectoryStructure getDirectoryStructure() {
         DirectoryStructure ds = new DirectoryStructure();
-        ds.setPendingDir(new File(outputDir.getAbsolutePath() + File.pathSeparator + "pending"));
-        ds.setCompletedDir(new File(outputDir.getAbsolutePath() + File.pathSeparator + "completed"));
-        ds.setProblemDir(new File(outputDir.getAbsolutePath() + File.pathSeparator + "problem"));
+        ds.setPendingDir(new File(outputDir.getAbsolutePath() + File.separatorChar + "pending"));
+        ds.setCompletedDir(new File(outputDir.getAbsolutePath() + File.separatorChar + "completed"));
+        ds.setProblemDir(new File(outputDir.getAbsolutePath() + File.separatorChar + "problem"));
         return ds;
     }
 
     protected void copyToDir(File dir, List<File> files) throws IOException {
         for (File file : files) {
-            FileUtils.copyFile(file, new File(dir.getAbsolutePath() + File.pathSeparator + file.getName()));
+            FileUtils.copyFile(file, new File(dir.getAbsolutePath() + File.separatorChar + file.getName()));
         }
     }
 
