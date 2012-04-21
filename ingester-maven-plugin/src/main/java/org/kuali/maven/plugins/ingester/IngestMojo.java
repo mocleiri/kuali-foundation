@@ -3,10 +3,11 @@ package org.kuali.maven.plugins.ingester;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -94,17 +95,21 @@ public class IngestMojo extends AbstractMojo {
     }
 
     /**
-     * Return the list of files we need to ingest
+     * Return the list of files to ingest
      */
     protected List<File> getFileList() {
         SimpleScanner scanner = new SimpleScanner(sourceDir, includes, excludes, false);
         String[] filenames = scanner.getSelectedFiles();
+        Arrays.sort(filenames);
+        int size = (filenames.length + "").length();
         List<File> fileList = new ArrayList<File>();
+        int sequence = 0;
         for (String filename : filenames) {
-            File file = new File(sourceDir, filename);
+            sequence++;
+            String prefix = StringUtils.leftPad(sequence + "", size, "0");
+            File file = new File(sourceDir, prefix + "-" + filename);
             fileList.add(file);
         }
-        Collections.sort(fileList);
         return fileList;
     }
 
