@@ -11,7 +11,7 @@ public class SimpleMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        getLog().info("Hello World");
+        WorkflowImporter.main(null);
     }
 
 }

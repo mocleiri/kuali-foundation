@@ -48,7 +48,7 @@ public class WorkflowImporter {
                 LOG.error("Unable to find any subdirectories under " + baseDir.getAbsolutePath() + " - ABORTING!");
                 System.err.println("Unable to find any subdirectories under " + baseDir.getAbsolutePath()
                         + " - ABORTING!");
-                System.exit(-1);
+                return;
             }
             Arrays.sort(dirs);
 
@@ -96,11 +96,11 @@ public class WorkflowImporter {
             }
 
             SpringContextForWorkflowImporter.close();
-            System.exit(0);
+            return;
         } catch (Throwable t) {
             System.err.println("ERROR: Exception caught: ");
             t.printStackTrace(System.err);
-            System.exit(-1);
+            return;
         }
     }
 
