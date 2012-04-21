@@ -25,9 +25,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.config.JAXBConfigImpl;
-import org.kuali.rice.core.util.ClassLoaderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -37,9 +37,9 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.SystemPropertyUtils;
 
 public class PropertyLoadingFactoryBean implements FactoryBean {
+    protected static final Logger LOG = LoggerFactory.getLogger(PropertyLoadingFactoryBean.class);
     public static final String ENVIRONMENT_KEY = "environment";
     public static final String APPLICATION_URL_KEY = "application.url";
-    protected static final Logger LOG = LoggerFactory.getLogger(PropertyLoadingFactoryBean.class);
     private static final String CONFIGURATION_FILE_NAME = "configuration";
     private static final String USER_HOME_PROPERTIES = System.getProperty("user.home") + "/.kuali/ole/"
             + CONFIGURATION_FILE_NAME + ".properties";
@@ -98,35 +98,30 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
         return true;
     }
 
-    private static void loadPropertyList(Properties props, String listPropertyName) {
+    protected static void loadPropertyList(Properties props, String listPropertyName) {
         for (String propertyFileName : getBaseListProperty(listPropertyName)) {
             LOG.info("Loading " + propertyFileName);
             loadProperties(props, propertyFileName);
         }
     }
 
-    private static void loadProperties(Properties props, InputStream in) throws IOException {
+    protected static void loadProperties(Properties props, InputStream in) throws IOException {
         try {
             props.load(in);
         } finally {
-            closeQuietly(in);
+            IOUtils.closeQuietly(in);
         }
     }
 
-    private static void loadProperties(Properties props, String propertyFileName) {
-        InputStream propertyFileInputStream = null;
+    protected static void loadProperties(Properties props, String filename) {
+        InputStream in = null;
         try {
-            try {
-                propertyFileInputStream = new DefaultResourceLoader(ClassLoaderUtils.getDefaultClassLoader())
-                        .getResource(propertyFileName).getInputStream();
-                loadProperties(props, propertyFileInputStream);
-            } finally {
-                if (propertyFileInputStream != null) {
-                    propertyFileInputStream.close();
-                }
-            }
+            in = getInputStream(filename);
+            loadProperties(props, in);
         } catch (IOException e) {
-            throw new RuntimeException("PropertyLoadingFactoryBean unable to load property file: " + propertyFileName);
+            throw new RuntimeException(e);
+        } finally {
+            IOUtils.closeQuietly(in);
         }
     }
 
@@ -185,26 +180,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
         } else {
             LOG.info("Loading " + location);
         }
-        InputStream in = null;
-        try {
-            in = getInputStream(location);
-            loadProperties(props, in);
-        } catch (IOException e) {
-            throw new RuntimeException("Error loading properties from " + location);
-        } finally {
-            closeQuietly(in);
-        }
-    }
-
-    protected static void closeQuietly(InputStream in) {
-        if (in == null) {
-            return;
-        }
-        try {
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadProperties(props, location);
     }
 
     /**
