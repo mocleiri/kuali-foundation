@@ -22,9 +22,9 @@
                            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
 
-  <bean id="properties" class="org.kuali.ole.sys.context.PropertyLoadingFactoryBean" />
+  <bean id="properties" class="org.kuali.maven.plugins.ingester.PropertyLoadingFactoryBean" />
 
-  <bean id="securityProperties" class="org.kuali.ole.sys.context.PropertyLoadingFactoryBean" p:secureMode="true" />
+  <bean id="securityProperties" class="org.kuali.maven.plugins.ingester.PropertyLoadingFactoryBean" p:secureMode="true" />
 
   <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="ignoreUnresolvablePlaceholders" value="true" />
