@@ -3,7 +3,7 @@ package org.kuali.maven.plugins.ingester;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -83,8 +83,13 @@ public class IngestMojo extends AbstractMojo {
     }
 
     protected void copyToDir(File dir, List<File> files) throws IOException {
+        int size = (files.size() + "").length();
+        int sequence = 0;
         for (File file : files) {
-            FileUtils.copyFile(file, new File(dir.getAbsolutePath() + File.separatorChar + file.getName()));
+            sequence++;
+            String prefix = StringUtils.leftPad(sequence + "", size, "0");
+            String filename = dir.getAbsolutePath() + File.separatorChar + prefix + "-" + file.getName();
+            FileUtils.copyFile(file, new File(filename));
         }
     }
 
@@ -100,16 +105,12 @@ public class IngestMojo extends AbstractMojo {
     protected List<File> getFileList() {
         SimpleScanner scanner = new SimpleScanner(sourceDir, includes, excludes, false);
         String[] filenames = scanner.getSelectedFiles();
-        Arrays.sort(filenames);
-        int size = (filenames.length + "").length();
         List<File> fileList = new ArrayList<File>();
-        int sequence = 0;
         for (String filename : filenames) {
-            sequence++;
-            String prefix = StringUtils.leftPad(sequence + "", size, "0");
-            File file = new File(sourceDir, prefix + "-" + filename);
+            File file = new File(sourceDir, filename);
             fileList.add(file);
         }
+        Collections.sort(fileList);
         return fileList;
     }
 
