@@ -31,7 +31,7 @@ public class WorkflowImporter {
     public static void main(String[] args) {
         if (args.length < 1) {
             args = new String[1];
-            args[0] = "/Users/jeffcaddel/ws/ingester-maven-plugin/src/test/resources/workflow";
+            args[0] = "/Users/jeffcaddel/sts/2.8.1/ws/ingester-maven-plugin/src/test/resources/workflow";
         }
         try {
             SpringContextForWorkflowImporter.initializeApplicationContext();
