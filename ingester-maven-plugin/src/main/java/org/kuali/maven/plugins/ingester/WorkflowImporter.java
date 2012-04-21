@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Arrays;
 
+import org.kuali.rice.kew.batch.XmlPollerServiceImpl;
+
 public class WorkflowImporter {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(WorkflowImporter.class);
 
@@ -45,7 +47,8 @@ public class WorkflowImporter {
             });
             if (dirs == null) {
                 LOG.error("Unable to find any subdirectories under " + baseDir.getAbsolutePath() + " - ABORTING!");
-                System.err.println("Unable to find any subdirectories under " + baseDir.getAbsolutePath() + " - ABORTING!");
+                System.err.println("Unable to find any subdirectories under " + baseDir.getAbsolutePath()
+                        + " - ABORTING!");
                 System.exit(-1);
             }
             Arrays.sort(dirs);
@@ -75,7 +78,6 @@ public class WorkflowImporter {
                     failedDir.mkdir();
                 }
 
-
                 Arrays.sort(xmlFiles);
 
                 for (File xmlFile : xmlFiles) {
@@ -96,8 +98,7 @@ public class WorkflowImporter {
 
             SpringContextForWorkflowImporter.close();
             System.exit(0);
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             System.err.println("ERROR: Exception caught: ");
             t.printStackTrace(System.err);
             System.exit(-1);
@@ -115,8 +116,7 @@ public class WorkflowImporter {
             source = new FileInputStream(sourceFile).getChannel();
             destination = new FileOutputStream(destFile).getChannel();
             destination.transferFrom(source, 0, source.size());
-        }
-        finally {
+        } finally {
             if (source != null) {
                 source.close();
             }
