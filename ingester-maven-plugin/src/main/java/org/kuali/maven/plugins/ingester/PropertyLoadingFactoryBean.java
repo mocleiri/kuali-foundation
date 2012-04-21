@@ -145,9 +145,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
     }
 
     /**
-     * Load configuration that is external to the .war file. This way file system specific pathing (which hardly ever
-     * changes) and any other necessary configuration can be externalized and will survive across updates of the .war
-     * file.
+     * Load configuration external to the plugin
      */
     protected static void loadExternalProperties() {
         Properties properties = new Properties();
