@@ -41,39 +41,33 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
     public static final String ENVIRONMENT_KEY = "environment";
     public static final String APPLICATION_URL_KEY = "application.url";
     private static final String CONFIGURATION_FILE_NAME = "configuration";
-    private static final String USER_HOME_PROPERTIES = System.getProperty("user.home") + "/.kuali/ole/"
-            + CONFIGURATION_FILE_NAME + ".properties";
     private static final String ALT_CONFIG_LOCATION_PROPERTY = "alt.config.location";
     private static final String ALT_CONFIG_LOCATION = System.getProperty(ALT_CONFIG_LOCATION_PROPERTY);
     private static final String PROPERTY_FILE_NAMES_KEY = "property.files";
-    private static final String PROPERTY_TEST_FILE_NAMES_KEY = "property.test.files";
-    private static final String SECURITY_PROPERTY_FILE_NAME_KEY = "security.property.file";
     private static final Properties BASE_PROPERTIES = new Properties();
     private static final String HTTP_URL_PROPERTY_NAME = "http.url";
     private static final String KSB_REMOTING_URL_PROPERTY_NAME = "ksb.remoting.url";
     private static final String REMOTING_URL_SUFFIX = "/remoting";
     private Properties props = new Properties();
-    private boolean testMode;
-    private boolean secureMode;
+
+    protected String getKsbRemotingUrl() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("http://");
+        sb.append(System.getProperty(HTTP_URL_PROPERTY_NAME));
+        sb.append("/ole-" + props.getProperty(ENVIRONMENT_KEY));
+        sb.append(REMOTING_URL_SUFFIX);
+        return sb.toString();
+    }
 
     @Override
     public Object getObject() throws Exception {
         loadBaseProperties();
         props.putAll(BASE_PROPERTIES);
-        if (secureMode) {
-            loadPropertyList(props, SECURITY_PROPERTY_FILE_NAME_KEY);
-        } else {
-            loadPropertyList(props, PROPERTY_FILE_NAMES_KEY);
-            if (testMode) {
-                loadPropertyList(props, PROPERTY_TEST_FILE_NAMES_KEY);
-            }
-        }
+        loadPropertyList(props, PROPERTY_FILE_NAMES_KEY);
         if (StringUtils.isBlank(System.getProperty(HTTP_URL_PROPERTY_NAME))) {
             props.put(KSB_REMOTING_URL_PROPERTY_NAME, props.getProperty(APPLICATION_URL_KEY) + REMOTING_URL_SUFFIX);
         } else {
-            props.put(KSB_REMOTING_URL_PROPERTY_NAME,
-                    new StringBuffer("http://").append(System.getProperty(HTTP_URL_PROPERTY_NAME)).append("/ole-")
-                            .append(props.getProperty(ENVIRONMENT_KEY)).append(REMOTING_URL_SUFFIX).toString());
+            props.put(KSB_REMOTING_URL_PROPERTY_NAME, getKsbRemotingUrl());
         }
         LOG.info(KSB_REMOTING_URL_PROPERTY_NAME + " set to " + props.getProperty(KSB_REMOTING_URL_PROPERTY_NAME));
         LOG.info("Loaded " + props.size() + " properties");
@@ -157,7 +151,6 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
      */
     protected static void loadExternalProperties() {
         Properties properties = new Properties();
-        loadPropertiesFromLocation(properties, USER_HOME_PROPERTIES);
         if (!StringUtils.isBlank(ALT_CONFIG_LOCATION)) {
             loadPropertiesFromLocation(properties, ALT_CONFIG_LOCATION);
         } else {
@@ -212,14 +205,6 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
         ResourceLoader loader = new DefaultResourceLoader();
         Resource resource = loader.getResource(location);
         return resource.exists();
-    }
-
-    public void setTestMode(boolean testMode) {
-        this.testMode = testMode;
-    }
-
-    public void setSecureMode(boolean secureMode) {
-        this.secureMode = secureMode;
     }
 
     public static void clear() {

@@ -24,14 +24,12 @@
 
   <bean id="properties" class="org.kuali.maven.plugins.ingester.PropertyLoadingFactoryBean" />
 
-  <bean id="securityProperties" class="org.kuali.maven.plugins.ingester.PropertyLoadingFactoryBean" p:secureMode="true" />
 
   <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="ignoreUnresolvablePlaceholders" value="true" />
     <property name="propertiesArray">
       <list>
         <ref bean="properties" />
-        <ref bean="securityProperties" />
       </list>
     </property>
   </bean>
