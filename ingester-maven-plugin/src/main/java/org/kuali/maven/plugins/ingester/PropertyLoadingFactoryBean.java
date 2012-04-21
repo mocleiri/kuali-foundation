@@ -130,18 +130,19 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
     }
 
     protected static void loadBaseProperties() {
-        if (BASE_PROPERTIES.isEmpty()) {
-            String commonConfigDefaults = "classpath:META-INF/common-config-defaults.xml";
-            String basePropertiesPath = "classpath:" + CONFIGURATION_FILE_NAME + ".properties";
-            LOG.info("Loading " + commonConfigDefaults);
-            List<String> riceXmlConfigurations = new ArrayList<String>();
-            riceXmlConfigurations.add(commonConfigDefaults);
-            JAXBConfigImpl riceXmlConfigurer = new JAXBConfigImpl(riceXmlConfigurations);
-            BASE_PROPERTIES.putAll(riceXmlConfigurer.getProperties());
-            LOG.info("Loading " + basePropertiesPath);
-            loadProperties(BASE_PROPERTIES, basePropertiesPath);
-            loadExternalProperties();
+        if (!BASE_PROPERTIES.isEmpty()) {
+            return;
         }
+        String commonConfigDefaults = "classpath:META-INF/common-config-defaults.xml";
+        String basePropertiesPath = "classpath:" + CONFIGURATION_FILE_NAME + ".properties";
+        LOG.info("Loading " + commonConfigDefaults);
+        List<String> riceXmlConfigurations = new ArrayList<String>();
+        riceXmlConfigurations.add(commonConfigDefaults);
+        JAXBConfigImpl riceXmlConfigurer = new JAXBConfigImpl(riceXmlConfigurations);
+        BASE_PROPERTIES.putAll(riceXmlConfigurer.getProperties());
+        LOG.info("Loading " + basePropertiesPath);
+        loadProperties(BASE_PROPERTIES, basePropertiesPath);
+        loadExternalProperties();
     }
 
     /**
