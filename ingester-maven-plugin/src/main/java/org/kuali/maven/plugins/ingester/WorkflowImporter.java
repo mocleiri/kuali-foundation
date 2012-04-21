@@ -30,8 +30,8 @@ public class WorkflowImporter {
 
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.err.println("ERROR: You must pass the base directory on the command line.");
-            System.exit(-1);
+            args = new String[1];
+            args[0] = "/Users/jeffcaddel/ws/ingester-maven-plugin/src/test/resources/workflow";
         }
         try {
             SpringContextForWorkflowImporter.initializeApplicationContext();
