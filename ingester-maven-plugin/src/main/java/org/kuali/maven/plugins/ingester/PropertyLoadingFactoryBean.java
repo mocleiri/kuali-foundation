@@ -37,6 +37,8 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.SystemPropertyUtils;
 
 public class PropertyLoadingFactoryBean implements FactoryBean {
+    public static final String ENVIRONMENT_KEY = "environment";
+    public static final String APPLICATION_URL_KEY = "application.url";
     protected static final Logger LOG = LoggerFactory.getLogger(PropertyLoadingFactoryBean.class);
     private static final String CONFIGURATION_FILE_NAME = "configuration";
     private static final String USER_HOME_PROPERTIES = System.getProperty("user.home") + "/.kuali/ole/"
@@ -67,13 +69,11 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
             }
         }
         if (StringUtils.isBlank(System.getProperty(HTTP_URL_PROPERTY_NAME))) {
-            props.put(KSB_REMOTING_URL_PROPERTY_NAME, props.getProperty(OLEConstants.APPLICATION_URL_KEY)
-                    + REMOTING_URL_SUFFIX);
+            props.put(KSB_REMOTING_URL_PROPERTY_NAME, props.getProperty(APPLICATION_URL_KEY) + REMOTING_URL_SUFFIX);
         } else {
             props.put(KSB_REMOTING_URL_PROPERTY_NAME,
                     new StringBuffer("http://").append(System.getProperty(HTTP_URL_PROPERTY_NAME)).append("/ole-")
-                            .append(props.getProperty(OLEConstants.ENVIRONMENT_KEY)).append(REMOTING_URL_SUFFIX)
-                            .toString());
+                            .append(props.getProperty(ENVIRONMENT_KEY)).append(REMOTING_URL_SUFFIX).toString());
         }
         LOG.info(KSB_REMOTING_URL_PROPERTY_NAME + " set to " + props.getProperty(KSB_REMOTING_URL_PROPERTY_NAME));
         LOG.info("Loaded " + props.size() + " properties");
