@@ -84,6 +84,7 @@ public class SpringContext {
      * @param type
      * @return an object that has been defined as a bean in our spring context and is of the specified type
      */
+    @SuppressWarnings("unchecked")
     public static <T> T getBean(Class<T> type) {
         verifyProperInitialization();
         T bean = null;
@@ -143,6 +144,7 @@ public class SpringContext {
      * @param type
      * @return a map of the spring bean ids / beans that are of the specified type
      */
+    @SuppressWarnings("unchecked")
     public static <T> Map<String, T> getBeansOfType(Class<T> type) {
         verifyProperInitialization();
         Map<String, T> beansOfType = null;
@@ -170,6 +172,7 @@ public class SpringContext {
         return beansOfType;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T getBean(Class<T> type, String name) {
         T bean = null;
         if (SINGLETON_BEANS_BY_NAME_CACHE.containsKey(name)) {

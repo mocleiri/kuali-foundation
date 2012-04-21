@@ -89,7 +89,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
     }
 
     @Override
-    public Class getObjectType() {
+    public Class<?> getObjectType() {
         return Properties.class;
     }
 
