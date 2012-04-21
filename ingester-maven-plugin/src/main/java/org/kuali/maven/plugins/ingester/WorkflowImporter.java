@@ -17,12 +17,9 @@ package org.kuali.maven.plugins.ingester;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.util.Arrays;
 
+import org.apache.commons.io.FileUtils;
 import org.kuali.rice.kew.batch.XmlPollerServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +81,7 @@ public class WorkflowImporter {
 
                 for (File xmlFile : xmlFiles) {
                     LOG.info("Copying to pending: " + xmlFile.getName());
-                    copyFile(xmlFile, new File(pendingDir, xmlFile.getName()));
+                    FileUtils.copyFile(xmlFile, new File(pendingDir, xmlFile.getName()));
                 }
 
                 parser.setXmlPendingLocation(pendingDir.getAbsolutePath());
@@ -107,37 +104,4 @@ public class WorkflowImporter {
         }
     }
 
-    public static void copyFile(File sourceFile, File destFile) throws IOException {
-        if (!destFile.exists()) {
-            destFile.createNewFile();
-        }
-
-        FileChannel source = null;
-        FileChannel destination = null;
-        try {
-            source = new FileInputStream(sourceFile).getChannel();
-            destination = new FileOutputStream(destFile).getChannel();
-            destination.transferFrom(source, 0, source.size());
-        } finally {
-            if (source != null) {
-                source.close();
-            }
-            if (destination != null) {
-                destination.close();
-            }
-        }
-    }
-    // private static void copyFile(File sourceFile, File destFile) throws Exception{
-    // InputStream in = new FileInputStream(sourceFile);
-    //
-    // OutputStream out = new FileOutputStream(destFile);
-    //
-    // byte[] buf = new byte[1024];
-    // int len;
-    // while ((len = in.read(buf)) > 0) {
-    // out.write(buf, 0, len);
-    // }
-    // in.close();
-    // out.close();
-    // }
 }
