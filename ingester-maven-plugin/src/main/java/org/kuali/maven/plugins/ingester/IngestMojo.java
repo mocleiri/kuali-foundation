@@ -20,7 +20,7 @@ public class IngestMojo extends AbstractMojo {
     /**
      * The directory containing documents to ingest
      *
-     * @parameter expression="${ingester.sourceDir}" default-value="${project.basedir}/src/main/resources"
+     * @parameter expression="${ingester.sourceDir}" default-value="${project.basedir}/src/main/resources/workflow"
      */
     private File sourceDir;
 
