@@ -94,7 +94,7 @@ public class IngestMojo extends AbstractMojo {
     }
 
     /**
-     * Return the list of files we need to inspect for BOM's
+     * Return the list of files we need to ingest
      */
     protected List<File> getFileList() {
         SimpleScanner scanner = new SimpleScanner(sourceDir, includes, excludes, false);
