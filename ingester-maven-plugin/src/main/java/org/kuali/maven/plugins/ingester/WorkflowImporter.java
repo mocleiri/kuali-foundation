@@ -33,7 +33,6 @@ public class WorkflowImporter {
             args[0] = "/Users/jeffcaddel/sts/2.8.1/ws/ingester-maven-plugin/src/test/resources/workflow";
         }
         try {
-            SpringContextForWorkflowImporter.initializeApplicationContext();
 
             XmlPollerServiceImpl parser = new XmlPollerServiceImpl();
 
