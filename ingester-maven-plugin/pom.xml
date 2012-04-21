@@ -49,6 +49,24 @@
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ingester-maven-plugin</developerConnection>
     <url>http://svn.kuali.org/repos/foundation/trunk/ingester-maven-plugin</url>
   </scm>
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <includes>
+          <include>pom.xml</include>
+        </includes>
+        <filtering>true</filtering>
+      </testResource>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <excludes>
+          <exclude>pom.xml</exclude>
+        </excludes>
+        <filtering>false</filtering>
+      </testResource>
+    </testResources>
+  </build>
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -104,3 +122,4 @@
     </dependency>
   </dependencies>
 </project>
+
