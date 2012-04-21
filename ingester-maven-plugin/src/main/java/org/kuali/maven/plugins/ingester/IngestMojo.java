@@ -12,11 +12,18 @@ import org.apache.maven.plugin.MojoFailureException;
 public class IngestMojo extends AbstractMojo {
 
     /**
-     * The directory to recursively scan for files containing BOM's
+     * The directory containing documents to ingest
      *
-     * @parameter expression="${ingester.directory}" default-value="${project.basedir}/src/main/resources/workflow"
+     * @parameter expression="${ingester.sourceDir}" default-value="${project.basedir}/src/main/resources"
      */
-    private File directory;
+    private File sourceDir;
+
+    /**
+     * The directory containing documents to ingest
+     *
+     * @parameter expression="${ingester.outputDir}" default-value="${project.build.directory}/ingester"
+     */
+    private File outputDir;
 
     /**
      * Inclusion patterns. By default *.xml is included
@@ -37,14 +44,6 @@ public class IngestMojo extends AbstractMojo {
         WorkflowImporter.main(null);
     }
 
-    public File getDirectory() {
-        return directory;
-    }
-
-    public void setDirectory(File directory) {
-        this.directory = directory;
-    }
-
     public String[] getIncludes() {
         return includes;
     }
@@ -59,6 +58,22 @@ public class IngestMojo extends AbstractMojo {
 
     public void setExcludes(String[] excludes) {
         this.excludes = excludes;
+    }
+
+    public File getSourceDir() {
+        return sourceDir;
+    }
+
+    public void setSourceDir(File sourceDir) {
+        this.sourceDir = sourceDir;
+    }
+
+    public File getOutputDir() {
+        return outputDir;
+    }
+
+    public void setOutputDir(File outputDir) {
+        this.outputDir = outputDir;
     }
 
 }
