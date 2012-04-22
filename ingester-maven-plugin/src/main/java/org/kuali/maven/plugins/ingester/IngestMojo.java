@@ -22,6 +22,7 @@ public class IngestMojo extends AbstractMojo {
      * The Maven project object
      *
      * @parameter expression="${project}"
+     * @required
      * @readonly
      */
     private MavenProject project;
@@ -38,6 +39,7 @@ public class IngestMojo extends AbstractMojo {
      * The directory containing documents to ingest
      *
      * @parameter expression="${ingester.sourceDir}" default-value="${project.basedir}/src/main/resources"
+     * @required
      */
     private File sourceDir;
 
@@ -46,6 +48,7 @@ public class IngestMojo extends AbstractMojo {
      * them from the "pending" directory to either the "completed" or "problem" directories.
      *
      * @parameter expression="${ingester.outputDir}" default-value="${project.build.directory}/ingester"
+     * @required
      */
     private File outputDir;
 
@@ -53,6 +56,7 @@ public class IngestMojo extends AbstractMojo {
      * Inclusion patterns. By default *.xml is included
      *
      * @parameter
+     * @required
      */
     private String[] includes = { "**/*.xml" };
 
