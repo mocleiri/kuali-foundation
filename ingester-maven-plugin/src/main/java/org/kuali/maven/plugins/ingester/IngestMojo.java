@@ -159,12 +159,12 @@ public class IngestMojo extends AbstractMojo {
     protected void showConfig() {
         getLog().info("Namespace - " + namespace);
         getLog().info("Source Dir - " + sourceDir);
-        getLog().info("Working Dir - " + workingDir);
         getLog().info("Includes - " + toCSV(includes));
         getLog().info("Excludes - " + toCSV(excludes));
+        getLog().info("Working Dir - " + workingDir);
         getLog().info("JDBC Vendor - " + jdbcVendor);
         getLog().info("JDBC Url - " + jdbcUrl);
-        getLog().info("Username - " + jdbcUsername);
+        getLog().info("JDBC Username - " + jdbcUsername);
     }
 
     protected void prepareProperties() throws MojoExecutionException {
