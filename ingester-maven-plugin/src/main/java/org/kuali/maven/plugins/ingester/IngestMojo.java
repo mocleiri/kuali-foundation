@@ -15,7 +15,7 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.rice.kew.batch.XmlPollerServiceImpl;
 
 /**
- *
+ * Ingest workflow documents into Rice
  *
  * @goal ingest
  */
