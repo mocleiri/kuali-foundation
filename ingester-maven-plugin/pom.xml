@@ -25,7 +25,7 @@
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>ingester-maven-plugin</artifactId>
-  <version>1.0.2-beta-SNAPSHOT</version>
+  <version>1.0.2-beta</version>
   <packaging>maven-plugin</packaging>
   <name>Ingester Maven Plugin</name>
   <description>
@@ -49,9 +49,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ingester-maven-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ingester-maven-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/ingester-maven-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/ingester-maven-plugin-1.0.2-beta</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/ingester-maven-plugin-1.0.2-beta</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/ingester-maven-plugin-1.0.2-beta</url>
   </scm>
   <build>
     <testResources>
