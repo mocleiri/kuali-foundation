@@ -45,30 +45,16 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
     private static final String ALT_CONFIG_LOCATION = System.getProperty(ALT_CONFIG_LOCATION_PROPERTY);
     private static final String PROPERTY_FILE_NAMES_KEY = "property.files";
     private static final Properties BASE_PROPERTIES = new Properties();
-    private static final String HTTP_URL_PROPERTY_NAME = "http.url";
     private static final String KSB_REMOTING_URL_PROPERTY_NAME = "ksb.remoting.url";
     private static final String REMOTING_URL_SUFFIX = "/remoting";
     private Properties props = new Properties();
-
-    protected String getKsbRemotingUrl() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("http://");
-        sb.append(System.getProperty(HTTP_URL_PROPERTY_NAME));
-        sb.append("/ole-" + props.getProperty(ENVIRONMENT_KEY));
-        sb.append(REMOTING_URL_SUFFIX);
-        return sb.toString();
-    }
 
     @Override
     public Object getObject() throws Exception {
         loadBaseProperties();
         props.putAll(BASE_PROPERTIES);
         loadPropertyList(props, PROPERTY_FILE_NAMES_KEY);
-        if (StringUtils.isBlank(System.getProperty(HTTP_URL_PROPERTY_NAME))) {
-            props.put(KSB_REMOTING_URL_PROPERTY_NAME, props.getProperty(APPLICATION_URL_KEY) + REMOTING_URL_SUFFIX);
-        } else {
-            props.put(KSB_REMOTING_URL_PROPERTY_NAME, getKsbRemotingUrl());
-        }
+        props.put(KSB_REMOTING_URL_PROPERTY_NAME, props.getProperty(APPLICATION_URL_KEY) + REMOTING_URL_SUFFIX);
         LOG.info(KSB_REMOTING_URL_PROPERTY_NAME + " set to " + props.getProperty(KSB_REMOTING_URL_PROPERTY_NAME));
         LOG.info("Loaded " + props.size() + " properties");
         if (LOG.isDebugEnabled()) {
