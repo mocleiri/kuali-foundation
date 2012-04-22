@@ -27,6 +27,12 @@ public class IngestMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
+     * @parameter expression="${ingester.namespace}"
+     * @required
+     */
+    private String namespace;
+
+    /**
      * The directory containing documents to ingest
      *
      * @parameter expression="${ingester.sourceDir}" default-value="${project.basedir}/src/main/resources"
@@ -166,6 +172,14 @@ public class IngestMojo extends AbstractMojo {
 
     public MavenProject getProject() {
         return project;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
     }
 
 }
