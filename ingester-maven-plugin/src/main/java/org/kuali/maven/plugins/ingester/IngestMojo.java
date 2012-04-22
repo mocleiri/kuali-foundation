@@ -31,7 +31,7 @@ public class IngestMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     * The type of database documents are being ingested into (mysql, oracle, etc)
+     * The type of database (mysql, oracle, etc)
      *
      * @parameter expression="${ingester.jdbcVendor}" default-value="mysql"
      * @required
@@ -47,7 +47,7 @@ public class IngestMojo extends AbstractMojo {
     private String jdbcUrl;
 
     /**
-     * Username to connect as
+     * The database username to connect as
      *
      * @parameter expression="${ingester.jdbcUsername}"
      * @required
@@ -55,7 +55,7 @@ public class IngestMojo extends AbstractMojo {
     private String jdbcUsername;
 
     /**
-     * Password for that username
+     * The database password for the specified username
      *
      * @parameter expression="${ingester.jdbcPassword}"
      * @required
@@ -63,8 +63,8 @@ public class IngestMojo extends AbstractMojo {
     private String jdbcPassword;
 
     /**
-     * Jdbc driver to use. This is optional because a default driver for the <code>jdbcVendor</code> is usually the
-     * correct one to use. If a driver is provided here, it will override the default.
+     * Jdbc driver to use. This is optional because a default driver for the specified <code>jdbcVendor</code> is
+     * usually the correct one to use. If a driver is provided here, it overrides the default.
      *
      * @parameter expression="${ingester.jdbcDriver}"
      */
