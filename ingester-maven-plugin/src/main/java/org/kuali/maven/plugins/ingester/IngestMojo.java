@@ -133,6 +133,12 @@ public class IngestMojo extends AbstractMojo {
             return;
         }
         System.setProperty(propsKey, propsLoc);
+
+        String jdbcVendorValue = System.getProperty("jdbc.vendor");
+        if (StringUtils.isBlank(jdbcVendorValue)) {
+            System.setProperty("jdbc.vendor", jdbcVendor);
+        }
+
         Properties properties = new Properties();
         properties.setProperty("app.namespace", namespace);
         properties.setProperty("jdbc.url", jdbcUrl);

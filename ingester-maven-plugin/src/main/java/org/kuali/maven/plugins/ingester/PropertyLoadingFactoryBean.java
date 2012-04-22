@@ -103,9 +103,24 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
             LOG.info("Loading " + basePropertiesPath);
             PropertiesUtils.loadProperties(BASE_PROPERTIES, basePropertiesPath);
             loadExternalProperties();
+            loadJdbcVendorProperties();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Load configuration external to the plugin
+     */
+    protected static void loadJdbcVendorProperties() throws IOException {
+        String value = System.getProperty("jdbc.vendor");
+        if (StringUtils.isBlank(value)) {
+            return;
+        }
+        String location = "classpath:ingester-" + value + ".properties";
+        Properties p = new Properties();
+        loadPropertiesFromLocation(p, location);
+        BASE_PROPERTIES.putAll(p);
     }
 
     /**
