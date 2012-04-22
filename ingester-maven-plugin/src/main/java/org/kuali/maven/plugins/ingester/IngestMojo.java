@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -47,10 +48,21 @@ public class IngestMojo extends AbstractMojo {
      * The working directory where the documents to ingest are copied. The plugin loads them from here, and transitions
      * them from the "pending" directory to either the "completed" or "problem" directories.
      *
-     * @parameter expression="${ingester.outputDir}" default-value="${project.build.directory}/ingester"
+     * @parameter expression="${ingester.workingDir}" default-value="${project.build.directory}/ingester"
      * @required
      */
-    private File outputDir;
+    private File workingDir;
+
+    /**
+     * @parameter expression="${ingester.propsKey}" default-value="ingester.config.location"
+     */
+    private String propsKey;
+
+    /**
+     * @parameter expression="${ingester.propsLoc}"
+     *            default-value="${project.build.directory}/ingester/ingester.properties"
+     */
+    private String propsLoc;
 
     /**
      * Inclusion patterns. By default *.xml is included
@@ -79,7 +91,17 @@ public class IngestMojo extends AbstractMojo {
 
         DirectoryStructure ds = getDirectoryStructure();
         prepareFileSystem(ds, files);
+        prepareProperties();
         ingest(ds);
+    }
+
+    protected void prepareProperties() throws MojoExecutionException {
+        String value = System.getProperty(propsKey);
+        if (StringUtils.isBlank(value)) {
+            System.setProperty(propsKey, propsLoc);
+        }
+        Properties properties = new Properties();
+        properties.setProperty("", "");
     }
 
     protected void ingest(DirectoryStructure ds) throws MojoExecutionException {
@@ -107,9 +129,9 @@ public class IngestMojo extends AbstractMojo {
 
     protected DirectoryStructure getDirectoryStructure() {
         DirectoryStructure ds = new DirectoryStructure();
-        ds.setPendingDir(new File(outputDir.getAbsolutePath() + File.separatorChar + "pending"));
-        ds.setCompletedDir(new File(outputDir.getAbsolutePath() + File.separatorChar + "completed"));
-        ds.setProblemDir(new File(outputDir.getAbsolutePath() + File.separatorChar + "problem"));
+        ds.setPendingDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "pending"));
+        ds.setCompletedDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "completed"));
+        ds.setProblemDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "problem"));
         return ds;
     }
 
@@ -169,12 +191,12 @@ public class IngestMojo extends AbstractMojo {
         this.sourceDir = sourceDir;
     }
 
-    public File getOutputDir() {
-        return outputDir;
+    public File getWorkingDir() {
+        return workingDir;
     }
 
-    public void setOutputDir(File outputDir) {
-        this.outputDir = outputDir;
+    public void setWorkingDir(File outputDir) {
+        this.workingDir = outputDir;
     }
 
     public MavenProject getProject() {
@@ -187,6 +209,22 @@ public class IngestMojo extends AbstractMojo {
 
     public void setNamespace(String namespace) {
         this.namespace = namespace;
+    }
+
+    public String getPropsKey() {
+        return propsKey;
+    }
+
+    public void setPropsKey(String propsKey) {
+        this.propsKey = propsKey;
+    }
+
+    public String getPropsLoc() {
+        return propsLoc;
+    }
+
+    public void setPropsLoc(String propsLoc) {
+        this.propsLoc = propsLoc;
     }
 
 }
