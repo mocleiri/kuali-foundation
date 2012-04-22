@@ -60,7 +60,7 @@ public class IngestMojo extends AbstractMojo {
 
     /**
      * @parameter expression="${ingester.propsLoc}"
-     *            default-value="${project.build.directory}/ingester/ingester.properties"
+     *            default-value="${project.build.directory}/ingester/config/ingester.properties"
      */
     private String propsLoc;
 
@@ -68,7 +68,6 @@ public class IngestMojo extends AbstractMojo {
      * Inclusion patterns. By default *.xml is included
      *
      * @parameter
-     * @required
      */
     private String[] includes = { "**/*.xml" };
 
@@ -97,11 +96,21 @@ public class IngestMojo extends AbstractMojo {
 
     protected void prepareProperties() throws MojoExecutionException {
         String value = System.getProperty(propsKey);
-        if (StringUtils.isBlank(value)) {
-            System.setProperty(propsKey, propsLoc);
+        if (!StringUtils.isBlank(value)) {
+            // They have provided a location to pull properties from.
+            // We will do nothing further. They are on their own to make sure the configuration is correct
+            return;
         }
+        System.setProperty(propsKey, propsLoc);
         Properties properties = new Properties();
         properties.setProperty("app.namespace", namespace);
+        File file = new File(propsLoc);
+        try {
+            getLog().info("Creating " + file);
+            PropertiesUtils.storeProperties(properties, file);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Error storing properties", e);
+        }
     }
 
     protected void ingest(DirectoryStructure ds) throws MojoExecutionException {
