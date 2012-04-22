@@ -28,7 +28,11 @@
   <version>1.0.1-beta-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Ingester Maven Plugin</name>
-  <description>Plugin to simplify the process of ingesting workflow documents into Rice</description>
+  <description>
+   Plugin to simplify the process of ingesting workflow documents into Rice.  At the moment, this plugin is still very much
+   in beta.  It works correctly when ingesting Kuali OLE workflow documents into a MySQL database.  Usage outside of that
+   specific scenario is largely untested.
+  </description>
   <inceptionYear>2011</inceptionYear>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <properties>
