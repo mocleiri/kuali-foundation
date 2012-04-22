@@ -85,7 +85,7 @@ public class IngestMojo extends AbstractMojo {
             getLog().info("Skipping execution.  No matching files found");
             return;
         } else {
-            getLog().info("Ingesting " + files.size() + " documents");
+            getLog().info("Located " + files.size() + " documents to ingest");
         }
 
         DirectoryStructure ds = getDirectoryStructure();
