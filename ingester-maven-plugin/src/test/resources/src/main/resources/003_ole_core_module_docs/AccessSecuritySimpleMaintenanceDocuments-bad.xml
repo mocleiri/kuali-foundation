@@ -1,0 +1,21 @@
+		</documentType>
+		<documentType>
+			<name>OLESecurityDefinitionMaintenanceDocument</name>
+			<label>OLE Security Definition</label>
+			<parent>OLEAccessSecuritySimpleMaintenanceDocument</parent>
+			<helpDefinitionURL>default.htm?turl=WordDocuments%2Fdefinition.htm</helpDefinitionURL>
+		</documentType>
+		<documentType>
+			<name>OLESecurityModelMaintenanceDocument</name>
+			<label>OLE Security Model</label>
+			<parent>OLEAccessSecuritySimpleMaintenanceDocument</parent>
+			<helpDefinitionURL>default.htm?turl=WordDocuments%2Fmodel.htm</helpDefinitionURL>
+		</documentType>
+		<documentType>
+			<name>OLESecurityPrincipalMaintenanceDocument</name>
+			<label>OLE Security Principal</label>
+			<parent>OLEAccessSecuritySimpleMaintenanceDocument</parent>
+			<helpDefinitionURL>default.htm?turl=WordDocuments%2Fprincipal.htm</helpDefinitionURL>
+		</documentType>
+	</documentTypes>
+</data>
