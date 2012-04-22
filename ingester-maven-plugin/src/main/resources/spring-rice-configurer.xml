@@ -47,21 +47,6 @@
     <property name="kcbConfigurer">
       <bean class="org.kuali.rice.kcb.config.KCBConfigurer" />
     </property>
-    <!-- 
-    <property name="modules">
-      <list>
-        <bean class="org.kuali.ole.sys.context.OLEConfigurer">
-          <property name="springFileLocations">
-            <value>${spring.source.files}</value>
-          </property>
-        </bean>
-      </list>
-    </property> 
-    <property name="additionalSpringFiles">
-      <list>
-        <value>${ole.rice.override.spring.files}</value>
-      </list>
-    </property>-->
   </bean>
 
 </beans>
