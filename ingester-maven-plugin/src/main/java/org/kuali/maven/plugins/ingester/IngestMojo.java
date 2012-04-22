@@ -142,10 +142,26 @@ public class IngestMojo extends AbstractMojo {
         ingest(ds);
     }
 
+    protected String toCSV(String[] array) {
+        if (array == null || array.length == 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            if (i != 0) {
+                sb.append(",");
+            }
+            sb.append(array[i]);
+        }
+        return sb.toString();
+    }
+
     protected void showConfig() {
         getLog().info("Namespace - " + namespace);
         getLog().info("Source Dir - " + sourceDir);
         getLog().info("Working Dir - " + workingDir);
+        getLog().info("Includes - " + toCSV(includes));
+        getLog().info("Excludes - " + toCSV(excludes));
         getLog().info("JDBC Vendor - " + jdbcVendor);
         getLog().info("JDBC Url - " + jdbcUrl);
         getLog().info("Username - " + jdbcUsername);
