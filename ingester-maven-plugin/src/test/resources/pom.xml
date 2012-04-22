@@ -35,6 +35,10 @@
         <version>${project.version}</version>
         <configuration>
           <namespace>OLE</namespace>
+          <jdbcUrl>jdbc:mysql://localhost/ole</jdbcUrl>
+          <jdbcUsername>ole</jdbcUsername>
+          <jdbcPassword>ole</jdbcPassword>
+          <jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>
         </configuration>
         <dependencies>
           <dependency>
