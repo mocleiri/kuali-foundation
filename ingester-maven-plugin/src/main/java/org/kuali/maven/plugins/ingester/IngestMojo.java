@@ -31,10 +31,33 @@ public class IngestMojo extends AbstractMojo {
     /**
      * The type of database documents are being ingested into (mysql, oracle, etc)
      *
-     * @parameter expression="${ingester.targetDatabase}"
+     * @parameter expression="${ingester.targetDatabase}" default-value="mysql"
      * @required
      */
     private String targetDatabase;
+
+    /**
+     * @parameter expression="${ingester.jdbcUrl}"
+     * @required
+     */
+    private String jdbcUrl;
+
+    /**
+     * @parameter expression="${ingester.jdbcUsername}"
+     * @required
+     */
+    private String jdbcUsername;
+
+    /**
+     * @parameter expression="${ingester.jdbcPassword}"
+     * @required
+     */
+    private String jdbcPassword;
+
+    /**
+     * @parameter expression="${ingester.jdbcDriver}" default-value="com.mysql.jdbc.Driver"
+     */
+    private String jdbcDriver;
 
     /**
      * Namespace for Rice
