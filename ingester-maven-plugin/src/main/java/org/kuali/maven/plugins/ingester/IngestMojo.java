@@ -34,8 +34,8 @@ public class IngestMojo extends AbstractMojo {
     private File sourceDir;
 
     /**
-     * The working directory where the documents to ingest are copied. From here, they are loaded transition from the
-     * "pending" directory to either the "completed" or "problem" directories.
+     * The working directory where the documents to ingest are copied. The plugin loads them from here, and transitions
+     * them from the "pending" directory to either the "completed" or "problem" directories.
      *
      * @parameter expression="${ingester.outputDir}" default-value="${project.build.directory}/ingester"
      */
@@ -57,7 +57,7 @@ public class IngestMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        List<File> files = getFileList();
+        List<File> files = getFiles();
         if (files.size() == 0) {
             getLog().info("Skipping execution.  No matching files found");
         } else {
@@ -65,8 +65,11 @@ public class IngestMojo extends AbstractMojo {
         }
 
         DirectoryStructure ds = getDirectoryStructure();
-        prepareDirs(ds, files);
+        prepareFileSystem(ds, files);
+        ingest(ds);
+    }
 
+    protected void ingest(DirectoryStructure ds) throws MojoExecutionException {
         SpringContextForWorkflowImporter.initializeApplicationContext();
         XmlPollerServiceImpl parser = new XmlPollerServiceImpl();
         parser.setXmlPendingLocation(ds.getPendingDir().getAbsolutePath());
@@ -80,7 +83,7 @@ public class IngestMojo extends AbstractMojo {
         }
     }
 
-    protected void prepareDirs(DirectoryStructure ds, List<File> files) throws MojoExecutionException {
+    protected void prepareFileSystem(DirectoryStructure ds, List<File> files) throws MojoExecutionException {
         try {
             mkdirs(ds);
             copyToDir(ds.getPendingDir(), files);
@@ -117,7 +120,7 @@ public class IngestMojo extends AbstractMojo {
     /**
      * Return the list of files to ingest
      */
-    protected List<File> getFileList() {
+    protected List<File> getFiles() {
         SimpleScanner scanner = new SimpleScanner(sourceDir, includes, excludes, false);
         String[] filenames = scanner.getSelectedFiles();
         List<File> fileList = new ArrayList<File>();
