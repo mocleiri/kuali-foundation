@@ -37,24 +37,33 @@ public class IngestMojo extends AbstractMojo {
     private String jdbcVendor;
 
     /**
+     * The jdbc connect url
+     *
      * @parameter expression="${ingester.jdbcUrl}"
      * @required
      */
     private String jdbcUrl;
 
     /**
+     * Username to connect as
+     *
      * @parameter expression="${ingester.jdbcUsername}"
      * @required
      */
     private String jdbcUsername;
 
     /**
+     * Password for that username
+     *
      * @parameter expression="${ingester.jdbcPassword}"
      * @required
      */
     private String jdbcPassword;
 
     /**
+     * Jdbc driver to use. This is optional because a default driver for the <code>jdbcVendor</code> is usually the
+     * correct one to use. If a driver is provided here, it will override the default.
+     *
      * @parameter expression="${ingester.jdbcDriver}"
      */
     private String jdbcDriver;
@@ -85,25 +94,29 @@ public class IngestMojo extends AbstractMojo {
     private File workingDir;
 
     /**
+     * System property key the plugin uses to locate an external properties file to load
+     *
      * @parameter expression="${ingester.propsKey}" default-value="ingester.config.location"
      */
     private String propsKey;
 
     /**
+     * Location of the external properties file to load
+     *
      * @parameter expression="${ingester.propsLoc}"
      *            default-value="${project.build.directory}/ingester/config/ingester.properties"
      */
     private String propsLoc;
 
     /**
-     * Inclusion patterns. By default *.xml is included
+     * Inclusion patterns. By default &#42;&#42;/&#42;.xml is included
      *
      * @parameter
      */
     private String[] includes = { "**/*.xml" };
 
     /**
-     * Exclusion patterns.
+     * Exclusion patterns. By default, nothing is excluded.
      *
      * @parameter
      */
@@ -128,8 +141,8 @@ public class IngestMojo extends AbstractMojo {
     }
 
     protected void showConfig() {
-        getLog().info("JDBC Url: " + jdbcUrl);
-        getLog().info("Username: " + jdbcUsername);
+        getLog().info("JDBC Url - " + jdbcUrl);
+        getLog().info("Username - " + jdbcUsername);
     }
 
     protected void prepareProperties() throws MojoExecutionException {
