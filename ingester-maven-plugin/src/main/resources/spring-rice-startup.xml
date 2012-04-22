@@ -24,7 +24,6 @@
 
   <bean id="properties" class="org.kuali.maven.plugins.ingester.PropertyLoadingFactoryBean" />
 
-
   <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="ignoreUnresolvablePlaceholders" value="true" />
     <property name="propertiesArray">
