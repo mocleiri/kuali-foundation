@@ -30,6 +30,9 @@
   <logger name="org.kuali.rice.kew.batch">
     <level value="info" />
   </logger>
+  <logger name="org.kuali.rice">
+    <level value="warn" />
+  </logger>
   <logger name="org.kuali.rice.core.config.JAXBConfigImpl">
     <level value="warn" />
   </logger>
