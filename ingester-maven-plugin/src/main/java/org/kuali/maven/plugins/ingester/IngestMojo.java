@@ -68,6 +68,7 @@ public class IngestMojo extends AbstractMojo {
         List<File> files = getFiles();
         if (files.size() == 0) {
             getLog().info("Skipping execution.  No matching files found");
+            return;
         } else {
             getLog().info("Ingesting " + files.size() + " documents");
         }
