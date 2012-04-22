@@ -27,6 +27,8 @@ public class IngestMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
+     * Namespace for Rice
+     *
      * @parameter expression="${ingester.namespace}"
      * @required
      */
