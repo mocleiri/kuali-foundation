@@ -29,6 +29,7 @@
     <property name="username" value="${datasource.username}" />
     <property name="password" value="${datasource.password}" />
   </bean>
+
   <bean id="nonTransactionalDataSource" parent="abstractDataSourceBase" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
     <property name="maxActive" value="${datasource.pool.size}" />
     <property name="minIdle" value="5" />
