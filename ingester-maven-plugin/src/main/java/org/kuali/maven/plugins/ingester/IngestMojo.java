@@ -156,15 +156,19 @@ public class IngestMojo extends AbstractMojo {
         return sb.toString();
     }
 
-    protected void showConfig() {
-        getLog().info("Namespace - " + namespace);
-        getLog().info("Source Dir - " + sourceDir);
-        getLog().info("Includes - " + toCSV(includes));
-        getLog().info("Excludes - " + toCSV(excludes));
-        getLog().info("Working Dir - " + workingDir);
-        getLog().info("JDBC Vendor - " + jdbcVendor);
-        getLog().info("JDBC Url - " + jdbcUrl);
-        getLog().info("JDBC Username - " + jdbcUsername);
+    protected void showConfig() throws MojoExecutionException {
+        try {
+            getLog().info("Namespace - " + namespace);
+            getLog().info("Source Dir - " + sourceDir.getCanonicalPath());
+            getLog().info("Includes - " + toCSV(includes));
+            getLog().info("Excludes - " + toCSV(excludes));
+            getLog().info("Working Dir - " + workingDir.getCanonicalPath());
+            getLog().info("JDBC Vendor - " + jdbcVendor);
+            getLog().info("JDBC Url - " + jdbcUrl);
+            getLog().info("JDBC Username - " + jdbcUsername);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Error showing config", e);
+        }
     }
 
     protected void prepareProperties() throws MojoExecutionException {
