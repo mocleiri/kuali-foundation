@@ -37,7 +37,7 @@
     <level value="warn" />
   </logger>
   <logger name="org.kuali.rice.core.config.JAXBConfigImpl">
-    <level value="warn" />
+    <level value="error" />
   </logger>
   <logger name="org.kuali.rice.kew.rule.service">
     <level value="warn" />
