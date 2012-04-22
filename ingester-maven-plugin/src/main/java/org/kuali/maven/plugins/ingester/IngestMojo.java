@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.kuali.rice.kew.batch.XmlPollerServiceImpl;
 
 /**
  * @goal ingest
@@ -66,11 +67,11 @@ public class IngestMojo extends AbstractMojo {
         prepareDirs(ds, files);
 
         SpringContextForWorkflowImporter.initializeApplicationContext();
-        // XmlPollerServiceImpl parser = new XmlPollerServiceImpl();
-        // parser.setXmlPendingLocation(ds.getPendingDir().getAbsolutePath());
-        // parser.setXmlCompletedLocation(ds.getCompletedDir().getAbsolutePath());
-        // parser.setXmlProblemLocation(ds.getProblemDir().getAbsolutePath());
-        // parser.run();
+        XmlPollerServiceImpl parser = new XmlPollerServiceImpl();
+        parser.setXmlPendingLocation(ds.getPendingDir().getAbsolutePath());
+        parser.setXmlCompletedLocation(ds.getCompletedDir().getAbsolutePath());
+        parser.setXmlProblemLocation(ds.getProblemDir().getAbsolutePath());
+        parser.run();
         try {
             SpringContextForWorkflowImporter.close();
         } catch (Exception e) {
