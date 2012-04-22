@@ -126,6 +126,8 @@ public class IngestMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        showConfig();
+
         List<File> files = getFiles();
         if (files.size() == 0) {
             getLog().info("Skipping execution.  No matching files found");
@@ -134,8 +136,6 @@ public class IngestMojo extends AbstractMojo {
             getLog().info("Located " + files.size() + " documents to ingest");
         }
 
-        showConfig();
-
         DirectoryStructure ds = getDirectoryStructure();
         prepareFileSystem(ds, files);
         prepareProperties();
@@ -143,6 +143,10 @@ public class IngestMojo extends AbstractMojo {
     }
 
     protected void showConfig() {
+        getLog().info("Namespace - " + namespace);
+        getLog().info("Source Dir - " + sourceDir);
+        getLog().info("Working Dir - " + workingDir);
+        getLog().info("JDBC Vendor - " + jdbcVendor);
         getLog().info("JDBC Url - " + jdbcUrl);
         getLog().info("Username - " + jdbcUsername);
     }
