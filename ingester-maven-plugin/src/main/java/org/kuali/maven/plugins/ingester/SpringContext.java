@@ -38,7 +38,6 @@ import uk.ltd.getahead.dwr.create.SpringCreator;
 public class SpringContext {
     protected static final Logger LOG = Logger.getLogger(SpringContext.class);
     protected static final String APPLICATION_CONTEXT_DEFINITION = "spring-rice-startup.xml";
-    protected static final String TEST_CONTEXT_DEFINITION = "spring-rice-startup-test.xml";
     protected static ConfigurableApplicationContext applicationContext;
     protected static Set<Class<? extends Object>> SINGLETON_TYPES = new HashSet<Class<? extends Object>>();
     protected static Map<Class<? extends Object>, Object> SINGLETON_BEANS_BY_TYPE_CACHE = new HashMap<Class<? extends Object>, Object>();
@@ -56,13 +55,15 @@ public class SpringContext {
 
     /**
      * Use this method to retrieve a spring bean when one of the following is the case. Pass in the type of the service
-     * interface, NOT the service implementation. 1. there is only one bean of the specified type in our spring context
+     * interface, NOT the service implementation.<br>
+     * 1. there is only one bean of the specified type in our spring context<br>
      * 2. there is only one bean of the specified type in our spring context, but you want the one whose bean id is the
      * same as type.getSimpleName() with the exception of the first letter being lower case in the former and upper case
-     * in the latter, For example, there are two beans of type DateTimeService in our context � dateTimeService and
-     * testDateTimeService. To retrieve the former, you should specific DateTimeService.class as the type. To retrieve
-     * the latter, you should specify ConfigurableDateService.class as the type. Unless you are writing a unit test and
-     * need to down cast to an implementation, you do not need to cast the result of this method.
+     * in the latter. <br>
+     * For example, there are two beans of type DateTimeService in our context dateTimeService and testDateTimeService.
+     * To retrieve the former, you should specific DateTimeService.class as the type. To retrieve the latter, you should
+     * specify ConfigurableDateService.class as the type. Unless you are writing a unit test and need to down cast to an
+     * implementation, you do not need to cast the result of this method.
      *
      * @param <T>
      * @param type
@@ -91,7 +92,8 @@ public class SpringContext {
                 } catch (Exception ex) {
                     // do nothing, let fall through
                 }
-                if (bean == null) { // unable to find bean - check GRL
+                if (bean == null) {
+                    // unable to find bean - check GRL
                     // this is needed in case no beans of the given type exist locally
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("Bean not found in local context: " + type.getName() + " - calling GRL");
@@ -221,10 +223,6 @@ public class SpringContext {
 
     protected static void initializeBatchApplicationContext() {
         initializeApplicationContext(APPLICATION_CONTEXT_DEFINITION, true);
-    }
-
-    protected static void initializeTestApplicationContext() {
-        initializeApplicationContext(TEST_CONTEXT_DEFINITION, false);
     }
 
     protected static void close() throws Exception {
