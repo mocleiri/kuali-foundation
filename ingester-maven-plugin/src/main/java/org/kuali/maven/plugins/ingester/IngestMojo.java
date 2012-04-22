@@ -119,10 +119,17 @@ public class IngestMojo extends AbstractMojo {
             getLog().info("Located " + files.size() + " documents to ingest");
         }
 
+        showConfig();
+
         DirectoryStructure ds = getDirectoryStructure();
         prepareFileSystem(ds, files);
         prepareProperties();
         ingest(ds);
+    }
+
+    protected void showConfig() {
+        getLog().info("JDBC Url: " + jdbcUrl);
+        getLog().info("Username: " + jdbcUsername);
     }
 
     protected void prepareProperties() throws MojoExecutionException {
