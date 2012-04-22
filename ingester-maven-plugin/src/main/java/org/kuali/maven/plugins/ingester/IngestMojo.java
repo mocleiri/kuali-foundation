@@ -47,7 +47,7 @@ public class IngestMojo extends AbstractMojo {
     private String jdbcUrl;
 
     /**
-     * The database username to connect as
+     * The database username
      *
      * @parameter expression="${ingester.jdbcUsername}"
      * @required
