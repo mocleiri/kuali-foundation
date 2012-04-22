@@ -28,8 +28,7 @@
   <version>1.0.0-beta-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Ingester Maven Plugin</name>
-  <description>
-  </description>
+  <description>Plugin to simplify the process of ingesting workflow documents into Rice</description>
   <inceptionYear>2011</inceptionYear>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <properties>

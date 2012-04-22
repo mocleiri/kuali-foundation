@@ -15,6 +15,8 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.rice.kew.batch.XmlPollerServiceImpl;
 
 /**
+ *
+ *
  * @goal ingest
  */
 public class IngestMojo extends AbstractMojo {
