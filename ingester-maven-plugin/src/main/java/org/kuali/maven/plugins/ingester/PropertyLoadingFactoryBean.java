@@ -102,8 +102,8 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
             BASE_PROPERTIES.putAll(riceXmlConfigurer.getProperties());
             LOG.info("Loading " + basePropertiesPath);
             PropertiesUtils.loadProperties(BASE_PROPERTIES, basePropertiesPath);
-            loadExternalProperties();
             loadJdbcVendorProperties();
+            loadExternalProperties();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
