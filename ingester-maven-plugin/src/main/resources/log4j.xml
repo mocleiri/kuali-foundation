@@ -28,7 +28,7 @@
     <level value="info" />
   </logger>
   <logger name="org.kuali.maven.plugins.ingester.PropertyLoadingFactoryBean">
-    <level value="debug" />
+    <level value="info" />
   </logger>
   <logger name="org.kuali.rice.kew.batch">
     <level value="info" />
