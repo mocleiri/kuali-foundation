@@ -29,6 +29,14 @@ public class IngestMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
+     * The type of database documents are being ingested into (mysql, oracle, etc)
+     *
+     * @parameter expression="${ingester.targetDatabase}"
+     * @required
+     */
+    private String targetDatabase;
+
+    /**
      * Namespace for Rice
      *
      * @parameter expression="${ingester.namespace}"
@@ -234,6 +242,14 @@ public class IngestMojo extends AbstractMojo {
 
     public void setPropsLoc(String propsLoc) {
         this.propsLoc = propsLoc;
+    }
+
+    public String getTargetDatabase() {
+        return targetDatabase;
+    }
+
+    public void setTargetDatabase(String targetDatabase) {
+        this.targetDatabase = targetDatabase;
     }
 
 }
