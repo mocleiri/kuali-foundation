@@ -101,7 +101,7 @@ public class IngestMojo extends AbstractMojo {
             System.setProperty(propsKey, propsLoc);
         }
         Properties properties = new Properties();
-        properties.setProperty("", "");
+        properties.setProperty("app.namespace", namespace);
     }
 
     protected void ingest(DirectoryStructure ds) throws MojoExecutionException {
