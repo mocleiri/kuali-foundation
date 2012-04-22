@@ -30,6 +30,30 @@
   <logger name="org.kuali.rice.kew.batch">
     <level value="info" />
   </logger>
+  <logger name="org.kuali.rice.core.config.JAXBConfigImpl">
+    <level value="warn" />
+  </logger>
+  <logger name="org.kuali.rice.kew.rule.service">
+    <level value="warn" />
+  </logger>
+  <logger name="org.kuali.rice.kew.xml.StyleXmlParser">
+    <level value="warn" />
+  </logger>
+  <logger name="org.kuali.rice.kns.util.MaintenanceUtils">
+    <level value="warn" />
+  </logger>
+  <logger name="org.kuali.rice.kew.doctype.service">
+    <level value="warn" />
+  </logger>
+  <logger name="org.springframework">
+    <level value="warn" />
+  </logger>
+  <logger name="com.opensymphony">
+    <level value="warn" />
+  </logger>
+  <logger name="org.apache.ojb">
+    <level value="warn" />
+  </logger>
   <root>
     <priority value="warn" />
     <appender-ref ref="console" />
