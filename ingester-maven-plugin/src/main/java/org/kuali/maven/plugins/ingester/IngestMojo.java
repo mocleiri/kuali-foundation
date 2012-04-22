@@ -31,10 +31,10 @@ public class IngestMojo extends AbstractMojo {
     /**
      * The type of database documents are being ingested into (mysql, oracle, etc)
      *
-     * @parameter expression="${ingester.targetDatabase}" default-value="mysql"
+     * @parameter expression="${ingester.jdbcVendor}" default-value="mysql"
      * @required
      */
-    private String targetDatabase;
+    private String jdbcVendor;
 
     /**
      * @parameter expression="${ingester.jdbcUrl}"
@@ -136,6 +136,7 @@ public class IngestMojo extends AbstractMojo {
         Properties properties = new Properties();
         properties.setProperty("app.namespace", namespace);
         properties.setProperty("jdbc.url", jdbcUrl);
+        properties.setProperty("jdbc.vendor", jdbcVendor);
         properties.setProperty("jdbc.username", jdbcUsername);
         properties.setProperty("jdbc.password", jdbcPassword);
         if (!StringUtils.isBlank(jdbcDriver)) {
@@ -273,14 +274,6 @@ public class IngestMojo extends AbstractMojo {
         this.propsLoc = propsLoc;
     }
 
-    public String getTargetDatabase() {
-        return targetDatabase;
-    }
-
-    public void setTargetDatabase(String targetDatabase) {
-        this.targetDatabase = targetDatabase;
-    }
-
     public String getJdbcUrl() {
         return jdbcUrl;
     }
@@ -311,6 +304,14 @@ public class IngestMojo extends AbstractMojo {
 
     public void setJdbcDriver(String jdbcDriver) {
         this.jdbcDriver = jdbcDriver;
+    }
+
+    public String getJdbcVendor() {
+        return jdbcVendor;
+    }
+
+    public void setJdbcVendor(String jdbcVendor) {
+        this.jdbcVendor = jdbcVendor;
     }
 
 }
