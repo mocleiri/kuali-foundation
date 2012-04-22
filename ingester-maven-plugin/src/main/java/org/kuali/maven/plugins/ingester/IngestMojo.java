@@ -55,7 +55,7 @@ public class IngestMojo extends AbstractMojo {
     private String jdbcPassword;
 
     /**
-     * @parameter expression="${ingester.jdbcDriver}" default-value="com.mysql.jdbc.Driver"
+     * @parameter expression="${ingester.jdbcDriver}"
      */
     private String jdbcDriver;
 
@@ -135,9 +135,15 @@ public class IngestMojo extends AbstractMojo {
         System.setProperty(propsKey, propsLoc);
         Properties properties = new Properties();
         properties.setProperty("app.namespace", namespace);
+        properties.setProperty("jdbc.url", jdbcUrl);
+        properties.setProperty("jdbc.username", jdbcUsername);
+        properties.setProperty("jdbc.password", jdbcPassword);
+        if (!StringUtils.isBlank(jdbcDriver)) {
+            properties.setProperty("jdbc.driver", jdbcDriver);
+        }
         File file = new File(propsLoc);
+        getLog().info("Creating " + file);
         try {
-            getLog().info("Creating " + file);
             PropertiesUtils.storeProperties(properties, file);
         } catch (IOException e) {
             throw new MojoExecutionException("Error storing properties", e);
