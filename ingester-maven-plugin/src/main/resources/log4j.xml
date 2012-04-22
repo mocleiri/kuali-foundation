@@ -25,7 +25,7 @@
     </layout>
   </appender>
   <logger name="org.kuali.maven">
-    <level value="info" />
+    <level value="debug" />
   </logger>
   <root>
     <priority value="warn" />

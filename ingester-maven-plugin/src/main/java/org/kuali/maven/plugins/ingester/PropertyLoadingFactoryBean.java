@@ -57,12 +57,12 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
         props.put(KSB_REMOTING_URL_PROPERTY_NAME, props.getProperty(APPLICATION_URL_KEY) + REMOTING_URL_SUFFIX);
         LOG.info(KSB_REMOTING_URL_PROPERTY_NAME + " set to " + props.getProperty(KSB_REMOTING_URL_PROPERTY_NAME));
         LOG.info("Loaded " + props.size() + " properties");
-        if (LOG.isDebugEnabled()) {
+        if (LOG.isTraceEnabled()) {
             List<String> names = new ArrayList<String>(props.stringPropertyNames());
             Collections.sort(names);
             for (String name : names) {
                 String value = props.getProperty(name);
-                LOG.debug(name + "=" + value);
+                LOG.trace(name + "=" + value);
             }
         }
         return props;
