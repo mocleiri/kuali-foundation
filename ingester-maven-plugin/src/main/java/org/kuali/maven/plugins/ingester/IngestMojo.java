@@ -159,10 +159,9 @@ public class IngestMojo extends AbstractMojo {
     protected void showConfig() throws MojoExecutionException {
         try {
             getLog().info("Namespace - " + namespace);
-            getLog().info("Source Dir - " + sourceDir.getCanonicalPath());
+            getLog().info("Directory - " + sourceDir.getCanonicalPath());
             getLog().info("Includes - " + toCSV(includes));
             getLog().info("Excludes - " + toCSV(excludes));
-            getLog().info("Working Dir - " + workingDir.getCanonicalPath());
             getLog().info("JDBC Vendor - " + jdbcVendor);
             getLog().info("JDBC Url - " + jdbcUrl);
             getLog().info("JDBC Username - " + jdbcUsername);

@@ -31,7 +31,7 @@
   <description>
    Plugin to simplify the process of ingesting workflow documents into Rice.  At the moment, this plugin is still very much
    in beta.  It works correctly when ingesting Kuali OLE workflow documents into a MySQL database using Rice 1.0.3.3.  Usage 
-   outside of that specific scenario is largely untested.
+   outside of that specific scenario is untested.
   </description>
   <inceptionYear>2011</inceptionYear>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
