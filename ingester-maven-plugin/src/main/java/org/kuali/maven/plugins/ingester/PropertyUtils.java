@@ -15,20 +15,21 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-public class PropertiesUtils {
+public class PropertyUtils {
 
-    public static void storeProperties(Properties props, File file) throws IOException {
+    public static void store(Properties props, File file) throws IOException {
         OutputStream out = null;
         try {
+            // In case they are storing properties to a directory that doesn't exist
             FileUtils.touch(file);
             out = new FileOutputStream(file);
-            props.store(out, "Maven Ingester Plugin");
+            props.store(out, "");
         } finally {
             IOUtils.closeQuietly(out);
         }
     }
 
-    public static void loadProperties(Properties props, InputStream in) throws IOException {
+    public static void load(Properties props, InputStream in) throws IOException {
         try {
             props.load(in);
         } finally {
@@ -36,11 +37,11 @@ public class PropertiesUtils {
         }
     }
 
-    public static void loadProperties(Properties props, String location) throws IOException {
+    public static void load(Properties props, String location) throws IOException {
         InputStream in = null;
         try {
             in = getInputStream(location);
-            loadProperties(props, in);
+            load(props, in);
         } finally {
             IOUtils.closeQuietly(in);
         }
@@ -61,20 +62,38 @@ public class PropertiesUtils {
     }
 
     /**
+     * Return true if the location is an existing file on the file system
+     *
+     * @param location
+     * @return
+     */
+    public static boolean isExistingFile(String location) {
+        File file = new File(location);
+        return file.exists();
+    }
+
+    /**
+     * Return true if the location is a resource Spring can find
+     *
+     * @param location
+     * @return
+     */
+    public static boolean isExistingResource(String location) {
+        ResourceLoader loader = new DefaultResourceLoader();
+        Resource resource = loader.getResource(location);
+        return resource.exists();
+    }
+
+    /**
      * Return true if the location provided to this method represents a file or a location Spring resource loading can
      * find, false otherwise.
      */
     public static boolean exists(String location) {
         if (StringUtils.isBlank(location)) {
             return false;
+        } else {
+            return isExistingFile(location) || isExistingResource(location);
         }
-        File file = new File(location);
-        if (file.exists()) {
-            return true;
-        }
-        ResourceLoader loader = new DefaultResourceLoader();
-        Resource resource = loader.getResource(location);
-        return resource.exists();
     }
 
 }

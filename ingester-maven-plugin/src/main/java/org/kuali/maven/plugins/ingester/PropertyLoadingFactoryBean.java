@@ -74,7 +74,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
     protected static void loadPropertyList(Properties props, String listPropertyName) throws IOException {
         for (String propertyFileName : getBaseListProperty(listPropertyName)) {
             LOG.info("Loading " + propertyFileName);
-            PropertiesUtils.loadProperties(props, propertyFileName);
+            PropertyUtils.load(props, propertyFileName);
         }
     }
 
@@ -101,7 +101,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
             JAXBConfigImpl riceXmlConfigurer = new JAXBConfigImpl(riceXmlConfigurations);
             BASE_PROPERTIES.putAll(riceXmlConfigurer.getProperties());
             LOG.info("Loading " + basePropertiesPath);
-            PropertiesUtils.loadProperties(BASE_PROPERTIES, basePropertiesPath);
+            PropertyUtils.load(BASE_PROPERTIES, basePropertiesPath);
             loadJdbcVendorProperties();
             loadExternalProperties();
         } catch (IOException e) {
@@ -144,13 +144,13 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
     }
 
     protected static void loadPropertiesFromLocation(Properties props, String location) throws IOException {
-        if (!PropertiesUtils.exists(location)) {
+        if (!PropertyUtils.exists(location)) {
             LOG.info("Skipping '" + location + "'  Resource does not exist");
             return;
         } else {
             LOG.info("Loading " + location);
         }
-        PropertiesUtils.loadProperties(props, location);
+        PropertyUtils.load(props, location);
     }
 
     public static void clear() {

@@ -108,7 +108,7 @@ public class IngestMojo extends AbstractMojo {
      * @parameter expression="${ingester.propsLoc}"
      *            default-value="${project.build.directory}/ingester/config/ingester.properties"
      */
-    private String propsLoc;
+    private File propsLoc;
 
     /**
      * Inclusion patterns. By default &#42;&#42;/&#42;.xml is included
@@ -171,6 +171,14 @@ public class IngestMojo extends AbstractMojo {
         }
     }
 
+    protected String getPath(File file) throws MojoExecutionException {
+        try {
+            return file.getCanonicalPath();
+        } catch (IOException e) {
+            throw new MojoExecutionException("Error obtaining canonical path", e);
+        }
+    }
+
     protected void prepareProperties() throws MojoExecutionException {
         String value = System.getProperty(propsKey);
         if (!StringUtils.isBlank(value)) {
@@ -178,7 +186,8 @@ public class IngestMojo extends AbstractMojo {
             // We will do nothing further. They are on their own to make sure the configuration is correct
             return;
         }
-        System.setProperty(propsKey, propsLoc);
+
+        System.setProperty(propsKey, getPath(propsLoc));
 
         String jdbcVendorValue = System.getProperty("jdbc.vendor");
         if (StringUtils.isBlank(jdbcVendorValue)) {
@@ -194,10 +203,9 @@ public class IngestMojo extends AbstractMojo {
         if (!StringUtils.isBlank(jdbcDriver)) {
             properties.setProperty("jdbc.driver", jdbcDriver);
         }
-        File file = new File(propsLoc);
-        getLog().info("Creating " + file);
         try {
-            PropertiesUtils.storeProperties(properties, file);
+            getLog().info("Creating " + getPath(propsLoc));
+            PropertyUtils.store(properties, propsLoc);
         } catch (IOException e) {
             throw new MojoExecutionException("Error storing properties", e);
         }
@@ -316,14 +324,6 @@ public class IngestMojo extends AbstractMojo {
 
     public void setPropsKey(String propsKey) {
         this.propsKey = propsKey;
-    }
-
-    public String getPropsLoc() {
-        return propsLoc;
-    }
-
-    public void setPropsLoc(String propsLoc) {
-        this.propsLoc = propsLoc;
     }
 
     public String getJdbcUrl() {

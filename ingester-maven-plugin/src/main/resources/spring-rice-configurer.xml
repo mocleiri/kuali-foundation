@@ -26,7 +26,7 @@
     <property name="serverDataSource" ref="serverDatasource" />
     <property name="transactionManager" ref="jotm" />
     <property name="userTransaction" ref="jotm" />
-    <property name="serviceNamespace" value="OLE" />
+    <property name="serviceNamespace" value="${app.namespace}" />
     <property name="environment" value="${build.environment}" />
     <property name="properties" ref="properties" />
     <property name="ksbConfigurer">
