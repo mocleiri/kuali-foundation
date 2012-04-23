@@ -16,11 +16,11 @@
     <artifactId>kuali-common</artifactId>
     <version>1.1.7</version>
   </parent>
-  <name>Impex Clover Comment Extraction</name>
-  <description>Wrapping the Ant based Impex Clover Comment Extraction tooling with Maven, so we can publish it as a versioned jar file and thus express a proper dependency to it without resorting to SCM trickery.</description>
+  <name>Ant Impex CloverETL</name>
+  <description>Wrapping the Ant based Impex CloverETL Comment Extraction tooling with Maven, so we can publish it as a versioned jar file and thus express a proper dependency to it without resorting to SCM trickery.</description>
   <groupId>org.kuali.db.impex</groupId>
-  <artifactId>impex-clover-ce</artifactId>
-  <version>1.0.2-SNAPSHOT</version>
+  <artifactId>impex-cloveretl-ce</artifactId>
+  <version>1.0.0-ant-SNAPSHOT</version>
   <url>http://${kuali.site.hostname}/db/impex/${project.artifactId}/${project.version}</url>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/db-utils/branches/impex-clover-ce</connection>
