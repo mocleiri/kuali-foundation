@@ -27,8 +27,8 @@
   <version>2.8.0-kuali-SNAPSHOT</version>
   <url>http://${kuali.site.hostname}/db/impex/${project.artifactId}/${project.version}</url>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/db-utils/branches/impex-clover-ce</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/db-utils/branches/impex-clover-ce</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/db-utils/branches/impex-clover-ce</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/db-utils/branches/impex-cloveretl-2.8-ce</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/db-utils/branches/impex-cloveretl-2.8-ce</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/db-utils/branches/impex-cloveretl-2.8-ce</url>
   </scm>
 </project>
