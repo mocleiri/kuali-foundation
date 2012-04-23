@@ -17,7 +17,11 @@
     <version>1.1.7</version>
   </parent>
   <name>Impex CloverETL</name>
-  <description>Impex CloverETL data integration platform.  Maven is used to wrap the Ant based tooling into bundle so we can express a proper dependency to it without resorting to SCM trickery.</description>
+  <description>
+     Impex CloverETL data integration platform.
+     This is based on the comment extraction branch of the Ant based tool hosted at Kuali.  
+     Maven is used to wrap the Ant based tool into a bundle (identified by groupId+artifactId+version) so we can express a proper dependency to it without resorting to SCM trickery.
+  </description>
   <groupId>org.kuali.db.impex</groupId>
   <artifactId>impex-cloveretl-ce</artifactId>
   <version>2.8.0-kuali-SNAPSHOT</version>
