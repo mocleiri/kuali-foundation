@@ -8,7 +8,7 @@
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>maven-manifest-plugin</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <packaging>maven-plugin</packaging>
   <name>Maven Manifest Plugin</name>
   <description>Tools for inspecting MANIFEST.MF files</description>
@@ -17,9 +17,9 @@
     <kuali.slf4j.version>1.6.1</kuali.slf4j.version>
   </properties>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-manifest-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-manifest-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/maven-manifest-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-manifest-plugin-1.0.1</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-manifest-plugin-1.0.1</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/maven-manifest-plugin-1.0.1</url>
   </scm>
   <dependencies>
     <dependency>
