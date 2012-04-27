@@ -13,13 +13,12 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
 /**
- * Examine a MANIFEST.MF file for the presence of an SVN revision number. If found, set the system property
- * "manifest.SVN-Revision" to the value that was located
+ * Examine a MANIFEST.MF file for the presence of an SVN url.
  *
  * @author Jeff Caddel
- * @goal svnrevision
+ * @goal getsvnurl
  */
-public class GetSVNRevisionNumberMojo extends AbstractMojo {
+public class GetSvnUrlMojo extends AbstractMojo {
 
     /**
      * The location of a MANIFEST.MF file to inspect
