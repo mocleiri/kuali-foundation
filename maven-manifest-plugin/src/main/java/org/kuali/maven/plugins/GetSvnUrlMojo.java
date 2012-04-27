@@ -38,6 +38,9 @@ public class GetSvnUrlMojo extends GetAttributeMojo {
     @Override
     protected String process(String svnUrl) throws MojoExecutionException {
         try {
+            if (!StringUtils.isBlank(suffix)) {
+                svnUrl += suffix;
+            }
             URI uri = new URI(svnUrl);
             return uri.normalize().toString();
         } catch (URISyntaxException e) {
