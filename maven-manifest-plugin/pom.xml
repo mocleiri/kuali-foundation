@@ -23,9 +23,16 @@
   </scm>
   <dependencies>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+      <version>4.8.1</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
       <version>2.0.6</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
@@ -37,6 +44,11 @@
           <artifactId>commons-logging</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.3</version>
     </dependency>
     <dependency>
       <groupId>commons-lang</groupId>
@@ -68,12 +80,6 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>${kuali.slf4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-      <version>4.8.1</version>
     </dependency>
   </dependencies>
 </project>

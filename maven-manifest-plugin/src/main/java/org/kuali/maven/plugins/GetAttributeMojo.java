@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -43,12 +44,27 @@ public class GetAttributeMojo extends AbstractMojo {
      */
     private String prefix;
 
+    protected String getManifestAttribute() throws IOException {
+        Manifest manifest = getManifest(filename);
+        Attributes attributes = manifest.getMainAttributes();
+        return attributes.getValue(attribute);
+    }
+
+    protected void validate(String attributeValue) throws MojoExecutionException {
+        // do nothing by default
+    }
+
+    protected String process(String attributeValue) throws MojoExecutionException {
+        // do nothing by default
+        return attributeValue;
+    }
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
-            Manifest manifest = getManifest(filename);
-            Attributes attributes = manifest.getMainAttributes();
-            String manifestAttribute = attributes.getValue(attribute);
+            String manifestAttribute = getManifestAttribute();
+            validate(manifestAttribute);
+            manifestAttribute = process(manifestAttribute);
             String key = prefix + "." + attribute;
             System.setProperty(key, manifestAttribute);
             getLog().info(key + "=" + manifestAttribute);
@@ -67,18 +83,7 @@ public class GetAttributeMojo extends AbstractMojo {
             in = new FileInputStream(file);
             return new Manifest(in);
         } finally {
-            close(in);
-        }
-    }
-
-    protected void close(InputStream in) {
-        if (in == null) {
-            return;
-        }
-        try {
-            in.close();
-        } catch (IOException e) {
-            ; // ignore
+            IOUtils.closeQuietly(in);
         }
     }
 
