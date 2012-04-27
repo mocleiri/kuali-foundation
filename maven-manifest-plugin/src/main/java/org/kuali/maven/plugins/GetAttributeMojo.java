@@ -30,7 +30,7 @@ public class GetAttributeMojo extends AbstractMojo {
     private String filename;
 
     /**
-     * The attribute the svn revision number is stored under in that file
+     * The attribute to retrieve from that file
      *
      * @parameter expression="${manifest.attribute}"
      * @required
