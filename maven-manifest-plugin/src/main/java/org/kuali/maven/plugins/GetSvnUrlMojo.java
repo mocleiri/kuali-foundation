@@ -15,6 +15,13 @@ import org.apache.maven.plugin.MojoExecutionException;
  */
 public class GetSvnUrlMojo extends GetAttributeMojo {
 
+    /**
+     * The suffix to append to the url (if any)
+     *
+     * @parameter expression="${manifest.suffix}"
+     */
+    private String suffix;
+
     @Override
     protected void validate(String svnUrl) throws MojoExecutionException {
         if (StringUtils.isBlank(svnUrl)) {
@@ -36,5 +43,13 @@ public class GetSvnUrlMojo extends GetAttributeMojo {
         } catch (URISyntaxException e) {
             throw new MojoExecutionException("Invalid url", e);
         }
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
     }
 }
