@@ -114,15 +114,6 @@
   </build>
   <profiles>
     <profile>
-      <id>medium</id>
-      <properties>
-        <ant.phase>process-resources</ant.phase>
-        <ant.target>resetmedium</ant.target>
-        <tomcat.http.port>8080</tomcat.http.port>
-        <tomcat.https.port>8443</tomcat.https.port>
-      </properties>
-    </profile>
-    <profile>
       <id>resetall</id>
       <properties>
         <ant.target>resetall</ant.target>
@@ -171,6 +162,15 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    <profile>
+      <id>medium</id>
+      <properties>
+        <ant.phase>process-resources</ant.phase>
+        <ant.target>resetmedium</ant.target>
+        <tomcat.http.port>8080</tomcat.http.port>
+        <tomcat.https.port>8443</tomcat.https.port>
+      </properties>
     </profile>
     <profile>
       <id>jenkins</id>
