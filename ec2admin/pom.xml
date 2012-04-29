@@ -116,8 +116,8 @@
     <profile>
       <id>medium</id>
       <properties>
-        <ant.target>resetmedium</ant.target>
         <ant.phase>process-resources</ant.phase>
+        <ant.target>resetmedium</ant.target>
         <tomcat.http.port>8080</tomcat.http.port>
         <tomcat.https.port>8443</tomcat.https.port>
       </properties>
