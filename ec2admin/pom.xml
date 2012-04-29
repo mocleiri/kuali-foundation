@@ -59,6 +59,7 @@
     <tomcat.zip>target/dependency/${tomcat.artifactId}-${tomcat.version}.zip</tomcat.zip>
     <tomcat.dir>/usr/local/${tomcat.artifactId}-${tomcat.version}</tomcat.dir>
     <ant.phase>none</ant.phase>
+    <ant.file>classpath:build.xml</ant.file>
   </properties>
   <build>
     <pluginManagement>
@@ -68,7 +69,7 @@
           <artifactId>ant-maven-plugin</artifactId>
           <version>${plugin.ant.version}</version>
           <configuration>
-            <file>classpath:build.xml</file>
+            <file>${ant.file}</file>
             <target>${ant.target}</target>
           </configuration>
           <executions>
@@ -168,6 +169,7 @@
       <properties>
         <ant.phase>process-resources</ant.phase>
         <ant.target>resetmedium</ant.target>
+        <ant.file>classpath:medium.xml</ant.file>
         <tomcat.http.port>8080</tomcat.http.port>
         <tomcat.https.port>8443</tomcat.https.port>
       </properties>
