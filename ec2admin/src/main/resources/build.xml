@@ -136,6 +136,11 @@
     <antcall target="createuser" />
     <antcall target="copytomcatconfig" />
     <antcall target="chowntomcatdirs" />
+    <exec executable="chown">
+      <arg value="-R" />
+      <arg value="${tomcat.user}:tomcat" />
+      <arg value="${tomcat.dir}" />
+    </exec>
   </target>
 
   <target name="installtomcat" depends="tomcatinit">
