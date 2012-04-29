@@ -128,6 +128,9 @@
       <arg value="-rf" />
       <arg value="${tomcat.user}" />
     </exec>
+    <exec executable="groupadd">
+      <arg value="tomcat" />
+    </exec>
     <antcall target="createuser" />
     <antcall target="copytomcatconfig" />
     <antcall target="chowntomcatdirs" />
