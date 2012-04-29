@@ -6,6 +6,8 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific aliases and functions
+export PS1="\[\e[36;1m\]\u@\h\w\[\e[32;1m\]$ \[\e[0m\]"
+export CLICOLOR=1
 
 ENVIRONMENT=${environment}
 JAVA_HOME=/usr/java/default
