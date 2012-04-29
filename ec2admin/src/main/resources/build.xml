@@ -118,6 +118,12 @@
     <antcall target="chowntomcatdirs" />
   </target>
 
+  <target name="createmedium" depends="init">
+    <antcall target="createuser" />
+    <antcall target="copytomcatconfig" />
+    <antcall target="chowntomcatdirs" />
+  </target>
+
   <target name="installtomcat" depends="tomcatinit">
     <!-- Remove the symbolic link to whatever version was being used before (if any) -->
     <symlink action="delete" link="/usr/local/tomcat" />
@@ -243,7 +249,7 @@
     </condition>
     <fail unless="instance.set">Must specify instance, environment, and tomcat.major.version</fail>
     <if>
-      <equals arg1="${instance}" arg2="medium" />
+      <equals arg1="${instance}" arg2="" />
       <then>
         <property name="tomcat.shutdown.port" value="8005" />
         <property name="tomcat.http.port" value="8080" />
@@ -273,7 +279,7 @@
       </elseif>
       <else>
         <fail>
-          Instance must be 1, 2, 3, or "medium"
+          Instance must be 1, 2, 3, or "" (the empty string implies we are working on an EC2 medium instance)
         </fail>
       </else>
     </if>
