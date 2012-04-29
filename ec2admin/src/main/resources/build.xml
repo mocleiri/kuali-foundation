@@ -23,7 +23,6 @@
     <echo>noop</echo>
   </target>
 
-
   <target name="resetall">
     <antcall target="removeall" />
     <antcall target="createall" />
