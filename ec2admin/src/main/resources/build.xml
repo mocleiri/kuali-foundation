@@ -56,7 +56,7 @@
     </antcall>
   </target>
 
-  <target name="createuser">
+  <target name="createuser" depends="init">
     <property name="tomcat.user" value="tomcat${instance}" />
     <property name="catalina.home" location="/usr/local/tomcat" />
     <property name="catalina.base" value="/usr/local/tomcat${instance}" />
@@ -233,7 +233,7 @@
     </fail>
   </target>
 
-  <target name="init">
+  <target `>
     <condition property="instance.set">
       <and>
         <isset property="instance" />
@@ -243,6 +243,12 @@
     </condition>
     <fail unless="instance.set">Must specify instance, environment, and tomcat.major.version</fail>
     <if>
+      <equals arg1="${instance}" arg2="medium" />
+      <then>
+        <property name="tomcat.shutdown.port" value="8005" />
+        <property name="tomcat.http.port" value="8080" />
+        <property name="tomcat.https.port" value="8443" />
+      </then>
       <equals arg1="${instance}" arg2="1" />
       <then>
         <property name="tomcat.shutdown.port" value="8006" />
@@ -267,7 +273,7 @@
       </elseif>
       <else>
         <fail>
-          Instance must be 1, 2, or 3
+          Instance must be 1, 2, 3, or "medium"
         </fail>
       </else>
     </if>
