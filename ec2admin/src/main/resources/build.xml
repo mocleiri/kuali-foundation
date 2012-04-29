@@ -24,6 +24,7 @@
   </target>
 
   <target name="resetmedium">
+    <property name="instance" value="" />
     <antcall target="installtomcat" />
   </target>
 
