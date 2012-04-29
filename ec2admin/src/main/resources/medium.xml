@@ -19,6 +19,13 @@
   <description>Manage the creating/removing of Tomcat instances on an ec2 deployment server</description>
   <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 
+  <property name="tomcat.user" value="tomcat" />
+  <property name="catalina.home" location="/usr/local/tomcat" />
+  <property name="catalina.base" value="/usr/local/tomcat" />
+  <property name="tomcat.shutdown.port" value="8005" />
+  <property name="tomcat.http.port" value="8080" />
+  <property name="tomcat.https.port" value="8443" />
+
   <target name="noop">
     <echo>noop</echo>
   </target>
@@ -121,9 +128,6 @@
   </target>
 
   <target name="createmedium" depends="init">
-    <property name="tomcat.user" value="tomcat${instance}" />
-    <property name="catalina.home" location="/usr/local/tomcat" />
-    <property name="catalina.base" value="/usr/local/tomcat${instance}" />
     <exec executable="userdel">
       <arg value="-rf" />
       <arg value="${tomcat.user}" />
@@ -252,51 +256,13 @@
   </target>
 
   <target name="init">
-    <condition property="instance.set">
+    <condition property="init.set">
       <and>
-        <isset property="instance" />
         <isset property="environment" />
         <isset property="tomcat.major.version" />
       </and>
     </condition>
-    <fail unless="instance.set">Must specify instance, environment, and tomcat.major.version</fail>
-    <if>
-      <equals arg1="${instance}" arg2="" />
-      <then>
-        <property name="tomcat.shutdown.port" value="8005" />
-        <property name="tomcat.http.port" value="8080" />
-        <property name="tomcat.https.port" value="8443" />
-      </then>
-      <elseif>
-        <equals arg1="${instance}" arg2="1" />
-        <then>
-          <property name="tomcat.shutdown.port" value="8006" />
-          <property name="tomcat.http.port" value="8081" />
-          <property name="tomcat.https.port" value="8444" />
-        </then>
-      </elseif>
-      <elseif>
-        <equals arg1="${instance}" arg2="2" />
-        <then>
-          <property name="tomcat.shutdown.port" value="8007" />
-          <property name="tomcat.http.port" value="8082" />
-          <property name="tomcat.https.port" value="8445" />
-        </then>
-      </elseif>
-      <elseif>
-        <equals arg1="${instance}" arg2="3" />
-        <then>
-          <property name="tomcat.shutdown.port" value="8008" />
-          <property name="tomcat.http.port" value="8083" />
-          <property name="tomcat.https.port" value="8446" />
-        </then>
-      </elseif>
-      <else>
-        <fail>
-          Instance must be 1, 2, 3, or "" (the empty string implies we are working on an EC2 medium instance)
-        </fail>
-      </else>
-    </if>
+    <fail unless="init.set">Must specify environment, and tomcat.major.version</fail>
   </target>
 
 </project>
