@@ -29,9 +29,6 @@
     <property name="tomcat.user" value="tomcat" />
     <property name="catalina.home" location="/usr/local/tomcat" />
     <property name="catalina.base" value="/usr/local/tomcat" />
-    <property name="tomcat.shutdown.port" value="8005" />
-    <property name="tomcat.http.port" value="8080" />
-    <property name="tomcat.https.port" value="8443" />
 
     <antcall target="installtomcat" />
     <antcall target="createmedium" />

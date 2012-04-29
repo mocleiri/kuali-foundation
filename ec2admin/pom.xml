@@ -169,7 +169,7 @@
       <properties>
         <ant.phase>process-resources</ant.phase>
         <ant.target>resetmedium</ant.target>
-        <ant.file>classpath:medium.xml</ant.file>
+        <tomcat.shutdown.port>8005</tomcat.shutdown.port>
         <tomcat.http.port>8080</tomcat.http.port>
         <tomcat.https.port>8443</tomcat.https.port>
       </properties>
