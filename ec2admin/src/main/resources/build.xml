@@ -56,7 +56,7 @@
     </antcall>
   </target>
 
-  <target name="create" depends="init">
+  <target name="createuser">
     <property name="tomcat.user" value="tomcat${instance}" />
     <property name="catalina.home" location="/usr/local/tomcat" />
     <property name="catalina.base" value="/usr/local/tomcat${instance}" />
@@ -71,6 +71,9 @@
       </filterset>
     </copy>
     <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/kuali/main/${environment}/rice.keystore" overwrite="true" />
+  </target>
+
+  <target name="setuptomcat">
     <mkdir dir="${catalina.base}" />
     <mkdir dir="${catalina.base}/lib" />
     <mkdir dir="${catalina.base}/logs" />
@@ -82,6 +85,9 @@
     <copy todir="${catalina.base}/logs">
       <fileset dir="src/main/resources/apache-tomcat/jsps" />
     </copy>
+  </target>
+
+  <target name="copytomcatconfig">
     <copy todir="${catalina.base}/conf" overwrite="true">
       <fileset dir="src/main/resources/apache-tomcat/${tomcat.major.version}/conf" />
       <filterset begintoken="${" endtoken="}">
@@ -91,6 +97,8 @@
         <filter token="catalina.base" value="${catalina.base}" />
       </filterset>
     </copy>
+  </target>
+  <target name="chowntomcatdirs">
     <exec executable="chown">
       <arg value="-R" />
       <arg value="${tomcat.user}:tomcat" />
@@ -101,6 +109,13 @@
       <arg value="${tomcat.user}:tomcat" />
       <arg value="/home/${tomcat.user}" />
     </exec>
+  </target>
+
+  <target name="create" depends="init">
+    <antcall target="createuser" />
+    <antcall target="setuptomcat" />
+    <antcall target="copytomcatconfig" />
+    <antcall target="chowntomcatdirs" />
   </target>
 
   <target name="installtomcat" depends="tomcatinit">
