@@ -14,6 +14,8 @@
     limitations under the License.
 ====
 
+mvn clean install -Ptomcat,6 -Dant.target=resetmedium
+
 Tomcat 6 Commands
 
 mvn clean install -Ptomcat,6
