@@ -197,7 +197,6 @@
                   <goal>copy</goal>
                 </goals>
                 <configuration>
-                  <localRepositoryDirectory>target/repository</localRepositoryDirectory>
                   <artifactItems>
                     <artifactItem>
                       <groupId>${jenkins.groupId}</groupId>
