@@ -14,16 +14,16 @@
     limitations under the License.
 ====
 
---------------------------------
-Commands for EC2 mediums
---------------------------------
+---------------------------------
+Commands for EC2 medium instances
+---------------------------------
 
 mcp -Ptomcat,6,medium
 mcp -Ptomcat,medium
 
 
 --------------------------------
-Commands for EC2 Large instances
+Commands for EC2 large instances
 --------------------------------
 
 Tomcat 6 Commands
