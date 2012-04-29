@@ -126,9 +126,6 @@
   </target>
 
   <target name="createmedium" depends="init">
-    <property name="tomcat.user" value="tomcat${instance}" />
-    <property name="catalina.home" location="/usr/local/tomcat" />
-    <property name="catalina.base" value="/usr/local/tomcat${instance}" />
     <exec executable="userdel">
       <arg value="-rf" />
       <arg value="${tomcat.user}" />
