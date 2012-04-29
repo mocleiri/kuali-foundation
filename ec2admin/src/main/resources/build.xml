@@ -23,6 +23,10 @@
     <echo>noop</echo>
   </target>
 
+  <target name="resetmedium">
+    <antcall target="installtomcat" />
+  </target>
+
   <target name="resetall">
     <antcall target="removeall" />
     <antcall target="createall" />
