@@ -241,7 +241,7 @@
     </fail>
   </target>
 
-  <target `>
+  <target name="init">
     <condition property="instance.set">
       <and>
         <isset property="instance" />
