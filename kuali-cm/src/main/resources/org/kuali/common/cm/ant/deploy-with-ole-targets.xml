@@ -45,6 +45,7 @@
   <property name="chown.group" value="tomcat" />
 
   <target name="resetole" depends="stop,clean,cleanjdbc,copyole,start" />
+  <target name="resetks" depends="stop,clean,cleanjdbc,copyjdbc,copyksconfig,copywar,start" />
   <target name="reset" depends="stop,clean,cleanjdbc,copy,resetdb,start" />
   <target name="restart" depends="stop,clean,start" />
   <target name="waronly" depends="stop,clean,copywar,start" />

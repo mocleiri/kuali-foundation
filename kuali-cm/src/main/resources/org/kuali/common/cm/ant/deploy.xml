@@ -20,6 +20,7 @@
   <property name="impex.dba.username" value="master" />
   <property name="tomcat.instance.lib.dir" value="/usr/local/${tomcat.instance}/lib" />
 
+  <target name="resetks" depends="stop,clean,cleanjdbc,copyjdbc,copyksconfig,copywar,start" />
   <target name="reset" depends="stop,clean,cleanjdbc,copy,resetdb,start" />
   <target name="restart" depends="stop,clean,start" />
   <target name="waronly" depends="stop,clean,copywar,start" />
@@ -30,6 +31,13 @@
   <property name="config.home" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
   <property name="ssh.verbose" value="false" />
   <property name="scp.verbose" value="false" />
+
+  <target name="copyksconfig">
+    <antcall target="mkdir">
+      <param name="remote.dir" value="${config.home}" />
+    </antcall>
+    <antcall target="copy-appconfig" />
+  </target>
 
   <target name="checkout">
     <condition property="checkout.properties">
@@ -233,7 +241,7 @@
   </target>
   <target name="mkdir">
     <antcall target="ssh-exec">
-      <param name="ssh.command" value="mkdir ${remote.dir}" />
+      <param name="ssh.command" value="mkdir -p ${remote.dir}" />
     </antcall>
   </target>
   <target name="runscript">
