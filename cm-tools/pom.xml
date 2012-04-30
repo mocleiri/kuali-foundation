@@ -15,13 +15,13 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.7</version>
   </parent>
   <description>Configuration Management Tools</description>
-  <groupId>org.kuali.common.cm</groupId>
+  <groupId>org.kuali.common</groupId>
   <artifactId>cm-tools</artifactId>
-  <version>1.1.24-SNAPSHOT</version>
-  <url>http://${kuali.site.hostname}/common/cm/${project.artifactId}/${project.version}</url>
+  <version>1.2.0-SNAPSHOT</version>
+  <url>http://${kuali.site.hostname}/common/${project.artifactId}/${project.version}</url>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</connection>
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/cm-tools</developerConnection>
