@@ -15,31 +15,64 @@
   limitations under the License.
 
 -->
+
+<!-- Foo Bar -->
 <project name="Application Deployer">
   <description>Deploy applications packaged by Maven to a server on EC2</description>
-  <property name="impex.dba.username" value="master" />
-  <property name="tomcat.instance.lib.dir" value="/usr/local/${tomcat.instance}/lib" />
 
+  <property name="impex.dba.username" value="master" />
+
+  <property name="catalina.home" value="/usr/local/tomcat" />
+  <property name="catalina.bin" value="${catalina.home}/bin" />
+  <property name="catalina.base" value="/usr/local/${tomcat.instance}" />
+  <property name="catalina.lib" value="${catalina.base}/lib" />
+  <property name="catalina.webapps" value="${catalina.base}/webapps" />
+  <property name="catalina.conf" value="${catalina.base}/conf" />
+
+  <property name="catalina.engine" value="Catalina" />
+  <property name="catalina.hostname" value="localhost" />
+  <property name="catalina.context.dir" value="${catalina.conf}/${catalina.engine}/${catalina.hostname}" />
+  <property name="catalina.context.file" value="${catalina.context.dir}/ROOT.xml" />
+
+  <property name="remote.config.dir" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
+  <property name="ssh.verbose" value="false" />
+  <property name="scp.verbose" value="false" />
+  <property name="secure.user" value="root" />
+  <property name="ssh.user" value="${secure.user}" />
+  <property name="scp.user" value="${secure.user}" />
+
+  <property name="chown.owner" value="${tomcat.instance}" />
+  <property name="chown.group" value="tomcat" />
+
+  <target name="resetole" depends="stop,clean,cleanjdbc,copyole,start" />
   <target name="reset" depends="stop,clean,cleanjdbc,copy,resetdb,start" />
   <target name="restart" depends="stop,clean,start" />
   <target name="waronly" depends="stop,clean,copywar,start" />
   <target name="configonly" depends="stop,clean,copy-appconfig,copy-envconfig,start" />
   <target name="copy" depends="copyjdbc,copyconfig,copywar" />
+  <target name="copyole" depends="copyjdbc,copyoleconfig,copywar" />
   <target name="copyconfig" depends="copy-commonconfig,copy-appconfig,copy-envconfig" />
 
-  <property name="config.home" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
-  <property name="ssh.verbose" value="false" />
-  <property name="scp.verbose" value="false" />
+  <target name="rsync">
+    <echo>rsync -a --stats --delete ${rsync.src} ${rsync.dst}</echo>
+    <exec executable="rsync" failonerror="true">
+      <arg value="-a" />
+      <arg value="--stats" />
+      <arg value="--delete" />
+      <arg value="${rsync.src}" />
+      <arg value="${rsync.dst}" />
+    </exec>
+  </target>
 
   <target name="checkout">
     <condition property="checkout.properties">
       <and>
-        <isset property="manifest.SVN-URL" />
+        <isset property="deploy.impex.location" />
         <isset property="manifest.SVN-Revision" />
       </and>
     </condition>
     <fail unless="checkout.properties">Missing checkout properties</fail>
-    <property name="manifest.svn.url" value="${manifest.SVN-URL}@${manifest.SVN-Revision}" />
+    <property name="manifest.svn.url" value="${deploy.impex.location}@${manifest.SVN-Revision}" />
     <property name="checkout.dir" value="target/checkout/impex" />
     <echo>Checking out ${manifest.svn.url}</echo>
     <exec executable="svn">
@@ -56,11 +89,11 @@
       </and>
     </condition>
     <fail unless="ssh.properties">Missing ssh.command</fail>
-    <sshexec command="${ssh.command}" username="root" host="${deploy.server}" keyfile="${deploy.auth}" trust="true" verbose="${ssh.verbose}" failonerror="true" />
+    <sshexec command="${ssh.command}" username="${ssh.user}" host="${deploy.server}" keyfile="${deploy.auth}" trust="true" verbose="${ssh.verbose}" failonerror="true" />
   </target>
 
   <target name="stop" depends="check-basic-properties">
-    <property name="stop.command" value="su - ${tomcat.instance} /usr/local/tomcat/bin/forced-shutdown.sh" />
+    <property name="stop.command" value="su - ${tomcat.instance} ${catalina.bin}/forced-shutdown.sh" />
     <!--
       Don't fail the build if the stop command fails
       If the deploy script gets interrupted along the way somewhere, catalina.pid may or may not
@@ -68,22 +101,53 @@
       catalina.pid should be present but it is not. Generally speaking, if catalina.pid
       is not present tomcat is not running, which means the build should not fail.
     -->
-    <sshexec command="${stop.command}" username="root" host="${deploy.server}" keyfile="${deploy.auth}" trust="true" verbose="${ssh.verbose}" failonerror="false" />
+    <sshexec command="${stop.command}" username="${ssh.user}" host="${deploy.server}" keyfile="${deploy.auth}" trust="true" verbose="${ssh.verbose}" failonerror="false" />
   </target>
   <target name="cleanjdbc" depends="check-basic-properties">
-    <antcall target="removedir">
-      <param name="remote.dir" value="${tomcat.instance.lib.dir}" />
+    <antcall target="delete">
+      <param name="remote.delete" value="${catalina.lib}/mysql*.jar" />
+    </antcall>
+    <antcall target="delete">
+      <param name="remote.delete" value="${catalina.lib}/ojdbc*.jar" />
     </antcall>
   </target>
   <target name="clean" depends="check-basic-properties">
-    <antcall target="removedir">
-      <param name="remote.dir" value="/usr/local/${tomcat.instance}/webapps/ROOT" />
+    <antcall target="delete">
+      <param name="remote.delete" value="${catalina.webapps}/ROOT" />
     </antcall>
     <antcall target="runscript">
       <param name="message" value="Cleaning up ${tomcat.instance} on ${deploy.server}" />
-      <param name="script" value="/usr/local/tomcat/bin/cleanup.sh" />
+      <param name="script" value="${catalina.bin}/cleanup.sh" />
     </antcall>
   </target>
+
+  <target name="copyoleconfig" depends="check-basic-properties">
+    <condition property="copyoleconfig.property">
+      <and>
+        <isset property="local.config.dir" />
+        <isset property="remote.config.dir" />
+      </and>
+    </condition>
+    <fail unless="copyoleconfig.property">Missing local.config.dir or remote.config.dir</fail>
+    <antcall target="rsync">
+      <param name="rsync.src" value="${local.config.dir}" />
+      <param name="rsync.dst" value="${secure.user}@${deploy.server}:${remote.config.home}" />
+    </antcall>
+    <antcall target="chowndir">
+      <param name="remote.dir" value="${remote.config.home}" />
+    </antcall>
+    <antcall target="mkdir">
+      <param name="remote.dir" value="${catalina.context.dir}" />
+    </antcall>
+    <antcall target="copyfile">
+      <param name="local.file" value="${local.config.dir}ole/context.xml" />
+      <param name="remote.file" value="${catalina.context.file}" />
+    </antcall>
+    <antcall target="chowndir">
+      <param name="remote.dir" value="${catalina.conf}" />
+    </antcall>
+  </target>
+
   <target name="copy-commonconfig" depends="check-basic-properties">
     <condition property="copy-commonconfig.properties">
       <and>
@@ -93,7 +157,7 @@
     <fail unless="copy-commonconfig.properties">Missing deploy.config.common</fail>
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.config.common}" />
-      <param name="remote.file" value="${config.home}/common-config.xml" />
+      <param name="remote.file" value="${remote.config.dir}/common-config.xml" />
     </antcall>
   </target>
 
@@ -106,13 +170,13 @@
     <fail unless="copy-appconfig.properties">Missing deploy.config.app</fail>
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.config.app}" />
-      <param name="remote.file" value="${config.home}/${deploy.app.configfile}" />
+      <param name="remote.file" value="${remote.config.dir}/${deploy.app.configfile}" />
     </antcall>
   </target>
   <target name="copy-envconfig" depends="check-basic-properties,check-env-config" if="env.config.present">
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.config.env}" />
-      <param name="remote.file" value="${config.home}/env-config.xml" />
+      <param name="remote.file" value="${remote.config.dir}/env-config.xml" />
     </antcall>
   </target>
   <target name="copyjdbc" depends="check-basic-properties">
@@ -124,14 +188,14 @@
     </condition>
     <fail unless="copyjdbc.properties">Missing jdbc driver properties</fail>
     <antcall target="mkdir">
-      <param name="remote.dir" value="${tomcat.instance.lib.dir}" />
+      <param name="remote.dir" value="${catalina.lib}" />
     </antcall>
     <antcall target="copyfile">
       <param name="local.file" value="${jdbc.driver.location}" />
-      <param name="remote.file" value="${tomcat.instance.lib.dir}/${jdbc.driver.filename}" />
+      <param name="remote.file" value="${catalina.lib}/${jdbc.driver.filename}" />
     </antcall>
     <antcall target="chowndir">
-      <param name="remote.dir" value="${tomcat.instance.lib.dir}" />
+      <param name="remote.dir" value="${catalina.lib}" />
     </antcall>
   </target>
   <target name="copywar" depends="check-basic-properties">
@@ -141,7 +205,7 @@
       </and>
     </condition>
     <fail unless="copywar.properties">Missing deploy.war</fail>
-    <property name="remote.war.file" value="/usr/local/${tomcat.instance}/webapps/ROOT.war" />
+    <property name="remote.war.file" value="${catalina.webapps}/ROOT.war" />
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.war}" />
       <param name="remote.file" value="${remote.war.file}" />
@@ -180,18 +244,18 @@
   <target name="start" depends="check-basic-properties">
     <antcall target="runscript">
       <param name="message" value="Start ${tomcat.instance} on ${deploy.server}" />
-      <param name="script" value="/usr/local/tomcat/bin/startup.sh" />
+      <param name="script" value="${catalina.bin}/startup.sh" />
     </antcall>
   </target>
-  <target name="removedir">
+  <target name="delete">
     <condition property="removedir.properties">
       <and>
-        <isset property="remote.dir" />
+        <isset property="remote.delete" />
       </and>
     </condition>
-    <fail unless="removedir.properties">Missing remote.dir</fail>
+    <fail unless="removedir.properties">Missing remote.delete</fail>
     <antcall target="ssh-exec">
-      <param name="ssh.command" value="rm -rf ${remote.dir}" />
+      <param name="ssh.command" value="rm -rf ${remote.delete}" />
     </antcall>
   </target>
   <target name="copyfile">
@@ -202,10 +266,10 @@
       </and>
     </condition>
     <fail unless="copyfile.properties">Missing either local.file or remote.file</fail>
-    <echo>scp ${local.file} to ${deploy.server}:${remote.file}</echo>
-    <scp localFile="${local.file}" remoteToFile="root@${deploy.server}:${remote.file}" keyfile="${deploy.auth}" trust="true" verbose="${scp.verbose}" />
+    <echo>scp ${local.file} to ${scp.user}@${deploy.server}:${remote.file}</echo>
+    <scp localFile="${local.file}" remoteToFile="${scp.user}@${deploy.server}:${remote.file}" keyfile="${deploy.auth}" trust="true" verbose="${scp.verbose}" />
     <antcall target="ssh-exec">
-      <param name="ssh.command" value="chown ${tomcat.instance}:tomcat ${remote.file}" />
+      <param name="ssh.command" value="chown ${chown.owner}:${chown.group} ${remote.file}" />
     </antcall>
   </target>
   <target name="check-env-config">
@@ -228,12 +292,12 @@
   </target>
   <target name="chowndir">
     <antcall target="ssh-exec">
-      <param name="ssh.command" value="chown -R ${tomcat.instance}:tomcat ${remote.dir}" />
+      <param name="ssh.command" value="chown -R ${chown.owner}:${chown.group} ${remote.dir}" />
     </antcall>
   </target>
   <target name="mkdir">
     <antcall target="ssh-exec">
-      <param name="ssh.command" value="mkdir ${remote.dir}" />
+      <param name="ssh.command" value="mkdir -p ${remote.dir}" />
     </antcall>
   </target>
   <target name="runscript">
