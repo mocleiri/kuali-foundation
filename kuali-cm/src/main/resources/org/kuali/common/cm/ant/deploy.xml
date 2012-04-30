@@ -18,7 +18,13 @@
 <project name="Application Deployer">
   <description>Deploy applications packaged by Maven to a server on EC2</description>
   <property name="impex.dba.username" value="master" />
-  <property name="tomcat.instance.lib.dir" value="/usr/local/${tomcat.instance}/lib" />
+
+  <property name="catalina.home" value="/usr/local/tomcat" />
+  <property name="catalina.bin" value="${catalina.home}/bin" />
+  <property name="catalina.base" value="/usr/local/${tomcat.instance}" />
+  <property name="catalina.lib" value="${catalina.base}/lib" />
+  <property name="catalina.webapps" value="${catalina.base}/webapps" />
+  <property name="catalina.conf" value="${catalina.base}/conf" />
 
   <target name="resetks" depends="stop,clean,cleanjdbc,copyjdbc,copyksconfig,copywar,start" />
   <target name="reset" depends="stop,clean,cleanjdbc,copy,resetdb,start" />
@@ -37,6 +43,9 @@
       <param name="remote.dir" value="${config.home}" />
     </antcall>
     <antcall target="copy-appconfig" />
+    <antcall target="chowndir">
+      <param name="remote.dir" value="/home/tomcat/.kuali" />
+    </antcall>
   </target>
 
   <target name="checkout">
@@ -68,7 +77,7 @@
   </target>
 
   <target name="stop" depends="check-basic-properties">
-    <property name="stop.command" value="su - ${tomcat.instance} /usr/local/tomcat/bin/forced-shutdown.sh" />
+    <property name="stop.command" value="su - ${tomcat.instance} ${catalina.bin}/forced-shutdown.sh" />
     <!--
       Don't fail the build if the stop command fails
       If the deploy script gets interrupted along the way somewhere, catalina.pid may or may not
@@ -79,17 +88,20 @@
     <sshexec command="${stop.command}" username="root" host="${deploy.server}" keyfile="${deploy.auth}" trust="true" verbose="${ssh.verbose}" failonerror="false" />
   </target>
   <target name="cleanjdbc" depends="check-basic-properties">
-    <antcall target="removedir">
-      <param name="remote.dir" value="${tomcat.instance.lib.dir}" />
+    <antcall target="delete">
+      <param name="remote.delete" value="${catalina.lib}/mysql*.jar" />
+    </antcall>
+    <antcall target="delete">
+      <param name="remote.delete" value="${catalina.lib}/ojdbc*.jar" />
     </antcall>
   </target>
   <target name="clean" depends="check-basic-properties">
     <antcall target="removedir">
-      <param name="remote.dir" value="/usr/local/${tomcat.instance}/webapps/ROOT" />
+      <param name="remote.dir" value="${catalina.base}/webapps/ROOT" />
     </antcall>
     <antcall target="runscript">
       <param name="message" value="Cleaning up ${tomcat.instance} on ${deploy.server}" />
-      <param name="script" value="/usr/local/tomcat/bin/cleanup.sh" />
+      <param name="script" value="${catalina.bin}/cleanup.sh" />
     </antcall>
   </target>
   <target name="copy-commonconfig" depends="check-basic-properties">
@@ -132,14 +144,14 @@
     </condition>
     <fail unless="copyjdbc.properties">Missing jdbc driver properties</fail>
     <antcall target="mkdir">
-      <param name="remote.dir" value="${tomcat.instance.lib.dir}" />
+      <param name="remote.dir" value="${catalina.lib}" />
     </antcall>
     <antcall target="copyfile">
       <param name="local.file" value="${jdbc.driver.location}" />
-      <param name="remote.file" value="${tomcat.instance.lib.dir}/${jdbc.driver.filename}" />
+      <param name="remote.file" value="${catalina.lib}/${jdbc.driver.filename}" />
     </antcall>
     <antcall target="chowndir">
-      <param name="remote.dir" value="${tomcat.instance.lib.dir}" />
+      <param name="remote.dir" value="${catalina.lib}" />
     </antcall>
   </target>
   <target name="copywar" depends="check-basic-properties">
@@ -149,7 +161,7 @@
       </and>
     </condition>
     <fail unless="copywar.properties">Missing deploy.war</fail>
-    <property name="remote.war.file" value="/usr/local/${tomcat.instance}/webapps/ROOT.war" />
+    <property name="remote.war.file" value="${catalina.base}/webapps/ROOT.war" />
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.war}" />
       <param name="remote.file" value="${remote.war.file}" />
@@ -188,7 +200,7 @@
   <target name="start" depends="check-basic-properties">
     <antcall target="runscript">
       <param name="message" value="Start ${tomcat.instance} on ${deploy.server}" />
-      <param name="script" value="/usr/local/tomcat/bin/startup.sh" />
+      <param name="script" value="${catalina.bin}/startup.sh" />
     </antcall>
   </target>
   <target name="removedir">
@@ -249,4 +261,16 @@
       <param name="ssh.command" value="su - ${tomcat.instance} ${script}" />
     </antcall>
   </target>
+  <target name="delete">
+    <condition property="delete.properties">
+      <and>
+        <isset property="remote.delete" />
+      </and>
+    </condition>
+    <fail unless="delete.properties">Missing remote.delete</fail>
+    <antcall target="ssh-exec">
+      <param name="ssh.command" value="rm -rf ${remote.delete}" />
+    </antcall>
+  </target>
+
 </project>

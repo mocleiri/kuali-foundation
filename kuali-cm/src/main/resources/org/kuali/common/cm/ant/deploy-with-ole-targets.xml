@@ -249,12 +249,12 @@
     </antcall>
   </target>
   <target name="delete">
-    <condition property="removedir.properties">
+    <condition property="delete.properties">
       <and>
         <isset property="remote.delete" />
       </and>
     </condition>
-    <fail unless="removedir.properties">Missing remote.delete</fail>
+    <fail unless="delete.properties">Missing remote.delete</fail>
     <antcall target="ssh-exec">
       <param name="ssh.command" value="rm -rf ${remote.delete}" />
     </antcall>
