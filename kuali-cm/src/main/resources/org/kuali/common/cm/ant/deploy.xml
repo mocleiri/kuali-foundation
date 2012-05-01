@@ -26,7 +26,7 @@
   <property name="catalina.webapps" value="${catalina.base}/webapps" />
   <property name="catalina.conf" value="${catalina.base}/conf" />
 
-  <target name="resetks" depends="stop,clean,cleanjdbc,copyjdbc,copyksconfig,copywar,start" />
+  <target name="resetks" depends="stop,clean,cleanjdbc,copyjdbc,copyksconfig,resetdb,copywar,start" />
   <target name="reset" depends="stop,clean,cleanjdbc,copy,resetdb,start" />
   <target name="restart" depends="stop,clean,start" />
   <target name="waronly" depends="stop,clean,copywar,start" />
