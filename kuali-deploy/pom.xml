@@ -309,6 +309,7 @@
               </execution>
             </executions>
           </plugin>
+          <!-- Using Ant for this as the maven-scm-plugin can't deal with the @[revision] syntax -->
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>ant-maven-plugin</artifactId>
