@@ -45,6 +45,14 @@ public class MorphDataMojo extends BaseMojo {
     /**
      * The directory in which the morphed XML will be generated.
      *
+     * @parameter expression="${impex.artifactId}" default-value="${project.artifactId}"
+     * @required
+     */
+    private String artifactId;
+
+    /**
+     * The directory in which the morphed XML will be generated.
+     *
      * @parameter expression="${newDataOutputDir}" default-value="${project.build.directory}/generated-impex/xml"
      * @required
      */
@@ -138,7 +146,7 @@ public class MorphDataMojo extends BaseMojo {
             utils.left(pp);
             List<MorphRequest> requests = getMorphRequests(oldFiles);
             for (MorphRequest request : requests) {
-                Morpher morpher = new DataMorpher(request, getProject().getArtifactId());
+                Morpher morpher = new DataMorpher(request, artifactId);
                 morpher.executeMorph();
             }
             utils.right(pp);
@@ -181,5 +189,13 @@ public class MorphDataMojo extends BaseMojo {
 
     public void setOldDataXMLExcludes(final String oldDataXMLExcludes) {
         this.oldDataXMLExcludes = oldDataXMLExcludes;
+    }
+
+    public String getArtifactId() {
+        return artifactId;
+    }
+
+    public void setArtifactId(String artifactId) {
+        this.artifactId = artifactId;
     }
 }
