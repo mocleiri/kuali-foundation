@@ -34,7 +34,7 @@
     <plugin.dependency.version>2.4</plugin.dependency.version>
     <plugin.properties.version>1.1.0</plugin.properties.version>
     <plugin.manifest.version>1.1.0</plugin.manifest.version>
-    <plugin.impex.version>1.0.27</plugin.impex.version>
+    <plugin.impex.version>1.0.30</plugin.impex.version>
 
     <!-- jars -->
     <kuali-cm.version>1.2.0-SNAPSHOT</kuali-cm.version>
@@ -336,7 +336,7 @@
               <targetDatabase>${db.vendor}</targetDatabase>
               <dataXMLDir>${project.build.directory}/generated-impex/xml</dataXMLDir>
               <schemaDir>${project.build.directory}/generated-impex</schemaDir>
-              <schemaXMLFile>${project.build.directory}/generated-impex/${project.artifactId}.xml</schemaXMLFile>
+              <schemaXMLFile>${project.build.directory}/generated-impex/${impex.schema.name}.xml</schemaXMLFile>
               <includeVersionInComment>false</includeVersionInComment>
               <antCompatibilityMode>false</antCompatibilityMode>
             </configuration>
@@ -349,7 +349,9 @@
                   <goal>morphdata</goal>
                 </goals>
                 <configuration>
+                  <artifactId>${impex.schema.name}</artifactId>
                   <oldSchemaXMLFile>${project.build.directory}/checkout/impex/schema.xml</oldSchemaXMLFile>
+                  <newSchemaXMLFile>${project.build.directory}/generated-impex/${impex.schema.name}.xml</newSchemaXMLFile>
                   <oldDataXMLDir>${project.build.directory}/checkout/impex</oldDataXMLDir>
                 </configuration>
               </execution>
@@ -362,11 +364,15 @@
               </execution>
               <execution>
                 <id>sql</id>
-                <phase>none</phase>
+                <phase>initialize</phase>
                 <goals>
                   <goal>schemasql</goal>
                   <goal>datasql</goal>
                 </goals>
+                <configuration>
+                  <schemaIncludes>${impex.schema.name}.xml</schemaIncludes>
+                  <dataDTD>${project.build.directory}/generated-impex/${impex.schema.name}.dtd</dataDTD>
+                </configuration>
               </execution>
             </executions>
           </plugin>
