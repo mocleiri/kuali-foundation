@@ -34,7 +34,7 @@ public class MorphSchemaMojo extends AbstractMorphSingleMojo {
      * The XML file describing the database schema (Maven style)
      *
      * @parameter expression="${newSchemaXMLFile}" default-value=
-     * "${project.build.directory}/generated-impex/${project.artifactId}.xml"
+     *            "${project.build.directory}/generated-impex/${project.artifactId}.xml"
      * @required
      */
     private File newSchemaXMLFile;

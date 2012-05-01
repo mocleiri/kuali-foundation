@@ -31,6 +31,14 @@ import org.codehaus.plexus.util.FileUtils;
 public abstract class AbstractMorphSingleMojo extends BaseMojo {
 
     /**
+     * The artifactId (aka database schema)
+     *
+     * @parameter expression="${impex.artifactId}" default-value="${project.artifactId}"
+     * @required
+     */
+    private String artifactId;
+
+    /**
      * The file that will contain the morphed contents
      */
     private File newFile;
@@ -92,7 +100,7 @@ public abstract class AbstractMorphSingleMojo extends BaseMojo {
             MorphRequest request = new MorphRequest(oldFile.getName(), new FileInputStream(oldFile),
                     new FileOutputStream(newFile));
             request.setEncoding(getEncoding());
-            Morpher morpher = getMorpher(request, getProject().getArtifactId());
+            Morpher morpher = getMorpher(request, artifactId);
             morpher.executeMorph();
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected error while attempting to morph " + oldFile.getAbsolutePath(),
@@ -114,5 +122,13 @@ public abstract class AbstractMorphSingleMojo extends BaseMojo {
 
     public void setOldFile(final File oldFile) {
         this.oldFile = oldFile;
+    }
+
+    public String getArtifactId() {
+        return artifactId;
+    }
+
+    public void setArtifactId(String artifactId) {
+        this.artifactId = artifactId;
     }
 }

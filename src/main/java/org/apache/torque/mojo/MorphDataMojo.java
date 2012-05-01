@@ -43,7 +43,7 @@ public class MorphDataMojo extends BaseMojo {
     Utils utils = new Utils();
 
     /**
-     * The directory in which the morphed XML will be generated.
+     * The artifactId (aka database schema)
      *
      * @parameter expression="${impex.artifactId}" default-value="${project.artifactId}"
      * @required
