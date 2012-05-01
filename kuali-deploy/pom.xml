@@ -26,6 +26,7 @@
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-deploy</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <name>Kuali Deploy</name>
   <properties>
     <!-- plugin versions -->
@@ -324,6 +325,48 @@
                   <file>${ant.file}</file>
                   <target>${ant.download.target}</target>
                 </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>maven-impex-plugin</artifactId>
+            <version>${plugin.impex.version}</version>
+            <configuration>
+              <targetDatabase>${db.vendor}</targetDatabase>
+              <dataXMLDir>${project.build.directory}/generated-impex/xml</dataXMLDir>
+              <schemaDir>${project.build.directory}/generated-impex</schemaDir>
+              <schemaXMLFile>${project.build.directory}/generated-impex/${project.artifactId}.xml</schemaXMLFile>
+              <includeVersionInComment>false</includeVersionInComment>
+              <antCompatibilityMode>false</antCompatibilityMode>
+            </configuration>
+            <executions>
+              <execution>
+                <id>morph</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>morphschema</goal>
+                  <goal>morphdata</goal>
+                </goals>
+                <configuration>
+                  <oldSchemaXMLFile>${project.build.directory}/checkout/impex/schema.xml</oldSchemaXMLFile>
+                  <oldDataXMLDir>${project.build.directory}/checkout/impex</oldDataXMLDir>
+                </configuration>
+              </execution>
+              <execution>
+                <id>dtd</id>
+                <phase>none</phase>
+                <goals>
+                  <goal>datadtd</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>sql</id>
+                <phase>none</phase>
+                <goals>
+                  <goal>schemasql</goal>
+                  <goal>datasql</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
