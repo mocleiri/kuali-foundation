@@ -58,8 +58,8 @@
     <fail unless="checkout.properties">Missing checkout properties</fail>
     <property name="manifest.svn.url" value="${manifest.SVN-URL}@${manifest.SVN-Revision}" />
     <property name="checkout.dir" value="target/checkout/impex" />
-    <echo>Checking out ${manifest.svn.url}</echo>
-    <exec executable="svn">
+    <echo>svn co ${manifest.svn.url} ${checkout.dir}</echo>
+    <exec executable="svn" outputproperty="ant.output">
       <arg value="checkout" />
       <arg value="${manifest.svn.url}" />
       <arg value="${checkout.dir}" />
