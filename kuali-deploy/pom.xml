@@ -355,7 +355,7 @@
               </execution>
               <execution>
                 <id>dtd</id>
-                <phase>none</phase>
+                <phase>initialize</phase>
                 <goals>
                   <goal>datadtd</goal>
                 </goals>
