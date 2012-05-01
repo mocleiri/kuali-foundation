@@ -39,14 +39,6 @@
     <kuali-cm.version>1.2.0-SNAPSHOT</kuali-cm.version>
     <kuali-sql.version>1.1.0</kuali-sql.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
-
-    <!-- Turn off some executions irrelevant to the deploy process -->
-    <gmaven.stubs.phase>none</gmaven.stubs.phase>
-    <gmaven.compile.phase>none</gmaven.compile.phase>
-    <gmaven.test.compile.phase>none</gmaven.test.compile.phase>
-    <enforcer.phase>none</enforcer.phase>
-    <failsafe.phase>none</failsafe.phase>
-    <maven.test.skip>true</maven.test.skip>
   </properties>
   <build>
     <resources>
