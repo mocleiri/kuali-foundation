@@ -82,7 +82,7 @@
           <version>${plugin.properties.version}</version>
           <executions>
             <execution>
-              <id>initialize</id>
+              <id>common</id>
               <phase>initialize</phase>
               <goals>
                 <goal>read-project-properties</goal>
@@ -91,8 +91,44 @@
                 <quiet>true</quiet>
                 <locations>
                   <param>classpath:org/kuali/common/cm/deploy/common.properties</param>
+                </locations>
+              </configuration>
+            </execution>
+            <execution>
+              <id>project</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <quiet>true</quiet>
+                <locations>
                   <param>classpath:org/kuali/common/cm/deploy/${deploy.project}.properties</param>
+                </locations>
+              </configuration>
+            </execution>
+            <execution>
+              <id>app</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <quiet>true</quiet>
+                <locations>
                   <param>classpath:org/kuali/common/cm/deploy/${deploy.project}/${deploy.app}.properties</param>
+                </locations>
+              </configuration>
+            </execution>
+            <execution>
+              <id>env</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <quiet>true</quiet>
+                <locations>
                   <param>classpath:org/kuali/common/cm/deploy/${deploy.project}/env${deploy.env}.properties</param>
                 </locations>
               </configuration>
@@ -128,20 +164,6 @@
     </pluginManagement>
   </build>
   <profiles>
-    <profile>
-      <id>ks</id>
-      <properties>
-        <deploy.project>ks</deploy.project>
-        <deploy.app>ks-embedded</deploy.app>
-      </properties>
-    </profile>
-    <profile>
-      <id>rice</id>
-      <properties>
-        <deploy.project>rice</deploy.project>
-        <deploy.app>sampleapp</deploy.app>
-      </properties>
-    </profile>
     <profile>
       <id>deploy</id>
       <build>
@@ -197,7 +219,7 @@
       </properties>
     </profile>
     <profile>
-      <id>download</id>
+      <id>prepare</id>
       <build>
         <resources>
           <resource>
