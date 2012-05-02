@@ -78,7 +78,7 @@
             </goals>
             <configuration>
               <srcFiles>
-                <param>${project.build.directory}/classes/sql/${db.vendor}/${impex.schema.name}.sql</param>
+                <param>${impex.schema.sql}</param>
               </srcFiles>
             </configuration>
           </execution>
@@ -90,7 +90,7 @@
             </goals>
             <configuration>
               <fileset>
-                <basedir>${project.build.directory}/classes/sql/${db.vendor}</basedir>
+                <basedir>${impex.sql.basedir}</basedir>
                 <includes>
                   <include>*.sql</include>
                 </includes>
@@ -108,7 +108,7 @@
             </goals>
             <configuration>
               <srcFiles>
-                <param>${project.build.directory}/classes/sql/${db.vendor}/${impex.schema.name}-constraints.sql</param>
+                <param>${impex.constraints.sql}</param>
               </srcFiles>
             </configuration>
           </execution>
