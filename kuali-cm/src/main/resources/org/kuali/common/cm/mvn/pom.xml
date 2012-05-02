@@ -78,7 +78,7 @@
             </goals>
             <configuration>
               <srcFiles>
-                <param>${impex.schema.sql}</param>
+                <param>${impex.sql.schema}</param>
               </srcFiles>
             </configuration>
           </execution>
@@ -108,7 +108,7 @@
             </goals>
             <configuration>
               <srcFiles>
-                <param>${impex.constraints.sql}</param>
+                <param>${impex.sql.constraints}</param>
               </srcFiles>
             </configuration>
           </execution>
