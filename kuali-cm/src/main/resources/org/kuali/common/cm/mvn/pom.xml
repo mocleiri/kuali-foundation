@@ -17,9 +17,9 @@
     <version>1.1.7</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>kuali-sql-exec</artifactId>
+  <artifactId>impex-sql-executor</artifactId>
   <version>${project.version}</version>
-  <name>Kuali Impex SQL Executor</name>
+  <name>Impex SQL Executor</name>
   <description>This pom contains plugin executions for resetting a db based on the SQL generated from an Impex dataset</description>
   <build>
     <plugins>
