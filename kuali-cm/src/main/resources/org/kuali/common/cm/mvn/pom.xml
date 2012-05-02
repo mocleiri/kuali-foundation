@@ -20,7 +20,7 @@
   <artifactId>kuali-sql-exec</artifactId>
   <version>${project.version}</version>
   <name>Kuali Impex SQL Executor</name>
-  <description>This pom contains executions for resetting a db based on the SQL generated from an Impex dataset</description>
+  <description>This pom contains plugin executions for resetting a db based on the SQL generated from an Impex dataset</description>
   <build>
     <plugins>
       <plugin>
