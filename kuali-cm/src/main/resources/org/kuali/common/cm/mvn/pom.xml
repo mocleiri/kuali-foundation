@@ -69,6 +69,18 @@
               <sqlCommand>${impex.sql.create}</sqlCommand>
             </configuration>
           </execution>
+          <execution>
+            <id>schema</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <configuration>
+              <srcFiles>
+                <param>${project.build.directory}/classes/sql/${db.vendor}/${impex.schema.name}.sql</param>
+              </srcFiles>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
