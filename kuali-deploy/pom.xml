@@ -393,7 +393,7 @@
             </dependencies>
             <executions>
               <execution>
-                <id>run</id>
+                <id>resetenvironment</id>
                 <phase>install</phase>
                 <goals>
                   <goal>run</goal>
