@@ -187,8 +187,8 @@
             <filtering>true</filtering>
           </resource>
           <resource>
-            <directory>${project.build.directory}/dependency/kuali-cm/org/kuali/common/cm/mvn</directory>
             <filtering>true</filtering>
+            <directory>${project.build.directory}/dependency/kuali-cm/org/kuali/common/cm/mvn</directory>
           </resource>
         </resources>
         <plugins>
@@ -388,10 +388,7 @@
                 </goals>
                 <configuration>
                   <file>${ant.file}</file>
-                  <target>resetdb</target>
-                  <!--
-                    <target>${ant.deploy.target}</target>
-                  -->
+                  <target>${ant.deploy.target}</target>
                 </configuration>
               </execution>
             </executions>
