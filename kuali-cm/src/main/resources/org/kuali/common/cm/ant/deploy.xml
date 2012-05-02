@@ -168,8 +168,15 @@
     </antcall>
   </target>
   <target name="resetdb">
-    <sql driver="${impex.driver}" url="${impex.url}" userid="${impex.dba.username}" password="${impex.dba.password}" delimiter="${impex.delimiter}" delimitertype="${impex.delimitertype}" keepformat="true">
-      ${impex.sql.validate}
+    <echo>JDBC URL: ${impex.dba.url}</echo>
+    <echo>JDBC Driver: ${impex.driver}</echo>
+    <echo>Username: ${impex.dba.username}</echo>
+    <echo>Delimiter: ${impex.delimiter}</echo>
+    <echo>Delimiter Type: ${impex.delimitertype}</echo>
+    <sql driver="${impex.driver}" url="${impex.dba.url}" userid="${impex.dba.username}" password="${impex.dba.password}" delimiter="${impex.delimiter}" delimitertype="${impex.delimitertype}" keepformat="true">
+      <transaction>
+        ${impex.sql.validate}
+      </transaction>
     </sql>
   </target>
   <target name="resetdb-maven">
