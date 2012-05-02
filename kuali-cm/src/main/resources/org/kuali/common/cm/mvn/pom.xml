@@ -10,7 +10,6 @@
   and limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <name>Kuali SQL Executor</name>
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali.pom</groupId>
@@ -20,6 +19,8 @@
   <groupId>${project.groupId}</groupId>
   <artifactId>kuali-sql-exec</artifactId>
   <version>${project.version}</version>
+  <name>Kuali Impex SQL Executor</name>
+  <description>This pom contains executions for resetting a db based on the SQL generated from an Impex dataset</description>
   <build>
     <plugins>
       <plugin>
