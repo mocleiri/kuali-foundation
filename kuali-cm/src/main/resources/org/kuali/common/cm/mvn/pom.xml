@@ -10,7 +10,7 @@
   and limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <name>Kuali SQL Pom</name>
+  <name>Kuali SQL Executor</name>
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kuali.pom</groupId>
@@ -18,7 +18,7 @@
     <version>1.1.7</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>kuali-sql</artifactId>
+  <artifactId>kuali-sql-exec</artifactId>
   <version>${project.version}</version>
   <build>
     <plugins>
