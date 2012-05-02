@@ -28,6 +28,11 @@
   <artifactId>kuali-deploy</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <name>Kuali Deploy</name>
+  <scm>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-deploy</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-deploy</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-deploy</url>
+  </scm>
   <properties>
     <!-- plugin versions -->
     <plugin.ant.version>1.0.8</plugin.ant.version>
@@ -35,11 +40,19 @@
     <plugin.properties.version>1.1.0</plugin.properties.version>
     <plugin.manifest.version>1.1.0</plugin.manifest.version>
     <plugin.impex.version>1.0.30</plugin.impex.version>
+    <plugin.http.version>1.0.5</plugin.http.version>
+    <!-- This is needed. Don't delete this unless you really know what you are doing -->
+    <plugin.sql.version>1.0.11</plugin.sql.version>
 
     <!-- jars -->
     <kuali-cm.version>1.2.0-SNAPSHOT</kuali-cm.version>
     <kuali-sql.version>1.1.0</kuali-sql.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
+
+    <jdbc.driver.groupId>com.oracle</jdbc.driver.groupId>
+    <jdbc.driver.artifactId>ojdbc6_g</jdbc.driver.artifactId>
+    <jdbc.driver.version>11.2.0.2</jdbc.driver.version>
+
   </properties>
   <build>
     <resources>
@@ -53,6 +66,11 @@
         <plugin>
           <artifactId>maven-dependency-plugin</artifactId>
           <version>${plugin.dependency.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>maven-http-plugin</artifactId>
+          <version>${plugin.http.version}</version>
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
@@ -178,6 +196,13 @@
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>ant-maven-plugin</artifactId>
+            <dependencies>
+              <dependency>
+                <groupId>${jdbc.driver.groupId}</groupId>
+                <artifactId>${jdbc.driver.artifactId}</artifactId>
+                <version>${jdbc.driver.version}</version>
+              </dependency>
+            </dependencies>
             <executions>
               <execution>
                 <id>run</id>
@@ -187,7 +212,10 @@
                 </goals>
                 <configuration>
                   <file>${ant.file}</file>
-                  <target>${ant.deploy.target}</target>
+                  <target>resetdb</target>
+                  <!--
+                    <target>${ant.deploy.target}</target>
+                  -->
                 </configuration>
               </execution>
             </executions>
@@ -224,6 +252,10 @@
         <resources>
           <resource>
             <directory>${project.build.directory}/dependency/kuali-cm/org/kuali/common/cm/deploy/${deploy.project}/config</directory>
+            <filtering>true</filtering>
+          </resource>
+          <resource>
+            <directory>${project.build.directory}/dependency/kuali-cm/org/kuali/common/cm/mvn</directory>
             <filtering>true</filtering>
           </resource>
         </resources>
