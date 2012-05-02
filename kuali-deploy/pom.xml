@@ -184,70 +184,6 @@
   </build>
   <profiles>
     <profile>
-      <id>deploy</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>properties-maven-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <artifactId>maven-enforcer-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>ant-maven-plugin</artifactId>
-            <dependencies>
-              <dependency>
-                <groupId>${jdbc.driver.groupId}</groupId>
-                <artifactId>${jdbc.driver.artifactId}</artifactId>
-                <version>${jdbc.driver.version}</version>
-              </dependency>
-            </dependencies>
-            <executions>
-              <execution>
-                <id>run</id>
-                <phase>install</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-                <configuration>
-                  <file>${ant.file}</file>
-                  <target>resetdb</target>
-                  <!--
-                    <target>${ant.deploy.target}</target>
-                  -->
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>maven-http-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>wait-for-tomcat-startup</id>
-                <phase>install</phase>
-                <goals>
-                  <goal>wait</goal>
-                </goals>
-                <configuration>
-                  <url>${public.url}</url>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>local</id>
-      <properties>
-        <deploy.war>${local.app.dir}/target/${deploy.artifactId}-${project.version}.war</deploy.war>
-        <impex.dir>../../db/impex/master</impex.dir>
-      </properties>
-    </profile>
-    <profile>
       <id>prepare</id>
       <build>
         <resources>
@@ -433,6 +369,70 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    <profile>
+      <id>deploy</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <artifactId>maven-enforcer-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>ant-maven-plugin</artifactId>
+            <dependencies>
+              <dependency>
+                <groupId>${jdbc.driver.groupId}</groupId>
+                <artifactId>${jdbc.driver.artifactId}</artifactId>
+                <version>${jdbc.driver.version}</version>
+              </dependency>
+            </dependencies>
+            <executions>
+              <execution>
+                <id>run</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <file>${ant.file}</file>
+                  <target>resetdb</target>
+                  <!--
+                    <target>${ant.deploy.target}</target>
+                  -->
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>maven-http-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>wait-for-tomcat-startup</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>wait</goal>
+                </goals>
+                <configuration>
+                  <url>${public.url}</url>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>local</id>
+      <properties>
+        <deploy.war>${local.app.dir}/target/${deploy.artifactId}-${project.version}.war</deploy.war>
+        <impex.dir>../../db/impex/master</impex.dir>
+      </properties>
     </profile>
   </profiles>
 </project>
