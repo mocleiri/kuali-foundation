@@ -404,6 +404,7 @@
                   <goal>wait</goal>
                 </goals>
                 <configuration>
+                  <timeout>${http.timeout}</timeout>
                   <url>${public.url}</url>
                 </configuration>
               </execution>
