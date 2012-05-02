@@ -17,7 +17,9 @@
     <artifactId>kuali-common</artifactId>
     <version>1.1.7</version>
   </parent>
+  <groupId>${project.groupId}</groupId>
   <artifactId>kuali-sql</artifactId>
+  <version>${project.version}</version>
   <build>
     <plugins>
       <plugin>
@@ -35,9 +37,9 @@
         </configuration>
         <dependencies>
           <dependency>
-            <groupId>${jdbc.groupId}</groupId>
-            <artifactId>${jdbc.artifactId}</artifactId>
-            <version>${jdbc.version}</version>
+            <groupId>${jdbc.driver.groupId}</groupId>
+            <artifactId>${jdbc.driver.artifactId}</artifactId>
+            <version>${jdbc.driver.version}</version>
           </dependency>
         </dependencies>
         <executions>
