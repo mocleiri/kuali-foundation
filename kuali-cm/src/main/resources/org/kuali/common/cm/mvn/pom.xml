@@ -81,6 +81,36 @@
               </srcFiles>
             </configuration>
           </execution>
+          <execution>
+            <id>constraints</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <configuration>
+              <srcFiles>
+                <param>${project.build.directory}/classes/sql/${db.vendor}/${impex.schema.name}-constraints.sql</param>
+              </srcFiles>
+            </configuration>
+          </execution>
+          <execution>
+            <id>data</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <configuration>
+              <fileSet>
+                <basedir>${project.build.directory}/classes/sql/${db.vendor}</basedir>
+                <includes>
+                  <include>*.sql</include>
+                </includes>
+                <excludes>
+                  <exclude>${impex.schema.name}*.sql</exclude>
+                </excludes>
+              </fileSet>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
