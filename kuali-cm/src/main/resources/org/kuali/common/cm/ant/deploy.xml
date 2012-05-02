@@ -168,13 +168,13 @@
     </antcall>
   </target>
   <target name="resetdb">
-    <echo>JDBC Driver: ${impex.driver}</echo>
-    <echo>Delimiter: ${impex.delimiter}</echo>
-    <echo>Delimiter Type: ${impex.delimitertype}</echo>
     <echo>JDBC URL: ${impex.url}</echo>
     <echo> DBA URL: ${impex.url}</echo>
     <echo>Username: ${impex.username}</echo>
     <echo>DBA User: ${impex.dba.username}</echo>
+    <echo>JDBC Driver: ${impex.driver}</echo>
+    <echo>Delimiter: ${impex.delimiter}</echo>
+    <echo>Delimiter Type: ${impex.delimitertype}</echo>
     <exec executable="mvn" dir="${project.build.directory}/classes" failonerror="true">
       <arg value="initialize" />
     </exec>
