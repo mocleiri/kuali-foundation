@@ -168,6 +168,11 @@
     </antcall>
   </target>
   <target name="resetdb">
+    <sql driver="${impex.driver}" url="${impex.url}" userid="${impex.dba.username}" password="${impex.dba.password}" delimiter="${impex.delimiter}" delimitertype="${impex.delimitertype}" keepformat="true">
+      ${impex.sql.validate}
+    </sql>
+  </target>
+  <target name="resetdb-maven">
     <condition property="resetdb.properties">
       <and>
         <isset property="db.vendor" />
