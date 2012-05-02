@@ -200,7 +200,7 @@
             <artifactId>maven-dependency-plugin</artifactId>
             <executions>
               <execution>
-                <id>download</id>
+                <id>copy</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>copy</goal>
