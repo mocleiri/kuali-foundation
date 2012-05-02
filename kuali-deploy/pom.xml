@@ -148,6 +148,19 @@
               </configuration>
             </execution>
             <execution>
+              <id>vendor</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <quiet>true</quiet>
+                <locations>
+                  <param>classpath:org/kuali/common/cm/deploy/${db.vendor}.properties</param>
+                </locations>
+              </configuration>
+            </execution>
+            <execution>
               <id>db</id>
               <phase>initialize</phase>
               <goals>
