@@ -39,6 +39,11 @@
     <deployer.groupId>org.kuali.common</deployer.groupId>
     <deployer.artifactId>kuali-deploy</deployer.artifactId>
     <deployer.version>1.0.0-SNAPSHOT</deployer.version>
+
+    <deploy.project>${deploy.project}</deploy.project>
+    <deploy.app>${deploy.app}</deploy.app>
+    <deploy.version>${deploy.version}</deploy.version>
+    <deploy.env>${deploy.env}</deploy.env>
   </properties>
   <build>
     <pluginManagement>
