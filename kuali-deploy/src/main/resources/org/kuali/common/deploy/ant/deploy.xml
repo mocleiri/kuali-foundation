@@ -175,7 +175,7 @@
     <echo>JDBC Driver: ${impex.driver}</echo>
     <echo>Delimiter: ${impex.delimiter}</echo>
     <echo>Delimiter Type: ${impex.delimitertype}</echo>
-    <exec executable="mvn" dir="${project.build.directory}/classes" failonerror="true">
+    <exec executable="mvn" dir="${impex.sql.exec.pom}" failonerror="true">
       <arg value="initialize" />
     </exec>
   </target>
