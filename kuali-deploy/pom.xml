@@ -50,6 +50,12 @@
     <ant-jsch.version>1.8.2</ant-jsch.version>
   </properties>
   <build>
+    <resources>
+      <resource>
+        <directory>${impex.sql.pom.dir}</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
