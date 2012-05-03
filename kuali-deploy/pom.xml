@@ -254,7 +254,7 @@
             <artifactId>maven-manifest-plugin</artifactId>
             <version>${plugin.manifest.version}</version>
             <configuration>
-              <filename>target/dependency/META-INF/MANIFEST.MF</filename>
+              <filename>target/dependency/${deploy.artifactId}/META-INF/MANIFEST.MF</filename>
               <prefix>manifest</prefix>
             </configuration>
             <executions>
