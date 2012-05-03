@@ -171,6 +171,10 @@
     <exec executable="mvn" dir="target/mvn" failonerror="true">
       <arg value="initialize" />
       <arg value="-Pprepare" />
+      <arg value="-Ddeploy.project=${deploy.project}" />
+      <arg value="-Ddeploy.app=${deploy.app}" />
+      <arg value="-Ddeploy.version=${deploy.version}" />
+      <arg value="-Ddeploy.env=${deploy.env}" />
     </exec>
   </target>
   <target name="resetdb">
