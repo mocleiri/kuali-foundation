@@ -267,6 +267,8 @@
   <target name="filter-poms">
     <antcall target="filter-pom">
       <param name="pom.package" value="org/kuali/common/deploy/mvn/deployer" />
+    </antcall>
+    <antcall target="filter-pom">
       <param name="pom.package" value="org/kuali/common/deploy/mvn/impex" />
     </antcall>
   </target>
