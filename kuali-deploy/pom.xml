@@ -223,7 +223,7 @@
                 </configuration>
               </execution>
               <execution>
-                <id>unpack-app</id>
+                <id>unpack</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>unpack</goal>
@@ -238,19 +238,8 @@
                       <type>${deploy.type}</type>
                       <includes>**/MANIFEST.MF</includes>
                     </artifactItem>
-                  </artifactItems>
-                </configuration>
-              </execution>
-              <execution>
-                <id>unpack-deploy</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>unpack</goal>
-                </goals>
-                <configuration>
-                  <artifactItems>
                     <artifactItem>
-                      <outputDirectory>${project.build.directory}/dependency/kuali-deploy</outputDirectory>
+                      <outputDirectory>${project.build.directory}/dependency/${project.artifactId}</outputDirectory>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>${project.artifactId}</artifactId>
                       <version>${project.version}</version>
