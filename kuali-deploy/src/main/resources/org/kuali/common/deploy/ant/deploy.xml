@@ -265,16 +265,14 @@
     </antcall>
   </target>
   <target name="filter-poms">
-    <copy todir="${project.build.directory}/classes/org/kuali/common/deploy/mvn/deployer" overwrite="true">
-      <fileset dir="src/main/resources/org/kuali/common/deploy/mvn/deployer" />
-      <filterset begintoken="${" endtoken="}">
-        <filter token="project.groupId" value="${project.groupId}" />
-        <filter token="project.artifactId" value="${project.artifactId}" />
-        <filter token="project.version" value="${project.version}" />
-      </filterset>
-    </copy>
-    <copy todir="${project.build.directory}/classes/org/kuali/common/deploy/mvn/impex" overwrite="true">
-      <fileset dir="src/main/resources/org/kuali/common/deploy/mvn/impex" />
+    <antcall target="filter-pom">
+      <param name="pom.package" value="org/kuali/common/deploy/mvn/deployer" />
+      <param name="pom.package" value="org/kuali/common/deploy/mvn/impex" />
+    </antcall>
+  </target>
+  <target name="filter-pom">
+    <copy todir="${project.build.directory}/classes/${pom.package}" overwrite="true">
+      <fileset dir="src/main/resources/${pom.package}" />
       <filterset begintoken="${" endtoken="}">
         <filter token="project.groupId" value="${project.groupId}" />
         <filter token="project.artifactId" value="${project.artifactId}" />
