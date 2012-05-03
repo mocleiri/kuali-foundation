@@ -167,6 +167,13 @@
       <param name="remote.file" value="${remote.war.file}" />
     </antcall>
   </target>
+  <target name="mavenreset">
+    <exec executable="mvn" dir="." failonerror="true">
+      <arg value="initialize" />
+      <arg value="-f" />
+      <arg value="target/dependency/kuali-deploy/org/kuali/commons/deploy/mvn/deploy-pom.xml" />
+    </exec>
+  </target>
   <target name="resetdb">
     <echo>JDBC URL: ${impex.url}</echo>
     <echo> DBA URL: ${impex.url}</echo>
