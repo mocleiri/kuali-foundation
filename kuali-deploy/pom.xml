@@ -46,7 +46,6 @@
     <plugin.sql.version>1.0.12</plugin.sql.version>
 
     <!-- jars -->
-    <kuali-cm.version>1.2.0-SNAPSHOT</kuali-cm.version>
     <kuali-sql.version>1.1.0</kuali-sql.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
   </properties>
@@ -83,11 +82,6 @@
               <artifactId>ant-jsch</artifactId>
               <version>${ant-jsch.version}</version>
             </dependency>
-            <dependency>
-              <groupId>org.kuali.common</groupId>
-              <artifactId>kuali-cm</artifactId>
-              <version>${kuali-cm.version}</version>
-            </dependency>
           </dependencies>
         </plugin>
         <plugin>
@@ -104,7 +98,7 @@
               <configuration>
                 <quiet>false</quiet>
                 <locations>
-                  <param>classpath:org/kuali/common/cm/deploy/common.properties</param>
+                  <param>classpath:org/kuali/common/deploy/common.properties</param>
                 </locations>
               </configuration>
             </execution>
@@ -117,7 +111,7 @@
               <configuration>
                 <quiet>false</quiet>
                 <locations>
-                  <param>classpath:org/kuali/common/cm/deploy/${deploy.project}.properties</param>
+                  <param>classpath:org/kuali/common/deploy/${deploy.project}.properties</param>
                 </locations>
               </configuration>
             </execution>
@@ -130,7 +124,7 @@
               <configuration>
                 <quiet>true</quiet>
                 <locations>
-                  <param>classpath:org/kuali/common/cm/deploy/${deploy.project}/${deploy.app}.properties</param>
+                  <param>classpath:org/kuali/common/deploy/${deploy.project}/${deploy.app}.properties</param>
                 </locations>
               </configuration>
             </execution>
@@ -143,7 +137,7 @@
               <configuration>
                 <quiet>true</quiet>
                 <locations>
-                  <param>classpath:org/kuali/common/cm/deploy/${deploy.project}/env${deploy.env}.properties</param>
+                  <param>classpath:org/kuali/common/deploy/${deploy.project}/env${deploy.env}.properties</param>
                 </locations>
               </configuration>
             </execution>
@@ -156,7 +150,7 @@
               <configuration>
                 <quiet>false</quiet>
                 <locations>
-                  <param>classpath:org/kuali/common/cm/deploy/${db.vendor}.properties</param>
+                  <param>classpath:org/kuali/common/deploy/${db.vendor}.properties</param>
                 </locations>
               </configuration>
             </execution>
@@ -176,11 +170,6 @@
           </executions>
           <dependencies>
             <dependency>
-              <groupId>org.kuali.common</groupId>
-              <artifactId>kuali-cm</artifactId>
-              <version>${kuali-cm.version}</version>
-            </dependency>
-            <dependency>
               <groupId>org.kuali.db.sql</groupId>
               <artifactId>kuali-sql</artifactId>
               <version>${kuali-sql.version}</version>
@@ -194,16 +183,6 @@
     <profile>
       <id>prepare</id>
       <build>
-        <resources>
-          <resource>
-            <directory>${project.build.directory}/dependency/kuali-cm/org/kuali/common/cm/deploy/${deploy.project}/config</directory>
-            <filtering>true</filtering>
-          </resource>
-          <resource>
-            <filtering>true</filtering>
-            <directory>${project.build.directory}/dependency/kuali-cm/org/kuali/common/cm/mvn</directory>
-          </resource>
-        </resources>
         <plugins>
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
@@ -254,23 +233,6 @@
                       <version>${deploy.version}</version>
                       <type>${deploy.type}</type>
                       <includes>**/MANIFEST.MF</includes>
-                    </artifactItem>
-                  </artifactItems>
-                </configuration>
-              </execution>
-              <execution>
-                <id>unpack-cm</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>unpack</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${project.build.directory}/dependency/kuali-cm</outputDirectory>
-                  <artifactItems>
-                    <artifactItem>
-                      <groupId>org.kuali.common</groupId>
-                      <artifactId>kuali-cm</artifactId>
-                      <version>${kuali-cm.version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
