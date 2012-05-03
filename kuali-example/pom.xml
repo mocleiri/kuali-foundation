@@ -97,7 +97,7 @@
                 </goals>
                 <configuration>
                   <file>${project.build.directory}/dependency/org/kuali/common/deploy/ant/deploy.xml</file>
-                  <target>mavenreset</target>
+                  <target>deploy</target>
                 </configuration>
               </execution>
             </executions>
