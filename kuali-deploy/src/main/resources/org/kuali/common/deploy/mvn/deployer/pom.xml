@@ -182,7 +182,7 @@
       <build>
         <resources>
           <resource>
-            <directory>${project.build.directory}/dependency/${artifactId}</directory>
+            <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
             <filtering>true</filtering>
           </resource>
         </resources>
@@ -238,7 +238,7 @@
                       <includes>**/MANIFEST.MF</includes>
                     </artifactItem>
                     <artifactItem>
-                      <outputDirectory>${project.build.directory}/dependency/${artifactId}</outputDirectory>
+                      <outputDirectory>${project.build.directory}/dependency/${project.artifactId}</outputDirectory>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>${project.artifactId}</artifactId>
                       <version>${project.version}</version>
