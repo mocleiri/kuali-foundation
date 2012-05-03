@@ -23,7 +23,7 @@
   <artifactId>kuali-deploy</artifactId>
   <version>1.0.0</version>
   <name>Kuali Deployer</name>
-  <description>This pom contains plugin executions for deploy a Kuali application to EC2</description>
+  <description>This pom contains plugin executions for deploying a Kuali application to EC2</description>
   <properties>
     <!-- plugins -->
     <plugin.ant.version>1.0.8</plugin.ant.version>
@@ -36,14 +36,9 @@
     <!-- jars -->
     <kuali-sql.version>1.1.0</kuali-sql.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
-    <deployer.groupId>org.kuali.common</deployer.groupId>
-    <deployer.artifactId>kuali-deploy</deployer.artifactId>
-    <deployer.version>1.0.0-SNAPSHOT</deployer.version>
-
-    <deploy.project>${deploy.project}</deploy.project>
-    <deploy.app>${deploy.app}</deploy.app>
-    <deploy.version>${deploy.version}</deploy.version>
-    <deploy.env>${deploy.env}</deploy.env>
+    <groupId>org.kuali.common</groupId>
+    <artifactId>kuali-deploy</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
   </properties>
   <build>
     <pluginManagement>
@@ -73,9 +68,9 @@
               <version>${ant-jsch.version}</version>
             </dependency>
             <dependency>
-              <groupId>${deployer.groupId}</groupId>
-              <artifactId>${deployer.artifactId}</artifactId>
-              <version>${deployer.version}</version>
+              <groupId>${groupId}</groupId>
+              <artifactId>${artifactId}</artifactId>
+              <version>${version}</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -85,9 +80,9 @@
           <version>${plugin.properties.version}</version>
           <dependencies>
             <dependency>
-              <groupId>${deployer.groupId}</groupId>
-              <artifactId>${deployer.artifactId}</artifactId>
-              <version>${deployer.version}</version>
+              <groupId>${groupId}</groupId>
+              <artifactId>${artifactId}</artifactId>
+              <version>${version}</version>
             </dependency>
             <dependency>
               <groupId>org.kuali.db.sql</groupId>
@@ -185,7 +180,7 @@
       <build>
         <resources>
           <resource>
-            <directory>${project.build.directory}/dependency/${deployer.artifactId}</directory>
+            <directory>${project.build.directory}/dependency/${artifactId}</directory>
             <filtering>true</filtering>
           </resource>
         </resources>
@@ -217,9 +212,9 @@
                       <version>${jdbc.driver.version}</version>
                     </artifactItem>
                     <artifactItem>
-                      <groupId>${deployer.groupId}</groupId>
-                      <artifactId>${deployer.artifactId}</artifactId>
-                      <version>${deployer.version}</version>
+                      <groupId>${groupId}</groupId>
+                      <artifactId>${artifactId}</artifactId>
+                      <version>${version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
@@ -241,10 +236,10 @@
                       <includes>**/MANIFEST.MF</includes>
                     </artifactItem>
                     <artifactItem>
-                      <outputDirectory>${project.build.directory}/dependency/${deployer.artifactId}</outputDirectory>
-                      <groupId>${deployer.groupId}</groupId>
-                      <artifactId>${deployer.artifactId}</artifactId>
-                      <version>${deployer.version}</version>
+                      <outputDirectory>${project.build.directory}/dependency/${artifactId}</outputDirectory>
+                      <groupId>${groupId}</groupId>
+                      <artifactId>${artifactId}</artifactId>
+                      <version>${version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
@@ -256,7 +251,7 @@
             <artifactId>maven-manifest-plugin</artifactId>
             <version>${plugin.manifest.version}</version>
             <configuration>
-              <filename>target/dependency/${deploy.artifactId}/META-INF/MANIFEST.MF</filename>
+              <filename>${project.build.directory}/dependency/${deploy.artifactId}/META-INF/MANIFEST.MF</filename>
               <prefix>manifest</prefix>
             </configuration>
             <executions>
