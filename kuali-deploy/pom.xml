@@ -148,7 +148,7 @@
               </configuration>
             </execution>
             <execution>
-              <id>vendor</id>
+              <id>db</id>
               <phase>initialize</phase>
               <goals>
                 <goal>read-project-properties</goal>
@@ -161,7 +161,7 @@
               </configuration>
             </execution>
             <execution>
-              <id>db</id>
+              <id>sql</id>
               <phase>initialize</phase>
               <goals>
                 <goal>read-project-properties</goal>
