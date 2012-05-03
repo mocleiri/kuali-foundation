@@ -26,7 +26,7 @@
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-deploy</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>Kuali Deployer</name>
   <description>This pom contains plugin executions for deploying a Kuali application to EC2</description>
   <properties>
