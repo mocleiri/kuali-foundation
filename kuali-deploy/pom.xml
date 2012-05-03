@@ -208,12 +208,16 @@
                       <artifactId>${deploy.artifactId}</artifactId>
                       <version>${deploy.version}</version>
                       <type>${deploy.type}</type>
-                      <includes>**/MANIFEST.MF</includes>
                     </artifactItem>
                     <artifactItem>
                       <groupId>${jdbc.driver.groupId}</groupId>
                       <artifactId>${jdbc.driver.artifactId}</artifactId>
                       <version>${jdbc.driver.version}</version>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>${project.artifactId}</artifactId>
+                      <version>${project.version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
@@ -227,11 +231,29 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
+                      <outputDirectory>${project.build.directory}/dependency/${deploy.artifactId}</outputDirectory>
                       <groupId>${deploy.groupId}</groupId>
                       <artifactId>${deploy.artifactId}</artifactId>
                       <version>${deploy.version}</version>
                       <type>${deploy.type}</type>
                       <includes>**/MANIFEST.MF</includes>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+              <execution>
+                <id>unpack-deploy</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <outputDirectory>${project.build.directory}/dependency/kuali-deploy</outputDirectory>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>${project.artifactId}</artifactId>
+                      <version>${project.version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
