@@ -82,12 +82,29 @@
               <artifactId>ant-jsch</artifactId>
               <version>${ant-jsch.version}</version>
             </dependency>
+            <dependency>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project.artifactId}</artifactId>
+              <version>${project.version}</version>
+            </dependency>
           </dependencies>
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>properties-maven-plugin</artifactId>
           <version>${plugin.properties.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project.artifactId}</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.kuali.db.sql</groupId>
+              <artifactId>kuali-sql</artifactId>
+              <version>${kuali-sql.version}</version>
+            </dependency>
+          </dependencies>
           <executions>
             <execution>
               <id>common</id>
@@ -168,18 +185,6 @@
               </configuration>
             </execution>
           </executions>
-          <dependencies>
-            <dependency>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>${project.artifactId}</artifactId>
-              <version>${project.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.kuali.db.sql</groupId>
-              <artifactId>kuali-sql</artifactId>
-              <version>${kuali-sql.version}</version>
-            </dependency>
-          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
