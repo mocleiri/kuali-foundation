@@ -168,10 +168,14 @@
     </antcall>
   </target>
   <target name="mavenreset">
-    <exec executable="mvn" dir="." failonerror="true">
+    <exec executable="mvn" dir="target/dependency/org/kuali/common/deploy/mvn" failonerror="true">
       <arg value="initialize" />
+      <arg value="-Pprepare" />
       <arg value="-f" />
-      <arg value="target/dependency/kuali-deploy/org/kuali/commons/deploy/mvn/deploy-pom.xml" />
+      <arg value="deploy-pom.xml" />
+      <arg value="-Ddeploy.project=${deploy.project}" />
+      <arg value="-Ddeploy.version=${deploy.version}" />
+      <arg value="-Ddeploy.env=${deploy.env}" />
     </exec>
   </target>
   <target name="resetdb">
