@@ -1067,9 +1067,9 @@ public class SqlExecMojo extends AbstractMojo {
         try {
             totalStatements++;
             if (showSql) {
-                getLog().info("SQL: " + sql);
+                getLog().info("SQL-" + totalStatements + ": " + sql);
             } else {
-                getLog().debug("SQL: " + sql);
+                getLog().debug("SQL-" + totalStatements + ": " + sql);
             }
 
             boolean ret;
