@@ -48,7 +48,9 @@
     <!-- jars -->
     <kuali-sql.version>1.1.0</kuali-sql.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
-    <kuali-deploy.version>1.0.0-SNAPSHOT</kuali-deploy.version>
+    <kdeploy.groupId>org.kuali.common</kdeploy.groupId>
+    <kdeploy.artifactId>kuali-deploy</kdeploy.artifactId>
+    <kdeploy.version>1.0.0-SNAPSHOT</kdeploy.version>
   </properties>
   <build>
     <resources>
