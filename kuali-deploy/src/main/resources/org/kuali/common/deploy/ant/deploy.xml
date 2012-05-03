@@ -177,6 +177,8 @@
     <echo>Delimiter Type: ${impex.delimitertype}</echo>
     <exec executable="mvn" dir="target/classes/org/kuali/common/deploy/mvn" failonerror="true">
       <arg value="initialize" />
+      <arg value="-f" />
+      <arg value="impex-pom.xml" />
     </exec>
   </target>
   <target name="start" depends="check-basic-properties">
