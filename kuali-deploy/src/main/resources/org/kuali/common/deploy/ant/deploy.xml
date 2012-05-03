@@ -169,8 +169,8 @@
   </target>
   <target name="mavenreset">
     <exec executable="mvn" dir="target/mvn" failonerror="true">
-      <arg value="initialize" />
-      <arg value="-Pprepare" />
+      <arg value="package" />
+      <arg value="-Pprepare,deploy" />
       <arg value="-Ddeploy.project=${deploy.project}" />
       <arg value="-Ddeploy.app=${deploy.app}" />
       <arg value="-Ddeploy.version=${deploy.version}" />
