@@ -27,7 +27,7 @@
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-example</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>Kuali Deploy</name>
+  <name>Kuali Example</name>
   <url>http://${kuali.site.hostname}/common/${project.artifactId}/${project.version}</url>
   <scm>
     <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-example</connection>
@@ -36,18 +36,9 @@
   </scm>
   <properties>
     <!-- plugins -->
-    <plugin.ant.version>1.0.8</plugin.ant.version>
     <plugin.dependency.version>2.4</plugin.dependency.version>
-    <plugin.properties.version>1.1.0</plugin.properties.version>
-    <plugin.manifest.version>1.1.0</plugin.manifest.version>
-    <plugin.impex.version>1.0.30</plugin.impex.version>
-    <plugin.http.version>1.0.5</plugin.http.version>
-    <!-- This is needed. Don't delete this unless you really know what you are doing -->
-    <plugin.sql.version>1.0.12</plugin.sql.version>
-
-    <!-- jars -->
-    <kuali-sql.version>1.1.0</kuali-sql.version>
-    <ant-jsch.version>1.8.2</ant-jsch.version>
+    <plugin.ant.version>1.0.5</plugin.ant.version>
+    <plugin.resources.version>2.5</plugin.resources.version>
     <deployer.groupId>org.kuali.common</deployer.groupId>
     <deployer.artifactId>kuali-deploy</deployer.artifactId>
     <deployer.version>1.0.0-SNAPSHOT</deployer.version>
@@ -61,127 +52,8 @@
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>maven-http-plugin</artifactId>
-          <version>${plugin.http.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>maven-impex-plugin</artifactId>
-          <version>${plugin.impex.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>ant-maven-plugin</artifactId>
           <version>${plugin.ant.version}</version>
-          <dependencies>
-            <dependency>
-              <groupId>org.apache.ant</groupId>
-              <artifactId>ant-jsch</artifactId>
-              <version>${ant-jsch.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>${deployer.groupId}</groupId>
-              <artifactId>${deployer.artifactId}</artifactId>
-              <version>${deployer.version}</version>
-            </dependency>
-          </dependencies>
-        </plugin>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>properties-maven-plugin</artifactId>
-          <version>${plugin.properties.version}</version>
-          <dependencies>
-            <dependency>
-              <groupId>${deployer.groupId}</groupId>
-              <artifactId>${deployer.artifactId}</artifactId>
-              <version>${deployer.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.kuali.db.sql</groupId>
-              <artifactId>kuali-sql</artifactId>
-              <version>${kuali-sql.version}</version>
-            </dependency>
-          </dependencies>
-          <executions>
-            <execution>
-              <id>common</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>false</quiet>
-                <locations>
-                  <param>classpath:org/kuali/common/deploy/common.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>project</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>false</quiet>
-                <locations>
-                  <param>classpath:org/kuali/common/deploy/${deploy.project}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>app</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>true</quiet>
-                <locations>
-                  <param>classpath:org/kuali/common/deploy/${deploy.project}/${deploy.app}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>env</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>true</quiet>
-                <locations>
-                  <param>classpath:org/kuali/common/deploy/${deploy.project}/env${deploy.env}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>db</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>false</quiet>
-                <locations>
-                  <param>classpath:org/kuali/common/deploy/${db.vendor}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>sql</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <locations>
-                  <param>classpath:sql.properties</param>
-                  <param>classpath:${db.vendor}.xml</param>
-                </locations>
-              </configuration>
-            </execution>
-          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -190,17 +62,7 @@
     <profile>
       <id>prepare</id>
       <build>
-        <resources>
-          <resource>
-            <directory>${impex.sql.pom.dir}</directory>
-            <filtering>true</filtering>
-          </resource>
-        </resources>
         <plugins>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>properties-maven-plugin</artifactId>
-          </plugin>
           <plugin>
             <artifactId>maven-dependency-plugin</artifactId>
             <executions>
@@ -209,46 +71,11 @@
                 <phase>initialize</phase>
                 <goals>
                   <goal>copy</goal>
-                </goals>
-                <configuration>
-                  <artifactItems>
-                    <artifactItem>
-                      <groupId>${deploy.groupId}</groupId>
-                      <artifactId>${deploy.artifactId}</artifactId>
-                      <version>${deploy.version}</version>
-                      <type>${deploy.type}</type>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${jdbc.driver.groupId}</groupId>
-                      <artifactId>${jdbc.driver.artifactId}</artifactId>
-                      <version>${jdbc.driver.version}</version>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${deployer.groupId}</groupId>
-                      <artifactId>${deployer.artifactId}</artifactId>
-                      <version>${deployer.version}</version>
-                    </artifactItem>
-                  </artifactItems>
-                </configuration>
-              </execution>
-              <execution>
-                <id>unpack</id>
-                <phase>initialize</phase>
-                <goals>
                   <goal>unpack</goal>
                 </goals>
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <outputDirectory>${project.build.directory}/dependency/${deploy.artifactId}</outputDirectory>
-                      <groupId>${deploy.groupId}</groupId>
-                      <artifactId>${deploy.artifactId}</artifactId>
-                      <version>${deploy.version}</version>
-                      <type>${deploy.type}</type>
-                      <includes>**/MANIFEST.MF</includes>
-                    </artifactItem>
-                    <artifactItem>
-                      <outputDirectory>${project.build.directory}/dependency/${deployer.artifactId}</outputDirectory>
                       <groupId>${deployer.groupId}</groupId>
                       <artifactId>${deployer.artifactId}</artifactId>
                       <version>${deployer.version}</version>
@@ -259,157 +86,52 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>maven-manifest-plugin</artifactId>
-            <version>${plugin.manifest.version}</version>
-            <configuration>
-              <filename>target/dependency/${deploy.artifactId}/META-INF/MANIFEST.MF</filename>
-              <prefix>manifest</prefix>
-            </configuration>
+            <artifactId>maven-resources-plugin</artifactId>
             <executions>
               <execution>
-                <id>getsvnrevision</id>
+                <id>copy-resources</id>
                 <phase>initialize</phase>
                 <goals>
-                  <goal>getsvnrevision</goal>
+                  <goal>copy-resources</goal>
                 </goals>
                 <configuration>
-                  <attribute>SVN-Revision</attribute>
-                </configuration>
-              </execution>
-              <execution>
-                <id>getsvnurl</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>getsvnurl</goal>
-                </goals>
-                <configuration>
-                  <attribute>SVN-URL</attribute>
-                  <suffix>${impex.relative.dir}</suffix>
+                  <outputDirectory>${project.build.directory}/mvn</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>${project.build.directory}/dependency/org/kuali/common/deploy/mvn/deployer</directory>
+                      <filtering>false</filtering>
+                    </resource>
+                  </resources>
                 </configuration>
               </execution>
             </executions>
-          </plugin>
-          <!-- Using Ant for this as the maven-scm-plugin can't deal with the @[revision] syntax -->
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>ant-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>checkout</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-                <configuration>
-                  <file>${ant.file}</file>
-                  <target>${ant.download.target}</target>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>maven-impex-plugin</artifactId>
-            <version>${plugin.impex.version}</version>
-            <configuration>
-              <targetDatabase>${db.vendor}</targetDatabase>
-              <dataXMLDir>${project.build.directory}/generated-impex/xml</dataXMLDir>
-              <schemaDir>${project.build.directory}/generated-impex</schemaDir>
-              <schemaXMLFile>${project.build.directory}/generated-impex/${impex.schema.name}.xml</schemaXMLFile>
-              <includeVersionInComment>false</includeVersionInComment>
-              <antCompatibilityMode>false</antCompatibilityMode>
-            </configuration>
-            <executions>
-              <execution>
-                <id>morph</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>morphschema</goal>
-                  <goal>morphdata</goal>
-                </goals>
-                <configuration>
-                  <artifactId>${impex.schema.name}</artifactId>
-                  <oldSchemaXMLFile>${project.build.directory}/checkout/impex/schema.xml</oldSchemaXMLFile>
-                  <newSchemaXMLFile>${project.build.directory}/generated-impex/${impex.schema.name}.xml</newSchemaXMLFile>
-                  <oldDataXMLDir>${project.build.directory}/checkout/impex</oldDataXMLDir>
-                </configuration>
-              </execution>
-              <execution>
-                <id>dtd</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>datadtd</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>sql</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>schemasql</goal>
-                  <goal>datasql</goal>
-                </goals>
-                <configuration>
-                  <schemaIncludes>${impex.schema.name}.xml</schemaIncludes>
-                  <dataDTD>${project.build.directory}/generated-impex/${impex.schema.name}.dtd</dataDTD>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>deploy</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>properties-maven-plugin</artifactId>
           </plugin>
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>ant-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>resetenvironment</id>
-                <phase>package</phase>
+                <id>mavenreset</id>
+                <phase>initialize</phase>
                 <goals>
                   <goal>run</goal>
                 </goals>
                 <configuration>
-                  <file>${ant.file}</file>
-                  <target>${ant.deploy.target}</target>
+                  <file>classpath:org/kuali/common/deploy/ant/deploy.xml</file>
+                  <target>mavenreset</target>
                 </configuration>
               </execution>
             </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>maven-http-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>wait-for-tomcat-startup</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>wait</goal>
-                </goals>
-                <configuration>
-                  <timeout>${http.timeout}</timeout>
-                  <url>${public.url}</url>
-                </configuration>
-              </execution>
-            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>${deployer.groupId}</groupId>
+                <artifactId>${deployer.artifactId}</artifactId>
+                <version>${deployer.version}</version>
+              </dependency>
+            </dependencies>
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>local</id>
-      <properties>
-        <deploy.war>${local.app.dir}/target/${deploy.artifactId}-${project.version}.war</deploy.war>
-        <impex.dir>../../db/impex/master</impex.dir>
-      </properties>
     </profile>
   </profiles>
 </project>
