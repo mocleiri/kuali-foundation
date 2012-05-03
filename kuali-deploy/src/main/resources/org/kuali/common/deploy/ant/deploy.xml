@@ -167,7 +167,7 @@
       <param name="remote.file" value="${remote.war.file}" />
     </antcall>
   </target>
-  <target name="mavenreset">
+  <target name="deploy">
     <exec executable="mvn" dir="${project.build.directory}/dependency/org/kuali/common/deploy/mvn/deployer" failonerror="true">
       <arg value="package" />
       <arg value="-Pprepare,deploy" />
