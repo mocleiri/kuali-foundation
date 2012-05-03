@@ -42,6 +42,11 @@
     <deployer.groupId>org.kuali.common</deployer.groupId>
     <deployer.artifactId>kuali-deploy</deployer.artifactId>
     <deployer.version>1.0.0-SNAPSHOT</deployer.version>
+
+    <deploy.project>rice</deploy.project>
+    <deploy.app>sampleapp</deploy.app>
+    <deploy.version>2.2.0-r32087</deploy.version>
+    <deploy.env>5</deploy.env>
   </properties>
   <build>
     <pluginManagement>
