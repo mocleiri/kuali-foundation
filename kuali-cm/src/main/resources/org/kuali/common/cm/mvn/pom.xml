@@ -51,6 +51,7 @@
               <goal>execute</goal>
             </goals>
             <configuration>
+              <showSql>true</showSql>
               <username>${impex.dba.username}</username>
               <password>${impex.dba.password}</password>
               <url>${impex.dba.url}</url>
@@ -64,6 +65,7 @@
               <goal>execute</goal>
             </goals>
             <configuration>
+              <showSql>true</showSql>
               <username>${impex.dba.username}</username>
               <password>${impex.dba.password}</password>
               <url>${impex.dba.url}</url>
