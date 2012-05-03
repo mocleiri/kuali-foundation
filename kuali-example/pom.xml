@@ -53,12 +53,6 @@
     <deployer.version>1.0.0-SNAPSHOT</deployer.version>
   </properties>
   <build>
-    <resources>
-      <resource>
-        <directory>${impex.sql.pom.dir}</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -86,9 +80,9 @@
               <version>${ant-jsch.version}</version>
             </dependency>
             <dependency>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>${project.artifactId}</artifactId>
-              <version>${project.version}</version>
+              <groupId>${deployer.groupId}</groupId>
+              <artifactId>${deployer.artifactId}</artifactId>
+              <version>${deployer.version}</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -98,9 +92,9 @@
           <version>${plugin.properties.version}</version>
           <dependencies>
             <dependency>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>${project.artifactId}</artifactId>
-              <version>${project.version}</version>
+              <groupId>${deployer.groupId}</groupId>
+              <artifactId>${deployer.artifactId}</artifactId>
+              <version>${deployer.version}</version>
             </dependency>
             <dependency>
               <groupId>org.kuali.db.sql</groupId>
@@ -196,6 +190,12 @@
     <profile>
       <id>prepare</id>
       <build>
+        <resources>
+          <resource>
+            <directory>${impex.sql.pom.dir}</directory>
+            <filtering>true</filtering>
+          </resource>
+        </resources>
         <plugins>
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
@@ -248,10 +248,10 @@
                       <includes>**/MANIFEST.MF</includes>
                     </artifactItem>
                     <artifactItem>
-                      <outputDirectory>${project.build.directory}/dependency/${project.artifactId}</outputDirectory>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>${project.artifactId}</artifactId>
-                      <version>${project.version}</version>
+                      <outputDirectory>${project.build.directory}/dependency/${deployer.artifactId}</outputDirectory>
+                      <groupId>${deployer.groupId}</groupId>
+                      <artifactId>${deployer.artifactId}</artifactId>
+                      <version>${deployer.version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
