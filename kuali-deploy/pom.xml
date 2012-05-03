@@ -35,7 +35,7 @@
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-deploy</url>
   </scm>
   <properties>
-    <!-- plugin versions -->
+    <!-- plugins -->
     <plugin.ant.version>1.0.8</plugin.ant.version>
     <plugin.dependency.version>2.4</plugin.dependency.version>
     <plugin.properties.version>1.1.0</plugin.properties.version>
