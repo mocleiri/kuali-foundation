@@ -168,7 +168,7 @@
     </antcall>
   </target>
   <target name="mavenreset">
-    <exec executable="mvn" dir="target/mvn" failonerror="true">
+    <exec executable="mvn" dir="${project.build.directory}/dependency/org/kuali/common/deploy/mvn/deployer" failonerror="true">
       <arg value="package" />
       <arg value="-Pprepare,deploy" />
       <arg value="-Ddeploy.project=${deploy.project}" />
