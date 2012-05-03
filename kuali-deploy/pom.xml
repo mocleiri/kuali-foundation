@@ -102,7 +102,7 @@
                 <goal>read-project-properties</goal>
               </goals>
               <configuration>
-                <quiet>true</quiet>
+                <quiet>false</quiet>
                 <locations>
                   <param>classpath:org/kuali/common/cm/deploy/common.properties</param>
                 </locations>
@@ -115,7 +115,7 @@
                 <goal>read-project-properties</goal>
               </goals>
               <configuration>
-                <quiet>true</quiet>
+                <quiet>false</quiet>
                 <locations>
                   <param>classpath:org/kuali/common/cm/deploy/${deploy.project}.properties</param>
                 </locations>
@@ -154,7 +154,7 @@
                 <goal>read-project-properties</goal>
               </goals>
               <configuration>
-                <quiet>true</quiet>
+                <quiet>false</quiet>
                 <locations>
                   <param>classpath:org/kuali/common/cm/deploy/${db.vendor}.properties</param>
                 </locations>
