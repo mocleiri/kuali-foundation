@@ -41,9 +41,6 @@
     <!-- jars -->
     <kuali-sql.version>1.1.0</kuali-sql.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
-    <groupId>org.kuali.common</groupId>
-    <artifactId>kuali-deploy</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
   </properties>
   <build>
     <pluginManagement>
@@ -73,9 +70,9 @@
               <version>${ant-jsch.version}</version>
             </dependency>
             <dependency>
-              <groupId>${groupId}</groupId>
-              <artifactId>${artifactId}</artifactId>
-              <version>${version}</version>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project.artifactId}</artifactId>
+              <version>${project.version}</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -85,9 +82,9 @@
           <version>${plugin.properties.version}</version>
           <dependencies>
             <dependency>
-              <groupId>${groupId}</groupId>
-              <artifactId>${artifactId}</artifactId>
-              <version>${version}</version>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project.artifactId}</artifactId>
+              <version>${project.version}</version>
             </dependency>
             <dependency>
               <groupId>org.kuali.db.sql</groupId>
@@ -217,9 +214,9 @@
                       <version>${jdbc.driver.version}</version>
                     </artifactItem>
                     <artifactItem>
-                      <groupId>${groupId}</groupId>
-                      <artifactId>${artifactId}</artifactId>
-                      <version>${version}</version>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>${project.artifactId}</artifactId>
+                      <version>${project.version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
@@ -242,9 +239,9 @@
                     </artifactItem>
                     <artifactItem>
                       <outputDirectory>${project.build.directory}/dependency/${artifactId}</outputDirectory>
-                      <groupId>${groupId}</groupId>
-                      <artifactId>${artifactId}</artifactId>
-                      <version>${version}</version>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>${project.artifactId}</artifactId>
+                      <version>${project.version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
