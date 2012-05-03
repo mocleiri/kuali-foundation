@@ -53,7 +53,7 @@
         <artifactId>ant-maven-plugin</artifactId>
         <configuration>
           <file>src/main/resources/org/kuali/common/deploy/ant/deploy.xml</file>
-          <target>filter-kuali-deployer-pom</target>
+          <target>filter-poms</target>
         </configuration>
         <executions>
           <execution>

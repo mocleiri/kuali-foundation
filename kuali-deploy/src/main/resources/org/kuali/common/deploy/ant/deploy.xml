@@ -264,9 +264,17 @@
       <param name="ssh.command" value="rm -rf ${remote.delete}" />
     </antcall>
   </target>
-  <target name="filter-kuali-deployer-pom">
+  <target name="filter-poms">
     <copy todir="${project.build.directory}/classes/org/kuali/common/deploy/mvn/deployer" overwrite="true">
       <fileset dir="src/main/resources/org/kuali/common/deploy/mvn/deployer" />
+      <filterset begintoken="${" endtoken="}">
+        <filter token="project.groupId" value="${project.groupId}" />
+        <filter token="project.artifactId" value="${project.artifactId}" />
+        <filter token="project.version" value="${project.version}" />
+      </filterset>
+    </copy>
+    <copy todir="${project.build.directory}/classes/org/kuali/common/deploy/mvn/impex" overwrite="true">
+      <fileset dir="src/main/resources/org/kuali/common/deploy/mvn/impex" />
       <filterset begintoken="${" endtoken="}">
         <filter token="project.groupId" value="${project.groupId}" />
         <filter token="project.artifactId" value="${project.artifactId}" />
