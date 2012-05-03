@@ -48,9 +48,9 @@
     <!-- jars -->
     <kuali-sql.version>1.1.0</kuali-sql.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
-    <kdeploy.groupId>org.kuali.common</kdeploy.groupId>
-    <kdeploy.artifactId>kuali-deploy</kdeploy.artifactId>
-    <kdeploy.version>1.0.0-SNAPSHOT</kdeploy.version>
+    <deployer.groupId>org.kuali.common</deployer.groupId>
+    <deployer.artifactId>kuali-deploy</deployer.artifactId>
+    <deployer.version>1.0.0-SNAPSHOT</deployer.version>
   </properties>
   <build>
     <resources>
@@ -224,9 +224,9 @@
                       <version>${jdbc.driver.version}</version>
                     </artifactItem>
                     <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>${project.artifactId}</artifactId>
-                      <version>${project.version}</version>
+                      <groupId>${deployer.groupId}</groupId>
+                      <artifactId>${deployer.artifactId}</artifactId>
+                      <version>${deployer.version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
