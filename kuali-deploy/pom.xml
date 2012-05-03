@@ -387,9 +387,6 @@
             <artifactId>properties-maven-plugin</artifactId>
           </plugin>
           <plugin>
-            <artifactId>maven-enforcer-plugin</artifactId>
-          </plugin>
-          <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>ant-maven-plugin</artifactId>
             <executions>
