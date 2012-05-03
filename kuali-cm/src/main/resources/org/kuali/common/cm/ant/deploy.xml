@@ -179,36 +179,6 @@
       <arg value="initialize" />
     </exec>
   </target>
-  <target name="resetdb-maven">
-    <condition property="resetdb.properties">
-      <and>
-        <isset property="db.vendor" />
-        <isset property="impex.dir" />
-        <isset property="impex.database" />
-        <isset property="impex.url" />
-        <isset property="impex.username" />
-        <isset property="impex.password" />
-        <isset property="impex.dba.url" />
-        <isset property="impex.dba.username" />
-        <isset property="impex.dba.password" />
-      </and>
-    </condition>
-    <fail unless="resetdb.properties">Missing one or more database properties</fail>
-    <echo>Resetting ${db.instance} on ${impex.url}</echo>
-    <echo>Impex directory ${impex.dir}</echo>
-    <exec executable="mvn" dir="${impex.dir}" failonerror="true">
-      <arg value="clean" />
-      <arg value="install" />
-      <arg value="-Pdb,${db.vendor}" />
-      <arg value="-Dimpex.username=${impex.username}" />
-      <arg value="-Dimpex.password=${impex.password}" />
-      <arg value="-Dimpex.dba.username=${impex.dba.username}" />
-      <arg value="-Dimpex.dba.password=${impex.dba.password}" />
-      <arg value="-Dimpex.url=${impex.url}" />
-      <arg value="-Dimpex.dba.url=${impex.dba.url}" />
-      <arg value="-Dimpex.database=${impex.database}" />
-    </exec>
-  </target>
   <target name="start" depends="check-basic-properties">
     <antcall target="runscript">
       <param name="message" value="Start ${tomcat.instance} on ${deploy.server}" />
