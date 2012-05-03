@@ -16,6 +16,9 @@
   <version>1.0.0</version>
   <name>Impex SQL Executor</name>
   <description>This pom contains plugin executions for resetting a db based on the SQL generated from an Impex dataset</description>
+  <properties>
+    <plugin.sql.version>1.0.12</plugin.sql.version>
+  </properties>
   <build>
     <plugins>
       <plugin>

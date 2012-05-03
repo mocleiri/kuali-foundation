@@ -32,8 +32,6 @@
     <plugin.manifest.version>1.1.0</plugin.manifest.version>
     <plugin.impex.version>1.0.30</plugin.impex.version>
     <plugin.http.version>1.0.5</plugin.http.version>
-    <!-- This is needed. Don't delete this unless you really know what you are doing -->
-    <plugin.sql.version>1.0.12</plugin.sql.version>
 
     <!-- jars -->
     <kuali-sql.version>1.1.0</kuali-sql.version>
