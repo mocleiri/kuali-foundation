@@ -170,6 +170,11 @@
           </executions>
           <dependencies>
             <dependency>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project.artifactId}</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+            <dependency>
               <groupId>org.kuali.db.sql</groupId>
               <artifactId>kuali-sql</artifactId>
               <version>${kuali-sql.version}</version>
@@ -210,11 +215,6 @@
                       <groupId>${jdbc.driver.groupId}</groupId>
                       <artifactId>${jdbc.driver.artifactId}</artifactId>
                       <version>${jdbc.driver.version}</version>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>org.kuali.common</groupId>
-                      <artifactId>kuali-cm</artifactId>
-                      <version>${kuali-cm.version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
