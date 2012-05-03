@@ -50,12 +50,6 @@
     <ant-jsch.version>1.8.2</ant-jsch.version>
   </properties>
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
