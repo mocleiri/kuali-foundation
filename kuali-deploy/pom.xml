@@ -97,7 +97,7 @@
       </properties>
     </profile>
     <profile>
-      <id>ralone</id>
+      <id>rsolo</id>
       <properties>
         <deploy.groupId>org.kuali.rice</deploy.groupId>
         <deploy.artifactId>rice-standalone</deploy.artifactId>
