@@ -42,7 +42,7 @@
     <kuali-deploy.version>1.0.0-SNAPSHOT</kuali-deploy.version>
 
     <deploy.project>rice</deploy.project>
-    <deploy.app>sampleapp</deploy.app>
+    <deploy.artifactId>rice-sampleapp</deploy.artifactId>
     <deploy.version>2.2.0-r32087</deploy.version>
     <deploy.env>5</deploy.env>
   </properties>
