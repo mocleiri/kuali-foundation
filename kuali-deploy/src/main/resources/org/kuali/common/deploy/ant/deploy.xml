@@ -33,7 +33,11 @@
   <target name="waronly" depends="stop,clean,copywar,start" />
   <target name="configonly" depends="stop,clean,copy-appconfig,copy-envconfig,start" />
   <target name="copy" depends="copyjdbc,copyconfig,copywar" />
-  <target name="copyconfig" depends="copy-commonconfig,copy-appconfig,copy-envconfig" />
+  <target name="copyconfig" depends="copy-commonconfig,copy-appconfig,copy-envconfig">
+    <antcall target="chowndir">
+      <param name="remote.dir" value="${config.home}" />
+    </antcall>
+  </target>
 
   <property name="config.home" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
   <property name="ssh.verbose" value="false" />
@@ -112,6 +116,10 @@
       </and>
     </condition>
     <fail unless="copy-commonconfig.properties">Missing deploy.config.common</fail>
+    <antcall target="mkdir">
+      <param name="remote.dir" value="${config.home}" />
+    </antcall>
+
     <antcall target="copyfile">
       <param name="local.file" value="${deploy.config.common}" />
       <param name="remote.file" value="${config.home}/common-config.xml" />
