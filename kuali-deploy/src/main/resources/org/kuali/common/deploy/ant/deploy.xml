@@ -186,7 +186,7 @@
     <echo>JDBC Driver: ${impex.driver}</echo>
     <echo>Delimiter: ${impex.delimiter}</echo>
     <echo>Delimiter Type: ${impex.delimitertype}</echo>
-    <exec executable="mvn" dir="${project.build.directory}/target/classes/org/kuali/common/deploy/mvn/impex" failonerror="true">
+    <exec executable="mvn" dir="${project.build.directory}/classes/org/kuali/common/deploy/mvn/impex" failonerror="true">
       <arg value="initialize" />
     </exec>
   </target>
