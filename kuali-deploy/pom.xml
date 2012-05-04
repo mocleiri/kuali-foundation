@@ -52,10 +52,6 @@
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>ant-maven-plugin</artifactId>
-        <configuration>
-          <file>src/main/resources/org/kuali/common/deploy/ant/deploy.xml</file>
-          <target>filter-poms</target>
-        </configuration>
         <executions>
           <execution>
             <id>run</id>
@@ -63,6 +59,10 @@
             <goals>
               <goal>run</goal>
             </goals>
+            <configuration>
+              <file>src/main/resources/org/kuali/common/deploy/ant/deploy.xml</file>
+              <target>filter-poms</target>
+            </configuration>
           </execution>
         </executions>
       </plugin>
