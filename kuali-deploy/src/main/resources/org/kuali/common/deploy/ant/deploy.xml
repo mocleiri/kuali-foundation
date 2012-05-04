@@ -33,9 +33,13 @@
   <target name="waronly" depends="stop,clean,copywar,start" />
   <target name="configonly" depends="stop,clean,copy-appconfig,copy-envconfig,start" />
   <target name="copy" depends="copyjdbc,copyconfig,copywar" />
-  <target name="copyconfig" depends="copy-commonconfig,copy-appconfig,copy-envconfig">
+  <target name="copyconfig">
+    <antcall target="rsync">
+      <param name="rsync.src" value="${local.config.dir}" />
+      <param name="rsync.dst" value="${secure.user}@${deploy.server}:${remote.config.home}" />
+    </antcall>
     <antcall target="chowndir">
-      <param name="remote.dir" value="${config.home}" />
+      <param name="remote.dir" value="${remote.config.home}" />
     </antcall>
   </target>
 
@@ -291,5 +295,15 @@
         <filter token="project.version" value="${project.version}" />
       </filterset>
     </copy>
+  </target>
+  <target name="rsync">
+    <echo>rsync -a --stats --delete ${rsync.src} ${rsync.dst}</echo>
+    <exec executable="rsync" failonerror="true">
+      <arg value="-a" />
+      <arg value="--stats" />
+      <arg value="--delete" />
+      <arg value="${rsync.src}" />
+      <arg value="${rsync.dst}" />
+    </exec>
   </target>
 </project>
