@@ -90,18 +90,18 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>ant-maven-plugin</artifactId>
+            <artifactId>maven-antrun-plugin</artifactId>
             <executions>
               <execution>
                 <id>run</id>
                 <phase>initialize</phase>
                 <goals>
-                  <goal>run</goal>
+                  <goal>antrun</goal>
                 </goals>
                 <configuration>
-                  <file>${project.build.directory}/dependency/org/kuali/common/deploy/ant/deploy.xml</file>
-                  <target>deploy</target>
+                  <target name="deploy">
+                    <antcall file="${project.build.directory}/dependency/org/kuali/common/deploy/ant/deploy.xml" target="deploy" />
+                  </target>
                 </configuration>
               </execution>
             </executions>
