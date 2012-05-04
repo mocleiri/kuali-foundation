@@ -117,7 +117,7 @@
               <configuration>
                 <quiet>false</quiet>
                 <locations>
-                  <param>classpath:org/kuali/common/deploy/${deploy.project}.properties</param>
+                  <param>classpath:org/kuali/common/deploy/${deploy.groupId}.properties</param>
                 </locations>
               </configuration>
             </execution>
