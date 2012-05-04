@@ -34,6 +34,13 @@
   <target name="configonly" depends="stop,clean,copy-appconfig,copy-envconfig,start" />
   <target name="copy" depends="copyjdbc,copyconfig,copywar" />
   <target name="copyconfig">
+    <condition property="copyconfig.property">
+      <and>
+        <isset property="local.config.dir" />
+        <isset property="remote.config.dir" />
+      </and>
+    </condition>
+    <fail unless="copyoleconfig.property">Missing local.config.dir or remote.config.dir</fail>
     <antcall target="rsync">
       <param name="rsync.src" value="${local.config.dir}" />
       <param name="rsync.dst" value="${secure.user}@${deploy.server}:${remote.config.home}" />
