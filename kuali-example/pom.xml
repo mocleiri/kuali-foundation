@@ -35,6 +35,7 @@
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-example</url>
   </scm>
   <properties>
+    <maven.test.skip>true</maven.test.skip>
     <!-- plugins -->
     <plugin.dependency.version>2.4</plugin.dependency.version>
     <plugin.ant.version>1.0.5</plugin.ant.version>
