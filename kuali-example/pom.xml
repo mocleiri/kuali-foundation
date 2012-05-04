@@ -39,9 +39,7 @@
     <plugin.dependency.version>2.4</plugin.dependency.version>
     <plugin.ant.version>1.0.5</plugin.ant.version>
     <plugin.resources.version>2.5</plugin.resources.version>
-    <deployer.groupId>org.kuali.common</deployer.groupId>
-    <deployer.artifactId>kuali-deploy</deployer.artifactId>
-    <deployer.version>1.0.0-SNAPSHOT</deployer.version>
+    <kuali-deploy.version>1.0.0-SNAPSHOT</kuali-deploy.version>
 
     <deploy.project>rice</deploy.project>
     <deploy.app>sampleapp</deploy.app>
@@ -81,9 +79,9 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <groupId>${deployer.groupId}</groupId>
-                      <artifactId>${deployer.artifactId}</artifactId>
-                      <version>${deployer.version}</version>
+                      <groupId>org.kuali.common</groupId>
+                      <artifactId>kuali-deploy</artifactId>
+                      <version>${kuali-deploy.version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
