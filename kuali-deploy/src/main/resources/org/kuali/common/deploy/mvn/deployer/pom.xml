@@ -128,7 +128,7 @@
               <configuration>
                 <quiet>true</quiet>
                 <locations>
-                  <param>classpath:org/kuali/common/deploy/${deploy.project}/${deploy.app}.properties</param>
+                  <param>classpath:org/kuali/common/deploy/${deploy.project}/${deploy.artifactId}.properties</param>
                 </locations>
               </configuration>
             </execution>

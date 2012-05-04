@@ -172,7 +172,7 @@
       <arg value="package" />
       <arg value="-Pprepare,deploy" />
       <arg value="-Ddeploy.project=${deploy.project}" />
-      <arg value="-Ddeploy.app=${deploy.app}" />
+      <arg value="-Ddeploy.artifactId=${deploy.artifactId}" />
       <arg value="-Ddeploy.version=${deploy.version}" />
       <arg value="-Ddeploy.env=${deploy.env}" />
     </exec>
@@ -185,7 +185,7 @@
     <echo>JDBC Driver: ${impex.driver}</echo>
     <echo>Delimiter: ${impex.delimiter}</echo>
     <echo>Delimiter Type: ${impex.delimitertype}</echo>
-    <exec executable="mvn" dir="target/classes/org/kuali/common/deploy/mvn/impex" failonerror="true">
+    <exec executable="mvn" dir="${project.build.directory}/target/classes/org/kuali/common/deploy/mvn/impex" failonerror="true">
       <arg value="initialize" />
     </exec>
   </target>
