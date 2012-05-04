@@ -101,7 +101,7 @@
                 <id>run</id>
                 <phase>initialize</phase>
                 <goals>
-                  <goal>antrun</goal>
+                  <goal>run</goal>
                 </goals>
                 <configuration>
                   <target name="deploy">
