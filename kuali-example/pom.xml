@@ -105,7 +105,7 @@
                 </goals>
                 <configuration>
                   <target name="deploy">
-                    <antcall file="${project.build.directory}/dependency/org/kuali/common/deploy/ant/deploy.xml" target="deploy" />
+                    <ant antfile="${project.build.directory}/dependency/org/kuali/common/deploy/ant/deploy.xml" target="deploy" />
                   </target>
                 </configuration>
               </execution>
