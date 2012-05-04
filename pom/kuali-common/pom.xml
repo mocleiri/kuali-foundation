@@ -151,7 +151,7 @@
 
   <profiles>
     <profile>
-      <!-- Deploy a Kuali application to EC2 -->
+      <!-- Deploys Kuali applications to a live environment (currently supports deploying Rice and KS applications to EC2) -->
       <id>deploy</id>
       <properties>
         <kuali-deploy.version>1.0.0</kuali-deploy.version>
@@ -161,6 +161,30 @@
       </properties>
       <build>
         <plugins>
+          <plugin>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>${plugin.enforcer.version}</version>
+            <executions>
+              <execution>
+                <id>enforce-property</id>
+                <phase>validate</phase>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <requireProperty>
+                      <property>deploy.env</property>
+                      <message>You must provide an environment</message>
+                      <regex>^\d(.)*</regex>
+                      <regexMessage>Environment must be a number</regexMessage>
+                    </requireProperty>
+                  </rules>
+                  <fail>true</fail>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <artifactId>maven-dependency-plugin</artifactId>
             <executions>
