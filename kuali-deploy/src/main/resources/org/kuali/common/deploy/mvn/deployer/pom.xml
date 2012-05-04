@@ -147,6 +147,19 @@
               </configuration>
             </execution>
             <execution>
+              <id>version</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <quiet>true</quiet>
+                <locations>
+                  <param>classpath:${deploy.groupId.path}/${deploy.version}.properties</param>
+                </locations>
+              </configuration>
+            </execution>
+            <execution>
               <id>env</id>
               <phase>initialize</phase>
               <goals>
