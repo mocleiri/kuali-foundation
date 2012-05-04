@@ -60,7 +60,7 @@
     <property name="manifest.svn.url" value="${manifest.SVN-URL}@${manifest.SVN-Revision}" />
     <property name="checkout.dir" value="target/checkout/impex" />
     <echo>svn co ${manifest.svn.url} ${checkout.dir}</echo>
-    <exec executable="svn" outputproperty="ant.output">
+    <exec executable="svn" outputproperty="ant.output" failonerror="true">
       <arg value="checkout" />
       <arg value="${manifest.svn.url}" />
       <arg value="${checkout.dir}" />
