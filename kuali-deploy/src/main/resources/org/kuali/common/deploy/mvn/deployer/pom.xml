@@ -399,8 +399,7 @@
     <profile>
       <id>local</id>
       <properties>
-        <deploy.war>${local.app.dir}/target/${deploy.artifactId}-${project.version}.war</deploy.war>
-        <impex.dir>../../db/impex/master</impex.dir>
+        <deploy.war>${project.build.directory}/target/${deploy.artifactId}-${project.version}.war</deploy.war>
       </properties>
     </profile>
   </profiles>
