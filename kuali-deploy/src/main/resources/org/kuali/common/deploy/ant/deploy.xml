@@ -18,6 +18,7 @@
 <project name="Application Deployer">
   <description>Deploy applications packaged by Maven to a server on EC2</description>
   <property name="impex.dba.username" value="master" />
+  <property name="deploy.mvn.profiles" value="prepare,deploy" />
 
   <property name="catalina.home" value="/usr/local/tomcat" />
   <property name="catalina.bin" value="${catalina.home}/bin" />
@@ -171,7 +172,7 @@
     <exec executable="mvn" dir="${project.build.directory}/dependency/org/kuali/common/deploy/mvn/deployer" failonerror="true">
       <arg value="clean" />
       <arg value="package" />
-      <arg value="-P${mvn.deploy.profiles}" />
+      <arg value="-P${deploy.mvn.profiles}" />
       <arg value="-Ddeploy.groupId=${deploy.groupId}" />
       <arg value="-Ddeploy.artifactId=${deploy.artifactId}" />
       <arg value="-Ddeploy.version=${deploy.version}" />
