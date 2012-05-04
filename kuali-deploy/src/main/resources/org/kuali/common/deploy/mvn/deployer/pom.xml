@@ -30,6 +30,8 @@
   <name>Kuali Deployer</name>
   <description>This pom contains plugin executions for deploying a Kuali application to EC2</description>
   <properties>
+    <maven.test.skip>true</maven.test.skip>
+
     <!-- plugins -->
     <plugin.ant.version>1.0.8</plugin.ant.version>
     <plugin.dependency.version>2.4</plugin.dependency.version>
