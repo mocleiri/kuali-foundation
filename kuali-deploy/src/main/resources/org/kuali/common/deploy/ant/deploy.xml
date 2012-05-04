@@ -171,8 +171,8 @@
     <exec executable="mvn" dir="${project.build.directory}/dependency/org/kuali/common/deploy/mvn/deployer" failonerror="true">
       <arg value="clean" />
       <arg value="package" />
-      <arg value="-Pprepare,deploy" />
-      <arg value="-Ddeploy.project=${deploy.project}" />
+      <arg value="-P${mvn.deploy.profiles}" />
+      <arg value="-Ddeploy.groupId=${deploy.groupId}" />
       <arg value="-Ddeploy.artifactId=${deploy.artifactId}" />
       <arg value="-Ddeploy.version=${deploy.version}" />
       <arg value="-Ddeploy.env=${deploy.env}" />
