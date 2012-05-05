@@ -43,7 +43,7 @@
     <fail unless="copyconfig.property">Missing local.config.dir or remote.config.dir</fail>
     <antcall target="rsync">
       <param name="rsync.src" value="${local.config.dir}" />
-      <param name="rsync.dst" value="${secure.user}@${deploy.server}:${remote.config.home}" />
+      <param name="rsync.dst" value="${secure.user}@${deploy.server}:${remote.config.dir}" />
     </antcall>
     <antcall target="chowndir">
       <param name="remote.dir" value="${remote.config.home}" />
