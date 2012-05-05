@@ -67,16 +67,6 @@ public class JenkinsHelper {
         }
     }
 
-    protected List<String> getJobNames(MvnMojo mojo, String csvNames, List<String> names) {
-        List<String> namesList = getNamesList(csvNames, names);
-        List<String> newNames = new ArrayList<String>();
-        for (String name : namesList) {
-            String newName = getJobName(mojo, name);
-            newNames.add(newName);
-        }
-        return newNames;
-    }
-
     protected List<Command> createGetJobCommands(MvnMojo mojo, String cmd, List<String> jobNames) {
         List<Command> commands = new ArrayList<Command>();
         for (String jobName : jobNames) {
@@ -169,16 +159,6 @@ public class JenkinsHelper {
         return Arrays.asList(files);
     }
 
-    protected void pushJobs(MvnMojo mojo, String cmd) {
-        try {
-            List<Command> commands = getCommands(mojo.getWorkingDir(), cmd);
-            executeCli(mojo, commands);
-        } catch (IOException e) {
-            throw new MvnException(e);
-        }
-
-    }
-
     protected List<Command> getCommands(File workingDir, String cmd) throws IOException {
         List<File> files = getFiles(workingDir);
         List<Command> commands = new ArrayList<Command>();
@@ -235,21 +215,6 @@ public class JenkinsHelper {
         return Helper.toArray(list);
     }
 
-    protected int[] getSuccessCodes(MvnMojo mojo) {
-        String csv = mojo.getSuccessCodes();
-        return Helper.toIntArray(csv);
-    }
-
-    protected void handleResult(Command command, ProcessResult result, MvnMojo mojo) {
-        int[] successCodes = getSuccessCodes(mojo);
-        int exitValue = result.getExitValue();
-        if (Helper.isMatch(exitValue, successCodes)) {
-            handleSuccess(mojo, command, result);
-        } else {
-            handleFailure(mojo, result);
-        }
-    }
-
     protected void logInfo(List<String> lines) {
         if (lines.size() == 0) {
             return;
@@ -280,19 +245,6 @@ public class JenkinsHelper {
             }
         }
         return null;
-    }
-
-    protected void handleFailure(MvnMojo mojo, ProcessResult result) {
-        if (mojo.isStopOnError()) {
-            logger.error("Jenkins CLI Exception:" + getErrorMessage(mojo, result));
-            throw new MvnException("Jenkins CLI Exception");
-        } else {
-            if (mojo.isFailOnError()) {
-                logError(result.getOutputLines());
-            } else {
-                logWarning(result.getOutputLines());
-            }
-        }
     }
 
     protected void handleSuccess(MvnMojo mojo, Command command, ProcessResult result) {
@@ -331,62 +283,6 @@ public class JenkinsHelper {
             buildParameters.putAll(csvMap);
         }
         return buildParameters;
-    }
-
-    public void updateMojo(MvnMojo mojo) {
-        MavenProject project = mojo.getProject();
-        String scmType = extractor.getScmType(project.getScm());
-        String scmUrl = extractor.getScmUrl(project.getScm());
-        String majorVersion = extractor.getMajorVersion(project.getVersion());
-
-        if (StringUtils.isBlank(mojo.getScmType())) {
-            mojo.setScmType(scmType);
-        }
-        if (StringUtils.isBlank(mojo.getScmUrl())) {
-            mojo.setScmUrl(scmUrl);
-        }
-        if (StringUtils.isBlank(mojo.getMajorVersion())) {
-            mojo.setMajorVersion(majorVersion);
-        }
-    }
-
-    protected void executeCli(MvnMojo mojo, Command command) {
-        executeCli(mojo, Helper.toList(command));
-    }
-
-    protected void executeCli(MvnMojo mojo, List<Command> commands) {
-        File jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
-        String url = mojo.getUrl();
-        logger.info("Jenkins CLI: " + jar.getPath());
-        logger.info("Jenkins URL: " + url);
-        List<ProcessResult> results = new ArrayList<ProcessResult>();
-        for (Command command : commands) {
-            logger.info(Helper.toString(command.getArgs()));
-            ProcessResult result = executeCli(jar, url, command);
-            handleResult(command, result, mojo);
-            results.add(result);
-        }
-        handleResults(results, mojo);
-    }
-
-    protected void handleResults(List<ProcessResult> results, MvnMojo mojo) {
-        int[] successCodes = getSuccessCodes(mojo);
-        List<ProcessResult> errors = new ArrayList<ProcessResult>();
-        for (ProcessResult result : results) {
-            int exitValue = result.getExitValue();
-            if (!Helper.isMatch(exitValue, successCodes)) {
-                errors.add(result);
-            }
-        }
-        if (errors.size() == 0) {
-            return;
-        }
-        if (mojo.isFailOnError()) {
-            logger.error(getErrorMessage(mojo, errors));
-            throw new MvnException("Jenkins CLI error");
-        } else {
-            logger.warn(getWarnMessage(errors));
-        }
     }
 
     protected String getWarnMessage(List<ProcessResult> errors) {
@@ -449,12 +345,6 @@ public class JenkinsHelper {
         }
     }
 
-    protected void generateJobs(MvnMojo mojo, List<String> types) {
-        for (String type : types) {
-            generateJob(mojo, type);
-        }
-    }
-
     protected String getRelativePath(MvnMojo mojo, String filename) {
         File dir = mojo.getProject().getBasedir();
         File file = new File(filename);
@@ -464,87 +354,6 @@ public class JenkinsHelper {
         } else {
             return relativePath;
         }
-    }
-
-    protected void generateJob(MvnMojo mojo, String type) {
-        try {
-            String jobName = getJobName(mojo, type);
-            String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
-            String relativePath = getRelativePath(mojo, filename);
-            mojo.getLog().info("Generating: " + relativePath);
-            Properties properties = getProperties(mojo, type, mojo.getTimestampFormat());
-            String xml = resourceUtils.read(mojo.getTemplate());
-            String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
-            resourceUtils.write(filename, resolvedXml);
-        } catch (IOException e) {
-            throw new MvnException(e);
-        }
-    }
-
-    protected boolean isKnownJobType(MvnMojo mojo, String name) {
-        String jobTypes = mojo.getJobTypes();
-        if (StringUtils.isBlank(jobTypes)) {
-            return false;
-        }
-        if (NONE.equalsIgnoreCase(jobTypes)) {
-            return false;
-        }
-        List<String> jobTypesList = Helper.splitAndTrimCSVToList(mojo.getJobTypes());
-        return jobTypesList.contains(name);
-    }
-
-    protected String getJobName(MvnMojo mojo, String name) {
-        if (isKnownJobType(mojo, name)) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(mojo.getProject().getArtifactId());
-            sb.append(DASH);
-            sb.append(mojo.getMajorVersion());
-            sb.append(DASH);
-            sb.append(name);
-            return sb.toString();
-        } else {
-            return name;
-        }
-    }
-
-    protected Properties getProperties(MvnMojo mojo, String type, String timestampFormat) throws IOException {
-
-        List<String> locations = getLocations(mojo, type);
-        Properties resourceProperties = propertiesUtils.getProperties(locations);
-        Properties jenkinsProperties = getJenkinsProperties(mojo, timestampFormat);
-        Properties projectProperties = mojo.getProject().getProperties();
-        Properties environmentProperties = propertiesUtils.getEnvironmentProperties();
-        Properties systemProperties = System.getProperties();
-
-        Properties properties = new Properties();
-        properties.putAll(resourceProperties);
-        properties.putAll(jenkinsProperties);
-        properties.putAll(projectProperties);
-        properties.putAll(environmentProperties);
-        properties.putAll(systemProperties);
-        return properties;
-    }
-
-    protected Properties getJenkinsProperties(MvnMojo mojo, String timestampFormat) {
-        SimpleDateFormat sdf = new SimpleDateFormat(timestampFormat);
-        Date now = new Date(System.currentTimeMillis());
-        MavenProject project = mojo.getProject();
-        Properties properties = new Properties();
-        properties.setProperty("jenkins.project.scmType", mojo.getScmType());
-        properties.setProperty("jenkins.project.scmUrl", mojo.getScmUrl());
-        properties.setProperty("jenkins.project.majorVersion", mojo.getMajorVersion());
-        properties.setProperty("jenkins.project.groupId", project.getGroupId());
-        properties.setProperty("jenkins.project.artifactId", project.getArtifactId());
-        properties.setProperty("jenkins.build.timestamp", sdf.format(now));
-        return properties;
-    }
-
-    protected List<String> getLocations(MvnMojo mojo, String type) {
-        List<String> locations = new ArrayList<String>();
-        locations.add("classpath:org/kuali/jenkins/jobs/properties/common.xml");
-        locations.add("classpath:org/kuali/jenkins/jobs/properties/" + mojo.getScmType() + XML_EXTENSION);
-        locations.add("classpath:org/kuali/jenkins/jobs/properties/types/" + type + XML_EXTENSION);
-        return locations;
     }
 
 }

@@ -18,16 +18,13 @@ package org.kuali.maven.plugins.mvn;
 import java.io.File;
 import java.util.List;
 
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
-import org.kuali.maven.plugins.mvn.helper.JenkinsHelper;
 
 /**
  *
  */
 public abstract class MvnMojo extends AbstractMojo {
-    JenkinsHelper helper = new JenkinsHelper();
 
     /**
      * The Maven project object
@@ -38,145 +35,40 @@ public abstract class MvnMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     * The plugin dependencies.
-     *
-     * @parameter expression="${plugin.artifacts}"
-     * @required
-     * @readonly
-     */
-    private List<Artifact> pluginArtifacts;
-
-    /**
-     * The Jenkins instance to connect to.
-     *
-     * @parameter expression="${jenkins.url}" default-value="${project.ciManagement.url}"
-     * @required
-     */
-    private String url;
-
-    /**
-     * The format for timestamp displays
-     *
-     * @parameter expression="${jenkins.timestampFormat}" default-value="yyyy-MM-dd HH:mm:ss z"
-     * @required
-     */
-    private String timestampFormat;
-
-    /**
      * The working directory for the plugin
      *
-     * @parameter expression="${jenkins.workingDir}" default-value="${project.build.directory}/jenkins"
+     * @parameter expression="${mvn.workingDir}" default-value="${project.build.directory}/mvn"
      * @required
      */
     private File workingDir;
 
     /**
-     * If set to true, the build will fail the first time Jenkins CLI encounters an issue. When false, mojo's that issue
-     * multiple CLI requests, will proceed through their list of requests and then fail at the end if an issue was
-     * encountered along the way.
+     * The pom to supply to the mvn invocation. Supports any url Spring resource loading can understand <br>
      *
-     * @parameter expression="${jenkins.stopOnError}" default-value="false"
-     * @required
+     * eg classpath:pom.xml
+     *
+     * @parameter expression="${mvn.pom}"
      */
-    private boolean stopOnError;
+    private String pom;
 
     /**
-     * If set to true, the Maven build will fail if Jenkins CLI returns a non-zero exit value, otherwise the Maven build
+     * Arguments to supply to the mvn invocation
+     *
+     * @parameter
+     */
+    private List<String> args;
+
+    /**
+     * If true, the Maven build will fail if the mvn invocation returns a non-zero exit value, otherwise the Maven build
      * will continue
      *
-     * @parameter expression="${jenkins.failOnError}" default-value="true"
+     * @parameter expression="${mvn.failOnError}" default-value="true"
      * @required
      */
     private boolean failOnError;
 
-    /**
-     * The location of the jenkins job config template
-     *
-     * @parameter expression="${jenkins.template}" default-value="classpath:org/kuali/jenkins/jobs/template.xml"
-     * @required
-     */
-    private String template;
-
-    /**
-     * Comma separated list of integers that represent a Jenkins CLI command completing successfully
-     *
-     * @parameter expression="${jenkins.successCodes}" default-value="0"
-     * @required
-     */
-    private String successCodes;
-
-    /**
-     * Comma separated list of known job types. When specifying a job name these can be used as shorthand for the fully
-     * qualified job name. eg "publish" gets expanded to "jenkins-maven-plugin-1.1-publish". To turn off expansion set
-     * 'jobTypes' to the empty string, null, or 'NONE'
-     *
-     * @parameter expression="${jenkins.jobTypes}" default-value="publish,unit,license,release"
-     * @required
-     */
-    private String jobTypes;
-
-    /**
-     * This is the type of SCM for the project eg "svn" or "git". If not provided, this value is filled in automatically
-     * based on information in the POM.
-     *
-     * @parameter expression="${jenkins.scmType}"
-     */
-    private String scmType;
-
-    /**
-     * This is the SCM url for the project eg "http://svn.kuali.org/repos/foundation/trunk/jenkins-maven-plugin". If not
-     * provided, this value is filled in automatically based on information in the POM.
-     *
-     * @parameter expression="${jenkins.scmUrl}"
-     */
-    private String scmUrl;
-
-    /**
-     * This is the "major version" for the project. For a project with the version "1.1.0" the major version is "1.1".
-     * If not provided, this value is filled in automatically based on information from the POM.
-     *
-     * @parameter expression="${jenkins.majorVersion}"
-     */
-    private String majorVersion;
-
-    protected abstract void executeMojo();
-
     @Override
     public void execute() {
-        helper.updateMojo(this);
-        executeMojo();
-    }
-
-    public String getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-    public MavenProject getProject() {
-        return project;
-    }
-
-    public List<Artifact> getPluginArtifacts() {
-        return pluginArtifacts;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String server) {
-        this.url = server;
-    }
-
-    public String getTimestampFormat() {
-        return timestampFormat;
-    }
-
-    public void setTimestampFormat(String timestampFormat) {
-        this.timestampFormat = timestampFormat;
     }
 
     public File getWorkingDir() {
@@ -187,14 +79,6 @@ public abstract class MvnMojo extends AbstractMojo {
         this.workingDir = workingDir;
     }
 
-    public boolean isStopOnError() {
-        return stopOnError;
-    }
-
-    public void setStopOnError(boolean stopOnError) {
-        this.stopOnError = stopOnError;
-    }
-
     public boolean isFailOnError() {
         return failOnError;
     }
@@ -203,44 +87,24 @@ public abstract class MvnMojo extends AbstractMojo {
         this.failOnError = failOnError;
     }
 
-    public String getSuccessCodes() {
-        return successCodes;
+    public MavenProject getProject() {
+        return project;
     }
 
-    public void setSuccessCodes(String successCodes) {
-        this.successCodes = successCodes;
+    public String getPom() {
+        return pom;
     }
 
-    public String getJobTypes() {
-        return jobTypes;
+    public void setPom(String pom) {
+        this.pom = pom;
     }
 
-    public void setJobTypes(String jobTypes) {
-        this.jobTypes = jobTypes;
+    public List<String> getArgs() {
+        return args;
     }
 
-    public String getScmType() {
-        return scmType;
-    }
-
-    public void setScmType(String scmType) {
-        this.scmType = scmType;
-    }
-
-    public String getScmUrl() {
-        return scmUrl;
-    }
-
-    public void setScmUrl(String scmUrl) {
-        this.scmUrl = scmUrl;
-    }
-
-    public String getMajorVersion() {
-        return majorVersion;
-    }
-
-    public void setMajorVersion(String majorVersion) {
-        this.majorVersion = majorVersion;
+    public void setArgs(List<String> args) {
+        this.args = args;
     }
 
 }

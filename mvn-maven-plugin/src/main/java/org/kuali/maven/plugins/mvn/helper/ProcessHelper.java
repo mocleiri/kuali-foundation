@@ -15,6 +15,7 @@
  */
 package org.kuali.maven.plugins.mvn.helper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,12 +61,7 @@ public class ProcessHelper {
             logger.debug("Starting process");
             Process process = builder.start();
             logger.debug("Process started");
-            if (!StringUtils.isBlank(context.getInput())) {
-                logger.debug("Writing input=" + context.getInput());
-                IOUtils.write(context.getInput(), process.getOutputStream());
-                logger.debug("Done writing input");
-                process.getOutputStream().close();
-            }
+            writeInput(context, process);
             logger.debug("Reading output");
             String output = IOUtils.toString(process.getInputStream());
             logger.debug("Done reading output=" + output);
@@ -85,6 +81,16 @@ public class ProcessHelper {
         } catch (Exception e) {
             throw new ProcessException(e);
         }
+    }
+
+    protected void writeInput(ProcessContext context, Process process) throws IOException {
+        if (StringUtils.isBlank(context.getInput())) {
+            return;
+        }
+        logger.debug("Writing input=" + context.getInput());
+        IOUtils.write(context.getInput(), process.getOutputStream());
+        logger.debug("Done writing input");
+        process.getOutputStream().close();
     }
 
     protected String[] getProcessBuilderCommand(String executable, String... args) {
