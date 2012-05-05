@@ -25,7 +25,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
-import org.codehaus.plexus.util.cli.Arg;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.DefaultConsumer;
@@ -154,10 +153,8 @@ public class MvnMojo extends AbstractMojo {
         }
         File file = File.createTempFile("pom.", ".xml", workingDir);
         resourceUtils.write(file.getCanonicalPath(), s);
-        Arg arg1 = cl.createArg();
-        Arg arg2 = cl.createArg();
-        arg1.setValue("-f");
-        arg2.setValue(file.getName());
+        cl.createArg().setValue("-f");
+        cl.createArg().setValue(file.getName());
     }
 
     protected Properties getAllProperties() {
@@ -174,8 +171,7 @@ public class MvnMojo extends AbstractMojo {
             return;
         }
         for (String arg : args) {
-            Arg newArg = cl.createArg();
-            newArg.setValue(arg);
+            cl.createArg().setValue(arg);
         }
     }
 
@@ -202,8 +198,7 @@ public class MvnMojo extends AbstractMojo {
         if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
             return;
         }
-        Arg arg = cl.createArg();
-        arg.setValue("-D" + key + "=" + value);
+        cl.createArg().setValue("-D" + key + "=" + value);
     }
 
     protected boolean isFail(int exitValue) {
