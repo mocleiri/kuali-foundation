@@ -27,7 +27,7 @@
   <artifactId>mvn-maven-plugin</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <name>mvn Maven Plugin</name>
+  <name>MVN Maven Plugin</name>
   <description>Invoke mvn from Maven</description>
   <inceptionYear>2011</inceptionYear>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
@@ -76,7 +76,7 @@
     <dependency>
       <groupId>org.kuali.maven.common</groupId>
       <artifactId>maven-kuali-common</artifactId>
-      <version>1.1.7-SNAPSHOT</version>
+      <version>1.1.7</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.ant</groupId>
