@@ -159,8 +159,11 @@ public class MvnMojo extends AbstractMojo {
 
     protected Properties getAllProperties() {
         Properties props = new Properties();
+        // Load project properties first
         props.putAll(project.getProperties());
+        // Environment properties are all prefixed with "env"
         props = propertiesUtils.getEnvironmentProperties();
+        // System properties override everything
         props.putAll(System.getProperties());
         return props;
 
