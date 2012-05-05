@@ -26,7 +26,6 @@
   <artifactId>kuali-common</artifactId>
   <packaging>pom</packaging>
   <name>Kuali Common</name>
-  <url>http://${kuali.site.hostname}/pom/${project.artifactId}/${project.version}</url>
   <description>
    This pom contains Maven configuration (plugins, profiles, executions, etc) that
    assists with the building, testing, publishing, and releasing of Kuali Foundation 
