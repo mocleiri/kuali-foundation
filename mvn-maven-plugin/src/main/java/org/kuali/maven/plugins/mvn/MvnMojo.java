@@ -145,9 +145,17 @@ public class MvnMojo extends AbstractMojo {
         if (addSystemEnvironment) {
             cl.addSystemEnvironment();
         }
+        addMavenOpts(cl);
         addArgs(cl, args);
         addProperties(cl, properties);
         return cl;
+    }
+
+    protected void addMavenOpts(Commandline cl) {
+        String mavenOpts = System.getenv(MAVEN_OPTS);
+        if (!StringUtils.isBlank(mavenOpts) && addMavenOpts) {
+            cl.addEnvironment(MAVEN_OPTS, mavenOpts);
+        }
     }
 
     protected void prepareFileSystem(Commandline cl) throws IOException {
