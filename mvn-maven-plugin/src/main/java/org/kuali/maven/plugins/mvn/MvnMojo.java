@@ -16,17 +16,20 @@
 package org.kuali.maven.plugins.mvn;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.StringUtils;
 import org.codehaus.plexus.util.cli.Arg;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.DefaultConsumer;
 import org.codehaus.plexus.util.cli.StreamConsumer;
+import org.kuali.maven.common.ResourceUtils;
 
 /**
  * @goal mvn
@@ -94,7 +97,7 @@ public class MvnMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         int exitValue = -1;
         try {
-            FileUtils.forceMkdir(workingDir);
+            prepareFileSystem();
             StreamConsumer stdout = new DefaultConsumer();
             StreamConsumer stderr = new DefaultConsumer();
             Commandline cl = getCommandLine();
@@ -103,6 +106,15 @@ public class MvnMojo extends AbstractMojo {
             throw new MojoExecutionException("Error invoking mvn", e);
         }
         validateExitValue(exitValue);
+    }
+
+    protected void prepareFileSystem() throws IOException {
+        ResourceUtils ru = new ResourceUtils();
+        FileUtils.forceMkdir(workingDir);
+        if (!StringUtils.isBlank(pom)) {
+            String filename = workingDir + File.pathSeparator + "pom.xml";
+            ru.copy(pom, filename);
+        }
     }
 
     protected Commandline getCommandLine() throws Exception {
