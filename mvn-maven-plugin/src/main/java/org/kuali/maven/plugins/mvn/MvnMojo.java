@@ -78,6 +78,13 @@ public class MvnMojo extends AbstractMojo {
     private List<String> args;
 
     /**
+     * List of properties to propagate to the mvn invocation
+     *
+     * @parameter
+     */
+    private List<String> properties;
+
+    /**
      * If true, the System environment is passed to the mvn invocation
      *
      * @parameter expression="${mvn.addSystemEnvironment}" default-value="false"
@@ -97,10 +104,10 @@ public class MvnMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         int exitValue = -1;
         try {
-            prepareFileSystem();
             StreamConsumer stdout = new DefaultConsumer();
             StreamConsumer stderr = new DefaultConsumer();
             Commandline cl = getCommandLine();
+            prepareFileSystem(cl);
             getLog().info("Invoking " + cl.toString());
             exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
         } catch (Exception e) {
@@ -109,12 +116,16 @@ public class MvnMojo extends AbstractMojo {
         validateExitValue(exitValue);
     }
 
-    protected void prepareFileSystem() throws IOException {
-        ResourceUtils ru = new ResourceUtils();
+    protected void prepareFileSystem(Commandline cl) throws IOException {
         FileUtils.forceMkdir(workingDir);
         if (!StringUtils.isBlank(pom)) {
-            String filename = workingDir + File.separator + "pom.xml";
-            ru.copy(pom, filename);
+            ResourceUtils ru = new ResourceUtils();
+            File file = File.createTempFile("pom.", ".xml", workingDir);
+            ru.copy(pom, file.getCanonicalPath());
+            Arg arg1 = cl.createArg();
+            Arg arg2 = cl.createArg();
+            arg1.setValue("-f");
+            arg2.setValue(file.getName());
         }
     }
 
@@ -199,6 +210,14 @@ public class MvnMojo extends AbstractMojo {
 
     public void setAddSystemEnvironment(boolean addSystemEnvironment) {
         this.addSystemEnvironment = addSystemEnvironment;
+    }
+
+    public List<String> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(List<String> properties) {
+        this.properties = properties;
     }
 
 }
