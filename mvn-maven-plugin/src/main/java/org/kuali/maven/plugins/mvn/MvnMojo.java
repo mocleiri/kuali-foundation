@@ -18,10 +18,11 @@ package org.kuali.maven.plugins.mvn;
 import java.io.File;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.cli.CommandLineException;
+import org.codehaus.plexus.util.cli.Arg;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.DefaultConsumer;
@@ -49,6 +50,14 @@ public class MvnMojo extends AbstractMojo {
     private File workingDir;
 
     /**
+     * The Maven executable
+     *
+     * @parameter expression="${mvn.executable}" default-value="mvn"
+     * @required
+     */
+    private String executable;
+
+    /**
      * The pom to supply to the mvn invocation. Supports any url Spring resource loading can understand <br>
      *
      * eg classpath:pom.xml
@@ -61,8 +70,16 @@ public class MvnMojo extends AbstractMojo {
      * Arguments to supply to the mvn invocation
      *
      * @parameter
+     * @required
      */
     private List<String> args;
+
+    /**
+     * If true, the System environment is passed to the mvn invocation
+     *
+     * @parameter expression="${mvn.addSystemEnvironment}" default-value="false"
+     */
+    private boolean addSystemEnvironment;
 
     /**
      * If true, the Maven build will fail if the mvn invocation returns a non-zero exit value, otherwise the Maven build
@@ -73,26 +90,49 @@ public class MvnMojo extends AbstractMojo {
      */
     private boolean failOnError;
 
+    @Override
+    public void execute() throws MojoExecutionException {
+        int exitValue = -1;
+        try {
+            FileUtils.forceMkdir(workingDir);
+            StreamConsumer stdout = new DefaultConsumer();
+            StreamConsumer stderr = new DefaultConsumer();
+            Commandline cl = getCommandLine();
+            exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
+        } catch (Exception e) {
+            throw new MojoExecutionException("Error invoking mvn", e);
+        }
+        validateExitValue(exitValue);
+    }
+
+    protected Commandline getCommandLine() throws Exception {
+        Commandline cl = new Commandline();
+        cl.setExecutable(executable);
+        cl.setWorkingDirectory(workingDir);
+        if (addSystemEnvironment) {
+            cl.addSystemEnvironment();
+        }
+        addArgs(cl, args);
+        return cl;
+    }
+
+    protected void addArgs(Commandline cl, List<String> args) {
+        if (args == null || args.size() == 0) {
+            return;
+        }
+        for (String arg : args) {
+            Arg newArg = cl.createArg();
+            newArg.setValue(arg);
+        }
+    }
+
     protected boolean isFail(int exitValue) {
         return exitValue != 0 && failOnError;
     }
 
-    @Override
-    public void execute() throws MojoExecutionException {
-        try {
-            StreamConsumer stdout = new DefaultConsumer();
-            StreamConsumer stderr = new DefaultConsumer();
-            Commandline cli = new Commandline();
-            cli.setExecutable("mvn");
-            Commandline.Argument arg = new Commandline.Argument();
-            arg.setValue("-v");
-            cli.addArg(arg);
-            int exitValue = CommandLineUtils.executeCommandLine(cli, stdout, stderr);
-            if (isFail(exitValue)) {
-                throw new MojoExecutionException("Non-zero exit value for mvn");
-            }
-        } catch (CommandLineException e) {
-            throw new MojoExecutionException("Error invoking mvn", e);
+    protected void validateExitValue(int exitValue) throws MojoExecutionException {
+        if (isFail(exitValue)) {
+            throw new MojoExecutionException("Non-zero exit value");
         }
     }
 
@@ -130,6 +170,22 @@ public class MvnMojo extends AbstractMojo {
 
     public void setArgs(List<String> args) {
         this.args = args;
+    }
+
+    public String getExecutable() {
+        return executable;
+    }
+
+    public void setExecutable(String executable) {
+        this.executable = executable;
+    }
+
+    public boolean isAddSystemEnvironment() {
+        return addSystemEnvironment;
+    }
+
+    public void setAddSystemEnvironment(boolean addSystemEnvironment) {
+        this.addSystemEnvironment = addSystemEnvironment;
     }
 
 }
