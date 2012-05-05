@@ -32,15 +32,6 @@
    assists with the building, testing, publishing, and releasing of Kuali Foundation 
    software. 
   </description>
-  <developers>
-    <developer>
-      <id>jcaddel</id>
-      <name>Jeff Caddel</name>
-      <email>jcaddel@kuali.org</email>
-      <organization>rSmart</organization>
-      <timezone>-7</timezone>
-    </developer>
-  </developers>
   <modules>
     <module>kuali-maven</module>
   </modules>
