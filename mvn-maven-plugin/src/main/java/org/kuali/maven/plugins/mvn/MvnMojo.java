@@ -126,6 +126,7 @@ public class MvnMojo extends AbstractMojo {
         ResourceUtils ru = new ResourceUtils();
         File file = File.createTempFile("pom.", ".xml", workingDir);
         ru.copy(pom, file.getCanonicalPath());
+        getLog().info("POM: " + pom);
         Arg arg1 = cl.createArg();
         Arg arg2 = cl.createArg();
         arg1.setValue("-f");
