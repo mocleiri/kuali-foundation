@@ -19,5 +19,6 @@
 <config>
   <param name="filter.login.class">org.kuali.rice.kew.web.DummyLoginFilter</param>
   <param name="filtermapping.login.1">/*</param>
-  <param name="config.location">/home/${tomcat.instance}/.kuali/rice/env${deploy.env}-config.xml</param>
+  <param name="config.location">/home/tomcat/.kuali/rice/env${deploy.env}-config.xml</param>
+  <param name="config.location">/home/tomcat/.kuali/rice/common-config.xml</param>
 </config>
