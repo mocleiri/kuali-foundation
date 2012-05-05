@@ -25,8 +25,8 @@
   <packaging>pom</packaging>
   <name>The Kuali Foundation Aggregator POM</name>
   <modules>
-    <module>kuali</module>
-    <module>kuali-common</module>
-    <module>kuali-maven</module>
+    <module>x/kuali</module>
+    <module>y/kuali-common</module>
+    <module>z/kuali-maven</module>
   </modules>
 </project>
