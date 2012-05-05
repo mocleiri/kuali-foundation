@@ -78,9 +78,9 @@ public class MvnMojo extends AbstractMojo {
     /**
      * If true, the pom will be filtered using properties from the current project
      *
-     * @parameter expression="${mvn.filter}"
+     * @parameter expression="${mvn.filterPom}"
      */
-    private boolean filter;
+    private boolean filterPom;
 
     /**
      * Arguments to supply to the mvn invocation
@@ -144,7 +144,7 @@ public class MvnMojo extends AbstractMojo {
             return;
         }
         String s = resourceUtils.read(pom);
-        if (filter) {
+        if (filterPom) {
             Properties props = getAllProperties();
             s = propertiesUtils.getResolvedValue(s, props);
         }
@@ -276,12 +276,12 @@ public class MvnMojo extends AbstractMojo {
         this.properties = properties;
     }
 
-    public boolean isFilter() {
-        return filter;
+    public boolean isFilterPom() {
+        return filterPom;
     }
 
-    public void setFilter(boolean filter) {
-        this.filter = filter;
+    public void setFilterPom(boolean filter) {
+        this.filterPom = filter;
     }
 
 }
