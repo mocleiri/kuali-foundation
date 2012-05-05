@@ -24,6 +24,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.interpolation.os.Os;
 import org.codehaus.plexus.util.StringUtils;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -73,7 +74,7 @@ public class MvnMojo extends AbstractMojo {
      * invocation to mirror the one that is currently executing (same version, etc). You can override this behavior by
      * supplying your own executable
      *
-     * @parameter expression="${mvn.executable}" default-value="${maven.home}/bin/mvn"
+     * @parameter expression="${mvn.executable}"
      */
     private String executable;
 
@@ -147,9 +148,26 @@ public class MvnMojo extends AbstractMojo {
         validateExitValue(exitValue);
     }
 
+    protected String getMvnExecutable() {
+        if (!StringUtils.isBlank(executable)) {
+            return executable;
+        }
+        String mavenHome = System.getProperty("maven.home");
+        if (StringUtils.isBlank(mavenHome)) {
+            getLog().warn("${maven.home} is not set.  Using default value executable value 'mvn'");
+            return "mvn";
+        }
+
+        String extension = "";
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            extension = ".bat";
+        }
+        return mavenHome + File.separator + "bin" + File.separatorChar + "mvn" + extension;
+    }
+
     protected Commandline getCommandLine() throws Exception {
         Commandline cl = new Commandline();
-        cl.setExecutable(executable);
+        cl.setExecutable(getMvnExecutable());
         cl.setWorkingDirectory(basedir);
         if (addEnvironment) {
             cl.addSystemEnvironment();
