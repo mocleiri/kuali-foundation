@@ -112,7 +112,7 @@ public class MvnMojo extends AbstractMojo {
         ResourceUtils ru = new ResourceUtils();
         FileUtils.forceMkdir(workingDir);
         if (!StringUtils.isBlank(pom)) {
-            String filename = workingDir + File.pathSeparator + "pom.xml";
+            String filename = workingDir + File.separator + "pom.xml";
             ru.copy(pom, filename);
         }
     }
