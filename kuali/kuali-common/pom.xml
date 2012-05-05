@@ -122,26 +122,6 @@
     <plugin.mvn.version>1.0.1</plugin.mvn.version>
 
   </properties>
-  <repositories>
-    <repository>
-      <id>kuali.nexus</id>
-      <name>Nexus Repository Manager</name>
-      <url>${kuali.repo}</url>
-      <releases>
-        <enabled>${kuali.repo.releases}</enabled>
-      </releases>
-      <snapshots>
-        <enabled>${kuali.repo.snapshots}</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
-  <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/pom/kuali-common</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/pom/kuali-common</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/pom/kuali-common</url>
-  </scm>
-
   <profiles>
     <profile>
       <!-- Deploys Kuali applications to a live environment (currently supports deploying Rice and KS applications to EC2) -->
