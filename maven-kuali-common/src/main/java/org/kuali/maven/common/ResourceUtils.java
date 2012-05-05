@@ -38,15 +38,25 @@ public class ResourceUtils {
      * obtain an InputStream
      */
     public InputStream getInputStream(String location) throws IOException {
+        if (!exists(location)) {
+            throw new IOException("Unable to locate " + location);
+        }
         File file = new File(location);
         if (file.exists()) {
             return new FileInputStream(file);
+        } else {
+            Resource resource = loader.getResource(location);
+            return resource.getInputStream();
+        }
+    }
+
+    public boolean exists(String location) {
+        File file = new File(location);
+        if (file.exists()) {
+            return true;
         }
         Resource resource = loader.getResource(location);
-        if (!resource.exists()) {
-            throw new IOException("Unable to locate " + location);
-        }
-        return resource.getInputStream();
+        return resource.exists();
     }
 
     /**
@@ -62,7 +72,6 @@ public class ResourceUtils {
         } finally {
             IOUtils.closeQuietly(in);
             IOUtils.closeQuietly(out);
-
         }
     }
 
@@ -106,14 +115,15 @@ public class ResourceUtils {
      * Return a filename for this resource, i.e. typically the last part of the path: for example, "myfile.txt".
      */
     public String getFilename(String location) throws IOException {
+        if (!exists(location)) {
+            throw new IOException("Unable to locate " + location);
+        }
         File file = new File(location);
         if (file.exists()) {
             return file.getName();
+        } else {
+            Resource resource = loader.getResource(location);
+            return resource.getFilename();
         }
-        Resource resource = loader.getResource(location);
-        if (!resource.exists()) {
-            throw new IOException("Unable to locate " + location);
-        }
-        return resource.getFilename();
     }
 }
