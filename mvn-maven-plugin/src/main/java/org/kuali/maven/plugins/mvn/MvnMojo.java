@@ -60,6 +60,15 @@ public class MvnMojo extends AbstractMojo {
     private File workingDir;
 
     /**
+     * The base directory for the new mvn invocation.
+     *
+     * @parameter expression="${mvn.basedir}" default-value="${project.basedir}"
+     *
+     * @required
+     */
+    private File basedir;
+
+    /**
      * The Maven executable. Located via the ${maven.home} system property by default. This causes the new mvn
      * invocation to mirror the one that is currently executing (same version, etc). You can override this behavior by
      * supplying your own executable
@@ -69,7 +78,7 @@ public class MvnMojo extends AbstractMojo {
     private String executable;
 
     /**
-     * The pom to supply to the mvn invocation. This can be a file or any url Spring resource loading can understand
+     * The pom to supply to the new mvn invocation. This can be a file or any url Spring resource loading can understand
      *
      * eg classpath:pom.xml
      *
@@ -78,14 +87,14 @@ public class MvnMojo extends AbstractMojo {
     private String pom;
 
     /**
-     * If true, the pom will be filtered using properties from the current project BEFORE mvn is invoked on it
+     * If true, the pom will be filtered using properties from the current project before being invoked
      *
      * @parameter expression="${mvn.filterPom}" default-value="false"
      */
     private boolean filterPom;
 
     /**
-     * Arguments to supply to the mvn invocation eg "clean install"
+     * Arguments to supply to the new mvn invocation eg "clean install"
      *
      * @parameter
      * @required
@@ -93,29 +102,29 @@ public class MvnMojo extends AbstractMojo {
     private List<String> args;
 
     /**
-     * List of properties from the current project to propagate to the mvn invocation
+     * List of properties from the current project to propagate to the new mvn invocation
      *
      * @parameter
      */
     private List<String> properties;
 
     /**
-     * If true, the current environment is passed to the mvn invocation
+     * If true, the current environment is passed to the new mvn invocation
      *
-     * @parameter expression="${mvn.addSystemEnvironment}" default-value="false"
+     * @parameter expression="${mvn.addEnvironment}" default-value="false"
      */
-    private boolean addSystemEnvironment;
+    private boolean addEnvironment;
 
     /**
-     * If true, the environment variable MAVEN_OPTS is passed to the mvn invocation (if it is set)
+     * If true, the environment variable MAVEN_OPTS (if set) is passed to the new mvn invocation
      *
      * @parameter expression="${mvn.addMavenOpts}" default-value="true"
      */
     private boolean addMavenOpts;
 
     /**
-     * If true, the original Maven build will fail if the mvn invocation returns a non-zero exit value, otherwise the
-     * Maven build will continue
+     * If true, the original Maven build will fail if the new mvn invocation returns a non-zero exit value, otherwise
+     * the Maven build will continue
      *
      * @parameter expression="${mvn.failOnError}" default-value="true"
      * @required
@@ -141,8 +150,8 @@ public class MvnMojo extends AbstractMojo {
     protected Commandline getCommandLine() throws Exception {
         Commandline cl = new Commandline();
         cl.setExecutable(executable);
-        cl.setWorkingDirectory(workingDir);
-        if (addSystemEnvironment) {
+        cl.setWorkingDirectory(basedir);
+        if (addEnvironment) {
             cl.addSystemEnvironment();
         }
         addMavenOpts(cl);
@@ -276,12 +285,12 @@ public class MvnMojo extends AbstractMojo {
         this.executable = executable;
     }
 
-    public boolean isAddSystemEnvironment() {
-        return addSystemEnvironment;
+    public boolean isAddEnvironment() {
+        return addEnvironment;
     }
 
-    public void setAddSystemEnvironment(boolean addSystemEnvironment) {
-        this.addSystemEnvironment = addSystemEnvironment;
+    public void setAddEnvironment(boolean addSystemEnvironment) {
+        this.addEnvironment = addSystemEnvironment;
     }
 
     public List<String> getProperties() {
@@ -306,6 +315,14 @@ public class MvnMojo extends AbstractMojo {
 
     public void setAddMavenOpts(boolean addMavenOpts) {
         this.addMavenOpts = addMavenOpts;
+    }
+
+    public File getBasedir() {
+        return basedir;
+    }
+
+    public void setBasedir(File basedir) {
+        this.basedir = basedir;
     }
 
 }
