@@ -48,6 +48,11 @@
             <goals>
               <goal>mvn</goal>
             </goals>
+            <configuration>
+              <args>
+                <arg>-v</arg>
+              </args>
+            </configuration>
           </execution>
         </executions>
       </plugin>
