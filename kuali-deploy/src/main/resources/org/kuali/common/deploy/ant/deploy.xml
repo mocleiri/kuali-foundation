@@ -289,16 +289,10 @@
     </antcall>
   </target>
   <target name="filter-poms">
-    <antcall target="filter-pom">
-      <param name="pom.package" value="org/kuali/common/deploy/mvn/deployer" />
-    </antcall>
-    <antcall target="filter-pom">
-      <param name="pom.package" value="org/kuali/common/deploy/mvn/impex" />
-    </antcall>
-  </target>
-  <target name="filter-pom">
-    <copy todir="${project.build.directory}/classes/${pom.package}" overwrite="true">
-      <fileset dir="src/main/resources/${pom.package}" />
+    <copy todir="${project.build.directory}/classes" overwrite="true">
+      <fileset dir="src/main/resources">
+        <include name="**/pom.xml" />
+      </fileset>
       <filterset begintoken="${" endtoken="}">
         <filter token="project.groupId" value="${project.groupId}" />
         <filter token="project.artifactId" value="${project.artifactId}" />
