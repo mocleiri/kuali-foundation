@@ -32,6 +32,8 @@ import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.maven.common.ResourceUtils;
 
 /**
+ * Invoke mvn from Maven
+ *
  * @goal mvn
  */
 public class MvnMojo extends AbstractMojo {
