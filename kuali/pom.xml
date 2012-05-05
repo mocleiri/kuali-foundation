@@ -31,6 +31,9 @@
     Kuali is a growing community of universities, colleges, and commercial firms partnering 
     to build and sustain open-source software for higher education, by higher education.
   </description>
+  <modules>
+    <module>kuali-common</module>
+  </modules>
   <licenses>
     <license>
       <name>Educational Community License, Version 2.0</name>

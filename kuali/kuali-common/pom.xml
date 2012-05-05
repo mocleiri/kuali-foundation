@@ -41,6 +41,9 @@
       <timezone>-7</timezone>
     </developer>
   </developers>
+  <modules>
+    <module>kuali-maven</module>
+  </modules>
   <properties>
     <checkstyle.console>true</checkstyle.console>
     <checkstyle.config.location>org/kuali/cm/checkstyle/kuali-sun.xml</checkstyle.config.location>
