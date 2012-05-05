@@ -143,6 +143,7 @@ public class MvnMojo extends AbstractMojo {
         if (StringUtils.isBlank(pom)) {
             return;
         }
+        getLog().info("POM: " + pom);
         String s = resourceUtils.read(pom);
         if (filterPom) {
             Properties props = getAllProperties();
@@ -150,7 +151,6 @@ public class MvnMojo extends AbstractMojo {
         }
         File file = File.createTempFile("pom.", ".xml", workingDir);
         resourceUtils.write(file.getCanonicalPath(), s);
-        getLog().info("POM: " + pom);
         Arg arg1 = cl.createArg();
         Arg arg2 = cl.createArg();
         arg1.setValue("-f");
