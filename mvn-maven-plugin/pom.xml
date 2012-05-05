@@ -27,10 +27,8 @@
   <artifactId>mvn-maven-plugin</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <name>Mvn Maven Plugin</name>
-  <description>
-  Invoke mvn from inside Maven
-  </description>
+  <name>mvn Maven Plugin</name>
+  <description>Invoke mvn from Maven</description>
   <inceptionYear>2011</inceptionYear>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <properties>
