@@ -307,10 +307,9 @@
     </copy>
   </target>
   <target name="rsync">
-    <echo>rsync -a --stats --delete ${rsync.src} ${rsync.dst}</echo>
+    <echo>rsync -a --delete ${rsync.src} ${rsync.dst}</echo>
     <exec executable="rsync" failonerror="true">
       <arg value="-a" />
-      <arg value="--stats" />
       <arg value="--delete" />
       <arg value="${rsync.src}" />
       <arg value="${rsync.dst}" />
