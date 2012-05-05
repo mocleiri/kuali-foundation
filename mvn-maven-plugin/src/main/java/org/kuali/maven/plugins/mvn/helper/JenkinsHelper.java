@@ -33,20 +33,8 @@ import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.Extractor;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
-import org.kuali.maven.plugins.mvn.BaseMojo;
-import org.kuali.maven.plugins.mvn.CliMojo;
 import org.kuali.maven.plugins.mvn.Command;
-import org.kuali.maven.plugins.mvn.DeleteJobMojo;
-import org.kuali.maven.plugins.mvn.DeleteJobsMojo;
-import org.kuali.maven.plugins.mvn.GenJobMojo;
-import org.kuali.maven.plugins.mvn.GenJobsMojo;
-import org.kuali.maven.plugins.mvn.GetJobMojo;
-import org.kuali.maven.plugins.mvn.GetJobsMojo;
-import org.kuali.maven.plugins.mvn.PushJobsMojo;
-import org.kuali.maven.plugins.mvn.RunJobCommand;
-import org.kuali.maven.plugins.mvn.RunJobMojo;
-import org.kuali.maven.plugins.mvn.RunJobsMojo;
-import org.kuali.maven.plugins.mvn.SimpleJobCommand;
+import org.kuali.maven.plugins.mvn.MvnMojo;
 import org.kuali.maven.plugins.mvn.context.GAV;
 import org.kuali.maven.plugins.mvn.context.MvnException;
 import org.kuali.maven.plugins.mvn.context.ProcessContext;
@@ -70,7 +58,6 @@ public class JenkinsHelper {
     PropertiesUtils propertiesUtils = new PropertiesUtils();
     ResourceUtils resourceUtils = new ResourceUtils();
     JavaHelper javaHelper = new JavaHelper();
-    CommandHelper cmdHelper = new CommandHelper();
 
     protected List<String> getNamesList(String csvNames, List<String> names) {
         if (!Helper.isEmpty(names)) {
@@ -80,7 +67,7 @@ public class JenkinsHelper {
         }
     }
 
-    protected List<String> getJobNames(BaseMojo mojo, String csvNames, List<String> names) {
+    protected List<String> getJobNames(MvnMojo mojo, String csvNames, List<String> names) {
         List<String> namesList = getNamesList(csvNames, names);
         List<String> newNames = new ArrayList<String>();
         for (String name : namesList) {
@@ -90,19 +77,7 @@ public class JenkinsHelper {
         return newNames;
     }
 
-    public void execute(GetJobMojo mojo) {
-        List<String> jobNames = getJobNames(mojo, mojo.getName(), null);
-        List<Command> commands = createGetJobCommands(mojo, mojo.getCmd(), jobNames);
-        executeCli(mojo, commands);
-    }
-
-    public void execute(GetJobsMojo mojo) {
-        List<String> jobNames = getJobNames(mojo, mojo.getNames(), mojo.getNameList());
-        List<Command> commands = createGetJobCommands(mojo, mojo.getCmd(), jobNames);
-        executeCli(mojo, commands);
-    }
-
-    protected List<Command> createGetJobCommands(BaseMojo mojo, String cmd, List<String> jobNames) {
+    protected List<Command> createGetJobCommands(MvnMojo mojo, String cmd, List<String> jobNames) {
         List<Command> commands = new ArrayList<Command>();
         for (String jobName : jobNames) {
             Command command = createGetJobCommand(mojo, cmd, jobName);
@@ -111,7 +86,7 @@ public class JenkinsHelper {
         return commands;
     }
 
-    protected Command createGetJobCommand(BaseMojo mojo, String cmd, String jobName) {
+    protected Command createGetJobCommand(MvnMojo mojo, String cmd, String jobName) {
         String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
         String[] args = { cmd, jobName };
         Command command = new Command();
@@ -194,7 +169,7 @@ public class JenkinsHelper {
         return Arrays.asList(files);
     }
 
-    protected void pushJobs(BaseMojo mojo, String cmd) {
+    protected void pushJobs(MvnMojo mojo, String cmd) {
         try {
             List<Command> commands = getCommands(mojo.getWorkingDir(), cmd);
             executeCli(mojo, commands);
@@ -260,12 +235,12 @@ public class JenkinsHelper {
         return Helper.toArray(list);
     }
 
-    protected int[] getSuccessCodes(BaseMojo mojo) {
+    protected int[] getSuccessCodes(MvnMojo mojo) {
         String csv = mojo.getSuccessCodes();
         return Helper.toIntArray(csv);
     }
 
-    protected void handleResult(Command command, ProcessResult result, BaseMojo mojo) {
+    protected void handleResult(Command command, ProcessResult result, MvnMojo mojo) {
         int[] successCodes = getSuccessCodes(mojo);
         int exitValue = result.getExitValue();
         if (Helper.isMatch(exitValue, successCodes)) {
@@ -307,7 +282,7 @@ public class JenkinsHelper {
         return null;
     }
 
-    protected void handleFailure(BaseMojo mojo, ProcessResult result) {
+    protected void handleFailure(MvnMojo mojo, ProcessResult result) {
         if (mojo.isStopOnError()) {
             logger.error("Jenkins CLI Exception:" + getErrorMessage(mojo, result));
             throw new MvnException("Jenkins CLI Exception");
@@ -320,7 +295,7 @@ public class JenkinsHelper {
         }
     }
 
-    protected void handleSuccess(BaseMojo mojo, Command command, ProcessResult result) {
+    protected void handleSuccess(MvnMojo mojo, Command command, ProcessResult result) {
         File stdout = command.getStdout();
         if (stdout != null) {
             write(stdout.getAbsolutePath(), result.getOutput());
@@ -358,17 +333,7 @@ public class JenkinsHelper {
         return buildParameters;
     }
 
-    protected RunJobCommand getRunJobCommand(RunJobMojo mojo, String jobName, Map<String, String> params) {
-        RunJobCommand rjc = new RunJobCommand();
-        rjc.setName(jobName);
-        rjc.setParams(params);
-        rjc.setCommand(mojo.getCmd());
-        rjc.setWait(mojo.isWait());
-        rjc.setSkipIfNoChanges(mojo.isSkipIfNoChanges());
-        return rjc;
-    }
-
-    public void updateMojo(BaseMojo mojo) {
+    public void updateMojo(MvnMojo mojo) {
         MavenProject project = mojo.getProject();
         String scmType = extractor.getScmType(project.getScm());
         String scmUrl = extractor.getScmUrl(project.getScm());
@@ -385,106 +350,11 @@ public class JenkinsHelper {
         }
     }
 
-    public void execute(DeleteJobMojo mojo) {
-        String ignoreCodes = mojo.getIgnoreCodes();
-        String successCodes = mojo.getSuccessCodes();
-        String newSuccessCodes = successCodes + "," + ignoreCodes;
-        mojo.setSuccessCodes(newSuccessCodes);
-        String jobName = getJobName(mojo, mojo.getName());
-        SimpleJobCommand sjc = getSimpleJobCommand(jobName, mojo.getCmd());
-        Command command = new Command();
-        command.setArgs(cmdHelper.toArgs(sjc));
-        executeCli(mojo, command);
-    }
-
-    protected List<SimpleJobCommand> getSimpleJobCommands(List<String> names, String cmd) {
-        List<SimpleJobCommand> commands = new ArrayList<SimpleJobCommand>();
-        for (String name : names) {
-            SimpleJobCommand sjc = getSimpleJobCommand(name, cmd);
-            commands.add(sjc);
-        }
-        return commands;
-    }
-
-    protected SimpleJobCommand getSimpleJobCommand(String name, String cmd) {
-        SimpleJobCommand sjc = new SimpleJobCommand();
-        sjc.setName(name);
-        sjc.setCommand(cmd);
-        return sjc;
-    }
-
-    public void execute(DeleteJobsMojo mojo) {
-        String ignoreCodes = mojo.getIgnoreCodes();
-        String successCodes = mojo.getSuccessCodes();
-        String newSuccessCodes = successCodes + "," + ignoreCodes;
-        mojo.setSuccessCodes(newSuccessCodes);
-        List<String> jobNames = getJobNames(mojo, mojo.getNames(), mojo.getNameList());
-        List<SimpleJobCommand> sjcs = getSimpleJobCommands(jobNames, mojo.getCmd());
-        List<Command> commands = getCommandsFromSimple(sjcs);
-        executeCli(mojo, commands);
-    }
-
-    public void execute(RunJobMojo mojo) {
-        String jobName = getJobName(mojo, mojo.getName());
-        Map<String, String> params = getBuildParameters(mojo.getParamMap(), mojo.getParams());
-        RunJobCommand rjc = getRunJobCommand(mojo, jobName, params);
-        Command command = new Command();
-        command.setArgs(cmdHelper.toArgs(rjc));
-        executeCli(mojo, command);
-    }
-
-    protected void updateCommands(List<RunJobCommand> commands, String cmd, BaseMojo mojo) {
-        for (RunJobCommand command : commands) {
-            String name = getJobName(mojo, command.getName());
-            command.setName(name);
-            command.setCommand(cmd);
-        }
-    }
-
-    protected List<Command> getCommandsFromSimple(List<SimpleJobCommand> sjcs) {
-        List<Command> commands = new ArrayList<Command>();
-        for (SimpleJobCommand sjc : sjcs) {
-            Command command = new Command();
-            command.setArgs(cmdHelper.toArgs(sjc));
-            commands.add(command);
-        }
-        return commands;
-    }
-
-    protected List<Command> getCommands(List<RunJobCommand> rjcs) {
-        List<Command> commands = new ArrayList<Command>();
-        for (RunJobCommand rjc : rjcs) {
-            Command command = new Command();
-            command.setArgs(cmdHelper.toArgs(rjc));
-            commands.add(command);
-        }
-        return commands;
-    }
-
-    public void execute(RunJobsMojo mojo) {
-        // nothing to do
-        if (Helper.isEmpty(mojo.getCommands())) {
-            return;
-        }
-        updateCommands(mojo.getCommands(), mojo.getCmd(), mojo);
-        List<Command> commands = getCommands(mojo.getCommands());
-        executeCli(mojo, commands);
-    }
-
-    public void execute(PushJobsMojo mojo) {
-        pushJobs(mojo, mojo.getCmd());
-    }
-
-    public void execute(CliMojo mojo) {
-        List<Command> cmds = cmdHelper.getCommands(mojo);
-        executeCli(mojo, cmds);
-    }
-
-    protected void executeCli(BaseMojo mojo, Command command) {
+    protected void executeCli(MvnMojo mojo, Command command) {
         executeCli(mojo, Helper.toList(command));
     }
 
-    protected void executeCli(BaseMojo mojo, List<Command> commands) {
+    protected void executeCli(MvnMojo mojo, List<Command> commands) {
         File jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
         String url = mojo.getUrl();
         logger.info("Jenkins CLI: " + jar.getPath());
@@ -499,7 +369,7 @@ public class JenkinsHelper {
         handleResults(results, mojo);
     }
 
-    protected void handleResults(List<ProcessResult> results, BaseMojo mojo) {
+    protected void handleResults(List<ProcessResult> results, MvnMojo mojo) {
         int[] successCodes = getSuccessCodes(mojo);
         List<ProcessResult> errors = new ArrayList<ProcessResult>();
         for (ProcessResult result : results) {
@@ -529,7 +399,7 @@ public class JenkinsHelper {
         return sb.toString();
     }
 
-    protected String getErrorMessage(BaseMojo mojo, List<ProcessResult> errors) {
+    protected String getErrorMessage(MvnMojo mojo, List<ProcessResult> errors) {
         StringBuilder sb = new StringBuilder();
         if (errors.size() == 1) {
             sb.append("There was 1 error.");
@@ -542,7 +412,7 @@ public class JenkinsHelper {
         return sb.toString();
     }
 
-    protected String getErrorMessage(BaseMojo mojo, ProcessResult result) {
+    protected String getErrorMessage(MvnMojo mojo, ProcessResult result) {
         ProcessContext context = result.getContext();
         int exitValue = result.getExitValue();
         String top = getTop(result.getOutputLines());
@@ -561,7 +431,7 @@ public class JenkinsHelper {
         return sb.toString();
     }
 
-    protected String getInputErrorMessage(BaseMojo mojo, String input) {
+    protected String getInputErrorMessage(MvnMojo mojo, String input) {
         String s = Helper.toEmpty(input);
         if (StringUtils.isBlank(s)) {
             return s;
@@ -579,22 +449,13 @@ public class JenkinsHelper {
         }
     }
 
-    public void execute(GenJobsMojo mojo) {
-        List<String> types = Helper.splitAndTrimCSVToList(mojo.getTypes());
-        generateJobs(mojo, types);
-    }
-
-    public void execute(GenJobMojo mojo) {
-        generateJob(mojo, mojo.getType());
-    }
-
-    protected void generateJobs(BaseMojo mojo, List<String> types) {
+    protected void generateJobs(MvnMojo mojo, List<String> types) {
         for (String type : types) {
             generateJob(mojo, type);
         }
     }
 
-    protected String getRelativePath(BaseMojo mojo, String filename) {
+    protected String getRelativePath(MvnMojo mojo, String filename) {
         File dir = mojo.getProject().getBasedir();
         File file = new File(filename);
         String relativePath = Helper.getRelativePath(dir, file);
@@ -605,7 +466,7 @@ public class JenkinsHelper {
         }
     }
 
-    protected void generateJob(BaseMojo mojo, String type) {
+    protected void generateJob(MvnMojo mojo, String type) {
         try {
             String jobName = getJobName(mojo, type);
             String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
@@ -620,7 +481,7 @@ public class JenkinsHelper {
         }
     }
 
-    protected boolean isKnownJobType(BaseMojo mojo, String name) {
+    protected boolean isKnownJobType(MvnMojo mojo, String name) {
         String jobTypes = mojo.getJobTypes();
         if (StringUtils.isBlank(jobTypes)) {
             return false;
@@ -632,7 +493,7 @@ public class JenkinsHelper {
         return jobTypesList.contains(name);
     }
 
-    protected String getJobName(BaseMojo mojo, String name) {
+    protected String getJobName(MvnMojo mojo, String name) {
         if (isKnownJobType(mojo, name)) {
             StringBuilder sb = new StringBuilder();
             sb.append(mojo.getProject().getArtifactId());
@@ -646,7 +507,7 @@ public class JenkinsHelper {
         }
     }
 
-    protected Properties getProperties(BaseMojo mojo, String type, String timestampFormat) throws IOException {
+    protected Properties getProperties(MvnMojo mojo, String type, String timestampFormat) throws IOException {
 
         List<String> locations = getLocations(mojo, type);
         Properties resourceProperties = propertiesUtils.getProperties(locations);
@@ -664,7 +525,7 @@ public class JenkinsHelper {
         return properties;
     }
 
-    protected Properties getJenkinsProperties(BaseMojo mojo, String timestampFormat) {
+    protected Properties getJenkinsProperties(MvnMojo mojo, String timestampFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat(timestampFormat);
         Date now = new Date(System.currentTimeMillis());
         MavenProject project = mojo.getProject();
@@ -678,7 +539,7 @@ public class JenkinsHelper {
         return properties;
     }
 
-    protected List<String> getLocations(BaseMojo mojo, String type) {
+    protected List<String> getLocations(MvnMojo mojo, String type) {
         List<String> locations = new ArrayList<String>();
         locations.add("classpath:org/kuali/jenkins/jobs/properties/common.xml");
         locations.add("classpath:org/kuali/jenkins/jobs/properties/" + mojo.getScmType() + XML_EXTENSION);

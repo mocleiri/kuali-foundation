@@ -26,7 +26,7 @@ import org.kuali.maven.plugins.mvn.helper.JenkinsHelper;
 /**
  *
  */
-public abstract class BaseMojo extends AbstractMojo {
+public abstract class MvnMojo extends AbstractMojo {
     JenkinsHelper helper = new JenkinsHelper();
 
     /**
