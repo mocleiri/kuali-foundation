@@ -19,7 +19,13 @@ import java.io.File;
 import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.cli.CommandLineException;
+import org.codehaus.plexus.util.cli.CommandLineUtils;
+import org.codehaus.plexus.util.cli.Commandline;
+import org.codehaus.plexus.util.cli.DefaultConsumer;
+import org.codehaus.plexus.util.cli.StreamConsumer;
 
 /**
  * @goal mvn
@@ -67,8 +73,27 @@ public class MvnMojo extends AbstractMojo {
      */
     private boolean failOnError;
 
+    protected boolean isFail(int exitValue) {
+        return exitValue != 0 && failOnError;
+    }
+
     @Override
-    public void execute() {
+    public void execute() throws MojoExecutionException {
+        try {
+            StreamConsumer stdout = new DefaultConsumer();
+            StreamConsumer stderr = new DefaultConsumer();
+            Commandline cli = new Commandline();
+            cli.setExecutable("mvn");
+            Commandline.Argument arg = new Commandline.Argument();
+            arg.setValue("-v");
+            cli.addArg(arg);
+            int exitValue = CommandLineUtils.executeCommandLine(cli, stdout, stderr);
+            if (isFail(exitValue)) {
+                throw new MojoExecutionException("Non-zero exit value for mvn");
+            }
+        } catch (CommandLineException e) {
+            throw new MojoExecutionException("Error invoking mvn", e);
+        }
     }
 
     public File getWorkingDir() {
