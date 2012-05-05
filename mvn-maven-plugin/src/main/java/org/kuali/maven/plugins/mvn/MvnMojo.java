@@ -101,6 +101,7 @@ public class MvnMojo extends AbstractMojo {
             StreamConsumer stdout = new DefaultConsumer();
             StreamConsumer stderr = new DefaultConsumer();
             Commandline cl = getCommandLine();
+            getLog().info("Invoking " + cl.toString());
             exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
         } catch (Exception e) {
             throw new MojoExecutionException("Error invoking mvn", e);
