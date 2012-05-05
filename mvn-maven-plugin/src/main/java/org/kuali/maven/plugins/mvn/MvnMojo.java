@@ -100,14 +100,14 @@ public class MvnMojo extends AbstractMojo {
     private List<String> properties;
 
     /**
-     * If true, the System environment is passed to the mvn invocation
+     * If true, the current environment is passed to the mvn invocation
      *
      * @parameter expression="${mvn.addSystemEnvironment}" default-value="false"
      */
     private boolean addSystemEnvironment;
 
     /**
-     * If true, the System environment variable MAVEN_OPTS is passed to the mvn invocation (if it is set)
+     * If true, the environment variable MAVEN_OPTS is passed to the mvn invocation (if it is set)
      *
      * @parameter expression="${mvn.addMavenOpts}" default-value="true"
      */
