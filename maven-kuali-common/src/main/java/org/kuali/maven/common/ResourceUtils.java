@@ -80,11 +80,13 @@ public class ResourceUtils {
     /**
      * Write the string to the file system
      */
-    public void write(String filename, String contents) throws IOException {
+    public File write(String filename, String contents) throws IOException {
         OutputStream out = null;
         try {
-            out = FileUtils.openOutputStream(new File(filename));
+            File file = new File(filename);
+            out = FileUtils.openOutputStream(file);
             IOUtils.write(contents, out);
+            return file;
         } finally {
             IOUtils.closeQuietly(out);
         }
