@@ -19,7 +19,8 @@ import java.io.File;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.kuali.maven.plugins.jenkins.context.ProcessResult;
+import org.kuali.maven.plugins.mvn.context.ProcessResult;
+import org.kuali.maven.plugins.mvn.helper.JavaHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
