@@ -33,7 +33,7 @@ import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
 
 /**
- * Invoke mvn from Maven
+ * Invoke mvn from Maven. The default behavior is to use the ${maven.home} system property to look up the corresponding
  *
  * @goal mvn
  */
@@ -50,7 +50,7 @@ public class MvnMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     * The working directory for the plugin
+     * The working directory where the plugin makes a local copy of the pom (if a pom is supplied)
      *
      * @parameter expression="${mvn.workingDir}" default-value="${project.build.directory}/mvn"
      * @required
@@ -58,10 +58,11 @@ public class MvnMojo extends AbstractMojo {
     private File workingDir;
 
     /**
-     * The Maven executable
+     * The Maven executable. The Maven executable to use, is located using the ${maven.home} system property by default.
+     * The default causes the mvn invocation to mirror the one that is currently executing (same version, etc). You can
+     * override this behavior by supplying your own executable
      *
-     * @parameter expression="${mvn.executable}" default-value="mvn"
-     * @required
+     * @parameter expression="${mvn.executable}"
      */
     private String executable;
 
