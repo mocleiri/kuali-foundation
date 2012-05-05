@@ -18,6 +18,7 @@ package org.kuali.maven.plugins.mvn;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -29,6 +30,7 @@ import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.DefaultConsumer;
 import org.codehaus.plexus.util.cli.StreamConsumer;
+import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
 
 /**
@@ -37,6 +39,8 @@ import org.kuali.maven.common.ResourceUtils;
  * @goal mvn
  */
 public class MvnMojo extends AbstractMojo {
+    ResourceUtils resourceUtils = new ResourceUtils();
+    PropertiesUtils propertiesUtils = new PropertiesUtils();
 
     /**
      * The Maven project object
@@ -70,6 +74,13 @@ public class MvnMojo extends AbstractMojo {
      * @parameter expression="${mvn.pom}"
      */
     private String pom;
+
+    /**
+     * If true, the pom will be filtered using properties from the current project
+     *
+     * @parameter expression="${mvn.filter}"
+     */
+    private boolean filter;
 
     /**
      * Arguments to supply to the mvn invocation
@@ -118,14 +129,27 @@ public class MvnMojo extends AbstractMojo {
         validateExitValue(exitValue);
     }
 
+    protected Properties getAllProperties() {
+        Properties props = new Properties();
+        props.putAll(project.getProperties());
+        props = propertiesUtils.getEnvironmentProperties();
+        props.putAll(System.getProperties());
+        return props;
+
+    }
+
     protected void prepareFileSystem(Commandline cl) throws IOException {
         FileUtils.forceMkdir(workingDir);
         if (StringUtils.isBlank(pom)) {
             return;
         }
-        ResourceUtils ru = new ResourceUtils();
+        String s = resourceUtils.read(pom);
+        if (filter) {
+            Properties props = getAllProperties();
+            s = propertiesUtils.getResolvedValue(s, props);
+        }
         File file = File.createTempFile("pom.", ".xml", workingDir);
-        ru.copy(pom, file.getCanonicalPath());
+        resourceUtils.write(file.getCanonicalPath(), s);
         getLog().info("POM: " + pom);
         Arg arg1 = cl.createArg();
         Arg arg2 = cl.createArg();
@@ -250,6 +274,14 @@ public class MvnMojo extends AbstractMojo {
 
     public void setProperties(List<String> properties) {
         this.properties = properties;
+    }
+
+    public boolean isFilter() {
+        return filter;
+    }
+
+    public void setFilter(boolean filter) {
+        this.filter = filter;
     }
 
 }
