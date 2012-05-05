@@ -30,13 +30,4 @@
   <description>
    This pom contains common configuration (plugins, profiles, executions, etc) for authoring Maven related tools
   </description>
-  <developers>
-    <developer>
-      <id>jcaddel</id>
-      <name>Jeff Caddel</name>
-      <email>jcaddel@kuali.org</email>
-      <organization>rSmart</organization>
-      <timezone>-7</timezone>
-    </developer>
-  </developers>
 </project>
