@@ -62,13 +62,15 @@ public class ResourceUtils {
     /**
      * Copy a URL location to the local file system
      */
-    public void copy(String location, String filename) throws IOException {
+    public File copy(String location, String filename) throws IOException {
         InputStream in = null;
         OutputStream out = null;
         try {
+            File file = new File(filename);
             in = getInputStream(location);
-            out = FileUtils.openOutputStream(new File(filename));
+            out = FileUtils.openOutputStream(file);
             IOUtils.copy(in, out);
+            return file;
         } finally {
             IOUtils.closeQuietly(in);
             IOUtils.closeQuietly(out);
