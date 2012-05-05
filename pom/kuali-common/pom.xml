@@ -127,7 +127,7 @@
     <plugin.jxr.version>2.3</plugin.jxr.version>
     <plugin.plugin.version>2.7</plugin.plugin.version>
     <plugin.pmd.version>2.5</plugin.pmd.version>
-    <plugin.mvn.version>1.0.0</plugin.mvn.version>
+    <plugin.mvn.version>1.0.1</plugin.mvn.version>
 
   </properties>
   <repositories>
