@@ -41,6 +41,9 @@
       </and>
     </condition>
     <fail unless="copyconfig.property">Missing local.config.dir or remote.config.dir</fail>
+    <antcall target="mkdir">
+      <param name="remote.dir" value="${remote.config.dir}" />
+    </antcall>
     <antcall target="rsync">
       <param name="rsync.src" value="${local.config.dir}" />
       <param name="rsync.dst" value="${secure.user}@${deploy.server}:${remote.config.dir}" />
