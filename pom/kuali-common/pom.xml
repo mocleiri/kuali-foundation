@@ -155,7 +155,7 @@
       <!-- Deploys Kuali applications to a live environment (currently supports deploying Rice and KS applications to EC2) -->
       <id>deploy</id>
       <properties>
-        <kuali-deploy.version>1.0.1</kuali-deploy.version>
+        <kuali-deploy.version>1.0.2</kuali-deploy.version>
         <deploy.groupId>${project.groupId}</deploy.groupId>
         <deploy.artifactId>${project.artifactId}</deploy.artifactId>
         <deploy.version>${project.version}</deploy.version>
