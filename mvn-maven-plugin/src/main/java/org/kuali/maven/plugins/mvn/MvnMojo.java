@@ -137,7 +137,35 @@ public class MvnMojo extends AbstractMojo {
             cl.addSystemEnvironment();
         }
         addArgs(cl, args);
+        addProperties(cl, properties);
         return cl;
+    }
+
+    protected void addProperties(Commandline cl, List<String> properties) {
+        if (properties == null || properties.size() == 0) {
+            return;
+        }
+        for (String key : properties) {
+            String value = getProperty(key);
+            addProperty(cl, key, value);
+        }
+    }
+
+    protected void addProperty(Commandline cl, String key, String value) {
+        if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
+            return;
+        }
+        Arg arg = cl.createArg();
+        arg.setValue("-D" + key + "=" + value);
+    }
+
+    protected String getProperty(String key) {
+        String sys = System.getProperty(key);
+        if (!StringUtils.isBlank(sys)) {
+            return sys;
+        } else {
+            return project.getProperties().getProperty(key);
+        }
     }
 
     protected void addArgs(Commandline cl, List<String> args) {
