@@ -15,26 +15,26 @@
  */
 package org.kuali.maven.plugins.mvn.context;
 
-public class JenkinsException extends RuntimeException {
+public class MvnException extends RuntimeException {
 
     /**
      *
      */
     private static final long serialVersionUID = 3462717504491983361L;
 
-    public JenkinsException() {
+    public MvnException() {
         super();
     }
 
-    public JenkinsException(String message) {
+    public MvnException(String message) {
         super(message);
     }
 
-    public JenkinsException(Throwable exception) {
+    public MvnException(Throwable exception) {
         super(exception);
     }
 
-    public JenkinsException(String message, Throwable exception) {
+    public MvnException(String message, Throwable exception) {
         super(message, exception);
     }
 
