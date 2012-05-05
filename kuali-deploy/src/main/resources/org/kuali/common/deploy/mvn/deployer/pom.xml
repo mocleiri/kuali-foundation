@@ -349,12 +349,12 @@
               </execution>
             </executions>
           </plugin>
-          <!-- Using Ant for this as the maven-scm-plugin can't deal with the @[revision] syntax -->
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>ant-maven-plugin</artifactId>
             <executions>
               <execution>
+                <!-- Using Ant for this as the maven-scm-plugin can't deal with the @[revision] syntax -->
                 <id>checkout</id>
                 <phase>initialize</phase>
                 <goals>
@@ -363,6 +363,18 @@
                 <configuration>
                   <file>${ant.file}</file>
                   <target>${ant.download.target}</target>
+                </configuration>
+              </execution>
+              <!-- This executes after maven-impex-plugin, but before maven-http-plugin -->
+              <execution>
+                <id>deploy</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <file>${ant.file}</file>
+                  <target>${ant.deploy.target}</target>
                 </configuration>
               </execution>
             </executions>
@@ -411,23 +423,6 @@
                 <configuration>
                   <schemaIncludes>${impex.schema.name}.xml</schemaIncludes>
                   <dataDTD>${project.build.directory}/generated-impex/${impex.schema.name}.dtd</dataDTD>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>ant-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>deploy</id>
-                <phase>process-resources</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-                <configuration>
-                  <file>${ant.file}</file>
-                  <target>${ant.deploy.target}</target>
                 </configuration>
               </execution>
             </executions>
