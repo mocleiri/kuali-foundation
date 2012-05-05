@@ -77,12 +77,12 @@ public class MvnMojo extends AbstractMojo {
     /**
      * If true, the pom will be filtered using properties from the current project BEFORE mvn is invoked on it
      *
-     * @parameter expression="${mvn.filterPom}"
+     * @parameter expression="${mvn.filterPom}" default-value="false"
      */
     private boolean filterPom;
 
     /**
-     * Arguments to supply to the mvn invocation
+     * Arguments to supply to the mvn invocation eg "clean install"
      *
      * @parameter
      * @required
