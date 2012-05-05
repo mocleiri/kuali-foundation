@@ -129,13 +129,16 @@ public class MvnMojo extends AbstractMojo {
         validateExitValue(exitValue);
     }
 
-    protected Properties getAllProperties() {
-        Properties props = new Properties();
-        props.putAll(project.getProperties());
-        props = propertiesUtils.getEnvironmentProperties();
-        props.putAll(System.getProperties());
-        return props;
-
+    protected Commandline getCommandLine() throws Exception {
+        Commandline cl = new Commandline();
+        cl.setExecutable(executable);
+        cl.setWorkingDirectory(workingDir);
+        if (addSystemEnvironment) {
+            cl.addSystemEnvironment();
+        }
+        addArgs(cl, args);
+        addProperties(cl, properties);
+        return cl;
     }
 
     protected void prepareFileSystem(Commandline cl) throws IOException {
@@ -157,16 +160,13 @@ public class MvnMojo extends AbstractMojo {
         arg2.setValue(file.getName());
     }
 
-    protected Commandline getCommandLine() throws Exception {
-        Commandline cl = new Commandline();
-        cl.setExecutable(executable);
-        cl.setWorkingDirectory(workingDir);
-        if (addSystemEnvironment) {
-            cl.addSystemEnvironment();
-        }
-        addArgs(cl, args);
-        addProperties(cl, properties);
-        return cl;
+    protected Properties getAllProperties() {
+        Properties props = new Properties();
+        props.putAll(project.getProperties());
+        props = propertiesUtils.getEnvironmentProperties();
+        props.putAll(System.getProperties());
+        return props;
+
     }
 
     protected void addArgs(Commandline cl, List<String> args) {
