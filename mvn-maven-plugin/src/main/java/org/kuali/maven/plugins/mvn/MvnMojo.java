@@ -41,6 +41,8 @@ public class MvnMojo extends AbstractMojo {
     ResourceUtils resourceUtils = new ResourceUtils();
     PropertiesUtils propertiesUtils = new PropertiesUtils();
 
+    private static final String MAVEN_OPTS = "MAVEN_OPTS";
+
     /**
      * The Maven project object
      *
