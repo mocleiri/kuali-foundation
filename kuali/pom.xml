@@ -194,7 +194,7 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
-  <url>http://${kuali.site.hostname}/pom/${project.version}</url>
+  <url>http://${kuali.site.hostname}/pom/${project.artifactId}/${project.version}</url>
   <distributionManagement>
     <downloadUrl>${kuali.site.download.url}</downloadUrl>
     <site>
