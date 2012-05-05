@@ -67,7 +67,7 @@ public class MvnMojo extends AbstractMojo {
     private String executable;
 
     /**
-     * The pom to supply to the mvn invocation. This can be a file or any url Spring resource loading can understand <br>
+     * The pom to supply to the mvn invocation. This can be a file or any url Spring resource loading can understand
      *
      * eg classpath:pom.xml
      *
@@ -76,7 +76,7 @@ public class MvnMojo extends AbstractMojo {
     private String pom;
 
     /**
-     * If true, the pom will be filtered using properties from the current project
+     * If true, the pom will be filtered using properties from the current project BEFORE mvn is invoked on it
      *
      * @parameter expression="${mvn.filterPom}"
      */
@@ -91,7 +91,7 @@ public class MvnMojo extends AbstractMojo {
     private List<String> args;
 
     /**
-     * List of properties to propagate to the mvn invocation
+     * List of properties from the current project to propagate to the mvn invocation
      *
      * @parameter
      */
