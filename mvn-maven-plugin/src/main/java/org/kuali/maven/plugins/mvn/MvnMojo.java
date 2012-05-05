@@ -58,9 +58,9 @@ public class MvnMojo extends AbstractMojo {
     private File workingDir;
 
     /**
-     * The Maven executable. The Maven executable to use, is located using the ${maven.home} system property by default.
-     * The default causes the mvn invocation to mirror the one that is currently executing (same version, etc). You can
-     * override this behavior by supplying your own executable
+     * The Maven executable. Located via the ${maven.home} system property by default. This causes the new mvn
+     * invocation to mirror the one that is currently executing (same version, etc). You can override this behavior by
+     * supplying your own executable
      *
      * @parameter expression="${mvn.executable}"
      */
@@ -103,6 +103,13 @@ public class MvnMojo extends AbstractMojo {
      * @parameter expression="${mvn.addSystemEnvironment}" default-value="false"
      */
     private boolean addSystemEnvironment;
+
+    /**
+     * If true, the System environment variable MAVEN_OPTS is passed to the mvn invocation (if it is set)
+     *
+     * @parameter expression="${mvn.addMavenOpts}" default-value="true"
+     */
+    private boolean addMavenOpts;
 
     /**
      * If true, the original Maven build will fail if the mvn invocation returns a non-zero exit value, otherwise the
@@ -281,6 +288,14 @@ public class MvnMojo extends AbstractMojo {
 
     public void setFilterPom(boolean filter) {
         this.filterPom = filter;
+    }
+
+    public boolean isAddMavenOpts() {
+        return addMavenOpts;
+    }
+
+    public void setAddMavenOpts(boolean addMavenOpts) {
+        this.addMavenOpts = addMavenOpts;
     }
 
 }
