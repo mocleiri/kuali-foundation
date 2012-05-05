@@ -25,7 +25,7 @@
   </parent>
   <groupId>${project.groupId}</groupId>
   <artifactId>${project.artifactId}</artifactId>
-  <version>1.1.SOMETHING-BESIDES-THE-REAL-VERSION</version>
+  <version>1.1.0-test-SNAPSHOT</version>
   <name>mvn Maven Plugin Test POM</name>
   <properties>
     <foo>bar</foo>
