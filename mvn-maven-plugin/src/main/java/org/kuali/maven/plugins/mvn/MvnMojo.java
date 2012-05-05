@@ -73,7 +73,7 @@ public class MvnMojo extends AbstractMojo {
      * invocation to mirror the one that is currently executing (same version, etc). You can override this behavior by
      * supplying your own executable
      *
-     * @parameter expression="${mvn.executable}"
+     * @parameter expression="${mvn.executable}" default-value="${maven.home}/bin/mvn"
      */
     private String executable;
 
@@ -181,7 +181,7 @@ public class MvnMojo extends AbstractMojo {
         File file = File.createTempFile("pom.", ".xml", workingDir);
         resourceUtils.write(file.getCanonicalPath(), s);
         cl.createArg().setValue("-f");
-        cl.createArg().setValue(file.getName());
+        cl.createArg().setValue(file.getCanonicalPath());
     }
 
     protected Properties getAllProperties() {
