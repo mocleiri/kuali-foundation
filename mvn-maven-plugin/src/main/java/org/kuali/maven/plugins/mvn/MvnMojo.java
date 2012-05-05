@@ -61,7 +61,7 @@ public class MvnMojo extends AbstractMojo {
     private String executable;
 
     /**
-     * The pom to supply to the mvn invocation. Supports any url Spring resource loading can understand <br>
+     * The pom to supply to the mvn invocation. This can be a file or any url Spring resource loading can understand <br>
      *
      * eg classpath:pom.xml
      *
@@ -92,8 +92,8 @@ public class MvnMojo extends AbstractMojo {
     private boolean addSystemEnvironment;
 
     /**
-     * If true, the Maven build will fail if the mvn invocation returns a non-zero exit value, otherwise the Maven build
-     * will continue
+     * If true, the original Maven build will fail if the mvn invocation returns a non-zero exit value, otherwise the
+     * Maven build will continue
      *
      * @parameter expression="${mvn.failOnError}" default-value="true"
      * @required
