@@ -22,9 +22,9 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
 
 /**
- *
+ * @goal mvn
  */
-public abstract class MvnMojo extends AbstractMojo {
+public class MvnMojo extends AbstractMojo {
 
     /**
      * The Maven project object
