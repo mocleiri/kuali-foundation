@@ -151,14 +151,6 @@ public class MvnMojo extends AbstractMojo {
         }
     }
 
-    protected void addProperty(Commandline cl, String key, String value) {
-        if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
-            return;
-        }
-        Arg arg = cl.createArg();
-        arg.setValue("-D" + key + "=" + value);
-    }
-
     protected String getProperty(String key) {
         String sys = System.getProperty(key);
         if (!StringUtils.isBlank(sys)) {
@@ -166,6 +158,14 @@ public class MvnMojo extends AbstractMojo {
         } else {
             return project.getProperties().getProperty(key);
         }
+    }
+
+    protected void addProperty(Commandline cl, String key, String value) {
+        if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
+            return;
+        }
+        Arg arg = cl.createArg();
+        arg.setValue("-D" + key + "=" + value);
     }
 
     protected void addArgs(Commandline cl, List<String> args) {
