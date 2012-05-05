@@ -78,7 +78,7 @@
               <goal>mvn</goal>
             </goals>
             <configuration>
-              <pom>https://svn.kuali.org/repos/foundation/trunk/pom/kuali/pom.xml</pom>
+              <pom>other-pom.xml</pom>
               <properties>
                 <property>foo</property>
               </properties>
