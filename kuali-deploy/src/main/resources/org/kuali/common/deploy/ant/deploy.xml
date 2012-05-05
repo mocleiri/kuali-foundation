@@ -53,6 +53,9 @@
   <property name="config.home" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
   <property name="ssh.verbose" value="false" />
   <property name="scp.verbose" value="false" />
+  <property name="secure.user" value="root" />
+  <property name="ssh.user" value="${secure.user}" />
+  <property name="scp.user" value="${secure.user}" />
 
   <target name="copyksconfig">
     <antcall target="mkdir">
