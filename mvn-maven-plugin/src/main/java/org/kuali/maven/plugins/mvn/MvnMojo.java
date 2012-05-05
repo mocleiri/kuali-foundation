@@ -120,15 +120,16 @@ public class MvnMojo extends AbstractMojo {
 
     protected void prepareFileSystem(Commandline cl) throws IOException {
         FileUtils.forceMkdir(workingDir);
-        if (!StringUtils.isBlank(pom)) {
-            ResourceUtils ru = new ResourceUtils();
-            File file = File.createTempFile("pom.", ".xml", workingDir);
-            ru.copy(pom, file.getCanonicalPath());
-            Arg arg1 = cl.createArg();
-            Arg arg2 = cl.createArg();
-            arg1.setValue("-f");
-            arg2.setValue(file.getName());
+        if (StringUtils.isBlank(pom)) {
+            return;
         }
+        ResourceUtils ru = new ResourceUtils();
+        File file = File.createTempFile("pom.", ".xml", workingDir);
+        ru.copy(pom, file.getCanonicalPath());
+        Arg arg1 = cl.createArg();
+        Arg arg2 = cl.createArg();
+        arg1.setValue("-f");
+        arg2.setValue(file.getName());
     }
 
     protected Commandline getCommandLine() throws Exception {
@@ -141,6 +142,16 @@ public class MvnMojo extends AbstractMojo {
         addArgs(cl, args);
         addProperties(cl, properties);
         return cl;
+    }
+
+    protected void addArgs(Commandline cl, List<String> args) {
+        if (args == null || args.size() == 0) {
+            return;
+        }
+        for (String arg : args) {
+            Arg newArg = cl.createArg();
+            newArg.setValue(arg);
+        }
     }
 
     protected void addProperties(Commandline cl, List<String> properties) {
@@ -168,16 +179,6 @@ public class MvnMojo extends AbstractMojo {
         }
         Arg arg = cl.createArg();
         arg.setValue("-D" + key + "=" + value);
-    }
-
-    protected void addArgs(Commandline cl, List<String> args) {
-        if (args == null || args.size() == 0) {
-            return;
-        }
-        for (String arg : args) {
-            Arg newArg = cl.createArg();
-            newArg.setValue(arg);
-        }
     }
 
     protected boolean isFail(int exitValue) {
