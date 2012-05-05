@@ -43,14 +43,28 @@
         <artifactId>${project.artifactId}</artifactId>
         <executions>
           <execution>
-            <id>mvn</id>
-            <phase>initialize</phase>
+            <id>1</id>
+            <phase>test</phase>
             <goals>
               <goal>mvn</goal>
             </goals>
             <configuration>
               <args>
                 <arg>-v</arg>
+              </args>
+            </configuration>
+          </execution>
+          <execution>
+            <id>2</id>
+            <phase>test</phase>
+            <goals>
+              <goal>mvn</goal>
+            </goals>
+            <configuration>
+              <pom>https://svn.kuali.org/repos/foundation/trunk/pom/kuali/pom.xml</pom>
+              <args>
+                <arg>clean</arg>
+                <arg>install</arg>
               </args>
             </configuration>
           </execution>
