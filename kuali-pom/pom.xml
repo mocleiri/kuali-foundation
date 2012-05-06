@@ -216,7 +216,7 @@
   <scm>
     <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</connection>
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/branches/trunk/kuali-pom</url>
+    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-pom</url>
   </scm>
   <build>
     <extensions>
