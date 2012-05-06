@@ -279,7 +279,7 @@
             <dependency>
               <groupId>org.kuali.common</groupId>
               <artifactId>kuali-cm</artifactId>
-              <version>${kuali.cm.tools.version}</version>
+              <version>${kuali-cm.version}</version>
             </dependency>
           </dependencies>
         </plugin>
