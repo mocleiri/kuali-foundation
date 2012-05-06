@@ -16,33 +16,27 @@
 package org.kuali.maven.plugins.mvn;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.interpolation.os.Os;
-import org.codehaus.plexus.util.StringUtils;
-import org.codehaus.plexus.util.cli.CommandLineUtils;
-import org.codehaus.plexus.util.cli.Commandline;
-import org.codehaus.plexus.util.cli.DefaultConsumer;
-import org.codehaus.plexus.util.cli.StreamConsumer;
-import org.kuali.maven.common.PropertiesUtils;
-import org.kuali.maven.common.ResourceUtils;
+import org.kuali.maven.common.MvnContext;
+import org.kuali.maven.common.MvnExecutor;
 
 /**
  * Invoke mvn from Maven.
  *
  * @goal mvn
  */
-public class MvnMojo extends AbstractMojo {
-    ResourceUtils resourceUtils = new ResourceUtils();
-    PropertiesUtils propertiesUtils = new PropertiesUtils();
+public class MvnMojo extends AbstractMojo implements MvnContext {
+    MvnExecutor executor = new MvnExecutor();
 
-    private static final String MAVEN_OPTS = "MAVEN_OPTS";
+    @Override
+    public Properties getProjectProperties() {
+        return project.getProperties();
+    }
 
     /**
      * The Maven project object
@@ -134,143 +128,29 @@ public class MvnMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        int exitValue = -1;
         try {
-            StreamConsumer stdout = new DefaultConsumer();
-            StreamConsumer stderr = new DefaultConsumer();
-            Commandline cl = getCommandLine();
-            prepareFileSystem(cl);
-            getLog().info("Executing " + cl.toString());
-            exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
+            executor.execute(this);
         } catch (Exception e) {
             throw new MojoExecutionException("Error invoking mvn", e);
         }
-        validateExitValue(exitValue);
     }
 
-    protected String getMvnExecutable() {
-        if (!StringUtils.isBlank(executable)) {
-            return executable;
-        }
-        String mavenHome = System.getProperty("maven.home");
-        if (StringUtils.isBlank(mavenHome)) {
-            getLog().warn("${maven.home} is not set.  Using default executable 'mvn'");
-            return "mvn";
-        }
-
-        String extension = "";
-        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-            extension = ".bat";
-        }
-        return mavenHome + File.separator + "bin" + File.separatorChar + "mvn" + extension;
-    }
-
-    protected Commandline getCommandLine() throws Exception {
-        Commandline cl = new Commandline();
-        cl.setExecutable(getMvnExecutable());
-        cl.setWorkingDirectory(basedir);
-        if (addEnvironment) {
-            cl.addSystemEnvironment();
-        }
-        addMavenOpts(cl);
-        addArgs(cl, args);
-        addProperties(cl, properties);
-        return cl;
-    }
-
-    protected void addMavenOpts(Commandline cl) {
-        String mavenOpts = System.getenv(MAVEN_OPTS);
-        if (!StringUtils.isBlank(mavenOpts) && addMavenOpts) {
-            cl.addEnvironment(MAVEN_OPTS, mavenOpts);
-        }
-    }
-
-    protected void prepareFileSystem(Commandline cl) throws IOException {
-        FileUtils.forceMkdir(workingDir);
-        if (StringUtils.isBlank(pom)) {
-            return;
-        }
-        getLog().info("POM: " + pom);
-        String s = resourceUtils.read(pom);
-        if (filterPom) {
-            Properties props = getAllProperties();
-            s = propertiesUtils.getResolvedValue(s, props);
-        }
-        File file = File.createTempFile("pom.", ".xml", workingDir);
-        resourceUtils.write(file, s);
-        cl.createArg().setValue("-f");
-        cl.createArg().setValue(file.getCanonicalPath());
-    }
-
-    protected Properties getAllProperties() {
-        Properties props = new Properties();
-        // Load project properties first
-        props.putAll(project.getProperties());
-        // Environment properties are all prefixed with "env"
-        props = propertiesUtils.getEnvironmentProperties();
-        // System properties override everything
-        props.putAll(System.getProperties());
-        return props;
-
-    }
-
-    protected void addArgs(Commandline cl, List<String> args) {
-        if (args == null || args.size() == 0) {
-            return;
-        }
-        for (String arg : args) {
-            cl.createArg().setValue(arg);
-        }
-    }
-
-    protected void addProperties(Commandline cl, List<String> properties) {
-        if (properties == null || properties.size() == 0) {
-            return;
-        }
-        for (String key : properties) {
-            String value = getProperty(key);
-            addProperty(cl, key, value);
-        }
-    }
-
-    protected String getProperty(String key) {
-        String sys = System.getProperty(key);
-        if (!StringUtils.isBlank(sys)) {
-            return sys;
-        } else {
-            return project.getProperties().getProperty(key);
-        }
-    }
-
-    protected void addProperty(Commandline cl, String key, String value) {
-        if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
-            return;
-        }
-        cl.createArg().setValue("-D" + key + "=" + value);
-    }
-
-    protected boolean isFail(int exitValue) {
-        return exitValue != 0 && failOnError;
-    }
-
-    protected void validateExitValue(int exitValue) throws MojoExecutionException {
-        if (isFail(exitValue)) {
-            throw new MojoExecutionException("Non-zero exit value");
-        }
-    }
-
+    @Override
     public File getWorkingDir() {
         return workingDir;
     }
 
+    @Override
     public void setWorkingDir(File workingDir) {
         this.workingDir = workingDir;
     }
 
+    @Override
     public boolean isFailOnError() {
         return failOnError;
     }
 
+    @Override
     public void setFailOnError(boolean failOnError) {
         this.failOnError = failOnError;
     }
@@ -279,66 +159,82 @@ public class MvnMojo extends AbstractMojo {
         return project;
     }
 
+    @Override
     public String getPom() {
         return pom;
     }
 
+    @Override
     public void setPom(String pom) {
         this.pom = pom;
     }
 
+    @Override
     public List<String> getArgs() {
         return args;
     }
 
+    @Override
     public void setArgs(List<String> args) {
         this.args = args;
     }
 
+    @Override
     public String getExecutable() {
         return executable;
     }
 
+    @Override
     public void setExecutable(String executable) {
         this.executable = executable;
     }
 
+    @Override
     public boolean isAddEnvironment() {
         return addEnvironment;
     }
 
+    @Override
     public void setAddEnvironment(boolean addSystemEnvironment) {
         this.addEnvironment = addSystemEnvironment;
     }
 
+    @Override
     public List<String> getProperties() {
         return properties;
     }
 
+    @Override
     public void setProperties(List<String> properties) {
         this.properties = properties;
     }
 
+    @Override
     public boolean isFilterPom() {
         return filterPom;
     }
 
+    @Override
     public void setFilterPom(boolean filter) {
         this.filterPom = filter;
     }
 
+    @Override
     public boolean isAddMavenOpts() {
         return addMavenOpts;
     }
 
+    @Override
     public void setAddMavenOpts(boolean addMavenOpts) {
         this.addMavenOpts = addMavenOpts;
     }
 
+    @Override
     public File getBasedir() {
         return basedir;
     }
 
+    @Override
     public void setBasedir(File basedir) {
         this.basedir = basedir;
     }
