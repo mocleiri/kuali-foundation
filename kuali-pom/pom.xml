@@ -21,7 +21,7 @@
 
   <groupId>org.kuali.pom</groupId>
   <version>1.2.0-SNAPSHOT</version>
-  <artifactId>kuali</artifactId>
+  <artifactId>kuali-pom</artifactId>
   <packaging>pom</packaging>
   <name>Kuali Foundation</name>
   <description>
