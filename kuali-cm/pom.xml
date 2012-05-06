@@ -36,4 +36,19 @@
       <email>jcaddel@kuali.org</email>
     </developer>
   </developers>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.mycila.maven-license-plugin</groupId>
+        <artifactId>maven-license-plugin</artifactId>
+        <configuration>
+          <aggregate>true</aggregate>
+          <excludes>
+            <!-- Don't add the ECL header to the ECL header :) -->
+            <exclude>**/ecl-2.0-header.txt</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
