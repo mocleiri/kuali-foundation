@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -38,7 +39,6 @@ import org.apache.tools.ant.types.Path;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.ReaderFactory;
-import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.AntMavenUtils;
 import org.kuali.maven.common.ResourceUtils;
 
@@ -77,6 +77,8 @@ public class AntMojo extends AbstractMojo {
 
     public static final String ANT_DIR = "ant";
     public static final String ANT_BUILD_DIR = "target" + FS + ANT_DIR;
+    String prefix = "build.";
+    String suffix = ".xml";
 
     /**
      * The refid used to store the Maven project object in the Ant build.
@@ -259,10 +261,10 @@ public class AntMojo extends AbstractMojo {
 
         try {
             // Setup the build file
-            handleAntfile();
+            File localBuildFile = handleAntfile();
 
             // Initialize an Ant project
-            Project antProject = getAntProject();
+            Project antProject = getAntProject(localBuildFile);
 
             // Create the Ant equivalents of important Maven classpath's
             Map<String, Path> pathRefs = antMvnUtils.getPathRefs(antProject, mavenProject, pluginArtifacts);
@@ -316,9 +318,9 @@ public class AntMojo extends AbstractMojo {
      * Create a wrapper build file that calls into the build file they supplied us with. Initialize an Ant project from
      * the wrapper file.
      */
-    public Project getAntProject() throws IOException {
+    public Project getAntProject(File localBuildFile) throws IOException {
         Project antProject = new Project();
-        File antBuildFile = createBuildWrapper();
+        File antBuildFile = createBuildWrapper(localBuildFile);
         ProjectHelper.configureProject(antProject, antBuildFile);
         antProject.init();
         // Setup logging
@@ -394,11 +396,14 @@ public class AntMojo extends AbstractMojo {
     /**
      * Write the ant target and surrounding tags to a temporary file
      */
-    protected File createBuildWrapper() throws IOException {
+    protected File createBuildWrapper(File localBuildFile) throws IOException {
+        String filename = localBuildFile.getName();
+        String s = StringUtils.substringBetween(filename, prefix, suffix);
+        String newFilename = "wrapper." + s + ".xml";
         AntTaskPojo atp = getAntTaskPojo();
         String xml = getDefaultXML(atp);
 
-        File buildFile = new File(ANT_BUILD_DIR + FS + antFilename);
+        File buildFile = new File(workingDir, newFilename);
 
         buildFile.getParentFile().mkdirs();
         FileUtils.fileWrite(buildFile.getAbsolutePath(), UTF_8, xml);
@@ -408,19 +413,11 @@ public class AntMojo extends AbstractMojo {
     /**
      * Copy the build file to a local temp directory and preserve some information about the filename
      */
-    protected void handleAntfile() throws IOException {
+    protected File handleAntfile() throws IOException {
         FileUtils.forceMkdir(workingDir);
-
-        String filename = resourceUtils.getFilename(file);
-
-        // The fileName should probably use the plugin executionId instead of target
-        if (!StringUtils.isBlank(target)) {
-            filename = target + "-" + filename;
-        }
-        antFilename = filename;
-        relativeLocalFilename = ANT_BUILD_DIR + FS + "local-" + antFilename;
-        File localFile = new File(relativeLocalFilename);
-        resourceUtils.copy(file, localFile);
+        File localBuildFile = File.createTempFile(prefix, suffix, workingDir);
+        resourceUtils.copy(file, localBuildFile);
+        return localBuildFile;
     }
 
     /**
