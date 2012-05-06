@@ -395,7 +395,7 @@ public class AntMojo extends AbstractMojo {
      */
     protected File createBuildWrapper(File localBuildFile) throws IOException {
         String filename = localBuildFile.getName();
-        String s = StringUtils.substringBetween(filename, prefix, suffix);
+        String s = StringUtils.substringBetween(filename, prefix + target + ".", suffix);
         String newFilename = "wrapper." + s + ".xml";
         AntTaskPojo atp = getAntTaskPojo();
         String xml = getDefaultXML(atp);
@@ -412,7 +412,7 @@ public class AntMojo extends AbstractMojo {
      */
     protected File handleAntfile() throws IOException {
         FileUtils.forceMkdir(workingDir);
-        File localBuildFile = File.createTempFile(prefix, suffix, workingDir);
+        File localBuildFile = File.createTempFile(prefix + target + ".", suffix, workingDir);
         resourceUtils.copy(file, localBuildFile);
         relativeLocalFilename = getRelativeFilename(project.getBasedir(), localBuildFile);
         return localBuildFile;
