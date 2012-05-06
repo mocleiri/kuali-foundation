@@ -283,9 +283,10 @@ public class AntMojo extends AbstractMojo {
             antMvnUtils.copyProperties(mavenProject, antProject, propertyPrefix, getLog(), localRepository);
 
             // Execute the target from our wrapper. This calls the target from the build file they supplied
-            getLog().info("Executing tasks");
+            getLog().info("Build File - " + file);
+            getLog().info("Executing target - '" + target + "'");
             antProject.executeTarget(DEFAULT_ANT_TARGET_NAME);
-            getLog().info("Executed tasks");
+            getLog().info("Executed target");
 
             // Copy properties from Ant back to Maven (if needed)
             if (exportAntProperties) {
