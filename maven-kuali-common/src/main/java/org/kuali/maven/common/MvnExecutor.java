@@ -144,7 +144,8 @@ public class MvnExecutor {
             cl.createArg().setValue(tempPom.getName());
             return tempPom;
         } else {
-            cl.createArg().setValue(getRelativePath(context.getBasedir(), context.getWorkingDir()));
+            String path = getRelativePath(context.getBasedir(), file);
+            cl.createArg().setValue(path);
             return null;
         }
     }
