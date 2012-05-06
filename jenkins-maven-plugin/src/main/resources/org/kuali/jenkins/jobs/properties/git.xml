@@ -62,7 +62,6 @@
     ]]></entry>
   <entry key="jenkins.job.git.branches.1.name">${jenkins.job.git.branches.default}</entry>
   <entry key="jenkins.job.git.configVersion">2</entry>
-  <entry key="jenkins.job.git.localBranch"></entry>
   <entry key="jenkins.job.git.recursiveSubmodules">false</entry>
   <entry key="jenkins.job.git.doGenerateSubmoduleConfigurations">false</entry>
   <entry key="jenkins.job.git.authorOrCommitter">false</entry>
