@@ -339,7 +339,7 @@ public class JenkinsHelper {
 
     protected void write(String filename, String content) {
         try {
-            resourceUtils.write(filename, content);
+            resourceUtils.write(new File(filename), content);
         } catch (IOException e) {
             throw new JenkinsException(e);
         }
@@ -614,7 +614,7 @@ public class JenkinsHelper {
             Properties properties = getProperties(mojo, type, mojo.getTimestampFormat());
             String xml = resourceUtils.read(mojo.getTemplate());
             String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
-            resourceUtils.write(filename, resolvedXml);
+            resourceUtils.write(new File(filename), resolvedXml);
         } catch (IOException e) {
             throw new JenkinsException(e);
         }
