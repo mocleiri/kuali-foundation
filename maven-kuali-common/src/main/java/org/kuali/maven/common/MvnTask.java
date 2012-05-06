@@ -32,17 +32,16 @@ public class MvnTask extends Task implements MvnContext {
     /**
      * The working directory where the task makes a local copy of the pom (if a pom is supplied)
      */
-    private File workingDir;// = new File(getProject().getBaseDir().getAbsolutePath() + File.separator + "target"
-    // + File.separator + "mvn");
+    private File workingDir;
 
     /**
      * The base directory for the new mvn invocation.
      */
-    private File basedir;// = getProject().getBaseDir();
+    private File basedir;
 
     /**
      * The Maven executable. By default, the executable to use is located via the ${maven.home} system property. This
-     * causes a new mvn invocation to mirror what is currently executing (same version, etc). You can override this
+     * causes the new mvn invocation to mirror what is currently executing (same version, etc). You can override this
      * behavior by supplying your own executable
      */
     private String executable;
