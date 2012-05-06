@@ -154,7 +154,7 @@ public class MvnMojo extends AbstractMojo {
         }
         String mavenHome = System.getProperty("maven.home");
         if (StringUtils.isBlank(mavenHome)) {
-            getLog().warn("${maven.home} is not set.  Using default value executable value 'mvn'");
+            getLog().warn("${maven.home} is not set.  Using default executable 'mvn'");
             return "mvn";
         }
 
