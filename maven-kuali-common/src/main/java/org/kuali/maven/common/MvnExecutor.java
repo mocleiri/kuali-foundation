@@ -54,9 +54,6 @@ public class MvnExecutor {
         if (!StringUtils.isBlank(context.getPom())) {
             log.info("Maven POM - " + context.getPom());
         }
-        if (isAddMavenOpts(context)) {
-            log.info(MvnContext.MAVEN_OPTS + '=' + System.getenv(MvnContext.MAVEN_OPTS));
-        }
         StringBuilder sb = new StringBuilder();
         String[] args = cl.getArguments();
         for (int i = 0; i < args.length; i++) {
@@ -67,6 +64,9 @@ public class MvnExecutor {
             sb.append(arg);
         }
         log.info("mvn " + sb);
+        if (isAddMavenOpts(context)) {
+            log.info(MvnContext.MAVEN_OPTS + '=' + System.getenv(MvnContext.MAVEN_OPTS));
+        }
     }
 
     protected String getMvnExecutable(String executable) {
