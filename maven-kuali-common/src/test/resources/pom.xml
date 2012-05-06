@@ -37,7 +37,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>ant-maven-plugin</artifactId>
-          <version>1.0.5</version>
+          <version>1.0.9-SNAPSHOT</version>
         </plugin>
       </plugins>
     </pluginManagement>
