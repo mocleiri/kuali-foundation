@@ -43,10 +43,30 @@ public class MvnExecutor {
         StreamConsumer stdout = new DefaultConsumer();
         StreamConsumer stderr = new DefaultConsumer();
         Commandline cl = getCommandLine(context);
+        showConfig(context, cl);
         prepareFileSystem(context, cl);
-        log.info("Executing " + cl.toString());
+        log.debug("Executing " + cl.toString());
         int exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
         validateExitValue(context, exitValue);
+    }
+
+    protected void showConfig(MvnContext context, Commandline cl) {
+        if (!StringUtils.isBlank(context.getPom())) {
+            log.info("Maven POM - " + context.getPom());
+        }
+        if (isAddMavenOpts(context)) {
+            log.info(MvnContext.MAVEN_OPTS + "=\"" + System.getenv(MvnContext.MAVEN_OPTS) + '"');
+        }
+        StringBuilder sb = new StringBuilder();
+        String[] args = cl.getArguments();
+        for (int i = 0; i < args.length; i++) {
+            String arg = args[i];
+            if (i != 0) {
+                sb.append(" ");
+            }
+            sb.append(arg);
+        }
+        log.info("Executing 'mvn " + sb + "'");
     }
 
     protected String getMvnExecutable(String executable) {
@@ -83,9 +103,14 @@ public class MvnExecutor {
         return cl;
     }
 
-    protected void addMavenOpts(MvnContext context, Commandline cl) {
+    protected boolean isAddMavenOpts(MvnContext context) {
         String mavenOpts = System.getenv(MvnContext.MAVEN_OPTS);
-        if (!StringUtils.isBlank(mavenOpts) && context.isAddMavenOpts()) {
+        return context.isAddMavenOpts() && !StringUtils.isBlank(mavenOpts);
+    }
+
+    protected void addMavenOpts(MvnContext context, Commandline cl) {
+        if (isAddMavenOpts(context)) {
+            String mavenOpts = System.getenv(MvnContext.MAVEN_OPTS);
             cl.addEnvironment(MvnContext.MAVEN_OPTS, mavenOpts);
         }
     }
@@ -95,7 +120,6 @@ public class MvnExecutor {
         if (StringUtils.isBlank(context.getPom())) {
             return;
         }
-        log.info("Maven POM - " + context.getPom());
         String s = resourceUtils.read(context.getPom());
         if (context.isFilterPom()) {
             Properties props = getAllProperties(context.getProjectProperties());
