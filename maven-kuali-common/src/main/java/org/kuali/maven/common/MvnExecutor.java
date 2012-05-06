@@ -95,7 +95,7 @@ public class MvnExecutor {
         if (StringUtils.isBlank(context.getPom())) {
             return;
         }
-        log.info("POM: " + context.getPom());
+        log.info("Maven POM - " + context.getPom());
         String s = resourceUtils.read(context.getPom());
         if (context.isFilterPom()) {
             Properties props = getAllProperties(context.getProjectProperties());
