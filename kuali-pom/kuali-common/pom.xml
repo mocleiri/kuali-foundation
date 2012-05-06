@@ -31,6 +31,7 @@
    assists with the building, testing, publishing, and releasing of Kuali Foundation 
    software. 
   </description>
+  <url>http://${kuali.site.hostname}/pom/${project.artifactId}/${project.version}</url>
   <modules>
     <module>kuali-maven</module>
   </modules>

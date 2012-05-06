@@ -30,6 +30,7 @@
   <description>
    This pom contains common configuration (plugins, profiles, executions, etc) for authoring Maven tooling.  Plugins, wagons, extensions, etc.
   </description>
+  <url>http://${kuali.site.hostname}/pom/${project.artifactId}/${project.version}</url>
   <properties>
     <slf4j.version>1.6.4</slf4j.version>
   </properties>
