@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.1.10</version>
+    <version>1.2.6</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-deploy</artifactId>
@@ -42,19 +42,7 @@
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
-      <properties>
-        <plugin.ant.version>1.0.5</plugin.ant.version>
-      </properties>
       <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.kuali.maven.plugins</groupId>
-              <artifactId>ant-maven-plugin</artifactId>
-              <version>${plugin.ant.version}</version>
-            </plugin>
-          </plugins>
-        </pluginManagement>
         <plugins>
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
