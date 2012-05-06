@@ -34,7 +34,7 @@
     </mvn>
   </target>
   <target name="mcp">
-    <mvn pom="http://svn.kuali.org/repos/foundation/trunk/kuali-pom/pom.xml">
+    <mvn pom="file://${project.basedir}/src/test/resources/other-pom.xml">
       <arg value="clean" />
       <arg value="process-resources" />
       <arg value="-DskipTests" />
