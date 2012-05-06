@@ -39,6 +39,7 @@ public class MvnTask extends Task implements MvnContext {
         Set<?> keys = hashTable.keySet();
         for (Object key : keys) {
             Object value = hashTable.get(key);
+            // Hashtable can't have null key's or value's
             properties.setProperty(key.toString(), value.toString());
         }
         return properties;
