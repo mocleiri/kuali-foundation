@@ -396,7 +396,7 @@ public class AntMojo extends AbstractMojo {
     protected File createBuildWrapper(File localBuildFile) throws IOException {
         String filename = localBuildFile.getName();
         String s = StringUtils.substringBetween(filename, prefix + target + ".", suffix);
-        String newFilename = "wrapper." + s + ".xml";
+        String newFilename = "wrapper." + target + "." + s + ".xml";
         AntTaskPojo atp = getAntTaskPojo();
         String xml = getDefaultXML(atp);
 
