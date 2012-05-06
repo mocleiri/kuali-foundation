@@ -86,7 +86,7 @@
               <goal>run</goal>
             </goals>
             <configuration>
-              <file>build.xml</file>
+              <file>file://build.xml</file>
               <target>mcp</target>
             </configuration>
           </execution>
