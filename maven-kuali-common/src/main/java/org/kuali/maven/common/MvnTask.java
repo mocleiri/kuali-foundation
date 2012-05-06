@@ -83,8 +83,8 @@ public class MvnTask extends Task implements MvnContext {
      */
     private boolean failOnError = true;
 
-    public void addConfiguredArg(String arg) {
-        args.add(arg);
+    public void addArg(Arg arg) {
+        args.add(arg.getValue());
     }
 
     @Override
