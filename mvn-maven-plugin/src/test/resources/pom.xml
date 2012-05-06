@@ -64,7 +64,7 @@
               <goal>mvn</goal>
             </goals>
             <configuration>
-              <pom>https://svn.kuali.org/repos/foundation/trunk/pom/kuali/pom.xml</pom>
+              <pom>https://svn.kuali.org/repos/foundation/trunk/kuali-pom/pom.xml</pom>
               <args>
                 <arg>clean</arg>
                 <arg>install</arg>
