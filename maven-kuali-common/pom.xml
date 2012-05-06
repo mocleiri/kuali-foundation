@@ -30,9 +30,9 @@
   <description>Contains software that is common to maven development.  Facilitates reuse of code between plugins</description>
   <url>http://${kuali.site.hostname}/maven/common/${project.artifactId}/${project.version}/</url>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</url>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</url>
   </scm>
   <dependencies>
     <dependency>
