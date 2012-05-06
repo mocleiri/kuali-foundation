@@ -55,7 +55,7 @@ public class MvnExecutor {
         }
         String mavenHome = System.getProperty("maven.home");
         if (StringUtils.isBlank(mavenHome)) {
-            log.info("${maven.home} not set.  Using default executable 'mvn'");
+            log.info("${maven.home} not set.  Using default executable '" + getActualExecutable() + "'");
             return getActualExecutable();
         } else {
             return mavenHome + File.separator + "bin" + File.separatorChar + getActualExecutable();
@@ -104,7 +104,18 @@ public class MvnExecutor {
         File file = File.createTempFile("pom.", ".xml", context.getWorkingDir());
         resourceUtils.write(file, s);
         cl.createArg().setValue("-f");
-        cl.createArg().setValue(file.getCanonicalPath());
+        cl.createArg().setValue(getRelativePath(context.getBasedir(), file));
+    }
+
+    protected String getRelativePath(File dir, File file) throws IOException {
+        String s1 = dir.getCanonicalPath();
+        String s2 = file.getCanonicalPath();
+        int pos = s2.indexOf(s1);
+        if (pos == -1) {
+            return s2;
+        } else {
+            return s2.substring(s1.length() + 1);
+        }
     }
 
     protected Properties getAllProperties(Properties projectProperties) {
