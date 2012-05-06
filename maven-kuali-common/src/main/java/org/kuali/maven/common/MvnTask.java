@@ -83,21 +83,27 @@ public class MvnTask extends Task implements MvnContext {
      */
     private boolean failOnError = true;
 
-    public void addArg(Arg arg) {
+    public void addConfiguredArg(Arg arg) {
         args.add(arg.getValue());
+    }
+
+    public void addConfiguredProperty(Property property) {
+        properties.add(property.getKey());
+    }
+
+    protected void configure() {
+        if (workingDir == null) {
+            workingDir = new File(getProject().getBaseDir().getAbsolutePath() + File.separator + "target"
+                    + File.separator + "mvn");
+        }
+        if (basedir == null) {
+            basedir = getProject().getBaseDir();
+        }
     }
 
     @Override
     public void execute() throws BuildException {
         try {
-            if (workingDir == null) {
-                workingDir = new File(getProject().getBaseDir().getAbsolutePath() + File.separator + "target"
-                        + File.separator + "mvn");
-            }
-            if (basedir == null) {
-                basedir = getProject().getBaseDir();
-            }
-            args.add("-v");
             executor.execute(this);
         } catch (Exception e) {
             throw new BuildException("Error invoking mvn", e);
