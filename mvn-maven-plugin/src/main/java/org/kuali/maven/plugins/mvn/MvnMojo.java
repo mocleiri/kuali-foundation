@@ -57,7 +57,7 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
     /**
      * The base directory for the new mvn invocation.
      *
-     * @parameter expression="${mvn.basedir}" default-value="${project.basedir}"
+     * @parameter expression="${mvn.basedir}" default-value="${project.build.directory}/mvn"
      *
      * @required
      */
