@@ -73,10 +73,7 @@ import org.kuali.maven.common.ResourceUtils;
 public class AntMojo extends AbstractMojo {
     ResourceUtils resourceUtils = new ResourceUtils();
     AntMavenUtils antMvnUtils = new AntMavenUtils();
-    private static final String FS = System.getProperty("file.separator");
 
-    public static final String ANT_DIR = "ant";
-    public static final String ANT_BUILD_DIR = "target" + FS + ANT_DIR;
     String prefix = "build.";
     String suffix = ".xml";
 
@@ -417,7 +414,14 @@ public class AntMojo extends AbstractMojo {
         FileUtils.forceMkdir(workingDir);
         File localBuildFile = File.createTempFile(prefix, suffix, workingDir);
         resourceUtils.copy(file, localBuildFile);
+        relativeLocalFilename = getRelativeFilename(project.getBasedir(), localBuildFile);
         return localBuildFile;
+    }
+
+    protected String getRelativeFilename(File basedir, File file) {
+        String s1 = basedir.getAbsolutePath();
+        String s2 = file.getAbsolutePath();
+        return StringUtils.replace(s2, s1, "").substring(1);
     }
 
     /**
