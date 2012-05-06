@@ -25,14 +25,14 @@
   </parent>
   <groupId>org.kuali.maven.common</groupId>
   <artifactId>maven-kuali-common</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>1.2.0</version>
   <name>Kuali Maven Common</name>
   <description>Contains software that is common to maven development.  Facilitates reuse of code between plugins</description>
   <url>http://${kuali.site.hostname}/maven/common/${project.artifactId}/${project.version}/</url>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/maven-kuali-common</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-kuali-common-1.2.0</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/maven-kuali-common-1.2.0</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/tags/maven-kuali-common-1.2.0</url>
   </scm>
   <dependencies>
     <dependency>
