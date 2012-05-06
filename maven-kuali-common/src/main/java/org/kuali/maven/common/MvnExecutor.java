@@ -65,7 +65,7 @@ public class MvnExecutor {
 
     protected void showConfig(MvnContext context, Commandline cl) {
         if (!StringUtils.isBlank(context.getPom())) {
-            log.info(" Maven POM - " + context.getPom());
+            log.info("Maven POM - " + context.getPom());
         }
         String args = getMavenArgs(cl);
         log.info("Maven Args - " + args);
