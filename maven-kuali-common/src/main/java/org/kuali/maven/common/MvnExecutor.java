@@ -45,7 +45,7 @@ public class MvnExecutor {
         Commandline cl = getCommandLine(context);
         showConfig(context, cl);
         prepareFileSystem(context, cl);
-        log.debug("Executing " + cl.toString());
+        log.info(cl.toString());
         int exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
         validateExitValue(context, exitValue);
     }
@@ -66,7 +66,7 @@ public class MvnExecutor {
             }
             sb.append(arg);
         }
-        log.info("Executing 'mvn " + sb + "'");
+        log.info("mvn " + sb);
     }
 
     protected String getMvnExecutable(String executable) {
