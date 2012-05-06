@@ -116,6 +116,13 @@ public class AntMojo extends AbstractMojo {
     public static final String TASK_URI = "antlib:org.apache.maven.ant.tasks";
 
     /**
+     * Working directory for the plugin. The Ant build file is copied here
+     *
+     * @parameter expression="${ant.workingDir}" default-value="${project.build.directory}/ant"
+     */
+    private File workingDir;
+
+    /**
      * The Maven project object
      *
      * @parameter expression="${project}"
@@ -402,6 +409,8 @@ public class AntMojo extends AbstractMojo {
      * Copy the build file to a local temp directory and preserve some information about the filename
      */
     protected void handleAntfile() throws IOException {
+        FileUtils.forceMkdir(workingDir);
+
         String filename = resourceUtils.getFilename(file);
 
         // The fileName should probably use the plugin executionId instead of target
@@ -619,6 +628,14 @@ public class AntMojo extends AbstractMojo {
 
     public void setSkip(boolean skip) {
         this.skip = skip;
+    }
+
+    public File getWorkingDir() {
+        return workingDir;
+    }
+
+    public void setWorkingDir(File workingDir) {
+        this.workingDir = workingDir;
     }
 
 }
