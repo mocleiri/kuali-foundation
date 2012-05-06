@@ -26,7 +26,6 @@
   <artifactId>kuali-maven</artifactId>
   <packaging>pom</packaging>
   <name>Kuali Maven</name>
-  <url>http://${kuali.site.hostname}/pom/${project.artifactId}/${project.version}</url>
   <description>
    This pom contains common configuration (plugins, profiles, executions, etc) for authoring Maven tooling.  Plugins, wagons, extensions, etc.
   </description>
