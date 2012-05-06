@@ -197,7 +197,7 @@ public class MvnMojo extends AbstractMojo {
             s = propertiesUtils.getResolvedValue(s, props);
         }
         File file = File.createTempFile("pom.", ".xml", workingDir);
-        resourceUtils.write(file.getCanonicalPath(), s);
+        resourceUtils.write(file, s);
         cl.createArg().setValue("-f");
         cl.createArg().setValue(file.getCanonicalPath());
     }
