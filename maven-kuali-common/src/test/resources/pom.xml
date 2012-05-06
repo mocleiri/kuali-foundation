@@ -68,6 +68,17 @@
               <target>mvn</target>
             </configuration>
           </execution>
+          <execution>
+            <id>3</id>
+            <phase>test</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <file>build.xml</file>
+              <target>mci</target>
+            </configuration>
+          </execution>
         </executions>
         <dependencies>
           <dependency>

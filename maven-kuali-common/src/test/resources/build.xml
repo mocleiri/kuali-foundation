@@ -25,4 +25,11 @@
       <arg value="-v" />
     </mvn>
   </target>
+  <target name="mci">
+    <mvn pom="other-pom.xml">
+      <arg value="clean" />
+      <arg value="install" />
+      <arg value="-DskipTests" />
+    </mvn>
+  </target>
 </project>
