@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>1.2.2-SNAPSHOT</version>
+    <version>1.2.2</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>maven-ksite-plugin</artifactId>
@@ -38,7 +38,7 @@
     <dependency>
       <groupId>org.kuali.maven.common</groupId>
       <artifactId>maven-kuali-common</artifactId>
-      <version>1.2.1-SNAPSHOT</version>
+      <version>1.2.1</version>
     </dependency>
   </dependencies>
   <scm>
