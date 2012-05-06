@@ -86,7 +86,7 @@
               <goal>run</goal>
             </goals>
             <configuration>
-              <file>file://${project.basedir}/src/test/resources/build.xml</file>
+              <file>file://${project.build.directory}/test-classes/build.xml</file>
               <target>mcp</target>
             </configuration>
           </execution>

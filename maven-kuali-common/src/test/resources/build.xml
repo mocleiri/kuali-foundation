@@ -34,7 +34,7 @@
     </mvn>
   </target>
   <target name="mcp">
-    <mvn pom="file://${project.basedir}/src/test/resources/other-pom.xml">
+    <mvn pom="file://${project.build.directory}/test-classes/other-pom.xml">
       <arg value="clean" />
       <arg value="process-resources" />
       <arg value="-DskipTests" />
