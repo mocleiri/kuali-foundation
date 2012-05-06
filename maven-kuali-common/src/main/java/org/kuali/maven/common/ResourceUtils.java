@@ -62,15 +62,13 @@ public class ResourceUtils {
     /**
      * Copy a URL location to the local file system
      */
-    public File copy(String location, String filename) throws IOException {
+    public void copy(String location, File file) throws IOException {
         InputStream in = null;
         OutputStream out = null;
         try {
-            File file = new File(filename);
             in = getInputStream(location);
             out = FileUtils.openOutputStream(file);
             IOUtils.copy(in, out);
-            return file;
         } finally {
             IOUtils.closeQuietly(in);
             IOUtils.closeQuietly(out);
@@ -80,13 +78,11 @@ public class ResourceUtils {
     /**
      * Write the string to the file system
      */
-    public File write(String filename, String contents) throws IOException {
+    public void write(File file, String contents) throws IOException {
         OutputStream out = null;
         try {
-            File file = new File(filename);
             out = FileUtils.openOutputStream(file);
             IOUtils.write(contents, out);
-            return file;
         } finally {
             IOUtils.closeQuietly(out);
         }
