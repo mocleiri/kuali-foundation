@@ -40,14 +40,19 @@ public class MvnExecutor {
     PropertiesUtils propertiesUtils = new PropertiesUtils();
 
     public void execute(MvnContext context) throws Exception {
-        StreamConsumer stdout = new DefaultConsumer();
-        StreamConsumer stderr = new DefaultConsumer();
-        Commandline cl = getCommandLine(context);
-        showConfig(context, cl);
-        prepareFileSystem(context, cl);
-        log.info(cl.toString());
-        int exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
-        validateExitValue(context, exitValue);
+        File tempPom = null;
+        try {
+            StreamConsumer stdout = new DefaultConsumer();
+            StreamConsumer stderr = new DefaultConsumer();
+            Commandline cl = getCommandLine(context);
+            showConfig(context, cl);
+            tempPom = prepareFileSystem(context, cl);
+            log.info(cl.toString());
+            int exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
+            validateExitValue(context, exitValue);
+        } finally {
+            deleteQuietly(tempPom);
+        }
     }
 
     protected String getMavenArgs(Commandline cl) {
@@ -120,10 +125,10 @@ public class MvnExecutor {
         }
     }
 
-    protected void prepareFileSystem(MvnContext context, Commandline cl) throws IOException {
+    protected File prepareFileSystem(MvnContext context, Commandline cl) throws IOException {
         FileUtils.forceMkdir(context.getWorkingDir());
         if (StringUtils.isBlank(context.getPom())) {
-            return;
+            return null;
         }
         String s = resourceUtils.read(context.getPom());
         if (context.isFilterPom()) {
@@ -133,7 +138,15 @@ public class MvnExecutor {
         File file = File.createTempFile("pom.", ".xml", context.getWorkingDir());
         resourceUtils.write(file, s);
         cl.createArg().setValue("-f");
-        cl.createArg().setValue(getRelativePath(context.getBasedir(), file));
+        if (!context.getBasedir().equals(context.getWorkingDir())) {
+            File tempPom = new File(context.getBasedir(), file.getName());
+            FileUtils.copyFile(file, tempPom);
+            cl.createArg().setValue(tempPom.getName());
+            return tempPom;
+        } else {
+            cl.createArg().setValue(getRelativePath(context.getBasedir(), context.getWorkingDir()));
+            return null;
+        }
     }
 
     protected String getRelativePath(File dir, File file) throws IOException {
@@ -201,6 +214,15 @@ public class MvnExecutor {
     protected void validateExitValue(MvnContext context, int exitValue) throws MojoExecutionException {
         if (isFail(context, exitValue)) {
             throw new MojoExecutionException("Non-zero exit value");
+        }
+    }
+
+    protected void deleteQuietly(File file) {
+        if (file == null) {
+            return;
+        }
+        if (!file.delete()) {
+            log.info("Unable to delete " + file);
         }
     }
 
