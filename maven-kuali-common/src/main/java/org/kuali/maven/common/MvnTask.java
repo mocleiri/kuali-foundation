@@ -104,6 +104,7 @@ public class MvnTask extends Task implements MvnContext {
     @Override
     public void execute() throws BuildException {
         try {
+            configure();
             executor.execute(this);
         } catch (Exception e) {
             throw new BuildException("Error invoking mvn", e);
