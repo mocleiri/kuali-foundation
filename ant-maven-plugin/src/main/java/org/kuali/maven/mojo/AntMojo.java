@@ -411,7 +411,7 @@ public class AntMojo extends AbstractMojo {
         antFilename = filename;
         relativeLocalFilename = ANT_BUILD_DIR + FS + "local-" + antFilename;
         File localFile = new File(relativeLocalFilename);
-        resourceUtils.copy(file, localFile.getAbsolutePath());
+        resourceUtils.copy(file, localFile);
     }
 
     /**
