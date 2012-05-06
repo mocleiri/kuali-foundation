@@ -50,10 +50,7 @@ public class MvnExecutor {
         validateExitValue(context, exitValue);
     }
 
-    protected void showConfig(MvnContext context, Commandline cl) {
-        if (!StringUtils.isBlank(context.getPom())) {
-            log.info("Maven POM - " + context.getPom());
-        }
+    protected String getMavenArgs(Commandline cl) {
         StringBuilder sb = new StringBuilder();
         String[] args = cl.getArguments();
         for (int i = 0; i < args.length; i++) {
@@ -63,7 +60,15 @@ public class MvnExecutor {
             }
             sb.append(arg);
         }
-        log.info("mvn " + sb);
+        return sb.toString();
+    }
+
+    protected void showConfig(MvnContext context, Commandline cl) {
+        if (!StringUtils.isBlank(context.getPom())) {
+            log.info(" Maven POM - " + context.getPom());
+        }
+        String args = getMavenArgs(cl);
+        log.info("Maven Args - " + args);
         if (isAddMavenOpts(context)) {
             log.info(MvnContext.MAVEN_OPTS + '=' + System.getenv(MvnContext.MAVEN_OPTS));
         }
