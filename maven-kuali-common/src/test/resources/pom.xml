@@ -57,6 +57,17 @@
               <target>noop</target>
             </configuration>
           </execution>
+          <execution>
+            <id>2</id>
+            <phase>test</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <file>build.xml</file>
+              <target>mvn</target>
+            </configuration>
+          </execution>
         </executions>
         <dependencies>
           <dependency>

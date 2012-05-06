@@ -1,6 +1,7 @@
 package org.kuali.maven.common;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
@@ -31,13 +32,13 @@ public class MvnTask extends Task implements MvnContext {
     /**
      * The working directory where the task makes a local copy of the pom (if a pom is supplied)
      */
-    private File workingDir = new File(getProject().getBaseDir().getAbsolutePath() + File.separator + "target"
-            + File.separator + "mvn");
+    private File workingDir;// = new File(getProject().getBaseDir().getAbsolutePath() + File.separator + "target"
+    // + File.separator + "mvn");
 
     /**
      * The base directory for the new mvn invocation.
      */
-    private File basedir = getProject().getBaseDir();
+    private File basedir;// = getProject().getBaseDir();
 
     /**
      * The Maven executable. By default, the executable to use is located via the ${maven.home} system property. This
@@ -59,12 +60,12 @@ public class MvnTask extends Task implements MvnContext {
     /**
      * Arguments to supply to the new mvn invocation eg "clean install"
      */
-    private List<String> args;
+    private List<String> args = new ArrayList<String>();
 
     /**
      * List of properties from the current project to propagate to the new mvn invocation
      */
-    private List<String> properties;
+    private List<String> properties = new ArrayList<String>();
 
     /**
      * If true, the current environment is passed to the new mvn invocation
@@ -82,9 +83,21 @@ public class MvnTask extends Task implements MvnContext {
      */
     private boolean failOnError = true;
 
+    public void addConfiguredArg(String arg) {
+        args.add(arg);
+    }
+
     @Override
     public void execute() throws BuildException {
         try {
+            if (workingDir == null) {
+                workingDir = new File(getProject().getBaseDir().getAbsolutePath() + File.separator + "target"
+                        + File.separator + "mvn");
+            }
+            if (basedir == null) {
+                basedir = getProject().getBaseDir();
+            }
+            args.add("-v");
             executor.execute(this);
         } catch (Exception e) {
             throw new BuildException("Error invoking mvn", e);

@@ -16,7 +16,11 @@
 
 -->
 <project name="Test Harness">
+  <taskdef name="mvn" classname="org.kuali.maven.common.MvnTask" />
   <target name="noop">
     <echo>noop</echo>
+  </target>
+  <target name="mvn">
+    <mvn />
   </target>
 </project>
