@@ -26,6 +26,7 @@
   <groupId>${project.groupId}</groupId>
   <artifactId>${project.artifactId}</artifactId>
   <version>1.1.0-test-SNAPSHOT</version>
+  <packaging>pom</packaging>
   <name>Test Harness</name>
   <properties>
     <foo>bar</foo>
@@ -52,7 +53,7 @@
               <goal>run</goal>
             </goals>
             <configuration>
-              <file>src/test/resources/build.xml</file>
+              <file>build.xml</file>
               <target>noop</target>
             </configuration>
           </execution>
