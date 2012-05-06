@@ -214,9 +214,9 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-pom</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-pom</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/branches/trunk/kuali-pom</url>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/branches/trunk/kuali-pom</url>
   </scm>
   <build>
     <extensions>
