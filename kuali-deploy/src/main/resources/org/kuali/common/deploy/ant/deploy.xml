@@ -205,7 +205,6 @@
     </exec>
   </target>
   <target name="resetdb">
-    <echoproperties destfile="ant.properties" />
     <mvn basedir="${project.basedir}" pom="classpath:org/kuali/common/deploy/mvn/impex/pom.xml" deleteTempPom="false" filterPom="true">
       <arg value="initialize" />
     </mvn>
