@@ -54,6 +54,14 @@ public class MvnExecutor {
         }
     }
 
+    protected String toEmpty(String s) {
+        if (StringUtils.isBlank(s)) {
+            return "";
+        } else {
+            return s;
+        }
+    }
+
     protected String getMavenArgs(Commandline cl) {
         StringBuilder sb = new StringBuilder();
         String[] args = cl.getArguments();
@@ -68,9 +76,7 @@ public class MvnExecutor {
     }
 
     protected void showConfig(MvnContext context, Commandline cl) {
-        if (!StringUtils.isBlank(context.getPom())) {
-            log.info("Maven POM - " + context.getPom());
-        }
+        log.info("Maven POM - " + toEmpty(context.getPom()));
         String args = getMavenArgs(cl);
         log.info("Maven Args - " + args);
         if (isAddMavenOpts(context)) {
