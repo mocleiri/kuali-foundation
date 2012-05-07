@@ -50,7 +50,9 @@ public class MvnExecutor {
             int exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
             validateExitValue(context, exitValue);
         } finally {
-            deleteQuietly(tempPom);
+            if (context.isDeleteTempPom()) {
+                deleteQuietly(tempPom);
+            }
         }
     }
 
@@ -143,6 +145,8 @@ public class MvnExecutor {
         File file = File.createTempFile("pom.", ".xml", context.getWorkingDir());
         resourceUtils.write(file, s);
         cl.createArg().setValue("-f");
+        log.info("basedir=" + context.getBasedir());
+        log.info("workingDir=" + context.getWorkingDir());
         if (!context.getBasedir().equals(context.getWorkingDir())) {
             File tempPom = new File(context.getBasedir(), file.getName());
             FileUtils.copyFile(file, tempPom);

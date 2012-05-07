@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 public interface MvnContext {
+
     public static final String MAVEN_OPTS = "MAVEN_OPTS";
 
     public abstract Properties getProjectProperties();
@@ -61,6 +62,8 @@ public interface MvnContext {
     public abstract void setAddMavenOpts(boolean addMavenOpts);
 
     public abstract boolean isFailOnError();
+
+    public abstract boolean isDeleteTempPom();
 
     public abstract void setFailOnError(boolean failOnError);
 

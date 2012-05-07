@@ -93,6 +93,11 @@ public class MvnTask extends Task implements MvnContext {
     private boolean addMavenOpts = true;
 
     /**
+     * If true, any temp pom copied to <code>basedir</code> will be deleted when the task execution is complete
+     */
+    private boolean deleteTempPom = true;
+
+    /**
      * If true, the Ant build will fail if the new mvn invocation returns a non-zero exit value, otherwise the Ant build
      * will continue
      */
@@ -324,6 +329,15 @@ public class MvnTask extends Task implements MvnContext {
     @Override
     public void setFailOnError(boolean failOnError) {
         this.failOnError = failOnError;
+    }
+
+    @Override
+    public boolean isDeleteTempPom() {
+        return deleteTempPom;
+    }
+
+    public void setDeleteTempPom(boolean deleteTempPom) {
+        this.deleteTempPom = deleteTempPom;
     }
 
 }
