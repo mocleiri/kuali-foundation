@@ -205,13 +205,9 @@
     </exec>
   </target>
   <target name="resetdb">
-    <mvn basedir="${project.basedir}" pom="classpath:org/kuali/common/deploy/mvn/impex/pom.xml" deleteTempPom="false" filterPom="true">
+    <mvn basedir="${project.basedir}" pom="classpath:org/kuali/common/deploy/mvn/impex/pom.xml" filterPom="true">
       <arg value="initialize" />
     </mvn>
-    <!--
-      <exec executable="mvn" dir="${project.build.directory}/classes/org/kuali/common/deploy/mvn/impex" failonerror="true">
-      <arg value="initialize" />
-      </exec> -->
   </target>
   <target name="start" depends="check-basic-properties">
     <antcall target="runscript">
