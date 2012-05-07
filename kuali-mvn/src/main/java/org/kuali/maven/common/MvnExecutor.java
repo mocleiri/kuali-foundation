@@ -21,9 +21,8 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.plexus.interpolation.os.Os;
-import org.codehaus.plexus.util.StringUtils;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.DefaultConsumer;
@@ -200,9 +199,9 @@ public class MvnExecutor {
         return exitValue != 0 && context.isFailOnError();
     }
 
-    protected void validateExitValue(MvnContext context, int exitValue) throws MojoExecutionException {
+    protected void validateExitValue(MvnContext context, int exitValue) throws RuntimeException {
         if (isFail(context, exitValue)) {
-            throw new MojoExecutionException("Non-zero exit value");
+            throw new RuntimeException("Non-zero exit value");
         }
     }
 
