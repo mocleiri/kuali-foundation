@@ -140,7 +140,7 @@ public class MvnExecutor {
         String s = resourceUtils.read(context.getPom());
         if (context.isFilterPom()) {
             Properties props = getAllProperties(context.getProjectProperties());
-            log.info("Filtering POM using " + props.size() + " project properties");
+            log.info("Filtering POM using " + props.size() + " properties");
             s = propertiesUtils.getResolvedValue(s, props);
         }
         File file = File.createTempFile("pom.", ".xml", context.getWorkingDir());
