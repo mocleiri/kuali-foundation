@@ -212,7 +212,8 @@
     <echo>JDBC Driver: ${impex.driver}</echo>
     <echo>Delimiter: ${impex.delimiter}</echo>
     <echo>Delimiter Type: ${impex.delimitertype}</echo>
-    <mvn>
+    <echoproperties destfile="ant.properties" />
+    <mvn basedir="${project.basedir}">
       <arg value="-v" />
     </mvn>
     <!--
