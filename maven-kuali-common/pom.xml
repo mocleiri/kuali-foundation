@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.7</version>
   </parent>
   <groupId>org.kuali.maven.common</groupId>
   <artifactId>maven-kuali-common</artifactId>
@@ -43,13 +43,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>3.1.1.RELEASE</version>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
