@@ -126,6 +126,14 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
      */
     private boolean failOnError;
 
+    /**
+     * If true, any temp pom copied to <code>basedir</code> will be deleted when the plugin exeuction is complete
+     *
+     * @parameter expression="${mvn.deleteTempPom}" default-value="true"
+     * @required
+     */
+    private boolean deleteTempPom;
+
     @Override
     public void execute() throws MojoExecutionException {
         try {
@@ -237,6 +245,15 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
     @Override
     public void setBasedir(File basedir) {
         this.basedir = basedir;
+    }
+
+    @Override
+    public boolean isDeleteTempPom() {
+        return deleteTempPom;
+    }
+
+    public void setDeleteTempPom(boolean deleteTempPom) {
+        this.deleteTempPom = deleteTempPom;
     }
 
 }
