@@ -33,7 +33,7 @@
     <maven.test.skip>true</maven.test.skip>
 
     <!-- plugins -->
-    <plugin.ant.version>1.0.8</plugin.ant.version>
+    <plugin.ant.version>1.0.9</plugin.ant.version>
     <plugin.dependency.version>2.4</plugin.dependency.version>
     <plugin.properties.version>1.1.1</plugin.properties.version>
     <plugin.manifest.version>1.1.0</plugin.manifest.version>
