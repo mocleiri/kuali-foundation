@@ -428,7 +428,7 @@
         <executions>
           <execution>
             <id>wait-for-tomcat-startup</id>
-            <phase>initialize</phase>
+            <phase>process-resources</phase>
             <goals>
               <goal>wait</goal>
             </goals>
