@@ -246,12 +246,6 @@
     <profile>
       <id>kdeploy</id>
       <build>
-        <resources>
-          <resource>
-            <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
-            <filtering>true</filtering>
-          </resource>
-        </resources>
         <plugins>
           <plugin>
             <artifactId>maven-enforcer-plugin</artifactId>
@@ -305,12 +299,6 @@
                       <version>${deploy.version}</version>
                       <type>${deploy.type}</type>
                       <includes>**/MANIFEST.MF</includes>
-                    </artifactItem>
-                    <artifactItem>
-                      <outputDirectory>${project.build.directory}/dependency/${project.artifactId}</outputDirectory>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>${project.artifactId}</artifactId>
-                      <version>${project.version}</version>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
@@ -374,7 +362,9 @@
                 </goals>
                 <configuration>
                   <file>${ant.file}</file>
-                  <target>${ant.deploy.target}</target>
+                  <!--
+                    <target>${ant.deploy.target}</target> -->
+                  <target>resetdb</target>
                 </configuration>
               </execution>
             </executions>
@@ -433,7 +423,7 @@
             <executions>
               <execution>
                 <id>wait-for-tomcat-startup</id>
-                <phase>process-resources</phase>
+                <phase>none</phase>
                 <goals>
                   <goal>wait</goal>
                 </goals>

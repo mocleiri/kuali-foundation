@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.2.6</version>
+    <version>1.2.7-SNAPSHOT</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-deploy</artifactId>
@@ -55,7 +55,7 @@
                   <goal>run</goal>
                 </goals>
                 <configuration>
-                  <file>src/main/resources/org/kuali/common/deploy/ant/deploy.xml</file>
+                  <file>src/main/resources/org/kuali/common/deploy/ant/build.xml</file>
                   <target>filter-poms</target>
                 </configuration>
               </execution>

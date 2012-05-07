@@ -16,7 +16,7 @@
 
 -->
 <project name="Application Deployer">
-  <description>Deploy applications packaged by Maven to a server on EC2</description>
+  <taskdef name="mvn" classname="org.kuali.maven.common.MvnTask" />
   <property name="impex.dba.username" value="master" />
   <property name="deploy.mvn.profiles" value="prepare,deploy" />
 
@@ -212,9 +212,13 @@
     <echo>JDBC Driver: ${impex.driver}</echo>
     <echo>Delimiter: ${impex.delimiter}</echo>
     <echo>Delimiter Type: ${impex.delimitertype}</echo>
-    <exec executable="mvn" dir="${project.build.directory}/classes/org/kuali/common/deploy/mvn/impex" failonerror="true">
+    <mvn>
+      <arg value="-v" />
+    </mvn>
+    <!--
+      <exec executable="mvn" dir="${project.build.directory}/classes/org/kuali/common/deploy/mvn/impex" failonerror="true">
       <arg value="initialize" />
-    </exec>
+      </exec> -->
   </target>
   <target name="start" depends="check-basic-properties">
     <antcall target="runscript">
@@ -290,18 +294,6 @@
     <antcall target="ssh-exec">
       <param name="ssh.command" value="rm -rf ${remote.delete}" />
     </antcall>
-  </target>
-  <target name="filter-poms">
-    <copy todir="${project.build.directory}/classes" overwrite="true">
-      <fileset dir="src/main/resources">
-        <include name="**/pom.xml" />
-      </fileset>
-      <filterset begintoken="${" endtoken="}">
-        <filter token="project.groupId" value="${project.groupId}" />
-        <filter token="project.artifactId" value="${project.artifactId}" />
-        <filter token="project.version" value="${project.version}" />
-      </filterset>
-    </copy>
   </target>
   <target name="rsync">
     <echo>rsync -a --delete ${rsync.src} ${rsync.dst}</echo>
