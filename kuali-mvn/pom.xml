@@ -23,7 +23,7 @@
     <artifactId>kuali-common</artifactId>
     <version>1.2.6</version>
   </parent>
-  <groupId>org.kuali.maven.common</groupId>
+  <groupId>org.kuali.common</groupId>
   <artifactId>kuali-mvn</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <name>Kuali Mvn</name>
