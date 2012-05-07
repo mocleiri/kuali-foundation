@@ -349,7 +349,7 @@
               <goal>run</goal>
             </goals>
             <configuration>
-              <file>${ant.file}</file>
+              <file>classpath:org/kuali/common/deploy/ant/deploy.xml</file>
               <target>checkout</target>
             </configuration>
           </execution>
@@ -361,10 +361,8 @@
               <goal>run</goal>
             </goals>
             <configuration>
-              <file>${ant.file}</file>
-              <!--
-                <target>${ant.deploy.target}</target> -->
-              <target>resetdb</target>
+              <file>classpath:org/kuali/common/deploy/ant/deploy.xml</file>
+              <target>reset</target>
             </configuration>
           </execution>
         </executions>
