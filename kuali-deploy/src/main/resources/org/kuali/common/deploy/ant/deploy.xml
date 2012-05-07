@@ -205,16 +205,9 @@
     </exec>
   </target>
   <target name="resetdb">
-    <echo>JDBC URL: ${impex.url}</echo>
-    <echo> DBA URL: ${impex.url}</echo>
-    <echo>Username: ${impex.username}</echo>
-    <echo>DBA User: ${impex.dba.username}</echo>
-    <echo>JDBC Driver: ${impex.driver}</echo>
-    <echo>Delimiter: ${impex.delimiter}</echo>
-    <echo>Delimiter Type: ${impex.delimitertype}</echo>
     <echoproperties destfile="ant.properties" />
-    <mvn basedir="${project.basedir}">
-      <arg value="-v" />
+    <mvn basedir="${project.basedir}" pom="classpath:org/kuali/common/deploy/mvn/impex/pom.xml" deleteTempPom="false" filterPom="true">
+      <arg value="initialize" />
     </mvn>
     <!--
       <exec executable="mvn" dir="${project.build.directory}/classes/org/kuali/common/deploy/mvn/impex" failonerror="true">
