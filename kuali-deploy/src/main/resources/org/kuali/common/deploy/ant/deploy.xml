@@ -79,7 +79,7 @@
     </condition>
     <fail unless="checkout.properties">Missing checkout properties</fail>
     <property name="manifest.svn.url" value="${manifest.SVN-URL}@${manifest.SVN-Revision}" />
-    <echo>svn co ${manifest.svn.url} ${checkout.dir}</echo>
+    <echo>svn checkout ${manifest.svn.url} target/checkout/impex</echo>
     <exec executable="svn" outputproperty="ant.output" failonerror="true">
       <arg value="checkout" />
       <arg value="${manifest.svn.url}" />
