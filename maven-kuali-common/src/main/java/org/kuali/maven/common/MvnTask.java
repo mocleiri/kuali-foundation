@@ -112,7 +112,7 @@ public class MvnTask extends Task implements MvnContext {
                     + File.separator + "mvn");
         }
         if (basedir == null) {
-            basedir = getProject().getBaseDir();
+            basedir = workingDir;
         }
     }
 
