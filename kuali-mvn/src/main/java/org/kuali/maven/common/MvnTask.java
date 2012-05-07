@@ -30,6 +30,8 @@ import org.apache.tools.ant.Task;
  *
  */
 public class MvnTask extends Task implements MvnContext {
+    private static final String FS = File.separator;
+
     MvnExecutor executor = new MvnExecutor();
 
     @Override
@@ -113,8 +115,8 @@ public class MvnTask extends Task implements MvnContext {
 
     protected void configure() {
         if (workingDir == null) {
-            workingDir = new File(getProject().getBaseDir().getAbsolutePath() + File.separator + "target"
-                    + File.separator + "mvn");
+            String filename = getProject().getBaseDir().getAbsolutePath() + FS + "target" + FS + "mvn";
+            workingDir = new File(filename);
         }
         if (basedir == null) {
             basedir = workingDir;
