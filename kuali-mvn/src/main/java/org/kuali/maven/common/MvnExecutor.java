@@ -140,13 +140,12 @@ public class MvnExecutor {
         String s = resourceUtils.read(context.getPom());
         if (context.isFilterPom()) {
             Properties props = getAllProperties(context.getProjectProperties());
+            log.info("Filtering POM using " + props.size() + " project properties");
             s = propertiesUtils.getResolvedValue(s, props);
         }
         File file = File.createTempFile("pom.", ".xml", context.getWorkingDir());
         resourceUtils.write(file, s);
         cl.createArg().setValue("-f");
-        log.info("basedir=" + context.getBasedir());
-        log.info("workingDir=" + context.getWorkingDir());
         if (!context.getBasedir().equals(context.getWorkingDir())) {
             File tempPom = new File(context.getBasedir(), file.getName());
             FileUtils.copyFile(file, tempPom);
@@ -163,7 +162,7 @@ public class MvnExecutor {
         // Load project properties first
         props.putAll(projectProperties);
         // Environment properties are all prefixed with "env"
-        props = propertiesUtils.getEnvironmentProperties();
+        props.putAll(propertiesUtils.getEnvironmentProperties());
         // System properties override everything
         props.putAll(System.getProperties());
         return props;
