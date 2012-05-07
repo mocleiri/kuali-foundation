@@ -259,4 +259,36 @@ Page
 <!-- Refresh -->
 <input src="../images/arrow_refresh.png" onclick="javascript: alert('This would update the Value description and options based on the Type pulldown.'); return false" class="tinybutton" alt="refresh" title="Refresh" type="image" />
                     
-                    
+<!-- hide/show div -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#c_name").toggle(
+			function()
+			{
+				$("#d_name").slideDown(400);
+				$("#c_name").html("hide");
+			},
+			function()
+			{
+				$("#d_name").slideUp(200);
+				$("#c_name").html("show");
+			}
+		);	
+	});
+</script> 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#c_procedures").toggle(
+			function()
+			{
+				$("#d_procedures").slideDown(400);
+				$("#i_procedures").attr("src","../images/tinybutton-hide.gif");
+			},
+			function()
+			{
+				$("#d_procedures").slideUp(200);
+				$("#i_procedures").attr("src","../images/tinybutton-show.gif");
+			}
+		);	
+	});
+</script>                

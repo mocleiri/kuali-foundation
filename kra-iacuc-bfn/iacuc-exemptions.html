@@ -1,0 +1,403 @@
+<!--
+#########################################################################################
+#                                                                                       #
+#  U I   N E S T E D   S T R U C T U R A L   O U T L I N E                              #
+#                                                                                       #
+#  A "Page" contains one or more "Panels" and optionally a "Control Panel" at the top.  #
+#  A Panel contains one or more "Elements."                                             #
+#  An Element can optionally expand and contains one or more of the following:          #
+#	 [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#                                                                                       #
+#  A Sub-element can optionally expand and contains one or more of the following:       #
+#    [content]                                                                          #
+#    one or more "Sub-elements"                                                         #
+#                                                                                       #
+#########################################################################################
+-->
+
+<!-- DOCUMENT HEAD -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>IACUC - Exemptions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <link rel="shortcut icon" href="../images/icon.ico" />
+    <link href="../css/kuali-stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="../BFN/new_kuali.css" rel=stylesheet type="text/css">
+    
+    <!-- jQuery Library -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="jquery-1.4.3.min.js"></script>-->
+    
+	<!-- jQ MultiSelects -->
+    <script type="text/javascript" src="../scripts/jquery.multiselects.js" /></script>
+    
+    <!-- FancyBox -->
+    <script type="text/javascript" src="./fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="./fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="./fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+    
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="pageheader">
+	<table class='header' cellpadding="0" border="0">
+    	<tr>
+        	<td align="left" valign="middle">
+            	<span class="pagetitle">
+                	IACUC - Exemptions
+                	<input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this page.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                </span>
+            </td>
+            <td align="right">
+            	
+                <table class="headerdocsummary" cellpadding="0" border="0">
+                	<tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                    <tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                    <tr>
+                    	<th>Lorem:</th>
+                        <td>Ipsum</td>
+                        <th>Lorem:</th>
+                        <td>Ipsum</td>
+                    </tr>
+                </table>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- TOP NAVIGATION(TABNAV)-->
+<div class="horizontaltabs">
+	<table class="horizontaltabstable">
+    	<tr>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Protocol</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Personnel</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Questionnaire</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" name="editor" value="editor" alt="species/groups" onClick="window.location='iacuc-species.html'">Species/Groups</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- ACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" name="presentation" value="presentation" alt="procedures" onClick="window.location='iacuc-procedures2.html'">Procedures</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabactive1">&nbsp;</td>
+                <td class="tabactive2">
+                    <button type="submit" name="manager" value="manager" alt="exemptions" onClick="window.location='iacuc-exemptions.html'">Exemptions</button>
+                </td>
+                <td class="tabactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" name="manager" value="manager" alt="the three rs" onClick="window.location='iacuc-justification.html'">The Three R's</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Custom Data</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Special Review</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Permissions</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Notes & Attachments</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+            <!-- INACTIVE -->
+                <td class="tabinactive1">&nbsp;</td>
+                <td class="tabinactive2">
+                    <button type="submit" alt="General" onClick="alert('This would navigate to a page similar to in IRB')">Protocol Actions</button>
+                </td>
+                <td class="tabinactive3">&nbsp;</td>
+        </tr>
+        <tr>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- ACTIVE -->
+                <td class="tabactive4"></td>
+                <td class="tabactive5"></td>
+                <td class="tabactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+            <!-- INACTIVE -->
+                <td class="tabinactive4"></td>
+                <td class="tabinactive5"></td>
+                <td class="tabinactive6"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- BEGIN PANEL CONTAINER -->
+<table class="panelcontainer" cellspacing="20"><tr><td>
+
+<!-- GLOBAL NAVIGATION CONTROLS -->
+<div class="globalnav">
+	<img src="../images/tinybutton1-siteindex.gif" alt="site index" />
+    <img src="../images/tinybutton-expandall.gif" alt="expand all" />
+    <img src="../images/tinybutton-collapseall.gif" alt="collapse all" />
+</div>
+
+<form name="thisform" id="thisform" method="post" action="">
+
+<!-- TOP VERTICAL TAB HEAD -->
+<table class="paneltable">
+    <tr>
+        <td class="toppanelhead1">&nbsp;</td>
+        <td class="toppanelhead2">
+            Exemptions
+        </td>
+        <td class="toppanelhead3">
+            <img id="control_panelcontent01" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
+            <script type="text/javascript">
+				$(document).ready(function(){
+					// trigger
+						$("#control_panelcontent01").toggle(
+							function()
+							{
+								$("#div_panelcontent01").slideUp(200);
+								$("#control_panelcontent01").attr("src","../images/tinybutton-show.gif");
+								$("#control_panelcontent01").attr("alt","show");
+							},
+							function()
+							{
+								$("#div_panelcontent01").slideDown(400);
+								$("#control_panelcontent01").attr("src","../images/tinybutton-hide.gif");
+								$("#control_panelcontent01").attr("alt","hide");
+							}
+						);	
+				});
+			</script>
+        </td>
+        <td class="toppanelhead4">&nbsp;</td>
+        <td class="toppanelhead5">&nbsp;</td>
+    </tr>
+</table>
+         
+<!-- PANEL CONTENT -->
+<div id="div_panelcontent01">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+            
+            	<!-- Context -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <a href="#" id="c_procedures"><img id="i_procedures" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                            <script type="text/javascript">
+								$(document).ready(function(){
+									$("#c_procedures").toggle(
+										function()
+										{
+											$("#d_procedures").slideDown(400);
+											$("#i_procedures").attr("src","../images/tinybutton-hide.gif");
+										},
+										function()
+										{
+											$("#d_procedures").slideUp(200);
+											$("#i_procedures").attr("src","../images/tinybutton-show.gif");
+										}
+									);	
+								});
+							</script>
+                            Header
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                <div id="d_procedures" style="display:none;" >
+                    <table class="content_table">  
+                    	<tr>
+                            <td class="content_grey" style="text-align:center;">
+                            	Label
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Label
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Label
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Label
+                            </td>
+                            <td class="content_grey" style="text-align:center;">
+                                Label
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_white" style="vertical-align:top;">
+                                content
+                            </td>
+                            <td class="content_white" style="vertical-align:top;">
+                                content
+                            </td>
+                            <td class="content_white" style="vertical-align:top;">
+                                content
+                            </td>
+                            <td class="content_white" style="vertical-align:top;">
+                               content
+                            </td>
+                            <td class="content_white" style="vertical-align:top;">
+                                content
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content_grey" style="text-align:center;" colspan="5">
+                            	content
+                            </td>
+                        </tr>
+                        
+                    </table>
+            	</div>
+            
+            </td> 
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+
+
+<!-- PANEL FOOT -->
+<table class="paneltable">
+    <tr>
+        <td class="panelfoot1">&nbsp;</td>
+        <td class="panelfoot2" colspan="3">&nbsp;</td>
+        <td class="panelfoot3">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- INSTRUCTIONAL NOTES -->        
+<div class="instructionalnotes">
+    * required
+</div>
+    
+<!-- GLOBAL DOCUMENT CONTROLS -->
+<div class="globaldocumentcontrols">
+    <a href="#"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_refresh.gif" alt="refresh" width="68" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_close.gif" alt="close" width="48" height="18" hspace="5" border="0" /></a>
+    <a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0" /></a>
+</div>
+
+</form>
+
+<div style="border:1px solid #F00; background-color:#FFFFCC; padding:10px; margin:20px;">
+
+	<p style="font-weight:bold;">Alan's Notes:</p>
+    
+        <p>PI will have list of exemptions and can pick all that apply. Exemption category does not apply.</p>
+        
+        <p>Capture Species associated with exemption and animal number count. Picklist of species would be generated 
+        from the species selected in the species group tab. We need to build in the ability for exemptions to be 
+        associated with a group (select one or many)</p>
+        
+        <p>Pi would then get a text box under each selected exemption to fill in a description/justification.</p>
+    
+    <p style="font-weight:bold;">Bart's Notes:</p>
+    
+    	<p>Which Species/Groups is correct (both were linked from the horizontal tabs of these IACUC mocks)?  What content stays and what moves to new tab?</p>
+        <ul>
+        	<li><a href="iacuc-species.html" target="_blank" style="text-decoration:underline;">iacuc-species.html</a></li>
+            <li><a href="iacuc-species02.html" target="_blank" style="text-decoration:underline;">iacuc-species02.html</a></li>
+        </ul>
+        
+</div>
+
+
+
+<!-- END PANEL CONTAINER -->
+</td></tr></table>
+
+<!-- DOCUMENT FOOT -->
+</body>
+</html>
