@@ -350,7 +350,7 @@
             </goals>
             <configuration>
               <file>${ant.file}</file>
-              <target>${ant.download.target}</target>
+              <target>checkout</target>
             </configuration>
           </execution>
           <!-- This executes after maven-impex-plugin, but before maven-http-plugin -->
