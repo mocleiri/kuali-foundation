@@ -300,6 +300,13 @@
                   <type>${deploy.type}</type>
                   <includes>**/MANIFEST.MF</includes>
                 </artifactItem>
+                <artifactItem>
+                  <outputDirectory>${project.build.directory}/dependency/${project.artifactId}</outputDirectory>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>${project.artifactId}</artifactId>
+                  <version>${project.version}</version>
+                  <includes>**/config/**/*</includes>
+                </artifactItem>
               </artifactItems>
             </configuration>
           </execution>
