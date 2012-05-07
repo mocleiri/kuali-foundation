@@ -32,7 +32,7 @@
   <scm>
     <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-mvn</connection>
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-mvn</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/trunk/maven-kuali-mvn</url>
+    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-mvn</url>
   </scm>
   <properties>
     <slf4j.version>1.6.4</slf4j.version>
