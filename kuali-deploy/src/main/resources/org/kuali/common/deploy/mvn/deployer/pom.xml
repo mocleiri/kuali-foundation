@@ -154,6 +154,18 @@
               </configuration>
             </execution>
             <execution>
+              <id>parse</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>parse-version-properties</goal>
+              </goals>
+              <configuration>
+                <properties>
+                  <param>deploy.version</param>
+                </properties>
+              </configuration>
+            </execution>
+            <execution>
               <id>common</id>
               <phase>initialize</phase>
               <goals>
@@ -201,7 +213,7 @@
               <configuration>
                 <quiet>true</quiet>
                 <locations>
-                  <param>classpath:${deploy.groupId.path}/${deploy.version}.properties</param>
+                  <param>classpath:${deploy.groupId.path}/${deploy.version.major}.${deploy.version.minor}.properties</param>
                 </locations>
               </configuration>
             </execution>
