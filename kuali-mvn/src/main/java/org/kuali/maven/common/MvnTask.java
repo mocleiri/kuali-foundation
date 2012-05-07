@@ -51,7 +51,7 @@ public class MvnTask extends Task implements MvnContext {
     private File workingDir;
 
     /**
-     * The base directory for the new mvn invocation.
+     * The base directory for the new mvn invocation. By default the same as workingDir
      */
     private File basedir;
 
