@@ -71,9 +71,9 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>org.kuali.maven.common</groupId>
-      <artifactId>maven-kuali-common</artifactId>
-      <version>1.2.2-SNAPSHOT</version>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-mvn</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
