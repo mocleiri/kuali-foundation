@@ -149,20 +149,6 @@ public class MvnExecutor {
         }
     }
 
-    protected String getRelativePath(File dir, File file) throws IOException {
-        String s1 = dir.getCanonicalPath();
-        String s2 = file.getCanonicalPath();
-        if (s1.equals(s2)) {
-            return s1;
-        }
-        int pos = s2.indexOf(s1);
-        if (pos == -1) {
-            return s2;
-        } else {
-            return s2.substring(s1.length() + 1);
-        }
-    }
-
     protected Properties getAllProperties(Properties projectProperties) {
         Properties props = new Properties();
         // Load project properties first
