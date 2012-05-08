@@ -337,7 +337,7 @@
             </goals>
             <configuration>
               <resources>
-                <!-- Copy in everything but the environment specific config files -->
+                <!-- Exclude all environment config files -->
                 <resource>
                   <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
                   <filtering>true</filtering>
@@ -345,7 +345,7 @@
                     <exclude>**/env*.xml</exclude>
                   </excludes>
                 </resource>
-                <!-- Copy in the environment specific config file -->
+                <!-- Copy in the single environment specific config file that is needed -->
                 <resource>
                   <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
                   <filtering>true</filtering>
