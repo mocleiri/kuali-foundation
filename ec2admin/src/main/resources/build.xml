@@ -74,7 +74,6 @@
         <filter token="environment" value="${environment}" />
       </filterset>
     </copy>
-    <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/.ssh/rice.keystore" overwrite="true" />
   </target>
 
   <target name="setuptomcat">
