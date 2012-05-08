@@ -17,7 +17,6 @@
 -->
 <!-- Configuration specific to Kuali Rice Standalone -->
 <config>
-  <param name="external.config.home">/home/tomcat/.kuali/conf</param>
   <param name="filter.login.class">org.kuali.rice.kew.web.DummyLoginFilter</param>
   <param name="filtermapping.login.1">/*</param>
   <param name="config.location">${external.config.home}/env${deploy.env}-config.xml</param>
