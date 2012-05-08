@@ -74,6 +74,7 @@
         <filter token="environment" value="${environment}" />
       </filterset>
     </copy>
+    <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/.ssh/rice.keystore" overwrite="true" />
   </target>
 
   <target name="setuptomcat">
@@ -132,6 +133,7 @@
     <exec executable="groupadd">
       <arg value="tomcat" />
     </exec>
+    <antcall target="createuser" />
     <antcall target="copytomcatconfig" />
     <antcall target="chowntomcatdirs" />
     <exec executable="chown">
