@@ -354,7 +354,7 @@
                     <include>**/env${deploy.env}-config.xml</include>
                   </includes>
                   <excludes>
-                    <exclude>rice.keystore</exclude>
+                    <exclude>**/rice.keystore</exclude>
                   </excludes>
                 </resource>
                 <resource>
