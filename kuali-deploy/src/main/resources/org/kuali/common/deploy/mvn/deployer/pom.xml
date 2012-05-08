@@ -350,7 +350,7 @@
                   <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
                   <filtering>true</filtering>
                   <includes>
-                    <include>**/env${deploy.env}.xml</include>
+                    <include>**/env${deploy.env}-config.xml</include>
                   </includes>
                 </resource>
               </resources>
