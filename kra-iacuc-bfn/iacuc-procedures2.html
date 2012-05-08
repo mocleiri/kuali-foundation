@@ -225,14 +225,106 @@
 
 <form name="thisform" id="thisform" method="post" action="">
 
-<!-- TOP VERTICAL TAB HEAD -->
+<!-- MID PANEL HEAD -->
 <table class="paneltable">
     <tr>
         <td class="toppanelhead1">&nbsp;</td>
         <td class="toppanelhead2">
-            Procedures
+            Overview and Timeline
         </td>
         <td class="toppanelhead3">
+            <img id="control_panelcontent09" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
+            <script type="text/javascript">
+				$(document).ready(function(){
+					// trigger
+						$("#control_panelcontent09").toggle(
+							function()
+							{
+								$("#div_panelcontent09").slideUp(200);
+								$("#control_panelcontent09").attr("src","../images/tinybutton-show.gif");
+								$("#control_panelcontent09").attr("alt","show");
+							},
+							function()
+							{
+								$("#div_panelcontent09").slideDown(400);
+								$("#control_panelcontent09").attr("src","../images/tinybutton-hide.gif");
+								$("#control_panelcontent09").attr("alt","hide");
+							}
+						);	
+				});
+			</script>
+        </td>
+        <td class="toppanelhead4">&nbsp;</td>
+        <td class="toppanelhead5">&nbsp;</td>
+    </tr>
+</table>
+
+<!-- PANEL CONTENT -->
+<div id="div_panelcontent09">
+    <table class="paneltable">
+        <tr>
+            <td class="panelcontent1">&nbsp;</td>
+            <td class="panelcontent2" colspan="3">
+            
+            	<!-- Context -->
+                <table class="elementhead_table">
+                    <tr>
+                        <th class="elementhead_left">
+                            <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                            Overview and Timeline
+                        </th>
+                        <th class="elementhead_right">
+                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
+                        </th>
+                    </tr>
+                </table>
+                
+                <div>
+                    <table class="content_table">  
+                    	<tr>
+                            <td class="content_grey" style="text-align:center;">
+                                Overview and Timeline
+                            </td>
+                            <td class="content_grey" style="text-align:center; width:60px;">
+                                Action
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td class="content_white" style="text-align:left;">
+                                
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="4">Ultrices ultrices turpis ultrices dis dis, hac sociis integer. Dis augue pulvinar mattis? Rhoncus aliquet pid et eu cursus duis in vut cum integer porttitor arcu porttitor placerat ac. Sit, dis purus in? Diam, magna placerat ac a enim hac nec tempor ac hac hac nec? Non aliquet, ac dis, nunc penatibus eros non sagittis eros tincidunt a dignissim sed. Adipiscing montes ac, magna massa aenean hac platea tincidunt proin pellentesque montes! Porta placerat augue egestas porttitor dis, tempor sed. Et ridiculus odio magna ac enim scelerisque cum, hac in proin. Odio et integer tristique! Enim. Natoque quis, urna. Scelerisque augue diam penatibus, risus aliquam augue, velit ut turpis lundium turpis vel. Turpis elementum odio! Et, rhoncus! Sed sit sed.</textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td class="content_white" style="text-align:center;">
+                            	<img id="control_editrule01" src="../images/tinybutton-save1.gif" style="border:none;" alt="save" title="Save" type="image"  onclick="alert('This would save changes to the record.');" />
+                            </td>
+                        </tr>
+                    </table>
+            	</div>
+            
+            </td> 
+            <td class="panelcontent3">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+<!-- TOP VERTICAL TAB HEAD -->
+<table class="paneltable">
+    <tr>
+        <td class="midpanelhead1">&nbsp;</td>
+        <td class="midpanelhead2">
+            Procedures
+        </td>
+        <td class="midpanelhead3">
             <img id="control_panelcontent01" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
             <script type="text/javascript">
 				$(document).ready(function(){
@@ -254,8 +346,8 @@
 				});
 			</script>
         </td>
-        <td class="toppanelhead4">&nbsp;</td>
-        <td class="toppanelhead5">&nbsp;</td>
+        <td class="midpanelhead4">&nbsp;</td>
+        <td class="midpanelhead5">&nbsp;</td>
     </tr>
 </table>
          
@@ -297,24 +389,7 @@
                 <div id="d_procedures" style="display:none;" >
                     <table class="content_table">  
                     	<tr>
-                            <td class="content_grey" style="text-align:center;">
-                            	Surgical Procedures
-                            </td>
-                            <td class="content_grey" style="text-align:center;">
-                                Non-surgical Procedures
-                            </td>
-                            <td class="content_grey" style="text-align:center;">
-                                Euthanasia
-                            </td>
-                            <td class="content_grey" style="text-align:center;">
-                                Drugs
-                            </td>
-                            <td class="content_grey" style="text-align:center;">
-                                Hazardous Agents
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="content_white" style="vertical-align:top;">
+                            <td class="content_white" style="vertical-align:top; padding:8px;">
                                 <script type="text/javascript">
 									$(document).ready(function(){
 										$(".updatecategories").change(
@@ -340,18 +415,25 @@
 										);	
 									});
 								</script>
+                                
+                                <div style="font-weight:bold; margin-top:8px;">Surgical Procedures</div>
                             	<input type="checkbox" class="nobord updatecategories" name="CustomData01" id="CustomData01" value="0" /> Non-survival<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData02" id="CustomData02" value="0" /> Multiple Major Survival<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData03" id="CustomData03" value="0" checked="checked" /> Survival 
-                            </td>
-                            <td class="content_white" style="vertical-align:top;">
+                            
+                                <div style="font-weight:bold; margin-top:8px;">Non-surgical Procedures</div>
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData04" id="CustomData04" value="0" /> Xenografts<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData05" id="CustomData05" value="0" /> Antibody Production<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData06" id="CustomData06" value="0" /> Implantation/Injection<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData07" id="CustomData07" value="0" /> Fluid Sampling<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData08" id="CustomData08" value="0" /> Nutritional Studies<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData09" id="CustomData09" value="0" /> Breeding<br />
-                                <input type="checkbox" class="nobord updatecategories" name="CustomData10" id="CustomData10" value="0" /> Anesthesia/Analgesia<br />
+                                <input type="checkbox" class="nobord updatecategories" name="CustomData10" id="CustomData10" value="0" /> Anesthesia/Analgesia
+                                
+                            </td>
+                            <td class="content_white" style="vertical-align:top; padding:8px;">
+                                
+                                <div style="font-weight:bold; margin-top:8px;">Non-surgical Procedures <i>(Continued)</i></div>
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData11" id="CustomData11" value="0" /> Behavioral Studies<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData12" id="CustomData12" value="0" /> Blood Collection<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData13" id="CustomData13" value="0" /> Drug Administration<br />
@@ -362,21 +444,25 @@
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData18" id="CustomData18" value="0" /> Physiology Testing<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData19" id="CustomData19" value="0" /> Prolonged Restraint (Chemical or Physical)<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData20" id="CustomData20" value="0" /> Tissue or Cell Sampling/Biopsy
+                                
                             </td>
-                            <td class="content_white" style="vertical-align:top;">
+                            <td class="content_white" style="vertical-align:top; padding:8px;">
+                                
+                                <div style="font-weight:bold; margin-top:8px;">Euthanasia</div>
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData21" id="CustomData21" value="0" /> Chemical Method<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData22" id="CustomData22" value="0" /> Physical Method<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData23" id="CustomData23" value="0" /> Chemical/Physical Combined
-                            </td>
-                            <td class="content_white" style="vertical-align:top;">
+                                
+                                <div style="font-weight:bold; margin-top:8px;">Drugs</div>
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData24" id="CustomData24" value="0" /> Paralytics<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData25" id="CustomData25" value="0" checked="checked" /> Anesthesia<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData26" id="CustomData26" value="0" /> Analgesics
-                            </td>
-                            <td class="content_white" style="vertical-align:top;">
+                            
+                                <div style="font-weight:bold; margin-top:8px;">Hazardous Agents </div>
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData27" id="CustomData27" value="0" /> Aversive Stimuli<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData28" id="CustomData28" value="0" /> Irradiation<br />
                                 <input type="checkbox" class="nobord updatecategories" name="CustomData29" id="CustomData29" value="0" /> Radioactive Isotopes
+                                
                             </td>
                         </tr>
                         <tr>
@@ -412,6 +498,9 @@
                                     Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
+                                    Groups
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -431,6 +520,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -459,13 +557,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData02" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -487,6 +588,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -524,6 +634,9 @@
                                     Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
+                                    Groups
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -546,6 +659,15 @@
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
                                     <input type="text" style="width:100%;" />
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -563,6 +685,10 @@
                                     Flying Frogs
                                 </td>
                                 <td class="content_white" style="text-align:left;">
+                                    Group 1<br />
+                                    Group 2
+                                </td>
+                                <td class="content_white" style="text-align:left;">
                                     A
                                 </td>
                                 <td class="content_white" style="text-align:left;">
@@ -573,7 +699,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="content_white" style="text-align:left; padding:5px;" colspan="3">
+                                <td class="content_white" style="text-align:left; padding:5px;" colspan="4">
                                     
                                     <!-- Locations -->
                                     <table class="elementhead_table">
@@ -958,6 +1084,412 @@
                                     
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="content_grey" style="width:50px; text-align:center;" rowspan="2">
+                                    2
+                                </td>
+                                <td class="content_white" style="text-align:left;">
+                                    Flying Salamanders
+                                </td>
+                                <td class="content_white" style="text-align:left;">
+                                    Group 3
+                                </td>
+                                <td class="content_white" style="text-align:left;">
+                                    A
+                                </td>
+                                <td class="content_white" style="text-align:left;">
+                                    8
+                                </td>
+                                <td class="content_white" style="width:70px; text-align:center;" rowspan="2">
+                                    <img src="../images/tinybutton-delete1.gif" style="border:none;" alt="delete" title="Delete" type="image" onclick="alert('This would delete the associated species.');" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="content_white" style="text-align:left; padding:5px;" colspan="4">
+                                    
+                                    <!-- Locations -->
+                                    <table class="elementhead_table">
+                                        <tr>
+                                            <th class="elementhead_left" style="background-color:#999;">
+                                                <img id="control_detail01_location2a" src="../images/tinybutton-show.gif" alt="hide" style="cursor:pointer; width:45px; height:15px; border:none; vertical-align:top;" />
+                                                <script type="text/javascript">
+                                                    $(document).ready(function(){
+                                                        // trigger
+                                                            $("#control_detail01_location2a").toggle(
+                                                                function()
+                                                                {
+                                                                    $("#div_detail01_location2a").slideDown(400);
+                                                                    $("#control_detail01_location2a").attr("src","../images/tinybutton-hide.gif");
+                                                                    $("#control_detail01_location2a").attr("alt","hide");
+                                                                },
+                                                                function()
+                                                                {
+                                                                    $("#div_detail01_location2a").slideUp(400);
+                                                                    $("#control_detail01_location2a").attr("src","../images/tinybutton-show.gif");
+                                                                    $("#control_detail01_location2a").attr("alt","show");
+                                                                }
+                                                            );	
+                                                    });
+                                                </script>
+                                                Location(s)
+                                            </th>
+                                        </tr>
+                                    </table>
+                                    <div id="div_detail01_location2a" style="display:none;">
+                                        <table class="content_table">  
+                                            <tr>
+                                                <td class="content_grey" style="width:50px; text-align:center;">&nbsp;
+                                                    
+                                                </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Type
+                                                </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Name
+                                                </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Room
+                                                </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Description
+                                                </td>
+                                                <td class="content_grey" style="text-align:center; width:120px;">
+                                                    Action
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="width:50px; text-align:right;">
+                                                    Add:
+                                                </td>
+                                                <td class="content_gradient" style="text-align:left;">
+                                                    <select>
+                                                        <option value="0" selected="selected">Proposal Organization</option>
+                                                        <option value="1">Performing Organization</option>
+                                                        <option value="2">Other Organization</option>
+                                                        <option value="2">Performance Site</option>
+                                                    </select>
+                                                </td>
+                                                <td class="content_gradient" style="text-align:left;">
+                                                    <select>
+                                                        <option value="0" selected="selected">Location 1</option>
+                                                        <option value="1">Location 2</option>
+                                                    </select>
+                                                </td>
+                                                <td class="content_gradient" style="text-align:left;">
+                                                    <input type="text" style="width:99%;" value="" />
+                                                </td>
+                                                <td class="content_gradient" style="text-align:left;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none;">
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                            </td>
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                                <td class="content_gradient" style="text-align:center;">
+                                                    <img src="../images/tinybutton-add1.gif" style="border:none;" alt="add" title="Add" type="image" onclick="alert('This add the indicated record.');" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="width:50px; text-align:center;">
+                                                    1
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    Proposal Organization
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    Location 2
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    123
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none;">
+                                                                Neoclassical space with Beaux Arts details.
+                                                            </td>
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                                <td class="content_gradient" style="text-align:center;">
+                                                    <img src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" onclick="alert('This would open a FancyBox edit.');"  />
+                                                    <img src="../images/tinybutton-delete1.gif" style="border:none;" alt="delete" title="Delete" onclick="alert('This remove the associated record.');" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey lastrow" style="width:50px; text-align:center;">
+                                                    2
+                                                </td>
+                                                <td class="content_white lastrow" style="text-align:left;">
+                                                    Other Organization
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    Location 3
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    456
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none;">
+                                                                Deconstructive Postmodern.
+                                                            </td>
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                                <td class="content_gradient lastrow" style="text-align:center;">
+                                                    <img src="../images/tinybutton-edit1.gif" style="border:none;" alt="edit" title="Edit" onclick="alert('This would open a FancyBox edit.');"  />
+                                                    <img src="../images/tinybutton-delete1.gif" style="border:none;" alt="delete" title="Delete" onclick="alert('This remove the associated record.');" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    
+                                    <!-- Persons Responsible -->
+                                    <table class="elementhead_table" style="margin-top:5px;">
+                                        <tr>
+                                            <th class="elementhead_left" style="background-color:#999;">
+                                                <img id="control_detail01_personnel2a" src="../images/tinybutton-show.gif" alt="hide" style="cursor:pointer; width:45px; height:15px; border:none; vertical-align:top;" />
+                                                <script type="text/javascript">
+                                                    $(document).ready(function(){
+                                                        // trigger
+                                                            $("#control_detail01_personnel2a").toggle(
+                                                                function()
+                                                                {
+                                                                    $("#div_detail01_personnel2a").slideDown(400);
+                                                                    $("#control_detail01_personnel2a").attr("src","../images/tinybutton-hide.gif");
+                                                                    $("#control_detail01_personnel2a").attr("alt","hide");
+                                                                    alert("Still being developed");
+                                                                },
+                                                                function()
+                                                                {
+                                                                    $("#div_detail01_personnel2a").slideUp(400);
+                                                                    $("#control_detail01_personnel2a").attr("src","../images/tinybutton-show.gif");
+                                                                    $("#control_detail01_personnel2a").attr("alt","show");
+                                                                }
+                                                            );	
+                                                    });
+                                                </script>
+                                                Persons Responsible
+                                            </th>
+                                        </tr>
+                                    </table>
+                                    <div id="div_detail01_personnel2a" style="display:none;">
+                                        <table class="content_table">  
+                                            <tr>
+                                                <td class="content_grey" style="width:30px; text-align:center;">&nbsp;
+                                                    
+                                                </td>
+                                                <td class="content_grey" style="width:250px; text-align:center;">
+                                                    Name
+                                                </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Training
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_white" style="text-align:center;">
+                                                    <input type="checkbox" class="nobord" name="CustomData" value="0" checked="unchecked" />
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none; text-align:right;">
+                                                                <input type="text" value="Bart Niedner" style="width:100%;" />
+                                                            </td>
+                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none;">
+                                                                M-Arch 1<br />
+                                                                PHP<br />
+                                                                MySQL<br />
+                                                                Photoshop<br />
+                                                            </td>
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_white" style="text-align:center;">
+                                                    <input type="checkbox" class="nobord" name="CustomData" value="0" checked="unchecked" />
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none; text-align:right;">
+                                                                <input type="text" value="Joseph Abraham" style="width:100%;" />
+                                                            </td>
+                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
+                                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none;">
+                                                                Mock Developer Management<br />
+                                                                Crisis Negotiation<br />
+                                                                Complex System Explainations<br />
+                                                            </td>
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                        
+                                    <!-- Surgical Procedures -->
+                                    <table class="elementhead_table" style="margin-top:5px;">
+                                        <tr>
+                                            <th class="elementhead_left" style="background-color:#999;">
+                                                <img id="control_customdata_surgerya" src="../images/tinybutton-show.gif" alt="hide" style="cursor:pointer; width:45px; height:15px; border:none; vertical-align:top;" />
+                                                <script type="text/javascript">
+                                                    $(document).ready(function(){
+                                                        // trigger
+                                                            $("#control_customdata_surgerya").toggle(
+                                                                function()
+                                                                {
+                                                                    $("#div_customdata_surgerya").slideDown(300);
+                                                                    $("#control_customdata_surgerya").attr("src","../images/tinybutton-hide.gif");
+                                                                    $("#control_customdata_surgerya").attr("alt","hide");
+                                                                },
+                                                                function()
+                                                                {
+                                                                    $("#div_customdata_surgerya").slideUp(300);
+                                                                    $("#control_customdata_surgerya").attr("src","../images/tinybutton-show.gif");
+                                                                    $("#control_customdata_surgerya").attr("alt","show");
+                                                                }
+                                                            );	
+                                                    });
+                                                </script>
+                                                Custom Data: Surgical Procedures
+                                            </th>
+                                        </tr>
+                                    </table>
+                                    <div id="div_customdata_surgerya" style="display:none;">
+                                        <table class="content_table">  
+                                            <tr>
+                                                <td class="content_grey" style="text-align:right; width:240px;">&nbsp;
+                                                    Surgery(s) Description:
+                                                </td>
+                                                <td colspan="3" class="content_white" style="text-align:center;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none;">
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                            </td>
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:right;">&nbsp;
+                                                    Surgical Preparation:
+                                                </td>
+                                                <td colspan="3" class="content_white" style="text-align:center;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none;">
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                            </td>
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:right;">&nbsp;
+                                                    Anesthetic Monitoring:
+                                                </td>
+                                                <td colspan="3" class="content_white" style="text-align:center;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none;">
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                            </td>
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:right;">&nbsp;
+                                                    Post Op Care Including Analgesics:
+                                                </td>
+                                                <td colspan="3" class="content_white" style="text-align:center;">
+                                                    
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none;">
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                            </td>
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 
@@ -985,6 +1517,9 @@
                                     Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
+                                    Groups
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1004,6 +1539,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1041,6 +1585,9 @@
                                     Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
+                                    Groups
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1060,6 +1607,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1097,6 +1653,9 @@
                                     Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
+                                    Groups
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1116,6 +1675,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1153,6 +1721,9 @@
                                     Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
+                                    Groups
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1172,6 +1743,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1209,6 +1789,9 @@
                                     Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
+                                    Groups
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1228,6 +1811,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1256,13 +1848,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData09" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -1284,6 +1879,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1313,13 +1917,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData10" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -1341,6 +1948,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1378,6 +1994,9 @@
                                     Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
+                                    Groups
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1397,6 +2016,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1434,6 +2062,9 @@
                                     Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
+                                    Groups
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1453,6 +2084,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1490,6 +2130,9 @@
                                     Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
+                                    Groups
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1509,6 +2152,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1537,13 +2189,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData14" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -1568,6 +2223,15 @@
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
                                     <input type="text" style="width:100%;" />
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1585,6 +2249,9 @@
                                     Flying Frogs
                                 </td>
                                 <td class="content_white" style="text-align:left;">
+                                    
+                                </td>
+                                <td class="content_white" style="text-align:left;">
                                     A
                                 </td>
                                 <td class="content_white" style="text-align:left;">
@@ -1595,7 +2262,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="content_white" style="text-align:left; padding:5px;" colspan="3">
+                                <td class="content_white" style="text-align:left; padding:5px;" colspan="4">
                                 
                                     <!-- Locations -->
                                     <table class="elementhead_table">
@@ -1939,13 +2606,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData15" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -1967,6 +2637,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -1995,13 +2674,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData16" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -2023,6 +2705,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -2051,13 +2742,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData17" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -2079,6 +2773,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -2107,13 +2810,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData18" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -2135,6 +2841,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -2163,13 +2878,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData19" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -2191,6 +2909,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -2219,13 +2946,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData20" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -2247,6 +2977,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -2277,13 +3016,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData21" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -2305,6 +3047,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -2333,13 +3084,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData22" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -2361,6 +3115,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -2389,13 +3152,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData23" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -2417,6 +3183,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -2447,13 +3222,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData24" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -2475,6 +3253,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -2503,13 +3290,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData25" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -2534,6 +3324,15 @@
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
                                     <input type="text" style="width:100%;" />
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -2551,6 +3350,9 @@
                                     Flying Salamanders
                                 </td>
                                 <td class="content_white" style="text-align:left;">
+                                    
+                                </td>
+                                <td class="content_white" style="text-align:left;">
                                     D
                                 </td>
                                 <td class="content_white" style="text-align:left;">
@@ -2561,7 +3363,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="content_white" style="text-align:left; padding:5px;" colspan="3">
+                                <td class="content_white" style="text-align:left; padding:5px;" colspan="4">
                                     
                                     <!-- Locations -->
                                     <table class="elementhead_table">
@@ -2914,13 +3716,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData26" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -2942,6 +3747,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -2972,13 +3786,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData27" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">   
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -3000,6 +3817,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -3028,13 +3854,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData28" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">   
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -3056,6 +3885,15 @@
                                         <option value="1">Flying Salamanders</option>
                                         <option value="2">Flying Frogs</option>
                                         <option value="3">Tiny Flying Frogs</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -3084,13 +3922,16 @@
                         </tr>
                     </table>
                     <div id="div_procedures" class="CustomData29" style="display:none;" >
-                        <table class="content_table"> 
+                        <table class="content_table">   
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
                                     
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Species
+                                </td>
+                                <td class="content_grey" style="text-align:center;">
+                                    Groups
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
                                     Pain Category
@@ -3115,6 +3956,15 @@
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
+                                    <select style="width:100%;" multiple="multiple" size="4">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Group 1</option>
+                                        <option value="2">Group 2</option>
+                                        <option value="3">Group 3</option>
+                                        <option value="4">Group 4</option>
+                                    </select>
+                                </td>
+                                <td class="content_gradient" style="text-align:left;">
                                     <input type="text" style="width:100%;" />
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">
@@ -3133,97 +3983,7 @@
     </table>
 </div>
 
-<!-- MID PANEL HEAD -->
-<table class="paneltable">
-    <tr>
-        <td class="midpanelhead1">&nbsp;</td>
-        <td class="midpanelhead2">
-            Overview and Timeline
-        </td>
-        <td class="midpanelhead3">
-            <img id="control_panelcontent09" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
-            <script type="text/javascript">
-				$(document).ready(function(){
-					// trigger
-						$("#control_panelcontent09").toggle(
-							function()
-							{
-								$("#div_panelcontent09").slideUp(200);
-								$("#control_panelcontent09").attr("src","../images/tinybutton-show.gif");
-								$("#control_panelcontent09").attr("alt","show");
-							},
-							function()
-							{
-								$("#div_panelcontent09").slideDown(400);
-								$("#control_panelcontent09").attr("src","../images/tinybutton-hide.gif");
-								$("#control_panelcontent09").attr("alt","hide");
-							}
-						);	
-				});
-			</script>
-        </td>
-        <td class="midpanelhead4">&nbsp;</td>
-        <td class="midpanelhead5">&nbsp;</td>
-    </tr>
-</table>
 
-<!-- PANEL CONTENT -->
-<div id="div_panelcontent09">
-    <table class="paneltable">
-        <tr>
-            <td class="panelcontent1">&nbsp;</td>
-            <td class="panelcontent2" colspan="3">
-            
-            	<!-- Context -->
-                <table class="elementhead_table">
-                    <tr>
-                        <th class="elementhead_left">
-                            <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
-                            Overview and Timeline
-                        </th>
-                        <th class="elementhead_right">
-                            <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
-                        </th>
-                    </tr>
-                </table>
-                
-                <div>
-                    <table class="content_table">  
-                    	<tr>
-                            <td class="content_grey" style="text-align:center;">
-                                Overview and Timeline
-                            </td>
-                            <td class="content_grey" style="text-align:center; width:60px;">
-                                Action
-                            </td>
-                        </tr>
-                        <tr>
-                        	<td class="content_white" style="text-align:left;">
-                                
-                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border:none; background:none;">
-                                            <textarea name="z" style="width:100%; text-align:left;" rows="4">Ultrices ultrices turpis ultrices dis dis, hac sociis integer. Dis augue pulvinar mattis? Rhoncus aliquet pid et eu cursus duis in vut cum integer porttitor arcu porttitor placerat ac. Sit, dis purus in? Diam, magna placerat ac a enim hac nec tempor ac hac hac nec? Non aliquet, ac dis, nunc penatibus eros non sagittis eros tincidunt a dignissim sed. Adipiscing montes ac, magna massa aenean hac platea tincidunt proin pellentesque montes! Porta placerat augue egestas porttitor dis, tempor sed. Et ridiculus odio magna ac enim scelerisque cum, hac in proin. Odio et integer tristique! Enim. Natoque quis, urna. Scelerisque augue diam penatibus, risus aliquam augue, velit ut turpis lundium turpis vel. Turpis elementum odio! Et, rhoncus! Sed sit sed.</textarea>
-                                        </td>
-                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
-                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </td>
-                            <td class="content_white" style="text-align:center;">
-                            	<img id="control_editrule01" src="../images/tinybutton-save1.gif" style="border:none;" alt="save" title="Save" type="image"  onclick="alert('This would save changes to the record.');" />
-                            </td>
-                        </tr>
-                    </table>
-            	</div>
-            
-            </td> 
-            <td class="panelcontent3">&nbsp;</td>
-        </tr>
-    </table>
-</div>
 
 <!-- PANEL FOOT -->
 <table class="paneltable">
