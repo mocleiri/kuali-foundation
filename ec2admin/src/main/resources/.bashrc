@@ -15,6 +15,7 @@ CATALINA_HOME=/usr/local/tomcat
 CATALINA_BASE=/usr/local/$USER
 CATALINA_PID=$CATALINA_BASE/logs/catalina.pid
 CATALINA_OPTS="-Denvironment=$ENVIRONMENT"
+CATALINA_OPTS="-Dexternal.config.home=\${user.home}/.kuali/conf"
 CATALINA_OPTS="$CATALINA_OPTS -Xms512m"
 CATALINA_OPTS="$CATALINA_OPTS -Xmx2g"
 CATALINA_OPTS="$CATALINA_OPTS -XX:MaxPermSize=256m"
