@@ -205,7 +205,8 @@
   </target>
   <target name="resetdb">
     <mvn basedir="${project.basedir}" pom="classpath:org/kuali/common/deploy/mvn/impex/pom.xml" filterPom="true">
-      <arg value="initialize" />
+      <!-- <arg value="initialize" /> -->
+      <arg value="-v" />
     </mvn>
   </target>
   <target name="start" depends="check-basic-properties">
