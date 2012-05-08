@@ -75,6 +75,7 @@
       </filterset>
     </copy>
     <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/.ssh/rice.keystore" overwrite="true" />
+    <chmod dir="/home/${tomcat.user}/.ssh" perm="400" includes="rice.keystore" />
   </target>
 
   <target name="setuptomcat">
