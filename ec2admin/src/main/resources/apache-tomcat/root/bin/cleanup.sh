@@ -28,12 +28,15 @@ cp $TAIL $CATALINA_BASE/conf/tail.jsp
 
 LOGS=$CATALINA_BASE/logs
 WORK=$CATALINA_BASE/work
+CONF=$CATALINA_BASE/conf/Catalina/localhost/*.xml
 
 echo Removing $LOGS
 echo Removing $WORK
+echo Removing $CONF
 
 rm -rf $LOGS
 rm -rf $WORK
+rm -f $CONF
 
 mkdir $LOGS
 cp $CATALINA_BASE/conf/env.jsp $ENV
