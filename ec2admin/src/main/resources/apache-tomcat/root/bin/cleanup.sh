@@ -28,7 +28,7 @@ cp $TAIL $CATALINA_BASE/conf/tail.jsp
 
 LOGS=$CATALINA_BASE/logs
 WORK=$CATALINA_BASE/work
-CONF=$CATALINA_BASE/conf/Catalina/localhost/*.xml
+CONF=$CATALINA_BASE/conf/Catalina/localhost
 
 echo Removing $LOGS
 echo Removing $WORK
