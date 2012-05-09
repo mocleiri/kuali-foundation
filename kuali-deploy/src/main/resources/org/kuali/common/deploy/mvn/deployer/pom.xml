@@ -343,7 +343,6 @@
                   <filtering>true</filtering>
                   <excludes>
                     <exclude>**/env*.xml</exclude>
-                    <exclude>**/rice.keystore</exclude>
                   </excludes>
                 </resource>
                 <!-- Copy in the single environment specific config file that is needed -->
@@ -352,16 +351,6 @@
                   <filtering>true</filtering>
                   <includes>
                     <include>**/env${deploy.env}-config.xml</include>
-                  </includes>
-                  <excludes>
-                    <exclude>**/rice.keystore</exclude>
-                  </excludes>
-                </resource>
-                <resource>
-                  <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
-                  <filtering>false</filtering>
-                  <includes>
-                    <include>**/rice.keystore</include>
                   </includes>
                 </resource>
               </resources>
