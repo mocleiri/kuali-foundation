@@ -1,7 +1,6 @@
 #!/bin/bash
 set -x
 su - tomcat /usr/local/tomcat/bin/forced-shutdown.sh
-su - tomcat /usr/local/tomcat/bin/cleanup.sh
 set -e
 svn co https://svn.kuali.org/repos/foundation/trunk/kuali-ec2 /root/kuali-ec2
 cd /root/kuali-ec2
