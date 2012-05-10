@@ -10,4 +10,4 @@ cd /root/kuali-dns
 svn update
 mci
 PUBLICHOSTNAME=$(GET http://169.254.169.254/latest/meta-data/public-hostname) 
-mvn dnsme:addrecord -Ddnsme.recordName=${dns.fragment} -Ddnsme.recordValue=$PUBLICHOSTNAME
+mvn dnsme:addrecord -Ddnsme.recordName=${dns.prefix} -Ddnsme.recordValue=$PUBLICHOSTNAME
