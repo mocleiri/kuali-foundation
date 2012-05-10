@@ -1,8 +1,0 @@
-#!/bin/bash
-set -x
-su - tomcat /usr/local/tomcat/bin/forced-shutdown.sh
-set -e
-cd /root/kuali-ec2
-svn update
-mci
-mcp -Ptomcat,6,medium
