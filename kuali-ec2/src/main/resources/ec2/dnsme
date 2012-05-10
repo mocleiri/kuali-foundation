@@ -3,4 +3,4 @@ set -xe
 cd /root/kuali-dns
 svn update
 mci
-mvn dnsme:addrecord -Ddnsme.recordName=$USERDATA1 -Ddnsme.recordValue=$PUBLICHOSTNAME
+mvn dnsme:addrecord -Ddnsme.recordName=${env.DNSFRAGMENT} -Ddnsme.recordValue=$PUBLICHOSTNAME
