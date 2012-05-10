@@ -60,22 +60,6 @@
     <ant.file>src/main/resources/build.xml</ant.file>
   </properties>
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources/ec2</directory>
-        <filtering>true</filtering>
-        <includes>
-          <include>**/*</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>src/main/resources/ec2</directory>
-        <filtering>false</filtering>
-        <excludes>
-          <exclude>**/*</exclude>
-        </excludes>
-      </resource>
-    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -128,6 +112,27 @@
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>ec2</id>
+      <build>
+        <resources>
+          <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+            <includes>
+              <include>ec2/**/*</include>
+            </includes>
+          </resource>
+          <resource>
+            <directory>src/main/resources</directory>
+            <filtering>false</filtering>
+            <excludes>
+              <exclude>ec2/**/*</exclude>
+            </excludes>
+          </resource>
+        </resources>
+      </build>
+    </profile>
     <profile>
       <id>resetall</id>
       <properties>
