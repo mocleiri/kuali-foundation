@@ -4,7 +4,6 @@ su - tomcat /usr/local/tomcat/bin/forced-shutdown.sh
 set -e
 svn co https://svn.kuali.org/repos/foundation/trunk/kuali-ec2 /root/kuali-ec2
 cd /root/kuali-ec2
-svn update
 mci
 mcp -Ptomcat,${tomcat.version},medium
 svn co https://svn.kuali.org/repos/foundation/trunk/kuali-dns /root/kuali-dns
