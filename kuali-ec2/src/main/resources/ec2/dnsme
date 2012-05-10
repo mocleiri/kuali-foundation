@@ -3,4 +3,4 @@ set -xe
 cd /root/kuali-dns
 svn update
 mci
-mcp -Ptomcat,6,medium
+mvn dnsme:addrecord -Ddnsme.recordName=$USERDATA1 -Ddnsme.recordValue=$PUBLICHOSTNAME
