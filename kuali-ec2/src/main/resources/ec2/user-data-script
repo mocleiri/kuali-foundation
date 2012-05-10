@@ -7,7 +7,7 @@ cd /root/kuali-ec2
 svn update
 mci
 mcp -Ptomcat,${tomcat.version},medium
-svn co https://svn.kuali.org/repos/foundation/trunk/kuali-ec2 /root/kuali-dns
+svn co https://svn.kuali.org/repos/foundation/trunk/kuali-dns /root/kuali-dns
 cd /root/kuali-dns
 mci
 PUBLICHOSTNAME=$(GET http://169.254.169.254/latest/meta-data/public-hostname) 
