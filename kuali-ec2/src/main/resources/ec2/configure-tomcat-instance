@@ -5,8 +5,9 @@ set -e
 cd /root/kuali-ec2
 svn update
 mci
-mcp -Ptomcat,${env.TOMCATVERSION},medium
+mcp -Ptomcat,${tomcat.version},medium
 cd /root/kuali-dns
 svn update
 mci
-mvn dnsme:addrecord -Ddnsme.recordName=${env.DNSFRAGMENT} -Ddnsme.recordValue=$PUBLICHOSTNAME
+PUBLICHOSTNAME=$(GET http://169.254.169.254/latest/meta-data/public-hostname) 
+mvn dnsme:addrecord -Ddnsme.recordName=${dns.fragment} -Ddnsme.recordValue=$PUBLICHOSTNAME
