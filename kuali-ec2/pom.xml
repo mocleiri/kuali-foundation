@@ -48,6 +48,7 @@
     </repository>
   </repositories>
   <properties>
+    <maven.test.skip>true</maven.test.skip>
     <!-- Plugin versions -->
     <plugin.ant.version>1.0.5</plugin.ant.version>
     <plugin.dependency.version>2.4</plugin.dependency.version>
