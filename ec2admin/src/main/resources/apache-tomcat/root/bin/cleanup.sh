@@ -21,10 +21,16 @@ if [ "$CATALINA_BASE" = "" ]; then
   exit
 fi
 
-ENV=$CATALINA_BASE/logs/env.jsp
-TAIL=$CATALINA_BASE/logs/tail.jsp
-cp $ENV $CATALINA_BASE/conf/env.jsp
-cp $TAIL $CATALINA_BASE/conf/tail.jsp
+# JSP's in the logs dir
+ENV1=$CATALINA_BASE/logs/env.jsp
+TAIL1=$CATALINA_BASE/logs/tail.jsp
+
+# JSP's in the conf dir
+ENV2=$CATALINA_BASE/conf/env.jsp
+TAIL2=$CATALINA_BASE/conf/tail.jsp
+
+cp $ENV1 $ENV2
+cp $TAIL1 $TAIL2
 
 LOGS=$CATALINA_BASE/logs
 WORK=$CATALINA_BASE/work
@@ -39,5 +45,5 @@ rm -rf $WORK
 rm -rf $CONF
 
 mkdir $LOGS
-cp $CATALINA_BASE/conf/env.jsp $ENV
-cp $CATALINA_BASE/conf/tail.jsp $TAIL
+cp $ENV2 $ENV1
+cp $TAIL2 $TAIL1
