@@ -19,7 +19,7 @@ Commands for EC2 medium instances
 ---------------------------------
 
 mcp -Ptomcat,6,medium
-mcp -Ptomcat,medium
+mcp -Ptomcat,7,medium
 
 
 --------------------------------
