@@ -53,8 +53,6 @@
     <plugin.dependency.version>2.4</plugin.dependency.version>
 
     <environment>ec2</environment>
-    <tomcat.major.version>7</tomcat.major.version>
-    <tomcat.version>${tomcat.major.version}.0.26</tomcat.version>
     <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
     <tomcat.zip>target/dependency/${tomcat.artifactId}-${tomcat.version}.zip</tomcat.zip>
     <tomcat.dir>/usr/local/${tomcat.artifactId}-${tomcat.version}</tomcat.dir>
@@ -126,6 +124,13 @@
       <properties>
         <tomcat.major.version>6</tomcat.major.version>
         <tomcat.version>${tomcat.major.version}.0.35</tomcat.version>
+      </properties>
+    </profile>
+    <profile>
+      <id>7</id>
+      <properties>
+        <tomcat.major.version>7</tomcat.major.version>
+        <tomcat.version>${tomcat.major.version}.0.26</tomcat.version>
       </properties>
     </profile>
     <profile>
