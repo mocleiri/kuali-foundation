@@ -15,8 +15,6 @@
 # limitations under the License.
 #
 
-
-
 if [ "$CATALINA_HOME" = "" ]; then
   echo "CATALINA_HOME is not set"
   exit
