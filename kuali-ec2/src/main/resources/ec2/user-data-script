@@ -1,13 +1,15 @@
 #!/bin/bash
 set -x
+MVN=/opt/asf/mvn/bin/mvn
+env | sort
 su - tomcat /usr/local/tomcat/bin/forced-shutdown.sh
 set -e
 svn co https://svn.kuali.org/repos/foundation/trunk/kuali-ec2 /root/kuali-ec2
 cd /root/kuali-ec2
-mci
-mcp -Ptomcat,${tomcat.version},medium
+$MVN clean install
+$MVN clean process-resources -Ptomcat,${tomcat.version},medium
 svn co https://svn.kuali.org/repos/foundation/trunk/kuali-dns /root/kuali-dns
 cd /root/kuali-dns
-mci
+$MVN clean install
 PUBLICHOSTNAME=$(GET http://169.254.169.254/latest/meta-data/public-hostname) 
-mvn dnsme:addrecord -Ddnsme.recordName=${dns.prefix} -Ddnsme.recordValue=$PUBLICHOSTNAME
+$MVN dnsme:addrecord -Ddnsme.recordName=${dns.prefix} -Ddnsme.recordValue=$PUBLICHOSTNAME
