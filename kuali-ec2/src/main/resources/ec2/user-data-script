@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Output from this script gets logged to /var/log/cloud-init.log
+#
 set -x
 MVN=/opt/asf/mvn/bin/mvn
 env | sort
