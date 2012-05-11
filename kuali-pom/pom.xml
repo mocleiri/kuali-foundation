@@ -836,7 +836,7 @@
       <!-- Version the POM's based on ${project.version} + the Jenkins build number -->
       <id>buildnumber</id>
       <properties>
-        <kuali.build.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.build.version>
+        <kuali.build.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-build-${env.BUILD_NUMBER}</kuali.build.version>
       </properties>
       <build>
         <plugins>
