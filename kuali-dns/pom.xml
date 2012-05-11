@@ -4,9 +4,9 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.1.7</version>
+    <version>1.2.9</version>
   </parent>
-  <groupId>org.kuali.common.dns</groupId>
+  <groupId>org.kuali.common</groupId>
   <artifactId>kuali-dns</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -28,11 +28,11 @@
       <plugins>
         <plugin>
           <!--
-          Example CLI commands:
-          mvn dnsme:showrecords -Ddnsme.recordNameContains=nexus 
-          mvn dnsme:deleterecord -Ddnsme.recordName=nexus1 
-          mvn dnsme:addrecord -Ddnsme.recordName=nexus1 -Ddnsme.recordValue=ec2-107-20-15-48.compute-1.amazonaws.com
-           -->
+            Example CLI commands:
+            mvn dnsme:showrecords -Ddnsme.recordNameContains=nexus
+            mvn dnsme:deleterecord -Ddnsme.recordName=nexus1
+            mvn dnsme:addrecord -Ddnsme.recordName=nexus1 -Ddnsme.recordValue=ec2-107-20-15-48.compute-1.amazonaws.com
+          -->
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-dnsme-plugin</artifactId>
           <version>1.0.3</version>
