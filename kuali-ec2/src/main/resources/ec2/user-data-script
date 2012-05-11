@@ -4,7 +4,6 @@
 #
 set -x
 MVN=/opt/asf/mvn/bin/mvn
-env | sort
 su - tomcat /usr/local/tomcat/bin/forced-shutdown.sh
 set -e
 svn co https://svn.kuali.org/repos/foundation/trunk/kuali-ec2 /root/kuali-ec2
