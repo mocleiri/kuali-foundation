@@ -111,6 +111,24 @@
       </exclusions>
     </dependency>
   </dependencies>
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>pom.xml</include>
+        </includes>
+      </testResource>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>pom.xml</exclude>
+        </excludes>
+      </testResource>
+    </testResources>
+  </build>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ec2-cloudfront-plugin</connection>
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ec2-cloudfront-plugin</developerConnection>
