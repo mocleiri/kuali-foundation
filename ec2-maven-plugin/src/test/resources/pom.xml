@@ -49,44 +49,8 @@
             <id>1</id>
             <phase>test</phase>
             <goals>
-              <goal>mvn</goal>
+              <goal>runinstance</goal>
             </goals>
-            <configuration>
-              <args>
-                <arg>-v</arg>
-              </args>
-            </configuration>
-          </execution>
-          <execution>
-            <id>2</id>
-            <phase>test</phase>
-            <goals>
-              <goal>mvn</goal>
-            </goals>
-            <configuration>
-              <pom>file://${project.build.directory}/test-classes/other-pom.xml</pom>
-              <args>
-                <arg>clean</arg>
-                <arg>install</arg>
-              </args>
-            </configuration>
-          </execution>
-          <execution>
-            <id>3</id>
-            <phase>test</phase>
-            <goals>
-              <goal>mvn</goal>
-            </goals>
-            <configuration>
-              <pom>other-pom.xml</pom>
-              <properties>
-                <property>foo</property>
-              </properties>
-              <args>
-                <arg>clean</arg>
-                <arg>install</arg>
-              </args>
-            </configuration>
           </execution>
         </executions>
       </plugin>
