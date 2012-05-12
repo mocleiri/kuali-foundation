@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -146,6 +146,7 @@
     <plugin.dependency.version>2.3</plugin.dependency.version>
     <plugin.deploy.version>2.7</plugin.deploy.version>
     <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
+    <plugin.extractor.version>1.1.0</plugin.extractor.version>
     <plugin.gpg.version>1.4</plugin.gpg.version>
     <plugin.install.version>2.3.1</plugin.install.version>
     <plugin.jar.version>2.4</plugin.jar.version>
@@ -331,6 +332,11 @@
         <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
           <version>${plugin.enforcer.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>extractor-maven-plugin</artifactId>
+          <version>${plugin.extractor.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-gpg-plugin</artifactId>
@@ -961,8 +967,7 @@
       <id>nightlytag</id>
       <properties>
         <!--
-          This doesn't work at the moment because the maven-scm-plugin for Subversion doesn't add "-parents" to the command
-          http://jira.codehaus.org/browse/SCM-487
+          After http://jira.codehaus.org/browse/SCM-487 is fixed, switch back to using the maven-scm-plugin instead of the maven-antrun-plugin for creating the tag
         -->
         <kuali.nightly.tag>builds/${project.artifactId}/${parsedVersion.majorVersion}.${parsedVersion.minorVersion}/${project.artifactId}-${parsedVersion.majorVersion}.${parsedVersion.minorVersion}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
       </properties>
@@ -973,7 +978,7 @@
             <artifactId>build-helper-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>get-maven-metadata</id>
+                <id>mvn</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>parse-version</goal>
@@ -986,7 +991,7 @@
             <artifactId>buildnumber-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>generate-current-day</id>
+                <id>day</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>create-timestamp</goal>
@@ -999,17 +1004,54 @@
             </executions>
           </plugin>
           <plugin>
-            <artifactId>maven-scm-plugin</artifactId>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>extractor-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>nightly-tag</id>
-                <phase>install</phase>
+                <id>extract</id>
+                <phase>initialize</phase>
                 <goals>
-                  <goal>tag</goal>
+                  <goal>extract</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
+            <artifactId>maven-svn-revision-number-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>svn</id>
+                <goals>
+                  <goal>revision</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>tag</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>run</goal>
                 </goals>
                 <configuration>
-                  <tag>${kuali.nightly.tag}</tag>
-                  <message>Automated nightly build tag</message>
+                  <target>
+                    <property name="svn.from" value="${extractor.scmUrl}@${svn.revision}" />
+                    <property name="svn.to" value="${extractor.svnTagBase}/${kuali.nightly.tag}" />
+                    <property name="svn.message" value="Automated nightly build tag" />
+                    <echo>svn copy ${svn.from} ${svn.to} --parents -m '${svn.message}'</echo>
+                    <exec executable="svn" failonerror="true">
+                      <arg value="copy" />
+                      <arg value="${svn.from}" />
+                      <arg value="${svn.to}" />
+                      <arg value="--parents" />
+                      <arg value="-m" />
+                      <arg value="${svn.message}" />
+                    </exec>
+                  </target>
                 </configuration>
               </execution>
             </executions>
