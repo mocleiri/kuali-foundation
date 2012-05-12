@@ -2,34 +2,48 @@ package org.kuali.maven.ec2;
 
 import org.apache.maven.plugin.AbstractMojo;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+
 public abstract class AbstractEc2Mojo extends AbstractMojo {
 
     /**
-     * @parameter expression="${ec2.accessKeyId}"
+     * @parameter expression="${ec2.accessKey}"
      * @required
      */
-    private String accessKeyId;
+    private String accessKey;
 
     /**
-     * @parameter expression="${ec2.secretAccessKey}"
+     * @parameter expression="${ec2.secretKey}"
      * @required
      */
-    private String secretAccessKey;
+    private String secretKey;
 
-    public void setAccessKeyId(String accessKeyId) {
-        this.accessKeyId = accessKeyId;
+    protected AWSCredentials getCredentials() {
+        return new BasicAWSCredentials(accessKey, secretKey);
     }
 
-    public String getAccessKeyId() {
-        return accessKeyId;
+    protected AmazonEC2 getAmazonEC2() {
+        AWSCredentials credentials = getCredentials();
+        return new AmazonEC2Client(credentials);
     }
 
-    public void setSecretAccessKey(String secretAccessKey) {
-        this.secretAccessKey = secretAccessKey;
+    public String getAccessKey() {
+        return accessKey;
     }
 
-    public String getSecretAccessKey() {
-        return secretAccessKey;
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
     }
 
 }
