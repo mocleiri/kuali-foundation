@@ -4,7 +4,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  *
- * @goal runinstance
+ * @goal describeinstances
  */
 public class DescribeInstancesMojo extends AbstractEc2Mojo {
 
