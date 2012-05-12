@@ -19,7 +19,6 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
     protected List<Instance> getInstances(List<Reservation> reservations) {
         List<Instance> instances = new ArrayList<Instance>();
         for (Reservation r : reservations) {
-            getLog().info(r.getReservationId());
             instances.addAll(r.getInstances());
         }
         return instances;
