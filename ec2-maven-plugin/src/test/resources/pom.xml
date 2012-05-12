@@ -38,7 +38,7 @@
           <artifactId>${project.artifactId}</artifactId>
           <version>${project.version}</version>
           <configuration>
-            <accessKeyId>AKIAIZFPMJVCNOYYAZ2Q</accessKeyId>
+            <accessKey>AKIAIZFPMJVCNOYYAZ2Q</accessKey>
           </configuration>
         </plugin>
       </plugins>
