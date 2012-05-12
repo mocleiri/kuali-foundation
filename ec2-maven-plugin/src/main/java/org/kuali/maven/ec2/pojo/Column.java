@@ -1,8 +1,19 @@
 package org.kuali.maven.ec2.pojo;
 
 public class Column {
+
     String title;
     int width;
+
+    public Column() {
+        this(null);
+    }
+
+    public Column(String title) {
+        super();
+        this.title = title;
+        this.width = title == null ? 0 : title.length();
+    }
 
     public String getTitle() {
         return title;

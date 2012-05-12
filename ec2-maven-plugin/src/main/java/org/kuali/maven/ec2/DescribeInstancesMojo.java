@@ -66,6 +66,8 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
             List<String> elements = new ArrayList<String>();
             elements.add(getName(i));
             elements.add(i.getInstanceId());
+            elements.add(i.getImageId());
+            elements.add(i.getState().getName());
             row.setElements(elements);
             rows.add(row);
         }
