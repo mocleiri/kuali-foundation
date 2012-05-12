@@ -21,14 +21,6 @@ import com.amazonaws.services.ec2.model.Tag;
  */
 public class DescribeInstancesMojo extends AbstractEC2Mojo {
 
-    protected List<Instance> getInstances(List<Reservation> reservations) {
-        List<Instance> instances = new ArrayList<Instance>();
-        for (Reservation r : reservations) {
-            instances.addAll(r.getInstances());
-        }
-        return instances;
-    }
-
     @Override
     public void execute() throws MojoExecutionException {
         AmazonEC2 client = getEC2Client();
@@ -105,6 +97,14 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
             }
         }
         return "";
+    }
+
+    protected List<Instance> getInstances(List<Reservation> reservations) {
+        List<Instance> instances = new ArrayList<Instance>();
+        for (Reservation r : reservations) {
+            instances.addAll(r.getInstances());
+        }
+        return instances;
     }
 
 }
