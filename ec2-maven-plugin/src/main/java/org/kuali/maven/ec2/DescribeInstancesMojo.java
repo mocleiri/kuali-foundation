@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.kuali.maven.ec2.pojo.Column;
+import org.kuali.maven.ec2.pojo.Row;
+import org.kuali.maven.ec2.pojo.Table;
 
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
@@ -31,9 +34,52 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         AmazonEC2 client = getEC2Client();
         DescribeInstancesResult result = client.describeInstances();
         List<Instance> instances = getInstances(result.getReservations());
-        for (Instance i : instances) {
-            getLog().info(getInfo(i));
+        Table table = getTable(instances);
+        for (Row row : table.getRows()) {
+            getLog().info(getDisplay(table, row));
+
         }
+    }
+
+    protected String getDisplay(Table table, Row row) {
+        StringBuilder sb = new StringBuilder();
+        List<String> elements = row.getElements();
+        for (int i = 0; i < elements.size(); i++) {
+
+        }
+        return sb.toString();
+    }
+
+    protected Table getTable(List<Instance> instances) {
+        Table table = new Table();
+        List<Row> rows = new ArrayList<Row>();
+        for (Instance i : instances) {
+            Row row = new Row();
+            List<String> elements = new ArrayList<String>();
+            elements.add(getName(i));
+            elements.add(i.getInstanceId());
+            row.setElements(elements);
+            rows.add(row);
+        }
+        table.setRows(rows);
+        List<Column> columns = new ArrayList<Column>();
+        Column column1 = new Column();
+        Column column2 = new Column();
+        column1.setTitle("Name");
+        column2.setTitle("Instance");
+        column1.setWidth(column1.getTitle().length());
+        column2.setWidth(column2.getTitle().length());
+        columns.add(column1);
+        columns.add(column2);
+        table.setColumns(columns);
+        for (int i = 0; i < rows.size(); i++) {
+            List<String> elements = rows.get(i).getElements();
+            for (int j = 0; j < elements.size(); j++) {
+                Column c = columns.get(j);
+                c.setWidth(Math.max(c.getWidth(), elements.get(j).length()));
+            }
+        }
+        return table;
     }
 
     protected String getHeader() {
