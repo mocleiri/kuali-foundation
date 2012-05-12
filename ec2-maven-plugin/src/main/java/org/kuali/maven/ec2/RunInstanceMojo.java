@@ -5,7 +5,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 /**
  * @goal runinstance
  */
-public class RunInstanceMojo extends AbstractEc2Mojo {
+public class RunInstanceMojo extends AbstractEc1Mojo {
 
     @Override
     public void execute() throws MojoExecutionException {
