@@ -23,9 +23,9 @@ import org.kuali.maven.common.Extractor;
 
 /**
  * Extracts information contained in the pom and exposes it as project properties
- * 
+ *
  * eg major version, scm type, scm url
- * 
+ *
  * @goal extract
  */
 public class ExtractorMojo extends AbstractMojo {
@@ -33,7 +33,7 @@ public class ExtractorMojo extends AbstractMojo {
 
     /**
      * The Maven project this plugin runs in.
-     * 
+     *
      * @parameter expression="${project}"
      * @required
      * @readonly
@@ -43,7 +43,7 @@ public class ExtractorMojo extends AbstractMojo {
     /**
      * The project property where the major version will be stored. eg for a project with a version "1.0.0" this mojo
      * considers "1.0" to be the major version
-     * 
+     *
      * @parameter expression="${extractor.majorVersionProperty}" default-value="extractor.majorVersion"
      * @required
      */
@@ -51,7 +51,7 @@ public class ExtractorMojo extends AbstractMojo {
 
     /**
      * The project property where the scm type will be stored eg "svn", "git"
-     * 
+     *
      * @parameter expression="${extractor.scmTypeProperty}" default-value="extractor.scmType"
      * @required
      */
@@ -59,17 +59,28 @@ public class ExtractorMojo extends AbstractMojo {
 
     /**
      * The project property where the scm url (minus the Maven prefix eg "scm:svn", "scm:git") will be stored
-     * 
+     *
      * @parameter expression="${extractor.scmUrlProperty}" default-value="extractor.scmUrl"
      * @required
      */
     private String scmUrlProperty;
+
+    /**
+     * The project property where the Subversion specific tag base will be stored. The logic here examines the scm url
+     * for the last occurrence of "/branches" or "/trunk". It then takes whatever is to the left of that and adds
+     * "/tags"
+     *
+     * @parameter expression="${extractor.svnTagBaseProperty}" default-value="extractor.svnTagBase"
+     * @required
+     */
+    private String svnTagBaseProperty;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         extractor.handleMajorVersion(this, project, majorVersionProperty);
         extractor.handleScmType(this, project, scmTypeProperty);
         extractor.handleScmUrl(this, project, scmUrlProperty);
+        extractor.handleSVNTagBase(this, project, svnTagBaseProperty);
     }
 
     public MavenProject getProject() {
@@ -102,5 +113,13 @@ public class ExtractorMojo extends AbstractMojo {
 
     public void setScmUrlProperty(String scmUrlProperty) {
         this.scmUrlProperty = scmUrlProperty;
+    }
+
+    public String getSvnTagBaseProperty() {
+        return svnTagBaseProperty;
+    }
+
+    public void setSvnTagBaseProperty(String scmTagBaseProperty) {
+        this.svnTagBaseProperty = scmTagBaseProperty;
     }
 }
