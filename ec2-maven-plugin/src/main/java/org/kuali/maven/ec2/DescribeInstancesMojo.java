@@ -1,12 +1,14 @@
 package org.kuali.maven.ec2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.kuali.maven.ec2.pojo.Column;
 import org.kuali.maven.ec2.pojo.Row;
+import org.kuali.maven.ec2.pojo.RowComparator;
 import org.kuali.maven.ec2.pojo.Table;
 
 import com.amazonaws.services.ec2.AmazonEC2;
@@ -62,6 +64,8 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
             row.setElements(elements);
             rows.add(row);
         }
+        Collections.sort(rows, new RowComparator());
+        Collections.reverse(rows);
         table.setRows(rows);
         List<Column> columns = new ArrayList<Column>();
         Column column1 = new Column();
@@ -86,7 +90,7 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
     protected String getName(Instance i) {
         List<Tag> tags = i.getTags();
         for (Tag t : tags) {
-            if (t.getKey().equalsIgnoreCase("name")) {
+            if (t.getKey().equals("Name")) {
                 return t.getValue();
             }
         }
