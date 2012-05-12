@@ -22,6 +22,7 @@ import com.amazonaws.services.ec2.model.Tag;
  * @goal describeinstances
  */
 public class DescribeInstancesMojo extends AbstractEC2Mojo {
+
     /**
      * @parameter expression="${ec2.displayTag}" default-value="Name"
      */
