@@ -22,158 +22,185 @@ import org.apache.maven.project.MavenProject;
 
 /**
  * Extracts information contained in a pom and exposes it as project properties
- * 
+ *
  * eg major version, scm type, scm url
- * 
+ *
  */
 public class Extractor {
 
-	public void handleMajorVersion(AbstractMojo mojo, MavenProject project, String property) {
+    public void handleSVNTagBase(AbstractMojo mojo, MavenProject project, String property) {
+        String scmType = getScmType(project.getScm());
+        if (!"svn".equalsIgnoreCase(scmType)) {
+            mojo.getLog().warn("This should only be used with Subversion");
+        }
+        String scmUrl = getScmUrl(project.getScm());
+        String tagBase = getTagBase(scmUrl);
 
-		String majorVersion = getMajorVersion(project.getVersion());
-		if (!StringUtils.isEmpty(majorVersion)) {
-			project.getProperties().setProperty(property, majorVersion);
-			mojo.getLog().debug("Setting project property: " + property + "=" + majorVersion);
-		} else {
-			mojo.getLog().debug("Major version could not be determined");
-		}
-	}
+        if (!StringUtils.isEmpty(tagBase)) {
+            project.getProperties().setProperty(property, tagBase);
+            mojo.getLog().debug("Setting project property: " + property + "=" + tagBase);
+        } else {
+            mojo.getLog().debug("SVN tag base could not be determined");
+        }
+    }
 
-	public void handleScmUrl(AbstractMojo mojo, MavenProject project, String property) {
-		String scmUrl = getScmUrl(project.getScm());
-		if (!StringUtils.isEmpty(scmUrl)) {
-			project.getProperties().setProperty(property, scmUrl);
-			mojo.getLog().debug("Setting project property: " + property + "=" + scmUrl);
-		} else {
-			mojo.getLog().debug("scm url could not be determined");
-		}
-	}
+    public void handleMajorVersion(AbstractMojo mojo, MavenProject project, String property) {
 
-	public void handleScmType(AbstractMojo mojo, MavenProject project, String property) {
-		String scmType = getScmType(project.getScm());
-		if (!StringUtils.isEmpty(scmType)) {
-			project.getProperties().setProperty(property, scmType);
-			mojo.getLog().debug("Setting project property: " + property + "=" + scmType);
-		} else {
-			mojo.getLog().debug("scm type could not be determined");
-		}
-	}
+        String majorVersion = getMajorVersion(project.getVersion());
+        if (!StringUtils.isEmpty(majorVersion)) {
+            project.getProperties().setProperty(property, majorVersion);
+            mojo.getLog().debug("Setting project property: " + property + "=" + majorVersion);
+        } else {
+            mojo.getLog().debug("Major version could not be determined");
+        }
+    }
 
-	public String getScmUrl(Scm scm) {
-		String devCon = scm.getDeveloperConnection();
-		String con = scm.getDeveloperConnection();
-		String scmUrl = StringUtils.isEmpty(devCon) ? con : devCon;
-		if (StringUtils.isEmpty(scmUrl)) {
-			return null;
-		}
-		String[] tokens = StringUtils.splitByWholeSeparatorPreserveAllTokens(scmUrl, ":");
-		if (tokens == null || tokens.length < 3) {
-			return null;
-		}
-		StringBuilder sb = new StringBuilder();
-		for (int i = 2; i < tokens.length; i++) {
-			if (i != 2) {
-				sb.append(":");
-			}
-			sb.append(tokens[i]);
-		}
-		return sb.toString();
-	}
+    public void handleScmUrl(AbstractMojo mojo, MavenProject project, String property) {
+        String scmUrl = getScmUrl(project.getScm());
+        if (!StringUtils.isEmpty(scmUrl)) {
+            project.getProperties().setProperty(property, scmUrl);
+            mojo.getLog().debug("Setting project property: " + property + "=" + scmUrl);
+        } else {
+            mojo.getLog().debug("scm url could not be determined");
+        }
+    }
 
-	public String getScmType(Scm scm) {
-		String scmType1 = getScmType(scm.getDeveloperConnection());
-		String scmType2 = getScmType(scm.getConnection());
-		if (!StringUtils.isEmpty(scmType1)) {
-			return scmType1;
-		} else if (!StringUtils.isEmpty(scmType2)) {
-			return scmType2;
-		} else {
-			return null;
-		}
-	}
+    public void handleScmType(AbstractMojo mojo, MavenProject project, String property) {
+        String scmType = getScmType(project.getScm());
+        if (!StringUtils.isEmpty(scmType)) {
+            project.getProperties().setProperty(property, scmType);
+            mojo.getLog().debug("Setting project property: " + property + "=" + scmType);
+        } else {
+            mojo.getLog().debug("scm type could not be determined");
+        }
+    }
 
-	public String getScmType(String url) {
-		if (StringUtils.isEmpty(url)) {
-			return null;
-		}
-		String[] tokens = StringUtils.splitByWholeSeparatorPreserveAllTokens(url, ":");
-		if (tokens == null || tokens.length < 2) {
-			return null;
-		} else {
-			return tokens[1];
-		}
-	}
+    public String getScmUrl(Scm scm) {
+        String devCon = scm.getDeveloperConnection();
+        String con = scm.getDeveloperConnection();
+        String scmUrl = StringUtils.isEmpty(devCon) ? con : devCon;
+        if (StringUtils.isEmpty(scmUrl)) {
+            return null;
+        }
+        String[] tokens = StringUtils.splitByWholeSeparatorPreserveAllTokens(scmUrl, ":");
+        if (tokens == null || tokens.length < 3) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < tokens.length; i++) {
+            if (i != 2) {
+                sb.append(":");
+            }
+            sb.append(tokens[i]);
+        }
+        return sb.toString();
+    }
 
-	public String getMajorVersion(String version) {
-		if (StringUtils.isEmpty(version)) {
-			return null;
-		}
-		int pos = getPos(version);
-		if (pos == -1) {
-			return version;
-		} else {
-			int peekAhead = peekAhead(pos, version);
-			return version.substring(0, peekAhead);
-		}
-	}
+    public String getScmType(Scm scm) {
+        String scmType1 = getScmType(scm.getDeveloperConnection());
+        String scmType2 = getScmType(scm.getConnection());
+        if (!StringUtils.isEmpty(scmType1)) {
+            return scmType1;
+        } else if (!StringUtils.isEmpty(scmType2)) {
+            return scmType2;
+        } else {
+            return null;
+        }
+    }
 
-	protected int peekAhead(int pos, String version) {
-		// Attempt to peek ahead one character after the dot/dash
-		int index = pos + 1;
+    public String getScmType(String url) {
+        if (StringUtils.isEmpty(url)) {
+            return null;
+        }
+        String[] tokens = StringUtils.splitByWholeSeparatorPreserveAllTokens(url, ":");
+        if (tokens == null || tokens.length < 2) {
+            return null;
+        } else {
+            return tokens[1];
+        }
+    }
 
-		// If we go past the end of the string, forget it
-		if (index >= version.length()) {
-			return pos;
-		}
+    public String getTagBase(String url) {
+        int pos1 = url.lastIndexOf("/branches");
+        int pos2 = url.lastIndexOf("/trunk");
+        int pos = Math.max(pos1, pos2);
+        if (pos == -1) {
+            return null;
+        } else {
+            return url.substring(0, pos) + "/tags";
+        }
+    }
 
-		// Is that character an integer?
-		char c = version.charAt(index);
+    public String getMajorVersion(String version) {
+        if (StringUtils.isEmpty(version)) {
+            return null;
+        }
+        int pos = getPos(version);
+        if (pos == -1) {
+            return version;
+        } else {
+            int peekAhead = peekAhead(pos, version);
+            return version.substring(0, peekAhead);
+        }
+    }
 
-		if (isInteger(c)) {
-			// If so, include it
-			return index + 1;
-		} else {
-			// If not return the original
-			return pos;
-		}
-	}
+    protected int peekAhead(int pos, String version) {
+        // Attempt to peek ahead one character after the dot/dash
+        int index = pos + 1;
 
-	protected int getPos(String version) {
-		int pos1 = version.indexOf(".");
-		int pos2 = version.indexOf("-");
-		// No dot or dash
-		if (pos1 == pos2 && pos2 == -1) {
-			return -1;
-		}
-		// Dash but no dot
-		if (pos1 == -1 && pos2 != -1) {
-			return pos2;
-		}
-		// Dot but no dash
-		if (pos1 != -1 && pos2 == -1) {
-			return pos1;
-		}
+        // If we go past the end of the string, forget it
+        if (index >= version.length()) {
+            return pos;
+        }
 
-		// Both a dot and a dash, use the first one
-		return Math.min(pos1, pos2);
+        // Is that character an integer?
+        char c = version.charAt(index);
 
-	}
+        if (isInteger(c)) {
+            // If so, include it
+            return index + 1;
+        } else {
+            // If not return the original
+            return pos;
+        }
+    }
 
-	protected boolean isInteger(char c) {
-		switch (c) {
-		case '0':
-		case '1':
-		case '2':
-		case '3':
-		case '4':
-		case '5':
-		case '6':
-		case '7':
-		case '8':
-		case '9':
-			return true;
-		default:
-			return false;
-		}
-	}
+    protected int getPos(String version) {
+        int pos1 = version.indexOf(".");
+        int pos2 = version.indexOf("-");
+        // No dot or dash
+        if (pos1 == pos2 && pos2 == -1) {
+            return -1;
+        }
+        // Dash but no dot
+        if (pos1 == -1 && pos2 != -1) {
+            return pos2;
+        }
+        // Dot but no dash
+        if (pos1 != -1 && pos2 == -1) {
+            return pos1;
+        }
+
+        // Both a dot and a dash, use the first one
+        return Math.min(pos1, pos2);
+
+    }
+
+    protected boolean isInteger(char c) {
+        switch (c) {
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            return true;
+        default:
+            return false;
+        }
+    }
 }
