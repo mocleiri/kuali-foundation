@@ -27,10 +27,18 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         DescribeInstancesResult result = client.describeInstances();
         List<Instance> instances = getInstances(result.getReservations());
         Table table = getTable(instances);
+        getLog().info(getDisplay(table.getColumns()));
         for (Row row : table.getRows()) {
             getLog().info(getDisplay(table, row));
-
         }
+    }
+
+    protected String getDisplay(List<Column> columns) {
+        StringBuilder sb = new StringBuilder();
+        for (Column c : columns) {
+            sb.append(StringUtils.rightPad(c.getTitle(), c.getWidth(), " "));
+        }
+        return sb.toString();
     }
 
     protected String getDisplay(Table table, Row row) {
@@ -73,20 +81,6 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
             }
         }
         return table;
-    }
-
-    protected String getHeader() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(StringUtils.rightPad("Name", 15, " "));
-        sb.append(StringUtils.rightPad("Instance ID", 15, " "));
-        return sb.toString();
-    }
-
-    protected String getInfo(Instance i) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(StringUtils.rightPad(getName(i), 15, " "));
-        sb.append(StringUtils.rightPad(i.getInstanceId(), 15, " "));
-        return sb.toString();
     }
 
     protected String getName(Instance i) {
