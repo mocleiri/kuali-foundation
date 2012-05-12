@@ -22,6 +22,10 @@ import com.amazonaws.services.ec2.model.Tag;
  * @goal describeinstances
  */
 public class DescribeInstancesMojo extends AbstractEC2Mojo {
+    /**
+     * @parameter expression="${ec2.displayTag}" default-value="Name"
+     */
+    private String displayTag;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -70,7 +74,7 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         List<Column> columns = new ArrayList<Column>();
         Column column1 = new Column();
         Column column2 = new Column();
-        column1.setTitle("Name");
+        column1.setTitle(displayTag);
         column2.setTitle("Instance");
         column1.setWidth(column1.getTitle().length());
         column2.setWidth(column2.getTitle().length());
@@ -90,7 +94,7 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
     protected String getName(Instance i) {
         List<Tag> tags = i.getTags();
         for (Tag t : tags) {
-            if (t.getKey().equals("Name")) {
+            if (t.getKey().equals(displayTag)) {
                 return t.getValue();
             }
         }
@@ -103,6 +107,14 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
             instances.addAll(r.getInstances());
         }
         return instances;
+    }
+
+    public String getDisplayTag() {
+        return displayTag;
+    }
+
+    public void setDisplayTag(String displayTag) {
+        this.displayTag = displayTag;
     }
 
 }
