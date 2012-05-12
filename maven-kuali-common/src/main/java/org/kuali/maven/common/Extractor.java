@@ -38,7 +38,7 @@ public class Extractor {
 
         if (!StringUtils.isEmpty(tagBase)) {
             project.getProperties().setProperty(property, tagBase);
-            mojo.getLog().debug("Setting project property: " + property + "=" + tagBase);
+            mojo.getLog().info(property + "=" + tagBase);
         } else {
             mojo.getLog().debug("SVN tag base could not be determined");
         }
@@ -49,9 +49,9 @@ public class Extractor {
         String majorVersion = getMajorVersion(project.getVersion());
         if (!StringUtils.isEmpty(majorVersion)) {
             project.getProperties().setProperty(property, majorVersion);
-            mojo.getLog().debug("Setting project property: " + property + "=" + majorVersion);
+            mojo.getLog().info(property + "=" + majorVersion);
         } else {
-            mojo.getLog().debug("Major version could not be determined");
+            mojo.getLog().info("Major version could not be determined");
         }
     }
 
@@ -59,9 +59,9 @@ public class Extractor {
         String scmUrl = getScmUrl(project.getScm());
         if (!StringUtils.isEmpty(scmUrl)) {
             project.getProperties().setProperty(property, scmUrl);
-            mojo.getLog().debug("Setting project property: " + property + "=" + scmUrl);
+            mojo.getLog().info(property + "=" + scmUrl);
         } else {
-            mojo.getLog().debug("scm url could not be determined");
+            mojo.getLog().info("scm url could not be determined");
         }
     }
 
@@ -69,9 +69,9 @@ public class Extractor {
         String scmType = getScmType(project.getScm());
         if (!StringUtils.isEmpty(scmType)) {
             project.getProperties().setProperty(property, scmType);
-            mojo.getLog().debug("Setting project property: " + property + "=" + scmType);
+            mojo.getLog().info(property + "=" + scmType);
         } else {
-            mojo.getLog().debug("scm type could not be determined");
+            mojo.getLog().info("scm type could not be determined");
         }
     }
 
