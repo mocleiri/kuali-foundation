@@ -75,14 +75,10 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         Collections.reverse(rows);
         table.setRows(rows);
         List<Column> columns = new ArrayList<Column>();
-        Column column1 = new Column();
-        Column column2 = new Column();
-        column1.setTitle(displayTag);
-        column2.setTitle("Instance");
-        column1.setWidth(column1.getTitle().length());
-        column2.setWidth(column2.getTitle().length());
-        columns.add(column1);
-        columns.add(column2);
+        columns.add(new Column(displayTag));
+        columns.add(new Column("Instance"));
+        columns.add(new Column("AMI"));
+        columns.add(new Column("State"));
         table.setColumns(columns);
         for (int i = 0; i < rows.size(); i++) {
             List<String> elements = rows.get(i).getElements();
