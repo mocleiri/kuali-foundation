@@ -37,6 +37,10 @@
           <groupId>${project.groupId}</groupId>
           <artifactId>${project.artifactId}</artifactId>
           <version>${project.version}</version>
+          <configuration>
+            <accessKeyId>foo</accessKeyId>
+            <secretAccessKey>bar</secretAccessKey>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
