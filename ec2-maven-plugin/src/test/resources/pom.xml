@@ -52,7 +52,7 @@
             <id>1</id>
             <phase>test</phase>
             <goals>
-              <goal>runinstance</goal>
+              <goal>describeinstances</goal>
             </goals>
           </execution>
         </executions>

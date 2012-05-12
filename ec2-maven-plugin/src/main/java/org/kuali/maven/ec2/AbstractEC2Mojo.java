@@ -25,7 +25,7 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
         return new BasicAWSCredentials(accessKey, secretKey);
     }
 
-    protected AmazonEC2 getAmazonEC2() {
+    protected AmazonEC2 getEC2Client() {
         AWSCredentials credentials = getCredentials();
         return new AmazonEC2Client(credentials);
     }
