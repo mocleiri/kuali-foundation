@@ -8,7 +8,7 @@ import com.amazonaws.services.ec2.AmazonEC2;
  *
  * @goal describeinstances
  */
-public class DescribeInstancesMojo extends AbstractEc1Mojo {
+public class DescribeInstancesMojo extends AbstractEC2Mojo {
 
     @Override
     public void execute() throws MojoExecutionException {

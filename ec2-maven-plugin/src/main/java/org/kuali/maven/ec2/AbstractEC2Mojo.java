@@ -7,7 +7,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 
-public abstract class AbstractEc1Mojo extends AbstractMojo {
+public abstract class AbstractEC2Mojo extends AbstractMojo {
 
     /**
      * @parameter expression="${ec2.accessKey}"
