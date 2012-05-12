@@ -13,6 +13,7 @@ import org.kuali.maven.ec2.pojo.Table;
 
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.GroupIdentifier;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.Tag;
@@ -43,7 +44,7 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
     protected String getDisplay(List<Column> columns) {
         StringBuilder sb = new StringBuilder();
         for (Column c : columns) {
-            sb.append(StringUtils.rightPad(c.getTitle(), c.getWidth(), " "));
+            sb.append(StringUtils.rightPad(c.getTitle(), c.getWidth(), " ") + "  ");
         }
         return sb.toString();
     }
@@ -53,7 +54,20 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         List<String> elements = row.getElements();
         for (int i = 0; i < elements.size(); i++) {
             int width = table.getColumns().get(i).getWidth();
-            sb.append(StringUtils.rightPad(elements.get(i), width, " "));
+            sb.append(StringUtils.rightPad(elements.get(i), width, " ") + "  ");
+        }
+        return sb.toString();
+    }
+
+    protected String getSecurityGroupsDisplay(Instance i) {
+        List<GroupIdentifier> groups = i.getSecurityGroups();
+        StringBuilder sb = new StringBuilder();
+        for (int j = 0; j < groups.size(); j++) {
+            if (j != 0) {
+                sb.append(",");
+            }
+            GroupIdentifier group = groups.get(j);
+            sb.append(group.getGroupName());
         }
         return sb.toString();
     }
@@ -68,6 +82,7 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
             elements.add(i.getInstanceId());
             elements.add(i.getImageId());
             elements.add(i.getState().getName());
+            elements.add(getSecurityGroupsDisplay(i));
             row.setElements(elements);
             rows.add(row);
         }
@@ -79,6 +94,7 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         columns.add(new Column("Instance"));
         columns.add(new Column("AMI"));
         columns.add(new Column("State"));
+        columns.add(new Column("Security Groups"));
         table.setColumns(columns);
         for (int i = 0; i < rows.size(); i++) {
             List<String> elements = rows.get(i).getElements();
