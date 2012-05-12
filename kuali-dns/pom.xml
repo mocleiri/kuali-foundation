@@ -23,6 +23,11 @@
       <timezone>-7</timezone>
     </developer>
   </developers>
+  <scm>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-dns</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-dns</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-dns</url>
+  </scm>
   <build>
     <pluginManagement>
       <plugins>
