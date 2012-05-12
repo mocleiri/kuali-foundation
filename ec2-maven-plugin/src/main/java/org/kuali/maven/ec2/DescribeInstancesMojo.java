@@ -45,7 +45,8 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         StringBuilder sb = new StringBuilder();
         List<String> elements = row.getElements();
         for (int i = 0; i < elements.size(); i++) {
-
+            int width = table.getColumns().get(i).getWidth();
+            sb.append(StringUtils.rightPad(elements.get(i), width, " "));
         }
         return sb.toString();
     }
