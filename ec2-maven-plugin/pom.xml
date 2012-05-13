@@ -24,7 +24,7 @@
     <version>1.2.9</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
-  <artifactId>ec2-cloudfront-plugin</artifactId>
+  <artifactId>ec2-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <version>1.0.0-SNAPSHOT</version>
   <name>Maven EC2 Plugin</name>

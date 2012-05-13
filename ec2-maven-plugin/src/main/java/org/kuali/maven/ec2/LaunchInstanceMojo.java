@@ -96,6 +96,7 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
         AmazonEC2 client = getEC2Client();
         RunInstancesRequest request = new RunInstancesRequest();
         request.setMaxCount(1);
+        request.setMinCount(1);
         request.setImageId(ami);
         request.setKeyName(key);
         request.setInstanceType(InstanceType.fromValue(type));
