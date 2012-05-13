@@ -32,10 +32,18 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
      */
     private String tag;
 
+    /**
+     * A list of instance id's to display information about
+     *
+     * @parameter
+     */
+    private List<String> instanceIds;
+
     @Override
     public void execute() throws MojoExecutionException {
         AmazonEC2 client = getEC2Client();
         DescribeInstancesRequest request = new DescribeInstancesRequest();
+        request.setInstanceIds(instanceIds);
         DescribeInstancesResult result = client.describeInstances(request);
         List<Instance> instances = getInstances(result.getReservations());
         Table table = getTable(instances);
