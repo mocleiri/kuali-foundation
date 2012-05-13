@@ -140,7 +140,7 @@ public class LaunchMojo extends AbstractEC2Mojo {
         Instance i = instances.get(0);
         handleTags(client, i, tags);
         if (wait) {
-            getLog().info("Waiting up to " + waitTimeout + " seconds for " + i.getInstanceId() + "  to start");
+            getLog().info("Waiting up to " + waitTimeout + " seconds for " + i.getInstanceId() + " to start");
             waitForState(client, i.getInstanceId(), state, waitTimeout);
         } else {
             getLog().info("Launched " + i.getInstanceId());

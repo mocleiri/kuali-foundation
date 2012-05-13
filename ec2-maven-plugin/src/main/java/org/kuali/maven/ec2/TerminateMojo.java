@@ -57,7 +57,7 @@ public class TerminateMojo extends AbstractEC2Mojo {
         request.setInstanceIds(Collections.singletonList(id));
         client.terminateInstances(request);
         if (wait) {
-            getLog().info("Waiting up to " + waitTimeout + " seconds for " + id + "  to terminate");
+            getLog().info("Waiting up to " + waitTimeout + " seconds for " + id + " to terminate");
             waitForState(client, id, state, waitTimeout);
         } else {
             getLog().info("Terminated " + id);
