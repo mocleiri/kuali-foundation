@@ -67,16 +67,16 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
             long remaining = (timeout - now) / 1000;
             Instance i = getInstance(client, instanceId);
             String newState = i.getState().getName();
-            getLog().info("state=" + newState + " - " + remaining + "s");
+            getLog().info(newState + " - " + remaining + "s");
             if (state.equals(newState)) {
                 break;
             } else {
                 sleep(3000);
             }
+            now = System.currentTimeMillis();
             if (now > timeout) {
                 throw new MojoExecutionException("Timed out waiting for state '" + state + "'");
             }
-            now = System.currentTimeMillis();
         }
     }
 
