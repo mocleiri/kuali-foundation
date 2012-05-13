@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
 
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.InstanceType;
@@ -15,6 +16,14 @@ import com.amazonaws.services.ec2.model.RunInstancesRequest;
  * @goal launchinstance
  */
 public class LaunchInstanceMojo extends AbstractEC2Mojo {
+
+    /**
+     * The Maven project object
+     *
+     * @parameter expression="${project}"
+     * @readonly
+     */
+    private MavenProject project;
 
     /**
      * The AMI to launch
@@ -62,6 +71,14 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
     private File userDataFile;
 
     /**
+     * If true, userData is filtered with current project, environment, and system properties before being supplied to
+     * the instance.
+     *
+     * @parameter expression="${ec2.filterUserData}
+     */
+    private boolean filterUserData;
+
+    /**
      * The encoding of the userDataFile
      *
      * @parameter expression="${ec2.encoding}" default-value="${project.build.sourceEncoding}"
@@ -80,6 +97,14 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
         client.runInstances(request);
     }
 
+    protected String getUserData(String data, File f, String encoding) throws IOException {
+        if (f == null) {
+            return data;
+        } else {
+            return FileUtils.readFileToString(f, encoding);
+        }
+    }
+
     protected void setUserData(RunInstancesRequest request) throws MojoExecutionException {
 
         if (userDataFile != null) {
@@ -92,5 +117,73 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
         } else {
             request.setUserData(userData);
         }
+    }
+
+    public String getAmi() {
+        return ami;
+    }
+
+    public void setAmi(String ami) {
+        this.ami = ami;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public List<String> getSecurityGroups() {
+        return securityGroups;
+    }
+
+    public void setSecurityGroups(List<String> securityGroups) {
+        this.securityGroups = securityGroups;
+    }
+
+    public String getUserData() {
+        return userData;
+    }
+
+    public void setUserData(String userData) {
+        this.userData = userData;
+    }
+
+    public File getUserDataFile() {
+        return userDataFile;
+    }
+
+    public void setUserDataFile(File userDataFile) {
+        this.userDataFile = userDataFile;
+    }
+
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    public boolean isFilterUserData() {
+        return filterUserData;
+    }
+
+    public void setFilterUserData(boolean filterUserData) {
+        this.filterUserData = filterUserData;
+    }
+
+    public MavenProject getProject() {
+        return project;
     }
 }
