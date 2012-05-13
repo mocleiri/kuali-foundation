@@ -49,7 +49,7 @@ public class DeleteRecordMojo extends BaseDNSMEMojo {
     String recordName;
 
     /**
-     * IF true, the Maven build will fail if the plugin is deleting by <code>recordName</code> and there is no match for
+     * If true, the Maven build will fail if the plugin is deleting by <code>recordName</code> and there is no match for
      * the name.
      *
      * @parameter expression="${dnsme.failIfRecordNameHasNoMatch}" default-value="false"
