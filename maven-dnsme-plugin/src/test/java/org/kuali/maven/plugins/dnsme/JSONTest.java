@@ -45,6 +45,7 @@ public class JSONTest {
         Type collectionType = new TypeToken<List<Record>>() {
         }.getType();
         Gson gson = new Gson();
+        @SuppressWarnings("unchecked")
         List<Record> records = (List<Record>) gson.fromJson(dnsmeJsonText, collectionType);
         Iterator<Record> itr = records.iterator();
         while (itr.hasNext()) {
@@ -66,6 +67,7 @@ public class JSONTest {
         Type collectionType = new TypeToken<List<Record>>() {
         }.getType();
         Gson gson = new Gson();
+        @SuppressWarnings("unchecked")
         List<Record> records = (List<Record>) gson.fromJson(dnsmeJsonText, collectionType);
         Collections.sort(records, new RecordComparator());
         Map<String, String> map = new HashMap<String, String>();
@@ -84,8 +86,10 @@ public class JSONTest {
         Type collectionType = new TypeToken<List<Record>>() {
         }.getType();
         Gson gson = new Gson();
+        @SuppressWarnings("unchecked")
         List<Record> records1 = (List<Record>) gson.fromJson(dnsmeJsonText, collectionType);
         String gsonJsonText1 = gson.toJson(records1);
+        @SuppressWarnings("unchecked")
         List<Record> records2 = (List<Record>) gson.fromJson(gsonJsonText1, collectionType);
         String gsonJsonText2 = gson.toJson(records2);
         Assert.assertEquals(gsonJsonText1, gsonJsonText2);
