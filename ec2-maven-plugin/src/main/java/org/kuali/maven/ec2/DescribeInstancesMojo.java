@@ -82,6 +82,7 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
             elements.add(getTagValue(i, tag));
             elements.add(i.getInstanceId());
             elements.add(i.getImageId());
+            elements.add(i.getPlacement().getAvailabilityZone());
             elements.add(i.getInstanceType());
             elements.add(i.getState().getName());
             elements.add(getSecurityGroupsDisplay(i));
@@ -99,6 +100,7 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         columns.add(new Column(tag));
         columns.add(new Column("Instance"));
         columns.add(new Column("AMI"));
+        columns.add(new Column("Availability Zone"));
         columns.add(new Column("Type"));
         columns.add(new Column("State"));
         columns.add(new Column("Security Groups"));
