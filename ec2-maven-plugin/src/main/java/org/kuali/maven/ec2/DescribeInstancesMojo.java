@@ -12,6 +12,7 @@ import org.kuali.maven.ec2.pojo.RowComparator;
 import org.kuali.maven.ec2.pojo.Table;
 
 import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.GroupIdentifier;
 import com.amazonaws.services.ec2.model.Instance;
@@ -34,7 +35,8 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
     @Override
     public void execute() throws MojoExecutionException {
         AmazonEC2 client = getEC2Client();
-        DescribeInstancesResult result = client.describeInstances();
+        DescribeInstancesRequest request = new DescribeInstancesRequest();
+        DescribeInstancesResult result = client.describeInstances(request);
         List<Instance> instances = getInstances(result.getReservations());
         Table table = getTable(instances);
         getLog().info(getDisplay(table.getColumns()));
