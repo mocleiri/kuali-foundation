@@ -102,6 +102,13 @@ public class LaunchMojo extends AbstractEC2Mojo {
      */
     private List<Tag> tags;
 
+    /**
+     * If true, the build will wait until EC2 reports that the instance has reached the state of "running"
+     *
+     * @parameter expression="${ec2.wait}" default-value="true"
+     */
+    private boolean wait;
+
     @Override
     public void execute() throws MojoExecutionException {
         AmazonEC2 client = getEC2Client();
@@ -236,5 +243,13 @@ public class LaunchMojo extends AbstractEC2Mojo {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public boolean isWait() {
+        return wait;
+    }
+
+    public void setWait(boolean wait) {
+        this.wait = wait;
     }
 }
