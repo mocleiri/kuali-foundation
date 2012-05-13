@@ -39,6 +39,12 @@
           <version>${project.version}</version>
           <configuration>
             <accessKey>AKIAIZFPMJVCNOYYAZ2Q</accessKey>
+            <ami>ami-40872329</ami>
+            <key>kr-key</key>
+            <securityGroups>
+              <param>deployment</param>
+            </securityGroups>
+            <userData>echo Hello World</userData>
           </configuration>
         </plugin>
       </plugins>
@@ -55,22 +61,6 @@
               <goal>describeinstances</goal>
             </goals>
           </execution>
-          <execution>
-            <id>2</id>
-            <phase>test</phase>
-            <goals>
-              <goal>launchinstance</goal>
-            </goals>
-            <configuration>
-              <ami>ami-40872329</ami>
-              <key>kr-key</key>
-              <securityGroups>
-                <param>deployment</param>
-              </securityGroups>
-              <userData>echo Hello World</userData>
-            </configuration>
-          </execution>
-
         </executions>
       </plugin>
     </plugins>
