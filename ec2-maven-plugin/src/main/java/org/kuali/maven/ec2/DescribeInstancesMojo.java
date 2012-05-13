@@ -105,6 +105,11 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         columns.add(new Column("State"));
         columns.add(new Column("Security Groups"));
         columns.add(new Column("Key Pair"));
+        setWidths(columns, rows);
+        return columns;
+    }
+
+    protected void setWidths(List<Column> columns, List<Row> rows) {
         for (int i = 0; i < rows.size(); i++) {
             List<String> elements = rows.get(i).getElements();
             for (int j = 0; j < elements.size(); j++) {
@@ -112,7 +117,6 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
                 c.setWidth(Math.max(c.getWidth(), elements.get(j).length()));
             }
         }
-        return columns;
     }
 
     protected Table getTable(List<Instance> instances) {
