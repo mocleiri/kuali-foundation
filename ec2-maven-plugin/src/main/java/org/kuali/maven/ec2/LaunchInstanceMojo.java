@@ -12,8 +12,11 @@ import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.PropertiesUtils;
 
 import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
+import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
+import com.amazonaws.services.ec2.model.RunInstancesResult;
 
 /**
  * @goal launchinstance
@@ -92,12 +95,17 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
     public void execute() throws MojoExecutionException {
         AmazonEC2 client = getEC2Client();
         RunInstancesRequest request = new RunInstancesRequest();
+        request.setMaxCount(1);
         request.setImageId(ami);
         request.setKeyName(key);
         request.setInstanceType(InstanceType.fromValue(type));
         request.setSecurityGroups(securityGroups);
         setUserData(request);
-        client.runInstances(request);
+        RunInstancesResult result = client.runInstances(request);
+        Reservation r = result.getReservation();
+        List<Instance> instances = r.getInstances();
+        Instance i = instances.get(0);
+        getLog().info(i.getInstanceId());
     }
 
     protected void setUserData(RunInstancesRequest request) throws MojoExecutionException {
