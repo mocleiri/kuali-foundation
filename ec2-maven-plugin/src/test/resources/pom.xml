@@ -57,7 +57,7 @@
           </execution>
           <execution>
             <id>2</id>
-            <phase>none</phase>
+            <phase>test</phase>
             <goals>
               <goal>launchinstance</goal>
             </goals>
