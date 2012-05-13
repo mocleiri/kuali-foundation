@@ -44,6 +44,12 @@
             <securityGroups>
               <param>deployment</param>
             </securityGroups>
+            <tags>
+              <tag>
+                <key>Name</key>
+                <value>env-test</value>
+              </tag>
+            </tags>
             <userData>echo Hello World</userData>
           </configuration>
         </plugin>
