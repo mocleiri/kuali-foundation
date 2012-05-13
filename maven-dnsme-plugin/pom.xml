@@ -29,6 +29,7 @@
   <packaging>maven-plugin</packaging>
   <name>Maven DNSME Plugin</name>
   <description>Tools for allowing Maven to interact with DNS made easy</description>
+  <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <scm>
     <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-dnsme-plugin</connection>
     <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-dnsme-plugin</developerConnection>
