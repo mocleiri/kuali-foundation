@@ -14,6 +14,7 @@ import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.ec2.model.Tag;
 
 public abstract class AbstractEC2Mojo extends AbstractMojo {
 
@@ -36,6 +37,16 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
     protected AmazonEC2 getEC2Client() {
         AWSCredentials credentials = getCredentials();
         return new AmazonEC2Client(credentials);
+    }
+
+    protected String getTagValue(Instance i, String tag) {
+        List<Tag> tags = i.getTags();
+        for (Tag t : tags) {
+            if (t.getKey().equals(tag)) {
+                return t.getValue();
+            }
+        }
+        return "";
     }
 
     protected Instance getInstance(AmazonEC2 client, String instanceId) {

@@ -142,6 +142,10 @@ public class LaunchMojo extends AbstractEC2Mojo {
         if (wait) {
             getLog().info("Waiting up to " + waitTimeout + " seconds for " + i.getInstanceId() + " to start");
             waitForState(client, i.getInstanceId(), state, waitTimeout);
+            Instance running = getInstance(client, i.getInstanceId());
+            String id = i.getInstanceId();
+            String dns = running.getPublicDnsName();
+            getLog().info("EC2 Instance: " + getTagValue(running, "Name") + " (" + id + ") " + dns);
         } else {
             getLog().info("Launched " + i.getInstanceId());
         }

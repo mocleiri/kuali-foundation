@@ -17,7 +17,6 @@ import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.GroupIdentifier;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
-import com.amazonaws.services.ec2.model.Tag;
 
 /**
  *
@@ -134,16 +133,6 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         table.setRows(getRows(instances));
         table.setColumns(getColumns(table.getRows()));
         return table;
-    }
-
-    protected String getTagValue(Instance i, String tag) {
-        List<Tag> tags = i.getTags();
-        for (Tag t : tags) {
-            if (t.getKey().equals(tag)) {
-                return t.getValue();
-            }
-        }
-        return "";
     }
 
     protected List<Instance> getInstances(List<Reservation> reservations) {
