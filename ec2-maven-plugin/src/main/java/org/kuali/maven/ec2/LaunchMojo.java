@@ -2,6 +2,8 @@ package org.kuali.maven.ec2;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -12,11 +14,13 @@ import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.PropertiesUtils;
 
 import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.model.CreateTagsRequest;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
+import com.amazonaws.services.ec2.model.Tag;
 
 /**
  * @goal launch
@@ -91,6 +95,13 @@ public class LaunchMojo extends AbstractEC2Mojo {
      */
     private String encoding;
 
+    /**
+     * List of tags to associate with the instance
+     *
+     * @parameter
+     */
+    private List<Tag> tags;
+
     @Override
     public void execute() throws MojoExecutionException {
         AmazonEC2 client = getEC2Client();
@@ -106,7 +117,22 @@ public class LaunchMojo extends AbstractEC2Mojo {
         Reservation r = result.getReservation();
         List<Instance> instances = r.getInstances();
         Instance i = instances.get(0);
+        handleTags(client, i, tags);
         getLog().info(i.getInstanceId());
+    }
+
+    protected void handleTags(AmazonEC2 client, Instance instance, List<Tag> tags) {
+        if (isEmpty(tags)) {
+            return;
+        }
+        CreateTagsRequest request = new CreateTagsRequest();
+        request.setResources(Collections.singletonList(instance.getInstanceId()));
+        request.setTags(tags);
+        client.createTags(request);
+    }
+
+    protected boolean isEmpty(Collection<?> c) {
+        return c == null || c.size() == 0;
     }
 
     protected void setUserData(RunInstancesRequest request) throws MojoExecutionException {
@@ -202,5 +228,13 @@ public class LaunchMojo extends AbstractEC2Mojo {
 
     public MavenProject getProject() {
         return project;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }
