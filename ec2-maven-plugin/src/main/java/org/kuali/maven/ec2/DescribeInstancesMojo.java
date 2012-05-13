@@ -25,9 +25,11 @@ import com.amazonaws.services.ec2.model.Tag;
 public class DescribeInstancesMojo extends AbstractEC2Mojo {
 
     /**
-     * @parameter expression="${ec2.displayTag}" default-value="Name"
+     * The tag to display for each instance. Default value is the same tag displayed in the AWS console
+     *
+     * @parameter expression="${ec2.tag}" default-value="Name"
      */
-    private String displayTag;
+    private String tag;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -72,30 +74,35 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         return sb.toString();
     }
 
-    protected Table getTable(List<Instance> instances) {
-        Table table = new Table();
+    protected List<Row> getRows(List<Instance> instances) {
         List<Row> rows = new ArrayList<Row>();
         for (Instance i : instances) {
             Row row = new Row();
             List<String> elements = new ArrayList<String>();
-            elements.add(getName(i));
+            elements.add(getTagValue(i, tag));
             elements.add(i.getInstanceId());
             elements.add(i.getImageId());
+            elements.add(i.getInstanceType());
             elements.add(i.getState().getName());
             elements.add(getSecurityGroupsDisplay(i));
+            elements.add(i.getKeyName());
             row.setElements(elements);
             rows.add(row);
         }
         Collections.sort(rows, new RowComparator());
         Collections.reverse(rows);
-        table.setRows(rows);
+        return rows;
+    }
+
+    protected List<Column> getColumns(List<Row> rows) {
         List<Column> columns = new ArrayList<Column>();
-        columns.add(new Column(displayTag));
+        columns.add(new Column(tag));
         columns.add(new Column("Instance"));
         columns.add(new Column("AMI"));
+        columns.add(new Column("Type"));
         columns.add(new Column("State"));
         columns.add(new Column("Security Groups"));
-        table.setColumns(columns);
+        columns.add(new Column("Key Pair"));
         for (int i = 0; i < rows.size(); i++) {
             List<String> elements = rows.get(i).getElements();
             for (int j = 0; j < elements.size(); j++) {
@@ -103,13 +110,20 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
                 c.setWidth(Math.max(c.getWidth(), elements.get(j).length()));
             }
         }
+        return columns;
+    }
+
+    protected Table getTable(List<Instance> instances) {
+        Table table = new Table();
+        table.setRows(getRows(instances));
+        table.setColumns(getColumns(table.getRows()));
         return table;
     }
 
-    protected String getName(Instance i) {
+    protected String getTagValue(Instance i, String tag) {
         List<Tag> tags = i.getTags();
         for (Tag t : tags) {
-            if (t.getKey().equals(displayTag)) {
+            if (t.getKey().equals(tag)) {
                 return t.getValue();
             }
         }
@@ -124,12 +138,12 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         return instances;
     }
 
-    public String getDisplayTag() {
-        return displayTag;
+    public String getTag() {
+        return tag;
     }
 
-    public void setDisplayTag(String displayTag) {
-        this.displayTag = displayTag;
+    public void setTag(String displayTag) {
+        this.tag = displayTag;
     }
 
 }
