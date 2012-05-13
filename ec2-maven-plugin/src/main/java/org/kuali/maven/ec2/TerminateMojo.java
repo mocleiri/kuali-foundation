@@ -30,21 +30,21 @@ public class TerminateMojo extends AbstractEC2Mojo {
     private String id;
 
     /**
-     * If true, the build will wait until EC2 reports that the instance has reached the state of "running"
+     * If true, the build will wait until EC2 reports that the instance has reached the state of "terminated"
      *
      * @parameter expression="${ec2.wait}" default-value="true"
      */
     private boolean wait;
 
     /**
-     * The number of seconds to wait for the instance to start before timing out and failing the build
+     * The number of seconds to wait for the instance to terminate before timing out and failing the build
      *
      * @parameter expression="${ec2.waitTimeout}" default-value="300"
      */
     private int waitTimeout;
 
     /**
-     * The state the instance needs to be in before the plugin considers it to be started.
+     * The state the instance needs to be in before the plugin considers it to be terminated.
      *
      * @parameter expression="${ec2.state}" default-value="terminated"
      */
