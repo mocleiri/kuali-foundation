@@ -76,11 +76,11 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
         request.setKeyName(key);
         request.setInstanceType(InstanceType.fromValue(type));
         request.setSecurityGroups(securityGroups);
-        attachUserData(request);
+        setUserData(request);
         client.runInstances(request);
     }
 
-    protected void attachUserData(RunInstancesRequest request) throws MojoExecutionException {
+    protected void setUserData(RunInstancesRequest request) throws MojoExecutionException {
 
         if (userDataFile != null) {
             try {
