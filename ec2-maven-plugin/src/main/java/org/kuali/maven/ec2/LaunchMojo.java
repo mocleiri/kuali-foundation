@@ -19,9 +19,9 @@ import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 
 /**
- * @goal launchinstance
+ * @goal launch
  */
-public class LaunchInstanceMojo extends AbstractEC2Mojo {
+public class LaunchMojo extends AbstractEC2Mojo {
 
     /**
      * The Maven project object

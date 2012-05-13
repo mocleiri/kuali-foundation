@@ -12,9 +12,9 @@ import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.amazonaws.services.ec2.model.TerminateInstancesResult;
 
 /**
- * @goal terminateinstance
+ * @goal terminate
  */
-public class TerminateInstanceMojo extends AbstractEC2Mojo {
+public class TerminateMojo extends AbstractEC2Mojo {
 
     /**
      * The Maven project object
