@@ -76,12 +76,6 @@ public class DeleteRecordMojo extends BaseDNSMEMojo {
         }
     }
 
-    protected Search getSearch() {
-        Search search = new Search();
-        search.setName(recordName);
-        return search;
-    }
-
     protected Record getRecord(DNSMEClient client, Domain domain) throws MojoExecutionException {
         if (recordId != null) {
             return client.getRecord(domain, recordId);
