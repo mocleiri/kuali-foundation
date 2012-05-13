@@ -34,7 +34,7 @@ import org.kuali.maven.plugins.dnsme.beans.Search;
 public class DeleteRecordMojo extends BaseDNSMEMojo {
 
     /**
-     * The domain to delete a record from
+     * The domain to delete a record from. eg "kuali.org"
      *
      * @parameter expression="${dnsme.domainName}"
      * @required
@@ -49,8 +49,8 @@ public class DeleteRecordMojo extends BaseDNSMEMojo {
     String recordName;
 
     /**
-     * IF true, the Maven build will fail if we are deleting by <code>recordName</code> and there is no match for the
-     * name we are deleting.
+     * IF true, the Maven build will fail if the plugin is deleting by <code>recordName</code> and there is no match for
+     * the name.
      *
      * @parameter expression="${dnsme.failIfRecordNameHasNoMatch}" default-value="false"
      */
