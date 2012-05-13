@@ -1,11 +1,19 @@
 package org.kuali.maven.ec2;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
+import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.Reservation;
 
 public abstract class AbstractEC2Mojo extends AbstractMojo {
 
@@ -28,6 +36,45 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
     protected AmazonEC2 getEC2Client() {
         AWSCredentials credentials = getCredentials();
         return new AmazonEC2Client(credentials);
+    }
+
+    protected Instance getInstance(AmazonEC2 client, String instanceId) {
+        DescribeInstancesRequest request = new DescribeInstancesRequest();
+        request.setInstanceIds(Collections.singletonList(instanceId));
+        DescribeInstancesResult result = client.describeInstances(request);
+        List<Reservation> reservations = result.getReservations();
+        Reservation r = reservations.get(0);
+        List<Instance> instances = r.getInstances();
+        return instances.get(0);
+    }
+
+    protected void waitForState(AmazonEC2 client, String instanceId, String state, int waitTimeout)
+            throws MojoExecutionException {
+        long now = System.currentTimeMillis();
+        long timeout = now + waitTimeout * 1000;
+        while (true) {
+            long remaining = (timeout - now) / 1000;
+            Instance i = getInstance(client, instanceId);
+            String newState = i.getState().getName();
+            getLog().info("state=" + newState + " - " + remaining + "s");
+            if (state.equals(newState)) {
+                break;
+            } else {
+                sleep(3000);
+            }
+            if (now > timeout) {
+                throw new MojoExecutionException("Timed out waiting for state '" + state + "'");
+            }
+            now = System.currentTimeMillis();
+        }
+    }
+
+    protected void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getAccessKey() {

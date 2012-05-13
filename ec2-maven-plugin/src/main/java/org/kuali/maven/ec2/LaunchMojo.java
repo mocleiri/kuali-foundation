@@ -15,8 +15,6 @@ import org.kuali.maven.common.PropertiesUtils;
 
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
-import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
-import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Reservation;
@@ -118,6 +116,13 @@ public class LaunchMojo extends AbstractEC2Mojo {
      */
     private int waitTimeout;
 
+    /**
+     * The state the instance needs to be in before the plugin considers it to be started.
+     *
+     * @parameter expression="${ec2.state}" default-value="running"
+     */
+    private String state;
+
     @Override
     public void execute() throws MojoExecutionException {
         AmazonEC2 client = getEC2Client();
@@ -136,47 +141,9 @@ public class LaunchMojo extends AbstractEC2Mojo {
         handleTags(client, i, tags);
         if (wait) {
             getLog().info("Waiting up to " + waitTimeout + " seconds for " + i.getInstanceId() + "  to start");
-            waitForState(client, i.getInstanceId(), "running");
+            waitForState(client, i.getInstanceId(), state, waitTimeout);
         } else {
             getLog().info("Launched " + i.getInstanceId());
-        }
-    }
-
-    protected Instance getInstance(AmazonEC2 client, String instanceId) {
-        DescribeInstancesRequest request = new DescribeInstancesRequest();
-        request.setInstanceIds(Collections.singletonList(instanceId));
-        DescribeInstancesResult result = client.describeInstances(request);
-        List<Reservation> reservations = result.getReservations();
-        Reservation r = reservations.get(0);
-        List<Instance> instances = r.getInstances();
-        return instances.get(0);
-    }
-
-    protected void waitForState(AmazonEC2 client, String instanceId, String state) throws MojoExecutionException {
-        long now = System.currentTimeMillis();
-        long timeout = now + waitTimeout * 1000;
-        while (true) {
-            long remaining = (timeout - now) / 1000;
-            Instance i = getInstance(client, instanceId);
-            String newState = i.getState().getName();
-            getLog().info("state=" + newState + " - " + remaining + "s");
-            if (state.equals(newState)) {
-                break;
-            } else {
-                sleep(3000);
-            }
-            if (now > timeout) {
-                throw new MojoExecutionException("Timed out waiting for instance to start");
-            }
-            now = System.currentTimeMillis();
-        }
-    }
-
-    protected void sleep(int millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -311,5 +278,13 @@ public class LaunchMojo extends AbstractEC2Mojo {
 
     public void setWaitTimeout(int waitTimeout) {
         this.waitTimeout = waitTimeout;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
