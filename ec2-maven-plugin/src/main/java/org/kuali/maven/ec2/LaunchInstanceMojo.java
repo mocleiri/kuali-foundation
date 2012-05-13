@@ -12,9 +12,9 @@ import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 
 /**
- * @goal runinstance
+ * @goal launchinstance
  */
-public class RunInstanceMojo extends AbstractEC2Mojo {
+public class LaunchInstanceMojo extends AbstractEC2Mojo {
 
     /**
      * The AMI to launch
