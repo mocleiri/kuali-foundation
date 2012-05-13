@@ -25,7 +25,7 @@ import com.amazonaws.services.ec2.model.Tag;
 public class DescribeInstancesMojo extends AbstractEC2Mojo {
 
     /**
-     * The tag to display for each instance. Default value is the same tag displayed in the AWS console
+     * The tag to display for each instance.
      *
      * @parameter expression="${ec2.tag}" default-value="Name"
      */
