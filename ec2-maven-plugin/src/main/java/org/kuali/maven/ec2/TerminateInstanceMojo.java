@@ -12,7 +12,7 @@ import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.amazonaws.services.ec2.model.TerminateInstancesResult;
 
 /**
- * @goal launchinstance
+ * @goal terminateinstance
  */
 public class TerminateInstanceMojo extends AbstractEC2Mojo {
 
