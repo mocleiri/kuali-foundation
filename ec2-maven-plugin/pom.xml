@@ -41,6 +41,11 @@
   </developers>
   <dependencies>
     <dependency>
+      <groupId>org.kuali.maven.common</groupId>
+      <artifactId>maven-kuali-common</artifactId>
+      <version>1.2.4-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.1.2</version>

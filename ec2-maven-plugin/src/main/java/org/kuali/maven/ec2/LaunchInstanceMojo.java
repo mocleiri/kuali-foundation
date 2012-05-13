@@ -3,10 +3,13 @@ package org.kuali.maven.ec2;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.StringUtils;
+import org.kuali.maven.common.PropertiesUtils;
 
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.InstanceType;
@@ -97,25 +100,30 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
         client.runInstances(request);
     }
 
+    protected void setUserData(RunInstancesRequest request) throws MojoExecutionException {
+        try {
+            String data = getUserData(userData, userDataFile, encoding);
+            if (StringUtils.isBlank(data)) {
+                return;
+            }
+            if (filterUserData) {
+                PropertiesUtils pu = new PropertiesUtils();
+                Properties properties = pu.getMavenProperties(project);
+                String filteredUserData = pu.getResolvedValue(data, properties);
+                request.setUserData(filteredUserData);
+            } else {
+                request.setUserData(data);
+            }
+        } catch (IOException e) {
+            throw new MojoExecutionException("Error handling user data", e);
+        }
+    }
+
     protected String getUserData(String data, File f, String encoding) throws IOException {
         if (f == null) {
             return data;
         } else {
             return FileUtils.readFileToString(f, encoding);
-        }
-    }
-
-    protected void setUserData(RunInstancesRequest request) throws MojoExecutionException {
-
-        if (userDataFile != null) {
-            try {
-                String userData = FileUtils.readFileToString(userDataFile, encoding);
-                request.setUserData(userData);
-            } catch (IOException e) {
-                throw new MojoExecutionException("Error reading user data file", e);
-            }
-        } else {
-            request.setUserData(userData);
         }
     }
 
