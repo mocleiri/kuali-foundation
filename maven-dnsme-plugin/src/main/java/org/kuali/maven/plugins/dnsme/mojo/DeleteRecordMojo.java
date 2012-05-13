@@ -62,7 +62,7 @@ public class DeleteRecordMojo extends BaseDNSMEMojo {
 
     protected Record getRecord(DNSMEClient client, Domain domain) throws MojoExecutionException {
         if (recordId != null) {
-            client.getRecord(domain, recordId);
+            return client.getRecord(domain, recordId);
         }
         if (recordName != null) {
             return client.getRecord(domain, recordName);
