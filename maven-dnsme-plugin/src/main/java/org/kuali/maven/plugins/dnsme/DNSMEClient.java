@@ -160,16 +160,20 @@ public class DNSMEClient {
         return records;
     }
 
-    public Record getRecord(Domain domain, String name) {
+    public Search getSearch(String name) {
         Search search = new Search();
         search.setName(name);
-        return getRecord(domain, search);
+        return search;
+    }
+
+    public Record getRecord(Domain domain, String name) {
+        return getRecord(domain, getSearch(name));
     }
 
     public Record getRecord(Domain domain, int recordId) {
         String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
         String resultJson = getJson(url, HTTP_OK);
-        Record resultRecord = (Record) gson.fromJson(resultJson, Record.class);
+        Record resultRecord = gson.fromJson(resultJson, Record.class);
         return resultRecord;
     }
 

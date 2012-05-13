@@ -15,11 +15,15 @@
  */
 package org.kuali.maven.plugins.dnsme.mojo;
 
+import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.kuali.maven.plugins.dnsme.DNSMEClient;
+import org.kuali.maven.plugins.dnsme.DNSMEException;
 import org.kuali.maven.plugins.dnsme.beans.Domain;
 import org.kuali.maven.plugins.dnsme.beans.Record;
+import org.kuali.maven.plugins.dnsme.beans.Search;
 
 /**
  * Delete a dns record from a domain managed by a DNSME account. Must provide either a name or an id
@@ -45,6 +49,14 @@ public class DeleteRecordMojo extends BaseDNSMEMojo {
     String recordName;
 
     /**
+     * IF true, the Maven build will fail if we are deleting by <code>recordName</code> and there is no match for the
+     * name we are deleting.
+     *
+     * @parameter expression="${dnsme.failIfRecordNameHasNoMatch}" default-value="false"
+     */
+    boolean failIfRecordNameHasNoMatch;
+
+    /**
      * The id of the record to delete
      *
      * @parameter expression="${dnsme.recordId}"
@@ -55,19 +67,46 @@ public class DeleteRecordMojo extends BaseDNSMEMojo {
     public void performTasks(DNSMEClient client) throws MojoExecutionException, MojoFailureException {
         Domain domain = client.getDomain(domainName);
         Record record = getRecord(client, domain);
-        getLog().info("Deleting a record from '" + domainName + "'");
-        getLog().info("[" + getLog(record) + "]");
-        client.deleteRecord(domain, record.getId());
+        if (record != null) {
+            getLog().info("Deleting a record from '" + domainName + "'");
+            getLog().info("[" + getLog(record) + "]");
+            client.deleteRecord(domain, record.getId());
+        } else {
+            getLog().info("No match for '" + recordName + "." + domainName + "'");
+        }
+    }
+
+    protected Search getSearch() {
+        Search search = new Search();
+        search.setName(recordName);
+        return search;
     }
 
     protected Record getRecord(DNSMEClient client, Domain domain) throws MojoExecutionException {
         if (recordId != null) {
             return client.getRecord(domain, recordId);
         }
-        if (recordName != null) {
-            return client.getRecord(domain, recordName);
+        if (recordName == null) {
+            throw new MojoExecutionException("Must supply a value for either recordName or recordId");
         }
-        throw new MojoExecutionException("Must supply a value for either recordName or recordId");
+        Search search = client.getSearch(recordName);
+        List<Record> records = client.getRecords(domain, search);
+        validateRecords(records);
+        if (records.size() == 0) {
+            return null;
+        } else {
+            return records.get(0);
+        }
+    }
+
+    protected void validateRecords(List<Record> records) {
+        if (records.size() > 1) {
+            throw new DNSMEException("Search criteria must match exactly 1 record but it matched " + records.size()
+                    + " records");
+        }
+        if (records.size() == 0 && failIfRecordNameHasNoMatch) {
+            throw new DNSMEException("No match for " + recordName);
+        }
     }
 
     protected String getCompactLog(Record record) {
