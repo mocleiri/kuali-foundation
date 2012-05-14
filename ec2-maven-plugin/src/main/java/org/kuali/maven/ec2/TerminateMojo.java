@@ -34,7 +34,7 @@ public class TerminateMojo extends AbstractEC2Mojo {
     /**
      * If true, the build will wait until EC2 reports that the instance has reached the state of "terminated"
      *
-     * @parameter expression="${ec2.wait}" default-value="true"
+     * @parameter expression="${ec2.wait}" default-value="false"
      */
     private boolean wait;
 
