@@ -135,8 +135,8 @@
     </testResources>
   </build>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ec2-cloudfront-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ec2-cloudfront-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/ec2-cloudfront-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ec2-maven-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ec2-maven-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/ec2-maven-plugin</url>
   </scm>
 </project>
