@@ -121,6 +121,7 @@
             <configuration>
               <timeout>300</timeout>
               <url>http://${ec2.instance.dns}</url>
+              <httpSuccessCodes>404,200</httpSuccessCodes>
             </configuration>
           </execution>
         </executions>
