@@ -101,9 +101,9 @@
         </executions>
         <configuration>
           <echos>
-            <echo>${ec2.instance.id}</echo>
-            <echo>${ec2.instance.dns}</echo>
-            <echo>${ec2.instance.name}</echo>
+            <echo>Name: ${ec2.instance.name}</echo>
+            <echo>Instance Id: ${ec2.instance.id}</echo>
+            <echo>Public DNS Name: ${ec2.instance.dns}</echo>
           </echos>
         </configuration>
       </plugin>
