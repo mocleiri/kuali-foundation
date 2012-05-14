@@ -99,18 +99,19 @@ public class LaunchMojo extends AbstractEC2Mojo {
     /**
      * List of tags to associate with the instance. Tags are key value pairs and can be supplied in the plugin
      * configuration like this:<br>
-     * <code>
-     *   <tags>
-     *     <tag>
-     *       <key>Name</key>
-     *       <value>production</value>
-     *     </tag>
-     *     <tag>
-     *       <key>Category</key>
-     *       <value>networking</value>
-     *     </tag>
-     *   </tags>
-     * </code>
+     *
+     * <pre>
+     *   &lt;tags&gt;
+     *     &lt;tag&gt;
+     *       &lt;key&gt;Name&lt;/key&gt;
+     *       &lt;value&gt;production&lt;/value&gt;
+     *     &lt;/tag&gt;
+     *     &lt;tag&gt;
+     *       &lt;key&gt;Category&lt;/key&gt;
+     *       &lt;value&gt;networking&lt;/value&gt;
+     *     &lt;/tag&gt;
+     *   &lt;/tags&gt;
+     * </pre>
      *
      * @parameter
      */
