@@ -23,7 +23,7 @@
   <Listener className="org.apache.catalina.mbeans.ServerLifecycleListener" />
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
   <Service name="Catalina">
-    <Connector URIEncoding="UTF-8" port="${tomcat.http.port}" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="${tomcat.https.port}" compression="on" />
+    <Connector URIEncoding="UTF-8" port="${tomcat.http.port}" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="${tomcat.https.port}" compression="force" />
     <Engine name="Catalina" defaultHost="localhost">
       <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true">
         
