@@ -1,16 +1,17 @@
 package org.kuali.maven.ec2;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.PropertiesUtils;
+import org.kuali.maven.common.ResourceUtils;
 
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
@@ -82,11 +83,12 @@ public class LaunchMojo extends AbstractEC2Mojo {
     private String userData;
 
     /**
-     * If supplied, the contents of the file are supplied to the instance as userData
+     * If supplied, the contents of the file are supplied to the instance as userData. This can be a file on the file
+     * system, or any url Spring resource loading can understand eg "<code>classpath:user-data.txt</code>"
      *
      * @parameter expression="${ec2.userDataFile}"
      */
-    private File userDataFile;
+    private String userDataFile;
 
     /**
      * If true, userData is filtered with current project, environment, and system properties before being supplied to
@@ -221,11 +223,22 @@ public class LaunchMojo extends AbstractEC2Mojo {
         }
     }
 
-    protected String getUserData(String data, File f, String encoding) throws IOException {
-        if (f == null) {
+    protected String getUserData(String data, String location, String encoding) throws IOException {
+        if (location == null) {
             return data;
         } else {
-            return FileUtils.readFileToString(f, encoding);
+            return getString(location, encoding);
+        }
+    }
+
+    protected String getString(String location, String encoding) throws IOException {
+        InputStream in = null;
+        try {
+            ResourceUtils ru = new ResourceUtils();
+            in = ru.getInputStream(location);
+            return IOUtils.toString(in, encoding);
+        } finally {
+            IOUtils.closeQuietly(in);
         }
     }
 
@@ -267,14 +280,6 @@ public class LaunchMojo extends AbstractEC2Mojo {
 
     public void setUserData(String userData) {
         this.userData = userData;
-    }
-
-    public File getUserDataFile() {
-        return userDataFile;
-    }
-
-    public void setUserDataFile(File userDataFile) {
-        this.userDataFile = userDataFile;
     }
 
     public String getEncoding() {
@@ -327,5 +332,13 @@ public class LaunchMojo extends AbstractEC2Mojo {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getUserDataFile() {
+        return userDataFile;
+    }
+
+    public void setUserDataFile(String userDataFile) {
+        this.userDataFile = userDataFile;
     }
 }
