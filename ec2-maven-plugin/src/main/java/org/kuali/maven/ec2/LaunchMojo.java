@@ -224,7 +224,7 @@ public class LaunchMojo extends AbstractEC2Mojo {
     }
 
     protected String getUserData(String data, String location, String encoding) throws IOException {
-        if (location == null) {
+        if (StringUtils.isBlank(location)) {
             return data;
         } else {
             return getString(location, encoding);
