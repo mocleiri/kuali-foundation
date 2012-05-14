@@ -81,7 +81,7 @@
               <goal>terminate</goal>
             </goals>
             <configuration>
-              <id>${ec2.instance.id}</id>
+              <instanceId>${ec2.instance.id}</instanceId>
             </configuration>
           </execution>
         </executions>
