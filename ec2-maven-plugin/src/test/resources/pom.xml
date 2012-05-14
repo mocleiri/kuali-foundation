@@ -107,6 +107,24 @@
           </echos>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>maven-http-plugin</artifactId>
+        <version>1.0.5</version>
+        <executions>
+          <execution>
+            <id>wait-for-tomcat-startup</id>
+            <phase>test</phase>
+            <goals>
+              <goal>wait</goal>
+            </goals>
+            <configuration>
+              <timeout>300</timeout>
+              <url>http://${ec2.instance.dns}</url>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>
