@@ -76,7 +76,7 @@
           </execution>
           <execution>
             <id>3</id>
-            <phase>integration-test</phase>
+            <phase>post-integration-test</phase>
             <goals>
               <goal>terminate</goal>
             </goals>
