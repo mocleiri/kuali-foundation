@@ -36,6 +36,6 @@
   </scm>
   <properties>
     <maven.test.skip>true</maven.test.skip>
-    <kuali-deploy.version>1.0.7-SNAPSHOT</kuali-deploy.version>
+    <kuali-deploy.version>1.0.8-SNAPSHOT</kuali-deploy.version>
   </properties>
 </project>
