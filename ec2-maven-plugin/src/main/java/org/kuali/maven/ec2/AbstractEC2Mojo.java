@@ -80,7 +80,7 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
             if (state.equals(newState)) {
                 break;
             } else {
-                sleep(3000);
+                sleep(5000);
             }
             now = System.currentTimeMillis();
             if (now > timeout) {
