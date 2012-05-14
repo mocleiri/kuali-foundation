@@ -9,6 +9,8 @@ import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 
 /**
+ * Connect to EC2 and terminate the indicated instance.
+ *
  * @goal terminate
  */
 public class TerminateMojo extends AbstractEC2Mojo {

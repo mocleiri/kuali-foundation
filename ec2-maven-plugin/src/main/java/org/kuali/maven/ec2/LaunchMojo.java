@@ -22,6 +22,8 @@ import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.Tag;
 
 /**
+ * Connect to EC2 and launch a a single instance configured according to user preferences.
+ *
  * @goal launch
  */
 public class LaunchMojo extends AbstractEC2Mojo {
@@ -95,7 +97,20 @@ public class LaunchMojo extends AbstractEC2Mojo {
     private String encoding;
 
     /**
-     * List of tags to associate with the instance
+     * List of tags to associate with the instance. Tags are key value pairs and can be supplied in the plugin
+     * configuration like this:<br>
+     * <code>
+     *   <tags>
+     *     <tag>
+     *       <key>Name</key>
+     *       <value>production</value>
+     *     </tag>
+     *     <tag>
+     *       <key>Category</key>
+     *       <value>networking</value>
+     *     </tag>
+     *   </tags>
+     * </code>
      *
      * @parameter
      */

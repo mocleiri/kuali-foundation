@@ -19,6 +19,7 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 
 /**
+ * Connect to EC2 and list instances associated with this account
  *
  * @goal describeinstances
  */

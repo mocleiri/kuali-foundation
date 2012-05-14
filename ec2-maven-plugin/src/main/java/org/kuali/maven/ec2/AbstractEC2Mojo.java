@@ -20,12 +20,16 @@ import com.amazonaws.services.ec2.model.Tag;
 public abstract class AbstractEC2Mojo extends AbstractMojo {
 
     /**
+     * The AWS Access Key Id for an account on EC2
+     *
      * @parameter expression="${ec2.accessKey}"
      * @required
      */
     private String accessKey;
 
     /**
+     * The AWS Secret Access Key for an account on EC2
+     *
      * @parameter expression="${ec2.secretKey}"
      * @required
      */
