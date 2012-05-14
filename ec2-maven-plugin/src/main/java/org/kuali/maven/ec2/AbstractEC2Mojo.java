@@ -1,5 +1,6 @@
 package org.kuali.maven.ec2;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,6 +58,10 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
         Reservation r = reservations.get(0);
         List<Instance> instances = r.getInstances();
         return instances.get(0);
+    }
+
+    protected boolean isEmpty(Collection<?> c) {
+        return c == null || c.size() == 0;
     }
 
     protected void waitForState(AmazonEC2 client, String instanceId, String state, int waitTimeout)

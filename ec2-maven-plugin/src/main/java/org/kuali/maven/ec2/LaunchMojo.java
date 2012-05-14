@@ -2,7 +2,6 @@ package org.kuali.maven.ec2;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
@@ -126,6 +125,13 @@ public class LaunchMojo extends AbstractEC2Mojo {
     @Override
     public void execute() throws MojoExecutionException {
         AmazonEC2 client = getEC2Client();
+        RunInstancesRequest request = getRequest();
+        Instance i = getInstance(client, request);
+        handleTags(client, i, tags);
+        wait(client, i);
+    }
+
+    protected RunInstancesRequest getRequest() throws MojoExecutionException {
         RunInstancesRequest request = new RunInstancesRequest();
         request.setMaxCount(1);
         request.setMinCount(1);
@@ -134,11 +140,17 @@ public class LaunchMojo extends AbstractEC2Mojo {
         request.setInstanceType(InstanceType.fromValue(type));
         request.setSecurityGroups(securityGroups);
         setUserData(request);
+        return request;
+    }
+
+    protected Instance getInstance(AmazonEC2 client, RunInstancesRequest request) {
         RunInstancesResult result = client.runInstances(request);
         Reservation r = result.getReservation();
         List<Instance> instances = r.getInstances();
-        Instance i = instances.get(0);
-        handleTags(client, i, tags);
+        return instances.get(0);
+    }
+
+    protected void wait(AmazonEC2 client, Instance i) throws MojoExecutionException {
         if (wait) {
             getLog().info("Waiting up to " + waitTimeout + " seconds for " + i.getInstanceId() + " to start");
             waitForState(client, i.getInstanceId(), state, waitTimeout);
@@ -159,10 +171,6 @@ public class LaunchMojo extends AbstractEC2Mojo {
         request.setResources(Collections.singletonList(instance.getInstanceId()));
         request.setTags(tags);
         client.createTags(request);
-    }
-
-    protected boolean isEmpty(Collection<?> c) {
-        return c == null || c.size() == 0;
     }
 
     protected void setUserData(RunInstancesRequest request) throws MojoExecutionException {
