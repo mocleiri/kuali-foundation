@@ -26,10 +26,10 @@ public class TerminateMojo extends AbstractEC2Mojo {
     /**
      * The id of the instance to terminate
      *
-     * @parameter expression="${ec2.id}"
+     * @parameter expression="${ec2.instanceId}"
      * @required
      */
-    private String id;
+    private String instanceId;
 
     /**
      * If true, the build will wait until EC2 reports that the instance has reached the state of "terminated"
@@ -56,22 +56,22 @@ public class TerminateMojo extends AbstractEC2Mojo {
     public void execute() throws MojoExecutionException {
         AmazonEC2 client = getEC2Client();
         TerminateInstancesRequest request = new TerminateInstancesRequest();
-        request.setInstanceIds(Collections.singletonList(id));
+        request.setInstanceIds(Collections.singletonList(instanceId));
         client.terminateInstances(request);
         if (wait) {
-            getLog().info("Waiting up to " + waitTimeout + " seconds for " + id + " to terminate");
-            waitForState(client, id, state, waitTimeout);
+            getLog().info("Waiting up to " + waitTimeout + " seconds for " + instanceId + " to terminate");
+            waitForState(client, instanceId, state, waitTimeout);
         } else {
-            getLog().info("Terminated " + id);
+            getLog().info("Terminated " + instanceId);
         }
     }
 
-    public String getId() {
-        return id;
+    public String getInstanceId() {
+        return instanceId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setInstanceId(String id) {
+        this.instanceId = id;
     }
 
     public MavenProject getProject() {
