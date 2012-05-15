@@ -120,7 +120,7 @@
         <version>1.0.5</version>
         <executions>
           <execution>
-            <id>http</id>
+            <id>http-aws</id>
             <phase>test</phase>
             <goals>
               <goal>wait</goal>
@@ -128,6 +128,16 @@
             <configuration>
               <timeout>300</timeout>
               <url>http://${ec2.instance.dns}/tomcat/logs/env.jsp</url>
+            </configuration>
+          </execution>
+          <execution>
+            <id>http-dnsme</id>
+            <phase>test</phase>
+            <goals>
+              <goal>wait</goal>
+            </goals>
+            <configuration>
+              <url>http://${deploy.dns}.kuali.org/tomcat/logs/env.jsp</url>
             </configuration>
           </execution>
         </executions>
