@@ -122,7 +122,7 @@
     <plugin.pmd.version>2.5</plugin.pmd.version>
     <plugin.mvn.version>1.0.2</plugin.mvn.version>
 
-    <kuali-deploy.version>1.0.8-SNAPSHOT</kuali-deploy.version>
+    <kuali-deploy.version>1.0.8</kuali-deploy.version>
     <deploy.groupId>${project.groupId}</deploy.groupId>
     <deploy.artifactId>${project.artifactId}</deploy.artifactId>
     <deploy.version>${project.version}</deploy.version>
