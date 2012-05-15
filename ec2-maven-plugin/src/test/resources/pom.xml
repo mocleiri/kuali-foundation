@@ -31,6 +31,9 @@
     <tomcat.version>6</tomcat.version>
     <deploy.env>4</deploy.env>
     <deploy.dns>env${deploy.env}.rice</deploy.dns>
+    <deploy.groupId>org.kuali.rice</deploy.groupId>
+    <deploy.artifactId>rice-sampleapp</deploy.artifactId>
+    <deploy.version>2.1.0-build-483</deploy.version>
   </properties>
   <build>
     <pluginManagement>
