@@ -29,6 +29,8 @@
   <name>Maven EC2 Plugin Test POM</name>
   <properties>
     <tomcat.version>6</tomcat.version>
+    <deploy.env>4</deploy.env>
+    <deploy.dns>env${deploy.env}.rice</deploy.dns>
   </properties>
   <build>
     <pluginManagement>
@@ -49,7 +51,7 @@
             <tags>
               <tag>
                 <key>Name</key>
-                <value>env-test</value>
+                <value>env${deploy.env}-test</value>
               </tag>
             </tags>
           </configuration>
@@ -69,27 +71,45 @@
         <artifactId>${project.artifactId}</artifactId>
         <executions>
           <execution>
-            <id>1</id>
-            <phase>test</phase>
-            <goals>
-              <goal>describeinstances</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>2</id>
+            <id>launch</id>
             <phase>test</phase>
             <goals>
               <goal>launch</goal>
             </goals>
           </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>dnsme-maven-plugin</artifactId>
+        <version>1.0.4</version>
+        <configuration>
+          <apiKey>454f2836-81c0-4379-b8dd-2cc6495131b5</apiKey>
+          <secretKey>${dnsme.secretKey}</secretKey>
+          <ttl>60</ttl>
+          <domainName>kuali.org</domainName>
+          <recordType>CNAME</recordType>
+        </configuration>
+        <executions>
           <execution>
-            <id>3</id>
-            <phase>none</phase>
+            <id>delete</id>
+            <phase>test</phase>
             <goals>
-              <goal>terminate</goal>
+              <goal>deleterecord</goal>
             </goals>
             <configuration>
-              <instanceId>${ec2.instance.id}</instanceId>
+              <recordName>${ec2.instance.dns}</recordName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>add</id>
+            <phase>test</phase>
+            <goals>
+              <goal>addrecord</goal>
+            </goals>
+            <configuration>
+              <recordName>${deploy.dns}</recordName>
+              <recordValue>${ec2.instance.dns}.</recordValue>
             </configuration>
           </execution>
         </executions>
@@ -100,7 +120,7 @@
         <version>1.0.5</version>
         <executions>
           <execution>
-            <id>wait-for-tomcat-startup</id>
+            <id>http</id>
             <phase>test</phase>
             <goals>
               <goal>wait</goal>
