@@ -95,27 +95,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>com.soebes.maven.plugins</groupId>
-        <artifactId>maven-echo-plugin</artifactId>
-        <version>0.1</version>
-        <executions>
-          <execution>
-            <id>echo</id>
-            <phase>test</phase>
-            <goals>
-              <goal>echo</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <echos>
-            <echo>Name: ${ec2.instance.name}</echo>
-            <echo>Instance Id: ${ec2.instance.id}</echo>
-            <echo>Public DNS Name: ${ec2.instance.dns}</echo>
-          </echos>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-http-plugin</artifactId>
         <version>1.0.5</version>
