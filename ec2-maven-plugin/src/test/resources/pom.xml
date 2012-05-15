@@ -98,7 +98,7 @@
               <goal>deleterecord</goal>
             </goals>
             <configuration>
-              <recordName>${ec2.instance.dns}</recordName>
+              <recordName>${deploy.dns}</recordName>
             </configuration>
           </execution>
           <execution>
