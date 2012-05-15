@@ -33,6 +33,7 @@
 
     <!-- plugins -->
     <plugin.http.version>1.0.5</plugin.http.version>
+    <plugin.ec2.version>1.0.3</plugin.ec2.version>
     <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
 
     <!-- jars -->
@@ -42,22 +43,22 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>${project.groupId}</groupId>
-          <artifactId>${project.artifactId}</artifactId>
-          <version>${project.version}</version>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>ec2-maven-plugin</artifactId>
+          <version>${plugin.ec2.version}</version>
           <configuration>
             <accessKey>AKIAIZFPMJVCNOYYAZ2Q</accessKey>
             <ami>${ec2.ami}</ami>
-            <key>kr-key</key>
+            <key>${ec2.keyName}</key>
             <securityGroups>
-              <param>deployment</param>
+              <param>${ec2.securityGroup}</param>
             </securityGroups>
             <userDataFile>classpath:ec2/user-data-script</userDataFile>
             <filterUserData>true</filterUserData>
             <tags>
               <tag>
                 <key>Name</key>
-                <value>env${deploy.env}-test</value>
+                <value>env${deploy.env}</value>
               </tag>
             </tags>
           </configuration>
@@ -65,7 +66,7 @@
             <dependency>
               <groupId>org.kuali.common</groupId>
               <artifactId>kuali-ec2</artifactId>
-              <version>1.0.2</version>
+              <version>${kuali-ec2.version}</version>
             </dependency>
           </dependencies>
         </plugin>
