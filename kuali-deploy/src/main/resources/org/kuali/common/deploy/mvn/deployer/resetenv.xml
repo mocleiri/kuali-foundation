@@ -33,7 +33,7 @@
 
     <!-- plugins -->
     <plugin.http.version>1.0.5</plugin.http.version>
-    <plugin.ec2.version>1.0.3</plugin.ec2.version>
+    <plugin.ec2.version>1.0.3-SNAPSHOT</plugin.ec2.version>
     <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
     <plugin.dnsme.version>1.0.5</plugin.dnsme.version>
     <plugin.properties.version>1.1.4</plugin.properties.version>
@@ -174,6 +174,10 @@
     <plugins>
       <plugin>
         <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
