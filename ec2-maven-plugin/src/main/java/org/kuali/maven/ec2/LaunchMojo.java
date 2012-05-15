@@ -169,8 +169,8 @@ public class LaunchMojo extends AbstractEC2Mojo {
         request.setKeyName(key);
         request.setInstanceType(InstanceType.fromValue(type));
         request.setSecurityGroups(securityGroups);
-        setUserData(request);
-        getLog().info("userData=" + request.getUserData());
+        String userData = getUserData();
+        request.setUserData(userData);
         return request;
     }
 
@@ -206,21 +206,14 @@ public class LaunchMojo extends AbstractEC2Mojo {
         client.createTags(request);
     }
 
-    protected void setUserData(RunInstancesRequest request) throws MojoExecutionException {
-        try {
-            String data = getUserData(userData, userDataFile, encoding);
-            if (!StringUtils.isBlank(data)) {
-                request.setUserData(data);
-            }
-        } catch (IOException e) {
-            throw new MojoExecutionException("Error handling user data", e);
-        }
-    }
-
-    protected String getUserData(String data, String location, String encoding) throws IOException {
+    protected String getUserData(String data, String location, String encoding) throws MojoExecutionException {
         String s = data;
         if (!StringUtils.isBlank(location)) {
-            s = getString(location, encoding);
+            try {
+                s = getString(location, encoding);
+            } catch (IOException e) {
+                throw new MojoExecutionException("Error reading from " + location, e);
+            }
         }
         if (StringUtils.isBlank(s)) {
             return null;
