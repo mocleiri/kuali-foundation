@@ -35,6 +35,7 @@
     <plugin.http.version>1.0.5</plugin.http.version>
     <plugin.ec2.version>1.0.3</plugin.ec2.version>
     <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
+    <plugin.dnsme.version>1.0.5</plugin.dnsme.version>
 
     <!-- jars -->
     <kuali-ec2.version>1.0.2</kuali-ec2.version>
@@ -44,10 +45,15 @@
       <plugins>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>maven-dnsme-plugin</artifactId>
+          <version>${plugin.dnsme.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>ec2-maven-plugin</artifactId>
           <version>${plugin.ec2.version}</version>
           <configuration>
-            <accessKey>AKIAIZFPMJVCNOYYAZ2Q</accessKey>
+            <accessKey>${ec2.accessKey}</accessKey>
             <ami>${ec2.ami}</ami>
             <key>${ec2.keyName}</key>
             <securityGroups>
@@ -70,16 +76,21 @@
             </dependency>
           </dependencies>
         </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>maven-http-plugin</artifactId>
+          <version>${plugin.http.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>${project.artifactId}</artifactId>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>ec2-maven-plugin</artifactId>
         <executions>
           <execution>
             <id>launch</id>
-            <phase>test</phase>
+            <phase>initialize</phase>
             <goals>
               <goal>launch</goal>
             </goals>
@@ -89,16 +100,15 @@
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-http-plugin</artifactId>
-        <version>1.0.5</version>
         <executions>
           <execution>
             <id>http</id>
-            <phase>test</phase>
+            <phase>initialize</phase>
             <goals>
               <goal>wait</goal>
             </goals>
             <configuration>
-              <timeout>300</timeout>
+              <timeout>${http.timeout}</timeout>
               <url>http://${ec2.instance.dns}/tomcat/logs/env.jsp</url>
             </configuration>
           </execution>
@@ -107,18 +117,17 @@
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-dnsme-plugin</artifactId>
-        <version>1.0.5</version>
         <configuration>
-          <apiKey>454f2836-81c0-4379-b8dd-2cc6495131b5</apiKey>
+          <apiKey>${dnsme.apiKey}</apiKey>
           <secretKey>${dnsme.secretKey}</secretKey>
-          <ttl>60</ttl>
-          <domainName>kuali.org</domainName>
-          <recordType>CNAME</recordType>
+          <ttl>${dnsme.ttl}</ttl>
+          <domainName>${dnsme.domainName}</domainName>
+          <recordType>${dnsme.recordType}</recordType>
         </configuration>
         <executions>
           <execution>
             <id>delete</id>
-            <phase>test</phase>
+            <phase>initialize</phase>
             <goals>
               <goal>deleterecord</goal>
             </goals>
@@ -128,7 +137,7 @@
           </execution>
           <execution>
             <id>add</id>
-            <phase>test</phase>
+            <phase>initialize</phase>
             <goals>
               <goal>addrecord</goal>
             </goals>
