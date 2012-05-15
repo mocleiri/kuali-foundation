@@ -45,6 +45,34 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${plugin.enforcer.version}</version>
+          <executions>
+            <execution>
+              <id>enforce-property</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <requireProperty>
+                    <property>deploy.groupId</property>
+                    <message>You must provide a groupId</message>
+                  </requireProperty>
+                  <requireProperty>
+                    <property>deploy.env</property>
+                    <message>You must provide an environment</message>
+                    <regex>^\d(.)*</regex>
+                    <regexMessage>Environment must be a number</regexMessage>
+                  </requireProperty>
+                </rules>
+                <fail>true</fail>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>properties-maven-plugin</artifactId>
           <version>${plugin.properties.version}</version>
@@ -157,34 +185,6 @@
             <goals>
               <goal>launch</goal>
             </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>${plugin.enforcer.version}</version>
-        <executions>
-          <execution>
-            <id>enforce-property</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireProperty>
-                  <property>deploy.groupId</property>
-                  <message>You must provide a groupId</message>
-                </requireProperty>
-                <requireProperty>
-                  <property>deploy.env</property>
-                  <message>You must provide an environment</message>
-                  <regex>^\d(.)*</regex>
-                  <regexMessage>Environment must be a number</regexMessage>
-                </requireProperty>
-              </rules>
-              <fail>true</fail>
-            </configuration>
           </execution>
         </executions>
       </plugin>
