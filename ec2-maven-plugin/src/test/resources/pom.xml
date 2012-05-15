@@ -39,7 +39,7 @@
           <version>${project.version}</version>
           <configuration>
             <accessKey>AKIAIZFPMJVCNOYYAZ2Q</accessKey>
-            <ami>ami-2ee34447</ami>
+            <ami>ami-44e2452d</ami>
             <key>kr-key</key>
             <securityGroups>
               <param>deployment</param>
@@ -129,7 +129,6 @@
             <configuration>
               <timeout>300</timeout>
               <url>http://${ec2.instance.dns}</url>
-              <httpSuccessCodes>404,200</httpSuccessCodes>
             </configuration>
           </execution>
         </executions>
