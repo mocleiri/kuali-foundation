@@ -39,7 +39,7 @@
           <version>${project.version}</version>
           <configuration>
             <accessKey>AKIAIZFPMJVCNOYYAZ2Q</accessKey>
-            <ami>ami-40872329</ami>
+            <ami>ami-2ee34447</ami>
             <key>kr-key</key>
             <securityGroups>
               <param>deployment</param>
