@@ -221,7 +221,7 @@ public class LaunchMojo extends AbstractEC2Mojo {
         if (filterUserData) {
             PropertiesUtils pu = new PropertiesUtils();
             Properties properties = pu.getMavenProperties(project);
-            s = pu.getResolvedValue(data, properties);
+            s = pu.getResolvedValue(s, properties);
         }
         byte[] bytes = Base64.encodeBase64(s.getBytes());
         return new String(bytes);
