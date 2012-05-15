@@ -136,7 +136,6 @@
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>mvn-maven-plugin</artifactId>
-            <version>${plugin.mvn.version}</version>
             <executions>
               <execution>
                 <id>deploy</id>
@@ -178,10 +177,9 @@
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>mvn-maven-plugin</artifactId>
-            <version>${plugin.mvn.version}</version>
             <executions>
               <execution>
-                <id>deploy</id>
+                <id>resetenv</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>mvn</goal>
@@ -190,7 +188,7 @@
                   <pom>classpath:org/kuali/common/deploy/mvn/deployer/resetenv.xml</pom>
                   <args>
                     <arg>clean</arg>
-                    <arg>process-resources</arg>
+                    <arg>initialize</arg>
                   </args>
                   <properties>
                     <property>deploy.groupId</property>
@@ -359,6 +357,11 @@
             <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
             <aggregate>${kuali.reporting.aggregate}</aggregate>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>mvn-maven-plugin</artifactId>
+          <version>${plugin.mvn.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-plugin-plugin</artifactId>
