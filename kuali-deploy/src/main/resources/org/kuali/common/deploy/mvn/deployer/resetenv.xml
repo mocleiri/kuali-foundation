@@ -29,12 +29,14 @@
   <name>Kuali Environment Manager</name>
   <description>This pom contains plugin executions for resetting an environment on EC2</description>
   <properties>
-    <tomcat.version>6</tomcat.version>
-    <deploy.env>4</deploy.env>
-    <deploy.dns>env${deploy.env}.rice</deploy.dns>
-    <deploy.groupId>org.kuali.rice</deploy.groupId>
-    <deploy.artifactId>rice-sampleapp</deploy.artifactId>
-    <deploy.version>2.1.0-build-483</deploy.version>
+    <maven.test.skip>true</maven.test.skip>
+
+    <!-- plugins -->
+    <plugin.http.version>1.0.5</plugin.http.version>
+    <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
+
+    <!-- jars -->
+    <kuali-ec2.version>1.0.2</kuali-ec2.version>
   </properties>
   <build>
     <pluginManagement>
@@ -45,7 +47,7 @@
           <version>${project.version}</version>
           <configuration>
             <accessKey>AKIAIZFPMJVCNOYYAZ2Q</accessKey>
-            <ami>ami-62e1460b</ami>
+            <ami>${ec2.ami}</ami>
             <key>kr-key</key>
             <securityGroups>
               <param>deployment</param>
