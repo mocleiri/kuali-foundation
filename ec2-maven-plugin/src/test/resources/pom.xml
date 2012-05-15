@@ -50,7 +50,11 @@
                 <value>env-test</value>
               </tag>
             </tags>
-            <userData>echo Hello World</userData>
+            <userData>
+            #!/bin/sh
+            set -xe
+            echo Hello World
+            </userData>
           </configuration>
         </plugin>
       </plugins>
