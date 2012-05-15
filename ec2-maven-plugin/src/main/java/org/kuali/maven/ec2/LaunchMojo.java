@@ -223,8 +223,11 @@ public class LaunchMojo extends AbstractEC2Mojo {
             Properties properties = pu.getMavenProperties(project);
             s = pu.getResolvedValue(s, properties);
         }
+        getLog().debug("filteredUserData=" + s);
         byte[] bytes = Base64.encodeBase64(s.getBytes());
-        return new String(bytes);
+        String base64 = new String(bytes);
+        getLog().debug("base64Encoded=" + base64);
+        return base64;
     }
 
     protected String getString(String location, String encoding) throws IOException {
