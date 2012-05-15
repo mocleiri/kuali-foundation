@@ -128,7 +128,7 @@
             </goals>
             <configuration>
               <timeout>300</timeout>
-              <url>http://${ec2.instance.dns}</url>
+              <url>http://${ec2.instance.dns}/tomcat/logs/env.jsp</url>
             </configuration>
           </execution>
         </executions>
