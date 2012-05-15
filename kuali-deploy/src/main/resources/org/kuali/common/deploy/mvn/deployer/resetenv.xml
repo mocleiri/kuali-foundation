@@ -46,6 +46,58 @@
       <plugins>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+          <version>${plugin.properties.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project.artifactId}</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <id>translate</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>translate-properties</goal>
+              </goals>
+              <configuration>
+                <properties>
+                  <param>deploy.groupId</param>
+                </properties>
+              </configuration>
+            </execution>
+            <execution>
+              <id>common</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <quiet>false</quiet>
+                <locations>
+                  <param>classpath:org/kuali/common/deploy/common.properties</param>
+                </locations>
+              </configuration>
+            </execution>
+            <execution>
+              <id>project</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <quiet>false</quiet>
+                <locations>
+                  <param>classpath:${deploy.groupId.path}/common.properties</param>
+                </locations>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-dnsme-plugin</artifactId>
           <version>${plugin.dnsme.version}</version>
           <configuration>
