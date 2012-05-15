@@ -44,6 +44,7 @@
             <securityGroups>
               <param>deployment</param>
             </securityGroups>
+            <userDataFile>classpath:ec2/user-data-script</userDataFile>
             <filterUserData>true</filterUserData>
             <tags>
               <tag>
@@ -51,7 +52,6 @@
                 <value>env-test</value>
               </tag>
             </tags>
-            <userDataFile>classpath:ec2/user-data-script</userDataFile>
           </configuration>
           <dependencies>
             <dependency>
