@@ -81,7 +81,7 @@
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
-        <artifactId>dnsme-maven-plugin</artifactId>
+        <artifactId>maven-dnsme-plugin</artifactId>
         <version>1.0.4</version>
         <configuration>
           <apiKey>454f2836-81c0-4379-b8dd-2cc6495131b5</apiKey>
