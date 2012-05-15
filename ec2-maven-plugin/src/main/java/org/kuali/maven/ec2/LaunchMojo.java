@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -169,6 +170,7 @@ public class LaunchMojo extends AbstractEC2Mojo {
         request.setInstanceType(InstanceType.fromValue(type));
         request.setSecurityGroups(securityGroups);
         setUserData(request);
+        getLog().info("userData=" + request.getUserData());
         return request;
     }
 
@@ -207,15 +209,7 @@ public class LaunchMojo extends AbstractEC2Mojo {
     protected void setUserData(RunInstancesRequest request) throws MojoExecutionException {
         try {
             String data = getUserData(userData, userDataFile, encoding);
-            if (StringUtils.isBlank(data)) {
-                return;
-            }
-            if (filterUserData) {
-                PropertiesUtils pu = new PropertiesUtils();
-                Properties properties = pu.getMavenProperties(project);
-                String filteredUserData = pu.getResolvedValue(data, properties);
-                request.setUserData(filteredUserData);
-            } else {
+            if (!StringUtils.isBlank(data)) {
                 request.setUserData(data);
             }
         } catch (IOException e) {
@@ -224,11 +218,20 @@ public class LaunchMojo extends AbstractEC2Mojo {
     }
 
     protected String getUserData(String data, String location, String encoding) throws IOException {
-        if (StringUtils.isBlank(location)) {
-            return data;
-        } else {
-            return getString(location, encoding);
+        String s = data;
+        if (!StringUtils.isBlank(location)) {
+            s = getString(location, encoding);
         }
+        if (StringUtils.isBlank(s)) {
+            return null;
+        }
+        if (filterUserData) {
+            PropertiesUtils pu = new PropertiesUtils();
+            Properties properties = pu.getMavenProperties(project);
+            s = pu.getResolvedValue(data, properties);
+        }
+        byte[] bytes = Base64.encodeBase64(s.getBytes());
+        return new String(bytes);
     }
 
     protected String getString(String location, String encoding) throws IOException {
