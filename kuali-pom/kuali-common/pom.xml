@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -122,17 +122,15 @@
     <plugin.pmd.version>2.5</plugin.pmd.version>
     <plugin.mvn.version>1.0.2</plugin.mvn.version>
 
+    <kuali-deploy.version>1.0.8-SNAPSHOT</kuali-deploy.version>
+    <deploy.groupId>${project.groupId}</deploy.groupId>
+    <deploy.artifactId>${project.artifactId}</deploy.artifactId>
+    <deploy.version>${project.version}</deploy.version>
   </properties>
   <profiles>
     <profile>
       <!-- Deploy Kuali applications to a live environment (currently supports deploying Rice and KS applications to EC2) -->
       <id>deploy</id>
-      <properties>
-        <kuali-deploy.version>1.0.7</kuali-deploy.version>
-        <deploy.groupId>${project.groupId}</deploy.groupId>
-        <deploy.artifactId>${project.artifactId}</deploy.artifactId>
-        <deploy.version>${project.version}</deploy.version>
-      </properties>
       <build>
         <plugins>
           <plugin>
@@ -156,6 +154,46 @@
                     <property>deploy.groupId</property>
                     <property>deploy.artifactId</property>
                     <property>deploy.version</property>
+                    <property>deploy.env</property>
+                  </properties>
+                </configuration>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.kuali.common</groupId>
+                <artifactId>kuali-deploy</artifactId>
+                <version>${kuali-deploy.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <!-- Reset an environment. Spin up a new EC2 server and associate a friendly DNS name with the new server -->
+      <id>resetenv</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>mvn-maven-plugin</artifactId>
+            <version>${plugin.mvn.version}</version>
+            <executions>
+              <execution>
+                <id>deploy</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>mvn</goal>
+                </goals>
+                <configuration>
+                  <pom>classpath:org/kuali/common/deploy/mvn/deployer/resetenv.xml</pom>
+                  <args>
+                    <arg>clean</arg>
+                    <arg>process-resources</arg>
+                  </args>
+                  <properties>
+                    <property>deploy.groupId</property>
                     <property>deploy.env</property>
                   </properties>
                 </configuration>
