@@ -81,6 +81,24 @@
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>maven-http-plugin</artifactId>
+        <version>1.0.5</version>
+        <executions>
+          <execution>
+            <id>http</id>
+            <phase>test</phase>
+            <goals>
+              <goal>wait</goal>
+            </goals>
+            <configuration>
+              <timeout>300</timeout>
+              <url>http://${ec2.instance.dns}/tomcat/logs/env.jsp</url>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-dnsme-plugin</artifactId>
         <version>1.0.5</version>
         <configuration>
@@ -110,34 +128,6 @@
             <configuration>
               <recordName>${deploy.dns}</recordName>
               <recordValue>${ec2.instance.dns}.</recordValue>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.kuali.maven.plugins</groupId>
-        <artifactId>maven-http-plugin</artifactId>
-        <version>1.0.5</version>
-        <executions>
-          <execution>
-            <id>http-aws</id>
-            <phase>test</phase>
-            <goals>
-              <goal>wait</goal>
-            </goals>
-            <configuration>
-              <timeout>300</timeout>
-              <url>http://${ec2.instance.dns}/tomcat/logs/env.jsp</url>
-            </configuration>
-          </execution>
-          <execution>
-            <id>http-dnsme</id>
-            <phase>test</phase>
-            <goals>
-              <goal>wait</goal>
-            </goals>
-            <configuration>
-              <url>http://${deploy.dns}.kuali.org/tomcat/logs/env.jsp</url>
             </configuration>
           </execution>
         </executions>
