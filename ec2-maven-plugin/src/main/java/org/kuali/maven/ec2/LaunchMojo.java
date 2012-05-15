@@ -169,8 +169,8 @@ public class LaunchMojo extends AbstractEC2Mojo {
         request.setKeyName(key);
         request.setInstanceType(InstanceType.fromValue(type));
         request.setSecurityGroups(securityGroups);
-        String userData = getUserData();
-        request.setUserData(userData);
+        String data = getUserData(userData, userDataFile, encoding);
+        request.setUserData(data);
         return request;
     }
 
