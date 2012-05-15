@@ -121,6 +121,10 @@
             <configuration>
               <rules>
                 <requireProperty>
+                  <property>deploy.groupId</property>
+                  <message>You must provide a groupId</message>
+                </requireProperty>
+                <requireProperty>
                   <property>deploy.env</property>
                   <message>You must provide an environment</message>
                   <regex>^\d(.)*</regex>
