@@ -19,7 +19,7 @@
   <target name="filter-poms">
     <copy todir="${project.build.directory}/classes" overwrite="true">
       <fileset dir="src/main/resources">
-        <include name="**/pom.xml" />
+        <include name="**/mvn/**/*.xml" />
       </fileset>
       <filterset begintoken="${" endtoken="}">
         <filter token="project.groupId" value="${project.groupId}" />
