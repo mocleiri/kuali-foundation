@@ -44,6 +44,7 @@
             <securityGroups>
               <param>deployment</param>
             </securityGroups>
+            <filterUserData>true</filterUserData>
             <tags>
               <tag>
                 <key>Name</key>
@@ -51,9 +52,9 @@
               </tag>
             </tags>
             <userData>
-            #!/bin/sh
-            set -xe
-            echo Hello World
+              #!/bin/sh
+              echo ${project.groupId}:${project.artifactId}:${project.version}
+              echo ${kuali.build.timestamp}
             </userData>
           </configuration>
         </plugin>
