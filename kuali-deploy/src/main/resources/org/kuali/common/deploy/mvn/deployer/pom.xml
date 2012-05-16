@@ -35,7 +35,7 @@
     <!-- plugins -->
     <plugin.ant.version>1.0.10</plugin.ant.version>
     <plugin.dependency.version>2.4</plugin.dependency.version>
-    <plugin.properties.version>1.1.4</plugin.properties.version>
+    <plugin.properties.version>1.1.5</plugin.properties.version>
     <plugin.manifest.version>1.1.0</plugin.manifest.version>
     <plugin.impex.version>1.0.30</plugin.impex.version>
     <plugin.http.version>1.0.5</plugin.http.version>
@@ -255,6 +255,13 @@
                   <param>classpath:${db.vendor}.xml</param>
                 </locations>
               </configuration>
+            </execution>
+            <execution>
+              <id>decrypt</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>decryptall</goal>
+              </goals>
             </execution>
           </executions>
         </plugin>
