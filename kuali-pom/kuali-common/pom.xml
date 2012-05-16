@@ -193,6 +193,7 @@
                   <properties>
                     <property>deploy.groupId</property>
                     <property>deploy.env</property>
+                    <property>tomcat.version</property>
                   </properties>
                 </configuration>
               </execution>
