@@ -46,6 +46,8 @@
     <kuali-sql.version>1.1.0</kuali-sql.version>
     <kuali-mvn.version>1.0.0</kuali-mvn.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
+
+    <db.prep.phase>initialize</db.prep.phase>
   </properties>
   <build>
     <pluginManagement>
@@ -408,7 +410,7 @@
           <execution>
             <!-- Using Ant for this as the maven-scm-plugin can't deal with the @[revision] syntax -->
             <id>checkout</id>
-            <phase>initialize</phase>
+            <phase>${db.prep.phase}</phase>
             <goals>
               <goal>run</goal>
             </goals>
