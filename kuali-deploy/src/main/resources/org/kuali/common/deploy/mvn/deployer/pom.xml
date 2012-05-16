@@ -262,6 +262,9 @@
               <goals>
                 <goal>decryptall</goal>
               </goals>
+              <configuration>
+                <password>${kuali.enc.password}</password>
+              </configuration>
             </execution>
           </executions>
         </plugin>
