@@ -626,7 +626,7 @@
             <artifactId>buildnumber-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>generate-current-year</id>
+                <id>year</id>
                 <phase>${license.timestamp.phase}</phase>
                 <goals>
                   <goal>create-timestamp</goal>
@@ -780,7 +780,7 @@
             <artifactId>build-helper-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>get-maven-metadata</id>
+                <id>maven-metadata</id>
                 <goals>
                   <goal>maven-version</goal>
                   <goal>parse-version</goal>
@@ -793,7 +793,7 @@
             <artifactId>license-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>add-third-party-licenses</id>
+                <id>licenses</id>
                 <goals>
                   <goal>add-third-party</goal>
                 </goals>
@@ -813,7 +813,7 @@
             <artifactId>maven-gpg-plugin</artifactId>
             <executions>
               <execution>
-                <id>sign-artifacts</id>
+                <id>gpg</id>
                 <phase>${kuali.gpg.phase}</phase>
                 <goals>
                   <goal>sign</goal>
@@ -836,7 +836,7 @@
             <artifactId>maven-site-plugin</artifactId>
             <executions>
               <execution>
-                <id>attach-descriptor</id>
+                <id>descriptor</id>
                 <phase>${kuali.site.descriptor.phase}</phase>
                 <goals>
                   <goal>attach-descriptor</goal>
@@ -848,7 +848,7 @@
             <artifactId>maven-jar-plugin</artifactId>
             <executions>
               <execution>
-                <id>test-jar</id>
+                <id>testjar</id>
                 <phase>${kuali.testjar.phase}</phase>
                 <goals>
                   <goal>test-jar</goal>
@@ -863,7 +863,7 @@
             <artifactId>maven-source-plugin</artifactId>
             <executions>
               <execution>
-                <id>attach-sources</id>
+                <id>sources</id>
                 <goals>
                   <goal>jar-no-fork</goal>
                 </goals>
@@ -875,7 +875,7 @@
             <artifactId>maven-svn-revision-number-plugin</artifactId>
             <executions>
               <execution>
-                <id>generate-svn-info</id>
+                <id>svn</id>
                 <goals>
                   <goal>revision</goal>
                 </goals>
@@ -898,7 +898,7 @@
             <artifactId>build-helper-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>get-maven-metadata</id>
+                <id>parse-version</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>parse-version</goal>
@@ -911,7 +911,7 @@
             <artifactId>buildnumber-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>generate-current-day</id>
+                <id>day</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>create-timestamp</goal>
@@ -929,7 +929,7 @@
             <version>${plugin.versions.version}</version>
             <executions>
               <execution>
-                <id>update-version</id>
+                <id>set-version</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>set</goal>
@@ -957,7 +957,7 @@
             <artifactId>maven-svn-revision-number-plugin</artifactId>
             <executions>
               <execution>
-                <id>generate-svn-info</id>
+                <id>svn</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>revision</goal>
@@ -970,7 +970,7 @@
             <artifactId>build-helper-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>get-maven-metadata</id>
+                <id>parse-version</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>parse-version</goal>
@@ -984,7 +984,7 @@
             <version>${plugin.versions.version}</version>
             <executions>
               <execution>
-                <id>update-version</id>
+                <id>set-version</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>set</goal>
@@ -1025,7 +1025,7 @@
             <artifactId>build-helper-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>mvn</id>
+                <id>version</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>parse-version</goal>
