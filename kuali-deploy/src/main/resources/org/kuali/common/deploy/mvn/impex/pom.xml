@@ -122,6 +122,7 @@
               <goal>execute</goal>
             </goals>
             <configuration>
+              <orderFile>ASCENDING</orderFile>
               <fileset>
                 <basedir>${impex.sql.basedir}</basedir>
                 <includes>
