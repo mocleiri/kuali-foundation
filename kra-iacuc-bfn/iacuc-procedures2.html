@@ -871,7 +871,6 @@
                                                                     $("#div_detail01_personnel2").slideDown(400);
                                                                     $("#control_detail01_personnel2").attr("src","../images/tinybutton-hide.gif");
                                                                     $("#control_detail01_personnel2").attr("alt","hide");
-                                                                    alert("Still being developed");
                                                                 },
                                                                 function()
                                                                 {
@@ -893,81 +892,78 @@
                                                     
                                                 </td>
                                                 <td class="content_grey" style="width:250px; text-align:center;">
-                                                    Name
+                                                    Person(s) Responsible
                                                 </td>
                                                 <td class="content_grey" style="text-align:center;">
                                                     Training
                                                 </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Description
+                                                </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Action
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="content_white" style="text-align:center;">
-                                                    <input type="checkbox" class="nobord" name="CustomData" value="0" checked="unchecked" />
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Add
                                                 </td>
-                                                <td class="content_white" style="text-align:left;">
+                                                <td class="content_info" style="text-align:left;">
+                                                    <select multiple="multiple" style="width:90%;">
+                                                    	<option>Joseph Abrahamson</option>
+                                                        <option>Inez Chew</option>
+                                                        <option>Frank Enstine</option>
+                                                        <option>Emory Eagle</option>
+                                                        <option>Bart Niedner</option>
+                                                    </select>
+                                                </td>
+                                                <td class="content_info" style="text-align:left;">
+                                                    &nbsp;
+                                                </td>
+                                                <td class="content_info" style="text-align:left;">
                                                     
-                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                                         <tr>
-                                                            <td style="border:none; background:none; text-align:right;">
-                                                                <input type="text" value="Bart Niedner" style="width:100%;" />
+                                                            <td style="border:none; background:none;">
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
                                                             </td>
-                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
-                                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                                             </td>
                                                         </tr>
                                                     </table>
                                                     
+                                                </td>
+                                                <td class="content_info" style="text-align:center; width:80px;">
+                                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated record.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    1
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+							                    	Inez Chew
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	Complex System Explainations
                                                 </td>
                                                 <td class="content_white" style="text-align:left;">
                                                     
                                                     <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                                         <tr>
                                                             <td style="border:none; background:none;">
-                                                                M-Arch 1<br />
-                                                                PHP<br />
-                                                                MySQL<br />
-                                                                Photoshop<br />
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2">Neoclassical space with Beaux Arts details.</textarea>
                                                             </td>
-                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
-                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                                             </td>
                                                         </tr>
                                                     </table>
                                                     
                                                 </td>
-                                            </tr>
-                                            <tr>
                                                 <td class="content_white" style="text-align:center;">
-                                                    <input type="checkbox" class="nobord" name="CustomData" value="0" checked="unchecked" />
-                                                </td>
-                                                <td class="content_white" style="text-align:left;">
-                                                    
-                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td style="border:none; background:none; text-align:right;">
-                                                                <input type="text" value="Joseph Abraham" style="width:100%;" />
-                                                            </td>
-                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
-                                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    
-                                                </td>
-                                                <td class="content_white" style="text-align:left;">
-                                                    
-                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td style="border:none; background:none;">
-                                                                Mock Developer Management<br />
-                                                                Crisis Negotiation<br />
-                                                                Complex System Explainations<br />
-                                                            </td>
-                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
-                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    
+                                                	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the indicated record.'); return false" style="border:none;" alt="delete" title="Delete" type="image" />
                                                 </td>
                                             </tr>
                                         </table>
@@ -1277,7 +1273,6 @@
                                                                     $("#div_detail01_personnel2a").slideDown(400);
                                                                     $("#control_detail01_personnel2a").attr("src","../images/tinybutton-hide.gif");
                                                                     $("#control_detail01_personnel2a").attr("alt","hide");
-                                                                    alert("Still being developed");
                                                                 },
                                                                 function()
                                                                 {
@@ -1299,81 +1294,78 @@
                                                     
                                                 </td>
                                                 <td class="content_grey" style="width:250px; text-align:center;">
-                                                    Name
+                                                    Person(s) Responsible
                                                 </td>
                                                 <td class="content_grey" style="text-align:center;">
                                                     Training
                                                 </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Description
+                                                </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Action
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="content_white" style="text-align:center;">
-                                                    <input type="checkbox" class="nobord" name="CustomData" value="0" checked="unchecked" />
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Add
                                                 </td>
-                                                <td class="content_white" style="text-align:left;">
+                                                <td class="content_info" style="text-align:left;">
+                                                    <select multiple="multiple" style="width:90%;">
+                                                    	<option>Joseph Abrahamson</option>
+                                                        <option>Inez Chew</option>
+                                                        <option>Frank Enstine</option>
+                                                        <option>Emory Eagle</option>
+                                                        <option>Bart Niedner</option>
+                                                    </select>
+                                                </td>
+                                                <td class="content_info" style="text-align:left;">
+                                                    &nbsp;
+                                                </td>
+                                                <td class="content_info" style="text-align:left;">
                                                     
-                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                                         <tr>
-                                                            <td style="border:none; background:none; text-align:right;">
-                                                                <input type="text" value="Bart Niedner" style="width:100%;" />
+                                                            <td style="border:none; background:none;">
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
                                                             </td>
-                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
-                                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                                             </td>
                                                         </tr>
                                                     </table>
                                                     
+                                                </td>
+                                                <td class="content_info" style="text-align:center; width:80px;">
+                                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated record.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    1
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+							                    	Inez Chew
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	Complex System Explainations
                                                 </td>
                                                 <td class="content_white" style="text-align:left;">
                                                     
                                                     <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                                         <tr>
                                                             <td style="border:none; background:none;">
-                                                                M-Arch 1<br />
-                                                                PHP<br />
-                                                                MySQL<br />
-                                                                Photoshop<br />
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2">Neoclassical space with Beaux Arts details.</textarea>
                                                             </td>
-                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
-                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                                             </td>
                                                         </tr>
                                                     </table>
                                                     
                                                 </td>
-                                            </tr>
-                                            <tr>
                                                 <td class="content_white" style="text-align:center;">
-                                                    <input type="checkbox" class="nobord" name="CustomData" value="0" checked="unchecked" />
-                                                </td>
-                                                <td class="content_white" style="text-align:left;">
-                                                    
-                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td style="border:none; background:none; text-align:right;">
-                                                                <input type="text" value="Joseph Abraham" style="width:100%;" />
-                                                            </td>
-                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
-                                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    
-                                                </td>
-                                                <td class="content_white" style="text-align:left;">
-                                                    
-                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td style="border:none; background:none;">
-                                                                Mock Developer Management<br />
-                                                                Crisis Negotiation<br />
-                                                                Complex System Explainations<br />
-                                                            </td>
-                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
-                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    
+                                                	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the indicated record.'); return false" style="border:none;" alt="delete" title="Delete" type="image" />
                                                 </td>
                                             </tr>
                                         </table>
@@ -2434,7 +2426,6 @@
                                                                     $("#div_detail01_personnel3").slideDown(400);
                                                                     $("#control_detail01_personnel3").attr("src","../images/tinybutton-hide.gif");
                                                                     $("#control_detail01_personnel3").attr("alt","hide");
-                                                                    alert("Still being developed");
                                                                 },
                                                                 function()
                                                                 {
@@ -2456,81 +2447,78 @@
                                                     
                                                 </td>
                                                 <td class="content_grey" style="width:250px; text-align:center;">
-                                                    Name
+                                                    Person(s) Responsible
                                                 </td>
                                                 <td class="content_grey" style="text-align:center;">
                                                     Training
                                                 </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Description
+                                                </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Action
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="content_white" style="text-align:center;">
-                                                    <input type="checkbox" class="nobord" name="CustomData" value="0" checked="unchecked" />
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Add
                                                 </td>
-                                                <td class="content_white" style="text-align:left;">
+                                                <td class="content_info" style="text-align:left;">
+                                                    <select multiple="multiple" style="width:90%;">
+                                                    	<option>Joseph Abrahamson</option>
+                                                        <option>Inez Chew</option>
+                                                        <option>Frank Enstine</option>
+                                                        <option>Emory Eagle</option>
+                                                        <option>Bart Niedner</option>
+                                                    </select>
+                                                </td>
+                                                <td class="content_info" style="text-align:left;">
+                                                    &nbsp;
+                                                </td>
+                                                <td class="content_info" style="text-align:left;">
                                                     
-                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                                         <tr>
-                                                            <td style="border:none; background:none; text-align:right;">
-                                                                <input type="text" value="Bart Niedner" style="width:100%;" />
+                                                            <td style="border:none; background:none;">
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
                                                             </td>
-                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
-                                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                                             </td>
                                                         </tr>
                                                     </table>
                                                     
+                                                </td>
+                                                <td class="content_info" style="text-align:center; width:80px;">
+                                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated record.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    1
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+							                    	Inez Chew
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	Complex System Explainations
                                                 </td>
                                                 <td class="content_white" style="text-align:left;">
                                                     
                                                     <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                                         <tr>
                                                             <td style="border:none; background:none;">
-                                                                M-Arch 1<br />
-                                                                PHP<br />
-                                                                MySQL<br />
-                                                                Photoshop<br />
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2">Neoclassical space with Beaux Arts details.</textarea>
                                                             </td>
-                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
-                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                                             </td>
                                                         </tr>
                                                     </table>
                                                     
                                                 </td>
-                                            </tr>
-                                            <tr>
                                                 <td class="content_white" style="text-align:center;">
-                                                    <input type="checkbox" class="nobord" name="CustomData" value="0" checked="unchecked" />
-                                                </td>
-                                                <td class="content_white" style="text-align:left;">
-                                                    
-                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td style="border:none; background:none; text-align:right;">
-                                                                <input type="text" value="Joseph Abraham" style="width:100%;" />
-                                                            </td>
-                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
-                                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    
-                                                </td>
-                                                <td class="content_white" style="text-align:left;">
-                                                    
-                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td style="border:none; background:none;">
-                                                                Mock Developer Management<br />
-                                                                Crisis Negotiation<br />
-                                                                Complex System Explainations<br />
-                                                            </td>
-                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
-                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    
+                                                	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the indicated record.'); return false" style="border:none;" alt="delete" title="Delete" type="image" />
                                                 </td>
                                             </tr>
                                         </table>
@@ -3535,7 +3523,6 @@
                                                                     $("#div_detail01_personnel").slideDown(400);
                                                                     $("#control_detail01_personnel").attr("src","../images/tinybutton-hide.gif");
                                                                     $("#control_detail01_personnel").attr("alt","hide");
-                                                                    alert("Still being developed");
                                                                 },
                                                                 function()
                                                                 {
@@ -3557,81 +3544,78 @@
                                                     
                                                 </td>
                                                 <td class="content_grey" style="width:250px; text-align:center;">
-                                                    Name
+                                                    Person(s) Responsible
                                                 </td>
                                                 <td class="content_grey" style="text-align:center;">
                                                     Training
                                                 </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Description
+                                                </td>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Action
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="content_white" style="text-align:center;">
-                                                    <input type="checkbox" class="nobord" name="CustomData" value="0" checked="unchecked" />
+                                                <td class="content_grey" style="text-align:center;">
+                                                    Add
                                                 </td>
-                                                <td class="content_white" style="text-align:left;">
+                                                <td class="content_info" style="text-align:left;">
+                                                    <select multiple="multiple" style="width:90%;">
+                                                    	<option>Joseph Abrahamson</option>
+                                                        <option>Inez Chew</option>
+                                                        <option>Frank Enstine</option>
+                                                        <option>Emory Eagle</option>
+                                                        <option>Bart Niedner</option>
+                                                    </select>
+                                                </td>
+                                                <td class="content_info" style="text-align:left;">
+                                                    &nbsp;
+                                                </td>
+                                                <td class="content_info" style="text-align:left;">
                                                     
-                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                                         <tr>
-                                                            <td style="border:none; background:none; text-align:right;">
-                                                                <input type="text" value="Bart Niedner" style="width:100%;" />
+                                                            <td style="border:none; background:none;">
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2"></textarea>
                                                             </td>
-                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
-                                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                                             </td>
                                                         </tr>
                                                     </table>
                                                     
+                                                </td>
+                                                <td class="content_info" style="text-align:center; width:80px;">
+                                                    <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated record.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:center;">
+                                                    1
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+							                    	Inez Chew
+                                                </td>
+                                                <td class="content_white" style="text-align:left;">
+                                                	Complex System Explainations
                                                 </td>
                                                 <td class="content_white" style="text-align:left;">
                                                     
                                                     <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                                         <tr>
                                                             <td style="border:none; background:none;">
-                                                                M-Arch 1<br />
-                                                                PHP<br />
-                                                                MySQL<br />
-                                                                Photoshop<br />
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="2">Neoclassical space with Beaux Arts details.</textarea>
                                                             </td>
-                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
-                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
                                                             </td>
                                                         </tr>
                                                     </table>
                                                     
                                                 </td>
-                                            </tr>
-                                            <tr>
                                                 <td class="content_white" style="text-align:center;">
-                                                    <input type="checkbox" class="nobord" name="CustomData" value="0" checked="unchecked" />
-                                                </td>
-                                                <td class="content_white" style="text-align:left;">
-                                                    
-                                                    <table style="border:none; background:none; width:100%" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td style="border:none; background:none; text-align:right;">
-                                                                <input type="text" value="Joseph Abraham" style="width:100%;" />
-                                                            </td>
-                                                            <td style="border:none; width:20px; vertical-align:top; background:none;">
-                                                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    
-                                                </td>
-                                                <td class="content_white" style="text-align:left;">
-                                                    
-                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td style="border:none; background:none;">
-                                                                Mock Developer Management<br />
-                                                                Crisis Negotiation<br />
-                                                                Complex System Explainations<br />
-                                                            </td>
-                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom;">
-                                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    
+                                                	<input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete the indicated record.'); return false" style="border:none;" alt="delete" title="Delete" type="image" />
                                                 </td>
                                             </tr>
                                         </table>
