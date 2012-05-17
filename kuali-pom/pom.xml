@@ -750,6 +750,7 @@
                 </goals>
                 <phase>initialize</phase>
                 <configuration>
+                  <silent>true</silent>
                   <locations>
                     <param>classpath:org/kuali/common/deploy/common.properties</param>
                   </locations>
@@ -762,7 +763,7 @@
                 </goals>
                 <phase>initialize</phase>
                 <configuration>
-                  <silent>true</silent>
+                  <quiet>true</quiet>
                   <password>${kuali.enc.password}</password>
                 </configuration>
               </execution>
