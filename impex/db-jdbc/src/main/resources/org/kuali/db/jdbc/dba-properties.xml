@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <comment>JDBC Properties</comment>
+
+  <!-- Setting this property to "true" will execute SQL that drops and then recreates a database -->
+  <entry key="jdbc.dba.sql.execute">false</entry>
+  
+  <!-- JDBC properties -->
+  <entry key="jdbc.vendor">oracle</entry>
+  <entry key="jdbc.database">${jdbc.${jdbc.vendor}.default.database}</entry>
+  <entry key="jdbc.driver">${jdbc.${jdbc.vendor}.default.driver}</entry>
+  <entry key="jdbc.username">${jdbc.${jdbc.vendor}.default.username}</entry>
+  <entry key="jdbc.password">${jdbc.${jdbc.vendor}.default.password}</entry>
+  <entry key="jdbc.dba.url">${jdbc.${jdbc.vendor}.default.dba.url}</entry>
+  <entry key="jdbc.dba.username">${jdbc.${jdbc.vendor}.default.dba.username}</entry>
+  <entry key="jdbc.dba.password">${jdbc.${jdbc.vendor}.default.dba.password}</entry>
+  <entry key="jdbc.sql.drop">${jdbc.${jdbc.vendor}.default.sql.drop}</entry>
+  <entry key="jdbc.sql.initialize">${jdbc.${jdbc.vendor}.default.sql.initialize}</entry>
+
+  <!-- Oracle properties -->
+  <entry key="jdbc.oracle.default.database">KUALIDB</entry>
+  <entry key="jdbc.oracle.default.username">KUALIDB</entry>
+  <entry key="jdbc.oracle.default.password">KUALIDB</entry>
+  <entry key="jdbc.oracle.default.driver">oracle.jdbc.driver.OracleDriver</entry>
+  <entry key="jdbc.oracle.default.dba.url">jdbc:oracle:thin:@localhost:1521:XE</entry>
+  <entry key="jdbc.oracle.default.dba.username">SYSTEM</entry>
+  <entry key="jdbc.oracle.default.dba.password">change_on_install</entry>
+  <entry key="jdbc.oracle.defaultTablespace">users</entry>
+  <entry key="jdbc.oracle.temporaryTablespace">temp</entry>
+  <entry key="jdbc.oracle.quota">UNLIMITED</entry>
+  <entry key="jdbc.oracle.error.sqlcode.userDoesNotExist">-01918</entry>
+  <entry key="jdbc.oracle.default.sql.drop"><![CDATA[
+    BEGIN
+      EXECUTE IMMEDIATE 'DROP USER ${jdbc.username} CASCADE';
+      EXCEPTION WHEN OTHERS THEN
+      IF SQLCODE != ${jdbc.oracle.error.sqlcode.userDoesNotExist} THEN
+        RAISE;
+      END IF;
+    END;
+    /
+]]>
+  </entry>
+  <entry key="jdbc.oracle.default.sql.create"><![CDATA[
+    CREATE USER ${jdbc.username}
+    IDENTIFIED BY ${jdbc.password}
+    DEFAULT TABLESPACE ${jdbc.oracle.defaultTablespace}
+    TEMPORARY TABLESPACE ${jdbc.oracle.temporaryTablespace}
+    QUOTA ${jdbc.oracle.quota} ON ${jdbc.oracle.defaultTablespace}
+    /
+]]>
+  </entry>
+  <entry key="jdbc.oracle.default.sql.grants"><![CDATA[
+    GRANT CREATE PROCEDURE
+     , CREATE SEQUENCE
+     , CREATE SESSION
+     , CREATE SYNONYM
+     , CREATE TABLE
+     , CREATE TRIGGER
+     , CREATE TYPE
+     , CREATE VIEW
+    TO ${jdbc.username}
+    /
+]]>
+  </entry>
+    <!-- 
+    GRANT SELECT ON pending_trans$ to ${jdbc.username}
+    /
+    GRANT SELECT ON dba_2pc_pending to ${jdbc.username}
+    /
+    GRANT SELECT ON dba_pending_transactions to ${jdbc.username}
+    /
+    GRANT EXECUTE ON dbms_system to ${jdbc.username}
+    /
+ -->
+  
+  <entry key="jdbc.oracle.default.sql.initialize">
+    ${jdbc.oracle.default.sql.create}
+    ${jdbc.oracle.default.sql.grants}
+  </entry>
+
+  <!-- MySQL properties -->
+  <entry key="jdbc.mysql.default.database">kualidb</entry>
+  <entry key="jdbc.mysql.default.username">kualidb</entry>
+  <entry key="jdbc.mysql.default.password">kualidb</entry>
+  <entry key="jdbc.mysql.default.driver">com.mysql.jdbc.Driver</entry>
+  <entry key="jdbc.mysql.default.dba.url">jdbc:mysql://localhost:3306/</entry>
+  <entry key="jdbc.mysql.default.dba.username">root</entry>
+  <entry key="jdbc.mysql.default.dba.password"></entry>
+  <entry key="jdbc.mysql.character.set">utf8</entry>
+  <entry key="jdbc.mysql.collate">utf8_bin</entry>
+  <entry key="jdbc.mysql.default.sql.drop"><![CDATA[
+    DROP DATABASE IF EXISTS ${jdbc.database}
+    /
+
+    GRANT USAGE ON *.* TO '${jdbc.username}'@'%' IDENTIFIED BY '${jdbc.password}'
+    /
+
+    DROP USER ${jdbc.dba.username}
+    /
+]]>
+  </entry>
+  <entry key="jdbc.mysql.default.sql.create"><![CDATA[
+    CREATE DATABASE IF NOT EXISTS ${jdbc.database}
+    DEFAULT CHARACTER SET '${jdbc.mysql.character.set}'
+    DEFAULT COLLATE '${jdbc.mysql.collate}';
+    /
+]]>
+  </entry>
+  <entry key="jdbc.mysql.default.sql.grants"><![CDATA[
+    GRANT ALL ON ${jdbc.database}.*
+    TO '${jdbc.username}'@'%'
+    IDENTIFIED BY '${jdbc.password}'
+    WITH GRANT OPTION
+    /
+]]>
+  </entry>
+  <entry key="jdbc.mysql.default.sql.initialize">
+    ${jdbc.mysql.default.sql.create}
+    ${jdbc.mysql.default.sql.grants}
+  </entry>
+
+</properties>

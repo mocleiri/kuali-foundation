@@ -1,0 +1,6 @@
+#!/bin/bash
+set -ex
+FILE=/tmp/user-data-script
+GET http://169.254.169.254/latest/user-data > $FILE
+chmod 755 $FILE
+$FILE
