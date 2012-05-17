@@ -128,7 +128,7 @@
   </properties>
   <profiles>
     <profile>
-      <!-- Deploy Kuali applications to a live environment (currently supports deploying Rice and KS applications to EC2) -->
+      <!-- Deploy a Kuali application to an environment (currently supports deploying Rice and KS applications to EC2) -->
       <id>deploy</id>
       <build>
         <plugins>
