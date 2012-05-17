@@ -826,7 +826,7 @@
             <artifactId>maven-javadoc-plugin</artifactId>
             <executions>
               <execution>
-                <id>attach-javadocs</id>
+                <id>javadoc</id>
                 <goals>
                   <goal>jar</goal>
                 </goals>
