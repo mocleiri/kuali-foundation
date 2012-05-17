@@ -762,7 +762,7 @@
                 </goals>
                 <phase>initialize</phase>
                 <configuration>
-                  <quiet>true</quiet>
+                  <silent>true</silent>
                   <password>${kuali.enc.password}</password>
                 </configuration>
               </execution>
