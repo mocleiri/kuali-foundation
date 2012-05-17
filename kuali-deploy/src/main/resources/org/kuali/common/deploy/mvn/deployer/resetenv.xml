@@ -152,6 +152,7 @@
           <version>${plugin.ec2.version}</version>
           <configuration>
             <accessKey>${ec2.accessKey}</accessKey>
+            <secretKey>${ec2.secretKey}</secretKey>
             <ami>${ec2.ami}</ami>
             <key>${ec2.keyName}</key>
             <securityGroups>
