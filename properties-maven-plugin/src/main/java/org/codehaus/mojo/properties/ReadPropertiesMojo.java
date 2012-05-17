@@ -69,6 +69,13 @@ public class ReadPropertiesMojo extends AbstractMojo {
     private boolean quiet;
 
     /**
+     * If true, the plugin operate silently without emitting any log messages
+     *
+     * @parameter expression="${properties.silent}" default-value="false"
+     */
+    private boolean silent;
+
+    /**
      * If true, the plugin will emit more verbose logging messages.
      *
      * @parameter expression="${properties.verbose}" default-value="false"
@@ -86,7 +93,7 @@ public class ReadPropertiesMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         List<String> ignoreList = getListFromCSV(ignore);
         Properties projectProperties = project.getProperties();
-        if (verbose && !StringUtils.isBlank(ignore)) {
+        if (!silent && verbose && !StringUtils.isBlank(ignore)) {
             getLog().info("Ignoring " + ignore);
         }
         for (int i = 0; i < locations.length; i++) {
@@ -94,7 +101,9 @@ public class ReadPropertiesMojo extends AbstractMojo {
             if (!validate(location)) {
                 continue;
             }
-            getLog().info("Loading " + location);
+            if (!silent) {
+                getLog().info("Loading " + location);
+            }
             Properties p = getProperties(location);
             updateProperties(projectProperties, p, ignoreList);
         }
@@ -229,7 +238,7 @@ public class ReadPropertiesMojo extends AbstractMojo {
             return true;
         }
         if (quiet) {
-            if (verbose) {
+            if (verbose && !silent) {
                 getLog().info("Ignoring non-existent properties file '" + toEmpty(location) + "'");
             }
             return false;
@@ -300,6 +309,14 @@ public class ReadPropertiesMojo extends AbstractMojo {
 
     public void setVerbose(boolean verbose) {
         this.verbose = verbose;
+    }
+
+    public boolean isSilent() {
+        return silent;
+    }
+
+    public void setSilent(boolean silent) {
+        this.silent = silent;
     }
 
 }
