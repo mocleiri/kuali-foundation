@@ -547,7 +547,7 @@
         <artifactId>maven-cloudfront-plugin</artifactId>
         <executions>
           <execution>
-            <id>update-s3-bucket-indexes</id>
+            <id>s3</id>
             <phase>${kuali.cloudfront.phase}</phase>
             <goals>
               <goal>updateoriginbucket</goal>
