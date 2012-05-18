@@ -496,6 +496,7 @@
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>ant-maven-plugin</artifactId>
+        <!-- The ant plugin has 2 executions, the 2nd one executes after the impex plugin -->
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
