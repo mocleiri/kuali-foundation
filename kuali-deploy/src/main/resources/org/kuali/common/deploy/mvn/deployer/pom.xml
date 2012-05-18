@@ -47,7 +47,7 @@
     <kuali-mvn.version>1.0.0</kuali-mvn.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
 
-    <db.prep.phase>initialize</db.prep.phase>
+    <db.phase>initialize</db.phase>
   </properties>
   <build>
     <pluginManagement>
@@ -410,7 +410,7 @@
           <execution>
             <!-- Using Ant for this as the maven-scm-plugin can't deal with the @[revision] syntax -->
             <id>checkout</id>
-            <phase>${db.prep.phase}</phase>
+            <phase>${db.phase}</phase>
             <goals>
               <goal>run</goal>
             </goals>
@@ -448,7 +448,7 @@
         <executions>
           <execution>
             <id>morph</id>
-            <phase>initialize</phase>
+            <phase>${db.phase}</phase>
             <goals>
               <goal>morphschema</goal>
               <goal>morphdata</goal>
@@ -462,14 +462,14 @@
           </execution>
           <execution>
             <id>dtd</id>
-            <phase>initialize</phase>
+            <phase>${db.phase}</phase>
             <goals>
               <goal>datadtd</goal>
             </goals>
           </execution>
           <execution>
             <id>sql</id>
-            <phase>initialize</phase>
+            <phase>${db.phase}</phase>
             <goals>
               <goal>schemasql</goal>
               <goal>datasql</goal>
