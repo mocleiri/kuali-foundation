@@ -212,11 +212,6 @@
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>maven-impex-plugin</artifactId>
-          <version>${plugin.impex.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>ant-maven-plugin</artifactId>
           <version>${plugin.ant.version}</version>
           <executions>
