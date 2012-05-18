@@ -169,8 +169,8 @@
           <version>${plugin.http.version}</version>
           <executions>
             <execution>
-              <id>wait-for-tomcat-startup</id>
-              <phase>process-resources</phase>
+              <id>wait</id>
+              <phase>initialize</phase>
               <goals>
                 <goal>wait</goal>
               </goals>
