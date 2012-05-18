@@ -47,8 +47,8 @@
     <kuali-mvn.version>1.0.0</kuali-mvn.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
 
-    <db.phase>initialize</db.phase>
-    <ant.getimpex.target>checkout</ant.getimpex.target>
+    <ant.impex.dir>${project.build.directory}/impex/ant</ant.impex.dir>
+
   </properties>
   <build>
     <pluginManagement>
@@ -68,28 +68,28 @@
           <executions>
             <execution>
               <id>morph</id>
-              <phase>${db.phase}</phase>
+              <phase>initialize</phase>
               <goals>
                 <goal>morphschema</goal>
                 <goal>morphdata</goal>
               </goals>
               <configuration>
                 <artifactId>${impex.schema.name}</artifactId>
-                <oldSchemaXMLFile>${project.build.directory}/checkout/impex/schema.xml</oldSchemaXMLFile>
+                <oldSchemaXMLFile>${ant.impex.dir}/schema.xml</oldSchemaXMLFile>
                 <newSchemaXMLFile>${project.build.directory}/generated-impex/${impex.schema.name}.xml</newSchemaXMLFile>
-                <oldDataXMLDir>${project.build.directory}/checkout/impex</oldDataXMLDir>
+                <oldDataXMLDir>${ant.impex.dir}</oldDataXMLDir>
               </configuration>
             </execution>
             <execution>
               <id>dtd</id>
-              <phase>${db.phase}</phase>
+              <phase>initialize</phase>
               <goals>
                 <goal>datadtd</goal>
               </goals>
             </execution>
             <execution>
               <id>sql</id>
-              <phase>${db.phase}</phase>
+              <phase>initialize</phase>
               <goals>
                 <goal>schemasql</goal>
                 <goal>datasql</goal>
@@ -97,38 +97,6 @@
               <configuration>
                 <schemaIncludes>${impex.schema.name}.xml</schemaIncludes>
                 <dataDTD>${project.build.directory}/generated-impex/${impex.schema.name}.dtd</dataDTD>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>maven-manifest-plugin</artifactId>
-          <version>${plugin.manifest.version}</version>
-          <configuration>
-            <filename>${project.build.directory}/dependency/${deploy.artifactId}/META-INF/MANIFEST.MF</filename>
-            <prefix>manifest</prefix>
-          </configuration>
-          <executions>
-            <execution>
-              <id>getsvnrevision</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>getsvnrevision</goal>
-              </goals>
-              <configuration>
-                <attribute>SVN-Revision</attribute>
-              </configuration>
-            </execution>
-            <execution>
-              <id>getsvnurl</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>getsvnurl</goal>
-              </goals>
-              <configuration>
-                <attribute>SVN-URL</attribute>
-                <suffix>${impex.relative.dir}</suffix>
               </configuration>
             </execution>
           </executions>
@@ -178,7 +146,7 @@
               <configuration>
                 <artifactItems>
                   <artifactItem>
-                    <outputDirectory>${project.build.directory}/checkout/impex</outputDirectory>
+                    <outputDirectory>${ant.impex.dir}</outputDirectory>
                     <groupId>org.kuali.rice</groupId>
                     <artifactId>rice-impex-server-demo</artifactId>
                     <version>2.1.0-M1</version>
