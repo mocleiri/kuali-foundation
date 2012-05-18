@@ -48,18 +48,167 @@
     <ant-jsch.version>1.8.2</ant-jsch.version>
 
     <db.phase>initialize</db.phase>
+    <ant.getimpex.target>checkout</ant.getimpex.target>
   </properties>
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>maven-impex-plugin</artifactId>
+          <version>${plugin.impex.version}</version>
+          <configuration>
+            <targetDatabase>${db.vendor}</targetDatabase>
+            <dataXMLDir>${project.build.directory}/generated-impex/xml</dataXMLDir>
+            <schemaDir>${project.build.directory}/generated-impex</schemaDir>
+            <schemaXMLFile>${project.build.directory}/generated-impex/${impex.schema.name}.xml</schemaXMLFile>
+            <includeVersionInComment>false</includeVersionInComment>
+            <antCompatibilityMode>false</antCompatibilityMode>
+          </configuration>
+          <executions>
+            <execution>
+              <id>morph</id>
+              <phase>${db.phase}</phase>
+              <goals>
+                <goal>morphschema</goal>
+                <goal>morphdata</goal>
+              </goals>
+              <configuration>
+                <artifactId>${impex.schema.name}</artifactId>
+                <oldSchemaXMLFile>${project.build.directory}/checkout/impex/schema.xml</oldSchemaXMLFile>
+                <newSchemaXMLFile>${project.build.directory}/generated-impex/${impex.schema.name}.xml</newSchemaXMLFile>
+                <oldDataXMLDir>${project.build.directory}/checkout/impex</oldDataXMLDir>
+              </configuration>
+            </execution>
+            <execution>
+              <id>dtd</id>
+              <phase>${db.phase}</phase>
+              <goals>
+                <goal>datadtd</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>sql</id>
+              <phase>${db.phase}</phase>
+              <goals>
+                <goal>schemasql</goal>
+                <goal>datasql</goal>
+              </goals>
+              <configuration>
+                <schemaIncludes>${impex.schema.name}.xml</schemaIncludes>
+                <dataDTD>${project.build.directory}/generated-impex/${impex.schema.name}.dtd</dataDTD>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>maven-manifest-plugin</artifactId>
+          <version>${plugin.manifest.version}</version>
+          <configuration>
+            <filename>${project.build.directory}/dependency/${deploy.artifactId}/META-INF/MANIFEST.MF</filename>
+            <prefix>manifest</prefix>
+          </configuration>
+          <executions>
+            <execution>
+              <id>getsvnrevision</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>getsvnrevision</goal>
+              </goals>
+              <configuration>
+                <attribute>SVN-Revision</attribute>
+              </configuration>
+            </execution>
+            <execution>
+              <id>getsvnurl</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>getsvnurl</goal>
+              </goals>
+              <configuration>
+                <attribute>SVN-URL</attribute>
+                <suffix>${impex.relative.dir}</suffix>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <artifactId>maven-dependency-plugin</artifactId>
           <version>${plugin.dependency.version}</version>
+          <executions>
+            <execution>
+              <id>copy</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>copy</goal>
+              </goals>
+              <configuration>
+                <artifactItems>
+                  <artifactItem>
+                    <groupId>${deploy.groupId}</groupId>
+                    <artifactId>${deploy.artifactId}</artifactId>
+                    <version>${deploy.version}</version>
+                    <type>${deploy.type}</type>
+                  </artifactItem>
+                  <artifactItem>
+                    <groupId>${jdbc.driver.groupId}</groupId>
+                    <artifactId>${jdbc.driver.artifactId}</artifactId>
+                    <version>${jdbc.driver.version}</version>
+                  </artifactItem>
+                  <artifactItem>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>${project.artifactId}</artifactId>
+                    <version>${project.version}</version>
+                  </artifactItem>
+                </artifactItems>
+              </configuration>
+            </execution>
+            <execution>
+              <id>unpack</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>unpack</goal>
+              </goals>
+              <configuration>
+                <artifactItems>
+                  <artifactItem>
+                    <outputDirectory>${project.build.directory}/dependency/${deploy.artifactId}</outputDirectory>
+                    <groupId>${deploy.groupId}</groupId>
+                    <artifactId>${deploy.artifactId}</artifactId>
+                    <version>${deploy.version}</version>
+                    <type>${deploy.type}</type>
+                    <includes>**/MANIFEST.MF</includes>
+                  </artifactItem>
+                  <artifactItem>
+                    <outputDirectory>${project.build.directory}/dependency/${project.artifactId}</outputDirectory>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>${project.artifactId}</artifactId>
+                    <version>${project.version}</version>
+                    <includes>${deploy.groupId.path}/config/*</includes>
+                  </artifactItem>
+                </artifactItems>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-http-plugin</artifactId>
           <version>${plugin.http.version}</version>
+          <executions>
+            <execution>
+              <id>wait-for-tomcat-startup</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>wait</goal>
+              </goals>
+              <configuration>
+                <timeout>${http.timeout}</timeout>
+                <url>${public.url}</url>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
@@ -70,6 +219,32 @@
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>ant-maven-plugin</artifactId>
           <version>${plugin.ant.version}</version>
+          <executions>
+            <execution>
+              <!-- Using Ant for this as the maven-scm-plugin can't deal with the @[revision] syntax -->
+              <id>getimpex</id>
+              <phase>${db.phase}</phase>
+              <goals>
+                <goal>run</goal>
+              </goals>
+              <configuration>
+                <file>classpath:org/kuali/common/deploy/ant/deploy.xml</file>
+                <target>${ant.getimpex.target}</target>
+              </configuration>
+            </execution>
+            <!-- This executes after maven-impex-plugin, but before maven-http-plugin -->
+            <execution>
+              <id>deploy</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>run</goal>
+              </goals>
+              <configuration>
+                <file>classpath:org/kuali/common/deploy/ant/deploy.xml</file>
+                <target>reset</target>
+              </configuration>
+            </execution>
+          </executions>
           <dependencies>
             <dependency>
               <groupId>org.apache.ant</groupId>
@@ -270,6 +445,39 @@
             </execution>
           </executions>
         </plugin>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>copy-resources</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>copy-resources</goal>
+              </goals>
+              <configuration>
+                <resources>
+                  <!-- Exclude all environment config files -->
+                  <resource>
+                    <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
+                    <filtering>true</filtering>
+                    <excludes>
+                      <exclude>**/env*.xml</exclude>
+                    </excludes>
+                  </resource>
+                  <!-- Copy in the single environment specific config file that is needed -->
+                  <resource>
+                    <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
+                    <filtering>true</filtering>
+                    <includes>
+                      <include>**/env${deploy.env}-config.xml</include>
+                    </includes>
+                  </resource>
+                </resources>
+                <outputDirectory>${project.build.directory}/dependency/${project.artifactId}/filtered</outputDirectory>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -282,221 +490,25 @@
       </plugin>
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>${deploy.groupId}</groupId>
-                  <artifactId>${deploy.artifactId}</artifactId>
-                  <version>${deploy.version}</version>
-                  <type>${deploy.type}</type>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${jdbc.driver.groupId}</groupId>
-                  <artifactId>${jdbc.driver.artifactId}</artifactId>
-                  <version>${jdbc.driver.version}</version>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>${project.artifactId}</artifactId>
-                  <version>${project.version}</version>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-          <execution>
-            <id>unpack</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <outputDirectory>${project.build.directory}/dependency/${deploy.artifactId}</outputDirectory>
-                  <groupId>${deploy.groupId}</groupId>
-                  <artifactId>${deploy.artifactId}</artifactId>
-                  <version>${deploy.version}</version>
-                  <type>${deploy.type}</type>
-                  <includes>**/MANIFEST.MF</includes>
-                </artifactItem>
-                <artifactItem>
-                  <outputDirectory>${project.build.directory}/dependency/${project.artifactId}</outputDirectory>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>${project.artifactId}</artifactId>
-                  <version>${project.version}</version>
-                  <includes>${deploy.groupId.path}/config/*</includes>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-resources</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <resources>
-                <!-- Exclude all environment config files -->
-                <resource>
-                  <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
-                  <filtering>true</filtering>
-                  <excludes>
-                    <exclude>**/env*.xml</exclude>
-                  </excludes>
-                </resource>
-                <!-- Copy in the single environment specific config file that is needed -->
-                <resource>
-                  <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
-                  <filtering>true</filtering>
-                  <includes>
-                    <include>**/env${deploy.env}-config.xml</include>
-                  </includes>
-                </resource>
-              </resources>
-              <outputDirectory>${project.build.directory}/dependency/${project.artifactId}/filtered</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-manifest-plugin</artifactId>
-        <version>${plugin.manifest.version}</version>
-        <configuration>
-          <filename>${project.build.directory}/dependency/${deploy.artifactId}/META-INF/MANIFEST.MF</filename>
-          <prefix>manifest</prefix>
-        </configuration>
-        <executions>
-          <execution>
-            <id>getsvnrevision</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>getsvnrevision</goal>
-            </goals>
-            <configuration>
-              <attribute>SVN-Revision</attribute>
-            </configuration>
-          </execution>
-          <execution>
-            <id>getsvnurl</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>getsvnurl</goal>
-            </goals>
-            <configuration>
-              <attribute>SVN-URL</attribute>
-              <suffix>${impex.relative.dir}</suffix>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>ant-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <!-- Using Ant for this as the maven-scm-plugin can't deal with the @[revision] syntax -->
-            <id>checkout</id>
-            <phase>${db.phase}</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <file>classpath:org/kuali/common/deploy/ant/deploy.xml</file>
-              <target>checkout</target>
-            </configuration>
-          </execution>
-          <!-- This executes after maven-impex-plugin, but before maven-http-plugin -->
-          <execution>
-            <id>deploy</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <file>classpath:org/kuali/common/deploy/ant/deploy.xml</file>
-              <target>reset</target>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-impex-plugin</artifactId>
-        <version>${plugin.impex.version}</version>
-        <configuration>
-          <targetDatabase>${db.vendor}</targetDatabase>
-          <dataXMLDir>${project.build.directory}/generated-impex/xml</dataXMLDir>
-          <schemaDir>${project.build.directory}/generated-impex</schemaDir>
-          <schemaXMLFile>${project.build.directory}/generated-impex/${impex.schema.name}.xml</schemaXMLFile>
-          <includeVersionInComment>false</includeVersionInComment>
-          <antCompatibilityMode>false</antCompatibilityMode>
-        </configuration>
-        <executions>
-          <execution>
-            <id>morph</id>
-            <phase>${db.phase}</phase>
-            <goals>
-              <goal>morphschema</goal>
-              <goal>morphdata</goal>
-            </goals>
-            <configuration>
-              <artifactId>${impex.schema.name}</artifactId>
-              <oldSchemaXMLFile>${project.build.directory}/checkout/impex/schema.xml</oldSchemaXMLFile>
-              <newSchemaXMLFile>${project.build.directory}/generated-impex/${impex.schema.name}.xml</newSchemaXMLFile>
-              <oldDataXMLDir>${project.build.directory}/checkout/impex</oldDataXMLDir>
-            </configuration>
-          </execution>
-          <execution>
-            <id>dtd</id>
-            <phase>${db.phase}</phase>
-            <goals>
-              <goal>datadtd</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>sql</id>
-            <phase>${db.phase}</phase>
-            <goals>
-              <goal>schemasql</goal>
-              <goal>datasql</goal>
-            </goals>
-            <configuration>
-              <schemaIncludes>${impex.schema.name}.xml</schemaIncludes>
-              <dataDTD>${project.build.directory}/generated-impex/${impex.schema.name}.dtd</dataDTD>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-http-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>wait-for-tomcat-startup</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>wait</goal>
-            </goals>
-            <configuration>
-              <timeout>${http.timeout}</timeout>
-              <url>${public.url}</url>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
