@@ -40,6 +40,7 @@
     <plugin.properties.version>1.1.8</plugin.properties.version>
     <plugin.resources.version>2.5</plugin.resources.version>
     <plugin.sql.version>1.0.12</plugin.sql.version>
+    <plugin.http.version>1.0.5</plugin.http.version>
 
     <!-- Jars -->
     <kuali-sql.version>1.1.0</kuali-sql.version>
