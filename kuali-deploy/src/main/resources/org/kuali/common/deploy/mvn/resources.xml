@@ -29,9 +29,6 @@
   <version>${project.version}</version>
   <name>Kuali Resources</name>
   <description>This pom contains plugin executions for handling resources</description>
-  <properties>
-    <maven.test.skip>true</maven.test.skip>
-  </properties>
   <build>
     <pluginManagement>
       <plugins>
