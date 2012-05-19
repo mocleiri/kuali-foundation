@@ -47,7 +47,7 @@
 
     <!-- Jars -->
     <kuali-sql.version>1.1.0</kuali-sql.version>
-    <kuali-mvn.version>1.0.1-SNAPSHOT</kuali-mvn.version>
+    <kuali-mvn.version>1.0.1</kuali-mvn.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
     <properties.original>${project.build.directory}/properties/original.properties</properties.original>
     <properties.all>${project.build.directory}/properties/all.properties</properties.all>
