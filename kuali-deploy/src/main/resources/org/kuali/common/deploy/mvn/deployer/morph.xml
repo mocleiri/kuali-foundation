@@ -25,19 +25,14 @@
     <version>1.2.18</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>kuali-deployer</artifactId>
+  <artifactId>kuali-morpher</artifactId>
   <version>${project.version}</version>
   <name>Kuali Morpher</name>
-  <description>This pom contains plugin executions for Ant Impex into Maven Impex</description>
+  <description>This pom contains plugin executions for converting Ant Impex into Maven Impex</description>
   <properties>
     <maven.test.skip>true</maven.test.skip>
-
-    <!-- plugins -->
     <plugin.impex.version>1.0.30</plugin.impex.version>
-    <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
-
     <ant.impex.dir>${project.build.directory}/impex/ant</ant.impex.dir>
-
   </properties>
   <build>
     <pluginManagement>
