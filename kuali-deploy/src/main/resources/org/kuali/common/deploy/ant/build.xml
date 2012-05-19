@@ -20,6 +20,7 @@
     <copy todir="${project.build.directory}/classes" overwrite="true">
       <fileset dir="src/main/resources">
         <include name="**/mvn/**/*.xml" />
+        <include name="**/pom.xml" />
       </fileset>
       <filterset begintoken="${" endtoken="}">
         <filter token="project.groupId" value="${project.groupId}" />
