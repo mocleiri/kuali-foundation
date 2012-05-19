@@ -175,6 +175,7 @@
                     <param>classpath:org/kuali/common/deploy/mvn/deployer/executesql.xml</param>
                     <param>classpath:org/kuali/common/deploy/mvn/deployer/deploy.xml</param>
                   -->
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/http.xml</param>
                 </poms>
               </configuration>
             </execution>
