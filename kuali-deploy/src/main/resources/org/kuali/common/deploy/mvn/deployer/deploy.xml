@@ -28,7 +28,7 @@
   <artifactId>kuali-deploy</artifactId>
   <version>${project.version}</version>
   <name>Kuali Deploy</name>
-  <description>This pom contains plugin executions copy a war file + configuration to an EC2 server</description>
+  <description>This pom contains plugin executions to copy a war file + configuration to an EC2 server</description>
   <build>
     <pluginManagement>
       <plugins>
