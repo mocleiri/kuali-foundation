@@ -47,6 +47,14 @@ public interface MvnContext {
 
     public abstract boolean isFilterPom();
 
+    public abstract void setQuiet(boolean quiet);
+
+    public abstract boolean isQuiet();
+
+    public abstract void setSilent(boolean silent);
+
+    public abstract boolean isSilent();
+
     public abstract void setFilterPom(boolean filterPom);
 
     public abstract List<String> getArgs();

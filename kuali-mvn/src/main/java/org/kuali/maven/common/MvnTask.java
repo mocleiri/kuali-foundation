@@ -105,6 +105,16 @@ public class MvnTask extends Task implements MvnContext {
     private boolean deleteTempPom = true;
 
     /**
+     * If true, logging output is reduced to a minimum
+     */
+    private boolean quiet = true;
+
+    /**
+     * If true, no logging output is generated.
+     */
+    private boolean silent = true;
+
+    /**
      * If true, the Ant build will fail if the new mvn invocation returns a non-zero exit value, otherwise the Ant build
      * will continue
      */
@@ -355,6 +365,24 @@ public class MvnTask extends Task implements MvnContext {
     @Override
     public void setPoms(List<String> poms) {
         this.poms = poms;
+    }
+
+    @Override
+    public boolean isQuiet() {
+        return quiet;
+    }
+
+    public void setQuiet(boolean quiet) {
+        this.quiet = quiet;
+    }
+
+    @Override
+    public boolean isSilent() {
+        return silent;
+    }
+
+    public void setSilent(boolean silent) {
+        this.silent = silent;
     }
 
 }
