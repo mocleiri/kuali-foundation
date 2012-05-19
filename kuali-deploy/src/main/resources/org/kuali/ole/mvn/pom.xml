@@ -138,10 +138,8 @@
                   <param>classpath:org/kuali/common/deploy/mvn/resources.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/morph.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/generatesql.xml</param>
-                  <!--
-                    <param>classpath:org/kuali/common/deploy/mvn/ant.xml</param>
-                    <param>classpath:org/kuali/common/deploy/mvn/executesql.xml</param>
-                  -->
+                  <param>classpath:org/kuali/common/deploy/mvn/ant.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/executesql.xml</param>
                   <param>classpath:org/kuali/ole/mvn/sql.xml</param>
                 </poms>
               </configuration>
