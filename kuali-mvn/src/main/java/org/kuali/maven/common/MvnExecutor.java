@@ -17,6 +17,7 @@ package org.kuali.maven.common;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -39,6 +40,29 @@ public class MvnExecutor {
     PropertiesUtils propertiesUtils = new PropertiesUtils();
 
     public void execute(MvnContext context) throws Exception {
+        List<String> allPoms = getAllPoms(context);
+        if (allPoms.size() == 0) {
+            executePom(context);
+        } else {
+            for (String pom : allPoms) {
+                context.setPom(pom);
+                executePom(context);
+            }
+        }
+    }
+
+    public List<String> getAllPoms(MvnContext context) {
+        List<String> allPoms = new ArrayList<String>();
+        if (!StringUtils.isBlank(context.getPom())) {
+            allPoms.add(context.getPom());
+        }
+        if (context.getPoms() != null) {
+            allPoms.addAll(context.getPoms());
+        }
+        return allPoms;
+    }
+
+    protected void executePom(MvnContext context) throws Exception {
         File tempPom = null;
         try {
             StreamConsumer stdout = new DefaultConsumer();

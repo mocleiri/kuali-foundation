@@ -37,6 +37,10 @@ public interface MvnContext {
 
     public abstract void setExecutable(String executable);
 
+    public abstract List<String> getPoms();
+
+    public abstract void setPoms(List<String> poms);
+
     public abstract String getPom();
 
     public abstract void setPom(String pom);

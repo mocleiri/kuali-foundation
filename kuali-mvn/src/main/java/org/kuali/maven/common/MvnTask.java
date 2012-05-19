@@ -70,6 +70,11 @@ public class MvnTask extends Task implements MvnContext {
     private String pom;
 
     /**
+     * POM's to invoke. If supplied, a new Maven invocation is generated using the same args for each pom
+     */
+    private List<String> poms;
+
+    /**
      * If true, the pom will be filtered using properties from the current project before being invoked
      */
     private boolean filterPom = false;
@@ -340,6 +345,16 @@ public class MvnTask extends Task implements MvnContext {
 
     public void setDeleteTempPom(boolean deleteTempPom) {
         this.deleteTempPom = deleteTempPom;
+    }
+
+    @Override
+    public List<String> getPoms() {
+        return poms;
+    }
+
+    @Override
+    public void setPoms(List<String> poms) {
+        this.poms = poms;
     }
 
 }
