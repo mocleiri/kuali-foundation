@@ -158,6 +158,7 @@
                   <param>classpath:org/kuali/common/deploy/mvn/deployer/dependencies.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/deployer/resources.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/deployer/morph.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/generatesql.xml</param>
                 </poms>
               </configuration>
             </execution>
