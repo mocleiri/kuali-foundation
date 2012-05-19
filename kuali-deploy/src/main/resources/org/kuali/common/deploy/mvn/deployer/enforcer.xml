@@ -46,7 +46,7 @@
               <configuration>
                 <quiet>false</quiet>
                 <locations>
-                  <param>${project.build.directory}/properties/input.properties</param>
+                  <param>${properties.original}</param>
                 </locations>
               </configuration>
             </execution>

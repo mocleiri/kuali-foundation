@@ -68,7 +68,7 @@
               </goals>
               <configuration>
                 <includeSystemProperties>true</includeSystemProperties>
-                <outputFile>${project.build.directory}/properties/input.properties</outputFile>
+                <outputFile>${properties.original}</outputFile>
               </configuration>
             </execution>
             <execution>
@@ -79,7 +79,7 @@
               </goals>
               <configuration>
                 <locations>
-                  <param>${project.build.directory}/properties/kuali.properties</param>
+                  <param>${properties.deploy}</param>
                 </locations>
               </configuration>
             </execution>
