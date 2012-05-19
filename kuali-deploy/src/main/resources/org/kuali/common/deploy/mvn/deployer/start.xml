@@ -69,14 +69,14 @@
           <version>${plugin.ant.version}</version>
           <executions>
             <execution>
-              <id>deploy</id>
+              <id>start</id>
               <phase>initialize</phase>
               <goals>
                 <goal>run</goal>
               </goals>
               <configuration>
                 <file>classpath:org/kuali/common/deploy/ant/deploy.xml</file>
-                <target>deploy</target>
+                <target>start</target>
               </configuration>
             </execution>
           </executions>
@@ -98,6 +98,24 @@
             </dependency>
           </dependencies>
         </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>maven-http-plugin</artifactId>
+          <version>${plugin.http.version}</version>
+          <executions>
+            <execution>
+              <id>wait</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>wait</goal>
+              </goals>
+              <configuration>
+                <timeout>${http.timeout}</timeout>
+                <url>${public.url}</url>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -108,6 +126,10 @@
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>ant-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>http-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
