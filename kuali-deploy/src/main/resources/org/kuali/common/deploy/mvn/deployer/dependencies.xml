@@ -84,7 +84,7 @@
               <configuration>
                 <artifactItems>
                   <artifactItem>
-                    <outputDirectory>${impex.dir}</outputDirectory>
+                    <outputDirectory>${impex.unpack.dir}</outputDirectory>
                     <groupId>${impex.groupId}</groupId>
                     <artifactId>${impex.artifactId}</artifactId>
                     <version>${impex.version}</version>
