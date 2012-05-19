@@ -130,7 +130,7 @@
           </configuration>
           <executions>
             <execution>
-              <id>properties</id>
+              <id>validate</id>
               <phase>validate</phase>
               <goals>
                 <goal>mvn</goal>
@@ -139,11 +139,13 @@
                 <args>
                   <arg>initialize</arg>
                 </args>
-                <pom>classpath:org/kuali/common/deploy/mvn/deployer/properties.xml</pom>
+                <poms>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/properties.xml</param>
+                </poms>
               </configuration>
             </execution>
             <execution>
-              <id>dependencies</id>
+              <id>initialize</id>
               <phase>initialize</phase>
               <goals>
                 <goal>mvn</goal>
@@ -152,33 +154,11 @@
                 <args>
                   <arg>initialize</arg>
                 </args>
-                <pom>classpath:org/kuali/common/deploy/mvn/deployer/dependencies.xml</pom>
-              </configuration>
-            </execution>
-            <execution>
-              <id>resources</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>mvn</goal>
-              </goals>
-              <configuration>
-                <args>
-                  <arg>initialize</arg>
-                </args>
-                <pom>classpath:org/kuali/common/deploy/mvn/deployer/resources.xml</pom>
-              </configuration>
-            </execution>
-            <execution>
-              <id>morph</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>mvn</goal>
-              </goals>
-              <configuration>
-                <args>
-                  <arg>initialize</arg>
-                </args>
-                <pom>classpath:org/kuali/common/deploy/mvn/deployer/morph.xml</pom>
+                <poms>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/dependencies.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/resources.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/morph.xml</param>
+                </poms>
               </configuration>
             </execution>
           </executions>
