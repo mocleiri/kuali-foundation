@@ -189,6 +189,7 @@
                 <goal>write-project-properties</goal>
               </goals>
               <configuration>
+                <antEchoPropertiesMode>true</antEchoPropertiesMode>
                 <outputFile>${properties.outputFile}</outputFile>
               </configuration>
             </execution>

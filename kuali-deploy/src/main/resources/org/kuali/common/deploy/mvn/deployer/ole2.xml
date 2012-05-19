@@ -121,6 +121,10 @@
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>mvn-maven-plugin</artifactId>
           <version>${plugin.mvn.version}</version>
+          <configuration>
+            <basedir>${project.basedir}</basedir>
+            <filterPom>true</filterPom>
+          </configuration>
           <executions>
             <execution>
               <id>properties</id>
@@ -130,16 +134,14 @@
               </goals>
               <configuration>
                 <args>
-                  <arg>validate</arg>
+                  <arg>initialize</arg>
                 </args>
-                <basedir>${project.basedir}</basedir>
                 <pom>classpath:org/kuali/common/deploy/mvn/deployer/properties.xml</pom>
-                <filterPom>true</filterPom>
               </configuration>
             </execution>
             <execution>
               <id>dependencies</id>
-              <phase>validate</phase>
+              <phase>initialize</phase>
               <goals>
                 <goal>mvn</goal>
               </goals>
@@ -147,9 +149,7 @@
                 <args>
                   <arg>initialize</arg>
                 </args>
-                <basedir>${project.basedir}</basedir>
                 <pom>classpath:org/kuali/common/deploy/mvn/deployer/dependencies.xml</pom>
-                <filterPom>true</filterPom>
               </configuration>
             </execution>
           </executions>
