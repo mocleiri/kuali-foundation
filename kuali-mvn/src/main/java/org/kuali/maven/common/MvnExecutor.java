@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Invoke mvn from Maven.
+ * Invoke the 'mvn' executable
  */
 public class MvnExecutor {
     private static final Logger log = LoggerFactory.getLogger(MvnExecutor.class);
@@ -57,7 +57,11 @@ public class MvnExecutor {
             allPoms.add(context.getPom());
         }
         if (context.getPoms() != null) {
-            allPoms.addAll(context.getPoms());
+            for (String pom : context.getPoms()) {
+                if (!StringUtils.isBlank(pom)) {
+                    allPoms.add(pom);
+                }
+            }
         }
         return allPoms;
     }
