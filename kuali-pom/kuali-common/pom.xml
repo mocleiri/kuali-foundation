@@ -120,20 +120,40 @@
     <plugin.jxr.version>2.3</plugin.jxr.version>
     <plugin.plugin.version>2.7</plugin.plugin.version>
     <plugin.pmd.version>2.5</plugin.pmd.version>
-    <plugin.mvn.version>1.0.2</plugin.mvn.version>
+    <plugin.mvn.version>1.0.3</plugin.mvn.version>
 
     <deploy.groupId>${project.groupId}</deploy.groupId>
     <deploy.artifactId>${project.artifactId}</deploy.artifactId>
     <deploy.version>${project.version}</deploy.version>
-    <deploy.pom>classpath:org/kuali/common/deploy/mvn/deployer/pom.xml</deploy.pom>
+    <deploy.pom>classpath:${deploy.groupId.path}/pom.xml</deploy.pom>
     <reset.pom>classpath:org/kuali/common/deploy/mvn/deployer/resetenv.xml</reset.pom>
   </properties>
   <profiles>
     <profile>
-      <!-- Deploy a Kuali application to an environment (currently supports deploying Rice and KS applications to EC2) -->
+      <!-- Deploy a Kuali application to an environment (currently supports deploying Rice, KS, and OLE applications to EC2) -->
       <id>deploy</id>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>translate</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>translate-properties</goal>
+                </goals>
+                <configuration>
+                  <configuration>
+                    <properties>
+                      <param>deploy.groupId</param>
+                    </properties>
+                  </configuration>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>mvn-maven-plugin</artifactId>
@@ -145,7 +165,7 @@
                   <goal>mvn</goal>
                 </goals>
                 <configuration>
-                  <pom>${deploy.pom}</pom>
+                  <pom>classpath:${deploy.groupId.path}/pom.xml</pom>
                   <args>
                     <arg>clean</arg>
                     <arg>process-resources</arg>
