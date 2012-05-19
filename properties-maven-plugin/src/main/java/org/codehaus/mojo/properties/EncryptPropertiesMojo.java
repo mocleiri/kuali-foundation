@@ -92,12 +92,12 @@ public class EncryptPropertiesMojo extends AbstractMojo {
                 getLog().info("Skipping " + key);
                 continue;
             }
-            if (quiet) {
-                continue;
-            }
             String newValue = encryptor.encrypt(value);
             String newKey = key + "." + suffix;
             props.setProperty(newKey, newValue);
+            if (quiet) {
+                continue;
+            }
             if (show) {
                 getLog().info("Setting " + newKey + "=" + newValue + " - " + value);
             } else {
