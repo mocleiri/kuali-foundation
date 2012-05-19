@@ -39,7 +39,7 @@
     <plugin.ant.version>1.0.10</plugin.ant.version>
     <plugin.dependency.version>2.4</plugin.dependency.version>
     <plugin.impex.version>1.0.30</plugin.impex.version>
-    <plugin.mvn.version>1.0.3-SNAPSHOT</plugin.mvn.version>
+    <plugin.mvn.version>1.0.3</plugin.mvn.version>
     <plugin.properties.version>1.1.8</plugin.properties.version>
     <plugin.resources.version>2.5</plugin.resources.version>
     <plugin.sql.version>1.0.12</plugin.sql.version>
