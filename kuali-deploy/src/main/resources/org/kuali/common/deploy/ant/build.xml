@@ -25,6 +25,9 @@
         <filter token="project.groupId" value="${project.groupId}" />
         <filter token="project.artifactId" value="${project.artifactId}" />
         <filter token="project.version" value="${project.version}" />
+        <filter token="parent.groupId" value="${parent.groupId}" />
+        <filter token="parent.artifactId" value="${parent.artifactId}" />
+        <filter token="parent.version" value="${parent.version}" />
       </filterset>
     </copy>
   </target>

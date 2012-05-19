@@ -36,6 +36,11 @@
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-deploy</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-deploy</url>
   </scm>
+  <properties>
+    <parent.groupId>${project.parent.groupId}</parent.groupId>
+    <parent.artifactId>${project.parent.artifactId}</parent.artifactId>
+    <parent.version>${project.parent.version}</parent.version>
+  </properties>
   <profiles>
     <profile>
       <id>default</id>
