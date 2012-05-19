@@ -46,7 +46,7 @@
               <configuration>
                 <quiet>false</quiet>
                 <locations>
-                  <param>${project.build.directory}/properties/kuali.properties</param>
+                  <param>${properties.deploy}</param>
                 </locations>
               </configuration>
             </execution>
