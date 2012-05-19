@@ -36,6 +36,7 @@
     <plugin.resources.version>2.5</plugin.resources.version>
     <plugin.impex.version>1.0.30</plugin.impex.version>
     <plugin.mvn.version>1.0.3-SNAPSHOT</plugin.mvn.version>
+    <plugin.sql.version>1.0.12</plugin.sql.version>
     <kuali-sql.version>1.1.0</kuali-sql.version>
   </properties>
   <build>
@@ -159,6 +160,7 @@
                   <param>classpath:org/kuali/common/deploy/mvn/deployer/resources.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/deployer/morph.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/deployer/generatesql.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/executesql.xml</param>
                 </poms>
               </configuration>
             </execution>
