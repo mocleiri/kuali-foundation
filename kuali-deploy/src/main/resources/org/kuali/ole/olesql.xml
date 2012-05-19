@@ -25,6 +25,30 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${plugin.dependency.version}</version>
+          <executions>
+            <execution>
+              <id>prepare</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>copy</goal>
+                <goal>unpack</goal>
+              </goals>
+              <configuration>
+                <artifactItems>
+                  <artifactItem>
+                    <outputDirectory>${ole.sql.dir}</outputDirectory>
+                    <groupId>${deploy.groupId}</groupId>
+                    <artifactId>ole-rice-db</artifactId>
+                    <version>${deploy.version}</version>
+                  </artifactItem>
+                </artifactItems>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>sql-maven-plugin</artifactId>
           <version>${plugin.sql.version}</version>
@@ -46,73 +70,14 @@
           </dependencies>
           <executions>
             <execution>
-              <id>drop</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>execute</goal>
-              </goals>
-              <configuration>
-                <showSql>true</showSql>
-                <username>${impex.dba.username}</username>
-                <password>${impex.dba.password}</password>
-                <url>${impex.dba.url}</url>
-                <sqlCommand>${impex.sql.drop}</sqlCommand>
-              </configuration>
-            </execution>
-            <execution>
-              <id>create</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>execute</goal>
-              </goals>
-              <configuration>
-                <showSql>true</showSql>
-                <username>${impex.dba.username}</username>
-                <password>${impex.dba.password}</password>
-                <url>${impex.dba.url}</url>
-                <sqlCommand>${impex.sql.create}</sqlCommand>
-              </configuration>
-            </execution>
-            <execution>
-              <id>schema</id>
+              <id>ole-rice-db</id>
               <phase>initialize</phase>
               <goals>
                 <goal>execute</goal>
               </goals>
               <configuration>
                 <srcFiles>
-                  <param>${impex.sql.schema}</param>
-                </srcFiles>
-              </configuration>
-            </execution>
-            <execution>
-              <id>data</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>execute</goal>
-              </goals>
-              <configuration>
-                <orderFile>ASCENDING</orderFile>
-                <fileset>
-                  <basedir>${impex.sql.basedir}</basedir>
-                  <includes>
-                    <include>*.sql</include>
-                  </includes>
-                  <excludes>
-                    <exclude>${impex.schema.name}*.sql</exclude>
-                  </excludes>
-                </fileset>
-              </configuration>
-            </execution>
-            <execution>
-              <id>constraints</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>execute</goal>
-              </goals>
-              <configuration>
-                <srcFiles>
-                  <param>${impex.sql.constraints}</param>
+                  <param>${${ole.sql.dir}/${db.vender}-ole-rice.sql</param>
                 </srcFiles>
               </configuration>
             </execution>
@@ -146,6 +111,9 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>com.soebes.maven.plugins</groupId>
         <artifactId>maven-echo-plugin</artifactId>

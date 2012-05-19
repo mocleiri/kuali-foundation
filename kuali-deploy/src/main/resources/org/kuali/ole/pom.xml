@@ -51,6 +51,7 @@
     <ant-jsch.version>1.8.2</ant-jsch.version>
     <properties.original>${project.build.directory}/properties/original.properties</properties.original>
     <properties.all>${project.build.directory}/properties/all.properties</properties.all>
+    <ole.sql.dir>${project.build.directory}/dependency/ole-rice-db</ole.sql.dir>
   </properties>
   <build>
     <pluginManagement>
