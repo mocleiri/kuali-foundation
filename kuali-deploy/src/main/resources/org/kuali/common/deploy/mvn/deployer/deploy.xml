@@ -29,10 +29,6 @@
   <version>${project.version}</version>
   <name>Kuali Deploy</name>
   <description>This pom contains plugin executions copy a war file + configuration to an EC2 server</description>
-  <properties>
-    <maven.test.skip>true</maven.test.skip>
-    <plugin.ant.version>1.0.10</plugin.ant.version>
-  </properties>
   <build>
     <pluginManagement>
       <plugins>

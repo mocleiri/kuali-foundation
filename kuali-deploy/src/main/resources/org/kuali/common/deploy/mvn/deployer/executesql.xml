@@ -16,9 +16,6 @@
   <version>${project.version}</version>
   <name>Impex SQL Executor</name>
   <description>This pom contains plugin executions for resetting a db based on the SQL generated from an Impex dataset</description>
-  <properties>
-    <maven.test.skip>true</maven.test.skip>
-  </properties>
   <build>
     <pluginManagement>
       <plugins>

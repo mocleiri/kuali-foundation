@@ -29,9 +29,6 @@
   <version>${project.version}</version>
   <name>Kuali Http</name>
   <description>This pom contains a plugin execution that waits for a valid http response from a url</description>
-  <properties>
-    <maven.test.skip>true</maven.test.skip>
-  </properties>
   <build>
     <pluginManagement>
       <plugins>

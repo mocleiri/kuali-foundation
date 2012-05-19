@@ -29,9 +29,6 @@
   <version>${project.version}</version>
   <name>Kuali Dependencies</name>
   <description>This pom contains plugin executions for handling dependencies</description>
-  <properties>
-    <maven.test.skip>true</maven.test.skip>
-  </properties>
   <build>
     <pluginManagement>
       <plugins>

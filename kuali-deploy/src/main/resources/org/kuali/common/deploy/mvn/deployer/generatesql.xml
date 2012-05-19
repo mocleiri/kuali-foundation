@@ -25,13 +25,10 @@
     <version>1.2.18</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>kuali-deployer</artifactId>
+  <artifactId>kuali-gensql</artifactId>
   <version>${project.version}</version>
-  <name>Kuali Deployer</name>
-  <description>This pom contains plugin executions for deploying a Kuali application to EC2</description>
-  <properties>
-    <maven.test.skip>true</maven.test.skip>
-  </properties>
+  <name>Kuali Generate SQL</name>
+  <description>This pom contains plugin executions for generating SQL from an Impex data set</description>
   <build>
     <pluginManagement>
       <plugins>

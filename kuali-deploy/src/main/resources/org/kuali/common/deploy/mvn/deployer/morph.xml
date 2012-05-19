@@ -25,13 +25,10 @@
     <version>1.2.18</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>kuali-morpher</artifactId>
+  <artifactId>kuali-morph</artifactId>
   <version>${project.version}</version>
-  <name>Kuali Morpher</name>
+  <name>Kuali Morph</name>
   <description>This pom contains plugin executions for converting Ant Impex into Maven Impex</description>
-  <properties>
-    <maven.test.skip>true</maven.test.skip>
-  </properties>
   <build>
     <pluginManagement>
       <plugins>
