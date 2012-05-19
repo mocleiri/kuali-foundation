@@ -31,8 +31,6 @@
   <description>This pom contains plugin executions for converting Ant Impex into Maven Impex</description>
   <properties>
     <maven.test.skip>true</maven.test.skip>
-    <plugin.impex.version>1.0.30</plugin.impex.version>
-    <ant.impex.dir>${project.build.directory}/impex/ant</ant.impex.dir>
   </properties>
   <build>
     <pluginManagement>
@@ -43,9 +41,9 @@
           <version>${plugin.impex.version}</version>
           <configuration>
             <targetDatabase>${db.vendor}</targetDatabase>
-            <dataXMLDir>${project.build.directory}/generated-impex/xml</dataXMLDir>
-            <schemaDir>${project.build.directory}/generated-impex</schemaDir>
-            <schemaXMLFile>${project.build.directory}/generated-impex/${impex.schema.name}.xml</schemaXMLFile>
+            <dataXMLDir>${project.build.directory}/classes/xml</dataXMLDir>
+            <schemaDir>${project.build.directory}/classes</schemaDir>
+            <schemaXMLFile>${project.build.directory}/classes/${impex.schema.name}.xml</schemaXMLFile>
             <includeVersionInComment>false</includeVersionInComment>
             <antCompatibilityMode>false</antCompatibilityMode>
           </configuration>
@@ -59,9 +57,9 @@
               </goals>
               <configuration>
                 <artifactId>${impex.schema.name}</artifactId>
-                <oldSchemaXMLFile>${ant.impex.dir}/schema.xml</oldSchemaXMLFile>
-                <newSchemaXMLFile>${project.build.directory}/generated-impex/${impex.schema.name}.xml</newSchemaXMLFile>
-                <oldDataXMLDir>${ant.impex.dir}</oldDataXMLDir>
+                <oldSchemaXMLFile>${impex.unpack.dir}/schema.xml</oldSchemaXMLFile>
+                <newSchemaXMLFile>${project.build.directory}/classes/${impex.schema.name}.xml</newSchemaXMLFile>
+                <oldDataXMLDir>${impex.unpack.dir}</oldDataXMLDir>
               </configuration>
             </execution>
           </executions>
