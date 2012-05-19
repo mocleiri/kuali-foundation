@@ -136,6 +136,21 @@
                 <filterPom>true</filterPom>
               </configuration>
             </execution>
+            <execution>
+              <id>dependencies</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>mvn</goal>
+              </goals>
+              <configuration>
+                <args>
+                  <arg>initialize</arg>
+                </args>
+                <basedir>${project.basedir}</basedir>
+                <pom>classpath:org/kuali/common/deploy/mvn/deployer/dependencies.xml</pom>
+                <filterPom>true</filterPom>
+              </configuration>
+            </execution>
           </executions>
           <dependencies>
             <dependency>

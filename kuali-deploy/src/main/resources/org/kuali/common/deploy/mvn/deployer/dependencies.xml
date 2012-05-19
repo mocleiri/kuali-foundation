@@ -53,7 +53,7 @@
                     <groupId>${deploy.groupId}</groupId>
                     <artifactId>${deploy.artifactId}</artifactId>
                     <version>${deploy.version}</version>
-                    <type>${deploy.type}</type>
+                    <type>war</type>
                   </artifactItem>
                   <!-- The JDBC driver -->
                   <artifactItem>
