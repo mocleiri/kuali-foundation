@@ -74,7 +74,9 @@ public class MvnExecutor {
             Commandline cl = getCommandLine(context);
             showConfig(context, cl);
             tempPom = prepareFileSystem(context, cl);
-            log.info(cl.toString());
+            if (!context.isSilent() && !context.isQuiet()) {
+                log.info(cl.toString());
+            }
             int exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
             validateExitValue(context, exitValue);
         } finally {
@@ -106,11 +108,17 @@ public class MvnExecutor {
     }
 
     protected void showConfig(MvnContext context, Commandline cl) {
-        log.info("Maven POM - " + toEmpty(context.getPom()));
+        if (!context.isSilent()) {
+            log.info("Maven POM - " + toEmpty(context.getPom()));
+        }
         String args = getMavenArgs(cl);
-        log.info("Maven Args - " + args);
+        if (!context.isSilent()) {
+            log.info("Maven Args - " + args);
+        }
         if (isAddMavenOpts(context)) {
-            log.info(MvnContext.MAVEN_OPTS + '=' + System.getenv(MvnContext.MAVEN_OPTS));
+            if (!context.isSilent() && !context.isQuiet()) {
+                log.info(MvnContext.MAVEN_OPTS + '=' + System.getenv(MvnContext.MAVEN_OPTS));
+            }
         }
     }
 
