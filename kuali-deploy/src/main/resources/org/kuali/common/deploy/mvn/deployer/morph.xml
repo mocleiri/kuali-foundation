@@ -39,14 +39,6 @@
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-impex-plugin</artifactId>
           <version>${plugin.impex.version}</version>
-          <configuration>
-            <targetDatabase>${db.vendor}</targetDatabase>
-            <dataXMLDir>${project.build.directory}/classes/xml</dataXMLDir>
-            <schemaDir>${project.build.directory}/classes</schemaDir>
-            <schemaXMLFile>${project.build.directory}/classes/${impex.schema.name}.xml</schemaXMLFile>
-            <includeVersionInComment>false</includeVersionInComment>
-            <antCompatibilityMode>false</antCompatibilityMode>
-          </configuration>
           <executions>
             <execution>
               <id>morph</id>
@@ -56,10 +48,14 @@
                 <goal>morphdata</goal>
               </goals>
               <configuration>
+                <targetDatabase>${db.vendor}</targetDatabase>
                 <artifactId>${impex.schema.name}</artifactId>
                 <oldSchemaXMLFile>${impex.unpack.dir}/schema.xml</oldSchemaXMLFile>
                 <newSchemaXMLFile>${project.build.directory}/classes/${impex.schema.name}.xml</newSchemaXMLFile>
                 <oldDataXMLDir>${impex.unpack.dir}</oldDataXMLDir>
+                <newDataOutputDir>${project.build.directory}/classes/xml</newDataOutputDir>
+                <includeVersionInComment>true</includeVersionInComment>
+                <antCompatibilityMode>false</antCompatibilityMode>
               </configuration>
             </execution>
           </executions>
