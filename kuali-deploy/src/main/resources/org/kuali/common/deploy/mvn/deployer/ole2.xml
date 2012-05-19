@@ -131,15 +131,11 @@
                   <arg>initialize</arg>
                 </args>
                 <poms>
-                  <!--
-                    <param>classpath:org/kuali/common/deploy/mvn/deployer/dependencies.xml</param>
-                    <param>classpath:org/kuali/common/deploy/mvn/deployer/resources.xml</param>
-                    <param>classpath:org/kuali/common/deploy/mvn/deployer/morph.xml</param>
-                    <param>classpath:org/kuali/common/deploy/mvn/deployer/generatesql.xml</param>
-                    <param>classpath:org/kuali/common/deploy/mvn/deployer/executesql.xml</param>
-                    <param>classpath:org/kuali/common/deploy/mvn/deployer/copy.xml</param>
-                  -->
-                  <param>classpath:org/kuali/common/deploy/mvn/deployer/start.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/dependencies.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/resources.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/morph.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/generatesql.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/executesql.xml</param>
                 </poms>
               </configuration>
             </execution>

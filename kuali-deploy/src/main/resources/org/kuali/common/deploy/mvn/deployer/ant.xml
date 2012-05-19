@@ -28,7 +28,7 @@
   <artifactId>kuali-ant</artifactId>
   <version>${project.version}</version>
   <name>Kuali Ant</name>
-  <description>This pom contains plugin executions for executing a target in an Ant build script</description>
+  <description>This pom contains plugin executions for executing a target in the Ant deploy.xml build file</description>
   <build>
     <pluginManagement>
       <plugins>
@@ -75,8 +75,8 @@
                 <goal>run</goal>
               </goals>
               <configuration>
-                <file>${ant.file}</file>
-                <target>${ant.target}</target>
+                <file>classpath:org/kuali/common/deploy/ant/deploy.xml</file>
+                <target>${deploy.ant.target}</target>
               </configuration>
             </execution>
           </executions>
