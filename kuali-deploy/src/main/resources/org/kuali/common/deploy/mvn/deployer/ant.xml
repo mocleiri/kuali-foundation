@@ -25,10 +25,10 @@
     <version>${parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>kuali-copy</artifactId>
+  <artifactId>kuali-ant</artifactId>
   <version>${project.version}</version>
-  <name>Kuali Copy</name>
-  <description>This pom contains plugin executions to copy a war file + configuration to an EC2 server</description>
+  <name>Kuali Ant</name>
+  <description>This pom contains plugin executions for executing a target in an Ant build script</description>
   <build>
     <pluginManagement>
       <plugins>
@@ -75,8 +75,8 @@
                 <goal>run</goal>
               </goals>
               <configuration>
-                <file>classpath:org/kuali/common/deploy/ant/deploy.xml</file>
-                <target>deploy</target>
+                <file>${ant.file}</file>
+                <target>${ant.target}</target>
               </configuration>
             </execution>
           </executions>
