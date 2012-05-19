@@ -172,9 +172,6 @@
     </pluginManagement>
     <plugins>
       <plugin>
-        <artifactId>maven-enforcer-plugin</artifactId>
-      </plugin>
-      <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>properties-maven-plugin</artifactId>
       </plugin>
@@ -182,6 +179,14 @@
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>mvn-maven-plugin</artifactId>
       </plugin>
+      <!--
+        The actual order of the plugin executions is
+        1 - properties:write
+        2 - mvn:validate
+        3 - properties:read
+        4 - mvn:reset
+        5 - mvn:start
+      -->
     </plugins>
   </build>
 </project>
