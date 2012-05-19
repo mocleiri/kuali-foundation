@@ -28,7 +28,7 @@
   <artifactId>kuali-http</artifactId>
   <version>${project.version}</version>
   <name>Kuali Http</name>
-  <description>This pom contains plugin executions that wait for a valid http response from a url</description>
+  <description>This pom contains a plugin execution that waits for a valid http response from a url</description>
   <build>
     <pluginManagement>
       <plugins>
