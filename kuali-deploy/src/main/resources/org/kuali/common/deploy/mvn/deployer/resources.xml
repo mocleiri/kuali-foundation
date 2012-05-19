@@ -49,7 +49,7 @@
               <configuration>
                 <quiet>false</quiet>
                 <locations>
-                  <param>${properties.deploy}</param>
+                  <param>${properties.all}</param>
                 </locations>
               </configuration>
             </execution>

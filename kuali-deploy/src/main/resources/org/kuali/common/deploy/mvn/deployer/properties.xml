@@ -185,7 +185,7 @@
               </goals>
               <configuration>
                 <antEchoPropertiesMode>true</antEchoPropertiesMode>
-                <outputFile>${properties.deploy}</outputFile>
+                <outputFile>${properties.all}</outputFile>
               </configuration>
             </execution>
           </executions>

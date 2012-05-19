@@ -50,7 +50,7 @@
     <kuali-mvn.version>1.0.1-SNAPSHOT</kuali-mvn.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
     <properties.original>${project.build.directory}/properties/original.properties</properties.original>
-    <properties.deploy>${project.build.directory}/properties/deploy.properties</properties.deploy>
+    <properties.all>${project.build.directory}/properties/all.properties</properties.all>
   </properties>
   <build>
     <pluginManagement>
@@ -79,7 +79,7 @@
               </goals>
               <configuration>
                 <locations>
-                  <param>${properties.deploy}</param>
+                  <param>${properties.all}</param>
                 </locations>
               </configuration>
             </execution>
