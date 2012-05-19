@@ -29,6 +29,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
 /**
  * Inspect project and system properties for any keys ending with <code>endsWith</code>. Any matching properties are
  * assumed to be encrypted. They are decrypted and stored as project properties minus the <code>endsWith</code> suffix.
+ * For example, the value for the property "dba.password.encrypted" will be decrypted and stored as "dba.password"
  *
  * @goal decryptall
  */
