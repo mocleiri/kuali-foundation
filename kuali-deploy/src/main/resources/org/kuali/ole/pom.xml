@@ -116,8 +116,8 @@
                   <arg>initialize</arg>
                 </args>
                 <poms>
-                  <param>classpath:org/kuali/common/deploy/mvn/deployer/enforcer.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/deployer/properties.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/enforcer.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/properties.xml</param>
                 </poms>
               </configuration>
             </execution>
@@ -133,12 +133,12 @@
                   <arg>-Ddeploy.ant.target=deploy</arg>
                 </args>
                 <poms>
-                  <param>classpath:org/kuali/common/deploy/mvn/deployer/dependencies.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/deployer/resources.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/deployer/morph.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/deployer/generatesql.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/deployer/ant.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/deployer/executesql.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/dependencies.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/resources.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/morph.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/generatesql.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/ant.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/executesql.xml</param>
                 </poms>
               </configuration>
             </execution>
@@ -154,8 +154,8 @@
                   <arg>-Ddeploy.ant.target=start</arg>
                 </args>
                 <poms>
-                  <param>classpath:org/kuali/common/deploy/mvn/deployer/ant.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/deployer/http.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/ant.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/http.xml</param>
                 </poms>
               </configuration>
             </execution>
