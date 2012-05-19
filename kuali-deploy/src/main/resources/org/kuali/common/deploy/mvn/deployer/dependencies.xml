@@ -31,7 +31,6 @@
   <description>This pom contains plugin executions for handling dependencies</description>
   <properties>
     <maven.test.skip>true</maven.test.skip>
-    <plugin.dependency.version>2.4</plugin.dependency.version>
   </properties>
   <build>
     <pluginManagement>
