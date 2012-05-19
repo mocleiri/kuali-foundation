@@ -39,8 +39,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
     /**
      * If true, the plugin will create the properties file formatted the same way Ant formats properties files using the
-     * &lt;echoproperties&gt; task. The properties will be sorted by name with the ':', '#' and '=' symbols escaped with
-     * a backslash
+     * &lt;echoproperties&gt; task. The properties will be sorted by name with the ':', '#', '=', CR, LF, and TAB
+     * characters escaped with a backslash
      *
      * @parameter default-value="false" expression="${properties.antEchoPropertiesMode}"
      */
