@@ -28,10 +28,11 @@
   <artifactId>kuali-properties</artifactId>
   <version>${project.version}</version>
   <name>Kuali Deployer</name>
-  <description>This pom contains plugin executions for reading in common Kuali properties and exporting them to ${project.build.directory}/properties/kuali.properties</description>
+  <description>This pom contains plugin executions for reading in and aggregating properties specific to a Kuali application and then exporting them to a properties file</description>
   <properties>
     <maven.test.skip>true</maven.test.skip>
     <properties.outputFile>${project.build.directory}/properties/kuali.properties</properties.outputFile>
+    <properties.inputFile>${project.build.directory}/properties/input.properties</properties.inputFile>
   </properties>
   <build>
     <pluginManagement>
@@ -53,6 +54,19 @@
             </dependency>
           </dependencies>
           <executions>
+            <execution>
+              <id>input</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <quiet>false</quiet>
+                <locations>
+                  <param>${properties.inputFile}</param>
+                </locations>
+              </configuration>
+            </execution>
             <execution>
               <id>translate</id>
               <phase>initialize</phase>
@@ -169,7 +183,7 @@
               </configuration>
             </execution>
             <execution>
-              <id>kuali</id>
+              <id>output</id>
               <phase>initialize</phase>
               <goals>
                 <goal>write-project-properties</goal>
