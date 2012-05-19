@@ -122,7 +122,7 @@
               </configuration>
             </execution>
             <execution>
-              <id>deploy</id>
+              <id>reset</id>
               <phase>initialize</phase>
               <goals>
                 <goal>mvn</goal>
