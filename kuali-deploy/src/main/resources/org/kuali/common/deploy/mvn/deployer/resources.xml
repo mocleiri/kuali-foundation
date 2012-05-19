@@ -53,6 +53,17 @@
                 </locations>
               </configuration>
             </execution>
+            <execution>
+              <id>decrypt</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>decryptall</goal>
+              </goals>
+              <configuration>
+                <quiet>true</quiet>
+                <password>${kuali.enc.password}</password>
+              </configuration>
+            </execution>
           </executions>
         </plugin>
         <plugin>
