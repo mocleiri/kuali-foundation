@@ -17,10 +17,10 @@
     <version>${parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>impex-sql-executor</artifactId>
+  <artifactId>ole-sql-executor</artifactId>
   <version>${project.version}</version>
-  <name>Impex SQL Executor</name>
-  <description>This pom contains plugin executions for resetting a database by executing the SQL generated from an Impex data set</description>
+  <name>OLE SQL Executor</name>
+  <description>This pom contains plugin executions for executing custom SQL for OLE</description>
   <build>
     <pluginManagement>
       <plugins>
