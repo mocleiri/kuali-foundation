@@ -184,8 +184,9 @@
         1 - properties:write
         2 - mvn:validate
         3 - properties:read
-        4 - mvn:reset
-        5 - mvn:start
+        4 - properties:decrypt
+        5 - mvn:reset
+        6 - mvn:start
       -->
     </plugins>
   </build>
