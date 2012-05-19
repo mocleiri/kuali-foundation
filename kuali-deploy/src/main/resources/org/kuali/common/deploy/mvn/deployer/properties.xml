@@ -29,10 +29,6 @@
   <version>${project.version}</version>
   <name>Kuali Properties</name>
   <description>This pom contains plugin executions for reading in and aggregating properties specific to a Kuali application and then exporting them to a properties file</description>
-  <properties>
-    <properties.inputFile>${project.build.directory}/properties/input.properties</properties.inputFile>
-    <properties.outputFile>${project.build.directory}/properties/kuali.properties</properties.outputFile>
-  </properties>
   <build>
     <pluginManagement>
       <plugins>
@@ -62,7 +58,7 @@
               <configuration>
                 <quiet>false</quiet>
                 <locations>
-                  <param>${properties.inputFile}</param>
+                  <param>${properties.original}</param>
                 </locations>
               </configuration>
             </execution>
@@ -189,7 +185,7 @@
               </goals>
               <configuration>
                 <antEchoPropertiesMode>true</antEchoPropertiesMode>
-                <outputFile>${properties.outputFile}</outputFile>
+                <outputFile>${properties.deploy}</outputFile>
               </configuration>
             </execution>
           </executions>
