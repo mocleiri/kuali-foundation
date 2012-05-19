@@ -82,6 +82,13 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
     private String pom;
 
     /**
+     * POM's to invoke. If supplied, a new Maven invocation is generated using the same args for each pom
+     *
+     * @parameter
+     */
+    private List<String> poms;
+
+    /**
      * If true, the pom will be filtered using properties from the current project before being invoked
      *
      * @parameter expression="${mvn.filterPom}" default-value="false"
@@ -254,6 +261,16 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
 
     public void setDeleteTempPom(boolean deleteTempPom) {
         this.deleteTempPom = deleteTempPom;
+    }
+
+    @Override
+    public List<String> getPoms() {
+        return poms;
+    }
+
+    @Override
+    public void setPoms(List<String> poms) {
+        this.poms = poms;
     }
 
 }
