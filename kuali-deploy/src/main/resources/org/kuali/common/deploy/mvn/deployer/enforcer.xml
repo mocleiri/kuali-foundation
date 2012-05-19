@@ -57,7 +57,7 @@
           <version>${plugin.enforcer.version}</version>
           <executions>
             <execution>
-              <id>enforce-property</id>
+              <id>enforce</id>
               <phase>validate</phase>
               <goals>
                 <goal>enforce</goal>
