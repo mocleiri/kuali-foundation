@@ -126,7 +126,7 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
 
     /**
      * If true, the original Maven build will fail if the new mvn invocation returns a non-zero exit value, otherwise
-     * the Maven build will continue
+     * the original Maven build will continue
      *
      * @parameter expression="${mvn.failOnError}" default-value="true"
      * @required
@@ -134,7 +134,7 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
     private boolean failOnError;
 
     /**
-     * If true, any temp pom copied to <code>basedir</code> will be deleted when the plugin exeuction is complete
+     * If true, any temp pom copied to <code>basedir</code> will be deleted when the plugin execution is complete
      *
      * @parameter expression="${mvn.deleteTempPom}" default-value="true"
      * @required
