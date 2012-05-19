@@ -54,50 +54,12 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <artifactId>maven-enforcer-plugin</artifactId>
-          <version>${plugin.enforcer.version}</version>
-          <executions>
-            <execution>
-              <id>enforce-property</id>
-              <phase>validate</phase>
-              <goals>
-                <goal>enforce</goal>
-              </goals>
-              <configuration>
-                <rules>
-                  <requireProperty>
-                    <property>deploy.groupId</property>
-                    <message>You must provide a group id</message>
-                  </requireProperty>
-                  <requireProperty>
-                    <property>deploy.artifactId</property>
-                    <message>You must provide an artifact id</message>
-                  </requireProperty>
-                  <requireProperty>
-                    <property>deploy.version</property>
-                    <message>You must provide a version to deploy</message>
-                    <regex>^\d(.)*</regex>
-                    <regexMessage>Version must begin with a number</regexMessage>
-                  </requireProperty>
-                  <requireProperty>
-                    <property>deploy.env</property>
-                    <message>You must provide an environment</message>
-                    <regex>^\d(.)*</regex>
-                    <regexMessage>Environment must be a number</regexMessage>
-                  </requireProperty>
-                </rules>
-                <fail>true</fail>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>properties-maven-plugin</artifactId>
           <version>${plugin.properties.version}</version>
           <executions>
             <execution>
-              <id>output</id>
+              <id>write</id>
               <phase>validate</phase>
               <goals>
                 <goal>write-project-properties</goal>
@@ -108,7 +70,7 @@
               </configuration>
             </execution>
             <execution>
-              <id>input</id>
+              <id>read</id>
               <phase>initialize</phase>
               <goals>
                 <goal>read-project-properties</goal>
@@ -169,13 +131,13 @@
                 </args>
                 <poms>
                   <param>classpath:org/kuali/common/deploy/mvn/deployer/dependencies.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/resources.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/morph.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/generatesql.xml</param>
                   <!--
-                    <param>classpath:org/kuali/common/deploy/mvn/deployer/resources.xml</param>
-                    <param>classpath:org/kuali/common/deploy/mvn/deployer/morph.xml</param>
-                    <param>classpath:org/kuali/common/deploy/mvn/deployer/generatesql.xml</param>
                     <param>classpath:org/kuali/common/deploy/mvn/deployer/executesql.xml</param>
-                    <param>classpath:org/kuali/common/deploy/mvn/deployer/deploy.xml</param>
                   -->
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/deploy.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/deployer/http.xml</param>
                 </poms>
               </configuration>
