@@ -142,7 +142,7 @@
                     <param>classpath:org/kuali/common/deploy/mvn/ant.xml</param>
                     <param>classpath:org/kuali/common/deploy/mvn/executesql.xml</param>
                   -->
-                  <param>classpath:org/kuali/ole/sql.xml</param>
+                  <param>classpath:org/kuali/ole/mvn/sql.xml</param>
                 </poms>
               </configuration>
             </execution>
