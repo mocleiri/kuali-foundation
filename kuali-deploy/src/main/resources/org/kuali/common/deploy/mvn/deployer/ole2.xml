@@ -31,6 +31,9 @@
   <description>This pom contains plugin executions for deploying a Kuali application to EC2</description>
   <properties>
     <maven.test.skip>true</maven.test.skip>
+    <parent.groupId>${project.parent.groupId}</parent.groupId>
+    <parent.artifactId>${project.parent.artifactId}</parent.artifactId>
+    <parent.version>${project.parent.version}</parent.version>
 
     <!-- Plugins -->
     <plugin.ant.version>1.0.10</plugin.ant.version>
