@@ -30,7 +30,6 @@
   <name>Kuali Properties</name>
   <description>This pom contains plugin executions for reading in and aggregating properties specific to a Kuali application and then exporting them to a properties file</description>
   <properties>
-    <maven.test.skip>true</maven.test.skip>
     <properties.inputFile>${project.build.directory}/properties/input.properties</properties.inputFile>
     <properties.outputFile>${project.build.directory}/properties/kuali.properties</properties.outputFile>
   </properties>
