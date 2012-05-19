@@ -141,6 +141,22 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
      */
     private boolean deleteTempPom;
 
+    /**
+     * If true, logging output is reduced to a minimum
+     *
+     * @parameter expression="${mvn.quiet}" default-value="true"
+     * @required
+     */
+    private boolean quiet;
+
+    /**
+     * If true, no logging output is generated.
+     *
+     * @parameter expression="${mvn.silent}" default-value="false"
+     * @required
+     */
+    private boolean silent;
+
     @Override
     public void execute() throws MojoExecutionException {
         try {
@@ -271,6 +287,26 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
     @Override
     public void setPoms(List<String> poms) {
         this.poms = poms;
+    }
+
+    @Override
+    public boolean isQuiet() {
+        return quiet;
+    }
+
+    @Override
+    public void setQuiet(boolean quiet) {
+        this.quiet = quiet;
+    }
+
+    @Override
+    public boolean isSilent() {
+        return silent;
+    }
+
+    @Override
+    public void setSilent(boolean silent) {
+        this.silent = silent;
     }
 
 }
