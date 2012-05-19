@@ -129,7 +129,7 @@
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
-        <artifactId>http-maven-plugin</artifactId>
+        <artifactId>maven-http-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
