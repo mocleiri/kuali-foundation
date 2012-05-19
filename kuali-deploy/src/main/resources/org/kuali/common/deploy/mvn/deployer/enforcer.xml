@@ -33,6 +33,26 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+          <version>${plugin.properties.version}</version>
+          <executions>
+            <execution>
+              <id>read</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <quiet>false</quiet>
+                <locations>
+                  <param>${project.build.directory}/properties/input.properties</param>
+                </locations>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
           <version>${plugin.enforcer.version}</version>
           <executions>
@@ -73,6 +93,10 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <artifactId>maven-enforcer-plugin</artifactId>
       </plugin>

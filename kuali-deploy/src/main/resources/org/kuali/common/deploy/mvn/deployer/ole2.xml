@@ -152,6 +152,7 @@
                   <arg>initialize</arg>
                 </args>
                 <poms>
+                  <param>classpath:org/kuali/common/deploy/mvn/deployer/enforcer.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/deployer/properties.xml</param>
                 </poms>
               </configuration>
