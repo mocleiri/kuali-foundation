@@ -31,7 +31,7 @@
   <description>This pom contains plugin executions for deploying a Kuali application to EC2</description>
   <properties>
     <maven.test.skip>true</maven.test.skip>
-    <plugin.properties.version>1.1.5</plugin.properties.version>
+    <plugin.properties.version>1.1.8</plugin.properties.version>
     <kuali-sql.version>1.1.0</kuali-sql.version>
   </properties>
   <build>
@@ -110,6 +110,7 @@
                 <goal>decryptall</goal>
               </goals>
               <configuration>
+                <quiet>true</quiet>
                 <password>${kuali.enc.password}</password>
               </configuration>
             </execution>

@@ -27,7 +27,7 @@
   <groupId>${project.groupId}</groupId>
   <artifactId>kuali-properties</artifactId>
   <version>${project.version}</version>
-  <name>Kuali Deployer</name>
+  <name>Kuali Properties</name>
   <description>This pom contains plugin executions for reading in and aggregating properties specific to a Kuali application and then exporting them to a properties file</description>
   <properties>
     <maven.test.skip>true</maven.test.skip>
