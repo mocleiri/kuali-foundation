@@ -36,6 +36,26 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+          <version>${plugin.properties.version}</version>
+          <executions>
+            <execution>
+              <id>read</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <quiet>false</quiet>
+                <locations>
+                  <param>${project.build.directory}/properties/kuali.properties</param>
+                </locations>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <executions>
             <execution>
@@ -71,6 +91,10 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
       </plugin>
