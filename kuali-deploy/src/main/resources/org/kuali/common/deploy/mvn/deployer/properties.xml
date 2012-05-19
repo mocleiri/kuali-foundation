@@ -31,8 +31,8 @@
   <description>This pom contains plugin executions for reading in and aggregating properties specific to a Kuali application and then exporting them to a properties file</description>
   <properties>
     <maven.test.skip>true</maven.test.skip>
-    <properties.outputFile>${project.build.directory}/properties/kuali.properties</properties.outputFile>
     <properties.inputFile>${project.build.directory}/properties/input.properties</properties.inputFile>
+    <properties.outputFile>${project.build.directory}/properties/kuali.properties</properties.outputFile>
   </properties>
   <build>
     <pluginManagement>
@@ -56,7 +56,7 @@
           <executions>
             <execution>
               <id>input</id>
-              <phase>initialize</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
@@ -69,7 +69,7 @@
             </execution>
             <execution>
               <id>translate</id>
-              <phase>initialize</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>translate-properties</goal>
               </goals>
@@ -81,7 +81,7 @@
             </execution>
             <execution>
               <id>parse</id>
-              <phase>initialize</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>parse-version-properties</goal>
               </goals>
@@ -93,7 +93,7 @@
             </execution>
             <execution>
               <id>common</id>
-              <phase>initialize</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
@@ -106,7 +106,7 @@
             </execution>
             <execution>
               <id>project</id>
-              <phase>initialize</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
@@ -119,7 +119,7 @@
             </execution>
             <execution>
               <id>app</id>
-              <phase>initialize</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
@@ -132,7 +132,7 @@
             </execution>
             <execution>
               <id>version</id>
-              <phase>initialize</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
@@ -145,7 +145,7 @@
             </execution>
             <execution>
               <id>env</id>
-              <phase>initialize</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
@@ -158,7 +158,7 @@
             </execution>
             <execution>
               <id>db</id>
-              <phase>initialize</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
@@ -171,7 +171,7 @@
             </execution>
             <execution>
               <id>sql</id>
-              <phase>initialize</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
@@ -184,7 +184,7 @@
             </execution>
             <execution>
               <id>output</id>
-              <phase>initialize</phase>
+              <phase>validate</phase>
               <goals>
                 <goal>write-project-properties</goal>
               </goals>

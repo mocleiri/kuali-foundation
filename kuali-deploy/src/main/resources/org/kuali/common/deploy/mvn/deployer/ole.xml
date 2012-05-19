@@ -258,131 +258,27 @@
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>properties-maven-plugin</artifactId>
           <version>${plugin.properties.version}</version>
-          <dependencies>
-            <dependency>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>${project.artifactId}</artifactId>
-              <version>${project.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.kuali.db.sql</groupId>
-              <artifactId>kuali-sql</artifactId>
-              <version>${kuali-sql.version}</version>
-            </dependency>
-          </dependencies>
           <executions>
             <execution>
-              <id>translate</id>
-              <phase>initialize</phase>
+              <id>output</id>
+              <phase>validate</phase>
               <goals>
-                <goal>translate-properties</goal>
+                <goal>write-project-properties</goal>
               </goals>
               <configuration>
-                <properties>
-                  <param>deploy.groupId</param>
-                </properties>
+                <includeSystemProperties>true</includeSystemProperties>
+                <outputFile>${project.build.directory}/properties/input.properties</outputFile>
               </configuration>
             </execution>
             <execution>
-              <id>parse</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>parse-version-properties</goal>
-              </goals>
-              <configuration>
-                <properties>
-                  <param>deploy.version</param>
-                </properties>
-              </configuration>
-            </execution>
-            <execution>
-              <id>common</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>false</quiet>
-                <locations>
-                  <param>classpath:org/kuali/common/deploy/common.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>project</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>false</quiet>
-                <locations>
-                  <param>classpath:${deploy.groupId.path}/common.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>app</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>true</quiet>
-                <locations>
-                  <param>classpath:${deploy.groupId.path}/${deploy.artifactId}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>version</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>true</quiet>
-                <locations>
-                  <param>classpath:${deploy.groupId.path}/${deploy.version.major}.${deploy.version.minor}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>env</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>true</quiet>
-                <locations>
-                  <param>classpath:${deploy.groupId.path}/env${deploy.env}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>db</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>false</quiet>
-                <locations>
-                  <param>classpath:org/kuali/common/deploy/${db.vendor}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>sql</id>
+              <id>input</id>
               <phase>initialize</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
               <configuration>
                 <locations>
-                  <param>classpath:sql.properties</param>
-                  <param>classpath:${db.vendor}.xml</param>
+                  <param>${project.build.directory}/properties/kuali.properties</param>
                 </locations>
               </configuration>
             </execution>
