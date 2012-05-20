@@ -147,7 +147,7 @@
                 <configuration>
                   <configuration>
                     <properties>
-                      <property>deploy.groupId</property>
+                      <param>deploy.groupId</param>
                     </properties>
                   </configuration>
                 </configuration>
