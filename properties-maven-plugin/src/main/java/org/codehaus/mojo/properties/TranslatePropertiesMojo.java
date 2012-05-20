@@ -41,12 +41,16 @@ public class TranslatePropertiesMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
+     * The list of properties to translate
+     *
      * @parameter
      * @required
      */
     private String[] properties;
 
     /**
+     * The suffix appended to the existing property name where the translated property is stored
+     *
      * @parameter expression="${properties.suffix}" default-value=".path"
      * @required
      */
