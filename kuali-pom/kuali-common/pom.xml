@@ -145,11 +145,9 @@
                   <goal>translate-properties</goal>
                 </goals>
                 <configuration>
-                  <configuration>
-                    <properties>
-                      <param>deploy.groupId</param>
-                    </properties>
-                  </configuration>
+                  <properties>
+                    <param>deploy.groupId</param>
+                  </properties>
                 </configuration>
               </execution>
             </executions>
