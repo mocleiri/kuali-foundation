@@ -27,8 +27,8 @@
   <groupId>${project.groupId}</groupId>
   <artifactId>kuali-deployer</artifactId>
   <version>${project.version}</version>
-  <name>OLE Deployer</name>
-  <description>This pom contains plugin executions for deploying a Kuali OLE application to EC2</description>
+  <name>KS Deployer</name>
+  <description>This pom contains plugin executions for deploying a KS application to EC2</description>
   <properties>
     <maven.test.skip>true</maven.test.skip>
     <parent.groupId>${project.parent.groupId}</parent.groupId>
@@ -51,7 +51,6 @@
     <ant-jsch.version>1.8.2</ant-jsch.version>
     <properties.original>${project.build.directory}/properties/original.properties</properties.original>
     <properties.all>${project.build.directory}/properties/all.properties</properties.all>
-    <ole.sql.dir>${project.build.directory}/dependency/ole-rice-db</ole.sql.dir>
   </properties>
   <build>
     <pluginManagement>
