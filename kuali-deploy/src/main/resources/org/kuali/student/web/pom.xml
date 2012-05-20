@@ -135,33 +135,28 @@
                 <poms>
                   <param>classpath:org/kuali/common/deploy/mvn/dependencies.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/resources.xml</param>
-                  <!--
-                    <param>classpath:org/kuali/common/deploy/mvn/ant.xml</param>
-                    <param>classpath:org/kuali/common/deploy/mvn/executesql.xml</param>
-                    <param>classpath:org/kuali/ole/mvn/sql.xml</param>
-                  -->
+                  <param>classpath:org/kuali/common/deploy/mvn/ant.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/executesql.xml</param>
                 </poms>
               </configuration>
             </execution>
-            <!--
-              <execution>
+            <execution>
               <id>start</id>
               <phase>initialize</phase>
               <goals>
-              <goal>mvn</goal>
+                <goal>mvn</goal>
               </goals>
               <configuration>
-              <args>
-              <arg>initialize</arg>
-              <arg>-Ddeploy.ant.target=start</arg>
-              </args>
-              <poms>
-              <param>classpath:org/kuali/common/deploy/mvn/ant.xml</param>
-              <param>classpath:org/kuali/common/deploy/mvn/http.xml</param>
-              </poms>
+                <args>
+                  <arg>initialize</arg>
+                  <arg>-Ddeploy.ant.target=start</arg>
+                </args>
+                <poms>
+                  <param>classpath:org/kuali/common/deploy/mvn/ant.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/http.xml</param>
+                </poms>
               </configuration>
-              </execution>
-            -->
+            </execution>
           </executions>
           <dependencies>
             <dependency>
