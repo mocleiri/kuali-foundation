@@ -34,7 +34,4 @@
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-example</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-example</url>
   </scm>
-  <properties>
-    <maven.test.skip>true</maven.test.skip>
-  </properties>
 </project>
