@@ -25,7 +25,7 @@
     <version>${parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>kuali-deployer</artifactId>
+  <artifactId>rice-deployer</artifactId>
   <version>${project.version}</version>
   <name>Rice Deployer</name>
   <description>This pom contains plugin executions for deploying a Rice application to EC2</description>

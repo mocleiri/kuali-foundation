@@ -25,7 +25,7 @@
     <version>${parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>kuali-deployer</artifactId>
+  <artifactId>ole-deployer</artifactId>
   <version>${project.version}</version>
   <name>OLE Deployer</name>
   <description>This pom contains plugin executions for deploying a Kuali OLE application to EC2</description>
