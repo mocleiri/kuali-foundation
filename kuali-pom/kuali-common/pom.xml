@@ -173,6 +173,9 @@
                     <property>deploy.artifactId</property>
                     <property>deploy.version</property>
                     <property>deploy.env</property>
+                    <property>impex.groupId</property>
+                    <property>impex.artifactId</property>
+                    <property>impex.version</property>
                   </properties>
                 </configuration>
               </execution>
