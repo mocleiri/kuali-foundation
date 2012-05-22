@@ -96,6 +96,13 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
     private boolean filterPom;
 
     /**
+     * If true, only properties the listed properties will be used when filtering the pom
+     *
+     * @parameter
+     */
+    private List<String> filterProperties;
+
+    /**
      * Arguments to supply to the new mvn invocation eg "clean install"
      *
      * @parameter
@@ -307,6 +314,14 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
     @Override
     public void setSilent(boolean silent) {
         this.silent = silent;
+    }
+
+    public List<String> getFilterProperties() {
+        return filterProperties;
+    }
+
+    public void setFilterProperties(List<String> filterProperties) {
+        this.filterProperties = filterProperties;
     }
 
 }
