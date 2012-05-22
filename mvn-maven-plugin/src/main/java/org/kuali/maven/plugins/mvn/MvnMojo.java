@@ -96,7 +96,7 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
     private boolean filterPom;
 
     /**
-     * If true, only properties the listed properties will be used when filtering the pom
+     * If true, only the listed properties will be used when filtering the pom
      *
      * @parameter
      */
