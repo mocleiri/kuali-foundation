@@ -24,6 +24,12 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
 /**
+ * Find a GAV specific property value using GroupId+ArtifactId+Version. The logic goes from most specific to least
+ * specific. If there is a value for the full GAV, that value is used. Otherwise, a value for GroupId + ArtifactId, or
+ * finally just GroupId. If no value is found, the defaultValue is used.
+ *
+ * A new project property with .gav appended is set if a value is found.
+ *
  * @goal get-gav-property
  */
 public class GetGAVProperty extends AbstractMojo {
@@ -36,6 +42,21 @@ public class GetGAVProperty extends AbstractMojo {
     private MavenProject project;
 
     /**
+     * @parameter expression="${properties.groupId}" default-value="${project.groupId}"
+     */
+    private String groupId;
+
+    /**
+     * @parameter expression="${properties.artifactId}" default-value="${project.artifactId}"
+     */
+    private String artifactId;
+
+    /**
+     * @parameter expression="${properties.version}" default-value="${project.version}"
+     */
+    private String version;
+
+    /**
      * @parameter expression="${properties.property}"
      */
     private String property;
@@ -45,16 +66,22 @@ public class GetGAVProperty extends AbstractMojo {
      */
     private String defaultValue;
 
+    /**
+     * @parameter expression="${properties.suffix}" default-value="gav"
+     */
+    private String suffix;
+
     @Override
     public void execute() throws MojoExecutionException {
-        List<String> keys = getKeys(project);
+        List<String> keys = getKeys();
         String value = getValue(project, keys);
         if (StringUtils.isBlank(value)) {
-            value = defaultValue;
+            getLog().info("No value for '" + property + "'");
+        } else {
+            String key = property + "." + suffix;
+            getLog().info("Setting " + key + "=" + value);
+            project.getProperties().setProperty(key, value);
         }
-        String key = property + ".gav";
-        getLog().info("Setting " + key + "=" + value);
-        project.getProperties().setProperty(property + ".gav", value);
     }
 
     protected String getValue(MavenProject project, List<String> keys) {
@@ -64,14 +91,10 @@ public class GetGAVProperty extends AbstractMojo {
                 return value;
             }
         }
-        return null;
+        return defaultValue;
     }
 
-    protected List<String> getKeys(MavenProject project) {
-        String groupId = project.getGroupId();
-        String artifactId = project.getArtifactId();
-        String version = project.getVersion();
-
+    protected List<String> getKeys() {
         List<String> keys = new ArrayList<String>();
         keys.add(property + "." + groupId + "." + artifactId + "." + version);
         keys.add(property + "." + groupId + "." + artifactId);
@@ -93,6 +116,58 @@ public class GetGAVProperty extends AbstractMojo {
 
     public MavenProject getProject() {
         return project;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getArtifactId() {
+        return artifactId;
+    }
+
+    public void setArtifactId(String artifactId) {
+        this.artifactId = artifactId;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    public void setProject(MavenProject project) {
+        this.project = project;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
     }
 
 }
