@@ -25,15 +25,12 @@
     <version>${parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>ole-deployer</artifactId>
+  <artifactId>kuali-deployer</artifactId>
   <version>${project.version}</version>
-  <name>OLE Deployer</name>
-  <description>This pom contains plugin executions for deploying a Kuali OLE application to EC2</description>
+  <name>Kuali Deployer</name>
+  <description>This pom contains plugin executions for deploying a Kuali application to EC2</description>
   <properties>
     <maven.test.skip>true</maven.test.skip>
-    <parent.groupId>${project.parent.groupId}</parent.groupId>
-    <parent.artifactId>${project.parent.artifactId}</parent.artifactId>
-    <parent.version>${project.parent.version}</parent.version>
 
     <!-- Plugins -->
     <plugin.ant.version>1.0.10</plugin.ant.version>
@@ -132,15 +129,7 @@
                   <arg>initialize</arg>
                   <arg>-Ddeploy.ant.target=deploy</arg>
                 </args>
-                <poms>
-                  <param>classpath:org/kuali/common/deploy/mvn/dependencies.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/resources.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/morph.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/generatesql.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/ant.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/executesql.xml</param>
-                  <param>classpath:org/kuali/ole/mvn/sql.xml</param>
-                </poms>
+                <poms>${poms.reset.gav}</poms>
               </configuration>
             </execution>
             <execution>
