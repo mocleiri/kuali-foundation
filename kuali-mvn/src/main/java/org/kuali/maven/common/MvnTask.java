@@ -90,6 +90,11 @@ public class MvnTask extends Task implements MvnContext {
     private List<String> properties = new ArrayList<String>();
 
     /**
+     * If supplied, only these properties are used when filtering the pom
+     */
+    private List<String> filterProperties = new ArrayList<String>();
+
+    /**
      * If true, the current environment is passed to the new mvn invocation
      */
     private boolean addEnvironment = false;
@@ -372,6 +377,7 @@ public class MvnTask extends Task implements MvnContext {
         return quiet;
     }
 
+    @Override
     public void setQuiet(boolean quiet) {
         this.quiet = quiet;
     }
@@ -381,8 +387,19 @@ public class MvnTask extends Task implements MvnContext {
         return silent;
     }
 
+    @Override
     public void setSilent(boolean silent) {
         this.silent = silent;
+    }
+
+    @Override
+    public List<String> getFilterProperties() {
+        return filterProperties;
+    }
+
+    @Override
+    public void setFilterProperties(List<String> filterProperties) {
+        this.filterProperties = filterProperties;
     }
 
 }

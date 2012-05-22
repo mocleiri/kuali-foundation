@@ -18,6 +18,7 @@ package org.kuali.maven.common;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
@@ -92,6 +93,10 @@ public class MvnExecutor {
         } else {
             return s;
         }
+    }
+
+    protected boolean isEmpty(Collection<?> c) {
+        return c == null || c.size() == 0;
     }
 
     protected String getMavenArgs(Commandline cl) {
@@ -176,8 +181,9 @@ public class MvnExecutor {
         String s = resourceUtils.read(context.getPom());
         if (context.isFilterPom()) {
             Properties props = getAllProperties(context.getProjectProperties());
-            log.info("Filtering POM using " + props.size() + " properties");
-            s = propertiesUtils.getResolvedValue(s, props);
+            Properties filterProps = getFilterProperties(props, context);
+            log.info("Filtering POM using " + filterProps.size() + " properties");
+            s = propertiesUtils.getResolvedValue(s, filterProps);
         }
         File file = File.createTempFile("pom.", ".xml", context.getWorkingDir());
         resourceUtils.write(file, s);
@@ -191,6 +197,21 @@ public class MvnExecutor {
             cl.createArg().setValue(file.getName());
             return null;
         }
+    }
+
+    protected Properties getFilterProperties(Properties properties, MvnContext context) {
+        if (isEmpty(context.getFilterProperties())) {
+            return properties;
+        }
+        Properties newProperties = new Properties();
+        for (String key : context.getFilterProperties()) {
+            String value = properties.getProperty(key);
+            if (!StringUtils.isBlank(value)) {
+                newProperties.setProperty(key, value);
+            }
+        }
+        return newProperties;
+
     }
 
     protected Properties getAllProperties(Properties projectProperties) {

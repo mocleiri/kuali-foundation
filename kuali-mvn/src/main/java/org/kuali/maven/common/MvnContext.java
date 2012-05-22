@@ -65,6 +65,10 @@ public interface MvnContext {
 
     public abstract void setProperties(List<String> properties);
 
+    public abstract List<String> getFilterProperties();
+
+    public abstract void setFilterProperties(List<String> filterProperties);
+
     public abstract boolean isAddEnvironment();
 
     public abstract void setAddEnvironment(boolean addEnvironment);
