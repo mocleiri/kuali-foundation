@@ -52,6 +52,8 @@ public class GetGAVProperty extends AbstractMojo {
         if (StringUtils.isBlank(value)) {
             value = defaultValue;
         }
+        String key = property + ".gav";
+        getLog().info("Setting " + key + "=" + value);
         project.getProperties().setProperty(property + ".gav", value);
     }
 
