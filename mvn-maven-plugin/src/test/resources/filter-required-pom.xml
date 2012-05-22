@@ -26,5 +26,6 @@
   <name>The Kuali Foundation</name>
   <properties>
     <foo>bar</foo>
+    ${filter.me}
   </properties>
 </project>
