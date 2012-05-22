@@ -25,14 +25,14 @@
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-mvn</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3-SNAPSHOT</version>
   <name>Kuali Mvn</name>
   <description>Tools for working with the 'mvn' binary</description>
   <url>http://${kuali.site.hostname}/common/${project.artifactId}/${project.version}</url>
   <scm>
-    <connection>scm:svn:https://svn.kuali.org/repos/foundation/tags/kuali-mvn-1.0.2</connection>
-    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/tags/kuali-mvn-1.0.2</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/tags/kuali-mvn-1.0.2</url>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-mvn</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-mvn</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-mvn</url>
   </scm>
   <properties>
     <slf4j.version>1.6.4</slf4j.version>
