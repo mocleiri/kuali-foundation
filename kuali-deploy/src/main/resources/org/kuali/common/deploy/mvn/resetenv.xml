@@ -36,7 +36,7 @@
     <plugin.ec2.version>1.0.3</plugin.ec2.version>
     <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
     <plugin.dnsme.version>1.0.5</plugin.dnsme.version>
-    <plugin.properties.version>1.1.5</plugin.properties.version>
+    <plugin.properties.version>1.1.8</plugin.properties.version>
 
     <!-- jars -->
     <kuali-ec2.version>1.0.2</kuali-ec2.version>
