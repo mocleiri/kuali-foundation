@@ -52,7 +52,7 @@
       <properties>
         <deploy.groupId>org.kuali.ole</deploy.groupId>
         <deploy.artifactId>ole-rice-webapp</deploy.artifactId>
-        <deploy.version>0.8.0-build-18</deploy.version>
+        <deploy.version>0.8.0-build-19</deploy.version>
         <deploy.env>1</deploy.env>
       </properties>
     </profile>
@@ -61,7 +61,7 @@
       <properties>
         <deploy.groupId>org.kuali.ole</deploy.groupId>
         <deploy.artifactId>ole-docstore-webapp</deploy.artifactId>
-        <deploy.version>0.8.0-build-18</deploy.version>
+        <deploy.version>0.8.0-build-19</deploy.version>
         <deploy.env>2</deploy.env>
       </properties>
     </profile>
