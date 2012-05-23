@@ -35,7 +35,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>properties-maven-plugin</artifactId>
-          <version>${plugin.properties.version}</version>
+          <version>1.0.9</version>
           <executions>
             <execution>
               <id>read</id>
@@ -66,7 +66,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>ant-maven-plugin</artifactId>
-          <version>${plugin.ant.version}</version>
+          <version>1.0.10</version>
           <executions>
             <execution>
               <id>deploy</id>
