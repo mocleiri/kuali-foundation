@@ -71,6 +71,9 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
     protected void waitForState(AmazonEC2 client, String instanceId, String state, int waitTimeout)
             throws MojoExecutionException {
         long now = System.currentTimeMillis();
+        // Wait a few seconds before we query AWS for the state of the instance
+        // If you query immediately it can sometimes flake out
+        sleep(5000);
         long timeout = now + waitTimeout * 1000;
         while (true) {
             long remaining = (timeout - now) / 1000;
