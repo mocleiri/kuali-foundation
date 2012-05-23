@@ -569,6 +569,7 @@
     </plugins>
   </build>
   <profiles>
+    <!-- mvn initialize -Psonar sonar:sonar -->
     <profile>
       <id>sonar</id>
       <properties>
