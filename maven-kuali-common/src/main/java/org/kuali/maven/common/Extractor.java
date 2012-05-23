@@ -28,6 +28,22 @@ import org.apache.maven.project.MavenProject;
  */
 public class Extractor {
 
+    public void handleSVNBranch(AbstractMojo mojo, MavenProject project, String property) {
+        String scmType = getScmType(project.getScm());
+        if (!"svn".equalsIgnoreCase(scmType)) {
+            mojo.getLog().warn("This should only be used with Subversion");
+        }
+        String scmUrl = getScmUrl(project.getScm());
+        String branch = getBranch(scmUrl);
+
+        if (!StringUtils.isEmpty(branch)) {
+            project.getProperties().setProperty(property, branch);
+            mojo.getLog().info(property + "=" + branch);
+        } else {
+            mojo.getLog().debug("SVN branch could not be determined");
+        }
+    }
+
     public void handleSVNTagBase(AbstractMojo mojo, MavenProject project, String property) {
         String scmType = getScmType(project.getScm());
         if (!"svn".equalsIgnoreCase(scmType)) {
@@ -117,6 +133,20 @@ public class Extractor {
             return null;
         } else {
             return tokens[1];
+        }
+    }
+
+    public String getBranch(String url) {
+        int pos = url.lastIndexOf("/trunk");
+        if (pos != -1) {
+            return "trunk";
+        }
+        String token = "/branches";
+        pos = url.lastIndexOf(token);
+        if (pos == -1) {
+            return null;
+        } else {
+            return url.substring(pos + token.length());
         }
     }
 
