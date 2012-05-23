@@ -35,7 +35,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-http-plugin</artifactId>
-          <version>${plugin.http.version}</version>
+          <version>1.0.5</version>
           <executions>
             <execution>
               <id>wait</id>
