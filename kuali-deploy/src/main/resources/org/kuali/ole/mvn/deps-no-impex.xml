@@ -74,6 +74,7 @@
               </goals>
               <configuration>
                 <artifactItems>
+                  <!-- The kuali-deploy.jar file -->
                   <artifactItem>
                     <outputDirectory>${project.build.directory}/dependency/${project.artifactId}</outputDirectory>
                     <groupId>${project.groupId}</groupId>
