@@ -34,4 +34,7 @@
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-example</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-example</url>
   </scm>
+  <properties>
+    <kuali-deploy.version>1.0.13-SNAPSHOT</kuali-deploy.version>
+  </properties>
 </project>
