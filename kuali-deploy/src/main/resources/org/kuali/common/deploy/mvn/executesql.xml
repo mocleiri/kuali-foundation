@@ -27,7 +27,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>sql-maven-plugin</artifactId>
-          <version>${plugin.sql.version}</version>
+          <version>1.0.12</version>
           <configuration>
             <username>${impex.username}</username>
             <password>${impex.password}</password>
