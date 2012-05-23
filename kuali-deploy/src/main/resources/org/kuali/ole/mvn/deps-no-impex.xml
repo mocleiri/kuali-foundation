@@ -75,12 +75,6 @@
               <configuration>
                 <artifactItems>
                   <artifactItem>
-                    <outputDirectory>${impex.unpack.dir}</outputDirectory>
-                    <groupId>${impex.groupId}</groupId>
-                    <artifactId>${impex.artifactId}</artifactId>
-                    <version>${impex.version}</version>
-                  </artifactItem>
-                  <artifactItem>
                     <outputDirectory>${project.build.directory}/dependency/${project.artifactId}</outputDirectory>
                     <groupId>${project.groupId}</groupId>
                     <artifactId>${project.artifactId}</artifactId>
