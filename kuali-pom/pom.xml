@@ -132,6 +132,12 @@
     <ksite.publicBase>http://${kuali.site.hostname}</ksite.publicBase>
     <ksite.downloadBase>http://shrub.appspot.com/maven.kuali.org</ksite.downloadBase>
 
+    <sonar.host>sonar.kuali.org</sonar.host>
+    <sonar.host.url>http://${sonar.host}</sonar.host.url>
+    <sonar.jdbc.url>jdbc:mysql://${sonar.host}/sonar</sonar.jdbc.url>
+    <sonar.jdbc.username>sonar</sonar.jdbc.username>
+    <sonar.jdbc.password.encrypted>AcSSoTW9f+wXEYR4GGnrMw==</sonar.jdbc.password.encrypted>
+    <sonar.jdbc.driver>com.mysql.jdbc.Driver</sonar.jdbc.driver>
 
     <!-- Wagon versions -->
     <wagon.s3.version>1.1.12</wagon.s3.version>
@@ -140,6 +146,7 @@
     <plugin.ant.version>1.0.10</plugin.ant.version>
     <plugin.antrun.version>1.7</plugin.antrun.version>
     <plugin.assembly.version>2.2.1</plugin.assembly.version>
+    <plugin.bom.version>1.0.3</plugin.bom.version>
     <plugin.build-helper.version>1.7</plugin.build-helper.version>
     <plugin.buildnumber.version>1.0</plugin.buildnumber.version>
     <plugin.clean.version>2.4.1</plugin.clean.version>
@@ -149,7 +156,7 @@
     <plugin.dependency.version>2.4</plugin.dependency.version>
     <plugin.deploy.version>2.7</plugin.deploy.version>
     <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
-    <plugin.extractor.version>1.1.0</plugin.extractor.version>
+    <plugin.extractor.version>1.1.1</plugin.extractor.version>
     <plugin.gpg.version>1.4</plugin.gpg.version>
     <plugin.http.version>1.0.5</plugin.http.version>
     <plugin.impex.version>1.0.30</plugin.impex.version>
@@ -168,9 +175,9 @@
     <plugin.scm.version>1.6</plugin.scm.version>
     <!-- 3.0 fixes MSITE-532 but has MSITE-600. 3.1 should fix both -->
     <plugin.site.version>3.0-beta-3</plugin.site.version>
+    <plugin.sonar.version>2.0</plugin.sonar.version>
     <plugin.source.version>2.1.2</plugin.source.version>
     <plugin.sql.version>1.0.12</plugin.sql.version>
-    <plugin.bom.version>1.0.3</plugin.bom.version>
     <plugin.surefire.version>2.10</plugin.surefire.version>
     <plugin.svn-revision-number.version>1.7</plugin.svn-revision-number.version>
     <plugin.versions.version>1.3.1</plugin.versions.version>
@@ -470,6 +477,11 @@
           </configuration>
         </plugin>
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>${plugin.sonar.version}</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-source-plugin</artifactId>
           <version>${plugin.source.version}</version>
         </plugin>
@@ -528,6 +540,9 @@
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>properties-maven-plugin</artifactId>
           <version>${plugin.properties.version}</version>
+          <configuration>
+            <password>${kuali.enc.password}</password>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -561,6 +576,39 @@
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>sonar</id>
+      <properties>
+        <sonar.branch>unknown</sonar.branch>
+      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.kuali.maven.plugins</groupId>
+              <artifactId>extractor-maven-plugin</artifactId>
+              <configuration>
+                <svnBranchProperty>sonar.branch</svnBranchProperty>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>sonar-maven-plugin</artifactId>
+              <configuration>
+                <sonarHostURL>${sonar.host.url}</sonarHostURL>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.kuali.maven.plugins</groupId>
+              <artifactId>properties-maven-plugin</artifactId>
+              <configuration>
+                <quiet>true</quiet>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
     <profile>
       <id>license</id>
       <properties>
