@@ -56,5 +56,14 @@
         <deploy.env>1</deploy.env>
       </properties>
     </profile>
+    <profile>
+      <id>ks</id>
+      <properties>
+        <deploy.groupId>org.kuali.student.web</deploy.groupId>
+        <deploy.artifactId>ks-embedded</deploy.artifactId>
+        <deploy.version>1.2.2-build-15</deploy.version>
+        <deploy.env>1</deploy.env>
+      </properties>
+    </profile>
   </profiles>
 </project>
