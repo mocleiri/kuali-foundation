@@ -50,7 +50,7 @@
           </dependencies>
           <executions>
             <execution>
-              <id>input</id>
+              <id>read</id>
               <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
@@ -178,7 +178,7 @@
               </configuration>
             </execution>
             <execution>
-              <id>output</id>
+              <id>write</id>
               <phase>validate</phase>
               <goals>
                 <goal>write-project-properties</goal>
