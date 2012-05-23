@@ -26,7 +26,7 @@
       <plugins>
         <plugin>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>${plugin.dependency.version}</version>
+          <version>1.0.12</version>
           <executions>
             <execution>
               <id>prepare</id>
