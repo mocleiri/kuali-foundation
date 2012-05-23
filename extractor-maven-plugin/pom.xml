@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>1.2.9</version>
+    <version>1.2.20</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>extractor-maven-plugin</artifactId>
@@ -52,7 +52,7 @@
     <dependency>
       <groupId>org.kuali.maven.common</groupId>
       <artifactId>maven-kuali-common</artifactId>
-      <version>1.2.5</version>
+      <version>1.2.6</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.ant</groupId>
