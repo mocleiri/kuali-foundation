@@ -36,7 +36,6 @@
   </scm>
   <properties>
     <kuali-deploy.version>1.0.13-SNAPSHOT</kuali-deploy.version>
-    <plugin.properties.version>1.1.10-SNAPSHOT</plugin.properties.version>
     <deploy.groupId>org.kuali.rice</deploy.groupId>
     <deploy.artifactId>rice-sampleapp</deploy.artifactId>
     <deploy.version>2.2.0-build-75</deploy.version>
