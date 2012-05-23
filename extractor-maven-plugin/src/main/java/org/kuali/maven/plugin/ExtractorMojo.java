@@ -75,12 +75,24 @@ public class ExtractorMojo extends AbstractMojo {
      */
     private String svnTagBaseProperty;
 
+    /**
+     * The project property where the Subversion specific branch will be stored. The logic here examines the scm url for
+     * the last occurrence of "/branches" or "/trunk". If it finds the string "/branches" it stores whatever is to the
+     * right of that under the indicated property, if it finds the string "/trunk" it stores "trunk" under the indicated
+     * property
+     *
+     * @parameter expression="${extractor.svnBranchProperty}" default-value="extractor.svnBranch"
+     * @required
+     */
+    private String svnBranchProperty;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         extractor.handleMajorVersion(this, project, majorVersionProperty);
         extractor.handleScmType(this, project, scmTypeProperty);
         extractor.handleScmUrl(this, project, scmUrlProperty);
         extractor.handleSVNTagBase(this, project, svnTagBaseProperty);
+        extractor.handleSVNBranch(this, project, svnBranchProperty);
     }
 
     public MavenProject getProject() {
@@ -121,5 +133,13 @@ public class ExtractorMojo extends AbstractMojo {
 
     public void setSvnTagBaseProperty(String scmTagBaseProperty) {
         this.svnTagBaseProperty = scmTagBaseProperty;
+    }
+
+    public String getSvnBranchProperty() {
+        return svnBranchProperty;
+    }
+
+    public void setSvnBranchProperty(String svnBranchProperty) {
+        this.svnBranchProperty = svnBranchProperty;
     }
 }
