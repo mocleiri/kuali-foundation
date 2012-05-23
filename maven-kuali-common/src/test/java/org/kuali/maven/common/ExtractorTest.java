@@ -20,13 +20,26 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 public class ExtractorTest {
-	Extractor extractor = new Extractor();
+    Extractor extractor = new Extractor();
 
-	@Test
-	public void testGetMajorVersion() {
-		String version = "1.0.0";
-		String majorVersion = extractor.getMajorVersion(version);
-		Assert.assertEquals("1.0", majorVersion);
-	}
+    @Test
+    public void testGetMajorVersion() {
+        String version = "1.0.0";
+        String majorVersion = extractor.getMajorVersion(version);
+        Assert.assertEquals("1.0", majorVersion);
+    }
+
+    @Test
+    public void testGetBranch() {
+        String url = "http://svn.kuali.org/repos/foundation/trunk/ec2-maven-plugin/";
+        String branch = extractor.getBranch(url);
+        Assert.assertEquals("trunk", branch);
+    }
+    @Test
+    public void testGetBranch2() {
+        String url = "http://svn.kuali.org/repos/foundation/branches/ec2-perf";
+        String branch = extractor.getBranch(url);
+        Assert.assertEquals("ec2-perf", branch);
+    }
 
 }

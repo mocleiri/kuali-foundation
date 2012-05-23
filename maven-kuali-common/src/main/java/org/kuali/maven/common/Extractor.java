@@ -146,7 +146,7 @@ public class Extractor {
         if (pos == -1) {
             return null;
         } else {
-            return url.substring(pos + token.length());
+            return url.substring(pos + token.length()).replace("/", "");
         }
     }
 
