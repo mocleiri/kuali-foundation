@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -120,13 +120,11 @@
     <plugin.jxr.version>2.3</plugin.jxr.version>
     <plugin.plugin.version>2.7</plugin.plugin.version>
     <plugin.pmd.version>2.5</plugin.pmd.version>
-    <plugin.mvn.version>1.0.3</plugin.mvn.version>
-
+    <plugin.mvn.version>1.0.4</plugin.mvn.version>
     <deploy.groupId>${project.groupId}</deploy.groupId>
     <deploy.artifactId>${project.artifactId}</deploy.artifactId>
     <deploy.version>${project.version}</deploy.version>
-    <deploy.pom>classpath:${deploy.groupId.path}/pom.xml</deploy.pom>
-    <reset.pom>classpath:org/kuali/common/deploy/mvn/resetenv.xml</reset.pom>
+    <poms.reset><![CDATA[<param>classpath:org/kuali/common/deploy/mvn/noop.xml</param>]]></poms.reset>
   </properties>
   <profiles>
     <profile>
@@ -139,18 +137,39 @@
             <artifactId>properties-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>translate</id>
+                <id>read</id>
                 <phase>initialize</phase>
                 <goals>
-                  <goal>translate-properties</goal>
+                  <goal>read-project-properties</goal>
                 </goals>
                 <configuration>
-                  <properties>
-                    <param>deploy.groupId</param>
-                  </properties>
+                  <locations>
+                    <param>classpath:org/kuali/common/deploy/common.properties</param>
+                  </locations>
+                </configuration>
+              </execution>
+              <execution>
+                <id>gav</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>get-gav-property</goal>
+                </goals>
+                <configuration>
+                  <groupId>${deploy.groupId}</groupId>
+                  <artifactId>${deploy.artifactId}</artifactId>
+                  <version>${deploy.version}</version>
+                  <defaultValue>${poms.reset}</defaultValue>
+                  <property>poms.reset</property>
                 </configuration>
               </execution>
             </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.kuali.common</groupId>
+                <artifactId>kuali-deploy</artifactId>
+                <version>${kuali-deploy.version}</version>
+              </dependency>
+            </dependencies>
           </plugin>
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
@@ -163,11 +182,14 @@
                   <goal>mvn</goal>
                 </goals>
                 <configuration>
-                  <pom>classpath:${deploy.groupId.path}/mvn/pom.xml</pom>
                   <args>
                     <arg>clean</arg>
-                    <arg>process-resources</arg>
+                    <arg>initialize</arg>
                   </args>
+                  <poms>
+                    <param>classpath:org/kuali/common/deploy/mvn/pom.xml</param>
+                  </poms>
+                  <filterPom>true</filterPom>
                   <properties>
                     <property>deploy.groupId</property>
                     <property>deploy.artifactId</property>
@@ -207,7 +229,7 @@
                   <goal>mvn</goal>
                 </goals>
                 <configuration>
-                  <pom>${reset.pom}</pom>
+                  <pom>classpath:org/kuali/common/deploy/mvn/resetenv.xml</pom>
                   <args>
                     <arg>clean</arg>
                     <arg>initialize</arg>
