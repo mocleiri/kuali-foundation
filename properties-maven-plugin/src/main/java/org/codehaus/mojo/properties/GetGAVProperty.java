@@ -87,6 +87,7 @@ public class GetGAVProperty extends AbstractMojo {
     protected String getValue(MavenProject project, List<String> keys) {
         for (String key : keys) {
             String value = getProperty(key);
+            getLog().debug(key + "=" + value);
             if (!StringUtils.isBlank(value)) {
                 return value;
             }
