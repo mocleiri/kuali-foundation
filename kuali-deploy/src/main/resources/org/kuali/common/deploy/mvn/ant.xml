@@ -84,7 +84,7 @@
             <dependency>
               <groupId>org.apache.ant</groupId>
               <artifactId>ant-jsch</artifactId>
-              <version>${ant-jsch.version}</version>
+              <version>1.8.2</version>
             </dependency>
             <dependency>
               <groupId>${project.groupId}</groupId>
@@ -94,7 +94,7 @@
             <dependency>
               <groupId>org.kuali.common</groupId>
               <artifactId>kuali-mvn</artifactId>
-              <version>${kuali-mvn.version}</version>
+              <version>1.0.1</version>
             </dependency>
           </dependencies>
         </plugin>
