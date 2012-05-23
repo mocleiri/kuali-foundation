@@ -31,8 +31,10 @@
   <description>This pom contains plugin executions for deploying a Kuali application to EC2</description>
   <properties>
     <maven.test.skip>true</maven.test.skip>
+    <!-- Jars -->
     <kuali-mvn.version>1.0.1</kuali-mvn.version>
     <ant-jsch.version>1.8.2</ant-jsch.version>
+    <kuali-sql.version>1.1.0</kuali-sql.version>
     <properties.original>${project.build.directory}/properties/original.properties</properties.original>
     <properties.all>${project.build.directory}/properties/all.properties</properties.all>
   </properties>
