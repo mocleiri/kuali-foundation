@@ -34,6 +34,9 @@ import org.kuali.maven.plugins.jenkins.helper.DirectoryFileFilter;
 import org.kuali.maven.plugins.jenkins.helper.RsyncHelper;
 
 /**
+ * Synchronize a Jenkins workspace using <code>rsync</code>. To use this mojo, the <code>rsync</code> utility must be
+ * installed and in your path.
+ *
  * @goal syncworkspace
  * @threadSafe
  * @aggregator
@@ -50,68 +53,85 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
+     * If true, the <code>excludeTargetPattern</code> will be used to exclude Maven build directories from the workspace
+     * sync
+     *
      * @parameter expression="${jenkins.excludeTarget}" default-value="true"
      */
     private boolean excludeTarget;
 
     /**
+     * The pattern to use when matching Maven build directories
+     *
      * @parameter expression="${jenkins.excludeTargetPattern}" default-value="target"
      */
     private String excludeTargetPattern;
 
     /**
+     * If true, the Maven build will fail if <code>rsync</code> returns a non-zero exit value
+     *
      * @parameter expression="${jenkins.failOnError}" default-value="true"
      */
     private boolean failOnError;
 
     /**
+     * If true, <code>rsync</code> emits verbose logging. Equivalent to the <code>-vv</code> command line switch
+     *
      * @parameter expression="${jenkins.verbose}" default-value="false"
      */
     private boolean verbose;
 
     /**
+     * The file where the pattern of directories to exclude is aggregated
+     *
      * @parameter expression="${jenkins.excludesFile}" default-value="${project.build.directory}/jenkins/rsync-excludes"
      */
     private File excludesFile;
 
     /**
+     * The working directory for the plugin
+     *
      * @parameter expression="${jenkins.workingDir}" default-value="${project.build.directory}/jenkins"
      */
     private File workingDir;
 
     /**
+     * The source directory <code>rsync</code> pulls files from
+     *
      * @parameter expression="${jenkins.source}"
      * @required
      */
     private String source;
 
     /**
+     * The destination directory <code>rsync</code> pushes files to
+     *
      * @parameter expression="${jenkins.destination}"
      * @required
      */
     private String destination;
 
     /**
+     * The <code>rsync</code> executable
+     *
      * @parameter expression="${jenkins.executable}" default-value="rsync"
      * @required
      */
     private String executable;
 
-    protected Commandline getCommandLine() {
-        Commandline cl = new Commandline();
-        cl.setExecutable(executable);
-        cl.setWorkingDirectory(project.getBasedir());
-        addArgs(cl, getArgs());
-        return cl;
-    }
-
-    protected void addArgs(Commandline cl, List<String> args) {
-        if (args == null || args.size() == 0) {
-            return;
-        }
-        for (String arg : args) {
-            cl.createArg().setValue(arg);
-        }
+    @Override
+    public void execute() throws MojoExecutionException {
+        getLog().info("Src - " + source);
+        getLog().info("Dst - " + destination);
+        prepareFileSystem();
+        long now = System.currentTimeMillis();
+        int exitValue = executeRsync();
+        long elapsed = System.currentTimeMillis() - now;
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(3);
+        nf.setMinimumFractionDigits(3);
+        getLog().info("Sync time: " + nf.format(elapsed / 1000D));
+        validateExitValue(exitValue);
     }
 
     protected List<String> getArgs() {
@@ -130,6 +150,23 @@ public class SyncWorkspaceMojo extends AbstractMojo {
         return args;
     }
 
+    protected Commandline getCommandLine() {
+        Commandline cl = new Commandline();
+        cl.setExecutable(executable);
+        cl.setWorkingDirectory(project.getBasedir());
+        addArgs(cl, getArgs());
+        return cl;
+    }
+
+    protected void addArgs(Commandline cl, List<String> args) {
+        if (args == null || args.size() == 0) {
+            return;
+        }
+        for (String arg : args) {
+            cl.createArg().setValue(arg);
+        }
+    }
+
     protected int executeRsync() throws MojoExecutionException {
         StreamConsumer stdout = new DefaultConsumer();
         StreamConsumer stderr = new DefaultConsumer();
@@ -142,21 +179,6 @@ public class SyncWorkspaceMojo extends AbstractMojo {
         } catch (CommandLineException e) {
             throw new MojoExecutionException("Error executing " + executable, e);
         }
-    }
-
-    @Override
-    public void execute() throws MojoExecutionException {
-        getLog().info("Src - " + source);
-        getLog().info("Dst - " + destination);
-        prepareFileSystem();
-        long now = System.currentTimeMillis();
-        int exitValue = executeRsync();
-        double elapsed = System.currentTimeMillis() - now;
-        NumberFormat nf = NumberFormat.getInstance();
-        nf.setMaximumFractionDigits(3);
-        nf.setMinimumFractionDigits(3);
-        getLog().info("Sync time: " + nf.format(elapsed / 1000));
-        validateExitValue(exitValue);
     }
 
     protected boolean isFail(int exitValue) {
