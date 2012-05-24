@@ -19,15 +19,14 @@ public class RsyncHelper {
      * @param filter
      * @return
      */
-    public List<File> getMatchingDirs(File basedir, File dir, String pattern, DirectoryFileFilter filter) {
+    public List<File> getMatchingDirs(File basedir, File dir, String endsWithPattern, DirectoryFileFilter filter) {
         List<File> fileList = new ArrayList<File>();
-        String basedirPath = basedir.getAbsolutePath();
         String path = dir.getAbsolutePath();
-        int pos = path.indexOf(pattern, basedirPath.length());
-        if (pos == -1) {
+        boolean match = path.endsWith(File.separator + endsWithPattern);
+        if (!match) {
             File[] dirs = dir.listFiles(filter);
             for (File newDir : dirs) {
-                fileList.addAll(getMatchingDirs(basedir, newDir, pattern, filter));
+                fileList.addAll(getMatchingDirs(basedir, newDir, endsWithPattern, filter));
             }
         } else {
             fileList.add(dir);
