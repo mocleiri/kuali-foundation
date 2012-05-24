@@ -15,9 +15,10 @@ fi
 # The trailing slash is significant here
 SRC=jenkins@${JENKINS_MASTER}:/var/lib/jenkins/m2/repository/
 DST=/root/.m2/repository
+EXCLUDEFILE=/root/kuali-ec2/src/main/resources/jenkins/slave/rsync-excludes.txt
 
 # Make the rsync call
-rsync --archive --stats $SRC $DST
+rsync --archive --stats -v $SRC $DST --exclude-from '$EXCLUDEFILE'
 
 set +x
 echo $(date)
