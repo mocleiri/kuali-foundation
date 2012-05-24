@@ -1,8 +1,7 @@
 #!/bin/sh
 
-# This shell script gets executed by slave instances at startup
-# /etc/rc.local on the slaves updates to the latest from Subversion
-# then executes this script
+# init script for slave instances referenced in /etc/rc.local
+# output is logged to /var/boot.log
 
 echo $(date)
 set -xe
