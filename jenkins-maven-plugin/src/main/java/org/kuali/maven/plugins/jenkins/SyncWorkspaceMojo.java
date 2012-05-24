@@ -147,11 +147,11 @@ public class SyncWorkspaceMojo extends AbstractMojo {
 
     protected void prepareFileSystem() throws MojoExecutionException {
         try {
+            FileUtils.touch(excludesFile);
             if (excludeTarget) {
                 DirectoryFileFilter dff = new DirectoryFileFilter();
                 List<File> excludeDirs = helper.getMatchingDirs(project.getBasedir(), "/target", dff);
                 List<String> excludes = helper.getExcludesList(project.getBasedir(), excludeDirs);
-                FileUtils.touch(excludesFile);
                 FileUtils.writeLines(excludesFile, excludes);
             }
         } catch (IOException e) {
