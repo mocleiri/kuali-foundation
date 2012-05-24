@@ -3,6 +3,8 @@
 echo $(date)
 set -xe
 
+JENKINS_MASTER=ci.rice.kuali.org
+
 if [ $# -ne 1 ]; then
    if [ -z "${JENKINS_MASTER}" ] ; then
      echo "Please set JENKINS_MASTER"
