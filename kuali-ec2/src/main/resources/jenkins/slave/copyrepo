@@ -20,9 +20,6 @@ DESC="Maven Repo Copying"
 NAME=jenkins
 SCRIPTNAME=/etc/init.d/$NAME
 
-do_start()
-{
-}
 do_stop()
 {
     echo helloworld > /tmp/helloworld.txt
