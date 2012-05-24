@@ -17,6 +17,7 @@ package org.kuali.maven.plugins.jenkins;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,7 +149,13 @@ public class SyncWorkspaceMojo extends AbstractMojo {
         getLog().info("Src - " + source);
         getLog().info("Dst - " + destination);
         prepareFileSystem();
+        long now = System.currentTimeMillis();
         int exitValue = executeRsync();
+        double elapsed = System.currentTimeMillis() - now;
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(3);
+        nf.setMinimumFractionDigits(3);
+        getLog().info("Sync time: " + nf.format(elapsed / 1000));
         validateExitValue(exitValue);
     }
 
