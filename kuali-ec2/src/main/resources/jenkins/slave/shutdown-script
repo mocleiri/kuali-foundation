@@ -1,13 +1,12 @@
 #!/bin/sh
 
-# init script for slave instances referenced in /etc/rc.local
+# shutdown script for slave instances
 # output is logged to /var/log/boot.log
 
 echo $(date)
 set -xe
 
-scp root@ci.rice.kuali.org:/var/lib/jenkins/.m2/settings.xml /root/.m2/settings.xml
-/root/kuali-ec2/src/main/resources/jenkins/slave/copy-repo-from-master ci.rice.kuali.org
+/root/kuali-ec2/src/main/resources/jenkins/slave/copy-repo-to-master ci.rice.kuali.org
 
 set +x
 echo $(date)
