@@ -1,0 +1,30 @@
+#!/bin/bash
+# /etc/init.d/copyrepo
+# debian-compatible repo copy script
+# Jeff Caddel jcaddel@kuali.org
+#
+### BEGIN INIT INFO
+# Provides:          copyrepo
+# Required-Start:    $remote_fs $syslog $network
+# Required-Stop:     $remote_fs $syslog $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: copy repo at shutdown
+# Description:       Controls maven repository copying
+### END INIT INFO
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+DESC="Maven Repo Copying"
+NAME=jenkins
+SCRIPTNAME=/etc/init.d/$NAME
+
+do_start()
+{
+}
+do_stop()
+{
+    echo helloworld > /tmp/helloworld.txt
+    return 0
+}
+exit 0
