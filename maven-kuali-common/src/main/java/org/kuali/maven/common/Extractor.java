@@ -141,13 +141,14 @@ public class Extractor {
         if (pos != -1) {
             return "trunk";
         }
-        String token = "/branches";
+        String token = "/branches/";
         pos = url.lastIndexOf(token);
         if (pos == -1) {
             return null;
-        } else {
-            return url.substring(pos + token.length()).replace("/", "");
         }
+        String s = url.substring(pos + token.length());
+        pos = s.indexOf("/");
+        return s.substring(0, pos);
     }
 
     public String getTagBase(String url) {

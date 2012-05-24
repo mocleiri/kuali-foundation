@@ -35,11 +35,19 @@ public class ExtractorTest {
         String branch = extractor.getBranch(url);
         Assert.assertEquals("trunk", branch);
     }
+
     @Test
     public void testGetBranch2() {
         String url = "http://svn.kuali.org/repos/foundation/branches/ec2-perf";
         String branch = extractor.getBranch(url);
         Assert.assertEquals("ec2-perf", branch);
+    }
+
+    @Test
+    public void testGetBranch3() {
+        String url = "http://svn.kuali.org/repos/foundation/branches/rice-2.0/rice-config/rice-deploy";
+        String branch = extractor.getBranch(url);
+        Assert.assertEquals("rice-2.0", branch);
     }
 
 }
