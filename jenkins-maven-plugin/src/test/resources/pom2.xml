@@ -51,7 +51,7 @@
               <goal>syncworkspace</goal>
             </goals>
             <configuration>
-              <source>${project.basedir}</source>
+              <source>${project.basedir}/</source>
               <destination>/tmp/rsync</destination>
             </configuration>
           </execution>
