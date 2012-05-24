@@ -15,6 +15,7 @@
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 
+
 DESC="Maven Repo Copying"
 NAME=jenkins
 SCRIPTNAME=/etc/init.d/$NAME
