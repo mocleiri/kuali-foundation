@@ -23,7 +23,7 @@ to ensure they will always be running the latest version of that script
 #
 When editing the scripting here BE CAREFUL!!!!!
 
-This scripts are in use by the live CI server, so messing with them alters the behavior 
+These scripts are in use by the live CI server, so messing with them alters the behavior 
 of the live slave instances
 
 If you are playing around with trying out something new, it would be a *very* good idea
