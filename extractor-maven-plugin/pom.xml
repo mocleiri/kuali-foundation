@@ -52,7 +52,7 @@
     <dependency>
       <groupId>org.kuali.maven.common</groupId>
       <artifactId>maven-kuali-common</artifactId>
-      <version>1.2.7</version>
+      <version>1.2.8-SNAPSHOT</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.ant</groupId>
