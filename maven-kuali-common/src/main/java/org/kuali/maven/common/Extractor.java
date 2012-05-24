@@ -148,7 +148,11 @@ public class Extractor {
         }
         String s = url.substring(pos + token.length());
         pos = s.indexOf("/");
-        return s.substring(0, pos);
+        if (pos == -1) {
+            return s;
+        } else {
+            return s.substring(0, pos);
+        }
     }
 
     public String getTagBase(String url) {
