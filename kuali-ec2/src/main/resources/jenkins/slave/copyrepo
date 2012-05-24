@@ -7,8 +7,7 @@
 # Provides:          copyrepo
 # Required-Start:    $remote_fs $syslog $network
 # Required-Stop:     $remote_fs $syslog $network
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
+# Default-Stop:      0 6
 # Short-Description: copy repo at shutdown
 # Description:       Controls maven repository copying
 ### END INIT INFO
