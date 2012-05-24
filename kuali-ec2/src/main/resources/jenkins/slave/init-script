@@ -1,5 +1,11 @@
 #!/bin/sh
 
+#
+# This shell script gets executed by slave instances at startup
+# /etc/rc.local on the slaves updates to the latest from Subversion
+# then executes this script
+#
+
 echo $(date)
 set -xe
 
