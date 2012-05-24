@@ -69,7 +69,7 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     private File workingDir;
 
     /**
-     * @parameter expression="${jenkins.source}" default-value="${project.basedir}"
+     * @parameter expression="${jenkins.source}"
      * @required
      */
     private String source;
@@ -150,7 +150,8 @@ public class SyncWorkspaceMojo extends AbstractMojo {
             FileUtils.touch(excludesFile);
             if (excludeTarget) {
                 DirectoryFileFilter dff = new DirectoryFileFilter();
-                List<File> excludeDirs = helper.getMatchingDirs(project.getBasedir(), "/target", dff);
+                File basedir = project.getBasedir();
+                List<File> excludeDirs = helper.getMatchingDirs(basedir, basedir, "/target", dff);
                 List<String> excludes = helper.getExcludesList(project.getBasedir(), excludeDirs);
                 FileUtils.writeLines(excludesFile, excludes);
             }
@@ -177,14 +178,6 @@ public class SyncWorkspaceMojo extends AbstractMojo {
 
     public void setWorkingDir(File workingDir) {
         this.workingDir = workingDir;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
     }
 
     public String getDestination() {

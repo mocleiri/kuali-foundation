@@ -32,7 +32,7 @@ public class RsyncHelperTest {
     public void testGetTargetDirectoriesQuickly() {
         File basedir = new File("/Users/jeffcaddel/ws/rice-2.1");
         long now = System.currentTimeMillis();
-        List<File> excludeDirs = helper.getMatchingDirs(basedir, "/target", new DirectoryFileFilter());
+        List<File> excludeDirs = helper.getMatchingDirs(basedir, basedir, "/target", new DirectoryFileFilter());
         long elapsed = System.currentTimeMillis() - now;
         logger.info("Elapsed: " + elapsed);
         List<String> excludes = helper.getExcludesList(basedir, excludeDirs);
