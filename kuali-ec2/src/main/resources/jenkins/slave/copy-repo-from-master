@@ -18,7 +18,7 @@ DST=/root/.m2/repository
 EXCLUDEFILE=/root/kuali-ec2/src/main/resources/jenkins/slave/rsync-excludes.txt
 
 # Make the rsync call
-rsync --archive --stats -v $SRC $DST --exclude-from '$EXCLUDEFILE'
+rsync --archive --stats -v $SRC $DST --exclude-from $EXCLUDEFILE
 
 set +x
 echo $(date)
