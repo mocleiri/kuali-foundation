@@ -5,7 +5,7 @@ The scripting here provides startup/shutdown hooks for EC2 slaves
 #
 Copy ec2slave to /etc/init.d/ec2slave
 
-As root run update-rc.d ec2slave defaults
+As root run 'update-rc.d ec2slave defaults'
 
 This creates symlinks as described here: http://www.debuntu.org/how-to-manage-services-with-update-rc.d
 
