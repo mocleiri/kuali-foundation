@@ -54,9 +54,19 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     private boolean excludeTarget;
 
     /**
+     * @parameter expression="${jenkins.excludeTargetPattern}" default-value="target"
+     */
+    private String excludeTargetPattern;
+
+    /**
      * @parameter expression="${jenkins.failOnError}" default-value="true"
      */
     private boolean failOnError;
+
+    /**
+     * @parameter expression="${jenkins.verbose}" default-value="false"
+     */
+    private boolean verbose;
 
     /**
      * @parameter expression="${jenkins.excludesFile}" default-value="${project.build.directory}/jenkins/rsync-excludes"
@@ -105,7 +115,10 @@ public class SyncWorkspaceMojo extends AbstractMojo {
 
     protected List<String> getArgs() {
         List<String> args = new ArrayList<String>();
-        args.add("-azv");
+        args.add("-az");
+        if (verbose) {
+            args.add("-vv");
+        }
         args.add("--stats");
         args.add("--delete");
         args.add("--delete-excluded");
@@ -120,7 +133,9 @@ public class SyncWorkspaceMojo extends AbstractMojo {
         StreamConsumer stdout = new DefaultConsumer();
         StreamConsumer stderr = new DefaultConsumer();
         Commandline cl = getCommandLine();
-        getLog().info(cl.toString());
+        if (verbose) {
+            getLog().info(cl.toString());
+        }
         try {
             return CommandLineUtils.executeCommandLine(cl, stdout, stderr);
         } catch (CommandLineException e) {
@@ -130,6 +145,8 @@ public class SyncWorkspaceMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        getLog().info("Src - " + source);
+        getLog().info("Dst - " + destination);
         prepareFileSystem();
         int exitValue = executeRsync();
         validateExitValue(exitValue);
@@ -151,8 +168,9 @@ public class SyncWorkspaceMojo extends AbstractMojo {
             if (excludeTarget) {
                 DirectoryFileFilter dff = new DirectoryFileFilter();
                 File basedir = project.getBasedir();
-                List<File> excludeDirs = helper.getMatchingDirs(basedir, basedir, "/target", dff);
+                List<File> excludeDirs = helper.getMatchingDirs(basedir, basedir, excludeTargetPattern, dff);
                 List<String> excludes = helper.getExcludesList(project.getBasedir(), excludeDirs);
+                getLog().info("Excluding " + excludes.size() + " target directories");
                 FileUtils.writeLines(excludesFile, excludes);
             }
         } catch (IOException e) {
@@ -186,6 +204,54 @@ public class SyncWorkspaceMojo extends AbstractMojo {
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+
+    public boolean isFailOnError() {
+        return failOnError;
+    }
+
+    public void setFailOnError(boolean failOnError) {
+        this.failOnError = failOnError;
+    }
+
+    public boolean isVerbose() {
+        return verbose;
+    }
+
+    public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
+    }
+
+    public File getExcludesFile() {
+        return excludesFile;
+    }
+
+    public void setExcludesFile(File excludesFile) {
+        this.excludesFile = excludesFile;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getExecutable() {
+        return executable;
+    }
+
+    public void setExecutable(String executable) {
+        this.executable = executable;
+    }
+
+    public String getExcludeTargetPattern() {
+        return excludeTargetPattern;
+    }
+
+    public void setExcludeTargetPattern(String excludeTargetPattern) {
+        this.excludeTargetPattern = excludeTargetPattern;
     }
 
 }

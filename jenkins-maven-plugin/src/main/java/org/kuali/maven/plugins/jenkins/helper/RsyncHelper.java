@@ -49,11 +49,11 @@ public class RsyncHelper {
         List<String> excludes = new ArrayList<String>();
         for (File excludeDir : excludeDirs) {
             String path = excludeDir.getAbsolutePath();
-            logger.info("path=" + path);
+            logger.debug("path=" + path);
             if (excludeDir.equals(basedir)) {
                 continue;
             }
-            logger.info("basedirPath=" + basedirPath);
+            logger.debug("basedirPath=" + basedirPath);
             String token = path.substring(basedirPath.length() + 1);
             excludes.add(token);
         }
