@@ -15,21 +15,15 @@
  */
 package org.kuali.maven.plugins.jenkins.helper;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class RsyncHelperTest {
-    private static final Logger logger = LoggerFactory.getLogger(RsyncHelperTest.class);
+   // private static final Logger logger = LoggerFactory.getLogger(RsyncHelperTest.class);
     RsyncHelper helper = new RsyncHelper();
 
     @Test
     public void testGetTargetDirectoriesQuickly() {
+        /*
         File basedir = new File("/Users/jeffcaddel/ws/rice-2.1");
         long now = System.currentTimeMillis();
         List<File> excludeDirs = helper.getMatchingDirs(basedir, basedir, "/target", new DirectoryFileFilter());
@@ -46,7 +40,7 @@ public class RsyncHelperTest {
             FileUtils.write(rsyncExcludes, sb.toString());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 }
