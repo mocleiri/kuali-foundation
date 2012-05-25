@@ -1,5 +1,11 @@
 #!/bin/sh
 
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 job-to-copy"
+  exit 1
+fi
+
+
 M2_HOME="/var/lib/jenkins/tools/Maven-3.0.3"
 MVN=$M2_HOME/bin/mvn
 
