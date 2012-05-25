@@ -30,7 +30,7 @@ public class RsyncHelper {
      * in
      *
      * @param dir
-     * @param pattern
+     * @param directoryName
      * @param filter
      * @return
      */
@@ -54,8 +54,7 @@ public class RsyncHelper {
      * should be excluded.
      *
      * @param basedir
-     * @param dirs
-     * @param pattern
+     * @param excludeDirs
      * @return
      */
     public List<String> getExcludesList(File basedir, List<File> excludeDirs) {
