@@ -23,10 +23,12 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
 /**
- * Parse version number properties into [major].[minor].[incremental].[qualifier]. The version parsing logic is crudely
- * simple. It splits the version string into tokens using both "." and "-" as delimiters. It assumes the first token is
- * "major", the second token is "minor" the third token is "incremental" and any tokens after that are "qualifier".
- * "SNAPSHOT" is always omitted.
+ * Parse version number properties into [major].[minor].[incremental].[qualifier] and [trimmed]. The version parsing
+ * logic is crudely simple. It splits the version string into tokens using both "." and "-" as delimiters. It assumes
+ * the first token is "major", the second token is "minor" the third token is "incremental" and any tokens after that
+ * are "qualifier". "SNAPSHOT" is always omitted from qualifier.
+ *
+ * [trimmed] is the full version minus "-SNAPSHOT"
  *
  * @goal parse-version-properties
  */
@@ -69,22 +71,17 @@ public class ParseVersionPropertiesMojo extends AbstractMojo {
             setProjectProperty(key, "minor", version.getMinor(), props);
             setProjectProperty(key, "incremental", version.getIncremental(), props);
             setProjectProperty(key, "qualifier", version.getQualifier(), props);
-            setProjectProperty(key, "full", getFullVersion(version), props);
+            setProjectProperty(key, "trimmed", trimSnapshot(value), props);
         }
     }
 
-    protected String getFullVersion(Version version) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(version.getMajor());
-        sb.append(".");
-        sb.append(version.getMinor());
-        sb.append(".");
-        sb.append(version.getIncremental());
-        if (!StringUtils.isBlank(version.getQualifier())) {
-            sb.append("-");
-            sb.append(version.getQualifier());
+    protected String trimSnapshot(String version) {
+        if (version.toUpperCase().endsWith("-" + MAVEN_SNAPSHOT_TOKEN)) {
+            int length = MAVEN_SNAPSHOT_TOKEN.length() + 1;
+            return StringUtils.left(version, version.length() - length);
+        } else {
+            return version;
         }
-        return sb.toString();
     }
 
     protected void setProjectProperty(String key, String suffix, String value, Properties props) {
