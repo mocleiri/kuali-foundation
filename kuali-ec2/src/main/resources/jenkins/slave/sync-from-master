@@ -18,4 +18,10 @@ MVN=$M2_HOME/bin/mvn
 
 cd /root/kuali-ec2/src/main/resources/jenkins/slave
 
-$MVN -Psync-from-master jenkins:syncworkspace -Djenkins.job=$JOB_TO_COPY -Djenkins.excludeTarget=false -Djenkins.ignoreCodes=2
+#
+# Error code 23 is what rsync returns if there is no workspace on the master yet
+# There won't be a workspace on the master until after the job has run to completion successfully at least once
+# and the sync-to-master script has successfully completed
+#
+
+$MVN -Psync-from-master jenkins:syncworkspace -Djenkins.job=$JOB_TO_COPY -Djenkins.excludeTarget=false -Djenkins.ignoreCodes=23
