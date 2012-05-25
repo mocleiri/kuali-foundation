@@ -64,8 +64,8 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     private boolean excludeTarget;
 
     /**
-     * The pattern to use when matching Maven build directories. The exclude logic omits any directories that end with
-     * this value. eg <code>/foo/target</code> will be excluded but <code>/footarget</code> will not
+     * The pattern to use when matching Maven build directories. Any directories with this name get excluded by
+     * <code>rsync</code> eg <code>/foo/target</code> will be excluded but <code>/footarget</code> will not
      *
      * @parameter expression="${jenkins.excludeTargetPattern}" default-value="target"
      */
@@ -100,13 +100,6 @@ public class SyncWorkspaceMojo extends AbstractMojo {
      * @parameter expression="${jenkins.excludesFile}" default-value="${project.build.directory}/jenkins/rsync-excludes"
      */
     private File excludesFile;
-
-    /**
-     * The working directory for the plugin
-     *
-     * @parameter expression="${jenkins.workingDir}" default-value="${project.build.directory}/jenkins"
-     */
-    private File workingDir;
 
     /**
      * The base directory to scan for Maven build directories
@@ -276,14 +269,6 @@ public class SyncWorkspaceMojo extends AbstractMojo {
 
     public void setExcludeTarget(boolean excludeTarget) {
         this.excludeTarget = excludeTarget;
-    }
-
-    public File getWorkingDir() {
-        return workingDir;
-    }
-
-    public void setWorkingDir(File workingDir) {
-        this.workingDir = workingDir;
     }
 
     public String getDestination() {
