@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -76,6 +77,14 @@ public class SyncWorkspaceMojo extends AbstractMojo {
      * @parameter expression="${jenkins.failOnError}" default-value="true"
      */
     private boolean failOnError;
+
+    /**
+     * Comma separated list of integers that the plugin will silently ignore if they are returned as the exit value for
+     * <code>rsync</code>
+     *
+     * @parameter expression="${jenkins.ignoreCodes}"
+     */
+    private String ignoreCodes;
 
     /**
      * If true, <code>rsync</code> emits verbose logging. Equivalent to the <code>-vv</code> command line switch
@@ -201,8 +210,26 @@ public class SyncWorkspaceMojo extends AbstractMojo {
         }
     }
 
+    protected List<Integer> getAllowedCodes() {
+        List<Integer> codes = new ArrayList<Integer>();
+        codes.add(0);
+        if (!StringUtils.isBlank(ignoreCodes)) {
+            String[] tokens = StringUtils.split(ignoreCodes, ",");
+            for (String token : tokens) {
+                codes.add(new Integer(token.trim()));
+            }
+        }
+        return codes;
+    }
+
     protected boolean isFail(int exitValue) {
-        return exitValue != 0 && failOnError;
+        List<Integer> codes = getAllowedCodes();
+        for (Integer code : codes) {
+            if (exitValue == code.intValue()) {
+                return false;
+            }
+        }
+        return failOnError;
     }
 
     protected void validateExitValue(int exitValue) throws MojoExecutionException {
@@ -313,6 +340,14 @@ public class SyncWorkspaceMojo extends AbstractMojo {
 
     public void setBasedir(File basedir) {
         this.basedir = basedir;
+    }
+
+    public String getIgnoreCodes() {
+        return ignoreCodes;
+    }
+
+    public void setIgnoreCodes(String ignoreCodes) {
+        this.ignoreCodes = ignoreCodes;
     }
 
 }
