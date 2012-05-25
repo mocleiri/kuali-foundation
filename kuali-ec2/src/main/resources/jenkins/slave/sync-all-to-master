@@ -7,4 +7,4 @@ MVN=$M2_HOME/bin/mvn
 
 cd /root/kuali-ec2/src/main/resources/jenkins/slave
 
-$MVN -Psync-to-master jenkins:syncworkspace -Djenkins.excludeTarget=false
+$MVN clean -Psync-to-master jenkins:syncworkspace -Djenkins.excludeTarget=false
