@@ -234,7 +234,7 @@ public class SyncWorkspaceMojo extends AbstractMojo {
 
     protected void validateExitValue(int exitValue) throws MojoExecutionException {
         if (isFail(exitValue)) {
-            throw new MojoExecutionException("Non-zero exit value");
+            throw new MojoExecutionException("Non-zero exit value - " + exitValue);
         }
     }
 
