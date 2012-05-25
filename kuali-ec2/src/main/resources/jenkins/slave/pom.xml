@@ -26,7 +26,7 @@
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-sync</artifactId>
   <version>1.0.0</version>
-  <name>Kuali RSYNC</name>
+  <name>Kuali Workspace Synchronizer</name>
   <properties>
     <jenkins.user>jenkins</jenkins.user>
     <jenkins.master>ci.rice.kuali.org</jenkins.master>
