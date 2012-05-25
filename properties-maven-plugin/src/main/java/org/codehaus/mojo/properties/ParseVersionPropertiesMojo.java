@@ -53,8 +53,8 @@ public class ParseVersionPropertiesMojo extends AbstractMojo {
     /**
      * If true, the plugin will emit no logging messages
      *
-     * @parameter
-     * @required expression="${properties.silent}" default-value="true"
+     * @parameter expression="${properties.silent}" default-value="true"
+     * @required
      */
     private boolean silent;
 
