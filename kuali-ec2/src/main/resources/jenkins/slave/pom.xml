@@ -27,21 +27,6 @@
   <artifactId>kuali-sync</artifactId>
   <version>1.0.0</version>
   <name>Kuali RSYNC</name>
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>jenkins-maven-plugin</artifactId>
-          <version>1.1.3</version>
-          <configuration>
-            <source>${jenkins.source}</source>
-            <destination>${jenkins.master}</destination>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
   <profiles>
     <profile>
       <id>sync-from-master</id>
@@ -58,4 +43,19 @@
       </properties>
     </profile>
   </profiles>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>jenkins-maven-plugin</artifactId>
+          <version>1.1.3</version>
+          <configuration>
+            <source>${jenkins.source}</source>
+            <destination>${jenkins.destination}</destination>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
