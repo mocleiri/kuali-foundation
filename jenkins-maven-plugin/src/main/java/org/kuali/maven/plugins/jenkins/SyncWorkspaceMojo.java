@@ -79,6 +79,22 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     private boolean failOnError;
 
     /**
+     * If true, <code>rsync</code> will compress files before transferring them. Equivalent to the <code>-z</code>
+     * command line switch.
+     *
+     * @parameter expression="${jenkins.compress}" default-value="true"
+     */
+    private boolean compress;
+
+    /**
+     * If true, <code>rsync</code> will display statistics about the sync process. Equivalent to the
+     * <code>--stats</code> command line switch.
+     *
+     * @parameter expression="${jenkins.stats}" default-value="true"
+     */
+    private boolean stats;
+
+    /**
      * Comma separated list of integers that the plugin will silently ignore if they are returned as the exit value for
      * <code>rsync</code>
      *
@@ -158,11 +174,16 @@ public class SyncWorkspaceMojo extends AbstractMojo {
 
     protected List<String> getArgs() {
         List<String> args = new ArrayList<String>();
-        args.add("-az");
+        args.add("-a");
+        if (compress) {
+            args.add("-z");
+        }
         if (verbose) {
             args.add("-vv");
         }
-        args.add("--stats");
+        if (stats) {
+            args.add("--stats");
+        }
         args.add("--delete");
         if (excludeTarget) {
             args.add("--delete-excluded");
@@ -341,6 +362,22 @@ public class SyncWorkspaceMojo extends AbstractMojo {
 
     public void setIgnoreCodes(String ignoreCodes) {
         this.ignoreCodes = ignoreCodes;
+    }
+
+    public boolean isCompress() {
+        return compress;
+    }
+
+    public void setCompress(boolean compress) {
+        this.compress = compress;
+    }
+
+    public boolean isStats() {
+        return stats;
+    }
+
+    public void setStats(boolean stats) {
+        this.stats = stats;
     }
 
 }
