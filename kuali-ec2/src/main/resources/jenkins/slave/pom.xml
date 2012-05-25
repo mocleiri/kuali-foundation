@@ -31,13 +31,13 @@
     <jenkins.user>jenkins</jenkins.user>
     <jenkins.master>ci.rice.kuali.org</jenkins.master>
     <jenkins.jobs>/var/lib/jenkins/jobs</jenkins.jobs>
-    <jenkins.master.prefix>${jenkins.user}@${jenkins.master}:${jenkins.jobs}</jenkins.master.prefix>
+    <jenkins.master.dir>${jenkins.user}@${jenkins.master}:${jenkins.jobs}</jenkins.master.dir>
   </properties>
   <profiles>
     <profile>
       <id>sync-from-master</id>
       <properties>
-        <jenkins.source>${jenkins.master.prefix}/${jenkins.job}/workspace/</jenkins.source>
+        <jenkins.source>${jenkins.master.dir}/${jenkins.job}/workspace/</jenkins.source>
         <jenkins.destination>${env.WORKSPACE}</jenkins.destination>
       </properties>
     </profile>
@@ -45,7 +45,7 @@
       <id>sync-to-master</id>
       <properties>
         <jenkins.source>${env.WORKSPACE}/</jenkins.source>
-        <jenkins.destination>${jenkins.master.prefix}/${env.JOB_NAME}/workspace</jenkins.destination>
+        <jenkins.destination>${jenkins.master.dir}/${env.JOB_NAME}/workspace</jenkins.destination>
       </properties>
     </profile>
   </profiles>
