@@ -59,7 +59,7 @@
           <configuration>
             <source>${jenkins.source}</source>
             <destination>${jenkins.destination}</destination>
-            <excludesFile>${env.WORKSPACE}/target/rsync-excludes</excludesFile>
+            <excludesFile>${env.WORKSPACE}/target/jenkins/rsync-excludes</excludesFile>
             <basedir>${env.WORKSPACE}</basedir>
           </configuration>
         </plugin>
