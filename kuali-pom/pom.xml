@@ -20,7 +20,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.kuali.pom</groupId>
-  <version>1.2.25-SNAPSHOT</version>
+  <version>1.2.25</version>
   <artifactId>kuali-pom</artifactId>
   <packaging>pom</packaging>
   <name>Kuali Foundation</name>
@@ -223,9 +223,9 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</connection>
-    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-pom</url>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/tags/kuali-pom-1.2.25</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/tags/kuali-pom-1.2.25</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/tags/kuali-pom-1.2.25</url>
   </scm>
   <build>
     <extensions>
