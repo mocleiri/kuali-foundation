@@ -27,19 +27,24 @@
   <artifactId>kuali-sync</artifactId>
   <version>1.0.0</version>
   <name>Kuali RSYNC</name>
+  <properties>
+    <jenkins.user>jenkins</jenkins.user>
+    <jenkins.master>ci.rice.kuali.org</jenkins.master>
+    <jenkins.jobs>/var/lib/jenkins/jobs</jenkins.jobs>
+  </properties>
   <profiles>
     <profile>
       <id>sync-from-master</id>
       <properties>
-        <jenkins.source>jenkins@ci.rice.kuali.org:/var/lib/jenkins/jobs/${jenkins.job}/workspace/</jenkins.source>
-        <jenkins.destination>/var/lib/jenkins/workspace/${env.JOB_NAME}</jenkins.destination>
+        <jenkins.source>${jenkins.user}@${jenkins.master}:${jenkins.jobs}/${jenkins.job}/workspace/</jenkins.source>
+        <jenkins.destination>${env.WORKSPACE}</jenkins.destination>
       </properties>
     </profile>
     <profile>
       <id>sync-to-master</id>
       <properties>
         <jenkins.source>${env.WORKSPACE}/</jenkins.source>
-        <jenkins.destination>jenkins@ci.rice.kuali.org:/var/lib/jenkins/jobs/${env.JOB_NAME}/workspace</jenkins.destination>
+        <jenkins.destination>${jenkins.user}@${jenkins.master}:${jenkins.jobs}/${env.JOB_NAME}/workspace</jenkins.destination>
       </properties>
     </profile>
   </profiles>
