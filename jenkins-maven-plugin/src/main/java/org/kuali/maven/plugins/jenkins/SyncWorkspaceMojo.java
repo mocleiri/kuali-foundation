@@ -130,6 +130,11 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         getLog().info("Src - " + source);
         getLog().info("Dst - " + destination);
+        getLog().info("Exclude - " + excludeTarget);
+        if (excludeTarget) {
+            getLog().info("Exclude Pattern - " + excludeTargetPattern);
+            getLog().info("Excludes File - " + excludesFile);
+        }
         prepareFileSystem();
         long now = System.currentTimeMillis();
         int exitValue = executeRsync();
@@ -149,9 +154,11 @@ public class SyncWorkspaceMojo extends AbstractMojo {
         }
         args.add("--stats");
         args.add("--delete");
-        args.add("--delete-excluded");
-        args.add("--exclude-from");
-        args.add(excludesFile.getAbsolutePath());
+        if (excludeTarget) {
+            args.add("--delete-excluded");
+            args.add("--exclude-from");
+            args.add(excludesFile.getAbsolutePath());
+        }
         args.add(source);
         args.add(destination);
         return args;
