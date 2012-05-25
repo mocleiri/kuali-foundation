@@ -204,7 +204,12 @@ public class SyncWorkspaceMojo extends AbstractMojo {
                 File basedir = project.getBasedir();
                 List<File> excludeDirs = helper.getMatchingDirs(basedir, basedir, excludeTargetPattern, dff);
                 List<String> excludes = helper.getExcludesList(project.getBasedir(), excludeDirs);
-                getLog().info("Excluding " + excludes.size() + " target directories");
+                int size = excludes.size();
+                if (size == 1) {
+                    getLog().info("Excluding " + excludes.size() + " directory");
+                } else {
+                    getLog().info("Excluding " + excludes.size() + " directories");
+                }
                 FileUtils.writeLines(excludesFile, excludes);
             }
         } catch (IOException e) {
