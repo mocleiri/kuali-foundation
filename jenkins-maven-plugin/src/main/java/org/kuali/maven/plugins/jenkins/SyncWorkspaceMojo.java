@@ -98,9 +98,12 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     private File workingDir;
 
     /**
-     * The source directory <code>rsync</code> pulls files from
+     * The source directory <code>rsync</code> pulls files from. For <code>rsync</code> the trailing slash is
+     * significant. A trailing slash on the <code>source</code> directory instructs <code>rsync</code> to place files
+     * directly into the <code>destination</code> directory instead of creating a sub-directory under the
+     * <code>destination</code> directory.
      *
-     * @parameter expression="${jenkins.source}"
+     * @parameter expression="${jenkins.source}" default-value="${project.basedir}/"
      * @required
      */
     private String source;
