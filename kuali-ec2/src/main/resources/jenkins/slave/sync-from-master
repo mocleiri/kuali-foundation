@@ -18,4 +18,4 @@ MVN=$M2_HOME/bin/mvn
 
 cd /root/kuali-ec2/src/main/resources/jenkins/slave
 
-$MVN jenkins:syncworkspace -Psync-from-master -Djenkins.job=$JOB_TO_COPY -X
+$MVN -Psync-from-master jenkins:syncworkspace -Djenkins.job=$JOB_TO_COPY -X
