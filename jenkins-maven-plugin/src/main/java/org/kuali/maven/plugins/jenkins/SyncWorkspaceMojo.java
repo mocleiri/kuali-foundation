@@ -153,13 +153,13 @@ public class SyncWorkspaceMojo extends AbstractMojo {
             getLog().info("Excludes File - " + excludesFile);
         }
         prepareFileSystem();
-        long now = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         int exitValue = executeRsync();
-        long elapsed = System.currentTimeMillis() - now;
+        long elapsed = System.currentTimeMillis() - start;
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(3);
         nf.setMinimumFractionDigits(3);
-        getLog().info("Sync time: " + nf.format(elapsed / 1000D));
+        getLog().info("Sync time: " + nf.format(elapsed / 1000D) + "s");
         validateExitValue(exitValue);
     }
 
