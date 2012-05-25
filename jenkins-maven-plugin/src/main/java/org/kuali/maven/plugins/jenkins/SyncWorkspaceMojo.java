@@ -137,6 +137,7 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         getLog().info("Src - " + source);
         getLog().info("Dst - " + destination);
+        getLog().info("Base Dir - " + basedir.getAbsolutePath());
         getLog().info("Exclude - " + excludeTarget);
         if (excludeTarget) {
             getLog().info("Exclude Pattern - " + excludeTargetPattern);
