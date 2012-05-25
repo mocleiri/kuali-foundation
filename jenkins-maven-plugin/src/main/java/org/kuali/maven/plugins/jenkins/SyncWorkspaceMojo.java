@@ -185,9 +185,7 @@ public class SyncWorkspaceMojo extends AbstractMojo {
         StreamConsumer stdout = new DefaultConsumer();
         StreamConsumer stderr = new DefaultConsumer();
         Commandline cl = getCommandLine();
-        if (verbose) {
-            getLog().info(cl.toString());
-        }
+        getLog().info(cl.toString());
         try {
             return CommandLineUtils.executeCommandLine(cl, stdout, stderr);
         } catch (CommandLineException e) {
