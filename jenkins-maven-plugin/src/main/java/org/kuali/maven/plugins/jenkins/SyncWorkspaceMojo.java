@@ -34,10 +34,11 @@ import org.kuali.maven.plugins.jenkins.helper.DirectoryFileFilter;
 import org.kuali.maven.plugins.jenkins.helper.RsyncHelper;
 
 /**
- * Synchronize a Jenkins workspace using <code>rsync</code>. To use this mojo, the <code>rsync</code> utility must be
- * installed and in your path. If the mojo completes successfully the <code>destination</code> directory will contain
- * the exact same set of files as the <code>source</code> directory. For the purposes of this mojo, "exactly the same"
- * means, all the files on both sides have the same name, the same size, and the same last modified date.
+ * Synchronize a Jenkins workspace to another location using <code>rsync</code>. To use this mojo, the
+ * <code>rsync</code> utility must be installed and in your path. If the mojo completes successfully the
+ * <code>destination</code> directory will contain the exact same set of files as the <code>source</code> directory. For
+ * the purposes of this mojo, "exactly the same" means, all the files on both sides have the same name, the same size,
+ * and the same last modified date.
  *
  * @goal syncworkspace
  * @aggregator
