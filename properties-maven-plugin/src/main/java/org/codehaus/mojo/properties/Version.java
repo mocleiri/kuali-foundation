@@ -21,6 +21,7 @@ public class Version {
     String minor;
     String incremental;
     String qualifier;
+    boolean snapshot;
 
     public String getMajor() {
         return major;
@@ -52,6 +53,14 @@ public class Version {
 
     public void setQualifier(String qualifier) {
         this.qualifier = qualifier;
+    }
+
+    public boolean isSnapshot() {
+        return snapshot;
+    }
+
+    public void setSnapshot(boolean snapshot) {
+        this.snapshot = snapshot;
     }
 
 }

@@ -30,6 +30,7 @@ import org.apache.maven.project.MavenProject;
  * @goal parse-version-properties
  */
 public class ParseVersionPropertiesMojo extends AbstractMojo {
+    public static final String MAVEN_SNAPSHOT_TOKEN = "SNAPSHOT";
 
     /**
      * @parameter default-value="${project}"
@@ -71,7 +72,9 @@ public class ParseVersionPropertiesMojo extends AbstractMojo {
     }
 
     protected Version parseVersion(String s) {
+        boolean snapshot = s.toUpperCase().endsWith("-" + MAVEN_SNAPSHOT_TOKEN);
         Version version = new Version();
+        version.setSnapshot(snapshot);
         String[] tokens = StringUtils.split(s, ".-");
         if (tokens.length > 0) {
             version.setMajor(tokens[0]);
@@ -82,10 +85,26 @@ public class ParseVersionPropertiesMojo extends AbstractMojo {
         if (tokens.length > 2) {
             version.setIncremental(tokens[2]);
         }
-        if (tokens.length > 3) {
-            version.setQualifier(tokens[3]);
-        }
+        String qualifier = getQualifier(tokens);
+        version.setQualifier(qualifier);
         return version;
+    }
+
+    protected String getQualifier(String[] tokens) {
+        if (tokens.length <= 3) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 3; i < tokens.length; i++) {
+            if (tokens[i].toUpperCase().equals(MAVEN_SNAPSHOT_TOKEN)) {
+                break;
+            }
+            if (i != 3) {
+                sb.append("-");
+            }
+            sb.append(tokens[i]);
+        }
+        return sb.toString();
     }
 
     protected String getProperty(String key) {
