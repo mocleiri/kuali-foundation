@@ -1,5 +1,6 @@
 #!/bin/sh
 
+set -xe
 
 if [ -z "${JOB_NAME}" ]; then
   echo "Please set JOB_NAME"
@@ -17,4 +18,4 @@ MVN=$M2_HOME/bin/mvn
 
 cd /root/kuali-ec2/src/main/resources/jenkins/slave
 
-$MVN jenkins:syncworkspace -Psync-from-master -Djenkins.job=$JOB_TO_COPY
+$MVN jenkins:syncworkspace -Psync-from-master -Djenkins.job=$JOB_TO_COPY -X
