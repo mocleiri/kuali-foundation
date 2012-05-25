@@ -45,7 +45,7 @@
   <inceptionYear>2004</inceptionYear>
   <ciManagement>
     <system>jenkins</system>
-    <url>http://ci.fn.kuali.org</url>
+    <url>http://${ci.host}</url>
   </ciManagement>
   <issueManagement>
     <system>JIRA</system>
@@ -61,6 +61,7 @@
     </developer>
   </developers>
   <properties>
+    <ci.host>ci.fn.kuali.org</ci.host>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- Declared as properties so they can be shared between the compiler and javadoc plugins -->
