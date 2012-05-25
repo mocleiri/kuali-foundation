@@ -35,11 +35,27 @@
           <artifactId>jenkins-maven-plugin</artifactId>
           <version>1.1.3</version>
           <configuration>
-            <source>${env.WORKSPACE}</source>
-            <destination>jenkins@ci.rice.kuali.org:/var/lib/jenkins/jobs/${env.JOB_NAME}/workspace</destination>
+            <source>${jenkins.source}</source>
+            <destination>${jenkins.master}</destination>
           </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
   </build>
+  <profiles>
+    <profile>
+      <id>sync-from-master</id>
+      <properties>
+        <jenkins.source>${env.WORKSPACE}</jenkins.source>
+        <jenkins.destination>jenkins@ci.rice.kuali.org:/var/lib/jenkins/jobs/${env.JOB_NAME}/workspace</jenkins.destination>
+      </properties>
+    </profile>
+    <profile>
+      <id>sync-to-master</id>
+      <properties>
+        <jenkins.source>${env.WORKSPACE}</jenkins.source>
+        <jenkins.destination>jenkins@ci.rice.kuali.org:/var/lib/jenkins/jobs/${env.JOB_NAME}/workspace</jenkins.destination>
+      </properties>
+    </profile>
+  </profiles>
 </project>
