@@ -38,7 +38,7 @@
     <profile>
       <id>sync-to-master</id>
       <properties>
-        <jenkins.source>${env.WORKSPACE}</jenkins.source>
+        <jenkins.source>${env.WORKSPACE}/</jenkins.source>
         <jenkins.destination>jenkins@ci.rice.kuali.org:/var/lib/jenkins/jobs/${env.JOB_NAME}/workspace</jenkins.destination>
       </properties>
     </profile>
