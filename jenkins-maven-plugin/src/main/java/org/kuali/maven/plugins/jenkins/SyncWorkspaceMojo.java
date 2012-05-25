@@ -100,6 +100,13 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     private File workingDir;
 
     /**
+     * The base directory to scan for Maven build directories
+     *
+     * @parameter expression="${jenkins.basedir}" default-value="${project.basedir}"
+     */
+    private File basedir;
+
+    /**
      * The source directory <code>rsync</code> pulls files from. For <code>rsync</code> the trailing slash is
      * significant. A trailing slash on the <code>source</code> directory instructs <code>rsync</code> to place files
      * directly into the <code>destination</code> directory instead of creating a sub-directory under the
@@ -208,7 +215,6 @@ public class SyncWorkspaceMojo extends AbstractMojo {
             FileUtils.touch(excludesFile);
             if (excludeTarget) {
                 DirectoryFileFilter dff = new DirectoryFileFilter();
-                File basedir = project.getBasedir();
                 List<File> excludeDirs = helper.getMatchingDirs(basedir, basedir, excludeTargetPattern, dff);
                 List<String> excludes = helper.getExcludesList(project.getBasedir(), excludeDirs);
                 int size = excludes.size();
@@ -298,6 +304,14 @@ public class SyncWorkspaceMojo extends AbstractMojo {
 
     public void setExcludeTargetPattern(String excludeTargetPattern) {
         this.excludeTargetPattern = excludeTargetPattern;
+    }
+
+    public File getBasedir() {
+        return basedir;
+    }
+
+    public void setBasedir(File basedir) {
+        this.basedir = basedir;
     }
 
 }
