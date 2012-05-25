@@ -236,6 +236,9 @@ public class SyncWorkspaceMojo extends AbstractMojo {
         if (isFail(exitValue)) {
             throw new MojoExecutionException("Non-zero exit value - " + exitValue);
         }
+        if (exitValue != 0) {
+            getLog().info("Ignoring non-zero exit value - " + exitValue);
+        }
     }
 
     protected void prepareFileSystem() throws MojoExecutionException {
@@ -244,7 +247,7 @@ public class SyncWorkspaceMojo extends AbstractMojo {
             if (excludeTarget) {
                 DirectoryFileFilter dff = new DirectoryFileFilter();
                 List<File> excludeDirs = helper.getMatchingDirs(basedir, basedir, excludeTargetPattern, dff);
-                List<String> excludes = helper.getExcludesList(project.getBasedir(), excludeDirs);
+                List<String> excludes = helper.getExcludesList(basedir, excludeDirs);
                 int size = excludes.size();
                 if (size == 1) {
                     getLog().info("Excluding " + excludes.size() + " directory");
