@@ -5,4 +5,4 @@ MVN=$M2_HOME/bin/mvn
 
 cd /root/kuali-ec2/src/main/resources/jenkins/slave
 
-$MVN jenkins:syncworkspace
+$MVN jenkins:syncworkspace -Djenkins.verbose=true
