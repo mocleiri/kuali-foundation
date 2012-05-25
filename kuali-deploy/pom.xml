@@ -69,53 +69,5 @@
         </plugins>
       </build>
     </profile>
-    <profile>
-      <id>deploy</id>
-      <properties>
-        <kuali-deploy.version>${project.version}</kuali-deploy.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>rsample</id>
-      <properties>
-        <deploy.groupId>org.kuali.rice</deploy.groupId>
-        <deploy.artifactId>rice-sampleapp</deploy.artifactId>
-      </properties>
-    </profile>
-    <profile>
-      <id>rweb</id>
-      <properties>
-        <deploy.groupId>org.kuali.rice</deploy.groupId>
-        <deploy.artifactId>rice-web</deploy.artifactId>
-      </properties>
-    </profile>
-    <profile>
-      <id>rsolo</id>
-      <properties>
-        <deploy.groupId>org.kuali.rice</deploy.groupId>
-        <deploy.artifactId>rice-standalone</deploy.artifactId>
-      </properties>
-    </profile>
-    <profile>
-      <id>kse</id>
-      <properties>
-        <deploy.groupId>org.kuali.student.web</deploy.groupId>
-        <deploy.artifactId>ks-embedded</deploy.artifactId>
-      </properties>
-    </profile>
-    <profile>
-      <id>kss</id>
-      <properties>
-        <deploy.groupId>org.kuali.student.web</deploy.groupId>
-        <deploy.artifactId>ks-standalone</deploy.artifactId>
-      </properties>
-    </profile>
-    <profile>
-      <id>ksr</id>
-      <properties>
-        <deploy.groupId>org.kuali.student.web</deploy.groupId>
-        <deploy.artifactId>ks-rice</deploy.artifactId>
-      </properties>
-    </profile>
   </profiles>
 </project>
