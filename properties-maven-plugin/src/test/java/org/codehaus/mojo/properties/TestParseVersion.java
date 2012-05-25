@@ -11,6 +11,7 @@ public class TestParseVersion {
         String s = "2.2.0-build-22-SNAPSHOT";
         Version version = mojo.parseVersion(s);
         System.out.println(version.getQualifier());
+        System.out.println(mojo.trimSnapshot(s));
     }
 
 }
