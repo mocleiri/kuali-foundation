@@ -26,22 +26,22 @@ public class RsyncHelper {
     private static final Logger logger = LoggerFactory.getLogger(RsyncHelper.class);
 
     /**
-     * Recursively scan the file system starting at <code>dir</code> and return a list of directories matching the
-     * pattern passed in
+     * Recursively scan the file system starting at <code>dir</code> and return any directories matching the name passed
+     * in
      *
      * @param dir
      * @param pattern
      * @param filter
      * @return
      */
-    public List<File> getMatchingDirs(File basedir, File dir, String endsWithPattern, DirectoryFileFilter filter) {
+    public List<File> getMatchingDirs(File dir, String directoryName, DirectoryFileFilter filter) {
         List<File> fileList = new ArrayList<File>();
         String path = dir.getAbsolutePath();
-        boolean match = path.endsWith(File.separator + endsWithPattern);
+        boolean match = path.endsWith(File.separator + directoryName);
         if (!match) {
             File[] dirs = dir.listFiles(filter);
             for (File newDir : dirs) {
-                fileList.addAll(getMatchingDirs(basedir, newDir, endsWithPattern, filter));
+                fileList.addAll(getMatchingDirs(newDir, directoryName, filter));
             }
         } else {
             fileList.add(dir);

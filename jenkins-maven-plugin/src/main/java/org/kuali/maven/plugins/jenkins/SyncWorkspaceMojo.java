@@ -242,20 +242,25 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     }
 
     protected void prepareFileSystem() throws MojoExecutionException {
+        // Only need to mess with the file system if we are excluding files
+        if (!excludeTarget) {
+            return;
+        }
+
+        // Scan the file system to identify Maven "target" directories
+        // Create a file containing the list of "target" directories to exclude
         try {
             FileUtils.touch(excludesFile);
-            if (excludeTarget) {
-                DirectoryFileFilter dff = new DirectoryFileFilter();
-                List<File> excludeDirs = helper.getMatchingDirs(basedir, basedir, excludeTargetPattern, dff);
-                List<String> excludes = helper.getExcludesList(basedir, excludeDirs);
-                int size = excludes.size();
-                if (size == 1) {
-                    getLog().info("Excluding " + excludes.size() + " directory");
-                } else {
-                    getLog().info("Excluding " + excludes.size() + " directories");
-                }
-                FileUtils.writeLines(excludesFile, excludes);
+            DirectoryFileFilter dff = new DirectoryFileFilter();
+            List<File> excludeDirs = helper.getMatchingDirs(basedir, excludeTargetPattern, dff);
+            List<String> excludes = helper.getExcludesList(basedir, excludeDirs);
+            int size = excludes.size();
+            if (size == 1) {
+                getLog().info("Excluding " + excludes.size() + " directory");
+            } else {
+                getLog().info("Excluding " + excludes.size() + " directories");
             }
+            FileUtils.writeLines(excludesFile, excludes);
         } catch (IOException e) {
             throw new MojoExecutionException("Error preparing file system", e);
         }
