@@ -184,7 +184,7 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     protected Commandline getCommandLine() {
         Commandline cl = new Commandline();
         cl.setExecutable(executable);
-        cl.setWorkingDirectory(project.getBasedir());
+        cl.setWorkingDirectory(basedir);
         addArgs(cl, getArgs());
         return cl;
     }
