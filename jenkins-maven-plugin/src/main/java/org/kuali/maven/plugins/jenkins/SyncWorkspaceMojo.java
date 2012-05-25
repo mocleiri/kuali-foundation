@@ -38,7 +38,6 @@ import org.kuali.maven.plugins.jenkins.helper.RsyncHelper;
  * installed and in your path.
  *
  * @goal syncworkspace
- * @threadSafe
  * @aggregator
  */
 public class SyncWorkspaceMojo extends AbstractMojo {
@@ -61,8 +60,8 @@ public class SyncWorkspaceMojo extends AbstractMojo {
     private boolean excludeTarget;
 
     /**
-     * The pattern to use when matching Maven build directories. The exclude logic will omit any directories that end
-     * with this value. eg <code>/foo/target</code> will be excluded but <code>/footarget</code> will not
+     * The pattern to use when matching Maven build directories. The exclude logic omits any directories that end with
+     * this value. eg <code>/foo/target</code> will be excluded but <code>/footarget</code> will not
      *
      * @parameter expression="${jenkins.excludeTargetPattern}" default-value="target"
      */
