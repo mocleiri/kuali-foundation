@@ -48,6 +48,14 @@ public class ParseVersionPropertiesMojo extends AbstractMojo {
      */
     private String[] properties;
 
+    /**
+     * If true, the plugin will emit no logging messages
+     *
+     * @parameter
+     * @required expression="${properties.silent}" default-value="true"
+     */
+    private boolean silent;
+
     @Override
     public void execute() throws MojoExecutionException {
         Properties props = project.getProperties();
@@ -84,7 +92,9 @@ public class ParseVersionPropertiesMojo extends AbstractMojo {
             return;
         }
         props.setProperty(key + "." + suffix, value);
-        getLog().info("Setting " + key + "." + suffix + "=" + value);
+        if (!silent) {
+            getLog().info("Setting " + key + "." + suffix + "=" + value);
+        }
     }
 
     protected Version parseVersion(String s) {
@@ -140,5 +150,13 @@ public class ParseVersionPropertiesMojo extends AbstractMojo {
 
     public void setProperties(String[] properties) {
         this.properties = properties;
+    }
+
+    public boolean isSilent() {
+        return silent;
+    }
+
+    public void setSilent(boolean silent) {
+        this.silent = silent;
     }
 }
