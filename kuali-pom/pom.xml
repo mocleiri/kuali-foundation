@@ -1006,7 +1006,7 @@
             <artifactId>versions-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>set-version</id>
+                <id>version</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>set</goal>
