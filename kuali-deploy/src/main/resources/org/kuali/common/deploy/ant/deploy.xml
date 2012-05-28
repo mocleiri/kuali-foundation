@@ -33,7 +33,23 @@
   <target name="restart" depends="stop,clean,start" />
   <target name="waronly" depends="stop,clean,copywar,start" />
   <target name="configonly" depends="stop,clean,copy-appconfig,copy-envconfig,start" />
-  <target name="copy" depends="copyjdbc,copyconfig,copywar" />
+  <target name="copy" depends="copyjdbc,copyconfig,copysetenv,copywar" />
+
+  <target name="copysetenv">
+    <condition property="copysetenv.property">
+      <and>
+        <isset property="local.setenv.file" />
+        <isset property="remote.setenv.file" />
+      </and>
+    </condition>
+    <fail unless="copysetenv.property">Missing local.setenv.file or remote.setenv.file</fail>
+    <chmod file="${local.setenv.file}" perm="755" />
+    <antcall target="copyfile">
+      <param name="local.file" value="${local.setenv.file}" />
+      <param name="remote.file" value="${remote.setenv.file}" />
+    </antcall>
+  </target>
+
   <target name="copyconfig">
     <condition property="copyconfig.property">
       <and>
