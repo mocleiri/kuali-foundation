@@ -86,6 +86,9 @@
                   <resource>
                     <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
                     <filtering>true</filtering>
+                    <includes>
+                      <include>**/*</include>
+                    </includes>
                   </resource>
                 </resources>
                 <outputDirectory>${project.build.directory}/dependency/${project.artifactId}/filtered</outputDirectory>
