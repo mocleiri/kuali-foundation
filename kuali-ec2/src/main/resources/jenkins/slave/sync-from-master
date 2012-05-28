@@ -24,4 +24,4 @@ cd /root/kuali-ec2/src/main/resources/jenkins/slave
 # and the sync-to-master script has successfully completed
 #
 
-$MVN -Psync-from-master jenkins:syncworkspace -Djenkins.job=$JOB_TO_COPY -Djenkins.excludeTarget=false -Djenkins.ignoreCodes=23 -Djenkins.verbose=true
+$MVN -Psync-from-master jenkins:syncworkspace -Djenkins.job=$JOB_TO_COPY -Djenkins.excludeTarget=false -Djenkins.ignoreCodes=23
