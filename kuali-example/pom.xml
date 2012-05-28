@@ -43,7 +43,7 @@
       <properties>
         <deploy.groupId>org.kuali.rice</deploy.groupId>
         <deploy.artifactId>rice-sampleapp</deploy.artifactId>
-        <deploy.version>2.2.0-build-499</deploy.version>
+        <deploy.version>2.2.0-build-75</deploy.version>
         <deploy.env>3</deploy.env>
       </properties>
     </profile>
