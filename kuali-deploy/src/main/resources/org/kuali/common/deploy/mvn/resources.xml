@@ -74,15 +74,6 @@
               </goals>
               <configuration>
                 <resources>
-                  <!-- Exclude all environment config files -->
-                  <resource>
-                    <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
-                    <filtering>true</filtering>
-                    <excludes>
-                      <exclude>**/env*.xml</exclude>
-                    </excludes>
-                  </resource>
-                  <!-- Copy in the single environment specific config file that is needed -->
                   <resource>
                     <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
                     <filtering>true</filtering>
