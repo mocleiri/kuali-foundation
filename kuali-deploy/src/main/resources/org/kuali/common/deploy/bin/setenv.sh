@@ -5,7 +5,7 @@
 #
 
 #
-# All of the properties listed below default to the empty string, override them as necessary
+# All of the properties listed below default to a shell script comment, override them as necessary
 #
 
 # Environment setup that applies Kuali wide
