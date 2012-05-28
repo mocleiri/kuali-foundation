@@ -154,6 +154,7 @@
             <accessKey>${ec2.accessKey}</accessKey>
             <secretKey>${ec2.secretKey}</secretKey>
             <ami>${ec2.ami}</ami>
+            <type>${ec2.type}</type>
             <key>${ec2.keyName}</key>
             <securityGroups>
               <param>${ec2.securityGroup}</param>
