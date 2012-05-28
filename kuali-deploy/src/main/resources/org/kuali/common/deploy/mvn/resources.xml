@@ -86,10 +86,6 @@
                   <resource>
                     <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
                     <filtering>true</filtering>
-                    <includes>
-                      <include>**/env${deploy.env}-config.xml</include>
-                      <include>**/conf/*</include>
-                    </includes>
                   </resource>
                 </resources>
                 <outputDirectory>${project.build.directory}/dependency/${project.artifactId}/filtered</outputDirectory>
