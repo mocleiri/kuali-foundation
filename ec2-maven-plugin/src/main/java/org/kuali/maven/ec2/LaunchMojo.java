@@ -64,7 +64,7 @@ public class LaunchMojo extends AbstractEC2Mojo {
     /**
      * The type of instance to launch
      *
-     * @parameter expression="${ec2.type}" default-value="c1.medium";
+     * @parameter expression="${ec2.type}" default-value="m1.medium";
      * @required
      */
     private String type;
