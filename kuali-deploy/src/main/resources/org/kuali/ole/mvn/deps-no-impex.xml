@@ -80,7 +80,6 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>${project.artifactId}</artifactId>
                     <version>${project.version}</version>
-                    <includes>${deploy.groupId.path}/config/*</includes>
                   </artifactItem>
                 </artifactItems>
               </configuration>
