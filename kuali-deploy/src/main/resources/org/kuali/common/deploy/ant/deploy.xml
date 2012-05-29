@@ -43,9 +43,12 @@
       </and>
     </condition>
     <fail unless="copysetenv.property">Missing local.setenv.file or remote.setenv.file</fail>
-    <chmod file="${local.setenv.file}" perm="755" />
     <antcall target="copyfile">
       <param name="local.file" value="${local.setenv.file}" />
+      <param name="remote.file" value="${remote.setenv.file}" />
+    </antcall>
+    <antcall target="chmod">
+      <param name="remote.perms" value="755" />
       <param name="remote.file" value="${remote.setenv.file}" />
     </antcall>
   </target>
@@ -262,6 +265,11 @@
       </and>
     </condition>
     <fail unless="basic.properties">Missing either deploy.server or tomcat.instance property</fail>
+  </target>
+  <target name="chmod">
+    <antcall target="ssh-exec">
+      <param name="ssh.command" value="chmod ${remote.perms} ${remote.file}" />
+    </antcall>
   </target>
   <target name="chowndir">
     <antcall target="ssh-exec">
