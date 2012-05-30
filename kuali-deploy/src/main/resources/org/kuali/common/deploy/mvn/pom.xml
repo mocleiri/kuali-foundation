@@ -53,6 +53,7 @@
                 <goal>write-project-properties</goal>
               </goals>
               <configuration>
+                <antEchoPropertiesMode>true</antEchoPropertiesMode>
                 <includeSystemProperties>true</includeSystemProperties>
                 <outputFile>${properties.original}</outputFile>
               </configuration>
