@@ -87,20 +87,20 @@
                     <artifactId>${project.artifactId}</artifactId>
                     <version>${project.version}</version>
                   </artifactItem>
+                  <artifactItem>
+                    <outputDirectory>${project.build.directory}/dependency/ole-solr-config</outputDirectory>
+                    <groupId>${deploy.groupId}</groupId>
+                    <artifactId>ole-solr-config</artifactId>
+                    <version>${deploy.version}</version>
+                  </artifactItem>
+                  <artifactItem>
+                    <outputDirectory>${project.build.directory}/dependency/${deploy.artifactId}</outputDirectory>
+                    <groupId>${deploy.groupId}</groupId>
+                    <artifactId>${deploy.artifactId}</artifactId>
+                    <version>${deploy.version}</version>
+                    <type>war</type>
+                  </artifactItem>
                 </artifactItems>
-                <artifactItem>
-                  <outputDirectory>${project.build.directory}/dependency/ole-solr-config</outputDirectory>
-                  <groupId>${deploy.groupId}</groupId>
-                  <artifactId>ole-solr-config</artifactId>
-                  <version>${deploy.version}</version>
-                </artifactItem>
-                <artifactItem>
-                  <outputDirectory>${project.build.directory}/dependency/${deploy.artifactId}</outputDirectory>
-                  <groupId>${deploy.groupId}</groupId>
-                  <artifactId>${deploy.artifactId}</artifactId>
-                  <version>${deploy.version}</version>
-                  <type>war</type>
-                </artifactItem>
               </configuration>
             </execution>
           </executions>
