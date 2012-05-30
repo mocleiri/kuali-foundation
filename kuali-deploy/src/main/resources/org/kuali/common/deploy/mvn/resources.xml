@@ -75,11 +75,11 @@
               <configuration>
                 <resources>
                   <resource>
-                    <directory>${project.build.directory}/dependency/ole-solr-config</directory>
-                    <filtering>false</filtering>
+                    <directory>${project.build.directory}/dependency/${project.artifactId}</directory>
+                    <filtering>true</filtering>
                   </resource>
                 </resources>
-                <outputDirectory>${project.build.directory}/${ole.discovery.config.home}</outputDirectory>
+                <outputDirectory>${project.build.directory}/dependency/${project.artifactId}/filtered</outputDirectory>
               </configuration>
             </execution>
           </executions>
