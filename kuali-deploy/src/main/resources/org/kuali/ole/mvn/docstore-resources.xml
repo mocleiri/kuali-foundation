@@ -79,7 +79,7 @@
                     <filtering>true</filtering>
                   </resource>
                 </resources>
-                <outputDirectory>${project.build.directory}/.kuali/</outputDirectory>
+                <outputDirectory>${project.build.directory}/${ole.docstore.home}</outputDirectory>
               </configuration>
             </execution>
           </executions>
