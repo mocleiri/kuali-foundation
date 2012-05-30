@@ -91,11 +91,11 @@
               <configuration>
                 <resources>
                   <resource>
-                    <directory>${project.build.directory}/dependency/${project.artifactId}/${deploy.groupId.path}/config</directory>
+                    <directory>${project.build.directory}/dependency/${project.artifactId}/${deploy.groupId.path}/config/docstore</directory>
                     <filtering>true</filtering>
                   </resource>
                 </resources>
-                <outputDirectory>${project.build.directory}/${ole.discovery.config.home}</outputDirectory>
+                <outputDirectory>${project.build.directory}/${ole.docstore.home}</outputDirectory>
               </configuration>
             </execution>
           </executions>
