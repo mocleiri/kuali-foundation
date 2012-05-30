@@ -83,7 +83,7 @@
               </configuration>
             </execution>
             <execution>
-              <id>ole-discovery-props</id>
+              <id>ole-config</id>
               <phase>initialize</phase>
               <goals>
                 <goal>copy-resources</goal>
@@ -91,13 +91,11 @@
               <configuration>
                 <resources>
                   <resource>
-                    <directory>${project.build.directory}/dependency/${deploy.artifactId}/WEB-INF/classes</directory>
-                    <includes>
-                      <include>ole-discovery.properties</include>
-                    </includes>
+                    <directory>${project.build.directory}/dependency/${project.artifactId}/${deploy.groupId.path}/config</directory>
+                    <filtering>true</filtering>
                   </resource>
                 </resources>
-                <outputDirectory>${project.build.directory}/${ole.docstore.prop.home}</outputDirectory>
+                <outputDirectory>${project.build.directory}/${ole.discovery.config.home}</outputDirectory>
               </configuration>
             </execution>
           </executions>
