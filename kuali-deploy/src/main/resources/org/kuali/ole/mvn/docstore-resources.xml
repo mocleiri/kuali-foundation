@@ -97,21 +97,6 @@
                 </resources>
               </configuration>
             </execution>
-            <execution>
-              <id>ole-discovery-props</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>copy-resources</goal>
-              </goals>
-              <configuration>
-                <resources>
-                  <resource>
-                    <directory>${project.build.directory}/dependency/${deploy.artifactId}/WEB-INF/classes/ole-discovery.properties</directory>
-                  </resource>
-                  <outputDirectory>${project.build.directory}/${ole.docstore.prop.home}</outputDirectory>
-                </resources>
-              </configuration>
-            </execution>
           </executions>
         </plugin>
       </plugins>
