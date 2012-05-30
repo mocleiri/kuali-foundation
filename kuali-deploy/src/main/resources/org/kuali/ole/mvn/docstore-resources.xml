@@ -78,8 +78,8 @@
                     <directory>${project.build.directory}/dependency/ole-solr-config</directory>
                     <filtering>true</filtering>
                   </resource>
-                  <outputDirectory>${project.build.directory}/${ole.discovery.config.home}</outputDirectory>
                 </resources>
+                <outputDirectory>${project.build.directory}/${ole.discovery.config.home}</outputDirectory>
               </configuration>
             </execution>
             <execution>
@@ -93,8 +93,8 @@
                   <resource>
                     <directory>${project.build.directory}/dependency/${deploy.artifactId}/WEB-INF/classes/ole-discovery.properties</directory>
                   </resource>
-                  <outputDirectory>${project.build.directory}/${ole.docstore.prop.home}</outputDirectory>
                 </resources>
+                <outputDirectory>${project.build.directory}/${ole.docstore.prop.home}</outputDirectory>
               </configuration>
             </execution>
           </executions>
