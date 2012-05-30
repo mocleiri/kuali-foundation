@@ -27,8 +27,8 @@
   <groupId>${project.groupId}</groupId>
   <artifactId>kuali-dependencies</artifactId>
   <version>${project.version}</version>
-  <name>Kuali Dependencies</name>
-  <description>This pom contains plugin executions for handling dependencies</description>
+  <name>OLE Docstore Dependencies</name>
+  <description>This pom contains plugin executions for handling OLE Docstore dependencies</description>
   <build>
     <pluginManagement>
       <plugins>

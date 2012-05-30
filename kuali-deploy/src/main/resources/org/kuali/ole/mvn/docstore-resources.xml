@@ -25,10 +25,10 @@
     <version>${parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>kuali-resources</artifactId>
+  <artifactId>ole-docstore-resources</artifactId>
   <version>${project.version}</version>
-  <name>Kuali Resources</name>
-  <description>This pom contains plugin executions for handling resources</description>
+  <name>OLE Docstore Resources</name>
+  <description>This pom contains plugin executions for handling docstore resources</description>
   <build>
     <pluginManagement>
       <plugins>
@@ -76,10 +76,10 @@
                 <resources>
                   <resource>
                     <directory>${project.build.directory}/dependency/ole-solr-config</directory>
-                    <filtering>false</filtering>
+                    <filtering>true</filtering>
                   </resource>
                 </resources>
-                <outputDirectory>${project.build.directory}/${ole.discovery.config.home}</outputDirectory>
+                <outputDirectory>${project.build.directory}/.kuali/</outputDirectory>
               </configuration>
             </execution>
           </executions>
