@@ -104,7 +104,7 @@
                 if (value == null) {
                   value = "";
                 }
-                if (name.equals("CATALINA_OPTS")) {
+                if (name.equals("CATALINA_OPTS") || name.equals("JAVA_OPTS")) {
                   value = value.replace(" ", "<br>");
                 }
                 if (name.toLowerCase().contains("path")) {
