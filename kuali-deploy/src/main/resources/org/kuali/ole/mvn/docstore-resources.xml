@@ -67,7 +67,7 @@
           <artifactId>maven-resources-plugin</artifactId>
           <executions>
             <execution>
-              <id>copy-resources</id>
+              <id>ole-solr-config</id>
               <phase>initialize</phase>
               <goals>
                 <goal>copy-resources</goal>
@@ -77,12 +77,38 @@
                   <resource>
                     <directory>${project.build.directory}/dependency/ole-solr-config</directory>
                     <filtering>true</filtering>
-                    <outputDirectory>${project.build.directory}/${ole.discovery.config.home}</outputDirectory>
                   </resource>
+                  <outputDirectory>${project.build.directory}/${ole.discovery.config.home}</outputDirectory>
+                </resources>
+              </configuration>
+            </execution>
+            <execution>
+              <id>ole-discovery-props</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>copy-resources</goal>
+              </goals>
+              <configuration>
+                <resources>
                   <resource>
                     <directory>${project.build.directory}/dependency/${deploy.artifactId}/WEB-INF/classes/ole-discovery.properties</directory>
-                    <outputDirectory>${project.build.directory}/${ole.docstore.prop.home}</outputDirectory>
                   </resource>
+                  <outputDirectory>${project.build.directory}/${ole.docstore.prop.home}</outputDirectory>
+                </resources>
+              </configuration>
+            </execution>
+            <execution>
+              <id>ole-discovery-props</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>copy-resources</goal>
+              </goals>
+              <configuration>
+                <resources>
+                  <resource>
+                    <directory>${project.build.directory}/dependency/${deploy.artifactId}/WEB-INF/classes/ole-discovery.properties</directory>
+                  </resource>
+                  <outputDirectory>${project.build.directory}/${ole.docstore.prop.home}</outputDirectory>
                 </resources>
               </configuration>
             </execution>
