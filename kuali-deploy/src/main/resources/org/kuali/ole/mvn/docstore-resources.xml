@@ -91,7 +91,10 @@
               <configuration>
                 <resources>
                   <resource>
-                    <directory>${project.build.directory}/dependency/${deploy.artifactId}/WEB-INF/classes/ole-discovery.properties</directory>
+                    <directory>${project.build.directory}/dependency/${deploy.artifactId}/WEB-INF/classes</directory>
+                    <includes>
+                      <include>ole-discovery.properties</include>
+                    </includes>
                   </resource>
                 </resources>
                 <outputDirectory>${project.build.directory}/${ole.docstore.prop.home}</outputDirectory>
