@@ -107,16 +107,12 @@ public class DefaultDependenciesTool extends AbstractLogEnabled implements Depen
 
             String scope = artifact.getScope();
             if (CollectionUtils.isNotEmpty(includedScopes) && !includedScopes.contains(scope)) {
-
                 // not in included scopes
                 continue;
             }
-            {
-                if (excludeScopes.contains(scope)) {
-
-                    // in excluded scopes
-                    continue;
-                }
+            if (excludeScopes.contains(scope)) {
+                // in excluded scopes
+                continue;
             }
 
             Logger log = getLogger();
@@ -156,9 +152,7 @@ public class DefaultDependenciesTool extends AbstractLogEnabled implements Depen
                     log.info("add dependency [" + id + "] (from cache)");
                 }
             } else {
-
                 // build project
-
                 try {
                     depMavenProject = mavenProjectBuilder.buildFromRepository(artifact, remoteRepositories,
                             localRepository, true);
@@ -171,7 +165,6 @@ public class DefaultDependenciesTool extends AbstractLogEnabled implements Depen
                     log.info("add dependency [" + id + "]");
                 }
                 if (cache != null) {
-
                     // store it also in cache
                     cache.put(id, depMavenProject);
                 }

@@ -114,6 +114,7 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
 
     @Override
     protected SortedMap<String, MavenProject> loadDependencies() {
+
         return dependenciesTool.loadProjectDependencies(getProject(), this, localRepository, remoteRepositories,
                 getArtifactCache());
     }
@@ -127,12 +128,10 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
 
         SortedSet<MavenProject> unsafeDependencies = getUnsafeDependencies();
 
-        getLog().debug("1.0");
         if (CollectionUtils.isNotEmpty(unsafeDependencies)) {
 
             // there is some unresolved license
 
-            getLog().debug("2.0");
             if (isUseRepositoryMissingFiles()) {
 
                 // try to load missing third party files from dependencies
@@ -141,16 +140,13 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
                 projects.remove(getProject());
                 projects.removeAll(unsafeDependencies);
 
-                getLog().debug("2.1");
-
                 SortedProperties resolvedUnsafeMapping = new SortedProperties("UTF-8");
                 // The next few lines attempt to download groupid--artifactid--third-party.properties for every
                 // dependency in the tree
 
-                // getThridPartyTool().loadThirdPartyDescriptorsForUnsafeMapping(
+                // getThirdPartyTool().loadThirdPartyDescriptorsForUnsafeMapping(
                 // getEncoding(), projects, unsafeDependencies, getLicenseMap(), localRepository,
                 // remoteRepositories);
-                getLog().debug("2.2");
 
                 // push back resolved unsafe mappings
                 unsafeMappings.putAll(resolvedUnsafeMapping);
@@ -183,7 +179,6 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
                 getLog().debug("Missing file " + getMissingFile() + " is up-to-date.");
             }
         }
-        getLog().debug("4");
         return unsafeMappings;
     }
 
@@ -251,13 +246,11 @@ public class AddThirdPartyMojo extends AbstractAddThirdPartyMojo implements Mave
         writeThirdPartyFile();
 
         if (isDoGenerateMissing()) {
-
             writeMissingFile();
         }
 
         if (unsafe && isFailIfWarning()) {
-            throw new MojoFailureException("There is some dependencies with no license, please fill the file "
-                    + getMissingFile());
+            throw new MojoFailureException("There is at least one dependency with no license information");
         }
 
         if (!unsafe && isUseMissingFile() && MapUtils.isEmpty(getUnsafeMappings()) && getMissingFile().exists()) {

@@ -49,14 +49,11 @@ public class LicenseMap extends TreeMap<String, SortedSet<MavenProject>> {
     }
 
     public SortedSet<MavenProject> put(String key, MavenProject value) {
-
         // handle multiple values as a set to avoid duplicates
         SortedSet<MavenProject> valueList = get(key);
         if (valueList == null) {
-
             valueList = new TreeSet<MavenProject>(projectComparator);
         }
-
         valueList.add(value);
         return put(key, valueList);
     }

@@ -22,8 +22,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
@@ -55,6 +57,7 @@ import org.codehaus.plexus.logging.Logger;
  * @plexus.component role="org.codehaus.mojo.license.ThirdPartyTool" role-hint="default"
  */
 public class DefaultThirdPartyTool extends AbstractLogEnabled implements ThirdPartyTool {
+
     public static final String DESCRIPTOR_CLASSIFIER = "third-party";
 
     public static final String DESCRIPTOR_TYPE = "properties";
@@ -251,20 +254,24 @@ public class DefaultThirdPartyTool extends AbstractLogEnabled implements ThirdPa
     }
 
     /**
-     * {@inheritDoc}
+     * This does some cleanup, and basic safety checks on the license objects passed in<br>
+     * 1 - Ignore system scoped dependencies<br>
+     * 2 - If there are no licenses declared, use "Unknown License"<br>
+     * 3 - If there is no name declared, but there is a url, use the url as a key<br>
+     * 4 - If there is no name or url, use "Unknown License" as a key<br>
      */
     @Override
     public void addLicense(LicenseMap licenseMap, MavenProject project, List<?> licenses) {
 
         if (Artifact.SCOPE_SYSTEM.equals(project.getArtifact().getScope())) {
-
-            // do NOT treate system dependency
+            // Do not deal with system scope dependencies
             return;
         }
 
         if (CollectionUtils.isEmpty(licenses)) {
-
-            // no license found for the dependency
+            // No natively declared license was expressed in the pom for this dependency
+            // Really funky use of "put"
+            // This adds the dependency to the list of dependencies with an unknown license
             licenseMap.put(LicenseMap.getUnknownLicenseMessage(), project);
             return;
         }
@@ -272,14 +279,13 @@ public class DefaultThirdPartyTool extends AbstractLogEnabled implements ThirdPa
         for (Object o : licenses) {
             String id = MojoHelper.getArtifactId(project.getArtifact());
             if (o == null) {
-                getLogger().warn("could not acquire the license for " + id);
+                getLogger().warn("could not acquire a license for " + id);
                 continue;
             }
             License license = (License) o;
             String licenseKey = license.getName();
 
             // tchemit 2010-08-29 Ano #816 Check if the License object is well formed
-
             if (StringUtils.isEmpty(license.getName())) {
                 getLogger().debug("No license name defined for " + id);
                 licenseKey = license.getUrl();
@@ -289,6 +295,9 @@ public class DefaultThirdPartyTool extends AbstractLogEnabled implements ThirdPa
                 getLogger().debug("No license url defined for " + id);
                 licenseKey = LicenseMap.getUnknownLicenseMessage();
             }
+
+            // Really funky use of "put"
+            // This adds the dependency to the list of dependencies with this license
             licenseMap.put(licenseKey, project);
         }
     }
@@ -324,104 +333,115 @@ public class DefaultThirdPartyTool extends AbstractLogEnabled implements ThirdPa
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SortedProperties loadUnsafeMapping(LicenseMap licenseMap, SortedMap<String, MavenProject> artifactCache,
-            String encoding, File missingFile) throws IOException {
-        SortedSet<MavenProject> unsafeDependencies = getProjectsWithNoLicense(licenseMap, false);
-
-        SortedProperties unsafeMappings = new SortedProperties(encoding);
-
-        if (missingFile.exists()) {
-            // there is some unsafe dependencies
-
-            getLogger().debug("Load missing file " + missingFile);
-
-            // load the missing file
-            unsafeMappings.load(missingFile);
+    protected Properties getProperties(String encoding, File file) throws IOException {
+        if (!file.exists()) {
+            return new Properties();
         }
+        // Load our properties file that maps Maven GAV's to a license
+        SortedProperties properties = new SortedProperties(encoding);
+        getLogger().debug("Loading " + file);
+        properties.load(file);
+        return properties;
+    }
 
-        // get from the missing file, all unknown dependencies
-        List<String> unknownDependenciesId = new ArrayList<String>();
+    protected void handleStuff(Properties customMappings, SortedMap<String, MavenProject> artifactCache) {
+        // Store any custom mappings that are not used by this project
+        List<String> unusedDependencies = new ArrayList<String>();
 
-        // coming from maven-licen-plugin, we used in id type and classifier, now we remove
-        // these informations since GAV is good enough to qualify a license of any artifact of it...
-        Map<String, String> migrateKeys = migrateMissingFileKeys(unsafeMappings.keySet());
-
-        for (Object o : migrateKeys.keySet()) {
-            String id = (String) o;
+        // If the custom mapping file contains GAV entries with type+classifier, remove type+classifier
+        // A simple GAV is enough to figure out appropriate licensing
+        Map<String, String> migrateKeys = migrateCustomMappingKeys(customMappings.stringPropertyNames());
+        for (String id : migrateKeys.keySet()) {
             String migratedId = migrateKeys.get(id);
 
             MavenProject project = artifactCache.get(migratedId);
             if (project == null) {
-                // now we are sure this is a unknown dependency
-                unknownDependenciesId.add(id);
+                // Now we are sure this is an unused dependency
+                // Add this GAV as one that we don't care about for this project
+                unusedDependencies.add(id);
             } else {
                 if (!id.equals(migratedId)) {
 
                     // migrates id to migratedId
-                    getLogger().info("Migrates [" + id + "] to [" + migratedId + "] in the missing file.");
-                    Object value = unsafeMappings.get(id);
-                    unsafeMappings.remove(id);
-                    unsafeMappings.put(migratedId, value);
+                    getLogger().info("Migrates [" + id + "] to [" + migratedId + "] in the custom mapping file.");
+                    Object value = customMappings.get(id);
+                    customMappings.remove(id);
+                    customMappings.put(migratedId, value);
                 }
             }
         }
 
-        if (!unknownDependenciesId.isEmpty()) {
-
-            // there is some unknown dependencies in the missing file, remove them
-            for (String id : unknownDependenciesId) {
-                getLogger()
-                        .debug("dependency [" + id + "] does not exist in project, remove it from the missing file.");
-                unsafeMappings.remove(id);
+        if (!unusedDependencies.isEmpty()) {
+            // there are some unused dependencies in the custom mappings file, remove them
+            for (String id : unusedDependencies) {
+                getLogger().debug("dependency [" + id + "] does not exist in this project");
+                // Remove it from the custom mappings file since we don't care about it for this project
+                customMappings.remove(id);
             }
-
-            unknownDependenciesId.clear();
         }
 
-        // push back loaded dependencies
-        for (Object o : unsafeMappings.keySet()) {
-            String id = (String) o;
+    }
 
-            MavenProject project = artifactCache.get(id);
-            if (project == null) {
-                getLogger().warn("dependency [" + id + "] does not exist in project.");
-                continue;
+    protected void handleUnsafeDependencies(Set<MavenProject> deps, Properties mappings, LicenseMap licenseMap) {
+        Iterator<MavenProject> itr = deps.iterator();
+        while (itr.hasNext()) {
+            MavenProject dep = itr.next();
+            String license = getLicense(dep, mappings);
+            if (!StringUtils.isBlank(license)) {
+                addLicense(licenseMap, dep, license);
+                itr.remove();
+            } else {
+                getLogger().info(MojoHelper.getArtifactName(dep) + " " + license);
             }
-
-            String license = (String) unsafeMappings.get(id);
-            if (StringUtils.isEmpty(license)) {
-
-                // empty license means not fill, skip it
-                continue;
-            }
-
-            // add license in map
-            addLicense(licenseMap, project, license);
-
-            // remove unknown license
-            unsafeDependencies.remove(project);
         }
+    }
 
-        if (unsafeDependencies.isEmpty()) {
+    protected String getLicense(MavenProject d, Properties mappings) {
+        String groupId = d.getGroupId();
+        String artifactId = d.getArtifactId();
+        String version = d.getVersion();
 
-            // no more unknown license in map
-            licenseMap.remove(LicenseMap.getUnknownLicenseMessage());
+        // Exact match
+        String id1 = groupId + "--" + artifactId + "--" + version;
+        // Match on groupId + artifactId
+        String id2 = groupId + "--" + artifactId;
+        // Match on groupId
+        String id3 = groupId;
+
+        String value1 = mappings.getProperty(id1);
+        String value2 = mappings.getProperty(id2);
+        String value3 = mappings.getProperty(id3);
+
+        // Return the license, starting with the most specific, progressing to the least specific
+        if (!StringUtils.isBlank(value1)) {
+            return value1;
+        } else if (!StringUtils.isBlank(value2)) {
+            return value2;
+        } else if (!StringUtils.isBlank(value3)) {
+            return value3;
         } else {
-
-            // add a "with no value license" for missing dependencies
-            for (MavenProject project : unsafeDependencies) {
-                String id = MojoHelper.getArtifactId(project.getArtifact());
-                if (getLogger().isDebugEnabled()) {
-                    getLogger().debug("dependency [" + id + "] has no license, add it in the missing file.");
-                }
-                unsafeMappings.setProperty(id, "");
-            }
+            return null;
         }
-        return unsafeMappings;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public SortedProperties loadUnsafeMapping(LicenseMap licenseMap, SortedMap<String, MavenProject> artifactCache,
+            String encoding, File missingFile) throws IOException {
+
+        // This is the list of dependencies with no declared license info in their pom's
+        SortedSet<MavenProject> unsafeDependencies = licenseMap.get(LicenseMap.getUnknownLicenseMessage());
+
+        // Load our properties file that maps Maven GAV's to a license
+        Properties customMappings = getProperties(encoding, missingFile);
+
+        // Update licenseMap with info from customMappings
+        handleUnsafeDependencies(unsafeDependencies, customMappings, licenseMap);
+
+        // Return customMappings
+        return new SortedProperties(customMappings);
     }
 
     // ----------------------------------------------------------------------
@@ -477,22 +497,18 @@ public class DefaultThirdPartyTool extends AbstractLogEnabled implements ThirdPa
 
     private final Pattern GAV_PLUS_TYPE_AND_CLASSIFIER_PATTERN = Pattern.compile("(.+)--(.+)--(.+)--(.+)--(.+)");
 
-    private Map<String, String> migrateMissingFileKeys(Set<Object> missingFileKeys) {
+    private Map<String, String> migrateCustomMappingKeys(Set<String> customMappingKeys) {
         Map<String, String> migrateKeys = new HashMap<String, String>();
-        for (Object object : missingFileKeys) {
-            String id = (String) object;
+        for (String id : customMappingKeys) {
             Matcher matcher;
-
             String newId = id;
             matcher = GAV_PLUS_TYPE_AND_CLASSIFIER_PATTERN.matcher(id);
             if (matcher.matches()) {
                 newId = matcher.group(1) + "--" + matcher.group(2) + "--" + matcher.group(3);
-
             } else {
                 matcher = GAV_PLUS_TYPE_PATTERN.matcher(id);
                 if (matcher.matches()) {
                     newId = matcher.group(1) + "--" + matcher.group(2) + "--" + matcher.group(3);
-
                 }
             }
             migrateKeys.put(id, newId);

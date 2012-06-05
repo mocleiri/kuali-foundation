@@ -311,18 +311,22 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
     @Override
     protected void init() throws Exception {
         if (exists(getArtifactLicenseMapping())) {
+            // The artifact->license mapping file might be a URL, not a file
+            // This call always copies the mapping file from wherever it is to target/license/THIRD-PARTY.properties
+            // This way we are guaranteed to have a local copy of the mapping file to work with
             File propertiesFile = copyToFileSystem(getArtifactLicenseMapping());
+            // "missingFile" contains a mapping between Maven GAV's and their corresponding license
             setMissingFile(propertiesFile);
         }
 
         Log log = getLog();
-
         if (log.isDebugEnabled()) {
-
             // always be verbose in debug mode
             setVerbose(true);
         }
 
+        // This is the file that gets bundled into the jar as META-INF/THIRD-PARTY.txt
+        // It contains the aggregated list of licenses/jar's this project depends on
         File file = new File(getOutputDirectory(), getThirdPartyFilename());
 
         setThirdPartyFile(file);
@@ -337,30 +341,32 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
         setDoGenerate(isForce() || !file.exists() || buildTimestamp > file.lastModified());
 
         if (isGenerateBundle()) {
-
             File bundleFile = FileUtil.getFile(getOutputDirectory(), getBundleThirdPartyPath());
-
             if (isVerbose()) {
                 log.info("bundle third-party file : " + bundleFile.lastModified());
             }
             setDoGenerateBundle(isForce() || !bundleFile.exists() || buildTimestamp > bundleFile.lastModified());
         } else {
-
             // not generating bundled file
             setDoGenerateBundle(false);
         }
 
+        // This is the complete, transitive list of dependencies of the current project
+        // It is stored as a map of MavenProjects keyed by GAV
+        // If the pom of the dep. includes the license(s) it is released under, project.getLicenses() returns that info
         projectDependencies = loadDependencies();
 
+        // This is also the complete, transitive list of dependencies of the current project
+        // However, it is stored as a map of Set<MavenProject>, where the key is the license name
         licenseMap = createLicenseMap(projectDependencies);
 
+        // These are the dependencies whose pom's don't include license info
         SortedSet<MavenProject> unsafeDependencies = getThirdPartyTool().getProjectsWithNoLicense(licenseMap,
                 isVerbose());
 
         setUnsafeDependencies(unsafeDependencies);
 
         if (!CollectionUtils.isEmpty(unsafeDependencies) && isUseMissingFile() && isDoGenerate()) {
-
             // load unsafeMapping
             unsafeMappings = createUnsafeMapping();
         }
@@ -402,12 +408,13 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
         }
     }
 
+    /**
+     * This returns the complete transitive dependency tree keyed by license type after applying some cleanup
+     */
     protected LicenseMap createLicenseMap(SortedMap<String, MavenProject> dependencies) {
-
         LicenseMap licenseMap = new LicenseMap();
-
-        for (MavenProject project : dependencies.values()) {
-            thirdPartyTool.addLicense(licenseMap, project, project.getLicenses());
+        for (MavenProject dependency : dependencies.values()) {
+            thirdPartyTool.addLicense(licenseMap, dependency, dependency.getLicenses());
         }
         return licenseMap;
     }
@@ -417,7 +424,7 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
         boolean unsafe = !CollectionUtils.isEmpty(unsafeDependencies);
         if (unsafe) {
             Log log = getLog();
-            log.debug("There is " + unsafeDependencies.size() + " dependencies with no license :");
+            log.debug("There are " + unsafeDependencies.size() + " dependencies with no license :");
             for (MavenProject dep : unsafeDependencies) {
 
                 // no license found for the dependency
