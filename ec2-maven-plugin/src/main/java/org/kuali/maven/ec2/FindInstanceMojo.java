@@ -46,7 +46,7 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
     /**
      * If true, fail the build when no matching instance is found
      *
-     * @parameter expression="${ec2.failIfNotFound}" default-value="true"
+     * @parameter expression="${ec2.failIfNotFound}" default-value="false"
      */
     private boolean failIfNotFound;
 
