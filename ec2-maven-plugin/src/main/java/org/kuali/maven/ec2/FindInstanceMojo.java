@@ -19,6 +19,7 @@ import com.amazonaws.services.ec2.model.Instance;
  * @goal findinstance
  */
 public class FindInstanceMojo extends AbstractEC2Mojo {
+    private static final String NONE = "NONE";
 
     /**
      * The Maven project object
@@ -50,7 +51,8 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
     private boolean failIfNotFound;
 
     /**
-     * If supplied, the id of the instance located by the plugin is stored as this project property
+     * If supplied, the id of the instance located by the plugin is stored as this project property. If no matching
+     * instance is located, the property is set to the value <code>NONE</code>.
      *
      * @parameter expression="${ec2.instanceIdProperty}" default-value="ec2.instance.id"
      */
@@ -64,6 +66,8 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
         List<Instance> instances = getInstances(result.getReservations());
         int size = validate(instances);
         if (size != 1) {
+            getLog().info("Setting " + instanceIdProperty + "=" + NONE);
+            project.getProperties().setProperty(instanceIdProperty, NONE);
             return;
         }
 
