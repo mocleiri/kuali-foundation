@@ -62,14 +62,8 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
         DescribeInstancesRequest request = getRequest();
         DescribeInstancesResult result = client.describeInstances(request);
         List<Instance> instances = getInstances(result.getReservations());
-        int size = instances.size();
-        if (size > 1) {
-            throw new MojoExecutionException(tag + "=" + value + " matched " + size + " instances");
-        }
-        if (size == 0 && failIfNotFound) {
-            throw new MojoExecutionException(tag + "=" + value + " matched no instances");
-        } else if (size == 0) {
-            getLog().info("No instance matching " + tag + "=" + value + " was located");
+        int size = validate(instances);
+        if (size != 1) {
             return;
         }
 
@@ -80,6 +74,24 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
             project.getProperties().setProperty(instanceIdProperty, id);
         }
         getLog().info("EC2 Instance: " + id);
+    }
+
+    protected int validate(List<Instance> instances) throws MojoExecutionException {
+        int size = instances.size();
+        String msg = tag + "=" + value + " matched " + size + " instances";
+        if (size == 1) {
+            return size;
+        }
+        if (size > 1) {
+            throw new MojoExecutionException(msg);
+        }
+        // size <= 1
+        if (failIfNotFound) {
+            throw new MojoExecutionException(msg);
+        } else {
+            getLog().info(msg);
+        }
+        return size;
     }
 
     protected DescribeInstancesRequest getRequest() {
