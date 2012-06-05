@@ -3,7 +3,6 @@ package org.kuali.maven.ec2;
 import java.util.Collections;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
@@ -14,14 +13,6 @@ import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
  * @goal terminate
  */
 public class TerminateMojo extends AbstractEC2Mojo {
-
-    /**
-     * The Maven project object
-     *
-     * @parameter expression="${project}"
-     * @readonly
-     */
-    private MavenProject project;
 
     /**
      * The id of the instance to terminate
@@ -72,10 +63,6 @@ public class TerminateMojo extends AbstractEC2Mojo {
 
     public void setInstanceId(String id) {
         this.instanceId = id;
-    }
-
-    public MavenProject getProject() {
-        return project;
     }
 
     public boolean isWait() {

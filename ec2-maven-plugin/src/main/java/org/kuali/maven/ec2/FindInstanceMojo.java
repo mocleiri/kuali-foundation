@@ -35,16 +35,32 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
     @Override
     public void execute() throws MojoExecutionException {
         AmazonEC2 client = getEC2Client();
+        DescribeInstancesRequest request = getRequest();
+        DescribeInstancesResult result = client.describeInstances(request);
+        List<Instance> instances = getInstances(result.getReservations());
+        int size = instances.size();
+        if (size > 1) {
+            throw new MojoExecutionException(tag + "=" + value + " matched more than one instance");
+        }
+        if (size == 0) {
+            throw new MojoExecutionException(tag + "=" + value + " matched no instances");
+        }
+        Instance i = instances.get(0);
+        getLog().info(i.getInstanceId());
+    }
+
+    protected DescribeInstancesRequest getRequest() {
         DescribeInstancesRequest request = new DescribeInstancesRequest();
+        Filter filter = getFilter(tag, value);
+        request.setFilters(Collections.singletonList(filter));
+        return request;
+    }
+
+    protected Filter getFilter(String tag, String value) {
         Filter filter = new Filter();
         filter.setName("tag:" + tag);
         filter.setValues(Collections.singletonList(value));
-        request.setFilters(Collections.singletonList(filter));
-        DescribeInstancesResult result = client.describeInstances(request);
-        List<Instance> instances = getInstances(result.getReservations());
-        for (Instance i : instances) {
-            getLog().info(i.getInstanceId());
-        }
+        return filter;
     }
 
 }
