@@ -183,6 +183,27 @@
         <artifactId>ec2-maven-plugin</artifactId>
         <executions>
           <execution>
+            <id>findinstance</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>findinstance</goal>
+            </goals>
+            <configuration>
+              <tag>Name</tag>
+              <value>${deploy.env.name}</value>
+            </configuration>
+          </execution>
+          <execution>
+            <id>terminate</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>terminate</goal>
+            </goals>
+            <configuration>
+              <instanceId>${ec2.instance.id}</instanceId>
+            </configuration>
+          </execution>
+          <execution>
             <id>launch</id>
             <phase>initialize</phase>
             <goals>
