@@ -40,7 +40,7 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
         List<Instance> instances = getInstances(result.getReservations());
         int size = instances.size();
         if (size > 1) {
-            throw new MojoExecutionException(tag + "=" + value + " matched more than one instance");
+            throw new MojoExecutionException(tag + "=" + value + " matched " + size + " instances");
         }
         if (size == 0) {
             throw new MojoExecutionException(tag + "=" + value + " matched no instances");

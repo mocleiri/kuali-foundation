@@ -26,7 +26,7 @@ import com.amazonaws.services.ec2.model.Tag;
 /**
  * Connect to EC2 and launch a a single instance configured according to user preferences. By default, the plugin waits
  * until the instance reaches the state of "running" before allowing the build to continue. Once an EC2 instance is
- * "running" Amazon has assigned it a public dns name. The publi dns name, the instance id, and the value of the tag
+ * "running" Amazon has assigned it a public dns name. The public dns name, the instance id, and the value of the tag
  * "Name" (if that tag is supplied) are stored as the project properties <code>ec2.instance.dns</code>,
  * <code>ec2.instance.id</code>, <code>ec2.instance.name</code>, respectively.
  *
@@ -188,7 +188,8 @@ public class LaunchMojo extends AbstractEC2Mojo {
             Instance running = getInstance(client, i.getInstanceId());
             String id = i.getInstanceId();
             String dns = running.getPublicDnsName();
-            getLog().info("EC2 Instance: " + getTagValue(running, "Name") + " (" + id + ") " + dns);
+            String name = getTagValue(running, "Name");
+            getLog().info("EC2 Instance: " + name + " (" + id + ") " + dns);
             Properties props = project.getProperties();
             props.setProperty("ec2.instance.dns", running.getPublicDnsName());
         } else {

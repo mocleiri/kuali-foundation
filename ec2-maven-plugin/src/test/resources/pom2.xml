@@ -71,7 +71,7 @@
               </goals>
               <configuration>
                 <tag>Name</tag>
-                <value>env1</value>
+                <value>env*</value>
               </configuration>
             </execution>
           </executions>
