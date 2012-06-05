@@ -1,5 +1,6 @@
 package org.kuali.maven.ec2;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -71,10 +72,10 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
     protected void waitForState(AmazonEC2 client, String instanceId, String state, int waitTimeout)
             throws MojoExecutionException {
         long now = System.currentTimeMillis();
+        long timeout = now + waitTimeout * 1000;
         // Wait a few seconds before we query AWS for the state of the instance
         // If you query immediately it can sometimes flake out
         sleep(5000);
-        long timeout = now + waitTimeout * 1000;
         while (true) {
             long remaining = (timeout - now) / 1000;
             Instance i = getInstance(client, instanceId);
@@ -98,6 +99,14 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    protected List<Instance> getInstances(List<Reservation> reservations) {
+        List<Instance> instances = new ArrayList<Instance>();
+        for (Reservation r : reservations) {
+            instances.addAll(r.getInstances());
+        }
+        return instances;
     }
 
     public String getAccessKey() {

@@ -16,7 +16,6 @@ import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.GroupIdentifier;
 import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.Reservation;
 
 /**
  * Connect to EC2 and list instances associated with this account
@@ -134,14 +133,6 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         table.setRows(getRows(instances));
         table.setColumns(getColumns(table.getRows()));
         return table;
-    }
-
-    protected List<Instance> getInstances(List<Reservation> reservations) {
-        List<Instance> instances = new ArrayList<Instance>();
-        for (Reservation r : reservations) {
-            instances.addAll(r.getInstances());
-        }
-        return instances;
     }
 
     public String getTag() {
