@@ -71,7 +71,17 @@
               </goals>
               <configuration>
                 <tag>Name</tag>
-                <value>env1</value>
+                <value>env22</value>
+              </configuration>
+            </execution>
+            <execution>
+              <id>terminate</id>
+              <phase>test</phase>
+              <goals>
+                <goal>terminate</goal>
+              </goals>
+              <configuration>
+                <instanceId>${ec2.instance.id}</instanceId>
               </configuration>
             </execution>
           </executions>
