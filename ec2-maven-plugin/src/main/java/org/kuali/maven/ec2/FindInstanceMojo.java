@@ -50,7 +50,7 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
     private boolean failIfNotFound;
 
     /**
-     * If set, the id of the instance located by the plugin is stored as this project property
+     * If supplied, the id of the instance located by the plugin is stored as this project property
      *
      * @parameter expression="${ec2.instanceIdProperty}" default-value="ec2.instance.id"
      */
