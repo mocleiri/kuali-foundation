@@ -88,7 +88,8 @@ public abstract class AbstractAddThirdPartyMojo extends AbstractLicenseMojo {
 
     /**
      * Location of a properties file mapping artifacts without a license to the license that should be used for them.
-     * This supports classpath notation and any other type of URL Spring 3.1 resource loading can understand.
+     * This supports classpath notation and any other type of URL Spring 3.1 resource loading can understand. This
+     * properties file supports matching by groupId, groupId + artifactId, or groupId+artifactId+version.
      *
      * @parameter expression="${license.artifactLicenseMapping}" default-value="classpath:THIRD-PARTY.properties"
      * @since 1.0
