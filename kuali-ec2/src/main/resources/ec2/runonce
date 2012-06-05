@@ -1,4 +1,12 @@
 #!/bin/sh
+
+#
+# This script is used to run other shell scripts once (and once only)
+# It looks for shell scripts in a pre-defined directory, executes them
+# then moves them to another directory so they are never executed again
+#
+
+
 for file in /etc/local/runonce.d/*
 do
     if [[ ! -f "$file" ]]
