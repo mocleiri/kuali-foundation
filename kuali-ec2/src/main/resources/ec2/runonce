@@ -2,7 +2,7 @@
 
 #
 # This script is used to run other shell scripts once (and only once)
-# It looks for shell scripts in a pre-defined directory, executes them
+# It looks for shell scripts in a pre-defined directory, executes them,
 # then moves them to another directory so they are never executed again
 #
 
