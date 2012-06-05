@@ -96,4 +96,40 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
         return filter;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public boolean isFailIfNotFound() {
+        return failIfNotFound;
+    }
+
+    public void setFailIfNotFound(boolean failIfNotFound) {
+        this.failIfNotFound = failIfNotFound;
+    }
+
+    public String getInstanceIdProperty() {
+        return instanceIdProperty;
+    }
+
+    public void setInstanceIdProperty(String instanceIdProperty) {
+        this.instanceIdProperty = instanceIdProperty;
+    }
+
+    public MavenProject getProject() {
+        return project;
+    }
+
 }
