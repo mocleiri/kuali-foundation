@@ -73,8 +73,9 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
         if (!StringUtils.isBlank(instanceIdProperty)) {
             getLog().info("Setting " + instanceIdProperty + "=" + id);
             project.getProperties().setProperty(instanceIdProperty, id);
+        } else {
+            getLog().info("EC2 Instance: " + id);
         }
-        getLog().info("EC2 Instance: " + id);
     }
 
     protected int validate(List<Instance> instances) throws MojoExecutionException {
