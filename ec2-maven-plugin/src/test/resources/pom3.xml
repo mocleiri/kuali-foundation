@@ -45,7 +45,7 @@
                 <password>${kuali.enc.password}</password>
                 <locations>
                   <param>classpath:org/kuali/common/deploy/common.properties</param>
-                  <param>classpath:org/kuali/rice/common.properties</param>
+                  <param>classpath:org/kuali/student/web/common.properties</param>
                 </locations>
               </configuration>
             </execution>
