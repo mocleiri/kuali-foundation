@@ -46,7 +46,7 @@ public class TerminateMojo extends AbstractEC2Mojo {
     @Override
     public void execute() throws MojoExecutionException {
         if (Constants.NONE.equals(instanceId)) {
-            getLog().info("Instance id =" + Constants.NONE + ". Skipping execution");
+            getLog().info("instanceId=" + Constants.NONE + ". Skipping execution");
             return;
         }
         AmazonEC2 client = getEC2Client();
