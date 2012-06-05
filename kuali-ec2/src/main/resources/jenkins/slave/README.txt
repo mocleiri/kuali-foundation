@@ -14,6 +14,21 @@
     limitations under the License.
 ====
 
+#
+#
+# WARNING: READ THIS BEFORE EDITING ANYTHING IN THIS DIRECTORY
+#
+# WHEN EDITING THE SCRIPTING HERE BE CAREFUL!!!!!
+#
+#
+
+These scripts are in use by the live CI server, so messing with them alters the behavior 
+of the live slave instances
+
+If you are playing around with trying out something new, it would be a *very* good idea
+to copy the script you are messing with to a different name and play with it under the 
+new name.
+
 The scripting here provides startup/shutdown hooks for EC2 slaves
 
 #
@@ -33,16 +48,4 @@ shutdown-script is run on the slave before it shuts down
 
 Before init-script and shutdown-script are run, svn update is called
 to ensure they will always be running the latest version of that script
-
-#
-# WARNING: READ THIS BEFORE EDITING ANYTHING IN THIS DIRECTORY
-#
-When editing the scripting here BE CAREFUL!!!!!
-
-These scripts are in use by the live CI server, so messing with them alters the behavior 
-of the live slave instances
-
-If you are playing around with trying out something new, it would be a *very* good idea
-to copy the script you are messing with to a different name and play with it under the 
-new name.
 
