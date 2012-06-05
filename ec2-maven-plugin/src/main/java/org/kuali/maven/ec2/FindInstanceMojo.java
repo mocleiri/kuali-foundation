@@ -14,7 +14,7 @@ import com.amazonaws.services.ec2.model.Filter;
 import com.amazonaws.services.ec2.model.Instance;
 
 /**
- * Connect to EC2 and find a single instance
+ * Connect to EC2 and find a single instance based on a tag/value pair
  *
  * @goal findinstance
  */
@@ -43,7 +43,7 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
     private String value;
 
     /**
-     * If true, fail the build if no matching instance is found
+     * If true, fail the build when no matching instance is found
      *
      * @parameter expression="${ec2.failIfNotFound}" default-value="true"
      */
