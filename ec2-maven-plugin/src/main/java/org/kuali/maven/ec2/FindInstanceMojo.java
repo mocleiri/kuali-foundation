@@ -85,7 +85,7 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
         if (size > 1) {
             throw new MojoExecutionException(msg);
         }
-        // size <= 1
+        // size == 1
         if (failIfNotFound) {
             throw new MojoExecutionException(msg);
         } else {
