@@ -19,7 +19,7 @@ import com.amazonaws.services.ec2.model.Instance;
  * @goal findinstance
  */
 public class FindInstanceMojo extends AbstractEC2Mojo {
-    private static final String NONE = "NONE";
+    private static final String NONE = Constants.NONE;
 
     /**
      * The Maven project object

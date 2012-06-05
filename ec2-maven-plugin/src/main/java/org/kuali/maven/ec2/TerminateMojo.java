@@ -15,7 +15,7 @@ import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 public class TerminateMojo extends AbstractEC2Mojo {
 
     /**
-     * The id of the instance to terminate
+     * The id of the instance to terminate. Set this to <code>NONE</code> to skip attempting to terminate an instance
      *
      * @parameter expression="${ec2.instanceId}"
      * @required
@@ -45,6 +45,10 @@ public class TerminateMojo extends AbstractEC2Mojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        if (Constants.NONE.equals(instanceId)) {
+            getLog().info("Instance id =" + Constants.NONE + ". Skipping execution");
+            return;
+        }
         AmazonEC2 client = getEC2Client();
         TerminateInstancesRequest request = new TerminateInstancesRequest();
         request.setInstanceIds(Collections.singletonList(instanceId));
