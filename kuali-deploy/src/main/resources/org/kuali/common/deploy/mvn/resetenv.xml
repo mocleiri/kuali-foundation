@@ -204,6 +204,22 @@
             </configuration>
           </execution>
           <execution>
+            <id>taginstance</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>taginstance</goal>
+            </goals>
+            <configuration>
+              <instanceId>${ec2.instance.id}</instanceId>
+              <tags>
+                <tag>
+                  <key>Name</key>
+                  <value>${deploy.env.name}-terminated</value>
+                </tag>
+              </tags>
+            </configuration>
+          </execution>
+          <execution>
             <id>launch</id>
             <phase>initialize</phase>
             <goals>
