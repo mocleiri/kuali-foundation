@@ -391,7 +391,7 @@ public class DefaultThirdPartyTool extends AbstractLogEnabled implements ThirdPa
                 addLicense(licenseMap, dep, license);
                 itr.remove();
             } else {
-                getLogger().info(MojoHelper.getArtifactName(dep) + " " + license);
+                getLogger().debug(MojoHelper.getArtifactName(dep) + " " + license);
             }
         }
     }
