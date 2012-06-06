@@ -186,7 +186,7 @@
             <id>findinstance</id>
             <phase>initialize</phase>
             <goals>
-              <goal>findinstance</goal>
+              <goal>find</goal>
             </goals>
             <configuration>
               <tag>Name</tag>
@@ -204,7 +204,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>taginstance</id>
+            <id>tag</id>
             <phase>initialize</phase>
             <goals>
               <goal>taginstance</goal>
