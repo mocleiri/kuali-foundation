@@ -58,7 +58,7 @@
       <properties>
         <deploy.groupId>org.kuali.ole</deploy.groupId>
         <deploy.artifactId>ole-docstore-webapp</deploy.artifactId>
-        <deploy.version>0.8.0-b-build-35</deploy.version>
+        <deploy.version>0.8.0-b-build-44</deploy.version>
         <deploy.env>2</deploy.env>
       </properties>
     </profile>
