@@ -196,10 +196,10 @@
         <artifactId>ec2-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>findinstance</id>
+            <id>find</id>
             <phase>initialize</phase>
             <goals>
-              <goal>find</goal>
+              <goal>findinstance</goal>
             </goals>
             <configuration>
               <tag>Name</tag>
