@@ -31,7 +31,7 @@ import org.kuali.maven.plugins.dnsme.beans.RecordType;
  */
 public class AddRecordMojo extends BaseDNSMEMojo {
     /**
-     * The domain to add a record to eg "org.kuali"
+     * The domain to add a record to eg "kuali.org"
      *
      * @parameter expression="${dnsme.domainName}"
      * @required
