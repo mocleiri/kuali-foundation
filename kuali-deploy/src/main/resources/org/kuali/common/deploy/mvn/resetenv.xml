@@ -110,6 +110,19 @@
               </configuration>
             </execution>
             <execution>
+              <id>environment</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <quiet>true</quiet>
+                <locations>
+                  <param>classpath:${deploy.groupId.path}/${deploy.env.name}.properties</param>
+                </locations>
+              </configuration>
+            </execution>
+            <execution>
               <id>decrypt</id>
               <phase>initialize</phase>
               <goals>
@@ -151,7 +164,7 @@
             <tags>
               <tag>
                 <key>Name</key>
-                <value>env${deploy.env}</value>
+                <value>${deploy.env.name}</value>
               </tag>
             </tags>
           </configuration>
@@ -256,7 +269,7 @@
               <goal>deleterecord</goal>
             </goals>
             <configuration>
-              <recordName>${deploy.dns}</recordName>
+              <recordName>${dnsme.recordName}</recordName>
             </configuration>
           </execution>
           <execution>
@@ -266,7 +279,7 @@
               <goal>addrecord</goal>
             </goals>
             <configuration>
-              <recordName>${deploy.dns}</recordName>
+              <recordName>${dnsme.recordName}</recordName>
               <recordValue>${ec2.instance.dns}.</recordValue>
             </configuration>
           </execution>
