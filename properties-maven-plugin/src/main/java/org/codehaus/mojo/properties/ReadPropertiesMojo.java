@@ -97,6 +97,13 @@ public class ReadPropertiesMojo extends AbstractMojo {
      */
     boolean resolveValues;
 
+    /**
+     * If supplied, only the comma separated list of property keys are resolved.
+     *
+     * @parameter expression="${properties.propertyKeysToResolve}"
+     */
+    String propertyKeysToResolve;
+
     @Override
     public void execute() throws MojoExecutionException {
         // Figure out if there are properties we need to ignore
@@ -108,16 +115,27 @@ public class ReadPropertiesMojo extends AbstractMojo {
         if (resolveValues) {
             // Project + system + env properties
             Properties allProperties = utils.getMavenProperties(project);
-            resolveValues(project.getProperties(), allProperties);
+            resolveValues(project.getProperties(), allProperties, getListFromCSV(propertyKeysToResolve));
         }
 
     }
 
-    protected void resolveValues(Properties p1, Properties p2) {
+    protected void resolveValues(Properties p1, Properties p2, List<String> keys) {
         for (String name : p1.stringPropertyNames()) {
+            if (!resolve(name, keys)) {
+                continue;
+            }
             String originalValue = p1.getProperty(name);
             String resolvedValue = utils.getResolvedValue(originalValue, p2);
             p1.setProperty(name, resolvedValue);
+        }
+    }
+
+    protected boolean resolve(String key, List<String> keys) {
+        if (keys.size() == 0) {
+            return true;
+        } else {
+            return keys.contains(key);
         }
     }
 
@@ -285,6 +303,22 @@ public class ReadPropertiesMojo extends AbstractMojo {
             // Update project properties from the properties we just loaded
             updateProperties(projectProperties, p, ignoreList);
         }
+    }
+
+    public boolean isResolveValues() {
+        return resolveValues;
+    }
+
+    public void setResolveValues(boolean resolveValues) {
+        this.resolveValues = resolveValues;
+    }
+
+    public String getPropertyKeysToResolve() {
+        return propertyKeysToResolve;
+    }
+
+    public void setPropertyKeysToResolve(String propertyKeysToResolve) {
+        this.propertyKeysToResolve = propertyKeysToResolve;
     }
 
 }
