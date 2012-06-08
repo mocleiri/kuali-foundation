@@ -70,11 +70,6 @@
       <version>1.9.0</version>
     </dependency>
     <dependency>
-      <groupId>org.jasypt</groupId>
-      <artifactId>jasypt</artifactId>
-      <version>1.9.0</version>
-    </dependency>
-    <dependency>
       <groupId>org.kuali.maven.common</groupId>
       <artifactId>maven-kuali-common</artifactId>
       <version>1.2.8</version>
