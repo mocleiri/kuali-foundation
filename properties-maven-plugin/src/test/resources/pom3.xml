@@ -52,6 +52,7 @@
               <goal>read-project-properties</goal>
             </goals>
             <configuration>
+              <resolveValues>false</resolveValues>
               <locations>
                 <param>1.properties</param>
                 <param>2.properties</param>
