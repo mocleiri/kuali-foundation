@@ -131,7 +131,7 @@ public class ReadPropertiesMojo extends AbstractMojo {
     }
 
     protected boolean resolve(String key, List<String> keys) {
-        if (keys.size() == 0) {
+        if (keys == null || keys.size() == 0) {
             return true;
         } else {
             return keys.contains(key);
