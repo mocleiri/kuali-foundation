@@ -36,10 +36,14 @@ import org.springframework.core.io.ResourceLoader;
 
 /**
  * The read-project-properties goal reads property files and stores the properties as project properties. It serves as
- * an alternate to specifying properties in pom.xml.
+ * an alternate to specifying properties in pom.xml.<br>
+ *
+ * In properties files read in by the plugin, Spring style property expressions are supported eg nested properties like
+ * ${db.${db.vendor}.sql}
  *
  * @author <a href="mailto:zarars@gmail.com">Zarar Siddiqi</a>
  * @author <a href="mailto:Krystian.Nowak@gmail.com">Krystian Nowak</a>
+ * @auther Jeff Caddel
  * @version $Id: ReadPropertiesMojo.java 8861 2009-01-21 15:35:38Z pgier $
  * @goal read-project-properties
  */
@@ -90,20 +94,6 @@ public class ReadPropertiesMojo extends AbstractMojo {
      */
     private String ignore;
 
-    /**
-     * If true, property values are resolved
-     *
-     * @parameter expression="${properties.resolveValues}" default-value="true"
-     */
-    boolean resolveValues;
-
-    /**
-     * If supplied, only the comma separated list of property keys are resolved.
-     *
-     * @parameter expression="${properties.propertyKeysToResolve}"
-     */
-    String propertyKeysToResolve;
-
     @Override
     public void execute() throws MojoExecutionException {
         // Figure out if there are properties we need to ignore
@@ -112,29 +102,17 @@ public class ReadPropertiesMojo extends AbstractMojo {
         // Update project properties by loading in properties from the locations they've specified
         updateProjectProperties(ignoreList);
 
-        if (resolveValues) {
-            // Project + system + env properties
-            Properties allProperties = utils.getMavenProperties(project);
-            resolveValues(project.getProperties(), allProperties, getListFromCSV(propertyKeysToResolve));
-        }
+        // Project + system + env properties
+        Properties allProperties = utils.getMavenProperties(project);
+        resolveValues(project.getProperties(), allProperties);
 
     }
 
-    protected void resolveValues(Properties p1, Properties p2, List<String> keys) {
+    protected void resolveValues(Properties p1, Properties p2) {
         for (String name : p1.stringPropertyNames()) {
-            if (resolve(name, keys)) {
-                String originalValue = p1.getProperty(name);
-                String resolvedValue = utils.getResolvedValue(originalValue, p2);
-                p1.setProperty(name, resolvedValue);
-            }
-        }
-    }
-
-    protected boolean resolve(String key, List<String> keys) {
-        if (keys == null || keys.size() == 0) {
-            return true;
-        } else {
-            return keys.contains(key);
+            String originalValue = p1.getProperty(name);
+            String resolvedValue = utils.getResolvedValue(originalValue, p2);
+            p1.setProperty(name, resolvedValue);
         }
     }
 
@@ -305,22 +283,6 @@ public class ReadPropertiesMojo extends AbstractMojo {
             // Update project properties from the properties we just loaded
             updateProperties(projectProperties, p, ignoreList);
         }
-    }
-
-    public boolean isResolveValues() {
-        return resolveValues;
-    }
-
-    public void setResolveValues(boolean resolveValues) {
-        this.resolveValues = resolveValues;
-    }
-
-    public String getPropertyKeysToResolve() {
-        return propertyKeysToResolve;
-    }
-
-    public void setPropertyKeysToResolve(String propertyKeysToResolve) {
-        this.propertyKeysToResolve = propertyKeysToResolve;
     }
 
 }
