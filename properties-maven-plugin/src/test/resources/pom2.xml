@@ -46,7 +46,7 @@
         <artifactId>${project.artifactId}</artifactId>
         <executions>
           <execution>
-            <id>read</id>
+            <id>read1</id>
             <phase>test</phase>
             <goals>
               <goal>read-project-properties</goal>
@@ -54,6 +54,17 @@
             <configuration>
               <locations>
                 <param>1.properties</param>
+              </locations>
+            </configuration>
+          </execution>
+          <execution>
+            <id>read2</id>
+            <phase>test</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+            </goals>
+            <configuration>
+              <locations>
                 <param>2.properties</param>
               </locations>
             </configuration>
