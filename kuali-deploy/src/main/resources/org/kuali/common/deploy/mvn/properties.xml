@@ -87,91 +87,20 @@
               </configuration>
             </execution>
             <execution>
-              <id>common</id>
+              <id>environment</id>
               <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
               <configuration>
-                <quiet>false</quiet>
+                <quiet>true</quiet>
                 <locations>
                   <param>classpath:org/kuali/common/deploy/common.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>project</id>
-              <phase>validate</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>false</quiet>
-                <locations>
                   <param>classpath:${deploy.groupId.path}/common.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>app</id>
-              <phase>validate</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>true</quiet>
-                <locations>
                   <param>classpath:${deploy.groupId.path}/${deploy.artifactId}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>version</id>
-              <phase>validate</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>true</quiet>
-                <locations>
                   <param>classpath:${deploy.groupId.path}/${deploy.version.major}.${deploy.version.minor}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>env</id>
-              <phase>validate</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>true</quiet>
-                <locations>
                   <param>classpath:${deploy.groupId.path}/env${deploy.env}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>db</id>
-              <phase>validate</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>false</quiet>
-                <locations>
                   <param>classpath:org/kuali/common/deploy/${db.vendor}.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>sql</id>
-              <phase>validate</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <locations>
                   <param>classpath:sql.properties</param>
                   <param>classpath:${db.vendor}.xml</param>
                 </locations>
