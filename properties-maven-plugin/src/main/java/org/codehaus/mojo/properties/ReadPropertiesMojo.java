@@ -70,7 +70,7 @@ public class ReadPropertiesMojo extends AbstractMojo {
     private boolean quiet;
 
     /**
-     * If true, the plugin operate silently without emitting any log messages
+     * If true, the plugin will operate silently without emitting any log messages
      *
      * @parameter expression="${properties.silent}" default-value="false"
      */
