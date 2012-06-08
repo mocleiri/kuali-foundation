@@ -37,10 +37,6 @@
           <groupId>${project.groupId}</groupId>
           <artifactId>${project.artifactId}</artifactId>
           <version>${project.version}</version>
-          <configuration>
-            <password>${kuali.enc.password}</password>
-            <show>false</show>
-          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -50,34 +46,38 @@
         <artifactId>${project.artifactId}</artifactId>
         <executions>
           <execution>
-            <id>encrypt</id>
+            <id>read</id>
             <phase>test</phase>
             <goals>
-              <goal>encrypt</goal>
+              <goal>read-project-properties</goal>
             </goals>
             <configuration>
-              <properties>
-                <param>dnsme.secretKey</param>
-                <param>kuali.gpg.passphrase</param>
-                <param>impex.dba.password</param>
-                <param>ec2.secretKey</param>
-                <param>rice.ses.password</param>
-              </properties>
-            </configuration>
-          </execution>
-          <execution>
-            <id>decryptall</id>
-            <phase>test</phase>
-            <goals>
-              <goal>decryptall</goal>
-            </goals>
-            <configuration>
-              <properties>
-                <param>foo.encrypted</param>
-              </properties>
+              <locations>
+                <param>1.properties</param>
+                <param>2.properties</param>
+              </locations>
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.soebes.maven.plugins</groupId>
+        <artifactId>maven-echo-plugin</artifactId>
+        <version>0.1</version>
+        <executions>
+          <execution>
+            <id>echo</id>
+            <phase>test</phase>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <echos>
+            <echo>dns.hostname=${dns.hostname}</echo>
+          </echos>
+        </configuration>
       </plugin>
     </plugins>
   </build>
