@@ -122,12 +122,11 @@ public class ReadPropertiesMojo extends AbstractMojo {
 
     protected void resolveValues(Properties p1, Properties p2, List<String> keys) {
         for (String name : p1.stringPropertyNames()) {
-            if (!resolve(name, keys)) {
-                continue;
+            if (resolve(name, keys)) {
+                String originalValue = p1.getProperty(name);
+                String resolvedValue = utils.getResolvedValue(originalValue, p2);
+                p1.setProperty(name, resolvedValue);
             }
-            String originalValue = p1.getProperty(name);
-            String resolvedValue = utils.getResolvedValue(originalValue, p2);
-            p1.setProperty(name, resolvedValue);
         }
     }
 
@@ -289,16 +288,19 @@ public class ReadPropertiesMojo extends AbstractMojo {
     protected void updateProjectProperties(List<String> ignoreList) throws MojoExecutionException {
         Properties projectProperties = project.getProperties();
         for (int i = 0; i < locations.length; i++) {
-            String location = locations[i];
-            if (!validate(location)) {
+            Properties allProperties = utils.getMavenProperties(project);
+            String originalLocation = locations[i];
+            String resolvedLocation = utils.getResolvedValue(originalLocation, allProperties);
+            getLog().debug("o=" + originalLocation + " r=" + resolvedLocation);
+            if (!validate(resolvedLocation)) {
                 continue;
             }
             if (!silent) {
-                getLog().info("Loading " + location);
+                getLog().info("Loading " + resolvedLocation);
             }
 
             // Load properties from this location
-            Properties p = getProperties(location);
+            Properties p = getProperties(resolvedLocation);
 
             // Update project properties from the properties we just loaded
             updateProperties(projectProperties, p, ignoreList);
