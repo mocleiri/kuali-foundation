@@ -29,7 +29,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.cli.CommandLineUtils;
+import org.kuali.maven.common.PropertiesUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -44,6 +44,7 @@ import org.springframework.core.io.ResourceLoader;
  * @goal read-project-properties
  */
 public class ReadPropertiesMojo extends AbstractMojo {
+    PropertiesUtils utils = new PropertiesUtils();
 
     /**
      * @parameter default-value="${project}"
@@ -89,40 +90,46 @@ public class ReadPropertiesMojo extends AbstractMojo {
      */
     private String ignore;
 
+    /**
+     * If true, property values are resolved
+     *
+     * @parameter expression="${properties.resolveValues}" default-value="true"
+     */
+    boolean resolveValues;
+
     @Override
     public void execute() throws MojoExecutionException {
-        List<String> ignoreList = getListFromCSV(ignore);
-        Properties projectProperties = project.getProperties();
-        if (!silent && verbose && !StringUtils.isBlank(ignore)) {
-            getLog().info("Ignoring " + ignore);
-        }
-        for (int i = 0; i < locations.length; i++) {
-            String location = locations[i];
-            if (!validate(location)) {
-                continue;
-            }
-            if (!silent) {
-                getLog().info("Loading " + location);
-            }
-            Properties p = getProperties(location);
-            updateProperties(projectProperties, p, ignoreList);
+        // Figure out if there are properties we need to ignore
+        List<String> ignoreList = getIgnoreList();
+
+        // Update project properties by loading in properties from the locations they've specified
+        updateProjectProperties(ignoreList);
+
+        if (resolveValues) {
+            // Project + system + env properties
+            Properties allProperties = utils.getMavenProperties(project);
+            resolveValues(project.getProperties(), allProperties);
         }
 
-        Properties env = getEnvironment();
-        for (String name : projectProperties.stringPropertyNames()) {
-            String value = getPropertyValue(name, projectProperties, env);
-            projectProperties.setProperty(name, value);
+    }
+
+    protected void resolveValues(Properties p1, Properties p2) {
+        for (String name : p1.stringPropertyNames()) {
+            String originalValue = p1.getProperty(name);
+            String resolvedValue = utils.getResolvedValue(originalValue, p2);
+            p1.setProperty(name, resolvedValue);
         }
     }
 
-    protected Properties getEnvironment() throws MojoExecutionException {
-        try {
-            return CommandLineUtils.getSystemEnvVars();
-        } catch (IOException e) {
-            throw new MojoExecutionException("Error get environment variables", e);
-        }
-    }
-
+    /**
+     * Copy properties from p2 into p1, overwriting p1 values as we go.
+     *
+     * Ignore any properties with a key that appears in the ignore list
+     *
+     * @param p1
+     * @param p2
+     * @param ignore
+     */
     protected void updateProperties(Properties p1, Properties p2, List<String> ignore) {
         Set<String> names = p2.stringPropertyNames();
         for (String name : names) {
@@ -143,72 +150,6 @@ public class ReadPropertiesMojo extends AbstractMojo {
             list.add(token.trim());
         }
         return list;
-    }
-
-    /**
-     * Retrieves a property value, replacing values like ${token} using the Properties to look them up. Shamelessly
-     * adapted from:
-     * http://maven.apache.org/plugins/maven-war-plugin/xref/org/apache/maven/plugin/war/PropertyUtils.html
-     *
-     * It will leave unresolved properties alone, trying for System properties, and environment variables and implements
-     * reparsing (in the case that the value of a property contains a key), and will not loop endlessly on a pair like
-     * test = ${test}
-     *
-     * @param k
-     *            property key
-     * @param p
-     *            project properties
-     * @param environment
-     *            environment variables
-     * @return resolved property value
-     */
-    protected String getPropertyValue(String k, Properties p, Properties environment) {
-        String v = p.getProperty(k);
-        String ret = "";
-        int idx, idx2;
-
-        while ((idx = v.indexOf("${")) >= 0) {
-            // append prefix to result
-            ret += v.substring(0, idx);
-
-            // strip prefix from original
-            v = v.substring(idx + 2);
-
-            idx2 = v.indexOf("}");
-
-            // if no matching } then bail
-            if (idx2 < 0) {
-                break;
-            }
-
-            // strip out the key and resolve it
-            // resolve the key/value for the ${statement}
-            String nk = v.substring(0, idx2);
-            v = v.substring(idx2 + 1);
-            String nv = p.getProperty(nk);
-
-            // try global environment
-            if (nv == null) {
-                nv = System.getProperty(nk);
-            }
-
-            // try environment variable
-            if (nv == null && nk.startsWith("env.") && environment != null) {
-                nv = environment.getProperty(nk.substring(4));
-            }
-
-            // if the key cannot be resolved,
-            // leave it alone ( and don't parse again )
-            // else prefix the original string with the
-            // resolved property ( so it can be parsed further )
-            // taking recursion into account.
-            if (nv == null || nv.equals(nk)) {
-                ret += "${" + nk + "}";
-            } else {
-                v = nv + v;
-            }
-        }
-        return ret + v;
     }
 
     protected String toEmpty(String s) {
@@ -317,6 +258,33 @@ public class ReadPropertiesMojo extends AbstractMojo {
 
     public void setSilent(boolean silent) {
         this.silent = silent;
+    }
+
+    protected List<String> getIgnoreList() {
+        List<String> ignoreList = getListFromCSV(ignore);
+        if (!silent && verbose && !StringUtils.isBlank(ignore)) {
+            getLog().info("Ignoring " + ignore);
+        }
+        return ignoreList;
+    }
+
+    protected void updateProjectProperties(List<String> ignoreList) throws MojoExecutionException {
+        Properties projectProperties = project.getProperties();
+        for (int i = 0; i < locations.length; i++) {
+            String location = locations[i];
+            if (!validate(location)) {
+                continue;
+            }
+            if (!silent) {
+                getLog().info("Loading " + location);
+            }
+
+            // Load properties from this location
+            Properties p = getProperties(location);
+
+            // Update project properties from the properties we just loaded
+            updateProperties(projectProperties, p, ignoreList);
+        }
     }
 
 }
