@@ -38,8 +38,9 @@ import org.springframework.core.io.ResourceLoader;
  * The read-project-properties goal reads property files and stores the properties as project properties. It serves as
  * an alternate to specifying properties in pom.xml.<br>
  *
- * In properties files read in by the plugin, Spring style property expressions are supported eg nested properties like
- * ${db.${db.vendor}.sql}
+ * Properties files handled by this plugin, have their property values resolved using Spring's expression parser. This
+ * means anything you can do with Spring property values you can do with property values handled by this plugin. For
+ * example, nested properties are supported: eg foo=${a.${b}.c}
  *
  * @author <a href="mailto:zarars@gmail.com">Zarar Siddiqi</a>
  * @author <a href="mailto:Krystian.Nowak@gmail.com">Krystian Nowak</a>
