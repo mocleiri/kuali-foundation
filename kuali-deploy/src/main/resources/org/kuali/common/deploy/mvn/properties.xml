@@ -87,7 +87,7 @@
               </configuration>
             </execution>
             <execution>
-              <id>environment</id>
+              <id>config</id>
               <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
