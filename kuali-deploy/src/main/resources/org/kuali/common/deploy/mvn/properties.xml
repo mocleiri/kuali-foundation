@@ -99,7 +99,7 @@
                   <param>classpath:${deploy.groupId.path}/common.properties</param>
                   <param>classpath:${deploy.groupId.path}/${deploy.artifactId}.properties</param>
                   <param>classpath:${deploy.groupId.path}/${deploy.version.major}.${deploy.version.minor}.properties</param>
-                  <param>classpath:${deploy.groupId.path}/env${deploy.env}.properties</param>
+                  <param>classpath:${deploy.groupId.path}/${deploy.env.name}.properties</param>
                   <param>classpath:org/kuali/common/deploy/${db.vendor}.properties</param>
                   <param>classpath:sql.properties</param>
                   <param>classpath:${db.vendor}.xml</param>
