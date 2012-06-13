@@ -97,7 +97,7 @@
             </execution>
             <execution>
               <id>config</id>
-              <phase>validate</phase>
+              <phase>initialize</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
