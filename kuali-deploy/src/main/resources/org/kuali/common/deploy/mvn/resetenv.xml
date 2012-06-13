@@ -32,6 +32,82 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>ec2-maven-plugin</artifactId>
+          <version>${plugin.ec2.version}</version>
+          <configuration>
+            <accessKey>${ec2.accessKey}</accessKey>
+            <secretKey>${ec2.secretKey}</secretKey>
+            <ami>${ec2.ami}</ami>
+            <type>${ec2.type}</type>
+            <key>${ec2.keyName}</key>
+            <securityGroups>
+              <param>${ec2.securityGroup}</param>
+            </securityGroups>
+            <userDataFile>classpath:ec2/user-data-script</userDataFile>
+            <filterUserData>true</filterUserData>
+            <tags>
+              <tag>
+                <key>Name</key>
+                <value>${deploy.env.name}</value>
+              </tag>
+            </tags>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.kuali.common</groupId>
+              <artifactId>kuali-ec2</artifactId>
+              <version>${kuali-ec2.version}</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <id>find</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>findinstance</goal>
+              </goals>
+              <configuration>
+                <tag>Name</tag>
+                <value>${deploy.env.name}</value>
+              </configuration>
+            </execution>
+            <execution>
+              <id>terminate</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>terminate</goal>
+              </goals>
+              <configuration>
+                <instanceId>${ec2.instance.id}</instanceId>
+              </configuration>
+            </execution>
+            <execution>
+              <id>tag</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>taginstance</goal>
+              </goals>
+              <configuration>
+                <instanceId>${ec2.instance.id}</instanceId>
+                <tags>
+                  <tag>
+                    <key>Name</key>
+                    <value>${deploy.env.name}-terminated</value>
+                  </tag>
+                </tags>
+              </configuration>
+            </execution>
+            <execution>
+              <id>launch</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>launch</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
           <version>${plugin.enforcer.version}</version>
           <executions>
@@ -84,18 +160,6 @@
               </configuration>
             </execution>
             <execution>
-              <id>parse</id>
-              <phase>validate</phase>
-              <goals>
-                <goal>parse-version-properties</goal>
-              </goals>
-              <configuration>
-                <properties>
-                  <param>deploy.version</param>
-                </properties>
-              </configuration>
-            </execution>
-            <execution>
               <id>config</id>
               <phase>initialize</phase>
               <goals>
@@ -136,38 +200,49 @@
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>ec2-maven-plugin</artifactId>
-          <version>${plugin.ec2.version}</version>
-          <configuration>
-            <accessKey>${ec2.accessKey}</accessKey>
-            <secretKey>${ec2.secretKey}</secretKey>
-            <ami>${ec2.ami}</ami>
-            <type>${ec2.type}</type>
-            <key>${ec2.keyName}</key>
-            <securityGroups>
-              <param>${ec2.securityGroup}</param>
-            </securityGroups>
-            <userDataFile>classpath:ec2/user-data-script</userDataFile>
-            <filterUserData>true</filterUserData>
-            <tags>
-              <tag>
-                <key>Name</key>
-                <value>${deploy.env.name}</value>
-              </tag>
-            </tags>
-          </configuration>
-          <dependencies>
-            <dependency>
-              <groupId>org.kuali.common</groupId>
-              <artifactId>kuali-ec2</artifactId>
-              <version>${kuali-ec2.version}</version>
-            </dependency>
-          </dependencies>
+          <artifactId>maven-http-plugin</artifactId>
+          <version>${plugin.http.version}</version>
+          <executions>
+            <execution>
+              <id>http</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>wait</goal>
+              </goals>
+              <configuration>
+                <timeout>${http.timeout}</timeout>
+                <url>http://${ec2.instance.dns}/tomcat/logs/env.jsp</url>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>maven-http-plugin</artifactId>
-          <version>${plugin.http.version}</version>
+          <artifactId>maven-dnsme-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>delete</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>deleterecord</goal>
+              </goals>
+              <configuration>
+                <recordName>${dnsme.recordName}</recordName>
+              </configuration>
+            </execution>
+            <execution>
+              <id>add</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>addrecord</goal>
+              </goals>
+              <configuration>
+                <recordName>${dnsme.recordName}</recordName>
+                <!-- The dot at the end is significant. Without it, DNSME appends "kuali.org" to the end of whatever we provide. -->
+                <recordValue>${ec2.instance.dns}.</recordValue>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -182,97 +257,14 @@
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>ec2-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>find</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>findinstance</goal>
-            </goals>
-            <configuration>
-              <tag>Name</tag>
-              <value>${deploy.env.name}</value>
-            </configuration>
-          </execution>
-          <execution>
-            <id>terminate</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>terminate</goal>
-            </goals>
-            <configuration>
-              <instanceId>${ec2.instance.id}</instanceId>
-            </configuration>
-          </execution>
-          <execution>
-            <id>tag</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>taginstance</goal>
-            </goals>
-            <configuration>
-              <instanceId>${ec2.instance.id}</instanceId>
-              <tags>
-                <tag>
-                  <key>Name</key>
-                  <value>${deploy.env.name}-terminated</value>
-                </tag>
-              </tags>
-            </configuration>
-          </execution>
-          <execution>
-            <id>launch</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>launch</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-http-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>http</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>wait</goal>
-            </goals>
-            <configuration>
-              <timeout>${http.timeout}</timeout>
-              <url>http://${ec2.instance.dns}/tomcat/logs/env.jsp</url>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>maven-dnsme-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>delete</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>deleterecord</goal>
-            </goals>
-            <configuration>
-              <recordName>${dnsme.recordName}</recordName>
-            </configuration>
-          </execution>
-          <execution>
-            <id>add</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>addrecord</goal>
-            </goals>
-            <configuration>
-              <recordName>${dnsme.recordName}</recordName>
-              <!-- The dot at the end is significant. Without it, DNSME appends "kuali.org" to the end of whatever we provide. -->
-              <recordValue>${ec2.instance.dns}.</recordValue>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
