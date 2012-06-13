@@ -84,40 +84,28 @@
               </configuration>
             </execution>
             <execution>
-              <id>common</id>
-              <phase>initialize</phase>
+              <id>parse</id>
+              <phase>validate</phase>
               <goals>
-                <goal>read-project-properties</goal>
+                <goal>parse-version-properties</goal>
               </goals>
               <configuration>
-                <quiet>false</quiet>
-                <locations>
-                  <param>classpath:org/kuali/common/deploy/common.properties</param>
-                </locations>
+                <properties>
+                  <param>deploy.version</param>
+                </properties>
               </configuration>
             </execution>
             <execution>
-              <id>project</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-              <configuration>
-                <quiet>false</quiet>
-                <locations>
-                  <param>classpath:${deploy.groupId.path}/common.properties</param>
-                </locations>
-              </configuration>
-            </execution>
-            <execution>
-              <id>environment</id>
-              <phase>initialize</phase>
+              <id>config</id>
+              <phase>validate</phase>
               <goals>
                 <goal>read-project-properties</goal>
               </goals>
               <configuration>
                 <quiet>true</quiet>
                 <locations>
+                  <param>classpath:org/kuali/common/deploy/common.properties</param>
+                  <param>classpath:${deploy.groupId.path}/common.properties</param>
                   <param>classpath:${deploy.groupId.path}/${deploy.env.name}.properties</param>
                 </locations>
               </configuration>
@@ -280,6 +268,7 @@
             </goals>
             <configuration>
               <recordName>${dnsme.recordName}</recordName>
+              <!-- The dot at the end is significant. Without it, DNSME appends "kuali.org" to the end of whatever we provide. -->
               <recordValue>${ec2.instance.dns}.</recordValue>
             </configuration>
           </execution>
