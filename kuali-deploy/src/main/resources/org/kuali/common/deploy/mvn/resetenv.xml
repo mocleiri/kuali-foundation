@@ -197,28 +197,6 @@
             <domainName>${dnsme.domainName}</domainName>
             <recordType>${dnsme.recordType}</recordType>
           </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>maven-http-plugin</artifactId>
-          <version>${plugin.http.version}</version>
-          <executions>
-            <execution>
-              <id>http</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>wait</goal>
-              </goals>
-              <configuration>
-                <timeout>${http.timeout}</timeout>
-                <url>http://${ec2.instance.dns}/tomcat/logs/env.jsp</url>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>maven-dnsme-plugin</artifactId>
           <executions>
             <execution>
               <id>delete</id>
@@ -240,6 +218,24 @@
                 <recordName>${dnsme.recordName}</recordName>
                 <!-- The dot at the end is significant. Without it, DNSME appends "kuali.org" to the end of whatever we provide. -->
                 <recordValue>${ec2.instance.dns}.</recordValue>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>maven-http-plugin</artifactId>
+          <version>${plugin.http.version}</version>
+          <executions>
+            <execution>
+              <id>http</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>wait</goal>
+              </goals>
+              <configuration>
+                <timeout>${http.timeout}</timeout>
+                <url>http://${ec2.instance.dns}/tomcat/logs/env.jsp</url>
               </configuration>
             </execution>
           </executions>
