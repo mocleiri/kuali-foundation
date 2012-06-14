@@ -33,6 +33,25 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+          <version>${plugin.properties.version}</version>
+          <executions>
+            <execution>
+              <id>read</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+              <configuration>
+                <locations>
+                  <param>${properties.all}</param>
+                </locations>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
           <version>${plugin.antrun.version}</version>
           <executions>
@@ -46,8 +65,8 @@
                 <target name="schema">
                   <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
                   <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="check-import-properties" />
+                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="create-ddl" />
                   <!--
-                    <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="create-ddl" />
                     <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="apply-ddl" />
                     <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="pre-import-sql" />
                     <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="import-data" />
@@ -64,6 +83,10 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
       </plugin>
