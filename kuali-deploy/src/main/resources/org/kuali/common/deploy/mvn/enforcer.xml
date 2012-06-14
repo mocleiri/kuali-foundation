@@ -78,12 +78,14 @@
                     <regex>^\d(.)*</regex>
                     <regexMessage>Version must begin with a number</regexMessage>
                   </requireProperty>
-                  <requireProperty>
+                  <!-- Comment this out for now so we can use envlocal.properties
+                    <requireProperty>
                     <property>deploy.env</property>
                     <message>You must provide an environment</message>
                     <regex>^\d(.)*</regex>
                     <regexMessage>Environment must be a number</regexMessage>
-                  </requireProperty>
+                    </requireProperty>
+                  -->
                 </rules>
                 <fail>true</fail>
               </configuration>
