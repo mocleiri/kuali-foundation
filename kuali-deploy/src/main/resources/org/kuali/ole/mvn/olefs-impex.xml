@@ -66,8 +66,8 @@
                   <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
                   <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="check-import-properties" />
                   <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="create-ddl" />
+                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="apply-ddl" />
                   <!--
-                    <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="apply-ddl" />
                     <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="pre-import-sql" />
                     <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="import-data" />
                     <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="import-data2" />

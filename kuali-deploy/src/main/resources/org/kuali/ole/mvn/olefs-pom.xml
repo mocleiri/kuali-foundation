@@ -100,7 +100,6 @@
                 <goal>mvn</goal>
               </goals>
               <configuration>
-                <quiet>false</quiet>
                 <args>
                   <arg>initialize</arg>
                 </args>
