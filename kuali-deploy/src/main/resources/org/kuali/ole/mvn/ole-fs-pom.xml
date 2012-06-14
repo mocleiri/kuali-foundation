@@ -121,9 +121,9 @@
                   <arg>-Ddeploy.ant.target=deploy</arg>
                 </args>
                 <poms>
-                  <param>classpath:org/kuali/ole/mvn/olefs-resetdb.xml</param>
-                  <param>classpath:org/kuali/ole/mvn/olefs-dependencies.xml</param>
-                  <param>classpath:org/kuali/ole/mvn/olefs-impex.xml</param>
+                  <param>classpath:org/kuali/ole/mvn/ole-fs-resetdb.xml</param>
+                  <param>classpath:org/kuali/ole/mvn/ole-fs-dependencies.xml</param>
+                  <param>classpath:org/kuali/ole/mvn/ole-fs-impex.xml</param>
                 </poms>
               </configuration>
             </execution>
