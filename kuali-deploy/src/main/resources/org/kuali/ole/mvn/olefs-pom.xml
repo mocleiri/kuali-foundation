@@ -122,6 +122,7 @@
                 </args>
                 <poms>
                   <param>classpath:org/kuali/ole/mvn/olefs-resetdb.xml</param>
+                  <param>classpath:org/kuali/ole/mvn/olefs-dependencies.xml</param>
                 </poms>
               </configuration>
             </execution>
