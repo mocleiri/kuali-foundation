@@ -25,7 +25,7 @@
     <version>${parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>kuali-dependencies</artifactId>
+  <artifactId>olefs-webapp-dependencies</artifactId>
   <version>${project.version}</version>
   <name>OLE Financial System Dependencies</name>
   <description>This pom contains plugin executions for handling OLE Financial System dependencies</description>
