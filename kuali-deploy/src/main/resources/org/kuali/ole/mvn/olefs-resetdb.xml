@@ -95,6 +95,7 @@
             <username>${impex.dba.username}</username>
             <password>${impex.dba.password}</password>
             <url>${impex.dba.url}</url>
+            <keepFormat>true</keepFormat>
           </configuration>
           <executions>
             <execution>
@@ -118,6 +119,13 @@
               </configuration>
             </execution>
           </executions>
+          <dependencies>
+            <dependency>
+              <groupId>${jdbc.driver.groupId}</groupId>
+              <artifactId>${jdbc.driver.artifactId}</artifactId>
+              <version>${jdbc.driver.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
