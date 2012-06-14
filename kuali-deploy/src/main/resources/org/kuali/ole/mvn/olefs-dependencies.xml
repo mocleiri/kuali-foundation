@@ -46,33 +46,33 @@
                 <artifactItems>
                   <artifactItem>
                     <groupId>org.kuali.db.impex</groupId>
-                    <artifactId>${impex.artifactId}</artifactId>
-                    <version>${impex.version}</version>
-                    <outputDirectory>${impex.unpack.dir}</outputDirectory>
+                    <artifactId>${impex.tool.artifactId}</artifactId>
+                    <version>${impex.tool.version}</version>
+                    <outputDirectory>${impex.tool.unpack.dir}</outputDirectory>
                   </artifactItem>
                   <artifactItem>
                     <groupId>org.kuali.rice</groupId>
                     <artifactId>rice-impex-clover</artifactId>
                     <version>${rice.impex.version}</version>
-                    <outputDirectory>${rice.unpack.dir}</outputDirectory>
+                    <outputDirectory>${rice.impex.unpack.dir}</outputDirectory>
                   </artifactItem>
                   <artifactItem>
                     <groupId>org.kuali.ole</groupId>
                     <artifactId>ole-impex</artifactId>
                     <version>${deploy.version}</version>
-                    <outputDirectory>${ole.impex.unpack.dir}</outputDirectory>
+                    <outputDirectory>${impex.unpack.dir}</outputDirectory>
                   </artifactItem>
                   <artifactItem>
                     <groupId>org.kuali.ole</groupId>
                     <artifactId>ole-liquibase</artifactId>
                     <version>${deploy.version}</version>
-                    <outputDirectory>${ole.liquibase.unpack.dir}</outputDirectory>
+                    <outputDirectory>${liquibase.unpack.dir}</outputDirectory>
                   </artifactItem>
                   <artifactItem>
                     <groupId>org.kuali.ole</groupId>
                     <artifactId>ole-workflow</artifactId>
                     <version>${deploy.version}</version>
-                    <outputDirectory>${ole.workflow.unpack.dir}</outputDirectory>
+                    <outputDirectory>${workflow.unpack.dir}</outputDirectory>
                   </artifactItem>
                 </artifactItems>
               </configuration>
