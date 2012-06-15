@@ -58,19 +58,19 @@
                   </artifactItem>
                   <artifactItem>
                     <groupId>org.kuali.ole</groupId>
-                    <artifactId>ole-impex</artifactId>
+                    <artifactId>ole-fs-impex</artifactId>
                     <version>${deploy.version}</version>
                     <outputDirectory>${impex.unpack.dir}</outputDirectory>
                   </artifactItem>
                   <artifactItem>
                     <groupId>org.kuali.ole</groupId>
-                    <artifactId>ole-liquibase</artifactId>
+                    <artifactId>ole-fs-liquibase</artifactId>
                     <version>${deploy.version}</version>
                     <outputDirectory>${liquibase.unpack.dir}</outputDirectory>
                   </artifactItem>
                   <artifactItem>
                     <groupId>org.kuali.ole</groupId>
-                    <artifactId>ole-workflow</artifactId>
+                    <artifactId>ole-fs-workflow</artifactId>
                     <version>${deploy.version}</version>
                     <outputDirectory>${workflow.unpack.dir}</outputDirectory>
                   </artifactItem>
