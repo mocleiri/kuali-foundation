@@ -80,15 +80,15 @@
               <configuration>
                 <target name="schema">
                   <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="check-import-properties" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="create-ddl" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="apply-ddl" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="pre-import-sql" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="import-data" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="import-data2" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="run-liquibase-post-import" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="apply-constraint-ddl" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="post-import-sql" />
+                  <ant antfile="build.xml" dir="." target="check-import-properties" />
+                  <ant antfile="build.xml" dir="." target="create-ddl" />
+                  <ant antfile="build.xml" dir="." target="apply-ddl" />
+                  <ant antfile="build.xml" dir="." target="pre-import-sql" />
+                  <ant antfile="build.xml" dir="." target="import-data" />
+                  <ant antfile="build.xml" dir="." target="import-data2" />
+                  <ant antfile="build.xml" dir="." target="run-liquibase-post-import" />
+                  <ant antfile="build.xml" dir="." target="apply-constraint-ddl" />
+                  <ant antfile="build.xml" dir="." target="post-import-sql" />
                 </target>
               </configuration>
             </execution>
