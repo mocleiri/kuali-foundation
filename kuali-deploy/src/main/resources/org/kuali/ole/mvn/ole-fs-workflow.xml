@@ -58,6 +58,13 @@
               </configuration>
             </execution>
           </executions>
+          <dependencies>
+            <dependency>
+              <groupId>${jdbc.groupId}</groupId>
+              <artifactId>${jdbc.artifactId}</artifactId>
+              <version>${jdbc.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
