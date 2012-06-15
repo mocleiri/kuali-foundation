@@ -60,9 +60,9 @@
           </executions>
           <dependencies>
             <dependency>
-              <groupId>${jdbc.groupId}</groupId>
-              <artifactId>${jdbc.artifactId}</artifactId>
-              <version>${jdbc.version}</version>
+              <groupId>${jdbc.driver.groupId}</groupId>
+              <artifactId>${jdbc.driver.artifactId}</artifactId>
+              <version>${jdbc.driver.version}</version>
             </dependency>
           </dependencies>
         </plugin>
