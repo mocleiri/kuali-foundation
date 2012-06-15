@@ -25,10 +25,18 @@
     <version>${parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>olefs-impex</artifactId>
+  <artifactId>olefs-impex-clover</artifactId>
   <version>${project.version}</version>
-  <name>OLE Financial System Impex</name>
-  <description>This pom contains plugin executions for handling OLE Financial System Impex data</description>
+  <name>OLE Financial System Impex Clover</name>
+  <description>
+  This pom contains plugin executions for handling OLE Financial System Impex clover data
+  This pom should not exist.  The only reason it is here is because of a serious flaw in the
+  way the Ant based Impex tooling uses Clover ETL.  The JVM must be launched from the same
+  directory as the build.xml file or everything blows up because of a lame hard coded pathing issue
+  related to workspace.prm.  It looks for that file using "./workspace.prm" instead of something
+  like "classpath:workspace.prm" or by allowing you to set a property or something along those lines.
+  At any rate, if that issue gets fixed, remove this pom and fold it into ole-fs-impex.xml.
+  </description>
   <build>
     <pluginManagement>
       <plugins>
@@ -46,10 +54,18 @@
               <configuration>
                 <locations>
                   <param>${properties.all}</param>
+                  <param>classpath:org/kuali/ole/ole-fs-impex-clover.properties</param>
                 </locations>
               </configuration>
             </execution>
           </executions>
+          <dependencies>
+            <dependency>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project.artifactId}</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
@@ -64,17 +80,8 @@
               <configuration>
                 <target name="schema">
                   <property name="maven.plugin.classpath" refid="maven.plugin.classpath" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="check-import-properties" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="create-ddl" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="apply-ddl" />
-                  <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="pre-import-sql" />
-                  <!--
-                    <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="import-data" />
-                    <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="import-data2" />
-                    <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="run-liquibase-post-import" />
-                    <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="apply-constraint-ddl" />
-                    <ant antfile="${impex.ant.dir}/build.xml" dir="${impex.ant.dir}" target="post-import-sql" />
-                  -->
+                  <ant antfile="build.xml" dir="." target="import-data" />
+                  <ant antfile="build.xml" dir="." target="import-data2" />
                 </target>
               </configuration>
             </execution>

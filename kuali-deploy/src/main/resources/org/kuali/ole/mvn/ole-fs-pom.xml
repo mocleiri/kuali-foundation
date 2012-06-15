@@ -118,12 +118,28 @@
               <configuration>
                 <args>
                   <arg>initialize</arg>
-                  <arg>-Ddeploy.ant.target=deploy</arg>
                 </args>
                 <poms>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-resetdb.xml</param>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-dependencies.xml</param>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-impex.xml</param>
+                </poms>
+              </configuration>
+            </execution>
+            <execution>
+              <id>clover</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>mvn</goal>
+              </goals>
+              <configuration>
+                <quiet>false</quiet>
+                <basedir>${project.basedir}/dependency/impex-cloveretl-ce/impex</basedir>
+                <args>
+                  <arg>initialize</arg>
+                </args>
+                <poms>
+                  <param>classpath:org/kuali/ole/mvn/ole-fs-impex-clover.xml</param>
                 </poms>
               </configuration>
             </execution>
