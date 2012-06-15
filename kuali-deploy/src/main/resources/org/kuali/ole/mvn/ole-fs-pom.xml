@@ -122,7 +122,6 @@
                 <poms>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-resetdb.xml</param>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-dependencies.xml</param>
-                  <param>classpath:org/kuali/ole/mvn/ole-fs-impex.xml</param>
                 </poms>
               </configuration>
             </execution>
@@ -139,7 +138,7 @@
                   <arg>initialize</arg>
                 </args>
                 <poms>
-                  <param>classpath:org/kuali/ole/mvn/ole-fs-impex-clover.xml</param>
+                  <param>classpath:org/kuali/ole/mvn/ole-fs-impex.xml</param>
                 </poms>
               </configuration>
             </execution>
