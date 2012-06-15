@@ -134,7 +134,7 @@
               </goals>
               <configuration>
                 <quiet>false</quiet>
-                <basedir>${project.basedir}/dependency/impex-cloveretl-ce/impex</basedir>
+                <basedir>${project.build.directory}/dependency/impex-cloveretl-ce/impex</basedir>
                 <args>
                   <arg>initialize</arg>
                 </args>
