@@ -30,12 +30,10 @@
   <name>OLE Financial System Impex Clover</name>
   <description>
   This pom contains plugin executions for handling OLE Financial System Impex clover data
-  This pom should not exist.  The only reason it is here is because of a serious flaw in the
-  way the Ant based Impex tooling uses Clover ETL.  The JVM must be launched from the same
-  directory as the build.xml file or everything blows up because of a lame hard coded pathing issue
-  related to workspace.prm.  It looks for that file using "./workspace.prm" instead of something
+  There is a serious flaw in the way the Ant based Impex tooling uses Clover ETL.  The JVM must be 
+  launched from the same directory as the build.xml file or everything blows up because of a lame hard 
+  coded pathing issue related to workspace.prm.  It looks for that file using "./workspace.prm" instead of something
   like "classpath:workspace.prm" or by allowing you to set a property or something along those lines.
-  At any rate, if that issue gets fixed, remove this pom and fold it into ole-fs-impex.xml.
   </description>
   <build>
     <pluginManagement>
