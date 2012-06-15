@@ -142,6 +142,21 @@
                 </poms>
               </configuration>
             </execution>
+            <execution>
+              <id>workflow</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>mvn</goal>
+              </goals>
+              <configuration>
+                <args>
+                  <arg>initialize</arg>
+                </args>
+                <poms>
+                  <param>classpath:org/kuali/ole/mvn/ole-fs-workflow.xml</param>
+                </poms>
+              </configuration>
+            </execution>
           </executions>
           <dependencies>
             <dependency>
