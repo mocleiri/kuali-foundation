@@ -32,8 +32,9 @@
   This pom contains plugin executions for handling OLE Financial System Impex clover data
   There is a serious flaw in the way the Ant based Impex tooling uses Clover ETL.  The JVM must be 
   launched from the same directory as the build.xml file or everything blows up because of a lame hard 
-  coded pathing issue related to workspace.prm.  It looks for that file using "./workspace.prm" instead of something
-  like "classpath:workspace.prm" or by allowing you to set a property or something along those lines.
+  coded pathing issue related to workspace.prm.  It looks for that file using "./workspace.prm" instead 
+  of something like "classpath:workspace.prm" or by allowing you to set a property or some other modern
+  day software technique for handling resources without resorting to hard coded file system pathing. 
   </description>
   <build>
     <pluginManagement>
