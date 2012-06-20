@@ -27,5 +27,6 @@
   <modules>
     <module>../kuali-parent</module>
     <module>../kuali-common</module>
+    <module>../kuali-maven</module>
   </modules>
 </project>
