@@ -26,5 +26,6 @@
   <name>Kuali Aggregator</name>
   <modules>
     <module>../kuali-parent</module>
+    <module>../kuali-common</module>
   </modules>
 </project>
