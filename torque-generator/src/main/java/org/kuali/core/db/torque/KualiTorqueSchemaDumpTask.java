@@ -91,6 +91,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			log("--------------------------------------");
 			log("Loading platform for " + getTargetDatabase());
 			Platform platform = PlatformFactory.getPlatformFor(targetDatabase);
+			
 			updateConfiguration(platform);
 			showConfiguration();
 			doc = getDocumentImpl();
@@ -317,7 +318,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		if (!processSequences) {
 			return;
 		}
-		List<String> sequenceNames = getSequenceNames(dbMetaData);
+		
+		List<String> sequenceNames = platform.getSequenceNames(dbMetaData, schema);
+		
 		for (String sequenceName : sequenceNames) {
 			Element sequence = doc.createElement("sequence");
 			sequence.setAttribute("name", sequenceName);
@@ -385,44 +388,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		log("Found " + tables.size() + " views.");
 		return tables;
 	}
-
-	public boolean isSequence(String sequenceName) {
-		return sequenceName.toUpperCase().startsWith("SEQ_") || sequenceName.toUpperCase().startsWith("SEQUENCE_")
-				|| sequenceName.toUpperCase().endsWith("_SEQ") || sequenceName.toUpperCase().endsWith("_SEQUENCE")
-				|| sequenceName.toUpperCase().endsWith("_ID") || sequenceName.toUpperCase().endsWith("_S");
-	}
-
-	public List<String> getSequenceNames(DatabaseMetaData dbMeta) throws SQLException {
-		log("Getting sequence list...");
-		List<String> tables = new ArrayList<String>();
-		ResultSet tableNames = null;
-		// these are the entity types we want from the database
-		String[] types = { "TABLE", "SEQUENCE" }; // JHK: removed views from list
-		try {
-			tableNames = dbMeta.getTables(null, schema, null, types);
-			while (tableNames.next()) {
-				String name = tableNames.getString(3);
-				if (isSequence(name)) {
-					tables.add(name);
-				}
-			}
-		} finally {
-			if (tableNames != null) {
-				tableNames.close();
-			}
-		}
-		log("Found " + tables.size() + " sequences.");
-		return tables;
-	}
-
-	// for ( int i = 1; i <= tableNames.getMetaData().getColumnCount(); i++ ) {
-	// System.out.print( tableNames.getMetaData().getColumnName( i ) + "," );
-	// }
-	// System.out.println();
-	// for ( int i = 1; i <= tableNames.getMetaData().getColumnCount(); i++ ) {
-	// System.out.print( tableNames.getString( i ) + "," );
-	// }
-	// System.out.println();
 
 	/**
 	 * Retrieves all the column names and types for a given table from JDBC metadata. It returns a List of Lists. Each

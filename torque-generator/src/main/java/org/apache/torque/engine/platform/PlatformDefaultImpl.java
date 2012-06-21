@@ -179,6 +179,26 @@ public class PlatformDefaultImpl implements Platform {
 		return pk;
 	}
 
+	protected List<String>getTableNames (DatabaseMetaData dbMeta, String databaseSchema, String tableType) throws SQLException {
+		// System.out.println("Getting table list...");
+				List<String> tables = new ArrayList<String>();
+				ResultSet tableNames = null;
+				// these are the entity types we want from the database
+				String[] types = { tableType }; // JHK: removed views from list
+				try {
+					tableNames = dbMeta.getTables(null, databaseSchema, null, types);
+					while (tableNames.next()) {
+						String name = tableNames.getString(3);
+						tables.add(name);
+					}
+				} finally {
+					if (tableNames != null) {
+						tableNames.close();
+					}
+				}
+				// System.out.println("Found " + tables.size() + " tables.");
+				return tables;
+	}
 	/**
 	 * Get all the table names in the current database that are not system tables.
 	 * 
@@ -188,23 +208,10 @@ public class PlatformDefaultImpl implements Platform {
 	 * @throws SQLException
 	 */
 	public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
-		// System.out.println("Getting table list...");
-		List<String> tables = new ArrayList<String>();
-		ResultSet tableNames = null;
-		// these are the entity types we want from the database
-		String[] types = { "TABLE" }; // JHK: removed views from list
-		try {
-			tableNames = dbMeta.getTables(null, databaseSchema, null, types);
-			while (tableNames.next()) {
-				String name = tableNames.getString(3);
-				tables.add(name);
-			}
-		} finally {
-			if (tableNames != null) {
-				tableNames.close();
-			}
-		}
-		// System.out.println("Found " + tables.size() + " tables.");
-		return tables;
+		return this.getTableNames(dbMeta, databaseSchema, "TABLE");
+	}
+	
+	public List<String>getSequenceNames (DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+		return this.getTableNames(dbMeta, databaseSchema, "SEQUENCE");
 	}
 }

@@ -120,4 +120,14 @@ public interface Platform {
 	public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException;
 
 	public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException;
+
+	/**
+	 * Get the list of sequences defined in the database schema given.
+	 * 
+	 * @param dbMetaData
+	 * @param databaseSchema
+	 * @return A list of sequences that exist in the database.
+	 * @throws SQLException
+	 */
+	public List<String> getSequenceNames(DatabaseMetaData dbMetaData, String databaseSchema) throws SQLException;
 }

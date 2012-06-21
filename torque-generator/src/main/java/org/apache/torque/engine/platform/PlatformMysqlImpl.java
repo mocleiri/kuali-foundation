@@ -20,9 +20,12 @@ package org.apache.torque.engine.platform;
  */
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.torque.engine.database.model.Domain;
@@ -167,5 +170,32 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl {
 			return "";
 		}
 	}
+	
+	private boolean isSequence(String sequenceName) {
+		return sequenceName.toUpperCase().startsWith("SEQ_") || sequenceName.toUpperCase().startsWith("SEQUENCE_")
+				|| sequenceName.toUpperCase().endsWith("_SEQ") || sequenceName.toUpperCase().endsWith("_SEQUENCE")
+				|| sequenceName.toUpperCase().endsWith("_ID") || sequenceName.toUpperCase().endsWith("_S");
+	}
+
+
+	@Override
+	public List<String> getSequenceNames(DatabaseMetaData dbMetaData,
+			String databaseSchema) throws SQLException {
+		// intentionally not calling the super implementation.
+		
+		List<String> sequenceList = new ArrayList<String>();
+		
+		List<String> tableList = getTableNames(dbMetaData, databaseSchema);
+		
+		for (String tableName : tableList) {
+			
+			if (isSequence(tableName))
+				sequenceList.add(tableName);
+			
+		}
+		return sequenceList;
+	}
+	
+	
 
 }
