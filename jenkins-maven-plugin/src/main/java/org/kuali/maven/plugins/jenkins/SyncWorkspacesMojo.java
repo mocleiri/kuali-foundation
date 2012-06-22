@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -80,7 +81,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException {
         List<File> wsDirs = helper.getWorkspaceDirs(basedir);
-        getLog().info("workspaces=" + wsDirs.size());
+        getLog().info("Workspace Count: " + wsDirs.size());
         List<String> names = getJobNames(wsDirs);
         List<Commandline> executions = new ArrayList<Commandline>();
         for (String name : names) {
@@ -94,17 +95,18 @@ public class SyncWorkspacesMojo extends AbstractMojo {
             addArg(cl, dst);
             executions.add(cl);
         }
-        for (Commandline cl : executions) {
-            getLog().info(cl.toString());
+        for (int i = 0; i < executions.size(); i++) {
+            Commandline cl = executions.get(i);
+            getLog().info(StringUtils.leftPad(i + "", 3) + " Executing " + cl.toString());
+            long start = System.currentTimeMillis();
+            int exitValue = 0;// executeRsync();
+            long elapsed = System.currentTimeMillis() - start;
+            NumberFormat nf = NumberFormat.getInstance();
+            nf.setMaximumFractionDigits(3);
+            nf.setMinimumFractionDigits(3);
+            getLog().info("Sync time: " + nf.format(elapsed / 1000D) + "s");
+            validateExitValue(exitValue);
         }
-        long start = System.currentTimeMillis();
-        int exitValue = 0;// executeRsync();
-        long elapsed = System.currentTimeMillis() - start;
-        NumberFormat nf = NumberFormat.getInstance();
-        nf.setMaximumFractionDigits(3);
-        nf.setMinimumFractionDigits(3);
-        getLog().info("Sync time: " + nf.format(elapsed / 1000D) + "s");
-        validateExitValue(exitValue);
     }
 
     protected List<String> getJobNames(List<File> dirs) {
