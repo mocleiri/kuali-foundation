@@ -51,7 +51,8 @@
               <goal>syncworkspaces</goal>
             </goals>
             <configuration>
-            <basedir>/Users/jeffcaddel/var/lib/jenkins/</basedir>
+              <basedir>${project.build.directory}/test-classes/var/lib/jenkins/jobs</basedir>
+              <destination>${project.build.directory}/test-classes/var/lib/jenkins/workspace</destination>
             </configuration>
           </execution>
         </executions>
