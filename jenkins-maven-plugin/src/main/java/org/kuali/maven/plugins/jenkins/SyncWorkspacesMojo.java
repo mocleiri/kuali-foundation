@@ -18,6 +18,7 @@ package org.kuali.maven.plugins.jenkins;
 import java.io.File;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -103,6 +104,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
             String name = path.substring(prefix.length() + 1, pos);
             names.add(name);
         }
+        Collections.sort(names);
         return names;
     }
 
