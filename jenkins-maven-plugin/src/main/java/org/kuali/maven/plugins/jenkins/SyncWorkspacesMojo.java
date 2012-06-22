@@ -55,14 +55,16 @@ public class SyncWorkspacesMojo extends AbstractMojo {
      * The base directory to scan for Jenkins workspace directories
      *
      * @parameter expression="${jenkins.basedir}" default-value="/var/lib/jenkins/jobs"
+     * @required
      */
     private File basedir;
 
     /**
      * The destination directory <code>rsync</code> pushes files to
      *
-     * @parameter expression="${jenkins.destination}" default-value=""
+     * @parameter expression="${jenkins.destination}" default-value="/var/lib/jenkins/workspace"
      * @required
+     *
      */
     private String destination;
 
