@@ -37,6 +37,7 @@ public class RsyncHelper {
     public List<File> getMatchingDirs(File dir, String directoryName, DirectoryFileFilter filter) {
         List<File> fileList = new ArrayList<File>();
         String path = dir.getAbsolutePath();
+        System.out.println(path);
         boolean match = path.endsWith(File.separator + directoryName);
         if (!match) {
             File[] dirs = dir.listFiles(filter);
