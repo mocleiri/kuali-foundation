@@ -51,11 +51,6 @@
                     <version>${deploy.version}</version>
                     <type>war</type>
                   </artifactItem>
-                  <artifactItem>
-                    <groupId>${deploy.groupId}</groupId>
-                    <artifactId>ole-solr-config</artifactId>
-                    <version>${deploy.version}</version>
-                  </artifactItem>
                   <!-- The JDBC driver -->
                   <!-- Don't actually need this, but the Ant script expects for now -->
                   <artifactItem>
@@ -86,13 +81,6 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>${project.artifactId}</artifactId>
                     <version>${project.version}</version>
-                  </artifactItem>
-                  <!-- The solr-config jar -->
-                  <artifactItem>
-                    <outputDirectory>${project.build.directory}/dependency/ole-solr-config</outputDirectory>
-                    <groupId>${deploy.groupId}</groupId>
-                    <artifactId>ole-solr-config</artifactId>
-                    <version>${deploy.version}</version>
                   </artifactItem>
                   <!-- The .war file being deployed -->
                   <artifactItem>

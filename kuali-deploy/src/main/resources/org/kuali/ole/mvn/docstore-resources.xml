@@ -67,22 +67,6 @@
           <artifactId>maven-resources-plugin</artifactId>
           <executions>
             <execution>
-              <id>ole-solr-config</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>copy-resources</goal>
-              </goals>
-              <configuration>
-                <resources>
-                  <resource>
-                    <directory>${project.build.directory}/dependency/ole-solr-config</directory>
-                    <filtering>true</filtering>
-                  </resource>
-                </resources>
-                <outputDirectory>${project.build.directory}/${ole.discovery.config.home}</outputDirectory>
-              </configuration>
-            </execution>
-            <execution>
               <id>ole-config</id>
               <phase>initialize</phase>
               <goals>
