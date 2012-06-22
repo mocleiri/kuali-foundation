@@ -81,7 +81,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException {
         List<File> wsDirs = helper.getWorkspaceDirs(basedir);
-        getLog().info("Workspace Count: " + wsDirs.size());
+        getLog().info("Sync'ing " + wsDirs.size() + " workspaces");
         List<String> names = getJobNames(wsDirs);
         List<Commandline> executions = new ArrayList<Commandline>();
         for (String name : names) {
