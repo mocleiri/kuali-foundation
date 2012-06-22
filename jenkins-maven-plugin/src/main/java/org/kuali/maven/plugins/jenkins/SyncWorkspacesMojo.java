@@ -78,6 +78,9 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         DirectoryFileFilter dff = new DirectoryFileFilter();
         List<File> includeDirs = helper.getMatchingDirs(basedir, "workspace", dff);
+        for (File includeDir : includeDirs) {
+            getLog().info(includeDir.getAbsolutePath());
+        }
         long start = System.currentTimeMillis();
         int exitValue = 0;// executeRsync();
         long elapsed = System.currentTimeMillis() - start;
