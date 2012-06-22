@@ -51,13 +51,7 @@ public class RsyncHelper {
     }
 
     /**
-     * Recursively scan the file system starting at <code>dir</code> and return any directories matching the name passed
-     * in
      *
-     * @param dir
-     * @param directoryName
-     * @param filter
-     * @return
      */
     public List<File> getWorkspaceDirs(File basedir) {
         List<File> dirList = new ArrayList<File>();

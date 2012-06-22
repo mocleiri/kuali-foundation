@@ -17,6 +17,7 @@ package org.kuali.maven.plugins.jenkins;
 
 import java.io.File;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -77,9 +78,11 @@ public class SyncWorkspacesMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        List<File> includeDirs = helper.getWorkspaceDirs(basedir);
-        for (File includeDir : includeDirs) {
-            getLog().info(includeDir.getAbsolutePath());
+        List<File> wsDirs = helper.getWorkspaceDirs(basedir);
+        getLog().info("workspace=" + wsDirs.size());
+        List<String> names = getJobNames(wsDirs);
+        for (String name : names) {
+            getLog().info(name);
         }
         long start = System.currentTimeMillis();
         int exitValue = 0;// executeRsync();
@@ -89,6 +92,18 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         nf.setMinimumFractionDigits(3);
         getLog().info("Sync time: " + nf.format(elapsed / 1000D) + "s");
         validateExitValue(exitValue);
+    }
+
+    protected List<String> getJobNames(List<File> dirs) {
+        String prefix = basedir.getAbsolutePath();
+        List<String> names = new ArrayList<String>();
+        for (File dir : dirs) {
+            String path = dir.getAbsolutePath();
+            int pos = path.lastIndexOf("/workspace");
+            String name = path.substring(prefix.length() + 1, pos);
+            names.add(name);
+        }
+        return names;
     }
 
     protected Commandline getCommandLine() {
