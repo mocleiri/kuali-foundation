@@ -80,10 +80,21 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException {
         List<File> wsDirs = helper.getWorkspaceDirs(basedir);
-        getLog().info("workspace=" + wsDirs.size());
+        getLog().info("workspaces=" + wsDirs.size());
         List<String> names = getJobNames(wsDirs);
+        List<Commandline> executions = new ArrayList<Commandline>();
         for (String name : names) {
-            getLog().info(name);
+            String src = basedir.getAbsolutePath() + "/" + name + "/workspace";
+            String dst = destination + "/" + name;
+            Commandline cl = getCommandLine();
+            addArg(cl, "-av");
+            addArg(cl, "--stats");
+            addArg(cl, src);
+            addArg(cl, dst);
+            executions.add(cl);
+        }
+        for (Commandline cl : executions) {
+            getLog().info(cl.toString());
         }
         long start = System.currentTimeMillis();
         int exitValue = 0;// executeRsync();
@@ -113,6 +124,12 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         cl.setExecutable(executable);
         cl.setWorkingDirectory(basedir);
         return cl;
+    }
+
+    protected void addArg(Commandline cl, String arg) {
+        List<String> args = new ArrayList<String>();
+        args.add(arg);
+        addArgs(cl, args);
     }
 
     protected void addArgs(Commandline cl, List<String> args) {
