@@ -95,18 +95,18 @@ public class SyncWorkspacesMojo extends AbstractMojo {
             addArg(cl, dst);
             executions.add(cl);
         }
+        long start = System.currentTimeMillis();
         for (int i = 0; i < executions.size(); i++) {
             Commandline cl = executions.get(i);
             getLog().info(StringUtils.leftPad(i + "", 3) + " Executing " + cl.toString());
-            long start = System.currentTimeMillis();
             int exitValue = 0;// executeRsync();
-            long elapsed = System.currentTimeMillis() - start;
-            NumberFormat nf = NumberFormat.getInstance();
-            nf.setMaximumFractionDigits(3);
-            nf.setMinimumFractionDigits(3);
-            getLog().info("Sync time: " + nf.format(elapsed / 1000D) + "s");
             validateExitValue(exitValue);
         }
+        long elapsed = System.currentTimeMillis() - start;
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(3);
+        nf.setMinimumFractionDigits(3);
+        getLog().info("Sync time: " + nf.format(elapsed / 1000D) + "s");
     }
 
     protected List<String> getJobNames(List<File> dirs) {
