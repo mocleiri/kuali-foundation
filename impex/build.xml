@@ -1108,7 +1108,7 @@ END;
     			<pathconvert refid="driver.classpath.for.liquibase"
     						 property="driver.classpath.for.liquibase.string" />
     		    <echo message="Running Liquibase ChangeLog: @{file.name}" />
-    			<java jar="../lib/liquibase-1.9.5.jar" 
+    			<java jar="../lib/liquibase-2.0.5.jar" 
     					failonerror="true" 
     					classpathref="torque-classpath" 
     					fork="true"
