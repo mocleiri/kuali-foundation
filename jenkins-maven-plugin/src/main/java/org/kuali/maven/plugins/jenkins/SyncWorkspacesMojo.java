@@ -98,7 +98,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         long start = System.currentTimeMillis();
         for (int i = 0; i < executions.size(); i++) {
             Commandline cl = executions.get(i);
-            getLog().info(StringUtils.leftPad(i + "", 3) + " Executing " + cl.toString());
+            getLog().info(StringUtils.leftPad((i + 1) + "", 3) + " : " + cl.toString());
             int exitValue = 0;// executeRsync();
             validateExitValue(exitValue);
         }
