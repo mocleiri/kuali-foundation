@@ -51,6 +51,30 @@ public class RsyncHelper {
     }
 
     /**
+     * Recursively scan the file system starting at <code>dir</code> and return any directories matching the name passed
+     * in
+     *
+     * @param dir
+     * @param directoryName
+     * @param filter
+     * @return
+     */
+    public List<File> getWorkspaceDirs(File basedir) {
+        List<File> dirList = new ArrayList<File>();
+        File[] dirs = basedir.listFiles(new DirectoryFileFilter());
+        for (File dir : dirs) {
+            File[] subdirs = dir.listFiles(new DirectoryFileFilter());
+            for (File subdir : subdirs) {
+                String path = subdir.getAbsolutePath();
+                if (path.endsWith("workspace")) {
+                    dirList.add(subdir);
+                }
+            }
+        }
+        return dirList;
+    }
+
+    /**
      * Return a list of rsync friendly exclude patterns based on a base directory and directories underneath it that
      * should be excluded.
      *

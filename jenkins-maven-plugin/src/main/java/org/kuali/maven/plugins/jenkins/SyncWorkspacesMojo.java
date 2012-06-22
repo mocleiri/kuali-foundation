@@ -27,7 +27,6 @@ import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.DefaultConsumer;
 import org.codehaus.plexus.util.cli.StreamConsumer;
-import org.kuali.maven.plugins.jenkins.helper.DirectoryFileFilter;
 import org.kuali.maven.plugins.jenkins.helper.RsyncHelper;
 
 /**
@@ -78,8 +77,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        DirectoryFileFilter dff = new DirectoryFileFilter();
-        List<File> includeDirs = helper.getMatchingDirs(basedir, "workspace", dff);
+        List<File> includeDirs = helper.getWorkspaceDirs(basedir);
         for (File includeDir : includeDirs) {
             getLog().info(includeDir.getAbsolutePath());
         }
