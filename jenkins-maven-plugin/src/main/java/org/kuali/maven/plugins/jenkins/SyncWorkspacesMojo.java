@@ -84,7 +84,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         List<String> names = getJobNames(wsDirs);
         List<Commandline> executions = new ArrayList<Commandline>();
         for (String name : names) {
-            String src = basedir.getAbsolutePath() + "/" + name + "/workspace";
+            String src = basedir.getAbsolutePath() + "/" + name + "/workspace/";
             String dst = destination + "/" + name;
             Commandline cl = getCommandLine();
             addArg(cl, "-av");
