@@ -171,7 +171,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
             Job job = jobs.get(i);
             Commandline cl = job.getCommandLine();
             getLog().info(StringUtils.leftPad((i + 1) + "", 3) + " : " + cl.toString());
-            int exitValue = 0; // executeRsync(cl);
+            int exitValue = executeRsync(cl);
             validateExitValue(exitValue);
             p.setProperty(job.getName(), job.getBuildNumber() + "");
             try {
