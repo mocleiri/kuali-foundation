@@ -7,7 +7,7 @@ echo $(date)
 set -xe
 
 scp root@ci.rice.kuali.org:/var/lib/jenkins/.m2/settings.xml /root/.m2/settings.xml
-/root/kuali-ec2/src/main/resources/jenkins/slave/copy-repo-from-master ci.rice.kuali.org
+# /root/kuali-ec2/src/main/resources/jenkins/slave/copy-repo-from-master ci.rice.kuali.org
 
 set +x
 echo $(date)
