@@ -99,7 +99,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         for (int i = 0; i < executions.size(); i++) {
             Commandline cl = executions.get(i);
             getLog().info(StringUtils.leftPad((i + 1) + "", 3) + " : " + cl.toString());
-            int exitValue = executeRsync();
+            int exitValue = executeRsync(cl);
             validateExitValue(exitValue);
         }
         long elapsed = System.currentTimeMillis() - start;
@@ -144,11 +144,9 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         }
     }
 
-    protected int executeRsync() throws MojoExecutionException {
+    protected int executeRsync(Commandline cl) throws MojoExecutionException {
         StreamConsumer stdout = new DefaultConsumer();
         StreamConsumer stderr = new DefaultConsumer();
-        Commandline cl = getCommandLine();
-        getLog().info(cl.toString());
         try {
             return CommandLineUtils.executeCommandLine(cl, stdout, stderr);
         } catch (CommandLineException e) {
