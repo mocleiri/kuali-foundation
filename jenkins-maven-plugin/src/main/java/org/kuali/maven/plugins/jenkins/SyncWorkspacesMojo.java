@@ -242,7 +242,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         List<Job> jobs = getJobs(wsDirs);
         List<Job> syncJobs = getSyncJobs(jobs, trackedJobs);
         int skipped = jobs.size() - syncJobs.size();
-        getLog().info("Skipping sync call on " + skipped + " jobs that have not run since the last sync");
+        getLog().info("Skipping " + skipped + " jobs that have not run since the last sync");
         execute(syncJobs);
     }
 
