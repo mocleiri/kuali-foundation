@@ -16,11 +16,13 @@
 package org.kuali.maven.plugins.jenkins;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -90,22 +92,56 @@ public class SyncWorkspacesMojo extends AbstractMojo {
      */
     private String executable;
 
-    @Override
-    public void execute() throws MojoExecutionException {
-        List<File> wsDirs = helper.getWorkspaceDirs(basedir);
-        getLog().info("Sync'ing " + wsDirs.size() + " workspaces");
-        List<String> names = getJobNames(wsDirs);
-        List<Commandline> executions = new ArrayList<Commandline>();
-        for (String name : names) {
+    protected List<Job> getJobs(List<File> dirs) {
+        List<Job> jobs = new ArrayList<Job>();
+        String prefix = basedir.getAbsolutePath();
+        for (File dir : dirs) {
+            String path = dir.getAbsolutePath();
+            int pos = path.lastIndexOf("/workspace");
+
+            String name = path.substring(prefix.length() + 1, pos);
             String src = basedir.getAbsolutePath() + "/" + name + "/workspace/";
             String dst = destinationUser + "@" + destinationHostname + ":" + destination + "/" + name;
+            int buildNumber = getBuildNumber(name);
+
+            Job job = new Job();
+            job.setName(name);
+            job.setBuildNumber(buildNumber);
+            job.setSrc(src);
+            job.setDst(dst);
+            jobs.add(job);
+        }
+        Collections.sort(jobs);
+        return jobs;
+    }
+
+    protected int getBuildNumber(String name) {
+        File buildNumberFile = new File(basedir.getAbsolutePath() + "/" + name + "/nextBuildNumber");
+        if (!buildNumberFile.exists()) {
+            throw new IllegalStateException("Expected the file " + buildNumberFile + " to be present");
+        }
+        try {
+            String s = FileUtils.readFileToString(buildNumberFile);
+            return new Integer(s);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    protected List<Commandline> getExecutions(List<Job> jobs) {
+        List<Commandline> executions = new ArrayList<Commandline>();
+        for (Job job : jobs) {
             Commandline cl = getCommandLine();
             addArg(cl, "-av");
             addArg(cl, "--delete");
-            addArg(cl, src);
-            addArg(cl, dst);
+            addArg(cl, job.getSrc());
+            addArg(cl, job.getDst());
             executions.add(cl);
         }
+        return executions;
+    }
+
+    protected void execute(List<Commandline> executions) throws MojoExecutionException {
         long start = System.currentTimeMillis();
         for (int i = 0; i < executions.size(); i++) {
             Commandline cl = executions.get(i);
@@ -118,6 +154,15 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         nf.setMaximumFractionDigits(3);
         nf.setMinimumFractionDigits(3);
         getLog().info("Sync time: " + nf.format(elapsed / 1000D) + "s");
+    }
+
+    @Override
+    public void execute() throws MojoExecutionException {
+        List<File> wsDirs = helper.getWorkspaceDirs(basedir);
+        getLog().info("Sync'ing " + wsDirs.size() + " workspaces");
+        List<Job> jobs = getJobs(wsDirs);
+        List<Commandline> executions = getExecutions(jobs);
+        execute(executions);
     }
 
     protected List<String> getJobNames(List<File> dirs) {
