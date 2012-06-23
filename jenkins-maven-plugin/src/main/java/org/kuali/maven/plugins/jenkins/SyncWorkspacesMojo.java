@@ -50,9 +50,9 @@ public class SyncWorkspacesMojo extends AbstractMojo {
      * Properties file containing the jobs and buildNumbers the plugin has sync'd to the workspace server
      *
      * @parameter expression="${jenkins.buildNumberTracker}"
-     *            default-value="${user.home}/.jenkins-maven-plugin/nextBuildNumber.properties"
+     *            default-value="${user.home}/.jenkins-maven-plugin/trackedBuildNumbers.properties"
      */
-    private String buildNumberTracker;
+    private String trackedBuildNumbers;
 
     /**
      * If true, the Maven build will fail if <code>rsync</code> returns a non-zero exit value
@@ -183,7 +183,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     }
 
     protected void updateTrackedBuildNumberProperties(Properties p) {
-        File file = new File(buildNumberTracker);
+        File file = new File(trackedBuildNumbers);
         try {
             store(p, file);
         } catch (IOException e) {
@@ -202,13 +202,13 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     }
 
     protected void createBuildNumberProperties() throws IOException {
-        File file = new File(buildNumberTracker);
+        File file = new File(trackedBuildNumbers);
         store(new Properties(), file);
     }
 
     protected Properties getBuildNumberProperties() {
         try {
-            File file = new File(buildNumberTracker);
+            File file = new File(trackedBuildNumbers);
             if (!file.exists()) {
                 getLog().info("Creating " + file.getAbsolutePath());
                 createBuildNumberProperties();
@@ -383,11 +383,11 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         this.destinationUser = destinationUser;
     }
 
-    public String getBuildNumberTracker() {
-        return buildNumberTracker;
+    public String getTrackedBuildNumbers() {
+        return trackedBuildNumbers;
     }
 
-    public void setBuildNumberTracker(String buildNumberTracker) {
-        this.buildNumberTracker = buildNumberTracker;
+    public void setTrackedBuildNumbers(String buildNumberTracker) {
+        this.trackedBuildNumbers = buildNumberTracker;
     }
 }
