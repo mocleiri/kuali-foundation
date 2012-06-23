@@ -47,9 +47,16 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     PropertiesUtils utils = new PropertiesUtils();
 
     /**
+     * If true, rsync logs the files that get transferred to the workspace server
+     *
+     * @parameter expression="${jenkins.verbose}" default-value="false"
+     */
+    private boolean verbose;
+
+    /**
      * Properties file containing the jobs and buildNumbers the plugin has sync'd to the workspace server
      *
-     * @parameter expression="${jenkins.buildNumberTracker}"
+     * @parameter expression="${jenkins.trackedBuildNumbers}"
      *            default-value="${user.home}/.jenkins-maven-plugin/trackedBuildNumbers.properties"
      */
     private String trackedBuildNumbers;
@@ -143,43 +150,36 @@ public class SyncWorkspacesMojo extends AbstractMojo {
 
     protected Commandline getCommandLine(String src, String dst) {
         Commandline cl = getCommandLine();
-        addArg(cl, "-av");
+        addArg(cl, "-a");
+        if (verbose) {
+            addArg(cl, "-v");
+        }
         addArg(cl, "--delete");
         addArg(cl, src);
         addArg(cl, dst);
         return cl;
     }
 
-    protected List<Commandline> getExecutions(List<Job> jobs) {
-        List<Commandline> executions = new ArrayList<Commandline>();
-        for (Job job : jobs) {
-            Commandline cl = getCommandLine();
-            addArg(cl, "-av");
-            addArg(cl, "--delete");
-            addArg(cl, job.getSrc());
-            addArg(cl, job.getDst());
-            executions.add(cl);
-        }
-        return executions;
-    }
-
     protected void execute(List<Job> jobs) throws MojoExecutionException {
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(3);
+        nf.setMinimumFractionDigits(3);
         Properties p = getBuildNumberProperties();
         long start = System.currentTimeMillis();
         for (int i = 0; i < jobs.size(); i++) {
             Job job = jobs.get(i);
             Commandline cl = job.getCommandLine();
             getLog().info(StringUtils.leftPad((i + 1) + "", 3) + " : " + cl.toString());
+            long s1 = System.currentTimeMillis();
             int exitValue = executeRsync(cl);
+            long s2 = System.currentTimeMillis();
+            getLog().info("Sync time: " + nf.format((s1 - s2) / 1000D) + "s");
             validateExitValue(exitValue);
             p.setProperty(job.getName(), job.getBuildNumber() + "");
             updateTrackedBuildNumberProperties(p);
         }
         long elapsed = System.currentTimeMillis() - start;
-        NumberFormat nf = NumberFormat.getInstance();
-        nf.setMaximumFractionDigits(3);
-        nf.setMinimumFractionDigits(3);
-        getLog().info("Sync time: " + nf.format(elapsed / 1000D) + "s");
+        getLog().info("Total Sync time: " + nf.format(elapsed / 1000D) + "s");
     }
 
     protected void updateTrackedBuildNumberProperties(Properties p) {
@@ -389,5 +389,13 @@ public class SyncWorkspacesMojo extends AbstractMojo {
 
     public void setTrackedBuildNumbers(String buildNumberTracker) {
         this.trackedBuildNumbers = buildNumberTracker;
+    }
+
+    public boolean isVerbose() {
+        return verbose;
+    }
+
+    public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
     }
 }
