@@ -38,7 +38,8 @@ import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.plugins.jenkins.helper.RsyncHelper;
 
 /**
- * Sync any workspaces that have changed from the master to a workspace server
+ * Sync any workspaces from the Jenkins master to a workspace server. Only sync workspaces where the build number has
+ * incremented since the last sync call.
  *
  * @goal syncworkspaces
  */
