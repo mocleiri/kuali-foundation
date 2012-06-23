@@ -26,7 +26,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -43,12 +42,12 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     RsyncHelper helper = new RsyncHelper();
 
     /**
-     * The Maven project object
+     * Properties file containing the jobs and buildNumbers the plugin has sync'd to the workspace server
      *
-     * @parameter expression="${project}"
-     * @readonly
+     * @parameter expression="${jenkins.buildNumberTracker}"
+     *            default-value="${user.home}/.jenkins-maven-plugin/nextBuildNumber.properties"
      */
-    private MavenProject project;
+    private String buildNumberTracker;
 
     /**
      * If true, the Maven build will fail if <code>rsync</code> returns a non-zero exit value
@@ -232,10 +231,6 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     protected void prepareFileSystem() throws MojoExecutionException {
     }
 
-    public MavenProject getProject() {
-        return project;
-    }
-
     public String getDestination() {
         return destination;
     }
@@ -282,5 +277,13 @@ public class SyncWorkspacesMojo extends AbstractMojo {
 
     public void setDestinationUser(String destinationUser) {
         this.destinationUser = destinationUser;
+    }
+
+    public String getBuildNumberTracker() {
+        return buildNumberTracker;
+    }
+
+    public void setBuildNumberTracker(String buildNumberTracker) {
+        this.buildNumberTracker = buildNumberTracker;
     }
 }
