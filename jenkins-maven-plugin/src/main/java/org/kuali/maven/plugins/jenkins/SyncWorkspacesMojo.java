@@ -164,7 +164,6 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     }
 
     protected void execute(List<Job> jobs) throws MojoExecutionException {
-        File buildNumberPropertiesFile = new File(buildNumberTracker);
         Properties p = getBuildNumberProperties();
         long start = System.currentTimeMillis();
         for (int i = 0; i < jobs.size(); i++) {
@@ -174,17 +173,22 @@ public class SyncWorkspacesMojo extends AbstractMojo {
             int exitValue = executeRsync(cl);
             validateExitValue(exitValue);
             p.setProperty(job.getName(), job.getBuildNumber() + "");
-            try {
-                store(p, buildNumberPropertiesFile);
-            } catch (IOException e) {
-                throw new MojoExecutionException("Error updating tracked build number properties", e);
-            }
+            updateTrackedBuildNumberProperties(p);
         }
         long elapsed = System.currentTimeMillis() - start;
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(3);
         nf.setMinimumFractionDigits(3);
         getLog().info("Sync time: " + nf.format(elapsed / 1000D) + "s");
+    }
+
+    protected void updateTrackedBuildNumberProperties(Properties p) {
+        File file = new File(buildNumberTracker);
+        try {
+            store(p, file);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     protected void store(Properties p, File file) throws IOException {
