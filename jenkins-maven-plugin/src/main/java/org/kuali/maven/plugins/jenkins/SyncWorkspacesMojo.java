@@ -35,6 +35,8 @@ import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.maven.plugins.jenkins.helper.RsyncHelper;
 
 /**
+ * Sync any workspaces that have changed from the master to a workspace server
+ *
  * @goal syncworkspaces
  */
 public class SyncWorkspacesMojo extends AbstractMojo {
@@ -73,12 +75,16 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     private String destination;
 
     /**
+     * The hostname for the workspace server
+     *
      * @parameter expression="${jenkins.destinationHostname}" default-value="ws.rice.kuali.org"
      * @required
      */
     private String destinationHostname;
 
     /**
+     * The user to login to the workspace server with
+     *
      * @parameter expression="${jenkins.destinationUser}" default-value="root"
      * @required
      */
@@ -122,7 +128,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         }
         try {
             String s = FileUtils.readFileToString(buildNumberFile);
-            return new Integer(s);
+            return new Integer(s.trim());
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
