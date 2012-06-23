@@ -110,7 +110,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         for (int i = 0; i < executions.size(); i++) {
             Commandline cl = executions.get(i);
             getLog().info(StringUtils.leftPad((i + 1) + "", 3) + " : " + cl.toString());
-            int exitValue = 0; // executeRsync(cl);
+            int exitValue = executeRsync(cl);
             validateExitValue(exitValue);
         }
         long elapsed = System.currentTimeMillis() - start;
