@@ -47,7 +47,14 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     PropertiesUtils utils = new PropertiesUtils();
 
     /**
-     * If true, rsync logs the files that get transferred to the workspace server
+     * If true, rsync shows transfer statistcs. Equivalent to passing rsync "--stats"
+     *
+     * @parameter expression="${jenkins.stats}" default-value="false"
+     */
+    private boolean stats;
+
+    /**
+     * If true, rsync logs files that get transferred to the workspace server. Equivalent to passing rsync "-v"
      *
      * @parameter expression="${jenkins.verbose}" default-value="false"
      */
@@ -153,6 +160,9 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         addArg(cl, "-a");
         if (verbose) {
             addArg(cl, "-v");
+        }
+        if (stats) {
+            addArg(cl, "--stats");
         }
         addArg(cl, "--delete");
         addArg(cl, src);
@@ -397,5 +407,13 @@ public class SyncWorkspacesMojo extends AbstractMojo {
 
     public void setVerbose(boolean verbose) {
         this.verbose = verbose;
+    }
+
+    public boolean isStats() {
+        return stats;
+    }
+
+    public void setStats(boolean stats) {
+        this.stats = stats;
     }
 }
