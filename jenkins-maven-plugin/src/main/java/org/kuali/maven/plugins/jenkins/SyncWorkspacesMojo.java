@@ -173,7 +173,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
             long s1 = System.currentTimeMillis();
             int exitValue = executeRsync(cl);
             long s2 = System.currentTimeMillis();
-            getLog().info("Sync time: " + nf.format((s1 - s2) / 1000D) + "s");
+            getLog().info("Sync time: " + nf.format((s2 - s1) / 1000D) + "s");
             validateExitValue(exitValue);
             p.setProperty(job.getName(), job.getBuildNumber() + "");
             updateTrackedBuildNumberProperties(p);
