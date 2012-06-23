@@ -47,14 +47,15 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     PropertiesUtils utils = new PropertiesUtils();
 
     /**
-     * If true, rsync shows transfer statistcs. Equivalent to passing rsync "--stats"
+     * If true, rsync shows transfer statistics. Equivalent to passing rsync <code>--stats</code>
      *
      * @parameter expression="${jenkins.stats}" default-value="false"
      */
     private boolean stats;
 
     /**
-     * If true, rsync logs files that get transferred to the workspace server. Equivalent to passing rsync "-v"
+     * If true, rsync logs files that get transferred to the workspace server. Equivalent to passing rsync
+     * <code>-v</code>
      *
      * @parameter expression="${jenkins.verbose}" default-value="false"
      */
