@@ -86,7 +86,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         List<Commandline> executions = new ArrayList<Commandline>();
         for (String name : names) {
             String src = basedir.getAbsolutePath() + "/" + name + "/workspace/";
-            String dst = destination + "/" + name;
+            String dst = "root@ec2-174-129-111-212.compute-1.amazonaws.com:" + destination + "/" + name;
             Commandline cl = getCommandLine();
             addArg(cl, "-av");
             addArg(cl, "--stats");
@@ -99,7 +99,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         for (int i = 0; i < executions.size(); i++) {
             Commandline cl = executions.get(i);
             getLog().info(StringUtils.leftPad((i + 1) + "", 3) + " : " + cl.toString());
-            int exitValue = executeRsync(cl);
+            int exitValue = 0; // executeRsync(cl);
             validateExitValue(exitValue);
         }
         long elapsed = System.currentTimeMillis() - start;
