@@ -17,12 +17,15 @@ package org.kuali.maven.plugins.jenkins;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -31,6 +34,7 @@ import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.DefaultConsumer;
 import org.codehaus.plexus.util.cli.StreamConsumer;
+import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.plugins.jenkins.helper.RsyncHelper;
 
 /**
@@ -40,6 +44,7 @@ import org.kuali.maven.plugins.jenkins.helper.RsyncHelper;
  */
 public class SyncWorkspacesMojo extends AbstractMojo {
     RsyncHelper helper = new RsyncHelper();
+    PropertiesUtils utils = new PropertiesUtils();
 
     /**
      * Properties file containing the jobs and buildNumbers the plugin has sync'd to the workspace server
@@ -108,12 +113,15 @@ public class SyncWorkspacesMojo extends AbstractMojo {
             String src = basedir.getAbsolutePath() + "/" + name + "/workspace/";
             String dst = destinationUser + "@" + destinationHostname + ":" + destination + "/" + name;
             int buildNumber = getBuildNumber(name);
+            Commandline commandLine = getCommandLine(src, dst);
 
             Job job = new Job();
             job.setName(name);
             job.setBuildNumber(buildNumber);
             job.setSrc(src);
             job.setDst(dst);
+            job.setCommandLine(commandLine);
+
             jobs.add(job);
         }
         Collections.sort(jobs);
@@ -133,6 +141,15 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         }
     }
 
+    protected Commandline getCommandLine(String src, String dst) {
+        Commandline cl = getCommandLine();
+        addArg(cl, "-av");
+        addArg(cl, "--delete");
+        addArg(cl, src);
+        addArg(cl, dst);
+        return cl;
+    }
+
     protected List<Commandline> getExecutions(List<Job> jobs) {
         List<Commandline> executions = new ArrayList<Commandline>();
         for (Job job : jobs) {
@@ -146,13 +163,22 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         return executions;
     }
 
-    protected void execute(List<Commandline> executions) throws MojoExecutionException {
+    protected void execute(List<Job> jobs) throws MojoExecutionException {
+        File buildNumberPropertiesFile = new File(buildNumberTracker);
+        Properties p = getBuildNumberProperties();
         long start = System.currentTimeMillis();
-        for (int i = 0; i < executions.size(); i++) {
-            Commandline cl = executions.get(i);
+        for (int i = 0; i < jobs.size(); i++) {
+            Job job = jobs.get(i);
+            Commandline cl = job.getCommandLine();
             getLog().info(StringUtils.leftPad((i + 1) + "", 3) + " : " + cl.toString());
             int exitValue = executeRsync(cl);
             validateExitValue(exitValue);
+            p.setProperty(job.getName(), job.getBuildNumber() + "");
+            try {
+                store(p, buildNumberPropertiesFile);
+            } catch (IOException e) {
+                throw new MojoExecutionException("Error updating tracked build number properties", e);
+            }
         }
         long elapsed = System.currentTimeMillis() - start;
         NumberFormat nf = NumberFormat.getInstance();
@@ -161,13 +187,86 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         getLog().info("Sync time: " + nf.format(elapsed / 1000D) + "s");
     }
 
+    protected void store(Properties p, File file) throws IOException {
+        OutputStream out = null;
+        try {
+            out = FileUtils.openOutputStream(file);
+            p.store(out, "Build Number Tracker");
+        } finally {
+            IOUtils.closeQuietly(out);
+        }
+    }
+
+    protected void createBuildNumberProperties() throws IOException {
+        File file = new File(buildNumberTracker);
+        store(new Properties(), file);
+    }
+
+    protected Properties getBuildNumberProperties() {
+        try {
+            File file = new File(buildNumberTracker);
+            if (!file.exists()) {
+                getLog().info("Creating " + file.getAbsolutePath());
+                createBuildNumberProperties();
+            }
+            return utils.getProperties(file.getAbsolutePath());
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    protected List<Job> getTrackedJobs() {
+        Properties p = getBuildNumberProperties();
+        List<Job> trackedJobs = new ArrayList<Job>();
+        for (String name : p.stringPropertyNames()) {
+            int buildNumber = new Integer(p.getProperty(name));
+            Job job = new Job();
+            job.setName(name);
+            job.setBuildNumber(buildNumber);
+            trackedJobs.add(job);
+        }
+        Collections.sort(trackedJobs);
+        return trackedJobs;
+    }
+
     @Override
     public void execute() throws MojoExecutionException {
         List<File> wsDirs = helper.getWorkspaceDirs(basedir);
-        getLog().info("Sync'ing " + wsDirs.size() + " workspaces");
+        getLog().info("Located " + wsDirs.size() + " jobs containing workspaces");
+        List<Job> trackedJobs = getTrackedJobs();
+        getLog().info("Loaded build number info on " + trackedJobs.size() + " jobs that have been sync'd previously");
         List<Job> jobs = getJobs(wsDirs);
-        List<Commandline> executions = getExecutions(jobs);
-        execute(executions);
+        List<Job> syncJobs = getSyncJobs(jobs, trackedJobs);
+        int skipped = jobs.size() - syncJobs.size();
+        getLog().info("Skipping sync call on " + skipped + " jobs that have not run since the last sync");
+        execute(syncJobs);
+    }
+
+    protected List<Job> getSyncJobs(List<Job> allJobs, List<Job> trackedJobs) {
+        List<Job> syncJobs = new ArrayList<Job>();
+        for (Job job : allJobs) {
+            boolean sync = isSync(job, trackedJobs);
+            if (sync) {
+                syncJobs.add(job);
+            }
+        }
+        return syncJobs;
+    }
+
+    protected boolean isSync(Job job, List<Job> trackedJobs) {
+        int currentBuildNumber = job.getBuildNumber();
+        for (Job trackedJob : trackedJobs) {
+            String name = trackedJob.getName();
+            if (name.equals(job.getName())) {
+                int previousBuildNumber = trackedJob.getBuildNumber();
+                if (currentBuildNumber > previousBuildNumber) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        throw new IllegalStateException("Unable to determine build number info for " + job.getName());
     }
 
     protected List<String> getJobNames(List<File> dirs) {

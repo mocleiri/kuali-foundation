@@ -1,10 +1,13 @@
 package org.kuali.maven.plugins.jenkins;
 
+import org.codehaus.plexus.util.cli.Commandline;
+
 public class Job implements Comparable<Job> {
     String name;
     int buildNumber;
     String src;
     String dst;
+    Commandline commandLine;
 
     @Override
     public int compareTo(Job other) {
@@ -41,6 +44,14 @@ public class Job implements Comparable<Job> {
 
     public void setDst(String dst) {
         this.dst = dst;
+    }
+
+    public Commandline getCommandLine() {
+        return commandLine;
+    }
+
+    public void setCommandLine(Commandline commandLine) {
+        this.commandLine = commandLine;
     }
 
 }
