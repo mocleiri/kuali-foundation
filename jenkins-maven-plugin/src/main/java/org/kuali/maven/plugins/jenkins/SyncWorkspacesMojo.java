@@ -165,7 +165,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         nf.setMaximumFractionDigits(3);
         nf.setMinimumFractionDigits(3);
         Properties p = getBuildNumberProperties();
-        long start = System.currentTimeMillis();
+        long elapsed = 0;
         for (int i = 0; i < jobs.size(); i++) {
             Job job = jobs.get(i);
             Commandline cl = job.getCommandLine();
@@ -173,12 +173,12 @@ public class SyncWorkspacesMojo extends AbstractMojo {
             long s1 = System.currentTimeMillis();
             int exitValue = executeRsync(cl);
             long s2 = System.currentTimeMillis();
+            elapsed += (s2 - s1);
             getLog().info("Sync time: " + nf.format((s2 - s1) / 1000D) + "s");
             validateExitValue(exitValue);
             p.setProperty(job.getName(), job.getBuildNumber() + "");
             updateTrackedBuildNumberProperties(p);
         }
-        long elapsed = System.currentTimeMillis() - start;
         getLog().info("Total Sync time: " + nf.format(elapsed / 1000D) + "s");
     }
 
