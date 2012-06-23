@@ -77,37 +77,37 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     private boolean failOnError;
 
     /**
-     * The base directory to scan for Jenkins workspace directories
+     * The local directory where Jenkins stores job information and workspaces
      *
-     * @parameter expression="${jenkins.basedir}" default-value="/var/lib/jenkins/jobs"
+     * @parameter expression="${jenkins.localJobsDir}" default-value="/var/lib/jenkins/jobs"
      * @required
      */
-    private File basedir;
+    private File localJobsDir;
 
     /**
-     * The destination directory <code>rsync</code> pushes files to
+     * The directory on the workspace server containing workspaces
      *
-     * @parameter expression="${jenkins.destination}" default-value="/var/lib/jenkins/workspace"
+     * @parameter expression="${jenkins.workspaceServerDir}" default-value="/var/lib/jenkins/workspace"
      * @required
      *
      */
-    private String destination;
+    private String workspaceServerDir;
 
     /**
      * The hostname for the workspace server
      *
-     * @parameter expression="${jenkins.destinationHostname}" default-value="ws.rice.kuali.org"
+     * @parameter expression="${jenkins.workspaceServerHostname}" default-value="ws.rice.kuali.org"
      * @required
      */
-    private String destinationHostname;
+    private String workspaceServerHostname;
 
     /**
      * The user to login to the workspace server with
      *
-     * @parameter expression="${jenkins.destinationUser}" default-value="root"
+     * @parameter expression="${jenkins.workspaceServerUser}" default-value="root"
      * @required
      */
-    private String destinationUser;
+    private String workspaceServerUser;
 
     /**
      * The <code>rsync</code> executable
@@ -119,14 +119,14 @@ public class SyncWorkspacesMojo extends AbstractMojo {
 
     protected List<Job> getJobs(List<File> dirs) {
         List<Job> jobs = new ArrayList<Job>();
-        String prefix = basedir.getAbsolutePath();
+        String prefix = localJobsDir.getAbsolutePath();
         for (File dir : dirs) {
             String path = dir.getAbsolutePath();
             int pos = path.lastIndexOf("/workspace");
 
             String name = path.substring(prefix.length() + 1, pos);
-            String src = basedir.getAbsolutePath() + "/" + name + "/workspace/";
-            String dst = destinationUser + "@" + destinationHostname + ":" + destination + "/" + name;
+            String src = localJobsDir.getAbsolutePath() + "/" + name + "/workspace/";
+            String dst = workspaceServerUser + "@" + workspaceServerHostname + ":" + workspaceServerDir + "/" + name;
             int buildNumber = getBuildNumber(name);
             Commandline commandLine = getCommandLine(src, dst);
 
@@ -144,7 +144,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     }
 
     protected int getBuildNumber(String name) {
-        File buildNumberFile = new File(basedir.getAbsolutePath() + "/" + name + "/nextBuildNumber");
+        File buildNumberFile = new File(localJobsDir.getAbsolutePath() + "/" + name + "/nextBuildNumber");
         if (!buildNumberFile.exists()) {
             throw new IllegalStateException("Expected the file " + buildNumberFile + " to be present");
         }
@@ -246,7 +246,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        List<File> wsDirs = helper.getWorkspaceDirs(basedir);
+        List<File> wsDirs = helper.getWorkspaceDirs(localJobsDir);
         getLog().info("Located " + wsDirs.size() + " jobs containing workspaces");
         List<Job> trackedJobs = getTrackedJobs();
         getLog().info("Loaded build number info on " + trackedJobs.size() + " jobs that have been sync'd previously");
@@ -286,7 +286,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     }
 
     protected List<String> getJobNames(List<File> dirs) {
-        String prefix = basedir.getAbsolutePath();
+        String prefix = localJobsDir.getAbsolutePath();
         List<String> names = new ArrayList<String>();
         for (File dir : dirs) {
             String path = dir.getAbsolutePath();
@@ -301,7 +301,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     protected Commandline getCommandLine() {
         Commandline cl = new Commandline();
         cl.setExecutable(executable);
-        cl.setWorkingDirectory(basedir);
+        cl.setWorkingDirectory(localJobsDir);
         return cl;
     }
 
@@ -346,12 +346,12 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     protected void prepareFileSystem() throws MojoExecutionException {
     }
 
-    public String getDestination() {
-        return destination;
+    public String getWorkspaceServerDir() {
+        return workspaceServerDir;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setWorkspaceServerDir(String destination) {
+        this.workspaceServerDir = destination;
     }
 
     public boolean isFailOnError() {
@@ -370,28 +370,28 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         this.executable = executable;
     }
 
-    public File getBasedir() {
-        return basedir;
+    public File getLocalJobsDir() {
+        return localJobsDir;
     }
 
-    public void setBasedir(File basedir) {
-        this.basedir = basedir;
+    public void setLocalJobsDir(File basedir) {
+        this.localJobsDir = basedir;
     }
 
-    public String getDestinationHostname() {
-        return destinationHostname;
+    public String getWorkspaceServerHostname() {
+        return workspaceServerHostname;
     }
 
-    public void setDestinationHostname(String destinationHostname) {
-        this.destinationHostname = destinationHostname;
+    public void setWorkspaceServerHostname(String destinationHostname) {
+        this.workspaceServerHostname = destinationHostname;
     }
 
-    public String getDestinationUser() {
-        return destinationUser;
+    public String getWorkspaceServerUser() {
+        return workspaceServerUser;
     }
 
-    public void setDestinationUser(String destinationUser) {
-        this.destinationUser = destinationUser;
+    public void setWorkspaceServerUser(String destinationUser) {
+        this.workspaceServerUser = destinationUser;
     }
 
     public String getTrackedBuildNumbers() {
