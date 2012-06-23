@@ -64,7 +64,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     /**
      * The destination directory <code>rsync</code> pushes files to
      *
-     * @parameter expression="${jenkins.destination}" default-value="/tmp/workspace"
+     * @parameter expression="${jenkins.destination}" default-value="/var/lib/jenkins/workspace"
      * @required
      *
      */
@@ -89,7 +89,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
             String dst = "root@ec2-174-129-111-212.compute-1.amazonaws.com:" + destination + "/" + name;
             Commandline cl = getCommandLine();
             addArg(cl, "-av");
-            addArg(cl, "--stats");
+            // addArg(cl, "--stats");
             addArg(cl, "--delete");
             addArg(cl, src);
             addArg(cl, dst);
