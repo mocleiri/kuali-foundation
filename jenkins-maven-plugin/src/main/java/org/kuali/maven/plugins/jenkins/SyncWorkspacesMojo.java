@@ -171,7 +171,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
             Job job = jobs.get(i);
             Commandline cl = job.getCommandLine();
             getLog().info(StringUtils.leftPad((i + 1) + "", 3) + " : " + cl.toString());
-            int exitValue = executeRsync(cl);
+            int exitValue = 0; // executeRsync(cl);
             validateExitValue(exitValue);
             p.setProperty(job.getName(), job.getBuildNumber() + "");
             try {
@@ -266,7 +266,8 @@ public class SyncWorkspacesMojo extends AbstractMojo {
                 }
             }
         }
-        throw new IllegalStateException("Unable to determine build number info for " + job.getName());
+        // Don't have any information on this job
+        return true;
     }
 
     protected List<String> getJobNames(List<File> dirs) {
