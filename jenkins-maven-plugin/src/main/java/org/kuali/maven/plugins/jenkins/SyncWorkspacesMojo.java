@@ -71,6 +71,18 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     private String destination;
 
     /**
+     * @parameter expression="${jenkins.destinationHostname}" default-value="ws.rice.kuali.org"
+     * @required
+     */
+    private String destinationHostname;
+
+    /**
+     * @parameter expression="${jenkins.destinationUser}" default-value="root"
+     * @required
+     */
+    private String destinationUser;
+
+    /**
      * The <code>rsync</code> executable
      *
      * @parameter expression="${jenkins.executable}" default-value="rsync"
@@ -86,10 +98,9 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         List<Commandline> executions = new ArrayList<Commandline>();
         for (String name : names) {
             String src = basedir.getAbsolutePath() + "/" + name + "/workspace/";
-            String dst = "root@ec2-174-129-111-212.compute-1.amazonaws.com:" + destination + "/" + name;
+            String dst = destinationUser + "@" + destinationHostname + ":" + destination + "/" + name;
             Commandline cl = getCommandLine();
             addArg(cl, "-av");
-            // addArg(cl, "--stats");
             addArg(cl, "--delete");
             addArg(cl, src);
             addArg(cl, dst);
@@ -204,5 +215,21 @@ public class SyncWorkspacesMojo extends AbstractMojo {
 
     public void setBasedir(File basedir) {
         this.basedir = basedir;
+    }
+
+    public String getDestinationHostname() {
+        return destinationHostname;
+    }
+
+    public void setDestinationHostname(String destinationHostname) {
+        this.destinationHostname = destinationHostname;
+    }
+
+    public String getDestinationUser() {
+        return destinationUser;
+    }
+
+    public void setDestinationUser(String destinationUser) {
+        this.destinationUser = destinationUser;
     }
 }
