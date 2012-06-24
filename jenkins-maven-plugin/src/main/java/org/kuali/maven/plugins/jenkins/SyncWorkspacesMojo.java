@@ -273,8 +273,16 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         execute(syncJobs);
     }
 
+    protected List<String> getIgnoreList() {
+        if (StringUtils.isBlank(ignoreJobs)) {
+            return new ArrayList<String>();
+        } else {
+            return Arrays.asList(PropertiesUtils.splitAndTrim(ignoreJobs, ","));
+        }
+    }
+
     protected List<Job> getSyncJobs(List<Job> allJobs, List<Job> trackedJobs) {
-        List<String> ignoreList = Arrays.asList(PropertiesUtils.splitAndTrim(ignoreJobs, ","));
+        List<String> ignoreList = getIgnoreList();
         List<Job> syncJobs = new ArrayList<Job>();
         for (Job job : allJobs) {
             boolean newBuildNumber = isNewBuildNumber(job, trackedJobs);
