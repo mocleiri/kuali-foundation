@@ -20,7 +20,7 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
     private String volumeId;
 
     /**
-     * The description of the snapshot
+     * The description of the snapshot (if any)
      *
      * @parameter expression="${ec2.description}"
      */
