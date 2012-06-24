@@ -159,7 +159,7 @@
     <plugin.install.version>2.3.1</plugin.install.version>
     <plugin.jar.version>2.4</plugin.jar.version>
     <plugin.javadoc.version>2.8</plugin.javadoc.version>
-    <plugin.jenkins.version>1.1.14</plugin.jenkins.version>
+    <plugin.jenkins.version>1.1.16</plugin.jenkins.version>
     <plugin.klicense.version>1.6.3</plugin.klicense.version>
     <plugin.ksite.version>1.1.2</plugin.ksite.version>
     <plugin.license.version>1.9.0</plugin.license.version>
