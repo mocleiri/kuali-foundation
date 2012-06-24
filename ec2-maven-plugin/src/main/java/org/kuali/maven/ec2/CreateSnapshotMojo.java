@@ -12,10 +12,19 @@ import com.amazonaws.services.ec2.model.CreateSnapshotResult;
 public class CreateSnapshotMojo extends AbstractEC2Mojo {
 
     /**
+     * The volume to take a snapshot of
+     *
      * @parameter expression="${ec2.volumeId}"
      * @required
      */
     private String volumeId;
+
+    /**
+     * The description of the snapshot
+     *
+     * @parameter expression="${ec2.description}"
+     */
+    private String description;
 
     /**
      * If true, the build will wait until EC2 reports that the instance has reached the state of "terminated"
@@ -46,13 +55,14 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
         }
         AmazonEC2 client = getEC2Client();
 
-        CreateSnapshotRequest request = new CreateSnapshotRequest(volumeId, "Nightly WS Server Snapshot");
+        CreateSnapshotRequest request = new CreateSnapshotRequest(volumeId, description);
         CreateSnapshotResult result = client.createSnapshot(request);
+        String id = result.getSnapshot().getSnapshotId();
         if (wait) {
-            getLog().info("Waiting up to " + waitTimeout + " seconds for " + volumeId + " to terminate");
+            getLog().info("Waiting up to " + waitTimeout + " seconds for " + id + " to complete");
             waitForSnapshotState(client, result.getSnapshot().getSnapshotId(), state, waitTimeout);
         } else {
-            getLog().info("Terminated " + volumeId);
+            getLog().info("Completed " + id);
         }
     }
 
