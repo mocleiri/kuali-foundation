@@ -222,7 +222,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         OutputStream out = null;
         try {
             out = FileUtils.openOutputStream(file);
-            p.store(out, "Build Number Tracker");
+            p.store(out, "Tracked Build Numbers");
         } finally {
             IOUtils.closeQuietly(out);
         }
