@@ -74,7 +74,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
      * Properties file containing the jobs and buildNumbers the plugin has sync'd to the workspace server
      *
      * @parameter expression="${jenkins.trackedBuildNumbers}"
-     *            default-value="${user.home}/.jenkins-maven-plugin/trackedBuildNumbers.properties"
+     *            default-value="${user.home}/.m2/jenkins-build-numbers.properties"
      */
     private String trackedBuildNumbers;
 
