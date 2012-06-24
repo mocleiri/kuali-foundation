@@ -277,16 +277,20 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         List<String> ignoreList = Arrays.asList(PropertiesUtils.splitAndTrim(ignoreJobs, ","));
         List<Job> syncJobs = new ArrayList<Job>();
         for (Job job : allJobs) {
-            boolean sync = isSync(job, trackedJobs);
+            boolean newBuildNumber = isNewBuildNumber(job, trackedJobs);
             boolean ignore = ignoreList.contains(job.getName());
-            if (!ignore && sync) {
+
+            // Add it to the list if the force sync flag is true
+            // OR if we are not ignoring this job AND it has been run again since the last sync
+            boolean sync = forceSync || (newBuildNumber && !ignore);
+            if (sync) {
                 syncJobs.add(job);
             }
         }
         return syncJobs;
     }
 
-    protected boolean isSync(Job job, List<Job> trackedJobs) {
+    protected boolean isNewBuildNumber(Job job, List<Job> trackedJobs) {
         int currentBuildNumber = job.getBuildNumber();
         for (Job trackedJob : trackedJobs) {
             String name = trackedJob.getName();
