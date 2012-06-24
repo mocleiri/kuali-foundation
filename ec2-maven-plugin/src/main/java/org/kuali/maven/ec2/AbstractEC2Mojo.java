@@ -14,8 +14,11 @@ import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.DescribeSnapshotsRequest;
+import com.amazonaws.services.ec2.model.DescribeSnapshotsResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.ec2.model.Snapshot;
 import com.amazonaws.services.ec2.model.Tag;
 
 public abstract class AbstractEC2Mojo extends AbstractMojo {
@@ -55,6 +58,14 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
         return "";
     }
 
+    protected Snapshot getSnapshot(AmazonEC2 client, String snapshotId) {
+        DescribeSnapshotsRequest request = new DescribeSnapshotsRequest();
+        request.setSnapshotIds(Collections.singletonList(snapshotId));
+        DescribeSnapshotsResult result = client.describeSnapshots(request);
+        List<Snapshot> snapshots = result.getSnapshots();
+        return snapshots.get(0);
+    }
+
     protected Instance getInstance(AmazonEC2 client, String instanceId) {
         DescribeInstancesRequest request = new DescribeInstancesRequest();
         request.setInstanceIds(Collections.singletonList(instanceId));
@@ -67,6 +78,30 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
 
     protected boolean isEmpty(Collection<?> c) {
         return c == null || c.size() == 0;
+    }
+
+    protected void waitForSnapshotState(AmazonEC2 client, String snapshotId, String state, int waitTimeout)
+            throws MojoExecutionException {
+        long now = System.currentTimeMillis();
+        long timeout = now + waitTimeout * 1000;
+        // Wait a few seconds before we query AWS for the state of the instance
+        // If you query immediately it can sometimes flake out
+        sleep(5000);
+        while (true) {
+            long remaining = (timeout - now) / 1000;
+            Snapshot ss = getSnapshot(client, snapshotId);
+            String newState = ss.getState();
+            getLog().info(newState + " - " + remaining + "s");
+            if (state.equals(newState)) {
+                break;
+            } else {
+                sleep(5000);
+            }
+            now = System.currentTimeMillis();
+            if (now > timeout) {
+                throw new MojoExecutionException("Timed out waiting for state '" + state + "'");
+            }
+        }
     }
 
     protected void waitForState(AmazonEC2 client, String instanceId, String state, int waitTimeout)
