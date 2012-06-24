@@ -40,7 +40,7 @@ import org.kuali.maven.plugins.jenkins.helper.RsyncHelper;
 
 /**
  * Sync any workspaces from the Jenkins master to a workspace server. Only sync workspaces where the build number has
- * incremented since the last sync call.
+ * changed since the last sync call.
  *
  * @goal syncworkspaces
  */
@@ -71,7 +71,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     private boolean forceSync;
 
     /**
-     * Properties file containing the jobs and buildNumbers the plugin has sync'd to the workspace server
+     * Properties file containing the jobs and build numbers the plugin has sync'd to the workspace server
      *
      * @parameter expression="${jenkins.trackedBuildNumbers}"
      *            default-value="${user.home}/.m2/jenkins-build-numbers.properties"
@@ -111,7 +111,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     private String workspaceServerHostname;
 
     /**
-     * The user to login to the workspace server with
+     * The user to login to the workspace server as
      *
      * @parameter expression="${jenkins.workspaceServerUser}" default-value="root"
      * @required
