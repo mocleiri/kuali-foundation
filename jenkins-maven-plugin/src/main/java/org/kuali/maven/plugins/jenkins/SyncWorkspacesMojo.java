@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
@@ -117,6 +118,13 @@ public class SyncWorkspacesMojo extends AbstractMojo {
      * @required
      */
     private String executable;
+
+    /**
+     * Comma separated list of jobs to ignore
+     *
+     * @parameter expression="${jenkins.ignoreJobs}"
+     */
+    private String ignoreJobs;
 
     protected List<Job> getJobs(List<File> dirs) {
         List<Job> jobs = new ArrayList<Job>();
@@ -259,10 +267,12 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     }
 
     protected List<Job> getSyncJobs(List<Job> allJobs, List<Job> trackedJobs) {
+        List<String> ignoreList = Arrays.asList(PropertiesUtils.splitAndTrim(ignoreJobs, ","));
         List<Job> syncJobs = new ArrayList<Job>();
         for (Job job : allJobs) {
             boolean sync = isSync(job, trackedJobs);
-            if (sync) {
+            boolean ignore = ignoreList.contains(job.getName());
+            if (!ignore && sync) {
                 syncJobs.add(job);
             }
         }
@@ -417,5 +427,13 @@ public class SyncWorkspacesMojo extends AbstractMojo {
 
     public void setStats(boolean stats) {
         this.stats = stats;
+    }
+
+    public String getIgnoreJobs() {
+        return ignoreJobs;
+    }
+
+    public void setIgnoreJobs(String ignoreJobs) {
+        this.ignoreJobs = ignoreJobs;
     }
 }
