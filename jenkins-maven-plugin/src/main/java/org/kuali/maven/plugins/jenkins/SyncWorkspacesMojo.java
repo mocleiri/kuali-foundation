@@ -64,6 +64,13 @@ public class SyncWorkspacesMojo extends AbstractMojo {
     private boolean verbose;
 
     /**
+     * If true, sync all jobs even if the job has not been re-run since the last sync
+     *
+     * @parameter expression="${jenkins.forceSync}" default-value="false"
+     */
+    private boolean forceSync;
+
+    /**
      * Properties file containing the jobs and buildNumbers the plugin has sync'd to the workspace server
      *
      * @parameter expression="${jenkins.trackedBuildNumbers}"
@@ -435,5 +442,13 @@ public class SyncWorkspacesMojo extends AbstractMojo {
 
     public void setIgnoreJobs(String ignoreJobs) {
         this.ignoreJobs = ignoreJobs;
+    }
+
+    public boolean isForceSync() {
+        return forceSync;
+    }
+
+    public void setForceSync(boolean forceSync) {
+        this.forceSync = forceSync;
     }
 }
