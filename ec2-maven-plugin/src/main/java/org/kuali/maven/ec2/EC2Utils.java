@@ -28,6 +28,21 @@ public class EC2Utils {
 
     private static final Logger logger = LoggerFactory.getLogger(EC2Utils.class);
 
+    AmazonEC2Client client;
+
+    private EC2Utils(AWSCredentials credentials) {
+        this.client = new AmazonEC2Client(credentials);
+    }
+
+    public static EC2Utils getInstance(String accessKey, String secretKey) {
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+        return getInstance(credentials);
+    }
+
+    public static EC2Utils getInstance(AWSCredentials credentials) {
+        return new EC2Utils(credentials);
+    }
+
     public WaitControl getWaitControl(boolean wait, int waitTimeout, String state) {
         return new WaitControl(wait, waitTimeout, state);
     }
