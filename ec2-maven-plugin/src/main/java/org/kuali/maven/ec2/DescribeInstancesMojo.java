@@ -40,11 +40,11 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        AmazonEC2 client = getEC2Client();
+        AmazonEC2 client = ec2Utils.getEC2Client(accessKey, secretKey);
         DescribeInstancesRequest request = new DescribeInstancesRequest();
         request.setInstanceIds(instanceIds);
         DescribeInstancesResult result = client.describeInstances(request);
-        List<Instance> instances = getInstances(result.getReservations());
+        List<Instance> instances = ec2Utils.getInstances(result.getReservations());
         Table table = getTable(instances);
         getLog().info(getDisplay(table.getColumns()));
         for (Row row : table.getRows()) {
@@ -88,7 +88,7 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         for (Instance i : instances) {
             Row row = new Row();
             List<String> elements = new ArrayList<String>();
-            elements.add(getTagValue(i, tag));
+            elements.add(ec2Utils.getTagValue(i, tag));
             elements.add(i.getInstanceId());
             elements.add(i.getImageId());
             elements.add(i.getPlacement().getAvailabilityZone());

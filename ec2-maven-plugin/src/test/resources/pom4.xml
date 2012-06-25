@@ -71,7 +71,13 @@
               </goals>
               <configuration>
                 <volumeId>vol-792f7517</volumeId>
-                <description>Test Snapshot - Delete me now!</description>
+                <description>ci.ws.server.test</description>
+                <tags>
+                  <tag>
+                    <key>Name</key>
+                    <value>ci.ws.server.test</value>
+                  </tag>
+                </tags>
               </configuration>
             </execution>
           </executions>

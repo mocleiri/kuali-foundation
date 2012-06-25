@@ -33,6 +33,7 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
      * The name of the tag to search for
      *
      * @parameter expression="${ec2.tag}" default-value="Name"
+     * @required
      */
     private String tag;
 
@@ -47,6 +48,7 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
      * If true, fail the build when no matching instance is found
      *
      * @parameter expression="${ec2.failIfNotFound}" default-value="false"
+     * @required
      */
     private boolean failIfNotFound;
 
@@ -55,15 +57,16 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
      * instance is located, the property is set to the value <code>NONE</code>.
      *
      * @parameter expression="${ec2.instanceIdProperty}" default-value="ec2.instance.id"
+     * @required
      */
     private String instanceIdProperty;
 
     @Override
     public void execute() throws MojoExecutionException {
-        AmazonEC2 client = getEC2Client();
+        AmazonEC2 client = ec2Utils.getEC2Client(accessKey, secretKey);
         DescribeInstancesRequest request = getRequest();
         DescribeInstancesResult result = client.describeInstances(request);
-        List<Instance> instances = getInstances(result.getReservations());
+        List<Instance> instances = ec2Utils.getInstances(result.getReservations());
         int size = validate(instances);
         if (size != 1) {
             getLog().info("Setting " + instanceIdProperty + "=" + NONE);

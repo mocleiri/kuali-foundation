@@ -1,14 +1,11 @@
 package org.kuali.maven.ec2;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
-import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.model.CreateSnapshotRequest;
-import com.amazonaws.services.ec2.model.CreateSnapshotResult;
-import com.amazonaws.services.ec2.model.CreateTagsRequest;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.Snapshot;
 import com.amazonaws.services.ec2.model.Tag;
 
 /**
@@ -53,9 +50,9 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
     private String description;
 
     /**
-     * If true, the build will wait until EC2 reports that the instance has reached the state of "terminated"
+     * If true, the build will wait until EC2 reports that the snapshot has reached the state of "completed"
      *
-     * @parameter expression="${ec2.wait}" default-value="false"
+     * @parameter expression="${ec2.wait}" default-value="true"
      */
     private boolean wait;
 
@@ -79,24 +76,10 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
             getLog().info("volumeId=" + Constants.NONE + " Skipping execution");
             return;
         }
-        AmazonEC2 client = getEC2Client();
-
-        CreateSnapshotRequest request = new CreateSnapshotRequest(volumeId, description);
-        CreateSnapshotResult result = client.createSnapshot(request);
-        String id = result.getSnapshot().getSnapshotId();
-        if (wait) {
-            getLog().info("Waiting up to " + waitTimeout + " seconds for " + id + " to complete");
-            waitForSnapshotState(client, result.getSnapshot().getSnapshotId(), state, waitTimeout);
-        } else {
-            getLog().info("Completed " + id);
-        }
-        if (tags != null && tags.size() > 0) {
-            CreateTagsRequest ctr = new CreateTagsRequest();
-            ctr.setResources(Collections.singletonList(id));
-            ctr.setTags(tags);
-            client.createTags(ctr);
-            getLog().info("Tagged snapshot " + id + " with " + tags.size() + " tags");
-        }
+        AmazonEC2Client client = ec2Utils.getEC2Client(accessKey, secretKey);
+        WaitControl waitControl = ec2Utils.getWaitControl(wait, waitTimeout, state);
+        Snapshot snapshot = ec2Utils.createSnapshot(client, volumeId, description, waitControl);
+        ec2Utils.tag(client, snapshot.getSnapshotId(), tags);
     }
 
     public boolean isWait() {
