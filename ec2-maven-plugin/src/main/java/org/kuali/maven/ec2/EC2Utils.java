@@ -43,11 +43,18 @@ public class EC2Utils {
         return new EC2Utils(credentials);
     }
 
+    public List<Instance> getInstances(List<String> instanceIds) {
+        DescribeInstancesRequest request = new DescribeInstancesRequest();
+        request.setInstanceIds(instanceIds);
+        DescribeInstancesResult result = client.describeInstances(request);
+        return getAllInstances(result.getReservations());
+    }
+
     public WaitControl getWaitControl(boolean wait, int waitTimeout, String state) {
         return new WaitControl(wait, waitTimeout, state);
     }
 
-    public Snapshot createSnapshot(AmazonEC2Client client, String volumeId, String description, WaitControl wait) {
+    public Snapshot createSnapshot(String volumeId, String description, WaitControl wait) {
         CreateSnapshotRequest request = new CreateSnapshotRequest(volumeId, description);
         CreateSnapshotResult result = client.createSnapshot(request);
         String id = result.getSnapshot().getSnapshotId();
@@ -60,15 +67,15 @@ public class EC2Utils {
         return result.getSnapshot();
     }
 
-    public void tag(AmazonEC2Client client, String id, String name, String value) {
-        tag(client, id, new Tag(name, value));
+    public void tag(String id, String name, String value) {
+        tag(id, new Tag(name, value));
     }
 
-    public void tag(AmazonEC2Client client, String id, Tag tag) {
-        tag(client, id, Collections.singletonList(tag));
+    public void tag(String id, Tag tag) {
+        tag(id, Collections.singletonList(tag));
     }
 
-    public void tag(AmazonEC2Client client, String id, List<Tag> tags) {
+    public void tag(String id, List<Tag> tags) {
         if (isEmpty(tags)) {
             return;
         }
@@ -152,7 +159,7 @@ public class EC2Utils {
         }
     }
 
-    public List<Instance> getInstances(List<Reservation> reservations) {
+    public List<Instance> getAllInstances(List<Reservation> reservations) {
         List<Instance> instances = new ArrayList<Instance>();
         for (Reservation r : reservations) {
             instances.addAll(r.getInstances());

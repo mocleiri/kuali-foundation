@@ -3,9 +3,6 @@ package org.kuali.maven.ec2;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
-import com.amazonaws.services.ec2.AmazonEC2Client;
-import com.amazonaws.services.ec2.model.Snapshot;
-
 public abstract class AbstractEC2Mojo extends AbstractMojo {
 
     /**
@@ -24,19 +21,20 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
      */
     String secretKey;
 
+    protected boolean isSkip() {
+        return false;
+    }
+
+    public abstract void execute(EC2Utils ec2Utils) throws MojoExecutionException;
+
     @Override
     public void execute() throws MojoExecutionException {
         if (isSkip()) {
             getLog().info("Skipping execution");
             return;
         }
-        AmazonEC2Client client = ec2Utils.getEC2Client(accessKey, secretKey);
-        if (Constants.NONE.equals(volumeId)) {
-            return;
-        }
-        WaitControl waitControl = ec2Utils.getWaitControl(wait, waitTimeout, state);
-        Snapshot snapshot = ec2Utils.createSnapshot(client, volumeId, description, waitControl);
-        ec2Utils.tag(client, snapshot.getSnapshotId(), tags);
+        EC2Utils ec2Utils = EC2Utils.getInstance(accessKey, secretKey);
+        execute(ec2Utils);
     }
 
     public String getAccessKey() {

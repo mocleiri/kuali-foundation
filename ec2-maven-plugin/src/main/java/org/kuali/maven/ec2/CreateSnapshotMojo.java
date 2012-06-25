@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
-import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.Snapshot;
 import com.amazonaws.services.ec2.model.Tag;
 
@@ -71,15 +70,20 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
     private String state;
 
     @Override
-    public void execute() throws MojoExecutionException {
+    protected boolean isSkip() {
         if (Constants.NONE.equals(volumeId)) {
-            getLog().info("volumeId=" + Constants.NONE + " Skipping execution");
-            return;
+            getLog().info("volumeId=" + volumeId);
+            return true;
+        } else {
+            return false;
         }
-        AmazonEC2Client client = ec2Utils.getEC2Client(accessKey, secretKey);
+    }
+
+    @Override
+    public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
         WaitControl waitControl = ec2Utils.getWaitControl(wait, waitTimeout, state);
-        Snapshot snapshot = ec2Utils.createSnapshot(client, volumeId, description, waitControl);
-        ec2Utils.tag(client, snapshot.getSnapshotId(), tags);
+        Snapshot snapshot = ec2Utils.createSnapshot(volumeId, description, waitControl);
+        ec2Utils.tag(snapshot.getSnapshotId(), tags);
     }
 
     public boolean isWait() {
