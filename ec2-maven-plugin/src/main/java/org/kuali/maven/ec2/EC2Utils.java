@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,7 @@ import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.DescribeSnapshotsRequest;
 import com.amazonaws.services.ec2.model.DescribeSnapshotsResult;
+import com.amazonaws.services.ec2.model.Filter;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.Snapshot;
@@ -41,6 +43,61 @@ public class EC2Utils {
 
     public static EC2Utils getInstance(AWSCredentials credentials) {
         return new EC2Utils(credentials);
+    }
+
+    protected Filter getFilterFromTag(String tag, String value) {
+        Filter filter = new Filter();
+        filter.setName("tag:" + tag);
+        filter.setValues(Collections.singletonList(value));
+        return filter;
+    }
+
+    protected DescribeInstancesRequest getDescribeInstancesRequest(Tag tag) {
+        DescribeInstancesRequest request = new DescribeInstancesRequest();
+        Filter filter = getFilterFromTag(tag.getKey(), tag.getValue());
+        request.setFilters(Collections.singletonList(filter));
+        return request;
+    }
+
+    protected int validate(List<Instance> instances, Tag tag) {
+        int size = instances.size();
+        String msg = tag.getKey() + "=" + tag.getValue() + " matched " + size + " instances";
+        if (size == 1) {
+            return size;
+        }
+        if (size > 1) {
+            throw new IllegalStateException(msg);
+        }
+        // size == 0
+        if (failIfNotFound) {
+            throw new IllegalStateException(msg);
+        } else {
+            logger.info(msg);
+        }
+        return size;
+    }
+
+    public Instance findInstanceFromTag(Tag tag) {
+        DescribeInstancesRequest request = getDescribeInstancesRequest(tag);
+        DescribeInstancesResult result = client.describeInstances(request);
+        List<Instance> instances = getAllInstances(result.getReservations());
+        int size = validate(instances);
+        if (size != 1) {
+            getLog().info("Setting " + instanceIdProperty + "=" + NONE);
+            project.getProperties().setProperty(instanceIdProperty, NONE);
+            return;
+        }
+
+        // If we get here, there is exactly one matching instance
+        Instance i = instances.get(0);
+        String id = i.getInstanceId();
+        if (!StringUtils.isBlank(instanceIdProperty)) {
+            getLog().info("Setting " + instanceIdProperty + "=" + id);
+            project.getProperties().setProperty(instanceIdProperty, id);
+        } else {
+            getLog().info("EC2 Instance: " + id);
+        }
+
     }
 
     public List<Instance> getInstances(List<String> instanceIds) {

@@ -11,9 +11,6 @@ import org.kuali.maven.ec2.pojo.Row;
 import org.kuali.maven.ec2.pojo.RowComparator;
 import org.kuali.maven.ec2.pojo.Table;
 
-import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
-import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.GroupIdentifier;
 import com.amazonaws.services.ec2.model.Instance;
 
@@ -39,13 +36,9 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
     private List<String> instanceIds;
 
     @Override
-    public void execute() throws MojoExecutionException {
-        AmazonEC2 client = ec2Utils.getEC2Client(accessKey, secretKey);
-        DescribeInstancesRequest request = new DescribeInstancesRequest();
-        request.setInstanceIds(instanceIds);
-        DescribeInstancesResult result = client.describeInstances(request);
-        List<Instance> instances = ec2Utils.getInstances(result.getReservations());
-        Table table = getTable(instances);
+    public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
+        List<Instance> instances = ec2Utils.getInstances(instanceIds);
+        Table table = getTable(instances, ec2Utils);
         getLog().info(getDisplay(table.getColumns()));
         for (Row row : table.getRows()) {
             getLog().info(getDisplay(table, row));
@@ -83,7 +76,7 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         return sb.toString();
     }
 
-    protected List<Row> getRows(List<Instance> instances) {
+    protected List<Row> getRows(List<Instance> instances, EC2Utils ec2Utils) {
         List<Row> rows = new ArrayList<Row>();
         for (Instance i : instances) {
             Row row = new Row();
@@ -128,9 +121,9 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
         }
     }
 
-    protected Table getTable(List<Instance> instances) {
+    protected Table getTable(List<Instance> instances, EC2Utils ec2Utils) {
         Table table = new Table();
-        table.setRows(getRows(instances));
+        table.setRows(getRows(instances, ec2Utils));
         table.setColumns(getColumns(table.getRows()));
         return table;
     }
