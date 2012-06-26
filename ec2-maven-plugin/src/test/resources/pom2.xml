@@ -71,14 +71,14 @@
               </goals>
               <configuration>
                 <tag>Name</tag>
-                <value>env22</value>
+                <value>env99</value>
               </configuration>
             </execution>
             <execution>
               <id>terminate</id>
               <phase>test</phase>
               <goals>
-                <goal>terminate</goal>
+                <goal>terminateinstance</goal>
               </goals>
               <configuration>
                 <instanceId>${ec2.instance.id}</instanceId>
