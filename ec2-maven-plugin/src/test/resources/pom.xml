@@ -97,7 +97,7 @@
             <tags>
               <tag>
                 <key>Name</key>
-                <value>env${deploy.env}-test</value>
+                <value>env${deploy.env}</value>
               </tag>
             </tags>
           </configuration>
