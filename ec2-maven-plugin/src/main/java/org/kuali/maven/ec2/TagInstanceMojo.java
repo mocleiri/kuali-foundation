@@ -56,16 +56,18 @@ public class TagInstanceMojo extends AbstractEC2Mojo {
     private List<Tag> tags;
 
     @Override
-    public void execute() throws MojoExecutionException {
-        if (Constants.NONE.equals(instanceId)) {
-            getLog().info("instanceId=" + Constants.NONE + " Skipping execution");
-            return;
+    protected boolean isSkip() {
+        boolean skip1 = Constants.NONE.equals(instanceId);
+        boolean skip2 = EC2Utils.isEmpty(tags);
+        if (skip1 || skip2) {
+            return true;
+        } else {
+            return false;
         }
-        if (tags == null || tags.size() == 0) {
-            getLog().info("No tags to apply.  Skipping execution");
-            return;
-        }
-        AmazonEC2 client = getEC2Client();
+    }
+
+    @Override
+    public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
         DescribeInstancesRequest request = getRequest();
         DescribeInstancesResult result = client.describeInstances(request);
         List<Instance> instances = getInstances(result.getReservations());

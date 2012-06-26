@@ -50,8 +50,8 @@ public class EC2Utils {
     public Instance wait(Instance i, WaitControl wc, Properties props) {
         if (wc.isWait()) {
             logger.info("Waiting up to " + wc.getTimeout() + " seconds for " + i.getInstanceId() + " to start");
-            waitForState(client, i.getInstanceId(), wc.getState(), wc.getTimeout());
-            Instance running = getInstance(client, i.getInstanceId());
+            waitForState(i.getInstanceId(), wc.getState(), wc.getTimeout());
+            Instance running = getEC2Instance(i.getInstanceId());
             String id = i.getInstanceId();
             String dns = running.getPublicDnsName();
             String name = getTagValue(running, "Name");
@@ -219,7 +219,7 @@ public class EC2Utils {
         }
     }
 
-    protected void waitForState(AmazonEC2 client, String instanceId, String state, int waitTimeout) {
+    public void waitForState(String instanceId, String state, int waitTimeout) {
         long now = System.currentTimeMillis();
         long timeout = now + waitTimeout * 1000;
         // Wait a few seconds before we query AWS for the state of the instance
@@ -227,7 +227,7 @@ public class EC2Utils {
         sleep(5000);
         while (true) {
             long remaining = (timeout - now) / 1000;
-            Instance i = getInstance(client, instanceId);
+            Instance i = getEC2Instance(instanceId);
             String newState = i.getState().getName();
             logger.info(newState + " - " + remaining + "s");
             if (state.equals(newState)) {
@@ -266,7 +266,7 @@ public class EC2Utils {
         return snapshots.get(0);
     }
 
-    public Instance getInstance(AmazonEC2 client, String instanceId) {
+    public Instance getEC2Instance(String instanceId) {
         DescribeInstancesRequest request = new DescribeInstancesRequest();
         request.setInstanceIds(Collections.singletonList(instanceId));
         DescribeInstancesResult result = client.describeInstances(request);
