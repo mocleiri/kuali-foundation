@@ -63,7 +63,6 @@ public class TagMojo extends AbstractEC2Mojo {
     @Override
     public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
         ec2Utils.tag(resourceId, tags);
-        getLog().info("Tagged instance " + resourceId + " with " + tags.size() + " tags");
     }
 
     public String getResourceId() {
