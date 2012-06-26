@@ -77,7 +77,6 @@
                 <goal>wait</goal>
               </goals>
               <configuration>
-                <timeout>300</timeout>
                 <url>http://${ec2.instance.dns}/tomcat/logs/env.jsp</url>
               </configuration>
             </execution>
