@@ -102,7 +102,11 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
     public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
         WaitControl wc = new WaitControl(wait, waitTimeout, state);
         wc.setSleep(sleep * 1000);
+        long start = System.currentTimeMillis();
         Snapshot snapshot = ec2Utils.createSnapshot(volumeId, description, wc);
+        long millis = System.currentTimeMillis() - start;
+        getLog().info("Elapsed: " + millis / 1000);
+        getLog().info("Setting ec2.snapshot.id=" + snapshot.getSnapshotId());
         project.getProperties().setProperty("ec2.snapshot.id", snapshot.getSnapshotId());
         ec2Utils.tag(snapshot.getSnapshotId(), tags);
     }
