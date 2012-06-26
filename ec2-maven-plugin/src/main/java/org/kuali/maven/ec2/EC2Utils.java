@@ -238,7 +238,7 @@ public class EC2Utils {
         long timeout = now + wc.getTimeout() * 1000;
         // Wait a few seconds before we query AWS for the state of the instance
         // If you query immediately it can sometimes flake out
-        sleep(5000);
+        sleep(wc.getSleep());
         while (true) {
             long remaining = (timeout - now) / 1000;
             String newState = retriever.getState();
@@ -246,7 +246,7 @@ public class EC2Utils {
             if (newState.equals(wc.getState())) {
                 break;
             } else {
-                sleep(5000);
+                sleep(wc.getSleep());
             }
             now = System.currentTimeMillis();
             if (now > timeout) {

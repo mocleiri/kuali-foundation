@@ -3,7 +3,7 @@ package org.kuali.maven.ec2;
 public class WaitControl {
     boolean wait;
     int timeout;
-    int sleep;
+    int sleep = Constants.DEFAULT_SLEEP_MILLIS;
     String state;
 
     public WaitControl() {
