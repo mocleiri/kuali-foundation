@@ -27,6 +27,7 @@ import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.Snapshot;
 import com.amazonaws.services.ec2.model.Tag;
+import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 
 public class EC2Utils {
 
@@ -45,6 +46,18 @@ public class EC2Utils {
 
     public static EC2Utils getInstance(AWSCredentials credentials) {
         return new EC2Utils(credentials);
+    }
+
+    public void terminate(String instanceId, WaitControl wc) {
+        TerminateInstancesRequest request = new TerminateInstancesRequest();
+        request.setInstanceIds(Collections.singletonList(instanceId));
+        client.terminateInstances(request);
+        if (wc.isWait()) {
+            logger.info("Waiting up to " + wc.getTimeout() + " seconds for " + instanceId + " to terminate");
+            waitForState(instanceId, wc.getState(), wc.getTimeout());
+        } else {
+            logger.info("Terminated " + instanceId);
+        }
     }
 
     public Instance wait(Instance i, WaitControl wc, Properties props) {

@@ -1,18 +1,13 @@
 package org.kuali.maven.ec2;
 
-import java.util.Collections;
-
 import org.apache.maven.plugin.MojoExecutionException;
-
-import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 
 /**
  * Connect to EC2 and terminate the indicated instance.
  *
- * @goal terminate
+ * @goal terminateinstance
  */
-public class TerminateMojo extends AbstractEC2Mojo {
+public class TerminateInstanceMojo extends AbstractEC2Mojo {
 
     /**
      * The id of the instance to terminate. Set this to <code>NONE</code> to skip attempting to terminate an instance
@@ -44,21 +39,19 @@ public class TerminateMojo extends AbstractEC2Mojo {
     private String state;
 
     @Override
-    public void execute() throws MojoExecutionException {
+    protected boolean isSkip() {
         if (Constants.NONE.equals(instanceId)) {
-            getLog().info("instanceId=" + Constants.NONE + " Skipping execution");
-            return;
-        }
-        AmazonEC2 client = getEC2Client();
-        TerminateInstancesRequest request = new TerminateInstancesRequest();
-        request.setInstanceIds(Collections.singletonList(instanceId));
-        client.terminateInstances(request);
-        if (wait) {
-            getLog().info("Waiting up to " + waitTimeout + " seconds for " + instanceId + " to terminate");
-            waitForState(client, instanceId, state, waitTimeout);
+            getLog().info("instanceId=" + instanceId);
+            return true;
         } else {
-            getLog().info("Terminated " + instanceId);
+            return false;
         }
+    }
+
+    @Override
+    public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
+        WaitControl wc = new WaitControl(wait, waitTimeout, state);
+        ec2Utils.terminate(instanceId, wc);
     }
 
     public String getInstanceId() {
