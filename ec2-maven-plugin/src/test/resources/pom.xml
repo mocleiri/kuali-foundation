@@ -88,6 +88,7 @@
           <artifactId>${project.artifactId}</artifactId>
           <version>${project.version}</version>
           <configuration>
+            <key>${ec2.keyName}</key>
             <securityGroups>
               <param>${ec2.securityGroup}</param>
             </securityGroups>
