@@ -1,17 +1,10 @@
 package org.kuali.maven.ec2;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.StringUtils;
 
-import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
-import com.amazonaws.services.ec2.model.DescribeInstancesResult;
-import com.amazonaws.services.ec2.model.Filter;
 import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.Tag;
 
 /**
  * Connect to EC2 and find a single instance based on a tag/value pair
@@ -62,59 +55,14 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
     private String instanceIdProperty;
 
     @Override
-    public void execute() throws MojoExecutionException {
-        AmazonEC2 client = ec2Utils.getEC2Client(accessKey, secretKey);
-        DescribeInstancesRequest request = getRequest();
-        DescribeInstancesResult result = client.describeInstances(request);
-        List<Instance> instances = ec2Utils.getInstances(result.getReservations());
-        int size = validate(instances);
-        if (size != 1) {
-            getLog().info("Setting " + instanceIdProperty + "=" + NONE);
-            project.getProperties().setProperty(instanceIdProperty, NONE);
-            return;
+    public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
+        Instance instance = ec2Utils.findInstanceFromTag(new Tag(tag, value), failIfNotFound);
+        String id = NONE;
+        if (instance != null) {
+            id = instance.getInstanceId();
         }
-
-        // If we get here, there is exactly one matching instance
-        Instance i = instances.get(0);
-        String id = i.getInstanceId();
-        if (!StringUtils.isBlank(instanceIdProperty)) {
-            getLog().info("Setting " + instanceIdProperty + "=" + id);
-            project.getProperties().setProperty(instanceIdProperty, id);
-        } else {
-            getLog().info("EC2 Instance: " + id);
-        }
-    }
-
-    protected int validate(List<Instance> instances) throws MojoExecutionException {
-        int size = instances.size();
-        String msg = tag + "=" + value + " matched " + size + " instances";
-        if (size == 1) {
-            return size;
-        }
-        if (size > 1) {
-            throw new MojoExecutionException(msg);
-        }
-        // size == 0
-        if (failIfNotFound) {
-            throw new MojoExecutionException(msg);
-        } else {
-            getLog().info(msg);
-        }
-        return size;
-    }
-
-    protected DescribeInstancesRequest getRequest() {
-        DescribeInstancesRequest request = new DescribeInstancesRequest();
-        Filter filter = getFilter(tag, value);
-        request.setFilters(Collections.singletonList(filter));
-        return request;
-    }
-
-    protected Filter getFilter(String tag, String value) {
-        Filter filter = new Filter();
-        filter.setName("tag:" + tag);
-        filter.setValues(Collections.singletonList(value));
-        return filter;
+        getLog().info("Setting " + instanceIdProperty + "=" + id);
+        project.getProperties().setProperty(instanceIdProperty, id);
     }
 
     public String getTag() {

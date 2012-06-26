@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
-import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +23,8 @@ import com.amazonaws.services.ec2.model.DescribeSnapshotsResult;
 import com.amazonaws.services.ec2.model.Filter;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.ec2.model.RunInstancesRequest;
+import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.Snapshot;
 import com.amazonaws.services.ec2.model.Tag;
 
@@ -45,6 +47,47 @@ public class EC2Utils {
         return new EC2Utils(credentials);
     }
 
+    public Instance wait(Instance i, WaitControl wc, Properties props) {
+        if (wc.isWait()) {
+            logger.info("Waiting up to " + wc.getTimeout() + " seconds for " + i.getInstanceId() + " to start");
+            waitForState(client, i.getInstanceId(), wc.getState(), wc.getTimeout());
+            Instance running = getInstance(client, i.getInstanceId());
+            String id = i.getInstanceId();
+            String dns = running.getPublicDnsName();
+            String name = getTagValue(running, "Name");
+            logger.info("EC2 Instance: " + name + " (" + id + ") " + dns);
+            props.setProperty("ec2.instance.dns", running.getPublicDnsName());
+            return running;
+        } else {
+            logger.info("Launched " + i.getInstanceId());
+            return i;
+        }
+    }
+
+    public Instance getEC2Instance(RunInstancesRequest request) {
+        RunInstancesResult result = client.runInstances(request);
+        Reservation r = result.getReservation();
+        List<Instance> instances = r.getInstances();
+        return instances.get(0);
+    }
+
+    public void createTags(Instance instance, List<Tag> tags) {
+        if (isEmpty(tags)) {
+            return;
+        }
+        CreateTagsRequest request = new CreateTagsRequest();
+        request.setResources(Collections.singletonList(instance.getInstanceId()));
+        request.setTags(tags);
+        client.createTags(request);
+    }
+
+    public Instance getSingleEC2Instance(RunInstancesRequest request) {
+        RunInstancesResult result = client.runInstances(request);
+        Reservation r = result.getReservation();
+        List<Instance> instances = r.getInstances();
+        return instances.get(0);
+    }
+
     protected Filter getFilterFromTag(String tag, String value) {
         Filter filter = new Filter();
         filter.setName("tag:" + tag);
@@ -59,7 +102,7 @@ public class EC2Utils {
         return request;
     }
 
-    protected int validate(List<Instance> instances, Tag tag) {
+    protected int validate(List<Instance> instances, Tag tag, boolean failIfNotFound) {
         int size = instances.size();
         String msg = tag.getKey() + "=" + tag.getValue() + " matched " + size + " instances";
         if (size == 1) {
@@ -77,25 +120,15 @@ public class EC2Utils {
         return size;
     }
 
-    public Instance findInstanceFromTag(Tag tag) {
+    public Instance findInstanceFromTag(Tag tag, boolean failIfNotFound) {
         DescribeInstancesRequest request = getDescribeInstancesRequest(tag);
         DescribeInstancesResult result = client.describeInstances(request);
         List<Instance> instances = getAllInstances(result.getReservations());
-        int size = validate(instances);
-        if (size != 1) {
-            getLog().info("Setting " + instanceIdProperty + "=" + NONE);
-            project.getProperties().setProperty(instanceIdProperty, NONE);
-            return;
-        }
-
-        // If we get here, there is exactly one matching instance
-        Instance i = instances.get(0);
-        String id = i.getInstanceId();
-        if (!StringUtils.isBlank(instanceIdProperty)) {
-            getLog().info("Setting " + instanceIdProperty + "=" + id);
-            project.getProperties().setProperty(instanceIdProperty, id);
+        int size = validate(instances, tag, failIfNotFound);
+        if (size == 1) {
+            return instances.get(0);
         } else {
-            getLog().info("EC2 Instance: " + id);
+            return null;
         }
 
     }
@@ -105,10 +138,6 @@ public class EC2Utils {
         request.setInstanceIds(instanceIds);
         DescribeInstancesResult result = client.describeInstances(request);
         return getAllInstances(result.getReservations());
-    }
-
-    public WaitControl getWaitControl(boolean wait, int waitTimeout, String state) {
-        return new WaitControl(wait, waitTimeout, state);
     }
 
     public Snapshot createSnapshot(String volumeId, String description, WaitControl wait) {
@@ -132,6 +161,11 @@ public class EC2Utils {
         tag(id, Collections.singletonList(tag));
     }
 
+    /**
+     * Adds or overwrites tags for the specified resource. <code>id</code> can be an EC2 instance id, snapshot id,
+     * volume id, etc. Each resource can have a maximum of 10 tags. Each tag consists of a key-value pair. Tag keys must
+     * be unique per resource.
+     */
     public void tag(String id, List<Tag> tags) {
         if (isEmpty(tags)) {
             return;

@@ -81,7 +81,7 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
 
     @Override
     public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
-        WaitControl waitControl = ec2Utils.getWaitControl(wait, waitTimeout, state);
+        WaitControl waitControl = new WaitControl(wait, waitTimeout, state);
         Snapshot snapshot = ec2Utils.createSnapshot(volumeId, description, waitControl);
         ec2Utils.tag(snapshot.getSnapshotId(), tags);
     }

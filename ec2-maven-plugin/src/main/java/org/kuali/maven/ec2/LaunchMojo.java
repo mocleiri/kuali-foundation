@@ -2,7 +2,6 @@ package org.kuali.maven.ec2;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -14,13 +13,9 @@ import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
 
-import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.model.CreateTagsRequest;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
-import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
-import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.Tag;
 
 /**
@@ -149,19 +144,18 @@ public class LaunchMojo extends AbstractEC2Mojo {
     private String state;
 
     @Override
-    public void execute() throws MojoExecutionException {
-        AmazonEC2 client = getEC2Client();
-        RunInstancesRequest request = getRequest();
-        Instance i = getInstance(client, request);
-        handleTags(client, i, tags);
-        wait(client, i);
-        Instance running = getInstance(client, i.getInstanceId());
+    public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
+        RunInstancesRequest request = getRunSingleEC2InstanceRequest();
+        Instance i = ec2Utils.getSingleEC2Instance(request);
+        ec2Utils.createTags(i, tags);
+        WaitControl wc = new WaitControl(wait, waitTimeout, state);
         Properties props = project.getProperties();
+        Instance running = ec2Utils.wait(i, wc, props);
         props.setProperty("ec2.instance.id", running.getInstanceId());
-        props.setProperty("ec2.instance.name", getTagValue(running, "Name"));
+        props.setProperty("ec2.instance.name", ec2Utils.getTagValue(running, "Name"));
     }
 
-    protected RunInstancesRequest getRequest() throws MojoExecutionException {
+    protected RunInstancesRequest getRunSingleEC2InstanceRequest() throws MojoExecutionException {
         RunInstancesRequest request = new RunInstancesRequest();
         request.setMaxCount(1);
         request.setMinCount(1);
@@ -172,39 +166,6 @@ public class LaunchMojo extends AbstractEC2Mojo {
         String data = getUserData(userData, userDataFile, encoding);
         request.setUserData(data);
         return request;
-    }
-
-    protected Instance getInstance(AmazonEC2 client, RunInstancesRequest request) {
-        RunInstancesResult result = client.runInstances(request);
-        Reservation r = result.getReservation();
-        List<Instance> instances = r.getInstances();
-        return instances.get(0);
-    }
-
-    protected void wait(AmazonEC2 client, Instance i) throws MojoExecutionException {
-        if (wait) {
-            getLog().info("Waiting up to " + waitTimeout + " seconds for " + i.getInstanceId() + " to start");
-            waitForState(client, i.getInstanceId(), state, waitTimeout);
-            Instance running = getInstance(client, i.getInstanceId());
-            String id = i.getInstanceId();
-            String dns = running.getPublicDnsName();
-            String name = getTagValue(running, "Name");
-            getLog().info("EC2 Instance: " + name + " (" + id + ") " + dns);
-            Properties props = project.getProperties();
-            props.setProperty("ec2.instance.dns", running.getPublicDnsName());
-        } else {
-            getLog().info("Launched " + i.getInstanceId());
-        }
-    }
-
-    protected void handleTags(AmazonEC2 client, Instance instance, List<Tag> tags) {
-        if (isEmpty(tags)) {
-            return;
-        }
-        CreateTagsRequest request = new CreateTagsRequest();
-        request.setResources(Collections.singletonList(instance.getInstanceId()));
-        request.setTags(tags);
-        client.createTags(request);
     }
 
     protected String getUserData(String data, String location, String encoding) throws MojoExecutionException {
