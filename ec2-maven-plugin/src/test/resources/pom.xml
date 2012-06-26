@@ -29,7 +29,7 @@
   <name>Maven EC2 Plugin Test POM</name>
   <properties>
     <tomcat.version>6</tomcat.version>
-    <deploy.env>4</deploy.env>
+    <deploy.env>99</deploy.env>
     <deploy.dns>env${deploy.env}.rice</deploy.dns>
     <deploy.groupId>org.kuali.rice</deploy.groupId>
     <deploy.artifactId>rice-sampleapp</deploy.artifactId>
