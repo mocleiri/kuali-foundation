@@ -37,7 +37,7 @@ public class DescribeInstancesMojo extends AbstractEC2Mojo {
 
     @Override
     public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
-        List<Instance> instances = ec2Utils.getInstances(instanceIds);
+        List<Instance> instances = ec2Utils.getEC2Instances(instanceIds);
         Table table = getTable(instances, ec2Utils);
         getLog().info(getDisplay(table.getColumns()));
         for (Row row : table.getRows()) {

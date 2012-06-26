@@ -41,7 +41,7 @@ public class EC2Utils {
     }
 
     public static EC2Utils getInstance(String accessKey, String secretKey) {
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+        AWSCredentials credentials = getCredentials(accessKey, secretKey);
         return getInstance(credentials);
     }
 
@@ -76,13 +76,6 @@ public class EC2Utils {
             logger.info("Launched " + i.getInstanceId());
             return i;
         }
-    }
-
-    public Instance getEC2Instance(RunInstancesRequest request) {
-        RunInstancesResult result = client.runInstances(request);
-        Reservation r = result.getReservation();
-        List<Instance> instances = r.getInstances();
-        return instances.get(0);
     }
 
     public void createTags(Instance instance, List<Tag> tags) {
@@ -147,7 +140,7 @@ public class EC2Utils {
 
     }
 
-    public List<Instance> getInstances(List<String> instanceIds) {
+    public List<Instance> getEC2Instances(List<String> instanceIds) {
         DescribeInstancesRequest request = new DescribeInstancesRequest();
         request.setInstanceIds(instanceIds);
         DescribeInstancesResult result = client.describeInstances(request);
@@ -191,11 +184,11 @@ public class EC2Utils {
         logger.info("Tagged '" + id + "' with " + tags.size() + " tags");
     }
 
-    public AWSCredentials getCredentials(String accessKey, String secretKey) {
+    public static AWSCredentials getCredentials(String accessKey, String secretKey) {
         return new BasicAWSCredentials(accessKey, secretKey);
     }
 
-    public AmazonEC2Client getEC2Client(String accessKey, String secretKey) {
+    public static AmazonEC2Client getEC2Client(String accessKey, String secretKey) {
         AWSCredentials credentials = getCredentials(accessKey, secretKey);
         return new AmazonEC2Client(credentials);
     }
