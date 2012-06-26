@@ -156,7 +156,7 @@ public class EC2Utils {
         String id = result.getSnapshot().getSnapshotId();
         if (wc.isWait()) {
             StateRetriever sr = new SnapshotStateRetriever(this, id);
-            logger.info("Waiting up to " + wc.getTimeout() / 60 + " minutes for snapshot '" + id + "' to complete");
+            logger.info("Waiting up to " + wc.getTimeout() + " seconds for snapshot '" + id + "' to complete");
             waitForState(sr, wc);
         } else {
             logger.info("Completed " + id);
