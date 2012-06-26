@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.maven.ec2.state.StateRetriever;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -228,6 +229,28 @@ public class EC2Utils {
             now = System.currentTimeMillis();
             if (now > timeout) {
                 throw new IllegalStateException("Timed out waiting for state '" + state + "'");
+            }
+        }
+    }
+
+    public void waitForState(StateRetriever retriever, WaitControl wc) {
+        long now = System.currentTimeMillis();
+        long timeout = now + wc.getTimeout() * 1000;
+        // Wait a few seconds before we query AWS for the state of the instance
+        // If you query immediately it can sometimes flake out
+        sleep(5000);
+        while (true) {
+            long remaining = (timeout - now) / 1000;
+            String newState = retriever.getState();
+            logger.info(newState + " - " + remaining + "s");
+            if (newState.equals(wc.getState())) {
+                break;
+            } else {
+                sleep(5000);
+            }
+            now = System.currentTimeMillis();
+            if (now > timeout) {
+                throw new IllegalStateException("Timed out waiting for state '" + wc.getState() + "'");
             }
         }
     }

@@ -3,6 +3,7 @@ package org.kuali.maven.ec2;
 public class WaitControl {
     boolean wait;
     int timeout;
+    int sleep;
     String state;
 
     public WaitControl() {
@@ -38,6 +39,14 @@ public class WaitControl {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public int getSleep() {
+        return sleep;
+    }
+
+    public void setSleep(int sleep) {
+        this.sleep = sleep;
     }
 
 }
