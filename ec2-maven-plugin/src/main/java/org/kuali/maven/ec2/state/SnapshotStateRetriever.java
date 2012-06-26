@@ -1,7 +1,9 @@
 package org.kuali.maven.ec2.state;
 
-import org.apache.commons.lang.StringUtils;
 import org.kuali.maven.ec2.EC2Utils;
+import org.springframework.util.Assert;
+
+import com.amazonaws.services.ec2.model.Snapshot;
 
 public class SnapshotStateRetriever implements StateRetriever {
 
@@ -20,13 +22,13 @@ public class SnapshotStateRetriever implements StateRetriever {
 
     @Override
     public String getState() {
-        return null;
+        Assert.notNull(ec2Utils);
+        Assert.notNull(snapshotId);
+        Snapshot s = ec2Utils.getSnapshot(snapshotId);
+        return s.getState();
     }
 
     protected void validate() {
-        if (ec2Utils == null || StringUtils.isBlank(snapshotId)) {
-            throw new IllegalStateException("snapshot id must not be blank, and ec2Utils must be non-null");
-        }
     }
 
     public EC2Utils getEc2Utils() {

@@ -211,7 +211,7 @@ public class EC2Utils {
         sleep(5000);
         while (true) {
             long remaining = (timeout - now) / 1000;
-            Snapshot ss = getSnapshot(client, snapshotId);
+            Snapshot ss = getSnapshot(snapshotId);
             String newState = ss.getState();
             logger.info(newState + " - " + remaining + "s");
             if (state.equals(newState)) {
@@ -287,7 +287,7 @@ public class EC2Utils {
         return instances;
     }
 
-    public Snapshot getSnapshot(AmazonEC2 client, String snapshotId) {
+    public Snapshot getSnapshot(String snapshotId) {
         DescribeSnapshotsRequest request = new DescribeSnapshotsRequest();
         request.setSnapshotIds(Collections.singletonList(snapshotId));
         DescribeSnapshotsResult result = client.describeSnapshots(request);
