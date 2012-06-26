@@ -78,7 +78,7 @@
               <id>terminateinstance</id>
               <phase>test</phase>
               <goals>
-                <goal>terminate</goal>
+                <goal>terminateinstance</goal>
               </goals>
               <configuration>
                 <instanceId>${ec2.instance.id}</instanceId>
