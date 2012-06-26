@@ -39,13 +39,38 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>properties</id>
+              <goals>
+                <goal>read-project-properties</goal>
+                <goal>decryptall</goal>
+              </goals>
+              <phase>initialize</phase>
+              <configuration>
+                <password>${kuali.enc.password}</password>
+                <locations>
+                  <param>classpath:org/kuali/common/deploy/common.properties</param>
+                  <param>classpath:org/kuali/rice/common.properties</param>
+                </locations>
+              </configuration>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+              <groupId>org.kuali.common</groupId>
+              <artifactId>kuali-deploy</artifactId>
+              <version>${kuali-deploy.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
           <groupId>${project.groupId}</groupId>
           <artifactId>${project.artifactId}</artifactId>
           <version>${project.version}</version>
           <configuration>
-            <accessKey>AKIAIZFPMJVCNOYYAZ2Q</accessKey>
-            <ami>ami-62e1460b</ami>
-            <key>kr-key</key>
             <securityGroups>
               <param>deployment</param>
             </securityGroups>
@@ -74,10 +99,10 @@
         <artifactId>${project.artifactId}</artifactId>
         <executions>
           <execution>
-            <id>launch</id>
+            <id>launchinstance</id>
             <phase>test</phase>
             <goals>
-              <goal>launch</goal>
+              <goal>launchinstance</goal>
             </goals>
           </execution>
         </executions>
