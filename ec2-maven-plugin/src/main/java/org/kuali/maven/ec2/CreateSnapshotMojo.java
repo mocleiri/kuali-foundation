@@ -58,7 +58,7 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
     /**
      * The number of seconds to wait for the instance to terminate before timing out and failing the build
      *
-     * @parameter expression="${ec2.waitTimeout}" default-value="300"
+     * @parameter expression="${ec2.waitTimeout}" default-value="3600"
      */
     private int waitTimeout;
 

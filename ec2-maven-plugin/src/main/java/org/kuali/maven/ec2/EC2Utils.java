@@ -150,14 +150,15 @@ public class EC2Utils {
         return getAllInstances(result.getReservations());
     }
 
-    public Snapshot createSnapshot(String volumeId, String description, WaitControl wait) {
+    public Snapshot createSnapshot(String volumeId, String description, WaitControl wc) {
         CreateSnapshotRequest request = new CreateSnapshotRequest(volumeId, description);
         CreateSnapshotResult result = client.createSnapshot(request);
         String id = result.getSnapshot().getSnapshotId();
-        if (wait.isWait()) {
+        if (wc.isWait()) {
+            wc.setSleep(15000);
             StateRetriever sr = new SnapshotStateRetriever(this, id);
-            logger.info("Waiting up to " + wait.getTimeout() + " seconds for snapshot '" + id + "' to complete");
-            waitForState(sr, wait);
+            logger.info("Waiting up to " + wc.getTimeout() / 60 + " minutes for snapshot '" + id + "' to complete");
+            waitForState(sr, wc);
         } else {
             logger.info("Completed " + id);
         }
