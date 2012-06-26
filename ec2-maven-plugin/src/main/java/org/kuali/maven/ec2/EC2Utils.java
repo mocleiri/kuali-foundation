@@ -208,11 +208,11 @@ public class EC2Utils {
     }
 
     public void waitForState(StateRetriever retriever, WaitControl wc) {
+        // Wait a little bit before we query AWS for state information
+        // If you query immediately it can sometimes flake out
+        sleep(1500);
         long now = System.currentTimeMillis();
         long timeout = now + wc.getTimeout() * 1000;
-        // Wait a few seconds before we query AWS for the state of the instance
-        // If you query immediately it can sometimes flake out
-        sleep(wc.getSleep());
         while (true) {
             long remaining = (timeout - now) / 1000;
             String newState = retriever.getState();
@@ -233,7 +233,7 @@ public class EC2Utils {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 
