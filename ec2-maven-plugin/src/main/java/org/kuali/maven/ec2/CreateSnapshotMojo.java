@@ -63,6 +63,13 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
     private int waitTimeout;
 
     /**
+     * The number of seconds to sleep in between status checks on the snapshot
+     *
+     * @parameter expression="${ec2.sleep}" default-value="30"
+     */
+    private int sleep;
+
+    /**
      * The state the plugin will wait for the snapshot to be in before continuing
      *
      * @parameter expression="${ec2.state}" default-value="completed"
@@ -81,8 +88,9 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
 
     @Override
     public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
-        WaitControl waitControl = new WaitControl(wait, waitTimeout, state);
-        Snapshot snapshot = ec2Utils.createSnapshot(volumeId, description, waitControl);
+        WaitControl wc = new WaitControl(wait, waitTimeout, state);
+        wc.setSleep(sleep * 1000);
+        Snapshot snapshot = ec2Utils.createSnapshot(volumeId, description, wc);
         ec2Utils.tag(snapshot.getSnapshotId(), tags);
     }
 
@@ -132,5 +140,13 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getSleep() {
+        return sleep;
+    }
+
+    public void setSleep(int sleep) {
+        this.sleep = sleep;
     }
 }
