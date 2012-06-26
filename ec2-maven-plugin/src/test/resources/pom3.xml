@@ -40,7 +40,7 @@
                 <goal>read-project-properties</goal>
                 <goal>decryptall</goal>
               </goals>
-              <phase>initialize</phase>
+              <phase>test</phase>
               <configuration>
                 <password>${kuali.enc.password}</password>
                 <locations>
