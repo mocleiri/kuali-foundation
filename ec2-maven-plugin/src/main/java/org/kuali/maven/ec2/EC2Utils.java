@@ -6,13 +6,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.maven.ec2.state.InstanceStateRetriever;
+import org.kuali.maven.ec2.state.SnapshotStateRetriever;
 import org.kuali.maven.ec2.state.StateRetriever;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.CreateSnapshotRequest;
 import com.amazonaws.services.ec2.model.CreateSnapshotResult;
@@ -54,8 +55,9 @@ public class EC2Utils {
         request.setInstanceIds(Collections.singletonList(instanceId));
         client.terminateInstances(request);
         if (wc.isWait()) {
+            StateRetriever sr = new InstanceStateRetriever(this, instanceId);
             logger.info("Waiting up to " + wc.getTimeout() + " seconds for " + instanceId + " to terminate");
-            waitForState(instanceId, wc.getState(), wc.getTimeout());
+            waitForState(sr, wc);
         } else {
             logger.info("Terminated " + instanceId);
         }
@@ -63,8 +65,9 @@ public class EC2Utils {
 
     public Instance wait(Instance i, WaitControl wc, Properties props) {
         if (wc.isWait()) {
+            StateRetriever sr = new InstanceStateRetriever(this, i.getInstanceId());
             logger.info("Waiting up to " + wc.getTimeout() + " seconds for " + i.getInstanceId() + " to start");
-            waitForState(i.getInstanceId(), wc.getState(), wc.getTimeout());
+            waitForState(sr, wc);
             Instance running = getEC2Instance(i.getInstanceId());
             String id = i.getInstanceId();
             String dns = running.getPublicDnsName();
@@ -152,8 +155,9 @@ public class EC2Utils {
         CreateSnapshotResult result = client.createSnapshot(request);
         String id = result.getSnapshot().getSnapshotId();
         if (wait.isWait()) {
+            StateRetriever sr = new SnapshotStateRetriever(this, id);
             logger.info("Waiting up to " + wait.getTimeout() + " seconds for snapshot '" + id + "' to complete");
-            waitForSnapshotState(client, id, wait.getState(), wait.getTimeout());
+            waitForState(sr, wait);
         } else {
             logger.info("Completed " + id);
         }
@@ -203,29 +207,6 @@ public class EC2Utils {
         return "";
     }
 
-    protected void waitForSnapshotState(AmazonEC2 client, String snapshotId, String state, int waitTimeout) {
-        long now = System.currentTimeMillis();
-        long timeout = now + waitTimeout * 1000;
-        // Wait a few seconds before we query AWS for the state of the instance
-        // If you query immediately it can sometimes flake out
-        sleep(5000);
-        while (true) {
-            long remaining = (timeout - now) / 1000;
-            Snapshot ss = getSnapshot(snapshotId);
-            String newState = ss.getState();
-            logger.info(newState + " - " + remaining + "s");
-            if (state.equals(newState)) {
-                break;
-            } else {
-                sleep(5000);
-            }
-            now = System.currentTimeMillis();
-            if (now > timeout) {
-                throw new IllegalStateException("Timed out waiting for state '" + state + "'");
-            }
-        }
-    }
-
     public void waitForState(StateRetriever retriever, WaitControl wc) {
         long now = System.currentTimeMillis();
         long timeout = now + wc.getTimeout() * 1000;
@@ -244,29 +225,6 @@ public class EC2Utils {
             now = System.currentTimeMillis();
             if (now > timeout) {
                 throw new IllegalStateException("Timed out waiting for state '" + wc.getState() + "'");
-            }
-        }
-    }
-
-    public void waitForState(String instanceId, String state, int waitTimeout) {
-        long now = System.currentTimeMillis();
-        long timeout = now + waitTimeout * 1000;
-        // Wait a few seconds before we query AWS for the state of the instance
-        // If you query immediately it can sometimes flake out
-        sleep(5000);
-        while (true) {
-            long remaining = (timeout - now) / 1000;
-            Instance i = getEC2Instance(instanceId);
-            String newState = i.getState().getName();
-            logger.info(newState + " - " + remaining + "s");
-            if (state.equals(newState)) {
-                break;
-            } else {
-                sleep(5000);
-            }
-            now = System.currentTimeMillis();
-            if (now > timeout) {
-                throw new IllegalStateException("Timed out waiting for state '" + state + "'");
             }
         }
     }
