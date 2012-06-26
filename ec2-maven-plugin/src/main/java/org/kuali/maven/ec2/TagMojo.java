@@ -48,7 +48,7 @@ public class TagMojo extends AbstractEC2Mojo {
         boolean skip1 = Constants.NONE.equals(resourceId);
         boolean skip2 = EC2Utils.isEmpty(tags);
         if (skip1) {
-            getLog().info("Instance Id=" + resourceId);
+            getLog().info("Resource Id=" + resourceId);
         }
         if (skip2) {
             getLog().info("No tags were supplied");
