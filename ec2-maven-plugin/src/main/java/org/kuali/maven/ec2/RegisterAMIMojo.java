@@ -2,13 +2,10 @@ package org.kuali.maven.ec2;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
-import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.model.RegisterImageRequest;
-
 /**
  * @goal registerami
  */
-public class RegisterAmazonMachineImageMojo extends AbstractEC2Mojo {
+public class RegisterAMIMojo extends AbstractEC2Mojo {
 
     /**
      * The volume to take a snapshot of
@@ -47,14 +44,6 @@ public class RegisterAmazonMachineImageMojo extends AbstractEC2Mojo {
     private String state;
 
     @Override
-    public void execute() throws MojoExecutionException {
-        if (Constants.NONE.equals(snapshotId)) {
-            getLog().info("snapshotId=" + Constants.NONE + " Skipping execution");
-            return;
-        }
-        AmazonEC2 client = getEC2Client();
-        RegisterImageRequest rir = new RegisterImageRequest();
-        rir.s
-        client.registerImage(null);
+    public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
     }
 }
