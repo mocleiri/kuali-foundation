@@ -28,9 +28,9 @@ import com.amazonaws.services.ec2.model.Tag;
  * If <code>wait</code> is false, the <code>ec2.instance.dns</code> property will not be set since the instance will not
  * have a public dns name by the time the plugin execution completes.
  *
- * @goal launch
+ * @goal launchinstance
  */
-public class LaunchMojo extends AbstractEC2Mojo {
+public class LaunchInstanceMojo extends AbstractEC2Mojo {
 
     /**
      * The Maven project object
@@ -123,7 +123,8 @@ public class LaunchMojo extends AbstractEC2Mojo {
     private List<Tag> tags;
 
     /**
-     * If true, the build will wait until EC2 reports that the instance has reached the state of "running"
+     * If true, the build will wait until EC2 reports that the instance has reached the state of "running" before
+     * continuing
      *
      * @parameter expression="${ec2.wait}" default-value="true"
      */
