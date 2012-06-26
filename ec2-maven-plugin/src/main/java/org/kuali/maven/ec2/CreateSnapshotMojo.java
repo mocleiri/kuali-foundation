@@ -3,14 +3,26 @@ package org.kuali.maven.ec2;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
 
 import com.amazonaws.services.ec2.model.Snapshot;
 import com.amazonaws.services.ec2.model.Tag;
 
 /**
+ * Create a snapshot of a volume. If successful, the project property <code>ec2.snapshot.id</code> will contain the id
+ * of the snapshot that was created.
+ *
  * @goal createsnapshot
  */
 public class CreateSnapshotMojo extends AbstractEC2Mojo {
+
+    /**
+     * The Maven project object
+     *
+     * @parameter expression="${project}"
+     * @readonly
+     */
+    private MavenProject project;
 
     /**
      * List of tags to associate with the snapshot. Tags are key value pairs and can be supplied in the plugin
@@ -91,6 +103,7 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
         WaitControl wc = new WaitControl(wait, waitTimeout, state);
         wc.setSleep(sleep * 1000);
         Snapshot snapshot = ec2Utils.createSnapshot(volumeId, description, wc);
+        project.getProperties().setProperty("ec2.snapshot.id", snapshot.getSnapshotId());
         ec2Utils.tag(snapshot.getSnapshotId(), tags);
     }
 
@@ -148,5 +161,9 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
 
     public void setSleep(int sleep) {
         this.sleep = sleep;
+    }
+
+    public MavenProject getProject() {
+        return project;
     }
 }
