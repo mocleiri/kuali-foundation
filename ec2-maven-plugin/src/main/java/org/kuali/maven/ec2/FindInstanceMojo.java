@@ -1,7 +1,6 @@
 package org.kuali.maven.ec2;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
@@ -13,14 +12,6 @@ import com.amazonaws.services.ec2.model.Tag;
  */
 public class FindInstanceMojo extends AbstractEC2Mojo {
     private static final String NONE = Constants.NONE;
-
-    /**
-     * The Maven project object
-     *
-     * @parameter expression="${project}"
-     * @readonly
-     */
-    private MavenProject project;
 
     /**
      * The name of the tag to search for
@@ -95,10 +86,6 @@ public class FindInstanceMojo extends AbstractEC2Mojo {
 
     public void setInstanceIdProperty(String instanceIdProperty) {
         this.instanceIdProperty = instanceIdProperty;
-    }
-
-    public MavenProject getProject() {
-        return project;
     }
 
 }

@@ -3,7 +3,6 @@ package org.kuali.maven.ec2;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 
 import com.amazonaws.services.ec2.model.Snapshot;
 import com.amazonaws.services.ec2.model.Tag;
@@ -15,14 +14,6 @@ import com.amazonaws.services.ec2.model.Tag;
  * @goal createsnapshot
  */
 public class CreateSnapshotMojo extends AbstractEC2Mojo {
-
-    /**
-     * The Maven project object
-     *
-     * @parameter expression="${project}"
-     * @readonly
-     */
-    private MavenProject project;
 
     /**
      * List of tags to associate with the snapshot. Tags are key value pairs and can be supplied in the plugin
@@ -165,9 +156,5 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
 
     public void setSleep(int sleep) {
         this.sleep = sleep;
-    }
-
-    public MavenProject getProject() {
-        return project;
     }
 }

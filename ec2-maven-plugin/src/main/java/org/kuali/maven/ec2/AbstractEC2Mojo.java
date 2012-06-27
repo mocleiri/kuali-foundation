@@ -2,8 +2,17 @@ package org.kuali.maven.ec2;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
 
 public abstract class AbstractEC2Mojo extends AbstractMojo {
+
+    /**
+     * The Maven project object
+     *
+     * @parameter expression="${project}"
+     * @readonly
+     */
+    MavenProject project;
 
     /**
      * The AWS Access Key Id for an account on EC2
@@ -51,6 +60,10 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
 
     public void setSecretKey(String secretKey) {
         this.secretKey = secretKey;
+    }
+
+    public MavenProject getProject() {
+        return project;
     }
 
 }

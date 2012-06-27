@@ -6,6 +6,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.RegisterImageRequest;
+import com.amazonaws.services.ec2.model.RegisterImageResult;
 
 /**
  * @goal registerimage
@@ -47,11 +48,12 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
 
     @Override
     public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
-        getLog().info(image.getName());
-        getLog().info(blockDeviceMappings.get(0).getEbs().getSnapshotId());
+        WaitControl wc = new WaitControl(wait, waitTimeout, state);
+        // For some reason, Maven's automatic bean setting logic chokes on setBlockDeviceMappings()
+        // That is the only reason there is a separate blockDeviceMappings member variable
+        // If that ever gets sorted out, the only needed is the image variable
         image.setBlockDeviceMappings(blockDeviceMappings);
-        WaitControl wc = new WaitControl(wait,waitTimeout,state);
-        ec2Utils.registerImage(image,wc);
+        RegisterImageResult result = ec2Utils.registerImage(image, wc);
 
     }
 

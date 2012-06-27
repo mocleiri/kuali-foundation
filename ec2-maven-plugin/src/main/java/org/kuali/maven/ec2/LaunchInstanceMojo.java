@@ -8,7 +8,6 @@ import java.util.Properties;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.PropertiesUtils;
 import org.kuali.maven.common.ResourceUtils;
@@ -31,14 +30,6 @@ import com.amazonaws.services.ec2.model.Tag;
  * @goal launchinstance
  */
 public class LaunchInstanceMojo extends AbstractEC2Mojo {
-
-    /**
-     * The Maven project object
-     *
-     * @parameter expression="${project}"
-     * @readonly
-     */
-    private MavenProject project;
 
     /**
      * The AMI to launch
@@ -258,10 +249,6 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
 
     public void setFilterUserData(boolean filterUserData) {
         this.filterUserData = filterUserData;
-    }
-
-    public MavenProject getProject() {
-        return project;
     }
 
     public List<Tag> getTags() {
