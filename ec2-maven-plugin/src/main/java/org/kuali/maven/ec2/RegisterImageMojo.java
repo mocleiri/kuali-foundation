@@ -14,12 +14,16 @@ import com.amazonaws.services.ec2.model.RegisterImageResult;
 public class RegisterImageMojo extends AbstractEC2Mojo {
 
     /**
+     * The image to register. See <code>com.amazonaws.services.ec2.model.RegisterImageRequest</code>
+     *
      * @parameter
      * @required
      */
     RegisterImageRequest image;
 
     /**
+     * The BlockDeviceMappings for the image. See <code>com.amazonaws.services.ec2.model.BlockDeviceMapping</code>
+     *
      * @parameter
      * @required
      */
@@ -33,7 +37,7 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
     private boolean wait;
 
     /**
-     * The number of seconds to wait for the AMI to complete
+     * The number of seconds to wait for the AMI to become available
      *
      * @parameter expression="${ec2.waitTimeout}" default-value="30"
      */
@@ -50,9 +54,10 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
     public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
         WaitControl wc = new WaitControl(wait, waitTimeout, state);
         wc.setSleep(1000);
+        wc.setInitialPause(250);
         // For some reason, Maven's automatic bean setting logic chokes on RegisterImageRequest.setBlockDeviceMappings()
         // That is the only reason for a separate blockDeviceMappings member variable
-        // If the Maven issue ever gets sorted out, remove the blockDeviceMappings member variable and
+        // If the Maven issue gets sorted out, remove the blockDeviceMappings member variable and
         // just configure the RegisterImageRequest directly
         image.setBlockDeviceMappings(blockDeviceMappings);
         RegisterImageResult result = ec2Utils.registerImage(image, wc);
