@@ -73,10 +73,10 @@ public class EC2Utils {
     public RegisterImageResult registerImage(RegisterImageRequest request, WaitControl wc) {
         RegisterImageResult result = client.registerImage(request);
         if (wc.isWait()) {
-            String imageId = result.getImageId();
-            StateRetriever sr = new ImageStateRetriever(this, imageId);
-            logger.info("Waiting up to " + wc.getTimeout() + " seconds for " + imageId + " to reach state '"
-                    + wc.getState() + "'");
+            String id = result.getImageId();
+            int timeout = wc.getTimeout();
+            StateRetriever sr = new ImageStateRetriever(this, id);
+            logger.info("Waiting up to " + timeout + " seconds for '" + id + "' to reach state '" + wc.getState() + "'");
             waitForState(sr, wc);
         } else {
             logger.info("Created image " + result.getImageId());
