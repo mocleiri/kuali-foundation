@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.maven.ec2.state.ImageStateRetriever;
 import org.kuali.maven.ec2.state.InstanceStateRetriever;
 import org.kuali.maven.ec2.state.SnapshotStateRetriever;
 import org.kuali.maven.ec2.state.StateRetriever;
@@ -73,7 +74,7 @@ public class EC2Utils {
         RegisterImageResult result = client.registerImage(request);
         if (wc.isWait()) {
             String imageId = result.getImageId();
-            StateRetriever sr = new InstanceStateRetriever(this, imageId);
+            StateRetriever sr = new ImageStateRetriever(this, imageId);
             logger.info("Waiting up to " + wc.getTimeout() + " seconds for " + imageId + " to reach state '"
                     + wc.getState() + "'");
             waitForState(sr, wc);

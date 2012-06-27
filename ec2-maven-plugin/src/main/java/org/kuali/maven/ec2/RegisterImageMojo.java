@@ -26,7 +26,7 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
     List<BlockDeviceMapping> blockDeviceMappings;
 
     /**
-     * If true, the build will wait until EC2 reports that the AMI has reached the state of "completed"
+     * If true, the build will wait until EC2 reports that the AMI has reached the state of "available"
      *
      * @parameter expression="${ec2.wait}" default-value="true"
      */
@@ -42,7 +42,7 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
     /**
      * The state the plugin will wait for the AMI to be in before continuing
      *
-     * @parameter expression="${ec2.state}" default-value="completed"
+     * @parameter expression="${ec2.state}" default-value="available"
      */
     private String state;
 
