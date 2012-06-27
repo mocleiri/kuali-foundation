@@ -48,9 +48,9 @@
     <profile>
       <id>sync</id>
       <properties>
-        <image.name>ci-slave-2012-02-22-testing</image.name>
-        <image.tag.name>${image.name}</image.tag.name>
-        <image.description>CI Slave with workspaces from master</image.description>
+        <image.name>ci-slave-${kuali.build.day}-testing</image.name>
+        <image.tag.name>CI Slave ${kuali.build.day}</image.tag.name>
+        <image.description>CI build slave - ${kuali.build.day}</image.description>
         <image.architecture>x86_64</image.architecture>
         <image.rootDeviceName>/dev/sda1</image.rootDeviceName>
         <image.kernelId>aki-825ea7eb</image.kernelId>
@@ -60,12 +60,28 @@
         <image.deleteOnTermination>true</image.deleteOnTermination>
         <ws.server.volumeId>vol-792f7517</ws.server.volumeId>
         <ws.snapshot.description>${image.description}</ws.snapshot.description>
-        <ws.snapshot.name>ci.ws.server.test</ws.snapshot.name>
-        <ws.snapshot.tag.name>${ws.snapshot.name}</ws.snapshot.tag.name>
+        <ws.snapshot.tag.name>${image.tag.name}</ws.snapshot.tag.name>
       </properties>
       <build>
         <pluginManagement>
           <plugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>buildnumber-maven-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>day</id>
+                  <phase>initialize</phase>
+                  <goals>
+                    <goal>create-timestamp</goal>
+                  </goals>
+                  <configuration>
+                    <timestampFormat>yyyy-MM-dd</timestampFormat>
+                    <timestampPropertyName>kuali.build.day</timestampPropertyName>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
             <plugin>
               <groupId>org.kuali.maven.plugins</groupId>
               <artifactId>properties-maven-plugin</artifactId>
