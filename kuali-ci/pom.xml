@@ -54,7 +54,7 @@
         <image.architecture>x86_64</image.architecture>
         <image.rootDeviceName>/dev/sda1</image.rootDeviceName>
         <image.kernelId>aki-825ea7eb</image.kernelId>
-        <!-- The createsnapshot execution generates the snapshot id -->
+        <!-- The createsnapshot execution generates the snapshot id and stores it in the property ec2.snapshot.id -->
         <image.snapshotId>${ec2.snapshot.id}</image.snapshotId>
         <image.volumeSize>128</image.volumeSize>
         <image.deleteOnTermination>true</image.deleteOnTermination>
