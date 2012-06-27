@@ -164,7 +164,6 @@ public class EC2Utils {
         } else {
             return null;
         }
-
     }
 
     public List<Instance> getEC2Instances() {
