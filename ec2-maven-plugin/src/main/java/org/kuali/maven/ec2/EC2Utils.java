@@ -24,7 +24,6 @@ import com.amazonaws.services.ec2.model.DescribeSnapshotsRequest;
 import com.amazonaws.services.ec2.model.DescribeSnapshotsResult;
 import com.amazonaws.services.ec2.model.Filter;
 import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.RegisterImageRequest;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
@@ -51,9 +50,9 @@ public class EC2Utils {
         return new EC2Utils(credentials);
     }
 
-    public void registerAMI() {
+    public void registerImage() {
         // 789813968323/ci-slave-2012-05-23
-        RegisterImageRequest request = new RegisterImageRequest();
+        // RegisterImageRequest request = new RegisterImageRequest();
     }
 
     public void terminate(String instanceId, WaitControl wc) {
