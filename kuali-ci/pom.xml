@@ -49,7 +49,8 @@
       <id>sync</id>
       <properties>
         <image.name>ci-slave-2012-02-22-testing</image.name>
-        <image.description>CI Slave testing register image</image.description>
+        <image.tag.name>${image.name}</image.tag.name>
+        <image.description>CI Slave with workspaces from master</image.description>
         <image.architecture>x86_64</image.architecture>
         <image.rootDeviceName>/dev/sda1</image.rootDeviceName>
         <image.kernelId>aki-825ea7eb</image.kernelId>
@@ -58,8 +59,9 @@
         <image.volumeSize>128</image.volumeSize>
         <image.deleteOnTermination>true</image.deleteOnTermination>
         <ws.server.volumeId>vol-792f7517</ws.server.volumeId>
-        <ws.snapshot.description>ci.ws.server.test</ws.snapshot.description>
+        <ws.snapshot.description>${image.description}</ws.snapshot.description>
         <ws.snapshot.name>ci.ws.server.test</ws.snapshot.name>
+        <ws.snapshot.tag.name>${ws.snapshot.name}</ws.snapshot.tag.name>
       </properties>
       <build>
         <pluginManagement>
@@ -128,7 +130,7 @@
                     <tags>
                       <tag>
                         <key>Name</key>
-                        <value>${ws.snapshot.name}</value>
+                        <value>${ws.snapshot.tag.name}</value>
                       </tag>
                     </tags>
                   </configuration>
@@ -160,7 +162,7 @@
                     <tags>
                       <tag>
                         <key>Name</key>
-                        <value>${image.name}</value>
+                        <value>${image.tag.name}</value>
                       </tag>
                     </tags>
                   </configuration>
