@@ -147,8 +147,12 @@
             <artifactId>properties-maven-plugin</artifactId>
           </plugin>
           <plugin>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>${project.artifactId}</artifactId>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>jenkins-maven-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>ec2-maven-plugin</artifactId>
           </plugin>
         </plugins>
       </build>
