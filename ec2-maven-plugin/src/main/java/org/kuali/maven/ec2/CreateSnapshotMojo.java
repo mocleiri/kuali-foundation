@@ -72,7 +72,7 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
         long start = System.currentTimeMillis();
         Snapshot snapshot = ec2Utils.createSnapshot(volumeId, description, wc);
         long millis = System.currentTimeMillis() - start;
-        getLog().info("Elapsed: " + millis / 1000);
+        getLog().info("Elapsed: " + millis / 1000 + "s");
         getLog().info("Setting ec2.snapshot.id=" + snapshot.getSnapshotId());
         project.getProperties().setProperty("ec2.snapshot.id", snapshot.getSnapshotId());
         ec2Utils.tag(snapshot.getSnapshotId(), tags);
