@@ -60,7 +60,7 @@
         <image.deleteOnTermination>true</image.deleteOnTermination>
         <jenkins.verbose>false</jenkins.verbose>
         <jenkins.stats>true</jenkins.stats>
-        <jenkins.ignoreJobs>sync-to-ws-server,ole-trunk-change-audit</jenkins.ignoreJobs>
+        <jenkins.ignoreJobs>sync-to-ws-server</jenkins.ignoreJobs>
         <ws.server.volumeId>vol-792f7517</ws.server.volumeId>
         <ws.snapshot.description>${image.description}</ws.snapshot.description>
         <ws.snapshot.tag.name>${image.tag.name}</ws.snapshot.tag.name>
