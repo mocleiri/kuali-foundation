@@ -169,7 +169,7 @@
                       <param>
                         <deviceName>${image.rootDeviceName}</deviceName>
                         <ebs>
-                          <snapshotId>${ec2.snapshot.id}</snapshotId>
+                          <snapshotId>${image.snapshotId}</snapshotId>
                           <volumeSize>${image.volumeSize}</volumeSize>
                           <deleteOnTermination>${image.deleteOnTermination}</deleteOnTermination>
                         </ebs>
