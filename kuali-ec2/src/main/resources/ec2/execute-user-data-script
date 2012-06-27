@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#
+# This script is run on an EC2 instance
+# It downloads the user-data supplied to the instance,
+# assumes it is a shell script, and executes it 
+#
+
+set -ex
+FILE=/tmp/user-data-script
+GET http://169.254.169.254/latest/user-data > $FILE
+chmod 755 $FILE
+$FILE
