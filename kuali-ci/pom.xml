@@ -49,7 +49,7 @@
       <id>sync</id>
       <properties>
         <image.name>ci-slave-${kuali.build.day}</image.name>
-        <image.tag.name>CI Slave ${kuali.build.day}</image.tag.name>
+        <image.tag.name>CI Slave - ${kuali.build.day}</image.tag.name>
         <image.description>CI build slave - ${kuali.build.day}</image.description>
         <image.architecture>x86_64</image.architecture>
         <image.rootDeviceName>/dev/sda1</image.rootDeviceName>
