@@ -35,7 +35,7 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
     /**
      * The number of seconds to wait for the AMI to complete
      *
-     * @parameter expression="${ec2.waitTimeout}" default-value="300"
+     * @parameter expression="${ec2.waitTimeout}" default-value="30"
      */
     private int waitTimeout;
 
@@ -49,12 +49,15 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
     @Override
     public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
         WaitControl wc = new WaitControl(wait, waitTimeout, state);
-        // For some reason, Maven's automatic bean setting logic chokes on setBlockDeviceMappings()
-        // That is the only reason there is a separate blockDeviceMappings member variable
-        // If that ever gets sorted out, the only needed is the image variable
+        wc.setSleep(1000);
+        // For some reason, Maven's automatic bean setting logic chokes on RegisterImageRequest.setBlockDeviceMappings()
+        // That is the only reason for is a separate blockDeviceMappings member variable
+        // If Maven issue ever gets sorted out, remove the blockDeviceMappings member variable and
+        // just configure the RegisterImageRequest directly
         image.setBlockDeviceMappings(blockDeviceMappings);
         RegisterImageResult result = ec2Utils.registerImage(image, wc);
         String imageId = result.getImageId();
+        getLog().info("Setting ec2.image.id=" + imageId);
         project.getProperties().setProperty("ec2.image.id", imageId);
     }
 
