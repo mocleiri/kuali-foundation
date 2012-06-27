@@ -53,7 +53,8 @@
         <image.architecture>x86_64</image.architecture>
         <image.rootDeviceName>/dev/sda1</image.rootDeviceName>
         <image.kernelId>aki-825ea7eb</image.kernelId>
-        <image.snapshotId>snap-a6dc42d8</image.snapshotId>
+        <image.snapshotId>snap-1eff9f60</image.snapshotId>
+        <ec2.snapshot.id>${image.snapshotId}</ec2.snapshot.id>
         <image.volumeSize>128</image.volumeSize>
         <image.deleteOnTermination>true</image.deleteOnTermination>
         <ws.server.volumeId>vol-792f7517</ws.server.volumeId>
@@ -117,7 +118,7 @@
               <executions>
                 <execution>
                   <id>createsnapshot</id>
-                  <phase>initialize</phase>
+                  <phase>none</phase>
                   <goals>
                     <goal>createsnapshot</goal>
                   </goals>
@@ -150,7 +151,7 @@
                       <param>
                         <deviceName>${image.rootDeviceName}</deviceName>
                         <ebs>
-                          <snapshotId>${image.snapshotId}</snapshotId>
+                          <snapshotId>${ec2.snapshot.id}</snapshotId>
                           <volumeSize>${image.volumeSize}</volumeSize>
                           <deleteOnTermination>${image.deleteOnTermination}</deleteOnTermination>
                         </ebs>
