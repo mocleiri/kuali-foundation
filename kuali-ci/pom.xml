@@ -156,6 +156,12 @@
                         </ebs>
                       </param>
                     </blockDeviceMappings>
+                    <tags>
+                      <tag>
+                        <key>Name</key>
+                        <value>${image.name}</value>
+                      </tag>
+                    </tags>
                   </configuration>
                 </execution>
               </executions>
