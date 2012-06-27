@@ -18,12 +18,17 @@ import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.CreateSnapshotRequest;
 import com.amazonaws.services.ec2.model.CreateSnapshotResult;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.DescribeSnapshotsRequest;
 import com.amazonaws.services.ec2.model.DescribeSnapshotsResult;
 import com.amazonaws.services.ec2.model.Filter;
+import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.RegisterImageRequest;
+import com.amazonaws.services.ec2.model.RegisterImageResult;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
@@ -50,9 +55,23 @@ public class EC2Utils {
         return new EC2Utils(credentials);
     }
 
-    public void registerImage() {
-        // 789813968323/ci-slave-2012-05-23
-        // RegisterImageRequest request = new RegisterImageRequest();
+    public Image getImage(String imageId) {
+        DescribeImagesRequest request = new DescribeImagesRequest();
+        request.setImageIds(Collections.singletonList(imageId));
+        DescribeImagesResult result = client.describeImages(request);
+        List<Image> images = result.getImages();
+        if (isEmpty(images)) {
+            throw new IllegalStateException("Unable to locate '" + imageId + "'");
+        }
+        if (images.size() > 1) {
+            throw new IllegalStateException("Found " + images.size() + " matching '" + imageId + "'");
+        }
+        return images.get(0);
+    }
+
+    public RegisterImageResult registerImage(RegisterImageRequest request) {
+        RegisterImageResult result = client.registerImage(request);
+        return result;
     }
 
     public void terminate(String instanceId, WaitControl wc) {

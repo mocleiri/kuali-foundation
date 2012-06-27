@@ -1,7 +1,10 @@
 package org.kuali.maven.ec2;
 
+import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
 
+import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.RegisterImageRequest;
 
 /**
@@ -13,7 +16,13 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
      * @parameter
      * @required
      */
-    RegisterImageRequest registerImageRequest;
+    RegisterImageRequest image;
+
+    /**
+     * @parameter
+     * @required
+     */
+    List<BlockDeviceMapping> blockDeviceMappings;
 
     /**
      * If true, the build will wait until EC2 reports that the AMI has reached the state of "completed"
@@ -38,15 +47,11 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
 
     @Override
     public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
-        getLog().info(registerImageRequest.getName());
-    }
+        getLog().info(image.getName());
+        getLog().info(blockDeviceMappings.get(0).getEbs().getSnapshotId());
+        image.setBlockDeviceMappings(blockDeviceMappings);
+        ec2Utils.registerImage(image);
 
-    public RegisterImageRequest getRegisterImageRequest() {
-        return registerImageRequest;
-    }
-
-    public void setRegisterImageRequest(RegisterImageRequest registerImageRequest) {
-        this.registerImageRequest = registerImageRequest;
     }
 
     public boolean isWait() {
@@ -71,5 +76,21 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public RegisterImageRequest getImage() {
+        return image;
+    }
+
+    public void setImage(RegisterImageRequest image) {
+        this.image = image;
+    }
+
+    public List<BlockDeviceMapping> getBlockDeviceMappings() {
+        return blockDeviceMappings;
+    }
+
+    public void setBlockDeviceMappings(List<BlockDeviceMapping> blockDeviceMappings) {
+        this.blockDeviceMappings = blockDeviceMappings;
     }
 }
