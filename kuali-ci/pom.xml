@@ -48,7 +48,7 @@
     <profile>
       <id>sync</id>
       <properties>
-        <image.name>ci-slave-${kuali.build.day}-testing</image.name>
+        <image.name>ci-slave-${kuali.build.day}</image.name>
         <image.tag.name>CI Slave ${kuali.build.day}</image.tag.name>
         <image.description>CI build slave - ${kuali.build.day}</image.description>
         <image.architecture>x86_64</image.architecture>
@@ -188,6 +188,10 @@
           </plugins>
         </pluginManagement>
         <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+          </plugin>
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>properties-maven-plugin</artifactId>
