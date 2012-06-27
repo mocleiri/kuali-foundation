@@ -70,6 +70,13 @@
                 <goal>registerimage</goal>
               </goals>
               <configuration>
+                <image>
+                  <name>ci-slave-2012-02-22-testing</name>
+                  <description>CI Slave testing register image</description>
+                  <architecture>x86_64</architecture>
+                  <rootDeviceName>/dev/sda1</rootDeviceName>
+                  <kernelId>aki-825ea7eb</kernelId>
+                </image>
                 <blockDeviceMappings>
                   <param>
                     <deviceName>/dev/sda1</deviceName>
@@ -80,13 +87,6 @@
                     </ebs>
                   </param>
                 </blockDeviceMappings>
-                <registerImageRequest>
-                  <name>ci-slave-2012-02-22-testing</name>
-                  <description>CI Slave testing register image</description>
-                  <architecture>x86_64</architecture>
-                  <rootDeviceName>/dev/sda1</rootDeviceName>
-                  <kernelId>aki-825ea7eb</kernelId>
-                </registerImageRequest>
               </configuration>
             </execution>
           </executions>
