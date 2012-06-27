@@ -50,7 +50,8 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
         getLog().info(image.getName());
         getLog().info(blockDeviceMappings.get(0).getEbs().getSnapshotId());
         image.setBlockDeviceMappings(blockDeviceMappings);
-        ec2Utils.registerImage(image);
+        WaitControl wc = new WaitControl(wait,waitTimeout,state);
+        ec2Utils.registerImage(image,wc);
 
     }
 

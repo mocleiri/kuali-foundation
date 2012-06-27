@@ -69,8 +69,17 @@ public class EC2Utils {
         return images.get(0);
     }
 
-    public RegisterImageResult registerImage(RegisterImageRequest request) {
+    public RegisterImageResult registerImage(RegisterImageRequest request, WaitControl wc) {
         RegisterImageResult result = client.registerImage(request);
+        if (wc.isWait()) {
+            String imageId = result.getImageId();
+            StateRetriever sr = new InstanceStateRetriever(this, imageId);
+            logger.info("Waiting up to " + wc.getTimeout() + " seconds for " + imageId + " to reach state '"
+                    + wc.getState() + "'");
+            waitForState(sr, wc);
+        } else {
+            logger.info("Created image " + result.getImageId());
+        }
         return result;
     }
 
