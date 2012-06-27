@@ -1,11 +1,8 @@
 package org.kuali.maven.ec2;
 
-import java.util.List;
-
 import org.apache.maven.plugin.MojoExecutionException;
 
 import com.amazonaws.services.ec2.model.Snapshot;
-import com.amazonaws.services.ec2.model.Tag;
 
 /**
  * Create a snapshot of a volume. If successful, the project property <code>ec2.snapshot.id</code> will contain the id
@@ -14,27 +11,6 @@ import com.amazonaws.services.ec2.model.Tag;
  * @goal createsnapshot
  */
 public class CreateSnapshotMojo extends AbstractEC2Mojo {
-
-    /**
-     * List of tags to associate with the snapshot. Tags are key value pairs and can be supplied in the plugin
-     * configuration like this:<br>
-     *
-     * <pre>
-     *   &lt;tags&gt;
-     *     &lt;tag&gt;
-     *       &lt;key&gt;Name&lt;/key&gt;
-     *       &lt;value&gt;production&lt;/value&gt;
-     *     &lt;/tag&gt;
-     *     &lt;tag&gt;
-     *       &lt;key&gt;Category&lt;/key&gt;
-     *       &lt;value&gt;networking&lt;/value&gt;
-     *     &lt;/tag&gt;
-     *   &lt;/tags&gt;
-     * </pre>
-     *
-     * @parameter
-     */
-    private List<Tag> tags;
 
     /**
      * The volume to take a snapshot of
@@ -124,14 +100,6 @@ public class CreateSnapshotMojo extends AbstractEC2Mojo {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
     }
 
     public String getVolumeId() {

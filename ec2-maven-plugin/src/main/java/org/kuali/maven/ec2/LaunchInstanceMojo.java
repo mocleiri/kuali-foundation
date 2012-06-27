@@ -15,7 +15,6 @@ import org.kuali.maven.common.ResourceUtils;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
-import com.amazonaws.services.ec2.model.Tag;
 
 /**
  * Connect to EC2 and launch a a single instance configured according to user preferences. By default, the plugin waits
@@ -91,27 +90,6 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
      * @parameter expression="${ec2.encoding}" default-value="${project.build.sourceEncoding}"
      */
     private String encoding;
-
-    /**
-     * List of tags to associate with the instance. Tags are key value pairs and can be supplied in the plugin
-     * configuration like this:<br>
-     *
-     * <pre>
-     *   &lt;tags&gt;
-     *     &lt;tag&gt;
-     *       &lt;key&gt;Name&lt;/key&gt;
-     *       &lt;value&gt;production&lt;/value&gt;
-     *     &lt;/tag&gt;
-     *     &lt;tag&gt;
-     *       &lt;key&gt;Category&lt;/key&gt;
-     *       &lt;value&gt;networking&lt;/value&gt;
-     *     &lt;/tag&gt;
-     *   &lt;/tags&gt;
-     * </pre>
-     *
-     * @parameter
-     */
-    private List<Tag> tags;
 
     /**
      * If true, the build will wait until EC2 reports that the instance has reached the state of "running" before
@@ -249,14 +227,6 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
 
     public void setFilterUserData(boolean filterUserData) {
         this.filterUserData = filterUserData;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
     }
 
     public boolean isWait() {

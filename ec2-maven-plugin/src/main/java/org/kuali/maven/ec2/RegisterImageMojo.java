@@ -7,6 +7,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.RegisterImageRequest;
 import com.amazonaws.services.ec2.model.RegisterImageResult;
+import com.amazonaws.services.ec2.model.Tag;
 
 /**
  * @goal registerimage
@@ -64,6 +65,7 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
         String imageId = result.getImageId();
         getLog().info("Setting ec2.image.id=" + imageId);
         project.getProperties().setProperty("ec2.image.id", imageId);
+        ec2Utils.tag(imageId, tags);
     }
 
     public boolean isWait() {
@@ -104,5 +106,15 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
 
     public void setBlockDeviceMappings(List<BlockDeviceMapping> blockDeviceMappings) {
         this.blockDeviceMappings = blockDeviceMappings;
+    }
+
+    @Override
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    @Override
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }

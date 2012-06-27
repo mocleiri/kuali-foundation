@@ -1,8 +1,12 @@
 package org.kuali.maven.ec2;
 
+import java.util.List;
+
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+
+import com.amazonaws.services.ec2.model.Tag;
 
 public abstract class AbstractEC2Mojo extends AbstractMojo {
 
@@ -13,6 +17,27 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
      * @readonly
      */
     MavenProject project;
+
+    /**
+     * List of tags to associate with the snapshot. Tags are key value pairs and can be supplied in the plugin
+     * configuration like this:<br>
+     *
+     * <pre>
+     *   &lt;tags&gt;
+     *     &lt;tag&gt;
+     *       &lt;key&gt;Name&lt;/key&gt;
+     *       &lt;value&gt;production&lt;/value&gt;
+     *     &lt;/tag&gt;
+     *     &lt;tag&gt;
+     *       &lt;key&gt;Category&lt;/key&gt;
+     *       &lt;value&gt;networking&lt;/value&gt;
+     *     &lt;/tag&gt;
+     *   &lt;/tags&gt;
+     * </pre>
+     *
+     * @parameter
+     */
+    List<Tag> tags;
 
     /**
      * The AWS Access Key Id for an account on EC2
@@ -64,6 +89,14 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
 
     public MavenProject getProject() {
         return project;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
 }
