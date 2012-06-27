@@ -34,42 +34,7 @@
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-example</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-example</url>
   </scm>
-  <profiles>
-    <profile>
-      <id>rice</id>
-      <properties>
-        <deploy.groupId>org.kuali.rice</deploy.groupId>
-        <deploy.artifactId>rice-sampleapp</deploy.artifactId>
-        <deploy.version>2.2.0-build-75</deploy.version>
-        <deploy.env>3</deploy.env>
-      </properties>
-    </profile>
-    <profile>
-      <id>ole</id>
-      <properties>
-        <deploy.groupId>org.kuali.ole</deploy.groupId>
-        <deploy.artifactId>ole-rice-webapp</deploy.artifactId>
-        <deploy.version>0.8.0-b-build-44</deploy.version>
-        <deploy.env>1</deploy.env>
-      </properties>
-    </profile>
-    <profile>
-      <id>docstore</id>
-      <properties>
-        <deploy.groupId>org.kuali.ole</deploy.groupId>
-        <deploy.artifactId>ole-docstore-webapp</deploy.artifactId>
-        <deploy.version>0.8.0-b-build-44</deploy.version>
-        <deploy.env>2</deploy.env>
-      </properties>
-    </profile>
-    <profile>
-      <id>ks</id>
-      <properties>
-        <deploy.groupId>org.kuali.student.web</deploy.groupId>
-        <deploy.artifactId>ks-embedded</deploy.artifactId>
-        <deploy.version>1.2.2-build-15</deploy.version>
-        <deploy.env>1</deploy.env>
-      </properties>
-    </profile>
-  </profiles>
+  <properties>
+    <kuali-deploy.version>1.1.2-SNAPSHOT</kuali-deploy.version>
+  </properties>
 </project>
