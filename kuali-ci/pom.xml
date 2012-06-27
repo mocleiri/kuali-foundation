@@ -55,7 +55,6 @@
         <image.rootDeviceName>/dev/sda1</image.rootDeviceName>
         <image.kernelId>aki-825ea7eb</image.kernelId>
         <!-- The createsnapshot execution generates the new snapshot id and stores it in the property ec2.snapshot.id -->
-        <ec2.snapshot.id>snap-1eff9f60</ec2.snapshot.id>
         <image.snapshotId>${ec2.snapshot.id}</image.snapshotId>
         <image.volumeSize>128</image.volumeSize>
         <image.deleteOnTermination>true</image.deleteOnTermination>
@@ -140,7 +139,7 @@
               <executions>
                 <execution>
                   <id>createsnapshot</id>
-                  <phase>none</phase>
+                  <phase>initialize</phase>
                   <goals>
                     <goal>createsnapshot</goal>
                   </goals>
