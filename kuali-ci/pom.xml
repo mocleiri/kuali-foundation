@@ -136,7 +136,7 @@
               <executions>
                 <execution>
                   <id>createsnapshot</id>
-                  <phase>initialize</phase>
+                  <phase>none</phase>
                   <goals>
                     <goal>createsnapshot</goal>
                   </goals>
