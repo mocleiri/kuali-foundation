@@ -54,7 +54,8 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
         // If that ever gets sorted out, the only needed is the image variable
         image.setBlockDeviceMappings(blockDeviceMappings);
         RegisterImageResult result = ec2Utils.registerImage(image, wc);
-
+        String imageId = result.getImageId();
+        project.getProperties().setProperty("ec2.image.id", imageId);
     }
 
     public boolean isWait() {
