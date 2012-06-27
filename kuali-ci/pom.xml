@@ -58,6 +58,9 @@
         <image.snapshotId>${ec2.snapshot.id}</image.snapshotId>
         <image.volumeSize>128</image.volumeSize>
         <image.deleteOnTermination>true</image.deleteOnTermination>
+        <sync.verbose>false</sync.verbose>
+        <sync.stats>true</sync.stats>
+        <sync.ignoreJobs>sync-to-ws-server,ole-trunk-change-audit</sync.ignoreJobs>
         <ws.server.volumeId>vol-792f7517</ws.server.volumeId>
         <ws.snapshot.description>${image.description}</ws.snapshot.description>
         <ws.snapshot.tag.name>${image.tag.name}</ws.snapshot.tag.name>
@@ -122,9 +125,9 @@
                     <goal>syncworkspaces</goal>
                   </goals>
                   <configuration>
-                    <verbose>false</verbose>
-                    <stats>true</stats>
-                    <ignoreJobs>sync-to-ws-server</ignoreJobs>
+                    <verbose>${jenkins.verbose}</verbose>
+                    <stats>${jenkins.stats}</stats>
+                    <ignoreJobs>${jenkins.ignoreJobs}</ignoreJobs>
                   </configuration>
                 </execution>
               </executions>
