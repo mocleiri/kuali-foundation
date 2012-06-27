@@ -257,10 +257,11 @@ public class EC2Utils {
             }
             long remaining = (timeout - now) / 1000;
             String newState = retriever.getState();
-            logger.info(newState + " - " + remaining + "s");
             if (newState.equals(wc.getState())) {
+                logger.info("Success!!!  state=" + newState);
                 break;
             } else {
+                logger.info(newState + " - " + remaining + "s");
                 sleep(wc.getSleep());
             }
         }
