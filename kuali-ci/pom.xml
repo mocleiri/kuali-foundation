@@ -56,6 +56,9 @@
         <image.snapshotId>snap-a6dc42d8</image.snapshotId>
         <image.volumeSize>128</image.volumeSize>
         <image.deleteOnTermination>true</image.deleteOnTermination>
+        <ws.server.volumeId>vol-792f7517</ws.server.volumeId>
+        <ws.snapshot.description>ci.ws.server.test</ws.snapshot.description>
+        <ws.snapshot.name>ci.ws.server.test</ws.snapshot.name>
       </properties>
       <build>
         <pluginManagement>
@@ -112,6 +115,23 @@
               <artifactId>ec2-maven-plugin</artifactId>
               <version>1.1.0-SNAPSHOT</version>
               <executions>
+                <execution>
+                  <id>createsnapshot</id>
+                  <phase>initialize</phase>
+                  <goals>
+                    <goal>createsnapshot</goal>
+                  </goals>
+                  <configuration>
+                    <volumeId>${ws.server.volumeId}</volumeId>
+                    <description>${ws.snapshot.description}</description>
+                    <tags>
+                      <tag>
+                        <key>Name</key>
+                        <value>${ws.snapshot.name}</value>
+                      </tag>
+                    </tags>
+                  </configuration>
+                </execution>
                 <execution>
                   <id>registerimage</id>
                   <phase>initialize</phase>
