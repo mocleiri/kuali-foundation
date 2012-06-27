@@ -245,12 +245,16 @@ public class EC2Utils {
     }
 
     public void waitForState(StateRetriever retriever, WaitControl wc) {
-        // Wait a little bit before we query AWS for state information
-        // If you query immediately it can sometimes flake out
-        sleep(1500);
         long now = System.currentTimeMillis();
         long timeout = now + wc.getTimeout() * 1000;
+        // Wait a little bit before we query AWS for state information
+        // If you query immediately it can sometimes flake out
+        sleep(wc.getInitialPause());
         while (true) {
+            now = System.currentTimeMillis();
+            if (now > timeout) {
+                throw new IllegalStateException("Timed out waiting for state '" + wc.getState() + "'");
+            }
             long remaining = (timeout - now) / 1000;
             String newState = retriever.getState();
             logger.info(newState + " - " + remaining + "s");
@@ -258,10 +262,6 @@ public class EC2Utils {
                 break;
             } else {
                 sleep(wc.getSleep());
-            }
-            now = System.currentTimeMillis();
-            if (now > timeout) {
-                throw new IllegalStateException("Timed out waiting for state '" + wc.getState() + "'");
             }
         }
     }
