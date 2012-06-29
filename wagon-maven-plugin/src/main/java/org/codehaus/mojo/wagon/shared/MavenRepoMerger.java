@@ -21,9 +21,9 @@ package org.codehaus.mojo.wagon.shared;
  * copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -36,8 +36,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.wagon.Wagon;
 import org.apache.maven.wagon.WagonException;
 
-public interface MavenRepoMerger
-{
+public interface MavenRepoMerger {
     String ROLE = MavenRepoMerger.class.getName();
 
     String IN_PROCESS_MARKER = ".rip";
@@ -47,7 +46,6 @@ public interface MavenRepoMerger
     String SHA1 = "sha1";
 
     String MAVEN_METADATA = "maven-metadata.xml";
-    
-    void merge( Wagon fromWagon, Wagon toWagon, boolean optimize, Log logger )
-        throws WagonException, IOException;
+
+    void merge(Wagon fromWagon, Wagon toWagon, boolean optimize, Log logger) throws WagonException, IOException;
 }
