@@ -42,7 +42,7 @@
           <configuration>
             <source>s3://maven.kuali.org/release/org/kuali/rice</source>
             <sourceId>kuali.release</sourceId>
-            <target>file:///Users/jeffcaddel/.m2/repository.merged/org/kuali/rice</target>
+            <target>file:///Users/jeffcaddel/.m2/repository.merged</target>
           </configuration>
           <executions>
             <execution>
