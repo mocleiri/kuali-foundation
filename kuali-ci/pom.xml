@@ -62,6 +62,8 @@
         <jenkins.stats>true</jenkins.stats>
         <jenkins.ignoreJobs>sync-to-ws-server</jenkins.ignoreJobs>
         <jenkins.configFile>/var/lib/jenkins/config.xml</jenkins.configFile>
+        <ec2.image.id>ami-35c5695c</ec2.image.id>
+        <jenkins.newAmi>${ec2.image.id}</jenkins.newAmi>
         <ws.server.volumeId>vol-792f7517</ws.server.volumeId>
         <ws.snapshot.description>${image.description}</ws.snapshot.description>
         <ws.snapshot.tag.name>${image.tag.name}</ws.snapshot.tag.name>
@@ -75,7 +77,7 @@
               <executions>
                 <execution>
                   <id>day</id>
-                  <phase>validate</phase>
+                  <phase>none</phase>
                   <goals>
                     <goal>create-timestamp</goal>
                   </goals>
@@ -96,7 +98,7 @@
                     <goal>read-project-properties</goal>
                     <goal>decryptall</goal>
                   </goals>
-                  <phase>validate</phase>
+                  <phase>none</phase>
                   <configuration>
                     <password>${kuali.enc.password}</password>
                     <locations>
@@ -121,7 +123,7 @@
               <executions>
                 <execution>
                   <id>syncworkspaces</id>
-                  <phase>validate</phase>
+                  <phase>none</phase>
                   <goals>
                     <goal>syncworkspaces</goal>
                   </goals>
@@ -138,8 +140,8 @@
                     <goal>updateslaveami</goal>
                   </goals>
                   <configuration>
-                    <configFile></configFile>
-                    <newAmi>${ec2.image.id}</newAmi>
+                    <configFile>${jenkins.configFile}</configFile>
+                    <newAmi>${jenkins.newAmi}</newAmi>
                   </configuration>
                 </execution>
               </executions>
@@ -151,7 +153,7 @@
               <executions>
                 <execution>
                   <id>createsnapshot</id>
-                  <phase>validate</phase>
+                  <phase>none</phase>
                   <goals>
                     <goal>createsnapshot</goal>
                   </goals>
@@ -168,7 +170,7 @@
                 </execution>
                 <execution>
                   <id>registerimage</id>
-                  <phase>validate</phase>
+                  <phase>none</phase>
                   <goals>
                     <goal>registerimage</goal>
                   </goals>
