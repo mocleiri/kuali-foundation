@@ -26,9 +26,9 @@ import org.kuali.maven.common.ResourceUtils;
 /**
  * Update the AMI being used by the EC2 plugin inside config.xml for Jenkins
  *
- * @goal updateami
+ * @goal updateslaveami
  */
-public class UpdateAMIMojo extends AbstractMojo {
+public class UpdateSlaveAMIMojo extends AbstractMojo {
     ResourceUtils utils = new ResourceUtils();
 
     /**
