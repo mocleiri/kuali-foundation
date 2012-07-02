@@ -36,9 +36,9 @@
           <version>${project.version}</version>
           <executions>
             <execution>
-              <id>updateami</id>
+              <id>updateslaveami</id>
               <goals>
-                <goal>updateami</goal>
+                <goal>updateslaveami</goal>
               </goals>
               <phase>test</phase>
               <configuration>
