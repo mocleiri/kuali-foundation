@@ -61,6 +61,7 @@
         <jenkins.verbose>false</jenkins.verbose>
         <jenkins.stats>true</jenkins.stats>
         <jenkins.ignoreJobs>sync-to-ws-server</jenkins.ignoreJobs>
+        <jenkins.configFile>/var/lib/jenkins/config.xml</jenkins.configFile>
         <ws.server.volumeId>vol-792f7517</ws.server.volumeId>
         <ws.snapshot.description>${image.description}</ws.snapshot.description>
         <ws.snapshot.tag.name>${image.tag.name}</ws.snapshot.tag.name>
@@ -74,7 +75,7 @@
               <executions>
                 <execution>
                   <id>day</id>
-                  <phase>initialize</phase>
+                  <phase>validate</phase>
                   <goals>
                     <goal>create-timestamp</goal>
                   </goals>
@@ -95,7 +96,7 @@
                     <goal>read-project-properties</goal>
                     <goal>decryptall</goal>
                   </goals>
-                  <phase>initialize</phase>
+                  <phase>validate</phase>
                   <configuration>
                     <password>${kuali.enc.password}</password>
                     <locations>
@@ -120,7 +121,7 @@
               <executions>
                 <execution>
                   <id>syncworkspaces</id>
-                  <phase>initialize</phase>
+                  <phase>validate</phase>
                   <goals>
                     <goal>syncworkspaces</goal>
                   </goals>
@@ -128,6 +129,17 @@
                     <verbose>${jenkins.verbose}</verbose>
                     <stats>${jenkins.stats}</stats>
                     <ignoreJobs>${jenkins.ignoreJobs}</ignoreJobs>
+                  </configuration>
+                </execution>
+                <execution>
+                  <id>updateslaveami</id>
+                  <phase>initialize</phase>
+                  <goals>
+                    <goal>updateslaveami</goal>
+                  </goals>
+                  <configuration>
+                    <configFile></configFile>
+                    <newAmi>${ec2.image.id}</newAmi>
                   </configuration>
                 </execution>
               </executions>
@@ -139,7 +151,7 @@
               <executions>
                 <execution>
                   <id>createsnapshot</id>
-                  <phase>initialize</phase>
+                  <phase>validate</phase>
                   <goals>
                     <goal>createsnapshot</goal>
                   </goals>
@@ -156,7 +168,7 @@
                 </execution>
                 <execution>
                   <id>registerimage</id>
-                  <phase>initialize</phase>
+                  <phase>validate</phase>
                   <goals>
                     <goal>registerimage</goal>
                   </goals>
