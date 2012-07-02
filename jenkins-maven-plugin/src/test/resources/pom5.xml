@@ -40,6 +40,7 @@
               <goals>
                 <goal>updateami</goal>
               </goals>
+              <phase>test</phase>
               <configuration>
                 <configFile>${project.build.directory}/target/test-classes/var/lib/jenkins/config.xml</configFile>
                 <newAmi>abc123</newAmi>
