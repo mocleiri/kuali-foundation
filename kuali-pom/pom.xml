@@ -591,7 +591,7 @@
     <profile>
       <id>sonar</id>
       <properties>
-        <!-- Don't faile the build if a unit test fails, just record the failure -->
+        <!-- Don't fail the build if a unit test fails, just record the failure -->
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.surefire.reportsPath>${sonar.reportsDirectory}</sonar.surefire.reportsPath>
