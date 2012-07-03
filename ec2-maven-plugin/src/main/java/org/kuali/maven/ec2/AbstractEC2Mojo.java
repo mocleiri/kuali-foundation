@@ -19,8 +19,7 @@ public abstract class AbstractEC2Mojo extends AbstractMojo {
     MavenProject project;
 
     /**
-     * List of tags to associate with the snapshot. Tags are key value pairs and can be supplied in the plugin
-     * configuration like this:<br>
+     * List of tags. Tags are key value pairs and can be supplied in the plugin configuration like this:<br>
      *
      * <pre>
      *   &lt;tags&gt;
