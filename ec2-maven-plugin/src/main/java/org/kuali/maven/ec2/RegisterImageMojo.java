@@ -10,6 +10,8 @@ import com.amazonaws.services.ec2.model.RegisterImageResult;
 import com.amazonaws.services.ec2.model.Tag;
 
 /**
+ * Register an Amazon machine image (AMI)
+ *
  * @goal registerimage
  */
 public class RegisterImageMojo extends AbstractEC2Mojo {
