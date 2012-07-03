@@ -220,6 +220,8 @@ public class WagonDirectoryScanner {
             throw new IllegalStateException("No wagon set");
         }
 
+        logger.info("directory=" + directory);
+
         if (StringUtils.isBlank(directory)) {
             directory = "";
         }
@@ -281,8 +283,10 @@ public class WagonDirectoryScanner {
      * @see #filesIncluded
      */
     private void scandir(String dir, String vpath) throws WagonException {
-        logger.debug("scandir: dir: " + dir + " vpath: " + vpath);
+        logger.info("scandir: dir: " + dir + " vpath: " + vpath);
+        logger.info("wagon=" + wagon.getClass());
         List<?> files = wagon.getFileList(dir);
+        logger.info("files.size=" + files.size());
 
         for (Iterator<?> iterator = files.iterator(); iterator.hasNext();) {
             String fileName = (String) iterator.next();
