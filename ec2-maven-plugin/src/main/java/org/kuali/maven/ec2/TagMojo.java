@@ -23,7 +23,7 @@ public class TagMojo extends AbstractEC2Mojo {
     private String resourceId;
 
     /**
-     * List of tags to associate with the instance. Tags are key value pairs and can be supplied in the plugin
+     * List of tags to associate with the resource. Tags are key value pairs and can be supplied in the plugin
      * configuration like this:<br>
      *
      * <pre>
@@ -73,10 +73,12 @@ public class TagMojo extends AbstractEC2Mojo {
         this.resourceId = instanceId;
     }
 
+    @Override
     public List<Tag> getTags() {
         return tags;
     }
 
+    @Override
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
