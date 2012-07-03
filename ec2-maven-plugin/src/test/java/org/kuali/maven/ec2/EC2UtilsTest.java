@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.jasypt.util.text.BasicTextEncryptor;
-import org.junit.Test;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
@@ -34,7 +33,7 @@ public class EC2UtilsTest {
         return EC2Utils.getEC2Client(ACCESS_KEY, secretKey);
     }
 
-    @Test
+    // @Test
     public void testRegisterImage() {
         AmazonEC2Client client = getEC2Client();
         try {
@@ -61,7 +60,7 @@ public class EC2UtilsTest {
         }
     }
 
-    @Test
+    // @Test
     public void testDescribeImages() {
         AmazonEC2Client client = getEC2Client();
         DescribeImagesRequest request = new DescribeImagesRequest();
