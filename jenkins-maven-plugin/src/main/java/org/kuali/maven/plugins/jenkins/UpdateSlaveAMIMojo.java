@@ -24,7 +24,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.kuali.maven.common.ResourceUtils;
 
 /**
- * Update the AMI being used by the EC2 plugin inside config.xml for Jenkins
+ * Update the slave AMI being used by the Jenkins EC2 plugin
  *
  * @goal updateslaveami
  */
@@ -32,12 +32,16 @@ public class UpdateSlaveAMIMojo extends AbstractMojo {
     ResourceUtils utils = new ResourceUtils();
 
     /**
+     * The location of the Jenkins config file
+     *
      * @parameter expression="${jenkins.configFile}" default-value="/var/lib/jenkins/config.xml"
      * @required
      */
     private File configFile;
 
     /**
+     * The AMI the Jenkins EC2 plugin should use when launching slaves
+     *
      * @parameter expression="${jenkins.newAmi}"
      * @required
      */
