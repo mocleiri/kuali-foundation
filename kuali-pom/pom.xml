@@ -594,7 +594,7 @@
         <!-- Don't fail the build if a unit test fails, just record the failure -->
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-        <sonar.surefire.reportsPath>${sonar.reportsDirectory}</sonar.surefire.reportsPath>
+        <sonar.surefire.reportsPath>${surefire.reportsDirectory}</sonar.surefire.reportsPath>
         <sonar.branch>unknown</sonar.branch>
         <sonar.host>sonar.kuali.org</sonar.host>
         <sonar.host.url>http://${sonar.host}</sonar.host.url>
