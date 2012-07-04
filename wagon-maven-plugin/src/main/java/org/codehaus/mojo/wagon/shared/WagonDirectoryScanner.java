@@ -138,7 +138,9 @@ public class WagonDirectoryScanner {
      *         otherwise.
      */
     private boolean isIncluded(String name) {
+        logger.debug("includes.length=" + includes.length);
         for (int i = 0; i < includes.length; i++) {
+            logger.debug("includes[" + i + "]=" + includes[i]);
             if (matchPath(includes[i], name, isCaseSensitive)) {
                 return true;
             }
@@ -220,11 +222,11 @@ public class WagonDirectoryScanner {
             throw new IllegalStateException("No wagon set");
         }
 
-        logger.info("directory=" + directory);
-
         if (StringUtils.isBlank(directory)) {
             directory = "";
         }
+
+        // logger.info("directory=" + directory);
 
         if (includes == null) {
             // No includes supplied, so set it to 'matches all'
@@ -238,7 +240,7 @@ public class WagonDirectoryScanner {
 
         filesIncluded = new ArrayList<String>();
 
-        scandir(directory, "");
+        scandir(directory);
 
         Collections.sort(filesIncluded);
 
@@ -273,85 +275,55 @@ public class WagonDirectoryScanner {
         return fileName.endsWith(".") || fileName.contains("*") || fileName.startsWith("?") || fileName.startsWith("#");
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////
     /**
-     * Scans the given directory for files and directories. Found files are placed in a collection, based on the
+     * Scans the given directory for files and directories. Files are placed in a collection, based on the
      * matching of includes, excludes, and the selectors. When a directory is found, it is scanned recursively.
      *
      * @throws WagonException
      *
      * @see #filesIncluded
      */
-    private void scandir(String dir, String vpath) throws WagonException {
-        logger.info("scandir: dir: " + dir + " vpath: " + vpath);
-        logger.info("wagon=" + wagon.getClass());
+    protected void scandir(String dir) throws WagonException {
+        // logger.info("dir: " + dir);
+        logger.info("Scanning " + dir);
         List<?> files = wagon.getFileList(dir);
-        logger.info("files.size=" + files.size());
+        // logger.info("files.size=" + files.size());
 
-        for (Iterator<?> iterator = files.iterator(); iterator.hasNext();) {
-            String fileName = (String) iterator.next();
-
+        for (Iterator<?> itr = files.iterator(); itr.hasNext();) {
+            String fileName = (String) itr.next();
             if (isRidiculousFile(fileName)) {
                 continue;
             }
 
-            String file = fileName;
+            boolean directory = isDirectory(fileName);
+            boolean included = isIncluded(fileName);
+            boolean excluded = isExcluded(fileName);
+            boolean chi = directory && couldHoldIncluded(fileName);
+            boolean include = included && !excluded || chi && !excluded;
 
-            if (!StringUtils.isBlank(dir)) {
-                if (dir.endsWith("/")) {
-                    file = dir + fileName;
-                } else {
-                    file = dir + "/" + fileName;
-                }
+            if (!include) {
+                logger.debug("Skipping " + fileName);
+                logger.debug("fileName=" + fileName + " included=" + included + " excluded=" + excluded + " chi=" + chi);
+                continue;
             }
 
-            String name = vpath + fileName;
-
-            if (this.isDirectory(file)) {
-
-                if (!name.endsWith("/")) {
-                    name += "/";
-                }
-
-                if (isIncluded(name)) {
-                    if (!isExcluded(name)) {
-                        scandir(file, name);
-                    } else {
-                        if (couldHoldIncluded(name)) {
-                            scandir(file, name);
-                        }
-                    }
-                } else {
-                    if (couldHoldIncluded(name)) {
-                        scandir(file, name);
-                    }
-                }
-
+            if (isDirectory(fileName)) {
+                scandir(fileName);
             } else {
-
-                if (isIncluded(name)) {
-                    if (!isExcluded(name)) {
-                        filesIncluded.add(name);
-                    }
-                }
+                filesIncluded.add(fileName);
             }
         }
     }
 
-    private boolean isDirectory(String existedRemotePath) throws WagonException {
+    private boolean isDirectory(String existingRemotePath) throws WagonException {
         for (int x = 0; x < NOT_DIRECTORIES.length; x++) {
-            if (existedRemotePath.endsWith(NOT_DIRECTORIES[x])) {
+            if (existingRemotePath.endsWith(NOT_DIRECTORIES[x])) {
                 return false;
             }
         }
-        if (existedRemotePath.endsWith("/")) {
-            return true;
-        }
-
-        return wagon.resourceExists(existedRemotePath + "/");
+        return existingRemotePath.endsWith("/");
     }
 
-    // ///////////////////////////////////////////////////////////////////////////////
     public List<String> getFilesIncluded() {
         return filesIncluded;
     }

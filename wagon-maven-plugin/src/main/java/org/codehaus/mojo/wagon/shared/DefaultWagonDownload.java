@@ -31,10 +31,13 @@ package org.codehaus.mojo.wagon.shared;
  */
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.wagon.TransferFailedException;
 import org.apache.maven.wagon.Wagon;
 import org.apache.maven.wagon.WagonException;
 import org.codehaus.plexus.util.StringUtils;
@@ -86,6 +89,11 @@ public class DefaultWagonDownload implements WagonDownload {
             }
 
             logger.info("Downloading " + url + remoteFile + " to " + destination + " ...");
+            try {
+                FileUtils.touch(destination);
+            } catch (IOException e) {
+                throw new TransferFailedException("Unexpected IO error", e);
+            }
 
             wagon.get(remoteFile, destination);
         }

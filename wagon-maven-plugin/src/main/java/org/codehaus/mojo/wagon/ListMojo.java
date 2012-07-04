@@ -36,6 +36,7 @@ import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.wagon.Wagon;
 import org.apache.maven.wagon.WagonException;
+import org.codehaus.mojo.wagon.shared.WagonFileSet;
 
 /**
  * Lists the content of the specified directory (remotePath) under a specified repository (url)
@@ -47,8 +48,9 @@ public class ListMojo extends AbstractWagonListMojo {
 
     @Override
     protected void execute(Wagon wagon) throws MojoExecutionException, WagonException {
-        List<?> files = wagonDownload.getFileList(wagon, this.getWagonFileSet(), this.getLog());
-
+        WagonFileSet wagonFileSet = getWagonFileSet();
+        List<?> files = wagonDownload.getFileList(wagon, wagonFileSet, this.getLog());
+        getLog().info("File Count: " + files.size());
         for (Iterator<?> iterator = files.iterator(); iterator.hasNext();) {
             String file = (String) iterator.next();
             getLog().info("\t" + file);

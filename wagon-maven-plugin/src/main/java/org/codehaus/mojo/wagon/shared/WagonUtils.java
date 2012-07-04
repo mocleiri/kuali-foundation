@@ -96,7 +96,7 @@ public class WagonUtils {
             return null;
         }
 
-        // Extract perms (if there are any)
+        // Extract permissions (if there are any)
         String filePerms = server.getFilePermissions();
         String dirPerms = server.getDirectoryPermissions();
 
