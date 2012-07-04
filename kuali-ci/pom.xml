@@ -60,7 +60,7 @@
         <image.ebs.deleteOnTermination>true</image.ebs.deleteOnTermination>
         <jenkins.verbose>false</jenkins.verbose>
         <jenkins.stats>true</jenkins.stats>
-        <jenkins.ignoreJobs>sync-to-ws-server</jenkins.ignoreJobs>
+        <jenkins.ignoreJobs>update-ws-server</jenkins.ignoreJobs>
         <jenkins.configFile>/var/lib/jenkins/config.xml</jenkins.configFile>
         <jenkins.newAmi>${ec2.image.id}</jenkins.newAmi>
         <ws.server.volumeId>vol-792f7517</ws.server.volumeId>
