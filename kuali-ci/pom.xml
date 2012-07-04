@@ -50,7 +50,7 @@
       <properties>
         <image.name>ci-slave-${kuali.build.day}-${env.BUILD_NUMBER}</image.name>
         <image.tag.name>CI Slave - ${kuali.build.day} - ${env.BUILD_NUMBER}</image.tag.name>
-        <image.description>CI build slave - ${kuali.build.day} - ${env.BUILD_NUMBER}</image.description>
+        <image.description>${image.tag.name}</image.description>
         <image.architecture>x86_64</image.architecture>
         <image.rootDeviceName>/dev/sda1</image.rootDeviceName>
         <image.kernelId>aki-825ea7eb</image.kernelId>
