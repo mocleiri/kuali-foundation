@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.3.5</version>
+    <version>1.3.10</version>
   </parent>
   <name>Kuali CI</name>
   <groupId>org.kuali.common</groupId>
@@ -201,6 +201,28 @@
                 </execution>
               </executions>
             </plugin>
+            <plugin>
+              <groupId>org.kuali.maven.plugins</groupId>
+              <artifactId>wagon-maven-plugin</artifactId>
+              <version>1.0.1</version>
+              <executions>
+                <execution>
+                  <id>download</id>
+                  <phase>validate</phase>
+                  <goals>
+                    <goal>download</goal>
+                  </goals>
+                  <configuration>
+                    <url>s3://maven.kuali.org/release</url>
+                    <serverId>kuali.release</serverId>
+                    <includes>org/kuali/rice/*/2.1.0/**</includes>
+                    <excludes>**/1.0.3-BX/**</excludes>
+                    <skipExisting>true</skipExisting>
+                    <toDir>/var/lib/jenkins/m2/repository</toDir>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
           </plugins>
         </pluginManagement>
         <plugins>
@@ -211,6 +233,10 @@
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>properties-maven-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>wagon-maven-plugin</artifactId>
           </plugin>
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
