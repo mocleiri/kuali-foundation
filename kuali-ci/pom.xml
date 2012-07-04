@@ -204,7 +204,7 @@
             <plugin>
               <groupId>org.kuali.maven.plugins</groupId>
               <artifactId>wagon-maven-plugin</artifactId>
-              <version>1.0.1</version>
+              <version>1.0.2</version>
               <executions>
                 <execution>
                   <id>download</id>
