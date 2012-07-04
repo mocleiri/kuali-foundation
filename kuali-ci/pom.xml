@@ -249,5 +249,42 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>update</id>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.kuali.maven.plugins</groupId>
+              <artifactId>wagon-maven-plugin</artifactId>
+              <version>1.0.2</version>
+              <executions>
+                <execution>
+                  <id>download</id>
+                  <phase>validate</phase>
+                  <goals>
+                    <goal>download</goal>
+                  </goals>
+                  <configuration>
+                    <url>s3://maven.kuali.org/release</url>
+                    <serverId>kuali.release</serverId>
+                    <includes>org/kuali/rice/**</includes>
+                    <excludes>**/maven-metadata.xml,**/1.0.3-BX/**,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*</excludes>
+                    <skipExisting>true</skipExisting>
+                    <toDir>/var/lib/jenkins/m2/repository</toDir>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>wagon-maven-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>
