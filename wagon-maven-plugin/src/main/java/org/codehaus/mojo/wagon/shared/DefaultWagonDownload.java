@@ -78,21 +78,26 @@ public class DefaultWagonDownload implements WagonDownload {
         if (fileList.size() == 0) {
             logger.info("Nothing to download.");
             return;
+        } else {
+            logger.info("Located " + fileList.size() + " files to download");
         }
 
+        int count = 0;
         for (String remoteFile : fileList) {
+            String index = StringUtils.leftPad((++count) + "", 5, " ");
 
             File destination = new File(remoteFileSet.getDownloadDirectory() + "/" + remoteFile);
 
             if (skipExisting && destination.exists()) {
-                logger.info("Skipping " + url + remoteFile + ". File " + destination + " already exists");
+                logger.info(index + " Skipping " + url + remoteFile + " - " + destination + " already exists");
+                continue;
             }
 
             if (!StringUtils.isBlank(remoteFileSet.getDirectory())) {
                 remoteFile = remoteFileSet.getDirectory() + "/" + remoteFile;
             }
 
-            logger.info("Downloading " + url + remoteFile + " to " + destination);
+            logger.info(index + " Downloading " + url + remoteFile + " to " + destination);
             try {
                 FileUtils.touch(destination);
             } catch (IOException e) {

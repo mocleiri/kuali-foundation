@@ -45,13 +45,15 @@
             <url>s3://maven.kuali.org/release</url>
             <serverId>kuali.release</serverId>
             <includes>org/kuali/rice/rice-core-api/2.1.0/**</includes>
+            <toDir>${user.home}/.m2/repository</toDir>
+            <skipExisting>true</skipExisting>
           </configuration>
           <executions>
             <execution>
-              <id>copytolocal</id>
+              <id>download</id>
               <phase>test</phase>
               <goals>
-                <goal>copytolocal</goal>
+                <goal>download</goal>
               </goals>
             </execution>
           </executions>
