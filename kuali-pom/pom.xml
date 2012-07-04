@@ -138,7 +138,7 @@
     <surefire.reportsDirectory>${project.build.directory}/surefire-reports</surefire.reportsDirectory>
 
     <!-- Wagon versions -->
-    <wagon.s3.version>1.1.13</wagon.s3.version>
+    <wagon.s3.version>1.1.14</wagon.s3.version>
 
     <!-- Plugin versions (ordered alphabetically) -->
     <plugin.ant.version>1.0.10</plugin.ant.version>
