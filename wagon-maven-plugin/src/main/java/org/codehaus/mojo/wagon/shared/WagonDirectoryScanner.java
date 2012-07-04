@@ -285,7 +285,11 @@ public class WagonDirectoryScanner {
      */
     protected void scandir(String dir) throws WagonException {
         // logger.info("dir: " + dir);
-        logger.info("Scanning '" + dir + "'");
+        if (StringUtils.isBlank(dir)) {
+            logger.info("Scanning '" + dir + "'");
+        } else {
+            logger.info("Scanning " + dir);
+        }
         List<?> files = wagon.getFileList(dir);
         // logger.info("files.size=" + files.size());
 
