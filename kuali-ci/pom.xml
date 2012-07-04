@@ -235,7 +235,7 @@
             <plugin>
               <groupId>org.kuali.maven.plugins</groupId>
               <artifactId>wagon-maven-plugin</artifactId>
-              <version>1.0.2</version>
+              <version>1.0.3</version>
               <executions>
                 <execution>
                   <id>release</id>
@@ -261,7 +261,7 @@
                   <configuration>
                     <url>s3://maven.kuali.org/external</url>
                     <serverId>kuali.release</serverId>
-                    <includes>org/kuali/rice/**,org/kuali/ole/**,org/kuali/student/**</includes>
+                    <includes>org/kuali/**</includes>
                     <excludes>${wagon.excludes}</excludes>
                     <skipExisting>true</skipExisting>
                     <toDir>${wagon.toDir}</toDir>
