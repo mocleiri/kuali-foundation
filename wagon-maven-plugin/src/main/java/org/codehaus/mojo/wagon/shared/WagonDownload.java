@@ -51,7 +51,7 @@ public interface WagonDownload {
      * @return a list of files at the remote host relative to RemoteFileSet's directory
      * @throws WagonException
      */
-    List<?> getFileList(Wagon wagon, WagonFileSet fileSet, Log logger) throws WagonException;
+    List<String> getFileList(Wagon wagon, WagonFileSet fileSet, Log logger) throws WagonException;
 
     /**
      *

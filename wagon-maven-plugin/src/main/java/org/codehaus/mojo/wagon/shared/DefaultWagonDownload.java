@@ -49,7 +49,7 @@ import org.codehaus.plexus.util.StringUtils;
 public class DefaultWagonDownload implements WagonDownload {
 
     @Override
-    public List<?> getFileList(Wagon wagon, WagonFileSet fileSet, Log logger) throws WagonException {
+    public List<String> getFileList(Wagon wagon, WagonFileSet fileSet, Log logger) throws WagonException {
         logger.info("Scanning remote file system: " + wagon.getRepository().getUrl());
 
         WagonDirectoryScanner dirScan = new WagonDirectoryScanner();
