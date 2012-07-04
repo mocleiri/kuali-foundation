@@ -29,6 +29,7 @@ import org.codehaus.mojo.wagon.shared.WagonFileSet;
  * @requiresProject false
  */
 public class CopyMojo extends AbstractCopyMojo {
+
     /**
      * Directory path relative to source's Wagon
      *
@@ -47,7 +48,6 @@ public class CopyMojo extends AbstractCopyMojo {
      * Comma separated list of Ant's excludes to scan for remote files
      *
      * @parameter expression="${wagon.excludes}"
-     *
      */
     private String excludes;
 
@@ -73,8 +73,7 @@ public class CopyMojo extends AbstractCopyMojo {
     @Override
     protected void copy(Wagon srcWagon, Wagon targetWagon) throws IOException, WagonException {
         WagonFileSet fileSet = getWagonFileSet(fromDir, includes, excludes, caseSensitive, toDir);
-
-        wagonCopy.copy(srcWagon, fileSet, targetWagon, optimize, this.getLog());
+        wagonCopy.copy(srcWagon, fileSet, targetWagon, optimize, getLog());
     }
 
 }
