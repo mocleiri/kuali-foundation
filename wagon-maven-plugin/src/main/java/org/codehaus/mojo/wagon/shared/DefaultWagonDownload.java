@@ -114,7 +114,9 @@ public class DefaultWagonDownload implements WagonDownload {
             wagon.get(remoteFile, destination);
         }
         long elapsed = System.currentTimeMillis() - start;
-        logger.info("Skipped " + skipped.size() + " resources that already existed on the local file system");
+        if (skipped.size() > 0) {
+            logger.info("Skipped " + skipped.size() + " resources that already existed on the local file system");
+        }
         logger.info("Download time: " + (elapsed / 1000) + "s");
     }
 
