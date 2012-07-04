@@ -115,7 +115,7 @@ public class DefaultWagonDownload implements WagonDownload {
         }
         long elapsed = System.currentTimeMillis() - start;
         if (skipped.size() > 0) {
-            logger.info("Skipped " + skipped.size() + " resources that already existed on the local file system");
+            logger.info("Skipped " + skipped.size() + " resources that already exist on the local file system");
         }
         logger.info("Download time: " + (elapsed / 1000) + "s");
     }
