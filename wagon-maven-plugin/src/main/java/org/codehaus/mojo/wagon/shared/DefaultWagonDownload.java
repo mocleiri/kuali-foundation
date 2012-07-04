@@ -32,6 +32,7 @@ package org.codehaus.mojo.wagon.shared;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -83,13 +84,17 @@ public class DefaultWagonDownload implements WagonDownload {
         }
 
         int count = 0;
+        long start = System.currentTimeMillis();
+        List<String> skipped = new ArrayList<String>();
         for (String remoteFile : fileList) {
             String index = StringUtils.leftPad((++count) + "", 5, " ");
 
             File destination = new File(remoteFileSet.getDownloadDirectory() + "/" + remoteFile);
 
             if (skipExisting && destination.exists()) {
-                logger.info(index + " Skipping " + url + remoteFile + " - " + destination + " already exists");
+                String msg = index + " Skipping " + url + remoteFile + " - " + destination + " already exists";
+                logger.debug(msg);
+                skipped.add(msg);
                 continue;
             }
 
@@ -106,6 +111,9 @@ public class DefaultWagonDownload implements WagonDownload {
 
             wagon.get(remoteFile, destination);
         }
+        long elapsed = System.currentTimeMillis() - start;
+        logger.info("Skipped " + skipped.size() + " resources that already existed on the local file system");
+        logger.info("Download time: " + (elapsed / 1000) + "s");
     }
 
     /**
