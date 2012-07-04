@@ -83,8 +83,6 @@ public class DefaultWagonDownload implements WagonDownload {
         if (fileList.size() == 0) {
             logger.info("Nothing to download.");
             return;
-        } else {
-            logger.info("Located " + fileList.size() + " files to download");
         }
 
         int count = 0;
