@@ -41,7 +41,6 @@ public class ListMojo extends AbstractWagonListMojo {
     protected void execute(Wagon wagon) throws MojoExecutionException, WagonException {
         WagonFileSet wagonFileSet = getWagonFileSet();
         List<String> files = wagonDownload.getFileList(wagon, wagonFileSet, getLog());
-        getLog().info("File Count: " + files.size());
         if (showFiles) {
             for (String file : files) {
                 getLog().info(file);

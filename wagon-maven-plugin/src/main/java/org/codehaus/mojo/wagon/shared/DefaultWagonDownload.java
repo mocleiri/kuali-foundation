@@ -63,7 +63,11 @@ public class DefaultWagonDownload implements WagonDownload {
             dirScan.addDefaultExcludes();
         }
 
+        long start = System.currentTimeMillis();
         dirScan.scan();
+        long elapsed = System.currentTimeMillis() - start;
+        logger.info("Scan time: " + (elapsed / 1000) + "s");
+        logger.info("Files located: " + dirScan.getFilesIncluded().size());
 
         return dirScan.getFilesIncluded();
     }
