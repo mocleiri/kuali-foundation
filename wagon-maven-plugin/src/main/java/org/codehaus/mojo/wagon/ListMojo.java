@@ -53,7 +53,7 @@ public class ListMojo extends AbstractWagonListMojo {
         getLog().info("File Count: " + files.size());
         for (Iterator<?> iterator = files.iterator(); iterator.hasNext();) {
             String file = (String) iterator.next();
-            getLog().info("\t" + file);
+            getLog().info(file);
         }
     }
 }
