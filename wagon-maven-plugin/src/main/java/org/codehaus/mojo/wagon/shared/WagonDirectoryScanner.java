@@ -276,8 +276,8 @@ public class WagonDirectoryScanner {
     }
 
     /**
-     * Scans the given directory for files and directories. Files are placed in a collection, based on the
-     * matching of includes, excludes, and the selectors. When a directory is found, it is scanned recursively.
+     * Scans the given directory for files and directories. Files are placed in a collection, based on the matching of
+     * includes, excludes, and the selectors. When a directory is found, it is scanned recursively.
      *
      * @throws WagonException
      *
@@ -285,7 +285,7 @@ public class WagonDirectoryScanner {
      */
     protected void scandir(String dir) throws WagonException {
         // logger.info("dir: " + dir);
-        logger.info("Scanning " + dir);
+        logger.info("Scanning '" + dir + "'");
         List<?> files = wagon.getFileList(dir);
         // logger.info("files.size=" + files.size());
 
@@ -307,7 +307,7 @@ public class WagonDirectoryScanner {
                 continue;
             }
 
-            if (isDirectory(fileName)) {
+            if (directory) {
                 scandir(fileName);
             } else {
                 filesIncluded.add(fileName);
