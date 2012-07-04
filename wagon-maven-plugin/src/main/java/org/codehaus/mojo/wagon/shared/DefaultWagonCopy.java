@@ -73,13 +73,13 @@ public class DefaultWagonCopy implements WagonCopy {
         }
 
         try {
-            this.downloader.download(src, wagonFileSet, logger);
+            downloader.download(src, wagonFileSet, logger);
 
             FileSet localFileSet = new FileSet();
             localFileSet.setDirectory(wagonFileSet.getDownloadDirectory().getAbsolutePath());
             localFileSet.setOutputDirectory(wagonFileSet.getOutputDirectory());
 
-            this.uploader.upload(target, localFileSet, optimize, logger);
+            uploader.upload(target, localFileSet, optimize, logger);
         } finally {
             if (removeDownloadDir) {
                 FileUtils.deleteDirectory(wagonFileSet.getDownloadDirectory());

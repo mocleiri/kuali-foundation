@@ -23,20 +23,37 @@ import org.apache.maven.wagon.WagonException;
 import org.codehaus.mojo.wagon.shared.WagonFileSet;
 
 /**
- * Lists the files under a specified directory for a repository
+ * List the files under a specified directory for a repository
  *
  * @goal list
  * @requiresProject false
  */
 public class ListMojo extends AbstractWagonListMojo {
 
+    /**
+     * If true, any files found are logged to the console
+     *
+     * @parameter expression="${wagon.showFiles}" default-value="true"
+     */
+    protected boolean showFiles;
+
     @Override
     protected void execute(Wagon wagon) throws MojoExecutionException, WagonException {
         WagonFileSet wagonFileSet = getWagonFileSet();
         List<String> files = wagonDownload.getFileList(wagon, wagonFileSet, getLog());
         getLog().info("File Count: " + files.size());
-        for (String file : files) {
-            getLog().info(file);
+        if (showFiles) {
+            for (String file : files) {
+                getLog().info(file);
+            }
         }
+    }
+
+    public boolean isShowFiles() {
+        return showFiles;
+    }
+
+    public void setShowFiles(boolean showFiles) {
+        this.showFiles = showFiles;
     }
 }
