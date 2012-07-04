@@ -112,6 +112,10 @@ public class WagonUtils {
         return permissions;
     }
 
+    public static WagonFileSet getWagonFileSet(String includes, String excludes) {
+        return getWagonFileSet(null, includes, excludes, true, null);
+    }
+
     public static WagonFileSet getWagonFileSet(String fromDir, String includes, String excludes,
             boolean isCaseSensitive, String toDir) {
         WagonFileSet fileSet = new WagonFileSet();

@@ -40,7 +40,7 @@ import org.apache.maven.wagon.WagonException;
 import org.codehaus.plexus.util.FileUtils;
 
 /**
- * Copy a set of file from a wagon repo to another wagon repo
+ * Copy a set of files from one wagon repository to another wagon repository
  *
  * @plexus.component role="org.codehaus.mojo.wagon.shared.WagonCopy" role-hint="default"
  */
@@ -55,6 +55,14 @@ public class DefaultWagonCopy implements WagonCopy {
      * @plexus.requirement role="org.codehaus.mojo.wagon.shared.WagonUpload"
      */
     private WagonUpload uploader;
+
+    @Override
+    public void copyToLocal(Wagon wagon, WagonFileSet wagonFileSet, Log logger) throws WagonException {
+        if (wagonFileSet == null) {
+            wagonFileSet = new WagonFileSet();
+        }
+        downloader.download(wagon, wagonFileSet, logger);
+    }
 
     @Override
     public void copy(Wagon src, WagonFileSet wagonFileSet, Wagon target, boolean optimize, Log logger)
