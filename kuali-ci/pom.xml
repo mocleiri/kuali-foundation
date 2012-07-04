@@ -225,6 +225,10 @@
     </profile>
     <profile>
       <id>update</id>
+      <properties>
+        <wagon.excludes>**/maven-metadata.xml,**/1.0.3-BX/**,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*</wagon.excludes>
+        <wagon.toDir>/var/lib/jenkins/m2/repository</wagon.toDir>
+      </properties>
       <build>
         <pluginManagement>
           <plugins>
@@ -234,7 +238,7 @@
               <version>1.0.2</version>
               <executions>
                 <execution>
-                  <id>download</id>
+                  <id>release</id>
                   <phase>validate</phase>
                   <goals>
                     <goal>download</goal>
@@ -243,9 +247,24 @@
                     <url>s3://maven.kuali.org/release</url>
                     <serverId>kuali.release</serverId>
                     <includes>org/kuali/rice/**</includes>
-                    <excludes>**/maven-metadata.xml,**/1.0.3-BX/**,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*</excludes>
+                    <excludes>${wagon.excludes}</excludes>
                     <skipExisting>true</skipExisting>
-                    <toDir>/var/lib/jenkins/m2/repository</toDir>
+                    <toDir>${wagon.toDir}</toDir>
+                  </configuration>
+                </execution>
+                <execution>
+                  <id>external</id>
+                  <phase>validate</phase>
+                  <goals>
+                    <goal>download</goal>
+                  </goals>
+                  <configuration>
+                    <url>s3://maven.kuali.org/external</url>
+                    <serverId>kuali.release</serverId>
+                    <includes>org/kuali/rice/**,org/kuali/ole/**,org/kuali/student/**</includes>
+                    <excludes>${wagon.excludes}</excludes>
+                    <skipExisting>true</skipExisting>
+                    <toDir>${wagon.toDir}</toDir>
                   </configuration>
                 </execution>
               </executions>
