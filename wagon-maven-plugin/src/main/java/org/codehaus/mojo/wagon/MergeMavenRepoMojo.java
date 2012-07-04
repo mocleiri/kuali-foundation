@@ -51,7 +51,7 @@ public class MergeMavenRepoMojo extends AbstractCopyMojo {
 
     @Override
     protected void copy(Wagon srcWagon, Wagon targetWagon) throws IOException, WagonException {
-        mavenRepoMerger.merge(srcWagon, targetWagon, optimize, this.getLog());
+        mavenRepoMerger.merge(srcWagon, targetWagon, optimize, getLog());
     }
 
 }
